@@ -1,5 +1,60 @@
 # @khanacademy/perseus
 
+## 83.0.0
+
+### Major Changes
+
+-   [#4015](https://github.com/Khan/perseus/pull/4015) [`073e642`](https://github.com/Khan/perseus/commit/073e642cd7fdc77a7f4f9a07f102805fcf15e073) Thanks [@handeyeco](https://github.com/handeyeco)! - Move InfoTip and TextListEditor from Perseus into PerseusEditor. These weren't used in `@khanacademy/perseus` (only in `@khanacademy/perseus-editor`) or outside of the Perseus repo. They were being exported needlessly. It's still a major change since it's an API break.
+
+### Minor Changes
+
+-   [#4026](https://github.com/Khan/perseus/pull/4026) [`35d8bf5`](https://github.com/Khan/perseus/commit/35d8bf5879e44230af79f5c795aa684c126d65ba) Thanks [@benchristel](https://github.com/benchristel)! - Use Wonder Blocks semantic colors in hints.
+
+-   [#4013](https://github.com/Khan/perseus/pull/4013) [`4852e23`](https://github.com/Khan/perseus/commit/4852e23c47433d7828074b0fc4ff96fd991d11dd) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Inclusion of new dnd-kit dependency for upcoming widgets.
+
+### Patch Changes
+
+-   [#3991](https://github.com/Khan/perseus/pull/3991) [`ed25029`](https://github.com/Khan/perseus/commit/ed2502933fd0bd14b7de545c7ea1c70ad6eef6a8) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert some uses of underscore (_.indexOf and _.keys) to native equivalents
+
+-   [#4025](https://github.com/Khan/perseus/pull/4025) [`863572b`](https://github.com/Khan/perseus/commit/863572be647661e9817af1eaca327599cba87680) Thanks [@Myranae](https://github.com/Myranae)! - Convert shared markdown table styles to semantic tokens
+
+-   [#4001](https://github.com/Khan/perseus/pull/4001) [`b0a0561`](https://github.com/Khan/perseus/commit/b0a056133627e441927efdee6a1f6d58d4d2be17) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Color] Tokenize the left border of the open content in Explanation widget
+
+-   [#4016](https://github.com/Khan/perseus/pull/4016) [`e1c0d40`](https://github.com/Khan/perseus/commit/e1c0d40e03ca881fb97ab56f55efbfa52d5b2b14) Thanks [@Myranae](https://github.com/Myranae)! - Update Perseus's Storybook background to correct semantic token to show dark mode theme
+
+-   [#3984](https://github.com/Khan/perseus/pull/3984) [`69fc51a`](https://github.com/Khan/perseus/commit/69fc51ad6ab542f8ecd30663bee8d90fbdc61cec) Thanks [@Myranae](https://github.com/Myranae)! - Update Categorizer to reflect the current theme using semantic tokens for colors and fonts
+
+-   [#4011](https://github.com/Khan/perseus/pull/4011) [`233204b`](https://github.com/Khan/perseus/commit/233204bb0df329cfa0e0818605c362ec8e89687c) Thanks [@handeyeco](https://github.com/handeyeco)! - Replace some uses of `bind` with cleaner alternatives
+
+-   [#4007](https://github.com/Khan/perseus/pull/4007) [`273c61a`](https://github.com/Khan/perseus/commit/273c61a2e9cc8fdade8356da66cd5d0d358e8c47) Thanks [@handeyeco](https://github.com/handeyeco)! - Replace low-risk uses of `_.map` with `Array.map`
+
+-   [#3997](https://github.com/Khan/perseus/pull/3997) [`8c52c56`](https://github.com/Khan/perseus/commit/8c52c568d5911cdb08ae98cf0247cc53da47e15a) Thanks [@Myranae](https://github.com/Myranae)! - Update phet simulation to reflect the current user's theme by updating styling to tokens
+
+-   [#4006](https://github.com/Khan/perseus/pull/4006) [`3d4518f`](https://github.com/Khan/perseus/commit/3d4518fb5c6c6b25cf47d138b3b399289a4f6b07) Thanks [@benchristel](https://github.com/benchristel)! - Fixes a bug where the protractor in the Measurer widget did not have a rotation handle.
+
+-   [#4002](https://github.com/Khan/perseus/pull/4002) [`ddfd715`](https://github.com/Khan/perseus/commit/ddfd715fef24e29d088d16a6b61e2b51fd773c26) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert some uses of underscore to native JS functions
+
+-   [#4022](https://github.com/Khan/perseus/pull/4022) [`21efcc6`](https://github.com/Khan/perseus/commit/21efcc6d495ab1c8d130edadd656dcada86b27ed) Thanks [@handeyeco](https://github.com/handeyeco)! - Internal refactor to remove some TS exceptions along with some general code cleaning
+
+-   [#3996](https://github.com/Khan/perseus/pull/3996) [`a772767`](https://github.com/Khan/perseus/commit/a7727672fd090cab3857a0c9fda44182c80ca115) Thanks [@Myranae](https://github.com/Myranae)! - Update Graded Group vertical correctness bar to align with themes
+
+-   [#3995](https://github.com/Khan/perseus/pull/3995) [`9ce8791`](https://github.com/Khan/perseus/commit/9ce87916b851ee1729db1fc880841b96f14cd6a9) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the Table widget no longer has default props.
+
+-   [#3999](https://github.com/Khan/perseus/pull/3999) [`41cb721`](https://github.com/Khan/perseus/commit/41cb7213261497a9fcb9a8c92a08373e5af9265c) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the Table widget is now a functional component. `getDOMNodeForPath()`
+    returns the cell's `<input>` element directly instead of going through
+    `ReactDOM.findDOMNode()`, except on mobile where the cell is a keypad input.
+
+-   [#4019](https://github.com/Khan/perseus/pull/4019) [`f9758d6`](https://github.com/Khan/perseus/commit/f9758d61ed3f54477f41abd757268099c60a5ca6) Thanks [@handeyeco](https://github.com/handeyeco)! - Switch some `function`s to arrow functions, allowing us to remove some ts-expect-errors. Also convert some underscore methods to native.
+
+-   Updated dependencies [[`ed25029`](https://github.com/Khan/perseus/commit/ed2502933fd0bd14b7de545c7ea1c70ad6eef6a8), [`233204b`](https://github.com/Khan/perseus/commit/233204bb0df329cfa0e0818605c362ec8e89687c), [`273c61a`](https://github.com/Khan/perseus/commit/273c61a2e9cc8fdade8356da66cd5d0d358e8c47), [`8c52c56`](https://github.com/Khan/perseus/commit/8c52c568d5911cdb08ae98cf0247cc53da47e15a), [`ddfd715`](https://github.com/Khan/perseus/commit/ddfd715fef24e29d088d16a6b61e2b51fd773c26)]:
+    -   @khanacademy/perseus-core@34.0.1
+    -   @khanacademy/kas@2.2.5
+    -   @khanacademy/perseus-score@8.12.11
+    -   @khanacademy/keypad-context@3.2.79
+    -   @khanacademy/kmath@2.4.38
+    -   @khanacademy/math-input@26.6.8
+    -   @khanacademy/perseus-linter@5.1.19
+
 ## 82.2.0
 
 ### Minor Changes

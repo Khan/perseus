@@ -55,6 +55,32 @@ describe("convertGrapherOptionsToInteractiveGraph", () => {
         });
     });
 
+    it("defaults showTooltips to false", () => {
+        const grapher = generateGrapherWidgetOptions({
+            graph: {
+                ...generateGrapherWidgetOptions().graph,
+                showTooltips: undefined,
+            },
+        });
+
+        const ig = convertGrapherOptionsToInteractiveGraph(grapher);
+
+        expect(ig?.showTooltips).toBe(false);
+    });
+
+    it("preserves showTooltips when true", () => {
+        const grapher = generateGrapherWidgetOptions({
+            graph: {
+                ...generateGrapherWidgetOptions().graph,
+                showTooltips: true,
+            },
+        });
+
+        const ig = convertGrapherOptionsToInteractiveGraph(grapher);
+
+        expect(ig?.showTooltips).toBe(true);
+    });
+
     it("wraps axis labels in $...$ delimiters so they are interpreted as TeX", () => {
         const grapher = generateGrapherWidgetOptions({
             availableTypes: ["sinusoid"],

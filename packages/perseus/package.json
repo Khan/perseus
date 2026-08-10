@@ -3,7 +3,7 @@
     "description": "Core Perseus API (includes renderers and widgets)",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "82.2.0",
+    "version": "83.0.0",
     "publishConfig": {
         "access": "public"
     },
@@ -50,6 +50,7 @@
         "@khanacademy/perseus-utils": "workspace:*",
         "@khanacademy/pure-markdown": "workspace:*",
         "@khanacademy/simple-markdown": "workspace:*",
+        "@dnd-kit/react": "^0.5.0",
         "@use-gesture/react": "^10.2.27",
         "gifuct-js": "^2.1.2",
         "mafs": "0.19.0",

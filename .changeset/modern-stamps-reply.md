@@ -2,7 +2,6 @@
 "@khanacademy/perseus-editor": patch
 "@khanacademy/perseus-core": patch
 "@khanacademy/perseus": patch
-"@khanacademy/kas": patch
 ---
 
-Replace low-risk uses of `_.map` with `Array.map`
+Internal: the defaultProps of the Interactive Graph widget have been removed.

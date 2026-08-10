@@ -1,10 +1,15 @@
 import * as React from "react";
+import {DocsContainer} from "@storybook/addon-docs/blocks";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {
     THEME_DATA_ATTRIBUTE,
     ThemeSwitcher,
+    ThemeSwitcherContext,
 } from "@khanacademy/wonder-blocks-theming";
+import type {SupportedThemes} from "@khanacademy/wonder-blocks-theming";
 
+import darkTheme from "./dark-theme";
+import lightTheme from "./lightTheme";
 import {
     setDependencies,
     DependenciesContext,
@@ -82,11 +87,50 @@ const withThemeSwitcher: Decorator = (Story, context: StoryContext) => {
     }, [theme]);
 
     return (
-        <ThemeSwitcher theme={theme}>
-            <Story />
-        </ThemeSwitcher>
+        <ThemeSwitcherContext.Provider value={theme ?? "default"}>
+            <ThemeSwitcher theme={theme}>
+                <Story />
+            </ThemeSwitcher>
+        </ThemeSwitcherContext.Provider>
     );
 };
+
+// Docs pages (autodocs, MDX) are rendered by Storybook's own DocsContainer,
+// which is outside the withThemeSwitcher decorator above and has its own
+// Storybook-chrome theme (background, text, code block colors, etc.) that's
+// separate from our Perseus/Wonder Blocks component theme. This swaps that
+// chrome theme to match whenever syl-dark is selected in the Theme toolbar,
+// so the docs page background isn't stuck light while the widget preview
+// inside it goes dark.
+function DocsContainerWithTheme({
+    children,
+    context,
+    ...props
+}: React.ComponentProps<typeof DocsContainer>) {
+    // `context.store` isn't part of the public DocsContextProps type, but the
+    // concrete DocsContext always carries the preview's StoryStore at
+    // runtime, and it's the only way to read the toolbar's current theme
+    // global from here (docs pages aren't tied to a single story/decorator).
+    // TODO(LEMS-4461): Storybook 10.3.5 has proper type support for this
+    // (no cast needed) -- update once we upgrade off 10.3.1.
+    const theme = (
+        context as unknown as {
+            store: {
+                userGlobals: {globals: {theme?: SupportedThemes}};
+            };
+        }
+    ).store.userGlobals.globals.theme;
+
+    return (
+        <DocsContainer
+            context={context}
+            {...props}
+            theme={theme === "syl-dark" ? darkTheme : lightTheme}
+        >
+            <ThemeSwitcher theme={theme ?? "default"}>{children}</ThemeSwitcher>
+        </DocsContainer>
+    );
+}
 
 const supportedThemes = {
     description: "Global theme for components",
@@ -115,7 +159,7 @@ const supportedThemes = {
         // Change title based on selected value
         dynamicTitle: true,
     },
-};
+} satisfies NonNullable<Preview["globalTypes"]>["theme"];
 
 const preview: Preview = {
     // These decorators apply to all stories, both inside and outside the
@@ -165,6 +209,8 @@ const preview: Preview = {
             },
         },
         docs: {
+            theme: lightTheme,
+            container: DocsContainerWithTheme,
             toc: {
                 // Useful for MDX pages
                 headingSelector: "h2, h3",

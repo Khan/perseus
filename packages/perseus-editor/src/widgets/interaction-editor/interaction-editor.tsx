@@ -1,4 +1,3 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {Dependencies, EditorJsonify, Util} from "@khanacademy/perseus";
 import {
     interactionLogic,
@@ -7,7 +6,6 @@ import {
     type MarkingsType,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
-import _ from "underscore";
 
 import GraphSettings from "../../components/graph-settings";
 
@@ -22,6 +20,19 @@ import PointEditor from "./point-editor";
 import RectangleEditor from "./rectangle-editor";
 
 const {unescapeMathMode} = Util;
+
+// The starting options for each element type offered by the "Add an element"
+// dropdown. Element types with no entry here start out with no options.
+const defaultOptionsByElementType: Record<string, Record<string, unknown>> = {
+    point: PointEditor.defaultProps,
+    line: LineEditor.defaultProps,
+    "movable-point": MovablePointEditor.defaultProps,
+    "movable-line": MovableLineEditor.defaultProps,
+    function: FunctionEditor.defaultProps,
+    parametric: ParametricEditor.defaultProps,
+    label: LabelEditor.defaultProps,
+    rectangle: RectangleEditor.defaultProps,
+};
 
 type Graph = {
     box: ReadonlyArray<number>;
@@ -68,34 +79,35 @@ class InteractionEditor extends React.Component<Props, State> {
     }
 
     _getAllVarSubscripts(elements: ReadonlyArray<any>): ReadonlyArray<any> {
-        return _.where(elements, {type: "movable-point"})
+        const movableLines = elements.filter(
+            (element) => element.type === "movable-line",
+        );
+        return elements
+            .filter((element) => element.type === "movable-point")
             .map((element) => element.options.varSubscript)
             .concat(
-                _.where(elements, {type: "movable-line"}).map(
-                    (element) => element.options.startSubscript,
-                ),
+                movableLines.map((element) => element.options.startSubscript),
             )
             .concat(
-                _.where(elements, {type: "movable-line"}).map(
-                    (element) => element.options.endSubscript,
-                ),
+                movableLines.map((element) => element.options.endSubscript),
             );
     }
 
     _getAllFunctionNames(elements: ReadonlyArray<any>): ReadonlyArray<string> {
-        return _.where(elements, {type: "function"}).map(
-            (element) => element.options.funcName,
-        );
+        return elements
+            .filter((element) => element.type === "function")
+            .map((element) => element.options.funcName);
     }
 
     // Spread existing graph props to preserve properties not included
     // in the GraphSettings onChange payload (e.g. box, markings).
     _updateGraphProps = (newProps: Record<string, unknown>) => {
+        const {step, ...rest} = newProps;
         this.props.onChange({
             graph: {
                 ...this.props.graph,
-                ..._.omit(newProps, "step"),
-                tickStep: newProps.step,
+                ...rest,
+                tickStep: step,
             },
         });
     };
@@ -115,51 +127,24 @@ class InteractionEditor extends React.Component<Props, State> {
                 "-" +
                 // eslint-disable-next-line no-restricted-properties
                 ((Math.random() * 0xffffff) << 0).toString(16),
-            options:
-                elementType === "point"
-                    ? _.clone(PointEditor.defaultProps)
-                    : elementType === "line"
-                      ? _.clone(LineEditor.defaultProps)
-                      : elementType === "movable-point"
-                        ? _.clone(MovablePointEditor.defaultProps)
-                        : elementType === "movable-line"
-                          ? _.clone(MovableLineEditor.defaultProps)
-                          : elementType === "function"
-                            ? _.clone(FunctionEditor.defaultProps)
-                            : elementType === "parametric"
-                              ? _.clone(ParametricEditor.defaultProps)
-                              : elementType === "label"
-                                ? _.clone(LabelEditor.defaultProps)
-                                : elementType === "rectangle"
-                                  ? _.clone(RectangleEditor.defaultProps)
-                                  : {},
-        } as const;
+            options: {...defaultOptionsByElementType[elementType]},
+        };
 
         let nextSubscript;
         if (elementType === "movable-point") {
-            nextSubscript =
-                _.max([_.max(this.state.usedVarSubscripts), -1]) + 1;
-            // @ts-expect-error - TS2339 - Property 'varSubscript' does not exist on type '{}'.
+            nextSubscript = Math.max(...this.state.usedVarSubscripts, -1) + 1;
             newElement.options.varSubscript = nextSubscript;
         } else if (elementType === "movable-line") {
-            nextSubscript =
-                _.max([_.max(this.state.usedVarSubscripts), -1]) + 1;
-            // @ts-expect-error - TS2339 - Property 'startSubscript' does not exist on type '{}'.
+            nextSubscript = Math.max(...this.state.usedVarSubscripts, -1) + 1;
             newElement.options.startSubscript = nextSubscript;
-            // @ts-expect-error - TS2339 - Property 'endSubscript' does not exist on type '{}'.
             newElement.options.endSubscript = nextSubscript + 1;
         } else if (elementType === "function") {
             const nextLetter = String.fromCharCode(
-                _.max([
-                    _.max(
-                        this.state.usedFunctionNames.map(function (c) {
-                            return c.charCodeAt(0);
-                        }),
-                    ),
+                Math.max(
+                    ...this.state.usedFunctionNames.map((c) => c.charCodeAt(0)),
                     "e".charCodeAt(0),
-                ]) + 1,
+                ) + 1,
             );
-            // @ts-expect-error - TS2339 - Property 'funcName' does not exist on type '{}'.
             newElement.options.funcName = nextLetter;
         }
         this.props.onChange({
@@ -170,20 +155,20 @@ class InteractionEditor extends React.Component<Props, State> {
     _deleteElement: (arg1: number) => void = (index) => {
         const element = this.props.elements[index];
         this.props.onChange({
-            elements: _.without(this.props.elements, element),
+            elements: this.props.elements.filter((e) => e !== element),
         });
     };
 
     _moveElementUp: (arg1: number) => void = (index) => {
         const element = this.props.elements[index];
-        const newElements = _.without(this.props.elements, element);
+        const newElements = this.props.elements.filter((e) => e !== element);
         newElements.splice(index - 1, 0, element);
         this.props.onChange({elements: newElements});
     };
 
     _moveElementDown: (arg1: number) => void = (index) => {
         const element = this.props.elements[index];
-        const newElements = _.without(this.props.elements, element);
+        const newElements = this.props.elements.filter((e) => e !== element);
         newElements.splice(index + 1, 0, element);
         this.props.onChange({elements: newElements});
     };
@@ -214,7 +199,7 @@ class InteractionEditor extends React.Component<Props, State> {
                         )}
                     </>
                 </ElementContainer>
-                {this.props.elements.map(function (element, n) {
+                {this.props.elements.map((element, n) => {
                     if (element.type === "movable-point") {
                         return (
                             <ElementContainer
@@ -233,35 +218,26 @@ class InteractionEditor extends React.Component<Props, State> {
                                 onUp={
                                     n === 0
                                         ? null
-                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                          this._moveElementUp.bind(this, n)
+                                        : () => this._moveElementUp(n)
                                 }
                                 onDown={
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     n === this.props.elements.length - 1
                                         ? null
-                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                          this._moveElementDown.bind(
-                                              // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                              this,
-                                              n,
-                                          )
+                                        : () => this._moveElementDown(n)
                                 }
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                onDelete={this._deleteElement.bind(this, n)}
+                                onDelete={() => this._deleteElement(n)}
                                 key={element.key}
                             >
                                 <MovablePointEditor
                                     {...element.options}
                                     onChange={(newProps) => {
                                         const elements = JSON.parse(
-                                            JSON.stringify(
-                                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                                this.props.elements,
-                                            ),
+                                            JSON.stringify(this.props.elements),
                                         );
-                                        _.extend(elements[n].options, newProps);
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                        Object.assign(
+                                            elements[n].options,
+                                            newProps,
+                                        );
                                         this.props.onChange({
                                             elements: elements,
                                         });
@@ -296,35 +272,26 @@ class InteractionEditor extends React.Component<Props, State> {
                                 onUp={
                                     n === 0
                                         ? null
-                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                          this._moveElementUp.bind(this, n)
+                                        : () => this._moveElementUp(n)
                                 }
                                 onDown={
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     n === this.props.elements.length - 1
                                         ? null
-                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                          this._moveElementDown.bind(
-                                              // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                              this,
-                                              n,
-                                          )
+                                        : () => this._moveElementDown(n)
                                 }
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                onDelete={this._deleteElement.bind(this, n)}
+                                onDelete={() => this._deleteElement(n)}
                                 key={element.key}
                             >
                                 <MovableLineEditor
                                     {...element.options}
                                     onChange={(newProps) => {
                                         const elements = JSON.parse(
-                                            JSON.stringify(
-                                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                                this.props.elements,
-                                            ),
+                                            JSON.stringify(this.props.elements),
                                         );
-                                        _.extend(elements[n].options, newProps);
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                        Object.assign(
+                                            elements[n].options,
+                                            newProps,
+                                        );
                                         this.props.onChange({
                                             elements: elements,
                                         });
@@ -351,35 +318,26 @@ class InteractionEditor extends React.Component<Props, State> {
                                 onUp={
                                     n === 0
                                         ? null
-                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                          this._moveElementUp.bind(this, n)
+                                        : () => this._moveElementUp(n)
                                 }
                                 onDown={
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     n === this.props.elements.length - 1
                                         ? null
-                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                          this._moveElementDown.bind(
-                                              // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                              this,
-                                              n,
-                                          )
+                                        : () => this._moveElementDown(n)
                                 }
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                onDelete={this._deleteElement.bind(this, n)}
+                                onDelete={() => this._deleteElement(n)}
                                 key={element.key}
                             >
                                 <PointEditor
                                     {...element.options}
                                     onChange={(newProps) => {
                                         const elements = JSON.parse(
-                                            JSON.stringify(
-                                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                                this.props.elements,
-                                            ),
+                                            JSON.stringify(this.props.elements),
                                         );
-                                        _.extend(elements[n].options, newProps);
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                        Object.assign(
+                                            elements[n].options,
+                                            newProps,
+                                        );
                                         this.props.onChange({
                                             elements: elements,
                                         });
@@ -414,35 +372,26 @@ class InteractionEditor extends React.Component<Props, State> {
                                 onUp={
                                     n === 0
                                         ? null
-                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                          this._moveElementUp.bind(this, n)
+                                        : () => this._moveElementUp(n)
                                 }
                                 onDown={
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     n === this.props.elements.length - 1
                                         ? null
-                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                          this._moveElementDown.bind(
-                                              // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                              this,
-                                              n,
-                                          )
+                                        : () => this._moveElementDown(n)
                                 }
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                onDelete={this._deleteElement.bind(this, n)}
+                                onDelete={() => this._deleteElement(n)}
                                 key={element.key}
                             >
                                 <LineEditor
                                     {...element.options}
                                     onChange={(newProps) => {
                                         const elements = JSON.parse(
-                                            JSON.stringify(
-                                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                                this.props.elements,
-                                            ),
+                                            JSON.stringify(this.props.elements),
                                         );
-                                        _.extend(elements[n].options, newProps);
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                        Object.assign(
+                                            elements[n].options,
+                                            newProps,
+                                        );
                                         this.props.onChange({
                                             elements: elements,
                                         });
@@ -467,35 +416,26 @@ class InteractionEditor extends React.Component<Props, State> {
                                 onUp={
                                     n === 0
                                         ? null
-                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                          this._moveElementUp.bind(this, n)
+                                        : () => this._moveElementUp(n)
                                 }
                                 onDown={
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     n === this.props.elements.length - 1
                                         ? null
-                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                          this._moveElementDown.bind(
-                                              // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                              this,
-                                              n,
-                                          )
+                                        : () => this._moveElementDown(n)
                                 }
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                onDelete={this._deleteElement}
+                                onDelete={() => this._deleteElement(n)}
                                 key={element.key}
                             >
                                 <FunctionEditor
                                     {...element.options}
                                     onChange={(newProps) => {
                                         const elements = JSON.parse(
-                                            JSON.stringify(
-                                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                                this.props.elements,
-                                            ),
+                                            JSON.stringify(this.props.elements),
                                         );
-                                        _.extend(elements[n].options, newProps);
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                        Object.assign(
+                                            elements[n].options,
+                                            newProps,
+                                        );
                                         this.props.onChange({
                                             elements: elements,
                                         });
@@ -511,35 +451,26 @@ class InteractionEditor extends React.Component<Props, State> {
                                 onUp={
                                     n === 0
                                         ? null
-                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                          this._moveElementUp.bind(this, n)
+                                        : () => this._moveElementUp(n)
                                 }
                                 onDown={
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     n === this.props.elements.length - 1
                                         ? null
-                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                          this._moveElementDown.bind(
-                                              // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                              this,
-                                              n,
-                                          )
+                                        : () => this._moveElementDown(n)
                                 }
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                onDelete={this._deleteElement}
+                                onDelete={() => this._deleteElement(n)}
                                 key={element.key}
                             >
                                 <ParametricEditor
                                     {...element.options}
                                     onChange={(newProps) => {
                                         const elements = JSON.parse(
-                                            JSON.stringify(
-                                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                                this.props.elements,
-                                            ),
+                                            JSON.stringify(this.props.elements),
                                         );
-                                        _.extend(elements[n].options, newProps);
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                        Object.assign(
+                                            elements[n].options,
+                                            newProps,
+                                        );
                                         this.props.onChange({
                                             elements: elements,
                                         });
@@ -564,35 +495,26 @@ class InteractionEditor extends React.Component<Props, State> {
                                 onUp={
                                     n === 0
                                         ? null
-                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                          this._moveElementUp.bind(this, n)
+                                        : () => this._moveElementUp(n)
                                 }
                                 onDown={
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     n === this.props.elements.length - 1
                                         ? null
-                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                          this._moveElementDown.bind(
-                                              // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                              this,
-                                              n,
-                                          )
+                                        : () => this._moveElementDown(n)
                                 }
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                onDelete={this._deleteElement}
+                                onDelete={() => this._deleteElement(n)}
                                 key={element.key}
                             >
                                 <LabelEditor
                                     {...element.options}
                                     onChange={(newProps) => {
                                         const elements = JSON.parse(
-                                            JSON.stringify(
-                                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                                this.props.elements,
-                                            ),
+                                            JSON.stringify(this.props.elements),
                                         );
-                                        _.extend(elements[n].options, newProps);
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                        Object.assign(
+                                            elements[n].options,
+                                            newProps,
+                                        );
                                         this.props.onChange({
                                             elements: elements,
                                         });
@@ -625,35 +547,26 @@ class InteractionEditor extends React.Component<Props, State> {
                                 onUp={
                                     n === 0
                                         ? null
-                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                          this._moveElementUp.bind(this, n)
+                                        : () => this._moveElementUp(n)
                                 }
                                 onDown={
-                                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                                     n === this.props.elements.length - 1
                                         ? null
-                                        : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                          this._moveElementDown.bind(
-                                              // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                              this,
-                                              n,
-                                          )
+                                        : () => this._moveElementDown(n)
                                 }
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                onDelete={this._deleteElement}
+                                onDelete={() => this._deleteElement(n)}
                                 key={element.key}
                             >
                                 <RectangleEditor
                                     {...element.options}
                                     onChange={(newProps) => {
                                         const elements = JSON.parse(
-                                            JSON.stringify(
-                                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                                this.props.elements,
-                                            ),
+                                            JSON.stringify(this.props.elements),
                                         );
-                                        _.extend(elements[n].options, newProps);
-                                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                                        Object.assign(
+                                            elements[n].options,
+                                            newProps,
+                                        );
                                         this.props.onChange({
                                             elements: elements,
                                         });
@@ -662,7 +575,7 @@ class InteractionEditor extends React.Component<Props, State> {
                             </ElementContainer>
                         );
                     }
-                }, this)}
+                })}
                 <div className="perseus-widget-interaction-editor-select-element">
                     {/* @ts-expect-error - TS2322 - Type '(arg1: ChangeEvent<HTMLInputElement>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'. */}
                     <select onChange={this._addNewElement}>

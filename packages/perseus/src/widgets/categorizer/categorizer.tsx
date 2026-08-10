@@ -1,6 +1,6 @@
 import {shuffle} from "@khanacademy/perseus-core";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
-import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
+import {border, semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {css, StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import React, {forwardRef, useImperativeHandle, useMemo} from "react";
@@ -257,8 +257,7 @@ const styles = StyleSheet.create({
 
     emptyHeaderCell: {
         backgroundColor: "inherit",
-        // TODO(LEMS-4443): Convert shared table styling to semantic color tokens.
-        borderBottom: "2px solid #ccc",
+        borderBottom: `${border.width.medium} solid ${semanticColor.core.border.neutral.subtle}`,
     },
 
     radioSpan: {

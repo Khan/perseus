@@ -47,8 +47,6 @@ function RenderInDarkMode(renderer: PerseusRenderer): () => React.JSX.Element {
             <div
                 style={{
                     color: "var(--wb-semanticColor-core-foreground-neutral-strong)",
-                    background:
-                        "var(--wb-semanticColor-core-background-instructive-subtle)",
                     display: "flex",
                     flexDirection: "column",
                     gap: "20px",
