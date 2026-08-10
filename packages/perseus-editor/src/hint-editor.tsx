@@ -1,5 +1,4 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-
 /**
  * Collection of classes for rendering the hint editor area,
  * hint editor boxes, and hint previews
@@ -50,7 +49,6 @@ type HintEditorProps = {
     isFirst: boolean;
     onMove: (direction: number) => unknown;
     onRemove: () => unknown;
-
     onChange: ChangeHandler;
     __type?: "hint";
     widgetIsOpen?: boolean;
@@ -203,7 +201,6 @@ type CombinedHintEditorProps = {
     previewURL: string;
     onMove: (direction: number) => unknown;
     onRemove: () => unknown;
-
     onChange: ChangeHandler;
     widgetIsOpen?: boolean;
 };

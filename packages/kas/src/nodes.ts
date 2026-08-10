@@ -1,7 +1,4 @@
-/* eslint-disable max-lines */
-
-/* eslint-disable import/order */
-/* eslint-disable no-var, no-new-func, prefer-spread */
+/* eslint-disable max-lines, import/order, no-var, no-new-func, prefer-spread */
 import _ from "underscore";
 
 import {unitParser} from "./__genfiles__/unitparser";

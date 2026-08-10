@@ -15,16 +15,13 @@ const verifyRealTimers = () => {
     // We need to silence that, but without impacting folks testing, so we'll be
     // cheeky. We don't use this to detect the timers though because if they
     // change this behavior we would silently start just working.
-
     const oldWarn = console.warn;
     console.warn = () => {};
 
     try {
         const timerCount = jest.getTimerCount();
-
         const timeoutID = setTimeout(() => {}, 0);
         const newTimerCount = jest.getTimerCount();
-
         clearTimeout(timeoutID);
         if (timerCount !== newTimerCount) {
             throw new Error(

@@ -129,7 +129,6 @@ class Measurer extends React.Component<Props> implements Widget {
                         />
                     </div>
                 )}
-                {}
                 <div className="graphie" ref="graphieDiv" />
             </div>
         );

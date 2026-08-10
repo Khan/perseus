@@ -1,5 +1,4 @@
 /* eslint-disable max-lines */
-
 import {KhanMath} from "@khanacademy/kmath";
 import {
     type PerseusPlotterUserInput,

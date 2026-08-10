@@ -175,7 +175,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
 
     focusInputPath: (arg1: any) => void = (path) => {
         const inputID = getRefForPath(path);
-
         // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs[inputID].focus();
     };
@@ -186,14 +185,12 @@ class Matrix extends React.Component<Props, State> implements Widget {
         }
 
         const inputID = getRefForPath(path);
-
         // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
         this.refs[inputID].blur();
     };
 
     getDOMNodeForPath(path: FocusPath) {
         const inputID = getRefForPath(path);
-
         return ReactDOM.findDOMNode(this.refs[inputID]);
     }
 
@@ -240,7 +237,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
             e.preventDefault();
 
             // Focus the input and move the cursor to the end of it.
-
             const input = this.refs[getRefForPath(nextPath)];
 
             // Multiply by 2 to ensure the cursor always ends up at the end;

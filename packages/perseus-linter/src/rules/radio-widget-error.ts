@@ -17,7 +17,6 @@ export default Rule.makeRule({
         }
 
         // If it can't find a definition for the widget it does nothing
-
         const widget = context?.widgets?.[nodeId];
         if (!widget) {
             return;

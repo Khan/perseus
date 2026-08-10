@@ -39,8 +39,6 @@ type State = {
     isFinalHelpPage: boolean;
 };
 
-// Use of UNSAFE_componentWillReceiveProps:
-
 class HintsRenderer extends React.Component<Props, State> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;

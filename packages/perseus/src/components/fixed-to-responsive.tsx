@@ -70,7 +70,6 @@ class FixedToResponsive extends React.Component<Props, State> {
             // webview where window.innerHeight might be initially very small,
             // like 46, but seems to be good after ~400ms.
             // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
-
             setTimeout(this._cacheViewportSize, 800);
         } else {
             this._cacheViewportSize();

@@ -56,7 +56,6 @@ export const _upgradeWidgetInfo = (props: WidgetEditorProps): PerseusWidget => {
 // upgrade transforms. Widget editors will always be rendered
 // with all available transforms applied, but the results of those
 // transforms will not be propogated upwards until serialization.
-
 class WidgetEditor extends React.Component<
     WidgetEditorProps,
     WidgetEditorState

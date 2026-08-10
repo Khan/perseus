@@ -1,5 +1,4 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-
 import {Dependencies, EditorJsonify, Util} from "@khanacademy/perseus";
 import {
     interactionLogic,

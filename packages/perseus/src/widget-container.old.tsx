@@ -62,7 +62,6 @@ class WidgetContainerOld extends React.Component<Props, State> {
             // but until we have better SSR or a more drastic way change to our
             // APIs that hints at the available size, we do have to measure DOM
             // unfortunately.
-
             this.setState({
                 sizeClass: getClassFromWidth(containerWidth),
             });

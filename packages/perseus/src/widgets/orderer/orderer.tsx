@@ -509,7 +509,6 @@ class Orderer
     findCorrectIndex: (arg1: any, arg2: any) => any = (draggable, list) => {
         // Find the correct index for a card given the current cards.
         const isHorizontal = this.props.layout === "horizontal";
-
         // @ts-expect-error - TS2769 - No overload matches this call.
         const $dragList = $(ReactDOM.findDOMNode(this.refs.dragList));
         // @ts-expect-error - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
@@ -559,7 +558,6 @@ class Orderer
         const isHorizontal = this.props.layout === "horizontal";
         // @ts-expect-error - TS2769 - No overload matches this call.
         const $draggable = $(ReactDOM.findDOMNode(draggable));
-
         // @ts-expect-error - TS2769 - No overload matches this call.
         const $bank = $(ReactDOM.findDOMNode(this.refs.bank));
         // @ts-expect-error - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
@@ -682,7 +680,6 @@ class Orderer
         const sortable = (
             <div className="perseus-clearfix draggable-box">
                 {!anySortableCards && <DragHintCard />}
-                {}
                 <div ref="dragList">{sortableCards}</div>
             </div>
         );

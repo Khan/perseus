@@ -25,7 +25,6 @@ type State = {
  * Enough melodrama. Its an input that only sends changes
  * to its parent on blur.
  */
-
 class BlurInput extends React.Component<Props, State> {
     input = React.createRef<HTMLInputElement>();
 

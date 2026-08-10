@@ -1,5 +1,4 @@
 /* eslint-disable max-lines */
-
 import {
     PerseusMarkdown,
     Util,
@@ -217,7 +216,6 @@ class Editor extends React.Component<Props, State> {
         // NOTE(jeremy): We use the non-null assertion here (!) because refs
         // are guaranteed to be up-to-date before componentDidMount or
         // componentDidUpdate fires.
-
         $(this.textarea.current!)
             // @ts-expect-error - TS2339 - Property 'on' does not exist on type 'JQueryStatic'.
             .on("copy cut", this._maybeCopyWidgets)
@@ -450,7 +448,6 @@ class Editor extends React.Component<Props, State> {
             // We're in an event handler attached to the textarea, so the ref
             // can't be empty/undefined! (which is why its safe to use the
             // non-null-assertion here. aka the `!` suffix)
-
             const textarea = this.textarea.current!;
 
             const word = Util.textarea.getWordBeforeCursor(textarea);
@@ -836,7 +833,6 @@ class Editor extends React.Component<Props, State> {
         // completely represented in props. ahem //transformer// (and
         // interactive-graph and plotter).
         const widgets: Record<string, any> = {};
-
         const widgetIds = _.intersection(
             this.widgetIds,
             Object.keys(this.refs),

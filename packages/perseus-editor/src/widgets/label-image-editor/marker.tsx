@@ -50,7 +50,6 @@ class Marker extends React.Component<MarkerProps, State> {
         if (JSON.stringify(answers) !== JSON.stringify(filteredAnswers)) {
             // Update marker on the next frame when these props take affect.
             // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
-
             setTimeout(() => this.updateAnswers(filteredAnswers));
         }
     }

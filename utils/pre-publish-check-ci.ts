@@ -20,7 +20,6 @@ fg(path.join(__dirname, "..", "packages", "*", "package.json")).then(
 
         for (const pkgPath of pkgPaths) {
             const pkgJson = require(path.relative(__dirname, pkgPath));
-
             if (
                 !checkPrivate(pkgJson) &&
                 !checkPublishConfig(pkgJson) &&
