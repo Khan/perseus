@@ -8,10 +8,8 @@ import type {
     PerseusRenderer,
     UserInputMap,
 } from "@khanacademy/perseus-core";
+import type {Decorator} from "@storybook/react-vite";
 
-// No orderer-widget-generator exists in @khanacademy/perseus-core, so the
-// widget object is built directly here rather than via a generateOrdererWidget/
-// generateOrdererOptions pair (the pattern every other renderer-decorator uses).
 const defaultOptions: PerseusOrdererWidgetOptions = {
     options: [],
     correctOptions: [],
@@ -20,8 +18,8 @@ const defaultOptions: PerseusOrdererWidgetOptions = {
     layout: "horizontal",
 };
 
-export const ordererRendererDecorator = (
-    _: unknown,
+export const ordererRendererDecorator: Decorator = (
+    _,
     {
         args,
         parameters,
