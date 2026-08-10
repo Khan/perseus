@@ -29,7 +29,7 @@ import {HideAnswersToggle} from "./hide-answers-toggle";
 import Marker from "./marker";
 
 import type {DependencyProps} from "../../dependencies";
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {Widget, WidgetExports, WidgetPropsV2} from "../../types";
 import type {LabelImagePromptJSON} from "../../widget-ai-utils/label-image/label-image-ai-utils";
 import type {
     InteractiveMarkerType,
@@ -78,13 +78,18 @@ export type OptionalAnswersMarkerType = Omit<
 type Options = Omit<PerseusLabelImageWidgetOptions, "markers"> & {
     // The list of label markers on the question image.
     markers: ReadonlyArray<OptionalAnswersMarkerType>;
+    // Preferred placement for the popover (a preference, not a guarantee).
+    // The editor offers a control for this, but it is absent from
+    // PerseusLabelImageWidgetOptions and from parseLabelImageWidget, so the
+    // parser drops it from persisted content — only unparsed callers (e.g.
+    // Storybook) ever supply it.
+    // TODO(benchristel): parse preferredPopoverDirection so it has the
+    //  intended effect in production (or remove it if it's not needed).
+    preferredPopoverDirection?: PreferredPopoverDirection;
 };
 
-type Props = WidgetProps<Options, PerseusLabelImageUserInput> & {
+type Props = WidgetPropsV2<Options, PerseusLabelImageUserInput> & {
     analytics: DependencyProps["analytics"];
-    // preferred placement for popover (preference, not MUST)
-    // NOTE: this is sus, probably never passed in
-    preferredPopoverDirection?: PreferredPopoverDirection;
 };
 
 type LabelImageState = {
@@ -416,7 +421,7 @@ export class LabelImage
     }
 
     handleMarkerKeyDown(index: number, e: React.KeyboardEvent) {
-        const {markers} = this.props;
+        const {markers} = this.props.options;
 
         // One is the loneliest number.
         if (markers.length < 2) {
@@ -460,7 +465,7 @@ export class LabelImage
         index: number,
         selection: ReadonlyArray<boolean>,
     ) {
-        const {choices, markers} = this.props;
+        const {choices, markers} = this.props.options;
 
         // Compile the user selected answer choices.
         const selected = choices.filter((_, index) => selection[index]);
@@ -472,7 +477,15 @@ export class LabelImage
     }
 
     renderMarkers(): ReadonlyArray<React.ReactNode> {
-        const {markers, preferredPopoverDirection, userInput} = this.props;
+        const {userInput, options} = this.props;
+        const {
+            choices,
+            imageWidth,
+            imageHeight,
+            markers,
+            multipleAnswers,
+            preferredPopoverDirection,
+        } = options;
         const {markersInteracted, activeMarkerIndex} = this.state;
 
         // Determine whether page is rendered in a narrow browser window.
@@ -481,8 +494,8 @@ export class LabelImage
             window.matchMedia(mediaQueries.xsOrSmaller.replace("@media ", ""))
                 .matches;
 
-        // Determine whether the image is wider than it is tall.
-        const isWideImage = this.props.imageWidth / 2 > this.props.imageHeight;
+        // Determine whether the image is more than twice as wide as it is tall.
+        const isWideImage = imageWidth / 2 > imageHeight;
 
         // Render all markers for widget.
         return markers.map((marker, index): React.ReactElement => {
@@ -580,7 +593,7 @@ export class LabelImage
                 >
                     <AnswerChoices
                         key={`answers-${marker.x}.${marker.y}`}
-                        choices={this.props.choices.map((choice) => ({
+                        choices={choices.map((choice) => ({
                             content: choice,
                             checked: computedSelectedState.selected
                                 ? computedSelectedState.selected.includes(
@@ -588,7 +601,7 @@ export class LabelImage
                                   )
                                 : false,
                         }))}
-                        multipleSelect={this.props.multipleAnswers}
+                        multipleSelect={multipleAnswers}
                         onChange={(selection) => {
                             // TODO(LEMS-2829): Remove analytics event in LEMS-2829 in favor of ti below.
                             this.props.analytics?.onAnalyticsEvent({
@@ -645,10 +658,12 @@ export class LabelImage
     renderInstructions(): React.ReactNode {
         const {
             apiOptions: {isMobile},
+        } = this.props;
+        const {
             choices,
             multipleAnswers,
             hideChoicesFromInstructions: hideChoices,
-        } = this.props;
+        } = this.props.options;
         const {strings} = this.context;
 
         const promptString = isMobile
@@ -693,9 +708,11 @@ export class LabelImage
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState(): any {
-        const {userInput, markers, ...rest} = this.props;
+        const {userInput, options, ...restOfProps} = this.props;
+        const {markers, ...restOfOptions} = options;
         return {
-            ...rest,
+            ...restOfOptions,
+            ...restOfProps,
             markers: markers.map((marker, index) => ({
                 ...marker,
                 selected: userInput.markers[index].selected,
@@ -704,7 +721,8 @@ export class LabelImage
     }
 
     render(): React.ReactNode {
-        const {imageAlt, imageUrl, imageWidth, imageHeight} = this.props;
+        const {imageAlt, imageUrl, imageWidth, imageHeight} =
+            this.props.options;
 
         const {activeMarkerIndex} = this.state;
 
@@ -773,18 +791,6 @@ const LabelImageWithDependencies = React.forwardRef<
     const deps = useDependencies();
     return <LabelImage ref={ref} analytics={deps.analytics} {...props} />;
 });
-
-// eslint-disable-next-line no-restricted-syntax
-({}) as WidgetProps<
-    PerseusLabelImageWidgetOptions,
-    PerseusLabelImageUserInput
-> satisfies PropsFor<typeof LabelImageWithDependencies>;
-
-// eslint-disable-next-line no-restricted-syntax
-({}) as WidgetProps<
-    LabelImagePublicWidgetOptions,
-    PerseusLabelImageUserInput
-> satisfies PropsFor<typeof LabelImageWithDependencies>;
 
 function getStartUserInput(
     options: LabelImagePublicWidgetOptions,
