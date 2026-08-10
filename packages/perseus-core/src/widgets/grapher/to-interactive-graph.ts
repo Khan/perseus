@@ -50,7 +50,7 @@ export function convertGrapherOptionsToInteractiveGraph(
         },
         showAxisTicks: {x: true, y: true},
         showProtractor: grapherOptions.graph.showProtractor ?? false,
-        showTooltips: grapherOptions.graph.showTooltips,
+        showTooltips: grapherOptions.graph.showTooltips ?? false,
         range: grapherOptions.graph.range,
         graph,
         correct: grapherOptions.correct
