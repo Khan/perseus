@@ -40,7 +40,6 @@ function buildContent(inputs: DerivePreviewContentInputs): QuestionPreview {
     return {
         type: "question",
         data: {
-            // eslint-disable-next-line no-restricted-syntax -- inputs.question is checked non-null by the caller
             question: inputs.question!,
             apiOptions: {
                 ...ApiOptions.defaults,
