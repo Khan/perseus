@@ -13,7 +13,7 @@ type Props = {
 };
 
 const showMeStyle = {
-    marginTop: "1em",
+    marginBlockStart: "1em",
     display: "flex",
     alignItems: "center",
 };
