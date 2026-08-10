@@ -1,6 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable @typescript-eslint/no-invalid-this, react/no-unsafe */
-import {linterContextDefault} from "@khanacademy/perseus-linter";
 import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -90,7 +89,6 @@ type CardProps = {
 type CardDefaultProps = {
     stack: CardProps["stack"];
     animating: CardProps["animating"];
-    linterContext: CardProps["linterContext"];
 };
 
 type CardState = {
@@ -107,7 +105,6 @@ class Card extends React.Component<CardProps, CardState> {
     static defaultProps: CardDefaultProps = {
         stack: false,
         animating: false,
-        linterContext: linterContextDefault,
     };
 
     state = {dragging: false};
@@ -297,11 +294,6 @@ type OrdererProps = WidgetProps<
     PerseusOrdererUserInput
 > & {dependencies: PerseusDependenciesV2};
 
-type OrdererDefaultProps = Pick<
-    OrdererProps,
-    "options" | "height" | "layout" | "linterContext" | "userInput"
->;
-
 type OrdererState = {
     dragging: boolean;
     placeholderIndex: number | null | undefined;
@@ -333,16 +325,6 @@ class Orderer
     extends React.Component<OrdererProps, OrdererState>
     implements Widget
 {
-    static defaultProps: OrdererDefaultProps = {
-        options: [],
-        height: "normal",
-        layout: "horizontal",
-        linterContext: linterContextDefault,
-        userInput: {
-            current: [],
-        },
-    };
-
     state: OrdererState = {
         dragging: false,
         placeholderIndex: null,
