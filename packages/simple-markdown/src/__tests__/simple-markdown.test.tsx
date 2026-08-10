@@ -1,4 +1,4 @@
-/* eslint-disable no-var, @typescript-eslint/no-unused-vars, no-console, import/no-commonjs, no-redeclare */
+/* eslint-disable no-var, @typescript-eslint/no-unused-vars, no-console */
 import assert from "assert";
 
 import {render} from "@testing-library/react";

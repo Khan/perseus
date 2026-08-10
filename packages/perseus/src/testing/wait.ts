@@ -15,16 +15,13 @@ const verifyRealTimers = () => {
     // We need to silence that, but without impacting folks testing, so we'll be
     // cheeky. We don't use this to detect the timers though because if they
     // change this behavior we would silently start just working.
-    // eslint-disable-next-line no-console
     const oldWarn = console.warn;
-    console.warn = () => {}; // eslint-disable-line no-console
+    console.warn = () => {};
 
     try {
         const timerCount = jest.getTimerCount();
-        // eslint-disable-next-line no-restricted-syntax
         const timeoutID = setTimeout(() => {}, 0);
         const newTimerCount = jest.getTimerCount();
-        // eslint-disable-next-line no-restricted-syntax
         clearTimeout(timeoutID);
         if (timerCount !== newTimerCount) {
             throw new Error(
@@ -32,7 +29,7 @@ const verifyRealTimers = () => {
             );
         }
     } finally {
-        console.warn = oldWarn; // eslint-disable-line no-console
+        console.warn = oldWarn;
     }
 };
 
@@ -55,7 +52,6 @@ const unverifiedWait = (delay: number, count: number) =>
             resolve: (result: Promise<undefined> | undefined) => void,
             reject: (error?: any) => void,
         ) => {
-            // eslint-disable-next-line no-restricted-syntax
             setTimeout(() => {
                 if (count > 1) {
                     resolve(unverifiedWait(delay, count - 1));

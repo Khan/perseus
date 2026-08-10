@@ -143,7 +143,6 @@ class Zoomable extends React.Component<Props, State> {
             // We call measureAndScaleChildToFit asynchronously so that the browser
             // can apply CSS styles so that we get an accurate measurement.
             // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
-            // eslint-disable-next-line no-restricted-syntax
             setTimeout(() => this.measureAndScaleChildToFit(false), 0);
 
             // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -241,7 +240,6 @@ class Zoomable extends React.Component<Props, State> {
             });
 
             // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
-            // eslint-disable-next-line no-restricted-syntax
             setTimeout(() => {
                 // Only show it after the next paint, to allow for CSS
                 // transitions to fade it in.

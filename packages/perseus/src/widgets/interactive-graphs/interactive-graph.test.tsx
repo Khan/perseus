@@ -911,13 +911,13 @@ describe("Interactive Graph", function () {
 
             // Assert
             expect(vectors).toHaveLength(2);
-            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            // eslint-disable-next-line testing-library/no-node-access
             let vector = vectors[0].children[0];
             expect(vector).toHaveStyle({
                 "stroke-width": "2",
                 stroke: lockedFigureColors["grayH"],
             });
-            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            // eslint-disable-next-line testing-library/no-node-access
             let arrowheads = vector.querySelectorAll(
                 ".interactive-graph-arrowhead",
             );
@@ -928,13 +928,13 @@ describe("Interactive Graph", function () {
                 "translate(40 -40) rotate(-45)",
             );
 
-            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            // eslint-disable-next-line testing-library/no-node-access
             vector = vectors[1].children[0];
             expect(vector).toHaveStyle({
                 "stroke-width": "2",
                 stroke: lockedFigureColors["green"],
             });
-            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            // eslint-disable-next-line testing-library/no-node-access
             arrowheads = vector.querySelectorAll(
                 ".interactive-graph-arrowhead",
             );

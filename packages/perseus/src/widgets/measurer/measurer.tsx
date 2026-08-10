@@ -50,7 +50,6 @@ class Measurer extends React.Component<Props> implements Widget {
     }
 
     setupGraphie() {
-        // eslint-disable-next-line react/no-string-refs
         const graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
         // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'empty' does not exist on type 'JQueryStatic'.
         $(graphieDiv).empty();
@@ -130,7 +129,6 @@ class Measurer extends React.Component<Props> implements Widget {
                         />
                     </div>
                 )}
-                {/* eslint-disable-next-line react/no-string-refs */}
                 <div className="graphie" ref="graphieDiv" />
             </div>
         );

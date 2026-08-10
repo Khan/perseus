@@ -23,9 +23,7 @@ class InfoTip extends React.Component<Props, State> {
     };
 
     componentDidMount() {
-        /* eslint-disable react/no-did-mount-set-state */
         this.setState({didMount: true});
-        /* eslint-enable react/no-did-mount-set-state */
     }
 
     render(): React.ReactNode {
