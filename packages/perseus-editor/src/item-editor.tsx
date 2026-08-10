@@ -117,7 +117,7 @@ class ItemEditor extends React.Component<Props> {
             this.props.deviceType === "phone" ||
             this.props.deviceType === "tablet";
         const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
-        const a11yEnabled = this.context?.a11yEnabled ?? false;
+        const a11yScanningEnabled = this.context?.a11yScanningEnabled ?? false;
         const highlightPreviewIds = this.context?.highlightPreviewIds ?? [];
 
         return (
@@ -175,7 +175,7 @@ class ItemEditor extends React.Component<Props> {
                                             legacyPerseusLint:
                                                 this.getSaveWarnings() ?? [],
                                         })}
-                                        a11yScanningEnabled={a11yEnabled}
+                                        a11yScanningEnabled={a11yScanningEnabled}
                                         highlightPreviewIds={
                                             highlightPreviewIds
                                         }

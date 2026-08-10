@@ -99,7 +99,7 @@ type State = {
     widgetsAreOpen: boolean;
     issues: Issue[];
     axeCoreIssues: A11yIssue[];
-    showAxeCoreIssues: boolean;
+    a11yScanningEnabled: boolean;
     /** Active "Show Me" highlights, keyed by issue id. */
     highlights: Record<string, string>;
 };
@@ -129,7 +129,7 @@ class EditorPage extends React.Component<Props, State> {
             widgetsAreOpen: this.props.widgetsAreOpen ?? true,
             issues: [],
             axeCoreIssues: [],
-            showAxeCoreIssues: false,
+            a11yScanningEnabled: false,
             highlights: {},
         };
     }
@@ -208,8 +208,8 @@ class EditorPage extends React.Component<Props, State> {
         });
     };
 
-    setA11yEnabled = (enabled: boolean) => {
-        this.setState({showAxeCoreIssues: enabled});
+    setA11yScanningEnabled = (enabled: boolean) => {
+        this.setState({a11yScanningEnabled: enabled});
     };
 
     /**
@@ -364,8 +364,8 @@ class EditorPage extends React.Component<Props, State> {
                     <A11yContext.Provider
                         value={createA11yContextValue({
                             setIssueHighlight: this.setIssueHighlight,
-                            a11yEnabled: this.state.showAxeCoreIssues,
-                            setA11yEnabled: this.setA11yEnabled,
+                            a11yScanningEnabled: this.state.a11yScanningEnabled,
+                            setA11yScanningEnabled: this.setA11yScanningEnabled,
                             highlightPreviewIds: Object.values(
                                 this.state.highlights,
                             ),

@@ -73,7 +73,7 @@ const IssuesPanel = (props: IssuesPanelProps) => {
     const context = useContext(A11yContext);
     const [showPanel, setShowPanel] = useState(false);
 
-    const axeCoreIssues = context?.a11yEnabled ? context.axeCoreIssues : [];
+    const axeCoreIssues = context?.a11yScanningEnabled ? context.axeCoreIssues : [];
     const allIssues: Issue[] = [...issues, ...axeCoreIssues];
 
     const hasWarnings = allIssues.length > 0;
@@ -135,9 +135,9 @@ const IssuesPanel = (props: IssuesPanelProps) => {
                         {allIssues.length === 0 && <div>No issues found</div>}
                         <LabeledSwitch
                             label="Include axe-core scan"
-                            checked={context?.a11yEnabled ?? false}
+                            checked={context?.a11yScanningEnabled ?? false}
                             onChange={(enabled) => {
-                                context?.setA11yEnabled(enabled);
+                                context?.setA11yScanningEnabled(enabled);
                             }}
                             style={{marginBlockStart: "1rem"}}
                         />

@@ -136,12 +136,12 @@ describe("IssuesPanel", () => {
         expect(cta).toBeInTheDocument();
     });
 
-    it("includes A11yContext's axeCoreIssues in the count when a11yEnabled", () => {
+    it("includes A11yContext's axeCoreIssues in the count when scanning is enabled", () => {
         // Arrange, Act
         render(
             <A11yContext.Provider
                 value={createA11yContextValue({
-                    a11yEnabled: true,
+                    a11yScanningEnabled: true,
                     axeCoreIssues: [makeA11yIssue("violation-color-contrast")],
                 })}
             >
@@ -158,7 +158,7 @@ describe("IssuesPanel", () => {
         render(
             <A11yContext.Provider
                 value={createA11yContextValue({
-                    a11yEnabled: false,
+                    a11yScanningEnabled: false,
                     axeCoreIssues: [makeA11yIssue("violation-color-contrast")],
                 })}
             >
@@ -170,11 +170,11 @@ describe("IssuesPanel", () => {
         expect(screen.getByText("1 issue")).toBeInTheDocument();
     });
 
-    it("reflects A11yContext's a11yEnabled in the scan toggle", async () => {
+    it("reflects A11yContext's a11yScanningEnabled in the scan toggle", async () => {
         // Arrange
         render(
             <A11yContext.Provider
-                value={createA11yContextValue({a11yEnabled: true})}
+                value={createA11yContextValue({a11yScanningEnabled: true})}
             >
                 <IssuesPanel issues={[]} />
             </A11yContext.Provider>,
@@ -192,7 +192,7 @@ describe("IssuesPanel", () => {
         render(
             <A11yContext.Provider
                 value={createA11yContextValue({
-                    a11yEnabled: true,
+                    a11yScanningEnabled: true,
                     axeCoreIssues: [makeA11yIssue("violation-color-contrast")],
                 })}
             >
@@ -217,7 +217,7 @@ describe("IssuesPanel", () => {
         };
         render(
             <A11yContext.Provider
-                value={createA11yContextValue({a11yEnabled: true})}
+                value={createA11yContextValue({a11yScanningEnabled: true})}
             >
                 <IssuesPanel issues={[linterIssue]} />
             </A11yContext.Provider>,
@@ -235,14 +235,14 @@ describe("IssuesPanel", () => {
         ).toBeInTheDocument();
     });
 
-    it("calls A11yContext's setA11yEnabled when the scan toggle is clicked", async () => {
+    it("calls A11yContext's setA11yScanningEnabled when the scan toggle is clicked", async () => {
         // Arrange
-        const setA11yEnabled = jest.fn();
+        const setA11yScanningEnabled = jest.fn();
         render(
             <A11yContext.Provider
                 value={createA11yContextValue({
-                    a11yEnabled: false,
-                    setA11yEnabled,
+                    a11yScanningEnabled: false,
+                    setA11yScanningEnabled,
                 })}
             >
                 <IssuesPanel issues={[]} />
@@ -256,7 +256,7 @@ describe("IssuesPanel", () => {
         );
 
         // Assert
-        expect(setA11yEnabled).toHaveBeenCalledWith(true);
+        expect(setA11yScanningEnabled).toHaveBeenCalledWith(true);
     });
 });
 

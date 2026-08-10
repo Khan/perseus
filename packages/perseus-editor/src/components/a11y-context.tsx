@@ -7,9 +7,9 @@ export type A11yContextValue = {
     /** Activate highlight for an issue (null clears it). */
     setIssueHighlight: (issueId: string, previewId: string | null) => void;
     /** Whether the preview iframe's axe-core scan is enabled. */
-    a11yEnabled: boolean;
+    a11yScanningEnabled: boolean;
     /** Enables/disables the preview iframe's axe-core scan. */
-    setA11yEnabled: (enabled: boolean) => void;
+    setA11yScanningEnabled: (enabled: boolean) => void;
     /** previewIds to highlight in the preview iframe, unioned across every
      * active "Show Me" toggle. */
     highlightPreviewIds: string[];
@@ -28,8 +28,8 @@ export function createA11yContextValue(
 ): A11yContextValue {
     return {
         setIssueHighlight: () => {},
-        a11yEnabled: false,
-        setA11yEnabled: () => {},
+        a11yScanningEnabled: false,
+        setA11yScanningEnabled: () => {},
         highlightPreviewIds: [],
         onA11yReport: () => {},
         axeCoreIssues: [],
