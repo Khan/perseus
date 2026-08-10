@@ -423,6 +423,7 @@ describe("usePreviewPresenter", () => {
                             type: "iframe-init",
                             content: questionContent,
                             a11yScanningEnabled: true,
+                            contentVersion: 1,
                         },
                         source: mockParentWindow,
                     }),
@@ -444,6 +445,7 @@ describe("usePreviewPresenter", () => {
                             type: "iframe-init",
                             content: null,
                             a11yScanningEnabled: false,
+                            contentVersion: 0,
                         },
                         source: mockParentWindow,
                     }),
@@ -492,13 +494,14 @@ describe("usePreviewPresenter", () => {
             );
         };
 
-        const sendContent = (content: PreviewContent) => {
+        const sendContent = (content: PreviewContent, contentVersion = 1) => {
             window.dispatchEvent(
                 new MessageEvent("message", {
                     data: {
                         source: PREVIEW_MESSAGE_SOURCE,
                         type: "content-data",
                         content,
+                        contentVersion,
                     },
                     source: mockParentWindow,
                 }),
@@ -1186,8 +1189,8 @@ describe("usePreviewPresenter", () => {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "content-data",
-
                             content,
+                            contentVersion: 1,
                         },
                         source: mockParentWindow,
                     }),
@@ -1252,14 +1255,14 @@ describe("usePreviewPresenter", () => {
 
             // Send all updates in quick succession
             act(() => {
-                contents.forEach((content) => {
+                contents.forEach((content, index) => {
                     window.dispatchEvent(
                         new MessageEvent("message", {
                             data: {
                                 source: PREVIEW_MESSAGE_SOURCE,
                                 type: "content-data",
-
                                 content,
+                                contentVersion: index + 1,
                             },
                             source: mockParentWindow,
                         }),
