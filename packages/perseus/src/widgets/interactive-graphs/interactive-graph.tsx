@@ -59,8 +59,8 @@ class InteractiveGraph extends React.Component<Props> {
         // alongside the other props.
         const {userInput, options, ...rest} = this.props;
         return {
-            ...rest,
             ...options,
+            ...rest,
             graph: userInput,
         };
     }
