@@ -31,6 +31,7 @@ export const mapAxeResults = (
         const instanceId = `${prefix}-${result.id}`;
 
         issues.push({
+            source: "a11y",
             id: result.id,
             description: isUserFixable ? "" : assistanceNeededMessage,
             instanceId,

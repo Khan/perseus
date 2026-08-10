@@ -14,23 +14,33 @@ import ToggleableCaret from "./toggleable-caret";
 
 export type IssueImpact = "low" | "medium" | "high";
 
-/** Fields shared by all issue types. */
-interface BaseIssue {
+/**
+ * A problem to show the author, from the editor-side linter or the preview's
+ * axe-core scanner.
+ */
+export interface Issue {
     /**
-     * Names the problem (for example, this may be the axe-core rule id or a
-     * linter rule name). Shown to the author and used when a fix is offered,
-     * so several issues can share one — nine images missing alt text are nine
-     * `image-alt`s.
+     * The problem identifier (name). This `id` is _not_ guaranteed to be
+     * unique and is often the name of the rule that generated this issue (for
+     * example, this may be the axe-core rule id or a linter rule name). Shown
+     * to the author and used when a fix is offered, so several issues can
+     * share one — nine images missing alt text are nine `image-alt`s.
      */
     id: string;
 
     /**
-     * Distinguishes this issue from every other issue in the same list. Used
-     * when a unique value is needed (such as a React key or by the preview to
-     * look up what to highlight). Optional because issues supplied by the
-     * host may not have one; prefer `getIssueKey` over reading it directly.
+     * The unique issue identifier. Distinguishes this issue from every other
+     * issue in the same list. Optional because some issue sources may not have
+     * one naturally; prefer `getIssueKey` over reading it directly.
      */
     instanceId?: string;
+
+    /**
+     * Where this issue came from. Usually unset — used only when the origin
+     * (source) tells you the issue can do something the others can't. See
+     * {@link A11yIssue}.
+     */
+    source?: "a11y";
 
     description: string;
     helpUrl: string;
@@ -40,17 +50,10 @@ interface BaseIssue {
 }
 
 /**
- * An issue surfaced by the axe-core accessibility scanner.
+ * An issue the preview's axe-core scanner found, and can therefore highlight —
+ * it always has the `instanceId` the element map is keyed by.
  */
-export type A11yIssue = BaseIssue;
-
-/**
- * An issue surfaced by the editor-side linter (tex, widget, and content-lint
- * rules).
- */
-export type LinterIssue = BaseIssue;
-
-export type Issue = A11yIssue | LinterIssue;
+export type A11yIssue = Issue & {source: "a11y"; instanceId: string};
 
 /**
  * A unique identifier for an issue, suitable for use as a React key or a

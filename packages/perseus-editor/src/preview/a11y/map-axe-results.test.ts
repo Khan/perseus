@@ -61,6 +61,7 @@ describe("mapAxeResults", () => {
 
         expect(issues).toEqual([
             {
+                source: "a11y",
                 id: "color-contrast",
                 description: assistanceNeededMessage,
                 helpUrl: "https://help/contrast",

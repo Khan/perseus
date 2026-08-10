@@ -84,7 +84,9 @@ const IssueDetails = ({issue}: IssueProps) => {
             <span style={messageStyling}>{issue.message}</span>
             <ShowMe
                 issueId={getIssueKey(issue)}
-                previewId={issue.instanceId}
+                previewId={
+                    issue.source === "a11y" ? issue.instanceId : undefined
+                }
             />
             <IssueCta issue={issue} />
         </PerseusEditorAccordion>
