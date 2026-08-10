@@ -20,9 +20,6 @@ const {TextInput} = components;
 
 type Props = GradedGroupDefaultWidgetOptions & {
     apiOptions?: APIOptionsWithDefaults;
-    // Passed by GradedGroupSetEditor but not read here; this component always
-    // enables widgets on the editors it renders.
-    widgetEnabled?: boolean;
 } & Changeable.ChangeableProps;
 
 class GradedGroupEditor extends React.Component<Props> {
