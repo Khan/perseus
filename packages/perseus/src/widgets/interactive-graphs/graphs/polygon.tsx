@@ -43,7 +43,7 @@ import type {GraphConfig} from "../reducer/use-graph-config";
 import type {
     Dispatch,
     InteractiveGraphElementSuite,
-    InteractiveGraphProps,
+    InteractiveGraphOptions,
     MafsGraphProps,
     PolygonGraphState,
     SnapTo,
@@ -58,7 +58,7 @@ export function renderPolygonGraph(
     state: PolygonGraphState,
     dispatch: Dispatch,
     i18n: I18nContextType,
-    markings: InteractiveGraphProps["markings"],
+    markings: InteractiveGraphOptions["markings"],
 ): InteractiveGraphElementSuite {
     return {
         graph: <PolygonGraph graphState={state} dispatch={dispatch} />,

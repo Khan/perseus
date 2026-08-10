@@ -520,7 +520,7 @@ review and commit the changes.
 
 - [x] Migrate `label-image` to `WidgetPropsV2` (delete `satisfies PropsFor`
       assertion).
-- [ ] Migrate `interactive-graph` to `WidgetPropsV2` (delete `satisfies PropsFor`
+- [x] Migrate `interactive-graph` to `WidgetPropsV2` (delete `satisfies PropsFor`
       assertion and update `interactive-graph-editor` preview; subtype lookup already
       handled by scaffolding).
 - [ ] Migrate `group` to `WidgetPropsV2` (renders a nested `Renderer`).

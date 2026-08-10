@@ -64,6 +64,7 @@ import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import type {
     InteractiveGraphState,
     InteractiveGraphProps,
+    InteractiveGraphOptions,
     PointGraphState,
     PolygonGraphState,
     InteractiveGraphElementSuite,
@@ -80,20 +81,20 @@ const GRAPH_LEFT_MARGIN = 20;
 
 export type MafsGraphProps = {
     box: [number, number];
-    backgroundImage?: InteractiveGraphProps["backgroundImage"];
-    lockedFigures: InteractiveGraphProps["lockedFigures"];
-    step: InteractiveGraphProps["step"];
+    backgroundImage?: InteractiveGraphOptions["backgroundImage"];
+    lockedFigures: InteractiveGraphOptions["lockedFigures"];
+    step: InteractiveGraphOptions["step"];
     gridStep: [x: number, y: number];
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
-    markings: InteractiveGraphProps["markings"];
-    showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
+    markings: InteractiveGraphOptions["markings"];
+    showTooltips: Required<InteractiveGraphOptions["showTooltips"]>;
     showProtractor: boolean;
     labels: ReadonlyArray<string>;
-    labelLocation?: InteractiveGraphProps["labelLocation"];
-    showAxisArrows: InteractiveGraphProps["showAxisArrows"];
-    showAxisTicks: InteractiveGraphProps["showAxisTicks"];
-    fullGraphAriaLabel?: InteractiveGraphProps["fullGraphAriaLabel"];
-    fullGraphAriaDescription?: InteractiveGraphProps["fullGraphAriaDescription"];
+    labelLocation?: InteractiveGraphOptions["labelLocation"];
+    showAxisArrows: InteractiveGraphOptions["showAxisArrows"];
+    showAxisTicks: InteractiveGraphOptions["showAxisTicks"];
+    fullGraphAriaLabel?: InteractiveGraphOptions["fullGraphAriaLabel"];
+    fullGraphAriaDescription?: InteractiveGraphOptions["fullGraphAriaDescription"];
     state: InteractiveGraphState;
     dispatch: React.Dispatch<InteractiveGraphAction>;
     readOnly: boolean;
@@ -829,7 +830,7 @@ const renderGraphElements = (props: {
     // Used to determine if the graph description should specify the
     // coordinates of the graph elements. We don't want to mention the
     // coordinates if the graph is not on a coordinate plane (no axes).
-    markings: InteractiveGraphProps["markings"];
+    markings: InteractiveGraphOptions["markings"];
 }): InteractiveGraphElementSuite => {
     const {state, dispatch, i18n, markings} = props;
     const {type} = state;
