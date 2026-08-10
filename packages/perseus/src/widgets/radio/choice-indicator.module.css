@@ -11,7 +11,8 @@
     font-weight: var(--wb-font-weight-bold);
     height: var(--perseus-multiple-choice-indicator-size);
     line-height: var(--wb-font-heading-lineHeight-small);
-    outline: 0 solid var(--wb-semanticColor-core-background-instructive-default);
+    outline: var(--wb-border-width-none) solid
+        var(--wb-semanticColor-core-background-instructive-default);
     outline-offset: 0;
     padding: 0;
     /* Along with the `transform` property applied to the <fieldset> ancestor,
@@ -52,7 +53,7 @@
     background-color: var(
         --wb-semanticColor-core-background-instructive-default
     );
-    border-width: 0;
+    border-width: var(--wb-border-width-none);
     color: var(--wb-semanticColor-core-foreground-knockout-default);
 }
 

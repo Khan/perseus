@@ -199,7 +199,8 @@
 }
 
 .choice table {
-    border: 1px solid var(--wb-semanticColor-core-border-neutral-subtle);
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
 }
 
 /*************************

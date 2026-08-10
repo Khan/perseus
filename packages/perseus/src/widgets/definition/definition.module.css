@@ -8,7 +8,7 @@
 :active > .definition {
     /* Note(TB): Probably don't need borderBottom styling as Clickable handles that.
        If removed, also remove the Focused story. */
-    border-bottom: 2px solid
+    border-bottom: var(--wb-border-width-medium) solid
         var(--wb-semanticColor-core-border-instructive-default);
 }
 

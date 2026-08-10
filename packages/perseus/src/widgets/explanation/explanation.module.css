@@ -11,7 +11,8 @@
 }
 
 .content {
-    border-left: 0px solid var(--wb-semanticColor-core-border-neutral-subtle);
+    border-left: var(--wb-border-width-none) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
     display: inline-grid;
     position: relative;
 }
@@ -27,7 +28,9 @@
 }
 
 .content-expanded {
-    border-left-width: 5px;
+    /* 5px has no exact border-width token; border.width.thick (4px) is the
+       nearest available value. */
+    border-left-width: var(--wb-border-width-thick);
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
     /*
