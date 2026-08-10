@@ -47,7 +47,10 @@ class GradedGroupSetEditor extends React.Component<Props> {
     };
 
     renderGroups: () => React.ReactNode = () => {
-        return this.props.gradedGroups.map((group, i) => (
+        // `defaultProps` only fills in for `undefined`, so content with an
+        // explicit `gradedGroups: null` still reaches us as null.
+        const gradedGroups = this.props.gradedGroups ?? [];
+        return gradedGroups.map((group, i) => (
             <GradedGroupEditor
                 key={i}
                 ref={(el) => (this._editors[i] = el)}
@@ -57,8 +60,8 @@ class GradedGroupSetEditor extends React.Component<Props> {
                     // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
                     this.change(
                         "gradedGroups",
-                        setArrayItem(this.props.gradedGroups, i, {
-                            ...this.props.gradedGroups[i],
+                        setArrayItem(gradedGroups, i, {
+                            ...gradedGroups[i],
                             ...data,
                         }),
                     )
@@ -68,7 +71,7 @@ class GradedGroupSetEditor extends React.Component<Props> {
     };
 
     addGroup: () => void = () => {
-        const groups = this.props.gradedGroups;
+        const groups = this.props.gradedGroups ?? [];
         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
         this.change(
             "gradedGroups",

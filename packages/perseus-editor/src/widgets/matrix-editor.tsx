@@ -71,8 +71,13 @@ class MatrixEditor extends React.Component<Props> {
             // The widget renders learner input, which is string[][], while the
             // editor stores the correct answers as number[][]. We show the
             // answers in the preview, so they have to be stringified.
+            // Empty cells come back from JSON as null (a sparse row like
+            // [, , 5] serializes to [null, null, 5]), and those need to stay
+            // empty rather than becoming the text "null".
             userInput: {
-                answers: this.props.answers.map((row) => row.map(String)),
+                answers: this.props.answers.map((row) =>
+                    row.map((cell) => (cell == null ? "" : String(cell))),
+                ),
             },
             handleUserInput: (userInput) => {
                 this.change({answers: userInput.answers});
