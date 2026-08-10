@@ -27,25 +27,23 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const defaultArgs = {
-    options: [generateCard("$\\sqrt{5}$"), generateCard("2.5")],
-} satisfies Partial<PerseusOrdererWidgetOptions>;
-
 export const Default: Story = {
     decorators: [ordererRendererDecorator],
     args: {
         options: [
-            generateCard("$\\sqrt{5}$"),
-            generateCard("2.5"),
-            generateCard("1"),
+            generateCard("First"),
+            generateCard("Second"),
+            generateCard("Third"),
         ],
     } satisfies Partial<PerseusOrdererWidgetOptions>,
 };
 
 export const RightToLeft: Story = {
     decorators: [ordererRendererDecorator, rtlDecorator],
-    args: defaultArgs,
+    args: {
+        options: [generateCard("First"), generateCard("Second")],
+    },
     parameters: {
-        initialUserInput: {"orderer 1": {current: ["$\\sqrt{5}$", "2.5"]}},
+        initialUserInput: {"orderer 1": {current: ["First", "Second"]}},
     },
 };
