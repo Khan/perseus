@@ -567,6 +567,10 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
             isTickCtrl: props.options.isTickCtrl,
         };
 
+        // TODO(benchristel): CalculatedProps seems pretty weird. I think
+        //  `tickStep` should just be a const at the top level of the
+        //  component. Then we wouldn't need to pass these CalculatedProps
+        //  around.
         const calculatedProps: CalculatedProps = {
             ...props,
             tickStep: width / props.userInput.numDivisions,
