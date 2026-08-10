@@ -1,27 +1,17 @@
 .draggy-boxy-thing .draggable-box,
 .draggy-boxy-thing .cards-area {
     /* This is the overall area where cards are dragged to*/
-    background: var(
-        --wb-semanticColor-core-background-base-default
-    ); /* from caitlyn's comment */
+    background: var(--wb-semanticColor-core-background-base-default);
     border: var(--wb-border-width-thin) solid
-        var(--wb-semanticColor-core-border-neutral-subtle); /* from caitlyn's comment */
-    border-radius: var(
-        --wb-border-radius-radius_040
-    ); /* from caitlyn's comment */
-    /*box-shadow: 0 1px 2px var(--wb-semanticColor-core-border-neutral-subtle);*/ /* from caitlyn's comment */
+        var(--wb-semanticColor-core-border-neutral-subtle);
+    border-radius: var(--wb-border-radius-radius_040);
 }
 .draggy-boxy-thing .card {
     /* Cards being dragged */
-    background-color: var(
-        --wb-semanticColor-core-background-base-default
-    ); /* from caitlyn's comment */
+    background-color: var(--wb-semanticColor-core-background-base-default);
     border: var(--wb-border-width-thin) solid
-        var(--wb-semanticColor-core-border-neutral-subtle); /* from caitlyn's comment */
-    /*border-bottom-color: var(--wb-semanticColor-core-border-neutral-default);*/
-    border-radius: var(
-        --wb-border-radius-radius_080
-    ); /* from caitlyn's comment */
+        var(--wb-semanticColor-core-border-neutral-subtle);
+    border-radius: var(--wb-border-radius-radius_080);
     cursor: pointer;
     touch-action: none;
     box-shadow: var(--wb-boxShadow-low);
