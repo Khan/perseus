@@ -380,6 +380,8 @@ export class GradedGroup
                                     initializeUserInput,
                                 }) => {
                                     // we did a check above to make sure hints exists
+                                    // TODO(benchristel): extract a renderHint
+                                    //  function; then we can remove this cast.
                                     // eslint-disable-next-line no-restricted-syntax
                                     const {content, widgets, images} = this
                                         .props.options.hint as PerseusRenderer;

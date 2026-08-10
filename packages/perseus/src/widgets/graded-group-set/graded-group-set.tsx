@@ -192,7 +192,7 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
         const handleNextQuestion =
             this.state.currentGroup < numGroups - 1
                 ? this.handleNextQuestion
-                : null;
+                : undefined;
 
         return (
             <div className={css(styles.container)}>
@@ -224,7 +224,7 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
                         title: null,
                     }}
                     inGradedGroupSet={true}
-                    onNextQuestion={handleNextQuestion ?? undefined}
+                    onNextQuestion={handleNextQuestion}
                     linterContext={this.props.linterContext}
                 />
             </div>
