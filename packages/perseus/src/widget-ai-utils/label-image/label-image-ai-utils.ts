@@ -99,7 +99,7 @@ export type LabelImagePromptJSON = {
 export const getPromptJSON = (
     widgetData: React.ComponentProps<typeof labelImage.widget>,
 ): LabelImagePromptJSON => {
-    const propMarkers = widgetData.markers.map((marker) => {
+    const propMarkers = widgetData.options.markers.map((marker) => {
         const userInputMarker: UserInputMarker = {
             label: marker.label,
         };
@@ -119,9 +119,9 @@ export const getPromptJSON = (
     return {
         type: "label-image",
         options: {
-            choices: widgetData.choices,
-            imageUrl: widgetData.imageUrl,
-            imageAlt: widgetData.imageAlt,
+            choices: widgetData.options.choices,
+            imageUrl: widgetData.options.imageUrl,
+            imageAlt: widgetData.options.imageAlt,
             markers: propMarkers,
         },
         userInput: {

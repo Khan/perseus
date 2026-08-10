@@ -518,7 +518,7 @@ review and commit the changes.
 Migrate these **one at a time**, stopping after each step for the user to
 review and commit the changes.
 
-- [ ] Migrate `label-image` to `WidgetPropsV2` (delete `satisfies PropsFor`
+- [x] Migrate `label-image` to `WidgetPropsV2` (delete `satisfies PropsFor`
       assertion).
 - [ ] Migrate `interactive-graph` to `WidgetPropsV2` (delete `satisfies PropsFor`
       assertion and update `interactive-graph-editor` preview; subtype lookup already
