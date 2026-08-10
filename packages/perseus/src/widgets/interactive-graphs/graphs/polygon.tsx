@@ -43,12 +43,14 @@ import type {GraphConfig} from "../reducer/use-graph-config";
 import type {
     Dispatch,
     InteractiveGraphElementSuite,
-    InteractiveGraphProps,
     MafsGraphProps,
     PolygonGraphState,
     SnapTo,
 } from "../types";
-import type {CollinearTuple} from "@khanacademy/perseus-core";
+import type {
+    CollinearTuple,
+    PerseusInteractiveGraphWidgetOptions,
+} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
 const {clockwise} = geometry;
@@ -58,7 +60,7 @@ export function renderPolygonGraph(
     state: PolygonGraphState,
     dispatch: Dispatch,
     i18n: I18nContextType,
-    markings: InteractiveGraphProps["markings"],
+    markings: PerseusInteractiveGraphWidgetOptions["markings"],
 ): InteractiveGraphElementSuite {
     return {
         graph: <PolygonGraph graphState={state} dispatch={dispatch} />,

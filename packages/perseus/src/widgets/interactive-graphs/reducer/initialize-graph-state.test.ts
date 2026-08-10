@@ -2,10 +2,10 @@ import invariant from "tiny-invariant";
 
 import {initializeGraphState} from "./initialize-graph-state";
 
-import type {InteractiveGraphProps} from "../types";
+import type {PerseusInteractiveGraphWidgetOptions} from "@khanacademy/perseus-core";
 
 type BaseGraphData = {
-    range: InteractiveGraphProps["range"];
+    range: PerseusInteractiveGraphWidgetOptions["range"];
     step: [x: number, y: number];
     snapStep: [x: number, y: number];
 };

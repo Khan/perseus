@@ -237,9 +237,9 @@ export const getPromptJSON = (
         type: "interactive-graph",
         options: {
             graph: getGraphOptionsForProps(props),
-            backgroundImageUrl: props.backgroundImage?.url,
-            range: props.range,
-            labels: props.labels,
+            backgroundImageUrl: props.options.backgroundImage?.url,
+            range: props.options.range,
+            labels: props.options.labels,
         },
         userInput: getUserInput(userInput),
     };

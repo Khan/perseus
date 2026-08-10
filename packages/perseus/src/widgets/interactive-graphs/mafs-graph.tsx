@@ -71,6 +71,7 @@ import type {
 } from "./types";
 import type {I18nContextType} from "../../components/i18n-context";
 import type {PerseusStrings} from "../../strings";
+import type {PerseusInteractiveGraphWidgetOptions} from "@khanacademy/perseus-core";
 import type {vec} from "mafs";
 
 import "mafs/core.css";
@@ -80,20 +81,22 @@ const GRAPH_LEFT_MARGIN = 20;
 
 export type MafsGraphProps = {
     box: [number, number];
-    backgroundImage?: InteractiveGraphProps["backgroundImage"];
-    lockedFigures: InteractiveGraphProps["lockedFigures"];
-    step: InteractiveGraphProps["step"];
+    backgroundImage?: PerseusInteractiveGraphWidgetOptions["backgroundImage"];
+    lockedFigures: PerseusInteractiveGraphWidgetOptions["lockedFigures"];
+    step: PerseusInteractiveGraphWidgetOptions["step"];
     gridStep: [x: number, y: number];
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
-    markings: InteractiveGraphProps["markings"];
-    showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
+    markings: PerseusInteractiveGraphWidgetOptions["markings"];
+    showTooltips: Required<
+        PerseusInteractiveGraphWidgetOptions["showTooltips"]
+    >;
     showProtractor: boolean;
     labels: ReadonlyArray<string>;
-    labelLocation?: InteractiveGraphProps["labelLocation"];
-    showAxisArrows: InteractiveGraphProps["showAxisArrows"];
-    showAxisTicks: InteractiveGraphProps["showAxisTicks"];
-    fullGraphAriaLabel?: InteractiveGraphProps["fullGraphAriaLabel"];
-    fullGraphAriaDescription?: InteractiveGraphProps["fullGraphAriaDescription"];
+    labelLocation?: PerseusInteractiveGraphWidgetOptions["labelLocation"];
+    showAxisArrows: PerseusInteractiveGraphWidgetOptions["showAxisArrows"];
+    showAxisTicks: PerseusInteractiveGraphWidgetOptions["showAxisTicks"];
+    fullGraphAriaLabel?: PerseusInteractiveGraphWidgetOptions["fullGraphAriaLabel"];
+    fullGraphAriaDescription?: PerseusInteractiveGraphWidgetOptions["fullGraphAriaDescription"];
     state: InteractiveGraphState;
     dispatch: React.Dispatch<InteractiveGraphAction>;
     readOnly: boolean;
@@ -829,7 +832,7 @@ const renderGraphElements = (props: {
     // Used to determine if the graph description should specify the
     // coordinates of the graph elements. We don't want to mention the
     // coordinates if the graph is not on a coordinate plane (no axes).
-    markings: InteractiveGraphProps["markings"];
+    markings: PerseusInteractiveGraphWidgetOptions["markings"];
 }): InteractiveGraphElementSuite => {
     const {state, dispatch, i18n, markings} = props;
     const {type} = state;
