@@ -173,10 +173,8 @@ export function usePreviewPresenter(
         a11yScanningEnabledRef.current = a11yScanningEnabled;
     }, [a11yScanningEnabled]);
 
-    // Latest contentVersion, mirrored into a ref for the two readers that
-    // can't see live state: the message listener (registered once on mount,
-    // gating highlight commands) and the memoized `startScan`, which has to
-    // stamp its report with the version it scanned.
+    // Latest contentVersion, mirrored into a ref so readers holding an older
+    // closure don't act on a stale value.
     const contentVersionRef = React.useRef(contentVersion);
     React.useEffect(() => {
         contentVersionRef.current = contentVersion;
