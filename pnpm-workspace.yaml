@@ -62,7 +62,7 @@ catalogs:
         underscore: ^1.4.4
         "@phosphor-icons/core": ^2.0.2
         "@popperjs/core": ^2.10.2
-        "@khanacademy/mathjax-renderer": ^3.0.0
+        "@khanacademy/mathjax-renderer": ^3.1.4
         "@khanacademy/wonder-blocks-accordion": ^3.1.68
         "@khanacademy/wonder-blocks-announcer": ^1.1.1
         "@khanacademy/wonder-blocks-badge": ^1.1.20
@@ -70,7 +70,7 @@ catalogs:
         "@khanacademy/wonder-blocks-button": ^11.7.6
         "@khanacademy/wonder-blocks-clickable": ^8.2.8
         "@khanacademy/wonder-blocks-core": ^12.4.4
-        "@khanacademy/wonder-blocks-data": ^15.0.2
+        "@khanacademy/wonder-blocks-data": ^15.0.3
         "@khanacademy/wonder-blocks-dropdown": ^10.11.7
         "@khanacademy/wonder-blocks-form": ^7.6.9
         "@khanacademy/wonder-blocks-icon-button": ^11.4.4
@@ -104,7 +104,7 @@ catalogs:
         vite: 5.4.0
         "@phosphor-icons/core": 2.0.2
         "@popperjs/core": 2.10.2
-        "@khanacademy/mathjax-renderer": 3.0.0
+        "@khanacademy/mathjax-renderer": 3.1.4
         "@khanacademy/wonder-blocks-accordion": 3.1.68
         "@khanacademy/wonder-blocks-announcer": 1.1.1
         "@khanacademy/wonder-blocks-badge": 1.1.20
@@ -112,7 +112,7 @@ catalogs:
         "@khanacademy/wonder-blocks-button": 11.7.6
         "@khanacademy/wonder-blocks-clickable": 8.2.8
         "@khanacademy/wonder-blocks-core": 12.4.4
-        "@khanacademy/wonder-blocks-data": 15.0.2
+        "@khanacademy/wonder-blocks-data": 15.0.3
         "@khanacademy/wonder-blocks-dropdown": 10.11.7
         "@khanacademy/wonder-blocks-form": 7.6.9
         "@khanacademy/wonder-blocks-icon-button": 11.4.4

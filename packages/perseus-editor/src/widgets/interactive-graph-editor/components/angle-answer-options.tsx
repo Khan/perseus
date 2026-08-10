@@ -1,10 +1,10 @@
-import {components} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import invariant from "tiny-invariant";
 
+import InfoTip from "../../../components/info-tip";
 import {TypedSingleSelect} from "../../../components/typed-single-select";
 import styles from "../interactive-graph-editor.module.css";
 import LabeledRow from "../locked-figures/labeled-row";
@@ -14,8 +14,6 @@ import type {
     PerseusGraphType,
     PerseusGraphTypeAngle,
 } from "@khanacademy/perseus-core";
-
-const {InfoTip} = components;
 
 interface Props {
     correct: PerseusGraphTypeAngle;

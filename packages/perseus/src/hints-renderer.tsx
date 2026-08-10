@@ -1,4 +1,7 @@
 import * as PerseusLinter from "@khanacademy/perseus-linter";
+import Button from "@khanacademy/wonder-blocks-button";
+import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
+import plus from "@phosphor-icons/core/regular/plus.svg";
 import {StyleSheet, css} from "aphrodite";
 import classnames from "classnames";
 import * as React from "react";
@@ -8,13 +11,7 @@ import _ from "underscore";
 import {PerseusI18nContext} from "./components/i18n-context";
 import HintRenderer from "./hint-renderer";
 import {ApiOptions} from "./perseus-api";
-import {
-    baseUnitPx,
-    hintBorderWidth,
-    kaGreen,
-    gray85,
-    gray17,
-} from "./styles/constants";
+import {hintBorderWidth, hintPaddingInlineStart} from "./styles/constants";
 import mediaQueries from "./styles/media-queries";
 import sharedStyles from "./styles/shared";
 import Util from "./util";
@@ -239,14 +236,10 @@ class HintsRenderer extends React.Component<Props, State> {
                 )}
                 {hints}
                 {showGetAnotherHint && (
-                    <button
+                    <Button
                         rel="button"
-                        className={css(
-                            styles.linkButton,
-                            styles.getAnotherHintButton,
-                            apiOptions.isMobile &&
-                                styles.mobileHintStylesGetAnotherHintButton,
-                        )}
+                        kind="tertiary"
+                        startIcon={plus}
                         onClick={(evt) => {
                             evt.preventDefault();
                             evt.stopPropagation();
@@ -256,59 +249,20 @@ class HintsRenderer extends React.Component<Props, State> {
                             }
                         }}
                     >
-                        <span
-                            className={css(
-                                styles.plusText,
-                                apiOptions.isMobile &&
-                                    styles.mobileHintStylesPlusText,
-                            )}
-                        >
-                            +
-                        </span>
-                        <span className={css(styles.getAnotherHintText)}>
-                            {this.context.strings.getAnotherHint}{" "}
-                            {hintRatioCopy}
-                        </span>
-                    </button>
+                        {this.context.strings.getAnotherHint +
+                            " " +
+                            hintRatioCopy}
+                    </Button>
                 )}
             </div>
         );
     }
 }
 
-const hintIndentation = baseUnitPx + hintBorderWidth;
-
 const styles = StyleSheet.create({
-    // eslint-disable-next-line react-native/no-unused-styles
-    rendererMargins: {
-        marginTop: baseUnitPx,
-    },
-
-    linkButton: {
-        cursor: "pointer",
-        border: "none",
-        backgroundColor: "transparent",
-        fontSize: "100%",
-        fontFamily: "inherit",
-        fontWeight: "bold",
-        color: kaGreen,
-        padding: 0,
-        position: "relative",
-    },
-
-    plusText: {
-        fontSize: 20,
-        position: "absolute",
-        top: -3,
-        left: 0,
-    },
-    getAnotherHintText: {
-        marginLeft: 16,
-    },
-
     mobileHintStylesHintsRenderer: {
-        marginTop: 4 * baseUnitPx,
-        border: `solid ${gray85}`,
+        marginTop: sizing.size_640,
+        border: `solid ${semanticColor.core.border.neutral.subtle}`,
         borderWidth: "1px 0 0 0",
 
         position: "relative",
@@ -325,46 +279,19 @@ const styles = StyleSheet.create({
     },
 
     mobileHintStylesHintTitle: {
-        fontFamily: "inherit",
-        fontStyle: "normal",
         fontWeight: "bold",
-        color: gray17,
+        color: semanticColor.core.foreground.neutral.strong,
 
-        paddingTop: baseUnitPx,
-        paddingBottom: 1.5 * baseUnitPx,
+        paddingTop: sizing.size_160,
+        paddingBottom: sizing.size_240,
 
         [mediaQueries.lgOrSmaller]: {
             paddingLeft: 0,
         },
         [mediaQueries.smOrSmaller]: {
             // On phones, ensure that the button is aligned with the hint body
-            // content, which is inset at the standard `baseUnitPx`, plus an
-            // additional `hintBorderWidth`.
-            paddingLeft: hintIndentation,
-        },
-    },
-
-    getAnotherHintButton: {
-        marginTop: 1.5 * baseUnitPx,
-    },
-
-    mobileHintStylesGetAnotherHintButton: {
-        [mediaQueries.lgOrSmaller]: {
-            paddingLeft: 0,
-        },
-        [mediaQueries.smOrSmaller]: {
-            // As with the title, on phones, ensure that the button is aligned
-            // with the hint body content.
-            paddingLeft: hintIndentation,
-        },
-    },
-
-    mobileHintStylesPlusText: {
-        [mediaQueries.lgOrSmaller]: {
-            left: 0,
-        },
-        [mediaQueries.smOrSmaller]: {
-            left: hintIndentation,
+            // content.
+            paddingLeft: `calc(${hintPaddingInlineStart} + ${hintBorderWidth})`,
         },
     },
 });

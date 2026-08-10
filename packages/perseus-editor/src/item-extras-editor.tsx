@@ -1,14 +1,15 @@
-import {components} from "@khanacademy/perseus";
 import {
     ItemExtras,
     getDefaultAnswerArea,
     isFeatureOn,
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {Checkbox, Choice, RadioGroup} from "@khanacademy/wonder-blocks-form";
+import {sizing, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
+
+import InfoTip from "./components/info-tip";
 
 import type {APIOptions} from "@khanacademy/perseus";
 import type {
@@ -18,27 +19,21 @@ import type {
 
 const calculatorVariants: Array<{
     label: string;
-    tip: string;
     variant: CalculatorVariant;
 }> = [
     {
         label: "Scientific calculator",
-        tip: "Provides the student with a scientific calculator.",
         variant: "scientific",
     },
     {
         label: "Graphing calculator",
-        tip: "Provides the student with a graphing calculator.",
         variant: "graphing",
     },
     {
         label: "Four-function calculator",
-        tip: "Provides the student with a four-function calculator.",
         variant: "four_function",
     },
 ];
-
-const {InfoTip} = components;
 
 type Props = PerseusAnswerArea & {
     apiOptions?: APIOptions;
@@ -63,6 +58,17 @@ class ItemExtrasEditor extends React.Component<Props> {
         );
     }
 
+    handleVariantChange = (newVariant: string) => {
+        // Since RadioGroup gives us a string, we need to convert the string to
+        // avoid a type error
+        const selected = calculatorVariants.find(
+            ({variant}) => variant === newVariant,
+        );
+        if (selected) {
+            this.props.onChange({calculatorVariant: selected.variant});
+        }
+    };
+
     serialize(): PerseusAnswerArea {
         const data = {...ItemExtrasEditor.defaultProps};
         for (const key of ItemExtras) {
@@ -73,7 +79,7 @@ class ItemExtrasEditor extends React.Component<Props> {
     }
 
     render(): React.ReactNode {
-        const {editingDisabled} = this.props;
+        const {editingDisabled, calculatorVariant} = this.props;
         return (
             <div className="perseus-answer-editor">
                 <div className="perseus-answer-options">
@@ -93,25 +99,24 @@ class ItemExtrasEditor extends React.Component<Props> {
                     />
 
                     {isFeatureOn(this.props, "desmos-calculator") &&
-                        this.shouldShowCalculatorVariants() &&
-                        calculatorVariants.map((calcVariant) => (
-                            <ItemExtraCheckbox
-                                key={calcVariant.variant}
-                                label={calcVariant.label}
-                                disabled={editingDisabled}
-                                infoTip={calcVariant.tip}
-                                checked={
-                                    this.props.calculatorVariant ===
-                                    calcVariant.variant
-                                }
-                                onChange={() => {
-                                    this.props.onChange({
-                                        calculatorVariant: calcVariant.variant,
-                                    });
-                                }}
-                                indent
-                            />
-                        ))}
+                        calculatorVariant !== undefined && (
+                            <RadioGroup
+                                groupName="calculator-variant"
+                                selectedValue={calculatorVariant}
+                                onChange={this.handleVariantChange}
+                                style={styles.indented}
+                            >
+                                {calculatorVariants.map((calcVariant, _) => (
+                                    <Choice
+                                        key={calcVariant.variant}
+                                        value={calcVariant.variant}
+                                        label={calcVariant.label}
+                                        disabled={editingDisabled}
+                                        style={styles.calculatorChoice}
+                                    />
+                                ))}
+                            </RadioGroup>
+                        )}
 
                     <ItemExtraCheckbox
                         label="Show financial calculator"
@@ -243,6 +248,9 @@ const ItemExtraCheckbox = (props: {
 const styles = StyleSheet.create({
     indented: {
         marginInlineStart: spacing.large_24,
+    },
+    calculatorChoice: {
+        marginBlock: sizing.size_010,
     },
 });
 

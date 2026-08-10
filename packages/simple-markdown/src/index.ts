@@ -1787,6 +1787,7 @@ export type {
     OutputRules,
     Rules,
     ReactRules,
+    ASTNode,
     SingleASTNode,
 };
 

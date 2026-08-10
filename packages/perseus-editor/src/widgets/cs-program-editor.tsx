@@ -3,7 +3,6 @@
  */
 
 import {
-    components,
     Changeable,
     Dependencies,
     EditorJsonify,
@@ -14,15 +13,13 @@ import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import $ from "jquery";
 import PropTypes from "prop-types";
 import * as React from "react";
-import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
+import InfoTip from "../components/info-tip";
 
 import type {CSProgramDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 type ChangeFn = typeof Changeable.change;
-
-const {InfoTip} = components;
 
 const DEFAULT_WIDTH = 400;
 const DEFAULT_HEIGHT = 400;
@@ -44,10 +41,6 @@ class PairEditor extends React.Component<any> {
 
     change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
-    };
-
-    serialize = () => {
-        return EditorJsonify.serialize.call(this);
     };
 
     render(): React.ReactNode {
@@ -103,12 +96,8 @@ class PairsEditor extends React.Component<any> {
         this.change("pairs", pairs);
     };
 
-    serialize = () => {
-        return EditorJsonify.serialize.call(this);
-    };
-
     render(): React.ReactNode {
-        const editors = _.map(this.props.pairs, (pair, i) => {
+        const editors = this.props.pairs.map((pair, i) => {
             return (
                 <PairEditor
                     key={i}

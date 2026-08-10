@@ -149,7 +149,7 @@ abstract class Expr {
     // could be made more type-safe using overload signatures.
     recurse(method: string, ...passed: any[]): this {
         var args = this.args().map(function (arg) {
-            return _.isString(arg) || _.isNumber(arg)
+            return typeof arg === "string" || typeof arg === "number"
                 ? arg
                 : arg?.[method].apply(arg, passed);
         });
@@ -236,7 +236,7 @@ abstract class Expr {
             "(" +
             this.args()
                 .map(function (arg) {
-                    return _.isString(arg) || _.isNumber(arg)
+                    return typeof arg === "string" || typeof arg === "number"
                         ? arg
                         : arg?.repr();
                 })
@@ -687,7 +687,7 @@ abstract class Seq extends Expr {
     // if no new term is provided, the old one is simply removed
     replace(oldTerm: Expr | number, newTerm?: Expr | Expr[]) {
         const index =
-            oldTerm instanceof Expr ? _.indexOf(this.terms, oldTerm) : oldTerm;
+            oldTerm instanceof Expr ? this.terms.indexOf(oldTerm) : oldTerm;
 
         var newTerms: Expr[] = [];
         if (Array.isArray(newTerm)) {
@@ -1545,7 +1545,7 @@ export class Mul extends Seq {
                                   ).fold(),
                               );
 
-                    const index = _.indexOf(expr.terms, trigLog);
+                    const index = expr.terms.indexOf(trigLog);
                     if (index === 0) {
                         return newTrigLog;
                     } else {
@@ -1580,8 +1580,8 @@ export class Mul extends Seq {
                 // @ts-expect-error: Type 'Expr' is not assignable to type 'Num'.
                 _.every(numbers, posOrNeg)
             ) {
-                var firstNeg = _.indexOf(expr.terms, negNum);
-                var firstNum = _.indexOf(expr.terms, posNum);
+                var firstNeg = expr.terms.indexOf(negNum);
+                var firstNum = expr.terms.indexOf(posNum);
 
                 // e.g. -x*2 -> x*-2
                 if (firstNeg < firstNum) {
@@ -2420,7 +2420,7 @@ export class Trig extends Expr {
     };
 
     isEven() {
-        return _.contains(["cos", "sec"], this.type);
+        return ["cos", "sec"].includes(this.type);
     }
 
     isInverse() {
@@ -2428,7 +2428,7 @@ export class Trig extends Expr {
     }
 
     isBasic() {
-        return _.contains(["sin", "cos"], this.type);
+        return ["sin", "cos"].includes(this.type);
     }
 
     eval(vars: Vars = {}, options?: ParseOptions) {
@@ -2494,7 +2494,7 @@ export class Trig extends Expr {
             // e.g. tan(x) -> sin(x)/cos(x)
             // NOTE(kevinb): All non-inverse trig functions have an expand property.
             var expand = trig.functions[trig.type].expand!;
-            return _.bind(expand, trig)();
+            return expand.call(trig);
         } else {
             return trig;
         }
@@ -2688,7 +2688,7 @@ export class Eq extends Expr {
     normalize() {
         var eq = this.recurse("normalize");
 
-        if (_.contains([">", ">="], eq.type)) {
+        if ([">", ">="].includes(eq.type)) {
             // inequalities should have the smaller side on the left
             return new Eq(eq.right, eq.type.replace(">", "<"), eq.left);
         } else {
@@ -2813,7 +2813,7 @@ export class Eq extends Expr {
     }
 
     isEquality() {
-        return _.contains(["=", "<>"], this.type);
+        return ["=", "<>"].includes(this.type);
     }
 
     compare(other: Eq) {
@@ -2889,7 +2889,7 @@ export class Eq extends Expr {
         }
 
         var hasVar = (term: Expr) => {
-            return term.has(Var) && _.contains(term.getVars(), variable.symbol);
+            return term.has(Var) && term.getVars().includes(variable.symbol);
         };
 
         const termHasVar = hasVar(expr.terms[0]);

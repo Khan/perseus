@@ -1,11 +1,10 @@
 import {components} from "@khanacademy/perseus";
 import * as React from "react";
 
-import type {Changeable} from "@khanacademy/perseus";
-
 type Props = {
     value?: string;
-} & Changeable.ChangeableProps;
+    onChange: (value: string) => void;
+};
 
 const {ButtonGroup} = components;
 

@@ -1,5 +1,3 @@
-import _ from "underscore";
-
 import deepClone from "./deep-clone";
 
 import type {PerseusItem, PerseusRenderer} from "../data-schema";

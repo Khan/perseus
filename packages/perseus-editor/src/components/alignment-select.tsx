@@ -1,4 +1,3 @@
-import {components} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
@@ -6,13 +5,12 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {useId} from "react";
 
+import InfoTip from "./info-tip";
 import {TypedSingleSelect} from "./typed-single-select";
 import {alignmentInfoMap} from "./util";
 
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
-
-const {InfoTip} = components;
 
 interface Props {
     supportedAlignments: ReadonlyArray<Alignment>;

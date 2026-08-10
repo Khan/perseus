@@ -10,6 +10,7 @@ import ImagePreview from "../../../components/image-preview";
 import styles from "../image-editor.module.css";
 import {wbFieldStyles, wbFieldStylesWithDescription} from "../utils";
 
+import DarkModeToggle from "./dark-mode-toggle";
 import DecorativeToggle from "./decorative-toggle";
 import ImageScaleInput from "./image-scale-input";
 
@@ -36,6 +37,7 @@ export default function ImageSettings({
     const [altFieldWarning, setAltFieldWarning] = React.useState<string | null>(
         null,
     );
+    const [wbTheme, setWBTheme] = React.useState<string | undefined>(undefined);
 
     if (!backgroundImage.url) {
         return null;
@@ -76,12 +78,21 @@ export default function ImageSettings({
             <LabeledField
                 label="Preview"
                 field={
-                    <ImagePreview
-                        src={backgroundImage.url}
-                        alt={`Preview: ${alt || "No alt text"}`}
-                        width={backgroundImage.width}
-                        height={backgroundImage.height}
-                    />
+                    <>
+                        <DarkModeToggle
+                            editingDisabled={editingDisabled}
+                            backgroundImage={backgroundImage}
+                            onShowToggle={setWBTheme}
+                            onSuppressToggle={onChange}
+                        />
+                        <ImagePreview
+                            src={backgroundImage.url}
+                            alt={`Preview: ${alt || "No alt text"}`}
+                            width={backgroundImage.width}
+                            height={backgroundImage.height}
+                            wbTheme={wbTheme}
+                        />
+                    </>
                 }
                 styles={wbFieldStyles}
             />

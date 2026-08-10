@@ -1,9 +1,4 @@
-import {
-    Changeable,
-    Dependencies,
-    EditorJsonify,
-    KhanColors,
-} from "@khanacademy/perseus";
+import {Changeable, Dependencies, KhanColors} from "@khanacademy/perseus";
 import * as React from "react";
 
 import ColorPicker from "./color-picker";
@@ -37,10 +32,6 @@ class RectangleEditor extends React.Component<Props> {
 
     change: (arg1: any, arg2?: any, arg3?: any) => any = (...args) => {
         return Changeable.change.apply(this, args);
-    };
-
-    serialize = () => {
-        return EditorJsonify.serialize.call(this);
     };
 
     render(): React.ReactNode {

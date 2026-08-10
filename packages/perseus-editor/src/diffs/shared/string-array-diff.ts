@@ -32,7 +32,7 @@ function statusFor(chunk: ImageEntry): ImageStatus {
 // Turn a chunk (which contains an array of values and a status)
 // into an array of values, each with the same status
 function splitUpChunk(chunk: ImageEntry): ImageDiff[] {
-    return _.map(chunk.value, (value) => {
+    return chunk.value.map((value) => {
         return {
             value: value,
             status: statusFor(chunk),
@@ -46,7 +46,7 @@ function mapcat(
     lst: ImageEntry[],
     fn: (chunk: ImageEntry) => ImageDiff[],
 ): ImageDiff[] {
-    return _.flatten(_.map(lst, fn), true /* only flatten one level */);
+    return _.flatten(lst.map(fn), true /* only flatten one level */);
 }
 
 // > ArrayDiff.diff([1,2,3], [2,3,4]);
@@ -57,7 +57,7 @@ function mapcat(
 //      "added": true }]
 const ArrayDiff = new jsdiff.Diff();
 ArrayDiff.tokenize = (array: ImageEntry[]) =>
-    _.map(array, (elem: ImageEntry): ImageEntry[] => [elem]);
+    array.map((elem: ImageEntry): ImageEntry[] => [elem]);
 // The default is `+` for string concatenation, which doesn't work for array
 // concatenation.
 ArrayDiff.join = (a: ImageEntry[], b: ImageEntry[]) => a.concat(b);

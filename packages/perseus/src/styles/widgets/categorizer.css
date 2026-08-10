@@ -17,13 +17,13 @@ body.mobile
     td.category
     input[type="radio"]:checked
     + span:before {
-    color: #1c758a;
+    color: var(--wb-semanticColor-core-foreground-instructive-default);
 }
 body.mobile
     .categorizer-container
     td.category
     input[type="radio"]
     + span:active:before {
-    color: #666;
+    color: var(--wb-semanticColor-core-foreground-neutral-default);
     content: "\f111"; /* fa-circle */
 }

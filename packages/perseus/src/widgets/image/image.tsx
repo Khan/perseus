@@ -19,10 +19,7 @@ import type {ParsedFrame} from "gifuct-js";
 
 type ImageWidgetProps = WidgetProps<PerseusImageWidgetOptions>;
 
-// Widget interface methods exposed via ref
-type WidgetHandle = Pick<Widget, "getPromptJSON">;
-
-const ImageWidget = forwardRef<WidgetHandle, ImageWidgetProps>(
+const ImageWidget = forwardRef<Widget, ImageWidgetProps>(
     function ImageWidget(props, ref) {
         const {apiOptions, linterContext, trackInteraction, widgetId} = props;
         const {

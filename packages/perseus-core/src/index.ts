@@ -387,6 +387,16 @@ export {
     generateMatcherOptions,
     generateMatcherWidget,
 } from "./utils/generators/matcher-widget-generator";
+/** @hidden */
+export {
+    generateMeasurerOptions,
+    generateMeasurerWidget,
+} from "./utils/generators/measurer-widget-generator";
+/** @hidden */
+export {
+    generateCategorizerOptions,
+    generateCategorizerWidget,
+} from "./utils/generators/categorizer-widget-generator";
 export {
     generateInteractiveGraphOptions,
     generateIGAngleGraph,
@@ -425,6 +435,11 @@ export {
     generatePlotterWidget,
     generatePlotterOptions,
 } from "./utils/generators/plotter-widget-generator";
+/** @hidden */
+export {
+    generatePhetSimulationWidget,
+    generatePhetSimulationOptions,
+} from "./utils/generators/phet-simulation-widget-generator";
 export {generateNumericInputWidget} from "./utils/generators/numeric-input-widget-generator";
 /** @hidden */
 export {

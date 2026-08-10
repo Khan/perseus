@@ -4,7 +4,6 @@ import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import * as React from "react";
-import _ from "underscore";
 
 import LabeledSwitch from "../../components/labeled-switch";
 
@@ -293,7 +292,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
     // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
     // the new linter rules for save warnings.
     getSaveWarnings: () => ReadonlyArray<string> = () => {
-        if (!_.some(_.pluck(this.props.choices, "correct"))) {
+        if (!this.props.choices.some((choice) => choice.correct)) {
             return ["No choice is marked as correct."];
         }
         return [];

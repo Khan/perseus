@@ -7,7 +7,6 @@ import {
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";
 import * as React from "react";
-import _ from "underscore";
 
 import BlurInput from "../components/blur-input";
 
@@ -32,10 +31,6 @@ class PairEditor extends React.Component<PairEditorProps> {
 
     change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
-    };
-
-    serialize = () => {
-        return EditorJsonify.serialize.call(this);
     };
 
     render(): React.ReactNode {
@@ -92,12 +87,8 @@ class PairsEditor extends React.Component<PairsEditorProps> {
         this.change("pairs", pairs);
     };
 
-    serialize = () => {
-        return EditorJsonify.serialize.call(this);
-    };
-
     render(): React.ReactNode {
-        const editors = _.map(this.props.pairs, (pair, i) => {
+        const editors = this.props.pairs.map((pair, i) => {
             return (
                 <PairEditor
                     key={i}

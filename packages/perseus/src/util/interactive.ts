@@ -123,13 +123,13 @@ _.extend(GraphUtils.Graphie.prototype, {
             sRadius *= Math.SQRT2;
             const v3 = kvector.add(sVertex, scaledPolarDeg(sRadius, halfAngle));
 
-            _.each([v1, v2], function (v) {
+            [v1, v2].forEach(function (v) {
                 // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
                 temp.push(graphie.scaledPath([v, v3], options.style));
             });
         } else {
             // Draw arcs
-            _.times(options.numArcs, function (i) {
+            for (let i = 0; i < options.numArcs; i++) {
                 temp.push(
                     // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
                     graphie.arc(
@@ -141,7 +141,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                     ),
                 );
                 sRadius += 3;
-            });
+            }
         }
 
         if (text) {
@@ -207,11 +207,12 @@ _.extend(GraphUtils.Graphie.prototype, {
             const sSpacing = 5;
             const sHeight = 5;
 
-            const style = _.extend({}, options.style, {
+            const style = {
+                ...options.style,
                 strokeWidth: 2,
-            });
+            };
 
-            _.times(n, function (i) {
+            for (let i = 0; i < n; i++) {
                 const sOffset = sSpacing * (i - (n - 1) / 2);
 
                 const sOffsetVector = scaledPolarRad(sOffset, parallelAngle);
@@ -231,7 +232,7 @@ _.extend(GraphUtils.Graphie.prototype, {
 
                 // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
                 temp.push(graphie.scaledPath(sPath, style));
-            });
+            }
 
             sCumulativeOffset += sSpacing * (n - 1) + 15;
         }
@@ -247,14 +248,15 @@ _.extend(GraphUtils.Graphie.prototype, {
             })[0];
             const sStart = graphie.scalePoint(start);
 
-            const style = _.extend({}, options.style, {
+            const style = {
+                ...options.style,
                 arrows: "->",
                 strokeWidth: 2,
-            });
+            };
 
             const sSpacing = 5;
 
-            _.times(n, function (i) {
+            for (let i = 0; i < n; i++) {
                 const sOffset = sCumulativeOffset + sSpacing * i;
                 let sOffsetVector = scaledPolarRad(sOffset, parallelAngle);
 
@@ -266,7 +268,7 @@ _.extend(GraphUtils.Graphie.prototype, {
 
                 // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
                 temp.push(graphie.scaledPath([sStart, sEnd], style));
-            });
+            }
         }
 
         let text = options.text;
@@ -455,14 +457,11 @@ _.extend(GraphUtils.Graphie.prototype, {
         const normalColor = movablePoint.constraints.fixed
             ? KhanColors.DYNAMIC
             : KhanColors.INTERACTIVE;
-        movablePoint.normalStyle = _.extend(
-            {},
-            {
-                fill: normalColor,
-                stroke: normalColor,
-            },
-            options.normalStyle,
-        );
+        movablePoint.normalStyle = {
+            fill: normalColor,
+            stroke: normalColor,
+            ...options.normalStyle,
+        };
 
         // deprecated: don't use coordX/coordY; use coord[]
         if (options.coordX !== undefined) {
@@ -677,9 +676,8 @@ _.extend(GraphUtils.Graphie.prototype, {
                     radii,
                     options,
                 );
-                movablePoint.visibleShape.attr(
-                    _.omit(movablePoint.normalStyle, "scale"),
-                );
+                const {scale, ...styleWithoutScale} = movablePoint.normalStyle;
+                movablePoint.visibleShape.attr(styleWithoutScale);
                 movablePoint.visibleShape.toFront();
             });
         }
@@ -715,95 +713,84 @@ _.extend(GraphUtils.Graphie.prototype, {
             // point, when dragging.
             offset = offset || [0, 0];
 
-            $(document).bind(
-                "vmousemove.point vmouseup.point",
-                function (event) {
-                    event.preventDefault();
-                    movablePoint.dragging = true;
-                    dragging = true;
+            $(document).on("vmousemove.point vmouseup.point", function (event) {
+                event.preventDefault();
+                movablePoint.dragging = true;
+                dragging = true;
 
-                    // Adjust the target coordinate by accounting for the gesture's
-                    // offset.
-                    let coord = kvector.add(graph.getMouseCoord(event), offset);
+                // Adjust the target coordinate by accounting for the gesture's
+                // offset.
+                let coord = kvector.add(graph.getMouseCoord(event), offset);
 
-                    coord = applySnapAndConstraints(coord);
-                    let coordX = coord[0];
-                    let coordY = coord[1];
-                    let mouseX;
-                    let mouseY;
+                coord = applySnapAndConstraints(coord);
+                let coordX = coord[0];
+                let coordY = coord[1];
+                let mouseX;
+                let mouseY;
 
-                    if (event.type === "vmousemove") {
-                        let doMove = true;
-                        // The caller has the option of adding an onMove() method
-                        // to the movablePoint object we return as a sort of event
-                        // handler. By returning false from onMove(), the move
-                        // can be vetoed, providing custom constraints on where
-                        // the point can be moved. By returning array [x, y], the
-                        // move can be overridden
-                        if (_.isFunction(movablePoint.onMove)) {
-                            const result = movablePoint.onMove(coordX, coordY);
-                            if (result === false) {
-                                doMove = false;
-                            }
-                            if (_.isArray(result)) {
-                                coordX = result[0];
-                                coordY = result[1];
-                            }
+                if (event.type === "vmousemove") {
+                    let doMove = true;
+                    // The caller has the option of adding an onMove() method
+                    // to the movablePoint object we return as a sort of event
+                    // handler. By returning false from onMove(), the move
+                    // can be vetoed, providing custom constraints on where
+                    // the point can be moved. By returning array [x, y], the
+                    // move can be overridden
+                    if (typeof movablePoint.onMove === "function") {
+                        const result = movablePoint.onMove(coordX, coordY);
+                        if (result === false) {
+                            doMove = false;
                         }
-                        // coord{X|Y} may have been modified by constraints or
-                        // onMove handler; adjust mouse{X|Y} to match
-                        mouseX = (coordX - graph.range[0][0]) * graph.scale[0];
-                        mouseY = (-coordY + graph.range[1][1]) * graph.scale[1];
+                        if (Array.isArray(result)) {
+                            coordX = result[0];
+                            coordY = result[1];
+                        }
+                    }
+                    // coord{X|Y} may have been modified by constraints or
+                    // onMove handler; adjust mouse{X|Y} to match
+                    mouseX = (coordX - graph.range[0][0]) * graph.scale[0];
+                    mouseY = (-coordY + graph.range[1][1]) * graph.scale[1];
 
-                        if (doMove) {
+                    if (doMove) {
+                        const point = graph.unscalePoint([mouseX, mouseY]);
+                        movablePoint.visibleShape.moveTo(point);
+                        movablePoint.mouseTarget.moveTo(point);
+                        movablePoint.coord = [coordX, coordY];
+                        movablePoint.updateLineEnds();
+                        $(movablePoint).trigger("move");
+                    }
+
+                    movablePoint.drawLabel();
+                } else if (event.type === "vmouseup") {
+                    $(document).unbind(".point");
+                    movablePoint.dragging = false;
+                    dragging = false;
+                    if (typeof movablePoint.onMoveEnd === "function") {
+                        const result = movablePoint.onMoveEnd(coordX, coordY);
+                        if (Array.isArray(result)) {
+                            coordX = result[0];
+                            coordY = result[1];
+                            mouseX =
+                                (coordX - graph.range[0][0]) * graph.scale[0];
+                            mouseY =
+                                (-coordY + graph.range[1][1]) * graph.scale[1];
                             const point = graph.unscalePoint([mouseX, mouseY]);
                             movablePoint.visibleShape.moveTo(point);
                             movablePoint.mouseTarget.moveTo(point);
                             movablePoint.coord = [coordX, coordY];
-                            movablePoint.updateLineEnds();
-                            $(movablePoint).trigger("move");
-                        }
-
-                        movablePoint.drawLabel();
-                    } else if (event.type === "vmouseup") {
-                        $(document).unbind(".point");
-                        movablePoint.dragging = false;
-                        dragging = false;
-                        if (_.isFunction(movablePoint.onMoveEnd)) {
-                            const result = movablePoint.onMoveEnd(
-                                coordX,
-                                coordY,
-                            );
-                            if (_.isArray(result)) {
-                                coordX = result[0];
-                                coordY = result[1];
-                                mouseX =
-                                    (coordX - graph.range[0][0]) *
-                                    graph.scale[0];
-                                mouseY =
-                                    (-coordY + graph.range[1][1]) *
-                                    graph.scale[1];
-                                const point = graph.unscalePoint([
-                                    mouseX,
-                                    mouseY,
-                                ]);
-                                movablePoint.visibleShape.moveTo(point);
-                                movablePoint.mouseTarget.moveTo(point);
-                                movablePoint.coord = [coordX, coordY];
-                            }
-                        }
-                        if (!movablePoint.highlight) {
-                            movablePoint.visibleShape.animate(
-                                movablePoint.normalStyle,
-                                50,
-                            );
-                            if (movablePoint.onUnhighlight) {
-                                movablePoint.onUnhighlight();
-                            }
                         }
                     }
-                },
-            );
+                    if (!movablePoint.highlight) {
+                        movablePoint.visibleShape.animate(
+                            movablePoint.normalStyle,
+                            50,
+                        );
+                        if (movablePoint.onUnhighlight) {
+                            movablePoint.onUnhighlight();
+                        }
+                    }
+                }
+            });
         };
 
         if (movablePoint.visible && !movablePoint.constraints.fixed) {
@@ -827,7 +814,7 @@ _.extend(GraphUtils.Graphie.prototype, {
 
             const $mouseTarget = $(movablePoint.mouseTarget.getMouseTarget());
             $mouseTarget.css("cursor", "move");
-            $mouseTarget.bind(
+            $mouseTarget.on(
                 "vmousedown vmouseover vmouseout",
                 function (event) {
                     if (event.type === "vmouseover") {
@@ -902,7 +889,7 @@ _.extend(GraphUtils.Graphie.prototype, {
             this.visibleShape.animateTo([coordX, coordY], time, cb);
             this.mouseTarget.animateTo([coordX, coordY], time, cb);
             this.coord = [coordX, coordY];
-            if (_.isFunction(this.onMove)) {
+            if (typeof this.onMove === "function") {
                 this.onMove(coordX, coordY);
             }
         };
@@ -1041,18 +1028,16 @@ _.extend(GraphUtils.Graphie.prototype, {
         const normalColor = lineSegment.fixed
             ? KhanColors.DYNAMIC
             : KhanColors.INTERACTIVE;
-        lineSegment.normalStyle = _.extend(
-            {},
-            {
-                "stroke-width": 2,
-                stroke: normalColor,
-            },
-            options.normalStyle,
-        );
+        lineSegment.normalStyle = {
+            "stroke-width": 2,
+            stroke: normalColor,
+            ...options.normalStyle,
+        };
         // arrowStyle should be kept in sync with styling of the line
-        lineSegment.arrowStyle = _.extend({}, lineSegment.normalStyle, {
+        lineSegment.arrowStyle = {
+            ...lineSegment.normalStyle,
             color: lineSegment.normalStyle.stroke,
-        });
+        };
 
         // If the line segment is defined by movablePoints, coordA/coordZ are
         // owned by the points, otherwise they're owned by us
@@ -1181,7 +1166,7 @@ _.extend(GraphUtils.Graphie.prototype, {
             if (!this.fixed) {
                 elements.push(this.mouseTarget);
             }
-            _.each(elements, function (element) {
+            elements.forEach(function (element) {
                 element.moveTo(start, end);
             });
 
@@ -1199,7 +1184,7 @@ _.extend(GraphUtils.Graphie.prototype, {
 
             const coordForArrow = [this.coordA, this.coordZ];
             const angleForArrow = [360 - angle, (540 - angle) % 360];
-            _.each(this._arrows, function (arrow, i) {
+            this._arrows.forEach(function (arrow, i) {
                 arrow.toCoordAtAngle(coordForArrow[i], angleForArrow[i]);
             });
 
@@ -1249,7 +1234,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                 });
             }
 
-            this.temp = _.flatten(this.temp);
+            this.temp = this.temp.flat(Infinity);
         };
 
         // Change z-order to back;
@@ -1317,10 +1302,8 @@ _.extend(GraphUtils.Graphie.prototype, {
         }
 
         if (lineSegment.vertexLabels.length) {
-            lineSegment.labeledVertices = _.map(
-                lineSegment.vertexLabels,
-                function (label) {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            lineSegment.labeledVertices = lineSegment.vertexLabels.map(
+                (label) => {
                     return this.label(
                         [0, 0],
                         "",
@@ -1328,14 +1311,13 @@ _.extend(GraphUtils.Graphie.prototype, {
                         lineSegment.labelStyle,
                     );
                 },
-                this,
             );
         }
 
         if (!lineSegment.fixed && !lineSegment.constraints.fixed) {
             const $mouseTarget = $(lineSegment.mouseTarget.getMouseTarget());
             $mouseTarget.css("cursor", "move");
-            $mouseTarget.bind(
+            $mouseTarget.on(
                 "vmousedown vmouseover vmouseout",
                 function (event) {
                     if (event.type === "vmouseover") {
@@ -1345,14 +1327,11 @@ _.extend(GraphUtils.Graphie.prototype, {
                                 lineSegment.highlightStyle,
                                 50,
                             );
-                            lineSegment.arrowStyle = _.extend(
-                                {},
-                                lineSegment.arrowStyle,
-                                {
-                                    color: lineSegment.highlightStyle.stroke,
-                                    stroke: lineSegment.highlightStyle.stroke,
-                                },
-                            );
+                            lineSegment.arrowStyle = {
+                                ...lineSegment.arrowStyle,
+                                color: lineSegment.highlightStyle.stroke,
+                                stroke: lineSegment.highlightStyle.stroke,
+                            };
                             lineSegment.transform();
                         }
                     } else if (event.type === "vmouseout") {
@@ -1362,14 +1341,11 @@ _.extend(GraphUtils.Graphie.prototype, {
                                 lineSegment.normalStyle,
                                 50,
                             );
-                            lineSegment.arrowStyle = _.extend(
-                                {},
-                                lineSegment.arrowStyle,
-                                {
-                                    color: lineSegment.normalStyle.stroke,
-                                    stroke: lineSegment.normalStyle.stroke,
-                                },
-                            );
+                            lineSegment.arrowStyle = {
+                                ...lineSegment.arrowStyle,
+                                color: lineSegment.normalStyle.stroke,
+                                stroke: lineSegment.normalStyle.stroke,
+                            };
                             lineSegment.transform();
                         }
                     } else if (
@@ -1429,7 +1405,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                             graph.scaleVector(mouseOffsetZ)[1],
                         );
 
-                        $(document).bind(
+                        $(document).on(
                             "vmousemove.lineSegment vmouseup.lineSegment",
                             function (event) {
                                 event.preventDefault();
@@ -1537,7 +1513,9 @@ _.extend(GraphUtils.Graphie.prototype, {
                                         }
                                     }
 
-                                    if (_.isFunction(lineSegment.onMove)) {
+                                    if (
+                                        typeof lineSegment.onMove === "function"
+                                    ) {
                                         lineSegment.onMove(dX, dY);
                                     }
                                 } else if (event.type === "vmouseup") {
@@ -1549,19 +1527,19 @@ _.extend(GraphUtils.Graphie.prototype, {
                                             lineSegment.normalStyle,
                                             50,
                                         );
-                                        lineSegment.arrowStyle = _.extend(
-                                            {},
-                                            lineSegment.arrowStyle,
-                                            {
-                                                color: lineSegment.normalStyle
-                                                    .stroke,
-                                                stroke: lineSegment.normalStyle
-                                                    .stroke,
-                                            },
-                                        );
+                                        lineSegment.arrowStyle = {
+                                            ...lineSegment.arrowStyle,
+                                            color: lineSegment.normalStyle
+                                                .stroke,
+                                            stroke: lineSegment.normalStyle
+                                                .stroke,
+                                        };
                                         lineSegment.transform();
                                     }
-                                    if (_.isFunction(lineSegment.onMoveEnd)) {
+                                    if (
+                                        typeof lineSegment.onMoveEnd ===
+                                        "function"
+                                    ) {
                                         lineSegment.onMoveEnd();
                                     }
                                 }
@@ -1609,6 +1587,8 @@ _.extend(GraphUtils.Graphie.prototype, {
     addMovablePolygon: function (options) {
         const graphie = this;
 
+        const {points, ...optionsWithoutPoints} = options;
+
         const polygon = $.extend(
             {
                 snapX: 0,
@@ -1641,35 +1621,33 @@ _.extend(GraphUtils.Graphie.prototype, {
                 updateOnPointMove: true,
                 closed: true,
             },
-            _.omit(options, "points"),
+            optionsWithoutPoints,
         );
 
         const normalColor = polygon.fixed
             ? KhanColors.DYNAMIC
             : KhanColors.INTERACTIVE;
-        polygon.normalStyle = _.extend(
-            {
-                "stroke-width": 2,
-                "fill-opacity": 0,
-                fill: normalColor,
-                stroke: normalColor,
-            },
-            options.normalStyle,
-        );
+        polygon.normalStyle = {
+            "stroke-width": 2,
+            "fill-opacity": 0,
+            fill: normalColor,
+            stroke: normalColor,
+            ...options.normalStyle,
+        };
 
         // don't deep copy the points array with $.extend;
         // we may want to append to it later for click-to-add-points
         polygon.points = options.points;
 
         const isPoint = function (coordOrPoint: any) {
-            return !_.isArray(coordOrPoint);
+            return !Array.isArray(coordOrPoint);
         };
 
         polygon.update = function () {
             const n = polygon.points.length;
 
             // Update coords
-            polygon.coords = _.map(polygon.points, function (coordOrPoint, i) {
+            polygon.coords = polygon.points.map(function (coordOrPoint, i) {
                 if (isPoint(coordOrPoint)) {
                     return coordOrPoint.coord;
                 }
@@ -1677,12 +1655,16 @@ _.extend(GraphUtils.Graphie.prototype, {
             });
 
             // Calculate bounding box
-            polygon.left = _.min(_.pluck(polygon.coords, 0));
-            polygon.right = _.max(_.pluck(polygon.coords, 0));
-            polygon.top = _.max(_.pluck(polygon.coords, 1));
-            polygon.bottom = _.min(_.pluck(polygon.coords, 1));
+            polygon.left = Math.min(...polygon.coords.map((coord) => coord[0]));
+            polygon.right = Math.max(
+                ...polygon.coords.map((coord) => coord[0]),
+            );
+            polygon.top = Math.max(...polygon.coords.map((coord) => coord[1]));
+            polygon.bottom = Math.min(
+                ...polygon.coords.map((coord) => coord[1]),
+            );
 
-            let scaledCoords = _.map(polygon.coords, function (coord) {
+            let scaledCoords = polygon.coords.map(function (coord) {
                 return graphie.scalePoint(coord);
             });
 
@@ -1694,9 +1676,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                 // to remove the inside area of the path, which would
                 // otherwise be clickable (even if the closing line segment
                 // wasn't drawn
-                scaledCoords = scaledCoords.concat(
-                    _.clone(scaledCoords).reverse(),
-                );
+                scaledCoords = scaledCoords.concat([...scaledCoords].reverse());
             }
             polygon.path = GraphUtils.unscaledSvgPath(scaledCoords);
 
@@ -1711,7 +1691,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                 polygon.angleLabels.length ||
                 polygon.showRightAngleMarkers.length
             ) {
-                _.each(polygon.labeledAngles, function (label, i) {
+                polygon.labeledAngles.forEach(function (label, i) {
                     polygon.temp.push(
                         graphie.labelAngle({
                             point1: polygon.coords[(i - 1 + n) % n],
@@ -1731,7 +1711,7 @@ _.extend(GraphUtils.Graphie.prototype, {
 
             // Update side labels
             if (polygon.sideLabels.length) {
-                _.each(polygon.labeledSides, function (label, i) {
+                polygon.labeledSides.forEach(function (label, i) {
                     polygon.temp.push(
                         graphie.labelSide({
                             point1: polygon.coords[i],
@@ -1749,7 +1729,7 @@ _.extend(GraphUtils.Graphie.prototype, {
 
             // Update vertex labels
             if (polygon.vertexLabels.length) {
-                _.each(polygon.labeledVertices, function (label, i) {
+                polygon.labeledVertices.forEach(function (label, i) {
                     graphie.labelVertex({
                         point1: polygon.coords[(i - 1 + n) % n],
                         vertex: polygon.coords[i],
@@ -1762,7 +1742,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                 });
             }
 
-            polygon.temp = _.flatten(polygon.temp);
+            polygon.temp = polygon.temp.flat(Infinity);
         };
 
         polygon.transform = function () {
@@ -1818,7 +1798,7 @@ _.extend(GraphUtils.Graphie.prototype, {
         // Setup
 
         if (polygon.updateOnPointMove) {
-            _.each(_.filter(polygon.points, isPoint), function (coordOrPoint) {
+            polygon.points.filter(isPoint).forEach(function (coordOrPoint) {
                 coordOrPoint.polygonVertices.push(polygon);
             });
         }
@@ -1830,36 +1810,21 @@ _.extend(GraphUtils.Graphie.prototype, {
                 polygon.angleLabels.length,
                 polygon.showRightAngleMarkers.length,
             );
-            polygon.labeledAngles = _.times(
-                numLabels,
-                function () {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                    return this.label([0, 0], "", "center", polygon.labelStyle);
-                },
-                this,
-            );
+            polygon.labeledAngles = Array.from({length: numLabels}, () => {
+                return this.label([0, 0], "", "center", polygon.labelStyle);
+            });
         }
 
         if (polygon.sideLabels.length) {
-            polygon.labeledSides = _.map(
-                polygon.sideLabels,
-                function (label) {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                    return this.label([0, 0], "", "center", polygon.labelStyle);
-                },
-                this,
-            );
+            polygon.labeledSides = polygon.sideLabels.map((label) => {
+                return this.label([0, 0], "", "center", polygon.labelStyle);
+            });
         }
 
         if (polygon.vertexLabels.length) {
-            polygon.labeledVertices = _.map(
-                polygon.vertexLabels,
-                function (label) {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                    return this.label([0, 0], "", "center", polygon.labelStyle);
-                },
-                this,
-            );
+            polygon.labeledVertices = polygon.vertexLabels.map((label) => {
+                return this.label([0, 0], "", "center", polygon.labelStyle);
+            });
         }
 
         polygon.update();
@@ -1875,7 +1840,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                 cursor: "move",
             });
 
-            $(polygon.mouseTarget[0]).bind(
+            $(polygon.mouseTarget[0]).on(
                 "vmousedown vmouseover vmouseout",
                 function (event) {
                     if (event.type === "vmouseover") {
@@ -1885,15 +1850,14 @@ _.extend(GraphUtils.Graphie.prototype, {
                                 polygon.highlightStyle,
                                 50,
                             );
-                            _.each(
-                                _.filter(polygon.points, isPoint),
-                                function (point) {
+                            polygon.points
+                                .filter(isPoint)
+                                .forEach(function (point) {
                                     point.visibleShape.animate(
                                         polygon.pointHighlightStyle,
                                         50,
                                     );
-                                },
-                            );
+                                });
                         }
                     } else if (event.type === "vmouseout") {
                         polygon.highlight = false;
@@ -1902,9 +1866,9 @@ _.extend(GraphUtils.Graphie.prototype, {
                                 polygon.normalStyle,
                                 50,
                             );
-                            const points = _.filter(polygon.points, isPoint);
-                            if (!_.any(_.pluck(points, "dragging"))) {
-                                _.each(points, function (point) {
+                            const points = polygon.points.filter(isPoint);
+                            if (!points.some((point) => point.dragging)) {
+                                points.forEach(function (point) {
                                     point.visibleShape.animate(
                                         point.normalStyle,
                                         50,
@@ -1918,12 +1882,11 @@ _.extend(GraphUtils.Graphie.prototype, {
                     ) {
                         event.preventDefault();
 
-                        _.each(
-                            _.filter(polygon.points, isPoint),
-                            function (point) {
+                        polygon.points
+                            .filter(isPoint)
+                            .forEach(function (point) {
                                 point.dragging = true;
-                            },
-                        );
+                            });
 
                         let startX =
                             // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
@@ -1965,7 +1928,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                         const offsetBottom =
                             (startY - polygon.bottom) * graphie.scale[1];
 
-                        $(document).bind(
+                        $(document).on(
                             "vmousemove.polygon vmouseup.polygon",
                             function (event) {
                                 event.preventDefault();
@@ -2029,14 +1992,16 @@ _.extend(GraphUtils.Graphie.prototype, {
                                     let dY = currentY - startY;
 
                                     let doMove = true;
-                                    if (_.isFunction(polygon.onMove)) {
+                                    if (typeof polygon.onMove === "function") {
                                         const onMoveResult = polygon.onMove(
                                             dX,
                                             dY,
                                         );
                                         if (onMoveResult === false) {
                                             doMove = false;
-                                        } else if (_.isArray(onMoveResult)) {
+                                        } else if (
+                                            Array.isArray(onMoveResult)
+                                        ) {
                                             dX = onMoveResult[0];
                                             dY = onMoveResult[1];
                                             currentX = startX + dX;
@@ -2052,8 +2017,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                                     };
 
                                     if (doMove) {
-                                        _.each(
-                                            polygon.points,
+                                        polygon.points.forEach(
                                             function (coordOrPoint, i) {
                                                 if (isPoint(coordOrPoint)) {
                                                     coordOrPoint.setCoord(
@@ -2076,11 +2040,9 @@ _.extend(GraphUtils.Graphie.prototype, {
                                 } else if (event.type === "vmouseup") {
                                     $(document).unbind(".polygon");
 
-                                    const points = _.filter(
-                                        polygon.points,
-                                        isPoint,
-                                    );
-                                    _.each(points, function (point) {
+                                    const points =
+                                        polygon.points.filter(isPoint);
+                                    points.forEach(function (point) {
                                         point.dragging = false;
                                     });
 
@@ -2092,14 +2054,16 @@ _.extend(GraphUtils.Graphie.prototype, {
                                             50,
                                         );
 
-                                        _.each(points, function (point) {
+                                        points.forEach(function (point) {
                                             point.visibleShape.animate(
                                                 point.normalStyle,
                                                 50,
                                             );
                                         });
                                     }
-                                    if (_.isFunction(polygon.onMoveEnd)) {
+                                    if (
+                                        typeof polygon.onMoveEnd === "function"
+                                    ) {
                                         polygon.onMoveEnd(
                                             lastX - startX,
                                             lastY - startY,
@@ -2114,7 +2078,7 @@ _.extend(GraphUtils.Graphie.prototype, {
         }
 
         // Bring any movable points to the front
-        _.invoke(_.filter(polygon.points, isPoint), "toFront");
+        _.invoke(polygon.points.filter(isPoint), "toFront");
 
         return polygon;
     },
@@ -2229,14 +2193,11 @@ _.extend(GraphUtils.Graphie.prototype, {
             ? KhanColors.DYNAMIC
             : KhanColors.INTERACTIVE;
         const centerNormalStyle = options ? options.centerNormalStyle : null;
-        circle.centerNormalStyle = _.extend(
-            {},
-            {
-                fill: normalColor,
-                stroke: normalColor,
-            },
-            centerNormalStyle,
-        );
+        circle.centerNormalStyle = {
+            fill: normalColor,
+            stroke: normalColor,
+            ...centerNormalStyle,
+        };
 
         circle.centerPoint = graphie.addMovablePoint({
             graph: graphie,
@@ -2446,7 +2407,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                                     radius,
                                     oldRadius,
                                 );
-                                if (_.isNumber(onResizeResult)) {
+                                if (typeof onResizeResult === "number") {
                                     radius = onResizeResult;
                                 } else if (onResizeResult === false) {
                                     doResize = false;
@@ -2561,7 +2522,7 @@ _.extend(GraphUtils.Graphie.prototype, {
 
             // Normalize rotatePoint into something that always looks
             // like a movablePoint
-            if (_.isArray(rotatePoint)) {
+            if (Array.isArray(rotatePoint)) {
                 rotatePoint = {
                     coord: rotatePoint,
                 };
@@ -2710,11 +2671,11 @@ _.extend(GraphUtils.Graphie.prototype, {
             }
 
             const $mouseTarget = $(rotateHandle.mouseTarget.getMouseTarget());
-            $mouseTarget.bind("vmouseover", function (e) {
+            $mouseTarget.on("vmouseover", function (e) {
                 isHovering = true;
                 redrawRotateHandle(rotateHandle.coord);
             });
-            $mouseTarget.bind("vmouseout", function (e) {
+            $mouseTarget.on("vmouseout", function (e) {
                 isHovering = false;
                 redrawRotateHandle(rotateHandle.coord);
             });
@@ -2847,13 +2808,13 @@ _.extend(GraphUtils.Graphie.prototype, {
                 return isHovering;
             };
 
-            const styles = _.map([0, 1], function (isHighlight) {
+            const styles = [0, 1].map(function (isHighlight) {
                 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 const baseStyle = isHighlight
                     ? options.highlightStyle
                     : options.normalStyle;
 
-                return _.map([0, 1], function (opacity) {
+                return [0, 1].map(function (opacity) {
                     return _.defaults(
                         {
                             "fill-opacity": opacity,
@@ -2899,7 +2860,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                 redraw(buttonCoord, [coordA, coordZ]);
             };
 
-            $(line).on("move", _.bind(update, button, null, null));
+            $(line).on("move", () => update(null, null));
 
             const $mouseTarget = $(button.mouseTarget.getMouseTarget());
             $mouseTarget.on("vclick", function () {
@@ -2927,11 +2888,11 @@ _.extend(GraphUtils.Graphie.prototype, {
             $mouseTarget.css("cursor", "pointer");
 
             // Make the arrow-thing grow and shrink with mouseover/out
-            $mouseTarget.bind("vmouseover", function (e) {
+            $mouseTarget.on("vmouseover", function (e) {
                 isHovering = true;
                 redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);
             });
-            $mouseTarget.bind("vmouseout", function (e) {
+            $mouseTarget.on("vmouseout", function (e) {
                 isHovering = false;
                 redraw(button.coord, [line.pointA.coord, line.pointZ.coord]);
             });
@@ -3115,13 +3076,13 @@ function Protractor(graph: any, center: any) {
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     const self = this;
     const $mouseTarget = $(self.rotateHandle.mouseTarget.getMouseTarget());
-    $mouseTarget.bind("vmousedown", function (event) {
+    $mouseTarget.on("vmousedown", function (event) {
         isDragging = true;
         $mouseTarget.css("cursor", "-webkit-grabbing");
         $mouseTarget.css("cursor", "grabbing");
         arrow.animate({scale: 1.5, fill: KhanColors.INTERACTING}, 50);
 
-        $(document).bind("vmouseup.rotateHandle", function (event) {
+        $(document).on("vmouseup.rotateHandle", function (event) {
             isDragging = false;
             $mouseTarget.css("cursor", "-webkit-grab");
             $mouseTarget.css("cursor", "grab");
@@ -3134,11 +3095,11 @@ function Protractor(graph: any, center: any) {
         });
     });
 
-    $mouseTarget.bind("vmouseover", function (event) {
+    $mouseTarget.on("vmouseover", function (event) {
         isHovering = true;
         arrow.animate({scale: 1.5, fill: KhanColors.INTERACTING}, 50);
     });
-    $mouseTarget.bind("vmouseout", function (event) {
+    $mouseTarget.on("vmouseout", function (event) {
         isHovering = false;
         if (!isHighlight()) {
             arrow.animate({scale: 1.0, fill: KhanColors.INTERACTIVE}, 50);
@@ -3155,7 +3116,7 @@ function Protractor(graph: any, center: any) {
         $mouseTarget.css("cursor", "-webkit-grab");
         $mouseTarget.css("cursor", "grab");
 
-        $(setNodes).bind("vmousedown", function (event) {
+        $(setNodes).on("vmousedown", function (event) {
             event.preventDefault();
             let startx =
                 // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
@@ -3164,7 +3125,7 @@ function Protractor(graph: any, center: any) {
                 // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
                 event.pageY - $(graph.raphael.canvas.parentNode).offset().top;
 
-            $(document).bind("vmousemove.protractor", function (event) {
+            $(document).on("vmousemove.protractor", function (event) {
                 let mouseX =
                     // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                     event.pageX -
@@ -3301,8 +3262,8 @@ function Ruler(graphie: any, options: any) {
         },
     });
 
-    const light = _.extend({}, options.style, {strokeWidth: 1});
-    const bold = _.extend({}, options.style, {strokeWidth: 2});
+    const light = {...options.style, strokeWidth: 1};
+    const bold = {...options.style, strokeWidth: 2};
 
     const width = options.units * options.pixelsPerUnit;
     const height = 50;
@@ -3341,7 +3302,7 @@ function Ruler(graphie: any, options: any) {
         }
     }
 
-    const tickFrequencies = _.keys(tickHeightMap).sort(function (a, b) {
+    const tickFrequencies = Object.keys(tickHeightMap).sort(function (a, b) {
         // @ts-expect-error - TS2362 - The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type. | TS2363 - The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
         return b - a;
     });
@@ -3370,7 +3331,7 @@ function Ruler(graphie: any, options: any) {
     set.push(graphie.line([left - px, bottom], [right + px, bottom], bold));
     set.push(graphie.line([left - px, top], [right + px, top], bold));
 
-    _.times(numTicks, function (i) {
+    for (let i = 0; i < numTicks; i++) {
         const n = i / options.ticksPerUnit;
         const x = left + n * graphieUnitsPerUnit;
         const height = getTickHeight(i) * graphieUnitsHeight;
@@ -3414,7 +3375,7 @@ function Ruler(graphie: any, options: any) {
             });
             set.push(label);
         }
-    });
+    }
 
     const mouseTarget = graphie.mouselayer.path(
         graphie.svgPath([
@@ -3448,7 +3409,7 @@ function Ruler(graphie: any, options: any) {
     });
     $(setNodes).css("cursor", "move");
 
-    $(setNodes).bind("vmousedown", function (event) {
+    $(setNodes).on("vmousedown", function (event) {
         event.preventDefault();
         let startx =
             // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
@@ -3457,7 +3418,7 @@ function Ruler(graphie: any, options: any) {
             // @ts-expect-error - TS2532 - Object is possibly 'undefined'. | TS2532 - Object is possibly 'undefined'.
             event.pageY - $(graphie.raphael.canvas.parentNode).offset().top;
 
-        $(document).bind("vmousemove.ruler", function (event) {
+        $(document).on("vmousemove.ruler", function (event) {
             let mouseX =
                 // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
                 event.pageX -
@@ -3579,7 +3540,7 @@ function MovableAngle(graphie: any, options: any) {
     this.graphie = graphie;
 
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-    _.extend(this, options);
+    Object.assign(this, options);
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     _.defaults(this, {
         normalStyle: {
@@ -3616,27 +3577,22 @@ function MovableAngle(graphie: any, options: any) {
 
     // Handle coordinates that are not MovablePoints (i.e. [2, 4])
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-    this.points = _.map(
-        options.points,
-        function (point) {
-            if (_.isArray(point)) {
-                return graphie.addMovablePoint({
-                    coord: point,
-                    visible: false,
-                    constraints: {
-                        fixed: true,
-                    },
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                    normalStyle: this.normalStyle,
-                });
-            }
-            return point;
-        },
-        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-        this,
-    );
+    this.points = options.points.map((point) => {
+        if (Array.isArray(point)) {
+            return graphie.addMovablePoint({
+                coord: point,
+                visible: false,
+                constraints: {
+                    fixed: true,
+                },
+                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                normalStyle: this.normalStyle,
+            });
+        }
+        return point;
+    });
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-    this.coords = _.pluck(this.points, "coord");
+    this.coords = this.points.map((point) => point.coord);
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     if (this.reflex == null) {
         // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
@@ -3650,21 +3606,16 @@ function MovableAngle(graphie: any, options: any) {
     }
 
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-    this.rays = _.map(
-        [0, 2],
-        function (i) {
-            return graphie.addMovableLineSegment({
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                pointA: this.points[1],
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                pointZ: this.points[i],
-                fixed: true,
-                extendRay: true,
-            });
-        },
-        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-        this,
-    );
+    this.rays = [0, 2].map((i) => {
+        return graphie.addMovableLineSegment({
+            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            pointA: this.points[1],
+            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            pointZ: this.points[i],
+            fixed: true,
+            extendRay: true,
+        });
+    });
 
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     this.temp = [];
@@ -3713,7 +3664,7 @@ _.extend(MovableAngle.prototype, {
 
             let valid = true;
             const newPoints: Record<string, any> = {};
-            _.each([0, 2], function (i) {
+            [0, 2].forEach(function (i) {
                 const oldPoint = points[i].coord;
                 let newPoint = kvector.add(oldPoint, delta);
 
@@ -3734,7 +3685,7 @@ _.extend(MovableAngle.prototype, {
 
             // Only move points if all new positions are valid
             if (valid) {
-                _.each(newPoints, function (newPoint, i) {
+                Object.entries(newPoints).forEach(function ([i, newPoint]) {
                     points[i].setCoord(newPoint);
                 });
             }
@@ -3745,7 +3696,7 @@ _.extend(MovableAngle.prototype, {
         const snapOffset = this.snapOffsetDeg;
 
         // Drag ray control points to move each ray individually
-        _.each([0, 2], function (i) {
+        [0, 2].forEach(function (i) {
             points[i].onMove = function (x: number, y: number) {
                 const newPoint: Coord = [x, y];
                 const vertex = points[1].coord;
@@ -3770,92 +3721,56 @@ _.extend(MovableAngle.prototype, {
         });
 
         // Expose only a single move event
-        $(points).on(
-            "move",
-            function () {
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                this.update();
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                $(this).trigger("move");
-            }.bind(this),
-        );
+        $(points).on("move", () => {
+            this.update();
+            $(this).trigger("move");
+        });
     },
 
     addHighlightHandlers: function () {
         const vertex = this.points[1];
 
-        vertex.onHighlight = function () {
-            _.each(
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                this.points,
-                function (point) {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                    point.visibleShape.animate(this.highlightStyle, 50);
-                },
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                this,
-            );
-            _.each(
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                this.rays,
-                function (ray) {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                    ray.visibleLine.animate(this.highlightStyle, 50);
-                    ray.arrowStyle = _.extend({}, ray.arrowStyle, {
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        color: this.highlightStyle.stroke,
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        stroke: this.highlightStyle.stroke,
-                    });
-                },
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                this,
-            );
-
-            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-            this.angleStyle = _.extend({}, this.angleStyle, {
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                color: this.highlightStyle.stroke,
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                stroke: this.highlightStyle.stroke,
+        vertex.onHighlight = () => {
+            this.points.forEach((point) => {
+                point.visibleShape.animate(this.highlightStyle, 50);
             });
-            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            this.rays.forEach((ray) => {
+                ray.visibleLine.animate(this.highlightStyle, 50);
+                ray.arrowStyle = {
+                    ...ray.arrowStyle,
+                    color: this.highlightStyle.stroke,
+                    stroke: this.highlightStyle.stroke,
+                };
+            });
+
+            this.angleStyle = {
+                ...this.angleStyle,
+                color: this.highlightStyle.stroke,
+                stroke: this.highlightStyle.stroke,
+            };
             this.update();
-        }.bind(this);
+        };
 
-        vertex.onUnhighlight = function () {
-            _.each(
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                this.points,
-                function (point) {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                    point.visibleShape.animate(this.normalStyle, 50);
-                },
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                this,
-            );
-            _.each(
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                this.rays,
-                function (ray) {
-                    ray.visibleLine.animate(ray.normalStyle, 50);
-                    ray.arrowStyle = _.extend({}, ray.arrowStyle, {
-                        color: ray.normalStyle.stroke,
-                        stroke: ray.normalStyle.stroke,
-                    });
-                },
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                this,
-            );
+        vertex.onUnhighlight = () => {
+            this.points.forEach((point) => {
+                point.visibleShape.animate(this.normalStyle, 50);
+            });
+            this.rays.forEach((ray) => {
+                ray.visibleLine.animate(ray.normalStyle, 50);
+                ray.arrowStyle = {
+                    ...ray.arrowStyle,
+                    color: ray.normalStyle.stroke,
+                    stroke: ray.normalStyle.stroke,
+                };
+            });
 
-            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-            this.angleStyle = _.extend({}, this.angleStyle, {
+            this.angleStyle = {
+                ...this.angleStyle,
                 color: KhanColors.DYNAMIC,
                 stroke: KhanColors.DYNAMIC,
-            });
-            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+            };
             this.update();
-        }.bind(this);
+        };
     },
 
     /**
@@ -3886,14 +3801,14 @@ _.extend(MovableAngle.prototype, {
 
     getClockwiseCoords: function () {
         if (this.isClockwise()) {
-            return _.clone(this.coords);
+            return [...this.coords];
         }
-        return _.clone(this.coords).reverse();
+        return [...this.coords].reverse();
     },
 
     update: function (shouldChangeReflexivity) {
         const prevCoords = this.coords;
-        this.coords = _.pluck(this.points, "coord");
+        this.coords = this.points.map((point) => point.coord);
 
         // Update lines
         _.invoke(this.points, "updateLineEnds");

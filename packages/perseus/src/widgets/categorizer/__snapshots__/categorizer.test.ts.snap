@@ -60,7 +60,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
               <thead>
                 <tr>
                   <td
-                    class="emptyHeaderCell_1mttrgd"
+                    class="emptyHeaderCell_xeoxek"
                   />
                   <th
                     class="header_whrfk4"
@@ -166,56 +166,56 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     </div>
                   </td>
                   <td
-                    class="category cell_13aakpm"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="No relationship"
                       role="button"
                     >
                       <input
-                        class="responsiveInput_1q2zj3l-o_O-responsiveRadioInput_17um91a"
+                        class="responsiveInput_10rqe3p-o_O-responsiveRadioInput_ky7gu6"
                         name="perseus_radio_10_0"
                         type="radio"
                       />
                     </div>
                   </td>
                   <td
-                    class="category cell_13aakpm"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Positive linear relationship"
                       role="button"
                     >
                       <input
-                        class="responsiveInput_1q2zj3l-o_O-responsiveRadioInput_17um91a"
+                        class="responsiveInput_10rqe3p-o_O-responsiveRadioInput_ky7gu6"
                         name="perseus_radio_10_0"
                         type="radio"
                       />
                     </div>
                   </td>
                   <td
-                    class="category cell_13aakpm"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Negative linear relationship"
                       role="button"
                     >
                       <input
-                        class="responsiveInput_1q2zj3l-o_O-responsiveRadioInput_17um91a"
+                        class="responsiveInput_10rqe3p-o_O-responsiveRadioInput_ky7gu6"
                         name="perseus_radio_10_0"
                         type="radio"
                       />
                     </div>
                   </td>
                   <td
-                    class="category cell_13aakpm"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Nonlinear relationship"
                       role="button"
                     >
                       <input
-                        class="responsiveInput_1q2zj3l-o_O-responsiveRadioInput_17um91a"
+                        class="responsiveInput_10rqe3p-o_O-responsiveRadioInput_ky7gu6"
                         name="perseus_radio_10_0"
                         type="radio"
                       />
@@ -251,56 +251,56 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     </div>
                   </td>
                   <td
-                    class="category cell_13aakpm"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="No relationship"
                       role="button"
                     >
                       <input
-                        class="responsiveInput_1q2zj3l-o_O-responsiveRadioInput_17um91a"
+                        class="responsiveInput_10rqe3p-o_O-responsiveRadioInput_ky7gu6"
                         name="perseus_radio_10_1"
                         type="radio"
                       />
                     </div>
                   </td>
                   <td
-                    class="category cell_13aakpm"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Positive linear relationship"
                       role="button"
                     >
                       <input
-                        class="responsiveInput_1q2zj3l-o_O-responsiveRadioInput_17um91a"
+                        class="responsiveInput_10rqe3p-o_O-responsiveRadioInput_ky7gu6"
                         name="perseus_radio_10_1"
                         type="radio"
                       />
                     </div>
                   </td>
                   <td
-                    class="category cell_13aakpm"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Negative linear relationship"
                       role="button"
                     >
                       <input
-                        class="responsiveInput_1q2zj3l-o_O-responsiveRadioInput_17um91a"
+                        class="responsiveInput_10rqe3p-o_O-responsiveRadioInput_ky7gu6"
                         name="perseus_radio_10_1"
                         type="radio"
                       />
                     </div>
                   </td>
                   <td
-                    class="category cell_13aakpm"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Nonlinear relationship"
                       role="button"
                     >
                       <input
-                        class="responsiveInput_1q2zj3l-o_O-responsiveRadioInput_17um91a"
+                        class="responsiveInput_10rqe3p-o_O-responsiveRadioInput_ky7gu6"
                         name="perseus_radio_10_1"
                         type="radio"
                       />
@@ -477,7 +477,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
               <thead>
                 <tr>
                   <td
-                    class="emptyHeaderCell_1mttrgd"
+                    class="emptyHeaderCell_xeoxek"
                   />
                   <th
                     class="header_whrfk4"
@@ -583,14 +583,14 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     </div>
                   </td>
                   <td
-                    class="category cell_13aakpm"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="No relationship"
                       role="button"
                     >
                       <span
-                        class="radioSpan_1mq3xs9"
+                        class="radioSpan_buhzha"
                       >
                         <svg
                           aria-hidden="true"
@@ -609,14 +609,14 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     </div>
                   </td>
                   <td
-                    class="category cell_13aakpm"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Positive linear relationship"
                       role="button"
                     >
                       <span
-                        class="radioSpan_1mq3xs9"
+                        class="radioSpan_buhzha"
                       >
                         <svg
                           aria-hidden="true"
@@ -635,14 +635,14 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     </div>
                   </td>
                   <td
-                    class="category cell_13aakpm"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Negative linear relationship"
                       role="button"
                     >
                       <span
-                        class="radioSpan_1mq3xs9"
+                        class="radioSpan_buhzha"
                       >
                         <svg
                           aria-hidden="true"
@@ -661,14 +661,14 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     </div>
                   </td>
                   <td
-                    class="category cell_13aakpm"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Nonlinear relationship"
                       role="button"
                     >
                       <span
-                        class="radioSpan_1mq3xs9"
+                        class="radioSpan_buhzha"
                       >
                         <svg
                           aria-hidden="true"
@@ -716,14 +716,14 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     </div>
                   </td>
                   <td
-                    class="category cell_13aakpm"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="No relationship"
                       role="button"
                     >
                       <span
-                        class="radioSpan_1mq3xs9"
+                        class="radioSpan_buhzha"
                       >
                         <svg
                           aria-hidden="true"
@@ -742,14 +742,14 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     </div>
                   </td>
                   <td
-                    class="category cell_13aakpm"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Positive linear relationship"
                       role="button"
                     >
                       <span
-                        class="radioSpan_1mq3xs9"
+                        class="radioSpan_buhzha"
                       >
                         <svg
                           aria-hidden="true"
@@ -768,14 +768,14 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     </div>
                   </td>
                   <td
-                    class="category cell_13aakpm"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Negative linear relationship"
                       role="button"
                     >
                       <span
-                        class="radioSpan_1mq3xs9"
+                        class="radioSpan_buhzha"
                       >
                         <svg
                           aria-hidden="true"
@@ -794,14 +794,14 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                     </div>
                   </td>
                   <td
-                    class="category cell_13aakpm"
+                    class="category cell_1wviiqy"
                   >
                     <div
                       aria-label="Nonlinear relationship"
                       role="button"
                     >
                       <span
-                        class="radioSpan_1mq3xs9"
+                        class="radioSpan_buhzha"
                       >
                         <svg
                           aria-hidden="true"

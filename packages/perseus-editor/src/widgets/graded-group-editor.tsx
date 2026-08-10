@@ -1,17 +1,14 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/forbid-prop-types */
-import {
-    components,
-    ApiOptions,
-    Changeable,
-    iconTrash,
-} from "@khanacademy/perseus";
+import {components, ApiOptions, Changeable} from "@khanacademy/perseus";
 import {gradedGroupLogic} from "@khanacademy/perseus-core";
+import Button from "@khanacademy/wonder-blocks-button";
+import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
+import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import PropTypes from "prop-types";
 import * as React from "react";
 
 import Editor from "../editor";
-import {iconPlus} from "../styles/icon-paths";
 
 import styles from "./graded-group-editor.module.css";
 
@@ -20,7 +17,7 @@ import type {
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
-const {InlineIcon, TextInput} = components;
+const {TextInput} = components;
 
 type Props = any;
 
@@ -53,7 +50,7 @@ class GradedGroupEditor extends React.Component<Props> {
         });
     };
 
-    handleRemoveHint: (arg1: React.MouseEvent) => void = (e) => {
+    handleRemoveHint: () => void = () => {
         this.props.onChange({hint: null});
     };
 
@@ -99,14 +96,15 @@ class GradedGroupEditor extends React.Component<Props> {
                     warnNoWidgets={true}
                 />
                 {!this.props.hint && (
-                    <button
-                        type="button"
-                        className={`add-hint simple-button orange ${styles.addHintButton}`}
+                    <Button
+                        startIcon={plusIcon}
+                        size="small"
+                        kind="tertiary"
                         onClick={this.handleAddHint}
                         disabled={editingDisabled}
                     >
-                        <InlineIcon {...iconPlus} /> Add a hint
-                    </button>
+                        Add a hint
+                    </Button>
                 )}
                 {this.props.hint && (
                     <div className="perseus-hint-editor">
@@ -132,14 +130,17 @@ class GradedGroupEditor extends React.Component<Props> {
                                 );
                             }}
                         />
-                        <button
-                            type="button"
-                            className="remove-hint simple-button orange"
+                        <Button
+                            startIcon={trashIcon}
+                            size="small"
+                            kind="tertiary"
                             onClick={this.handleRemoveHint}
                             disabled={editingDisabled}
+                            // Have the "Remove" button align to the right.
+                            style={{marginInlineStart: "auto", display: "flex"}}
                         >
-                            <InlineIcon {...iconTrash} /> Remove this hint
-                        </button>
+                            Remove this hint
+                        </Button>
                     </div>
                 )}
             </div>

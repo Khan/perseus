@@ -1274,10 +1274,8 @@ describe("getAnswersFromWidgets", () => {
                     [1, -4, 7, 5],
                     [3, 4, 6, 1],
                 ],
-                cursorPosition: [0, 0],
                 matrixBoardSize: [3, 4],
                 prefix: "",
-                static: false,
                 suffix: "",
             },
         };

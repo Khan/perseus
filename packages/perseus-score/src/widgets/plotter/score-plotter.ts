@@ -1,5 +1,4 @@
 import {approximateDeepEqual} from "@khanacademy/perseus-core";
-import _ from "underscore";
 
 import type {
     PerseusPlotterUserInput,

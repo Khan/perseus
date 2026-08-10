@@ -95,7 +95,6 @@ class GradedGroupAnswerBar extends React.Component<Props> {
                 <span style={styles.text}>
                     <span
                         style={{
-                            fontSize: font.heading.size.xlarge,
                             color: semanticColor.core.foreground.success
                                 .default,
                         }}
@@ -133,7 +132,6 @@ const styles = {
     },
 
     tryAgainIcon: {
-        fontSize: font.heading.size.xlarge,
         color: semanticColor.core.foreground.neutral.subtle,
         transform: "scale(-1,1) rotate(-268deg)",
     },
@@ -143,7 +141,7 @@ const styles = {
         flexDirection: "row",
         alignItems: "center",
         fontWeight: font.weight.bold,
-        fontSize: font.heading.size.medium,
+        fontSize: font.body.size.medium,
     },
 } as const;
 

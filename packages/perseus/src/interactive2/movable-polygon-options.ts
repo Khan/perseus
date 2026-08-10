@@ -20,7 +20,7 @@ function sum(array: any) {
 
 function clockwise(points: any) {
     const segments = _.zip(points, points.slice(1).concat(points.slice(0, 1)));
-    const areas = _.map(segments, function (segment) {
+    const areas = segments.map(function (segment) {
         const p1 = segment[0];
         const p2 = segment[1];
         return (p2[0] - p1[0]) * (p2[1] + p1[1]);
@@ -153,8 +153,7 @@ const draw = {
             // @ts-expect-error - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
             if (self.state._labeledSides == null) {
                 // @ts-expect-error - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
-                self.state._labeledSides = _.map(
-                    state.sideLabels,
+                self.state._labeledSides = state.sideLabels.map(
                     function (label) {
                         return graphie.label(
                             [0, 0],
@@ -190,8 +189,7 @@ const draw = {
             // @ts-expect-error - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
             if (self.state._labeledVertices == null) {
                 // @ts-expect-error - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly labels: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
-                self.state._labeledVertices = _.map(
-                    state.vertexLabels,
+                self.state._labeledVertices = state.vertexLabels.map(
                     function (label) {
                         return graphie.label(
                             [0, 0],
@@ -328,7 +326,7 @@ const constraints = {
 
             // Calculate the bounds for the delta.
             // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-            const deltaBounds = _.map(this.coords(), function (coord, i) {
+            const deltaBounds = this.coords().map(function (coord, i) {
                 const max = kvector.subtract(absoluteUpper, coord);
                 const min = kvector.subtract(absoluteLower, coord);
                 return [min, max];

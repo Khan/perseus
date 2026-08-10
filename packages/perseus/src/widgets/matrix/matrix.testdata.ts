@@ -11,15 +11,13 @@ export const question1: PerseusRenderer = {
             static: false,
             type: "matrix",
             options: {
-                cursorPosition: [0, 0],
+                prefix: "",
                 suffix: "",
                 answers: [
                     [5, -2, 1, 1],
                     [1, 1, 7, -3],
                     [3, 0, 0, -2],
                 ],
-                prefix: "",
-                static: false,
                 matrixBoardSize: [3, 4],
             },
             alignment: "default",

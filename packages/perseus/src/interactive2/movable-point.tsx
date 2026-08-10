@@ -625,7 +625,7 @@ export class MovablePoint {
             delete this._listenerMap[key];
 
             // Re-index existing events: if they occur after `index`, decrement
-            const keys = _.keys(this._listenerMap);
+            const keys = Object.keys(this._listenerMap);
             _.each(
                 keys,
                 (key) => {

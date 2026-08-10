@@ -1,5 +1,35 @@
 # @khanacademy/math-input
 
+## 26.6.8
+
+### Patch Changes
+
+-   Updated dependencies [[`ed25029`](https://github.com/Khan/perseus/commit/ed2502933fd0bd14b7de545c7ea1c70ad6eef6a8), [`273c61a`](https://github.com/Khan/perseus/commit/273c61a2e9cc8fdade8356da66cd5d0d358e8c47), [`8c52c56`](https://github.com/Khan/perseus/commit/8c52c568d5911cdb08ae98cf0247cc53da47e15a)]:
+    -   @khanacademy/perseus-core@34.0.1
+    -   @khanacademy/keypad-context@3.2.79
+
+## 26.6.7
+
+### Patch Changes
+
+-   [#3977](https://github.com/Khan/perseus/pull/3977) [`024094b`](https://github.com/Khan/perseus/commit/024094b0a0ad114aa6180e725a3a9cfa8050af2d) Thanks [@handeyeco](https://github.com/handeyeco)! - Tweak an eslint rule related to unused `_` variables and clean up related code
+
+-   [#3986](https://github.com/Khan/perseus/pull/3986) [`40b8da7`](https://github.com/Khan/perseus/commit/40b8da7df4315e83d5e7ede9d341f20e283e4304) Thanks [@nishasy](https://github.com/nishasy)! - Update dependencies
+
+-   [#3979](https://github.com/Khan/perseus/pull/3979) [`d03effd`](https://github.com/Khan/perseus/commit/d03effdad6888177671a53741f3a2134569b5f05) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert \_.isArray to Array.isArray
+
+-   Updated dependencies [[`b9f7019`](https://github.com/Khan/perseus/commit/b9f7019c3f11680a1bd189456924293bd63ee950), [`024094b`](https://github.com/Khan/perseus/commit/024094b0a0ad114aa6180e725a3a9cfa8050af2d), [`9e23342`](https://github.com/Khan/perseus/commit/9e233429b719b3956cd9a77166565826f0b08f8f), [`d03effd`](https://github.com/Khan/perseus/commit/d03effdad6888177671a53741f3a2134569b5f05), [`bc68abe`](https://github.com/Khan/perseus/commit/bc68abeb361923464a61edb5a3fcda2b816cf6ba), [`bb842c0`](https://github.com/Khan/perseus/commit/bb842c0756783bc0e90d6a1ebbfe4b55d5867e95)]:
+    -   @khanacademy/perseus-core@34.0.0
+    -   @khanacademy/keypad-context@3.2.78
+
+## 26.6.6
+
+### Patch Changes
+
+-   Updated dependencies [[`bfa51eb`](https://github.com/Khan/perseus/commit/bfa51ebe859e0b88afe21063295eaa95656d85d2)]:
+    -   @khanacademy/perseus-core@33.0.1
+    -   @khanacademy/keypad-context@3.2.77
+
 ## 26.6.5
 
 ### Patch Changes

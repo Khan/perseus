@@ -8,6 +8,6 @@ export type TablePublicWidgetOptions = Pick<
 export function getTablePublicWidgetOptions(
     options: PerseusTableWidgetOptions,
 ): TablePublicWidgetOptions {
-    const {answers: _, ...publicOptions} = options;
+    const {answers, ...publicOptions} = options;
     return publicOptions;
 }

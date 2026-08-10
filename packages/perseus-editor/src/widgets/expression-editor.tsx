@@ -15,6 +15,8 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
+import InfoTip from "../components/info-tip";
+
 import styles from "./expression-editor.module.css";
 
 import type {APIOptions} from "@khanacademy/perseus";
@@ -26,7 +28,7 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {CSSProperties} from "aphrodite";
 
-const {ButtonGroup, InfoTip} = components;
+const {ButtonGroup} = components;
 
 type Props = {
     widgetId?: string;
@@ -170,13 +172,13 @@ class ExpressionEditor extends React.Component<Props, State> {
         // which in most case is what we want, but is not what we want
         // in the editing experience because we should recalculate them
         // when answers change
-        const {extraKeys: _, ...restProps} = this.props;
+        const {extraKeys, ...restProps} = this.props;
 
-        const extraKeys = deriveExtraKeys({
+        const derivedExtraKeys = deriveExtraKeys({
             ...restProps,
             answerForms,
         });
-        this.props.onChange({answerForms, extraKeys});
+        this.props.onChange({answerForms, extraKeys: derivedExtraKeys});
     }
 
     // called when the selected buttonset changes

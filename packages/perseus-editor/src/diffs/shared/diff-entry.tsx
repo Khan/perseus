@@ -70,7 +70,7 @@ class CollapsedRow extends React.Component<CollapsedRowProps> {
         const self = this;
         return (
             <div style={{clear: "both"}}>
-                {_.map([BEFORE, AFTER], function (side) {
+                {[BEFORE, AFTER].map(function (side) {
                     return (
                         <div
                             className={"diff-row collapsed " + side}
@@ -185,7 +185,7 @@ class DiffEntry extends React.Component<DiffEntryProps, DiffEntryState> {
                         />
                     </div>
                 )}
-                {_.map(shownChildren, function (child) {
+                {shownChildren.map(function (child) {
                     return (
                         <DiffEntry
                             key={child.key}

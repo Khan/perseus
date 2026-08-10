@@ -11,7 +11,6 @@
     overflow: auto;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile) table {
-    color: #21242c;
     font-size: 20px;
     line-height: 30px;
     margin-bottom: 32px;
@@ -369,12 +368,23 @@
     img[src$=".png"],
     img[src$=".svg"],
     .graphie,
-    .perseus-block-math .mathjax-wrapper {
-        /* This filter is applied to all PNG/SVG images,
-           and to the content of Graphie images (text labels, etc.),
-           and to any MathJax.
-           It leaves JPEGs & GIFs untouched.
-        */
+    .mathjax-wrapper:not(.graphie *) {
+        /* This filter is applied to PNG/SVG images, Graphie (e.g. label
+           text), and MathJax. MathJax inside Graphie labels is excluded so it
+           doesn't get double-inverted. JPEGs & GIFs are untouched.
+         */
         filter: invert(1) hue-rotate(180deg) brightness(1.5);
+    }
+
+    .mathjax-wrapper {
+        /* Since we invert all MathJax colors (above), we need to force the
+           default foreground color to dark so it will be light when inverted.
+           If we don't do this, then math will inherit the theme's foreground
+           color and invert it, resulting in dark-on-dark text.
+
+           The precise color used here is unimportant; off-black colors get
+           washed out by the brightness filter, so they end up as #fff anyway.
+         */
+        color: black;
     }
 }

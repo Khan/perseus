@@ -924,13 +924,13 @@ export type PerseusInteractiveGraphWidgetOptions = {
      */
     snapStep?: [x: number, y: number];
     /** An optional image to use in the background */
-    backgroundImage?: PerseusImageBackground;
+    backgroundImage: PerseusImageBackground;
     /**
      * The type of markings to display on the graph.
      */
     markings: MarkingsType;
     /** How to label the X and Y axis. default: ["x", "y"] */
-    labels?: string[];
+    labels: string[];
     /**
      * Specifies the location of the labels on the graph.  default: "onAxis".
      * - "onAxis": Labels are positioned on the axis at the right (x) and top
@@ -939,7 +939,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
      *    edges of the graph. The y label is rotated. Typically used when the
      *    range min is near 0 with longer labels.
      */
-    labelLocation?: AxisLabelLocation;
+    labelLocation: AxisLabelLocation;
     /** Which sides of the graph are bounded (removed axis arrows). */
     showAxisArrows: ShowAxisArrows;
     /**
@@ -956,7 +956,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
      */
     showRuler?: boolean;
     /** Whether to show tooltips on the graph */
-    showTooltips?: boolean;
+    showTooltips: boolean;
     /**
      * The unit to show on the ruler.  e.g. "mm", "cm",  "m", "km", "in", "ft",
      * "yd", "mi".
@@ -1559,29 +1559,19 @@ export type PerseusMatrixWidgetAnswers = number[][];
 /** Options for the matrix widget. A grid of numeric cells to fill in. */
 export type PerseusMatrixWidgetOptions = {
     /** Translatable Text; Shown before the matrix */
-    prefix?: string | undefined;
+    prefix: string;
     /** Translatable Text; Shown after the matrix */
-    suffix?: string | undefined;
+    suffix: string;
     /**
      * A data matrix representing the "correct" answers to be entered into the
      * matrix
      */
     answers: PerseusMatrixWidgetAnswers;
     /**
-     * The coordinate location of the cursor position at start.
-     * default: [0, 0]
-     */
-    cursorPosition?: number[] | undefined;
-    /**
      * The coordinate size of the matrix. Only supports 2-dimensional matrix.
      * default: [3, 3]
      */
     matrixBoardSize: number[];
-    /**
-     * Whether this is meant to statically display the answers (true) or be
-     * used as an input field, graded against the answers
-     */
-    static?: boolean | undefined;
 };
 
 /** Options for the measurer widget. A virtual ruler and/or protractor. */
@@ -1645,6 +1635,8 @@ export type PerseusNumericInputWidgetOptions = {
      * Translatable Text; Text to describe this input. This will be shown to
      * users using screenreaders.
      */
+    // TODO(LEMS-4354): Make labelText required and default it to "" in the
+    //  parser.
     labelText?: string | undefined;
     /**
      * Use size "Normal" for all text boxes, unless there are multiple text

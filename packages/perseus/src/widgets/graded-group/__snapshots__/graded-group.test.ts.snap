@@ -72,7 +72,7 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                             <thead>
                               <tr>
                                 <td
-                                  class="emptyHeaderCell_1mttrgd"
+                                  class="emptyHeaderCell_xeoxek"
                                 />
                                 <th
                                   class="header_whrfk4"
@@ -131,14 +131,14 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_13aakpm"
+                                  class="category cell_1wviiqy"
                                 >
                                   <div
                                     aria-label="True"
                                     role="button"
                                   >
                                     <span
-                                      class="radioSpan_1mq3xs9"
+                                      class="radioSpan_buhzha"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -157,14 +157,14 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_13aakpm"
+                                  class="category cell_1wviiqy"
                                 >
                                   <div
                                     aria-label="False"
                                     role="button"
                                   >
                                     <span
-                                      class="radioSpan_1mq3xs9"
+                                      class="radioSpan_buhzha"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -201,14 +201,14 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_13aakpm"
+                                  class="category cell_1wviiqy"
                                 >
                                   <div
                                     aria-label="True"
                                     role="button"
                                   >
                                     <span
-                                      class="radioSpan_1mq3xs9"
+                                      class="radioSpan_buhzha"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -227,14 +227,14 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_13aakpm"
+                                  class="category cell_1wviiqy"
                                 >
                                   <div
                                     aria-label="False"
                                     role="button"
                                   >
                                     <span
-                                      class="radioSpan_1mq3xs9"
+                                      class="radioSpan_buhzha"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -271,14 +271,14 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_13aakpm"
+                                  class="category cell_1wviiqy"
                                 >
                                   <div
                                     aria-label="True"
                                     role="button"
                                   >
                                     <span
-                                      class="radioSpan_1mq3xs9"
+                                      class="radioSpan_buhzha"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -297,14 +297,14 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_13aakpm"
+                                  class="category cell_1wviiqy"
                                 >
                                   <div
                                     aria-label="False"
                                     role="button"
                                   >
                                     <span
-                                      class="radioSpan_1mq3xs9"
+                                      class="radioSpan_buhzha"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -341,14 +341,14 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_13aakpm"
+                                  class="category cell_1wviiqy"
                                 >
                                   <div
                                     aria-label="True"
                                     role="button"
                                   >
                                     <span
-                                      class="radioSpan_1mq3xs9"
+                                      class="radioSpan_buhzha"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -367,14 +367,14 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_13aakpm"
+                                  class="category cell_1wviiqy"
                                 >
                                   <div
                                     aria-label="False"
                                     role="button"
                                   >
                                     <span
-                                      class="radioSpan_1mq3xs9"
+                                      class="radioSpan_buhzha"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -516,7 +516,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                             <thead>
                               <tr>
                                 <td
-                                  class="emptyHeaderCell_1mttrgd"
+                                  class="emptyHeaderCell_xeoxek"
                                 />
                                 <th
                                   class="header_whrfk4"
@@ -575,28 +575,28 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_13aakpm"
+                                  class="category cell_1wviiqy"
                                 >
                                   <div
                                     aria-label="True"
                                     role="button"
                                   >
                                     <input
-                                      class="responsiveInput_1q2zj3l-o_O-responsiveRadioInput_17um91a"
+                                      class="responsiveInput_10rqe3p-o_O-responsiveRadioInput_ky7gu6"
                                       name="perseus_radio_9_0"
                                       type="radio"
                                     />
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_13aakpm"
+                                  class="category cell_1wviiqy"
                                 >
                                   <div
                                     aria-label="False"
                                     role="button"
                                   >
                                     <input
-                                      class="responsiveInput_1q2zj3l-o_O-responsiveRadioInput_17um91a"
+                                      class="responsiveInput_10rqe3p-o_O-responsiveRadioInput_ky7gu6"
                                       name="perseus_radio_9_0"
                                       type="radio"
                                     />
@@ -621,28 +621,28 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_13aakpm"
+                                  class="category cell_1wviiqy"
                                 >
                                   <div
                                     aria-label="True"
                                     role="button"
                                   >
                                     <input
-                                      class="responsiveInput_1q2zj3l-o_O-responsiveRadioInput_17um91a"
+                                      class="responsiveInput_10rqe3p-o_O-responsiveRadioInput_ky7gu6"
                                       name="perseus_radio_9_1"
                                       type="radio"
                                     />
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_13aakpm"
+                                  class="category cell_1wviiqy"
                                 >
                                   <div
                                     aria-label="False"
                                     role="button"
                                   >
                                     <input
-                                      class="responsiveInput_1q2zj3l-o_O-responsiveRadioInput_17um91a"
+                                      class="responsiveInput_10rqe3p-o_O-responsiveRadioInput_ky7gu6"
                                       name="perseus_radio_9_1"
                                       type="radio"
                                     />
@@ -667,28 +667,28 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_13aakpm"
+                                  class="category cell_1wviiqy"
                                 >
                                   <div
                                     aria-label="True"
                                     role="button"
                                   >
                                     <input
-                                      class="responsiveInput_1q2zj3l-o_O-responsiveRadioInput_17um91a"
+                                      class="responsiveInput_10rqe3p-o_O-responsiveRadioInput_ky7gu6"
                                       name="perseus_radio_9_2"
                                       type="radio"
                                     />
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_13aakpm"
+                                  class="category cell_1wviiqy"
                                 >
                                   <div
                                     aria-label="False"
                                     role="button"
                                   >
                                     <input
-                                      class="responsiveInput_1q2zj3l-o_O-responsiveRadioInput_17um91a"
+                                      class="responsiveInput_10rqe3p-o_O-responsiveRadioInput_ky7gu6"
                                       name="perseus_radio_9_2"
                                       type="radio"
                                     />
@@ -713,28 +713,28 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_13aakpm"
+                                  class="category cell_1wviiqy"
                                 >
                                   <div
                                     aria-label="True"
                                     role="button"
                                   >
                                     <input
-                                      class="responsiveInput_1q2zj3l-o_O-responsiveRadioInput_17um91a"
+                                      class="responsiveInput_10rqe3p-o_O-responsiveRadioInput_ky7gu6"
                                       name="perseus_radio_9_3"
                                       type="radio"
                                     />
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_13aakpm"
+                                  class="category cell_1wviiqy"
                                 >
                                   <div
                                     aria-label="False"
                                     role="button"
                                   >
                                     <input
-                                      class="responsiveInput_1q2zj3l-o_O-responsiveRadioInput_17um91a"
+                                      class="responsiveInput_10rqe3p-o_O-responsiveRadioInput_ky7gu6"
                                       name="perseus_radio_9_3"
                                       type="radio"
                                     />

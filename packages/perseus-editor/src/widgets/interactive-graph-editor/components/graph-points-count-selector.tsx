@@ -18,7 +18,6 @@ interface Props {
 }
 
 const pointsCountOptions: Record<string, string> = {
-    "0": "0 points",
     "1": "1 point",
     "2": "2 points",
     "3": "3 points",

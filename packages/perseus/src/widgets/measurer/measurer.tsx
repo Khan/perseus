@@ -13,10 +13,7 @@ import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {Interval} from "../../util/interval";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
-type Props = WidgetProps<PerseusMeasurerWidgetOptions> & {
-    protractorX: number;
-    protractorY: number;
-};
+type Props = WidgetProps<PerseusMeasurerWidgetOptions>;
 
 class Measurer extends React.Component<Props> implements Widget {
     // this just helps with TS weak typing when a Widget
@@ -79,10 +76,7 @@ class Measurer extends React.Component<Props> implements Widget {
 
         if (this.props.showProtractor) {
             // @ts-expect-error - Property 'protractor' does not exist on type 'Graphie'.
-            this.protractor = graphie.protractor([
-                this.props.protractorX,
-                this.props.protractorY,
-            ]);
+            this.protractor = graphie.protractor([7.5, 0.5]);
         }
 
         if (this.ruler) {

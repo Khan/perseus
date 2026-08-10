@@ -12,6 +12,7 @@ import _ from "underscore";
 
 import Lint from "./components/lint";
 import {getDependencies} from "./dependencies";
+import {noParagraphForInlineWidget} from "./util";
 
 /**
  * These rules are the same as the pure-markdown rules, but with some
@@ -275,6 +276,19 @@ const rules = {
             );
         },
     },
+    paragraph: {
+        ...pureMarkdownRules.paragraph,
+        react: (node, output, state) => {
+            if (noParagraphForInlineWidget(node)) {
+                // Some widgets can appear inline with text, but
+                // shouldn't be contained by a <p> element, so just render the
+                // content and let the parent handle layout, etc.
+                return output(node.content, state);
+            } else {
+                return <p>{output(node.content, state)}</p>;
+            }
+        },
+    },
 } as const;
 
 // Return true if the specified parse tree node represents inline content
@@ -320,12 +334,12 @@ const inlineParser = (source: string, state: any): any => {
  */
 const getContent = (ast: any) => {
     // Simplify logic by dealing with a single AST node at a time
-    if (_.isArray(ast)) {
-        return _.flatten(_.map(ast, getContent));
+    if (Array.isArray(ast)) {
+        return _.flatten(ast.map(getContent));
     }
 
     // Base case: This is where we actually extract text content
-    if (ast.content && _.isString(ast.content)) {
+    if (ast.content && typeof ast.content === "string") {
         // Collapse whitespace within content unless it is code
         if (ast.type.toLowerCase().indexOf("code") !== -1) {
             // In case this is the sole child of a paragraph,

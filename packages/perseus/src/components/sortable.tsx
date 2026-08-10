@@ -366,7 +366,11 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
             this.props.state === ItemState.DRAGGING ||
             this.props.state === ItemState.ANIMATING
         ) {
-            _.extend(style, {position: "absolute"}, this.getCurrentPosition());
+            Object.assign(
+                style,
+                {position: "absolute"},
+                this.getCurrentPosition(),
+            );
         }
 
         if (this.props.width) {
@@ -560,15 +564,11 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         let items: ReadonlyArray<SortableItem> = [...this.state.items];
 
         // Fetches a jQuery list of elements for each item
-        const $items = _.map(
-            items,
-            function (item) {
-                // eslint-disable-next-line react/no-string-refs
-                // @ts-expect-error - TS2769 - No overload matches this call. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                return $(ReactDOM.findDOMNode(this.refs[item.key]));
-            },
-            this,
-        );
+        const $items = items.map((item) => {
+            // eslint-disable-next-line react/no-string-refs
+            // @ts-expect-error - TS2769 - No overload matches this call.
+            return $(ReactDOM.findDOMNode(this.refs[item.key]));
+        });
 
         const widths: ReadonlyArray<number> = _.invoke($items, "outerWidth");
         const heights: ReadonlyArray<number> = _.invoke($items, "outerHeight");
@@ -578,22 +578,22 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         let syncWidth: number | null = null;
         if (constraints?.width) {
             // Items must be at least as wide as the specified constraint
-            syncWidth = _.max(widths.concat(constraints.width));
+            syncWidth = Math.max(...widths, constraints.width);
         } else if (layout === "vertical") {
             // Sync widths to get a clean column
-            syncWidth = _.max(widths);
+            syncWidth = Math.max(...widths);
         }
 
         let syncHeight: number | null = null;
         if (constraints?.height) {
             // Items must be at least as high as the specified constraint
-            syncHeight = _.max(heights.concat(constraints.height));
+            syncHeight = Math.max(...heights, constraints.height);
         } else if (layout === "horizontal") {
             // Sync widths to get a clean row
-            syncHeight = _.max(heights);
+            syncHeight = Math.max(...heights);
         }
 
-        items = _.map(items, function (item, i) {
+        items = items.map(function (item, i) {
             item.width = syncWidth || widths[i];
             item.height = syncHeight || heights[i];
             return item;
@@ -606,7 +606,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
 
     onMouseDown(key: SortableItem["key"]) {
         // Static -> Dragging
-        const items = _.map(this.state.items, function (item) {
+        const items = this.state.items.map(function (item) {
             if (item.key === key) {
                 item.state = ItemState.DRAGGING;
             }
@@ -629,7 +629,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
             throw new Error(`index ${index} out of bounds`);
         }
 
-        const nextItems = _.clone(items);
+        const nextItems = [...items];
 
         const item = items.filter((item: SortableItem) => {
             return item.option === option;
@@ -643,9 +643,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
             return i.key === item.key;
         });
 
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
         nextItems.splice(currentIndex, 1);
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
         nextItems.splice(index, 0, item);
 
         this.setState({items: nextItems}, () => {
@@ -663,15 +661,14 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         const $draggable = $(ReactDOM.findDOMNode(this.refs[key]));
         // @ts-expect-error - TS2769 - No overload matches this call.
         const $sortable = $(ReactDOM.findDOMNode(this));
-        const items = _.clone(this.state.items);
-        const item = _.findWhere(this.state.items, {key: key});
+        const items = [...this.state.items];
+        const item = this.state.items.find((item) => item.key === key);
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const margin = this.props.margin || 0;
         // @ts-expect-error - TS2345 - Argument of type 'SortableItem | undefined' is not assignable to parameter of type 'SortableItem'.
-        const currentIndex = _.indexOf(items, item);
+        const currentIndex = items.indexOf(item);
         let newIndex = 0;
 
-        // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
         items.splice(currentIndex, 1);
 
         if (this.props.layout === "horizontal") {
@@ -680,7 +677,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
             let sumWidth = 0;
             let cardWidth;
 
-            _.each(items, function (item) {
+            items.forEach(function (item) {
                 cardWidth = item.width;
                 if (midWidth > sumWidth + cardWidth / 2) {
                     newIndex += 1;
@@ -693,7 +690,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
             let sumHeight = 0;
             let cardHeight;
 
-            _.each(items, function (item) {
+            items.forEach(function (item) {
                 cardHeight = item.height;
                 if (midHeight > sumHeight + cardHeight / 2) {
                     newIndex += 1;
@@ -703,7 +700,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         }
 
         if (newIndex !== currentIndex) {
-            // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
+            // @ts-expect-error - TS2345 - Argument of type 'SortableItem | undefined' is not assignable to parameter of type 'SortableItem'.
             items.splice(newIndex, 0, item);
             this.setState({items: items});
         }
@@ -714,31 +711,26 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
         const nextAnimationFrame = requestAnimationFrame(() => {
-            const items = _.map(
-                this.state.items,
-                function (item) {
-                    if (item.key === key) {
-                        item.state = ItemState.ANIMATING;
-                        const $placeholder = $(
-                            // @ts-expect-error - TS2769 - No overload matches this call.
-                            ReactDOM.findDOMNode(
-                                // eslint-disable-next-line react/no-string-refs
-                                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                this.refs["placeholder_" + key],
-                            ),
-                        );
-                        // @ts-expect-error - TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
-                        const position = $placeholder.position();
-                        const endPosition = addOffsetParentScroll(
-                            $placeholder,
-                            position,
-                        );
-                        item.endPosition = endPosition;
-                    }
-                    return item;
-                },
-                this,
-            );
+            const items = this.state.items.map((item) => {
+                if (item.key === key) {
+                    item.state = ItemState.ANIMATING;
+                    const $placeholder = $(
+                        // @ts-expect-error - TS2769 - No overload matches this call.
+                        ReactDOM.findDOMNode(
+                            // eslint-disable-next-line react/no-string-refs
+                            this.refs["placeholder_" + key],
+                        ),
+                    );
+                    // @ts-expect-error - TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
+                    const position = $placeholder.position();
+                    const endPosition = addOffsetParentScroll(
+                        $placeholder,
+                        position,
+                    );
+                    item.endPosition = endPosition;
+                }
+                return item;
+            }, this);
 
             this.setState({items: items}, () => {
                 // HACK (LEMS-3224) We need to know *that* the widget changed, but currently it's
@@ -754,7 +746,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
 
     onAnimationEnd(key: SortableItem["key"]) {
         // Animating -> Static
-        const items = _.map(this.state.items, function (item) {
+        const items = this.state.items.map(function (item) {
             if (item.key === key) {
                 item.state = ItemState.STATIC;
             }
@@ -764,8 +756,8 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         this.setState({items: items});
     }
 
-    getOptions(): ReadonlyArray<SortableOption> {
-        return _.pluck(this.state.items, "option");
+    getOptions(): SortableOption[] {
+        return this.state.items.map((item) => item.option);
     }
 
     render(): React.ReactNode {
@@ -816,92 +808,63 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         const syncHeight =
             this.props.constraints?.height || layout === "horizontal";
 
-        _.each(
-            this.state.items,
-            function (item, i, items) {
-                const isLast = i === items.length - 1;
-                const isStatic =
-                    item.state === ItemState.STATIC ||
-                    item.state === ItemState.DISABLED;
-                let margin;
+        this.state.items.forEach((item, i, items) => {
+            const isLast = i === items.length - 1;
+            const isStatic =
+                item.state === ItemState.STATIC ||
+                item.state === ItemState.DISABLED;
+            let margin;
 
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                if (this.props.layout === "horizontal") {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                    margin = "0 " + this.props.margin + "px 0 0"; // right
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                } else if (this.props.layout === "vertical") {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                    margin = "0 0 " + this.props.margin + "px 0"; // bottom
-                }
+            if (this.props.layout === "horizontal") {
+                margin = "0 " + this.props.margin + "px 0 0"; // right
+            } else if (this.props.layout === "vertical") {
+                margin = "0 0 " + this.props.margin + "px 0"; // bottom
+            }
 
+            cards.push(
+                <Draggable
+                    content={item.option}
+                    key={item.key}
+                    state={item.state}
+                    // @ts-expect-error - TS2769 - No overload matches this call.
+                    ref={item.key}
+                    width={syncWidth ? item.width : undefined}
+                    height={syncHeight ? item.height : undefined}
+                    layout={layout}
+                    includePadding={this.props.padding}
+                    margin={isLast && isStatic ? 0 : margin}
+                    endPosition={item.endPosition}
+                    linterContext={PerseusLinter.pushContextStack(
+                        this.props.linterContext,
+                        "sortable",
+                    )}
+                    onRender={this.remeasureItems}
+                    onMouseDown={() => this.onMouseDown(item.key)}
+                    onMouseMove={() => this.onMouseMove(item.key)}
+                    onMouseUp={() => this.onMouseUp(item.key)}
+                    onTouchMove={() => this.onMouseMove(item.key)}
+                    onTouchEnd={() => this.onMouseUp(item.key)}
+                    onTouchCancel={() => this.onMouseUp(item.key)}
+                    onAnimationEnd={() => this.onAnimationEnd(item.key)}
+                />,
+            );
+
+            if (
+                item.state === ItemState.DRAGGING ||
+                item.state === ItemState.ANIMATING
+            ) {
                 cards.push(
-                    <Draggable
-                        content={item.option}
-                        key={item.key}
-                        state={item.state}
-                        // @ts-expect-error - TS2769 - No overload matches this call.
-                        ref={item.key}
-                        width={syncWidth ? item.width : undefined}
-                        height={syncHeight ? item.height : undefined}
+                    <Placeholder
+                        key={"placeholder_" + item.key}
+                        ref={"placeholder_" + item.key}
+                        width={item.width}
+                        height={item.height}
                         layout={layout}
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        includePadding={this.props.padding}
-                        margin={isLast && isStatic ? 0 : margin}
-                        endPosition={item.endPosition}
-                        linterContext={PerseusLinter.pushContextStack(
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            this.props.linterContext,
-                            "sortable",
-                        )}
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onRender={this.remeasureItems}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onMouseDown={this.onMouseDown.bind(this, item.key)}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onMouseMove={this.onMouseMove.bind(this, item.key)}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onMouseUp={this.onMouseUp.bind(this, item.key)}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onTouchMove={this.onMouseMove.bind(this, item.key)}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onTouchEnd={this.onMouseUp.bind(this, item.key)}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onTouchCancel={this.onMouseUp.bind(this, item.key)}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onAnimationEnd={this.onAnimationEnd.bind(
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            this,
-                            item.key,
-                        )}
+                        margin={isLast ? 0 : margin}
                     />,
                 );
-
-                if (
-                    item.state === ItemState.DRAGGING ||
-                    item.state === ItemState.ANIMATING
-                ) {
-                    cards.push(
-                        <Placeholder
-                            key={"placeholder_" + item.key}
-                            ref={"placeholder_" + item.key}
-                            width={item.width}
-                            height={item.height}
-                            layout={layout}
-                            margin={isLast ? 0 : margin}
-                        />,
-                    );
-                }
-            },
-            this,
-        );
+            }
+        }, this);
 
         return <ul className={className}>{cards}</ul>;
     }

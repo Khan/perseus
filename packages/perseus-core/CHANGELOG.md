@@ -1,5 +1,45 @@
 # @khanacademy/perseus-core
 
+## 34.0.1
+
+### Patch Changes
+
+-   [#3991](https://github.com/Khan/perseus/pull/3991) [`ed25029`](https://github.com/Khan/perseus/commit/ed2502933fd0bd14b7de545c7ea1c70ad6eef6a8) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert some uses of underscore (_.indexOf and _.keys) to native equivalents
+
+-   [#4007](https://github.com/Khan/perseus/pull/4007) [`273c61a`](https://github.com/Khan/perseus/commit/273c61a2e9cc8fdade8356da66cd5d0d358e8c47) Thanks [@handeyeco](https://github.com/handeyeco)! - Replace low-risk uses of `_.map` with `Array.map`
+
+-   [#3997](https://github.com/Khan/perseus/pull/3997) [`8c52c56`](https://github.com/Khan/perseus/commit/8c52c568d5911cdb08ae98cf0247cc53da47e15a) Thanks [@Myranae](https://github.com/Myranae)! - Update phet simulation to reflect the current user's theme by updating styling to tokens
+
+-   Updated dependencies [[`ed25029`](https://github.com/Khan/perseus/commit/ed2502933fd0bd14b7de545c7ea1c70ad6eef6a8), [`233204b`](https://github.com/Khan/perseus/commit/233204bb0df329cfa0e0818605c362ec8e89687c), [`273c61a`](https://github.com/Khan/perseus/commit/273c61a2e9cc8fdade8356da66cd5d0d358e8c47), [`ddfd715`](https://github.com/Khan/perseus/commit/ddfd715fef24e29d088d16a6b61e2b51fd773c26)]:
+    -   @khanacademy/kas@2.2.5
+
+## 34.0.0
+
+### Major Changes
+
+-   [#3978](https://github.com/Khan/perseus/pull/3978) [`bc68abe`](https://github.com/Khan/perseus/commit/bc68abeb361923464a61edb5a3fcda2b816cf6ba) Thanks [@benchristel](https://github.com/benchristel)! - The unused `cursorPosition` and `static` options of the Matrix widget have been removed, and the `prefix` and `suffix` options are now required. As always, clients should use the parsers to migrate data to the latest schema, and avoid constructing Perseus widget data manually.
+
+-   [#3971](https://github.com/Khan/perseus/pull/3971) [`bb842c0`](https://github.com/Khan/perseus/commit/bb842c0756783bc0e90d6a1ebbfe4b55d5867e95) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove export: RubricMap (wasn't used)
+
+### Patch Changes
+
+-   [#3975](https://github.com/Khan/perseus/pull/3975) [`b9f7019`](https://github.com/Khan/perseus/commit/b9f7019c3f11680a1bd189456924293bd63ee950) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused underscore imports
+
+-   [#3977](https://github.com/Khan/perseus/pull/3977) [`024094b`](https://github.com/Khan/perseus/commit/024094b0a0ad114aa6180e725a3a9cfa8050af2d) Thanks [@handeyeco](https://github.com/handeyeco)! - Tweak an eslint rule related to unused `_` variables and clean up related code
+
+-   [#3772](https://github.com/Khan/perseus/pull/3772) [`9e23342`](https://github.com/Khan/perseus/commit/9e233429b719b3956cd9a77166565826f0b08f8f) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - PhET widget: remove `URL.canParse` so simulations load on Safari/iOS < 17, and on web browsers without Fullscreen API support (e.g. Safari on iPhone) replace the non-functional fullscreen button with a link that opens the simulation on PhET's site in a new tab
+
+-   [#3979](https://github.com/Khan/perseus/pull/3979) [`d03effd`](https://github.com/Khan/perseus/commit/d03effdad6888177671a53741f3a2134569b5f05) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert \_.isArray to Array.isArray
+
+-   Updated dependencies [[`b9f7019`](https://github.com/Khan/perseus/commit/b9f7019c3f11680a1bd189456924293bd63ee950), [`024094b`](https://github.com/Khan/perseus/commit/024094b0a0ad114aa6180e725a3a9cfa8050af2d), [`d03effd`](https://github.com/Khan/perseus/commit/d03effdad6888177671a53741f3a2134569b5f05)]:
+    -   @khanacademy/kas@2.2.4
+
+## 33.0.1
+
+### Patch Changes
+
+-   [#3931](https://github.com/Khan/perseus/pull/3931) [`bfa51eb`](https://github.com/Khan/perseus/commit/bfa51ebe859e0b88afe21063295eaa95656d85d2) Thanks [@Evelas78](https://github.com/Evelas78)! - Created Regression Story and Generator for Categorizer
+
 ## 33.0.0
 
 ### Major Changes

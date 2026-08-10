@@ -3,13 +3,6 @@ import {expectPass, expectWarning} from "../__tests__/test-utils";
 import phetSimulationWidgetErrorRule from "./phet-simulation-widget-error";
 
 describe("radio-widget-error", () => {
-    beforeEach(() => {
-        // We need to mock URL.canParse() because it is not available
-        // in our testing environment.
-        // eslint-disable-next-line no-restricted-syntax
-        global.URL.canParse = jest.fn(() => true) as jest.Mock;
-    });
-
     it("warns for phet simulation widget with non-PhET URL", () => {
         expectWarning(
             phetSimulationWidgetErrorRule,

@@ -228,8 +228,10 @@ describe("parseWidgetsMap", () => {
                     step: [1, 1],
                     gridStep: [1, 1],
                     snapStep: [1, 1],
+                    backgroundImage: {url: "http://example.com"},
                     markings: "none",
                     labels: [],
+                    labelLocation: "onAxis",
                     showProtractor: false,
                     range: [
                         [0, 1],
@@ -245,6 +247,7 @@ describe("parseWidgetsMap", () => {
                         yMax: true,
                     },
                     showAxisTicks: {x: true, y: true},
+                    showTooltips: true,
                 },
             },
         };
@@ -508,9 +511,7 @@ describe("parseWidgetsMap", () => {
                     prefix: "",
                     suffix: "",
                     answers: [],
-                    cursorPosition: [],
                     matrixBoardSize: [],
-                    static: false,
                 },
             },
         };

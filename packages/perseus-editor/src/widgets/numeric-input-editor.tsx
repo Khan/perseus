@@ -17,6 +17,7 @@ import * as React from "react";
 import _ from "underscore";
 
 import Heading from "../components/heading";
+import InfoTip from "../components/info-tip";
 import PerseusEditorAccordion from "../components/perseus-editor-accordion";
 import {
     SegmentedControl,
@@ -31,7 +32,7 @@ import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 
 type ChangeFn = typeof Changeable.change;
 
-const {InfoTip, NumberInput, TextInput} = components;
+const {NumberInput, TextInput} = components;
 const {firstNumericalParse} = Util;
 
 const answerFormButtons = [

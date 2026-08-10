@@ -1,5 +1,3 @@
-import _ from "underscore";
-
 import {applyDefaultsToWidgets} from "../widgets/apply-defaults";
 import {getPublicWidgetOptionsFunction} from "../widgets/core-widget-registry";
 
