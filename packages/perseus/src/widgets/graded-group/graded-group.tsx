@@ -27,7 +27,7 @@ import type {
     TrackingGradedGroupExtraArguments,
     Widget,
     WidgetExports,
-    WidgetProps,
+    WidgetPropsV2,
 } from "../../types";
 import type {GradedGroupPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
 import type {
@@ -36,7 +36,6 @@ import type {
     PerseusScore,
     UserInputMap,
 } from "@khanacademy/perseus-core";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const GRADING_STATUSES = {
     ungraded: "ungraded" as const,
@@ -63,7 +62,7 @@ const getNextState = (
     }
 };
 
-type Props = WidgetProps<
+type Props = WidgetPropsV2<
     PerseusGradedGroupWidgetOptions,
     Empty,
     TrackingGradedGroupExtraArguments
@@ -79,18 +78,6 @@ type State = {
     message: string;
     answerBarState: ANSWER_BAR_STATES;
 };
-
-// Assert that the PerseusGradedGroupWidgetOptions parsed from JSON can be
-// passed as props to this component. This ensures that the
-// PerseusGradedGroupWidgetOptions stays in sync with the prop types. The
-// PropsFor<Component> type takes defaultProps into account, which is important
-// because PerseusGradedGroupWidgetOptions has optional fields which receive defaults
-// via defaultProps.
-// eslint-disable-next-line no-restricted-syntax
-0 as any as WidgetProps<
-    PerseusGradedGroupWidgetOptions,
-    Empty
-> satisfies PropsFor<typeof WrappedGradedGroup>;
 
 // A Graded Group is more or less a Group widget that displays a check
 // answer button below the rendered content. When clicked, the widget grades
@@ -186,12 +173,12 @@ export class GradedGroup
         // If the hint isn't expanded, we can't get the prompt JSON from the rendered widgets.
         // We'll just pass in the hint content as a string instead.
         const hint = this.hintRendererRef.current?.getPromptJSON() || {
-            content: this.props.hint?.content || "",
+            content: this.props.options.hint?.content || "",
             widgets: {},
         };
 
         return getPromptJSON(
-            this.props.title,
+            this.props.options.title,
             this.rendererRef.current?.getPromptJSON(),
             hint,
         );
@@ -281,11 +268,13 @@ export class GradedGroup
 
         return (
             <div className={classes}>
-                {!!this.props.title && (
-                    <div className={css(styles.title)}>{this.props.title}</div>
+                {!!this.props.options.title && (
+                    <div className={css(styles.title)}>
+                        {this.props.options.title}
+                    </div>
                 )}
                 <UserInputManager
-                    widgets={this.props.widgets}
+                    widgets={this.props.options.widgets}
                     handleUserInput={(
                         userInput: UserInputMap,
                         widgetsEmpty: boolean,
@@ -294,9 +283,9 @@ export class GradedGroup
                 >
                     {({userInput, handleUserInput}) => (
                         <Renderer
-                            content={this.props.content}
-                            widgets={this.props.widgets}
-                            images={this.props.images}
+                            content={this.props.options.content}
+                            widgets={this.props.options.widgets}
+                            images={this.props.options.images}
                             userInput={userInput}
                             handleUserInput={handleUserInput}
                             problemNum={0}
@@ -363,7 +352,7 @@ export class GradedGroup
                     </>
                 )}
 
-                {this.props.hint?.content &&
+                {this.props.options.hint?.content &&
                     (this.state.showHint ? (
                         <div>
                             {/* Not using Button here bc the styles won't work. */}
@@ -382,7 +371,7 @@ export class GradedGroup
                             </button>
 
                             <UserInputManager
-                                widgets={this.props.hint.widgets}
+                                widgets={this.props.options.hint.widgets}
                                 problemNum={0}
                             >
                                 {({
@@ -393,7 +382,7 @@ export class GradedGroup
                                     // we did a check above to make sure hints exists
                                     // eslint-disable-next-line no-restricted-syntax
                                     const {content, widgets, images} = this
-                                        .props.hint as PerseusRenderer;
+                                        .props.options.hint as PerseusRenderer;
                                     return (
                                         <Renderer
                                             content={content}

@@ -524,7 +524,7 @@ review and commit the changes.
       assertion and update `interactive-graph-editor` preview; subtype lookup already
       handled by scaffolding).
 - [x] Migrate `group` to `WidgetPropsV2` (renders a nested `Renderer`).
-- [ ] Migrate `graded-group` to `WidgetPropsV2` (delete `satisfies PropsFor`
+- [x] Migrate `graded-group` to `WidgetPropsV2` (delete `satisfies PropsFor`
       assertion).
 - [x] Migrate `graded-group-set` to `WidgetPropsV2`.
 

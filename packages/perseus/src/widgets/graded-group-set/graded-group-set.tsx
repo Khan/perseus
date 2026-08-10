@@ -171,7 +171,7 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
                             <GradedGroup
                                 key={i}
                                 {...this.props}
-                                {...gradedGroup}
+                                options={gradedGroup}
                                 inGradedGroupSet={false}
                                 linterContext={this.props.linterContext}
                             />
@@ -209,7 +209,6 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
                         }
                     />
                 </div>
-                {/* @ts-expect-error - TS2769 - No overload matches this call. */}
                 <GradedGroup
                     key={this.state.currentGroup}
                     // @ts-expect-error - TS2322 - Type 'GradedGroup | null' is not assignable to type 'GradedGroup'.
@@ -217,10 +216,15 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
                     ref={(comp) => (this._childGroup = comp)}
                     // We should pass in the set of props explicitly
                     {...this.props}
-                    {...currentGroup}
+                    options={{
+                        ...currentGroup,
+                        // The set renders the group's title itself, above the
+                        // indicators, so the group must not render it again.
+                        // @ts-expect-error - TS2322 - Type 'null' is not assignable to type 'string'.
+                        title: null,
+                    }}
                     inGradedGroupSet={true}
-                    title={null}
-                    onNextQuestion={handleNextQuestion}
+                    onNextQuestion={handleNextQuestion ?? undefined}
                     linterContext={this.props.linterContext}
                 />
             </div>
