@@ -12,7 +12,11 @@ import {
 } from "../../testing/test-dependencies";
 
 import {MafsGraph} from "./mafs-graph";
-import {actions, REMOVE_POINT} from "./reducer/interactive-graph-action";
+import {
+    actions,
+    DELETE_INTENT,
+    REMOVE_POINT,
+} from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 import {calculateNestedSVGCoords, getBaseMafsGraphPropsForTests} from "./utils";
 
@@ -1063,8 +1067,6 @@ describe("MafsGraph", () => {
     describe("locked figure reading order", () => {
         it("renders locked figures in author order regardless of type", () => {
             // Arrange
-            // A point authored before vectors must still read first, even
-            // though points and other figures render in separate clip passes.
             const lockedFigures: LockedFigure[] = [
                 {
                     ...getDefaultFigureForType("point"),
@@ -1078,6 +1080,11 @@ describe("MafsGraph", () => {
                         [4, 2],
                     ],
                     ariaLabel: "Arrow 1",
+                },
+                {
+                    ...getDefaultFigureForType("point"),
+                    coord: [4, 2],
+                    ariaLabel: "Point B",
                 },
                 {
                     ...getDefaultFigureForType("vector"),
@@ -1102,7 +1109,12 @@ describe("MafsGraph", () => {
             const labels = screen
                 .getAllByRole("img")
                 .map((figure) => figure.getAttribute("aria-label"));
-            expect(labels).toEqual(["Point A", "Arrow 1", "Arrow 2"]);
+            expect(labels).toEqual([
+                "Point A",
+                "Arrow 1",
+                "Point B",
+                "Arrow 2",
+            ]);
         });
     });
 
@@ -1272,6 +1284,46 @@ describe("MafsGraph", () => {
 
             expect(mockDispatch.mock.calls).toContainEqual([
                 {type: REMOVE_POINT, index: 0},
+            ]);
+        });
+
+        it("point - removes the focused point when Delete is pressed on its handle", async () => {
+            // Arrange
+            const mockDispatch = jest.fn();
+            const state: InteractiveGraphState = {
+                type: "point",
+                numPoints: "unlimited",
+                focusedPointIndex: 0,
+                hasBeenInteractedWith: true,
+                showRemovePointButton: true,
+                interactionMode: "keyboard",
+                showKeyboardInteractionInvitation: false,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                snapStep: [2, 2],
+                coords: [[9, 9]],
+            };
+
+            render(
+                <MafsGraph
+                    {...baseMafsProps}
+                    markings="none"
+                    state={state}
+                    dispatch={mockDispatch}
+                />,
+            );
+
+            // Act: focus the real point handle, then press Delete.
+            const handle = screen.getByTestId(
+                "movable-point__focusable-handle",
+            );
+            handle.focus();
+            await userEvent.keyboard("{Delete}");
+
+            expect(mockDispatch.mock.calls).toContainEqual([
+                {type: DELETE_INTENT},
             ]);
         });
 
