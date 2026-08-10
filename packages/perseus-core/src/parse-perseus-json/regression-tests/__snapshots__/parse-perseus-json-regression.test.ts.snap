@@ -2777,7 +2777,6 @@ The other entries of $\\text{H}$ can be found similarly.
 [[☃ radio 1]]
 
 ",
-            "hasHint": false,
             "hint": null,
             "images": {},
             "title": "",
@@ -3536,9 +3535,7 @@ $\\begin{align}
                   "widgets": {},
                 },
                 "images": {},
-                "immutableWidgets": false,
                 "title": "Problem 1.1",
-                "widgetEnabled": true,
                 "widgets": {
                   "numeric-input 1": {
                     "alignment": "default",
@@ -3643,9 +3640,7 @@ When we solve the resulting equation we obtain that $x = -5$. Then, we can subst
                   "widgets": {},
                 },
                 "images": {},
-                "immutableWidgets": false,
                 "title": "Problem 1.2",
-                "widgetEnabled": true,
                 "widgets": {
                   "numeric-input 1": {
                     "alignment": "default",

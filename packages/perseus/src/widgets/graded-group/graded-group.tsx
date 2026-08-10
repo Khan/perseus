@@ -80,7 +80,6 @@ type DefaultProps = {
     widgets: Props["widgets"];
     images: Props["images"];
     hint: Props["hint"];
-    hasHint: Props["hasHint"];
     linterContext: Props["linterContext"];
 };
 
@@ -120,7 +119,6 @@ export class GradedGroup
         widgets: {},
         images: {},
         hint: null,
-        hasHint: false,
         linterContext: linterContextDefault,
     };
 
