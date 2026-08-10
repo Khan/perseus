@@ -3,7 +3,10 @@ import {expect, fireEvent, waitFor} from "storybook/test";
 import {themeModes} from "../../../../../../.storybook/modes";
 import {mouseDown} from "../../../../../../.storybook/play-utils";
 
-import {card, ordererRendererDecorator} from "./orderer-renderer-decorator";
+import {
+    generateCard,
+    ordererRendererDecorator,
+} from "./orderer-renderer-decorator";
 
 import type {PerseusOrdererWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -19,26 +22,24 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const sharedArgs = {
-    options: [],
-} satisfies Partial<PerseusOrdererWidgetOptions>;
-
-const sharedParameters = {
-    initialUserInput: {"orderer 1": {current: ["Apple", "Banana", "Cherry"]}},
-};
-
 export const DraggingCard: Story = {
     decorators: [ordererRendererDecorator],
-    args: sharedArgs,
-    parameters: sharedParameters,
+    args: {
+        options: [],
+    },
+    parameters: {
+        initialUserInput: {
+            "orderer 1": {current: ["Apple", "Banana", "Cherry"]},
+        },
+    },
     play: async ({canvas, canvasElement, userEvent}) => {
-        const cardEl = canvas.getByText("Apple").closest(".card-wrap");
-        if (!cardEl) {
+        const card = canvas.getByText("Apple").closest(".card-wrap");
+        if (!card) {
             throw new Error("Expected a .card-wrap ancestor of the Apple card");
         }
-        const rect = cardEl.getBoundingClientRect();
+        const rect = card.getBoundingClientRect();
 
-        await mouseDown(cardEl, userEvent);
+        await mouseDown(card, userEvent);
         // Picking up a card that's already placed adds a placeholder in its
         // spot and a floating dragging copy — both mount asynchronously
         // after mousedown, so wait for them before moving or snapshotting.
@@ -62,7 +63,7 @@ export const DraggingCard: Story = {
 export const CardsOrdered: Story = {
     decorators: [ordererRendererDecorator],
     args: {
-        options: [card("$\\sqrt{5}$"), card("2.5")],
+        options: [generateCard("$\\sqrt{5}$"), generateCard("2.5")],
     },
     parameters: {
         initialUserInput: {"orderer 1": {current: ["1", "$\\pi$"]}},

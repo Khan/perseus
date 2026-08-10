@@ -1,7 +1,7 @@
 import {themeModes} from "../../../../../../.storybook/modes";
 import {rtlDecorator} from "../../__testutils__/story-decorators";
 
-import {card, ordererRendererDecorator} from "./orderer-renderer-decorator";
+import {generateCard, ordererRendererDecorator} from "./orderer-renderer-decorator";
 
 import type {PerseusOrdererWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -26,13 +26,13 @@ type Story = StoryObj<typeof meta>;
 
 // Two cards already placed in order, two still in the bank
 const defaultArgs = {
-    options: [card("$\\sqrt{5}$"), card("2.5")],
+    options: [generateCard("$\\sqrt{5}$"), generateCard("2.5")],
 } satisfies Partial<PerseusOrdererWidgetOptions>;
 
 export const Default: Story = {
     decorators: [ordererRendererDecorator],
     args: {
-        options: [card("$\\sqrt{5}$"), card("2.5"), card("1")],
+        options: [generateCard("$\\sqrt{5}$"), generateCard("2.5"), generateCard("1")],
     } satisfies Partial<PerseusOrdererWidgetOptions>,
 };
 

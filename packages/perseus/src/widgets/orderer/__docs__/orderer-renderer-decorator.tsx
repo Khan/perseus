@@ -52,7 +52,7 @@ export const ordererRendererDecorator: Decorator = (
     );
 };
 
-export const card = (content: string): PerseusRenderer => ({
+export const generateCard = (content: string): PerseusRenderer => ({
     content,
     images: {},
     widgets: {},
