@@ -369,7 +369,7 @@ class EditorPage extends React.Component<Props, State> {
                             setIssueHighlight: this.setIssueHighlight,
                             a11yScanningEnabled: this.state.a11yScanningEnabled,
                             setA11yScanningEnabled: this.setA11yScanningEnabled,
-                            highlightPreviewIds:
+                            highlightInstanceIds:
                                 this.state.highlightInstanceIds,
                             onA11yReport: this.handleA11yReport,
                             axeCoreIssues: this.state.axeCoreIssues,

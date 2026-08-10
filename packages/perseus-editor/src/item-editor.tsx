@@ -118,7 +118,7 @@ class ItemEditor extends React.Component<Props> {
             this.props.deviceType === "tablet";
         const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
         const a11yScanningEnabled = this.context?.a11yScanningEnabled ?? false;
-        const highlightPreviewIds = this.context?.highlightPreviewIds ?? [];
+        const highlightInstanceIds = this.context?.highlightInstanceIds ?? [];
 
         return (
             <ItemEditorContext.Provider
@@ -178,8 +178,8 @@ class ItemEditor extends React.Component<Props> {
                                         a11yScanningEnabled={
                                             a11yScanningEnabled
                                         }
-                                        highlightPreviewIds={
-                                            highlightPreviewIds
+                                        highlightInstanceIds={
+                                            highlightInstanceIds
                                         }
                                         onA11yReport={this.handleA11yReport}
                                     />

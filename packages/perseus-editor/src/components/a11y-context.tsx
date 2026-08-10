@@ -10,9 +10,9 @@ export type A11yContextValue = {
     a11yScanningEnabled: boolean;
     /** Enables/disables the preview iframe's axe-core scan. */
     setA11yScanningEnabled: (enabled: boolean) => void;
-    /** previewIds to highlight in the preview iframe, unioned across every
+    /** instanceIds to highlight in the preview iframe, unioned across every
      * active "Show Me" toggle. */
-    highlightPreviewIds: string[];
+    highlightInstanceIds: string[];
     /** Forwards the preview iframe's latest scan report to the owner. */
     onA11yReport: (report: A11yReport | null) => void;
     /** The latest scan's issues, for display in `IssuesPanel`. */
@@ -30,7 +30,7 @@ export function createA11yContextValue(
         setIssueHighlight: () => {},
         a11yScanningEnabled: false,
         setA11yScanningEnabled: () => {},
-        highlightPreviewIds: [],
+        highlightInstanceIds: [],
         onA11yReport: () => {},
         axeCoreIssues: [],
         ...overrides,
