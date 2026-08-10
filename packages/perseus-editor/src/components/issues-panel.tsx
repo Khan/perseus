@@ -5,31 +5,42 @@ import iconPass from "@phosphor-icons/core/fill/check-circle-fill.svg";
 import iconWarning from "@phosphor-icons/core/fill/warning-fill.svg";
 import iconAlert from "@phosphor-icons/core/fill/warning-octagon-fill.svg";
 import * as React from "react";
-import {useState} from "react";
+import {useContext, useState} from "react";
 
+import {A11yContext} from "./a11y-context";
 import IssueDetails from "./issue-details";
 import LabeledSwitch from "./labeled-switch";
 import ToggleableCaret from "./toggleable-caret";
 
 export type IssueImpact = "low" | "medium" | "high";
 
-/** Fields shared by all issue types. */
-interface BaseIssue {
+/**
+ * A problem to show the author, from the editor-side linter or the preview's
+ * axe-core scanner.
+ */
+export interface Issue {
     /**
-     * Names the problem (for example, this may be the axe-core rule id or a
-     * linter rule name). Shown to the author and used when a fix is offered,
-     * so several issues can share one — nine images missing alt text are nine
-     * `image-alt`s.
+     * The problem identifier (name). This `id` is _not_ guaranteed to be
+     * unique and is often the name of the rule that generated this issue (for
+     * example, this may be the axe-core rule id or a linter rule name). Shown
+     * to the author and used when a fix is offered, so several issues can
+     * share one — nine images missing alt text are nine `image-alt`s.
      */
     id: string;
 
     /**
-     * Distinguishes this issue from every other issue in the same list. Used
-     * when a unique value is needed (such as a React key or by the preview to
-     * look up what to highlight). Optional because issues supplied by the
-     * host may not have one; prefer `getIssueKey` over reading it directly.
+     * The unique issue identifier. Distinguishes this issue from every other
+     * issue in the same list. Optional because some issue sources may not have
+     * one naturally; prefer `getIssueKey` over reading it directly.
      */
     instanceId?: string;
+
+    /**
+     * Where this issue came from. Usually unset — used only when the origin
+     * (source) tells you the issue can do something the others can't. See
+     * {@link A11yIssue}.
+     */
+    source?: "a11y";
 
     description: string;
     helpUrl: string;
@@ -39,24 +50,10 @@ interface BaseIssue {
 }
 
 /**
- * An issue surfaced by the axe-core accessibility scanner.
+ * An issue the preview's axe-core scanner found, and can therefore highlight —
+ * it always has the `instanceId` the element map is keyed by.
  */
-export interface A11yIssue extends BaseIssue {
-    /**
-     * Elements to highlight, resolved in the parent document by
-     * `util/a11y-checker.ts`. Removed once the preview-side highlight path
-     * replaces it.
-     */
-    elements?: Element[];
-}
-
-/**
- * An issue surfaced by the editor-side linter (tex, widget, and content-lint
- * rules).
- */
-export type LinterIssue = BaseIssue;
-
-export type Issue = A11yIssue | LinterIssue;
+export type A11yIssue = Issue & {source: "a11y"; instanceId: string};
 
 /**
  * A unique identifier for an issue, suitable for use as a React key or a
@@ -69,24 +66,22 @@ export function getIssueKey(issue: Issue): string {
 
 type IssuesPanelProps = {
     issues?: Issue[];
-    a11yCheck?: {
-        callback: () => void;
-        isChecked: boolean;
-    };
 };
 
 const IssuesPanel = (props: IssuesPanelProps) => {
     const {issues = []} = props;
-    const a11yCheck = props.a11yCheck || {
-        callback: () => {},
-        isChecked: false,
-    };
+    const context = useContext(A11yContext);
     const [showPanel, setShowPanel] = useState(false);
 
-    const hasWarnings = issues.length > 0;
-    const hasErrors = issues.some((issue) => issue.impact === "high");
-    const issuesCount = `${issues.length} issue${
-        issues.length === 1 ? "" : "s"
+    const axeCoreIssues = context?.a11yScanningEnabled
+        ? context.axeCoreIssues
+        : [];
+    const allIssues: Issue[] = [...issues, ...axeCoreIssues];
+
+    const hasWarnings = allIssues.length > 0;
+    const hasErrors = allIssues.some((issue) => issue.impact === "high");
+    const issuesCount = `${allIssues.length} issue${
+        allIssues.length === 1 ? "" : "s"
     }`;
 
     const icon = hasErrors ? iconAlert : hasWarnings ? iconWarning : iconPass;
@@ -97,7 +92,7 @@ const IssuesPanel = (props: IssuesPanelProps) => {
           : semanticColor.feedback.success.strong.icon;
 
     const impactOrder = {high: 3, medium: 2, low: 1};
-    const sortedIssues = issues.sort((a, b) => {
+    const sortedIssues = [...allIssues].sort((a, b) => {
         if (impactOrder[b.impact] !== impactOrder[a.impact]) {
             return impactOrder[b.impact] - impactOrder[a.impact];
         }
@@ -139,12 +134,12 @@ const IssuesPanel = (props: IssuesPanelProps) => {
                                 issue={issue}
                             />
                         ))}
-                        {issues.length === 0 && <div>No issues found</div>}
+                        {allIssues.length === 0 && <div>No issues found</div>}
                         <LabeledSwitch
                             label="Include axe-core scan"
-                            checked={a11yCheck.isChecked}
-                            onChange={() => {
-                                a11yCheck.callback();
+                            checked={context?.a11yScanningEnabled ?? false}
+                            onChange={(enabled) => {
+                                context?.setA11yScanningEnabled(enabled);
                             }}
                             style={{marginBlockStart: "1rem"}}
                         />

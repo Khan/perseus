@@ -82,7 +82,9 @@ const IssueDetails = ({issue}: IssueProps) => {
             </BodyText>
             <span style={messageStyling}>{issue.message}</span>
             <ShowMe
-                elements={"elements" in issue ? issue.elements : undefined}
+                instanceId={
+                    issue.source === "a11y" ? issue.instanceId : undefined
+                }
             />
             <IssueCta issue={issue} />
         </PerseusEditorAccordion>

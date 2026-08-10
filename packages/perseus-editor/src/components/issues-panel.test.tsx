@@ -2,9 +2,10 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import {A11yContext, createA11yContextValue} from "./a11y-context";
 import IssuesPanel, {getIssueKey} from "./issues-panel";
 
-import type {A11yIssue, IssueImpact, LinterIssue} from "./issues-panel";
+import type {A11yIssue, Issue, IssueImpact} from "./issues-panel";
 
 const makeIssue = (id: string, impact: IssueImpact = "medium") => ({
     id,
@@ -13,6 +14,15 @@ const makeIssue = (id: string, impact: IssueImpact = "medium") => ({
     help: "Example help",
     impact,
     message: "Example message",
+});
+
+const makeA11yIssue = (
+    instanceId: string,
+    impact: IssueImpact = "medium",
+): A11yIssue => ({
+    ...makeIssue(`axe-${instanceId}`, impact),
+    source: "a11y",
+    instanceId,
 });
 
 describe("IssuesPanel", () => {
@@ -125,10 +135,134 @@ describe("IssuesPanel", () => {
         // Assert
         expect(cta).toBeInTheDocument();
     });
+
+    it("includes A11yContext's axeCoreIssues in the count when scanning is enabled", () => {
+        // Arrange, Act
+        render(
+            <A11yContext.Provider
+                value={createA11yContextValue({
+                    a11yScanningEnabled: true,
+                    axeCoreIssues: [makeA11yIssue("violation-color-contrast")],
+                })}
+            >
+                <IssuesPanel issues={[makeIssue("warn1")]} />
+            </A11yContext.Provider>,
+        );
+
+        // Assert
+        expect(screen.getByText("2 issues")).toBeInTheDocument();
+    });
+
+    it("excludes A11yContext's axeCoreIssues from the count when a11y is disabled", () => {
+        // Arrange, Act
+        render(
+            <A11yContext.Provider
+                value={createA11yContextValue({
+                    a11yScanningEnabled: false,
+                    axeCoreIssues: [makeA11yIssue("violation-color-contrast")],
+                })}
+            >
+                <IssuesPanel issues={[makeIssue("warn1")]} />
+            </A11yContext.Provider>,
+        );
+
+        // Assert
+        expect(screen.getByText("1 issue")).toBeInTheDocument();
+    });
+
+    it("reflects A11yContext's a11yScanningEnabled in the scan toggle", async () => {
+        // Arrange
+        render(
+            <A11yContext.Provider
+                value={createA11yContextValue({a11yScanningEnabled: true})}
+            >
+                <IssuesPanel issues={[]} />
+            </A11yContext.Provider>,
+        );
+        await userEvent.click(screen.getByText("Issues"));
+
+        // Act, Assert
+        expect(
+            screen.getByRole("switch", {name: "Include axe-core scan"}),
+        ).toBeChecked();
+    });
+
+    it("offers a Show Me toggle for scanner issues", async () => {
+        // Arrange
+        render(
+            <A11yContext.Provider
+                value={createA11yContextValue({
+                    a11yScanningEnabled: true,
+                    axeCoreIssues: [makeA11yIssue("violation-color-contrast")],
+                })}
+            >
+                <IssuesPanel issues={[]} />
+            </A11yContext.Provider>,
+        );
+
+        // Act
+        await userEvent.click(screen.getByText("Issues"));
+
+        // Assert
+        expect(
+            screen.getByRole("switch", {name: "Show Me"}),
+        ).toBeInTheDocument();
+    });
+
+    it("has nothing to show for a linter issue, even one with an instanceId", async () => {
+        // Arrange
+        const linterIssue = {
+            ...makeIssue("categorizer 1 inaccessible"),
+            instanceId: "inaccessible-widget-categorizer 1",
+        };
+        render(
+            <A11yContext.Provider
+                value={createA11yContextValue({a11yScanningEnabled: true})}
+            >
+                <IssuesPanel issues={[linterIssue]} />
+            </A11yContext.Provider>,
+        );
+
+        // Act
+        await userEvent.click(screen.getByText("Issues"));
+
+        // Assert
+        expect(
+            screen.queryByRole("switch", {name: "Show Me"}),
+        ).not.toBeInTheDocument();
+        expect(
+            screen.getByText(/Unable to find the offending element/),
+        ).toBeInTheDocument();
+    });
+
+    it("calls A11yContext's setA11yScanningEnabled when the scan toggle is clicked", async () => {
+        // Arrange
+        const setA11yScanningEnabled = jest.fn();
+        render(
+            <A11yContext.Provider
+                value={createA11yContextValue({
+                    a11yScanningEnabled: false,
+                    setA11yScanningEnabled,
+                })}
+            >
+                <IssuesPanel issues={[]} />
+            </A11yContext.Provider>,
+        );
+        await userEvent.click(screen.getByText("Issues"));
+
+        // Act
+        await userEvent.click(
+            screen.getByRole("switch", {name: "Include axe-core scan"}),
+        );
+
+        // Assert
+        expect(setA11yScanningEnabled).toHaveBeenCalledWith(true);
+    });
 });
 
 describe("getIssueKey", () => {
     const a11yIssue: A11yIssue = {
+        source: "a11y",
         id: "color-contrast",
         description: "description",
         helpUrl: "https://help",
@@ -138,7 +272,7 @@ describe("getIssueKey", () => {
         instanceId: "violation-color-contrast",
     };
 
-    const linterIssue: LinterIssue = {
+    const linterIssue: Issue = {
         id: "categorizer 1 inaccessible",
         description: "description",
         helpUrl: "https://help",

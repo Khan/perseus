@@ -139,7 +139,7 @@ describe("usePreviewController", () => {
                 {
                     source: PREVIEW_MESSAGE_SOURCE,
                     type: "highlight-issues",
-                    previewIds: ["violation-1", "incomplete-2"],
+                    instanceIds: ["violation-1", "incomplete-2"],
                 },
                 "/",
             );

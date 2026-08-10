@@ -37,9 +37,9 @@ type UsePreviewControllerResult = {
      */
     setA11yScanningEnabled: (enabled: boolean) => void;
     /**
-     * Highlight the elements for the given previewIds in the iframe
+     * Highlight the elements for the given instanceIds in the iframe
      */
-    highlightIssues: (previewIds: string[]) => void;
+    highlightIssues: (instanceIds: string[]) => void;
     /**
      * Clear any highlighted elements currently shown in the iframe
      */
@@ -199,10 +199,10 @@ export function usePreviewController(
         [isIframeReady, postToIframe],
     );
 
-    // Highlights elements in the iframe by previewId
+    // Highlights elements in the iframe by instanceId
     const highlightIssues = React.useCallback(
-        (previewIds: string[]) => {
-            postToIframe(createPreviewHighlightIssuesMessage(previewIds));
+        (instanceIds: string[]) => {
+            postToIframe(createPreviewHighlightIssuesMessage(instanceIds));
         },
         [postToIframe],
     );

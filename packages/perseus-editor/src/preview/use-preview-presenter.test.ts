@@ -588,7 +588,7 @@ describe("usePreviewPresenter", () => {
     });
 
     describe("receiving highlight-issues message", () => {
-        it("resolves previewIds to elements via the latest scan's element map", async () => {
+        it("resolves instanceIds to elements via the latest scan's element map", async () => {
             // Arrange
             const targetElement = document.createElement("button");
             const contentContainerRef = {
@@ -670,7 +670,7 @@ describe("usePreviewPresenter", () => {
             const reportCall = mockPostMessage.mock.calls.find(
                 (call) => call[0].type === "a11y-report",
             );
-            const previewId = reportCall[0].violations[0].instanceId;
+            const instanceId = reportCall[0].violations[0].instanceId;
 
             // Act
             act(() => {
@@ -679,7 +679,7 @@ describe("usePreviewPresenter", () => {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "highlight-issues",
-                            previewIds: [previewId],
+                            instanceIds: [instanceId],
                         },
                         source: mockParentWindow,
                     }),
@@ -774,7 +774,7 @@ describe("usePreviewPresenter", () => {
             const reportCall = mockPostMessage.mock.calls.find(
                 (call) => call[0].type === "a11y-report",
             );
-            const previewId = reportCall[0].violations[0].instanceId;
+            const instanceId = reportCall[0].violations[0].instanceId;
 
             act(() => {
                 window.dispatchEvent(
@@ -782,7 +782,7 @@ describe("usePreviewPresenter", () => {
                         data: {
                             source: PREVIEW_MESSAGE_SOURCE,
                             type: "highlight-issues",
-                            previewIds: [previewId],
+                            instanceIds: [instanceId],
                         },
                         source: mockParentWindow,
                     }),

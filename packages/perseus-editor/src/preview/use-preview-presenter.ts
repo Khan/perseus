@@ -47,7 +47,7 @@ type UsePreviewPresenterResult = {
     a11yScanningEnabled: boolean;
     /**
      * Elements to draw "Show Me" highlight overlays over, resolved from the
-     * latest scan's element map via the previewIds in a highlight-issues
+     * latest scan's element map via the instanceIds in a highlight-issues
      * message.
      */
     highlightTargets: Element[];
@@ -130,9 +130,9 @@ export function usePreviewPresenter(
 
                 case "highlight-issues":
                     setHighlightTargets(
-                        message.previewIds.flatMap(
-                            (previewId) =>
-                                elementMapRef.current.get(previewId) ?? [],
+                        message.instanceIds.flatMap(
+                            (instanceId) =>
+                                elementMapRef.current.get(instanceId) ?? [],
                         ),
                     );
                     break;
@@ -174,7 +174,7 @@ export function usePreviewPresenter(
     // issues forever.
     const rescanRequestedRef = React.useRef(false);
 
-    // The latest scan's previewId -> elements map, used to resolve
+    // The latest scan's instanceId -> elements map, used to resolve
     // highlight-issues messages to the elements they refer to.
     const elementMapRef = React.useRef<Map<string, Element[]>>(new Map());
 

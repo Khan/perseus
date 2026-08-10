@@ -225,8 +225,8 @@ describe("PreviewWithIframe", () => {
         });
     });
 
-    describe("highlightPreviewIds prop", () => {
-        it("calls highlightIssues with the given previewIds", () => {
+    describe("highlightInstanceIds prop", () => {
+        it("calls highlightIssues with the given instanceIds", () => {
             // Arrange, Act
             render(
                 <PreviewWithIframe
@@ -234,7 +234,7 @@ describe("PreviewWithIframe", () => {
                     isMobile={false}
                     seamless={false}
                     content={buildArticleContent()}
-                    highlightPreviewIds={["violation-1"]}
+                    highlightInstanceIds={["violation-1"]}
                 />,
             );
 
@@ -243,7 +243,7 @@ describe("PreviewWithIframe", () => {
             expect(mockClearHighlights).not.toHaveBeenCalled();
         });
 
-        it("calls clearHighlights when previewIds is empty", () => {
+        it("calls clearHighlights when instanceIds is empty", () => {
             // Arrange, Act
             render(
                 <PreviewWithIframe
@@ -251,7 +251,7 @@ describe("PreviewWithIframe", () => {
                     isMobile={false}
                     seamless={false}
                     content={buildArticleContent()}
-                    highlightPreviewIds={[]}
+                    highlightInstanceIds={[]}
                 />,
             );
 

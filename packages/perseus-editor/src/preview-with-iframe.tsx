@@ -31,10 +31,10 @@ type Props = {
      */
     a11yScanningEnabled?: boolean;
     /**
-     * previewIds of the issues to draw "Show Me" highlight overlays over in
+     * instanceIds of the issues to draw "Show Me" highlight overlays over in
      * the iframe. Empty clears any highlights.
      */
-    highlightPreviewIds?: string[];
+    highlightInstanceIds?: string[];
     /**
      * Called whenever the iframe reports a new accessibility scan result (or
      * `null` if scanning is disabled).
@@ -87,14 +87,14 @@ function PreviewWithIframe(props: Props) {
 
     React.useEffect(() => {
         if (
-            props.highlightPreviewIds != null &&
-            props.highlightPreviewIds.length > 0
+            props.highlightInstanceIds != null &&
+            props.highlightInstanceIds.length > 0
         ) {
-            highlightIssues(props.highlightPreviewIds);
+            highlightIssues(props.highlightInstanceIds);
         } else {
             clearHighlights();
         }
-    }, [highlightIssues, clearHighlights, props.highlightPreviewIds]);
+    }, [highlightIssues, clearHighlights, props.highlightInstanceIds]);
 
     // Destructured so the effect depends on the specific prop rather than the
     // whole `props` object (which changes on every render).

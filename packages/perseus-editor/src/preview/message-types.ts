@@ -164,20 +164,20 @@ export function createPreviewSetA11yScanningEnabledMessage(
 
 /**
  * Command from parent telling the iframe to highlight the elements for the
- * given previewIds (the "Show Me" overlays drawn inside the iframe).
+ * given instanceIds (the "Show Me" overlays drawn inside the iframe).
  */
 interface PreviewHighlightIssuesMessage extends PreviewMessageBase {
     type: "highlight-issues";
-    previewIds: string[];
+    instanceIds: string[];
 }
 
 export function createPreviewHighlightIssuesMessage(
-    previewIds: string[],
+    instanceIds: string[],
 ): PreviewHighlightIssuesMessage {
     return {
         source: PREVIEW_MESSAGE_SOURCE,
         type: "highlight-issues",
-        previewIds,
+        instanceIds,
     };
 }
 
