@@ -39,4 +39,5 @@ export const MIGRATED_WIDGETS: ReadonlyArray<string> = [
     "group",
     "graded-group-set",
     "graded-group",
+    "orderer",
 ];
