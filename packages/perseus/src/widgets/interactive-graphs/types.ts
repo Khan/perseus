@@ -14,6 +14,8 @@ export type InteractiveGraphProps = WidgetPropsV2<
     PerseusInteractiveGraphUserInput
 >;
 
+// FIXME: remove this re-export; use PerseusInteractiveGraphWidgetOptions
+//  everywhere.
 export type InteractiveGraphOptions = PerseusInteractiveGraphWidgetOptions;
 
 export type Dispatch = (action: InteractiveGraphAction) => unknown;

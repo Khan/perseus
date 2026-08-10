@@ -55,6 +55,8 @@ class InteractiveGraph extends React.Component<Props> {
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState() {
+        // FIXME: the most recent commit changed behavior here. Fix this method
+        //  so it returns what it did before.
         return {
             ...this.props.options,
             graph: this.props.userInput,
