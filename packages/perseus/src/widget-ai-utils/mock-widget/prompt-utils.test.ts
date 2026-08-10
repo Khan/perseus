@@ -9,7 +9,7 @@ describe("InputNumber getPromptJSON", () => {
         };
 
         const widgetData: any = {
-            value: "42",
+            options: {value: "42"},
             userInput,
         };
 
