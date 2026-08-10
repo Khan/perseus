@@ -11,10 +11,7 @@ import _ from "underscore";
 import Editor from "../editor";
 
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
-import type {
-    MatrixDefaultWidgetOptions,
-    PerseusMatrixUserInput,
-} from "@khanacademy/perseus-core";
+import type {MatrixDefaultWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {RangeInput} = components;
@@ -71,14 +68,11 @@ class MatrixEditor extends React.Component<Props> {
             onBlur: () => {},
             onFocus: () => {},
             trackInteraction: () => {},
-            // The widget's user input is string[][] (what a learner types),
-            // while the editor's `answers` option is number[][]. We feed the
-            // correct answers in as user input to render the preview, so this
-            // mismatch is intentional and pre-existing.
+            // The widget renders learner input, which is string[][], while the
+            // editor stores the correct answers as number[][]. We show the
+            // answers in the preview, so they have to be stringified.
             userInput: {
-                // eslint-disable-next-line no-restricted-syntax -- the two types are genuinely incompatible; a cast is the only way to preserve the existing runtime behavior.
-                answers: this.props
-                    .answers as unknown as PerseusMatrixUserInput["answers"],
+                answers: this.props.answers.map((row) => row.map(String)),
             },
             handleUserInput: (userInput) => {
                 this.change({answers: userInput.answers});
