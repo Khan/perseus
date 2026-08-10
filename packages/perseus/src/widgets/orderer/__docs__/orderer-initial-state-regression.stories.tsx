@@ -24,9 +24,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-// Two cards already placed in order, two still in the bank — covers the
-// resting `.card` styling and the bank's stacked `.card.stack` styling in a
-// single render. One of each also carries TeX content.
+// Two cards already placed in order, two still in the bank
 const defaultArgs = {
     options: [card("$\\sqrt{5}$"), card("2.5")],
 } satisfies Partial<PerseusOrdererWidgetOptions>;
