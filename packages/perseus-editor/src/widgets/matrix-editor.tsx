@@ -5,13 +5,16 @@ import {
     MatrixWidget,
 } from "@khanacademy/perseus";
 import {getMatrixSize, matrixLogic} from "@khanacademy/perseus-core";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../editor";
 
-import type {MatrixDefaultWidgetOptions} from "@khanacademy/perseus-core";
+import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
+import type {
+    MatrixDefaultWidgetOptions,
+    PerseusMatrixUserInput,
+} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {RangeInput} = components;
@@ -21,18 +24,11 @@ const Matrix = MatrixWidget.widget;
 // have to cap it at some point.
 const MAX_BOARD_SIZE = 6;
 
-type Props = any;
+type Props = MatrixDefaultWidgetOptions & {
+    apiOptions: APIOptionsWithDefaults;
+} & Changeable.ChangeableProps;
 
 class MatrixEditor extends React.Component<Props> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        matrixBoardSize: PropTypes.arrayOf(PropTypes.number).isRequired,
-        answers: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
-        prefix: PropTypes.string,
-        suffix: PropTypes.string,
-        cursorPosition: PropTypes.arrayOf(PropTypes.number),
-    };
-
     static widgetName = "matrix" as const;
 
     static defaultProps: MatrixDefaultWidgetOptions =
@@ -75,7 +71,15 @@ class MatrixEditor extends React.Component<Props> {
             onBlur: () => {},
             onFocus: () => {},
             trackInteraction: () => {},
-            userInput: {answers: this.props.answers},
+            // The widget's user input is string[][] (what a learner types),
+            // while the editor's `answers` option is number[][]. We feed the
+            // correct answers in as user input to render the preview, so this
+            // mismatch is intentional and pre-existing.
+            userInput: {
+                // eslint-disable-next-line no-restricted-syntax -- the two types are genuinely incompatible; a cast is the only way to preserve the existing runtime behavior.
+                answers: this.props
+                    .answers as unknown as PerseusMatrixUserInput["answers"],
+            },
             handleUserInput: (userInput) => {
                 this.change({answers: userInput.answers});
             },
@@ -90,7 +94,6 @@ class MatrixEditor extends React.Component<Props> {
                     <RangeInput
                         value={this.props.matrixBoardSize}
                         onChange={this.onMatrixBoardSizeChange}
-                        format={this.props.labelStyle}
                         useArrowKeys={true}
                     />
                 </div>
