@@ -27,18 +27,17 @@ const sharedParameters = {
     initialUserInput: {"orderer 1": {current: ["Apple", "Banana", "Cherry"]}},
 };
 
-export const HoverCard: Story = {
-    decorators: [ordererRendererDecorator],
-    args: sharedArgs,
-    parameters: sharedParameters,
-    play: async ({canvas, userEvent}) => {
-        const cardEl = canvas.getByText("Apple").closest(".card");
-        if (!cardEl) {
-            throw new Error("Expected a .card ancestor of the Apple card");
-        }
-        await userEvent.hover(cardEl);
-    },
-};
+/*
+ * NOTE: `.card` also has a `hover` state (border-color and box-shadow), but
+ * it cannot be tested accurately with Chromatic at this time (2026) — the
+ * same limitation already documented in the Definition widget's regression
+ * stories. `:hover` only activates from OS-trusted pointer input; anything
+ * dispatched from `play` function code (`userEvent.hover`, `fireEvent`,
+ * etc.) is untrusted and Chromium never applies the pseudo-class from it.
+ * Confirmed empirically: a `userEvent.hover()` story here produced no
+ * visual change at all. Verify this state manually in a running Storybook
+ * instead.
+ */
 
 export const DraggingCard: Story = {
     decorators: [ordererRendererDecorator],

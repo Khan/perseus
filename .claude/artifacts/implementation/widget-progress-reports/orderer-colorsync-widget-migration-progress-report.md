@@ -54,3 +54,17 @@ Every other widget's renderer-decorator (per `regression-stories.md`'s template)
 - `packages/perseus/src/widgets/orderer/__docs__/orderer-interactions-regression.stories.tsx`
 
 No changes were needed to `orderer.testdata.ts` — regression stories define their args inline per the instructions, so the existing testdata file (used by `orderer.test.ts` and the non-regression `orderer.stories.tsx`) is untouched.
+
+### Verification against a real browser, and a correction
+
+Built the storybook and ran the actual stories in Chromium (via `playwright-core` against the pre-installed browser, driving `iframe.html?id=...` directly — installed as a scratch dependency, not added to the project) to confirm each state actually renders, rather than trusting static code tracing:
+
+- `Default`, `DragHint`: confirmed `.card`, `.card.stack`, `.card.drag-hint`, and the container all render with the expected classes/computed styles.
+- `DraggingCard`: confirmed empirically that both `.card.placeholder` and `.card.dragging` appear after the mousedown+mousemove sequence — this was not obvious from reading `orderer.tsx` alone, since the originally-clicked card unmounts (its `componentWillUnmount` calls `unbindMouseMoveUp`) as part of the same state update that creates the placeholder, which looked on paper like it should drop the `document`-level mousemove listener before the move could ever be dispatched. It doesn't break in practice — confirmed live rather than relying on that trace.
+- **`HoverCard` (removed):** the `userEvent.hover()` play function produced *no visual change at all* — before/after computed styles were byte-identical. Root cause: `:hover` only activates from OS-trusted pointer input in a real browser; anything dispatched from in-page `play` function code is untrusted, so Chromium never applies the pseudo-class from it. This is a pre-existing, documented limitation in this codebase, not something specific to `orderer` — `definition-initial-state-regression.stories.tsx` carries the identical note: *"The Definition widget also has a `hover` state, but it cannot be tested accurately with Chromatic at this time (2026)."* Removed the non-functional story (a green Chromatic check that verifies nothing is worse than no story) and replaced it with a comment documenting the limitation, matching the `definition` widget's precedent.
+
+### Coverage result
+
+Of the 10 unique color-token conversions in scope (see the table above and `sortable-colorsync-progress-report.md`'s Step 10):
+- **8 are covered and confirmed rendering:** container background/border/border-bottom, `.card`/`.card.stack` background/border/border-bottom, `.card.drag-hint`'s own border, `.card.placeholder` background, `.card.dragging` background.
+- **2 are not — and cannot be, via Chromatic, with any story:** `.card:hover` border-color and box-shadow. Same applies to `.card.drag-hint:hover` (an override of the same `.card:hover` rule, using the same token) — not worth a dedicated story for the same reason. Both need manual verification in a running Storybook instance instead.
