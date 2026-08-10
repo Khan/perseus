@@ -43,15 +43,15 @@ export const CardsOrdered: Story = {
 export const OrderedCardClicked: Story = {
     decorators: [ordererRendererDecorator],
     args: {
-        options: [],
+        options: [generateCard("Apple"), generateCard("Banana")],
     },
     parameters: {
         initialUserInput: {
-            "orderer 1": {current: ["Apple", "Banana", "Cherry"]},
+            "orderer 1": {current: ["Apple", "Banana"]},
         },
     },
     play: async ({canvas, canvasElement, userEvent}) => {
-        const card = canvas.getByText("Apple").closest(".card-wrap");
+        const card = canvas.getAllByText("Apple")[1].closest(".card-wrap");
         if (!card) {
             throw new Error("Expected a .card-wrap ancestor of the Apple card");
         }
@@ -63,7 +63,7 @@ export const OrderedCardClicked: Story = {
         // after mousedown, so wait for them before moving or snapshotting.
         await waitFor(() =>
             expect(canvasElement.querySelectorAll(".card-wrap")).toHaveLength(
-                4,
+                5,
             ),
         );
         // The card's mousemove listener is bound to `document` (not the
