@@ -3,6 +3,8 @@ import * as React from "react";
 
 import MobileKeypadInternals from "../mobile-keypad-internals";
 
+import type {KeypadAPI} from "../../../types";
+
 describe("mobile keypad", () => {
     it("should render keypad when active", () => {
         // Arrange
@@ -110,5 +112,45 @@ describe("mobile keypad", () => {
                 virtualKeypadVersion: "MATH_INPUT_KEYPAD_V2",
             },
         });
+    });
+
+    it("getDOMNode returns the keypad element while mounted", () => {
+        // Arrange
+        const onElementMounted = jest.fn((api: KeypadAPI | null) => undefined);
+
+        // Act
+        render(
+            <MobileKeypadInternals
+                onAnalyticsEvent={async () => undefined}
+                setKeypadActive={(keypadActive: boolean) => undefined}
+                keypadActive={true}
+                onElementMounted={onElementMounted}
+            />,
+        );
+
+        // Assert
+        const api = onElementMounted.mock.calls[0][0];
+        expect(api?.getDOMNode()).toBeInstanceOf(HTMLElement);
+    });
+
+    it("clears the element reference and returns null from getDOMNode on unmount", () => {
+        // Arrange
+        const onElementMounted = jest.fn((api: KeypadAPI | null) => undefined);
+        const {unmount} = render(
+            <MobileKeypadInternals
+                onAnalyticsEvent={async () => undefined}
+                setKeypadActive={(keypadActive: boolean) => undefined}
+                keypadActive={true}
+                onElementMounted={onElementMounted}
+            />,
+        );
+
+        // Act
+        unmount();
+
+        // Assert
+        const api = onElementMounted.mock.calls[0][0];
+        expect(onElementMounted).toHaveBeenLastCalledWith(null);
+        expect(api?.getDOMNode()).toBeNull();
     });
 });
