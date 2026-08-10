@@ -120,6 +120,8 @@ describe("InteractiveGraph serialization", () => {
         expect(state).toEqual({
             question: {
                 "interactive-graph 1": {
+                    alignment: "default",
+                    static: false,
                     labels: ["$x$", "$y$"],
                     labelLocation: "onAxis",
                     range: [

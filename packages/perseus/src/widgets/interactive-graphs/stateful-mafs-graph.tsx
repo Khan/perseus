@@ -13,43 +13,42 @@ import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 import {getGradableGraph} from "./reducer/interactive-graph-state";
 import {useReinitializeOnGraphChange} from "./use-reinitialize-on-graph-change";
 
-import type {
-    InteractiveGraphOptions,
-    InteractiveGraphProps,
-    InteractiveGraphState,
-} from "./types";
+import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
 import type {
     PerseusGraphType,
     PerseusInteractiveGraphUserInput,
+    PerseusInteractiveGraphWidgetOptions,
 } from "@khanacademy/perseus-core";
 
 export type StatefulMafsGraphProps = {
     box: [number, number];
-    backgroundImage?: InteractiveGraphOptions["backgroundImage"];
+    backgroundImage?: PerseusInteractiveGraphWidgetOptions["backgroundImage"];
     graph: PerseusGraphType;
     /**
      * The correct answer for this widget.
      */
     // TODO(LEMS-2344): make the type of `correct` more specific
     correct?: PerseusGraphType;
-    lockedFigures: InteractiveGraphOptions["lockedFigures"];
-    range: InteractiveGraphOptions["range"];
+    lockedFigures: PerseusInteractiveGraphWidgetOptions["lockedFigures"];
+    range: PerseusInteractiveGraphWidgetOptions["range"];
     snapStep: [x: number, y: number];
-    step: InteractiveGraphOptions["step"];
+    step: PerseusInteractiveGraphWidgetOptions["step"];
     gridStep: [x: number, y: number];
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
-    markings: InteractiveGraphOptions["markings"];
+    markings: PerseusInteractiveGraphWidgetOptions["markings"];
     onChange: (userInput: PerseusGraphType) => void;
-    showTooltips: Required<InteractiveGraphOptions["showTooltips"]>;
+    showTooltips: Required<
+        PerseusInteractiveGraphWidgetOptions["showTooltips"]
+    >;
     showProtractor: boolean;
     labels: ReadonlyArray<string>;
-    labelLocation?: InteractiveGraphOptions["labelLocation"];
-    fullGraphAriaLabel?: InteractiveGraphOptions["fullGraphAriaLabel"];
-    fullGraphAriaDescription?: InteractiveGraphOptions["fullGraphAriaDescription"];
+    labelLocation?: PerseusInteractiveGraphWidgetOptions["labelLocation"];
+    fullGraphAriaLabel?: PerseusInteractiveGraphWidgetOptions["fullGraphAriaLabel"];
+    fullGraphAriaDescription?: PerseusInteractiveGraphWidgetOptions["fullGraphAriaDescription"];
     readOnly: boolean;
     static: InteractiveGraphProps["static"];
-    showAxisArrows: InteractiveGraphOptions["showAxisArrows"];
-    showAxisTicks: InteractiveGraphOptions["showAxisTicks"];
+    showAxisArrows: PerseusInteractiveGraphWidgetOptions["showAxisArrows"];
+    showAxisTicks: PerseusInteractiveGraphWidgetOptions["showAxisTicks"];
     widgetId: string;
     graded?: boolean | null;
     ungradedDescriptionId?: string;
