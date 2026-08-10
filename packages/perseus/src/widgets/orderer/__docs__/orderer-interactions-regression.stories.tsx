@@ -3,7 +3,7 @@ import {expect, fireEvent, waitFor} from "storybook/test";
 import {themeModes} from "../../../../../../.storybook/modes";
 import {mouseDown} from "../../../../../../.storybook/play-utils";
 
-import {ordererRendererDecorator} from "./orderer-renderer-decorator";
+import {card, ordererRendererDecorator} from "./orderer-renderer-decorator";
 
 import type {PerseusOrdererWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -26,18 +26,6 @@ const sharedArgs = {
 const sharedParameters = {
     initialUserInput: {"orderer 1": {current: ["Apple", "Banana", "Cherry"]}},
 };
-
-/*
- * NOTE: `.card` also has a `hover` state (border-color and box-shadow), but
- * it cannot be tested accurately with Chromatic at this time (2026) — the
- * same limitation already documented in the Definition widget's regression
- * stories. `:hover` only activates from OS-trusted pointer input; anything
- * dispatched from `play` function code (`userEvent.hover`, `fireEvent`,
- * etc.) is untrusted and Chromium never applies the pseudo-class from it.
- * Confirmed empirically: a `userEvent.hover()` story here produced no
- * visual change at all. Verify this state manually in a running Storybook
- * instead.
- */
 
 export const DraggingCard: Story = {
     decorators: [ordererRendererDecorator],
@@ -68,5 +56,15 @@ export const DraggingCard: Story = {
             clientX: rect.right + 40,
             clientY: rect.top,
         });
+    },
+};
+
+export const CardsOrdered: Story = {
+    decorators: [ordererRendererDecorator],
+    args: {
+        options: [card("$\\sqrt{5}$"), card("2.5")],
+    },
+    parameters: {
+        initialUserInput: {"orderer 1": {current: ["1", "$\\pi$"]}},
     },
 };

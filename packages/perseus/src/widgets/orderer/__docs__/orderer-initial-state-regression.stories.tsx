@@ -31,10 +31,9 @@ const defaultArgs = {
 
 export const Default: Story = {
     decorators: [ordererRendererDecorator],
-    args: defaultArgs,
-    parameters: {
-        initialUserInput: {"orderer 1": {current: ["1", "$\\pi$"]}},
-    },
+    args: {
+        options: [card("$\\sqrt{5}$"), card("2.5"), card("1")],
+    } satisfies Partial<PerseusOrdererWidgetOptions>,
 };
 
 export const RightToLeft: Story = {
@@ -43,13 +42,4 @@ export const RightToLeft: Story = {
     parameters: {
         initialUserInput: {"orderer 1": {current: ["1", "$\\pi$"]}},
     },
-};
-
-// Shown whenever no cards have been placed yet, regardless of how many
-// options remain in the bank — not an interaction, a genuine initial state.
-export const DragHint: Story = {
-    decorators: [ordererRendererDecorator],
-    args: {
-        options: [card("$\\sqrt{5}$"), card("2.5"), card("1")],
-    } satisfies Partial<PerseusOrdererWidgetOptions>,
 };
