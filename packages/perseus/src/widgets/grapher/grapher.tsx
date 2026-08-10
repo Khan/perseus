@@ -638,13 +638,10 @@ class Grapher extends React.Component<Props> implements Widget {
         const interactiveGraphUserInput =
             convertGrapherUserInputToInteractiveGraph(this.props.userInput);
 
-        // TODO(LEMS-4354): delete the comment below.
-        // InteractiveGraph has not yet migrated to nested options, so it takes
-        // the converted options spread across its props.
         return (
             <InteractiveGraph.widget
                 {...universalProps}
-                {...interactiveGraphOptions}
+                options={interactiveGraphOptions}
                 userInput={interactiveGraphUserInput}
                 handleUserInput={(interactiveGraphUserInput) =>
                     this.props.handleUserInput(

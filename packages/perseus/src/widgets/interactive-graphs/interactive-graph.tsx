@@ -9,7 +9,7 @@ import {getPromptJSON} from "../../widget-ai-utils/interactive-graph/interactive
 import {getEquationString} from "./get-equation-string";
 
 import type {StatefulMafsGraphType} from "./stateful-mafs-graph";
-import type {WidgetExports, WidgetProps} from "../../types";
+import type {WidgetExports, WidgetPropsV2} from "../../types";
 import type {InteractiveGraphPromptJSON} from "../../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {
@@ -21,7 +21,7 @@ import type {
 
 import {StatefulMafsGraph} from "./index";
 
-export type Props = WidgetProps<
+export type Props = WidgetPropsV2<
     PerseusInteractiveGraphWidgetOptions,
     PerseusInteractiveGraphUserInput
 >;
@@ -55,25 +55,31 @@ class InteractiveGraph extends React.Component<Props> {
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState() {
-        const {userInput, ...rest} = this.props;
+        // Callers of this legacy API expect the widget's options flattened in
+        // alongside the other props.
+        const {userInput, options, ...rest} = this.props;
         return {
+            ...options,
             ...rest,
-            graph: this.props.userInput,
+            graph: userInput,
         };
     }
 
     render() {
+        const options = this.props.options;
         const box = getInteractiveBoxFromSizeClass(
             this.props.containerSizeClass,
         );
         const gridStep =
-            this.props.gridStep ||
-            Util.getGridStep(this.props.range, this.props.step, box[0]);
+            options.gridStep ||
+            Util.getGridStep(options.range, options.step, box[0]);
         const snapStep =
-            this.props.snapStep || Util.snapStepFromGridStep(gridStep);
+            options.snapStep || Util.snapStepFromGridStep(gridStep);
 
         const mafsProps = {
-            ...this.props,
+            ...options,
+            static: this.props.static,
+            containerSizeClass: this.props.containerSizeClass,
             graph: this.props.userInput,
             onChange: () =>
                 this.props.handleUserInput(
@@ -88,7 +94,7 @@ class InteractiveGraph extends React.Component<Props> {
         };
 
         const showUngradedText =
-            this.props.graded === false && this.props.graph.type !== "none";
+            this.props.graded === false && options.graph.type !== "none";
         const ungradedDescriptionId = `interactive-graph-ungraded-description-${this.props.widgetId?.replace(
             /\s+/g,
             "-",
@@ -107,7 +113,7 @@ class InteractiveGraph extends React.Component<Props> {
                     gridStep={gridStep}
                     snapStep={snapStep}
                     box={box}
-                    showTooltips={!!this.props.showTooltips}
+                    showTooltips={!!options.showTooltips}
                     readOnly={this.props.apiOptions?.readOnly}
                     widgetId={this.props.widgetId}
                     graded={this.props.graded}
