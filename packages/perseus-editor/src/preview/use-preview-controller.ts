@@ -1,7 +1,6 @@
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 
-import {logBridgeHint} from "./log-bridge-hint";
 import {
     createPreviewClearHighlightsMessage,
     createPreviewHighlightIssuesMessage,
@@ -90,10 +89,6 @@ export function usePreviewController(
     // listening.
     const currentContentRef = React.useRef<PreviewContent | null>(null);
     const currentA11yScanningEnabledRef = React.useRef(false);
-
-    React.useEffect(() => {
-        logBridgeHint();
-    }, []);
 
     // Sends a message to the iframe, dropping it if the iframe isn't
     // currently mounted (eg. during a reload/remount).

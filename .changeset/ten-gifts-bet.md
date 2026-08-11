@@ -2,7 +2,8 @@
 "@khanacademy/perseus-editor": patch
 ---
 
-Log a one-time console hint when a preview controller mounts, giving a
-paste-able snippet for watching messages cross the preview bridge. The bridge is
-otherwise invisible, so a preview that looks stuck can't be told apart from one
-whose messages are being ignored.
+Internal cleanup of the preview bridge: the parent's send helper now takes the
+`ParentToIframeMessage` union rather than the loose message base, so outbound
+messages are type-checked, and the base type is no longer exported. The iframe
+side sends through a single `postToParent` helper instead of three inline
+`postMessage` calls. No behavior change.
