@@ -588,8 +588,8 @@ class Orderer
     getSerializedState(): any {
         const {userInput, options, ...rest} = this.props;
         return {
-            ...rest,
             ...options,
+            ...rest,
             current: userInput.current.map((e) => ({content: e})),
         };
     }
