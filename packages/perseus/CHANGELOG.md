@@ -1,5 +1,27 @@
 # @khanacademy/perseus
 
+## 84.0.0
+
+### Major Changes
+
+-   [#4031](https://github.com/Khan/perseus/pull/4031) [`ce0d820`](https://github.com/Khan/perseus/commit/ce0d82019af3248924201d6a6fda06805ccb84c5) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove `Changeable.propTypes` since both `Changeable` and `PropTypes` are deprecated. This is a major change for `@khanacademy/perseus` since it's removing an export.
+
+-   [#3928](https://github.com/Khan/perseus/pull/3928) [`bbf8a63`](https://github.com/Khan/perseus/commit/bbf8a63287d1137e64b58f4902fae06c43042dc0) Thanks [@Evelas78](https://github.com/Evelas78)! - Created a new blank widget which will require schema updates in both frontend and webapp
+
+### Minor Changes
+
+-   [#4051](https://github.com/Khan/perseus/pull/4051) [`9b1e845`](https://github.com/Khan/perseus/commit/9b1e845261eeccda6df46829a12ca676266c10f2) Thanks [@benchristel](https://github.com/benchristel)! - Migrate hint-related color styles to Wonder Blocks semantic colors. This enables hints to be themed.
+
+### Patch Changes
+
+-   Updated dependencies [[`bbf8a63`](https://github.com/Khan/perseus/commit/bbf8a63287d1137e64b58f4902fae06c43042dc0)]:
+    -   @khanacademy/perseus-core@35.0.0
+    -   @khanacademy/keypad-context@3.2.82
+    -   @khanacademy/kmath@2.4.41
+    -   @khanacademy/math-input@27.0.2
+    -   @khanacademy/perseus-linter@5.1.22
+    -   @khanacademy/perseus-score@8.12.14
+
 ## 83.1.0
 
 ### Minor Changes

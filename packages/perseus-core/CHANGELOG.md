@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 35.0.0
+
+### Major Changes
+
+-   [#3928](https://github.com/Khan/perseus/pull/3928) [`bbf8a63`](https://github.com/Khan/perseus/commit/bbf8a63287d1137e64b58f4902fae06c43042dc0) Thanks [@Evelas78](https://github.com/Evelas78)! - Created a new blank widget which will require schema updates in both frontend and webapp
+
 ## 34.1.0
 
 ### Minor Changes
