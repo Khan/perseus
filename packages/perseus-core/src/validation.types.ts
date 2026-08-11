@@ -132,6 +132,21 @@ export type ValidationResult = Extract<PerseusScore, {type: "invalid"}> | null;
  */
 export type UserInputStatus = "correct" | "incorrect" | "incomplete";
 
+export type PerseusBlankUserInput = {
+    /**
+     * The user's placed answer tile on the blank, or null if the user has not
+     * placed a tile yet.
+     */
+    selected: string | null;
+};
+
+export type PerseusBlankRubric = {
+    /**
+     * The ID of the correct answer tile
+     */
+    correctId: string;
+};
+
 /** Scoring rubric for the Categorizer widget. */
 export type PerseusCategorizerRubric = {
     /**
