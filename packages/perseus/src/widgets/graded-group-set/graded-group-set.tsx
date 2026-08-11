@@ -220,8 +220,7 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
                         ...currentGroup,
                         // The set renders the group's title itself, above the
                         // indicators, so the group must not render it again.
-                        // @ts-expect-error - TS2322 - Type 'null' is not assignable to type 'string'.
-                        title: null,
+                        title: "",
                     }}
                     inGradedGroupSet={true}
                     onNextQuestion={handleNextQuestion}
