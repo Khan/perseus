@@ -42,8 +42,10 @@ class PlaceholderCard extends React.Component<PlaceholderCardProps> {
             >
                 <div
                     className="card placeholder"
+                    // Note: To make the placeholder reflect the size of the
+                    // card, update width below to height. Currently not wanted.
                     // eslint-disable-next-line no-restricted-syntax
-                    style={{height: this.props.height as number}}
+                    style={{height: this.props.width as number}}
                 />
             </div>
         );
