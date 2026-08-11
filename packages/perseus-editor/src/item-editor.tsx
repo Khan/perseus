@@ -1,14 +1,15 @@
-import {ApiOptions} from "@khanacademy/perseus";
 import * as React from "react";
 import invariant from "tiny-invariant";
 import _ from "underscore";
 
+import {A11yContext} from "./components/a11y-context";
 import DeviceFramer from "./components/device-framer";
 import Editor from "./editor";
 import ItemExtrasEditor from "./item-extras-editor";
 import PreviewWithIframe from "./preview-with-iframe";
+import {createPreviewContentDeriver} from "./util/derive-question-preview-content";
 
-import type {PreviewContent} from "./preview/message-types";
+import type {A11yReport} from "./preview/use-preview-controller";
 import type {
     APIOptions,
     ImageUploader,
@@ -20,8 +21,6 @@ import type {
     PerseusRenderer,
     PerseusItem,
 } from "@khanacademy/perseus-core";
-
-type QuestionPreviewData = Extract<PreviewContent, {type: "question"}>;
 
 type Props = {
     /** Additional templates that the host application would like to display
@@ -51,6 +50,9 @@ type Props = {
 // NOTE: ItemEditor does not actually produce an entire PerseusItem. Hints are
 // edited separately.
 class ItemEditor extends React.Component<Props> {
+    static contextType = A11yContext;
+    declare context: React.ContextType<typeof A11yContext>;
+
     static defaultProps: {
         answerArea: Record<any, any>;
         onChange: () => void;
@@ -62,6 +64,7 @@ class ItemEditor extends React.Component<Props> {
     };
     questionEditor = React.createRef<Editor>();
     itemExtrasEditor = React.createRef<ItemExtrasEditor>();
+    derivePreviewContent = createPreviewContentDeriver();
 
     // Notify the parent that the question or answer area has been updated.
     updateProps = (newProps: Partial<PerseusItem>) => {
@@ -84,6 +87,10 @@ class ItemEditor extends React.Component<Props> {
         return this.questionEditor.current?.getSaveWarnings();
     };
 
+    handleA11yReport = (report: A11yReport | null) => {
+        this.context?.onA11yReport(report);
+    };
+
     serialize(): {
         answerArea: PerseusAnswerArea;
         question: PerseusRenderer;
@@ -102,41 +109,13 @@ class ItemEditor extends React.Component<Props> {
         };
     }
 
-    // Builds the preview content from props.
-    _derivePreviewContent(): QuestionPreviewData | null {
-        const question = this.props.question;
-
-        if (!question) {
-            return null;
-        }
-
-        return {
-            type: "question",
-            data: {
-                question,
-                apiOptions: {
-                    ...ApiOptions.defaults,
-                    ...this.props.apiOptions,
-                    customKeypad:
-                        this.props.deviceType === "phone" ||
-                        this.props.deviceType === "tablet",
-                },
-                linterContext: {
-                    contentType: "exercise",
-                    highlightLint: this.props.highlightLint,
-                },
-                reviewMode: true,
-                legacyPerseusLint: this.getSaveWarnings(),
-                problemNum: this.props.problemNum,
-            },
-        };
-    }
-
     render(): React.ReactNode {
         const isMobile =
             this.props.deviceType === "phone" ||
             this.props.deviceType === "tablet";
         const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
+        const a11yScanningEnabled = this.context?.a11yScanningEnabled ?? false;
+        const highlightInstanceIds = this.context?.highlightInstanceIds ?? [];
 
         return (
             <div className="perseus-editor-table">
@@ -177,7 +156,18 @@ class ItemEditor extends React.Component<Props> {
                                     isMobile={isMobile}
                                     seamless={true}
                                     url={this.props.previewURL}
-                                    content={this._derivePreviewContent()}
+                                    content={this.derivePreviewContent({
+                                        question: this.props.question,
+                                        apiOptions: this.props.apiOptions,
+                                        deviceType: this.props.deviceType,
+                                        highlightLint: this.props.highlightLint,
+                                        problemNum: this.props.problemNum,
+                                        legacyPerseusLint:
+                                            this.getSaveWarnings() ?? [],
+                                    })}
+                                    a11yScanningEnabled={a11yScanningEnabled}
+                                    highlightInstanceIds={highlightInstanceIds}
+                                    onA11yReport={this.handleA11yReport}
                                 />
                             </DeviceFramer>
                         </div>

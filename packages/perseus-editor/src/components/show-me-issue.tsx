@@ -1,76 +1,62 @@
 import Switch from "@khanacademy/wonder-blocks-switch";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
-import {useState} from "react";
 
-import type {CSSProperties} from "react";
+import {A11yContext} from "./a11y-context";
 
-type BoundaryRect = {
-    top: number;
-    left: number;
-    height: number;
-    width: number;
+type Props = {
+    /**
+     * The issue's highlight handle. Absent when the issue has nothing in the
+     * preview to point at, which is what makes the toggle unavailable.
+     */
+    instanceId?: string;
 };
 
-const ShowMe = ({elements}: {elements?: Element[]}) => {
-    const [showMe, setShowMe] = useState(false);
+const showMeStyle = {
+    marginBlockStart: "1em",
+    display: "flex",
+    alignItems: "center",
+};
 
-    if (!elements || elements.length === 0) {
-        return null;
-    }
-    const getIssueBoundary = (element: Element): BoundaryRect => {
-        const iframeBoundary =
-            element.ownerDocument.defaultView?.frameElement?.getBoundingClientRect();
-        const elementBoundary = element.getBoundingClientRect();
-        return {
-            top: elementBoundary.top + (iframeBoundary?.top || 0),
-            left: elementBoundary.left + (iframeBoundary?.left || 0),
-            height: elementBoundary.height,
-            width: elementBoundary.width,
+const ShowMe = ({instanceId}: Props) => {
+    const [showMe, setShowMe] = React.useState(false);
+    const context = React.useContext(A11yContext);
+
+    // Clear this issue's highlight when it unmounts (e.g. the issue is
+    // resolved and disappears from the list) so it doesn't linger.
+    React.useEffect(() => {
+        return () => {
+            if (instanceId != null) {
+                context?.setIssueHighlight(instanceId, false);
+            }
         };
-    };
-    const showMeStyle = {
-        marginTop: "1em",
-        display: "flex",
-        alignItems: "center",
-    };
-    const getOutlineStyle = (issueBoundary: BoundaryRect): CSSProperties =>
-        showMe && issueBoundary.width !== 0
-            ? {
-                  display: "block",
-                  border: "2px solid red",
-                  borderRadius: "4px",
-                  position: "fixed",
-                  height: issueBoundary.height + 8,
-                  width: issueBoundary.width + 8,
-                  top: issueBoundary.top - 4,
-                  left: issueBoundary.left - 4,
-              }
-            : {display: "none"};
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-    const elementOutlines = elements?.map((element, index) => {
-        const issueBoundary = getIssueBoundary(element);
-        const outlineStyle = getOutlineStyle(issueBoundary);
-        return <div key={index} style={outlineStyle} />;
-    });
+    if (instanceId == null || context == null) {
+        return (
+            <div>
+                Unable to find the offending element. Please ask a developer for
+                help fixing this.
+            </div>
+        );
+    }
 
-    const showMeToggle = (
+    const handleChange = (checked: boolean) => {
+        setShowMe(checked);
+        context.setIssueHighlight(instanceId, checked);
+    };
+
+    return (
         <BodyText size="small" tag="span" weight="bold" style={showMeStyle}>
             <span style={{marginInlineEnd: "1em"}}>Show Me</span>
-            <Switch checked={showMe} onChange={setShowMe} />
-            {elementOutlines}
+            <Switch
+                checked={showMe}
+                onChange={handleChange}
+                aria-label="Show Me"
+            />
         </BodyText>
     );
-    const showMeUnavailable = (
-        <div>
-            Unable to find the offending element. Please ask a developer for
-            help fixing this.
-        </div>
-    );
-
-    return Array.isArray(elementOutlines) && elementOutlines.length > 0
-        ? showMeToggle
-        : showMeUnavailable;
 };
 
 export default ShowMe;
