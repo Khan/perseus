@@ -18,6 +18,10 @@ interface PairEditorProps
 
 /**
  * This is used for editing a name/value pair.
+ *
+ * TODO: PairsEditor and PairEditor are duplicated
+ * between iframe-editor and cs-program-editor;
+ * we should consolidate them
  */
 class PairEditor extends React.Component<PairEditorProps> {
     change: ChangeFn = (...args) => {
@@ -52,6 +56,10 @@ interface PairsEditorProps extends Changeable.ChangeableProps {
 
 /**
  * This is used for editing a set of name/value pairs.
+ *
+ * TODO: PairsEditor and PairEditor are duplicated
+ * between iframe-editor and cs-program-editor;
+ * we should consolidate them
  */
 class PairsEditor extends React.Component<PairsEditorProps> {
     change: ChangeFn = (...args) => {
