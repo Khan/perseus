@@ -377,10 +377,10 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
 
     function snapNumLinePosition(
         range: number[],
+        snapDivisions: number,
         calculatedProps: CalculatedProps,
         numLinePosition: number,
     ): number {
-        const {snapDivisions} = calculatedProps.options;
         const left = range[0];
         const right = range[1];
         const snapX = calculatedProps.tickStep / snapDivisions;
@@ -408,6 +408,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
 
             const newNumLinePosition = snapNumLinePosition(
                 nextProps.options.range,
+                nextProps.options.snapDivisions,
                 nextProps,
                 props.userInput.numLinePosition,
             );
@@ -505,6 +506,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                         // snap X
                         const x = snapNumLinePosition(
                             calculatedProps.options.range,
+                            calculatedProps.options.snapDivisions,
                             calculatedProps,
                             coord[0],
                         );
