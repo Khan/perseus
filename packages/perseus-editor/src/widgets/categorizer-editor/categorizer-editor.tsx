@@ -16,9 +16,11 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const Categorizer = CategorizerWidget.widget;
 
-type Props = CategorizerDefaultWidgetOptions & {
+interface Props
+    extends CategorizerDefaultWidgetOptions,
+        Changeable.ChangeableProps {
     apiOptions?: APIOptionsWithDefaults;
-} & Changeable.ChangeableProps;
+}
 
 // JSDoc will be shown in Storybook widget editor description
 /**

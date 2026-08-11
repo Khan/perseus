@@ -17,7 +17,9 @@ const defaultImage = {
     left: 0,
 } as const;
 
-type Props = MeasurerDefaultWidgetOptions & Changeable.ChangeableProps;
+interface Props
+    extends MeasurerDefaultWidgetOptions,
+        Changeable.ChangeableProps {}
 
 class MeasurerEditor extends React.Component<Props> {
     static widgetName = "measurer" as const;

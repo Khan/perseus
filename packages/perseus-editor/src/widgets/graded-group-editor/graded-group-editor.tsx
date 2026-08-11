@@ -18,9 +18,11 @@ import type {
 
 const {TextInput} = components;
 
-type Props = GradedGroupDefaultWidgetOptions & {
+interface Props
+    extends GradedGroupDefaultWidgetOptions,
+        Changeable.ChangeableProps {
     apiOptions?: APIOptionsWithDefaults;
-} & Changeable.ChangeableProps;
+}
 
 class GradedGroupEditor extends React.Component<Props> {
     static widgetName = "graded-group" as const;

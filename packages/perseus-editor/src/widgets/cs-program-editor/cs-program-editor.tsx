@@ -26,7 +26,9 @@ type ChangeFn = typeof Changeable.change;
 const DEFAULT_WIDTH = 400;
 const DEFAULT_HEIGHT = 400;
 
-type PairEditorProps = PerseusCSProgramSetting & Changeable.ChangeableProps;
+interface PairEditorProps
+    extends PerseusCSProgramSetting,
+        Changeable.ChangeableProps {}
 
 /**
  * This is used for editing a name/value pair.
@@ -64,9 +66,9 @@ class PairEditor extends React.Component<PairEditorProps> {
     }
 }
 
-type PairsEditorProps = {
+interface PairsEditorProps extends Changeable.ChangeableProps {
     pairs: PerseusCSProgramSetting[];
-} & Changeable.ChangeableProps;
+}
 
 /**
  * This is used for editing a set of name/value pairs.
@@ -123,8 +125,9 @@ function isolateProgramID(programUrl: string) {
     return programUrl;
 }
 
-type CSProgramEditorProps = CSProgramDefaultWidgetOptions &
-    Changeable.ChangeableProps;
+interface CSProgramEditorProps
+    extends CSProgramDefaultWidgetOptions,
+        Changeable.ChangeableProps {}
 
 /**
  * This is the main editor for this widget, to specify all the options.

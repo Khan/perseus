@@ -12,9 +12,11 @@ import type {DefinitionDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 const {TextInput} = components;
 
-type Props = DefinitionDefaultWidgetOptions & {
+interface Props
+    extends DefinitionDefaultWidgetOptions,
+        Changeable.ChangeableProps {
     apiOptions?: APIOptionsWithDefaults;
-} & Changeable.ChangeableProps;
+}
 
 // JSDoc will be shown in Storybook widget editor description
 /**

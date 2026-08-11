@@ -12,7 +12,9 @@ import BlurInput from "../../components/blur-input";
 
 type ChangeFn = typeof Changeable.change;
 
-type PairEditorProps = PerseusCSProgramSetting & Changeable.ChangeableProps;
+interface PairEditorProps
+    extends PerseusCSProgramSetting,
+        Changeable.ChangeableProps {}
 
 /**
  * This is used for editing a name/value pair.
@@ -49,9 +51,9 @@ class PairEditor extends React.Component<PairEditorProps> {
     }
 }
 
-type PairsEditorProps = {
+interface PairsEditorProps extends Changeable.ChangeableProps {
     pairs: PerseusCSProgramSetting[];
-} & Changeable.ChangeableProps;
+}
 
 /**
  * This is used for editing a set of name/value pairs.
@@ -88,8 +90,9 @@ class PairsEditor extends React.Component<PairsEditorProps> {
     }
 }
 
-type IframeEditorProps = IFrameDefaultWidgetOptions &
-    Changeable.ChangeableProps;
+interface IframeEditorProps
+    extends IFrameDefaultWidgetOptions,
+        Changeable.ChangeableProps {}
 
 /**
  * This is the main editor for this widget, to specify all the options.

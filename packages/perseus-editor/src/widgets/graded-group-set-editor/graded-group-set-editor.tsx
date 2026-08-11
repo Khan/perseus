@@ -7,9 +7,11 @@ import GradedGroupEditor from "../graded-group-editor";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {GradedGroupSetDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
-type Props = GradedGroupSetDefaultWidgetOptions & {
+interface Props
+    extends GradedGroupSetDefaultWidgetOptions,
+        Changeable.ChangeableProps {
     apiOptions?: APIOptionsWithDefaults;
-} & Changeable.ChangeableProps;
+}
 
 class GradedGroupSetEditor extends React.Component<Props> {
     // @ts-expect-error - TS2564 - Property '_editors' has no initializer and is not definitely assigned in the constructor.

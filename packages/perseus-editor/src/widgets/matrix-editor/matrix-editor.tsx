@@ -21,9 +21,9 @@ const Matrix = MatrixWidget.widget;
 // have to cap it at some point.
 const MAX_BOARD_SIZE = 6;
 
-type Props = MatrixDefaultWidgetOptions & {
+interface Props extends MatrixDefaultWidgetOptions, Changeable.ChangeableProps {
     apiOptions: APIOptionsWithDefaults;
-} & Changeable.ChangeableProps;
+}
 
 class MatrixEditor extends React.Component<Props> {
     static widgetName = "matrix" as const;
