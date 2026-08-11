@@ -461,22 +461,26 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
         });
     }
 
-    function renderNumberLinePoint(calculatedProps: CalculatedProps) {
-        const isOpen = ["lt", "gt"].includes(calculatedProps.userInput.rel);
+    function renderNumberLinePoint() {
+        const tickStep = getTickStep(
+            props.options.range,
+            props.userInput.numDivisions,
+        );
+        const isOpen = ["lt", "gt"].includes(props.userInput.rel);
 
         // In static mode the point's fill and stroke is blue to signify that
         // it can't be interacted with.
         let fill;
         if (isOpen) {
             fill = KhanColors._BACKGROUND;
-        } else if (calculatedProps.static) {
+        } else if (props.static) {
             fill = KhanColors.BLUE;
         } else {
             fill = KhanColors.GREEN;
         }
         const normalStyle = {
             fill: fill,
-            stroke: calculatedProps.static ? KhanColors.BLUE : KhanColors.GREEN,
+            stroke: props.static ? KhanColors.BLUE : KhanColors.GREEN,
             "stroke-width": isOpen ? 3 : 1,
         } as const;
         const highlightStyle = {
@@ -484,7 +488,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
             "stroke-width": isOpen ? 3 : 1,
         } as const;
 
-        const mobileDotStyle = calculatedProps.options.isInequality
+        const mobileDotStyle = props.options.isInequality
             ? {
                   stroke: KhanColors.GREEN,
                   "fill-opacity": isOpen ? 0 : 1,
@@ -496,7 +500,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                 // eslint-disable-next-line react/no-string-refs
                 ref="numberLinePoint"
                 pointSize={6}
-                coord={[calculatedProps.userInput.numLinePosition, 0]}
+                coord={[props.userInput.numLinePosition, 0]}
                 constraints={[
                     (coord: any, prevCoord) => {
                         // constrain-y
@@ -505,9 +509,9 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                     (coord: any, prevCoord) => {
                         // snap X
                         const x = snapNumLinePosition(
-                            calculatedProps.options.range,
-                            calculatedProps.options.snapDivisions,
-                            calculatedProps.tickStep,
+                            props.options.range,
+                            props.options.snapDivisions,
+                            tickStep,
                             coord[0],
                         );
                         return [x, coord[1]];
@@ -518,9 +522,9 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                 onMove={(coord) => {
                     movePosition(coord[0]);
                 }}
-                isMobile={calculatedProps.apiOptions.isMobile}
+                isMobile={props.apiOptions.isMobile}
                 mobileStyleOverride={mobileDotStyle}
-                showTooltips={calculatedProps.options.showTooltips ?? false}
+                showTooltips={props.options.showTooltips ?? false}
                 xOnlyTooltip={true}
             />
         );
@@ -615,7 +619,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                     isMobile={calculatedProps.apiOptions.isMobile}
                 />
                 {renderInequality()}
-                {renderNumberLinePoint(calculatedProps)}
+                {renderNumberLinePoint()}
             </Graphie>
         );
     }
