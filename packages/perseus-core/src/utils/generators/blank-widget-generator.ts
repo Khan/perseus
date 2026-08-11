@@ -5,7 +5,7 @@ export function generateBlankOptions(
 ): PerseusBlankWidgetOptions {
     const defaultBlankOptions: PerseusBlankWidgetOptions = {
         displayType: "normal",
-        correct: "answer-tile-1",
+        correctId: "answer-tile-1",
     };
 
     return {

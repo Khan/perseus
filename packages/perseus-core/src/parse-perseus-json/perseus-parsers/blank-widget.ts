@@ -15,6 +15,6 @@ export const parseBlankWidget = parseWidget(
             enumeration("normal", "superscript", "subscript"),
             () => "normal" as const,
         ),
-        correct: string,
+        correctId: string,
     }),
 );

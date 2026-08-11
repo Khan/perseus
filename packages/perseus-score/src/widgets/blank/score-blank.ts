@@ -16,7 +16,7 @@ function scoreBlank(
     if (validationResult != null) {
         return validationResult;
     }
-    const isCorrect = userInput?.selected === rubric.correct;
+    const isCorrect = userInput?.selected === rubric.correctId;
     return {
         type: "points",
         earned: isCorrect ? 1 : 0,

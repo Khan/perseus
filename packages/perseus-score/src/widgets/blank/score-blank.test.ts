@@ -9,7 +9,7 @@ describe("scoreBlank", () => {
     it("returns a score of 'invalid' when the user input is undefined", () => {
         // Arrange
         const rubric: PerseusBlankRubric = {
-            correct: "answer-tile-1",
+            correctId: "answer-tile-1",
         };
 
         const userInput = undefined;
@@ -24,7 +24,7 @@ describe("scoreBlank", () => {
     it("gives points when the selected tile matches the correct answer", () => {
         // Arrange
         const rubric: PerseusBlankRubric = {
-            correct: "answer-tile-1",
+            correctId: "answer-tile-1",
         };
 
         const userInput: PerseusBlankUserInput = {
@@ -41,7 +41,7 @@ describe("scoreBlank", () => {
     it("does not give points when the selected tile does not match the correct answer", () => {
         // Arrange
         const rubric: PerseusBlankRubric = {
-            correct: "answer-tile-1",
+            correctId: "answer-tile-1",
         };
 
         const userInput: PerseusBlankUserInput = {
@@ -58,7 +58,7 @@ describe("scoreBlank", () => {
     it("returns a score of 'invalid' when no tile has been selected", () => {
         // Arrange
         const rubric: PerseusBlankRubric = {
-            correct: "answer-tile-1",
+            correctId: "answer-tile-1",
         };
 
         const userInput: PerseusBlankUserInput = {

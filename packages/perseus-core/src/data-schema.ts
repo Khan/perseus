@@ -532,7 +532,7 @@ export type PerseusBlankWidgetOptions = {
     /** Display Type for how the blank should be rendered */
     displayType: "normal" | "superscript" | "subscript";
     /** ID for the correct answer tile for the blank */
-    correct: string;
+    correctId: string;
 };
 
 /** Options for the categorizer widget. Presents items to sort into groups. */

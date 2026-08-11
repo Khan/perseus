@@ -144,7 +144,7 @@ export type PerseusBlankRubric = {
     /**
      * The ID of the correct answer tile
      */
-    correct: string;
+    correctId: string;
 };
 
 /** Scoring rubric for the Categorizer widget. */

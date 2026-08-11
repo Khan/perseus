@@ -7,7 +7,7 @@ describe("getBlankPublicWidgetOptions", () => {
         // Arrange
         const options: PerseusBlankWidgetOptions = {
             displayType: "normal",
-            correct: "answer-tile-2",
+            correctId: "answer-tile-2",
         };
 
         // Act
