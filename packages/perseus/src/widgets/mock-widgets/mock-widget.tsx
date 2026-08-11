@@ -6,11 +6,14 @@ import * as React from "react";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
 
 import type {MockWidgetOptions} from "./mock-widget-types";
-import type {WidgetProps, Widget, WidgetExports} from "../../types";
+import type {WidgetPropsV2, Widget, WidgetExports} from "../../types";
 import type {MockWidgetPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
 import type {PerseusMockWidgetUserInput} from "@khanacademy/perseus-score";
 
-type ExternalProps = WidgetProps<MockWidgetOptions, PerseusMockWidgetUserInput>;
+type ExternalProps = WidgetPropsV2<
+    MockWidgetOptions,
+    PerseusMockWidgetUserInput
+>;
 
 type Props = ExternalProps;
 
@@ -67,8 +70,12 @@ class MockWidgetComponent extends React.Component<Props> implements Widget {
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState() {
-        const {userInput, ...rest} = this.props;
+        const {userInput, options, ...rest} = this.props;
         return {
+            // `rest` goes last because the renderer used to spread the universal
+            // props over the options, so the universal `static` — not the
+            // option of the same name — is the one that gets serialized.
+            ...options,
             ...rest,
             currentValue: userInput.currentValue,
         };

@@ -489,7 +489,9 @@ review and commit the changes.
 - [x] Migrate `molecule` to `WidgetPropsV2`. WON'T DO - `molecule` will be deleted
 - [x] Migrate `measurer` to `WidgetPropsV2`.
 - [x] Convert `number-line` to a functional component, a la `dropdown`.
-- [x] Migrate `number-line` to `WidgetPropsV2`.
+- [ ] Migrate `number-line` to `WidgetPropsV2`. (Was checked off prematurely:
+      `number-line.tsx` still uses `WidgetProps` and the type isn't in
+      `MIGRATED_WIDGETS`. Must happen before the final cleanup.)
 - [x] Migrate `plotter` to `WidgetPropsV2` (update its editor preview).
 - [x] Convert `cs-program` to a functional component, a la `dropdown`.
 - [x] Migrate `cs-program` to `WidgetPropsV2`.
@@ -537,7 +539,7 @@ review and commit the changes.
       `options` (`this.props.options[index]` → `this.props.options.options[index]`);
       it has two `static defaultProps` (the `Card` sub-component's and the widget's
       `userInput`-bearing one) — relocate only the option-field defaults.
-- [ ] Migrate `mock-widget` (test-only) to `WidgetPropsV2`.
+- [x] Migrate `mock-widget` (test-only) to `WidgetPropsV2`.
 
 ### Final cleanup
 

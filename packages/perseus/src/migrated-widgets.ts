@@ -40,4 +40,5 @@ export const MIGRATED_WIDGETS: ReadonlyArray<string> = [
     "graded-group-set",
     "graded-group",
     "orderer",
+    "mock-widget",
 ];
