@@ -52,15 +52,15 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
           class="perseus-widget-container widget-block"
         >
           <div
-            class="categorizer-container fullBleedContainer_8ybp6"
+            class="categorizer-container fullBleedContainer_1pirxou"
           >
             <table
-              class="categorizer-table mobileTable_1wmcwov"
+              class="categorizer-table mobileTable_1ktoh91"
             >
               <thead>
                 <tr>
                   <td
-                    class="emptyHeaderCell_xeoxek"
+                    class="emptyHeaderCell_1fhroad"
                   />
                   <th
                     class="header_whrfk4"
@@ -173,7 +173,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                       role="button"
                     >
                       <input
-                        class="responsiveInput_10rqe3p-o_O-responsiveRadioInput_ky7gu6"
+                        class="responsiveInput_1035ksa-o_O-responsiveRadioInput_1l4ugyp"
                         name="perseus_radio_10_0"
                         type="radio"
                       />
@@ -187,7 +187,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                       role="button"
                     >
                       <input
-                        class="responsiveInput_10rqe3p-o_O-responsiveRadioInput_ky7gu6"
+                        class="responsiveInput_1035ksa-o_O-responsiveRadioInput_1l4ugyp"
                         name="perseus_radio_10_0"
                         type="radio"
                       />
@@ -201,7 +201,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                       role="button"
                     >
                       <input
-                        class="responsiveInput_10rqe3p-o_O-responsiveRadioInput_ky7gu6"
+                        class="responsiveInput_1035ksa-o_O-responsiveRadioInput_1l4ugyp"
                         name="perseus_radio_10_0"
                         type="radio"
                       />
@@ -215,7 +215,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                       role="button"
                     >
                       <input
-                        class="responsiveInput_10rqe3p-o_O-responsiveRadioInput_ky7gu6"
+                        class="responsiveInput_1035ksa-o_O-responsiveRadioInput_1l4ugyp"
                         name="perseus_radio_10_0"
                         type="radio"
                       />
@@ -258,7 +258,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                       role="button"
                     >
                       <input
-                        class="responsiveInput_10rqe3p-o_O-responsiveRadioInput_ky7gu6"
+                        class="responsiveInput_1035ksa-o_O-responsiveRadioInput_1l4ugyp"
                         name="perseus_radio_10_1"
                         type="radio"
                       />
@@ -272,7 +272,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                       role="button"
                     >
                       <input
-                        class="responsiveInput_10rqe3p-o_O-responsiveRadioInput_ky7gu6"
+                        class="responsiveInput_1035ksa-o_O-responsiveRadioInput_1l4ugyp"
                         name="perseus_radio_10_1"
                         type="radio"
                       />
@@ -286,7 +286,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                       role="button"
                     >
                       <input
-                        class="responsiveInput_10rqe3p-o_O-responsiveRadioInput_ky7gu6"
+                        class="responsiveInput_1035ksa-o_O-responsiveRadioInput_1l4ugyp"
                         name="perseus_radio_10_1"
                         type="radio"
                       />
@@ -300,7 +300,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                       role="button"
                     >
                       <input
-                        class="responsiveInput_10rqe3p-o_O-responsiveRadioInput_ky7gu6"
+                        class="responsiveInput_1035ksa-o_O-responsiveRadioInput_1l4ugyp"
                         name="perseus_radio_10_1"
                         type="radio"
                       />
@@ -338,7 +338,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
           style="max-width: 220px; max-height: 223px;"
         >
           <span
-            style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+            style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
           >
             <div
               class="default_7zhre1-o_O-spinnerContainer_agrn11"
@@ -390,7 +390,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
           style="max-width: 244px; max-height: 223px;"
         >
           <span
-            style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+            style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
           >
             <div
               class="default_7zhre1-o_O-spinnerContainer_agrn11"
@@ -472,12 +472,12 @@ exports[`categorizer widget should snapshot: first render 1`] = `
             class="categorizer-container "
           >
             <table
-              class="categorizer-table mobileTable_1wmcwov"
+              class="categorizer-table mobileTable_1ktoh91"
             >
               <thead>
                 <tr>
                   <td
-                    class="emptyHeaderCell_xeoxek"
+                    class="emptyHeaderCell_1fhroad"
                   />
                   <th
                     class="header_whrfk4"
@@ -590,7 +590,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                       role="button"
                     >
                       <span
-                        class="radioSpan_buhzha"
+                        class="radioSpan_2k8t20"
                       >
                         <svg
                           aria-hidden="true"
@@ -616,7 +616,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                       role="button"
                     >
                       <span
-                        class="radioSpan_buhzha"
+                        class="radioSpan_2k8t20"
                       >
                         <svg
                           aria-hidden="true"
@@ -642,7 +642,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                       role="button"
                     >
                       <span
-                        class="radioSpan_buhzha"
+                        class="radioSpan_2k8t20"
                       >
                         <svg
                           aria-hidden="true"
@@ -668,7 +668,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                       role="button"
                     >
                       <span
-                        class="radioSpan_buhzha"
+                        class="radioSpan_2k8t20"
                       >
                         <svg
                           aria-hidden="true"
@@ -723,7 +723,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                       role="button"
                     >
                       <span
-                        class="radioSpan_buhzha"
+                        class="radioSpan_2k8t20"
                       >
                         <svg
                           aria-hidden="true"
@@ -749,7 +749,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                       role="button"
                     >
                       <span
-                        class="radioSpan_buhzha"
+                        class="radioSpan_2k8t20"
                       >
                         <svg
                           aria-hidden="true"
@@ -775,7 +775,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                       role="button"
                     >
                       <span
-                        class="radioSpan_buhzha"
+                        class="radioSpan_2k8t20"
                       >
                         <svg
                           aria-hidden="true"
@@ -801,7 +801,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                       role="button"
                     >
                       <span
-                        class="radioSpan_buhzha"
+                        class="radioSpan_2k8t20"
                       >
                         <svg
                           aria-hidden="true"
@@ -851,7 +851,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
           style="max-width: 220px; max-height: 223px;"
         >
           <span
-            style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+            style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
           >
             <div
               class="default_7zhre1-o_O-spinnerContainer_agrn11"
@@ -903,7 +903,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
           style="max-width: 244px; max-height: 223px;"
         >
           <span
-            style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+            style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
           >
             <div
               class="default_7zhre1-o_O-spinnerContainer_agrn11"

@@ -1,5 +1,4 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
@@ -97,11 +96,6 @@ type Props = WidgetProps<PerseusGradedGroupSetWidgetOptions> & {
     dependencies: PerseusDependenciesV2;
 };
 
-type DefaultProps = {
-    gradedGroups: Props["gradedGroups"];
-    linterContext: Props["linterContext"];
-};
-
 type State = {
     currentGroup: number;
 };
@@ -109,11 +103,6 @@ type State = {
 class GradedGroupSet extends React.Component<Props, State> implements Widget {
     // @ts-expect-error - TS2564 - Property '_childGroup' has no initializer and is not definitely assigned in the constructor.
     _childGroup: GradedGroup;
-
-    static defaultProps: DefaultProps = {
-        gradedGroups: [],
-        linterContext: linterContextDefault,
-    };
 
     state: State = {
         currentGroup: 0,
@@ -262,7 +251,7 @@ const styles = StyleSheet.create({
         fontSize: font.heading.size.small,
         color: semanticColor.core.foreground.neutral.default,
         textTransform: "uppercase",
-        marginBottom: 11,
+        marginBlockEnd: 11,
         letterSpacing: 0.8,
     },
 
@@ -323,15 +312,15 @@ const styles = StyleSheet.create({
     },
 
     container: {
-        borderTop: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
-        borderBottom: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
+        borderBlockStart: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
+        borderBlockEnd: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
         backgroundColor: semanticColor.core.background.base.subtle,
-        marginLeft: negativePhoneMargin,
-        marginRight: negativePhoneMargin,
-        paddingBottom: phoneMargin,
-        paddingLeft: phoneMargin,
-        paddingRight: phoneMargin,
-        paddingTop: 10,
+        marginInlineStart: negativePhoneMargin,
+        marginInlineEnd: negativePhoneMargin,
+        paddingBlockEnd: phoneMargin,
+        paddingInlineStart: phoneMargin,
+        paddingInlineEnd: phoneMargin,
+        paddingBlockStart: 10,
         width: "auto",
     },
 });

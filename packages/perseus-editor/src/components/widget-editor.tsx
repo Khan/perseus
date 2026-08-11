@@ -56,7 +56,6 @@ export const _upgradeWidgetInfo = (props: WidgetEditorProps): PerseusWidget => {
 // upgrade transforms. Widget editors will always be rendered
 // with all available transforms applied, but the results of those
 // transforms will not be propogated upwards until serialization.
-// eslint-disable-next-line react/no-unsafe
 class WidgetEditor extends React.Component<
     WidgetEditorProps,
     WidgetEditorState
@@ -72,7 +71,6 @@ class WidgetEditor extends React.Component<
         this.widget = React.createRef();
     }
 
-    // eslint-disable-next-line react/no-unsafe
     UNSAFE_componentWillReceiveProps(nextProps: WidgetEditorProps) {
         this.setState({widgetInfo: _upgradeWidgetInfo(nextProps)});
         // user can update internal state while the widget is handled globally

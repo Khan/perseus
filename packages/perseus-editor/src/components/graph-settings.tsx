@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-prop-types, react/no-unsafe */
 /**
  * Used in the editors for the Grapher and Interaction widgets.
  */
@@ -197,7 +196,7 @@ class GraphSettings extends React.Component<Props, State> {
         };
 
         // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
-        const url = ReactDOM.findDOMNode(this.refs["bg-url"]).value; // eslint-disable-line react/no-string-refs
+        const url = ReactDOM.findDOMNode(this.refs["bg-url"]).value;
         if (url) {
             Util.getImageSize(url, (width, height) => {
                 if (this._isMounted) {
@@ -495,7 +494,6 @@ class GraphSettings extends React.Component<Props, State> {
                                     id="labels-x"
                                     type="text"
                                     className="graph-settings-axis-label"
-                                    // eslint-disable-next-line react/no-string-refs
                                     ref="labels-0"
                                     onChange={(e) => this.changeLabel(0, e)}
                                     value={this.state.labelsTextbox[0] || ""}
@@ -507,7 +505,6 @@ class GraphSettings extends React.Component<Props, State> {
                                     id="labels-y"
                                     type="text"
                                     className="graph-settings-axis-label"
-                                    // eslint-disable-next-line react/no-string-refs
                                     ref="labels-1"
                                     onChange={(e) => this.changeLabel(1, e)}
                                     value={this.state.labelsTextbox[1] || ""}
@@ -604,7 +601,6 @@ class GraphSettings extends React.Component<Props, State> {
                                 id="bg-url"
                                 type="text"
                                 className="graph-settings-background-url"
-                                // eslint-disable-next-line react/no-string-refs
                                 ref="bg-url"
                                 value={this.state.backgroundImage.url || ""}
                                 onChange={(e) => {

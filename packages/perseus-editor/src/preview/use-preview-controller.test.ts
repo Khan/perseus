@@ -7,8 +7,18 @@ import {
 import {usePreviewController} from "./use-preview-controller";
 
 import type {PreviewContent} from "./message-types";
+import type {Issue} from "../components/issues-panel";
 import type {APIOptions} from "@khanacademy/perseus";
 import type * as React from "react";
+
+const issue = (id: string): Issue => ({
+    id,
+    description: `description ${id}`,
+    helpUrl: "https://example.com/help",
+    help: "Learn more",
+    impact: "medium",
+    message: `message ${id}`,
+});
 
 describe("usePreviewController", () => {
     let mockIframe: {contentWindow: Window | null; dataset: any};
@@ -32,6 +42,24 @@ describe("usePreviewController", () => {
         // eslint-disable-next-line no-restricted-syntax
         iframeRef = {current: mockIframe as any};
     });
+
+    function sendIframeReadyMessage() {
+        act(() => {
+            window.dispatchEvent(
+                new MessageEvent("message", {
+                    data: createPreviewIframeReadyMessage(),
+                    source: mockContentWindow,
+                }),
+            );
+        });
+    }
+
+    function messagesOfType(type: string) {
+        // eslint-disable-next-line no-restricted-syntax
+        return (mockContentWindow.postMessage as jest.Mock).mock.calls
+            .map(([msg]) => msg)
+            .filter((msg) => msg.type === type);
+    }
 
     describe("initialization", () => {
         it("initializes with null height", () => {
@@ -69,6 +97,74 @@ describe("usePreviewController", () => {
         });
     });
 
+    describe("setA11yScanningEnabled", () => {
+        it("posts a set-a11y-scanning-enabled command to the iframe once ready", () => {
+            const {result} = renderHook(() => usePreviewController(iframeRef));
+            sendIframeReadyMessage();
+
+            act(() => {
+                result.current.setA11yScanningEnabled(true);
+            });
+
+            expect(mockContentWindow.postMessage).toHaveBeenCalledWith(
+                {
+                    source: PREVIEW_MESSAGE_SOURCE,
+                    type: "set-a11y-scanning-enabled",
+                    enabled: true,
+                },
+                "/",
+            );
+        });
+
+        it("does not post immediately if the iframe isn't ready yet", () => {
+            const {result} = renderHook(() => usePreviewController(iframeRef));
+
+            act(() => {
+                result.current.setA11yScanningEnabled(true);
+            });
+
+            expect(mockContentWindow.postMessage).not.toHaveBeenCalled();
+        });
+    });
+
+    describe("highlightIssues", () => {
+        it("posts a highlight-issues command to the iframe", () => {
+            const {result} = renderHook(() => usePreviewController(iframeRef));
+
+            act(() => {
+                result.current.highlightIssues(["violation-1", "incomplete-2"]);
+            });
+
+            expect(mockContentWindow.postMessage).toHaveBeenCalledWith(
+                {
+                    source: PREVIEW_MESSAGE_SOURCE,
+                    type: "highlight-issues",
+                    instanceIds: ["violation-1", "incomplete-2"],
+                    contentVersion: 0,
+                },
+                "/",
+            );
+        });
+    });
+
+    describe("clearHighlights", () => {
+        it("posts a clear-highlights command to the iframe", () => {
+            const {result} = renderHook(() => usePreviewController(iframeRef));
+
+            act(() => {
+                result.current.clearHighlights();
+            });
+
+            expect(mockContentWindow.postMessage).toHaveBeenCalledWith(
+                {
+                    source: PREVIEW_MESSAGE_SOURCE,
+                    type: "clear-highlights",
+                },
+                "/",
+            );
+        });
+    });
+
     describe("sendData", () => {
         it("stores data as pending if iframe isn't ready yet", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
@@ -101,17 +197,17 @@ describe("usePreviewController", () => {
             // iframe is now set
             localIframeRef.current = iframeRef.current;
 
-            act(() => {
-                window.dispatchEvent(
-                    new MessageEvent("message", {
-                        data: createPreviewIframeReadyMessage(),
-                        source: mockContentWindow,
-                    }),
-                );
-            });
+            sendIframeReadyMessage();
 
-            // Should not post message yet
-            expect(mockContentWindow.postMessage).toHaveBeenCalledTimes(1);
+            // The pending content is flushed via iframe-init now that a
+            // contentWindow exists
+            expect(mockContentWindow.postMessage).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    type: "iframe-init",
+                    content: expect.objectContaining({type: "question"}),
+                }),
+                "/",
+            );
         });
 
         it("sends only latest data once iframe is ready", () => {
@@ -128,14 +224,7 @@ describe("usePreviewController", () => {
             expect(mockContentWindow.postMessage).not.toHaveBeenCalled();
 
             // Simulate iframe requesting data
-            act(() => {
-                window.dispatchEvent(
-                    new MessageEvent("message", {
-                        data: createPreviewIframeReadyMessage(),
-                        source: mockContentWindow,
-                    }),
-                );
-            });
+            sendIframeReadyMessage();
 
             expect(mockContentWindow.postMessage).toHaveBeenCalledWith(
                 expect.objectContaining({
@@ -155,14 +244,7 @@ describe("usePreviewController", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
 
             // Simulate iframe requesting data
-            act(() => {
-                window.dispatchEvent(
-                    new MessageEvent("message", {
-                        data: createPreviewIframeReadyMessage(),
-                        source: mockContentWindow,
-                    }),
-                );
-            });
+            sendIframeReadyMessage();
 
             // Now send data
             const previewData = createQuestionPreview();
@@ -186,14 +268,7 @@ describe("usePreviewController", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
 
             // Simulate iframe requesting data
-            act(() => {
-                window.dispatchEvent(
-                    new MessageEvent("message", {
-                        data: createPreviewIframeReadyMessage(),
-                        source: mockContentWindow,
-                    }),
-                );
-            });
+            sendIframeReadyMessage();
 
             const previewData = createQuestionPreview({
                 apiOptions: {onFocusChange: jest.fn()},
@@ -202,9 +277,7 @@ describe("usePreviewController", () => {
                 result.current.sendData(previewData);
             });
 
-            // eslint-disable-next-line no-restricted-syntax
-            const sentMessage = (mockContentWindow.postMessage as jest.Mock)
-                .mock.calls[0][0];
+            const sentMessage = messagesOfType("content-data")[0];
 
             // Non-serializable functions should be removed
             expect(
@@ -252,7 +325,7 @@ describe("usePreviewController", () => {
     });
 
     describe("receiving iframe-ready message", () => {
-        it("responds to iframe-ready with pending data", async () => {
+        it("responds to iframe-ready with pending data via iframe-init", async () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
             const previewData = createQuestionPreview();
 
@@ -262,14 +335,7 @@ describe("usePreviewController", () => {
             });
 
             // Now iframe tells parent its ready
-            act(() => {
-                window.dispatchEvent(
-                    new MessageEvent("message", {
-                        data: createPreviewIframeReadyMessage(),
-                        source: mockContentWindow,
-                    }),
-                );
-            });
+            sendIframeReadyMessage();
 
             await waitFor(() => {
                 expect(mockContentWindow.postMessage).toHaveBeenCalled();
@@ -278,7 +344,7 @@ describe("usePreviewController", () => {
             expect(mockContentWindow.postMessage).toHaveBeenCalledWith(
                 expect.objectContaining({
                     source: PREVIEW_MESSAGE_SOURCE,
-                    type: "content-data",
+                    type: "iframe-init",
                     content: expect.objectContaining({
                         type: "question",
                     }),
@@ -286,58 +352,138 @@ describe("usePreviewController", () => {
                 "/",
             );
         });
+    });
 
-        it("only sends data once if multiple iframe-ready events are received", async () => {
+    describe("replying to iframe-ready with an iframe-init message", () => {
+        it("sends null content and a11yScanningEnabled: false when nothing has been set", () => {
+            renderHook(() => usePreviewController(iframeRef));
+
+            sendIframeReadyMessage();
+
+            expect(mockContentWindow.postMessage).toHaveBeenCalledWith(
+                {
+                    source: PREVIEW_MESSAGE_SOURCE,
+                    type: "iframe-init",
+                    content: null,
+                    a11yScanningEnabled: false,
+                    contentVersion: 0,
+                },
+                "/",
+            );
+        });
+
+        it("sends the latest content set before the iframe was ready", () => {
+            const {result} = renderHook(() => usePreviewController(iframeRef));
+            const previewData1 = createQuestionPreview();
+            const previewData2 = createQuestionPreview({content: "Question 2"});
+
+            act(() => {
+                result.current.sendData(previewData1);
+                result.current.sendData(previewData2);
+            });
+            sendIframeReadyMessage();
+
+            expect(messagesOfType("iframe-init")).toEqual([
+                expect.objectContaining({
+                    content: expect.objectContaining({
+                        data: expect.objectContaining({
+                            question: expect.objectContaining({
+                                content: "Question 2",
+                            }),
+                        }),
+                    }),
+                }),
+            ]);
+        });
+
+        it("sends the latest a11yScanningEnabled value set before the iframe was ready", () => {
+            const {result} = renderHook(() => usePreviewController(iframeRef));
+
+            act(() => {
+                result.current.setA11yScanningEnabled(false);
+                result.current.setA11yScanningEnabled(true);
+            });
+            sendIframeReadyMessage();
+
+            expect(messagesOfType("iframe-init")).toEqual([
+                expect.objectContaining({a11yScanningEnabled: true}),
+            ]);
+        });
+
+        it("resends the full current state again on a second iframe-ready event", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
             const previewData = createQuestionPreview();
 
-            // Send data (will be pending)
             act(() => {
                 result.current.sendData(previewData);
+                result.current.setA11yScanningEnabled(true);
             });
+            sendIframeReadyMessage();
 
-            // Iframe says its ready
+            expect(messagesOfType("iframe-init")).toHaveLength(1);
+
+            // Simulate a genuine reload: the iframe announces ready again.
+            sendIframeReadyMessage();
+
+            expect(messagesOfType("iframe-init")).toEqual([
+                expect.objectContaining({a11yScanningEnabled: true}),
+                expect.objectContaining({a11yScanningEnabled: true}),
+            ]);
+        });
+    });
+
+    describe("receiving a11y-report message", () => {
+        function dispatchA11yReport(
+            violations: Issue[],
+            needsReview: Issue[],
+            contentVersion: number,
+        ) {
             act(() => {
                 window.dispatchEvent(
                     new MessageEvent("message", {
-                        data: createPreviewIframeReadyMessage(),
+                        data: {
+                            source: PREVIEW_MESSAGE_SOURCE,
+                            type: "a11y-report",
+                            violations,
+                            needsReview,
+                            contentVersion,
+                        },
                         source: mockContentWindow,
                     }),
                 );
             });
+        }
 
-            await waitFor(() => {
-                expect(mockContentWindow.postMessage).toHaveBeenCalledTimes(1);
+        it("surfaces a report whose contentVersion matches the current content", () => {
+            const {result} = renderHook(() => usePreviewController(iframeRef));
+
+            expect(result.current.a11yReport).toBeNull();
+
+            const violations = [issue("v1")];
+            const needsReview = [issue("i1")];
+
+            // The initial content version is 0 (nothing sent yet).
+            dispatchA11yReport(violations, needsReview, 0);
+
+            expect(result.current.a11yReport).toEqual({
+                violations,
+                needsReview,
             });
-
-            // Second request should not send the same data again
-            act(() => {
-                window.dispatchEvent(
-                    new MessageEvent("message", {
-                        data: createPreviewIframeReadyMessage(),
-                        source: mockContentWindow,
-                    }),
-                );
-            });
-
-            // Should still be called only once
-            expect(mockContentWindow.postMessage).toHaveBeenCalledTimes(1);
         });
 
-        it("doesn't reply to iframe-ready when there is no pending data", () => {
-            renderHook(() => usePreviewController(iframeRef));
+        it("ignores a report whose contentVersion is stale", () => {
+            const {result} = renderHook(() => usePreviewController(iframeRef));
 
-            // Iframe says its ready
+            // Two edits bump the current content version to 2.
             act(() => {
-                window.dispatchEvent(
-                    new MessageEvent("message", {
-                        data: createPreviewIframeReadyMessage(),
-                        source: mockContentWindow,
-                    }),
-                );
+                result.current.sendData(createQuestionPreview());
+                result.current.sendData(createQuestionPreview());
             });
 
-            expect(mockContentWindow.postMessage).not.toHaveBeenCalled();
+            // A report computed against the superseded version 1.
+            dispatchA11yReport([issue("v1")], [issue("i1")], 1);
+
+            expect(result.current.a11yReport).toBeNull();
         });
     });
 
@@ -488,14 +634,7 @@ describe("usePreviewController", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
 
             // 1. Iframe requests data
-            act(() => {
-                window.dispatchEvent(
-                    new MessageEvent("message", {
-                        data: createPreviewIframeReadyMessage(),
-                        source: mockContentWindow,
-                    }),
-                );
-            });
+            sendIframeReadyMessage();
 
             // 2. Send preview data
             const previewData = createQuestionPreview();
@@ -528,14 +667,7 @@ describe("usePreviewController", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
 
             // Setup: iframe requests data
-            act(() => {
-                window.dispatchEvent(
-                    new MessageEvent("message", {
-                        data: createPreviewIframeReadyMessage(),
-                        source: mockContentWindow,
-                    }),
-                );
-            });
+            sendIframeReadyMessage();
 
             // Send first data
             const data1 = createQuestionPreview();
@@ -543,7 +675,7 @@ describe("usePreviewController", () => {
                 result.current.sendData(data1);
             });
 
-            expect(mockContentWindow.postMessage).toHaveBeenCalledTimes(1);
+            expect(messagesOfType("content-data")).toHaveLength(1);
 
             // Send second data
             const data2: PreviewContent = {
@@ -562,26 +694,17 @@ describe("usePreviewController", () => {
                 result.current.sendData(data2);
             });
 
-            expect(mockContentWindow.postMessage).toHaveBeenCalledTimes(2);
+            const contentDataMessages = messagesOfType("content-data");
+            expect(contentDataMessages).toHaveLength(2);
 
             // Verify second message contains hint data
-            // eslint-disable-next-line no-restricted-syntax
-            const secondCall = (mockContentWindow.postMessage as jest.Mock).mock
-                .calls[1][0];
-            expect(secondCall.content.type).toBe("hint");
+            expect(contentDataMessages[1].content.type).toBe("hint");
         });
 
         it("handles article-all with multiple sections", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
 
-            act(() => {
-                window.dispatchEvent(
-                    new MessageEvent("message", {
-                        data: createPreviewIframeReadyMessage(),
-                        source: mockContentWindow,
-                    }),
-                );
-            });
+            sendIframeReadyMessage();
 
             const articleData: PreviewContent = {
                 type: "article-all",
@@ -603,9 +726,7 @@ describe("usePreviewController", () => {
                 result.current.sendData(articleData);
             });
 
-            // eslint-disable-next-line no-restricted-syntax
-            const sentMessage = (mockContentWindow.postMessage as jest.Mock)
-                .mock.calls[0][0];
+            const sentMessage = messagesOfType("content-data")[0];
 
             // The shared apiOptions should be sanitized
             expect(sentMessage.content.data.article).toHaveLength(2);

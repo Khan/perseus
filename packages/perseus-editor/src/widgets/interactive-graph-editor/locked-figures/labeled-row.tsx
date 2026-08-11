@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     },
     row: {
         flexDirection: "row",
-        marginTop: spacing.xSmall_8,
+        marginBlockStart: spacing.xSmall_8,
         alignItems: "center",
         width: "fit-content",
     },

@@ -224,6 +224,7 @@ export const RightToLeftImageMobile: Story = {
         imageRendererDecorator,
         mobileDecorator,
         (Story) => (
+            // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- RTL-safe (permanent): regression story intentionally forces RTL to preview mirrored rendering
             <div style={{direction: "rtl"}}>
                 <Story />
             </div>

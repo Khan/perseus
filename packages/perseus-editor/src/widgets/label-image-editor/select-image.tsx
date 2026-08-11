@@ -45,7 +45,7 @@ const SelectImage = ({
                           "the editor to upload image, then copy the URL here."
                 }
                 onClick={() => onChange("")}
-                style={{minWidth: 90}}
+                style={{minInlineSize: 90}}
             >
                 {url ? "Remove" : "Upload"}
             </Button>

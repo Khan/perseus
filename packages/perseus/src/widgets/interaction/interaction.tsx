@@ -436,7 +436,6 @@ class Interaction extends React.Component<Props, State> implements Widget {
                             <MovableLine
                                 key={element.key}
                                 constraints={constraints}
-                                // eslint-disable-next-line react/jsx-no-bind
                                 onMove={this._updateLineLocation.bind(
                                     this,
                                     element.options,

@@ -1,5 +1,31 @@
 # @khanacademy/perseus-core
 
+## 34.0.2
+
+### Patch Changes
+
+-   [#4024](https://github.com/Khan/perseus/pull/4024) [`c38df95`](https://github.com/Khan/perseus/commit/c38df95f089b31c4338fbbcb88600bff4b5ab859) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused Eslint exceptions
+
+-   [#4023](https://github.com/Khan/perseus/pull/4023) [`41f38b0`](https://github.com/Khan/perseus/commit/41f38b0fac2795472c3234ad91fd15508fdd4674) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the defaultProps of the Interactive Graph widget have been removed.
+
+-   Updated dependencies [[`c38df95`](https://github.com/Khan/perseus/commit/c38df95f089b31c4338fbbcb88600bff4b5ab859)]:
+    -   @khanacademy/kas@2.2.6
+    -   @khanacademy/pure-markdown@2.3.2
+    -   @khanacademy/perseus-utils@2.1.5
+
+## 34.0.1
+
+### Patch Changes
+
+-   [#3991](https://github.com/Khan/perseus/pull/3991) [`ed25029`](https://github.com/Khan/perseus/commit/ed2502933fd0bd14b7de545c7ea1c70ad6eef6a8) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert some uses of underscore (_.indexOf and _.keys) to native equivalents
+
+-   [#4007](https://github.com/Khan/perseus/pull/4007) [`273c61a`](https://github.com/Khan/perseus/commit/273c61a2e9cc8fdade8356da66cd5d0d358e8c47) Thanks [@handeyeco](https://github.com/handeyeco)! - Replace low-risk uses of `_.map` with `Array.map`
+
+-   [#3997](https://github.com/Khan/perseus/pull/3997) [`8c52c56`](https://github.com/Khan/perseus/commit/8c52c568d5911cdb08ae98cf0247cc53da47e15a) Thanks [@Myranae](https://github.com/Myranae)! - Update phet simulation to reflect the current user's theme by updating styling to tokens
+
+-   Updated dependencies [[`ed25029`](https://github.com/Khan/perseus/commit/ed2502933fd0bd14b7de545c7ea1c70ad6eef6a8), [`233204b`](https://github.com/Khan/perseus/commit/233204bb0df329cfa0e0818605c362ec8e89687c), [`273c61a`](https://github.com/Khan/perseus/commit/273c61a2e9cc8fdade8356da66cd5d0d358e8c47), [`ddfd715`](https://github.com/Khan/perseus/commit/ddfd715fef24e29d088d16a6b61e2b51fd773c26)]:
+    -   @khanacademy/kas@2.2.5
+
 ## 34.0.0
 
 ### Major Changes

@@ -304,6 +304,10 @@ describe("splitPerseusRenderer", () => {
                         showAxisTicks: {x: true, y: true},
                         graph: {type: "none"},
                         correct: {type: "none"},
+                        showTooltips: false,
+                        backgroundImage: {
+                            url: null,
+                        },
                         lockedFigures: [],
                     },
                 },

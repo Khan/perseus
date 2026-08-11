@@ -1,7 +1,4 @@
-/* eslint-disable max-lines */
-/* eslint-disable prettier/prettier */
-/* eslint-disable import/order */
-/* eslint-disable indent, no-undef, no-var, no-dupe-keys, no-new-func, no-redeclare, comma-dangle, max-len, prefer-spread, space-infix-ops, space-unary-ops */
+/* eslint-disable max-lines, import/order, no-var, no-new-func, prefer-spread */
 import _ from "underscore";
 
 import {unitParser} from "./__genfiles__/unitparser";
@@ -162,9 +159,7 @@ abstract class Expr {
     // need to introduce another class in our hierarchy.
     eval(vars: Vars = {}, options?: ParseOptions): number {
         throw new Error(
-            "Abstract method - must override for expr: " +
-                // eslint-disable-next-line @typescript-eslint/no-invalid-this
-                this.print(),
+            "Abstract method - must override for expr: " + this.print(),
         );
     }
 
@@ -173,9 +168,7 @@ abstract class Expr {
     // need to introduce another class in our hierarchy.
     codegen(): string {
         throw new Error(
-            "Abstract method - must override for expr: " +
-                // eslint-disable-next-line @typescript-eslint/no-invalid-this
-                this.print(),
+            "Abstract method - must override for expr: " + this.print(),
         );
     }
 
@@ -558,9 +551,7 @@ abstract class Expr {
     // return whether this expression is 100% positive
     isPositive(): boolean {
         throw new Error(
-            "Abstract method - must override for expr: " +
-                // eslint-disable-next-line @typescript-eslint/no-invalid-this
-                this.print(),
+            "Abstract method - must override for expr: " + this.print(),
         );
     }
 
@@ -593,9 +584,7 @@ abstract class Expr {
 
     abs(): Expr {
         throw new Error(
-            "Abstract method - must override for expr: " +
-                // eslint-disable-next-line @typescript-eslint/no-invalid-this
-                this.print(),
+            "Abstract method - must override for expr: " + this.print(),
         );
     }
 

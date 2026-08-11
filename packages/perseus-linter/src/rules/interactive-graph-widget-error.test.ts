@@ -292,7 +292,7 @@ describe("interactive-graph-widget-error", () => {
                             // The schema disallows showPointLabels on `none`, so we
                             // cast to assert the defensive guard fires when the
                             // backstop is asked to look at this shape.
-                            // eslint-disable-next-line @typescript-eslint/no-explicit-any, no-restricted-syntax
+                            // eslint-disable-next-line no-restricted-syntax
                             correct: {
                                 type: "none",
                                 showPointLabels: true,
@@ -390,7 +390,7 @@ describe("interactive-graph-widget-error", () => {
                             // The schema disallows showPointLabels on `vector`, so we
                             // cast to assert the defensive guard fires when the
                             // backstop is asked to look at this shape.
-                            // eslint-disable-next-line @typescript-eslint/no-explicit-any, no-restricted-syntax
+                            // eslint-disable-next-line no-restricted-syntax
                             correct: {
                                 type: "vector",
                                 showPointLabels: true,

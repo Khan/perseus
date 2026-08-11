@@ -1,5 +1,3 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/no-unsafe */
 import {Dependencies, EditorJsonify, Util} from "@khanacademy/perseus";
 import {
     interactionLogic,
@@ -599,7 +597,6 @@ class InteractionEditor extends React.Component<Props, State> {
                 </div>
             </div>
         );
-        /* eslint-enable max-len */
     }
 }
 
