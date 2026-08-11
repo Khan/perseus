@@ -149,7 +149,7 @@ describe("GradedGroupSet AI utils", () => {
                                     userInput: {value: ""},
                                 },
                             },
-                            title: null,
+                            title: "",
                             type: "graded-group",
                             hint: {
                                 content:
@@ -191,7 +191,7 @@ describe("GradedGroupSet AI utils", () => {
                                     userInput: {value: ""},
                                 },
                             },
-                            title: null,
+                            title: "",
                             type: "graded-group",
                             hint: {
                                 content:
