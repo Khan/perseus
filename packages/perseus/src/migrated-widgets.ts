@@ -38,4 +38,5 @@ export const MIGRATED_WIDGETS: ReadonlyArray<string> = [
     "interactive-graph",
     "group",
     "graded-group-set",
+    "graded-group",
 ];
