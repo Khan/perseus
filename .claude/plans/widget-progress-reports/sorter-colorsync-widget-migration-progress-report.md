@@ -18,7 +18,7 @@ grep -rE "fontSize|fontWeight|lineHeight|fontFamily" packages/perseus/src/widget
 grep -rE "borderWidth|borderTopWidth|borderBottomWidth|borderLeftWidth|borderRightWidth|border-width" packages/perseus/src/widgets/sorter/
 grep -rE "borderRadius|border-radius" packages/perseus/src/widgets/sorter/
 ```
-Result: no matches. `packages/perseus/src/widgets/sorter/sorter.tsx` contains no styling of its own — it renders `<Sortable>` from `../../components/sortable`, which owns all visual styling. Extended the audit to that shared component and its stylesheet:
+Result: no matches. `../../../packages/perseus/src/widgets/sorter/sorter.tsx` contains no styling of its own — it renders `<Sortable>` from `../../components/sortable`, which owns all visual styling. Extended the audit to that shared component and its stylesheet:
 ```bash
 grep -n "color\." packages/perseus/src/components/sortable.tsx
 grep -n "#[0-9a-fA-F]\{3,6\}" packages/perseus/src/components/sortable.tsx
@@ -27,10 +27,10 @@ grep -nE "fontSize|fontWeight|lineHeight|fontFamily" packages/perseus/src/compon
 grep -nE "borderWidth|...|border-width" packages/perseus/src/components/sortable.tsx
 grep -nE "borderRadius|border-radius" packages/perseus/src/components/sortable.tsx
 ```
-Also read `packages/perseus/src/styles/widgets/sortable.css` in full, since it's imported by the renderer stylesheets and referenced in a comment in `sortable.tsx` ("See sortable.css for details").
+Also read `../../../packages/perseus/src/styles/widgets/sortable.css` in full, since it's imported by the renderer stylesheets and referenced in a comment in `sortable.tsx` ("See sortable.css for details").
 
 ### Colors to be Tokenized:
-- `packages/perseus/src/components/sortable.tsx` — already uses `semanticColor` tokens (imported from `@khanacademy/wonder-blocks-tokens`), no hardcoded colors found:
+- `../../../packages/perseus/src/components/sortable.tsx` — already uses `semanticColor` tokens (imported from `@khanacademy/wonder-blocks-tokens`), no hardcoded colors found:
   - Line 921: `semanticColor.core.background.base.default`
   - Line 922: `semanticColor.core.border.neutral.subtle`
   - Line 936: `semanticColor.core.background.neutral.subtle`
@@ -40,12 +40,12 @@ Also read `packages/perseus/src/styles/widgets/sortable.css` in full, since it's
   - Line 966: `semanticColor.core.border.disabled.subtle`
   - Line 965: `backgroundColor: "inherit"` (disabled state) — a CSS keyword, not a color literal; not in scope for token conversion.
 - No files with hardcoded hex/rgb(a) color values were found for the `sorter` widget.
-  - `packages/perseus/src/styles/widgets/sortable.css` does contain hardcoded hex colors (lines 1–52, under the `.draggy-boxy-thing` selector), but that selector belongs to the `orderer` widget (confirmed via `grep -rn "draggy-boxy-thing"` — only referenced in `packages/perseus/src/widgets/orderer/orderer.tsx:737`), not `sorter`. Out of scope here.
+  - `../../../packages/perseus/src/styles/widgets/sortable.css` does contain hardcoded hex colors (lines 1–52, under the `.draggy-boxy-thing` selector), but that selector belongs to the `orderer` widget (confirmed via `grep -rn "draggy-boxy-thing"` — only referenced in `packages/perseus/src/widgets/orderer/orderer.tsx:737`), not `sorter`. Out of scope here.
 
 ### Fonts to be Tokenized:
 - No files with hardcoded font attributes (`fontSize`/`fontWeight`/`lineHeight`/`fontFamily`) were found for `sorter`.
   - `packages/perseus/src/styles/widgets/sortable.css:65` (`.perseus-sortable .perseus-sortable-draggable > div`) sets `font-size: var(--wb-font-body-size-small)` — already a token, no action needed.
-- Border width: `packages/perseus/src/components/sortable.tsx` already uses `border.width.thin` (lines 922, 937, 960, 966) — already tokenized, no action needed.
+- Border width: `../../../packages/perseus/src/components/sortable.tsx` already uses `border.width.thin` (lines 922, 937, 960, 966) — already tokenized, no action needed.
 - Border radius: `packages/perseus/src/components/sortable.tsx:923` — `borderRadius: 4` — **hardcoded, needs tokenization**. `border.radius.radius_040` resolves to 4px (verified via `wonder-blocks-tokens` primitive `border` + `sizing` source: `radius_040: remToPx(sizing.size_040)`, `size_040: pxToRem(4)`), which is an exact match.
 
 ### Summary
@@ -79,11 +79,11 @@ N/A — the existing regression stories were already committed and merged to the
 ### Research
 - Re-confirmed via `font-conversion-rules.md` → Border Radius Token Conversion Rules: `4` / `4px` maps to `border.radius.radius_040`.
 - Cross-checked against the `wonder-blocks-tokens` package source (`node_modules/.pnpm/@khanacademy+wonder-blocks-tokens@17.2.0.../dist/index.js`): `radius_040: remToPx(sizing.size_040)` and `size_040: pxToRem(4)` — confirms `radius_040` resolves to exactly 4px, an exact match for the hardcoded value.
-- `border` is already imported from `@khanacademy/wonder-blocks-tokens` in `packages/perseus/src/components/sortable.tsx` (used for `border.width.thin` elsewhere in the same file), so no new import is needed.
+- `border` is already imported from `@khanacademy/wonder-blocks-tokens` in `../../../packages/perseus/src/components/sortable.tsx` (used for `border.width.thin` elsewhere in the same file), so no new import is needed.
 - No other font attributes (`fontSize`/`fontWeight`/`lineHeight`/`fontFamily`) or border-width values needed conversion (see Step 1 audit) — this is the only change in this step.
 
 ### Change made
-`packages/perseus/src/components/sortable.tsx` — `card` style, line 923:
+`../../../packages/perseus/src/components/sortable.tsx` — `card` style, line 923:
 ```diff
 - borderRadius: 4,
 + borderRadius: border.radius.radius_040,
