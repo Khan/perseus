@@ -24,7 +24,7 @@ import type {
     FocusPath,
     Widget,
     WidgetExports,
-    WidgetProps,
+    WidgetPropsV2,
 } from "../../types";
 import type {GroupPromptJSON} from "../../widget-ai-utils/group/group-ai-utils";
 import type {
@@ -33,7 +33,7 @@ import type {
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
-type Props = WidgetProps<PerseusGroupWidgetOptions, PerseusGroupUserInput>;
+type Props = WidgetPropsV2<PerseusGroupWidgetOptions, PerseusGroupUserInput>;
 
 class Group extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
@@ -107,9 +107,9 @@ class Group extends React.Component<Props> implements Widget {
                             [widgetId]: userInput,
                         });
                     }}
-                    content={this.props.content}
-                    widgets={this.props.widgets}
-                    images={this.props.images}
+                    content={this.props.options.content}
+                    widgets={this.props.options.widgets}
+                    images={this.props.options.images}
                     ref={(ref) => (this.rendererRef = ref)}
                     apiOptions={apiOptions}
                     findExternalWidgets={this.props.findWidgets}
