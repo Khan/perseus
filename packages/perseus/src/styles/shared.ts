@@ -1,3 +1,4 @@
+import {border, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 
 import * as constants from "./constants";
@@ -5,8 +6,7 @@ import mediaQueries from "./media-queries";
 
 import type {StyleDeclaration} from "aphrodite";
 
-const {radioBorderColor, checkedColor, circleSize, radioMarginWidth} =
-    constants;
+const {circleSize, radioMarginWidth} = constants;
 
 // eslint-disable-next-line no-restricted-syntax
 export default StyleSheet.create({
@@ -54,15 +54,15 @@ export default StyleSheet.create({
 
         backgroundColor: "#fff",
         border: "2px solid #fff",
-        boxShadow: `0 0px 0px 1px ${radioBorderColor}`,
+        boxShadow: `0 0px 0px ${border.width.medium} ${semanticColor.core.border.neutral.subtle}`,
         outline: "none",
 
         boxSizing: "border-box",
         flexShrink: 0,
-        marginBottom: 1,
-        marginLeft: 1,
-        marginRight: 1,
-        marginTop: 1,
+        marginBlockEnd: 1,
+        marginInlineStart: 1,
+        marginInlineEnd: 1,
+        marginBlockStart: 1,
 
         height: circleSize - 2,
         width: circleSize - 2,
@@ -72,20 +72,29 @@ export default StyleSheet.create({
         borderRadius: "50%",
 
         ":checked": {
-            backgroundColor: checkedColor,
+            backgroundColor: semanticColor.core.foreground.instructive.default,
             border: "none",
             borderRadius: "50%",
             boxShadow:
                 `inset 0px 0px 0px 2px white, ` +
-                `0 0px 0px 2px ${checkedColor}`,
+                `0 0px 0px 2px ${semanticColor.core.foreground.instructive.default}`,
 
-            marginTop: radioMarginWidth,
-            marginBottom: radioMarginWidth,
-            marginLeft: radioMarginWidth,
-            marginRight: radioMarginWidth,
+            marginBlockStart: radioMarginWidth,
+            marginBlockEnd: radioMarginWidth,
+            marginInlineStart: radioMarginWidth,
+            marginInlineEnd: radioMarginWidth,
 
             height: circleSize - 2 * radioMarginWidth,
             width: circleSize - 2 * radioMarginWidth,
+        },
+    },
+
+    responsiveRadioInputStatic: {
+        ":checked": {
+            backgroundColor: semanticColor.core.foreground.disabled.strong,
+            boxShadow:
+                `inset 0px 0px 0px 2px white, ` +
+                `0 0px 0px 2px ${semanticColor.core.foreground.disabled.strong}`,
         },
     },
 
@@ -93,12 +102,12 @@ export default StyleSheet.create({
         backgroundColor: "#fff",
         border: "2px solid #fff",
         borderRadius: "50%",
-        boxShadow: `0 0px 0px 2px ${checkedColor}`,
+        boxShadow: `0 0px 0px 2px ${semanticColor.core.border.neutral.strong}`,
 
-        marginTop: radioMarginWidth,
-        marginBottom: radioMarginWidth,
-        marginLeft: radioMarginWidth,
-        marginRight: radioMarginWidth,
+        marginBlockStart: radioMarginWidth,
+        marginBlockEnd: radioMarginWidth,
+        marginInlineStart: radioMarginWidth,
+        marginInlineEnd: radioMarginWidth,
 
         height: circleSize - 2 * radioMarginWidth,
         width: circleSize - 2 * radioMarginWidth,

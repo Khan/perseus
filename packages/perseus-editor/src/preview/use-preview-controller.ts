@@ -1,11 +1,27 @@
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 
-import {PREVIEW_MESSAGE_SOURCE} from "./message-types";
+import {
+    createPreviewClearHighlightsMessage,
+    createPreviewHighlightIssuesMessage,
+    createPreviewIframeInitMessage,
+    createPreviewSetA11yScanningEnabledMessage,
+    PREVIEW_MESSAGE_SOURCE,
+} from "./message-types";
 import {isIframeToParentMessage} from "./message-validators";
 import {sanitizePreviewData} from "./preview-data-sanitizer";
 
-import type {ParentToIframeMessage, PreviewContent} from "./message-types";
+import type {
+    ParentToIframeMessage,
+    PreviewContent,
+    PreviewMessageBase,
+} from "./message-types";
+import type {A11yIssue} from "../components/issues-panel";
+
+export type A11yReport = {
+    violations: A11yIssue[];
+    needsReview: A11yIssue[];
+};
 
 type UsePreviewControllerResult = {
     /**
@@ -16,6 +32,22 @@ type UsePreviewControllerResult = {
      * Current height of the iframe content (null if not yet reported)
      */
     height: number | null;
+    /**
+     * Enable or disable axe-core accessibility scanning in the iframe
+     */
+    setA11yScanningEnabled: (enabled: boolean) => void;
+    /**
+     * Highlight the elements for the given instanceIds in the iframe
+     */
+    highlightIssues: (instanceIds: string[]) => void;
+    /**
+     * Clear any highlighted elements currently shown in the iframe
+     */
+    clearHighlights: () => void;
+    /**
+     * The latest accessibility report received from the iframe (null if none)
+     */
+    a11yReport: A11yReport | null;
 };
 
 /**
@@ -52,7 +84,32 @@ export function usePreviewController(
 ): UsePreviewControllerResult {
     const [height, setHeight] = React.useState<number | null>(null);
     const [isIframeReady, setIsIframeReady] = React.useState(false);
-    const pendingDataRef = React.useRef<PreviewContent | null>(null);
+    const [a11yReport, setA11yReport] = React.useState<A11yReport | null>(null);
+
+    // The current desired preview state, resent in full as an `iframe-init`
+    // reply whenever the iframe announces `iframe-ready` — including on a
+    // later reload/remount, not just the first time. This way a freshly
+    // (re)loaded iframe never has to rely on messages sent before it was
+    // listening.
+    const currentContentRef = React.useRef<PreviewContent | null>(null);
+    const currentA11yScanningEnabledRef = React.useRef(false);
+
+    // Sends a message to the iframe, dropping it if the iframe isn't
+    // currently mounted (eg. during a reload/remount).
+    const postToIframe = React.useCallback(
+        // TODO(LEMS-4402): Change this to ParentToIframeMessage when all A11y
+        // message types are integrated.
+        (message: PreviewMessageBase) => {
+            iframeRef.current?.contentWindow?.postMessage(message, "/");
+        },
+        [iframeRef],
+    );
+
+    // Monotonic version of the preview content, bumped on every `sendData`.
+    // Lets us discard scan results and highlights that a newer edit has
+    // already superseded: we stamp each content update with it and the iframe
+    // echoes it back.
+    const contentVersionRef = React.useRef(0);
 
     // Listen for messages from iframe
     React.useEffect(() => {
@@ -75,28 +132,33 @@ export function usePreviewController(
             // Handle the message
             switch (message.type) {
                 case "iframe-ready": {
-                    // Send the pending message (if any)
-                    if (pendingDataRef.current) {
-                        const sanitizedData = sanitizePreviewData(
-                            pendingDataRef.current,
-                        );
-
-                        const msg: ParentToIframeMessage = {
-                            source: PREVIEW_MESSAGE_SOURCE,
-                            type: "content-data",
-                            content: sanitizedData,
-                        };
-                        iframeRef.current.contentWindow.postMessage(msg, "/");
-
-                        // Clear the pending data
-                        pendingDataRef.current = null;
-                    }
+                    postToIframe(
+                        createPreviewIframeInitMessage(
+                            currentContentRef.current
+                                ? sanitizePreviewData(currentContentRef.current)
+                                : null,
+                            currentA11yScanningEnabledRef.current,
+                            contentVersionRef.current,
+                        ),
+                    );
                     setIsIframeReady(true);
                     break;
                 }
 
                 case "height-update":
                     setHeight(message.height);
+                    break;
+
+                case "a11y-report":
+                    // Discard a report computed against content a newer edit
+                    // has since superseded.
+                    if (message.contentVersion !== contentVersionRef.current) {
+                        break;
+                    }
+                    setA11yReport({
+                        violations: message.violations,
+                        needsReview: message.needsReview,
+                    });
                     break;
 
                 default:
@@ -109,38 +171,72 @@ export function usePreviewController(
         return () => {
             window.removeEventListener("message", handleMessage);
         };
-    }, [iframeRef]);
+    }, [iframeRef, postToIframe]);
 
     // Memoized function to send data to iframe
     const sendData = React.useCallback(
         (data: PreviewContent) => {
-            // If iframe hasn't sent request-data yet, store the data
+            currentContentRef.current = data;
+            contentVersionRef.current += 1;
+
+            // We can safely bail here. We'll send a full init message later
+            // once the iframe sends it's 'iframe-ready' message.
             if (!isIframeReady) {
-                pendingDataRef.current = data;
                 return;
             }
-
-            const contentWindow = iframeRef.current?.contentWindow;
-            if (!contentWindow) {
-                return;
-            }
-
-            // Iframe is ready, send immediately
-            const sanitizedData = sanitizePreviewData(data);
 
             const message: ParentToIframeMessage = {
                 source: PREVIEW_MESSAGE_SOURCE,
                 type: "content-data",
-                content: sanitizedData,
+                content: sanitizePreviewData(data),
+                contentVersion: contentVersionRef.current,
             };
 
-            contentWindow.postMessage(message, "/");
+            postToIframe(message);
         },
-        [iframeRef, isIframeReady],
+        [isIframeReady, postToIframe],
     );
+
+    // Enables/disables accessibility scanning in the iframe
+    const setA11yScanningEnabled = React.useCallback(
+        (enabled: boolean) => {
+            currentA11yScanningEnabledRef.current = enabled;
+
+            // We can safely bail here. We'll send a full init message later
+            // once the iframe sends it's 'iframe-ready' message.
+            if (!isIframeReady) {
+                return;
+            }
+
+            postToIframe(createPreviewSetA11yScanningEnabledMessage(enabled));
+        },
+        [isIframeReady, postToIframe],
+    );
+
+    // Highlights elements in the iframe by instanceId
+    const highlightIssues = React.useCallback(
+        (instanceIds: string[]) => {
+            postToIframe(
+                createPreviewHighlightIssuesMessage(
+                    instanceIds,
+                    contentVersionRef.current,
+                ),
+            );
+        },
+        [postToIframe],
+    );
+
+    // Clears any highlighted elements in the iframe
+    const clearHighlights = React.useCallback(() => {
+        postToIframe(createPreviewClearHighlightsMessage());
+    }, [postToIframe]);
 
     return {
         sendData,
         height,
+        setA11yScanningEnabled,
+        highlightIssues,
+        clearHighlights,
+        a11yReport,
     };
 }

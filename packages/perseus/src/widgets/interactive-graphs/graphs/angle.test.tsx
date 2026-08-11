@@ -120,10 +120,10 @@ describe("Angle graph screen reader", () => {
         const [vertex, point1, point2] = points;
 
         expect(vertex).toHaveAccessibleName(
-            "Point 1, vertex at 0 comma 0. Angle 90 degrees.",
+            "Point 2, vertex at 0 comma 0. Angle 90 degrees.",
         );
         expect(point1).toHaveAccessibleName(
-            "Point 2, ending side at -1 comma 1.",
+            "Point 1, ending side at -1 comma 1.",
         );
         expect(point2).toHaveAccessibleName(
             "Point 3, starting side at 1 comma 1.",
@@ -161,10 +161,10 @@ describe("Angle graph screen reader", () => {
         const [vertex, point1, point2] = points;
 
         expect(vertex).toHaveAccessibleName(
-            "Point 1, vertex at 0 comma 0. Angle 90 degrees.",
+            "Point 2, vertex at 0 comma 0. Angle 90 degrees.",
         );
         expect(point1).toHaveAccessibleName(
-            "Point 2, ending side at 7 comma 0.",
+            "Point 1, ending side at 7 comma 0.",
         );
         expect(point2).toHaveAccessibleName(
             "Point 3, starting side at 0 comma 6.",
@@ -196,13 +196,19 @@ describe("Angle graph pointLabels", () => {
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "Point B at 0 comma 0."}),
+            screen.getByRole("button", {
+                name: "Point B, vertex at 0 comma 0. Angle 270 degrees.",
+            }),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point A at -1 comma 1."}),
+            screen.getByRole("button", {
+                name: "Point A, ending side at -1 comma 1.",
+            }),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point C at 1 comma 1."}),
+            screen.getByRole("button", {
+                name: "Point C, starting side at 1 comma 1.",
+            }),
         ).toBeInTheDocument();
     });
 
@@ -218,11 +224,13 @@ describe("Angle graph pointLabels", () => {
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "Point B at 0 comma 0."}),
+            screen.getByRole("button", {
+                name: "Point B, vertex at 0 comma 0. Angle 270 degrees.",
+            }),
         ).toBeInTheDocument();
         expect(
             screen.getByRole("button", {
-                name: "Point 2, ending side at -1 comma 1.",
+                name: "Point 1, ending side at -1 comma 1.",
             }),
         ).toBeInTheDocument();
         expect(
@@ -248,15 +256,19 @@ describe("Angle graph pointLabels", () => {
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "Point B at 0 comma 0."}),
-        ).toBeInTheDocument();
-        expect(
             screen.getByRole("button", {
-                name: "Point 2, ending side at -1 comma 1.",
+                name: "Point B, vertex at 0 comma 0. Angle 270 degrees.",
             }),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point C at 1 comma 1."}),
+            screen.getByRole("button", {
+                name: "Point 1, ending side at -1 comma 1.",
+            }),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {
+                name: "Point C, starting side at 1 comma 1.",
+            }),
         ).toBeInTheDocument();
     });
 });

@@ -86,7 +86,8 @@ export const testDependencies: PerseusDependencies = {
     InitialRequestUrl: {
         origin: "origin-test-interface",
         host: "host-test-interface",
-        protocol: "protocol-test-interface",
+        // Makes the CS Program widget look up programs on khanacademy.org.
+        protocol: "file:",
     },
 
     isDevServer: false,

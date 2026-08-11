@@ -3,6 +3,7 @@ import * as React from "react";
 import {usePreviewController} from "./preview/use-preview-controller";
 
 import type {PreviewContent} from "./preview/message-types";
+import type {A11yReport} from "./preview/use-preview-controller";
 
 type Props = {
     /**
@@ -24,6 +25,21 @@ type Props = {
      * been provided yet and the iframe should render an empty placeholder.
      */
     content: PreviewContent | null;
+
+    /**
+     * Whether the iframe should run axe-core accessibility scans.
+     */
+    a11yScanningEnabled?: boolean;
+    /**
+     * instanceIds of the issues to draw "Show Me" highlight overlays over in
+     * the iframe. Empty clears any highlights.
+     */
+    highlightInstanceIds?: string[];
+    /**
+     * Called whenever the iframe reports a new accessibility scan result (or
+     * `null` if scanning is disabled).
+     */
+    onA11yReport?: (report: A11yReport | null) => void;
 };
 
 /**
@@ -45,7 +61,14 @@ type Props = {
 function PreviewWithIframe(props: Props) {
     const iframeRef = React.useRef<HTMLIFrameElement>(null);
 
-    const {sendData, height} = usePreviewController(iframeRef);
+    const {
+        sendData,
+        height,
+        setA11yScanningEnabled,
+        highlightIssues,
+        clearHighlights,
+        a11yReport,
+    } = usePreviewController(iframeRef);
 
     // NOTE: The `props.content` is an object and will trigger a re-render of
     // this component any time its identity changes (regardless of whether it
@@ -57,6 +80,28 @@ function PreviewWithIframe(props: Props) {
             sendData(props.content);
         }
     }, [sendData, props.content]);
+
+    React.useEffect(() => {
+        setA11yScanningEnabled(props.a11yScanningEnabled ?? false);
+    }, [setA11yScanningEnabled, props.a11yScanningEnabled]);
+
+    React.useEffect(() => {
+        if (
+            props.highlightInstanceIds != null &&
+            props.highlightInstanceIds.length > 0
+        ) {
+            highlightIssues(props.highlightInstanceIds);
+        } else {
+            clearHighlights();
+        }
+    }, [highlightIssues, clearHighlights, props.highlightInstanceIds]);
+
+    // Destructured so the effect depends on the specific prop rather than the
+    // whole `props` object (which changes on every render).
+    const {onA11yReport} = props;
+    React.useEffect(() => {
+        onA11yReport?.(a11yReport);
+    }, [a11yReport, onA11yReport]);
 
     // Update container height based on iframe content height if we're in
     // seamless mode.

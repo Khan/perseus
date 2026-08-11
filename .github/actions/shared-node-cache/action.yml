@@ -1,12 +1,6 @@
 name: "Shared Node Cache"
 description: "Install & cache our npm dependencies"
 
-# The inputs this action expects.
-inputs:
-    node-version:
-        description: "Node version to use"
-        required: true
-
 # The steps this action runs.
 runs:
     using: "composite"
@@ -17,10 +11,10 @@ runs:
           with:
               run_install: false
 
-        - name: Use Node.js ${{ inputs.node-version }}
+        - name: Setup Node.js
           uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
           with:
-              node-version: ${{ inputs.node-version }}
+              node-version: "^24.18.0"
               cache: pnpm
 
         - name: pnpm install

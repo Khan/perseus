@@ -17,13 +17,13 @@ as closely as possible.
 - The curve updates in real time as either point is dragged
 - Both upward-opening (`m > 0`) and downward-opening (`m < 0`) orientations are supported
 - Keyboard navigation works on both points (arrow keys move by snap step, skipping invalid positions)
-- Screen reader announces the graph label and point positions
+- Screen reader announces the graph label plus a rich description: which way the V opens, the
+  vertex, the x- and y-intercepts, and the slope (see [Accessibility](#accessibility))
 - The widget renders correctly on mobile
 
 ### Content Creator Experience
 
-- "Absolute value" appears in the Interactive Graph editor's answer type dropdown
-- The editor displays the equation in the format `y = m|x - h| + v`
+- "Absolute value function" appears in the Interactive Graph editor's answer type dropdown
 - Control points can be dragged in the editor to set the correct answer
 - Start coordinates are configurable (where points appear before the learner interacts)
 - Switching away from absolute value and back preserves graph state
@@ -46,7 +46,9 @@ Where:
 - `p1` = vertex of the V (the corner/apex)
 - `p2` = any point on one arm (determines slope and direction)
 
-**Coefficient extraction** (see `getAbsoluteValueCoefficients` in `absolute-value.tsx`):
+**Coefficient extraction** (see `getAbsoluteValueCoefficients` in `graphs/utils.ts`, which the
+component imports; note a separate tuple-returning copy also lives in `kmath/coefficients.ts` —
+see [Decision 6](#6-two-copies-of-getabsolutevaluecoefficients)):
 
 ```
 denom = p2[x] - p1[x]
@@ -74,21 +76,37 @@ No canonical normalization is required — the vertex `(h, v)` uniquely defines 
 position and `m` uniquely defines its shape and orientation. Scoring uses
 `approximateDeepEqual` following the sinusoid pattern.
 
+## Accessibility
+
+- `aria-label` on the graph container (`srAbsoluteValueGraph`).
+- The graph description (`buildAbsoluteValueDescription` in `graphs/strings/absolute-value.ts`)
+  states: which way the V opens (upward/downward), the vertex (or "at the origin"), the
+  x-intercepts (two / one / none), the y-intercept, and the slope. Example:
+  *"The graph opens downward. Vertex is at 0 comma 2. The X-intercepts are at -1 comma 0 and 1
+  comma 0. The Y-intercept is at 0 comma 2. The slope is -2."*
+- Each point also carries its own label; the arm point announces the slope. Custom author
+  `pointLabels` take precedence over the default localized labels.
+- All number values use `srFormatNumber` for locale-appropriate formatting.
+- SR string keys are the `srAbsoluteValue*` entries in `packages/perseus/src/strings.ts`.
+
 ## Key Files
 
 | File | Role |
 |------|------|
-| `graphs/absolute-value.tsx` | Rendering, coefficient extraction, keyboard constraints, screen reader descriptions |
-| `graphs/absolute-value.test.tsx` | Unit tests for the component and `getAbsoluteValueCoefficients` |
+| `graphs/absolute-value.tsx` | Rendering, keyboard constraints (`getAbsoluteValueKeyboardConstraint`), `coeffRef` fallback; imports the coefficient helper from `./utils` |
+| `graphs/utils.ts` | `getAbsoluteValueCoefficients()` — **render-path** helper returning an object `{m, h, v}` |
+| `graphs/strings/absolute-value.ts` | `describeAbsoluteValueGraph()` / `buildAbsoluteValueDescription()` — SR graph description and point labels |
+| `graphs/absolute-value.test.tsx` | Unit tests for the component: keyboard constraint + SR labels/`pointLabels` (the coefficient helper's math is tested in `graphs/utils.test.ts`) |
 | `reducer/initialize-graph-state.ts` | `getAbsoluteValueCoords()` — default and start coordinate logic |
 | `reducer/interactive-graph-reducer.ts` | `movePoint` action with same-x constraint |
 | `reducer/interactive-graph-state.ts` | `getGradableGraph()` branch mapping state → `PerseusGraphTypeAbsoluteValue` |
-| `mafs-state-to-interactive-graph.ts` | Live equation string mapping |
+| `mafs-state-to-interactive-graph.ts` | Maps mafs graph state back to `PerseusGraphTypeAbsoluteValue` (coords passthrough) |
 | `packages/perseus-core/src/data-schema.ts` | `PerseusGraphTypeAbsoluteValue` type |
 | `packages/perseus/src/widgets/interactive-graphs/types.ts` | `AbsoluteValueGraphState` |
-| `packages/perseus-score/.../score-interactive-graph.ts` | Scoring branch |
-| `packages/perseus-editor/.../graph-type-selector.tsx` | "Absolute value" dropdown option |
-| `packages/perseus-editor/.../start-coords-settings.tsx` | Start coordinate editor UI |
+| `packages/kmath/src/coefficients.ts` | `getAbsoluteValueCoefficients()` — **scoring/reducer-path** helper returning a tuple `[m, h, v]` (same name, different shape) |
+| `packages/perseus-score/.../sub-scorers/score-absolute-value.ts` | `scoreAbsoluteValue()` (`score-interactive-graph.ts` dispatches to it) |
+| `packages/perseus-editor/.../graph-type-selector.tsx` | "Absolute value function" dropdown option |
+| `packages/perseus-editor/.../start-coords/start-coords-absolute-value.tsx` | Start coordinate editor UI |
 
 ## Decision Record
 
@@ -148,27 +166,35 @@ sign-flipping or period-shifting.
 
 ### 5. `coeffRef` fallback for transient invalid states
 
-**Context:** Mid-drag, `p1` and `p2` can momentarily share the same x-coordinate, making
-`getAbsoluteValueCoefficients` return `undefined`. Without a fallback, the graph would
-briefly disappear or throw.
+**Context:** Mid-drag, `p1` and `p2` can momentarily share the same x-coordinate, making the
+slope `m` non-finite (`NaN`/`Infinity`). Without a fallback, the graph would briefly disappear
+or throw.
 
-**Decision:** Cache the last valid `{m, h, v}` in a `React.useRef`. If the current
-coefficients are undefined, render using the cached values.
+**Decision:** Cache the last valid `{m, h, v}` in a `React.useRef` (seeded with
+`{m: 1, h: 0, v: 0}`). The render-path helper always returns an object; a
+`Number.isFinite(coeffs.m)` check gates caching, so only finite coefficients overwrite the ref
+and non-finite states fall back to the last cached values.
 
 **Consequences:** The graph remains stable and visible throughout a drag gesture. This is
 the same guard used by sinusoid and quadratic.
 
 ---
 
-### 6. `getAbsoluteValueCoefficients` exported from `absolute-value.tsx`
+### 6. Two copies of `getAbsoluteValueCoefficients`
 
-**Context:** Scoring (`score-interactive-graph.ts`) needs to extract coefficients from
-coordinates. Sinusoid and tangent put their coefficient helpers in `kmath/coefficients.ts`
-for cross-package reuse.
+**Context:** The render component and SR-description code need coefficients, and so does
+scoring (in `perseus-score`) and the reducer. These live in different packages.
 
-**Decision:** Export `getAbsoluteValueCoefficients` directly from `absolute-value.tsx` and
-import it into the scoring module. No new file added to `kmath`.
+**Reality (as shipped):** There are **two** `getAbsoluteValueCoefficients` functions:
 
-**Consequences:** The coefficient logic lives in one place and is reachable from scoring
-without introducing a new `kmath` file. If a third consumer needs the function later, it can
-be moved to `kmath` at that point.
+- `graphs/utils.ts` — returns an **object** `{m, h, v}` (type `AbsoluteValueCoefficients`).
+  Used by the render component (`absolute-value.tsx`) and the SR strings
+  (`graphs/strings/absolute-value.ts`).
+- `packages/kmath/src/coefficients.ts` — returns a **tuple** `[m, h, v]` (type
+  `AbsoluteValueCoefficient`). Used by scoring (`sub-scorers/score-absolute-value.ts`) and the
+  reducer (`interactive-graph-reducer.ts`).
+
+**Consequences:** Same name, two shapes — be careful which one you're importing. The object
+helper's math is unit-tested in `graphs/utils.test.ts` (the kmath tuple copy has no dedicated
+coefficient test — it's only exercised end-to-end via `sub-scorers/score-absolute-value.test.ts`).
+Consolidating the two copies is a possible future cleanup.

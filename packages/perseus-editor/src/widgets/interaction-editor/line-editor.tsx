@@ -2,7 +2,6 @@ import {
     components,
     Changeable,
     Dependencies,
-    EditorJsonify,
     KhanColors,
 } from "@khanacademy/perseus";
 import * as React from "react";
@@ -51,10 +50,6 @@ class LineEditor extends React.Component<Props> {
 
     change: (arg1: any, arg2?: any, arg3?: any) => any = (...args) => {
         return Changeable.change.apply(this, args);
-    };
-
-    serialize = () => {
-        return EditorJsonify.serialize.call(this);
     };
 
     render(): React.ReactNode {

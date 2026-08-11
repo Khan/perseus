@@ -349,10 +349,10 @@ const Exponential: ExponentialType = _.extend({}, PlotDefaults, {
         const oldY = oldCoord[1];
         const wasBelow = _.all(coords, (coord) => coord[1] > oldY);
         if (wasBelow) {
-            const bottomMost = _.min(_.map(coords, (coord) => coord[1]));
+            const bottomMost = _.min(coords.map((coord) => coord[1]));
             return [oldCoord[0], bottomMost - graph.snapStep[1]];
         }
-        const topMost = _.max(_.map(coords, (coord) => coord[1]));
+        const topMost = _.max(coords.map((coord) => coord[1]));
         return [oldCoord[0], topMost + graph.snapStep[1]];
     },
 
@@ -448,10 +448,10 @@ const Logarithm: LogarithmType = _.extend({}, PlotDefaults, {
         const oldX = oldCoord[0];
         const wasLeft = _.all(coords, (coord) => coord[0] > oldX);
         if (wasLeft) {
-            const leftMost = _.min(_.map(coords, (coord) => coord[0]));
+            const leftMost = _.min(coords.map((coord) => coord[0]));
             return [leftMost - graph.snapStep[0], oldCoord[1]];
         }
-        const rightMost = _.max(_.map(coords, (coord) => coord[0]));
+        const rightMost = _.max(coords.map((coord) => coord[0]));
         return [rightMost + graph.snapStep[0], oldCoord[1]];
     },
 
@@ -468,9 +468,9 @@ const Logarithm: LogarithmType = _.extend({}, PlotDefaults, {
         const flip = (coord: Coord): Coord => [coord[1], coord[0]];
         const inverseCoeffs = Exponential.getCoefficients(
             // eslint-disable-next-line no-restricted-syntax
-            _.map(coords, flip) as Coords,
+            coords.map(flip) as Coords,
             // eslint-disable-next-line no-restricted-syntax
-            _.map(asymptote, flip) as Coords,
+            asymptote.map(flip) as Coords,
         );
         if (inverseCoeffs) {
             const c = -inverseCoeffs[2] / inverseCoeffs[0];
@@ -579,7 +579,7 @@ const functionTypeMapping = {
     absolute_value: AbsoluteValue,
 } as const;
 
-export const allTypes: any = _.keys(functionTypeMapping);
+export const allTypes: any = Object.keys(functionTypeMapping);
 
 export type FunctionTypeMappingKeys = keyof typeof functionTypeMapping;
 

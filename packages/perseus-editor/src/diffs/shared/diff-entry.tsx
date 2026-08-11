@@ -41,7 +41,9 @@ class DiffSide extends React.Component<DiffSideProps> {
             <div className={className}>
                 <div
                     style={{
-                        paddingLeft: indentationFromDepth(this.props.depth),
+                        paddingInlineStart: indentationFromDepth(
+                            this.props.depth,
+                        ),
                     }}
                 >
                     {this.props.showKey && this.props.propKey + ": "}
@@ -70,7 +72,7 @@ class CollapsedRow extends React.Component<CollapsedRowProps> {
         const self = this;
         return (
             <div style={{clear: "both"}}>
-                {_.map([BEFORE, AFTER], function (side) {
+                {[BEFORE, AFTER].map(function (side) {
                     return (
                         <div
                             className={"diff-row collapsed " + side}
@@ -78,9 +80,9 @@ class CollapsedRow extends React.Component<CollapsedRowProps> {
                         >
                             <div
                                 style={{
-                                    paddingTop: sizing.size_040,
-                                    paddingBottom: sizing.size_040,
-                                    paddingLeft: indentationFromDepth(
+                                    paddingBlockStart: sizing.size_040,
+                                    paddingBlockEnd: sizing.size_040,
+                                    paddingInlineStart: indentationFromDepth(
                                         self.props.depth,
                                     ),
                                 }}
@@ -185,7 +187,7 @@ class DiffEntry extends React.Component<DiffEntryProps, DiffEntryState> {
                         />
                     </div>
                 )}
-                {_.map(shownChildren, function (child) {
+                {shownChildren.map(function (child) {
                     return (
                         <DiffEntry
                             key={child.key}

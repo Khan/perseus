@@ -15,21 +15,21 @@ as context for future development and Claude Code sessions.
 | File | Purpose |
 |------|---------|
 | `graphs/exponential.tsx` | Main rendering component: curve, asymptote, points, SR descriptions |
-| `graphs/components/movable-asymptote.tsx` | Reusable draggable asymptote line (shared with logarithm) |
-| `graphs/components/asymptote-drag-handle.tsx` | Pill-shaped SVG drag handle (shared with logarithm) |
+| `graphs/components/movable-asymptote.tsx` | Reusable draggable asymptote line (shared with logarithm); renders its visible line via `DashedAsymptoteLine` |
+| `graphs/components/dashed-asymptote-line.tsx` | Shared presentational backing+dashed line pair (also used by the tangent graph) |
+| `graphs/components/movable-pill-handle.tsx` | Pill-shaped SVG drag handle (also used by the vector graph) |
 | `reducer/interactive-graph-reducer.ts` | `doMovePoint` and `doMoveCenter` cases for exponential |
 | `reducer/initialize-graph-state.ts` | `getExponentialCoords()` — default coords and asymptote |
 | `reducer/interactive-graph-state.ts` | `getGradableGraph` serialization for exponential |
 | `mafs-state-to-interactive-graph.ts` | Exponential state → persisted data conversion |
 | `types.ts` | `ExponentialGraphState` (coords + asymptote + snapStep) |
-| `interactive-graph.tsx` | `getExponentialEquationString()`, `defaultExponentialCoords()` |
-| `interactive-graph-question-builder.ts` | `withExponential()` test helper |
-| `interactive-graph.testdata.ts` | `exponentialQuestion` fixture |
+| `get-equation-string.ts` | `getExponentialEquationString()`, `defaultExponentialCoords()` (the `getEquationString` switch dispatches here; `interactive-graph.tsx` only delegates) |
+| `interactive-graph.testdata.ts` | `exponentialQuestion` fixture (built via `generateIGExponentialGraph` + `generateInteractiveGraphQuestion`) |
 | `@khanacademy/kmath` `coefficients.ts` | `getExponentialCoefficients()` — shared math utility |
 | `@khanacademy/perseus-core` `data-schema.ts` | `PerseusGraphTypeExponential`, `ExponentialGraphCorrect` |
-| `@khanacademy/perseus-score` `score-interactive-graph.ts` | Exponential scoring block |
-| `@khanacademy/perseus-editor` `start-coords-exponential.tsx` | Editor start coords UI |
-| `__docs__/interactive-graph-asymptote-regression.stories.tsx` | Drag handle visual regression stories (shared with logarithm) |
+| `@khanacademy/perseus-score` `sub-scorers/score-exponential.ts` | `scoreExponential()` (`score-interactive-graph.ts` dispatches to it) |
+| `@khanacademy/perseus-editor` `start-coords/start-coords-exponential.tsx` | Editor start coords UI (shared `CoordInput`/`AsymptoteInput`, `start-coords-shared.module.css`) |
+| `__docs__/interactive-graph-interactions-regression.stories.tsx` | Asymptote drag-handle visual regression stories (shared with logarithm) |
 
 ### Data Flow
 
@@ -85,14 +85,19 @@ applies to the logarithm graph.
 ### Asymptote Rendering
 
 - The asymptote is a full-width horizontal **dashed** line using `MovableAsymptote` with `orientation="horizontal"`.
-- The line is rendered as two stacked SVG lines: a solid white backing line (so dashes are
-  visible on grid lines and axes) and a dashed blue line on top with rounded ends (`stroke-linecap: round`).
+- The visible line is rendered by the shared `DashedAsymptoteLine` component (also used by the
+  tangent graph) as two stacked SVG lines: a solid white backing line (so dashes are visible on
+  grid lines and axes) and a dashed blue line on top with rounded ends (`stroke-linecap: round`).
 - **Resting state**: stroke weight 2px, dash length 6, gap 8.
 - **Hover/focus/drag state**: stroke weight 4px, dash length 8, gap 12.
 - These are controlled by CSS variables `--movable-asymptote-stroke-weight`,
   `--movable-asymptote-dash-length`, and `--movable-asymptote-dash-gap` in `mafs-styles.css`,
   activated via `:hover`, `:focus-visible`, and `.movable-dragging` selectors.
-- The entire line is draggable (not just the handle) via a transparent 44px-tall SVG hit target.
+- Pointer/touch dragging is captured by a 48px HTML hitbox box centered on the pill handle
+  (`HANDLE_HITBOX_SIZE_PX`, see [Decision 9](#decisions-log)), **not** the full line. The
+  transparent full-line `SVGLine` (`TARGET_SIZE = 44`) remains as a visual affordance and for
+  keyboard focus, but no longer carries a pointer gesture — so dragging along the line away from
+  the handle is not possible for pointer/touch.
 - A pill-shaped drag handle (`AsymptoteDragHandle`) is rendered at the midpoint:
   - **Active state** (hovered, focused, or dragging): 22px × 12px pill with 6 white grip dots (3×2 grid)
   - **Inactive state** (default): 16px × 6px pill, no grip dots
@@ -150,24 +155,30 @@ applies to the logarithm graph.
 - `aria-label` on the graph container (`srExponentialGraph`).
 - Localized labels for each point (`srExponentialPoint1`, `srExponentialPoint2`).
 - Localized asymptote label (`srExponentialAsymptote`) with keyboard navigation instructions.
-- Graph description (`srExponentialDescription`) with point and asymptote positions.
+- Graph description (`srExponentialDescription`) with point and asymptote positions. The
+  description-polish work (#3786) enriched this with direction/position-relative-to-asymptote
+  and intercept detail — additional keys include `srExponentialNoCurve`,
+  `srExponentialDescriptionLeftPos`/`RightNeg`, `srExponentialAboveAsymptote`/`BelowAsymptote`,
+  `srExponentialIntercepts`, and `srExponentialYIntercept` (see `graphs/strings/exponential.ts`).
 - Interactive elements description (`srExponentialInteractiveElements`).
 - Asymptote and point moves are announced to screen readers via the WB Announcer (the reducer's `stateAnnouncement`), consumed in `stateful-mafs-graph.tsx`.
 - All number values use `srFormatNumber` for locale-appropriate formatting.
 
 ### Editor
 
-- "Exponential function" appears in the graph type selector, gated by the
-  `interactive-graph-exponent` feature flag (note: the flag name is `-exponent`, not
-  `-exponential`).
-- `StartCoordsExponential` component provides: two coordinate pair inputs, a single number
-  input for asymptote y-position, and equation display showing `y = a * e^(b*x) + c`.
-- CSS module styling (`start-coords-exponential.module.css`), not Aphrodite.
+- "Exponential function" appears unconditionally in the graph type selector
+  (`graph-type-selector.tsx`). It is no longer behind a feature flag — the old
+  `interactive-graph-exponent` flag has been removed.
+- `StartCoordsExponential` composes shared editor pieces: two `CoordInput`s, one
+  `AsymptoteInput` for the asymptote y-position, and point-label inputs. It does not render an
+  equation string (the `y = a * e^(b*x) + c` equation string is produced by
+  `get-equation-string.ts` and shown elsewhere).
+- Styling via the shared `start-coords-shared.module.css`, not Aphrodite.
 
 ### Mobile
 
 - All interactions (drag points, drag asymptote) work via touch.
-- The 44px transparent hit target on the asymptote ensures adequate touch target size.
+- The 48px HTML handle hitbox (Decision 9) provides an adequate touch target on the pill handle.
 
 ## Mathematical Model
 
@@ -237,15 +248,15 @@ used there.
 ### `ExponentialGraphState`
 
 ```typescript
-interface ExponentialGraphState {
+interface ExponentialGraphState extends InteractiveGraphStateCommon {
     type: "exponential";
-    coords: [Coord, Coord];    // Two curve control points
-    asymptote: number;          // Y-value of the horizontal asymptote
-    snapStep: vec.Vector2;
-    range: [Interval, Interval];
-    hasBeenInteractedWith: boolean;
+    coords: [vec.Vector2, vec.Vector2]; // Two curve control points
+    asymptote: number;                   // Y-value of the horizontal asymptote
 }
 ```
+
+`InteractiveGraphStateCommon` supplies the shared fields (`snapStep`, `range`,
+`hasBeenInteractedWith`, etc.).
 
 ### Actions
 
@@ -271,8 +282,9 @@ Note: same y-values are *not* rejected for exponential (unlike logarithm).
 
 ### Defaults
 
-`getExponentialCoords()` returns default coords using normalized fractions `[0.5, 0.55]` and
-`[0.75, 0.75]` (matching Grapher widget defaults), with the default asymptote at `y = 0`
+`getExponentialCoords()` returns default coords using normalized fractions `[0.5, 0.6]` and
+`[0.75, 0.75]` (`[0.5, 0.6]` normalizes to `(0, 2)` in a `[-10, 10]` range), with the default
+asymptote at `y = 0`
 (the x-axis). Both default points sit above the asymptote so the curve renders immediately.
 
 ## Decisions Log
@@ -315,8 +327,17 @@ Numbered decisions with rationale for future context.
    produces no fit for a different reason). This differs from logarithm, where both same-x
    and same-y are rejected at the reducer level.
 
-9. **Full-line draggable asymptote** — Uses `useDraggable` + `SVGLine` pattern from `MovableLine`,
-   making the entire line interactive. A pill-shaped handle provides visual affordance.
+9. **Handle-box HTML hitbox for touch drag (LEMS-4353)** — Pointer/touch dragging goes through
+   an HTML `<div>` hitbox — a box centered on the pill handle (`HANDLE_HITBOX_SIZE_PX`), portaled
+   into the graph's overlay layer via the shared `useHitbox` primitive
+   (`graphs/components/hitbox.tsx`) — not the SVG line. Safari ignores `touch-action` on SVG
+   elements, so a real-HTML hitbox with `touch-action: none` is the only reliable way to capture
+   the drag while letting the page scroll over the rest of the graph. Keyboard dragging stays on
+   the focusable SVG `<g role="button">` (a second `useDraggable`). The transparent full-line
+   `SVGLine` is kept as the visual hit affordance but no longer carries a pointer gesture, so
+   touches along the line away from the handle fall through to page scroll. The pill handle
+   provides the visual affordance. (This is one of two Mafs workarounds — see
+   [mafs-workarounds.md](./mafs-workarounds.md).)
 
 10. **Y-padding NaN cutoff for curve termination** — Uses a fixed `4 × (yMax - yMin)` padding
     multiplier. This works for exponential because the curve exits horizontally off the
@@ -347,7 +368,8 @@ Numbered decisions with rationale for future context.
     dashed blue) and the drag handle in the SVG DOM. This ensures the curve is visible where
     it approaches the asymptote (not hidden behind the white backing line) while keeping the
     drag handle visually above the curve. The curve has `pointerEvents: "none"` so it does
-    not intercept events meant for the asymptote's hit target underneath.
+    not intercept pointer events meant for the asymptote (the touch/pointer hit target is now
+    the handle-box HTML overlay, not the SVG line underneath).
 
 16. **CSS modules (not Aphrodite)** — All component styling uses `.module.css` files with class
     names, following the project convention.
@@ -403,9 +425,11 @@ reference:
 
 ## Visual Regression Testing
 
-A dedicated stories file (`interactive-graph-asymptote-regression.stories.tsx`) covers all drag
-handle visual states for both exponential and logarithm graphs. Located at
-"Widgets/Interactive Graph/Visual Regression Tests/Asymptote Drag Handle" in Storybook.
-Stories use `play` functions to programmatically focus elements, making states visible in both
-the Storybook UI and Chromatic snapshots. Follows the radio widget interaction regression pattern
-(`tags: ["!autodocs"]`).
+Asymptote drag-handle visual states for both exponential and logarithm live in
+`__docs__/interactive-graph-interactions-regression.stories.tsx` (Storybook title "Widgets/
+Interactive Graph/Visual Regression Tests/Interactions"), e.g. `ExponentialDragHandleDefault`,
+`ExponentialDragHandleFocused`, `ExponentialDragHandleNoOverlap`,
+`ExponentialPointFocusedHandleInactive`. The default exponential render is covered by
+`DefaultExponentialGraph` in `interactive-graph-initial-state-regression.stories.tsx` ("…/Initial
+State"). Stories use `play` functions to programmatically focus elements, making states visible in
+both the Storybook UI and Chromatic snapshots (`tags: ["!autodocs", "!manifest"]`).

@@ -27,7 +27,6 @@ import {parseLabelImageWidget} from "./label-image-widget";
 import {parseMatcherWidget} from "./matcher-widget";
 import {parseMatrixWidget} from "./matrix-widget";
 import {parseMeasurerWidget} from "./measurer-widget";
-import {parseMoleculeRendererWidget} from "./molecule-renderer-widget";
 import {parseNumberLineWidget} from "./number-line-widget";
 import {parseNumericInputWidget} from "./numeric-input-widget";
 import {parseOrdererWidget} from "./orderer-widget";
@@ -153,7 +152,7 @@ const parseWidgetsMapEntry: (
         case "molecule-renderer":
             return parseAndAssign(
                 `molecule-renderer ${n}`,
-                parseMoleculeRendererWidget,
+                parseDeprecatedWidget,
             );
         case "number-line":
             return parseAndAssign(`number-line ${n}`, parseNumberLineWidget);

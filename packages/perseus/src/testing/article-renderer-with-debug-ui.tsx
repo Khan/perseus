@@ -59,7 +59,7 @@ export const ArticleRendererWithDebugUI = ({
                     }}
                 >
                     {title}
-                    <View style={{marginLeft: "auto"}}>
+                    <View style={{marginInlineStart: "auto"}}>
                         <Switch
                             icon={<PhosphorIcon icon={deviceMobile} />}
                             checked={isMobile}

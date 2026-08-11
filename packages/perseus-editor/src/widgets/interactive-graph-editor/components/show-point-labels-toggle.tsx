@@ -1,12 +1,10 @@
-import {components} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
+import InfoTip from "../../../components/info-tip";
 import LabeledSwitch from "../../../components/labeled-switch";
 
 import styles from "./show-point-labels-toggle.module.css";
-
-const {InfoTip} = components;
 
 interface Props {
     showPointLabels: boolean;
@@ -35,8 +33,9 @@ export default function ShowPointLabelsToggle({
                 onChange={onChange}
             />
             <InfoTip>
-                When on, each labeled point displays a visible label next to it.
-                Add a name to at least one point below to enable this option.
+                When on, each labeled movable point displays a visible label
+                next to it. Add a label to at least one point below to enable
+                this option; unlabeled points render without a label.
             </InfoTip>
         </View>
     );

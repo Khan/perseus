@@ -31,7 +31,7 @@ const SectionControlButton = ({
 
 const styles = StyleSheet.create({
     button: {
-        marginLeft: 5,
+        marginInlineStart: 5,
     },
 });
 

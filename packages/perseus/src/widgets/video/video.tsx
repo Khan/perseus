@@ -4,7 +4,6 @@
 
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
-import _ from "underscore";
 
 import FixedToResponsive from "../../components/fixed-to-responsive";
 import {PerseusI18nContext} from "../../components/i18n-context";

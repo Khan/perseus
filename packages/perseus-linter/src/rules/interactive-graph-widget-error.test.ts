@@ -292,11 +292,86 @@ describe("interactive-graph-widget-error", () => {
                             // The schema disallows showPointLabels on `none`, so we
                             // cast to assert the defensive guard fires when the
                             // backstop is asked to look at this shape.
-                            // eslint-disable-next-line @typescript-eslint/no-explicit-any, no-restricted-syntax
+                            // eslint-disable-next-line no-restricted-syntax
                             correct: {
                                 type: "none",
                                 showPointLabels: true,
                             } as any,
+                        }),
+                    }),
+                },
+            },
+        );
+    });
+
+    it("warns when pointLabels is shorter than the expected number of points", () => {
+        expectWarning(
+            interactiveGraphWidgetErrorRule,
+            "[[☃ interactive-graph 1]]",
+            {
+                widgets: {
+                    "interactive-graph 1": generateInteractiveGraphWidget({
+                        options: generateInteractiveGraphOptions({
+                            correct: generateIGPolygonGraph({
+                                numSides: 3,
+                                showPointLabels: true,
+                                pointLabels: ["A", "C"],
+                            }),
+                        }),
+                    }),
+                },
+            },
+            {
+                message:
+                    'pointLabels has 2 entries but this graph type expects 3. Use empty strings ("") to skip labels for specific points, e.g. ["A", "", "C"].',
+                severity: Rule.Severity.ERROR,
+            },
+        );
+    });
+
+    it("warns when pointLabels is longer than the expected number of points", () => {
+        expectWarning(
+            interactiveGraphWidgetErrorRule,
+            "[[☃ interactive-graph 1]]",
+            {
+                widgets: {
+                    "interactive-graph 1": generateInteractiveGraphWidget({
+                        options: generateInteractiveGraphOptions({
+                            correct: generateIGPolygonGraph({
+                                numSides: 3,
+                                showPointLabels: true,
+                                pointLabels: ["A", "B", "C", "D"],
+                            }),
+                        }),
+                    }),
+                },
+            },
+            {
+                message:
+                    'pointLabels has 4 entries but this graph type expects 3. Use empty strings ("") to skip labels for specific points, e.g. ["A", "", "C"].',
+                severity: Rule.Severity.ERROR,
+            },
+        );
+    });
+
+    it("passes on an unlimited polygon (length check skipped when numSides is unlimited)", () => {
+        expectPass(
+            interactiveGraphWidgetErrorRule,
+            "[[☃ interactive-graph 1]]",
+            {
+                widgets: {
+                    "interactive-graph 1": generateInteractiveGraphWidget({
+                        options: generateInteractiveGraphOptions({
+                            correct: generateIGPolygonGraph({
+                                numSides: "unlimited",
+                                coords: [
+                                    [0, 0],
+                                    [1, 0],
+                                    [0, 1],
+                                ],
+                                showPointLabels: true,
+                                pointLabels: ["A", "B"],
+                            }),
                         }),
                     }),
                 },
@@ -315,7 +390,7 @@ describe("interactive-graph-widget-error", () => {
                             // The schema disallows showPointLabels on `vector`, so we
                             // cast to assert the defensive guard fires when the
                             // backstop is asked to look at this shape.
-                            // eslint-disable-next-line @typescript-eslint/no-explicit-any, no-restricted-syntax
+                            // eslint-disable-next-line no-restricted-syntax
                             correct: {
                                 type: "vector",
                                 showPointLabels: true,

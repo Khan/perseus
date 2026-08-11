@@ -4,14 +4,14 @@ import CoordInput from "./coord-input";
 
 import type {Coord} from "@khanacademy/perseus";
 
-type Props = {
+interface StartCoordsPointProps {
     startCoords: Coord[];
     onChange: (startCoords: Coord[]) => void;
     pointLabels?: ReadonlyArray<string>;
     onChangePointLabels?: (pointLabels: ReadonlyArray<string>) => void;
-};
+}
 
-const StartCoordsPoint = (props: Props) => {
+const StartCoordsPoint = (props: StartCoordsPointProps) => {
     const {startCoords, onChange, pointLabels, onChangePointLabels} = props;
 
     return (

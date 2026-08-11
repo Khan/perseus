@@ -1,4 +1,5 @@
 import {
+    CoreWidgetRegistry,
     getRealImageUrl,
     getBaseUrl,
     getSvgUrl,
@@ -10,6 +11,7 @@ import {KhanAnswerTypes} from "@khanacademy/perseus-score";
 import _ from "underscore";
 
 import type {Coord, Range} from "@khanacademy/perseus-core";
+import type {ASTNode, SingleASTNode} from "@khanacademy/simple-markdown";
 import type * as React from "react";
 
 type WordPosition = {
@@ -56,7 +58,7 @@ const nestedMap = function <T, M>(
 ): M | ReadonlyArray<M> {
     if (Array.isArray(children)) {
         // @ts-expect-error - TS2322 - Type '(M | readonly M[])[]' is not assignable to type 'M | readonly M[]'.
-        return _.map(children, function (child) {
+        return children.map(function (child) {
             // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
             return nestedMap(child, func);
         });
@@ -86,11 +88,134 @@ function inputPathsEqual(
     );
 }
 
-const rWidgetRule = /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/;
+const rWidgetRule = /^\[\[\u2603 (([a-z-]+) ([0-9]+))]]/;
 const rTypeFromWidgetId = /^([a-z-]+) ([0-9]+)$/;
 
 const rWidgetParts = new RegExp(rWidgetRule.source + "$");
 const snowman = "\u2603";
+
+const isBlockWidgetNode = (node: SingleASTNode): boolean =>
+    node?.type === "widget" &&
+    !CoreWidgetRegistry.getDefaultAlignment(node.widgetType).startsWith(
+        "inline",
+    );
+
+const isParagraphWithBlockWidget = (node: SingleASTNode): boolean =>
+    node?.type === "paragraph" &&
+    Array.isArray(node.content) &&
+    node.content.some(isBlockWidgetNode);
+
+/**
+ * These are the widgets that are marked as "inline", but should be excluded
+ * from certain containers, like a paragraph (<p>).
+ */
+const inlineWidgetsToExclude = (node: SingleASTNode): boolean => {
+    const widgetsToExclude = ["dropdown", "explanation", "expression"];
+    return (
+        node?.type === "widget" && widgetsToExclude.includes(node.widgetType)
+    );
+};
+
+/**
+ * Some widgets render as inline content but CANNOT safely live
+ * inside a paragraph (`<p>`). When this function returns true, the
+ * QuestionParagraph component will not render the containing <p> element.
+ * No additional processing is done on the sibling nodes.
+ */
+export const noParagraphForInlineWidget = (node: SingleASTNode): boolean =>
+    Array.isArray(node.content) && node.content.some(inlineWidgetsToExclude);
+
+const isWhitespaceOnlyTextNode = (node: SingleASTNode): boolean =>
+    node?.type === "text" && node.content.trim() === "";
+
+/**
+ * Trim whitespace-only text nodes from the start and end of an array of inline
+ * markdown AST nodes. Used to avoid generating empty `<p> </p>` wrappers around
+ * stray newlines that might surround a block widget in malformed markdown.
+ */
+const trimEdgeWhitespaceNodes = (
+    nodes: ReadonlyArray<SingleASTNode>,
+): Array<ASTNode> => {
+    let start = 0;
+    let end = nodes.length;
+    while (start < end && isWhitespaceOnlyTextNode(nodes[start])) {
+        start++;
+    }
+    while (end > start && isWhitespaceOnlyTextNode(nodes[end - 1])) {
+        end--;
+    }
+    return nodes.slice(start, end);
+};
+
+/**
+ * Takes the accumulated inline nodes and packages them into a containing node
+ * (based upon the reference node). It ensures that the edge nodes aren't empty.
+ */
+const mergeInlineNodes = (
+    inlineNodes: Array<SingleASTNode>,
+    blockNodes: Array<SingleASTNode>,
+    referenceNode: SingleASTNode,
+): void => {
+    const trimmedContentNodes = trimEdgeWhitespaceNodes(inlineNodes);
+    if (trimmedContentNodes.length > 0) {
+        blockNodes.push({...referenceNode, content: trimmedContentNodes});
+    }
+};
+
+/**
+ * Handle situations in the markdown where a block-level widget doesn't have the
+ * expected double-newline characters in place. The blockRegex function in
+ * perseus-markdown.tsx expects a double-newline. When only a single newline
+ * character exists, then the widget is contained by a <p> element, which is
+ * invalid HTML. This function splits out the widget from the inline text so
+ * that the HTML is valid (<p> elements surround inline content, block-level
+ * widgets are by themselves).
+ *
+ * Only direct children of top-level paragraphs are considered; block widgets
+ * nested inside inline formatting (e.g. `strong`) or inside other containers
+ * (tables, columns) are not split out.
+ */
+function splitBlockWidgetsFromParagraphs(ast: ASTNode): ASTNode {
+    if (!Array.isArray(ast)) {
+        return ast;
+    }
+
+    return ast.flatMap((node) => {
+        // Traverse all the nodes for this renderer.
+
+        if (!isParagraphWithBlockWidget(node)) {
+            // Don't process nodes that aren't paragraphs with block-level or
+            // special widgets.
+            return node;
+        }
+
+        const blockNodes: Array<SingleASTNode> = [];
+        const inlineNodes: Array<SingleASTNode> = [];
+
+        node.content.forEach((childNode: SingleASTNode) => {
+            if (isBlockWidgetNode(childNode)) {
+                // If the current child node is a block-level widget, then
+                // put all accumulated inline nodes into their own paragraph
+                mergeInlineNodes(inlineNodes, blockNodes, node);
+                // ... add the widget node (by itself, not in a container)
+                blockNodes.push(childNode);
+                // ... and clear the accumulated inline nodes.
+                inlineNodes.length = 0;
+            } else {
+                // If the current child node is NOT a block-level widget,
+                // then it is inline and should be batched with other inline
+                // nodes.
+                inlineNodes.push(childNode);
+            }
+        });
+
+        // Put all remaining inline nodes into their own paragraph, then return
+        // all the split-out nodes for this initial paragraph node.
+        mergeInlineNodes(inlineNodes, blockNodes, node);
+
+        return blockNodes;
+    });
+}
 
 /**
  * Return the first valid interpretation of 'text' as a number, in the form
@@ -154,6 +279,7 @@ function gridDimensionConfig(
         unityLabel: unityLabel,
     };
 }
+
 /**
  * Given the range, step, and boxSize, calculate the reasonable gridStep.
  * Used for when one was not given explicitly.
@@ -551,6 +677,7 @@ const Util = {
     rTypeFromWidgetId,
     rWidgetParts,
     snowman,
+    splitBlockWidgetsFromParagraphs,
     firstNumericalParse,
     stringArrayOfSize,
     stringArrayOfSize2D,

@@ -49,14 +49,20 @@ const Basic = ({keypadElement, setKeypadElement}) => {
     }, [keypadElement, expression, times]);
 
     return (
-        <div style={{padding: "1rem 2rem", minHeight: "400px"}}>
+        <div
+            style={{
+                paddingBlock: "1rem",
+                paddingInline: "2rem",
+                minBlockSize: "400px",
+            }}
+        >
             <div>
                 <div>
                     NOTE: To properly test the input interaction, you will need
                     to simulate a device using the dev tools. MathInput requires
                     touch events (not click events).
                 </div>
-                <div style={{padding: "1rem 0"}}>
+                <div style={{paddingBlock: "1rem", paddingInline: "0"}}>
                     <button onClick={() => setExpression(!expression)}>
                         {`Use ${expression ? "Fraction" : "Expression"} Keypad`}
                     </button>

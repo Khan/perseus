@@ -8,6 +8,7 @@ import * as React from "react";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
 
 import type {APIOptions} from "../../../types";
+import type {UserInputMap} from "@khanacademy/perseus-core";
 import type {Decorator} from "@storybook/react-vite";
 
 export const expressionRendererDecorator: Decorator = (
@@ -20,6 +21,9 @@ export const expressionRendererDecorator: Decorator = (
         parameters?: {
             content?: string;
             apiOptions?: APIOptions;
+            // Renders the widget in its non-interactive, read-only state.
+            isStatic?: boolean;
+            initialUserInput?: UserInputMap;
         };
     },
 ) => {
@@ -29,6 +33,7 @@ export const expressionRendererDecorator: Decorator = (
                 content: parameters?.content ?? "[[☃ expression 1]]",
                 widgets: {
                     "expression 1": generateExpressionWidget({
+                        static: parameters?.isStatic ?? false,
                         options: generateExpressionOptions({
                             ...args,
                         }),
@@ -36,6 +41,7 @@ export const expressionRendererDecorator: Decorator = (
                 },
             })}
             apiOptions={parameters?.apiOptions}
+            initialUserInput={parameters?.initialUserInput}
         />
     );
 };

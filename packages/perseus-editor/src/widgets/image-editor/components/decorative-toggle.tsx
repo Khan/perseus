@@ -1,13 +1,11 @@
-import {components} from "@khanacademy/perseus";
 import * as React from "react";
 
+import InfoTip from "../../../components/info-tip";
 import LabeledSwitch from "../../../components/labeled-switch";
 
 import styles from "./decorative-toggle.module.css";
 
 import type {Props as ImageEditorProps} from "../image-editor";
-
-const {InfoTip} = components;
 
 interface Props {
     decorative?: boolean;

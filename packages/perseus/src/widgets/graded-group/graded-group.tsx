@@ -1,7 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Button from "@khanacademy/wonder-blocks-button";
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -14,13 +13,7 @@ import {iconOk, iconRemove} from "../../icon-paths";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {mapErrorToString} from "../../strings";
-import {
-    gray68,
-    gray76,
-    phoneMargin,
-    negativePhoneMargin,
-    tableBackgroundAccent,
-} from "../../styles/constants";
+import {phoneMargin, negativePhoneMargin} from "../../styles/constants";
 import UserInputManager from "../../user-input-manager";
 import a11y from "../../util/a11y";
 import {getPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
@@ -80,16 +73,6 @@ type Props = WidgetProps<
     dependencies: PerseusDependenciesV2;
 };
 
-type DefaultProps = {
-    title: Props["title"];
-    content: Props["content"];
-    widgets: Props["widgets"];
-    images: Props["images"];
-    hint: Props["hint"];
-    hasHint: Props["hasHint"];
-    linterContext: Props["linterContext"];
-};
-
 type State = {
     status: (typeof GRADING_STATUSES)[keyof typeof GRADING_STATUSES];
     showHint: boolean;
@@ -119,16 +102,6 @@ export class GradedGroup
 {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
-
-    static defaultProps: DefaultProps = {
-        title: "",
-        content: "",
-        widgets: {},
-        images: {},
-        hint: null,
-        hasHint: false,
-        linterContext: linterContextDefault,
-    };
 
     state: State = {
         status: GRADING_STATUSES.ungraded,
@@ -256,17 +229,26 @@ export class GradedGroup
         );
 
         let gradeStatus: string | null = null;
-        let icon = null;
-        // Colors are 10% darker than the colors in graded-group.css
+        let icon: React.ReactElement | null = null;
         if (this.state.status === GRADING_STATUSES.correct) {
-            // TODO(jeremy): update to a WB colour
-            // @ts-expect-error - TS2322 - Type 'Element' is not assignable to type 'null'.
-            icon = <InlineIcon {...iconOk} style={{color: "#526f03"}} />;
+            icon = (
+                <InlineIcon
+                    {...iconOk}
+                    style={{
+                        color: semanticColor.core.foreground.success.default,
+                    }}
+                />
+            );
             gradeStatus = this.context.strings.correct;
         } else if (this.state.status === GRADING_STATUSES.incorrect) {
-            // TODO(jeremy): update to a WB colour
-            // @ts-expect-error - TS2322 - Type 'Element' is not assignable to type 'null'.
-            icon = <InlineIcon {...iconRemove} style={{color: "#ff5454"}} />;
+            icon = (
+                <InlineIcon
+                    {...iconRemove}
+                    style={{
+                        color: semanticColor.core.foreground.critical.default,
+                    }}
+                />
+            );
             gradeStatus = this.context.strings.incorrect;
         }
 
@@ -373,7 +355,7 @@ export class GradedGroup
                                 kind="secondary"
                                 disabled={this.props.apiOptions.readOnly}
                                 onClick={this.props.onNextQuestion}
-                                style={{marginLeft: 5}}
+                                style={{marginInlineStart: 5}}
                             >
                                 {this.context.strings.nextQuestion}
                             </Button>
@@ -466,29 +448,29 @@ export class GradedGroup
 const styles = StyleSheet.create({
     gradedGroupInSet: {
         // Reset a few desktop-only styles that come from graded-group.css
-        marginLeft: 0,
-        paddingLeft: 0,
+        marginInlineStart: 0,
+        paddingInlineStart: 0,
     },
 
     gradedGroup: {
-        borderTop: `1px solid ${gray76}`,
-        borderBottom: `1px solid ${gray76}`,
-        backgroundColor: tableBackgroundAccent,
-        marginLeft: negativePhoneMargin,
-        marginRight: negativePhoneMargin,
-        paddingBottom: phoneMargin,
-        paddingLeft: phoneMargin,
-        paddingRight: phoneMargin,
-        paddingTop: 10,
+        borderBlockStart: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
+        borderBlockEnd: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
+        backgroundColor: semanticColor.core.background.base.subtle,
+        marginInlineStart: negativePhoneMargin,
+        marginInlineEnd: negativePhoneMargin,
+        paddingBlockEnd: phoneMargin,
+        paddingInlineStart: phoneMargin,
+        paddingInlineEnd: phoneMargin,
+        paddingBlockStart: 10,
         width: "auto",
     },
 
     showHintLink: {
         backgroundColor: "unset",
-        fontSize: 14,
+        fontSize: font.body.size.small,
         padding: 0,
         border: "none",
-        marginTop: 20,
+        marginBlockStart: 20,
         color: semanticColor.core.foreground.instructive.default,
         cursor: "pointer",
         display: "block",
@@ -497,11 +479,11 @@ const styles = StyleSheet.create({
 
     explanationTitle: {
         backgroundColor: "unset",
-        marginTop: 20,
+        marginBlockStart: 20,
         color: semanticColor.core.foreground.instructive.default,
-        marginBottom: 10,
+        marginBlockEnd: 10,
         cursor: "pointer",
-        fontSize: 14,
+        fontSize: font.body.size.small,
         padding: 0,
         border: "none",
         display: "block",
@@ -509,10 +491,10 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        fontSize: 12,
-        color: gray68,
+        fontSize: font.heading.size.small,
+        color: semanticColor.core.foreground.neutral.default,
         textTransform: "uppercase",
-        marginBottom: 11,
+        marginBlockEnd: 11,
         letterSpacing: 0.8,
     },
 });

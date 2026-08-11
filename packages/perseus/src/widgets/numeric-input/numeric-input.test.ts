@@ -19,10 +19,7 @@ import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import NumericInputWidgetExport, {
-    findCommonFractions,
-    findPrecision,
-} from "./numeric-input.class";
+import NumericInputWidgetExport from "./numeric-input";
 import {
     correctAndWrongAnswers,
     duplicatedAnswers,
@@ -33,6 +30,7 @@ import {
     question1AndAnswer,
     withCoefficient,
 } from "./numeric-input.testdata";
+import {findCommonFractions, findPrecision} from "./utils";
 
 import type {
     PerseusItem,
@@ -246,6 +244,26 @@ describe("numeric-input widget", () => {
         expect(othersTextContainer).toHaveTextContent("an integer");
         expect(othersTextContainer).toHaveTextContent("an exact decimal");
         expect(othersTextContainer).toHaveTextContent("a multiple of pi");
+    });
+
+    it("sends the rendered analytics event once per mount, not once per render", async () => {
+        // Arrange
+        const onAnalyticsEventSpy = jest.spyOn(
+            testDependenciesV2.analytics,
+            "onAnalyticsEvent",
+        );
+        renderQuestion(question);
+
+        // Act - typing changes the widget's userInput prop, re-rendering it
+        await userEvent.type(
+            screen.getByRole("textbox", {hidden: true}),
+            "123",
+        );
+
+        // Assert: exactly one analytics event was sent.
+        expect(onAnalyticsEventSpy.mock.calls).toEqual([
+            [expect.objectContaining({type: "perseus:widget:rendered:ti"})],
+        ]);
     });
 });
 
@@ -466,6 +484,30 @@ describe("Numeric input widget", () => {
         expect(document.activeElement).not.toBe(
             screen.getByRole("textbox", {hidden: true}),
         );
+    });
+
+    it("returns a single empty input path from getInputPaths()", () => {
+        // Arrange
+        const {renderer} = renderQuestion(question1);
+        const numericInput = renderer.findWidgets("numeric-input 1")[0];
+
+        // Act, Assert
+        // The widget is itself an input, so it reports one path: its own.
+        expect(numericInput.getInputPaths()).toEqual([[]]);
+    });
+
+    it("focuses and blurs the input via focusInputPath()/blurInputPath()", () => {
+        // Arrange
+        const {renderer} = renderQuestion(question1);
+        const numericInput = renderer.findWidgets("numeric-input 1")[0];
+        const input = screen.getByRole("textbox", {hidden: true});
+
+        // Act, Assert
+        act(() => numericInput.focusInputPath([]));
+        expect(input).toHaveFocus();
+
+        act(() => numericInput.blurInputPath([]));
+        expect(input).not.toHaveFocus();
     });
 
     it("renders default aria-label when labelText is not provided", () => {

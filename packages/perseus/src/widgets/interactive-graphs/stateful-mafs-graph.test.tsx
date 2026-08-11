@@ -4,8 +4,6 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import React from "react";
 
 import * as Dependencies from "../../dependencies";
-import {ApiOptions} from "../../perseus-api";
-import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {testDependencies} from "../../testing/test-dependencies";
 
 import {initializeGraphState} from "./reducer/initialize-graph-state";
@@ -69,16 +67,11 @@ describe("StatefulMafsGraph", () => {
     });
 
     it("renders", () => {
-        const {container} = render(
-            <StatefulMafsGraph {...getBaseStatefulMafsGraphProps()} />,
-        );
+        render(<StatefulMafsGraph {...getBaseStatefulMafsGraphProps()} />);
 
-        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-        const movablePoints = container.querySelectorAll(
-            "circle.movable-point-hitbox",
+        expect(screen.getAllByTestId("movable-point").length).toBeGreaterThan(
+            0,
         );
-
-        expect(movablePoints).not.toBe(0);
     });
 
     it("calls onChange when using graph", async () => {
@@ -255,12 +248,6 @@ describe("StatefulMafsGraph", () => {
                 ],
                 pointLabels: ["A", "B"],
                 showPointLabels: false,
-            },
-            apiOptions: {
-                ...ApiOptions.defaults,
-                flags: getFeatureFlags({
-                    "perseus-enable-point-label-field": true,
-                }),
             },
         };
         const {rerender} = render(<StatefulMafsGraph {...baseProps} />);

@@ -1,22 +1,29 @@
 import {usePerseusI18n} from "../../../../components/i18n-context";
-import {withCustomPointLabel} from "../strings/custom-point-label";
+import {srFormatNumber} from "../strings/format-number";
 
 import type {PerseusStrings} from "../../../../strings";
 import type {vec} from "mafs";
 
+/**
+ * Returns the author's custom label for a point, or `undefined` when the
+ * entry is missing, an empty string, or malformed (a non-string that slipped
+ * past the parser in hand-authored JSON).
+ */
+export function getCustomPointLabel(
+    pointLabels: ReadonlyArray<string> | undefined,
+    index: number,
+): string | undefined {
+    const label = pointLabels?.[index];
+    return typeof label === "string" && label !== "" ? label : undefined;
+}
+
 // Returns the custom label from `pointLabels`, or the 1-indexed sequence
-// number if no custom label is set.
+// number if no custom label is set (index 0 → "Point 1", etc.).
 export function resolvePointLabel(
     pointLabels: ReadonlyArray<string> | undefined,
     index: number,
-): string | number {
-    const customLabel = pointLabels?.[index];
-    if (!customLabel) {
-        // Convert from a 0-indexed array position to the 1-indexed sequence
-        // number screen readers announce (index 0 → "Point 1", etc.).
-        return index + 1;
-    }
-    return customLabel;
+): string {
+    return getCustomPointLabel(pointLabels, index) ?? `${index + 1}`;
 }
 
 /**
@@ -38,16 +45,15 @@ export function buildPointAriaLabel(
     strings: PerseusStrings,
     locale: string,
 ): string | undefined {
-    const label = resolvePointLabel(pointLabels, index);
-    // Returns the custom-label string when the resolved label is a string, or
-    // undefined when it's the numeric default — in which case
-    // `useControlPoint` keeps its existing fallback behavior.
-    const {customLabel} = withCustomPointLabel(
-        {pointLabel: label, x: point[0], y: point[1]},
-        strings,
-        locale,
-    );
-    return customLabel;
+    // Fall back to the default (return undefined) unless we have a genuine,
+    // non-empty custom string.
+    const customLabel = getCustomPointLabel(pointLabels, index);
+    if (customLabel === undefined) {
+        return undefined;
+    }
+    const x = srFormatNumber(point[0], locale);
+    const y = srFormatNumber(point[1], locale);
+    return strings.srPointAtCoordinates({pointLabel: customLabel, x, y});
 }
 
 /**

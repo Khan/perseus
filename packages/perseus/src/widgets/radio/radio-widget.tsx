@@ -135,12 +135,7 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
                  * [LEMS-3185] do not trust serializedState
                  */
                 getSerializedState() {
-                    const {
-                        userInput: _,
-                        randomize: __,
-                        static: ___,
-                        ...rest
-                    } = props;
+                    const {userInput, randomize, static: __, ...rest} = props;
                     return {
                         ...rest,
                         numCorrect: props.numCorrect ?? 0,

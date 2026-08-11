@@ -1,5 +1,99 @@
 # @khanacademy/math-input
 
+## 27.0.1
+
+### Patch Changes
+
+-   [#3981](https://github.com/Khan/perseus/pull/3981) [`da36e20`](https://github.com/Khan/perseus/commit/da36e2018154df985e830abd1ff7448d2d0fe273) Thanks [@maddy531](https://github.com/maddy531)! - Adopt the Wonder Blocks `require-logical-properties-for-rtl` ESLint rule and auto-fix physical CSS properties to their logical equivalents (e.g. `marginLeft` → `marginInlineStart`) for RTL support. No behavior change in LTR; correctly mirrors in RTL.
+
+-   Updated dependencies [[`4639d92`](https://github.com/Khan/perseus/commit/4639d927508f40a0aeb43e31beac46ba266355dd)]:
+    -   @khanacademy/perseus-core@34.1.0
+    -   @khanacademy/keypad-context@3.2.81
+
+## 27.0.0
+
+### Major Changes
+
+-   [#3876](https://github.com/Khan/perseus/pull/3876) [`25e0c4e`](https://github.com/Khan/perseus/commit/25e0c4ec0c9424617a1476c8a0e58284fdf8c4bb) Thanks [@dhalper1](https://github.com/dhalper1)! - Fix "Unable to find node on an unmounted component" error from the mobile keypad: `MobileKeypad.getDOMNode` now returns a container ref instead of calling the deprecated `ReactDOM.findDOMNode`, and the keypad notifies consumers via `onElementMounted(null)` when it unmounts so they don't retain a stale reference.
+
+    Breaking changes:
+
+    -   `KeypadAPI.getDOMNode` now returns `HTMLElement | null` (was `Element | Text | null`).
+    -   `MobileKeypad`'s `onElementMounted` is now typed `(api: KeypadAPI | null) => void` and is called with `null` on unmount, so callbacks must accept `null`.
+
+### Patch Changes
+
+-   [#4024](https://github.com/Khan/perseus/pull/4024) [`c38df95`](https://github.com/Khan/perseus/commit/c38df95f089b31c4338fbbcb88600bff4b5ab859) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused Eslint exceptions
+
+-   [#4048](https://github.com/Khan/perseus/pull/4048) [`fa53b64`](https://github.com/Khan/perseus/commit/fa53b648c5ae56f41fe7449a3c584374a3f36940) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Update wonder-blocks dependencies
+
+-   Updated dependencies [[`c38df95`](https://github.com/Khan/perseus/commit/c38df95f089b31c4338fbbcb88600bff4b5ab859), [`41f38b0`](https://github.com/Khan/perseus/commit/41f38b0fac2795472c3234ad91fd15508fdd4674)]:
+    -   @khanacademy/perseus-core@34.0.2
+    -   @khanacademy/keypad-context@3.2.80
+    -   @khanacademy/perseus-utils@2.1.5
+
+## 26.6.8
+
+### Patch Changes
+
+-   Updated dependencies [[`ed25029`](https://github.com/Khan/perseus/commit/ed2502933fd0bd14b7de545c7ea1c70ad6eef6a8), [`273c61a`](https://github.com/Khan/perseus/commit/273c61a2e9cc8fdade8356da66cd5d0d358e8c47), [`8c52c56`](https://github.com/Khan/perseus/commit/8c52c568d5911cdb08ae98cf0247cc53da47e15a)]:
+    -   @khanacademy/perseus-core@34.0.1
+    -   @khanacademy/keypad-context@3.2.79
+
+## 26.6.7
+
+### Patch Changes
+
+-   [#3977](https://github.com/Khan/perseus/pull/3977) [`024094b`](https://github.com/Khan/perseus/commit/024094b0a0ad114aa6180e725a3a9cfa8050af2d) Thanks [@handeyeco](https://github.com/handeyeco)! - Tweak an eslint rule related to unused `_` variables and clean up related code
+
+-   [#3986](https://github.com/Khan/perseus/pull/3986) [`40b8da7`](https://github.com/Khan/perseus/commit/40b8da7df4315e83d5e7ede9d341f20e283e4304) Thanks [@nishasy](https://github.com/nishasy)! - Update dependencies
+
+-   [#3979](https://github.com/Khan/perseus/pull/3979) [`d03effd`](https://github.com/Khan/perseus/commit/d03effdad6888177671a53741f3a2134569b5f05) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert \_.isArray to Array.isArray
+
+-   Updated dependencies [[`b9f7019`](https://github.com/Khan/perseus/commit/b9f7019c3f11680a1bd189456924293bd63ee950), [`024094b`](https://github.com/Khan/perseus/commit/024094b0a0ad114aa6180e725a3a9cfa8050af2d), [`9e23342`](https://github.com/Khan/perseus/commit/9e233429b719b3956cd9a77166565826f0b08f8f), [`d03effd`](https://github.com/Khan/perseus/commit/d03effdad6888177671a53741f3a2134569b5f05), [`bc68abe`](https://github.com/Khan/perseus/commit/bc68abeb361923464a61edb5a3fcda2b816cf6ba), [`bb842c0`](https://github.com/Khan/perseus/commit/bb842c0756783bc0e90d6a1ebbfe4b55d5867e95)]:
+    -   @khanacademy/perseus-core@34.0.0
+    -   @khanacademy/keypad-context@3.2.78
+
+## 26.6.6
+
+### Patch Changes
+
+-   Updated dependencies [[`bfa51eb`](https://github.com/Khan/perseus/commit/bfa51ebe859e0b88afe21063295eaa95656d85d2)]:
+    -   @khanacademy/perseus-core@33.0.1
+    -   @khanacademy/keypad-context@3.2.77
+
+## 26.6.5
+
+### Patch Changes
+
+-   Updated dependencies [[`2a0da4f`](https://github.com/Khan/perseus/commit/2a0da4f190dce68d12b04eef13f84698b18b4ebd), [`853d839`](https://github.com/Khan/perseus/commit/853d83947bb84692610d7691c9f8b1156f5187e0), [`0e0abbc`](https://github.com/Khan/perseus/commit/0e0abbc84f4c65a3b1750102f76823a7746f97c0), [`0c19685`](https://github.com/Khan/perseus/commit/0c196858400547eb3180747fc4bfc34aee9dd684)]:
+    -   @khanacademy/perseus-core@33.0.0
+    -   @khanacademy/keypad-context@3.2.76
+
+## 26.6.4
+
+### Patch Changes
+
+-   [#3925](https://github.com/Khan/perseus/pull/3925) [`6db4fc8`](https://github.com/Khan/perseus/commit/6db4fc87370fdd2488a14a9eab514a22b6ad3dcc) Thanks [@jandrade](https://github.com/jandrade)! - Updates ButtonAsset SVG elements to use "currentColor" (inherited color) instead of a hard-coded value
+
+## 26.6.3
+
+### Patch Changes
+
+-   [#3917](https://github.com/Khan/perseus/pull/3917) [`eb7d6fd`](https://github.com/Khan/perseus/commit/eb7d6fd422213f981c9cf51c0bd06ae2714e5fbf) Thanks [@nishasy](https://github.com/nishasy)! - [Color Sync] [Interactive Graph] Update tooltip background
+
+-   Updated dependencies []:
+    -   @khanacademy/perseus-core@32.0.1
+    -   @khanacademy/keypad-context@3.2.75
+
+## 26.6.2
+
+### Patch Changes
+
+-   Updated dependencies [[`f40cca4`](https://github.com/Khan/perseus/commit/f40cca4a1ca6edf04620bb9b700cd07d617a08cf)]:
+    -   @khanacademy/perseus-core@32.0.0
+    -   @khanacademy/keypad-context@3.2.74
+
 ## 26.6.1
 
 ### Patch Changes

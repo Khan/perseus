@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unsafe */
 /**
  * A side by side diff view for Perseus articles.
  */

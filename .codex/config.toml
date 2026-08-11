@@ -1,0 +1,11 @@
+sandbox_mode = "workspace-write"
+approval_policy = "on-request"
+allow_outbound_network_access = false
+writable_roots = ["/tmp", "/private/tmp", "~/.cache/gh", "~/khan/devtools/khan-linter", "~/.npm", "~/.local/share/mise", "~/.local/state/mise", "~/.cache/node/corepack", "~/Library/pnpm", "~/Library/Caches/pnpm"]
+
+[features]
+hooks = true
+shell_snapshot = true
+
+[permissions.network.domains]
+allow = ["github.com", "api.github.com", "registry.npmjs.org", "npm.pkg.github.com", "download.cypress.io", "cdn.cypress.io"]

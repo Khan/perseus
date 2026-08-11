@@ -2,7 +2,7 @@
  * Renders answer bar for mobile graded groups. [STATELESS]
  */
 import Button from "@khanacademy/wonder-blocks-button";
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
@@ -66,7 +66,7 @@ class GradedGroupAnswerBar extends React.Component<Props> {
                     <span style={styles.tryAgainIcon}>
                         <InlineIcon {...iconTryAgain} />
                     </span>
-                    <span style={{marginLeft: 8}}>{keepTrying}</span>
+                    <span style={{marginInlineStart: 8}}>{keepTrying}</span>
                 </span>
             ) : (
                 <span />
@@ -95,17 +95,16 @@ class GradedGroupAnswerBar extends React.Component<Props> {
                 <span style={styles.text}>
                     <span
                         style={{
-                            fontSize: 28,
                             color: semanticColor.core.foreground.success
                                 .default,
                         }}
                     >
-                        <InlineIcon {...iconStar} style={{marginBottom: 5}} />
+                        <InlineIcon {...iconStar} style={{marginBlockEnd: 5}} />
                     </span>
                     <span
                         role="alert"
                         aria-label={correctExcited}
-                        style={{marginLeft: 8}}
+                        style={{marginInlineStart: 8}}
                     >
                         {correctExcited}
                     </span>
@@ -118,8 +117,6 @@ class GradedGroupAnswerBar extends React.Component<Props> {
     }
 }
 
-const fontSize = 17;
-
 const styles = {
     answerBar: {
         display: "flex",
@@ -131,12 +128,11 @@ const styles = {
         marginTop: phoneMargin,
         paddingLeft: phoneMargin,
         paddingRight: 10,
-        borderTop: `1px solid ${semanticColor.core.border.neutral.default}`,
+        borderTop: `${border.width.thin} solid ${semanticColor.core.border.neutral.default}`,
     },
 
     tryAgainIcon: {
-        fontSize: 28,
-        color: "#63D9EA",
+        color: semanticColor.core.foreground.neutral.subtle,
         transform: "scale(-1,1) rotate(-268deg)",
     },
 
@@ -144,8 +140,8 @@ const styles = {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        fontWeight: "bold",
-        fontSize: fontSize,
+        fontWeight: font.weight.bold,
+        fontSize: font.body.size.medium,
     },
 } as const;
 

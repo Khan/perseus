@@ -49,7 +49,7 @@ const imageWidgetLogic: WidgetLogic<PerseusImageWidgetOptions> = {
         // - has background image and decorative is true
         const hasBackgroundImage = bgImage.url != null;
         const hasAltText = !!widgetOptions.alt;
-        const isDecorative = widgetOptions.decorative === true;
+        const isDecorative = widgetOptions.decorative;
 
         return hasBackgroundImage && (hasAltText || isDecorative);
     },

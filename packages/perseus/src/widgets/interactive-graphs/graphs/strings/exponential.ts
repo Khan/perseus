@@ -1,8 +1,8 @@
 import {coefficients} from "@khanacademy/kmath";
 
 import {X, Y} from "../../math";
+import {getCustomPointLabel} from "../components/build-point-aria-label";
 
-import {withCustomPointLabel} from "./custom-point-label";
 import {srFormatNumber} from "./format-number";
 
 import type {I18nContextType} from "../../../../components/i18n-context";
@@ -15,7 +15,7 @@ const {getExponentialCoefficients} = coefficients;
 export function srExponentialPointLabel(
     state: {
         pointIndex: number;
-        pointLabel: string | number;
+        pointLabel: string | undefined;
         x: number;
         y: number;
         hasCurve: boolean;
@@ -23,25 +23,18 @@ export function srExponentialPointLabel(
     strings: PerseusStrings,
     locale: string,
 ): string {
-    // A custom author label overrides the point-1/point-2 semantics, matching
-    // the static aria-label behavior in exponential.tsx.
-    const {x, y, customLabel} = withCustomPointLabel(state, strings, locale);
-    if (customLabel !== undefined) {
-        return customLabel;
-    }
+    const x = srFormatNumber(state.x, locale);
+    const y = srFormatNumber(state.y, locale);
+    // A custom author label identifies the point in place of its sequence
+    // number, keeping the point-1/point-2 semantics.
+    const pointLabel = state.pointLabel ?? `${state.pointIndex + 1}`;
+
     // When no curve is plotted, drop the "on an exponential curve" phrasing
     // in favor of plain point coordinates, matching exponential.tsx.
     if (!state.hasCurve) {
-        return strings.srPointAtCoordinates({
-            num: state.pointIndex + 1,
-            x,
-            y,
-        });
+        return strings.srPointAtCoordinates({pointLabel, x, y});
     }
-    // Coord layout in exponential graphs: [point1(0), point2(1)].
-    return state.pointIndex === 0
-        ? strings.srExponentialPoint1({x, y})
-        : strings.srExponentialPoint2({x, y});
+    return strings.srExponentialPoint({pointLabel, x, y});
 }
 
 type ExponentialGraphDescriptionStrings = {
@@ -101,16 +94,28 @@ export function describeExponentialGraph(
         srExponentialAsymptote: strings.srExponentialAsymptote({
             asymptoteY: asymptoteYFormatted,
         }),
-        // When no curve is plotted, drop the "on an exponential curve"
-        // phrasing in favor of plain point coordinates.
-        srExponentialPoint1:
-            coeffs === undefined
-                ? strings.srPointAtCoordinates({num: 1, ...formattedPoint1})
-                : strings.srExponentialPoint1(formattedPoint1),
-        srExponentialPoint2:
-            coeffs === undefined
-                ? strings.srPointAtCoordinates({num: 2, ...formattedPoint2})
-                : strings.srExponentialPoint2(formattedPoint2),
+        srExponentialPoint1: srExponentialPointLabel(
+            {
+                pointIndex: 0,
+                pointLabel: getCustomPointLabel(state.pointLabels, 0),
+                x: point1[X],
+                y: point1[Y],
+                hasCurve: coeffs !== undefined,
+            },
+            strings,
+            locale,
+        ),
+        srExponentialPoint2: srExponentialPointLabel(
+            {
+                pointIndex: 1,
+                pointLabel: getCustomPointLabel(state.pointLabels, 1),
+                x: point2[X],
+                y: point2[Y],
+                hasCurve: coeffs !== undefined,
+            },
+            strings,
+            locale,
+        ),
         srExponentialInteractiveElements: strings.srInteractiveElements({
             elements: strings.srExponentialInteractiveElements(descriptionArgs),
         }),

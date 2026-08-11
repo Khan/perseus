@@ -10,7 +10,10 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {vec} from "mafs";
 import _ from "underscore";
 
-import {resolvePointLabel} from "../graphs/components/build-point-aria-label";
+import {
+    getCustomPointLabel,
+    resolvePointLabel,
+} from "../graphs/components/build-point-aria-label";
 import {
     getArrayWithoutDuplicates,
     getAsymptoteHandleCoord,
@@ -303,7 +306,7 @@ function doMovePointInFigure(
             // by figureIndex * 2 + pointIndex (matching the render side).
             const sharedAnnouncement = {
                 pointIndex: action.pointIndex,
-                pointLabel: resolvePointLabel(
+                pointLabel: getCustomPointLabel(
                     state.pointLabels,
                     action.figureIndex * 2 + action.pointIndex,
                 ),
@@ -355,7 +358,7 @@ function doMovePointInFigure(
                 stateAnnouncement = {
                     type: "move-ray-point",
                     pointIndex: action.pointIndex,
-                    pointLabel: resolvePointLabel(
+                    pointLabel: getCustomPointLabel(
                         state.pointLabels,
                         action.pointIndex,
                     ),
@@ -372,8 +375,9 @@ function doMovePointInFigure(
             } else {
                 stateAnnouncement = {
                     type: "move-point",
-                    pointLabel: String(
-                        resolvePointLabel(state.pointLabels, action.pointIndex),
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.pointIndex,
                     ),
                     x: newValue[X],
                     y: newValue[Y],
@@ -566,20 +570,18 @@ function doMovePoint(
                 // cancel the move
                 return state;
             }
-            // A custom author label (when set) overrides the side/vertex
-            // wording in the announcement. resolvePointLabel returns the
-            // 1-indexed number when no custom label is set, so narrow to
-            // just the string case here.
-            const resolvedAngleLabel = resolvePointLabel(
-                state.pointLabels,
-                action.index,
-            );
             return {
                 ...newState,
                 stateAnnouncement: {
                     type: "move-angle-point",
                     pointIndex: action.index,
-                    pointLabel: resolvedAngleLabel,
+                    // A custom author label (when set) identifies the point
+                    // in the side/vertex wording; the announcement helper
+                    // falls back to the sequence number otherwise.
+                    pointLabel: getCustomPointLabel(
+                        state.pointLabels,
+                        action.index,
+                    ),
                     x: newState.coords[action.index][X],
                     y: newState.coords[action.index][Y],
                     angleMeasure: getClockwiseAngle(
@@ -629,8 +631,9 @@ function doMovePoint(
                 coords: newCoords,
                 stateAnnouncement: {
                     type: "move-point",
-                    pointLabel: String(
-                        resolvePointLabel(state.pointLabels, action.index),
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.index,
                     ),
                     x: newValue[X],
                     y: newValue[Y],
@@ -652,8 +655,9 @@ function doMovePoint(
                 }),
                 stateAnnouncement: {
                     type: "move-point",
-                    pointLabel: String(
-                        resolvePointLabel(state.pointLabels, action.index),
+                    pointLabel: resolvePointLabel(
+                        state.pointLabels,
+                        action.index,
                     ),
                     x: newCoord[X],
                     y: newCoord[Y],
@@ -687,7 +691,7 @@ function doMovePoint(
                 stateAnnouncement: {
                     type: "move-sinusoid-point",
                     pointIndex: action.index,
-                    pointLabel: resolvePointLabel(
+                    pointLabel: getCustomPointLabel(
                         state.pointLabels,
                         action.index,
                     ),
@@ -734,7 +738,7 @@ function doMovePoint(
                 stateAnnouncement: {
                     type: "move-exponential-point",
                     pointIndex: action.index,
-                    pointLabel: resolvePointLabel(
+                    pointLabel: getCustomPointLabel(
                         state.pointLabels,
                         action.index,
                     ),
@@ -792,7 +796,7 @@ function doMovePoint(
                 stateAnnouncement: {
                     type: "move-logarithm-point",
                     pointIndex: action.index,
-                    pointLabel: resolvePointLabel(
+                    pointLabel: getCustomPointLabel(
                         state.pointLabels,
                         action.index,
                     ),
@@ -829,7 +833,7 @@ function doMovePoint(
                 stateAnnouncement: {
                     type: "move-absolute-value-point",
                     pointIndex: action.index,
-                    pointLabel: resolvePointLabel(
+                    pointLabel: getCustomPointLabel(
                         state.pointLabels,
                         action.index,
                     ),
@@ -846,11 +850,17 @@ function doMovePoint(
             );
 
             // Reject the move if it would place both points on the same
-            // vertical line — same-x control points produce division by
-            // zero in getTangentCoefficients (angularFrequency = π/(4*0)).
+            // vertical or horizontal line. Neither is a valid tangent:
+            // same-x control points produce division by zero in
+            // getTangentCoefficients (angularFrequency = π/(4*0)), and
+            // same-y control points produce a zero amplitude, collapsing
+            // the curve to a flat line with no asymptotes.
             const newCoords: vec.Vector2[] = [...state.coords];
             newCoords[action.index] = boundDestination;
-            if (newCoords[0][X] === newCoords[1][X]) {
+            if (
+                newCoords[0][X] === newCoords[1][X] ||
+                newCoords[0][Y] === newCoords[1][Y]
+            ) {
                 return state;
             }
 
@@ -865,7 +875,7 @@ function doMovePoint(
                 stateAnnouncement: {
                     type: "move-tangent-point",
                     pointIndex: action.index,
-                    pointLabel: resolvePointLabel(
+                    pointLabel: getCustomPointLabel(
                         state.pointLabels,
                         action.index,
                     ),
@@ -904,7 +914,7 @@ function doMovePoint(
                 stateAnnouncement: {
                     type: "move-quadratic-point",
                     pointIndex: action.index,
-                    pointLabel: resolvePointLabel(
+                    pointLabel: getCustomPointLabel(
                         state.pointLabels,
                         action.index,
                     ),
@@ -1074,6 +1084,7 @@ function doMoveRadiusPoint(
                     y: nextRadiusPoint[Y],
                     centerX: state.center[X],
                     radius: vec.dist(state.center, nextRadiusPoint),
+                    pointLabel: getCustomPointLabel(state.pointLabels, 0),
                 },
             };
         }
@@ -1560,17 +1571,14 @@ export function calculateSideSnap(
     const rel = (j): number => {
         return (index + j + coords.length) % coords.length;
     };
-    const sides = _.map(
-        [
-            [coords[rel(-1)], boundedDestinationPoint],
-            [boundedDestinationPoint, coords[rel(1)]],
-            [coords[rel(-1)], coords[rel(1)]],
-        ],
-        function (coords) {
-            // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
-            return magnitude(vector(...coords));
-        },
-    );
+    const sides = [
+        [coords[rel(-1)], boundedDestinationPoint],
+        [boundedDestinationPoint, coords[rel(1)]],
+        [coords[rel(-1)], coords[rel(1)]],
+    ].map(function (coords) {
+        // @ts-expect-error - TS2345 - Argument of type 'number[]' is not assignable to parameter of type 'readonly Coord[]'. | TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
+        return magnitude(vector(...coords));
+    });
 
     // Round the sides to left and right of the current point
     _.each([0, 1], function (j) {

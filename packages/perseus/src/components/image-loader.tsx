@@ -1,6 +1,3 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/no-unsafe */
-
 import * as React from "react";
 
 import {type Dimensions, type PerseusDependenciesV2} from "../types";

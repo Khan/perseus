@@ -4,6 +4,7 @@ import {
     DependenciesContext,
     Util,
 } from "@khanacademy/perseus";
+import {generateImageOptions} from "@khanacademy/perseus-core";
 import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -31,13 +32,13 @@ const Harnessed = (props: Partial<PropsFor<typeof Editor>>) => {
                 widgets={{
                     "image 1": {
                         type: "image",
-                        options: {
+                        options: generateImageOptions({
                             backgroundImage: {
                                 url: "http://placekitten.com/200/300",
                                 width: 200,
                                 height: 300,
                             },
-                        },
+                        }),
                     },
                 }}
                 {...props}
@@ -160,11 +161,11 @@ describe("Editor", () => {
                     "image 1": {
                         type: "image",
                         key: undefined,
-                        options: {
+                        options: generateImageOptions({
                             backgroundImage: {
                                 url: "http://placekitten.com/200/300",
                             },
-                        },
+                        }),
                     },
                 }}
             />,
@@ -225,13 +226,13 @@ describe("Editor", () => {
             widgets: {
                 "image 1": {
                     type: "image",
-                    options: {
+                    options: generateImageOptions({
                         backgroundImage: {
                             url: "http://placekitten.com/200/300",
                             width: 200,
                             height: 300,
                         },
-                    },
+                    }),
                 },
             },
         };
@@ -268,13 +269,13 @@ describe("Editor", () => {
         expect(renderer.widgets).toEqual({
             "image 1": {
                 type: "image",
-                options: {
+                options: expect.objectContaining({
                     backgroundImage: {
                         url: "http://placekitten.com/200/300",
                         width: 200,
                         height: 300,
                     },
-                },
+                }),
             },
         });
     });

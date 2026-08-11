@@ -28,13 +28,6 @@ jest.mock("./util", () => ({
         mockedJoinLabelsAsSpokenMathForTests(input),
 }));
 
-jest.mock("./locked-function-examples", () => ({
-    __esModule: true,
-    default: {
-        foo: ["bar", "zot"],
-    },
-}));
-
 describe("Locked Function Settings", () => {
     let userEvent: UserEvent;
     const onChangeProps = jest.fn();
@@ -513,7 +506,7 @@ describe("Locked Function Settings", () => {
                 await userEvent.click(copyButton);
 
                 // Assert - clipboard receives example text
-                expect(writeTextMock).toHaveBeenCalledWith("bar");
+                expect(writeTextMock).toHaveBeenCalledWith("x + 5");
             });
 
             test("example equation is copied to the equation field when 'paste' icon button is activated", async () => {
@@ -540,7 +533,7 @@ describe("Locked Function Settings", () => {
                 await userEvent.click(pasteButton);
 
                 // Assert - clipboard receives example text
-                expect(onChangeProps).toHaveBeenCalledWith({equation: "bar"});
+                expect(onChangeProps).toHaveBeenCalledWith({equation: "x + 5"});
             });
         });
 

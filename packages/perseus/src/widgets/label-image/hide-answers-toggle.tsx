@@ -36,6 +36,6 @@ const styles = StyleSheet.create({
         flexWrap: "wrap-reverse",
         alignItems: "center",
         gap: "0.5em",
-        marginTop: "1em",
+        marginBlockStart: "1em",
     },
 });

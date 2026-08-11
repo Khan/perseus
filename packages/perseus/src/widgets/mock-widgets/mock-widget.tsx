@@ -14,10 +14,6 @@ type ExternalProps = WidgetProps<MockWidgetOptions, PerseusMockWidgetUserInput>;
 
 type Props = ExternalProps;
 
-type DefaultProps = {
-    userInput: Props["userInput"];
-};
-
 /**
  * This is a Mock Perseus widget, which is used for our various rendering tests
  * both internally and in consuming projects. It is a simple widget that renders
@@ -31,12 +27,6 @@ type DefaultProps = {
  * You can register this widget for your tests by calling `registerWidget("mock-widget", MockWidget);`
  */
 class MockWidgetComponent extends React.Component<Props> implements Widget {
-    static defaultProps: DefaultProps = {
-        userInput: {
-            currentValue: "",
-        },
-    };
-
     inputRef: HTMLElement | null = null;
 
     getPromptJSON(): MockWidgetPromptJSON {

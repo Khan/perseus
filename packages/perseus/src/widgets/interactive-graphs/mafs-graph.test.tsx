@@ -1,3 +1,4 @@
+import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import {screen, render, act} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {vec} from "mafs";
@@ -5,22 +6,24 @@ import React from "react";
 import invariant from "tiny-invariant";
 
 import * as Dependencies from "../../dependencies";
-import {ApiOptions} from "../../perseus-api";
-import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {
     testDependencies,
     testDependenciesV2,
 } from "../../testing/test-dependencies";
 
 import {MafsGraph} from "./mafs-graph";
-import {actions, REMOVE_POINT} from "./reducer/interactive-graph-action";
+import {
+    actions,
+    DELETE_INTENT,
+    REMOVE_POINT,
+} from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 import {calculateNestedSVGCoords, getBaseMafsGraphPropsForTests} from "./utils";
 
 import type {MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState} from "./types";
-import type {APIOptionsWithDefaults, PerseusDependenciesV2} from "../../types";
-import type {GraphRange} from "@khanacademy/perseus-core";
+import type {PerseusDependenciesV2} from "../../types";
+import type {GraphRange, LockedFigure} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const baseMafsProps = getBaseMafsGraphPropsForTests();
@@ -1002,7 +1005,7 @@ describe("MafsGraph", () => {
 
             // Assert
             const instructions = screen.getByText(
-                /^Use the Tab key to move through/,
+                /^Enable Forms or Focus mode and use the Tab key to move through/,
             );
             const description = screen.getByText("A graph description.");
 
@@ -1011,7 +1014,6 @@ describe("MafsGraph", () => {
             // hears how to interact with the graph before the graph
             // description. If this fails, the instructions are rendered after
             // the description.
-            // eslint-disable-next-line testing-library/no-node-access
             expect(description.compareDocumentPosition(instructions)).toBe(
                 Node.DOCUMENT_POSITION_PRECEDING,
             );
@@ -1057,6 +1059,60 @@ describe("MafsGraph", () => {
                 "instructions",
                 "description",
                 "element-details",
+            ]);
+        });
+    });
+
+    describe("locked figure reading order", () => {
+        it("renders locked figures in author order regardless of type", () => {
+            // Arrange
+            const lockedFigures: LockedFigure[] = [
+                {
+                    ...getDefaultFigureForType("point"),
+                    coord: [6, 3],
+                    ariaLabel: "Point A",
+                },
+                {
+                    ...getDefaultFigureForType("vector"),
+                    points: [
+                        [6, 3],
+                        [4, 2],
+                    ],
+                    ariaLabel: "Arrow 1",
+                },
+                {
+                    ...getDefaultFigureForType("point"),
+                    coord: [4, 2],
+                    ariaLabel: "Point B",
+                },
+                {
+                    ...getDefaultFigureForType("vector"),
+                    points: [
+                        [4, 2],
+                        [2, 1],
+                    ],
+                    ariaLabel: "Arrow 2",
+                },
+            ];
+
+            // Act
+            render(
+                <MafsGraph
+                    {...baseMafsProps}
+                    lockedFigures={lockedFigures}
+                    dispatch={() => {}}
+                />,
+            );
+
+            // Assert
+            const labels = screen
+                .getAllByRole("img")
+                .map((figure) => figure.getAttribute("aria-label"));
+            expect(labels).toEqual([
+                "Point A",
+                "Arrow 1",
+                "Point B",
+                "Arrow 2",
             ]);
         });
     });
@@ -1230,6 +1286,46 @@ describe("MafsGraph", () => {
             ]);
         });
 
+        it("point - removes the focused point when Delete is pressed on its handle", async () => {
+            // Arrange
+            const mockDispatch = jest.fn();
+            const state: InteractiveGraphState = {
+                type: "point",
+                numPoints: "unlimited",
+                focusedPointIndex: 0,
+                hasBeenInteractedWith: true,
+                showRemovePointButton: true,
+                interactionMode: "keyboard",
+                showKeyboardInteractionInvitation: false,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                snapStep: [2, 2],
+                coords: [[9, 9]],
+            };
+
+            render(
+                <MafsGraph
+                    {...baseMafsProps}
+                    markings="none"
+                    state={state}
+                    dispatch={mockDispatch}
+                />,
+            );
+
+            // Act: focus the real point handle, then press Delete.
+            const handle = screen.getByTestId(
+                "movable-point__focusable-handle",
+            );
+            handle.focus();
+            await userEvent.keyboard("{Delete}");
+
+            expect(mockDispatch.mock.calls).toContainEqual([
+                {type: DELETE_INTENT},
+            ]);
+        });
+
         it("polygon - enables the 'Close shape' button when the polygon has 3 or more unique points", () => {
             // Arrange
             // Render the question
@@ -1332,12 +1428,7 @@ describe("MafsGraph", () => {
         });
     });
 
-    describe("MovablePointLabelsLayer flag gate", () => {
-        const apiOptionsWithFlag = (on: boolean): APIOptionsWithDefaults => ({
-            ...ApiOptions.defaults,
-            flags: getFeatureFlags({"perseus-enable-point-label-field": on}),
-        });
-
+    describe("MovablePointLabelsLayer", () => {
         function pointStateWith({
             showPointLabels,
             pointLabels,
@@ -1363,7 +1454,7 @@ describe("MafsGraph", () => {
             };
         }
 
-        it("does not mount the layer when the feature flag is off, even with showPointLabels: true + pointLabels populated", () => {
+        it("mounts the layer when showPointLabels is true", () => {
             // Arrange, Act
             render(
                 <MafsGraph
@@ -1373,27 +1464,6 @@ describe("MafsGraph", () => {
                         pointLabels: ["A"],
                     })}
                     dispatch={jest.fn()}
-                    apiOptions={apiOptionsWithFlag(false)}
-                />,
-            );
-
-            // Assert
-            expect(
-                screen.queryByTestId("movable-point__visible-label"),
-            ).not.toBeInTheDocument();
-        });
-
-        it("mounts the layer when the feature flag is on and showPointLabels: true", () => {
-            // Arrange, Act
-            render(
-                <MafsGraph
-                    {...baseMafsProps}
-                    state={pointStateWith({
-                        showPointLabels: true,
-                        pointLabels: ["A"],
-                    })}
-                    dispatch={jest.fn()}
-                    apiOptions={apiOptionsWithFlag(true)}
                 />,
             );
 
@@ -1403,15 +1473,13 @@ describe("MafsGraph", () => {
             ).toBeInTheDocument();
         });
 
-        it("does not render a visible label when flag is on but showPointLabels is unset (backwards-compat: existing pointLabels-for-SR content stays invisible)", () => {
-            // Existing content sets pointLabels for screen-reader purposes without intending visible labels. Even with the flag on, the renderer must not start drawing those.
+        it("does not render a visible label when showPointLabels is unset (backwards-compat: existing pointLabels-for-SR content stays invisible)", () => {
             // Arrange, Act
             render(
                 <MafsGraph
                     {...baseMafsProps}
                     state={pointStateWith({pointLabels: ["A"]})}
                     dispatch={jest.fn()}
-                    apiOptions={apiOptionsWithFlag(true)}
                 />,
             );
 
@@ -1421,9 +1489,7 @@ describe("MafsGraph", () => {
             ).not.toBeInTheDocument();
         });
 
-        it("does not show the toggle for static graphs, when flag on and showPointLabels: true", () => {
-            // showPointLabels is specifically about labeling movable points;
-            // a static graph has no movable points, so the labels are skipped.
+        it("does not render labels for static graphs, even when showPointLabels is true", () => {
             // Arrange, Act
             render(
                 <MafsGraph
@@ -1433,7 +1499,6 @@ describe("MafsGraph", () => {
                         pointLabels: ["A"],
                     })}
                     dispatch={jest.fn()}
-                    apiOptions={apiOptionsWithFlag(true)}
                     static={true}
                 />,
             );
