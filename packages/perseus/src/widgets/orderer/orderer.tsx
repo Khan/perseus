@@ -15,16 +15,14 @@ import type {
     PerseusDependenciesV2,
     Widget,
     WidgetExports,
-    WidgetProps,
+    WidgetPropsV2,
 } from "../../types";
 import type {OrdererPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
 import type {
-    PerseusOrdererWidgetOptions,
     PerseusOrdererUserInput,
     OrdererPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type PlaceholderCardProps = {
     width: number | null | undefined;
@@ -289,7 +287,7 @@ class Card extends React.Component<CardProps, CardState> {
     }
 }
 
-type OrdererProps = WidgetProps<
+type OrdererProps = WidgetPropsV2<
     OrdererPublicWidgetOptions,
     PerseusOrdererUserInput
 > & {dependencies: PerseusDependenciesV2};
@@ -308,19 +306,6 @@ type OrdererState = {
     animateTo: Position | null | undefined;
     onAnimationEnd?: (arg1: any) => void;
 };
-
-// TODO(LEMS-4354): Remove these type assertions from all widgets.
-// eslint-disable-next-line no-restricted-syntax
-0 as any as WidgetProps<
-    PerseusOrdererWidgetOptions,
-    PerseusOrdererUserInput
-> satisfies PropsFor<typeof WrappedOrderer>;
-
-// eslint-disable-next-line no-restricted-syntax
-0 as any as WidgetProps<
-    OrdererPublicWidgetOptions,
-    PerseusOrdererUserInput
-> satisfies PropsFor<typeof WrappedOrderer>;
 
 class Orderer
     extends React.Component<OrdererProps, OrdererState>
@@ -371,7 +356,7 @@ class Orderer
             // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'null'.
             placeholderIndex = index;
         } else if (type === "bank") {
-            opt = this.props.options[index];
+            opt = this.props.options.options[index];
         }
 
         this.props.handleUserInput({current: list});
@@ -438,7 +423,7 @@ class Orderer
         if (inCardBank) {
             // If we're in the card bank, go through the options to find the
             // one with the same content
-            this.props.options.forEach((opt, i) => {
+            this.props.options.options.forEach((opt, i) => {
                 if (opt.content === this.state.dragContent) {
                     const card = ReactDOM.findDOMNode(
                         // eslint-disable-next-line react/no-string-refs
@@ -500,7 +485,7 @@ class Orderer
 
     findCorrectIndex: (arg1: any, arg2: any) => any = (draggable, list) => {
         // Find the correct index for a card given the current cards.
-        const isHorizontal = this.props.layout === "horizontal";
+        const isHorizontal = this.props.options.layout === "horizontal";
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2769 - No overload matches this call.
         const $dragList = $(ReactDOM.findDOMNode(this.refs.dragList));
@@ -554,7 +539,7 @@ class Orderer
             return false;
         }
 
-        const isHorizontal = this.props.layout === "horizontal";
+        const isHorizontal = this.props.options.layout === "horizontal";
         // @ts-expect-error - TS2769 - No overload matches this call.
         const $draggable = $(ReactDOM.findDOMNode(draggable));
         // eslint-disable-next-line react/no-string-refs
@@ -601,8 +586,9 @@ class Orderer
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState(): any {
-        const {userInput, ...rest} = this.props;
+        const {userInput, options, ...rest} = this.props;
         return {
+            ...options,
             ...rest,
             current: userInput.current.map((e) => ({content: e})),
         };
@@ -691,7 +677,7 @@ class Orderer
         const bank = (
             // eslint-disable-next-line react/no-string-refs
             <div ref="bank" className="bank perseus-clearfix">
-                {this.props.options.map((opt, i) => {
+                {this.props.options.options.map((opt, i) => {
                     return (
                         <Card
                             ref={"bank" + i}
@@ -719,10 +705,10 @@ class Orderer
                 className={
                     "draggy-boxy-thing orderer " +
                     "height-" +
-                    this.props.height +
+                    this.props.options.height +
                     " " +
                     "layout-" +
-                    this.props.layout +
+                    this.props.options.layout +
                     " " +
                     "blank-background " +
                     "perseus-clearfix "
