@@ -1,5 +1,11 @@
 # perseus-build-settings
 
+## 0.9.1
+
+### Patch Changes
+
+-   [#4024](https://github.com/Khan/perseus/pull/4024) [`c38df95`](https://github.com/Khan/perseus/commit/c38df95f089b31c4338fbbcb88600bff4b5ab859) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused Eslint exceptions
+
 ## 0.9.0
 
 ### Minor Changes

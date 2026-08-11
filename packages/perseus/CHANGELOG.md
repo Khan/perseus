@@ -1,5 +1,41 @@
 # @khanacademy/perseus
 
+## 83.0.1
+
+### Patch Changes
+
+-   [#4024](https://github.com/Khan/perseus/pull/4024) [`c38df95`](https://github.com/Khan/perseus/commit/c38df95f089b31c4338fbbcb88600bff4b5ab859) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused Eslint exceptions
+
+-   [#4037](https://github.com/Khan/perseus/pull/4037) [`36ca8d0`](https://github.com/Khan/perseus/commit/36ca8d0851e23afdb7bc00c2d0a4d712e2d758fe) Thanks [@benchristel](https://github.com/benchristel)! - Internal: GradedGroupSet no longer has defaultProps.
+
+-   [#4048](https://github.com/Khan/perseus/pull/4048) [`fa53b64`](https://github.com/Khan/perseus/commit/fa53b648c5ae56f41fe7449a3c584374a3f36940) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Update wonder-blocks dependencies
+
+-   [#4040](https://github.com/Khan/perseus/pull/4040) [`9f68e16`](https://github.com/Khan/perseus/commit/9f68e164adeb39f80648b581f3e389cd233d0a9c) Thanks [@benchristel](https://github.com/benchristel)! - Internal: MockWidget no longer has defaultProps.
+
+-   [#3974](https://github.com/Khan/perseus/pull/3974) [`e69dab6`](https://github.com/Khan/perseus/commit/e69dab6adc8b433470d74ab3ba1434c1607d7894) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Fix locked figure screen-reader order to match author order
+
+-   [#4023](https://github.com/Khan/perseus/pull/4023) [`41f38b0`](https://github.com/Khan/perseus/commit/41f38b0fac2795472c3234ad91fd15508fdd4674) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the defaultProps of the Interactive Graph widget have been removed.
+
+-   [#4035](https://github.com/Khan/perseus/pull/4035) [`1cabb62`](https://github.com/Khan/perseus/commit/1cabb6281f64fd0c277d564bba4692283b0c276b) Thanks [@benchristel](https://github.com/benchristel)! - Internal: The Group widget no longer has defaultProps; all props are always passed.
+
+-   [#4036](https://github.com/Khan/perseus/pull/4036) [`834951f`](https://github.com/Khan/perseus/commit/834951f1f41ac0e7a1e1ccde403b0453ee37a0b4) Thanks [@benchristel](https://github.com/benchristel)! - Internal: GradedGroup no longer has defaultProps.
+
+-   [#4039](https://github.com/Khan/perseus/pull/4039) [`e32c294`](https://github.com/Khan/perseus/commit/e32c2946edf38519898143d2994e4ab5fdbdcbbd) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Orderer no longer has defaultProps.
+
+-   [#3993](https://github.com/Khan/perseus/pull/3993) [`9cc9875`](https://github.com/Khan/perseus/commit/9cc9875ba57ef609b841323ea1252fabcaa472ad) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Scale locked-figure dash pattern with stroke weight
+
+-   Updated dependencies [[`c38df95`](https://github.com/Khan/perseus/commit/c38df95f089b31c4338fbbcb88600bff4b5ab859), [`fa53b64`](https://github.com/Khan/perseus/commit/fa53b648c5ae56f41fe7449a3c584374a3f36940), [`41f38b0`](https://github.com/Khan/perseus/commit/41f38b0fac2795472c3234ad91fd15508fdd4674), [`25e0c4e`](https://github.com/Khan/perseus/commit/25e0c4ec0c9424617a1476c8a0e58284fdf8c4bb)]:
+    -   @khanacademy/simple-markdown@3.0.1
+    -   @khanacademy/perseus-linter@5.1.20
+    -   @khanacademy/perseus-core@34.0.2
+    -   @khanacademy/math-input@27.0.0
+    -   @khanacademy/kas@2.2.6
+    -   @khanacademy/pure-markdown@2.3.2
+    -   @khanacademy/keypad-context@3.2.80
+    -   @khanacademy/kmath@2.4.39
+    -   @khanacademy/perseus-score@8.12.12
+    -   @khanacademy/perseus-utils@2.1.5
+
 ## 83.0.0
 
 ### Major Changes

@@ -1,5 +1,14 @@
 # @khanacademy/kas
 
+## 2.2.6
+
+### Patch Changes
+
+-   [#4024](https://github.com/Khan/perseus/pull/4024) [`c38df95`](https://github.com/Khan/perseus/commit/c38df95f089b31c4338fbbcb88600bff4b5ab859) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused Eslint exceptions
+
+-   Updated dependencies []:
+    -   @khanacademy/perseus-utils@2.1.5
+
 ## 2.2.5
 
 ### Patch Changes
