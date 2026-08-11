@@ -99,8 +99,10 @@ const config: StorybookConfig = {
         // This will be used for the main documentation pages
         "../__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
 
-        // Docs for Perseus editor
-        "../packages/perseus-editor/src/**/__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
+        // Docs for Perseus editor. Widget editor stories are colocated with the
+        // editor they document; other stories still live in `__docs__`
+        // directories. This glob covers both.
+        "../packages/perseus-editor/src/**/*.@(stories.ts|stories.tsx|mdx)",
 
         // Docs for Perseus widgets, components, and renderers
         // Exclude notes directories (used for internal documentation (AI context), not stories)

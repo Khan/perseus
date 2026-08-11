@@ -11,11 +11,11 @@ import GradedGroupSetEditor from "./widgets/graded-group-set-editor";
 import GrapherEditor from "./widgets/grapher-editor";
 import GroupEditor from "./widgets/group-editor";
 import IframeEditor from "./widgets/iframe-editor";
-import ImageEditor from "./widgets/image-editor/image-editor";
+import ImageEditor from "./widgets/image-editor";
 import InputNumberEditor from "./widgets/input-number-editor";
 import InteractionEditor from "./widgets/interaction-editor";
-import InteractiveGraphEditor from "./widgets/interactive-graph-editor/interactive-graph-editor";
-import LabelImageEditor from "./widgets/label-image-editor/label-image-editor";
+import InteractiveGraphEditor from "./widgets/interactive-graph-editor";
+import LabelImageEditor from "./widgets/label-image-editor";
 import MatcherEditor from "./widgets/matcher-editor";
 import MatrixEditor from "./widgets/matrix-editor";
 import MeasurerEditor from "./widgets/measurer-editor";
@@ -25,10 +25,10 @@ import OrdererEditor from "./widgets/orderer-editor";
 import PhetSimulationEditor from "./widgets/phet-simulation-editor";
 import PlotterEditor from "./widgets/plotter-editor";
 import PythonProgramEditor from "./widgets/python-program-editor";
-import RadioEditor from "./widgets/radio/editor";
+import RadioEditor from "./widgets/radio-editor";
 import SorterEditor from "./widgets/sorter-editor";
 import TableEditor from "./widgets/table-editor";
-import VideoEditor from "./widgets/video-editor/video-editor";
+import VideoEditor from "./widgets/video-editor";
 
 export default [
     CategorizerEditor,
