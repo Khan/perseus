@@ -305,7 +305,7 @@ export class PhetSimulation
                 {banner !== null && (
                     <View
                         style={{
-                            marginBottom: phoneMargin,
+                            marginBlockEnd: phoneMargin,
                         }}
                     >
                         <Banner kind={banner.kind} text={banner.message} />
@@ -356,11 +356,11 @@ const styles = StyleSheet.create({
         borderWidth: border.width.thin,
         borderColor: semanticColor.core.border.neutral.subtle,
         padding: sizing.size_160,
-        paddingBottom: 0,
+        paddingBlockEnd: 0,
     },
     cornerButton: {
-        marginTop: 5,
-        marginBottom: 5,
+        marginBlockStart: 5,
+        marginBlockEnd: 5,
         alignSelf: "flex-end",
     },
     iframeContainer: {
@@ -368,26 +368,26 @@ const styles = StyleSheet.create({
         overflow: "hidden",
         width: "100%",
         // 16:9 aspect ratio
-        paddingTop: "56.25%",
+        paddingBlockStart: "56.25%",
     },
     iframeResponsive: {
         borderWidth: border.width.none,
         position: "absolute",
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0,
+        insetBlockStart: 0,
+        insetInlineStart: 0,
+        insetBlockEnd: 0,
+        insetInlineEnd: 0,
         width: "100%",
         height: "100%",
     },
     // Mobile app fullscreen implementation styles
     appFullScreenWidgetContainer: {
         position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
+        insetBlockStart: 0,
+        insetInlineStart: 0,
+        insetInlineEnd: 0,
         // Ensure that the Check Answer bar does not cover the bottom of the simulation
-        bottom: MOBILE_APP_BOTTOM_BAR_HEIGHT,
+        insetBlockEnd: MOBILE_APP_BOTTOM_BAR_HEIGHT,
         width: "100%",
         height: "auto",
         zIndex: 1000,
@@ -403,8 +403,8 @@ const styles = StyleSheet.create({
     },
     closeButtonContainer: {
         position: "absolute",
-        top: sizing.size_080,
-        right: sizing.size_080,
+        insetBlockStart: sizing.size_080,
+        insetInlineEnd: sizing.size_080,
         zIndex: 1001,
     },
 });

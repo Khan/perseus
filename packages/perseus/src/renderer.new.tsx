@@ -8,7 +8,6 @@
 
 /* eslint-disable max-lines */
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/no-unsafe */
 import {
     Errors,
     PerseusError,
@@ -1425,7 +1424,6 @@ class Renderer
         _.each(
             this.state.widgetInfo,
             function (info, id) {
-                // eslint-disable-next-line @typescript-eslint/no-invalid-this
                 // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 // eslint-disable-next-line @typescript-eslint/no-invalid-this
                 const widget = this.getWidgetInstance(id);

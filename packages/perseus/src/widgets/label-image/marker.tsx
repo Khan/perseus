@@ -1,4 +1,3 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /**
  * Controlled question image marker, rendered as a styled button element.
  *
@@ -192,7 +191,9 @@ const styles = StyleSheet.create({
         // Center marker position based on its maximum size.
         width: MARKER_SIZE,
         height: MARKER_SIZE,
+        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y centering on an authored LTR image coordinate; content doesn't flip with page direction, so a logical margin would misplace/misalign the marker in RTL
         marginLeft: MARKER_SIZE / -2,
+        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y centering on an authored LTR image coordinate; content doesn't flip with page direction, so a logical margin would misplace/misalign the marker in RTL
         marginTop: MARKER_SIZE / -2,
 
         // Add a shadow to the marker to make it stand out from the image.

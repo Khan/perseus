@@ -175,7 +175,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
 
     focusInputPath: (arg1: any) => void = (path) => {
         const inputID = getRefForPath(path);
-        // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs[inputID].focus();
     };
@@ -186,14 +185,12 @@ class Matrix extends React.Component<Props, State> implements Widget {
         }
 
         const inputID = getRefForPath(path);
-        // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
         this.refs[inputID].blur();
     };
 
     getDOMNodeForPath(path: FocusPath) {
         const inputID = getRefForPath(path);
-        // eslint-disable-next-line react/no-string-refs
         return ReactDOM.findDOMNode(this.refs[inputID]);
     }
 
@@ -205,7 +202,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
         const maxRow = this.props.matrixBoardSize[0];
         const maxCol = this.props.matrixBoardSize[1];
 
-        // eslint-disable-next-line react/no-string-refs
         const curInput = this.refs[getRefForPath(getInputPath(row, col))];
         // @ts-expect-error - TS2339 - Property 'getStringValue' does not exist on type 'ReactInstance'.
         const curValueString = curInput.getStringValue();
@@ -241,7 +237,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
             e.preventDefault();
 
             // Focus the input and move the cursor to the end of it.
-            // eslint-disable-next-line react/no-string-refs
             const input = this.refs[getRefForPath(nextPath)];
 
             // Multiply by 2 to ensure the cursor always ends up at the end;
@@ -360,6 +355,7 @@ class Matrix extends React.Component<Props, State> implements Widget {
                         className="matrix-bracket bracket-right"
                         style={{
                             height: bracketHeight,
+                            // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X: matrix bracket offset in authored LTR layout; content doesn't flip with page direction, so converting to insetInlineStart would misplace/misalign it in RTL
                             left: bracketOffset,
                         }}
                     />

@@ -50,7 +50,6 @@ class Measurer extends React.Component<Props> implements Widget {
     }
 
     setupGraphie() {
-        // eslint-disable-next-line react/no-string-refs
         const graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
         // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'empty' does not exist on type 'JQueryStatic'.
         $(graphieDiv).empty();
@@ -117,7 +116,9 @@ class Measurer extends React.Component<Props> implements Widget {
                     <div
                         style={{
                             position: "relative",
+                            // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: authored LTR coordinate (math/graph/image); content doesn't flip with page direction, so converting to logical insets would misplace/misalign it in RTL
                             top: image.top ?? 0,
+                            // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: authored LTR coordinate (math/graph/image); content doesn't flip with page direction, so converting to logical insets would misplace/misalign it in RTL
                             left: image.left ?? 0,
                         }}
                     >
@@ -130,7 +131,6 @@ class Measurer extends React.Component<Props> implements Widget {
                         />
                     </div>
                 )}
-                {/* eslint-disable-next-line react/no-string-refs */}
                 <div className="graphie" ref="graphieDiv" />
             </div>
         );

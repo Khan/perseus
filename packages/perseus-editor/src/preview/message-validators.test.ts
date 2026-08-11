@@ -83,14 +83,21 @@ describe("message-validators", () => {
             expect(isIframeToParentMessage([])).toBe(false);
         });
 
-        it("returns true for message with correct source but missing required fields", () => {
+        it("returns false for object missing a type", () => {
             const message = {
                 source: PREVIEW_MESSAGE_SOURCE,
             };
 
-            // Type guard only checks source, not message-specific fields
-            // This should still return true because the type guard is minimal
-            expect(isIframeToParentMessage(message)).toBe(true);
+            expect(isIframeToParentMessage(message)).toBe(false);
+        });
+
+        it("returns false for object with a non-string type", () => {
+            const message = {
+                source: PREVIEW_MESSAGE_SOURCE,
+                type: 42,
+            };
+
+            expect(isIframeToParentMessage(message)).toBe(false);
         });
     });
 
@@ -178,13 +185,21 @@ describe("message-validators", () => {
             expect(isParentToIframeMessage([1, 2, 3])).toBe(false);
         });
 
-        it("returns true for message with correct source (minimal validation)", () => {
+        it("returns false for object missing a type", () => {
             const message = {
                 source: PREVIEW_MESSAGE_SOURCE,
             };
 
-            // Type guard only checks source, not message-specific fields
-            expect(isParentToIframeMessage(message)).toBe(true);
+            expect(isParentToIframeMessage(message)).toBe(false);
+        });
+
+        it("returns false for object with a non-string type", () => {
+            const message = {
+                source: PREVIEW_MESSAGE_SOURCE,
+                type: {nested: "object"},
+            };
+
+            expect(isParentToIframeMessage(message)).toBe(false);
         });
 
         it("handles message with additional unexpected properties", () => {
@@ -205,7 +220,8 @@ describe("message-validators", () => {
                 type: "some-type",
             };
 
-            // Both type guards only check source, so this passes both
+            // Both type guards check only source + a string type, so this
+            // structurally valid message passes both.
             expect(isIframeToParentMessage(message)).toBe(true);
             expect(isParentToIframeMessage(message)).toBe(true);
         });

@@ -6908,6 +6908,7 @@ $3$ | $8$
             1,
             1,
           ],
+          "labelLocation": "onAxis",
           "labels": [
             "w",
             "d",
@@ -6938,6 +6939,7 @@ $3$ | $8$
           },
           "showProtractor": false,
           "showRuler": false,
+          "showTooltips": false,
           "snapStep": [
             0.5,
             0.5,
@@ -8002,6 +8004,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with
           "graph": {
             "type": "linear",
           },
+          "labelLocation": "onAxis",
           "labels": [
             "x",
             "y",
@@ -8444,6 +8447,7 @@ Locked figures:
             1,
             1,
           ],
+          "labelLocation": "onAxis",
           "labels": [
             "\\text{Re}",
             "\\text{Im}",
@@ -8517,6 +8521,7 @@ Locked figures:
             1,
             10,
           ],
+          "labelLocation": "onAxis",
           "labels": [
             "x",
             "y",
@@ -8580,6 +8585,7 @@ Locked figures:
             5,
             1,
           ],
+          "labelLocation": "onAxis",
           "labels": [
             "x",
             "y",
@@ -8641,6 +8647,7 @@ Locked figures:
             0.5,
             0.5,
           ],
+          "labelLocation": "onAxis",
           "labels": [
             "x",
             "y",
@@ -8702,6 +8709,7 @@ Locked figures:
             2,
             2,
           ],
+          "labelLocation": "onAxis",
           "labels": [
             "x",
             "y",
@@ -8763,6 +8771,7 @@ Locked figures:
             0.5,
             0.5,
           ],
+          "labelLocation": "onAxis",
           "labels": [
             "x",
             "y",
@@ -8824,6 +8833,7 @@ Locked figures:
             2,
             0.5,
           ],
+          "labelLocation": "onAxis",
           "labels": [
             "x",
             "y",
@@ -8897,6 +8907,7 @@ Locked figures:
             1,
             1,
           ],
+          "labelLocation": "onAxis",
           "labels": [
             "x",
             "y",
@@ -10086,6 +10097,7 @@ $\\begin{align}
                   "graph": {
                     "type": "linear",
                   },
+                  "labelLocation": "onAxis",
                   "labels": [
                     "x",
                     "y",
@@ -10369,6 +10381,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.ts 
             "graph": {
               "type": "linear",
             },
+            "labelLocation": "onAxis",
             "labels": [
               "x",
               "y",
@@ -10443,6 +10456,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.ts 
           "graph": {
             "type": "linear",
           },
+          "labelLocation": "onAxis",
           "labels": [
             "x",
             "y",
@@ -10506,6 +10520,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.ts 
           "graph": {
             "type": "linear",
           },
+          "labelLocation": "onAxis",
           "labels": [
             "x",
             "y",
@@ -10776,6 +10791,11 @@ $A$ $(1,0)$ is transformed into $A'$ $(4,7)$.  ",
             "numSides": 3,
             "type": "polygon",
           },
+          "labelLocation": "onAxis",
+          "labels": [
+            "$x$",
+            "$y$",
+          ],
           "lockedFigures": [],
           "markings": "none",
           "range": [
@@ -10799,6 +10819,7 @@ $A$ $(1,0)$ is transformed into $A'$ $(4,7)$.  ",
             "y": true,
           },
           "showProtractor": false,
+          "showTooltips": false,
           "step": [
             1,
             1,
@@ -11017,6 +11038,7 @@ Draw the rhombus in the first quadrant.
             1,
             1,
           ],
+          "labelLocation": "onAxis",
           "labels": [
             "x",
             "y",
@@ -11047,6 +11069,7 @@ Draw the rhombus in the first quadrant.
           },
           "showProtractor": false,
           "showRuler": false,
+          "showTooltips": false,
           "snapStep": [
             1,
             1,
@@ -11243,6 +11266,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
             1,
             1,
           ],
+          "labelLocation": "onAxis",
           "labels": [
             "x",
             "y",

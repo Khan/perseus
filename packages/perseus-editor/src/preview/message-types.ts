@@ -4,6 +4,7 @@
  */
 
 import type {SerializableApiOptions} from "./sanitize-api-options";
+import type {A11yIssue} from "../components/issues-panel";
 import type {
     Hint,
     PerseusItem,
@@ -29,8 +30,23 @@ export const PREVIEW_MESSAGE_SOURCE = "perseus-preview" as const;
 /**
  * Base type for all preview messages
  */
-interface PreviewMessageBase {
+// TODO(LEMS-4402): unexport this when ParentToIframeMessage contains all
+// current message types.
+export interface PreviewMessageBase {
     source: typeof PREVIEW_MESSAGE_SOURCE;
+}
+
+/**
+ * Base type for messages tied to a specific version of the preview content.
+ *
+ * `contentVersion` is a monotonic counter owned by the parent controller,
+ * stamped onto every content update and echoed back on the scan report and
+ * highlight commands it produces. It lets both sides discard results computed
+ * against content that has since been superseded by a newer edit — see the
+ * gating in `use-preview-controller.ts` / `use-preview-presenter.ts`.
+ */
+interface PreviewMessageVersioned extends PreviewMessageBase {
+    contentVersion: number;
 }
 
 /**
@@ -109,15 +125,103 @@ export type PreviewContent =
 /**
  * Message from parent sending content data to iframe
  */
-interface PreviewDataMessage extends PreviewMessageBase {
+interface PreviewDataMessage extends PreviewMessageVersioned {
     type: "content-data";
     content: PreviewContent;
 }
 
 /**
+ * Reply from parent to the iframe's `iframe-ready` handshake, carrying the
+ * full current preview state in one message. Sent once per `iframe-ready`
+ * (including a genuine reload, which re-announces readiness) — this way a
+ * freshly (re)loaded iframe never has to rely on messages sent before it was
+ * listening.
+ */
+interface PreviewIframeInitMessage extends PreviewMessageVersioned {
+    type: "iframe-init";
+    content: PreviewContent | null;
+    a11yScanningEnabled: boolean;
+}
+
+export function createPreviewIframeInitMessage(
+    content: PreviewContent | null,
+    a11yScanningEnabled: boolean,
+    contentVersion: number,
+): PreviewIframeInitMessage {
+    return {
+        source: PREVIEW_MESSAGE_SOURCE,
+        type: "iframe-init",
+        content,
+        a11yScanningEnabled,
+        contentVersion,
+    };
+}
+
+/**
+ * Command from parent telling the iframe to enable or disable axe-core
+ * accessibility scanning. When enabled, the iframe runs scans and reports back;
+ * when disabled, it neither imports nor runs axe-core.
+ */
+interface PreviewSetA11yScanningEnabledMessage extends PreviewMessageBase {
+    type: "set-a11y-scanning-enabled";
+    enabled: boolean;
+}
+
+export function createPreviewSetA11yScanningEnabledMessage(
+    enabled: boolean,
+): PreviewSetA11yScanningEnabledMessage {
+    return {
+        source: PREVIEW_MESSAGE_SOURCE,
+        type: "set-a11y-scanning-enabled",
+        enabled,
+    };
+}
+
+/**
+ * Command from parent telling the iframe to highlight the elements for the
+ * given instanceIds (the "Show Me" overlays drawn inside the iframe).
+ */
+interface PreviewHighlightIssuesMessage extends PreviewMessageVersioned {
+    type: "highlight-issues";
+    instanceIds: string[];
+}
+
+export function createPreviewHighlightIssuesMessage(
+    instanceIds: string[],
+    contentVersion: number,
+): PreviewHighlightIssuesMessage {
+    return {
+        source: PREVIEW_MESSAGE_SOURCE,
+        type: "highlight-issues",
+        instanceIds,
+        contentVersion,
+    };
+}
+
+/**
+ * Command from parent telling the iframe to remove any "Show Me" highlight
+ * overlays it is currently drawing.
+ */
+interface PreviewClearHighlightsMessage extends PreviewMessageBase {
+    type: "clear-highlights";
+}
+
+export function createPreviewClearHighlightsMessage(): PreviewClearHighlightsMessage {
+    return {
+        source: PREVIEW_MESSAGE_SOURCE,
+        type: "clear-highlights",
+    };
+}
+
+/**
  * Union of all messages sent from parent to iframe
  */
-export type ParentToIframeMessage = PreviewDataMessage;
+export type ParentToIframeMessage =
+    | PreviewDataMessage
+    | PreviewIframeInitMessage
+    | PreviewSetA11yScanningEnabledMessage
+    | PreviewHighlightIssuesMessage
+    | PreviewClearHighlightsMessage;
 
 // ---- Iframe → Parent messages ----
 
@@ -137,15 +241,48 @@ interface PreviewHeightUpdateMessage extends PreviewMessageBase {
 }
 
 /**
+ * Message from iframe reporting axe-core accessibility scan results back to the
+ * parent.
+ */
+interface PreviewA11yReportMessage extends PreviewMessageVersioned {
+    type: "a11y-report";
+    /** Violations are issues that are confirmed by the a11y scanner. **/
+    violations: A11yIssue[];
+    /**
+     * NeedsReview are issues that the scanner cannot definitively say is a
+     * violation or not. Requires manual review.
+     */
+    needsReview: A11yIssue[];
+}
+
+/**
  * Union of all messages sent from iframe to parent
  */
 export type IframeToParentMessage =
     | PreviewIframeReadyMessage
-    | PreviewHeightUpdateMessage;
+    | PreviewHeightUpdateMessage
+    | PreviewA11yReportMessage;
 
 export function createPreviewIframeReadyMessage(): PreviewIframeReadyMessage {
     return {
         source: PREVIEW_MESSAGE_SOURCE,
         type: "iframe-ready",
+    };
+}
+
+/**
+ * @public just to appease knip until the next PR.
+ */
+export function createPreviewA11yReportMessage(
+    violations: A11yIssue[],
+    needsReview: A11yIssue[],
+    contentVersion: number,
+): PreviewA11yReportMessage {
+    return {
+        source: PREVIEW_MESSAGE_SOURCE,
+        type: "a11y-report",
+        violations,
+        needsReview,
+        contentVersion,
     };
 }
