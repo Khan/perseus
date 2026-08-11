@@ -391,9 +391,6 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
     }
 
     function onNumDivisionsChange(numDivisions: number, cb?: () => void) {
-        const {range} = props.options;
-        const width = range[1] - range[0];
-
         // Don't allow a fraction for the number of divisions
         numDivisions = Math.round(numDivisions);
 
@@ -403,7 +400,10 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
         // If the number of divisions isn't blank, update the number line
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (numDivisions) {
-            const nextProps = {...props, tickStep: width / numDivisions};
+            const nextProps = {
+                ...props,
+                tickStep: getTickStep(props.options.range, numDivisions),
+            };
 
             const newNumLinePosition = snapNumLinePosition(
                 nextProps,
@@ -560,7 +560,6 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
     function renderGraphie() {
         // Position variables
         const range = props.options.range;
-        const width = range[1] - range[0];
 
         const options = {
             range,
@@ -573,7 +572,10 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
         //  around.
         const calculatedProps: CalculatedProps = {
             ...props,
-            tickStep: width / props.userInput.numDivisions,
+            tickStep: getTickStep(
+                props.options.range,
+                props.userInput.numDivisions,
+            ),
         };
 
         return (
@@ -724,6 +726,14 @@ function getStartNumDivisions(options: NumberLinePublicWidgetOptions) {
     }
 
     return numDivisions;
+}
+
+// The `range` parameter to `getTickStep` should really be typed as `Interval`.
+// It's `number[]` for compatibility with PerseusNumberLineWidgetOptions.
+function getTickStep(range: number[], numDivisions: number) {
+    const [min, max] = range;
+    const width = max - min;
+    return width / numDivisions;
 }
 
 function getCorrectUserInput(
