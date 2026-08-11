@@ -1030,6 +1030,12 @@ export type LockedFigureType = LockedFigure["type"];
 
 export type LockedLineStyle = "solid" | "dashed";
 
+/**
+ * Stroke style for fillable locked figures (polygons, ellipses): a solid or
+ * dashed border, or `"none"` to render the fill with no border at all.
+ */
+export type LockedFigureStrokeStyle = LockedLineStyle | "none";
+
 export type LockedPointType = {
     type: "point";
     coord: Coord;
@@ -1076,7 +1082,7 @@ export type LockedEllipseType = {
     angle: number;
     color: LockedFigureColor;
     fillStyle: LockedFigureFillType;
-    strokeStyle: LockedLineStyle;
+    strokeStyle: LockedFigureStrokeStyle;
     weight: StrokeWeight;
     labels: LockedLabelType[];
     ariaLabel?: string;
@@ -1088,7 +1094,7 @@ export type LockedPolygonType = {
     color: LockedFigureColor;
     showVertices: boolean;
     fillStyle: LockedFigureFillType;
-    strokeStyle: LockedLineStyle;
+    strokeStyle: LockedFigureStrokeStyle;
     weight: StrokeWeight;
     labels: LockedLabelType[];
     ariaLabel?: string;

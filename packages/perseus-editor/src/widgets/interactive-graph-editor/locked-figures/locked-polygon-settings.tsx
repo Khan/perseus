@@ -26,7 +26,9 @@ import PerseusEditorAccordion from "../../../components/perseus-editor-accordion
 import {TypedSingleSelect} from "../../../components/typed-single-select";
 
 import ColorSelect from "./color-select";
-import LineStrokeSelect from "./line-stroke-select";
+import LineStrokeSelect, {
+    fillableStrokeStyleOptions,
+} from "./line-stroke-select";
 import LineWeightSelect from "./line-weight-select";
 import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
@@ -237,6 +239,7 @@ const LockedPolygonSettings = (props: Props) => {
             {/* Stroke style */}
             <LineStrokeSelect
                 selectedValue={strokeStyle}
+                options={fillableStrokeStyleOptions}
                 editingDisabled={editingDisabled}
                 onChange={(value) => onChangeProps({strokeStyle: value})}
                 containerStyle={spaceUnderStyle}
