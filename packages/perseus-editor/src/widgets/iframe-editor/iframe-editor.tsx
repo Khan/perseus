@@ -3,32 +3,27 @@ import {Changeable, EditorJsonify} from "@khanacademy/perseus";
 import {
     iframeLogic,
     type IFrameDefaultWidgetOptions,
+    type PerseusCSProgramSetting,
 } from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import PropTypes from "prop-types";
 import * as React from "react";
 
 import BlurInput from "../../components/blur-input";
 
 type ChangeFn = typeof Changeable.change;
 
-type PairEditorProps = any;
+interface PairEditorProps
+    extends PerseusCSProgramSetting,
+        Changeable.ChangeableProps {}
 
 /**
  * This is used for editing a name/value pair.
+ *
+ * TODO: PairsEditor and PairEditor are duplicated
+ * between iframe-editor and cs-program-editor;
+ * we should consolidate them
  */
 class PairEditor extends React.Component<PairEditorProps> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        name: PropTypes.string,
-        value: PropTypes.string,
-    };
-
-    static defaultProps: PairEditorProps = {
-        name: "",
-        value: "",
-    };
-
     change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
@@ -55,22 +50,18 @@ class PairEditor extends React.Component<PairEditorProps> {
     }
 }
 
-type PairsEditorProps = any;
+interface PairsEditorProps extends Changeable.ChangeableProps {
+    pairs: PerseusCSProgramSetting[];
+}
 
 /**
  * This is used for editing a set of name/value pairs.
+ *
+ * TODO: PairsEditor and PairEditor are duplicated
+ * between iframe-editor and cs-program-editor;
+ * we should consolidate them
  */
 class PairsEditor extends React.Component<PairsEditorProps> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        pairs: PropTypes.arrayOf(
-            PropTypes.shape({
-                name: PropTypes.string,
-                value: PropTypes.string,
-            }),
-        ).isRequired,
-    };
-
     change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
@@ -102,16 +93,14 @@ class PairsEditor extends React.Component<PairsEditorProps> {
     }
 }
 
-type IframeEditorProps = any;
+interface IframeEditorProps
+    extends IFrameDefaultWidgetOptions,
+        Changeable.ChangeableProps {}
 
 /**
  * This is the main editor for this widget, to specify all the options.
  */
 class IframeEditor extends React.Component<IframeEditorProps> {
-    static propTypes = {
-        ...Changeable.propTypes,
-    };
-
     static widgetName = "iframe" as const;
 
     static defaultProps: IFrameDefaultWidgetOptions =
@@ -150,8 +139,7 @@ class IframeEditor extends React.Component<IframeEditorProps> {
                 <label>
                     Settings:
                     <PairsEditor
-                        name="settings"
-                        pairs={this.props.settings}
+                        pairs={this.props.settings ?? []}
                         onChange={this.handleSettingsChange}
                     />
                 </label>
@@ -159,7 +147,7 @@ class IframeEditor extends React.Component<IframeEditorProps> {
                 <label>
                     Width:
                     <BlurInput
-                        value={this.props.width}
+                        value={String(this.props.width)}
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("width")}
                     />
@@ -167,7 +155,7 @@ class IframeEditor extends React.Component<IframeEditorProps> {
                 <label>
                     Height:
                     <BlurInput
-                        value={this.props.height}
+                        value={String(this.props.height)}
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("height")}
                     />

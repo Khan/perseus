@@ -5,12 +5,12 @@ import {
     MatrixWidget,
 } from "@khanacademy/perseus";
 import {getMatrixSize, matrixLogic} from "@khanacademy/perseus-core";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../../editor";
 
+import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {MatrixDefaultWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -21,18 +21,11 @@ const Matrix = MatrixWidget.widget;
 // have to cap it at some point.
 const MAX_BOARD_SIZE = 6;
 
-type Props = any;
+interface Props extends MatrixDefaultWidgetOptions, Changeable.ChangeableProps {
+    apiOptions: APIOptionsWithDefaults;
+}
 
 class MatrixEditor extends React.Component<Props> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        matrixBoardSize: PropTypes.arrayOf(PropTypes.number).isRequired,
-        answers: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
-        prefix: PropTypes.string,
-        suffix: PropTypes.string,
-        cursorPosition: PropTypes.arrayOf(PropTypes.number),
-    };
-
     static widgetName = "matrix" as const;
 
     static defaultProps: MatrixDefaultWidgetOptions =
@@ -75,7 +68,17 @@ class MatrixEditor extends React.Component<Props> {
             onBlur: () => {},
             onFocus: () => {},
             trackInteraction: () => {},
-            userInput: {answers: this.props.answers},
+            // The widget renders learner input, which is string[][], while the
+            // editor stores the correct answers as number[][]. We show the
+            // answers in the preview, so they have to be stringified.
+            // Empty cells come back from JSON as null (a sparse row like
+            // [, , 5] serializes to [null, null, 5]), and those need to stay
+            // empty rather than becoming the text "null".
+            userInput: {
+                answers: this.props.answers.map((row) =>
+                    row.map((cell) => (cell == null ? "" : String(cell))),
+                ),
+            },
             handleUserInput: (userInput) => {
                 this.change({answers: userInput.answers});
             },
@@ -90,7 +93,6 @@ class MatrixEditor extends React.Component<Props> {
                     <RangeInput
                         value={this.props.matrixBoardSize}
                         onChange={this.onMatrixBoardSizeChange}
-                        format={this.props.labelStyle}
                         useArrowKeys={true}
                     />
                 </div>

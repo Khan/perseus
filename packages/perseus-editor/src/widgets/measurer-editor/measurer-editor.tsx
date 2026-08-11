@@ -2,7 +2,6 @@
 import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
 import {measurerLogic} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -18,26 +17,12 @@ const defaultImage = {
     left: 0,
 } as const;
 
-type Props = any;
+interface Props
+    extends MeasurerDefaultWidgetOptions,
+        Changeable.ChangeableProps {}
 
 class MeasurerEditor extends React.Component<Props> {
     static widgetName = "measurer" as const;
-
-    static propTypes = {
-        ...Changeable.propTypes,
-        box: PropTypes.arrayOf(PropTypes.number),
-        image: PropTypes.shape({
-            url: PropTypes.string,
-            top: PropTypes.number,
-            left: PropTypes.number,
-        }),
-        showProtractor: PropTypes.bool,
-        showRuler: PropTypes.bool,
-        rulerLabel: PropTypes.string,
-        rulerTicks: PropTypes.number,
-        rulerPixels: PropTypes.number,
-        rulerLength: PropTypes.number,
-    };
 
     static defaultProps: MeasurerDefaultWidgetOptions =
         measurerLogic.defaultWidgetOptions;

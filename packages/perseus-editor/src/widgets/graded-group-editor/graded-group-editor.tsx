@@ -1,17 +1,16 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/forbid-prop-types */
-import {components, ApiOptions, Changeable} from "@khanacademy/perseus";
+import {components, Changeable} from "@khanacademy/perseus";
 import {gradedGroupLogic} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
-import PropTypes from "prop-types";
 import * as React from "react";
 
 import Editor from "../../editor";
 
 import styles from "./graded-group-editor.module.css";
 
+import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
     GradedGroupDefaultWidgetOptions,
     PerseusRenderer,
@@ -19,18 +18,13 @@ import type {
 
 const {TextInput} = components;
 
-type Props = any;
+interface Props
+    extends GradedGroupDefaultWidgetOptions,
+        Changeable.ChangeableProps {
+    apiOptions?: APIOptionsWithDefaults;
+}
 
 class GradedGroupEditor extends React.Component<Props> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        title: PropTypes.string,
-        content: PropTypes.string,
-        widgets: PropTypes.object,
-        images: PropTypes.object,
-        apiOptions: ApiOptions.propTypes,
-    };
-
     static widgetName = "graded-group" as const;
 
     static defaultProps: GradedGroupDefaultWidgetOptions =
@@ -111,14 +105,10 @@ class GradedGroupEditor extends React.Component<Props> {
                         <div className={styles.hintsTitle}>Hint</div>
                         <Editor
                             ref={this.hintEditor}
-                            content={
-                                this.props.hint ? this.props.hint.content : ""
-                            }
-                            widgets={
-                                this.props.hint ? this.props.hint.widgets : {}
-                            }
+                            content={this.props.hint.content}
+                            widgets={this.props.hint.widgets}
                             apiOptions={this.props.apiOptions}
-                            images={this.props.hint && this.props.hint.images}
+                            images={this.props.hint.images}
                             widgetEnabled={true}
                             onChange={(props) => {
                                 // Copy all props over from the existing hint

@@ -1,25 +1,21 @@
-/* eslint-disable react/forbid-prop-types */
-import {ApiOptions, Changeable} from "@khanacademy/perseus";
+import {Changeable} from "@khanacademy/perseus";
 import {gradedGroupSetLogic} from "@khanacademy/perseus-core";
-import PropTypes from "prop-types";
 import * as React from "react";
 
 import GradedGroupEditor from "../graded-group-editor";
 
+import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {GradedGroupSetDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
-type Props = any;
+interface Props
+    extends GradedGroupSetDefaultWidgetOptions,
+        Changeable.ChangeableProps {
+    apiOptions?: APIOptionsWithDefaults;
+}
 
 class GradedGroupSetEditor extends React.Component<Props> {
     // @ts-expect-error - TS2564 - Property '_editors' has no initializer and is not definitely assigned in the constructor.
     _editors: Array<any>;
-
-    static propTypes = {
-        ...Changeable.propTypes,
-        apiOptions: ApiOptions.propTypes,
-        gradedGroups: PropTypes.array,
-        onChange: PropTypes.func.isRequired,
-    };
 
     static widgetName = "graded-group-set" as const;
 
@@ -51,23 +47,22 @@ class GradedGroupSetEditor extends React.Component<Props> {
         };
     };
 
-    renderGroups: () => React.ReactElement = () => {
-        if (!this.props.gradedGroups) {
-            return null;
-        }
-        return this.props.gradedGroups.map((group, i) => (
+    renderGroups: () => React.ReactNode = () => {
+        // `defaultProps` only fills in for `undefined`, so content with an
+        // explicit `gradedGroups: null` still reaches us as null.
+        const gradedGroups = this.props.gradedGroups ?? [];
+        return gradedGroups.map((group, i) => (
             <GradedGroupEditor
                 key={i}
                 ref={(el) => (this._editors[i] = el)}
                 {...group}
                 apiOptions={this.props.apiOptions}
-                widgetEnabled={true}
                 onChange={(data) =>
                     // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
                     this.change(
                         "gradedGroups",
-                        setArrayItem(this.props.gradedGroups, i, {
-                            ...this.props.gradedGroups[i],
+                        setArrayItem(gradedGroups, i, {
+                            ...gradedGroups[i],
                             ...data,
                         }),
                     )
@@ -77,7 +72,7 @@ class GradedGroupSetEditor extends React.Component<Props> {
     };
 
     addGroup: () => void = () => {
-        const groups = this.props.gradedGroups || [];
+        const groups = this.props.gradedGroups ?? [];
         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
         this.change(
             "gradedGroups",
