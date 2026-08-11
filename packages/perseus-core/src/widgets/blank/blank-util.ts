@@ -12,6 +12,6 @@ export type BlankPublicWidgetOptions = Pick<
 export function getBlankPublicWidgetOptions(
     options: PerseusBlankWidgetOptions,
 ): BlankPublicWidgetOptions {
-    const {correctId: _, ...publicWidgetOptions} = options;
+    const {correctId, ...publicWidgetOptions} = options;
     return publicWidgetOptions;
 }
