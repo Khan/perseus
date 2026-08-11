@@ -1,17 +1,17 @@
 # ColorSync Widget Migration Progress Report — graded-group
 
-Widget: `graded-group` (shared stylesheet `packages/perseus/src/styles/widgets/group.css`, shared
+Widget: `graded-group` (shared stylesheet `../../../packages/perseus/src/styles/widgets/group.css`, shared
 with the `group` widget — see the companion `group` report for that widget's own finding in the
 same file)
 Workflow: colorsync-widget-migration
 Started: 2026-08-07
-Note: found during a full sweep of every CSS file under `packages/perseus/src/widgets/` (plus
-the shared `packages/perseus/src/styles/widgets/` stylesheets), requested after the `table`/
+Note: found during a full sweep of every CSS file under `../../../packages/perseus/src/widgets` (plus
+the shared `../../../packages/perseus/src/styles/widgets` stylesheets), requested after the `table`/
 `interactive-graph`/`label-image` follow-up work. Folded into the current work stream per user
 direction, no new ticket filed.
 
 ## Step 1 — Audit the Widget
-`graded-group` has its own stylesheet, `packages/perseus/src/styles/widgets/graded-group.css`,
+`graded-group` has its own stylesheet, `../../../packages/perseus/src/styles/widgets/graded-group.css`,
 separate from (but parallel in structure to) `group.css`. Two findings:
 
 - `.answer-correct { border-left: 3px solid ...success-default; }` and

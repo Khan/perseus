@@ -1,10 +1,10 @@
 # ColorSync Widget Migration Progress Report — matrix
 
-Widget: `matrix` (shared stylesheet `packages/perseus/src/styles/widgets/matrix.css`)
+Widget: `matrix` (shared stylesheet `../../../packages/perseus/src/styles/widgets/matrix.css`)
 Workflow: colorsync-widget-migration
 Started: 2026-08-07
-Note: found during a full sweep of every CSS file under `packages/perseus/src/widgets/` (plus
-the shared `packages/perseus/src/styles/widgets/` stylesheets), requested after the `table`/
+Note: found during a full sweep of every CSS file under `../../../packages/perseus/src/widgets` (plus
+the shared `../../../packages/perseus/src/styles/widgets` stylesheets), requested after the `table`/
 `interactive-graph`/`label-image` follow-up work. Folded into the current work stream per user
 direction, no new ticket filed.
 
