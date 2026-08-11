@@ -43,7 +43,7 @@ class PlaceholderCard extends React.Component<PlaceholderCardProps> {
                 <div
                     className="card placeholder"
                     // eslint-disable-next-line no-restricted-syntax
-                    style={{height: this.props.width as number}}
+                    style={{height: this.props.height as number}}
                 />
             </div>
         );
