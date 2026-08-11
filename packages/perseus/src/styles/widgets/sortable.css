@@ -7,7 +7,6 @@
     border-radius: var(--wb-border-radius-radius_040);
 }
 .draggy-boxy-thing .card {
-    /* Cards being dragged */
     background-color: var(--wb-semanticColor-core-background-base-default);
     border: var(--wb-border-width-thin) solid
         var(--wb-semanticColor-core-border-neutral-subtle);
@@ -17,55 +16,31 @@
     box-shadow: var(--wb-boxShadow-low);
 }
 .draggy-boxy-thing .card.placeholder {
-    /* The dashed line box changes color when dragging a card */
-    background: var(--wb-semanticColor-core-background-neutral-subtle);
+    /* The dashed line box when dragging a card to it */
+    background: var(--wb-semanticColor-core-background-base-subtle);
     border: var(--wb-border-width-thin) solid
         var(--wb-semanticColor-core-border-neutral-subtle);
 }
 .draggy-boxy-thing .card.drag-hint {
     /* Dashed line box */
-    background: var(
-        --wb-semanticColor-core-background-base-subtle
-    ); /* from caitlyn's comment */
+    background: var(--wb-semanticColor-core-background-base-subtle);
     border: var(--wb-border-width-thin) dashed
         var(--wb-semanticColor-core-border-neutral-default);
-    /*cursor: auto;*/
-    border-radius: var(
-        --wb-border-radius-radius_040
-    ); /* from caitlyn's comment */
-}
-/*.draggy-boxy-thing .card.drag-hint:hover {*/
-/*    border-color: var(--wb-semanticColor-core-border-neutral-default);*/
-/*    box-shadow: none;*/
-/*}*/
-.draggy-boxy-thing .card.dragging {
-    /*background-color: var(*/
-    /*    --wb-semanticColor-core-background-instructive-subtle*/
-    /*);*/
-    /*opacity: 0.8;*/
-    /*filter: opacity(0.8);*/ /* from caitlyn's comment */
-    cursor: grabbing; /* from caitlyn's comment */
-}
-.draggy-boxy-thing .card.stack {
-    z-index: auto;
-}
-.draggy-boxy-thing .card.stack:after {
-    content: " ";
-    background-color: var(--wb-semanticColor-core-background-base-default);
-    border: var(--wb-border-width-thin) solid
-        var(--wb-semanticColor-core-border-neutral-subtle);
-    border-bottom-color: var(--wb-semanticColor-core-border-neutral-default);
     border-radius: var(--wb-border-radius-radius_040);
-    height: 100%;
-    width: 100%;
-    z-index: -1;
-    top: 1px;
-    left: 1px;
-    position: absolute;
+    box-shadow: none;
+}
+.draggy-boxy-thing .card.drag-hint:hover {
+    /* Styles to modify behavior of dashed line box on hover;
+    otherwise, it follows the card styling */
+    border-color: var(--wb-semanticColor-core-border-neutral-default);
+    box-shadow: none;
+    cursor: default;
+}
+.draggy-boxy-thing .card.dragging,
+.draggy-boxy-thing .card.dragging:hover {
+    cursor: grabbing;
 }
 .draggy-boxy-thing .card:hover {
-    /*border-color: var(--wb-semanticColor-core-border-warning-default);*/
-    /*box-shadow: 0 0 4px var(--wb-semanticColor-core-border-warning-strong);*/
     box-shadow: var(--wb-boxShadow-mid);
     cursor: grab;
 }
