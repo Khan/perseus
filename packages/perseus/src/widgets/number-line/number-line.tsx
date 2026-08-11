@@ -378,12 +378,12 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
     function snapNumLinePosition(
         range: number[],
         snapDivisions: number,
-        calculatedProps: CalculatedProps,
+        tickStep: number,
         numLinePosition: number,
     ): number {
         const left = range[0];
         const right = range[1];
-        const snapX = calculatedProps.tickStep / snapDivisions;
+        const snapX = tickStep / snapDivisions;
 
         let x = bound(numLinePosition, left, right);
         x = left + knumber.roundTo(x - left, snapX);
@@ -409,7 +409,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
             const newNumLinePosition = snapNumLinePosition(
                 nextProps.options.range,
                 nextProps.options.snapDivisions,
-                nextProps,
+                nextProps.tickStep,
                 props.userInput.numLinePosition,
             );
 
@@ -507,7 +507,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                         const x = snapNumLinePosition(
                             calculatedProps.options.range,
                             calculatedProps.options.snapDivisions,
-                            calculatedProps,
+                            calculatedProps.tickStep,
                             coord[0],
                         );
                         return [x, coord[1]];
