@@ -1942,7 +1942,6 @@ describe("Interactive Graph", function () {
                     lockedFigures: [
                         generateIGLockedPolygon({
                             strokeStyle: "none",
-                            fillStyle: "translucent",
                         }),
                     ],
                 }),
@@ -1965,7 +1964,6 @@ describe("Interactive Graph", function () {
                     lockedFigures: [
                         generateIGLockedEllipse({
                             strokeStyle: "none",
-                            fillStyle: "translucent",
                         }),
                     ],
                 }),
