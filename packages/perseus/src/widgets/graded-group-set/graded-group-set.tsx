@@ -18,7 +18,7 @@ import type {
     PerseusDependenciesV2,
     Widget,
     WidgetExports,
-    WidgetProps,
+    WidgetPropsV2,
 } from "../../types";
 import type {GradedGroupSetPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
 import type {
@@ -91,7 +91,7 @@ class Indicators extends React.Component<IndicatorsProps> {
     }
 }
 
-type Props = WidgetProps<PerseusGradedGroupSetWidgetOptions> & {
+type Props = WidgetPropsV2<PerseusGradedGroupSetWidgetOptions> & {
     trackInteraction: () => void;
     dependencies: PerseusDependenciesV2;
 };
@@ -148,7 +148,7 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
 
     handleNextQuestion: () => void = () => {
         const {currentGroup} = this.state;
-        const numGroups = this.props.gradedGroups.length;
+        const numGroups = this.props.options.gradedGroups.length;
 
         if (currentGroup < numGroups - 1) {
             this.setState({currentGroup: currentGroup + 1});
@@ -161,11 +161,12 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
         // to click and switch between different graded groups. Translators
         // prefer to see all strings/labels on all GradedGroups readily visible
         // together instead of clicking on indicators to switch between them.
+        const {gradedGroups} = this.props.options;
         const {JIPT} = getDependencies();
-        if (JIPT.useJIPT && this.props.gradedGroups.length > 1) {
+        if (JIPT.useJIPT && gradedGroups.length > 1) {
             return (
                 <div className={css(styles.container)}>
-                    {this.props.gradedGroups.map((gradedGroup, i) => {
+                    {gradedGroups.map((gradedGroup, i) => {
                         return (
                             <GradedGroup
                                 key={i}
@@ -180,14 +181,14 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
             );
         }
 
-        const currentGroup = this.props.gradedGroups[this.state.currentGroup];
+        const currentGroup = gradedGroups[this.state.currentGroup];
 
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!currentGroup) {
             return <span>No current group...</span>;
         }
 
-        const numGroups = this.props.gradedGroups.length;
+        const numGroups = gradedGroups.length;
         const handleNextQuestion =
             this.state.currentGroup < numGroups - 1
                 ? this.handleNextQuestion
@@ -202,7 +203,7 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
                     <div className={css(styles.spacer)} />
                     <Indicators
                         currentGroup={this.state.currentGroup}
-                        gradedGroups={this.props.gradedGroups}
+                        gradedGroups={gradedGroups}
                         onChangeCurrentGroup={(currentGroup) =>
                             this.setState({currentGroup})
                         }

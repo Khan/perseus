@@ -37,4 +37,5 @@ export const MIGRATED_WIDGETS: ReadonlyArray<string> = [
     "label-image",
     "interactive-graph",
     "group",
+    "graded-group-set",
 ];
