@@ -29,7 +29,9 @@ class DefinitionEditor extends React.Component<Props> {
     static defaultProps: DefinitionDefaultWidgetOptions =
         definitionLogic.defaultWidgetOptions;
 
-    static initializeWidgetOptions(params: InitializeWidgetOptionsParams) {
+    static initializeWidgetOptions(
+        params: InitializeWidgetOptionsParams,
+    ): DefinitionDefaultWidgetOptions {
         const defaultWidgetOptions = {
             ...definitionLogic.defaultWidgetOptions,
         };
