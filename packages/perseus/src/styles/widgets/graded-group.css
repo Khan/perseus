@@ -5,8 +5,6 @@
     padding-left: 5px;
 }
 .framework-perseus .perseus-graded-group.answer-correct {
-    /* 3px has no exact border-width token; equidistant between medium (2px)
-       and thick (4px), so the smaller value was chosen. */
     border-left: var(--wb-border-width-medium) solid
         var(--wb-semanticColor-core-border-success-default);
     margin-left: 0;
@@ -17,8 +15,6 @@
     margin-left: 0;
 }
 .framework-perseus .perseus-graded-group .group-icon {
-    /* This sizes an InlineIcon via em-relative font-size, not text — use
-       sizing.* rather than a font.* token. */
     font-size: var(--wb-sizing-size_140);
     position: absolute;
     top: 50%;
