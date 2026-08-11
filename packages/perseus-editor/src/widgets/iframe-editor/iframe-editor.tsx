@@ -20,11 +20,6 @@ interface PairEditorProps
  * This is used for editing a name/value pair.
  */
 class PairEditor extends React.Component<PairEditorProps> {
-    static defaultProps: PerseusCSProgramSetting = {
-        name: "",
-        value: "",
-    };
-
     change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
@@ -144,7 +139,7 @@ class IframeEditor extends React.Component<IframeEditorProps> {
                 <label>
                     Width:
                     <BlurInput
-                        value={String(this.props.width ?? "")}
+                        value={String(this.props.width)}
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("width")}
                     />
@@ -152,7 +147,7 @@ class IframeEditor extends React.Component<IframeEditorProps> {
                 <label>
                     Height:
                     <BlurInput
-                        value={String(this.props.height ?? "")}
+                        value={String(this.props.height)}
                         // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                         onChange={this.change("height")}
                     />

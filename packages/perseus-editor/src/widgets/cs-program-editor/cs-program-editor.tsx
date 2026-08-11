@@ -8,7 +8,7 @@ import {
     EditorJsonify,
     Log,
 } from "@khanacademy/perseus";
-import {csProgramLogic, Errors} from "@khanacademy/perseus-core";
+import {Errors} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import $ from "jquery";
 import * as React from "react";
@@ -74,10 +74,6 @@ interface PairsEditorProps extends Changeable.ChangeableProps {
  * This is used for editing a set of name/value pairs.
  */
 class PairsEditor extends React.Component<PairsEditorProps> {
-    static defaultProps: {pairs: PerseusCSProgramSetting[]} = {
-        pairs: [],
-    };
-
     change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
@@ -134,9 +130,6 @@ interface CSProgramEditorProps
  */
 class CSProgramEditor extends React.Component<CSProgramEditorProps> {
     static widgetName = "cs-program" as const;
-
-    static defaultProps: CSProgramDefaultWidgetOptions =
-        csProgramLogic.defaultWidgetOptions;
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
         // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
