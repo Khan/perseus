@@ -233,6 +233,10 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
     const {strings} = usePerseusI18n();
     const propsRef = useLatestRef(props);
     const [numDivisionsEmpty, setNumDivisionsEmpty] = useState(false);
+    const tickStep = getTickStep(
+        props.options.range,
+        props.userInput.numDivisions,
+    );
 
     // Ref to the <Graphie> instance. Its `movables` map is populated by the
     // string `ref` on <MovablePoint> below (Graphie consumes those children
@@ -450,10 +454,6 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
     }
 
     function renderNumberLinePoint() {
-        const tickStep = getTickStep(
-            props.options.range,
-            props.userInput.numDivisions,
-        );
         const isOpen = ["lt", "gt"].includes(props.userInput.rel);
 
         // In static mode the point's fill and stroke is blue to signify that
@@ -557,11 +557,6 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
             range,
             isTickCtrl: props.options.isTickCtrl,
         };
-
-        const tickStep = getTickStep(
-            props.options.range,
-            props.userInput.numDivisions,
-        );
 
         return (
             <Graphie
