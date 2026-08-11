@@ -3,7 +3,6 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 
 import {mapAxeResults} from "./a11y/map-axe-results";
-import {logBridgeMessage} from "./bridge-debug-log";
 import {
     createPreviewA11yReportMessage,
     createPreviewIframeReadyMessage,
@@ -18,11 +17,10 @@ import type {
 } from "./message-types";
 
 /**
- * Sends a message up to the parent editor, logging it when bridge debugging
- * is enabled.
+ * Sends a message up to the parent editor. The "/" target origin keeps preview
+ * messages same-origin.
  */
 function postToParent(message: IframeToParentMessage): void {
-    logBridgeMessage("→parent", message);
     window.parent.postMessage(message, "/");
 }
 
@@ -124,8 +122,6 @@ export function usePreviewPresenter(
             if (!isParentToIframeMessage(message)) {
                 return;
             }
-
-            logBridgeMessage("←parent", message);
 
             switch (message.type) {
                 case "content-data":

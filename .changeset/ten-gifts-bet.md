@@ -2,8 +2,7 @@
 "@khanacademy/perseus-editor": patch
 ---
 
-Add opt-in logging of preview bridge messages, in both directions, to make
-diagnosing a silent or looping preview possible without hand-instrumenting
-`postMessage` in the console. Off unless
-`window.__PERSEUS_PREVIEW_BRIDGE_DEBUG__` is set to `true` in either the editor
-or the preview iframe frame.
+Log a one-time console hint when a preview controller mounts, giving a
+paste-able snippet for watching messages cross the preview bridge. The bridge is
+otherwise invisible, so a preview that looks stuck can't be told apart from one
+whose messages are being ignored.
