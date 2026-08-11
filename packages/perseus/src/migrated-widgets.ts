@@ -36,4 +36,5 @@ export const MIGRATED_WIDGETS: ReadonlyArray<string> = [
     "expression",
     "label-image",
     "interactive-graph",
+    "group",
 ];
