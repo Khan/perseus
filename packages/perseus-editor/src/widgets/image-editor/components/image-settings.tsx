@@ -198,7 +198,7 @@ export default function ImageSettings({
 const wbStyles = StyleSheet.create({
     characterCounter: {
         position: "absolute",
-        bottom: 0,
-        right: 8,
+        insetBlockEnd: 0,
+        insetInlineEnd: 8,
     },
 });

@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
         // Absolute positioning relative to the lintContainer element
         position: "absolute",
         // Top of the hover target is aligned with the top of the linty block
-        top: 0,
+        insetBlockStart: 0,
 
         // We want the hover target in the right margin. It is 24px wide, but
         // we have to offset it another 16px because of margins in the
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
         // This is the part of the CSS that doesn't work right when
         // applied to things like blockquotes that have different right
         // margins.
-        right: -40,
+        insetInlineEnd: -40,
 
         // The hover target is a 24x24 block element.
         display: "block",
@@ -277,14 +277,14 @@ const styles = StyleSheet.create({
         // We can't use absolute positioning as we do in the block case
         // because the horizontal position is not predictable in the
         // inline case.
-        float: "right",
+        float: "inline-end",
 
         // We still have to make the hover target relative so that the
         // tooltip can be positioned relative to it.
         position: "relative",
 
         // See the comment above about the extra 16px of offset needed here.
-        marginRight: -40,
+        marginInlineEnd: -40,
 
         // The hover target is a 24x24 block. Same as the block case
         display: "block",
@@ -320,7 +320,7 @@ const styles = StyleSheet.create({
         // overflow rule. We position these icons to the left of the block
         // where there is some room.
         position: "absolute",
-        left: -40,
+        insetInlineStart: -40,
 
         // The hover target is a 24x24 block. Same as the block case
         display: "block",
@@ -329,7 +329,7 @@ const styles = StyleSheet.create({
 
         // By specifying a fixed minimum width, the tooltip will hover in a
         // readable position above and to the right.
-        minWidth: 264,
+        minInlineSize: 264,
 
         // The indicator is in a span inside the hover target.
         // This style changes its color on hover.
@@ -350,7 +350,7 @@ const styles = StyleSheet.create({
         // Move the tooltip tail to an appropriate position relative to the
         // tooltip.
         ":hover > div > div": {
-            left: 8,
+            insetInlineStart: 8,
         },
 
         // The linty content is in a <span> sibling that follows the
@@ -392,7 +392,7 @@ const styles = StyleSheet.create({
     tooltip: {
         // Absolute positioning relative to the lint indicator circle.
         position: "absolute",
-        right: -12,
+        insetInlineEnd: -12,
 
         // The tooltip is hidden by default; only displayed on hover
         display: "none",
@@ -413,7 +413,7 @@ const styles = StyleSheet.create({
     // If we're going to render the tooltip above the warning circle, we use
     // the previous rules in tooltip, but change the position slightly.
     tooltipAbove: {
-        bottom: 32,
+        insetBlockEnd: 32,
     },
 
     // We give the tooltip a little triangular "tail" that points down at
@@ -422,21 +422,21 @@ const styles = StyleSheet.create({
     // the standard CSS trick for drawing triangles with a thick border.
     tail: {
         position: "absolute",
-        top: -12,
-        right: 16,
+        insetBlockStart: -12,
+        insetInlineEnd: 16,
         width: 0,
         height: 0,
 
         // This is the CSS triangle trick
-        borderLeft: "8px solid transparent",
-        borderRight: "8px solid transparent",
-        borderBottom: "12px solid " + constants.gray17,
+        borderInlineStart: "8px solid transparent",
+        borderInlineEnd: "8px solid transparent",
+        borderBlockEnd: "12px solid " + constants.gray17,
     },
     tailAbove: {
-        bottom: -12,
-        borderBottom: "none",
-        borderTop: "12px solid " + constants.gray17,
-        top: "auto",
+        insetBlockEnd: -12,
+        borderBlockEnd: "none",
+        borderBlockStart: "12px solid " + constants.gray17,
+        insetBlockStart: "auto",
     },
 
     // Each warning in the tooltip is its own <p>. They are 12 pixels from

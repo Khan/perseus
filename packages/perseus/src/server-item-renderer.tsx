@@ -423,7 +423,7 @@ export class ServerItemRenderer
 
 const styles = StyleSheet.create({
     hintsContainer: {
-        marginLeft: 50,
+        marginInlineStart: 50,
     },
 });
 

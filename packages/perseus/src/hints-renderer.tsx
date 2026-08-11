@@ -256,7 +256,7 @@ class HintsRenderer extends React.Component<Props, State> {
 
 const styles = StyleSheet.create({
     mobileHintStylesHintsRenderer: {
-        marginTop: sizing.size_640,
+        marginBlockStart: sizing.size_640,
         border: `solid ${semanticColor.core.border.neutral.subtle}`,
         borderWidth: "1px 0 0 0",
 
@@ -277,16 +277,16 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         color: semanticColor.core.foreground.neutral.strong,
 
-        paddingTop: sizing.size_160,
-        paddingBottom: sizing.size_240,
+        paddingBlockStart: sizing.size_160,
+        paddingBlockEnd: sizing.size_240,
 
         [mediaQueries.lgOrSmaller]: {
-            paddingLeft: 0,
+            paddingInlineStart: 0,
         },
         [mediaQueries.smOrSmaller]: {
             // On phones, ensure that the button is aligned with the hint body
             // content.
-            paddingLeft: `calc(${hintPaddingInlineStart} + ${hintBorderWidth})`,
+            paddingInlineStart: `calc(${hintPaddingInlineStart} + ${hintBorderWidth})`,
         },
     },
 });

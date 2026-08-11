@@ -116,7 +116,9 @@ class Measurer extends React.Component<Props> implements Widget {
                     <div
                         style={{
                             position: "relative",
+                            // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: authored LTR coordinate (math/graph/image); content doesn't flip with page direction, so converting to logical insets would misplace/misalign it in RTL
                             top: image.top ?? 0,
+                            // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: authored LTR coordinate (math/graph/image); content doesn't flip with page direction, so converting to logical insets would misplace/misalign it in RTL
                             left: image.left ?? 0,
                         }}
                     >

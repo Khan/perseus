@@ -28,12 +28,12 @@ function spinner() {
     return (
         <span
             style={{
-                top: 0,
-                left: 0,
+                insetBlockStart: 0,
+                insetInlineStart: 0,
                 width: "100%",
                 height: "100%",
                 position: "absolute",
-                minWidth: "20px",
+                minInlineSize: "20px",
                 display: "flex",
                 justifyContent: "center",
                 alignContent: "center",

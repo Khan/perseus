@@ -1024,7 +1024,7 @@ const styles = StyleSheet.create({
         position: "relative",
         display: "inline-block",
         verticalAlign: "middle",
-        maxWidth: inputMaxWidth,
+        maxInlineSize: inputMaxWidth,
     },
 });
 

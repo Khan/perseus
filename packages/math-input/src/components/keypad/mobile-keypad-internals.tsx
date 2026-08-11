@@ -243,9 +243,9 @@ class MobileKeypadInternals
 
 const styles = StyleSheet.create({
     keypadContainer: {
-        bottom: 0,
-        left: 0,
-        right: 0,
+        insetBlockEnd: 0,
+        insetInlineStart: 0,
+        insetInlineEnd: 0,
         position: "fixed",
         // Having the border will make the experience consistent with the desktop
         // keypad which has a border.
