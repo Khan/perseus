@@ -395,15 +395,12 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
         // If the number of divisions isn't blank, update the number line
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (numDivisions) {
-            const nextProps = {
-                ...props,
-                tickStep: getTickStep(props.options.range, numDivisions),
-            };
+            const newTickStep = getTickStep(props.options.range, numDivisions);
 
             const newNumLinePosition = snapNumLinePosition(
-                nextProps.options.range,
-                nextProps.options.snapDivisions,
-                nextProps.tickStep,
+                props.options.range,
+                props.options.snapDivisions,
+                newTickStep,
                 props.userInput.numLinePosition,
             );
 
