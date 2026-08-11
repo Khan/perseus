@@ -7,11 +7,7 @@ import {
 export const basicBlankQuestion = generateTestPerseusRenderer({
     content: "Hello my name is [[☃ blank 1]]",
     widgets: {
-        "blank 1": generateBlankWidget({
-            options: generateBlankOptions({
-                correct: "answer-tile-1",
-            }),
-        }),
+        "blank 1": generateBlankWidget(),
     },
 });
 export const superscriptQuestion = generateTestPerseusRenderer({
@@ -20,7 +16,6 @@ export const superscriptQuestion = generateTestPerseusRenderer({
         "blank 1": generateBlankWidget({
             options: generateBlankOptions({
                 displayType: "superscript",
-                correct: "answer-tile-1",
             }),
         }),
     },
@@ -31,7 +26,6 @@ export const subscriptQuestion = generateTestPerseusRenderer({
         "blank 1": generateBlankWidget({
             options: generateBlankOptions({
                 displayType: "subscript",
-                correct: "answer-tile-1",
             }),
         }),
     },

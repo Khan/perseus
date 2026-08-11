@@ -1,8 +1,8 @@
 import type {PerseusBlankWidgetOptions} from "../../data-schema";
 
-export type BlankPublicWidgetOptions = Omit<
+export type BlankPublicWidgetOptions = Pick<
     PerseusBlankWidgetOptions,
-    "correct"
+    "displayType"
 >;
 
 /**
