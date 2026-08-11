@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 34.1.0
+
+### Minor Changes
+
+-   [#4004](https://github.com/Khan/perseus/pull/4004) [`4639d92`](https://github.com/Khan/perseus/commit/4639d927508f40a0aeb43e31beac46ba266355dd) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Add "none" (fill-only) stroke style for locked polygons and ellipses
+
 ## 34.0.2
 
 ### Patch Changes
