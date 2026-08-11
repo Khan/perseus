@@ -533,7 +533,7 @@ review and commit the changes.
 Migrate these **one at a time**, stopping after each step for the user to
 review and commit the changes.
 
-- [ ] Migrate `orderer` to `WidgetPropsV2` — ⚠ its options include a field named
+- [x] Migrate `orderer` to `WidgetPropsV2` — ⚠ its options include a field named
       `options` (`this.props.options[index]` → `this.props.options.options[index]`);
       it has two `static defaultProps` (the `Card` sub-component's and the widget's
       `userInput`-bearing one) — relocate only the option-field defaults.

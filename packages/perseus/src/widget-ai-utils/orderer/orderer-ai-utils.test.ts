@@ -39,23 +39,25 @@ describe("Orderer AI utils", () => {
         };
 
         const widgetData: any = {
-            options: [
-                {
-                    content: "Third item",
-                    images: {},
-                    widgets: {},
-                },
-                {
-                    content: "First item",
-                    images: {},
-                    widgets: {},
-                },
-                {
-                    content: "Second item",
-                    images: {},
-                    widgets: {},
-                },
-            ],
+            options: {
+                options: [
+                    {
+                        content: "Third item",
+                        images: {},
+                        widgets: {},
+                    },
+                    {
+                        content: "First item",
+                        images: {},
+                        widgets: {},
+                    },
+                    {
+                        content: "Second item",
+                        images: {},
+                        widgets: {},
+                    },
+                ],
+            },
             userInput,
         };
 
