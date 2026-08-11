@@ -3,6 +3,7 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 
 import {mapAxeResults} from "./a11y/map-axe-results";
+import {logBridgeMessage} from "./bridge-debug-log";
 import {
     createPreviewA11yReportMessage,
     createPreviewIframeReadyMessage,
@@ -15,6 +16,15 @@ import type {
     ParentToIframeMessage,
     PreviewContent,
 } from "./message-types";
+
+/**
+ * Sends a message up to the parent editor, logging it when bridge debugging
+ * is enabled.
+ */
+function postToParent(message: IframeToParentMessage): void {
+    logBridgeMessage("→parent", message);
+    window.parent.postMessage(message, "/");
+}
 
 type UsePreviewPresenterOptions = {
     /**
@@ -115,6 +125,8 @@ export function usePreviewPresenter(
                 return;
             }
 
+            logBridgeMessage("←parent", message);
+
             switch (message.type) {
                 case "content-data":
                     setContent(message.content);
@@ -158,7 +170,7 @@ export function usePreviewPresenter(
         window.addEventListener("message", handleMessage);
 
         // Tell parent we're ready for data.
-        window.parent.postMessage(createPreviewIframeReadyMessage(), "/");
+        postToParent(createPreviewIframeReadyMessage());
 
         return () => {
             window.removeEventListener("message", handleMessage);
@@ -251,13 +263,12 @@ export function usePreviewPresenter(
                 ...incompleteMap,
             ]);
 
-            window.parent.postMessage(
+            postToParent(
                 createPreviewA11yReportMessage(
                     violations,
                     incompletes,
                     scannedVersion,
                 ),
-                "/",
             );
         })().finally(() => {
             scanPromiseRef.current = null;
@@ -295,12 +306,11 @@ export function usePreviewPresenter(
             return;
         }
 
-        const message: IframeToParentMessage = {
+        postToParent({
             source: PREVIEW_MESSAGE_SOURCE,
             type: "height-update",
             height,
-        };
-        window.parent.postMessage(message, "/");
+        });
     }, []);
 
     return {
