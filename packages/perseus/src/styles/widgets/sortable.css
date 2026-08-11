@@ -40,6 +40,12 @@
 .draggy-boxy-thing .card.dragging:hover {
     cursor: grabbing;
 }
+.draggy-boxy-thing .card.dragging.removing,
+.draggy-boxy-thing .card.dragging.removing:hover {
+    background: var(--wb-semanticColor-core-background-instructive-subtle);
+    border: var(--wb-border-width-medium) solid
+        var(--wb-semanticColor-core-border-instructive-default);
+}
 .draggy-boxy-thing .card:hover {
     box-shadow: var(--wb-boxShadow-mid);
     cursor: grab;
