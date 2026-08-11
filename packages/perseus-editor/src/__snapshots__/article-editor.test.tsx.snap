@@ -38,7 +38,7 @@ exports[`ArticleEditor should match snapshot for editing disabled for all widget
                   </div>
                 </div>
                 <span
-                  class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_6947y3"
+                  class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1bholod"
                   data-testid="issues-icon-warning-octagon-fill.svg"
                 />
                 16 issues
@@ -50,13 +50,13 @@ exports[`ArticleEditor should match snapshot for editing disabled for all widget
               Section 
               1
               <div
-                style="display: inline-block; float: right;"
+                style="display: inline-block; float: inline-end;"
               >
                 <span />
                 <button
                   aria-disabled="true"
                   aria-label="Add a new section after this one"
-                  class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                  class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                   data-kind="primary"
                   type="button"
                 >
@@ -67,7 +67,7 @@ exports[`ArticleEditor should match snapshot for editing disabled for all widget
                 <button
                   aria-disabled="true"
                   aria-label="Delete this section"
-                  class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                  class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                   data-kind="primary"
                   type="button"
                 >
@@ -520,7 +520,7 @@ table: [[☃ table 1]]
                     <button
                       aria-disabled="true"
                       aria-label="Remove image widget"
-                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                       data-kind="primary"
                       type="button"
                     >
@@ -675,7 +675,7 @@ table: [[☃ table 1]]
                           <thead>
                             <tr>
                               <td
-                                class="emptyHeaderCell_xeoxek"
+                                class="emptyHeaderCell_1fhroad"
                               />
                               <th
                                 class="header_whrfk4"
@@ -741,7 +741,7 @@ table: [[☃ table 1]]
                                   role="button"
                                 >
                                   <span
-                                    class="radioSpan_buhzha-o_O-checkedRadioSpan_tt866m"
+                                    class="radioSpan_2k8t20-o_O-checkedRadioSpan_tt866m"
                                   >
                                     <svg
                                       aria-hidden="true"
@@ -767,7 +767,7 @@ table: [[☃ table 1]]
                                   role="button"
                                 >
                                   <span
-                                    class="radioSpan_buhzha"
+                                    class="radioSpan_2k8t20"
                                   >
                                     <svg
                                       aria-hidden="true"
@@ -811,7 +811,7 @@ table: [[☃ table 1]]
                                   role="button"
                                 >
                                   <span
-                                    class="radioSpan_buhzha"
+                                    class="radioSpan_2k8t20"
                                   >
                                     <svg
                                       aria-hidden="true"
@@ -837,7 +837,7 @@ table: [[☃ table 1]]
                                   role="button"
                                 >
                                   <span
-                                    class="radioSpan_buhzha-o_O-checkedRadioSpan_tt866m"
+                                    class="radioSpan_2k8t20-o_O-checkedRadioSpan_tt866m"
                                   >
                                     <svg
                                       aria-hidden="true"
@@ -881,7 +881,7 @@ table: [[☃ table 1]]
                                   role="button"
                                 >
                                   <span
-                                    class="radioSpan_buhzha-o_O-checkedRadioSpan_tt866m"
+                                    class="radioSpan_2k8t20-o_O-checkedRadioSpan_tt866m"
                                   >
                                     <svg
                                       aria-hidden="true"
@@ -907,7 +907,7 @@ table: [[☃ table 1]]
                                   role="button"
                                 >
                                   <span
-                                    class="radioSpan_buhzha"
+                                    class="radioSpan_2k8t20"
                                   >
                                     <svg
                                       aria-hidden="true"
@@ -955,7 +955,7 @@ table: [[☃ table 1]]
                     <button
                       aria-disabled="true"
                       aria-label="Remove image widget"
-                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                       data-kind="primary"
                       type="button"
                     >
@@ -1050,7 +1050,7 @@ table: [[☃ table 1]]
                     <button
                       aria-disabled="true"
                       aria-label="Remove image widget"
-                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                       data-kind="primary"
                       type="button"
                     >
@@ -1339,7 +1339,7 @@ table: [[☃ table 1]]
                     <button
                       aria-disabled="true"
                       aria-label="Remove image widget"
-                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                       data-kind="primary"
                       type="button"
                     >
@@ -1842,7 +1842,7 @@ table: [[☃ table 1]]
                               style="display: inline-block;"
                             >
                               <button
-                                class="buttonStyle_1xlhe29-o_O-selectedStyle_1ewmj59-o_O-answerStatusCorrect_7ab65q-o_O-disabledStyle_1spc5g0"
+                                class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59-o_O-answerStatusCorrect_7ab65q-o_O-disabledStyle_1spc5g0"
                                 disabled=""
                                 title="This answer will be considered correct"
                                 type="button"
@@ -1850,7 +1850,7 @@ table: [[☃ table 1]]
                                 correct
                               </button>
                               <button
-                                class="buttonStyle_1xlhe29-o_O-disabledStyle_1spc5g0"
+                                class="buttonStyle_zxbos0-o_O-disabledStyle_1spc5g0"
                                 disabled=""
                                 title="This answer will be considered wrong"
                                 type="button"
@@ -1858,7 +1858,7 @@ table: [[☃ table 1]]
                                 wrong
                               </button>
                               <button
-                                class="buttonStyle_1xlhe29-o_O-disabledStyle_1spc5g0"
+                                class="buttonStyle_zxbos0-o_O-disabledStyle_1spc5g0"
                                 disabled=""
                                 title="This answer will be considered ungraded"
                                 type="button"
@@ -1867,7 +1867,7 @@ table: [[☃ table 1]]
                               </button>
                             </div>
                             <div
-                              class="default_7zhre1-o_O-desktopLabelInputWrapper_7b6if"
+                              class="default_7zhre1-o_O-desktopLabelInputWrapper_x88nox"
                             >
                               <div
                                 class="perseus-widget-expression"
@@ -2113,7 +2113,7 @@ table: [[☃ table 1]]
                     <button
                       aria-disabled="true"
                       aria-label="Remove image widget"
-                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                       data-kind="primary"
                       type="button"
                     >
@@ -2377,7 +2377,7 @@ table: [[☃ table 1]]
                     <button
                       aria-disabled="true"
                       aria-label="Remove image widget"
-                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                       data-kind="primary"
                       type="button"
                     >
@@ -2393,7 +2393,7 @@ table: [[☃ table 1]]
                       class="default_7zhre1"
                     >
                       <div
-                        class="default_7zhre1-o_O-labeledInputField_1mk0p35"
+                        class="default_7zhre1-o_O-labeledInputField_1qqfzwo"
                       >
                         <div
                           class="default_7zhre1-o_O-labelContainer_1qlbwdv"
@@ -2427,7 +2427,7 @@ table: [[☃ table 1]]
                         />
                       </div>
                       <div
-                        class="default_7zhre1-o_O-labeledInputField_1mk0p35"
+                        class="default_7zhre1-o_O-labeledInputField_1qqfzwo"
                       >
                         <div
                           class="default_7zhre1-o_O-labelContainer_1qlbwdv"
@@ -2461,7 +2461,7 @@ table: [[☃ table 1]]
                         />
                       </div>
                       <div
-                        class="default_7zhre1-o_O-labeledInputField_1mk0p35"
+                        class="default_7zhre1-o_O-labeledInputField_1qqfzwo"
                       >
                         <div
                           class="default_7zhre1-o_O-labelContainer_1qlbwdv"
@@ -2507,7 +2507,7 @@ table: [[☃ table 1]]
                         />
                       </div>
                       <div
-                        class="default_7zhre1-o_O-labeledInputField_1mk0p35"
+                        class="default_7zhre1-o_O-labeledInputField_1qqfzwo"
                       >
                         <div
                           class="default_7zhre1-o_O-labelContainer_1qlbwdv"
@@ -2550,7 +2550,7 @@ table: [[☃ table 1]]
                             Scoring criteria
                           </legend>
                           <div
-                            class="default_7zhre1-o_O-criterionContainer_5ysldq"
+                            class="default_7zhre1-o_O-criterionContainer_srk6gl"
                           >
                             <textarea
                               aria-label="Criterion 1"
@@ -2607,7 +2607,7 @@ table: [[☃ table 1]]
                     <button
                       aria-disabled="true"
                       aria-label="Remove image widget"
-                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                       data-kind="primary"
                       type="button"
                     >
@@ -2848,7 +2848,7 @@ table: [[☃ table 1]]
                               <button
                                 aria-disabled="true"
                                 aria-label="Remove image widget"
-                                class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                                class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                                 data-kind="primary"
                                 type="button"
                               >
@@ -2901,7 +2901,7 @@ table: [[☃ table 1]]
                               >
                                 <button
                                   aria-disabled="false"
-                                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_zxgq3n"
+                                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
                                   type="button"
                                 >
                                   <div
@@ -3068,7 +3068,7 @@ table: [[☃ table 1]]
                                 </div>
                                 <button
                                   aria-disabled="false"
-                                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_zxgq3n"
+                                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
                                   type="button"
                                 >
                                   <div
@@ -3097,7 +3097,7 @@ table: [[☃ table 1]]
                                         class="default_7zhre1 perseus-editor-accordion"
                                       >
                                         <div
-                                          class="default_7zhre1-o_O-wrapper_13982vy-o_O-wrapperWithAnimation_t6xj9m-o_O-wrapper_m5h1c0-o_O-wrapperExpanded_nhpyf7-o_O-container_clqed8"
+                                          class="default_7zhre1-o_O-wrapper_13982vy-o_O-wrapperWithAnimation_t6xj9m-o_O-wrapper_m5h1c0-o_O-wrapperExpanded_nhpyf7-o_O-container_1kh6h4u"
                                           id=":r1m:"
                                         >
                                           <h2
@@ -3132,7 +3132,7 @@ table: [[☃ table 1]]
                                             role="region"
                                           >
                                             <div
-                                              class="default_7zhre1-o_O-accordionPanel_14110nm"
+                                              class="default_7zhre1-o_O-accordionPanel_1p6mrfx"
                                             >
                                               <div
                                                 class="input-answer-editor-value-container"
@@ -3674,7 +3674,7 @@ table: [[☃ table 1]]
                     <button
                       aria-disabled="true"
                       aria-label="Remove image widget"
-                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                       data-kind="primary"
                       type="button"
                     >
@@ -3918,7 +3918,7 @@ table: [[☃ table 1]]
                                 <button
                                   aria-disabled="true"
                                   aria-label="Remove image widget"
-                                  class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                                  class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                                   data-kind="primary"
                                   type="button"
                                 >
@@ -3971,7 +3971,7 @@ table: [[☃ table 1]]
                                 >
                                   <button
                                     aria-disabled="false"
-                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_zxgq3n"
+                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
                                     type="button"
                                   >
                                     <div
@@ -4138,7 +4138,7 @@ table: [[☃ table 1]]
                                   </div>
                                   <button
                                     aria-disabled="false"
-                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_zxgq3n"
+                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
                                     type="button"
                                   >
                                     <div
@@ -4167,7 +4167,7 @@ table: [[☃ table 1]]
                                           class="default_7zhre1 perseus-editor-accordion"
                                         >
                                           <div
-                                            class="default_7zhre1-o_O-wrapper_13982vy-o_O-wrapperWithAnimation_t6xj9m-o_O-wrapper_m5h1c0-o_O-wrapperExpanded_nhpyf7-o_O-container_clqed8"
+                                            class="default_7zhre1-o_O-wrapper_13982vy-o_O-wrapperWithAnimation_t6xj9m-o_O-wrapper_m5h1c0-o_O-wrapperExpanded_nhpyf7-o_O-container_1kh6h4u"
                                             id=":r1v:"
                                           >
                                             <h2
@@ -4202,7 +4202,7 @@ table: [[☃ table 1]]
                                               role="region"
                                             >
                                               <div
-                                                class="default_7zhre1-o_O-accordionPanel_14110nm"
+                                                class="default_7zhre1-o_O-accordionPanel_1p6mrfx"
                                               >
                                                 <div
                                                   class="input-answer-editor-value-container"
@@ -4564,7 +4564,7 @@ table: [[☃ table 1]]
                     <button
                       aria-disabled="true"
                       aria-label="Remove image widget"
-                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                       data-kind="primary"
                       type="button"
                     >
@@ -4809,19 +4809,19 @@ table: [[☃ table 1]]
                               style="display: inline-block;"
                             >
                               <button
-                                class="buttonStyle_1xlhe29-o_O-selectedStyle_1ewmj59"
+                                class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59"
                                 type="button"
                               >
                                 Graph
                               </button>
                               <button
-                                class="buttonStyle_1xlhe29"
+                                class="buttonStyle_zxbos0"
                                 type="button"
                               >
                                 Grid
                               </button>
                               <button
-                                class="buttonStyle_1xlhe29"
+                                class="buttonStyle_zxbos0"
                                 type="button"
                               >
                                 None
@@ -4902,7 +4902,7 @@ table: [[☃ table 1]]
                           style="display: inline-block;"
                         >
                           <button
-                            class="buttonStyle_1xlhe29-o_O-selectedStyle_1ewmj59"
+                            class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59"
                             id="0"
                             title="Linear"
                             type="button"
@@ -4913,7 +4913,7 @@ table: [[☃ table 1]]
                             />
                           </button>
                           <button
-                            class="buttonStyle_1xlhe29"
+                            class="buttonStyle_zxbos0"
                             id="1"
                             title="Quadratic"
                             type="button"
@@ -4924,7 +4924,7 @@ table: [[☃ table 1]]
                             />
                           </button>
                           <button
-                            class="buttonStyle_1xlhe29"
+                            class="buttonStyle_zxbos0"
                             id="2"
                             title="Sinusoid"
                             type="button"
@@ -4935,7 +4935,7 @@ table: [[☃ table 1]]
                             />
                           </button>
                           <button
-                            class="buttonStyle_1xlhe29"
+                            class="buttonStyle_zxbos0"
                             id="3"
                             title="Tangent"
                             type="button"
@@ -4946,7 +4946,7 @@ table: [[☃ table 1]]
                             />
                           </button>
                           <button
-                            class="buttonStyle_1xlhe29"
+                            class="buttonStyle_zxbos0"
                             id="4"
                             title="Exponential"
                             type="button"
@@ -4957,7 +4957,7 @@ table: [[☃ table 1]]
                             />
                           </button>
                           <button
-                            class="buttonStyle_1xlhe29"
+                            class="buttonStyle_zxbos0"
                             id="5"
                             title="Logarithm"
                             type="button"
@@ -4968,7 +4968,7 @@ table: [[☃ table 1]]
                             />
                           </button>
                           <button
-                            class="buttonStyle_1xlhe29"
+                            class="buttonStyle_zxbos0"
                             id="6"
                             title="Absolute_value"
                             type="button"
@@ -4985,7 +4985,7 @@ table: [[☃ table 1]]
                       >
                         <div
                           aria-describedby="interactive-graph-interactive-elements-description-:r25:"
-                          class="default_7zhre1-o_O-inlineStyles_n0eqhk mafs-graph"
+                          class="default_7zhre1-o_O-inlineStyles_1met7wk mafs-graph"
                           role="figure"
                           tabindex="0"
                         >
@@ -6318,7 +6318,7 @@ table: [[☃ table 1]]
                     <button
                       aria-disabled="true"
                       aria-label="Remove image widget"
-                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                       data-kind="primary"
                       type="button"
                     >
@@ -6536,7 +6536,7 @@ table: [[☃ table 1]]
                               <button
                                 aria-disabled="true"
                                 aria-label="Remove image widget"
-                                class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                                class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                                 data-kind="primary"
                                 type="button"
                               >
@@ -6589,7 +6589,7 @@ table: [[☃ table 1]]
                               >
                                 <button
                                   aria-disabled="false"
-                                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_zxgq3n"
+                                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
                                   type="button"
                                 >
                                   <div
@@ -6756,7 +6756,7 @@ table: [[☃ table 1]]
                                 </div>
                                 <button
                                   aria-disabled="false"
-                                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_zxgq3n"
+                                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
                                   type="button"
                                 >
                                   <div
@@ -6785,7 +6785,7 @@ table: [[☃ table 1]]
                                         class="default_7zhre1 perseus-editor-accordion"
                                       >
                                         <div
-                                          class="default_7zhre1-o_O-wrapper_13982vy-o_O-wrapperWithAnimation_t6xj9m-o_O-wrapper_m5h1c0-o_O-wrapperExpanded_nhpyf7-o_O-container_clqed8"
+                                          class="default_7zhre1-o_O-wrapper_13982vy-o_O-wrapperWithAnimation_t6xj9m-o_O-wrapper_m5h1c0-o_O-wrapperExpanded_nhpyf7-o_O-container_1kh6h4u"
                                           id=":r2c:"
                                         >
                                           <h2
@@ -6820,7 +6820,7 @@ table: [[☃ table 1]]
                                             role="region"
                                           >
                                             <div
-                                              class="default_7zhre1-o_O-accordionPanel_14110nm"
+                                              class="default_7zhre1-o_O-accordionPanel_1p6mrfx"
                                             >
                                               <div
                                                 class="input-answer-editor-value-container"
@@ -7157,7 +7157,7 @@ table: [[☃ table 1]]
                     <button
                       aria-disabled="true"
                       aria-label="Remove image widget"
-                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                       data-kind="primary"
                       type="button"
                     >
@@ -7347,7 +7347,7 @@ table: [[☃ table 1]]
                           style="max-width: 300px; max-height: 200px;"
                         >
                           <span
-                            style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+                            style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
                           >
                             <div
                               class="default_7zhre1-o_O-spinnerContainer_agrn11"
@@ -7643,7 +7643,7 @@ table: [[☃ table 1]]
                         />
                       </div>
                       <span
-                        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextXSmallMediumWeight_17y4gxf-o_O-characterCounter_1remeb4"
+                        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextXSmallMediumWeight_17y4gxf-o_O-characterCounter_8s3xlr"
                       >
                         0
                          characters
@@ -7744,7 +7744,7 @@ table: [[☃ table 1]]
                     <button
                       aria-disabled="true"
                       aria-label="Remove image widget"
-                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                       data-kind="primary"
                       type="button"
                     >
@@ -7797,7 +7797,7 @@ table: [[☃ table 1]]
                     >
                       <button
                         aria-disabled="false"
-                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_zxgq3n"
+                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
                         type="button"
                       >
                         <div
@@ -7964,7 +7964,7 @@ table: [[☃ table 1]]
                       </div>
                       <button
                         aria-disabled="false"
-                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_zxgq3n"
+                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
                         type="button"
                       >
                         <div
@@ -7993,7 +7993,7 @@ table: [[☃ table 1]]
                               class="default_7zhre1 perseus-editor-accordion"
                             >
                               <div
-                                class="default_7zhre1-o_O-wrapper_13982vy-o_O-wrapperWithAnimation_t6xj9m-o_O-wrapper_m5h1c0-o_O-wrapperExpanded_nhpyf7-o_O-container_clqed8"
+                                class="default_7zhre1-o_O-wrapper_13982vy-o_O-wrapperWithAnimation_t6xj9m-o_O-wrapper_m5h1c0-o_O-wrapperExpanded_nhpyf7-o_O-container_1kh6h4u"
                                 id=":r3f:"
                               >
                                 <h2
@@ -8028,7 +8028,7 @@ table: [[☃ table 1]]
                                   role="region"
                                 >
                                   <div
-                                    class="default_7zhre1-o_O-accordionPanel_14110nm"
+                                    class="default_7zhre1-o_O-accordionPanel_1p6mrfx"
                                   >
                                     <div
                                       class="input-answer-editor-value-container"
@@ -8362,7 +8362,7 @@ table: [[☃ table 1]]
                     <button
                       aria-disabled="true"
                       aria-label="Remove image widget"
-                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                       data-kind="primary"
                       type="button"
                     >
@@ -8598,19 +8598,19 @@ table: [[☃ table 1]]
                                   style="display: inline-block;"
                                 >
                                   <button
-                                    class="buttonStyle_1xlhe29-o_O-selectedStyle_1ewmj59"
+                                    class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59"
                                     type="button"
                                   >
                                     Graph
                                   </button>
                                   <button
-                                    class="buttonStyle_1xlhe29"
+                                    class="buttonStyle_zxbos0"
                                     type="button"
                                   >
                                     Grid
                                   </button>
                                   <button
-                                    class="buttonStyle_1xlhe29"
+                                    class="buttonStyle_zxbos0"
                                     type="button"
                                   >
                                     None
@@ -8797,25 +8797,25 @@ table: [[☃ table 1]]
                                   style="display: inline-block;"
                                 >
                                   <button
-                                    class="buttonStyle_1xlhe29-o_O-selectedStyle_1ewmj59"
+                                    class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59"
                                     type="button"
                                   >
                                     None
                                   </button>
                                   <button
-                                    class="buttonStyle_1xlhe29"
+                                    class="buttonStyle_zxbos0"
                                     type="button"
                                   >
                                     Snap
                                   </button>
                                   <button
-                                    class="buttonStyle_1xlhe29"
+                                    class="buttonStyle_zxbos0"
                                     type="button"
                                   >
                                     x=
                                   </button>
                                   <button
-                                    class="buttonStyle_1xlhe29"
+                                    class="buttonStyle_zxbos0"
                                     type="button"
                                   >
                                     y=
@@ -9077,7 +9077,7 @@ table: [[☃ table 1]]
                     <button
                       aria-disabled="true"
                       aria-label="Remove image widget"
-                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                       data-kind="primary"
                       type="button"
                     >
@@ -9176,7 +9176,7 @@ table: [[☃ table 1]]
                         class="label_wvrnr4"
                       >
                         <div
-                          class="default_7zhre1-o_O-row_1enp7ib"
+                          class="default_7zhre1-o_O-row_lhcfa9"
                         >
                           <span
                             class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-spaceEnd_pb307t"
@@ -9213,7 +9213,7 @@ table: [[☃ table 1]]
                       </label>
                       <button
                         aria-disabled="false"
-                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_zxgq3n"
+                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
                         type="button"
                       >
                         <div
@@ -9250,7 +9250,7 @@ table: [[☃ table 1]]
                             aria-disabled="true"
                             aria-invalid="false"
                             aria-required="false"
-                            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-disabled_1f0idyc-o_O-inlineStyles_157hyer"
+                            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-disabled_1f0idyc-o_O-inlineStyles_1h33z0x"
                             id=":r3r:"
                             readonly=""
                             type="text"
@@ -9279,7 +9279,7 @@ table: [[☃ table 1]]
                       </div>
                       <button
                         aria-disabled="true"
-                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-container_zxgq3n-o_O-notClickable_l0aty"
+                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-container_f36q81-o_O-notClickable_l0aty"
                         type="button"
                       >
                         <div
@@ -9300,7 +9300,7 @@ table: [[☃ table 1]]
                           class="default_7zhre1"
                         >
                           <p
-                            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextXSmallMediumWeight_17y4gxf-o_O-inlineStyles_wfgc1z"
+                            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextXSmallMediumWeight_17y4gxf-o_O-inlineStyles_1vm1uq4"
                           >
                             Graph the correct answer in the graph below and ensure the equation or point coordinates displayed represent the correct answer.
                           </p>
@@ -9315,7 +9315,7 @@ table: [[☃ table 1]]
                         >
                           <div
                             aria-describedby="interactive-graph-interactive-elements-description-:r3t:"
-                            class="default_7zhre1-o_O-inlineStyles_n0eqhk mafs-graph"
+                            class="default_7zhre1-o_O-inlineStyles_1met7wk mafs-graph"
                             role="figure"
                             tabindex="0"
                           >
@@ -10676,7 +10676,7 @@ table: [[☃ table 1]]
                       >
                         <button
                           aria-disabled="false"
-                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_zxgq3n"
+                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
                           type="button"
                         >
                           <div
@@ -10864,7 +10864,7 @@ table: [[☃ table 1]]
                       </div>
                       <button
                         aria-disabled="false"
-                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_zxgq3n"
+                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
                         type="button"
                       >
                         <div
@@ -11120,7 +11120,7 @@ table: [[☃ table 1]]
                       </ol>
                       <button
                         aria-disabled="false"
-                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_zxgq3n"
+                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
                         type="button"
                       >
                         <div
@@ -11149,7 +11149,7 @@ table: [[☃ table 1]]
                               class="label_wvrnr4"
                             >
                               <div
-                                class="default_7zhre1-o_O-row_1enp7ib"
+                                class="default_7zhre1-o_O-row_lhcfa9"
                               >
                                 <span
                                   class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-spaceEnd_pb307t"
@@ -11160,14 +11160,14 @@ table: [[☃ table 1]]
                                   style="display: inline-block;"
                                 >
                                   <button
-                                    class="buttonStyle_1xlhe29-o_O-selectedStyle_1ewmj59-o_O-disabledStyle_1spc5g0"
+                                    class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59-o_O-disabledStyle_1spc5g0"
                                     disabled=""
                                     type="button"
                                   >
                                     On Axis
                                   </button>
                                   <button
-                                    class="buttonStyle_1xlhe29-o_O-disabledStyle_1spc5g0"
+                                    class="buttonStyle_zxbos0-o_O-disabledStyle_1spc5g0"
                                     disabled=""
                                     type="button"
                                   >
@@ -11187,7 +11187,7 @@ table: [[☃ table 1]]
                                 class="label_wvrnr4"
                               >
                                 <div
-                                  class="default_7zhre1-o_O-row_1enp7ib"
+                                  class="default_7zhre1-o_O-row_lhcfa9"
                                 >
                                   <span
                                     class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-spaceEnd_pb307t"
@@ -11209,7 +11209,7 @@ table: [[☃ table 1]]
                                 class="label_wvrnr4"
                               >
                                 <div
-                                  class="default_7zhre1-o_O-row_1enp7ib"
+                                  class="default_7zhre1-o_O-row_lhcfa9"
                                 >
                                   <span
                                     class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-spaceEnd_pb307t"
@@ -11235,7 +11235,7 @@ table: [[☃ table 1]]
                                 class="label_wvrnr4"
                               >
                                 <div
-                                  class="default_7zhre1-o_O-row_1enp7ib"
+                                  class="default_7zhre1-o_O-row_lhcfa9"
                                 >
                                   <span
                                     class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-spaceEnd_pb307t"
@@ -11266,7 +11266,7 @@ table: [[☃ table 1]]
                                 class="label_wvrnr4"
                               >
                                 <div
-                                  class="default_7zhre1-o_O-row_1enp7ib"
+                                  class="default_7zhre1-o_O-row_lhcfa9"
                                 >
                                   <span
                                     class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-spaceEnd_pb307t"
@@ -11524,7 +11524,7 @@ table: [[☃ table 1]]
                                 class="label_wvrnr4"
                               >
                                 <div
-                                  class="default_7zhre1-o_O-row_1enp7ib"
+                                  class="default_7zhre1-o_O-row_lhcfa9"
                                 >
                                   <span
                                     class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-spaceEnd_pb307t"
@@ -11555,7 +11555,7 @@ table: [[☃ table 1]]
                                 class="label_wvrnr4"
                               >
                                 <div
-                                  class="default_7zhre1-o_O-row_1enp7ib"
+                                  class="default_7zhre1-o_O-row_lhcfa9"
                                 >
                                   <span
                                     class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-spaceEnd_pb307t"
@@ -11590,7 +11590,7 @@ table: [[☃ table 1]]
                                 class="label_wvrnr4"
                               >
                                 <div
-                                  class="default_7zhre1-o_O-row_1enp7ib"
+                                  class="default_7zhre1-o_O-row_lhcfa9"
                                 >
                                   <span
                                     class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-spaceEnd_pb307t"
@@ -11642,7 +11642,7 @@ table: [[☃ table 1]]
                               class="label_wvrnr4"
                             >
                               <div
-                                class="default_7zhre1-o_O-row_1enp7ib"
+                                class="default_7zhre1-o_O-row_lhcfa9"
                               >
                                 <span
                                   class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-spaceEnd_pb307t"
@@ -11653,28 +11653,28 @@ table: [[☃ table 1]]
                                   style="display: inline-block;"
                                 >
                                   <button
-                                    class="buttonStyle_1xlhe29-o_O-disabledStyle_1spc5g0"
+                                    class="buttonStyle_zxbos0-o_O-disabledStyle_1spc5g0"
                                     disabled=""
                                     type="button"
                                   >
                                     Axes
                                   </button>
                                   <button
-                                    class="buttonStyle_1xlhe29-o_O-selectedStyle_1ewmj59-o_O-disabledStyle_1spc5g0"
+                                    class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59-o_O-disabledStyle_1spc5g0"
                                     disabled=""
                                     type="button"
                                   >
                                     Graph
                                   </button>
                                   <button
-                                    class="buttonStyle_1xlhe29-o_O-disabledStyle_1spc5g0"
+                                    class="buttonStyle_zxbos0-o_O-disabledStyle_1spc5g0"
                                     disabled=""
                                     type="button"
                                   >
                                     Grid
                                   </button>
                                   <button
-                                    class="buttonStyle_1xlhe29-o_O-disabledStyle_1spc5g0"
+                                    class="buttonStyle_zxbos0-o_O-disabledStyle_1spc5g0"
                                     disabled=""
                                     type="button"
                                   >
@@ -11728,7 +11728,7 @@ table: [[☃ table 1]]
                           class="label_wvrnr4"
                         >
                           <div
-                            class="default_7zhre1-o_O-row_1enp7ib-o_O-inlineStyles_xz9vx8"
+                            class="default_7zhre1-o_O-row_lhcfa9-o_O-inlineStyles_ahpz8e"
                           >
                             <span
                               class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-spaceEnd_pb307t"
@@ -11753,7 +11753,7 @@ table: [[☃ table 1]]
                             class="default_7zhre1 checkbox-row"
                           >
                             <div
-                              class="default_7zhre1-o_O-inlineStyles_xz9vx8"
+                              class="default_7zhre1-o_O-inlineStyles_ahpz8e"
                             >
                               <div
                                 class="default_7zhre1-o_O-wrapper_119rz02"
@@ -11792,7 +11792,7 @@ table: [[☃ table 1]]
                       </div>
                       <button
                         aria-disabled="false"
-                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_zxgq3n"
+                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
                         type="button"
                       >
                         <div
@@ -11815,7 +11815,7 @@ table: [[☃ table 1]]
                           class="default_7zhre1 perseus-editor-accordion"
                         >
                           <div
-                            class="default_7zhre1-o_O-wrapper_13982vy-o_O-wrapper_m5h1c0-o_O-wrapperExpanded_nhpyf7-o_O-container_clqed8"
+                            class="default_7zhre1-o_O-wrapper_13982vy-o_O-wrapper_m5h1c0-o_O-wrapperExpanded_nhpyf7-o_O-container_1kh6h4u"
                             id=":r4o:"
                           >
                             <h2
@@ -11858,7 +11858,7 @@ table: [[☃ table 1]]
                               role="region"
                             >
                               <div
-                                class="default_7zhre1-o_O-accordionPanel_14110nm"
+                                class="default_7zhre1-o_O-accordionPanel_1p6mrfx"
                               >
                                 <div
                                   class="default_7zhre1-o_O-inlineStyles_118o87v container"
@@ -12201,7 +12201,7 @@ table: [[☃ table 1]]
                     <button
                       aria-disabled="true"
                       aria-label="Remove image widget"
-                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                       data-kind="primary"
                       type="button"
                     >
@@ -12262,11 +12262,11 @@ table: [[☃ table 1]]
                           class="image-row"
                         >
                           <form
-                            class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+                            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
                             style="flex-grow: 1;"
                           >
                             <input
-                              class="inputBase_w7cswd"
+                              class="inputBase_ca6tue"
                               placeholder="URL"
                               value="https://cdn.kastatic.org/ka-content-images/227d402cb09ebc1b67f197467212fa4ab3ced5b3.jpg"
                             />
@@ -12274,7 +12274,7 @@ table: [[☃ table 1]]
                           <button
                             aria-disabled="true"
                             aria-label=""
-                            class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-disabled_okj0ts-o_O-inlineStyles_786qd8"
+                            class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-disabled_okj0ts-o_O-inlineStyles_2swtdi"
                             data-kind="primary"
                             type="button"
                           >
@@ -12287,11 +12287,11 @@ table: [[☃ table 1]]
                         </div>
                       </div>
                       <form
-                        class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+                        class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
                         style="width: 100%;"
                       >
                         <input
-                          class="inputBase_w7cswd"
+                          class="inputBase_ca6tue"
                           placeholder="Alt text (for screen readers)"
                           value="Sample diagram"
                         />
@@ -12303,7 +12303,7 @@ table: [[☃ table 1]]
                           Markers
                         </span>
                         <div
-                          class="subtitle_1l9172p"
+                          class="subtitle_1xez27u"
                         >
                           <span>
                             Double-click on the image to add a marker.
@@ -12314,11 +12314,11 @@ table: [[☃ table 1]]
                         </div>
                         <div
                           class="markersCanvas_kfnsd"
-                          style="max-width: 300px; max-height: 200px;"
+                          style="max-inline-size: 300px; max-block-size: 200px;"
                         >
                           <img
                             alt=""
-                            class="image_17hjzsq"
+                            class="image_1jsfej4"
                             src="mockStaticUrl(https://cdn.kastatic.org/ka-content-images/227d402cb09ebc1b67f197467212fa4ab3ced5b3.jpg)"
                           />
                         </div>
@@ -12351,11 +12351,11 @@ table: [[☃ table 1]]
                               </span>
                             </button>
                             <form
-                              class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+                              class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
                               style="flex-grow: 1;"
                             >
                               <input
-                                class="inputBase_w7cswd"
+                                class="inputBase_ca6tue"
                                 value="Label 1"
                               />
                             </form>
@@ -12379,11 +12379,11 @@ table: [[☃ table 1]]
                               </span>
                             </button>
                             <form
-                              class="input_1qboe8t-o_O-container_1d6ew9d-o_O-defaultBackground_vxglvu"
+                              class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
                               style="flex-grow: 1;"
                             >
                               <input
-                                class="inputBase_w7cswd"
+                                class="inputBase_ca6tue"
                                 value="Label 2"
                               />
                             </form>
@@ -12426,7 +12426,7 @@ table: [[☃ table 1]]
                               data-checked="false"
                             >
                               <svg
-                                class="svg_a755yf"
+                                class="svg_qna5vb"
                                 height="17"
                                 viewBox="-0.5 -0.5
                          17 17"
@@ -12449,7 +12449,7 @@ table: [[☃ table 1]]
                                 </g>
                               </svg>
                               <input
-                                class="checkbox_xe15d2"
+                                class="checkbox_1v079b5"
                                 type="checkbox"
                               />
                             </div>
@@ -12467,7 +12467,7 @@ table: [[☃ table 1]]
                               data-checked="false"
                             >
                               <svg
-                                class="svg_a755yf"
+                                class="svg_qna5vb"
                                 height="17"
                                 viewBox="-0.5 -0.5
                          17 17"
@@ -12490,7 +12490,7 @@ table: [[☃ table 1]]
                                 </g>
                               </svg>
                               <input
-                                class="checkbox_xe15d2"
+                                class="checkbox_1v079b5"
                                 type="checkbox"
                               />
                             </div>
@@ -12564,7 +12564,7 @@ table: [[☃ table 1]]
                     <button
                       aria-disabled="true"
                       aria-label="Remove image widget"
-                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                       data-kind="primary"
                       type="button"
                     >
@@ -12771,7 +12771,7 @@ table: [[☃ table 1]]
                     <button
                       aria-disabled="true"
                       aria-label="Remove image widget"
-                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                       data-kind="primary"
                       type="button"
                     >
@@ -13019,7 +13019,7 @@ table: [[☃ table 1]]
                     <button
                       aria-disabled="true"
                       aria-label="Remove image widget"
-                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                       data-kind="primary"
                       type="button"
                     >
@@ -13178,7 +13178,7 @@ table: [[☃ table 1]]
                     <button
                       aria-disabled="true"
                       aria-label="Remove image widget"
-                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                       data-kind="primary"
                       type="button"
                     >
@@ -13357,28 +13357,28 @@ table: [[☃ table 1]]
                           style="display: inline-block;"
                         >
                           <button
-                            class="buttonStyle_1xlhe29-o_O-selectedStyle_1ewmj59"
+                            class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59"
                             title="Decimals"
                             type="button"
                           >
                             0.75
                           </button>
                           <button
-                            class="buttonStyle_1xlhe29"
+                            class="buttonStyle_zxbos0"
                             title="Improper fractions"
                             type="button"
                           >
                             ⁷⁄₄
                           </button>
                           <button
-                            class="buttonStyle_1xlhe29"
+                            class="buttonStyle_zxbos0"
                             title="Mixed numbers"
                             type="button"
                           >
                             1¾
                           </button>
                           <button
-                            class="buttonStyle_1xlhe29"
+                            class="buttonStyle_zxbos0"
                             title="Non-reduced"
                             type="button"
                           >
@@ -13589,7 +13589,7 @@ table: [[☃ table 1]]
                     <button
                       aria-disabled="true"
                       aria-label="Remove image widget"
-                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                       data-kind="primary"
                       type="button"
                     >
@@ -13642,7 +13642,7 @@ table: [[☃ table 1]]
                     >
                       <button
                         aria-disabled="false"
-                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_zxgq3n"
+                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
                         type="button"
                       >
                         <div
@@ -13809,7 +13809,7 @@ table: [[☃ table 1]]
                       </div>
                       <button
                         aria-disabled="false"
-                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_zxgq3n"
+                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
                         type="button"
                       >
                         <div
@@ -13838,7 +13838,7 @@ table: [[☃ table 1]]
                               class="default_7zhre1 perseus-editor-accordion"
                             >
                               <div
-                                class="default_7zhre1-o_O-wrapper_13982vy-o_O-wrapperWithAnimation_t6xj9m-o_O-wrapper_m5h1c0-o_O-wrapperExpanded_nhpyf7-o_O-container_clqed8"
+                                class="default_7zhre1-o_O-wrapper_13982vy-o_O-wrapperWithAnimation_t6xj9m-o_O-wrapper_m5h1c0-o_O-wrapperExpanded_nhpyf7-o_O-container_1kh6h4u"
                                 id=":r5r:"
                               >
                                 <h2
@@ -13873,7 +13873,7 @@ table: [[☃ table 1]]
                                   role="region"
                                 >
                                   <div
-                                    class="default_7zhre1-o_O-accordionPanel_14110nm"
+                                    class="default_7zhre1-o_O-accordionPanel_1p6mrfx"
                                   >
                                     <div
                                       class="input-answer-editor-value-container"
@@ -14208,7 +14208,7 @@ table: [[☃ table 1]]
                     <button
                       aria-disabled="true"
                       aria-label="Remove image widget"
-                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                       data-kind="primary"
                       type="button"
                     >
@@ -14356,7 +14356,7 @@ table: [[☃ table 1]]
                     <button
                       aria-disabled="true"
                       aria-label="Remove image widget"
-                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                       data-kind="primary"
                       type="button"
                     >
@@ -14839,7 +14839,7 @@ table: [[☃ table 1]]
                     <button
                       aria-disabled="true"
                       aria-label="Remove image widget"
-                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                       data-kind="primary"
                       type="button"
                     >
@@ -15383,7 +15383,7 @@ table: [[☃ table 1]]
                     <button
                       aria-disabled="true"
                       aria-label="Remove image widget"
-                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                       data-kind="primary"
                       type="button"
                     >
@@ -15544,7 +15544,7 @@ table: [[☃ table 1]]
                     <button
                       aria-disabled="true"
                       aria-label="Remove image widget"
-                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_12xwlm1"
+                      class="button_vr44p2-o_O-shared_3mvh93-o_O-default_dkkgyj-o_O-disabled_1302sxc-o_O-button_1ufsmnv"
                       data-kind="primary"
                       type="button"
                     >
@@ -15767,10 +15767,10 @@ table: [[☃ table 1]]
         </div>
       </div>
       <button
-        class="hud_wkuttr-o_O-hudFixedPosition_lkhovu-o_O-enabled_uuz12y"
+        class="hud_vqw7y0-o_O-hudFixedPosition_1gbzhth-o_O-enabled_uuz12y"
       >
         <svg
-          class="icon_37w64f"
+          class="icon_qchbi3"
           height="24"
           viewBox="0 0 24 24"
           width="24"
