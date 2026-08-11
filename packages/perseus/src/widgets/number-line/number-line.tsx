@@ -211,12 +211,6 @@ type Props = WidgetPropsV2<
     dependencies: PerseusDependenciesV2;
 };
 
-// Props with the derived `tickStep` mixed in, so render helpers have it
-// precomputed.
-type CalculatedProps = Props & {
-    tickStep: number;
-};
-
 // Whether the widget's configuration makes a drawable number line. An invalid
 // configuration would send the drawing code into an infinite loop.
 function isValid(props: Props): boolean {
@@ -575,17 +569,10 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
             isTickCtrl: props.options.isTickCtrl,
         };
 
-        // TODO(benchristel): CalculatedProps seems pretty weird. I think
-        //  `tickStep` should just be a const at the top level of the
-        //  component. Then we wouldn't need to pass these CalculatedProps
-        //  around.
-        const calculatedProps: CalculatedProps = {
-            ...props,
-            tickStep: getTickStep(
-                props.options.range,
-                props.userInput.numDivisions,
-            ),
-        };
+        const tickStep = getTickStep(
+            props.options.range,
+            props.userInput.numDivisions,
+        );
 
         return (
             <Graphie
@@ -610,13 +597,13 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                 isMobile={props.apiOptions.isMobile}
             >
                 <TickMarks
-                    range={calculatedProps.options.range}
-                    labelTicks={calculatedProps.options.labelTicks}
-                    labelStyle={calculatedProps.options.labelStyle}
-                    labelRange={calculatedProps.options.labelRange}
-                    tickStep={calculatedProps.tickStep}
-                    numDivisions={calculatedProps.userInput.numDivisions}
-                    isMobile={calculatedProps.apiOptions.isMobile}
+                    range={props.options.range}
+                    labelTicks={props.options.labelTicks}
+                    labelStyle={props.options.labelStyle}
+                    labelRange={props.options.labelRange}
+                    tickStep={tickStep}
+                    numDivisions={props.userInput.numDivisions}
+                    isMobile={props.apiOptions.isMobile}
                 />
                 {renderInequality()}
                 {renderNumberLinePoint()}
