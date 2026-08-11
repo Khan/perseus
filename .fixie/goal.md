@@ -526,7 +526,7 @@ review and commit the changes.
 - [x] Migrate `group` to `WidgetPropsV2` (renders a nested `Renderer`).
 - [ ] Migrate `graded-group` to `WidgetPropsV2` (delete `satisfies PropsFor`
       assertion).
-- [ ] Migrate `graded-group-set` to `WidgetPropsV2`.
+- [x] Migrate `graded-group-set` to `WidgetPropsV2`.
 
 ### Special cases (do last)
 

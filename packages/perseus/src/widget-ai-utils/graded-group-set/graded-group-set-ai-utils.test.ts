@@ -72,7 +72,9 @@ describe("GradedGroupSet AI utils", () => {
         };
 
         const widgetData: any = {
-            gradedGroups: [{title: "Problem 1a"}, {title: "Problem 1b"}],
+            options: {
+                gradedGroups: [{title: "Problem 1a"}, {title: "Problem 1b"}],
+            },
         };
 
         const result = getPromptJSON(widgetData, activeGroupJSON);
