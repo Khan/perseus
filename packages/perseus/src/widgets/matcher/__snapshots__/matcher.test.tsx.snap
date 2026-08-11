@@ -28,14 +28,14 @@ exports[`matcher widget can reorder options: moved items 1`] = `
           class="perseus-widget-container widget-block"
         >
           <table
-            class="widget_lf609f perseus-widget-matcher"
+            class="widget_7rhn0x perseus-widget-matcher"
           >
             <tbody>
               <tr
                 class="row_tykfnp"
               >
                 <th
-                  class="column_4at8du-o_O-columnLabel_ybhstz"
+                  class="column_4at8du-o_O-columnLabel_1virym6"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
@@ -55,7 +55,7 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                   </div>
                 </th>
                 <th
-                  class="column_4at8du-o_O-columnRight_wurgg4-o_O-columnLabel_ybhstz"
+                  class="column_4at8du-o_O-columnRight_1v8fpti-o_O-columnLabel_1virym6"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
@@ -82,10 +82,10 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                   class="column_4at8du"
                 >
                   <ul
-                    class="sortable_13d4756 perseus-sortable"
+                    class="sortable_a2rat1 perseus-sortable"
                   >
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_1tjoo87 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7-o_O-disabled_1tjoo87 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -98,13 +98,13 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                           <div
                             class="paragraph"
                           >
-                            Average global temperatures will rise 
+                            Average global temperatures will rise
                           </div>
                         </div>
                       </div>
                     </li>
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_1tjoo87 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7-o_O-disabled_1tjoo87 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -117,13 +117,13 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                           <div
                             class="paragraph"
                           >
-                            Our Sun will run out of fuel and die in around 5 billion years 
+                            Our Sun will run out of fuel and die in around 5 billion years
                           </div>
                         </div>
                       </div>
                     </li>
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_1tjoo87 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7-o_O-disabled_1tjoo87 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -136,13 +136,13 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                           <div
                             class="paragraph"
                           >
-                            Plate tectonics will rearrange the continents: the Pacific will narrow, bringing Australia closer to the Americas, and the Atlantic will expand to form the largest of the oceans 
+                            Plate tectonics will rearrange the continents: the Pacific will narrow, bringing Australia closer to the Americas, and the Atlantic will expand to form the largest of the oceans
                           </div>
                         </div>
                       </div>
                     </li>
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_1tjoo87 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7-o_O-disabled_1tjoo87 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -155,13 +155,13 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                           <div
                             class="paragraph"
                           >
-                            Our Sun will run out of hydrogen, swell into a red giant, gobble up the inner rocky planets, and then collapse and die 
+                            Our Sun will run out of hydrogen, swell into a red giant, gobble up the inner rocky planets, and then collapse and die
                           </div>
                         </div>
                       </div>
                     </li>
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_1tjoo87 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7-o_O-disabled_1tjoo87 perseus-sortable-draggable"
                       style="position: static; margin: 0px;"
                     >
                       <div
@@ -174,7 +174,7 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                           <div
                             class="paragraph"
                           >
-                            In 3 to 4 billion years, our galaxy will begin a slow collision with its closest large neighbor, Andromeda 
+                            In 3 to 4 billion years, our galaxy will begin a slow collision with its closest large neighbor, Andromeda
                           </div>
                         </div>
                       </div>
@@ -182,13 +182,13 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                   </ul>
                 </td>
                 <td
-                  class="column_4at8du-o_O-columnRight_wurgg4"
+                  class="column_4at8du-o_O-columnRight_1v8fpti"
                 >
                   <ul
-                    class="sortable_13d4756 perseus-sortable"
+                    class="sortable_a2rat1 perseus-sortable"
                   >
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -207,7 +207,7 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -226,7 +226,7 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -245,7 +245,7 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -264,7 +264,7 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
                       style="position: static; margin: 0px;"
                     >
                       <div
@@ -322,14 +322,14 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
           class="perseus-widget-container widget-block"
         >
           <table
-            class="widget_lf609f perseus-widget-matcher"
+            class="widget_7rhn0x perseus-widget-matcher"
           >
             <tbody>
               <tr
                 class="row_tykfnp"
               >
                 <th
-                  class="column_4at8du-o_O-columnLabel_ybhstz"
+                  class="column_4at8du-o_O-columnLabel_1virym6"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
@@ -349,7 +349,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                   </div>
                 </th>
                 <th
-                  class="column_4at8du-o_O-columnRight_wurgg4-o_O-columnLabel_ybhstz"
+                  class="column_4at8du-o_O-columnRight_1v8fpti-o_O-columnLabel_1virym6"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
@@ -376,10 +376,10 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                   class="column_4at8du"
                 >
                   <ul
-                    class="sortable_13d4756 perseus-sortable"
+                    class="sortable_a2rat1 perseus-sortable"
                   >
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_1tjoo87 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7-o_O-disabled_1tjoo87 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 8px 0px;"
                     >
                       <div
@@ -392,13 +392,13 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                           <div
                             class="paragraph"
                           >
-                            Our Sun will run out of fuel and die in around 5 billion years 
+                            Our Sun will run out of fuel and die in around 5 billion years
                           </div>
                         </div>
                       </div>
                     </li>
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_1tjoo87 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7-o_O-disabled_1tjoo87 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 8px 0px;"
                     >
                       <div
@@ -411,13 +411,13 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                           <div
                             class="paragraph"
                           >
-                            Plate tectonics will rearrange the continents: the Pacific will narrow, bringing Australia closer to the Americas, and the Atlantic will expand to form the largest of the oceans 
+                            Plate tectonics will rearrange the continents: the Pacific will narrow, bringing Australia closer to the Americas, and the Atlantic will expand to form the largest of the oceans
                           </div>
                         </div>
                       </div>
                     </li>
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_1tjoo87 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7-o_O-disabled_1tjoo87 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 8px 0px;"
                     >
                       <div
@@ -430,13 +430,13 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                           <div
                             class="paragraph"
                           >
-                            Our Sun will run out of hydrogen, swell into a red giant, gobble up the inner rocky planets, and then collapse and die 
+                            Our Sun will run out of hydrogen, swell into a red giant, gobble up the inner rocky planets, and then collapse and die
                           </div>
                         </div>
                       </div>
                     </li>
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_1tjoo87 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7-o_O-disabled_1tjoo87 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 8px 0px;"
                     >
                       <div
@@ -449,13 +449,13 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                           <div
                             class="paragraph"
                           >
-                            Average global temperatures will rise 
+                            Average global temperatures will rise
                           </div>
                         </div>
                       </div>
                     </li>
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_1tjoo87 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7-o_O-disabled_1tjoo87 perseus-sortable-draggable"
                       style="position: static; margin: 0px;"
                     >
                       <div
@@ -468,7 +468,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                           <div
                             class="paragraph"
                           >
-                            In 3 to 4 billion years, our galaxy will begin a slow collision with its closest large neighbor, Andromeda 
+                            In 3 to 4 billion years, our galaxy will begin a slow collision with its closest large neighbor, Andromeda
                           </div>
                         </div>
                       </div>
@@ -476,13 +476,13 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                   </ul>
                 </td>
                 <td
-                  class="column_4at8du-o_O-columnRight_wurgg4"
+                  class="column_4at8du-o_O-columnRight_1v8fpti"
                 >
                   <ul
-                    class="sortable_13d4756 perseus-sortable"
+                    class="sortable_a2rat1 perseus-sortable"
                   >
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 8px 0px;"
                     >
                       <div
@@ -501,7 +501,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 8px 0px;"
                     >
                       <div
@@ -520,7 +520,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 8px 0px;"
                     >
                       <div
@@ -539,7 +539,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 8px 0px;"
                     >
                       <div
@@ -558,7 +558,7 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
                       style="position: static; margin: 0px;"
                     >
                       <div
@@ -616,14 +616,14 @@ exports[`matcher widget should snapshot: first render 1`] = `
           class="perseus-widget-container widget-block"
         >
           <table
-            class="widget_lf609f perseus-widget-matcher"
+            class="widget_7rhn0x perseus-widget-matcher"
           >
             <tbody>
               <tr
                 class="row_tykfnp"
               >
                 <th
-                  class="column_4at8du-o_O-columnLabel_ybhstz"
+                  class="column_4at8du-o_O-columnLabel_1virym6"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
@@ -643,7 +643,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                   </div>
                 </th>
                 <th
-                  class="column_4at8du-o_O-columnRight_wurgg4-o_O-columnLabel_ybhstz"
+                  class="column_4at8du-o_O-columnRight_1v8fpti-o_O-columnLabel_1virym6"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
@@ -670,10 +670,10 @@ exports[`matcher widget should snapshot: first render 1`] = `
                   class="column_4at8du"
                 >
                   <ul
-                    class="sortable_13d4756 perseus-sortable"
+                    class="sortable_a2rat1 perseus-sortable"
                   >
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_1tjoo87 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7-o_O-disabled_1tjoo87 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -686,13 +686,13 @@ exports[`matcher widget should snapshot: first render 1`] = `
                           <div
                             class="paragraph"
                           >
-                            Our Sun will run out of fuel and die in around 5 billion years 
+                            Our Sun will run out of fuel and die in around 5 billion years
                           </div>
                         </div>
                       </div>
                     </li>
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_1tjoo87 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7-o_O-disabled_1tjoo87 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -705,13 +705,13 @@ exports[`matcher widget should snapshot: first render 1`] = `
                           <div
                             class="paragraph"
                           >
-                            Plate tectonics will rearrange the continents: the Pacific will narrow, bringing Australia closer to the Americas, and the Atlantic will expand to form the largest of the oceans 
+                            Plate tectonics will rearrange the continents: the Pacific will narrow, bringing Australia closer to the Americas, and the Atlantic will expand to form the largest of the oceans
                           </div>
                         </div>
                       </div>
                     </li>
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_1tjoo87 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7-o_O-disabled_1tjoo87 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -724,13 +724,13 @@ exports[`matcher widget should snapshot: first render 1`] = `
                           <div
                             class="paragraph"
                           >
-                            Our Sun will run out of hydrogen, swell into a red giant, gobble up the inner rocky planets, and then collapse and die 
+                            Our Sun will run out of hydrogen, swell into a red giant, gobble up the inner rocky planets, and then collapse and die
                           </div>
                         </div>
                       </div>
                     </li>
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_1tjoo87 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7-o_O-disabled_1tjoo87 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -743,13 +743,13 @@ exports[`matcher widget should snapshot: first render 1`] = `
                           <div
                             class="paragraph"
                           >
-                            Average global temperatures will rise 
+                            Average global temperatures will rise
                           </div>
                         </div>
                       </div>
                     </li>
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1-o_O-disabled_1tjoo87 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7-o_O-disabled_1tjoo87 perseus-sortable-draggable"
                       style="position: static; margin: 0px;"
                     >
                       <div
@@ -762,7 +762,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                           <div
                             class="paragraph"
                           >
-                            In 3 to 4 billion years, our galaxy will begin a slow collision with its closest large neighbor, Andromeda 
+                            In 3 to 4 billion years, our galaxy will begin a slow collision with its closest large neighbor, Andromeda
                           </div>
                         </div>
                       </div>
@@ -770,13 +770,13 @@ exports[`matcher widget should snapshot: first render 1`] = `
                   </ul>
                 </td>
                 <td
-                  class="column_4at8du-o_O-columnRight_wurgg4"
+                  class="column_4at8du-o_O-columnRight_1v8fpti"
                 >
                   <ul
-                    class="sortable_13d4756 perseus-sortable"
+                    class="sortable_a2rat1 perseus-sortable"
                   >
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -795,7 +795,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -814,7 +814,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -833,7 +833,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
                       style="position: static; margin: 0px 0px 5px 0px;"
                     >
                       <div
@@ -852,7 +852,7 @@ exports[`matcher widget should snapshot: first render 1`] = `
                       </div>
                     </li>
                     <li
-                      class="card_7grg1b-o_O-draggable_12to336-o_O-verticalCard_1gw9js1 perseus-sortable-draggable"
+                      class="card_iohojd-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
                       style="position: static; margin: 0px;"
                     >
                       <div

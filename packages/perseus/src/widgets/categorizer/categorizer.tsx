@@ -231,14 +231,14 @@ const pageMargin = 16;
 const styles = StyleSheet.create({
     mobileTable: {
         [mediaQueries.smOrSmaller]: {
-            minWidth: "auto",
+            minInlineSize: "auto",
         },
     },
 
     fullBleedContainer: {
         [mediaQueries.mdOrSmaller]: {
-            marginLeft: -pageMargin,
-            marginRight: -pageMargin,
+            marginInlineStart: -pageMargin,
+            marginInlineEnd: -pageMargin,
             overflowX: "auto",
         },
     },
@@ -257,12 +257,12 @@ const styles = StyleSheet.create({
 
     emptyHeaderCell: {
         backgroundColor: "inherit",
-        borderBottom: `${border.width.medium} solid ${semanticColor.core.border.neutral.subtle}`,
+        borderBlockEnd: `${border.width.medium} solid ${semanticColor.core.border.neutral.subtle}`,
     },
 
     radioSpan: {
         fontSize: sizing.size_280,
-        paddingRight: 3,
+        paddingInlineEnd: 3,
         cursor: "pointer",
 
         ":hover": {

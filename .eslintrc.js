@@ -70,6 +70,7 @@ module.exports = {
         "react",
         "react-hooks",
         "react-native",
+        "@khanacademy/wonder-blocks",
     ],
     settings: {
         "import/resolver": {
@@ -225,7 +226,18 @@ module.exports = {
             excludedFiles: ["*.d.ts", "*.config.ts", "**/*.cypress.ts"],
         },
     ],
+    reportUnusedDisableDirectives: true,
     rules: {
+        // Enable the RTL rule now. Other wonder-blocks/strict rules stay off
+        // so this PR stays scoped to logical CSS properties.
+        "@khanacademy/wonder-blocks/require-logical-properties-for-rtl":
+            "error",
+        "@khanacademy/wonder-blocks/no-hardcoded-color": "off",
+        "@khanacademy/wonder-blocks/no-raw-button": "off",
+        "@khanacademy/wonder-blocks/no-invalid-bodytext-children": "off",
+        "@khanacademy/wonder-blocks/no-custom-tab-role": "off",
+        "@khanacademy/wonder-blocks/no-excessive-bodytext-children": "off",
+        "@khanacademy/wonder-blocks/no-invalid-bodytext-parent": "off",
         "new-cap": "off",
         "no-invalid-this": "off", // @typescript-eslint/no-invalid-this supersedes it
         "no-unused-expressions": "off", // @typescript-eslint/no-unused-expression supersedes it

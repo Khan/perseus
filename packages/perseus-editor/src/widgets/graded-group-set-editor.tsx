@@ -1,4 +1,4 @@
-/* eslint-disable react/forbid-prop-types, react/no-unsafe */
+/* eslint-disable react/forbid-prop-types */
 import {ApiOptions, Changeable} from "@khanacademy/perseus";
 import {gradedGroupSetLogic} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";

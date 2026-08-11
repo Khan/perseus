@@ -293,7 +293,7 @@ const GifImage = (props: Props) => {
                 data-testid="gif-canvas"
                 style={{
                     width: width ? width * scale : undefined,
-                    maxWidth: "100%",
+                    maxInlineSize: "100%",
                     aspectRatio: aspectRatio,
                     height: displayHeight,
                 }}

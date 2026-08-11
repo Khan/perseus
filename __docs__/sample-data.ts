@@ -1,117 +1,128 @@
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import {generateInteractiveGraphOptions} from "@khanacademy/perseus-core";
+
+import {testDependenciesV2} from "../packages/perseus/src/testing/test-dependencies";
+
+import type {ServerItemRenderer} from "@khanacademy/perseus";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // This lives here because it adds alot of noise to the MDX file if we inline
 // it.
-export const graphExample: PerseusRenderer = {
-    content:
-        "An example of a the beautiful **interactive-graph** widget:\n\n[[☃ interactive-graph 1]]",
-    widgets: {
-        "interactive-graph 1": {
-            type: "interactive-graph",
-            options: {
-                graph: {
-                    type: "none",
-                },
-                correct: {
-                    type: "none",
-                },
-                showAxisArrows: {
-                    xMin: true,
-                    xMax: true,
-                    yMin: true,
-                    yMax: true,
-                },
-                showAxisTicks: {x: true, y: true},
-                lockedFigures: [
-                    {
-                        type: "point",
-                        color: "green",
-                        coord: [3, 7.5],
-                        filled: true,
-                        labels: [],
-                    },
-                    {
-                        type: "line",
-                        kind: "segment",
-                        color: "blue",
-                        lineStyle: "solid",
-                        weight: "thick",
-                        labels: [],
-                        points: [
+export const graphExample: PropsFor<typeof ServerItemRenderer> = {
+    dependencies: testDependenciesV2,
+    item: {
+        hints: [],
+        question: {
+            content:
+                "An example of the beautiful **interactive-graph** widget:\n\n[[☃ interactive-graph 1]]",
+            widgets: {
+                "interactive-graph 1": {
+                    type: "interactive-graph",
+                    options: generateInteractiveGraphOptions({
+                        graph: {
+                            type: "none",
+                        },
+                        correct: {
+                            type: "none",
+                        },
+                        showAxisArrows: {
+                            xMin: true,
+                            xMax: true,
+                            yMin: true,
+                            yMax: true,
+                        },
+                        showAxisTicks: {x: true, y: true},
+                        lockedFigures: [
                             {
-                                color: "blue",
-                                coord: [-3, 6],
-                                filled: true,
                                 type: "point",
+                                color: "green",
+                                coord: [3, 7.5],
+                                filled: true,
                                 labels: [],
                             },
                             {
+                                type: "line",
+                                kind: "segment",
                                 color: "blue",
-                                coord: [8, 8],
-                                filled: true,
-                                type: "point",
+                                lineStyle: "solid",
+                                weight: "thick",
                                 labels: [],
+                                points: [
+                                    {
+                                        color: "blue",
+                                        coord: [-3, 6],
+                                        filled: true,
+                                        type: "point",
+                                        labels: [],
+                                    },
+                                    {
+                                        color: "blue",
+                                        coord: [8, 8],
+                                        filled: true,
+                                        type: "point",
+                                        labels: [],
+                                    },
+                                ],
+                                showPoint1: false,
+                                showPoint2: false,
+                            },
+                            {
+                                type: "ellipse",
+                                weight: "thin",
+                                labels: [],
+                                angle: 0,
+                                center: [0, 2],
+                                color: "purple",
+                                fillStyle: "none",
+                                radius: [3, 1],
+                                strokeStyle: "solid",
+                            },
+                            {
+                                type: "vector",
+                                weight: "medium",
+                                labels: [],
+                                color: "pink",
+                                points: [
+                                    [-2, -2],
+                                    [-7, -4],
+                                ],
+                            },
+                            {
+                                type: "polygon",
+                                labels: [],
+                                color: "gold",
+                                weight: "thick",
+                                fillStyle: "translucent",
+                                points: [
+                                    [7, -3],
+                                    [8, -5],
+                                    [4, -7],
+                                    [0, -7],
+                                    [2, -3],
+                                ],
+                                showVertices: false,
+                                strokeStyle: "solid",
                             },
                         ],
-                        showPoint1: false,
-                        showPoint2: false,
-                    },
-                    {
-                        type: "ellipse",
-                        weight: "thin",
-                        labels: [],
-                        angle: 0,
-                        center: [0, 2],
-                        color: "purple",
-                        fillStyle: "none",
-                        radius: [3, 1],
-                        strokeStyle: "solid",
-                    },
-                    {
-                        type: "vector",
-                        weight: "medium",
-                        labels: [],
-                        color: "pink",
-                        points: [
-                            [-2, -2],
-                            [-7, -4],
+                        markings: "graph",
+                        range: [
+                            [-10, 10],
+                            [-10, 10],
                         ],
+                        rulerLabel: "",
+                        rulerTicks: 10,
+                        showProtractor: false,
+                        showRuler: false,
+                        showTooltips: false,
+                        step: [1, 1],
+                    }),
+                    static: false,
+                    version: {
+                        major: 0,
+                        minor: 0,
                     },
-                    {
-                        type: "polygon",
-                        labels: [],
-                        color: "gold",
-                        weight: "thick",
-                        fillStyle: "translucent",
-                        points: [
-                            [7, -3],
-                            [8, -5],
-                            [4, -7],
-                            [0, -7],
-                            [2, -3],
-                        ],
-                        showVertices: false,
-                        strokeStyle: "solid",
-                    },
-                ],
-                markings: "graph",
-                range: [
-                    [-10, 10],
-                    [-10, 10],
-                ],
-                rulerLabel: "",
-                rulerTicks: 10,
-                showProtractor: false,
-                showRuler: false,
-                showTooltips: false,
-                step: [1, 1],
+                },
             },
-            static: false,
-            version: {
-                major: 0,
-                minor: 0,
-            },
+            images: {},
         },
     },
-    images: {},
 };

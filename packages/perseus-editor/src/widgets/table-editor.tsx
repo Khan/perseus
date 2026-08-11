@@ -133,7 +133,6 @@ class TableEditor extends React.Component<Props> {
                     <label>
                         Number of rows:{" "}
                         <NumberInput
-                            // eslint-disable-next-line react/no-string-refs
                             ref="numberOfRows"
                             value={this.props.rows}
                             onChange={(val) => {

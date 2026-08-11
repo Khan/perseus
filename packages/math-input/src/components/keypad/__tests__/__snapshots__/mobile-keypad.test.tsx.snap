@@ -3,7 +3,7 @@
 exports[`mobile keypad should not render the keypad when not active 1`] = `
 <div>
   <div
-    class="default_7zhre1-o_O-keypadContainer_1jsjomm"
+    class="default_7zhre1-o_O-keypadContainer_10wp31y"
   />
 </div>
 `;
@@ -11,7 +11,7 @@ exports[`mobile keypad should not render the keypad when not active 1`] = `
 exports[`mobile keypad should render keypad when active 1`] = `
 <div>
   <div
-    class="default_7zhre1-o_O-keypadContainer_1jsjomm"
+    class="default_7zhre1-o_O-keypadContainer_10wp31y"
   >
     <div
       class="default_7zhre1 inlineStyles_6alflt"
@@ -23,7 +23,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
           class="default_7zhre1-o_O-inlineStyles_1fwxya8"
         >
           <div
-            class="default_7zhre1-o_O-inlineStyles_ls0e43"
+            class="default_7zhre1-o_O-inlineStyles_wgzlr5"
           >
             <button
               aria-disabled="false"
@@ -59,7 +59,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
                   class="default_7zhre1-o_O-outerBoxBase_1w9exgo"
                 >
                   <div
-                    class="default_7zhre1-o_O-base_p48mk7"
+                    class="default_7zhre1-o_O-base_uy2alq"
                   >
                     <svg
                       fill="none"
@@ -90,7 +90,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
                   class="default_7zhre1-o_O-outerBoxBase_1w9exgo"
                 >
                   <div
-                    class="default_7zhre1-o_O-base_p48mk7"
+                    class="default_7zhre1-o_O-base_uy2alq"
                   >
                     <svg
                       fill="none"
@@ -121,7 +121,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
                   class="default_7zhre1-o_O-outerBoxBase_1w9exgo"
                 >
                   <div
-                    class="default_7zhre1-o_O-base_p48mk7"
+                    class="default_7zhre1-o_O-base_uy2alq"
                   >
                     <svg
                       fill="none"
@@ -152,7 +152,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
                   class="default_7zhre1-o_O-outerBoxBase_1w9exgo"
                 >
                   <div
-                    class="default_7zhre1-o_O-base_p48mk7"
+                    class="default_7zhre1-o_O-base_uy2alq"
                   >
                     <svg
                       fill="none"
@@ -183,7 +183,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
                   class="default_7zhre1-o_O-outerBoxBase_1w9exgo"
                 >
                   <div
-                    class="default_7zhre1-o_O-base_p48mk7"
+                    class="default_7zhre1-o_O-base_uy2alq"
                   >
                     <svg
                       fill="none"
@@ -214,7 +214,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
                   class="default_7zhre1-o_O-outerBoxBase_1w9exgo"
                 >
                   <div
-                    class="default_7zhre1-o_O-base_p48mk7"
+                    class="default_7zhre1-o_O-base_uy2alq"
                   >
                     <svg
                       fill="none"
@@ -245,7 +245,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
                   class="default_7zhre1-o_O-outerBoxBase_1w9exgo"
                 >
                   <div
-                    class="default_7zhre1-o_O-base_p48mk7"
+                    class="default_7zhre1-o_O-base_uy2alq"
                   >
                     <svg
                       fill="none"
@@ -276,7 +276,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
                   class="default_7zhre1-o_O-outerBoxBase_1w9exgo"
                 >
                   <div
-                    class="default_7zhre1-o_O-base_p48mk7"
+                    class="default_7zhre1-o_O-base_uy2alq"
                   >
                     <svg
                       fill="none"
@@ -307,7 +307,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
                   class="default_7zhre1-o_O-outerBoxBase_1w9exgo"
                 >
                   <div
-                    class="default_7zhre1-o_O-base_p48mk7"
+                    class="default_7zhre1-o_O-base_uy2alq"
                   >
                     <svg
                       fill="none"
@@ -338,7 +338,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
                   class="default_7zhre1-o_O-outerBoxBase_1w9exgo"
                 >
                   <div
-                    class="default_7zhre1-o_O-base_p48mk7"
+                    class="default_7zhre1-o_O-base_uy2alq"
                   >
                     <svg
                       fill="none"
@@ -369,7 +369,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
                   class="default_7zhre1-o_O-outerBoxBase_1w9exgo"
                 >
                   <div
-                    class="default_7zhre1-o_O-base_p48mk7"
+                    class="default_7zhre1-o_O-base_uy2alq"
                   >
                     <svg
                       data-testid="period-decimal"
@@ -401,7 +401,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
                   class="default_7zhre1-o_O-outerBoxBase_1w9exgo"
                 >
                   <div
-                    class="default_7zhre1-o_O-base_p48mk7"
+                    class="default_7zhre1-o_O-base_uy2alq"
                   >
                     <svg
                       fill="none"
@@ -434,7 +434,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
                   class="default_7zhre1-o_O-outerBoxBase_1w9exgo"
                 >
                   <div
-                    class="default_7zhre1-o_O-base_p48mk7-o_O-inlineStyles_9ydqmd"
+                    class="default_7zhre1-o_O-base_uy2alq-o_O-inlineStyles_9ydqmd"
                   >
                     <svg
                       fill="none"
@@ -467,7 +467,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
                   class="default_7zhre1-o_O-outerBoxBase_1w9exgo"
                 >
                   <div
-                    class="default_7zhre1-o_O-base_p48mk7-o_O-inlineStyles_9ydqmd"
+                    class="default_7zhre1-o_O-base_uy2alq-o_O-inlineStyles_9ydqmd"
                   >
                     <svg
                       fill="none"
@@ -498,7 +498,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
                   class="default_7zhre1-o_O-outerBoxBase_1w9exgo"
                 >
                   <div
-                    class="default_7zhre1-o_O-base_p48mk7-o_O-inlineStyles_9ydqmd"
+                    class="default_7zhre1-o_O-base_uy2alq-o_O-inlineStyles_9ydqmd"
                   >
                     <svg
                       fill="none"
@@ -531,7 +531,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
                   class="default_7zhre1-o_O-outerBoxBase_1w9exgo"
                 >
                   <div
-                    class="default_7zhre1-o_O-base_p48mk7-o_O-inlineStyles_9ydqmd"
+                    class="default_7zhre1-o_O-base_uy2alq-o_O-inlineStyles_9ydqmd"
                   >
                     <svg
                       fill="none"

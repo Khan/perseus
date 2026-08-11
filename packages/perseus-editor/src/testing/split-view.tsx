@@ -30,7 +30,7 @@ const SplitView = ({
             <View>
                 <Heading size="large">{JSONTitle}</Heading>
                 <ReactJson
-                    style={{marginTop: "10px"}}
+                    style={{marginBlockStart: "10px"}}
                     quotesOnKeys={false}
                     enableClipboard={false}
                     collapsed={true}

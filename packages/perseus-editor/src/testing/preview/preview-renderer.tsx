@@ -1,4 +1,3 @@
-/* eslint-disable import/no-relative-packages */
 import {
     KeypadContext,
     StatefulKeypadContextProvider,
@@ -249,6 +248,6 @@ const styles = StyleSheet.create({
         containerName: "perseus-root",
     },
     gutter: {
-        marginRight: lintGutterWidth,
+        marginInlineEnd: lintGutterWidth,
     },
 });

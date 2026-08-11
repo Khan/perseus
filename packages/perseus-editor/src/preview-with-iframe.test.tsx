@@ -8,12 +8,23 @@ import {clone} from "./testing/object-utils";
 import type {PreviewContent} from "./preview/message-types";
 
 const mockSendData = jest.fn();
+const mockSetA11yScanningEnabled = jest.fn();
+const mockHighlightIssues = jest.fn();
+const mockClearHighlights = jest.fn();
 let mockHeight: number | null = null;
+let mockA11yReport: {
+    violations: Array<{id: string}>;
+    incompletes: Array<{id: string}>;
+} | null = null;
 
 jest.mock("./preview/use-preview-controller", () => ({
     usePreviewController: () => ({
         sendData: mockSendData,
         height: mockHeight,
+        setA11yScanningEnabled: mockSetA11yScanningEnabled,
+        highlightIssues: mockHighlightIssues,
+        clearHighlights: mockClearHighlights,
+        a11yReport: mockA11yReport,
     }),
 }));
 
@@ -34,7 +45,11 @@ function buildArticleContent(): PreviewContent {
 describe("PreviewWithIframe", () => {
     beforeEach(() => {
         mockHeight = null;
+        mockA11yReport = null;
         mockSendData.mockClear();
+        mockSetA11yScanningEnabled.mockClear();
+        mockHighlightIssues.mockClear();
+        mockClearHighlights.mockClear();
     });
 
     it("does not call sendData when content is null", () => {
@@ -190,5 +205,85 @@ describe("PreviewWithIframe", () => {
 
         const container = screen.getByTitle(/perseus-preview/);
         expect(container.style.height).toBe("500px");
+    });
+
+    describe("a11yScanningEnabled prop", () => {
+        it("calls setA11yScanningEnabled with the prop's value", () => {
+            // Arrange, Act
+            render(
+                <PreviewWithIframe
+                    url="/preview"
+                    isMobile={false}
+                    seamless={false}
+                    content={buildArticleContent()}
+                    a11yScanningEnabled={true}
+                />,
+            );
+
+            // Assert
+            expect(mockSetA11yScanningEnabled).toHaveBeenCalledWith(true);
+        });
+    });
+
+    describe("highlightInstanceIds prop", () => {
+        it("calls highlightIssues with the given instanceIds", () => {
+            // Arrange, Act
+            render(
+                <PreviewWithIframe
+                    url="/preview"
+                    isMobile={false}
+                    seamless={false}
+                    content={buildArticleContent()}
+                    highlightInstanceIds={["violation-1"]}
+                />,
+            );
+
+            // Assert
+            expect(mockHighlightIssues).toHaveBeenCalledWith(["violation-1"]);
+            expect(mockClearHighlights).not.toHaveBeenCalled();
+        });
+
+        it("calls clearHighlights when instanceIds is empty", () => {
+            // Arrange, Act
+            render(
+                <PreviewWithIframe
+                    url="/preview"
+                    isMobile={false}
+                    seamless={false}
+                    content={buildArticleContent()}
+                    highlightInstanceIds={[]}
+                />,
+            );
+
+            // Assert
+            expect(mockClearHighlights).toHaveBeenCalled();
+            expect(mockHighlightIssues).not.toHaveBeenCalled();
+        });
+    });
+
+    describe("onA11yReport prop", () => {
+        it("calls onA11yReport with the latest report from usePreviewController", () => {
+            // Arrange
+            const report = {
+                violations: [{id: "button-name"}],
+                incompletes: [],
+            };
+            mockA11yReport = report;
+            const onA11yReport = jest.fn();
+
+            // Act
+            render(
+                <PreviewWithIframe
+                    url="/preview"
+                    isMobile={false}
+                    seamless={false}
+                    content={buildArticleContent()}
+                    onA11yReport={onA11yReport}
+                />,
+            );
+
+            // Assert
+            expect(onA11yReport).toHaveBeenCalledWith(report);
+        });
     });
 });
