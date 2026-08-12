@@ -1,27 +1,33 @@
 import {
     boolean,
+    enumeration,
     nullable,
     number,
     object,
-    objectWithAllPropertiesRequired,
     optional,
-    string,
 } from "../general-purpose-parsers";
 
-// TODO(LEMS-4224): don't import from outside of the parser
-// eslint-disable-next-line import/no-restricted-paths
-import type {WidgetOptions} from "../../data-schema";
 import type {Parser} from "../parser-types";
+
+const parseAlignment = enumeration(
+    "default",
+    "block",
+    "inline-block",
+    "inline",
+    "wrap-left",
+    "wrap-right",
+    "full-width",
+);
 
 export function parseWidget<Type extends string, Options extends object>(
     parseType: Parser<Type>,
     parseOptions: Parser<Options>,
-): Parser<WidgetOptions<Type, Options>> {
-    return objectWithAllPropertiesRequired({
+) {
+    return object({
         type: parseType,
         static: optional(boolean),
         graded: optional(boolean),
-        alignment: optional(string),
+        alignment: optional(parseAlignment),
         options: parseOptions,
         key: optional(nullable(number)),
         version: optional(
@@ -41,12 +47,12 @@ export function parseWidgetWithVersion<
     parseVersion: Parser<Version>,
     parseType: Parser<Type>,
     parseOptions: Parser<Options>,
-): Parser<WidgetOptions<Type, Options>> {
-    return objectWithAllPropertiesRequired({
+) {
+    return object({
         type: parseType,
         static: optional(boolean),
         graded: optional(boolean),
-        alignment: optional(string),
+        alignment: optional(parseAlignment),
         options: parseOptions,
         key: optional(nullable(number)),
         version: parseVersion,

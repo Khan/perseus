@@ -1,6 +1,6 @@
 export const v0Widget = {
     type: "radio" as const,
-    version: {major: 0, minor: 0},
+    version: {major: 0, minor: 0} as const,
     graded: true,
     options: {
         choices: [
@@ -87,7 +87,7 @@ export const v1Widget = {
     version: {
         major: 1,
         minor: 0,
-    },
+    } as const,
 };
 
 export const v2Widget = {
@@ -134,7 +134,7 @@ export const v2Widget = {
     version: {
         major: 2,
         minor: 0,
-    },
+    } as const,
 };
 
 export const v2WidgetWithRationale = {
@@ -181,7 +181,7 @@ export const v2WidgetWithRationale = {
     version: {
         major: 2,
         minor: 0,
-    },
+    } as const,
 };
 
 export const v3Widget = {
@@ -227,5 +227,5 @@ export const v3Widget = {
     version: {
         major: 3,
         minor: 0,
-    },
+    } as const,
 };

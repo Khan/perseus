@@ -38,8 +38,11 @@ import type {
     PublicWidgetOptionsFunction,
     WidgetLogic,
 } from "./logic-export.types";
-import type {PerseusWidgetOptions, PerseusWidget} from "../data-schema";
-import type {Alignment} from "../types";
+import type {
+    PerseusWidgetOptions,
+    PerseusWidget,
+    Alignment,
+} from "../data-schema";
 
 const widgets = new Registry<WidgetLogic<any, any>>("Core widget registry");
 
