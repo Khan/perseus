@@ -25,10 +25,7 @@ class MatcherEditor extends React.Component<Props> {
     static defaultProps: PerseusMatcherWidgetOptions =
         matcherLogic.defaultWidgetOptions;
 
-    onLabelChange: (
-        arg1: number,
-        arg2: React.ChangeEvent<HTMLInputElement>,
-    ) => void = (index, e) => {
+    onLabelChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
         const labels = [...this.props.labels];
         labels[index] = e.target.value;
         this.props.onChange({labels: labels});
@@ -36,7 +33,7 @@ class MatcherEditor extends React.Component<Props> {
 
     // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
     // the new linter rules for save warnings.
-    getSaveWarnings: () => ReadonlyArray<string> = () => {
+    getSaveWarnings = (): ReadonlyArray<string> => {
         if (this.props.left.length !== this.props.right.length) {
             return [
                 "The two halves of the matcher have different numbers" +
@@ -46,7 +43,7 @@ class MatcherEditor extends React.Component<Props> {
         return [];
     };
 
-    serialize: () => PerseusMatcherWidgetOptions = () => {
+    serialize = (): PerseusMatcherWidgetOptions => {
         return {
             left: this.props.left,
             right: this.props.right,

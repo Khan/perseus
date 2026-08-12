@@ -179,6 +179,46 @@ describe("OrdererEditor", () => {
         expect(screen.getByDisplayValue("Dog")).toBeInTheDocument();
         expect(screen.getByDisplayValue("Emu")).toBeInTheDocument();
     });
+
+    it("calls onChange with the new layout when the layout is changed", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <OrdererEditor
+                onChange={onChangeMock}
+                {...generateOrdererOptions({layout: "horizontal"})}
+            />,
+        );
+
+        // Act
+        await userEvent.selectOptions(
+            screen.getByRole("combobox", {name: "Layout:"}),
+            "vertical",
+        );
+
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith({layout: "vertical"});
+    });
+
+    it("calls onChange with the new height when the height is changed", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <OrdererEditor
+                onChange={onChangeMock}
+                {...generateOrdererOptions({height: "normal"})}
+            />,
+        );
+
+        // Act
+        await userEvent.selectOptions(
+            screen.getByRole("combobox", {name: "Height:"}),
+            "auto",
+        );
+
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith({height: "auto"});
+    });
 });
 
 describe("mergeCards", () => {

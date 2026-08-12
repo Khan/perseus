@@ -61,11 +61,11 @@ class OrdererEditor extends React.Component<Props> {
     static defaultProps: PerseusOrdererWidgetOptions =
         ordererLogic.defaultWidgetOptions;
 
-    onOptionsChange: (
-        arg1: "correctOptions" | "otherOptions",
-        arg2: string[],
-        arg3?: () => void,
-    ) => void = (whichOptions, options, cb) => {
+    onOptionsChange = (
+        whichOptions: "correctOptions" | "otherOptions",
+        options: string[],
+        cb?: () => void,
+    ) => {
         const changedCards = options.map(toCard);
         const correctOptions =
             whichOptions === "correctOptions"
@@ -85,9 +85,7 @@ class OrdererEditor extends React.Component<Props> {
         );
     };
 
-    onLayoutChange: (arg1: React.ChangeEvent<HTMLSelectElement>) => void = (
-        e,
-    ) => {
+    onLayoutChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const layout = e.target.value;
         switch (layout) {
             case HORIZONTAL:
@@ -99,9 +97,7 @@ class OrdererEditor extends React.Component<Props> {
         }
     };
 
-    onHeightChange: (arg1: React.ChangeEvent<HTMLSelectElement>) => void = (
-        e,
-    ) => {
+    onHeightChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const height = e.target.value;
         switch (height) {
             case NORMAL:
@@ -113,7 +109,7 @@ class OrdererEditor extends React.Component<Props> {
         }
     };
 
-    serialize: () => PerseusOrdererWidgetOptions = () => {
+    serialize = (): PerseusOrdererWidgetOptions => {
         return {
             options: mergeCards(
                 this.props.correctOptions,

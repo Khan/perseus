@@ -28,9 +28,7 @@ class SorterEditor extends React.Component<Props> {
     static defaultProps: PerseusSorterWidgetOptions =
         sorterLogic.defaultWidgetOptions;
 
-    onLayoutChange: (arg1: React.ChangeEvent<HTMLSelectElement>) => void = (
-        e,
-    ) => {
+    onLayoutChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const layout = e.target.value;
         switch (layout) {
             case HORIZONTAL:
@@ -42,7 +40,7 @@ class SorterEditor extends React.Component<Props> {
         }
     };
 
-    serialize: () => PerseusSorterWidgetOptions = () => {
+    serialize = (): PerseusSorterWidgetOptions => {
         return {
             correct: this.props.correct,
             layout: this.props.layout,
