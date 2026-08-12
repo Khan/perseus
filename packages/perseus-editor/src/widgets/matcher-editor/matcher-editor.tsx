@@ -1,6 +1,5 @@
 import {
     matcherLogic,
-    type MatcherDefaultWidgetOptions,
     type PerseusMatcherWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
@@ -9,9 +8,9 @@ import * as React from "react";
 import InfoTip from "../../components/info-tip";
 import TextListEditor from "../../components/text-list-editor";
 
-type Props = MatcherDefaultWidgetOptions & {
+type Props = PerseusMatcherWidgetOptions & {
     onChange: (
-        newOptions: Partial<MatcherDefaultWidgetOptions>,
+        newOptions: Partial<PerseusMatcherWidgetOptions>,
         callback?: () => void,
     ) => void;
 };
@@ -23,7 +22,7 @@ type Props = MatcherDefaultWidgetOptions & {
 class MatcherEditor extends React.Component<Props> {
     static widgetName = "matcher" as const;
 
-    static defaultProps: MatcherDefaultWidgetOptions =
+    static defaultProps: PerseusMatcherWidgetOptions =
         matcherLogic.defaultWidgetOptions;
 
     onLabelChange: (

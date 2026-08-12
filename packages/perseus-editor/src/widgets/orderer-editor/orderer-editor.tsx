@@ -1,6 +1,5 @@
 import {
     ordererLogic,
-    type OrdererDefaultWidgetOptions,
     type PerseusOrdererWidgetOptions,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
@@ -13,7 +12,7 @@ const AUTO = "auto";
 const HORIZONTAL = "horizontal";
 const VERTICAL = "vertical";
 
-type Props = OrdererDefaultWidgetOptions & {
+type Props = PerseusOrdererWidgetOptions & {
     onChange: (
         newOptions: Partial<PerseusOrdererWidgetOptions>,
         callback?: () => void,
@@ -80,7 +79,7 @@ export const getUpdatedOptions = (
 class OrdererEditor extends React.Component<Props> {
     static widgetName = "orderer" as const;
 
-    static defaultProps: OrdererDefaultWidgetOptions =
+    static defaultProps: PerseusOrdererWidgetOptions =
         ordererLogic.defaultWidgetOptions;
 
     onOptionsChange: (

@@ -1,7 +1,6 @@
 import {
     sorterLogic,
     type PerseusSorterWidgetOptions,
-    type SorterDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
@@ -12,9 +11,9 @@ import TextListEditor from "../../components/text-list-editor";
 const HORIZONTAL = "horizontal";
 const VERTICAL = "vertical";
 
-type Props = SorterDefaultWidgetOptions & {
+type Props = PerseusSorterWidgetOptions & {
     onChange: (
-        newOptions: Partial<SorterDefaultWidgetOptions>,
+        newOptions: Partial<PerseusSorterWidgetOptions>,
         callback?: () => void,
     ) => void;
 };
@@ -26,7 +25,7 @@ type Props = SorterDefaultWidgetOptions & {
 class SorterEditor extends React.Component<Props> {
     static widgetName = "sorter" as const;
 
-    static defaultProps: SorterDefaultWidgetOptions =
+    static defaultProps: PerseusSorterWidgetOptions =
         sorterLogic.defaultWidgetOptions;
 
     onLayoutChange: (arg1: React.ChangeEvent<HTMLSelectElement>) => void = (
