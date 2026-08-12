@@ -10,7 +10,6 @@ import {
     CoreWidgetRegistry,
     type PerseusWidgetOptions,
 } from "@khanacademy/perseus-core";
-import {linterContextDefault} from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -22,17 +21,12 @@ import {getWidgetSubType} from "./widget-type-utils";
 import * as Widgets from "./widgets";
 
 import type {WidgetProps} from "./types";
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type Props = {
     type: string; // widget type/name,
     id: string; // widget id
+    // TODO(LEMS-4354): change to WidgetPropsV2
     widgetProps: WidgetProps<any, PerseusWidgetOptions>;
-    linterContext: LinterContextProps;
-};
-
-type DefaultProps = {
-    linterContext: LinterContextProps;
 };
 
 type State = {
@@ -41,10 +35,6 @@ type State = {
 
 class WidgetContainerOld extends React.Component<Props, State> {
     widgetRef = React.createRef<React.ComponentType<any>>();
-
-    static defaultProps: DefaultProps = {
-        linterContext: linterContextDefault,
-    };
 
     state: State = {
         sizeClass: containerSizeClass.MEDIUM,
@@ -147,9 +137,12 @@ class WidgetContainerOld extends React.Component<Props, State> {
         // to default to false.
         // The linter context might be a constant object (and it isn't owned
         // by us anyway), so we copy it if we have to modify it.
+        // TODO(benchristel): Since linting logic varies by widget, it should
+        //  live in the individual widget components, not here. Refactor to
+        //  remove this `isLintable` check.
         const linterContext = Widgets.isLintable(type)
-            ? this.props.linterContext
-            : {...this.props.linterContext, highlightLint: false};
+            ? this.props.widgetProps.linterContext
+            : {...this.props.widgetProps.linterContext, highlightLint: false};
 
         // Note: if you add more props here, please consider whether or not
         // it should be auto-serialized.
