@@ -40,11 +40,10 @@ export function parseWidget<Type extends string, Options extends object>(
 }
 
 export function parseWidgetWithVersion<
-    Version extends {major: number; minor: number} | undefined,
     Type extends string,
     Options extends object,
 >(
-    parseVersion: Parser<Version>,
+    parseVersion: Parser<{major: number; minor: number} | undefined>,
     parseType: Parser<Type>,
     parseOptions: Parser<Options>,
 ) {
