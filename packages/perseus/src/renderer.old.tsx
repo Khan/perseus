@@ -522,7 +522,7 @@ class Renderer
     // TODO(LEMS-4354): add return type post-migration.
     getWidgetProps(widgetId: string): any {
         const apiOptions = this.getApiOptions();
-        const widgetProps = this.props.widgets[widgetId].options;
+        const widgetOptions = this.props.widgets[widgetId].options;
 
         // The widget needs access to its "scoring data" at all times when in review
         // mode (which is really just part of its widget info).
@@ -596,9 +596,9 @@ class Renderer
         // every widget is migrated, the un-migrated branch should be removed.
         // TODO(LEMS-4354): clean up post-migration.
         if (widgetInfo != null && MIGRATED_WIDGETS.includes(widgetInfo.type)) {
-            return {options: widgetProps, ...universalProps};
+            return {options: widgetOptions, ...universalProps};
         }
-        return {...widgetProps, ...universalProps};
+        return {...widgetOptions, ...universalProps};
     }
 
     /**
