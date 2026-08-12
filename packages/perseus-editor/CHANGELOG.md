@@ -1,5 +1,18 @@
 # @khanacademy/perseus-editor
 
+## 37.0.0
+
+### Major Changes
+
+-   [#4055](https://github.com/Khan/perseus/pull/4055) [`2c8063b`](https://github.com/Khan/perseus/commit/2c8063b415402ded7e61eaaa81a9693f3d8f01a4) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Stop exporting `PreviewMessageBase` (use `ParentToIframeMessage` or `IframeToParentMessage` instead).
+
+### Patch Changes
+
+-   [#4058](https://github.com/Khan/perseus/pull/4058) [`a097d7d`](https://github.com/Khan/perseus/commit/a097d7d3e963e4e4189ed1b4443d012678c81121) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fixes duplicate React keys warning in Issues panel
+
+-   Updated dependencies [[`e90af81`](https://github.com/Khan/perseus/commit/e90af815bdef3fd75ca1cff6c6854cdee2d1dbd6), [`94f42d7`](https://github.com/Khan/perseus/commit/94f42d74e8b840f05b0360e0e631e185db52af18), [`dd9c4f4`](https://github.com/Khan/perseus/commit/dd9c4f43d2060d931c307e63aa190041dedde1c6)]:
+    -   @khanacademy/perseus@84.0.2
+
 ## 36.0.1
 
 ### Patch Changes
