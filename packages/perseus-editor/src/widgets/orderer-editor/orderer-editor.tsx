@@ -1,6 +1,7 @@
 import {
     ordererLogic,
     type PerseusOrdererWidgetOptions,
+    type PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
@@ -19,61 +20,39 @@ type Props = PerseusOrdererWidgetOptions & {
     ) => void;
 };
 
-export const getUpdatedOptions = (
-    correctOptions: Array<{content: string}>,
-    otherOptions: Array<{content: string}>,
-    whichOptions?: string,
-    options?: string[],
-): Record<string, any> => {
-    // Update the changed options by mapping the options to an array of objects with a content property
-    const props: Record<string, any> = {};
-    if (whichOptions && options !== undefined) {
-        props[whichOptions] = options.map((option) => ({
-            content: option,
-        }));
+const toCard = (content: string): PerseusRenderer => ({
+    content,
+    widgets: {},
+    images: {},
+});
+
+// Cards are displayed grouped by content: numbers first, then everything
+// else, then bare variables and $tex$.
+const getCategoryScore = (content: string): number => {
+    if (/\d/.test(content)) {
+        return 0;
     }
+    if (/^\$?[a-zA-Z]+\$?$/.test(content)) {
+        return 2;
+    }
+    return 1;
+};
 
-    // Get content from correctOptions (either updated or existing)
-    const correctOptionsToUse =
-        whichOptions === "correctOptions"
-            ? props.correctOptions
-            : correctOptions;
+/**
+ * The cards the student picks from: the correct answer and the distractors,
+ * with duplicates and empty cards removed.
+ */
+export const mergeCards = (
+    correctOptions: PerseusRenderer[],
+    otherOptions: PerseusRenderer[],
+): PerseusRenderer[] => {
+    const allCards = [...correctOptions, ...otherOptions];
 
-    // Get content from otherOptions (either updated or existing)
-    const otherOptionsToUse =
-        whichOptions === "otherOptions" ? props.otherOptions : otherOptions;
-
-    // Combine all content items
-    const allOptions = [...correctOptionsToUse, ...otherOptionsToUse];
-
-    // Get unique content items
-    const updatedOptions = [...new Set(allOptions.map((item) => item.content))]
-        // filter out empty strings
+    return [...new Set(allCards.map((card) => card.content))]
         .filter((content) => content !== "")
-        // Alphabetical sort
         .sort()
-        // Category sort
-        .sort((a, b) => {
-            const getCategoryScore = (content) => {
-                // 1. Any content that contains numbers
-                if (/\d/.test(content)) {
-                    return 0;
-                }
-                // 2. $tex$ or variables without any numbers
-                if (/^\$?[a-zA-Z]+\$?$/.test(content)) {
-                    return 2;
-                }
-                // 3. Everything else
-                return 1;
-            };
-            return getCategoryScore(a) - getCategoryScore(b);
-        })
-        .map((content) => ({content}));
-
-    return {
-        ...props,
-        options: updatedOptions,
-    };
+        .sort((a, b) => getCategoryScore(a) - getCategoryScore(b))
+        .map(toCard);
 };
 
 class OrdererEditor extends React.Component<Props> {
@@ -87,14 +66,23 @@ class OrdererEditor extends React.Component<Props> {
         arg2: string[],
         arg3?: () => void,
     ) => void = (whichOptions, options, cb) => {
-        const updatedOptions = getUpdatedOptions(
-            this.props.correctOptions,
-            this.props.otherOptions,
-            whichOptions,
-            options,
-        );
+        const changedCards = options.map(toCard);
+        const correctOptions =
+            whichOptions === "correctOptions"
+                ? changedCards
+                : this.props.correctOptions;
+        const otherOptions =
+            whichOptions === "otherOptions"
+                ? changedCards
+                : this.props.otherOptions;
 
-        this.props.onChange(updatedOptions, cb);
+        this.props.onChange(
+            {
+                [whichOptions]: changedCards,
+                options: mergeCards(correctOptions, otherOptions),
+            },
+            cb,
+        );
     };
 
     onLayoutChange: (arg1: React.ChangeEvent<HTMLSelectElement>) => void = (
@@ -126,16 +114,11 @@ class OrdererEditor extends React.Component<Props> {
     };
 
     serialize: () => PerseusOrdererWidgetOptions = () => {
-        // We combine the correct answer and the other cards by merging them,
-        // removing duplicates and empty cards, and sorting them into
-        // categories based on their content
-        const {options} = getUpdatedOptions(
-            this.props.correctOptions,
-            this.props.otherOptions,
-        );
-
         return {
-            options: options,
+            options: mergeCards(
+                this.props.correctOptions,
+                this.props.otherOptions,
+            ),
             correctOptions: this.props.correctOptions,
             otherOptions: this.props.otherOptions,
             height: this.props.height,
