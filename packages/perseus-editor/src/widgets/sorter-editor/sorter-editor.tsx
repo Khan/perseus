@@ -4,7 +4,6 @@ import {
 } from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
-import _ from "underscore";
 
 import InfoTip from "../../components/info-tip";
 import TextListEditor from "../../components/text-list-editor";
@@ -40,7 +39,11 @@ class SorterEditor extends React.Component<Props> {
     };
 
     serialize: () => SorterDefaultWidgetOptions = () => {
-        return _.pick(this.props, "correct", "layout", "padding");
+        return {
+            correct: this.props.correct,
+            layout: this.props.layout,
+            padding: this.props.padding,
+        };
     };
 
     render(): React.ReactNode {

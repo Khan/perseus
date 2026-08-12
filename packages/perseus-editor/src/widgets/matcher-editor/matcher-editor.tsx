@@ -4,7 +4,6 @@ import {
 } from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
-import _ from "underscore";
 
 import InfoTip from "../../components/info-tip";
 import TextListEditor from "../../components/text-list-editor";
@@ -30,7 +29,7 @@ class MatcherEditor extends React.Component<Props> {
         arg1: number,
         arg2: React.ChangeEvent<HTMLInputElement>,
     ) => void = (index, e) => {
-        const labels = _.clone(this.props.labels);
+        const labels = [...this.props.labels];
         labels[index] = e.target.value;
         this.props.onChange({labels: labels});
     };
@@ -48,14 +47,13 @@ class MatcherEditor extends React.Component<Props> {
     };
 
     serialize: () => MatcherDefaultWidgetOptions = () => {
-        return _.pick(
-            this.props,
-            "left",
-            "right",
-            "labels",
-            "orderMatters",
-            "padding",
-        );
+        return {
+            left: this.props.left,
+            right: this.props.right,
+            labels: this.props.labels,
+            orderMatters: this.props.orderMatters,
+            padding: this.props.padding,
+        };
     };
 
     render(): React.ReactNode {
