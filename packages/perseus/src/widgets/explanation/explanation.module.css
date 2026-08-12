@@ -28,8 +28,6 @@
 }
 
 .content-expanded {
-    /* 5px has no exact border-width token; border.width.thick (4px) is the
-       nearest available value. */
     border-left-width: var(--wb-border-width-thick);
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;

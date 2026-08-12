@@ -3,8 +3,6 @@
     width: 100%;
 }
 .framework-perseus .perseus-group .group-icon {
-    /* This sizes an InlineIcon via em-relative font-size, not text — use
-       sizing.* rather than a font.* token. */
     font-size: var(--wb-sizing-size_140);
     position: absolute;
     top: 50%;

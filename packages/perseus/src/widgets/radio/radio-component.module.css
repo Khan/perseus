@@ -168,10 +168,6 @@
 .instructions {
     display: block;
     color: var(--wb-semanticColor-core-foreground-neutral-strong);
-    /* 18px has no exact font-size token. Sits equidistant between
-       font.body.size.medium (16px) and font.heading.size.medium (20px);
-       chose the heading token since this is bold instructional label
-       text (matching this file's .choice-text pattern), not body prose. */
     font-size: var(--wb-font-heading-size-medium);
     line-height: 1.25;
     font-family: inherit;
