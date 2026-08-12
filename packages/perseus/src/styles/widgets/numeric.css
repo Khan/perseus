@@ -1,9 +1,5 @@
 .input-with-examples-tooltip {
-    /* 18px has no exact font-size token; font.body.size.medium (16px) is the
-       nearest available value for this body-copy tooltip text. */
     font-size: var(--wb-font-body-size-medium);
-    /* 28px has no exact body line-height token; font.body.lineHeight.large
-       (22px) is the nearest available value. */
     line-height: var(--wb-font-body-lineHeight-large);
     color: var(--wb-semanticColor-core-foreground-neutral-subtle);
     background: var(--wb-semanticColor-core-background-base-default);
