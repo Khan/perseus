@@ -1,4 +1,8 @@
-import {generateTestPerseusRenderer} from "@khanacademy/perseus-core";
+import {
+    generateNumberLineOptions,
+    generateNumberLineWidget,
+    generateTestPerseusRenderer,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
@@ -17,7 +21,11 @@ export const numberLineRendererDecorator: Decorator = (
         parameters,
     }: {
         args: Partial<PerseusNumberLineWidgetOptions>;
-        parameters?: {apiOptions?: APIOptions; initialUserInput?: UserInputMap};
+        parameters?: {
+            apiOptions?: APIOptions;
+            initialUserInput?: UserInputMap;
+            static?: boolean;
+        };
     },
 ) => {
     return (
@@ -25,30 +33,10 @@ export const numberLineRendererDecorator: Decorator = (
             question={generateTestPerseusRenderer({
                 content: "[[☃ number-line 1]]",
                 widgets: {
-                    "number-line 1": {
-                        type: "number-line",
-                        graded: true,
-                        static: args.static ?? false,
-                        alignment: "default",
-                        options: {
-                            range: [-4, 4],
-                            labelRange: [null, null],
-                            labelStyle: "decimal",
-                            labelTicks: true,
-                            isInequality: false,
-                            isTickCtrl: false,
-                            divisionRange: [1, 10],
-                            numDivisions: null,
-                            snapDivisions: 2,
-                            tickStep: 1,
-                            correctRel: "eq",
-                            correctX: null,
-                            initialX: null,
-                            showTooltips: false,
-                            static: false,
-                            ...args,
-                        },
-                    },
+                    "number-line 1": generateNumberLineWidget({
+                        static: parameters?.static ?? false,
+                        options: generateNumberLineOptions(args),
+                    }),
                 },
             })}
             apiOptions={parameters?.apiOptions}

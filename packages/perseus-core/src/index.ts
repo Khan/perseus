@@ -449,6 +449,11 @@ export {
     generatePhetSimulationWidget,
     generatePhetSimulationOptions,
 } from "./utils/generators/phet-simulation-widget-generator";
+/** @hidden */
+export {
+    generateNumberLineOptions,
+    generateNumberLineWidget,
+} from "./utils/generators/number-line-widget-generator";
 export {generateNumericInputWidget} from "./utils/generators/numeric-input-widget-generator";
 /** @hidden */
 export {

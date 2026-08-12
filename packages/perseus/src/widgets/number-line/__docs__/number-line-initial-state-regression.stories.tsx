@@ -192,11 +192,13 @@ export const InequalityOpenLeft: Story = {
 export const StaticPoint: Story = {
     decorators: [numberLineRendererDecorator],
     args: {
-        static: true,
         range: [0, 10],
         numDivisions: 5,
         correctX: 6,
     } satisfies Partial<PerseusNumberLineWidgetOptions>,
+    parameters: {
+        static: true,
+    },
     play: waitForRender,
 };
 
