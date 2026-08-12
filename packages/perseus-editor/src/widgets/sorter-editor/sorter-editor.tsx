@@ -1,5 +1,6 @@
 import {
     sorterLogic,
+    type PerseusSorterWidgetOptions,
     type SorterDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
@@ -38,7 +39,7 @@ class SorterEditor extends React.Component<Props> {
         });
     };
 
-    serialize: () => SorterDefaultWidgetOptions = () => {
+    serialize: () => PerseusSorterWidgetOptions = () => {
         return {
             correct: this.props.correct,
             layout: this.props.layout,

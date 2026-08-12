@@ -1,6 +1,7 @@
 import {
     matcherLogic,
     type MatcherDefaultWidgetOptions,
+    type PerseusMatcherWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
@@ -46,7 +47,7 @@ class MatcherEditor extends React.Component<Props> {
         return [];
     };
 
-    serialize: () => MatcherDefaultWidgetOptions = () => {
+    serialize: () => PerseusMatcherWidgetOptions = () => {
         return {
             left: this.props.left,
             right: this.props.right,
