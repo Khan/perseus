@@ -240,8 +240,8 @@ export class MovablePoint {
                             style={{
                                 position: "static",
                                 color: movableColor,
-                                marginLeft: 9,
-                                marginRight: 9,
+                                marginInlineStart: 9,
+                                marginInlineEnd: 9,
                             }}
                         />
                     </span>,
@@ -625,7 +625,7 @@ export class MovablePoint {
             delete this._listenerMap[key];
 
             // Re-index existing events: if they occur after `index`, decrement
-            const keys = _.keys(this._listenerMap);
+            const keys = Object.keys(this._listenerMap);
             _.each(
                 keys,
                 (key) => {

@@ -1,3 +1,5 @@
+import {generatePlotterOptions} from "@khanacademy/perseus-core";
+
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 export const question1: PerseusRenderer = {
@@ -42,7 +44,7 @@ export const simple: PerseusRenderer = {
     widgets: {
         "plotter 1": {
             type: "plotter",
-            options: {
+            options: generatePlotterOptions({
                 categories: ["0", "1", "2"],
                 plotDimensions: [300, 300],
                 correct: [0, 1, 2],
@@ -52,7 +54,7 @@ export const simple: PerseusRenderer = {
                 snapsPerLine: 1,
                 starting: [0, 0, 0],
                 type: "bar",
-            },
+            }),
         },
     },
 };
@@ -63,7 +65,7 @@ export const dotPlotter: PerseusRenderer = {
     widgets: {
         "plotter 1": {
             type: "plotter",
-            options: {
+            options: generatePlotterOptions({
                 correct: [1, 1, 1, 1],
                 starting: [1, 1, 1, 1],
                 type: "dotplot",
@@ -74,7 +76,7 @@ export const dotPlotter: PerseusRenderer = {
                 snapsPerLine: 2,
                 labelInterval: 1,
                 plotDimensions: [380, 300],
-            },
+            }),
         },
     },
 };

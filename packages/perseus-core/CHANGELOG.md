@@ -1,5 +1,93 @@
 # @khanacademy/perseus-core
 
+## 35.0.0
+
+### Major Changes
+
+-   [#3928](https://github.com/Khan/perseus/pull/3928) [`bbf8a63`](https://github.com/Khan/perseus/commit/bbf8a63287d1137e64b58f4902fae06c43042dc0) Thanks [@Evelas78](https://github.com/Evelas78)! - Created a new blank widget which will require schema updates in both frontend and webapp
+
+## 34.1.0
+
+### Minor Changes
+
+-   [#4004](https://github.com/Khan/perseus/pull/4004) [`4639d92`](https://github.com/Khan/perseus/commit/4639d927508f40a0aeb43e31beac46ba266355dd) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Add "none" (fill-only) stroke style for locked polygons and ellipses
+
+## 34.0.2
+
+### Patch Changes
+
+-   [#4024](https://github.com/Khan/perseus/pull/4024) [`c38df95`](https://github.com/Khan/perseus/commit/c38df95f089b31c4338fbbcb88600bff4b5ab859) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused Eslint exceptions
+
+-   [#4023](https://github.com/Khan/perseus/pull/4023) [`41f38b0`](https://github.com/Khan/perseus/commit/41f38b0fac2795472c3234ad91fd15508fdd4674) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the defaultProps of the Interactive Graph widget have been removed.
+
+-   Updated dependencies [[`c38df95`](https://github.com/Khan/perseus/commit/c38df95f089b31c4338fbbcb88600bff4b5ab859)]:
+    -   @khanacademy/kas@2.2.6
+    -   @khanacademy/pure-markdown@2.3.2
+    -   @khanacademy/perseus-utils@2.1.5
+
+## 34.0.1
+
+### Patch Changes
+
+-   [#3991](https://github.com/Khan/perseus/pull/3991) [`ed25029`](https://github.com/Khan/perseus/commit/ed2502933fd0bd14b7de545c7ea1c70ad6eef6a8) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert some uses of underscore (_.indexOf and _.keys) to native equivalents
+
+-   [#4007](https://github.com/Khan/perseus/pull/4007) [`273c61a`](https://github.com/Khan/perseus/commit/273c61a2e9cc8fdade8356da66cd5d0d358e8c47) Thanks [@handeyeco](https://github.com/handeyeco)! - Replace low-risk uses of `_.map` with `Array.map`
+
+-   [#3997](https://github.com/Khan/perseus/pull/3997) [`8c52c56`](https://github.com/Khan/perseus/commit/8c52c568d5911cdb08ae98cf0247cc53da47e15a) Thanks [@Myranae](https://github.com/Myranae)! - Update phet simulation to reflect the current user's theme by updating styling to tokens
+
+-   Updated dependencies [[`ed25029`](https://github.com/Khan/perseus/commit/ed2502933fd0bd14b7de545c7ea1c70ad6eef6a8), [`233204b`](https://github.com/Khan/perseus/commit/233204bb0df329cfa0e0818605c362ec8e89687c), [`273c61a`](https://github.com/Khan/perseus/commit/273c61a2e9cc8fdade8356da66cd5d0d358e8c47), [`ddfd715`](https://github.com/Khan/perseus/commit/ddfd715fef24e29d088d16a6b61e2b51fd773c26)]:
+    -   @khanacademy/kas@2.2.5
+
+## 34.0.0
+
+### Major Changes
+
+-   [#3978](https://github.com/Khan/perseus/pull/3978) [`bc68abe`](https://github.com/Khan/perseus/commit/bc68abeb361923464a61edb5a3fcda2b816cf6ba) Thanks [@benchristel](https://github.com/benchristel)! - The unused `cursorPosition` and `static` options of the Matrix widget have been removed, and the `prefix` and `suffix` options are now required. As always, clients should use the parsers to migrate data to the latest schema, and avoid constructing Perseus widget data manually.
+
+-   [#3971](https://github.com/Khan/perseus/pull/3971) [`bb842c0`](https://github.com/Khan/perseus/commit/bb842c0756783bc0e90d6a1ebbfe4b55d5867e95) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove export: RubricMap (wasn't used)
+
+### Patch Changes
+
+-   [#3975](https://github.com/Khan/perseus/pull/3975) [`b9f7019`](https://github.com/Khan/perseus/commit/b9f7019c3f11680a1bd189456924293bd63ee950) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused underscore imports
+
+-   [#3977](https://github.com/Khan/perseus/pull/3977) [`024094b`](https://github.com/Khan/perseus/commit/024094b0a0ad114aa6180e725a3a9cfa8050af2d) Thanks [@handeyeco](https://github.com/handeyeco)! - Tweak an eslint rule related to unused `_` variables and clean up related code
+
+-   [#3772](https://github.com/Khan/perseus/pull/3772) [`9e23342`](https://github.com/Khan/perseus/commit/9e233429b719b3956cd9a77166565826f0b08f8f) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - PhET widget: remove `URL.canParse` so simulations load on Safari/iOS < 17, and on web browsers without Fullscreen API support (e.g. Safari on iPhone) replace the non-functional fullscreen button with a link that opens the simulation on PhET's site in a new tab
+
+-   [#3979](https://github.com/Khan/perseus/pull/3979) [`d03effd`](https://github.com/Khan/perseus/commit/d03effdad6888177671a53741f3a2134569b5f05) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert \_.isArray to Array.isArray
+
+-   Updated dependencies [[`b9f7019`](https://github.com/Khan/perseus/commit/b9f7019c3f11680a1bd189456924293bd63ee950), [`024094b`](https://github.com/Khan/perseus/commit/024094b0a0ad114aa6180e725a3a9cfa8050af2d), [`d03effd`](https://github.com/Khan/perseus/commit/d03effdad6888177671a53741f3a2134569b5f05)]:
+    -   @khanacademy/kas@2.2.4
+
+## 33.0.1
+
+### Patch Changes
+
+-   [#3931](https://github.com/Khan/perseus/pull/3931) [`bfa51eb`](https://github.com/Khan/perseus/commit/bfa51ebe859e0b88afe21063295eaa95656d85d2) Thanks [@Evelas78](https://github.com/Evelas78)! - Created Regression Story and Generator for Categorizer
+
+## 33.0.0
+
+### Major Changes
+
+-   [#3936](https://github.com/Khan/perseus/pull/3936) [`2a0da4f`](https://github.com/Khan/perseus/commit/2a0da4f190dce68d12b04eef13f84698b18b4ebd) Thanks [@benchristel](https://github.com/benchristel)! - Make all options of the Plotter widget required, and default them in the parser.
+
+### Minor Changes
+
+-   [#3932](https://github.com/Khan/perseus/pull/3932) [`853d839`](https://github.com/Khan/perseus/commit/853d83947bb84692610d7691c9f8b1156f5187e0) Thanks [@benchristel](https://github.com/benchristel)! - The Molecule widget (already deprecated and hidden from the editor) has been removed. It now renders as the DeprecatedStandin widget.
+
+-   [#3943](https://github.com/Khan/perseus/pull/3943) [`0c19685`](https://github.com/Khan/perseus/commit/0c196858400547eb3180747fc4bfc34aee9dd684) Thanks [@EmiliaPalaghita](https://github.com/EmiliaPalaghita)! - Remove the `perseus-enable-point-label-field` feature flag (AITQ-385). `showPointLabels` is now honored unconditionally on interactive graphs and in the editor toggle.
+
+### Patch Changes
+
+-   [#3933](https://github.com/Khan/perseus/pull/3933) [`0e0abbc`](https://github.com/Khan/perseus/commit/0e0abbc84f4c65a3b1750102f76823a7746f97c0) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the unused default props of the Measurer widget have been removed.
+
+## 32.0.1
+
+### Patch Changes
+
+-   Updated dependencies []:
+    -   @khanacademy/pure-markdown@2.3.1
+
 ## 32.0.0
 
 ### Major Changes

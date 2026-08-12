@@ -1,11 +1,10 @@
-import {linterContextDefault} from "@khanacademy/perseus-linter";
-import * as React from "react";
+import {deepClone} from "@khanacademy/perseus-core";
+import React, {forwardRef, useImperativeHandle, useRef} from "react";
 import ReactDOM from "react-dom";
+import invariant from "tiny-invariant";
 
-import {PerseusI18nContext} from "../../components/i18n-context";
+import {usePerseusI18n} from "../../components/i18n-context";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
-import InteractiveUtil from "../../interactive2/interactive-util";
-import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
 
@@ -15,25 +14,14 @@ import type {
     PerseusTableUserInput,
 } from "@khanacademy/perseus-core";
 
-const {assert} = InteractiveUtil;
-
 type EditorProps = {
-    editableHeaders: boolean;
+    editableHeaders?: boolean;
     Editor: any;
-    onChange: (headers: PerseusTableWidgetOptions["headers"]) => void;
+    onChange: (value: {headers: string[]}) => void;
 };
 
 type Props = WidgetProps<PerseusTableWidgetOptions, PerseusTableUserInput> &
     EditorProps;
-
-type DefaultProps = {
-    apiOptions: Props["apiOptions"];
-    headers: Props["headers"];
-    editableHeaders: Props["editableHeaders"];
-    rows: Props["rows"];
-    columns: Props["columns"];
-    linterContext: Props["linterContext"];
-};
 
 // A version of FocusPath that's specific to Table
 type Path = [row: string, column: string];
@@ -49,56 +37,89 @@ function getDefaultPath(): Path {
     return getInputPath(0, 0);
 }
 
-function getRowFromPath(path: Path): number {
-    // 'path' should be a (row, column) pair
-    assert(Array.isArray(path) && path.length === 2);
+function getRowFromPath(path: FocusPath): number {
+    invariant(
+        Array.isArray(path) && path.length === 2,
+        "path should be a (row, colum) pair",
+    );
     return +path[0];
 }
 
-function getColumnFromPath(path: Path): number {
-    // 'path' should be a (row, column) pair
-    assert(Array.isArray(path) && path.length === 2);
+function getColumnFromPath(path: FocusPath): number {
+    invariant(
+        Array.isArray(path) && path.length === 2,
+        "path should be a (row, colum) pair",
+    );
     return +path[1];
 }
 
-function getRefForPath(path: Path): string {
+function getRefForPath(path: FocusPath): string {
     const row = getRowFromPath(path);
     const column = getColumnFromPath(path);
     return "answer" + row + "," + column;
 }
 
-class Table extends React.Component<Props> implements Widget {
-    static contextType = PerseusI18nContext;
-    declare context: React.ContextType<typeof PerseusI18nContext>;
-    headerRefs: Record<string, any> = {};
-    answerRefs: Record<string, any> = {};
+// A cell is either a plain <input> or, on mobile, a SimpleKeypadInput. Both
+// implement focus() and blur().
+type Cell = HTMLInputElement | SimpleKeypadInput;
 
-    static defaultProps: DefaultProps = {
-        apiOptions: ApiOptions.defaults,
-        headers: [""],
-        editableHeaders: false,
-        rows: 4,
-        columns: 1,
-        linterContext: linterContextDefault,
-    };
+const Table = forwardRef<Widget, Props>(function Table(props, ref) {
+    const {strings} = usePerseusI18n();
 
-    _getRows(): number {
-        return this.props.userInput.length;
+    const cellRefs = useRef<Record<string, Cell | undefined>>({});
+
+    useImperativeHandle(ref, () => ({
+        focus(): boolean {
+            getCellForPath(getDefaultPath())?.focus();
+            return true;
+        },
+
+        focusInputPath(path: FocusPath): void {
+            getCellForPath(path)?.focus();
+        },
+
+        blurInputPath(path: FocusPath): void {
+            getCellForPath(path)?.blur();
+        },
+
+        getDOMNodeForPath(path: FocusPath): Element | Text | null {
+            const cell = getCellForPath(path);
+            if (cell instanceof HTMLInputElement) {
+                return cell;
+            }
+            // A SimpleKeypadInput isn't a DOM node, so we have to ask React
+            // which node it rendered.
+            return ReactDOM.findDOMNode(cell ?? null);
+        },
+
+        getInputPaths: (): string[][] =>
+            props.userInput.flatMap((rowArr, r) =>
+                rowArr.map((_, c) => getInputPath(r, c)),
+            ),
+
+        /**
+         * @deprecated and likely very broken API
+         * [LEMS-3185] do not trust serializedState
+         */
+        getSerializedState() {
+            const {userInput, editableHeaders, ...rest} = props;
+            return {
+                ...rest,
+                answers: userInput,
+            };
+        },
+    }));
+
+    function getCellForPath(path: FocusPath): Cell | undefined {
+        return cellRefs.current[getRefForPath(path)];
     }
 
-    _getColumns(): number {
-        return this.props.userInput[0].length;
-    }
-
-    _getAnswersClone(): PerseusTableUserInput {
-        // eslint-disable-next-line no-restricted-syntax
-        return JSON.parse(
-            JSON.stringify(this.props.userInput),
-        ) as PerseusTableUserInput;
-    }
-
-    onValueChange(row: number, column: number, eventOrValue: any): void {
-        const answers = this._getAnswersClone();
+    function handleValueChange(
+        row: number,
+        column: number,
+        eventOrValue: any,
+    ): void {
+        const answers = deepClone(props.userInput);
 
         // If this is coming from an "input", the last argument will be an
         // event. If it's coming from a SimpleKeypadInput, it'll be the value.
@@ -106,192 +127,91 @@ class Table extends React.Component<Props> implements Widget {
             ? eventOrValue.target.value
             : eventOrValue;
 
-        this.props.handleUserInput(answers);
-        this.props.trackInteraction();
+        props.handleUserInput(answers);
+        props.trackInteraction();
     }
 
     // this is for the editing experience
-    onHeaderChange(index: number, e: any): void {
-        const headers = this.props.headers.slice();
+    function handleHeaderChange(index: number, e: {content: string}): void {
+        const headers = props.headers.slice();
         headers[index] = e.content;
-        // eslint-disable-next-line no-restricted-syntax
-        this.props.onChange({
+        props.onChange({
             headers: headers,
-        } as any);
+        });
     }
 
-    _handleFocus(inputPath: any): void {
-        this.props.onFocus(inputPath);
+    let InputComponent;
+    let inputStyle;
+    const extraInputProps: Record<string, any> = {};
+    if (props.apiOptions.customKeypad) {
+        InputComponent = SimpleKeypadInput;
+        // NOTE(charlie): This is intended to match the "width: 80px" in
+        // input in table.css. Those values should be kept in-sync.
+        inputStyle = {width: 80};
+        extraInputProps.keypadElement = props.keypadElement;
+    } else {
+        InputComponent = "input";
+        inputStyle = {};
     }
 
-    _handleBlur(inputPath: any): void {
-        this.props.onBlur(inputPath);
-    }
+    const headerRow = (
+        <tr>
+            {props.headers.map((header, i) => {
+                if (props.editableHeaders) {
+                    return (
+                        <th key={i}>
+                            <props.Editor
+                                apiOptions={props.apiOptions}
+                                content={header}
+                                widgetEnabled={false}
+                                onChange={(e) => handleHeaderChange(i, e)}
+                            />
+                        </th>
+                    );
+                }
+                return (
+                    <th key={i}>
+                        <Renderer
+                            content={header}
+                            linterContext={props.linterContext}
+                            strings={strings}
+                        />
+                    </th>
+                );
+            })}
+        </tr>
+    );
 
-    focus(): boolean {
-        this.focusInputPath(getDefaultPath());
-        return true;
-    }
+    const tableRows = props.userInput.map((rowCells, r) => (
+        <tr key={r}>
+            {rowCells.map((answer, c) => (
+                <td key={c}>
+                    <InputComponent
+                        ref={(cell: Cell | null) => {
+                            const refId = getRefForPath(getInputPath(r, c));
+                            cellRefs.current[refId] = cell ?? undefined;
+                        }}
+                        type="text"
+                        value={answer}
+                        disabled={props.apiOptions.readOnly}
+                        onFocus={() => props.onFocus(getInputPath(r, c))}
+                        onBlur={() => props.onBlur(getInputPath(r, c))}
+                        onChange={(e) => handleValueChange(r, c, e)}
+                        style={inputStyle}
+                        {...extraInputProps}
+                    />
+                </td>
+            ))}
+        </tr>
+    ));
 
-    focusInputPath(path: FocusPath): void {
-        // eslint-disable-next-line no-restricted-syntax
-        const inputID = getRefForPath(path as Path);
-        const inputComponent = this.answerRefs[inputID];
-        if (this.props.apiOptions.customKeypad) {
-            inputComponent.focus();
-        } else {
-            // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-            ReactDOM.findDOMNode(inputComponent).focus();
-        }
-    }
-
-    blurInputPath(path: FocusPath): void {
-        // eslint-disable-next-line no-restricted-syntax
-        const inputID = getRefForPath(path as Path);
-        const inputComponent = this.answerRefs[inputID];
-        if (this.props.apiOptions.customKeypad) {
-            inputComponent.blur();
-        } else {
-            // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'blur' does not exist on type 'Element | Text'.
-            ReactDOM.findDOMNode(inputComponent).blur();
-        }
-    }
-
-    getDOMNodeForPath(
-        path: FocusPath,
-    ): ReturnType<typeof ReactDOM.findDOMNode> {
-        // eslint-disable-next-line no-restricted-syntax
-        const inputID = getRefForPath(path as Path);
-        const inputRef = this.answerRefs[inputID];
-        return ReactDOM.findDOMNode(inputRef);
-    }
-
-    getInputPaths(): string[][] {
-        const rows = this._getRows();
-        const columns = this._getColumns();
-        const inputPaths: Array<Array<string>> = [];
-        for (let r = 0; r < rows; r++) {
-            for (let c = 0; c < columns; c++) {
-                const inputPath = getInputPath(r, c);
-                inputPaths.push(inputPath);
-            }
-        }
-        return inputPaths;
-    }
-
-    /**
-     * @deprecated and likely very broken API
-     * [LEMS-3185] do not trust serializedState
-     */
-    getSerializedState() {
-        const {userInput, editableHeaders: _, ...rest} = this.props;
-        return {
-            ...rest,
-            answers: userInput,
-        };
-    }
-
-    render(): React.ReactNode {
-        const headers = this.props.headers;
-
-        let InputComponent;
-        let inputStyle;
-        const extraInputProps: Record<string, any> = {};
-        if (this.props.apiOptions.customKeypad) {
-            InputComponent = SimpleKeypadInput;
-            // NOTE(charlie): This is intended to match the "width: 80px" in
-            // input in table.css. Those values should be kept in-sync.
-            inputStyle = {width: 80};
-            extraInputProps.keypadElement = this.props.keypadElement;
-        } else {
-            InputComponent = "input";
-            inputStyle = {};
-        }
-
-        return (
-            <table className="perseus-widget-table-of-values non-markdown">
-                <thead>
-                    <tr>
-                        {headers.map((header, i) => {
-                            if (this.props.editableHeaders) {
-                                return (
-                                    <th key={i}>
-                                        <this.props.Editor
-                                            ref={(ref) => {
-                                                this.headerRefs[
-                                                    "columnHeader" + i
-                                                ] = ref;
-                                            }}
-                                            apiOptions={this.props.apiOptions}
-                                            content={header}
-                                            widgetEnabled={false}
-                                            onChange={(e) =>
-                                                this.onHeaderChange(i, e)
-                                            }
-                                        />
-                                    </th>
-                                );
-                            }
-                            return (
-                                <th key={i}>
-                                    <Renderer
-                                        content={header}
-                                        linterContext={this.props.linterContext}
-                                        strings={this.context.strings}
-                                    />
-                                </th>
-                            );
-                        })}
-                    </tr>
-                </thead>
-                <tbody>
-                    {this.props.userInput.map((rowArr, r) => {
-                        return (
-                            <tr key={r}>
-                                {rowArr.map((answer, c) => {
-                                    return (
-                                        <td key={c}>
-                                            <InputComponent
-                                                ref={(ref) => {
-                                                    this.answerRefs[
-                                                        getRefForPath(
-                                                            getInputPath(r, c),
-                                                        )
-                                                    ] = ref;
-                                                }}
-                                                type="text"
-                                                value={answer}
-                                                disabled={
-                                                    this.props.apiOptions
-                                                        .readOnly
-                                                }
-                                                onFocus={() =>
-                                                    this._handleFocus(
-                                                        getInputPath(r, c),
-                                                    )
-                                                }
-                                                onBlur={() =>
-                                                    this._handleBlur(
-                                                        getInputPath(r, c),
-                                                    )
-                                                }
-                                                onChange={(e) =>
-                                                    this.onValueChange(r, c, e)
-                                                }
-                                                style={inputStyle}
-                                                {...extraInputProps}
-                                            />
-                                        </td>
-                                    );
-                                })}
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
-        );
-    }
-}
+    return (
+        <table className="perseus-widget-table-of-values non-markdown">
+            <thead>{headerRow}</thead>
+            <tbody>{tableRows}</tbody>
+        </table>
+    );
+});
 
 function getStartUserInput(
     options: PerseusTableWidgetOptions,

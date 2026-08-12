@@ -1,12 +1,12 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {shuffle} from "@khanacademy/perseus-core";
-import {linterContextDefault} from "@khanacademy/perseus-linter";
-import {StyleSheet, css} from "aphrodite";
+import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
+import {border, semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
+import {css, StyleSheet} from "aphrodite";
 import classNames from "classnames";
-import * as React from "react";
+import React, {forwardRef, useImperativeHandle, useMemo} from "react";
 import _ from "underscore";
 
-import {PerseusI18nContext} from "../../components/i18n-context";
+import {usePerseusI18n} from "../../components/i18n-context";
 import InlineIcon from "../../components/inline-icon";
 import {withDependencies} from "../../components/with-dependencies";
 import {iconCircle, iconCircleThin} from "../../icon-paths";
@@ -23,8 +23,8 @@ import type {
 } from "../../types";
 import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 import type {
-    PerseusCategorizerWidgetOptions,
     PerseusCategorizerUserInput,
+    PerseusCategorizerWidgetOptions,
 } from "@khanacademy/perseus-core";
 
 type ExternalProps = WidgetProps<
@@ -37,213 +37,192 @@ type Props = ExternalProps & {
     dependencies: PerseusDependenciesV2;
 };
 
-type DefaultProps = Pick<
-    Props,
-    "items" | "categories" | "linterContext" | "userInput"
->;
+const Categorizer = forwardRef<Widget, Props>(function Categorizer(props, ref) {
+    const {
+        items,
+        categories,
+        randomizeItems,
+        userInput,
+        problemNum,
+        apiOptions,
+        linterContext,
+        handleUserInput,
+        trackInteraction,
+        dependencies,
+    } = props;
+    const {strings} = usePerseusI18n();
+    const idPrefix = useMemo(() => _.uniqueId("perseus_radio_"), []);
 
-type State = {
-    uniqueId: string;
-};
-
-class Categorizer extends React.Component<Props, State> implements Widget {
-    static contextType = PerseusI18nContext;
-    declare context: React.ContextType<typeof PerseusI18nContext>;
-
-    static defaultProps: DefaultProps = {
-        items: [],
-        categories: [],
-        linterContext: linterContextDefault,
-        userInput: {values: []},
-    };
-
-    state: State = {
-        uniqueId: _.uniqueId("perseus_radio_"),
-    };
-
-    componentDidMount() {
-        this.props.dependencies.analytics.onAnalyticsEvent({
+    useOnMountEffect(() => {
+        dependencies.analytics.onAnalyticsEvent({
             type: "perseus:widget:rendered:ti",
             payload: {
                 widgetSubType: "null",
                 widgetType: "categorizer",
-                widgetId: this.props.widgetId,
+                widgetId: props.widgetId,
             },
         });
-    }
+    });
 
-    /**
-     * @deprecated and likely very broken API
-     * [LEMS-3185] do not trust serializedState
-     */
-    getSerializedState(): any {
-        const {userInput, ...rest} = this.props;
-        return {
-            ...rest,
-            values: userInput.values,
-        };
-    }
+    useImperativeHandle(ref, () => ({
+        getPromptJSON: (): CategorizerPromptJSON => _getPromptJSON(props),
 
-    getPromptJSON(): CategorizerPromptJSON {
-        return _getPromptJSON(this.props);
-    }
+        /**
+         * @deprecated and likely very broken API
+         * [LEMS-3185] do not trust serializedState
+         */
+        getSerializedState(): any {
+            const {userInput, ...rest} = props;
+            return {
+                ...rest,
+                values: userInput.values,
+            };
+        },
+    }));
 
-    _handleUserInput(itemNum: number, catNum: number) {
-        const values = [...this.props.userInput.values];
+    function _handleUserInput(itemNum: number, catNum: number) {
+        const values = [...userInput.values];
         values[itemNum] = catNum;
-        this.props.handleUserInput({values});
-        this.props.trackInteraction();
+        handleUserInput({values});
+        trackInteraction();
     }
 
-    render(): React.ReactNode {
-        const self = this;
+    let indexedItems: ReadonlyArray<Readonly<[string, number]>> = items.map(
+        (item, n) => [item, n],
+    );
+    if (randomizeItems) {
+        indexedItems = shuffle(
+            indexedItems,
+            // eslint-disable-next-line no-restricted-syntax
+            problemNum as number,
+        );
+    }
 
-        // In this context, isMobile is used to differentiate mobile from
-        // desktop.
-        const isMobile = this.props.apiOptions.isMobile;
-        let indexedItems: ReadonlyArray<Readonly<[string, number]>> =
-            this.props.items.map((item, n) => [item, n]);
-        if (this.props.randomizeItems) {
-            indexedItems = shuffle(
-                indexedItems,
-                // eslint-disable-next-line no-restricted-syntax
-                this.props.problemNum as number,
-            );
-        }
-
-        const table = (
-            <table className={"categorizer-table " + css(styles.mobileTable)}>
-                <thead>
-                    <tr>
-                        <td className={css(styles.emptyHeaderCell)} />
-                        {this.props.categories.map((category, i) => {
-                            // Array index is the correct key here, as that's
-                            // how category grading actually works -- no way
-                            // to add or remove categories or items in the
-                            // middle. (If we later add that, this should be
-                            // fixed.)
-                            return (
-                                <th className={css(styles.header)} key={i}>
-                                    <Renderer
-                                        content={category}
-                                        linterContext={this.props.linterContext}
-                                        strings={this.context.strings}
-                                    />
-                                </th>
-                            );
-                        })}
-                    </tr>
-                </thead>
-                <tbody>
-                    {indexedItems.map((indexedItem) => {
-                        const item = indexedItem[0];
-                        const itemNum = indexedItem[1];
-                        const uniqueId = self.state.uniqueId + "_" + itemNum;
+    const table = (
+        <table className={"categorizer-table " + css(styles.mobileTable)}>
+            <thead>
+                <tr>
+                    <td className={css(styles.emptyHeaderCell)} />
+                    {categories.map((category, i) => {
+                        // Array index is the correct key here, as that's
+                        // how category grading actually works -- no way
+                        // to add or remove categories or items in the
+                        // middle. (If we later add that, this should be
+                        // fixed.)
                         return (
-                            <tr key={itemNum}>
-                                <td>
-                                    <Renderer
-                                        content={item}
-                                        linterContext={this.props.linterContext}
-                                        strings={this.context.strings}
-                                    />
-                                </td>
-                                {self.props.categories.map(
-                                    (catName, catNum) => {
-                                        const selected =
-                                            self.props.userInput.values[
-                                                itemNum
-                                            ] === catNum;
-                                        return (
-                                            <td
-                                                className={
-                                                    "category " +
-                                                    css(styles.cell)
-                                                }
-                                                key={catNum}
-                                            >
-                                                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/interactive-supports-focus -- TODO(LEMS-2871): Address a11y error */}
-                                                <div
-                                                    role="button"
-                                                    aria-label={catName}
-                                                    onClick={() =>
-                                                        this._handleUserInput(
+                            <th className={css(styles.header)} key={i}>
+                                <Renderer
+                                    content={category}
+                                    linterContext={linterContext}
+                                    strings={strings}
+                                />
+                            </th>
+                        );
+                    })}
+                </tr>
+            </thead>
+            <tbody>
+                {indexedItems.map((indexedItem) => {
+                    const item = indexedItem[0];
+                    const itemNum = indexedItem[1];
+                    const uniqueId = idPrefix + "_" + itemNum;
+                    return (
+                        <tr key={itemNum}>
+                            <td>
+                                <Renderer
+                                    content={item}
+                                    linterContext={linterContext}
+                                    strings={strings}
+                                />
+                            </td>
+                            {categories.map((catName, catNum) => {
+                                const selected =
+                                    userInput.values[itemNum] === catNum;
+                                return (
+                                    <td
+                                        className={
+                                            "category " + css(styles.cell)
+                                        }
+                                        key={catNum}
+                                    >
+                                        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/interactive-supports-focus -- TODO(LEMS-2871): Address a11y error */}
+                                        <div
+                                            role="button"
+                                            aria-label={catName}
+                                            onClick={() =>
+                                                _handleUserInput(
+                                                    itemNum,
+                                                    catNum,
+                                                )
+                                            }
+                                        >
+                                            {apiOptions.isMobile && (
+                                                <input
+                                                    type="radio"
+                                                    name={uniqueId}
+                                                    className={css(
+                                                        sharedStyles.responsiveInput,
+                                                        sharedStyles.responsiveRadioInput,
+                                                        props.static &&
+                                                            sharedStyles.responsiveRadioInputStatic,
+                                                    )}
+                                                    checked={selected}
+                                                    onChange={() =>
+                                                        _handleUserInput(
                                                             itemNum,
                                                             catNum,
                                                         )
                                                     }
+                                                    onClick={(e) =>
+                                                        e.stopPropagation()
+                                                    }
+                                                />
+                                            )}
+                                            {!apiOptions.isMobile && (
+                                                <span
+                                                    className={css(
+                                                        styles.radioSpan,
+                                                        selected &&
+                                                            styles.checkedRadioSpan,
+                                                        props.static &&
+                                                            selected &&
+                                                            styles.staticCheckedRadioSpan,
+                                                    )}
                                                 >
-                                                    {isMobile && (
-                                                        <input
-                                                            type="radio"
-                                                            name={uniqueId}
-                                                            className={css(
-                                                                sharedStyles.responsiveInput,
-                                                                sharedStyles.responsiveRadioInput,
-                                                            )}
-                                                            checked={selected}
-                                                            onChange={() =>
-                                                                this._handleUserInput(
-                                                                    itemNum,
-                                                                    catNum,
-                                                                )
-                                                            }
-                                                            onClick={(e) =>
-                                                                e.stopPropagation()
-                                                            }
+                                                    {selected ? (
+                                                        <InlineIcon
+                                                            {...iconCircle}
+                                                        />
+                                                    ) : (
+                                                        <InlineIcon
+                                                            {...iconCircleThin}
                                                         />
                                                     )}
-                                                    {!isMobile && (
-                                                        <span
-                                                            className={css(
-                                                                styles.radioSpan,
-                                                                selected &&
-                                                                    styles.checkedRadioSpan,
-                                                                this.props
-                                                                    .static &&
-                                                                    selected &&
-                                                                    styles.staticCheckedRadioSpan,
-                                                            )}
-                                                        >
-                                                            {selected ? (
-                                                                <InlineIcon
-                                                                    {...iconCircle}
-                                                                />
-                                                            ) : (
-                                                                <InlineIcon
-                                                                    {...iconCircleThin}
-                                                                />
-                                                            )}
-                                                        </span>
-                                                    )}
-                                                </div>
-                                            </td>
-                                        );
-                                    },
-                                )}
-                            </tr>
-                        );
-                        /* eslint-enable max-len */
-                    })}
-                </tbody>
-            </table>
-        );
+                                                </span>
+                                            )}
+                                        </div>
+                                    </td>
+                                );
+                            })}
+                        </tr>
+                    );
+                })}
+            </tbody>
+        </table>
+    );
 
-        const extraClassNames = classNames({
-            "categorizer-container": true,
-            "static-mode": this.props.static,
-        });
-        const inlineStyles = this.props.apiOptions.isMobile
-            ? [styles.fullBleedContainer]
-            : [];
+    const extraClassNames = classNames({
+        "categorizer-container": true,
+        "static-mode": props.static,
+    });
+    const inlineStyles = apiOptions.isMobile ? [styles.fullBleedContainer] : [];
 
-        return (
-            <div className={extraClassNames + " " + css(...inlineStyles)}>
-                {table}
-            </div>
-        );
-    }
-}
+    return (
+        <div className={extraClassNames + " " + css(...inlineStyles)}>
+            {table}
+        </div>
+    );
+});
 
 const pageMargin = 16;
 
@@ -252,14 +231,14 @@ const pageMargin = 16;
 const styles = StyleSheet.create({
     mobileTable: {
         [mediaQueries.smOrSmaller]: {
-            minWidth: "auto",
+            minInlineSize: "auto",
         },
     },
 
     fullBleedContainer: {
         [mediaQueries.mdOrSmaller]: {
-            marginLeft: -pageMargin,
-            marginRight: -pageMargin,
+            marginInlineStart: -pageMargin,
+            marginInlineEnd: -pageMargin,
             overflowX: "auto",
         },
     },
@@ -272,33 +251,34 @@ const styles = StyleSheet.create({
     cell: {
         textAlign: "center",
         padding: 0,
-        color: "#ccc",
+        color: semanticColor.core.border.neutral.subtle,
         verticalAlign: "middle",
     },
 
     emptyHeaderCell: {
         backgroundColor: "inherit",
-        borderBottom: "2px solid #ccc",
+        borderBlockEnd: `${border.width.medium} solid ${semanticColor.core.border.neutral.subtle}`,
     },
 
     radioSpan: {
-        fontSize: 30,
-        paddingRight: 3,
+        fontSize: sizing.size_280,
+        paddingInlineEnd: 3,
+        cursor: "pointer",
 
         ":hover": {
-            color: "#999",
+            color: semanticColor.core.foreground.instructive.subtle,
         },
     },
 
     checkedRadioSpan: {
-        color: "#333",
+        color: semanticColor.core.foreground.instructive.default,
     },
 
     // .static-mode is applied by the Categorizer when the rendered
     // widget is static; in this case we gray out the choices to show
     // the user that the widget can't be interacted with.
     staticCheckedRadioSpan: {
-        color: "#888",
+        color: semanticColor.core.foreground.disabled.strong,
     },
 });
 

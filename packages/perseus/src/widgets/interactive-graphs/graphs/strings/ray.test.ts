@@ -19,7 +19,7 @@ const baseRayState: InteractiveGraphState = {
 };
 
 describe("describeRayGraph", () => {
-    test("describes a default ray", () => {
+    it("describes a default ray", () => {
         // Arrange
 
         // Act
@@ -40,7 +40,7 @@ describe("describeRayGraph", () => {
         );
     });
 
-    test("describes a ray with updated points", () => {
+    it("describes a ray with updated points", () => {
         // Arrange
 
         // Act
@@ -67,6 +67,34 @@ describe("describeRayGraph", () => {
         );
         expect(strings.srRayInteractiveElement).toBe(
             "Interactive elements: A ray on a coordinate plane. The endpoint is at -1 comma 2 and the ray goes through point 3 comma 4.",
+        );
+    });
+
+    it("folds custom pointLabels into the endpoint / through-point roles", () => {
+        // Arrange, Act
+        const strings = describeRayGraph(
+            {...baseRayState, pointLabels: ["A", "B"]},
+            mockPerseusI18nContext,
+        );
+
+        // Assert
+        expect(strings.srRayEndpoint).toBe("Endpoint A at -5 comma 5.");
+        expect(strings.srRayTerminalPoint).toBe(
+            "Through point B at 5 comma 5.",
+        );
+    });
+
+    it("falls back to the plain role label for empty-string entries", () => {
+        // Arrange, Act
+        const strings = describeRayGraph(
+            {...baseRayState, pointLabels: ["", "B"]},
+            mockPerseusI18nContext,
+        );
+
+        // Assert
+        expect(strings.srRayEndpoint).toBe("Endpoint at -5 comma 5.");
+        expect(strings.srRayTerminalPoint).toBe(
+            "Through point B at 5 comma 5.",
         );
     });
 });

@@ -1,6 +1,11 @@
+import {KhanMath} from "@khanacademy/kmath";
+
 import type {PerseusStrings} from "../../strings";
 import type {
+    MathFormat,
     PerseusNumericInputAnswerForm,
+    PerseusNumericInputRubric,
+    PerseusNumericInputUserInput,
     PerseusNumericInputWidgetOptions,
 } from "@khanacademy/perseus-core";
 
@@ -150,4 +155,109 @@ export function normalizeCorrectAnswerForms(
                 });
             }),
     );
+}
+
+export function getStartUserInput(): PerseusNumericInputUserInput {
+    return {currentValue: ""};
+}
+
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState
+ */
+export function getUserInputFromSerializedState(
+    serializedState: any,
+): PerseusNumericInputUserInput {
+    return {
+        currentValue: serializedState.currentValue,
+    };
+}
+
+export function findPrecision(value: number) {
+    for (let i = 0; i < 10; i++) {
+        // `toFixed` handily rounds a number to a given precision...
+        // ...but also turns it into a string. so `+` turns it back
+        // into a number.
+        if (value === +value.toFixed(i)) {
+            return i;
+        }
+    }
+    return 10; // don't assume there's more precision than that
+}
+
+export function findCommonFractions(value: number) {
+    const whole = Math.floor(value);
+    if (value === whole) {
+        return;
+    }
+    const decimal = value - whole;
+    const precision = findPrecision(decimal);
+    // it's brute force, but it's honest work
+    for (let num = 1; num < 100; num++) {
+        for (let denom = 2; denom < 100; denom++) {
+            if (+(num / denom).toFixed(precision) === decimal) {
+                return {num: num + whole * denom, denom};
+            }
+        }
+    }
+}
+
+export function getCorrectUserInput(
+    options: PerseusNumericInputWidgetOptions,
+): PerseusNumericInputUserInput {
+    for (const answer of options.answers) {
+        if (answer.status === "correct" && answer.value != null) {
+            if (answer.answerForms?.includes("decimal")) {
+                return {currentValue: answer.value.toString()};
+            }
+            if (answer.answerForms?.includes("improper")) {
+                const frac = findCommonFractions(answer.value);
+                if (frac) {
+                    return {currentValue: `${frac.num}/${frac.denom}`};
+                }
+            }
+            if (answer.answerForms?.includes("proper")) {
+                const frac = findCommonFractions(answer.value);
+                if (frac) {
+                    const {num, denom} = frac;
+                    if (num > denom) {
+                        const whole = Math.floor(num / denom);
+                        const remainder = num - whole * denom;
+                        return {currentValue: `${whole} ${remainder}/${denom}`};
+                    } else {
+                        return {currentValue: `${num}/${denom}`};
+                    }
+                }
+            }
+            // 🤷
+            return {currentValue: answer.value.toString()};
+        }
+    }
+    return {currentValue: ""};
+}
+
+export function getOneCorrectAnswerFromRubric(
+    rubric: PerseusNumericInputRubric,
+): string | null | undefined {
+    const correctAnswers = rubric.answers.filter(
+        (answer) => answer.status === "correct",
+    );
+    const answerStrings = correctAnswers.map((answer) => {
+        // Either get the first answer form or default to decimal
+        const format: MathFormat =
+            answer.answerForms && answer.answerForms[0]
+                ? answer.answerForms[0]
+                : "decimal";
+
+        let answerString = KhanMath.toNumericString(answer.value!, format);
+        if (answer.maxError) {
+            answerString +=
+                " ± " + KhanMath.toNumericString(answer.maxError, format);
+        }
+        return answerString;
+    });
+    if (answerStrings.length === 0) {
+        return;
+    }
+    return answerStrings[0];
 }

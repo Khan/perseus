@@ -1,5 +1,6 @@
 import {Plot, vec} from "mafs";
 import * as React from "react";
+import invariant from "tiny-invariant";
 
 import {
     usePerseusI18n,
@@ -9,11 +10,12 @@ import {X, Y} from "../math/coordinates";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
-import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
+import {DashedAsymptoteLine} from "./components/dashed-asymptote-line";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {describeTangentGraph} from "./strings/tangent";
+import {useTransformVectorsToPixels} from "./use-transform";
 
 import type {
     TangentGraphState,
@@ -48,37 +50,39 @@ function TangentGraph(props: TangentGraphProps) {
     // Destructure the coordinates from the graph state
     // coords[0] is the inflection point (where tan crosses the midline)
     // coords[1] is a quarter-period away (where amplitude is reached)
-    const {coords, pointLabels, snapStep} = graphState;
-    const buildLabel = usePointAriaLabel(pointLabels);
+    const {coords, snapStep} = graphState;
 
-    // The coefficients are used to calculate the tangent equation, plot
-    // the graph, and to indicate to content creators the currently selected
-    // "correct answer" in the Content Editor. While we should technically
-    // never have invalid coordinates, we want to ensure that we have a
-    // fallback so that the graph can still be plotted without crashing.
-    const coeffRef = React.useRef<NamedTangentCoefficient>({
-        amplitude: 1,
-        angularFrequency: 1,
-        phase: 1,
-        verticalOffset: 0,
-    });
+    // The coefficients are used to calculate the tangent equation, plot the
+    // graph, and to indicate to content creators the currently selected
+    // "correct answer" in the Content Editor. A genuine tangent requires two
+    // control points that differ in both x and y. The reducer enforces this,
+    // so invalid coefficients — undefined for a vertical line, amplitude 0 for
+    // a horizontal one — should never reach render. Assert it here to narrow
+    // the type and surface the bug if a degenerate state ever slips through
+    // (e.g. hand-authored coordinates).
     const coeffs = getTangentCoefficients(coords);
+    invariant(
+        coeffs !== undefined && coeffs.amplitude !== 0,
+        "Tangent requires two control points that differ in both x and y.",
+    );
 
-    // If the coefficients are valid, update the reference
-    if (coeffs !== undefined) {
-        coeffRef.current = coeffs;
-    }
+    // Asymptote positions derive from the two control points, so they move
+    // live with the points. Used for both the dashed lines and the segment
+    // splitting that works around the Mafs discontinuity below.
+    const xRange: [number, number] = [range[0][0], range[0][1]];
+    const yRange: [number, number] = [range[1][0], range[1][1]];
+
+    const asymptotes = getAsymptotePositions(coeffs, xRange);
 
     // WORKAROUND for Mafs discontinuity rendering — see getPlotSegments().
-    const xRange: [number, number] = [range[0][0], range[0][1]];
-    const segments = getPlotSegments(coeffRef.current, xRange);
+    const segments = getPlotSegments(asymptotes, xRange);
 
     // Aria strings
     const {
         srTangentGraph,
         srTangentDescription,
         srTangentInflectionPoint,
-        srTangentSecondPoint,
+        srTangentControlPoint,
     } = describeTangentGraph(graphState, i18n);
 
     return (
@@ -87,11 +91,16 @@ function TangentGraph(props: TangentGraphProps) {
             aria-label={srTangentGraph}
             aria-describedby={descriptionId}
         >
+            <TangentAsymptotes
+                asymptotes={asymptotes}
+                yRange={yRange}
+                color={interactiveColor}
+            />
             <ClipToGraphBounds>
                 {segments.map(([segStart, segEnd], i) => (
                     <Plot.OfX
                         key={`tangent-segment-${i}`}
-                        y={(x) => computeTangent(x, coeffRef.current)}
+                        y={(x) => computeTangent(x, coeffs)}
                         domain={[segStart, segEnd]}
                         color={interactiveColor}
                         svgPathProps={{
@@ -106,10 +115,9 @@ function TangentGraph(props: TangentGraphProps) {
             {coords.map((coord, i) => (
                 <MovablePoint
                     ariaLabel={
-                        buildLabel(i, coord) ??
-                        (i === 0
+                        i === 0
                             ? srTangentInflectionPoint
-                            : srTangentSecondPoint)
+                            : srTangentControlPoint
                     }
                     key={"point-" + i}
                     point={coord}
@@ -143,17 +151,22 @@ export const getTangentKeyboardConstraint = (
     const coordToBeMoved = coords[pointIndex];
     const otherPoint = coords[1 - pointIndex];
 
-    // Create a helper function that checks if the new point is on the same
-    // vertical line as the other point. If it is, we need to move the point
-    // an additional snapStep.
+    // Create a helper function that checks if the new point lands on the same
+    // vertical or horizontal line as the other point. If it does, we move the
+    // point an additional snapStep so the two points never share an x (which
+    // makes the frequency undefined) or a y (which zeroes the amplitude) —
+    // neither of which is a valid tangent. This mirrors the reducer guard so
+    // arrow keys step over the degenerate position instead of stalling on it.
     const movePointWithConstraint = (
         moveFunc: (coord: vec.Vector2) => vec.Vector2,
     ): vec.Vector2 => {
         // Move the point
         let movedCoord = moveFunc(coordToBeMoved);
-        // If the moved point overlaps with the other point in the line,
-        // move the point again.
-        if (movedCoord[X] === otherPoint[X]) {
+        // If the moved point lines up with the other point, move it again.
+        if (
+            movedCoord[X] === otherPoint[X] ||
+            movedCoord[Y] === otherPoint[Y]
+        ) {
             movedCoord = moveFunc(movedCoord);
         }
         return movedCoord;
@@ -274,16 +287,20 @@ function getAsymptotePositions(
 //
 // Tracked upstream: https://github.com/stevenpetryk/mafs/issues/133
 //
-// To remove this workaround:
-// 1. Delete getPlotSegments() and getAsymptotePositions()
+// This workaround is expected to stay: the upstream fix was declined (LEMS-4010
+// "Won't Do"). See __docs__/notes/mafs-workarounds.md for the rationale.
+//
+// If it is ever removed (would require the upstream "discontinuities prop" fix):
+// 1. Delete getPlotSegments(). KEEP getAsymptotePositions() — since LEMS-4100 it
+//    also feeds the visible dashed asymptote lines (TangentAsymptotes), not just
+//    the segment splitting, so it can't be removed.
 // 2. Replace the segments.map(...) in TangentGraph with a single:
-//    <Plot.OfX y={(x) => computeTangent(x, coeffRef.current)}
+//    <Plot.OfX y={(x) => computeTangent(x, coeffs)}
 //        color={interactiveColor} svgPathProps={{"aria-hidden": true}} />
 function getPlotSegments(
-    coeffs: NamedTangentCoefficient,
+    asymptotes: ReadonlyArray<number>,
     xRange: [number, number],
 ): Array<[number, number]> {
-    const asymptotes = getAsymptotePositions(coeffs, xRange);
     // Small epsilon to avoid plotting at exactly the asymptote
     const eps = 0.01;
     const segments: Array<[number, number]> = [];
@@ -296,4 +313,38 @@ function getPlotSegments(
     segments.push([start, xRange[1]]);
 
     return segments;
+}
+
+// Renders the tangent's vertical asymptotes as dashed lines, styled like the
+// exp/log graph asymptotes. Unlike those (one draggable asymptote in graph
+// state), a tangent's asymptotes derive from the control points — so they're
+// visible and announced to screen readers, but not independently interactive.
+function TangentAsymptotes(props: {
+    asymptotes: ReadonlyArray<number>;
+    yRange: [number, number];
+    color: string | undefined;
+}) {
+    const {asymptotes, yRange, color} = props;
+
+    // Flatten endpoints to [bottom, top, bottom, top, ...] so one transform
+    // call converts every asymptote's endpoints to pixel space.
+    const endpoints: vec.Vector2[] = asymptotes.flatMap((x): vec.Vector2[] => [
+        [x, yRange[0]],
+        [x, yRange[1]],
+    ]);
+    const pixels = useTransformVectorsToPixels(...endpoints);
+
+    return (
+        <>
+            {asymptotes.map((x, i) => (
+                <DashedAsymptoteLine
+                    key={`asymptote-${x}`}
+                    start={pixels[i * 2]}
+                    end={pixels[i * 2 + 1]}
+                    color={color}
+                    testId="tangent-asymptote__line"
+                />
+            ))}
+        </>
+    );
 }

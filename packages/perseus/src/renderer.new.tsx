@@ -8,7 +8,6 @@
 
 /* eslint-disable max-lines */
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/no-unsafe */
 import {
     Errors,
     PerseusError,
@@ -44,11 +43,11 @@ import {Log} from "./logging/log";
 import {excludeDenylistKeys} from "./mixins/widget-prop-denylist";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown.new";
-import QuestionParagraph from "./question-paragraph";
+import QuestionParagraph from "./question-paragraph.new";
 import TranslationLinter from "./translation-linter";
 import Util from "./util";
 import preprocessTex from "./util/tex-preprocess";
-import WidgetContainer from "./widget-container";
+import WidgetContainer from "./widget-container.new";
 import * as Widgets from "./widgets";
 
 import type {DependenciesContext} from "./dependencies";
@@ -713,7 +712,7 @@ class Renderer
         id: string,
         focusPath: ReadonlyArray<string> = [],
     ) => {
-        if (!_.isArray(focusPath)) {
+        if (!Array.isArray(focusPath)) {
             throw new PerseusError(
                 "widget props.onFocus focusPath must be an Array, " +
                     "but was" +
@@ -823,7 +822,7 @@ class Renderer
         ast: any,
         state: WidgetState,
     ) => {
-        if (_.isArray(ast)) {
+        if (Array.isArray(ast)) {
             // This is duplicated from simple-markdown
             // TODO(aria): Don't duplicate this logic
             const oldKey = state.key;
@@ -885,7 +884,7 @@ class Renderer
                 // There is only one node being rendered,
                 // and it's a full-width widget.
                 "perseus-paragraph-full-width":
-                    state.foundFullWidth && ast.content.length === 1,
+                    state.foundFullWidth && ast.content?.length === 1,
             });
         }
 
@@ -895,7 +894,6 @@ class Renderer
                 className={className}
                 translationIndex={this.translationIndex}
                 paragraphIndex={state.paragraphIndex}
-                inline={this.props.inline}
             >
                 <ErrorBoundary>{output}</ErrorBoundary>
             </QuestionParagraph>
@@ -907,7 +905,7 @@ class Renderer
         ast: any,
         state: WidgetState,
     ) => {
-        if (_.isArray(ast)) {
+        if (Array.isArray(ast)) {
             // This is duplicated from simple-markdown
             // TODO(aria): Don't duplicate this logic
             const oldKey = state.key;
@@ -1426,7 +1424,6 @@ class Renderer
         _.each(
             this.state.widgetInfo,
             function (info, id) {
-                // eslint-disable-next-line @typescript-eslint/no-invalid-this
                 // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 // eslint-disable-next-line @typescript-eslint/no-invalid-this
                 const widget = this.getWidgetInstance(id);
@@ -1605,7 +1602,7 @@ class Renderer
         this._isTwoColumn = false;
 
         // Parse the string of markdown to a parse tree
-        const parsedMarkdown = this.props.inline
+        let parsedMarkdown = this.props.inline
             ? PerseusMarkdown.parseInline(content, {
                   // Recognize crowdin IDs while translating articles
                   // (This should never be hit by exercises, though if you
@@ -1616,6 +1613,13 @@ class Renderer
             : PerseusMarkdown.parse(content, {
                   isJipt: this.translationIndex != null,
               });
+
+        // Recover from malformed markdown where a block-level widget (e.g.
+        // radio) is parsed as an inline child of a paragraph because the
+        // content author didn't separate the widget reference with blank
+        // lines. Splitting the paragraph here keeps block widgets out of the
+        // <p> emitted by the paragraph rule, avoiding invalid HTML.
+        parsedMarkdown = Util.splitBlockWidgetsFromParagraphs(parsedMarkdown);
 
         // Optionally apply the linter to the parse tree
         if (this.props.linterContext.highlightLint) {

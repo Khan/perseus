@@ -1,5 +1,81 @@
 # @khanacademy/perseus-score
 
+## 8.12.14
+
+### Patch Changes
+
+-   Updated dependencies [[`bbf8a63`](https://github.com/Khan/perseus/commit/bbf8a63287d1137e64b58f4902fae06c43042dc0)]:
+    -   @khanacademy/perseus-core@35.0.0
+    -   @khanacademy/kmath@2.4.41
+
+## 8.12.13
+
+### Patch Changes
+
+-   Updated dependencies [[`4639d92`](https://github.com/Khan/perseus/commit/4639d927508f40a0aeb43e31beac46ba266355dd)]:
+    -   @khanacademy/perseus-core@34.1.0
+    -   @khanacademy/kmath@2.4.40
+
+## 8.12.12
+
+### Patch Changes
+
+-   Updated dependencies [[`c38df95`](https://github.com/Khan/perseus/commit/c38df95f089b31c4338fbbcb88600bff4b5ab859), [`41f38b0`](https://github.com/Khan/perseus/commit/41f38b0fac2795472c3234ad91fd15508fdd4674)]:
+    -   @khanacademy/perseus-core@34.0.2
+    -   @khanacademy/kas@2.2.6
+    -   @khanacademy/kmath@2.4.39
+    -   @khanacademy/perseus-utils@2.1.5
+
+## 8.12.11
+
+### Patch Changes
+
+-   [#4002](https://github.com/Khan/perseus/pull/4002) [`ddfd715`](https://github.com/Khan/perseus/commit/ddfd715fef24e29d088d16a6b61e2b51fd773c26) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert some uses of underscore to native JS functions
+
+-   Updated dependencies [[`ed25029`](https://github.com/Khan/perseus/commit/ed2502933fd0bd14b7de545c7ea1c70ad6eef6a8), [`233204b`](https://github.com/Khan/perseus/commit/233204bb0df329cfa0e0818605c362ec8e89687c), [`273c61a`](https://github.com/Khan/perseus/commit/273c61a2e9cc8fdade8356da66cd5d0d358e8c47), [`8c52c56`](https://github.com/Khan/perseus/commit/8c52c568d5911cdb08ae98cf0247cc53da47e15a), [`ddfd715`](https://github.com/Khan/perseus/commit/ddfd715fef24e29d088d16a6b61e2b51fd773c26)]:
+    -   @khanacademy/perseus-core@34.0.1
+    -   @khanacademy/kas@2.2.5
+    -   @khanacademy/kmath@2.4.38
+
+## 8.12.10
+
+### Patch Changes
+
+-   [#3975](https://github.com/Khan/perseus/pull/3975) [`b9f7019`](https://github.com/Khan/perseus/commit/b9f7019c3f11680a1bd189456924293bd63ee950) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused underscore imports
+
+-   [#3977](https://github.com/Khan/perseus/pull/3977) [`024094b`](https://github.com/Khan/perseus/commit/024094b0a0ad114aa6180e725a3a9cfa8050af2d) Thanks [@handeyeco](https://github.com/handeyeco)! - Tweak an eslint rule related to unused `_` variables and clean up related code
+
+-   [#3979](https://github.com/Khan/perseus/pull/3979) [`d03effd`](https://github.com/Khan/perseus/commit/d03effdad6888177671a53741f3a2134569b5f05) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert \_.isArray to Array.isArray
+
+-   Updated dependencies [[`b9f7019`](https://github.com/Khan/perseus/commit/b9f7019c3f11680a1bd189456924293bd63ee950), [`024094b`](https://github.com/Khan/perseus/commit/024094b0a0ad114aa6180e725a3a9cfa8050af2d), [`9e23342`](https://github.com/Khan/perseus/commit/9e233429b719b3956cd9a77166565826f0b08f8f), [`d03effd`](https://github.com/Khan/perseus/commit/d03effdad6888177671a53741f3a2134569b5f05), [`bc68abe`](https://github.com/Khan/perseus/commit/bc68abeb361923464a61edb5a3fcda2b816cf6ba), [`bb842c0`](https://github.com/Khan/perseus/commit/bb842c0756783bc0e90d6a1ebbfe4b55d5867e95)]:
+    -   @khanacademy/perseus-core@34.0.0
+    -   @khanacademy/kas@2.2.4
+    -   @khanacademy/kmath@2.4.37
+
+## 8.12.9
+
+### Patch Changes
+
+-   Updated dependencies [[`bfa51eb`](https://github.com/Khan/perseus/commit/bfa51ebe859e0b88afe21063295eaa95656d85d2)]:
+    -   @khanacademy/perseus-core@33.0.1
+    -   @khanacademy/kmath@2.4.36
+
+## 8.12.8
+
+### Patch Changes
+
+-   Updated dependencies [[`2a0da4f`](https://github.com/Khan/perseus/commit/2a0da4f190dce68d12b04eef13f84698b18b4ebd), [`853d839`](https://github.com/Khan/perseus/commit/853d83947bb84692610d7691c9f8b1156f5187e0), [`0e0abbc`](https://github.com/Khan/perseus/commit/0e0abbc84f4c65a3b1750102f76823a7746f97c0), [`0c19685`](https://github.com/Khan/perseus/commit/0c196858400547eb3180747fc4bfc34aee9dd684)]:
+    -   @khanacademy/perseus-core@33.0.0
+    -   @khanacademy/kmath@2.4.35
+
+## 8.12.7
+
+### Patch Changes
+
+-   Updated dependencies []:
+    -   @khanacademy/perseus-core@32.0.1
+    -   @khanacademy/kmath@2.4.34
+
 ## 8.12.6
 
 ### Patch Changes

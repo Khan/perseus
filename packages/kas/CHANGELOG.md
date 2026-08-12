@@ -1,5 +1,36 @@
 # @khanacademy/kas
 
+## 2.2.6
+
+### Patch Changes
+
+-   [#4024](https://github.com/Khan/perseus/pull/4024) [`c38df95`](https://github.com/Khan/perseus/commit/c38df95f089b31c4338fbbcb88600bff4b5ab859) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused Eslint exceptions
+
+-   Updated dependencies []:
+    -   @khanacademy/perseus-utils@2.1.5
+
+## 2.2.5
+
+### Patch Changes
+
+-   [#3991](https://github.com/Khan/perseus/pull/3991) [`ed25029`](https://github.com/Khan/perseus/commit/ed2502933fd0bd14b7de545c7ea1c70ad6eef6a8) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert some uses of underscore (_.indexOf and _.keys) to native equivalents
+
+-   [#4011](https://github.com/Khan/perseus/pull/4011) [`233204b`](https://github.com/Khan/perseus/commit/233204bb0df329cfa0e0818605c362ec8e89687c) Thanks [@handeyeco](https://github.com/handeyeco)! - Replace some uses of `bind` with cleaner alternatives
+
+-   [#4007](https://github.com/Khan/perseus/pull/4007) [`273c61a`](https://github.com/Khan/perseus/commit/273c61a2e9cc8fdade8356da66cd5d0d358e8c47) Thanks [@handeyeco](https://github.com/handeyeco)! - Replace low-risk uses of `_.map` with `Array.map`
+
+-   [#4002](https://github.com/Khan/perseus/pull/4002) [`ddfd715`](https://github.com/Khan/perseus/commit/ddfd715fef24e29d088d16a6b61e2b51fd773c26) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert some uses of underscore to native JS functions
+
+## 2.2.4
+
+### Patch Changes
+
+-   [#3975](https://github.com/Khan/perseus/pull/3975) [`b9f7019`](https://github.com/Khan/perseus/commit/b9f7019c3f11680a1bd189456924293bd63ee950) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused underscore imports
+
+-   [#3977](https://github.com/Khan/perseus/pull/3977) [`024094b`](https://github.com/Khan/perseus/commit/024094b0a0ad114aa6180e725a3a9cfa8050af2d) Thanks [@handeyeco](https://github.com/handeyeco)! - Tweak an eslint rule related to unused `_` variables and clean up related code
+
+-   [#3979](https://github.com/Khan/perseus/pull/3979) [`d03effd`](https://github.com/Khan/perseus/commit/d03effdad6888177671a53741f3a2134569b5f05) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert \_.isArray to Array.isArray
+
 ## 2.2.3
 
 ### Patch Changes

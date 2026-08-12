@@ -5,20 +5,20 @@
  *
  * Used in the interactive graph editor's locked figures section.
  */
-import {components} from "@khanacademy/perseus";
 import {
     lockedFigureColors,
     type LockedLabelType,
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
+import InfoTip from "../../../components/info-tip";
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
+import {TypedSingleSelect} from "../../../components/typed-single-select";
 
 import ColorSelect from "./color-select";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
@@ -26,8 +26,6 @@ import styles from "./locked-label-settings.module.css";
 
 import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
-
-const {InfoTip} = components;
 
 // Passed to Wonder Blocks `StyleType`-only props (CoordinatePairInput,
 // ColorSelect) which don't accept a CSS-module className.
@@ -171,25 +169,16 @@ export default function LockedLabelSettings(props: Props) {
                     className={`${styles.row} ${styles.sizeLabel}`}
                 >
                     size
-                    <SingleSelect
+                    <TypedSingleSelect
                         selectedValue={size}
                         disabled={editingDisabled}
-                        // TODO(LEMS-2656): remove TS suppression
-                        onChange={
-                            // eslint-disable-next-line no-restricted-syntax
-                            ((newValue: "small" | "medium" | "large") =>
-                                onChangeProps({
-                                    size: newValue,
-                                })) as any
-                        }
-                        // Placeholder is required, but never gets used since
-                        // we have a label for the select.
-                        placeholder=""
-                    >
-                        <OptionItem value="small" label="small" />
-                        <OptionItem value="medium" label="medium" />
-                        <OptionItem value="large" label="large" />
-                    </SingleSelect>
+                        onChange={(newValue) => onChangeProps({size: newValue})}
+                        options={{
+                            small: "small",
+                            medium: "medium",
+                            large: "large",
+                        }}
+                    />
                 </BodyText>
             </View>
 

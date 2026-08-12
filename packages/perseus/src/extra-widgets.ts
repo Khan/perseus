@@ -1,7 +1,7 @@
-/* eslint-disable import/no-named-as-default */
 // As new widgets get added here, please also make sure they get added in
 // content_internal/perseus_traversal.py so they can be properly translated.
 
+import Blank from "./widgets/blank";
 import Categorizer from "./widgets/categorizer";
 import CSProgram from "./widgets/cs-program";
 import Definition from "./widgets/definition";
@@ -21,7 +21,6 @@ import LabelImage from "./widgets/label-image";
 import Matcher from "./widgets/matcher";
 import Matrix from "./widgets/matrix";
 import Measurer from "./widgets/measurer";
-import Molecule from "./widgets/molecule";
 import NumberLine from "./widgets/number-line";
 import Orderer from "./widgets/orderer";
 import PhetSimulation from "./widgets/phet-simulation";
@@ -33,8 +32,12 @@ import Video from "./widgets/video";
 
 import type {WidgetExports} from "./types";
 
+// TODO(benchristel): figure out why extra-widgets.ts and basic-widgets.ts are
+//  separate. Either put them all together or add a comment explaining why they
+//  need to be separated.
 // eslint-disable-next-line no-restricted-syntax
 export default [
+    Blank,
     CSProgram,
     Categorizer,
     Definition,
@@ -54,7 +57,6 @@ export default [
     Matcher,
     Matrix,
     Measurer,
-    Molecule,
     NumberLine,
     Orderer,
     PhetSimulation,

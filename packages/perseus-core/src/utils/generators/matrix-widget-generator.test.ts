@@ -15,7 +15,6 @@ describe("generateMatrixOptions", () => {
         expect(options.answers).toEqual([[]]);
         expect(options.prefix).toBe("");
         expect(options.suffix).toBe("");
-        expect(options.cursorPosition).toEqual([0, 0]);
     });
 
     it("builds matrix options with all props", () => {
@@ -28,8 +27,6 @@ describe("generateMatrixOptions", () => {
             ],
             prefix: "Given $A =$",
             suffix: "($2 \\times 2$ matrix)",
-            cursorPosition: [1, 1],
-            static: true,
         });
 
         // Assert
@@ -40,8 +37,6 @@ describe("generateMatrixOptions", () => {
         ]);
         expect(options.prefix).toBe("Given $A =$");
         expect(options.suffix).toBe("($2 \\times 2$ matrix)");
-        expect(options.cursorPosition).toEqual([1, 1]);
-        expect(options.static).toBe(true);
     });
 });
 
@@ -74,7 +69,6 @@ describe("generateMatrixWidget", () => {
                 answers: [[5, -2, 1]],
                 prefix: "Row 1:",
                 suffix: "",
-                cursorPosition: [0, 0],
             },
         });
 
@@ -88,7 +82,6 @@ describe("generateMatrixWidget", () => {
             answers: [[5, -2, 1]],
             prefix: "Row 1:",
             suffix: "",
-            cursorPosition: [0, 0],
         });
     });
 

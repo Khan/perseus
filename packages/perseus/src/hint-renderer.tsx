@@ -1,4 +1,5 @@
 import * as PerseusLinter from "@khanacademy/perseus-linter";
+import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import classnames from "classnames";
 import * as React from "react";
@@ -6,7 +7,7 @@ import * as React from "react";
 import {PerseusI18nContext} from "./components/i18n-context";
 import {DependenciesContext} from "./dependencies";
 import Renderer from "./renderer";
-import {baseUnitPx, hintBorderWidth, kaGreen, gray97} from "./styles/constants";
+import {hintBorderWidth, hintPaddingInlineStart} from "./styles/constants";
 import mediaQueries from "./styles/media-queries";
 import UserInputManager from "./user-input-manager";
 
@@ -156,21 +157,21 @@ class HintRenderer extends React.Component<Props> {
 
 const styles = StyleSheet.create({
     newHint: {
-        marginBottom: 1.5 * baseUnitPx,
+        marginBlockEnd: sizing.size_240,
 
-        borderLeftColor: gray97,
-        borderLeftStyle: "solid",
-        borderLeftWidth: hintBorderWidth,
+        borderInlineStartColor: semanticColor.core.border.neutral.subtle,
+        borderInlineStartStyle: "solid",
+        borderInlineStartWidth: hintBorderWidth,
 
         // Only apply left-padding on tablets, to avoid being flush with the
         // border. On phones, padding is applied internally by the child
         // renderers. Some content on phones that is rendered at full-bleed may
         // end up flush with the border, but that's acceptable for now.
         [mediaQueries.lgOrSmaller]: {
-            paddingLeft: baseUnitPx,
+            paddingInlineStart: hintPaddingInlineStart,
         },
         [mediaQueries.smOrSmaller]: {
-            paddingLeft: 0,
+            paddingInlineStart: 0,
         },
 
         ":focus": {
@@ -179,8 +180,8 @@ const styles = StyleSheet.create({
     },
 
     lastRenderedNewHint: {
-        marginBottom: 0,
-        borderLeftColor: kaGreen,
+        marginBlockEnd: 0,
+        borderInlineStartColor: semanticColor.core.border.instructive.default,
     },
 });
 

@@ -23,6 +23,7 @@ import {themeModes} from "../../../../.storybook/modes";
 import HintsRenderer from "../hints-renderer";
 import {ApiOptions} from "../perseus-api";
 import {storybookDependenciesV2} from "../testing/test-dependencies";
+import {mobileDecorator} from "../widgets/__testutils__/story-decorators";
 import {ipsumExample} from "../widgets/explanation/explanation.testdata";
 import {earthMoonImage} from "../widgets/image/utils";
 
@@ -39,7 +40,7 @@ const meta: Meta<typeof HintsRenderer> = {
     decorators: [
         (Story) => {
             return (
-                <View style={{paddingLeft: 80}}>
+                <View style={{paddingInlineStart: 80}}>
                     <Story />
                 </View>
             );
@@ -62,8 +63,25 @@ export default meta;
 
 type Story = StoryObj<typeof HintsRenderer>;
 
-export const Interactive: Story = {
-    decorators: [bibliotronExerciseDecorator],
+const desktopDecorators = [bibliotronExerciseDecorator];
+const mobileDecorators = [mobileDecorator, ...desktopDecorators];
+
+function mobileVersionOf(story: Story): Story {
+    return {
+        ...story,
+        decorators: mobileDecorators,
+        args: {
+            ...story.args,
+            apiOptions: {
+                ...story.args?.apiOptions,
+                isMobile: true,
+            },
+        },
+    };
+}
+
+export const MultipleHintsShown: Story = {
+    decorators: desktopDecorators,
     args: {
         dependencies: storybookDependenciesV2,
         hints: [
@@ -89,8 +107,11 @@ export const Interactive: Story = {
     },
 };
 
+export const MultipleHintsShownMobile: Story =
+    mobileVersionOf(MultipleHintsShown);
+
 export const WithAllInteractiveGraphs: Story = {
-    decorators: [bibliotronExerciseDecorator],
+    decorators: desktopDecorators,
     args: {
         apiOptions: defaultApiOptions,
         dependencies: storybookDependenciesV2,
@@ -159,8 +180,12 @@ export const WithAllInteractiveGraphs: Story = {
     },
 };
 
+export const WithAllInteractiveGraphsMobile: Story = mobileVersionOf(
+    WithAllInteractiveGraphs,
+);
+
 export const ImageWidgetInHint: Story = {
-    decorators: [bibliotronExerciseDecorator],
+    decorators: desktopDecorators,
     args: {
         dependencies: storybookDependenciesV2,
         hints: [
@@ -183,16 +208,23 @@ export const ImageWidgetInHint: Story = {
     },
 };
 
+export const ImageWidgetInHintMobile: Story =
+    mobileVersionOf(ImageWidgetInHint);
+
 export const ExplanationWidgetInHint: Story = {
-    decorators: [bibliotronExerciseDecorator],
+    decorators: desktopDecorators,
     args: {
         dependencies: storybookDependenciesV2,
         hints: [{...ipsumExample, replace: false}],
     },
 };
 
+export const ExplanationWidgetInHintMobile: Story = mobileVersionOf(
+    ExplanationWidgetInHint,
+);
+
 export const DefinitionWidgetInHint: Story = {
-    decorators: [bibliotronExerciseDecorator],
+    decorators: desktopDecorators,
     args: {
         dependencies: storybookDependenciesV2,
         hints: [
@@ -214,3 +246,25 @@ export const DefinitionWidgetInHint: Story = {
         ],
     },
 };
+
+export const DefinitionWidgetInHintMobile: Story = mobileVersionOf(
+    DefinitionWidgetInHint,
+);
+
+export const GetAnotherHintButton: Story = {
+    decorators: desktopDecorators,
+    args: {
+        dependencies: storybookDependenciesV2,
+        hints: [
+            generateTestPerseusRenderer({
+                content: "The answer is under the rock by the mailbox.",
+            }),
+            generateTestPerseusRenderer(),
+        ],
+        hintsVisible: 1,
+        apiOptions: {getAnotherHint: () => {}},
+    },
+};
+
+export const GetAnotherHintButtonMobile: Story =
+    mobileVersionOf(GetAnotherHintButton);

@@ -132,6 +132,21 @@ export type ValidationResult = Extract<PerseusScore, {type: "invalid"}> | null;
  */
 export type UserInputStatus = "correct" | "incorrect" | "incomplete";
 
+export type PerseusBlankUserInput = {
+    /**
+     * The user's placed answer tile on the blank, or null if the user has not
+     * placed a tile yet.
+     */
+    selected: string | null;
+};
+
+export type PerseusBlankRubric = {
+    /**
+     * The ID of the correct answer tile
+     */
+    correctId: string;
+};
+
 /** Scoring rubric for the Categorizer widget. */
 export type PerseusCategorizerRubric = {
     /**
@@ -568,23 +583,6 @@ export interface RubricRegistry {
     sorter: PerseusSorterRubric;
     table: PerseusTableRubric;
 }
-
-/**
- * A map of scoring data (previously referred to as "rubric"), keyed by
- * `widgetId`. This data is used to score a learner's guess for a PerseusItem.
- *
- * NOTE:  The value in this map is intentionally a subset of WidgetOptions<T>.
- * By using the same shape (minus any unneeded render data), we are able to
- * share functionality that understands how to traverse maps of `widget id` to
- * `options`.
- */
-export type RubricMap = {
-    [Property in keyof RubricRegistry as `${Property} ${number}`]: {
-        type: Property;
-        static?: boolean;
-        options: RubricRegistry[Property];
-    };
-};
 
 /** A union of all widget rubric types. */
 export type Rubric = RubricRegistry[keyof RubricRegistry];

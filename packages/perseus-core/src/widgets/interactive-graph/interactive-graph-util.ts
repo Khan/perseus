@@ -23,6 +23,6 @@ export type InteractiveGraphPublicWidgetOptions = Pick<
 export function getInteractiveGraphPublicWidgetOptions(
     options: PerseusInteractiveGraphWidgetOptions,
 ): InteractiveGraphPublicWidgetOptions {
-    const {correct: _, ...publicOptions} = options;
+    const {correct, ...publicOptions} = options;
     return publicOptions;
 }

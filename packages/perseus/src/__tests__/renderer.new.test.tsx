@@ -1,6 +1,8 @@
 // TODO(LEMS-4304): feature flag cleanup - rename this file to renderer.test.tsx.
 import {describe, beforeAll, beforeEach, afterEach, it} from "@jest/globals";
 import {
+    generateInputNumberWidget,
+    generateRadioWidget,
     generateImageOptions,
     generateTestPerseusItem,
     splitPerseusItem,
@@ -1155,7 +1157,7 @@ describe("renderer", () => {
                 if (el.classList.contains("widget-full-width")) {
                     break;
                 }
-                // eslint-disable-next-line testing-library/no-node-access
+
                 // @ts-expect-error - TS2322 - Type 'HTMLElement | null' is not assignable to type 'HTMLElement'.
                 // eslint-disable-next-line testing-library/no-node-access
                 el = el.parentElement;
@@ -1587,6 +1589,50 @@ describe("renderer", () => {
 
             // Assert
             expect(container).toMatchSnapshot("JIPT-translated article");
+        });
+    });
+
+    describe("block-level widgets within paragraphs", () => {
+        const content =
+            "**Which picture shows how to measure the pink square?** \n" +
+            "[[☃ radio 1]]\n" +
+            "**The pink square is** [[☃ input-number 2]] ** blue squares tall.**";
+
+        const question: PerseusRenderer = {
+            content: content,
+            images: {},
+            widgets: {
+                "radio 1": generateRadioWidget(),
+                "input-number 2": generateInputNumberWidget(),
+            },
+        };
+
+        it("does not render the block widget inside a <p> element", () => {
+            // Arrange, Act
+            const {container} = renderQuestion(question);
+
+            // Assert
+            // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
+            const blockWidget = container.querySelector(
+                ".perseus-widget-container.widget-block",
+            );
+            expect(blockWidget).not.toBeNull();
+            // eslint-disable-next-line testing-library/no-node-access
+            expect(blockWidget?.closest("p")).toBeNull();
+        });
+
+        it("keeps the inline input-number widget within a <p> element", () => {
+            // Arrange, Act
+            const {container} = renderQuestion(question);
+
+            // Assert
+            // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
+            const inlineWidget = container.querySelector(
+                ".perseus-widget-container.widget-inline-block",
+            );
+            expect(inlineWidget).not.toBeNull();
+            // eslint-disable-next-line testing-library/no-node-access
+            expect(inlineWidget?.closest("p")).not.toBeNull();
         });
     });
 });

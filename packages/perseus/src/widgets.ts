@@ -39,7 +39,6 @@ export const replaceWidget = (type: string, replacementType: string) => {
     // If the replacement widget isn't found, we need to throw. Otherwise after
     // removing the deprecated widget, we'll have data asking for a widget type
     // that doesn't exist at all.
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!substituteWidget) {
         const errorMsg = `Failed to replace ${type} with ${replacementType}`;
         throw new PerseusError(errorMsg, Errors.Internal);
@@ -58,6 +57,7 @@ export const replaceDeprecatedWidgets = () => {
     replaceWidget("passage", "deprecated-standin");
     replaceWidget("passage-ref", "deprecated-standin");
     replaceWidget("passage-ref-target", "deprecated-standin");
+    replaceWidget("molecule-renderer", "deprecated-standin");
 };
 
 export const registerEditors = (editorsToRegister: ReadonlyArray<Editor>) => {
@@ -103,6 +103,7 @@ export const replaceDeprecatedEditors = () => {
     replaceEditor("passage", "deprecated-standin");
     replaceEditor("passage-ref", "deprecated-standin");
     replaceEditor("passage-ref-target", "deprecated-standin");
+    replaceEditor("molecule-renderer", "deprecated-standin");
 };
 
 export const getWidget = (
@@ -178,7 +179,6 @@ export const supportsUngraded = (type: string): boolean => {
  */
 export const getTracking = (type: string): Tracking => {
     const widgetExport = widgets.get(type);
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     return (widgetExport && widgetExport.tracking) || DEFAULT_TRACKING;
 };
 
@@ -188,6 +188,5 @@ export const getTracking = (type: string): Tracking => {
  */
 export const isLintable = (type: string): boolean => {
     const widgetExports = widgets.get(type);
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     return (widgetExports && widgetExports.isLintable) || DEFAULT_LINTABLE;
 };

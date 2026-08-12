@@ -40,7 +40,7 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
           </button>
           <div
             aria-hidden="false"
-            class="default_7zhre1-o_O-inlineStyles_x0sbw3 content content-expanded transition-expanded"
+            class="default_7zhre1-o_O-inlineStyles_6oikar content content-expanded transition-expanded"
             data-testid="content-container"
             id=":r1:"
           >
@@ -112,7 +112,7 @@ exports[`Explanation should snapshot: initial render 1`] = `
           </button>
           <div
             aria-hidden="true"
-            class="default_7zhre1-o_O-inlineStyles_1xg5zgw content content-collapsed transition-collapsed"
+            class="default_7zhre1-o_O-inlineStyles_18lfa5c content content-collapsed transition-collapsed"
             data-testid="content-container"
             id=":r0:"
           >

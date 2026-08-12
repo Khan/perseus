@@ -9,7 +9,6 @@
  */
 
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
-import PropTypes from "prop-types";
 import _ from "underscore";
 
 import {excludeDenylistKeys} from "./widget-prop-denylist";
@@ -118,15 +117,6 @@ export const change: ChangeFn = function (
         Errors.Internal,
     );
 };
-
-/**
- * TODO(LEMS-3245) remove Changeable
- *
- * @deprecated
- */
-export const propTypes = {
-    onChange: PropTypes.func.isRequired,
-} as const;
 
 /**
  * TODO(LEMS-3245) remove Changeable

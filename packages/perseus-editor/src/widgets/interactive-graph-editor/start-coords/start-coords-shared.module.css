@@ -25,13 +25,6 @@
     border-radius: var(--wb-sizing-size_080) !important;
 }
 
-.row {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: var(--wb-sizing-size_120) !important;
-}
-
 .label-field {
     display: flex !important;
     flex-direction: row !important;

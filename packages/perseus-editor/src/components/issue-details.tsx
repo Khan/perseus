@@ -47,7 +47,7 @@ const IssueDetails = ({issue}: IssueProps) => {
                     tag="span"
                     style={{
                         textOverflow: "ellipsis",
-                        maxWidth: "100%",
+                        maxInlineSize: "100%",
                         overflow: "hidden",
                         whiteSpace: "nowrap",
                     }}
@@ -67,7 +67,7 @@ const IssueDetails = ({issue}: IssueProps) => {
                 size="small"
                 tag="span"
                 weight="bold"
-                style={{marginTop: "1em"}}
+                style={{marginBlockStart: "1em"}}
             >
                 Impact:
             </BodyText>
@@ -76,12 +76,16 @@ const IssueDetails = ({issue}: IssueProps) => {
                 size="small"
                 tag="span"
                 weight="bold"
-                style={{marginTop: "1em"}}
+                style={{marginBlockStart: "1em"}}
             >
                 Issue:
             </BodyText>
             <span style={messageStyling}>{issue.message}</span>
-            <ShowMe elements={issue.elements} />
+            <ShowMe
+                instanceId={
+                    issue.source === "a11y" ? issue.instanceId : undefined
+                }
+            />
             <IssueCta issue={issue} />
         </PerseusEditorAccordion>
     );

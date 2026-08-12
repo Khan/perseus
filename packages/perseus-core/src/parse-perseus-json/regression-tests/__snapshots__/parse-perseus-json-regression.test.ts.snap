@@ -2868,16 +2868,11 @@ $ \\text{H}=\\left[\\begin{array}{rr}4 & -1 \\\\ 4 & 0\\end{array}\\right]$ ",
               0,
             ],
           ],
-          "cursorPosition": [
-            0,
-            0,
-          ],
           "matrixBoardSize": [
             3,
             3,
           ],
           "prefix": "$\\textbf {H = }$",
-          "static": false,
           "suffix": "",
         },
         "static": false,
@@ -2936,16 +2931,11 @@ exports[`parseAndMigratePerseusItem given graded-group-with-false-hint.ts return
         "graded": true,
         "options": {
           "answers": [],
-          "cursorPosition": [
-            0,
-            0,
-          ],
           "matrixBoardSize": [
             3,
             3,
           ],
           "prefix": "$\\textbf {H = }$",
-          "static": false,
           "suffix": "",
         },
         "static": false,
@@ -6918,6 +6908,7 @@ $3$ | $8$
             1,
             1,
           ],
+          "labelLocation": "onAxis",
           "labels": [
             "w",
             "d",
@@ -6948,6 +6939,7 @@ $3$ | $8$
           },
           "showProtractor": false,
           "showRuler": false,
+          "showTooltips": false,
           "snapStep": [
             0.5,
             0.5,
@@ -8012,6 +8004,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with
           "graph": {
             "type": "linear",
           },
+          "labelLocation": "onAxis",
           "labels": [
             "x",
             "y",
@@ -8454,6 +8447,7 @@ Locked figures:
             1,
             1,
           ],
+          "labelLocation": "onAxis",
           "labels": [
             "\\text{Re}",
             "\\text{Im}",
@@ -8527,6 +8521,7 @@ Locked figures:
             1,
             10,
           ],
+          "labelLocation": "onAxis",
           "labels": [
             "x",
             "y",
@@ -8590,6 +8585,7 @@ Locked figures:
             5,
             1,
           ],
+          "labelLocation": "onAxis",
           "labels": [
             "x",
             "y",
@@ -8651,6 +8647,7 @@ Locked figures:
             0.5,
             0.5,
           ],
+          "labelLocation": "onAxis",
           "labels": [
             "x",
             "y",
@@ -8712,6 +8709,7 @@ Locked figures:
             2,
             2,
           ],
+          "labelLocation": "onAxis",
           "labels": [
             "x",
             "y",
@@ -8773,6 +8771,7 @@ Locked figures:
             0.5,
             0.5,
           ],
+          "labelLocation": "onAxis",
           "labels": [
             "x",
             "y",
@@ -8834,6 +8833,7 @@ Locked figures:
             2,
             0.5,
           ],
+          "labelLocation": "onAxis",
           "labels": [
             "x",
             "y",
@@ -8907,6 +8907,7 @@ Locked figures:
             1,
             1,
           ],
+          "labelLocation": "onAxis",
           "labels": [
             "x",
             "y",
@@ -10096,6 +10097,7 @@ $\\begin{align}
                   "graph": {
                     "type": "linear",
                   },
+                  "labelLocation": "onAxis",
                   "labels": [
                     "x",
                     "y",
@@ -10379,6 +10381,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.ts 
             "graph": {
               "type": "linear",
             },
+            "labelLocation": "onAxis",
             "labels": [
               "x",
               "y",
@@ -10453,6 +10456,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.ts 
           "graph": {
             "type": "linear",
           },
+          "labelLocation": "onAxis",
           "labels": [
             "x",
             "y",
@@ -10516,6 +10520,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.ts 
           "graph": {
             "type": "linear",
           },
+          "labelLocation": "onAxis",
           "labels": [
             "x",
             "y",
@@ -10786,6 +10791,11 @@ $A$ $(1,0)$ is transformed into $A'$ $(4,7)$.  ",
             "numSides": 3,
             "type": "polygon",
           },
+          "labelLocation": "onAxis",
+          "labels": [
+            "$x$",
+            "$y$",
+          ],
           "lockedFigures": [],
           "markings": "none",
           "range": [
@@ -10809,6 +10819,7 @@ $A$ $(1,0)$ is transformed into $A'$ $(4,7)$.  ",
             "y": true,
           },
           "showProtractor": false,
+          "showTooltips": false,
           "step": [
             1,
             1,
@@ -11027,6 +11038,7 @@ Draw the rhombus in the first quadrant.
             1,
             1,
           ],
+          "labelLocation": "onAxis",
           "labels": [
             "x",
             "y",
@@ -11057,6 +11069,7 @@ Draw the rhombus in the first quadrant.
           },
           "showProtractor": false,
           "showRuler": false,
+          "showTooltips": false,
           "snapStep": [
             1,
             1,
@@ -11253,6 +11266,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
             1,
             1,
           ],
+          "labelLocation": "onAxis",
           "labels": [
             "x",
             "y",
@@ -12882,6 +12896,8 @@ exports[`parseAndMigratePerseusItem given matrix-missing-version.ts returns the 
             3,
             3,
           ],
+          "prefix": "",
+          "suffix": "",
         },
         "type": "matrix",
       },
@@ -12957,10 +12973,6 @@ exports[`parseAndMigratePerseusItem given matrix-missing-version.ts returns the 
         "graded": true,
         "options": {
           "answers": [],
-          "cursorPosition": [
-            0,
-            0,
-          ],
           "matrixBoardSize": [
             3,
             3,
@@ -13018,16 +13030,11 @@ exports[`parseAndMigratePerseusItem given matrix-with-nulls-in-answer.ts returns
               NaN,
             ],
           ],
-          "cursorPosition": [
-            0,
-            0,
-          ],
           "matrixBoardSize": [
             3,
             3,
           ],
           "prefix": "",
-          "static": false,
           "suffix": "",
         },
         "static": false,
@@ -13064,16 +13071,11 @@ exports[`parseAndMigratePerseusItem given matrix-with-nulls-in-answer.ts returns
         "graded": true,
         "options": {
           "answers": [],
-          "cursorPosition": [
-            0,
-            0,
-          ],
           "matrixBoardSize": [
             3,
             3,
           ],
           "prefix": "",
-          "static": false,
           "suffix": "",
         },
         "static": false,
@@ -13327,16 +13329,11 @@ $\\left[\\begin{array}{c}
               -5,
             ],
           ],
-          "cursorPosition": [
-            0,
-            0,
-          ],
           "matrixBoardSize": [
             4,
             1,
           ],
           "prefix": "",
-          "static": false,
           "suffix": "",
         },
         "static": false,
@@ -13413,16 +13410,11 @@ $\\left[\\begin{array}{c}
         "graded": true,
         "options": {
           "answers": [],
-          "cursorPosition": [
-            0,
-            0,
-          ],
           "matrixBoardSize": [
             4,
             1,
           ],
           "prefix": "",
-          "static": false,
           "suffix": "",
         },
         "static": false,
@@ -19032,11 +19024,14 @@ $\\green5 - \\red3= \\purple{2}$",
             1,
             1,
           ],
+          "labelInterval": 1,
           "labels": [
             "Child",
             "Baskets",
           ],
           "maxY": 5,
+          "picBoxHeight": 36,
+          "picSize": 30,
           "picUrl": "http://i.imgur.com/B8mGnxB.png",
           "plotDimensions": [
             380,
@@ -19138,7 +19133,9 @@ exports[`parseAndMigratePerseusItem given plotter-missing-scaleY-and-snapsPerLin
             "Michaela",
             "James",
           ],
-          "correct": [],
+          "correct": [
+            1,
+          ],
           "labelInterval": 1,
           "labels": [
             "Child",
@@ -19204,6 +19201,9 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
               "",
             ],
             "maxY": 10,
+            "picBoxHeight": 36,
+            "picSize": 30,
+            "picUrl": null,
             "plotDimensions": [
               380,
               300,

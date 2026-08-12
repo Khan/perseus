@@ -4,8 +4,6 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import React from "react";
 
 import * as Dependencies from "../../dependencies";
-import {ApiOptions} from "../../perseus-api";
-import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {testDependencies} from "../../testing/test-dependencies";
 
 import {initializeGraphState} from "./reducer/initialize-graph-state";
@@ -250,12 +248,6 @@ describe("StatefulMafsGraph", () => {
                 ],
                 pointLabels: ["A", "B"],
                 showPointLabels: false,
-            },
-            apiOptions: {
-                ...ApiOptions.defaults,
-                flags: getFeatureFlags({
-                    "perseus-enable-point-label-field": true,
-                }),
             },
         };
         const {rerender} = render(<StatefulMafsGraph {...baseProps} />);

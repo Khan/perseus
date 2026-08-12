@@ -2,7 +2,6 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-import ReactDOM from "react-dom";
 
 import AphroditeCssTransitionGroup from "../aphrodite-css-transition-group";
 
@@ -20,7 +19,7 @@ import type {StyleType} from "@khanacademy/wonder-blocks-core";
 const AnimationDurationInMS = 200;
 
 type Props = {
-    onElementMounted?: (arg1: any) => void;
+    onElementMounted?: (api: KeypadAPI | null) => void;
     onDismiss?: () => void;
     style?: StyleType;
     onAnalyticsEvent: AnalyticsEventHandlerFn;
@@ -97,6 +96,10 @@ class MobileKeypadInternals
             this._throttleResizeHandler,
         );
         this._containerResizeObserver?.disconnect?.();
+
+        // Clear consumers' reference (e.g. `KeypadContext.keypadElement`) so
+        // they don't keep calling into an unmounted keypad.
+        this.props.onElementMounted?.(null);
     }
 
     _resize = () => {
@@ -153,8 +156,8 @@ class MobileKeypadInternals
         this.setState({keyHandler});
     };
 
-    getDOMNode: () => ReturnType<typeof ReactDOM.findDOMNode> = () => {
-        return ReactDOM.findDOMNode(this);
+    getDOMNode: () => HTMLElement | null = () => {
+        return this._containerRef.current;
     };
 
     _handleClickKey(key: KeypadKey) {
@@ -240,9 +243,9 @@ class MobileKeypadInternals
 
 const styles = StyleSheet.create({
     keypadContainer: {
-        bottom: 0,
-        left: 0,
-        right: 0,
+        insetBlockEnd: 0,
+        insetInlineStart: 0,
+        insetInlineEnd: 0,
         position: "fixed",
         // Having the border will make the experience consistent with the desktop
         // keypad which has a border.

@@ -37,17 +37,16 @@ export type SerializableApiOptions = Omit<
 export function sanitizeApiOptions(
     apiOptions: APIOptions,
 ): SerializableApiOptions {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const {
-        onFocusChange: _,
-        answerableCallback: __,
-        getAnotherHint: ___,
-        interactionCallback: ____,
-        trackInteraction: _____,
-        baseElements: _______,
+        onFocusChange,
+        answerableCallback,
+        getAnotherHint,
+        interactionCallback,
+        trackInteraction,
+        baseElements,
         // Remove React nodes (placeholders)
-        imagePlaceholder: _________,
-        widgetPlaceholder: __________,
+        imagePlaceholder,
+        widgetPlaceholder,
         ...serializableOptions
     } = apiOptions;
 

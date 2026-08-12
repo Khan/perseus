@@ -1,5 +1,4 @@
 import * as React from "react";
-import _ from "underscore";
 
 import DiffEntry from "./shared/diff-entry";
 import performDiff from "./shared/widget-diff-performer";

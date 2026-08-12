@@ -14,7 +14,6 @@ import {getGradableGraph} from "./reducer/interactive-graph-state";
 import {useReinitializeOnGraphChange} from "./use-reinitialize-on-graph-change";
 
 import type {InteractiveGraphProps, InteractiveGraphState} from "./types";
-import type {APIOptionsWithDefaults} from "../../types";
 import type {
     PerseusGraphType,
     PerseusInteractiveGraphUserInput,
@@ -50,7 +49,6 @@ export type StatefulMafsGraphProps = {
     widgetId: string;
     graded?: boolean | null;
     ungradedDescriptionId?: string;
-    apiOptions?: APIOptionsWithDefaults; // TODO(AITQ-385): clean up feature flag
 };
 
 export type StatefulMafsGraphType = {

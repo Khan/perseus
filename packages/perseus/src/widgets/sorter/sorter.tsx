@@ -78,7 +78,6 @@ class Sorter extends React.Component<Props> implements Widget {
      * This is to help keep the two in sync for now.
      */
     _getOptionsFromSortable(): string[] {
-        // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'getOptions' does not exist on type 'ReactInstance'.
         const options = this.refs.sortable.getOptions();
         return options;
@@ -92,7 +91,6 @@ class Sorter extends React.Component<Props> implements Widget {
         option,
         index,
     ) => {
-        // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'moveOptionToIndex' does not exist on type 'ReactInstance'.
         this.refs.sortable.moveOptionToIndex(option, index);
     };
@@ -123,7 +121,6 @@ class Sorter extends React.Component<Props> implements Widget {
                     padding={this.props.padding}
                     onChange={this.handleChange}
                     linterContext={this.props.linterContext}
-                    // eslint-disable-next-line react/no-string-refs
                     ref="sortable"
                 />
             </div>

@@ -8,7 +8,8 @@ const styles = {
         paddingLeft: "0.2rem",
     },
     content: {
-        borderLeft: "0px solid #ccc",
+        borderLeft:
+            "0px solid var(--wb-semanticColor-core-border-neutral-subtle)",
         display: "inline-grid",
         position: "relative",
     },

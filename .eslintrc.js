@@ -70,6 +70,7 @@ module.exports = {
         "react",
         "react-hooks",
         "react-native",
+        "@khanacademy/wonder-blocks",
     ],
     settings: {
         "import/resolver": {
@@ -97,6 +98,11 @@ module.exports = {
                 BlurInput: "input",
                 TextInput: "input",
                 NumberInput: "input",
+                // TypedSingleSelect wraps Wonder Blocks' SingleSelect, whose
+                // closest DOM equivalent is a `select`. Mapping it lets
+                // jsx-a11y associate labels with the control (see the
+                // SingleSelect mapping in @khanacademy/eslint-config/a11y).
+                TypedSingleSelect: "select",
             },
         },
     },
@@ -220,12 +226,39 @@ module.exports = {
             excludedFiles: ["*.d.ts", "*.config.ts", "**/*.cypress.ts"],
         },
     ],
+    reportUnusedDisableDirectives: true,
     rules: {
+        // Enable the RTL rule now. Other wonder-blocks/strict rules stay off
+        // so this PR stays scoped to logical CSS properties.
+        "@khanacademy/wonder-blocks/require-logical-properties-for-rtl":
+            "error",
+        "@khanacademy/wonder-blocks/no-hardcoded-color": "off",
+        "@khanacademy/wonder-blocks/no-raw-button": "off",
+        "@khanacademy/wonder-blocks/no-invalid-bodytext-children": "off",
+        "@khanacademy/wonder-blocks/no-custom-tab-role": "off",
+        "@khanacademy/wonder-blocks/no-excessive-bodytext-children": "off",
+        "@khanacademy/wonder-blocks/no-invalid-bodytext-parent": "off",
         "new-cap": "off",
         "no-invalid-this": "off", // @typescript-eslint/no-invalid-this supersedes it
         "no-unused-expressions": "off", // @typescript-eslint/no-unused-expression supersedes it
         "object-curly-spacing": "off",
         semi: "off",
+
+        /**
+         * Overrides @khanacademy/eslint-config, which exempts any variable
+         * named `_` (varsIgnorePattern: "^_*$"). That exemption also covers
+         * import bindings, so a dead `import _ from "underscore"` was
+         * invisible to the linter
+         */
+        "@typescript-eslint/no-unused-vars": [
+            "error",
+            {
+                args: "none",
+                caughtErrors: "none",
+                ignoreRestSiblings: true,
+                varsIgnorePattern: "^_\\d+$",
+            },
+        ],
 
         "no-alert": "error",
 

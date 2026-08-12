@@ -242,10 +242,14 @@ describe("Exponential graph pointLabels", () => {
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "Point A at 0 comma 3."}),
+            screen.getByRole("button", {
+                name: "Point A on an exponential curve at 0 comma 3.",
+            }),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point B at 1 comma 6."}),
+            screen.getByRole("button", {
+                name: "Point B on an exponential curve at 1 comma 6.",
+            }),
         ).toBeInTheDocument();
     });
 
@@ -255,7 +259,9 @@ describe("Exponential graph pointLabels", () => {
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "Point A at 0 comma 3."}),
+            screen.getByRole("button", {
+                name: "Point A on an exponential curve at 0 comma 3.",
+            }),
         ).toBeInTheDocument();
         expect(
             screen.getByRole("button", {
@@ -277,7 +283,9 @@ describe("Exponential graph pointLabels", () => {
             }),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point B at 1 comma 6."}),
+            screen.getByRole("button", {
+                name: "Point B on an exponential curve at 1 comma 6.",
+            }),
         ).toBeInTheDocument();
     });
 
@@ -295,7 +303,9 @@ describe("Exponential graph pointLabels", () => {
             }),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point B at 1 comma 6."}),
+            screen.getByRole("button", {
+                name: "Point B on an exponential curve at 1 comma 6.",
+            }),
         ).toBeInTheDocument();
     });
 });

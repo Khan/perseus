@@ -118,14 +118,10 @@ jobs:
         if: |
             (github.event_name == 'workflow_dispatch' && inputs.run_type == 'release') ||
             (github.event_name == 'push' && github.ref == 'refs/heads/main')
-        runs-on: ${{ matrix.os }}
+        runs-on: ubuntu-latest
         permissions:
             id-token: write # For trusted publishing to npm (includes provenance)
             contents: write # For GitHub pages and creating release PRs
-        strategy:
-            matrix:
-                os: [ubuntu-latest]
-                node-version: [24.16.0]
         steps:
             - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
               with:
@@ -153,19 +149,6 @@ jobs:
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
-              with:
-                  node-version: ${{ matrix.node-version }}
-
-            - name: ⬆️ Upgrade npm for OIDC support
-              shell: bash
-              run: |
-                  # npm trusted publishing requires npm CLI v11.5.1+, but NOT
-                  # the new v12, which is broken when detecting which packages
-                  # need to be published!
-                  #
-                  # Node.js 22 ships with npm 10.x, so we need to upgrade
-                  npm install -g npm@11
-                  echo "✅ npm upgraded to $(npm --version)"
 
             - name: Create Release Pull Request or Publish to npm
               id: changesets
@@ -235,15 +218,11 @@ jobs:
              contains(github.event.comment.body, '/snapshot') &&
              (github.event.comment.author_association == 'OWNER' ||
               github.event.comment.author_association == 'MEMBER'))
-        runs-on: ${{ matrix.os }}
+        runs-on: ubuntu-latest
         permissions:
             id-token: write # For trusted publishing to npm (includes provenance)
             pull-requests: write # For creating/updating "snapshot created/updated" comment
             issues: write # For PR comments
-        strategy:
-            matrix:
-                os: [ubuntu-latest]
-                node-version: [24.16.0]
         steps:
             # Resolve the PR number regardless of how the workflow was triggered:
             # - issue_comment: read from github.event.issue.number
@@ -308,19 +287,6 @@ jobs:
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
-              with:
-                  node-version: ${{ matrix.node-version }}
-
-            - name: ⬆️ Upgrade npm for OIDC support
-              shell: bash
-              run: |
-                  # npm trusted publishing requires npm CLI v11.5.1+, but NOT
-                  # the new v12, which is broken when detecting which packages
-                  # need to be published!
-                  #
-                  # Node.js 22 ships with npm 10.x, so we need to upgrade
-                  npm install -g npm@11
-                  echo "✅ npm upgraded to $(npm --version)"
 
             - name: Publish Snapshot Release to npm
               id: publish-snapshot

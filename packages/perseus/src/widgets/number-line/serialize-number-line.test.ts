@@ -99,7 +99,6 @@ describe("NumberLine serialization", () => {
                     divisionRange: [1, 10],
                     snapDivisions: 2,
                     isInequality: false,
-                    showTooltips: false,
                     isTickCtrl: false,
                     numLinePosition: -2.5,
                     numDivisions: 8,

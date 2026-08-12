@@ -17,21 +17,21 @@ as context for future development and Claude Code sessions.
 | File | Purpose |
 |------|---------|
 | `graphs/logarithm.tsx` | Main rendering component: curve, asymptote, points, SR descriptions |
-| `graphs/components/movable-asymptote.tsx` | Reusable draggable asymptote line (shared with exponential) |
-| `graphs/components/asymptote-drag-handle.tsx` | Pill-shaped SVG drag handle (shared with exponential) |
+| `graphs/components/movable-asymptote.tsx` | Reusable draggable asymptote line (shared with exponential); renders its visible line via `DashedAsymptoteLine` |
+| `graphs/components/dashed-asymptote-line.tsx` | Shared presentational backing+dashed line pair (also used by the tangent graph) |
+| `graphs/components/movable-pill-handle.tsx` | Pill-shaped SVG drag handle (also used by the vector graph) |
 | `reducer/interactive-graph-reducer.ts` | `doMovePoint` and `doMoveCenter` cases for logarithm |
 | `reducer/initialize-graph-state.ts` | `getLogarithmCoords()` — default coords and asymptote |
 | `reducer/interactive-graph-state.ts` | `getGradableGraph` serialization for logarithm |
 | `mafs-state-to-interactive-graph.ts` | Logarithm state → persisted data conversion |
 | `types.ts` | `LogarithmGraphState` (coords + asymptote + snapStep) |
-| `interactive-graph.tsx` | `getLogarithmEquationString()`, `defaultLogarithmCoords()` |
-| `interactive-graph-question-builder.ts` | `withLogarithm()` test helper |
-| `interactive-graph.testdata.ts` | `logarithmQuestion` fixture |
+| `get-equation-string.ts` | `getLogarithmEquationString()`, `defaultLogarithmCoords()` (the `getEquationString` switch dispatches here; `interactive-graph.tsx` only delegates) |
+| `interactive-graph.testdata.ts` | `logarithmQuestion` fixture (built via `generateIGLogarithmGraph` + `generateInteractiveGraphQuestion`) |
 | `@khanacademy/kmath` `coefficients.ts` | `getLogarithmCoefficients()` — shared math utility |
 | `@khanacademy/perseus-core` `data-schema.ts` | `PerseusGraphTypeLogarithm`, `LogarithmGraphCorrect` |
-| `@khanacademy/perseus-score` `score-interactive-graph.ts` | Logarithm scoring block |
-| `@khanacademy/perseus-editor` `start-coords-logarithm.tsx` | Editor start coords UI |
-| `__docs__/interactive-graph-asymptote-regression.stories.tsx` | Drag handle visual regression stories (shared with exponential) |
+| `@khanacademy/perseus-score` `sub-scorers/score-logarithm.ts` | `scoreLogarithm()` (`score-interactive-graph.ts` dispatches to it) |
+| `@khanacademy/perseus-editor` `start-coords/start-coords-logarithm.tsx` | Editor start coords UI |
+| `__docs__/interactive-graph-interactions-regression.stories.tsx` | Asymptote drag-handle visual regression stories (shared with exponential) |
 
 ### Data Flow
 
@@ -90,14 +90,19 @@ applies to the exponential graph.
 ### Asymptote Rendering
 
 - The asymptote is a full-height vertical **dashed** line using `MovableAsymptote` with `orientation="vertical"`.
-- The line is rendered as two stacked SVG lines: a solid white backing line (so dashes are
-  visible on grid lines and axes) and a dashed blue line on top with rounded ends (`stroke-linecap: round`).
+- The visible line is rendered by the shared `DashedAsymptoteLine` component (also used by the
+  tangent graph) as two stacked SVG lines: a solid white backing line (so dashes are visible on
+  grid lines and axes) and a dashed blue line on top with rounded ends (`stroke-linecap: round`).
 - **Resting state**: stroke weight 2px, dash length 6, gap 8.
 - **Hover/focus/drag state**: stroke weight 4px, dash length 8, gap 12.
 - These are controlled by CSS variables `--movable-asymptote-stroke-weight`,
   `--movable-asymptote-dash-length`, and `--movable-asymptote-dash-gap` in `mafs-styles.css`,
   activated via `:hover`, `:focus-visible`, and `.movable-dragging` selectors.
-- The entire line is draggable (not just the handle) via a transparent 44px-wide SVG hit target.
+- Pointer/touch dragging is captured by a 48px HTML hitbox box centered on the pill handle
+  (`HANDLE_HITBOX_SIZE_PX`, see [Decision 7](#decisions-log)), **not** the full line. The
+  transparent full-line `SVGLine` (`TARGET_SIZE = 44`) remains as a visual affordance and for
+  keyboard focus, but no longer carries a pointer gesture — so dragging along the line away from
+  the handle is not possible for pointer/touch.
 - A pill-shaped drag handle (`AsymptoteDragHandle`) is rendered at the midpoint:
   - **Active state** (hovered, focused, or dragging): 12px × 22px pill with 6 white grip dots (2×3 grid)
   - **Inactive state** (default): 6px × 16px pill, no grip dots
@@ -146,7 +151,7 @@ applies to the exponential graph.
 
 - Coefficients `{a, b, c}` are computed for both user answer and rubric using
   `getLogarithmCoefficients()`.
-- Comparison uses `approximateDeepEqual` on the coefficient objects.
+- Comparison uses `approximateDeepEqual` on the `[a, b, c]` coefficient arrays.
 - No canonical normalization needed (logarithm has no periodic equivalences).
 - Two different sets of control points that produce the same curve score as correct.
 - Returns `invalid` if coords or asymptote are missing, or coefficient computation fails.
@@ -163,15 +168,18 @@ applies to the exponential graph.
 
 ### Editor
 
-- "Logarithm function" appears in the graph type selector, gated by `interactive-graph-logarithm` feature flag.
-- `StartCoordsLogarithm` component provides: two coordinate pair inputs, a single number
-  input for asymptote x-position, and equation display showing `y = a * ln(b*x + c)`.
-- CSS module styling (not Aphrodite), following `start-coords-exponential.module.css` pattern.
+- "Logarithmic function" appears unconditionally in the graph type selector
+  (`graph-type-selector.tsx`). It is not behind a feature flag (there is no
+  `interactive-graph-logarithm` flag).
+- `StartCoordsLogarithm` component provides: two coordinate pair inputs and a single number
+  input for asymptote x-position (`getLogarithmEquation` from `./util` supplies the equation
+  string).
+- CSS module styling (not Aphrodite) via the shared `start-coords-shared.module.css`.
 
 ### Mobile
 
 - All interactions (drag points, drag asymptote) work via touch.
-- The 44px transparent hit target on the asymptote ensures adequate touch target size.
+- The 48px HTML handle hitbox (Decision 7) provides an adequate touch target on the pill handle.
 - Focus follows the dragged element on touch as well as pointer drags. Touch input
   doesn't move DOM focus the way a click does, so both `MovableAsymptote` and
   `useControlPoint` programmatically focus their group on drag start. Without this
@@ -268,15 +276,15 @@ Alternatives evaluated and rejected:
 ### `LogarithmGraphState`
 
 ```typescript
-interface LogarithmGraphState {
+interface LogarithmGraphState extends InteractiveGraphStateCommon {
     type: "logarithm";
-    coords: [Coord, Coord];    // Two curve control points
-    asymptote: number;          // X-value of the vertical asymptote
-    snapStep: vec.Vector2;
-    range: [Interval, Interval];
-    hasBeenInteractedWith: boolean;
+    coords: [vec.Vector2, vec.Vector2]; // Two curve control points
+    asymptote: number;                   // X-value of the vertical asymptote
 }
 ```
+
+`InteractiveGraphStateCommon` supplies the shared fields (`snapStep`, `range`,
+`hasBeenInteractedWith`, etc.).
 
 ### Actions
 
@@ -301,9 +309,10 @@ Reuses existing action creators (no new action types):
 
 ### Defaults
 
-`getLogarithmCoords()` returns default coords using normalized fractions `[0.55, 0.55]` and
-`[0.75, 0.75]` to ensure both points are to the right of the default asymptote at x=0
-(x=0.5 would land exactly on the asymptote after normalization).
+`getLogarithmCoords()` returns default coords using normalized fractions `[0.6, 0.55]` and
+`[0.75, 0.75]` (`[0.6, 0.55]` normalizes to `(2, 1)` in a `[-10, 10]` range) to ensure both
+points are to the right of the default asymptote at x=0 (x=0.5 would land exactly on the
+asymptote after normalization).
 
 ## Decisions Log
 
@@ -335,8 +344,17 @@ Numbered decisions with rationale for future context.
    asymptote is between the points there is no real exponential/logarithm fit, so the curve
    simply disappears.
 
-7. **Full-line draggable asymptote** — Uses `useDraggable` + `SVGLine` pattern from `MovableLine`,
-   making the entire line interactive. A pill-shaped handle provides visual affordance.
+7. **Handle-box HTML hitbox for touch drag (LEMS-4353)** — Pointer/touch dragging goes through
+   an HTML `<div>` hitbox — a box centered on the pill handle (`HANDLE_HITBOX_SIZE_PX`), portaled
+   into the graph's overlay layer via the shared `useHitbox` primitive
+   (`graphs/components/hitbox.tsx`) — not the SVG line. Safari ignores `touch-action` on SVG
+   elements, so a real-HTML hitbox with `touch-action: none` is the only reliable way to capture
+   the drag while letting the page scroll over the rest of the graph. Keyboard dragging stays on
+   the focusable SVG `<g role="button">` (a second `useDraggable`). The transparent full-line
+   `SVGLine` is kept as the visual hit affordance but no longer carries a pointer gesture, so
+   touches along the line away from the handle fall through to page scroll. The pill handle
+   provides the visual affordance. (This is one of two Mafs workarounds — see
+   [mafs-workarounds.md](./mafs-workarounds.md).)
 
 8. **Dynamic domain offset for curve-asymptote visual continuity** — The domain offset is
    computed from the current coefficients by solving for the x where y reaches a target
@@ -375,7 +393,8 @@ Numbered decisions with rationale for future context.
     dashed blue) and the drag handle in the SVG DOM. This ensures the curve is visible where
     it approaches the asymptote (not hidden behind the white backing line) while keeping the
     drag handle visually above the curve. The curve has `pointerEvents: "none"` so it does
-    not intercept events meant for the asymptote's hit target underneath.
+    not intercept pointer events meant for the asymptote (the touch/pointer hit target is now
+    the handle-box HTML overlay, not the SVG line underneath).
 
 14. **CSS modules (not Aphrodite)** — All component styling uses `.module.css` files with class
     names, following the project convention.
@@ -430,9 +449,11 @@ The Grapher widget has a complete logarithm implementation that served as the ma
 
 ## Visual Regression Testing
 
-A dedicated stories file (`interactive-graph-asymptote-regression.stories.tsx`) covers all drag
-handle visual states for both logarithm and exponential graphs. Located at
-"Widgets/Interactive Graph/Visual Regression Tests/Asymptote Drag Handle" in Storybook.
-Stories use `play` functions to programmatically focus elements, making states visible in both
-the Storybook UI and Chromatic snapshots. Follows the radio widget interaction regression pattern
-(`tags: ["!autodocs"]`).
+Asymptote drag-handle visual states for both logarithm and exponential live in
+`__docs__/interactive-graph-interactions-regression.stories.tsx` (Storybook title "Widgets/
+Interactive Graph/Visual Regression Tests/Interactions"), e.g. `LogarithmDragHandleDefault`,
+`LogarithmDragHandleFocused`, `LogarithmDragHandleNoOverlap`,
+`LogarithmPointFocusedHandleInactive`. The default logarithm render is covered by
+`DefaultLogarithmGraph` in `interactive-graph-initial-state-regression.stories.tsx` ("…/Initial
+State"). Stories use `play` functions to programmatically focus elements, making states visible in
+both the Storybook UI and Chromatic snapshots (`tags: ["!autodocs", "!manifest"]`).

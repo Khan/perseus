@@ -6,16 +6,16 @@ const {strings, locale} = mockPerseusI18nContext;
 
 describe("resolvePointLabel", () => {
     it("returns the 1-indexed default when pointLabels is undefined", () => {
-        expect(resolvePointLabel(undefined, 0)).toBe(1);
-        expect(resolvePointLabel(undefined, 2)).toBe(3);
+        expect(resolvePointLabel(undefined, 0)).toBe("1");
+        expect(resolvePointLabel(undefined, 2)).toBe("3");
     });
 
     it("returns the 1-indexed default when there is no label at the index", () => {
-        expect(resolvePointLabel(["T"], 1)).toBe(2);
+        expect(resolvePointLabel(["T"], 1)).toBe("2");
     });
 
     it("returns the 1-indexed default when the label at the index is an empty string", () => {
-        expect(resolvePointLabel(["", "B"], 0)).toBe(1);
+        expect(resolvePointLabel(["", "B"], 0)).toBe("1");
     });
 
     it("returns the custom label when set", () => {

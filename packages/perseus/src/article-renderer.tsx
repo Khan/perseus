@@ -146,7 +146,6 @@ class ArticleRenderer
         // that nothing is focused, since if there were a focus change across
         // sections, we could receive the blur before the focus.
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
-        // eslint-disable-next-line no-restricted-syntax
         setTimeout(() => {
             if (Util.inputPathsEqual(this._currentFocus, blurringFocusPath)) {
                 this._setCurrentFocus(null);

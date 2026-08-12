@@ -91,8 +91,10 @@ typetests to keep the parsers in sync with data-schema.
 
 The tests in the `regression-tests` directory ensure that the parsing code can
 handle old data formats. **Understand that if you change existing regression
-tests, you risk breaking compatibility with old data.** The regression tests
-were generated from a snapshot of Khan Academy content taken in November 2024.
+test data in the `regression-tests/*-data` directories, you risk breaking
+compatibility with old data.** (Updating the snapshots is fine, though!) The
+regression tests were generated from an archive of Khan Academy content as of
+November 2024.
 
 The regression tests are data-driven: we have a bunch of real Perseus items and
 articles taken from production, and we run those through the parser and make

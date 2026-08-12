@@ -1,13 +1,12 @@
+// TODO(LEMS-4463): Remove the hardcoded colors in this file.
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
+
 // @baseFontFamily:        "Lato", sans-serif;
 export const baseFontFamily = "'Lato', sans-serif";
 // @boldFontFamily:        "Lato-Bold", "Lato", sans-serif;
 export const boldFontFamily = "'Lato-Bold', 'Lato', sans-serif";
-// @kaGreen:               #71b307;
-export const kaGreen = "#71B307";
 
 export const white = "#FFFFFF";
-export const gray97 = "#F6F7F7";
-export const gray85 = "#D6D8DA";
 export const gray76 = "#BABEC2";
 export const gray68 = "#888D93";
 export const gray17 = "#21242c";
@@ -28,17 +27,13 @@ export const pureSmMax = "767px";
 export const pureMdMax = "1023px";
 // @pure-lg-max: (@pure-xl-min - 1);
 export const pureLgMax = "1279px";
-// @tableBackgroundAccent: #f9f9f9; // for striping
-export const tableBackgroundAccent = "#F9F9F9";
 // @phoneMargin: 16px;
 export const phoneMargin = 16;
 
 export const negativePhoneMargin = -16;
-export const hintBorderWidth = 4;
+export const hintBorderWidth = sizing.size_040;
 
-// The 'base unit' -- our new typography and layout styles are defined in
-// terms of multiples of the 'base unit'.
-export const baseUnitPx = 16;
+export const hintPaddingInlineStart = sizing.size_160;
 
 export const interactiveSizes = {
     defaultBoxSize: 400,
@@ -53,9 +48,6 @@ export const warningColorHover = "#df5c00";
 export const warningColorActive = "#c75300";
 
 export const publishBlockingErrorColor = "#be2612";
-
-export const radioBorderColor = "#BABEC2";
-export const checkedColor = "#71B307";
 
 export const articleMaxWidthInPx = 688;
 export const articleMaxWidthTableInPx = 512;
