@@ -241,14 +241,11 @@ describe("Zoomable", () => {
             window.dispatchEvent(resizeEvent);
         };
 
-        render(
+        await renderAndWaitForVisible(
             <Zoomable>
                 <span>Some zoomable text</span>
             </Zoomable>,
         );
-        // We need two cycles to get everything rendered and visible
-        act(() => jest.runOnlyPendingTimers());
-        act(() => jest.runOnlyPendingTimers());
 
         // Act
         act(() => resizeWindowTo(500, 500));
@@ -573,67 +570,66 @@ describe("Zoomable", () => {
             );
         });
 
-        it("reports settled once the entrance animation has finished", async () => {
+        it("reports settled once the entrance animation has finished", () => {
             // Arrange
-            const {setAssetStatus, container} = renderWithAssetContext(
+            const {setAssetStatus} = renderWithAssetContext(
                 <Zoomable>
                     <span>Some zoomable text</span>
                 </Zoomable>,
             );
             const [assetKey] = setAssetStatus.mock.calls[0];
-            // Becoming visible is what starts the entrance animation, so it's
-            // the point we measure the animation's duration from.
-            await waitForVisible(container);
 
             // Act
-            act(() =>
-                jest.advanceTimersByTime(ENTRANCE_TRANSITION_DURATION_MS),
-            );
+            // Two passes: the first lets React render with the content visible,
+            // which is what starts the entrance animation timer. The second
+            // runs that timer.
+            act(() => jest.runAllTimers());
+            act(() => jest.runAllTimers());
 
             // Assert
             expect(setAssetStatus).toHaveBeenCalledWith(assetKey, true);
         });
 
-        it("does not report settled while the entrance animation is running", async () => {
+        it("does not report settled while the entrance animation is running", () => {
             // Arrange
-            const {setAssetStatus, container} = renderWithAssetContext(
+            const {setAssetStatus} = renderWithAssetContext(
                 <Zoomable>
                     <span>Some zoomable text</span>
                 </Zoomable>,
             );
-            await waitForVisible(container);
 
             // Act
-            // One tick short of the entrance animation finishing.
-            act(() =>
-                jest.advanceTimersByTime(ENTRANCE_TRANSITION_DURATION_MS - 1),
-            );
+            // Enough time for measuring to complete and the content to become
+            // visible, but not for the 300ms entrance animation to finish.
+            act(() => jest.advanceTimersByTime(299));
 
             // Assert
             expect(settledKeys(setAssetStatus)).toHaveLength(0);
         });
 
-        it("reports settled as soon as content is visible when the entrance animation is disabled", async () => {
+        it("reports settled as soon as content is visible when the entrance animation is disabled", () => {
             // Arrange
-            const {setAssetStatus, container} = renderWithAssetContext(
+            const {setAssetStatus} = renderWithAssetContext(
                 <Zoomable disableEntranceAnimation={true}>
                     <span>Some zoomable text</span>
                 </Zoomable>,
             );
             const [assetKey] = setAssetStatus.mock.calls[0];
-            await waitForVisible(container);
 
             // Act
-            // Deliberately nowhere near the entrance animation's duration:
-            // there's no animation to wait out, so settling happens on the
-            // next tick.
-            act(() => jest.advanceTimersByTime(0));
+            // Zoomables initial render without an entrance animation takes a
+            // few clock ticks to settle. We want to wait long enough for these
+            // initial passes to complete and the content to become visible, but
+            // nowhere near the 300ms entrance animation. The second pass runs
+            // the settle timer that becoming visible schedules.
+            act(() => jest.advanceTimersByTime(10));
+            act(() => jest.advanceTimersByTime(10));
 
             // Assert
             expect(setAssetStatus).toHaveBeenCalledWith(assetKey, true);
         });
 
-        it("reports settled when the content fits and doesn't need scaling", async () => {
+        it("reports settled when the content fits and doesn't need scaling", () => {
             // Arrange
             const setAssetStatus = jest.fn();
             const {container} = render(
@@ -656,35 +652,29 @@ describe("Zoomable", () => {
             });
             const [assetKey] = setAssetStatus.mock.calls[0];
 
-            // Act, Assert
-            // This test only cares that the non-scaling branch settles at all,
-            // so we can wait on the report itself.
-            await waitFor(() =>
-                expect(setAssetStatus).toHaveBeenCalledWith(assetKey, true),
-            );
+            // Act
+            // Two passes: the first makes the content visible, the second runs
+            // the settle timer that scheduled.
+            act(() => jest.runAllTimers());
+            act(() => jest.runAllTimers());
+
+            // Assert
+            expect(setAssetStatus).toHaveBeenCalledWith(assetKey, true);
         });
 
-        it("stays settled after a window resize forces a re-measure", async () => {
+        it("stays settled after a window resize forces a re-measure", () => {
             // Arrange
-            const {setAssetStatus, container} = renderWithAssetContext(
+            const {setAssetStatus} = renderWithAssetContext(
                 <Zoomable>
                     <span>Some zoomable text</span>
                 </Zoomable>,
             );
             const [assetKey] = setAssetStatus.mock.calls[0];
-            await waitForVisible(container);
-            act(() =>
-                jest.advanceTimersByTime(ENTRANCE_TRANSITION_DURATION_MS),
-            );
+            act(() => jest.runAllTimers());
 
             // Act
-            // A resize hides the content and measures it again from scratch, so
-            // wait for it to become visible a second time.
             act(() => window.dispatchEvent(new Event("resize")));
-            await waitForVisible(container);
-            act(() =>
-                jest.advanceTimersByTime(ENTRANCE_TRANSITION_DURATION_MS),
-            );
+            act(() => jest.runAllTimers());
 
             // Assert - we went from not-loaded to loaded and stayed that way.
             expect(setAssetStatus.mock.calls).toEqual([
