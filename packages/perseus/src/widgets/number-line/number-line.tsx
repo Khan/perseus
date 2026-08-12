@@ -1,11 +1,11 @@
-import {number as knumber, KhanMath} from "@khanacademy/kmath";
+import {KhanMath, number as knumber} from "@khanacademy/kmath";
 import {useLatestRef, useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {
     forwardRef,
-    useRef,
     useCallback,
     useImperativeHandle,
+    useRef,
     useState,
 } from "react";
 import ReactDOM from "react-dom";
@@ -20,17 +20,17 @@ import KhanColors from "../../util/colors";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
 import type {
-    WidgetExports,
-    Widget,
-    WidgetPropsV2,
     PerseusDependenciesV2,
+    Widget,
+    WidgetExports,
+    WidgetPropsV2,
 } from "../../types";
 import type {NumberLinePromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 import type {
-    Relationship,
+    NumberLinePublicWidgetOptions,
     PerseusNumberLineUserInput,
     PerseusNumberLineWidgetOptions,
-    NumberLinePublicWidgetOptions,
+    Relationship,
 } from "@khanacademy/perseus-core";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
@@ -553,11 +553,6 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
         // Position variables
         const range = props.options.range;
 
-        const options = {
-            range,
-            isTickCtrl: props.options.isTickCtrl,
-        };
-
         return (
             <Graphie
                 ref={graphieRef}
@@ -567,7 +562,10 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                 // making a new one.
                 key={props.options.labelStyle}
                 box={[props.apiOptions.isMobile ? 288 : 460, 80]}
-                options={options}
+                options={{
+                    range,
+                    isTickCtrl: props.options.isTickCtrl,
+                }}
                 onMouseDown={(coord) => {
                     // `grab` isn't declared on the Movable type; the movable
                     // is populated via the string ref on <MovablePoint>
