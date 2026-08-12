@@ -19,6 +19,7 @@ import {
     itemWithMath,
     itemWithTable,
 } from "../__testdata__/server-item-renderer.testdata";
+import {ENTRANCE_TRANSITION_DURATION_MS} from "../components/zoomable";
 import * as Dependencies from "../dependencies";
 import {ServerItemRenderer} from "../server-item-renderer";
 import {
@@ -356,8 +357,10 @@ describe("server item renderer", () => {
 
         // On mobile, block math is wrapped in a Zoomable, which renders
         // asynchronously in order to measure and scale the math after MathJax
-        // has rendered it.
-        act(() => jest.runOnlyPendingTimers());
+        // has rendered it. We runAllTimers() (instead of
+        // runOnlyPendingTimers()) because there are more than one async tasks
+        // that need to settle here.
+        act(() => jest.runAllTimers());
 
         // Assert
         expect(onRendered).toHaveBeenCalledWith(true);
@@ -391,14 +394,16 @@ describe("server item renderer", () => {
         expect(screen.getByRole("table")).toBeInTheDocument();
         expect(onRendered).not.toHaveBeenCalled();
 
-        // Measuring finishes and the content becomes visible, but the 300ms
-        // entrance animation is still running.
-        act(() => jest.advanceTimersByTime(299));
+        // Measuring finishes and the content becomes visible, but the entrance
+        // animation is still running.
+        act(() =>
+            jest.advanceTimersByTime(ENTRANCE_TRANSITION_DURATION_MS - 1),
+        );
         expect(screen.getByRole("table")).toBeVisible();
         expect(onRendered).not.toHaveBeenCalled();
 
         // Now wait for the animation to complete
-        act(() => jest.runAllTimers());
+        act(() => jest.advanceTimersByTime(2));
         expect(screen.getByRole("table")).toBeVisible();
         expect(onRendered).toHaveBeenCalledWith(true);
     });

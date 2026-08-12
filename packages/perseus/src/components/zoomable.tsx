@@ -9,7 +9,6 @@ import {getCSSZoomFactor} from "../util/css-zoom-utils";
 
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {
-    ITimeout,
     WithActionSchedulerProps,
     WithoutActionScheduler,
 } from "@khanacademy/wonder-blocks-timing";
@@ -18,7 +17,7 @@ import type {
  * Duration of the transition that fades/slides content in once it's visible.
  * Shared by the CSS transition and the timer that waits for it to finish.
  */
-const ENTRANCE_TRANSITION_DURATION_MS = 300;
+export const ENTRANCE_TRANSITION_DURATION_MS = 300;
 
 let assetKeyCounter = 0;
 
@@ -75,8 +74,7 @@ class Zoomable extends React.Component<Props, State> {
     // Zoomable's content isn't at its final size or visible until measuring
     // completes, so it registers as an unsettled asset.
     _assetKey: string;
-    _hasSettled: boolean = false;
-    _settleTimeoutId: ITimeout | null = null;
+    _didLaunchEntranceAnimation: boolean = false;
 
     // @ts-expect-error - TS2564 - Property '_isMounted' has no initializer and is not definitely assigned in the constructor.
     _isMounted: boolean;
@@ -129,10 +127,7 @@ class Zoomable extends React.Component<Props, State> {
 
     componentWillUnmount() {
         window.removeEventListener("resize", this.reset);
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (this._observer) {
-            this._observer.disconnect();
-        }
+        this._observer?.disconnect();
         this._isMounted = false;
     }
 
@@ -146,20 +141,19 @@ class Zoomable extends React.Component<Props, State> {
      * re-measurements (from a resize or a child mutation) don't unsettle us.
      */
     markSettledWhenVisible() {
-        if (this._hasSettled || this._settleTimeoutId != null) {
+        if (this._didLaunchEntranceAnimation) {
             return;
         }
 
-        if (this.props.disableEntranceAnimation) {
-            this._hasSettled = true;
+        const duration = this.props.disableEntranceAnimation
+            ? 0
+            : ENTRANCE_TRANSITION_DURATION_MS;
+
+        this.props.schedule.timeout(() => {
             this.context.setAssetStatus(this._assetKey, true);
-        } else {
-            this._settleTimeoutId = this.props.schedule.timeout(() => {
-                this._settleTimeoutId = null;
-                this._hasSettled = true;
-                this.context.setAssetStatus(this._assetKey, true);
-            }, ENTRANCE_TRANSITION_DURATION_MS);
-        }
+        }, duration);
+
+        this._didLaunchEntranceAnimation = true;
     }
 
     reset: () => void = (): void => {
