@@ -55,7 +55,7 @@ const PerseusEditorAccordion = (props: Props) => {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: semanticColor.core.background.instructive.subtle,
-        marginTop: spacing.xSmall_8,
+        marginBlockStart: spacing.xSmall_8,
     },
     accordionHeader: {
         padding: spacing.small_12,
@@ -66,10 +66,10 @@ const styles = StyleSheet.create({
         height: spacing.xxLarge_48,
     },
     accordionPanel: {
-        paddingTop: spacing.xxSmall_6,
-        paddingBottom: spacing.xxxSmall_4,
-        paddingLeft: spacing.small_12,
-        paddingRight: spacing.small_12,
+        paddingBlockStart: spacing.xxSmall_6,
+        paddingBlockEnd: spacing.xxxSmall_4,
+        paddingInlineStart: spacing.small_12,
+        paddingInlineEnd: spacing.small_12,
     },
 });
 

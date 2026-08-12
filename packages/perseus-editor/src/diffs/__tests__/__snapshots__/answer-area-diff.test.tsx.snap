@@ -24,7 +24,7 @@ exports[`AnswerAreaDiff renders an answer area in the diff view 1`] = `
             class="removed diff-row before"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               calculator: 
               <span
@@ -38,7 +38,7 @@ exports[`AnswerAreaDiff renders an answer area in the diff view 1`] = `
             class="added diff-row after"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               calculator: 
               <span
@@ -58,7 +58,7 @@ exports[`AnswerAreaDiff renders an answer area in the diff view 1`] = `
             class="removed diff-row before"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               financialCalculatorTotalAmount: 
               <span
@@ -72,7 +72,7 @@ exports[`AnswerAreaDiff renders an answer area in the diff view 1`] = `
             class="added diff-row after"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               financialCalculatorTotalAmount: 
               <span
@@ -92,7 +92,7 @@ exports[`AnswerAreaDiff renders an answer area in the diff view 1`] = `
             class="removed diff-row before"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               periodicTable: 
               <span
@@ -106,7 +106,7 @@ exports[`AnswerAreaDiff renders an answer area in the diff view 1`] = `
             class="added diff-row after"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               periodicTable: 
               <span
@@ -126,7 +126,7 @@ exports[`AnswerAreaDiff renders an answer area in the diff view 1`] = `
             class="removed diff-row before"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               periodicTableWithKey: 
               <span
@@ -140,7 +140,7 @@ exports[`AnswerAreaDiff renders an answer area in the diff view 1`] = `
             class="added diff-row after"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               periodicTableWithKey: 
               <span
@@ -159,7 +159,7 @@ exports[`AnswerAreaDiff renders an answer area in the diff view 1`] = `
           class="diff-row collapsed before"
         >
           <div
-            style="padding-left: 0px;"
+            style="padding-block-start: var(--wb-sizing-size_040); padding-block-end: var(--wb-sizing-size_040); padding-inline-start: 0;"
           >
             <button
               aria-disabled="false"
@@ -179,7 +179,7 @@ exports[`AnswerAreaDiff renders an answer area in the diff view 1`] = `
           class="diff-row collapsed after"
         >
           <div
-            style="padding-left: 0px;"
+            style="padding-block-start: var(--wb-sizing-size_040); padding-block-end: var(--wb-sizing-size_040); padding-inline-start: 0;"
           >
             <button
               aria-disabled="false"
@@ -245,7 +245,7 @@ exports[`AnswerAreaDiff renders with missing 'after' props 1`] = `
             class="removed dark diff-row before"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               calculator: 
               <span
@@ -259,7 +259,7 @@ exports[`AnswerAreaDiff renders with missing 'after' props 1`] = `
             class="blank-space diff-row after"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               <span
                 class="inner-value dark blank-space"
@@ -276,7 +276,7 @@ exports[`AnswerAreaDiff renders with missing 'after' props 1`] = `
             class="removed dark diff-row before"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               financialCalculatorMonthlyPayment: 
               <span
@@ -290,7 +290,7 @@ exports[`AnswerAreaDiff renders with missing 'after' props 1`] = `
             class="blank-space diff-row after"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               <span
                 class="inner-value dark blank-space"
@@ -307,7 +307,7 @@ exports[`AnswerAreaDiff renders with missing 'after' props 1`] = `
             class="removed dark diff-row before"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               financialCalculatorTotalAmount: 
               <span
@@ -321,7 +321,7 @@ exports[`AnswerAreaDiff renders with missing 'after' props 1`] = `
             class="blank-space diff-row after"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               <span
                 class="inner-value dark blank-space"
@@ -338,7 +338,7 @@ exports[`AnswerAreaDiff renders with missing 'after' props 1`] = `
             class="removed dark diff-row before"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               financialCalculatorTimeToPayOff: 
               <span
@@ -352,7 +352,7 @@ exports[`AnswerAreaDiff renders with missing 'after' props 1`] = `
             class="blank-space diff-row after"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               <span
                 class="inner-value dark blank-space"
@@ -369,7 +369,7 @@ exports[`AnswerAreaDiff renders with missing 'after' props 1`] = `
             class="removed dark diff-row before"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               periodicTable: 
               <span
@@ -383,7 +383,7 @@ exports[`AnswerAreaDiff renders with missing 'after' props 1`] = `
             class="blank-space diff-row after"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               <span
                 class="inner-value dark blank-space"
@@ -400,7 +400,7 @@ exports[`AnswerAreaDiff renders with missing 'after' props 1`] = `
             class="removed dark diff-row before"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               periodicTableWithKey: 
               <span
@@ -414,7 +414,7 @@ exports[`AnswerAreaDiff renders with missing 'after' props 1`] = `
             class="blank-space diff-row after"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               <span
                 class="inner-value dark blank-space"
@@ -431,7 +431,7 @@ exports[`AnswerAreaDiff renders with missing 'after' props 1`] = `
             class="diff-row before"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               calculatorVariant: 
               <span
@@ -443,7 +443,7 @@ exports[`AnswerAreaDiff renders with missing 'after' props 1`] = `
             class="diff-row after"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               calculatorVariant: 
               <span
@@ -482,7 +482,7 @@ exports[`AnswerAreaDiff renders with missing 'before' props 1`] = `
             class="blank-space diff-row before"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               <span
                 class="inner-value dark blank-space"
@@ -493,7 +493,7 @@ exports[`AnswerAreaDiff renders with missing 'before' props 1`] = `
             class="added dark diff-row after"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               calculator: 
               <span
@@ -513,7 +513,7 @@ exports[`AnswerAreaDiff renders with missing 'before' props 1`] = `
             class="diff-row before"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               calculatorVariant: 
               <span
@@ -525,7 +525,7 @@ exports[`AnswerAreaDiff renders with missing 'before' props 1`] = `
             class="diff-row after"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               calculatorVariant: 
               <span
@@ -543,7 +543,7 @@ exports[`AnswerAreaDiff renders with missing 'before' props 1`] = `
             class="blank-space diff-row before"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               <span
                 class="inner-value dark blank-space"
@@ -554,7 +554,7 @@ exports[`AnswerAreaDiff renders with missing 'before' props 1`] = `
             class="added dark diff-row after"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               financialCalculatorMonthlyPayment: 
               <span
@@ -574,7 +574,7 @@ exports[`AnswerAreaDiff renders with missing 'before' props 1`] = `
             class="blank-space diff-row before"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               <span
                 class="inner-value dark blank-space"
@@ -585,7 +585,7 @@ exports[`AnswerAreaDiff renders with missing 'before' props 1`] = `
             class="added dark diff-row after"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               financialCalculatorTotalAmount: 
               <span
@@ -605,7 +605,7 @@ exports[`AnswerAreaDiff renders with missing 'before' props 1`] = `
             class="blank-space diff-row before"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               <span
                 class="inner-value dark blank-space"
@@ -616,7 +616,7 @@ exports[`AnswerAreaDiff renders with missing 'before' props 1`] = `
             class="added dark diff-row after"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               financialCalculatorTimeToPayOff: 
               <span
@@ -636,7 +636,7 @@ exports[`AnswerAreaDiff renders with missing 'before' props 1`] = `
             class="blank-space diff-row before"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               <span
                 class="inner-value dark blank-space"
@@ -647,7 +647,7 @@ exports[`AnswerAreaDiff renders with missing 'before' props 1`] = `
             class="added dark diff-row after"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               periodicTable: 
               <span
@@ -667,7 +667,7 @@ exports[`AnswerAreaDiff renders with missing 'before' props 1`] = `
             class="blank-space diff-row before"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               <span
                 class="inner-value dark blank-space"
@@ -678,7 +678,7 @@ exports[`AnswerAreaDiff renders with missing 'before' props 1`] = `
             class="added dark diff-row after"
           >
             <div
-              style="padding-left: 0px;"
+              style="padding-inline-start: 0;"
             >
               periodicTableWithKey: 
               <span

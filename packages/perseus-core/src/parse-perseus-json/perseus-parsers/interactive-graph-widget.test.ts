@@ -4,6 +4,8 @@ import {success} from "../result";
 
 import {
     parseInteractiveGraphWidget,
+    parseLabelLocation,
+    parseLockedFigure,
     parseLockedFunctionDomain,
 } from "./interactive-graph-widget";
 
@@ -51,255 +53,43 @@ describe("parseLockedFunctionDomain", () => {
 
 describe("parseInteractiveGraphWidget", () => {
     it("parses onAxis labelLocation correctly", () => {
-        const onAxisResult = parse(
-            {
-                type: "interactive-graph",
-                options: {
-                    step: [1, 1],
-                    markings: "grid",
-                    showProtractor: false,
-                    range: [
-                        [-10, 10],
-                        [-10, 10],
-                    ],
-                    showAxisArrows: {
-                        xMin: true,
-                        xMax: true,
-                        yMin: true,
-                        yMax: true,
-                    },
-                    showAxisTicks: {x: true, y: true},
-                    correct: {
-                        type: "linear",
-                    },
-                    labelLocation: "onAxis",
-                },
-            },
-            parseInteractiveGraphWidget,
-        );
+        const onAxisResult = parse("onAxis", parseLabelLocation);
 
-        expect(onAxisResult).toEqual(
-            success({
-                type: "interactive-graph",
-                options: {
-                    step: [1, 1],
-                    markings: "grid",
-                    showProtractor: false,
-                    range: [
-                        [-10, 10],
-                        [-10, 10],
-                    ],
-                    showAxisArrows: {
-                        xMin: true,
-                        xMax: true,
-                        yMin: true,
-                        yMax: true,
-                    },
-                    showAxisTicks: {x: true, y: true},
-                    correct: {
-                        type: "linear",
-                    },
-                    graph: {
-                        type: "linear",
-                    },
-                    labelLocation: "onAxis",
-                    lockedFigures: [],
-                },
-            }),
-        );
+        expect(onAxisResult).toEqual(success("onAxis"));
     });
 
     it("defaults text, color and size on a locked label when they are missing", () => {
         const result = parse(
             {
-                type: "interactive-graph",
-                options: {
-                    step: [1, 1],
-                    markings: "grid",
-                    showProtractor: false,
-                    range: [
-                        [-10, 10],
-                        [-10, 10],
-                    ],
-                    showAxisArrows: {
-                        xMin: true,
-                        xMax: true,
-                        yMin: true,
-                        yMax: true,
-                    },
-                    showAxisTicks: {x: true, y: true},
-                    correct: {
-                        type: "linear",
-                    },
-                    lockedFigures: [
-                        {
-                            type: "label",
-                            coord: [0, 0],
-                            text: undefined,
-                            color: undefined,
-                            size: undefined,
-                        },
-                    ],
-                },
+                type: "label",
+                coord: [0, 0],
+                text: undefined,
+                color: undefined,
+                size: undefined,
             },
-            parseInteractiveGraphWidget,
+            parseLockedFigure,
         );
         expect(result).toEqual(
             success({
-                type: "interactive-graph",
-                options: {
-                    step: [1, 1],
-                    markings: "grid",
-                    showProtractor: false,
-                    range: [
-                        [-10, 10],
-                        [-10, 10],
-                    ],
-                    showAxisArrows: {
-                        xMin: true,
-                        xMax: true,
-                        yMin: true,
-                        yMax: true,
-                    },
-                    showAxisTicks: {x: true, y: true},
-                    correct: {
-                        type: "linear",
-                    },
-                    graph: {
-                        type: "linear",
-                    },
-                    lockedFigures: [
-                        {
-                            type: "label",
-                            coord: [0, 0],
-                            text: "",
-                            color: "grayH",
-                            size: "medium",
-                        },
-                    ],
-                },
+                type: "label",
+                coord: [0, 0],
+                text: "",
+                color: "grayH",
+                size: "medium",
             }),
         );
     });
-    it("parses alongEdge labelLocation correctly", () => {
-        const alongEdgeResult = parse(
-            {
-                type: "interactive-graph",
-                options: {
-                    step: [1, 1],
-                    markings: "grid",
-                    showProtractor: false,
-                    range: [
-                        [-10, 10],
-                        [-10, 10],
-                    ],
-                    showAxisArrows: {
-                        xMin: true,
-                        xMax: true,
-                        yMin: true,
-                        yMax: true,
-                    },
-                    showAxisTicks: {x: true, y: true},
-                    correct: {
-                        type: "linear",
-                    },
-                    labelLocation: "alongEdge",
-                },
-            },
-            parseInteractiveGraphWidget,
-        );
 
-        expect(alongEdgeResult).toEqual(
-            success({
-                type: "interactive-graph",
-                options: {
-                    step: [1, 1],
-                    markings: "grid",
-                    showProtractor: false,
-                    range: [
-                        [-10, 10],
-                        [-10, 10],
-                    ],
-                    showAxisArrows: {
-                        xMin: true,
-                        xMax: true,
-                        yMin: true,
-                        yMax: true,
-                    },
-                    showAxisTicks: {x: true, y: true},
-                    correct: {
-                        type: "linear",
-                    },
-                    graph: {
-                        type: "linear",
-                    },
-                    labelLocation: "alongEdge",
-                    lockedFigures: [],
-                },
-            }),
-        );
+    it("parses alongEdge labelLocation correctly", () => {
+        const alongEdgeResult = parse("alongEdge", parseLabelLocation);
+
+        expect(alongEdgeResult).toEqual(success("alongEdge"));
     });
 
     it("parses empty strings as onAxis", () => {
-        const emptyLabelLocationResult = parse(
-            {
-                type: "interactive-graph",
-                options: {
-                    step: [1, 1],
-                    markings: "grid",
-                    showProtractor: false,
-                    range: [
-                        [-10, 10],
-                        [-10, 10],
-                    ],
-                    showAxisArrows: {
-                        xMin: true,
-                        xMax: true,
-                        yMin: true,
-                        yMax: true,
-                    },
-                    showAxisTicks: {x: true, y: true},
-                    correct: {
-                        type: "linear",
-                    },
-                    graph: {
-                        type: "linear",
-                    },
-                    labelLocation: "",
-                },
-            },
-            parseInteractiveGraphWidget,
-        );
+        const emptyLabelLocationResult = parse("", parseLabelLocation);
 
-        expect(emptyLabelLocationResult).toEqual(
-            success({
-                type: "interactive-graph",
-                options: {
-                    step: [1, 1],
-                    markings: "grid",
-                    showProtractor: false,
-                    range: [
-                        [-10, 10],
-                        [-10, 10],
-                    ],
-                    showAxisArrows: {
-                        xMin: true,
-                        xMax: true,
-                        yMin: true,
-                        yMax: true,
-                    },
-                    showAxisTicks: {x: true, y: true},
-                    correct: {
-                        type: "linear",
-                    },
-                    graph: {
-                        type: "linear",
-                    },
-                    labelLocation: "onAxis",
-                    lockedFigures: [],
-                },
-            }),
-        );
+        expect(emptyLabelLocationResult).toEqual(success("onAxis"));
     });
 
     it("rejects invalid labelLocation values", () => {
@@ -326,65 +116,35 @@ describe("parseInteractiveGraphWidget", () => {
         expect(invalidResult).toEqual(anyFailure);
     });
 
-    it("parses when labelLocation is not provided", () => {
+    it("defaults labelLocation to onAxis", () => {
+        const result = parse(undefined, parseLabelLocation);
+
+        expect(result).toEqual(success("onAxis"));
+    });
+
+    it("parses the deprecated 'orange' color on locked figures to 'gold'", () => {
         const result = parse(
             {
-                type: "interactive-graph",
-                options: {
-                    step: [1, 1],
-                    markings: "grid",
-                    showProtractor: false,
-                    range: [
-                        [-10, 10],
-                        [-10, 10],
-                    ],
-                    showAxisArrows: {
-                        xMin: true,
-                        xMax: true,
-                        yMin: true,
-                        yMax: true,
-                    },
-                    showAxisTicks: {x: true, y: true},
-                    correct: {
-                        type: "linear",
-                    },
-                    lockedFigures: [],
-                },
+                type: "point",
+                coord: [0, 0],
+                color: "orange",
+                filled: true,
             },
-            parseInteractiveGraphWidget,
+            parseLockedFigure,
         );
 
         expect(result).toEqual(
             success({
-                type: "interactive-graph",
-                options: {
-                    step: [1, 1],
-                    markings: "grid",
-                    showProtractor: false,
-                    range: [
-                        [-10, 10],
-                        [-10, 10],
-                    ],
-                    showAxisArrows: {
-                        xMin: true,
-                        xMax: true,
-                        yMin: true,
-                        yMax: true,
-                    },
-                    showAxisTicks: {x: true, y: true},
-                    correct: {
-                        type: "linear",
-                    },
-                    graph: {
-                        type: "linear",
-                    },
-                    lockedFigures: [],
-                },
+                type: "point",
+                coord: [0, 0],
+                color: "gold",
+                filled: true,
+                labels: [],
             }),
         );
     });
 
-    it("parses the deprecated 'orange' color on locked figures to 'gold'", () => {
+    it("parses a fill-only ('none' stroke) locked polygon", () => {
         const result = parse(
             {
                 type: "interactive-graph",
@@ -408,10 +168,17 @@ describe("parseInteractiveGraphWidget", () => {
                     },
                     lockedFigures: [
                         {
-                            type: "point",
-                            coord: [0, 0],
-                            color: "orange",
-                            filled: true,
+                            type: "polygon",
+                            points: [
+                                [0, 0],
+                                [1, 0],
+                                [1, 1],
+                            ],
+                            color: "blue",
+                            showVertices: false,
+                            fillStyle: "translucent",
+                            strokeStyle: "none",
+                            weight: "thin",
                         },
                     ],
                 },
@@ -426,6 +193,7 @@ describe("parseInteractiveGraphWidget", () => {
                     step: [1, 1],
                     markings: "grid",
                     showProtractor: false,
+                    showTooltips: false,
                     range: [
                         [-10, 10],
                         [-10, 10],
@@ -437,6 +205,9 @@ describe("parseInteractiveGraphWidget", () => {
                         yMax: true,
                     },
                     showAxisTicks: {x: true, y: true},
+                    labelLocation: "onAxis",
+                    labels: ["$x$", "$y$"],
+                    backgroundImage: {url: null},
                     correct: {
                         type: "linear",
                     },
@@ -445,10 +216,17 @@ describe("parseInteractiveGraphWidget", () => {
                     },
                     lockedFigures: [
                         {
-                            type: "point",
-                            coord: [0, 0],
-                            color: "gold",
-                            filled: true,
+                            type: "polygon",
+                            points: [
+                                [0, 0],
+                                [1, 0],
+                                [1, 1],
+                            ],
+                            color: "blue",
+                            showVertices: false,
+                            fillStyle: "translucent",
+                            strokeStyle: "none",
+                            weight: "thin",
                             labels: [],
                         },
                     ],

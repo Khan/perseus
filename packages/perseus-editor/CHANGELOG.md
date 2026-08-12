@@ -1,5 +1,129 @@
 # @khanacademy/perseus-editor
 
+## 36.0.1
+
+### Patch Changes
+
+-   Updated dependencies [[`b975d65`](https://github.com/Khan/perseus/commit/b975d65735b39800a5d0719a9352228233183a06)]:
+    -   @khanacademy/perseus@84.0.1
+
+## 36.0.0
+
+### Major Changes
+
+-   [#3928](https://github.com/Khan/perseus/pull/3928) [`bbf8a63`](https://github.com/Khan/perseus/commit/bbf8a63287d1137e64b58f4902fae06c43042dc0) Thanks [@Evelas78](https://github.com/Evelas78)! - Created a new blank widget which will require schema updates in both frontend and webapp
+
+### Minor Changes
+
+-   [#4053](https://github.com/Khan/perseus/pull/4053) [`bbd1bb8`](https://github.com/Khan/perseus/commit/bbd1bb8be4779eaafb0a9d17765abc0aaccdd0f0) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Export A11yOverlays to support editor previews that enable axe-core scanning
+
+### Patch Changes
+
+-   [#4031](https://github.com/Khan/perseus/pull/4031) [`ce0d820`](https://github.com/Khan/perseus/commit/ce0d82019af3248924201d6a6fda06805ccb84c5) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove `Changeable.propTypes` since both `Changeable` and `PropTypes` are deprecated. This is a major change for `@khanacademy/perseus` since it's removing an export.
+
+-   Updated dependencies [[`9b1e845`](https://github.com/Khan/perseus/commit/9b1e845261eeccda6df46829a12ca676266c10f2), [`ce0d820`](https://github.com/Khan/perseus/commit/ce0d82019af3248924201d6a6fda06805ccb84c5), [`bbf8a63`](https://github.com/Khan/perseus/commit/bbf8a63287d1137e64b58f4902fae06c43042dc0)]:
+    -   @khanacademy/perseus@84.0.0
+    -   @khanacademy/perseus-core@35.0.0
+    -   @khanacademy/keypad-context@3.2.82
+    -   @khanacademy/kmath@2.4.41
+    -   @khanacademy/math-input@27.0.2
+    -   @khanacademy/perseus-linter@5.1.22
+
+## 35.4.0
+
+### Minor Changes
+
+-   [#4004](https://github.com/Khan/perseus/pull/4004) [`4639d92`](https://github.com/Khan/perseus/commit/4639d927508f40a0aeb43e31beac46ba266355dd) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Add "none" (fill-only) stroke style for locked polygons and ellipses
+
+### Patch Changes
+
+-   [#4050](https://github.com/Khan/perseus/pull/4050) [`dd6ff9d`](https://github.com/Khan/perseus/commit/dd6ff9d165dcbb7ad07b52192abceaf5ff51c5a0) Thanks [@handeyeco](https://github.com/handeyeco)! - Reorganize widget editor files
+
+-   [#3981](https://github.com/Khan/perseus/pull/3981) [`da36e20`](https://github.com/Khan/perseus/commit/da36e2018154df985e830abd1ff7448d2d0fe273) Thanks [@maddy531](https://github.com/maddy531)! - Adopt the Wonder Blocks `require-logical-properties-for-rtl` ESLint rule and auto-fix physical CSS properties to their logical equivalents (e.g. `marginLeft` → `marginInlineStart`) for RTL support. No behavior change in LTR; correctly mirrors in RTL.
+
+-   Updated dependencies [[`4639d92`](https://github.com/Khan/perseus/commit/4639d927508f40a0aeb43e31beac46ba266355dd), [`dd6ff9d`](https://github.com/Khan/perseus/commit/dd6ff9d165dcbb7ad07b52192abceaf5ff51c5a0), [`da36e20`](https://github.com/Khan/perseus/commit/da36e2018154df985e830abd1ff7448d2d0fe273)]:
+    -   @khanacademy/perseus-core@34.1.0
+    -   @khanacademy/perseus@83.1.0
+    -   @khanacademy/math-input@27.0.1
+    -   @khanacademy/keypad-context@3.2.81
+    -   @khanacademy/kmath@2.4.40
+    -   @khanacademy/perseus-linter@5.1.21
+
+## 35.3.0
+
+### Minor Changes
+
+-   [#3910](https://github.com/Khan/perseus/pull/3910) [`beb4779`](https://github.com/Khan/perseus/commit/beb47791264b28ef4da49f2c8692542df020ad08) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - `PreviewWithIframe` gains `a11yScanningEnabled`, `highlightPreviewIds`, and `onA11yReport` props, which drive axe-core scanning and "Show Me" highlighting inside the preview iframe.
+
+-   [#3907](https://github.com/Khan/perseus/pull/3907) [`9072d7b`](https://github.com/Khan/perseus/commit/9072d7b893af9e6c97b895189f75e27683c108e1) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - `usePreviewController` gains `setA11yScanningEnabled`, `highlightIssues`, and `clearHighlights`, handles inbound `a11y-report` messages, and returns the latest `a11yReport`.
+
+-   [#3908](https://github.com/Khan/perseus/pull/3908) [`561f349`](https://github.com/Khan/perseus/commit/561f3499702363fd3fa21aff1e9a4b3c77d3e1e8) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Rework the exported `Issue` type into an `A11yIssue | LinterIssue` union, adding exported `A11yIssue`, `LinterIssue`, and `getIssueKey`. Issues gain an optional `instanceId` that distinguishes one occurrence of a problem from another, where `id` names the rule and is shared by every occurrence of it.
+
+-   [#3911](https://github.com/Khan/perseus/pull/3911) [`416d54c`](https://github.com/Khan/perseus/commit/416d54cd4b14f74fef5bbaa462f472a156a2144e) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Rework editor preview accessibility to run inside the preview iframe. "Show Me" now drives highlight state through `A11yContext`, and `IssuesPanel` merges axe-core issues from that context rather than the parent-side checker (which is removed). The device-adjusted preview `apiOptions` are memoized so an incoming scan report can't trigger a content resend, which previously looped the scan.
+
+    `PreviewWithIframe`'s `highlightPreviewIds` prop is renamed to `highlightInstanceIds`, matching the `instanceId` that identifies an issue everywhere else.
+
+-   [#3909](https://github.com/Khan/perseus/pull/3909) [`82298fc`](https://github.com/Khan/perseus/commit/82298fceec36128eecee896b3252218e12914eae) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - `usePreviewPresenter` gains a debounced axe-core scan, element-map management for resolving highlight targets, and a `highlightTargets` return value.
+
+### Patch Changes
+
+-   [#3905](https://github.com/Khan/perseus/pull/3905) [`3281b85`](https://github.com/Khan/perseus/commit/3281b8527b7f7a3edd29ca5fc5429ce05eea9192) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Preview bridge: the parent now replies to the iframe's `iframe-ready` handshake with a single `iframe-init` message carrying the full current preview state, resent on every ready (including reloads), so a freshly loaded preview iframe never misses state sent before it was listening.
+
+-   [#3912](https://github.com/Khan/perseus/pull/3912) [`7d992f4`](https://github.com/Khan/perseus/commit/7d992f40aeef4892cb7fe3ddf0323ce1cf485f59) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Preview bridge versioning: stamp preview content with a monotonic `contentVersion` so stale axe-core reports and highlight overlays are discarded under rapid edits.
+
+-   [#4024](https://github.com/Khan/perseus/pull/4024) [`c38df95`](https://github.com/Khan/perseus/commit/c38df95f089b31c4338fbbcb88600bff4b5ab859) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused Eslint exceptions
+
+-   [#4048](https://github.com/Khan/perseus/pull/4048) [`fa53b64`](https://github.com/Khan/perseus/commit/fa53b648c5ae56f41fe7449a3c584374a3f36940) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Update wonder-blocks dependencies
+
+-   [#4023](https://github.com/Khan/perseus/pull/4023) [`41f38b0`](https://github.com/Khan/perseus/commit/41f38b0fac2795472c3234ad91fd15508fdd4674) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the defaultProps of the Interactive Graph widget have been removed.
+
+-   [#3906](https://github.com/Khan/perseus/pull/3906) [`8777048`](https://github.com/Khan/perseus/commit/877704822ff6297fa2d2cab414dca8b1d3100b6a) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Preview bridge protocol: add message types and constructors for enabling axe-core scanning (`set-a11y-scanning-enabled`), highlighting issues (`highlight-issues`), clearing highlights (`clear-highlights`), and reporting results (`a11y-report`), with tightened message validators.
+
+-   Updated dependencies [[`c38df95`](https://github.com/Khan/perseus/commit/c38df95f089b31c4338fbbcb88600bff4b5ab859), [`36ca8d0`](https://github.com/Khan/perseus/commit/36ca8d0851e23afdb7bc00c2d0a4d712e2d758fe), [`fa53b64`](https://github.com/Khan/perseus/commit/fa53b648c5ae56f41fe7449a3c584374a3f36940), [`9f68e16`](https://github.com/Khan/perseus/commit/9f68e164adeb39f80648b581f3e389cd233d0a9c), [`e69dab6`](https://github.com/Khan/perseus/commit/e69dab6adc8b433470d74ab3ba1434c1607d7894), [`41f38b0`](https://github.com/Khan/perseus/commit/41f38b0fac2795472c3234ad91fd15508fdd4674), [`1cabb62`](https://github.com/Khan/perseus/commit/1cabb6281f64fd0c277d564bba4692283b0c276b), [`834951f`](https://github.com/Khan/perseus/commit/834951f1f41ac0e7a1e1ccde403b0453ee37a0b4), [`e32c294`](https://github.com/Khan/perseus/commit/e32c2946edf38519898143d2994e4ab5fdbdcbbd), [`25e0c4e`](https://github.com/Khan/perseus/commit/25e0c4ec0c9424617a1476c8a0e58284fdf8c4bb), [`9cc9875`](https://github.com/Khan/perseus/commit/9cc9875ba57ef609b841323ea1252fabcaa472ad)]:
+    -   @khanacademy/perseus-linter@5.1.20
+    -   @khanacademy/perseus-core@34.0.2
+    -   @khanacademy/math-input@27.0.0
+    -   @khanacademy/perseus@83.0.1
+    -   @khanacademy/kas@2.2.6
+    -   @khanacademy/keypad-context@3.2.80
+    -   @khanacademy/kmath@2.4.39
+    -   @khanacademy/perseus-utils@2.1.5
+
+## 35.2.2
+
+### Patch Changes
+
+-   [#3991](https://github.com/Khan/perseus/pull/3991) [`ed25029`](https://github.com/Khan/perseus/commit/ed2502933fd0bd14b7de545c7ea1c70ad6eef6a8) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert some uses of underscore (_.indexOf and _.keys) to native equivalents
+
+-   [#3984](https://github.com/Khan/perseus/pull/3984) [`69fc51a`](https://github.com/Khan/perseus/commit/69fc51ad6ab542f8ecd30663bee8d90fbdc61cec) Thanks [@Myranae](https://github.com/Myranae)! - Update Categorizer to reflect the current theme using semantic tokens for colors and fonts
+
+-   [#4008](https://github.com/Khan/perseus/pull/4008) [`af412ad`](https://github.com/Khan/perseus/commit/af412ad8fc5b8b7fdc9be8f4e435416feddb5eca) Thanks [@Evelas78](https://github.com/Evelas78)! - Changed content editor side for calculator (checkbox changed to radio)
+
+-   [#3992](https://github.com/Khan/perseus/pull/3992) [`94048b9`](https://github.com/Khan/perseus/commit/94048b943c1b0c40e0343d6830b4a47b85a31064) Thanks [@nishasy](https://github.com/nishasy)! - Fix image markdown conversion button
+
+-   [#4007](https://github.com/Khan/perseus/pull/4007) [`273c61a`](https://github.com/Khan/perseus/commit/273c61a2e9cc8fdade8356da66cd5d0d358e8c47) Thanks [@handeyeco](https://github.com/handeyeco)! - Replace low-risk uses of `_.map` with `Array.map`
+
+-   [#4015](https://github.com/Khan/perseus/pull/4015) [`073e642`](https://github.com/Khan/perseus/commit/073e642cd7fdc77a7f4f9a07f102805fcf15e073) Thanks [@handeyeco](https://github.com/handeyeco)! - Move InfoTip and TextListEditor from Perseus into PerseusEditor. These weren't used in `@khanacademy/perseus` (only in `@khanacademy/perseus-editor`) or outside of the Perseus repo. They were being exported needlessly. It's still a major change since it's an API break.
+
+-   [#4002](https://github.com/Khan/perseus/pull/4002) [`ddfd715`](https://github.com/Khan/perseus/commit/ddfd715fef24e29d088d16a6b61e2b51fd773c26) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert some uses of underscore to native JS functions
+
+-   [#4014](https://github.com/Khan/perseus/pull/4014) [`ac41ae9`](https://github.com/Khan/perseus/commit/ac41ae90847e4bbd110b16b09f7bd8a8e5112990) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused `serialize` methods
+
+-   [#4022](https://github.com/Khan/perseus/pull/4022) [`21efcc6`](https://github.com/Khan/perseus/commit/21efcc6d495ab1c8d130edadd656dcada86b27ed) Thanks [@handeyeco](https://github.com/handeyeco)! - Internal refactor to remove some TS exceptions along with some general code cleaning
+
+-   [#4005](https://github.com/Khan/perseus/pull/4005) [`9f88d4f`](https://github.com/Khan/perseus/commit/9f88d4f22a273fa4ccbf649e2f900087fe35366d) Thanks [@nishasy](https://github.com/nishasy)! - Stop issues panel from showing TeX errors for valid macros
+
+-   [#4009](https://github.com/Khan/perseus/pull/4009) [`c22c709`](https://github.com/Khan/perseus/commit/c22c709e6c7ec26ac6c80e585247e8120d8c78f8) Thanks [@handeyeco](https://github.com/handeyeco)! - Replace some simple uses of the Changeable type
+
+-   Updated dependencies [[`ed25029`](https://github.com/Khan/perseus/commit/ed2502933fd0bd14b7de545c7ea1c70ad6eef6a8), [`863572b`](https://github.com/Khan/perseus/commit/863572be647661e9817af1eaca327599cba87680), [`b0a0561`](https://github.com/Khan/perseus/commit/b0a056133627e441927efdee6a1f6d58d4d2be17), [`e1c0d40`](https://github.com/Khan/perseus/commit/e1c0d40e03ca881fb97ab56f55efbfa52d5b2b14), [`69fc51a`](https://github.com/Khan/perseus/commit/69fc51ad6ab542f8ecd30663bee8d90fbdc61cec), [`233204b`](https://github.com/Khan/perseus/commit/233204bb0df329cfa0e0818605c362ec8e89687c), [`273c61a`](https://github.com/Khan/perseus/commit/273c61a2e9cc8fdade8356da66cd5d0d358e8c47), [`8c52c56`](https://github.com/Khan/perseus/commit/8c52c568d5911cdb08ae98cf0247cc53da47e15a), [`3d4518f`](https://github.com/Khan/perseus/commit/3d4518fb5c6c6b25cf47d138b3b399289a4f6b07), [`073e642`](https://github.com/Khan/perseus/commit/073e642cd7fdc77a7f4f9a07f102805fcf15e073), [`ddfd715`](https://github.com/Khan/perseus/commit/ddfd715fef24e29d088d16a6b61e2b51fd773c26), [`35d8bf5`](https://github.com/Khan/perseus/commit/35d8bf5879e44230af79f5c795aa684c126d65ba), [`21efcc6`](https://github.com/Khan/perseus/commit/21efcc6d495ab1c8d130edadd656dcada86b27ed), [`4852e23`](https://github.com/Khan/perseus/commit/4852e23c47433d7828074b0fc4ff96fd991d11dd), [`a772767`](https://github.com/Khan/perseus/commit/a7727672fd090cab3857a0c9fda44182c80ca115), [`9ce8791`](https://github.com/Khan/perseus/commit/9ce87916b851ee1729db1fc880841b96f14cd6a9), [`41cb721`](https://github.com/Khan/perseus/commit/41cb7213261497a9fcb9a8c92a08373e5af9265c), [`f9758d6`](https://github.com/Khan/perseus/commit/f9758d61ed3f54477f41abd757268099c60a5ca6)]:
+    -   @khanacademy/perseus-core@34.0.1
+    -   @khanacademy/perseus@83.0.0
+    -   @khanacademy/kas@2.2.5
+    -   @khanacademy/keypad-context@3.2.79
+    -   @khanacademy/kmath@2.4.38
+    -   @khanacademy/math-input@26.6.8
+    -   @khanacademy/perseus-linter@5.1.19
+
 ## 35.2.1
 
 ### Patch Changes

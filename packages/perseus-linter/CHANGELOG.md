@@ -1,5 +1,43 @@
 # @khanacademy/perseus-linter
 
+## 5.1.22
+
+### Patch Changes
+
+-   Updated dependencies [[`bbf8a63`](https://github.com/Khan/perseus/commit/bbf8a63287d1137e64b58f4902fae06c43042dc0)]:
+    -   @khanacademy/perseus-core@35.0.0
+    -   @khanacademy/kmath@2.4.41
+
+## 5.1.21
+
+### Patch Changes
+
+-   Updated dependencies [[`4639d92`](https://github.com/Khan/perseus/commit/4639d927508f40a0aeb43e31beac46ba266355dd)]:
+    -   @khanacademy/perseus-core@34.1.0
+    -   @khanacademy/kmath@2.4.40
+
+## 5.1.20
+
+### Patch Changes
+
+-   [#4024](https://github.com/Khan/perseus/pull/4024) [`c38df95`](https://github.com/Khan/perseus/commit/c38df95f089b31c4338fbbcb88600bff4b5ab859) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused Eslint exceptions
+
+-   Updated dependencies [[`c38df95`](https://github.com/Khan/perseus/commit/c38df95f089b31c4338fbbcb88600bff4b5ab859), [`41f38b0`](https://github.com/Khan/perseus/commit/41f38b0fac2795472c3234ad91fd15508fdd4674)]:
+    -   @khanacademy/perseus-core@34.0.2
+    -   @khanacademy/kas@2.2.6
+    -   @khanacademy/pure-markdown@2.3.2
+    -   @khanacademy/kmath@2.4.39
+    -   @khanacademy/perseus-utils@2.1.5
+
+## 5.1.19
+
+### Patch Changes
+
+-   Updated dependencies [[`ed25029`](https://github.com/Khan/perseus/commit/ed2502933fd0bd14b7de545c7ea1c70ad6eef6a8), [`233204b`](https://github.com/Khan/perseus/commit/233204bb0df329cfa0e0818605c362ec8e89687c), [`273c61a`](https://github.com/Khan/perseus/commit/273c61a2e9cc8fdade8356da66cd5d0d358e8c47), [`8c52c56`](https://github.com/Khan/perseus/commit/8c52c568d5911cdb08ae98cf0247cc53da47e15a), [`ddfd715`](https://github.com/Khan/perseus/commit/ddfd715fef24e29d088d16a6b61e2b51fd773c26)]:
+    -   @khanacademy/perseus-core@34.0.1
+    -   @khanacademy/kas@2.2.5
+    -   @khanacademy/kmath@2.4.38
+
 ## 5.1.18
 
 ### Patch Changes

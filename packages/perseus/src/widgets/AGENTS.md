@@ -18,9 +18,17 @@
    - `validate-[widget-name].test.ts` - Validation tests (optional)
 5. **Register scoring** in `packages/perseus-score/src/widgets/widget-registry.ts`
 6. **Add types** to `packages/perseus-core/src/data-schema.ts`
-7. **Create editor component** in `packages/perseus-editor/src/widgets/[widget-name]-editor.tsx`
-   (use a subdirectory for complex editors, see `radio/` or `interactive-graph-editor/` as examples)
-   and register it in `packages/perseus-editor/src/all-editors.ts`
+7. **Create editor component** in `packages/perseus-editor/src/widgets/[widget-name]-editor/`.
+   Every editor lives in its own folder, however simple it is:
+   - `[widget-name]-editor.tsx` - Main editor component
+   - `[widget-name]-editor.test.tsx` - Tests
+   - `[widget-name]-editor.stories.tsx` - Storybook story. Note that editor
+     stories are colocated rather than in a `__docs__/` directory, unlike the
+     widget stories in step 2.
+   - `index.ts` - Exports (`export {default} from "./[widget-name]-editor";`)
+
+   Then register it in `packages/perseus-editor/src/all-editors.ts`, importing the
+   folder (`./widgets/[widget-name]-editor`) rather than the file.
 8. **If lintable, add a linter rule** in `packages/perseus-linter/src/rules/[widget-name]-widget-error.ts`
    using `Rule.makeRule(...)` and register it in `packages/perseus-linter/src/rules/all-rules.ts`
 

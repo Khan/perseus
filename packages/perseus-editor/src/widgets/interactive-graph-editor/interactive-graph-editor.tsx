@@ -247,7 +247,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
             "fullGraphAriaDescription",
         );
 
-        // eslint-disable-next-line react/no-string-refs
         const graph = this.refs.graph;
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (graph) {
@@ -257,15 +256,12 @@ class InteractiveGraphEditor extends React.Component<Props> {
             _.extend(json, {
                 graph: {
                     type: correct.type,
-                    startCoords:
-                        this.props.graph && getStartCoords(this.props.graph),
-                    ...(this.props.graph &&
-                    "pointLabels" in this.props.graph &&
+                    startCoords: getStartCoords(this.props.graph),
+                    ...("pointLabels" in this.props.graph &&
                     this.props.graph.pointLabels
                         ? {pointLabels: this.props.graph.pointLabels}
                         : {}),
-                    ...(this.props.graph &&
-                    "showPointLabels" in this.props.graph &&
+                    ...("showPointLabels" in this.props.graph &&
                     this.props.graph.showPointLabels
                         ? {
                               showPointLabels: this.props.graph.showPointLabels,
@@ -496,10 +492,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     this.props.apiOptions?.editingDisabled ??
                                     false
                                 }
-                                graphType={
-                                    this.props.graph?.type ??
-                                    InteractiveGraph.defaultProps.userInput.type
-                                }
+                                graphType={this.props.graph?.type ?? "none"}
                                 onChange={(type) => {
                                     this.props.onChange({
                                         graph: {type},

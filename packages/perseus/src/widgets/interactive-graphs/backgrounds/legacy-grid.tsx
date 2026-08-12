@@ -25,7 +25,9 @@ export const LegacyGrid = ({box, backgroundImage}: Props) => {
             <View
                 style={{
                     position: "absolute",
+                    // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: pins the coordinate layer to an LTR plot origin; the plot doesn't flip with page direction, so converting to logical insets would misplace/misalign it in RTL
                     bottom: 0,
+                    // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: pins the coordinate layer to an LTR plot origin; the plot doesn't flip with page direction, so converting to logical insets would misplace/misalign it in RTL
                     left: 0,
                 }}
             >

@@ -1,4 +1,3 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {StyleSheet, css} from "aphrodite";
 /**
@@ -135,7 +134,6 @@ export class ServerItemRenderer
     componentWillUnmount() {
         if (this.blurTimeoutID != null) {
             // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
-            // eslint-disable-next-line no-restricted-syntax
             clearTimeout(this.blurTimeoutID);
             this.blurTimeoutID = null;
         }
@@ -238,7 +236,6 @@ export class ServerItemRenderer
         // now, but then an onFocus event on a different element before
         // this callback is executed
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
-        // eslint-disable-next-line no-restricted-syntax
         // @ts-expect-error - TS2322 - Type 'Timeout' is not assignable to type 'number'.
         this.blurTimeoutID = setTimeout(() => {
             if (_.isEqual(this._currentFocus, blurringFocusPath)) {
@@ -426,7 +423,7 @@ export class ServerItemRenderer
 
 const styles = StyleSheet.create({
     hintsContainer: {
-        marginLeft: 50,
+        marginInlineStart: 50,
     },
 });
 

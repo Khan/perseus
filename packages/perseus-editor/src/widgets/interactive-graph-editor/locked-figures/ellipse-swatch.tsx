@@ -10,12 +10,13 @@ import * as React from "react";
 import type {
     LockedFigureColor,
     LockedFigureFillType,
+    LockedFigureStrokeStyle,
 } from "@khanacademy/perseus-core";
 
 type Props = {
     color: LockedFigureColor;
     fillStyle: LockedFigureFillType;
-    strokeStyle: "solid" | "dashed";
+    strokeStyle: LockedFigureStrokeStyle;
 };
 
 const EllipseSwatch = (props: Props) => {

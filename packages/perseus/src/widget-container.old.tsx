@@ -6,7 +6,6 @@
 // TODO(LEMS-4304): feature flag cleanup - remove this file
 // This file is the original file that is being replaced by the new widget-container.
 
-/* eslint-disable react/no-unsafe */
 import {
     CoreWidgetRegistry,
     type PerseusWidgetOptions,
@@ -63,11 +62,9 @@ class WidgetContainerOld extends React.Component<Props, State> {
             // but until we have better SSR or a more drastic way change to our
             // APIs that hints at the available size, we do have to measure DOM
             // unfortunately.
-            /* eslint-disable react/no-did-mount-set-state */
             this.setState({
                 sizeClass: getClassFromWidth(containerWidth),
             });
-            /* eslint-enable react/no-did-mount-set-state */
         }
     }
 

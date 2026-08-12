@@ -157,9 +157,9 @@ class HintRenderer extends React.Component<Props> {
 
 const styles = StyleSheet.create({
     newHint: {
-        marginBottom: sizing.size_240,
+        marginBlockEnd: sizing.size_240,
 
-        borderInlineStartColor: semanticColor.core.background.base.subtle,
+        borderInlineStartColor: semanticColor.core.border.neutral.subtle,
         borderInlineStartStyle: "solid",
         borderInlineStartWidth: hintBorderWidth,
 
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     },
 
     lastRenderedNewHint: {
-        marginBottom: 0,
+        marginBlockEnd: 0,
         borderInlineStartColor: semanticColor.core.border.instructive.default,
     },
 });
