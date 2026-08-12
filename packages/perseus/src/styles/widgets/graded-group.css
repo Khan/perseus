@@ -5,7 +5,7 @@
     padding-left: 5px;
 }
 .framework-perseus .perseus-graded-group.answer-correct {
-    border-left: var(--wb-border-width-medium) solid
+    border-left: var(--wb-border-width-thick) solid
         var(--wb-semanticColor-core-border-success-default);
     margin-left: 0;
 }
