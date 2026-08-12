@@ -212,8 +212,10 @@ jobs:
                   else
                       echo "required=no" >> "$GITHUB_OUTPUT"
                   fi
-                  # Comma-separated FULL names for the comment body.
-                  pkgs=$(printf '%s' "$matched" | paste -sd', ' -)
+                  # Comma-separated FULL names for the comment body. Join on a
+                  # single char then expand to ", " — paste's multi-char -d is a
+                  # cycling list of single-char delimiters, not a literal separator.
+                  pkgs=$(printf '%s' "$matched" | paste -sd',' - | sed 's/,/, /g')
                   echo "packages=${pkgs}" >> "$GITHUB_OUTPUT"
                   echo "webapp required: ${matched:+yes}${matched:-no} (${pkgs:-none})"
 
