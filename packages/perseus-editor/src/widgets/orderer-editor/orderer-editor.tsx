@@ -100,21 +100,37 @@ class OrdererEditor extends React.Component<Props> {
     onLayoutChange: (arg1: React.ChangeEvent<HTMLSelectElement>) => void = (
         e,
     ) => {
-        // The select below only offers these two values, so anything else
-        // falls back to the horizontal layout.
-        this.props.onChange({
-            layout: e.target.value === VERTICAL ? VERTICAL : HORIZONTAL,
-        });
+        // `e.target.value` is typed as `string`, but the select below only
+        // renders options for the layouts in the widget options. The
+        // exhaustive switch makes TypeScript fail this code if a new layout
+        // is added to the schema without an option to select it.
+        const layout = e.target.value;
+        switch (layout) {
+            case HORIZONTAL:
+            case VERTICAL:
+                this.props.onChange({layout});
+                break;
+            default:
+                throw new Error(`${layout} is not an available layout option`);
+        }
     };
 
     onHeightChange: (arg1: React.ChangeEvent<HTMLSelectElement>) => void = (
         e,
     ) => {
-        // The select below only offers these two values, so anything else
-        // falls back to the normal height.
-        this.props.onChange({
-            height: e.target.value === AUTO ? AUTO : NORMAL,
-        });
+        // `e.target.value` is typed as `string`, but the select below only
+        // renders options for the heights in the widget options. The
+        // exhaustive switch makes TypeScript fail this code if a new height
+        // is added to the schema without an option to select it.
+        const height = e.target.value;
+        switch (height) {
+            case NORMAL:
+            case AUTO:
+                this.props.onChange({height});
+                break;
+            default:
+                throw new Error(`${height} is not an available height option`);
+        }
     };
 
     serialize: () => PerseusOrdererWidgetOptions = () => {
