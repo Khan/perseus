@@ -1,4 +1,8 @@
 import {Dependencies} from "@khanacademy/perseus";
+import {
+    generateOrdererOption,
+    generateOrdererOptions,
+} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -130,6 +134,27 @@ describe("OrdererEditor", () => {
             height: "normal",
             layout: "horizontal",
         });
+    });
+
+    it("renders an input for each correct and other card", () => {
+        // Arrange, Act
+        render(
+            <OrdererEditor
+                onChange={() => {}}
+                {...generateOrdererOptions({
+                    correctOptions: [
+                        generateOrdererOption("Cat"),
+                        generateOrdererOption("Dog"),
+                    ],
+                    otherOptions: [generateOrdererOption("Emu")],
+                })}
+            />,
+        );
+
+        // Assert
+        expect(screen.getByDisplayValue("Cat")).toBeInTheDocument();
+        expect(screen.getByDisplayValue("Dog")).toBeInTheDocument();
+        expect(screen.getByDisplayValue("Emu")).toBeInTheDocument();
     });
 });
 

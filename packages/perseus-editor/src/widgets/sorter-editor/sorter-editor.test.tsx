@@ -1,4 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
+import {generateSorterOptions} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -57,5 +58,46 @@ describe("sorter-editor", () => {
         await userEvent.click(screen.getByRole("checkbox", {name: "Padding:"}));
 
         expect(onChangeMock).toHaveBeenCalledWith({padding: false});
+    });
+
+    it("renders an input for each card in the correct answer", () => {
+        // Arrange, Act
+        render(
+            <SorterEditor
+                onChange={() => {}}
+                {...generateSorterOptions({correct: ["Cat", "Dog", "Emu"]})}
+            />,
+        );
+
+        // Assert
+        expect(screen.getByDisplayValue("Cat")).toBeInTheDocument();
+        expect(screen.getByDisplayValue("Dog")).toBeInTheDocument();
+        expect(screen.getByDisplayValue("Emu")).toBeInTheDocument();
+    });
+
+    it("serializes the correct answer, layout, and padding", () => {
+        // Arrange
+        const editorRef = React.createRef<SorterEditor>();
+        render(
+            <SorterEditor
+                ref={editorRef}
+                onChange={() => {}}
+                {...generateSorterOptions({
+                    correct: ["Cat", "Dog"],
+                    layout: "vertical",
+                    padding: false,
+                })}
+            />,
+        );
+
+        // Act
+        const serialized = editorRef.current?.serialize();
+
+        // Assert
+        expect(serialized).toEqual({
+            correct: ["Cat", "Dog"],
+            layout: "vertical",
+            padding: false,
+        });
     });
 });

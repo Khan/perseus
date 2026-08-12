@@ -441,6 +441,12 @@ export {
 } from "./utils/generators/matrix-widget-generator";
 /** @hidden */
 export {
+    generateOrdererWidget,
+    generateOrdererOptions,
+    generateOrdererOption,
+} from "./utils/generators/orderer-widget-generator";
+/** @hidden */
+export {
     generatePlotterWidget,
     generatePlotterOptions,
 } from "./utils/generators/plotter-widget-generator";
