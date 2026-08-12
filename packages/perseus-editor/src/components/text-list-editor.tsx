@@ -3,7 +3,6 @@ import $ from "jquery";
 import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
-import _ from "underscore";
 
 const textWidthCache: Record<string, any> = {};
 function getTextWidth(text: any) {
@@ -43,7 +42,7 @@ class TextListEditor extends React.Component<any, any> {
         arg1: number,
         arg2: React.ChangeEvent<HTMLInputElement>,
     ) => void = (index, event) => {
-        let items = _.clone(this.state.items);
+        let items = [...this.state.items];
         items[index] = event.target.value;
 
         if (index === items.length - 1) {
@@ -51,7 +50,7 @@ class TextListEditor extends React.Component<any, any> {
         }
 
         this.setState({items: items});
-        this.props.onChange(_.compact(items));
+        this.props.onChange(items.filter(Boolean));
     };
 
     onKeyDown: (arg1: number, arg2: React.KeyboardEvent) => void = (
@@ -64,7 +63,7 @@ class TextListEditor extends React.Component<any, any> {
         if (which === 8 /* backspace */ && this.state.items[index] === "") {
             event.preventDefault();
 
-            const items = _.clone(this.state.items);
+            const items = [...this.state.items];
             const focusIndex = index === 0 ? 0 : index - 1;
 
             if (
@@ -96,16 +95,16 @@ class TextListEditor extends React.Component<any, any> {
         ) {
             event.preventDefault();
 
-            const items = _.clone(this.state.items);
+            const items = [...this.state.items];
             items.splice(index, 1);
             this.setState({items: items});
-            this.props.onChange(_.compact(items));
+            this.props.onChange(items.filter(Boolean));
 
             // Enter adds an option below the current one...
         } else if (which === 13 /* enter */) {
             event.preventDefault();
 
-            const items = _.clone(this.state.items);
+            const items = [...this.state.items];
             const focusIndex = index + 1;
 
             if (index === items.length - 2) {
