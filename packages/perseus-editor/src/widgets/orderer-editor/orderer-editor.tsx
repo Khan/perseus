@@ -141,7 +141,9 @@ class OrdererEditor extends React.Component<Props> {
                     options={this.props.correctOptions.map(
                         (option) => option.content,
                     )}
-                    onChange={this.onOptionsChange.bind(this, "correctOptions")}
+                    onChange={(options, cb) => {
+                        this.onOptionsChange("correctOptions", options, cb);
+                    }}
                     layout={this.props.layout}
                 />
 
@@ -156,7 +158,9 @@ class OrdererEditor extends React.Component<Props> {
                     options={this.props.otherOptions.map(
                         (option) => option.content,
                     )}
-                    onChange={this.onOptionsChange.bind(this, "otherOptions")}
+                    onChange={(options, cb) => {
+                        this.onOptionsChange("otherOptions", options, cb);
+                    }}
                     layout={this.props.layout}
                 />
 

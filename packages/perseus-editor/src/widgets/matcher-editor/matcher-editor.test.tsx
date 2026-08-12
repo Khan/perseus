@@ -74,6 +74,79 @@ describe("matcher-editor", () => {
         expect(screen.getByDisplayValue("Sound")).toBeInTheDocument();
     });
 
+    it("calls onChange with the updated cards when a left card is edited", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <MatcherEditor
+                onChange={onChangeMock}
+                {...generateMatcherOptions({
+                    left: ["Cat", "Dog"],
+                    right: ["Meow", "Woof"],
+                })}
+            />,
+        );
+
+        // Act
+        const leftCard = screen.getByDisplayValue("Dog");
+        await userEvent.clear(leftCard);
+        await userEvent.type(leftCard, "Emu");
+
+        // Assert
+        expect(onChangeMock).toHaveBeenLastCalledWith(
+            {left: ["Cat", "Emu"]},
+            undefined,
+        );
+    });
+
+    it("calls onChange with the updated cards when a right card is edited", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <MatcherEditor
+                onChange={onChangeMock}
+                {...generateMatcherOptions({
+                    left: ["Cat", "Dog"],
+                    right: ["Meow", "Woof"],
+                })}
+            />,
+        );
+
+        // Act
+        const rightCard = screen.getByDisplayValue("Woof");
+        await userEvent.clear(rightCard);
+        await userEvent.type(rightCard, "Purr");
+
+        // Assert
+        expect(onChangeMock).toHaveBeenLastCalledWith(
+            {right: ["Meow", "Purr"]},
+            undefined,
+        );
+    });
+
+    it("calls onChange with the updated labels when either label is edited", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <MatcherEditor
+                onChange={onChangeMock}
+                {...generateMatcherOptions({labels: ["Animal", "Sound"]})}
+            />,
+        );
+
+        // Act
+        await userEvent.type(screen.getByDisplayValue("Animal"), "s");
+        await userEvent.type(screen.getByDisplayValue("Sound"), "s");
+
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith({
+            labels: ["Animals", "Sound"],
+        });
+        expect(onChangeMock).toHaveBeenCalledWith({
+            labels: ["Animal", "Sounds"],
+        });
+    });
+
     it("serializes the cards, labels, and options", () => {
         // Arrange
         const editorRef = React.createRef<MatcherEditor>();

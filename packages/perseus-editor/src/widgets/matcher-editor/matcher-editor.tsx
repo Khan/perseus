@@ -94,12 +94,16 @@ class MatcherEditor extends React.Component<Props> {
                     <input
                         type="text"
                         defaultValue={this.props.labels[0]}
-                        onChange={this.onLabelChange.bind(this, 0)}
+                        onChange={(e) => {
+                            this.onLabelChange(0, e);
+                        }}
                     />
                     <input
                         type="text"
                         defaultValue={this.props.labels[1]}
-                        onChange={this.onLabelChange.bind(this, 1)}
+                        onChange={(e) => {
+                            this.onLabelChange(1, e);
+                        }}
                     />
                 </div>
                 <div>
