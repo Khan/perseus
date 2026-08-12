@@ -168,7 +168,7 @@
 .instructions {
     display: block;
     color: var(--wb-semanticColor-core-foreground-neutral-strong);
-    font-size: var(--wb-font-heading-size-medium);
+    font-size: var(--wb-font-body-size-medium);
     line-height: 1.25;
     font-family: inherit;
     font-style: normal;
