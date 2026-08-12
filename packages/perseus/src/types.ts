@@ -490,7 +490,10 @@ export type WidgetPropsV2<
 /**
  * The props passed to every widget, regardless of its `type`.
  */
-type UniversalWidgetProps<TUserInput = Empty, TrackingExtraArgs = Empty> = {
+export type UniversalWidgetProps<
+    TUserInput = Empty,
+    TrackingExtraArgs = Empty,
+> = {
     // This is slightly different from the `trackInteraction` function in
     // APIOptions. This provides the widget an easy way to notify the renderer
     // of an interaction. The Renderer then enriches the data provided with the
