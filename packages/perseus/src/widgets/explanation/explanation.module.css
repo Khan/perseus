@@ -27,11 +27,9 @@
     visibility: hidden;
 }
 
-
 .content-expanded {
     /* TODO (LEMS-3815): Update to var(--wb-border-width-thick) after
-    removing legacy styles file
-     */
+    removing legacy styles file */
     border-left-width: 5px;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
