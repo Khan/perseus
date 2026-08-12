@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-invalid-this */
 import $ from "jquery";
 import * as React from "react";
-import ReactDOM from "react-dom";
 
 const textWidthCache: Record<string, number> = {};
 function getTextWidth(text: string): number {
@@ -34,6 +32,10 @@ class TextListEditor extends React.Component<Props, State> {
     state: State = {
         items: this.props.options.concat(""),
     };
+
+    // The rendered inputs, keyed by their index in `state.items`, so that
+    // keyboard handling can move focus between them.
+    inputRefs: Map<number, HTMLInputElement> = new Map();
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
         this.setState({
@@ -75,17 +77,11 @@ class TextListEditor extends React.Component<Props, State> {
             ) {
                 // ...except for the last one, iff it is the only empty
                 // input at the end.
-                // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-                ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
+                this.inputRefs.get(focusIndex)?.focus();
             } else {
                 items.splice(index, 1);
-                this.setState({items: items}, function () {
-                    // @ts-expect-error - TS2531 - Object is possibly 'null'.
-                    ReactDOM.findDOMNode(
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        this.refs["input_" + focusIndex],
-                        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-                    ).focus();
+                this.setState({items: items}, () => {
+                    this.inputRefs.get(focusIndex)?.focus();
                 });
             }
 
@@ -112,17 +108,11 @@ class TextListEditor extends React.Component<Props, State> {
 
             if (index === items.length - 2) {
                 // ...unless the empty input is just below.
-                // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-                ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
+                this.inputRefs.get(focusIndex)?.focus();
             } else {
                 items.splice(focusIndex, 0, "");
-                this.setState({items: items}, function () {
-                    // @ts-expect-error - TS2531 - Object is possibly 'null'.
-                    ReactDOM.findDOMNode(
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        this.refs["input_" + focusIndex],
-                        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-                    ).focus();
+                this.setState({items: items}, () => {
+                    this.inputRefs.get(focusIndex)?.focus();
                 });
             }
         }
@@ -139,7 +129,13 @@ class TextListEditor extends React.Component<Props, State> {
             return (
                 <li key={i}>
                     <input
-                        ref={"input_" + i}
+                        ref={(node) => {
+                            if (node) {
+                                this.inputRefs.set(i, node);
+                            } else {
+                                this.inputRefs.delete(i);
+                            }
+                        }}
                         type="text"
                         value={item}
                         onChange={(event) => this.onChange(i, event)}
