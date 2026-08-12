@@ -142,8 +142,8 @@ class TextListEditor extends React.Component<Props, State> {
                         ref={"input_" + i}
                         type="text"
                         value={item}
-                        onChange={this.onChange.bind(this, i)}
-                        onKeyDown={this.onKeyDown.bind(this, i)}
+                        onChange={(event) => this.onChange(i, event)}
+                        onKeyDown={(event) => this.onKeyDown(i, event)}
                         style={{width: getTextWidth(item)}}
                     />
                 </li>
