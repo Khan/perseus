@@ -51,8 +51,6 @@ class SorterEditor extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
-        const editor = this;
-
         return (
             <div>
                 <div>
@@ -69,8 +67,8 @@ class SorterEditor extends React.Component<Props> {
                 </div>
                 <TextListEditor
                     options={this.props.correct}
-                    onChange={function (options, cb) {
-                        editor.props.onChange({correct: options}, cb);
+                    onChange={(options, cb) => {
+                        this.props.onChange({correct: options}, cb);
                     }}
                     layout={this.props.layout}
                 />

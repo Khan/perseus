@@ -75,6 +75,28 @@ describe("sorter-editor", () => {
         expect(screen.getByDisplayValue("Emu")).toBeInTheDocument();
     });
 
+    it("calls onChange with the updated correct answer when a card is edited", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <SorterEditor
+                onChange={onChangeMock}
+                {...generateSorterOptions({correct: ["Cat", "Dog"]})}
+            />,
+        );
+
+        // Act
+        const card = screen.getByDisplayValue("Dog");
+        await userEvent.clear(card);
+        await userEvent.type(card, "Emu");
+
+        // Assert
+        expect(onChangeMock).toHaveBeenLastCalledWith(
+            {correct: ["Cat", "Emu"]},
+            undefined,
+        );
+    });
+
     it("serializes the correct answer, layout, and padding", () => {
         // Arrange
         const editorRef = React.createRef<SorterEditor>();
