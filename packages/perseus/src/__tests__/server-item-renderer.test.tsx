@@ -16,6 +16,7 @@ import {
     itemWithRadioAndExpressionWidgets,
     itemWithTwoMockWidgets,
     itemWithMockWidget,
+    itemWithMath,
 } from "../__testdata__/server-item-renderer.testdata";
 import * as Dependencies from "../dependencies";
 import {ServerItemRenderer} from "../server-item-renderer";
@@ -244,6 +245,77 @@ describe("server item renderer", () => {
         act(() => widget.setAssetStatus?.("ABC", true));
 
         // Assert
+        expect(onRendered).toHaveBeenCalledWith(true);
+    });
+
+    it("does not call the onRendered callback while math is still rendering", () => {
+        // Arrange
+        // This TeX never reports rendering, standing in for math that MathJax
+        // hasn't finished with yet.
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+            ...testDependencies,
+            TeX: ({children}: {children: React.ReactNode}) => (
+                <span className="mock-TeX">{children}</span>
+            ),
+        });
+
+        const onRendered = jest.fn();
+
+        // Act
+        render(
+            <RenderStateRoot>
+                <ServerItemRenderer
+                    item={itemWithMath}
+                    problemNum={0}
+                    reviewMode={false}
+                    dependencies={testDependenciesV2}
+                    onRendered={onRendered}
+                />
+            </RenderStateRoot>,
+        );
+
+        // Assert
+        expect(onRendered).not.toHaveBeenCalled();
+    });
+
+    it("calls onRendered only once when an asset settles during mount", () => {
+        // Arrange
+        // `useLayoutEffect` fires in the same commit phase as a class
+        // component's `componentDidMount`, and React commits children before
+        // parents — so this TeX settles its asset before ServerItemRenderer
+        // has mounted, which is the case we're covering. (`useEffect` runs
+        // after paint, so it would land after `componentDidMount` instead.)
+        // https://legacy.reactjs.org/docs/hooks-reference.html#uselayouteffect
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+            ...testDependencies,
+            TeX: ({
+                children,
+                onRender,
+            }: {
+                children: React.ReactNode;
+                onRender?: () => void;
+            }) => {
+                React.useLayoutEffect(() => onRender?.(), [onRender]);
+                return <span className="mock-TeX">{children}</span>;
+            },
+        });
+        const onRendered = jest.fn();
+
+        // Act
+        render(
+            <RenderStateRoot>
+                <ServerItemRenderer
+                    item={itemWithMath}
+                    problemNum={0}
+                    reviewMode={false}
+                    dependencies={testDependenciesV2}
+                    onRendered={onRendered}
+                />
+            </RenderStateRoot>,
+        );
+
+        // Assert
+        expect(onRendered).toHaveBeenCalledTimes(1);
         expect(onRendered).toHaveBeenCalledWith(true);
     });
 
