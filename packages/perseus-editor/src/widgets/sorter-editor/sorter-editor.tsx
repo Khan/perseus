@@ -31,10 +31,6 @@ class SorterEditor extends React.Component<Props> {
     onLayoutChange: (arg1: React.ChangeEvent<HTMLSelectElement>) => void = (
         e,
     ) => {
-        // `e.target.value` is typed as `string`, but the select below only
-        // renders options for the layouts in the widget options. The
-        // exhaustive switch makes TypeScript fail this code if a new layout
-        // is added to the schema without an option to select it.
         const layout = e.target.value;
         switch (layout) {
             case HORIZONTAL:
