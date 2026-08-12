@@ -124,7 +124,7 @@ describe("matcher-editor", () => {
         );
     });
 
-    it("calls onChange with the updated labels when either label is edited", async () => {
+    it("calls onChange with the updated labels when the first label is edited", async () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
@@ -135,15 +135,34 @@ describe("matcher-editor", () => {
         );
 
         // Act
-        await userEvent.type(screen.getByDisplayValue("Animal"), "s");
-        await userEvent.type(screen.getByDisplayValue("Sound"), "s");
+        const firstLabel = screen.getByDisplayValue("Animal");
+        await userEvent.clear(firstLabel);
+        await userEvent.type(firstLabel, "Beast");
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({
-            labels: ["Animals", "Sound"],
+        expect(onChangeMock).toHaveBeenLastCalledWith({
+            labels: ["Beast", "Sound"],
         });
-        expect(onChangeMock).toHaveBeenCalledWith({
-            labels: ["Animal", "Sounds"],
+    });
+
+    it("calls onChange with the updated labels when the second label is edited", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <MatcherEditor
+                onChange={onChangeMock}
+                {...generateMatcherOptions({labels: ["Animal", "Sound"]})}
+            />,
+        );
+
+        // Act
+        const secondLabel = screen.getByDisplayValue("Sound");
+        await userEvent.clear(secondLabel);
+        await userEvent.type(secondLabel, "Noise");
+
+        // Assert
+        expect(onChangeMock).toHaveBeenLastCalledWith({
+            labels: ["Animal", "Noise"],
         });
     });
 
