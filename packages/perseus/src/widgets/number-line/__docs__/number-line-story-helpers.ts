@@ -29,8 +29,7 @@ export const waitForNumberLine = (canvasElement: HTMLElement): Promise<void> =>
         // than on a generic child count) ties the wait to the math actually
         // being rendered.
         const allLabelsRendered = Array.from(labels).every(
-            (label) =>
-                label.querySelector(".tex-holder mjx-container") != null,
+            (label) => label.querySelector(".tex-holder mjx-container") != null,
         );
         if (!allLabelsRendered) {
             throw new Error("number line labels are still rendering");
