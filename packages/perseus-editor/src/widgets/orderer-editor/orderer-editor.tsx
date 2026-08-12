@@ -124,7 +124,7 @@ class OrdererEditor extends React.Component<Props> {
 
     render(): React.ReactNode {
         return (
-            <div className="perseus-widget-orderer">
+            <div>
                 <div>
                     {" "}
                     Correct answer:{" "}
