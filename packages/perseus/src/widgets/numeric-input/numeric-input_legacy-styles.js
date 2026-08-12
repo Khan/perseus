@@ -1,14 +1,14 @@
 // TODO (LEMS-3815): Remove this file
 const styles = {
     inputWithExamples: {
-        borderRadius: "var(--wb-border-radius-radius_040)",
+        borderRadius: "0.3rem",
         borderWidth: "var(--wb-border-width-thin)",
         direction: "ltr",
         display: "inline-block",
         fontFamily: 'Symbola, "Times New Roman", serif',
-        fontSize: "var(--wb-font-body-size-medium)",
+        fontSize: "1.8rem",
         height: "3.2rem",
-        lineHeight: "var(--wb-font-body-lineHeight-small)",
+        lineHeight: "1.8rem",
         padding: "0.4rem 0.5rem",
         textAlign: "left",
         width: "8rem",
