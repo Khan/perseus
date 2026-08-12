@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 84.0.1
+
+### Patch Changes
+
+-   [#4056](https://github.com/Khan/perseus/pull/4056) [`b975d65`](https://github.com/Khan/perseus/commit/b975d65735b39800a5d0719a9352228233183a06) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fixing a forwardRef issue with the blank widget.
+
 ## 84.0.0
 
 ### Major Changes
