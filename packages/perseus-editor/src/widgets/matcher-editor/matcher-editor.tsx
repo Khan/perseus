@@ -33,7 +33,7 @@ class MatcherEditor extends React.Component<Props> {
 
     // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
     // the new linter rules for save warnings.
-    getSaveWarnings = (): ReadonlyArray<string> => {
+    getSaveWarnings = (): string[] => {
         if (this.props.left.length !== this.props.right.length) {
             return [
                 "The two halves of the matcher have different numbers" +
