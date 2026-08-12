@@ -5,19 +5,25 @@ import {
     number,
     object,
     optional,
+    pipeParsers,
 } from "../general-purpose-parsers";
+import {convert} from "../general-purpose-parsers/convert";
 
 import type {Parser} from "../parser-types";
 
-const parseAlignment = enumeration(
-    "default",
-    "block",
-    "inline-block",
-    "inline",
-    "wrap-left",
-    "wrap-right",
-    "full-width",
-);
+const parseAlignment = pipeParsers(
+    enumeration(
+        "default",
+        "block",
+        "inline-block",
+        "inline",
+        "wrap-left",
+        "wrap-right",
+        "full-width",
+        "",
+        undefined,
+    ),
+).then(convert((value) => (value === "" ? "default" : value))).parser;
 
 export function parseWidget<Type extends string, Options extends object>(
     parseType: Parser<Type>,
@@ -27,7 +33,7 @@ export function parseWidget<Type extends string, Options extends object>(
         type: parseType,
         static: optional(boolean),
         graded: optional(boolean),
-        alignment: optional(parseAlignment),
+        alignment: parseAlignment,
         options: parseOptions,
         key: optional(nullable(number)),
         version: optional(
@@ -51,7 +57,7 @@ export function parseWidgetWithVersion<
         type: parseType,
         static: optional(boolean),
         graded: optional(boolean),
-        alignment: optional(parseAlignment),
+        alignment: parseAlignment,
         options: parseOptions,
         key: optional(nullable(number)),
         version: parseVersion,
