@@ -14,7 +14,7 @@
     color: var(--wb-semanticColor-core-foreground-neutral-strong);
     font-size: 20px;
     line-height: 30px;
-    margin-bottom: 32px;
+    margin-bottom: var(--wb-sizing-size_320);
     margin-top: 0;
 }
 /* Reset the Renderer margins for the image widget.
@@ -56,13 +56,13 @@
     .paragraph
     ul {
     color: var(--wb-semanticColor-core-foreground-neutral-subtle);
-    font-size: 14px;
-    line-height: 19px;
+    font-size: var(--wb-font-body-size-small);
+    line-height: var(--wb-font-body-lineHeight-small);
     text-align: left;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .paragraph.perseus-paragraph-full-width {
-    margin-bottom: 32px;
+    margin-bottom: var(--wb-sizing-size_320);
     margin-left: 0;
     margin-right: 0;
     max-width: none;
@@ -77,7 +77,7 @@
     .perseus-renderer
     > .paragraph
     .perseus-formats-tooltip {
-    padding: 8px 12px;
+    padding: var(--wb-sizing-size_080) var(--wb-sizing-size_120);
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer
@@ -86,13 +86,16 @@
     .paragraph {
     margin-bottom: 0;
 }
+/* TODO(benchristel): .perseus-formats-tooltip doesn't seem to be used.
+ *  Perhaps this rule can be removed.
+ */
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer
     > .paragraph
     .perseus-formats-tooltip
     .paragraph
     ul:not([data-widget="radio"]) {
-    font-size: 15px;
+    font-size: var(--wb-font-body-size-medium);
     line-height: 1.5;
     margin: 0;
 }
@@ -137,7 +140,7 @@
     .perseus-renderer
     > .paragraph
     ul:not([data-widget="radio"], .indicatorContainer) {
-    margin: 0 0 0 1em;
+    margin: 0 0 0 var(--wb-sizing-size_160);
     padding: 0;
 }
 .framework-perseus.perseus-mobile
@@ -145,16 +148,16 @@
     > .paragraph
     ul:not([data-widget="radio"], .indicatorContainer)
     > li {
-    padding-left: 10px;
-    margin-bottom: 24px;
+    padding-left: var(--wb-sizing-size_100);
+    margin-bottom: var(--wb-sizing-size_240);
 }
 .framework-perseus.perseus-mobile .perseus-renderer > .paragraph ol {
     margin: 0;
-    padding-left: 32px;
+    padding-left: var(--wb-sizing-size_320);
 }
 .framework-perseus.perseus-mobile .perseus-renderer > .paragraph ol > li {
     list-style-type: decimal;
-    margin-bottom: 24px;
+    margin-bottom: var(--wb-sizing-size_240);
 }
 .framework-perseus.perseus-mobile .perseus-renderer > .paragraph ol ol,
 .framework-perseus.perseus-mobile
@@ -172,7 +175,7 @@
     > .paragraph
     ul:not([data-widget="radio"])
     ul:not([data-widget="radio"]) {
-    padding-top: 24px;
+    padding-top: var(--wb-sizing-size_240);
 }
 @media (max-width: 767px) {
     .framework-perseus.perseus-mobile .perseus-renderer > .paragraph {
@@ -321,7 +324,7 @@
     .perseus-renderer
     > .paragraph
     .perseus-formats-tooltip {
-    padding: 8px 12px;
+    padding: var(--wb-sizing-size_080) var(--wb-sizing-size_120);
 }
 .framework-perseus.perseus-mobile
     .perseus-renderer
