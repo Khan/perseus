@@ -30,6 +30,27 @@ env:
     # needed.
     SNAPSHOT_COMMENT_MARKER: "<!-- perseus-snapshot-comment -->"
 
+    # Marker for the single sticky comment that tells release-runners this
+    # release needs a webapp+frontend PR (not just a frontend release).
+    WEBAPP_REQUIRED_COMMENT_MARKER: "<!-- perseus-webapp-required-comment -->"
+
+    # POLICY: packages whose *direct* change forces a webapp/backend release
+    # (not just a frontend release). These are the server / content-pipeline
+    # packages that webapp consumes at build or run time:
+    #   - perseus-core    → shared data schema + types used server-side
+    #   - perseus-score   → server-side answer scoring
+    #   - perseus-linter  → content validation in the content pipeline
+    #   - pure-markdown   → content parsing used server-side
+    # A change to any OTHER package (perseus, perseus-editor, math-input, …) is
+    # frontend-only. Keep this list — and the reasons above — in sync when a
+    # package's server-side role changes. `>-` folds this into one space-
+    # separated string.
+    WEBAPP_RELEASE_PACKAGES: >-
+        @khanacademy/perseus-core
+        @khanacademy/perseus-score
+        @khanacademy/perseus-linter
+        @khanacademy/pure-markdown
+
 # IMPORTANT! We set concurrency to this workflow and the branch (github.ref),
 # meaning that this workflow can only run one instance, per branch, at a time.
 # This prevents us from having two production releases publishing at the same
@@ -122,6 +143,8 @@ jobs:
         permissions:
             id-token: write # For trusted publishing to npm (includes provenance)
             contents: write # For GitHub pages and creating release PRs
+            pull-requests: write # For labeling the Version Packages PR
+            issues: write # For creating/updating the webapp-required comment
         steps:
             - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
               with:
@@ -150,6 +173,50 @@ jobs:
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
 
+            # Compute — BEFORE the changesets step consumes the .changeset/*.md
+            # files — whether this pending release directly changes any
+            # server/content-pipeline package (see WEBAPP_RELEASE_PACKAGES). The
+            # result drives the sticky comment + label on the Version Packages
+            # PR below.
+            - name: Detect whether a webapp release is required
+              id: webapp_check
+              # Runs BEFORE the release/publish step, so it must never block a
+              # real release. On failure its outputs stay empty and every
+              # downstream annotation step skips (fail-safe: nothing posted).
+              continue-on-error: true
+              shell: bash
+              run: |
+                  set -euo pipefail
+                  # Regex alternation of the policy packages, built from the env list.
+                  alt=$(printf '%s' "$WEBAPP_RELEASE_PACKAGES" \
+                      | tr -s ' \t' '\n' | grep -v '^$' | paste -sd'|' -)
+
+                  matched=""
+                  shopt -s nullglob
+                  for f in "$GITHUB_WORKSPACE"/.changeset/*.md; do
+                      [ "$(basename "$f")" = "README.md" ] && continue
+                      # Only inspect the YAML frontmatter (between the first two
+                      # `---` lines) so a package name mentioned in the human
+                      # summary can't cause a false positive. A dependency-only
+                      # bump never appears in frontmatter at all — so the
+                      # "Updated dependencies only" case is excluded for free.
+                      hits=$(awk '/^---[[:space:]]*$/{c++; next} c==1{print}' "$f" \
+                          | grep -oE "\"(${alt})\"[[:space:]]*:" \
+                          | sed -E 's/"([^"]+)".*/\1/' || true)
+                      [ -n "$hits" ] && matched="${matched}${hits}"$'\n'
+                  done
+                  matched=$(printf '%s' "$matched" | grep -v '^$' | sort -u || true)
+
+                  if [ -n "$matched" ]; then
+                      echo "required=yes" >> "$GITHUB_OUTPUT"
+                  else
+                      echo "required=no" >> "$GITHUB_OUTPUT"
+                  fi
+                  # Comma-separated FULL names for the comment body.
+                  pkgs=$(printf '%s' "$matched" | paste -sd', ' -)
+                  echo "packages=${pkgs}" >> "$GITHUB_OUTPUT"
+                  echo "webapp required: ${matched:+yes}${matched:-no} (${pkgs:-none})"
+
             - name: Create Release Pull Request or Publish to npm
               id: changesets
               uses: changesets/action@6a0a831ff30acef54f2c6aa1cbbc1096b066edaf # v1.7.0
@@ -171,6 +238,99 @@ jobs:
                   # it in the npm registry.
                   # See: https://docs.npmjs.com/generating-provenance-statements
                   NPM_CONFIG_PROVENANCE: true
+
+            # --- Annotate the Version Packages PR with the webapp-required verdict ---
+            # These steps only do anything during Phase 1 (a version PR exists,
+            # hasChangesets == true). On the Phase 2 publish run there is no
+            # version PR and no changeset files, so they all no-op.
+
+            - name: Resolve Version Packages PR number
+              id: vpr
+              if: steps.changesets.outputs.hasChangesets == 'true'
+              # Best-effort PR annotation: never let a hiccup here fail the
+              # release (and trigger the false-alarm "release failed" Slack).
+              continue-on-error: true
+              shell: bash
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  set -euo pipefail
+                  num=$(gh pr list --repo "$GITHUB_REPOSITORY" \
+                      --head changeset-release/main --state open \
+                      --json number --jq '.[0].number // empty')
+                  echo "number=${num}" >> "$GITHUB_OUTPUT"
+
+            - name: Compose webapp-required comment body
+              id: webapp_body
+              if: steps.vpr.outputs.number != '' && steps.webapp_check.outputs.required == 'yes'
+              continue-on-error: true
+              shell: bash
+              env:
+                  PACKAGES: ${{ steps.webapp_check.outputs.packages }}
+              run: |
+                  set -euo pipefail
+                  {
+                      echo "body<<COMMENT_EOF"
+                      echo "$WEBAPP_REQUIRED_COMMENT_MARKER"
+                      echo "### ⚠️ Webapp + Frontend release required"
+                      echo ""
+                      echo "This release directly changes: ${PACKAGES}."
+                      echo ""
+                      echo "After publishing, create **both** a webapp PR and a frontend PR."
+                      echo ""
+                      echo "<sub>Determined from changeset frontmatter against the webapp-release package policy. Recomputed on every merge to \`main\`.</sub>"
+                      echo "COMMENT_EOF"
+                  } >> "$GITHUB_OUTPUT"
+
+            # Always runs (read-only) so the cleanup step below knows whether a
+            # stale comment exists to remove.
+            - name: Find existing webapp-required comment
+              id: webapp_find
+              if: steps.vpr.outputs.number != ''
+              continue-on-error: true
+              uses: peter-evans/find-comment@b30e6a3c0ed37e7c023ccd3f1db5c6c0b0c23aad # v4.0.0
+              with:
+                  issue-number: ${{ steps.vpr.outputs.number }}
+                  comment-author: "github-actions[bot]"
+                  body-includes: ${{ env.WEBAPP_REQUIRED_COMMENT_MARKER }}
+
+            - name: Upsert webapp-required comment
+              if: steps.vpr.outputs.number != '' && steps.webapp_check.outputs.required == 'yes'
+              continue-on-error: true
+              uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5.0.0
+              with:
+                  comment-id: ${{ steps.webapp_find.outputs.comment-id }}
+                  issue-number: ${{ steps.vpr.outputs.number }}
+                  body: ${{ steps.webapp_body.outputs.body }}
+                  edit-mode: replace
+
+            - name: Apply required-webapp-release label
+              if: steps.vpr.outputs.number != '' && steps.webapp_check.outputs.required == 'yes'
+              continue-on-error: true
+              shell: bash
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  NUM: ${{ steps.vpr.outputs.number }}
+              run: |
+                  set -euo pipefail
+                  # `|| true`: label must be pre-created in the repo (gh won't auto-create).
+                  gh pr edit "$NUM" --repo "$GITHUB_REPOSITORY" --add-label "required-webapp-release" || true
+
+            # Rare flip: a changeset touching a trigger package was reverted
+            # before release. Remove the now-stale comment + label so the PR
+            # doesn't keep claiming a webapp release is needed.
+            - name: Clear stale webapp-required signal
+              if: steps.vpr.outputs.number != '' && steps.webapp_check.outputs.required == 'no' && steps.webapp_find.outputs.comment-id != ''
+              continue-on-error: true
+              shell: bash
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  NUM: ${{ steps.vpr.outputs.number }}
+                  COMMENT_ID: ${{ steps.webapp_find.outputs.comment-id }}
+              run: |
+                  set -euo pipefail
+                  gh api -X DELETE "repos/$GITHUB_REPOSITORY/issues/comments/$COMMENT_ID" || true
+                  gh pr edit "$NUM" --repo "$GITHUB_REPOSITORY" --remove-label "required-webapp-release" || true
 
             - name: Send a Slack notification if a publish fails
               if: failure()
