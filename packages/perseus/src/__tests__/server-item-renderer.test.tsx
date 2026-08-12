@@ -6,7 +6,7 @@ import {
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {within, render, screen, act} from "@testing-library/react";
+import {within, render, screen, act, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -321,7 +321,7 @@ describe("server item renderer", () => {
         expect(onRendered).toHaveBeenCalledWith(true);
     });
 
-    it("does not call the onRendered callback until zoomable math has settled", () => {
+    it("does not call the onRendered callback until zoomable math has settled", async () => {
         // Arrange
         // The default test TeX never fires onRender, so we need one that does
         // in order to get the Zoomable measuring.
@@ -355,18 +355,15 @@ describe("server item renderer", () => {
             </RenderStateRoot>,
         );
 
+        // Assert
         // On mobile, block math is wrapped in a Zoomable, which renders
         // asynchronously in order to measure and scale the math after MathJax
-        // has rendered it. We runAllTimers() (instead of
-        // runOnlyPendingTimers()) because there are more than one async tasks
-        // that need to settle here.
-        act(() => jest.runAllTimers());
-
-        // Assert
-        expect(onRendered).toHaveBeenCalledWith(true);
+        // has rendered it. waitFor moves the fake clock along between checks,
+        // so we don't have to know how many passes that takes.
+        await waitFor(() => expect(onRendered).toHaveBeenCalledWith(true));
     });
 
-    it("does not call the onRendered callback until a zoomable table has settled", () => {
+    it("does not call the onRendered callback until a zoomable table has settled", async () => {
         // On mobile, tables are wrapped in a Zoomable too, with the entrance
         // animation left enabled — so settling takes the measuring passes plus
         // the length of that animation.
@@ -394,17 +391,20 @@ describe("server item renderer", () => {
         expect(screen.getByRole("table")).toBeInTheDocument();
         expect(onRendered).not.toHaveBeenCalled();
 
-        // Measuring finishes and the content becomes visible, but the entrance
-        // animation is still running.
+        // Measuring finishes and the content starts fading in. Waiting on the
+        // DOM here, rather than flushing timers a set number of times, is what
+        // gives us a reliable point to measure the animation from.
+        await waitFor(() => expect(screen.getByRole("table")).toBeVisible());
+        expect(onRendered).not.toHaveBeenCalled();
+
+        // The entrance animation is running now, so we're still not settled.
         act(() =>
             jest.advanceTimersByTime(ENTRANCE_TRANSITION_DURATION_MS - 1),
         );
-        expect(screen.getByRole("table")).toBeVisible();
         expect(onRendered).not.toHaveBeenCalled();
 
         // Now wait for the animation to complete
         act(() => jest.advanceTimersByTime(2));
-        expect(screen.getByRole("table")).toBeVisible();
         expect(onRendered).toHaveBeenCalledWith(true);
     });
 

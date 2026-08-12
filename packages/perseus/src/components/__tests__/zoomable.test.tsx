@@ -4,7 +4,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import AssetContext from "../../asset-context";
-import Zoomable from "../zoomable";
+import Zoomable, {ENTRANCE_TRANSITION_DURATION_MS} from "../zoomable";
 
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -25,16 +25,30 @@ const mockSize = (
     }
 };
 
+// Zoomable applies its transition styles only once its content has become
+// visible, so they tell us that measuring has finished. Waiting on the DOM
+// like this, instead of flushing timers a set number of times, means these
+// tests don't break when the number of render passes changes.
+async function waitForVisible(container: HTMLElement) {
+    await waitFor(() => {
+        // eslint-disable-next-line testing-library/no-node-access, no-restricted-syntax
+        const rootNode = container.firstElementChild as HTMLElement;
+        expect(rootNode.style.transitionDuration).toBe(
+            `${ENTRANCE_TRANSITION_DURATION_MS}ms`,
+        );
+    });
+}
+
 // The zoomable does some measuring after the initial render to determine what
 // its zoomed-out scaling should be. So on initial render, we want to wait for
-// this process so that we "see" the settled component state.
-const renderAndWaitToSettle = (component: React.ReactElement) => {
+// this process so that we "see" the measured component state.
+async function renderAndWaitForVisible(component: React.ReactElement) {
     const result = render(component);
 
-    act(() => jest.runAllTimers());
+    await waitForVisible(result.container);
 
     return result;
-};
+}
 
 describe("Zoomable", () => {
     let userEvent: UserEvent;
@@ -46,7 +60,7 @@ describe("Zoomable", () => {
 
     it("should render zoomed-out (scale != 1) initially", async () => {
         // Arrange and Act
-        const {container} = renderAndWaitToSettle(
+        const {container} = await renderAndWaitForVisible(
             <Zoomable readyToMeasure>
                 <span>Some zoomable text</span>
             </Zoomable>,
@@ -68,7 +82,7 @@ describe("Zoomable", () => {
 
     it("should toggle to zoomed-in (scale == 1) when clicked", async () => {
         // Arrange
-        const {container} = renderAndWaitToSettle(
+        const {container} = await renderAndWaitForVisible(
             <Zoomable>
                 <span>Some zoomable text</span>
             </Zoomable>,
@@ -95,7 +109,7 @@ describe("Zoomable", () => {
 
     it("should toggle back to zoomed-out state when clicked while zoomed in", async () => {
         // Arrange
-        const {container} = renderAndWaitToSettle(
+        const {container} = await renderAndWaitForVisible(
             <Zoomable>
                 <span>Some zoomable text</span>
             </Zoomable>,
@@ -127,7 +141,7 @@ describe("Zoomable", () => {
         const computeChildBounds = jest.fn(() => ({width: 1000, height: 1000}));
 
         // Act
-        renderAndWaitToSettle(
+        await renderAndWaitForVisible(
             <Zoomable computeChildBounds={computeChildBounds}>
                 <span>Some zoomable text</span>
             </Zoomable>,
@@ -139,7 +153,7 @@ describe("Zoomable", () => {
 
     it("should scale if computeChildBounds is larger than root node size", async () => {
         // Arrange
-        // We don't use the renderAndWaitToSettle() helper here because we need
+        // We don't use the renderAndWaitForVisible() helper here because we need
         // to mock _after_ initial render but _before_ the measuring stage
         // happens after that render!
         const {container} = render(
@@ -249,7 +263,7 @@ describe("Zoomable", () => {
     it("should not call onClick prop when zoomed out (ie. initial render)", async () => {
         // Arrange
         const onClickHandler = jest.fn();
-        renderAndWaitToSettle(
+        await renderAndWaitForVisible(
             <Zoomable>
                 <button onClick={onClickHandler}>Some zoomable text</button>
             </Zoomable>,
@@ -264,7 +278,7 @@ describe("Zoomable", () => {
 
     it("should call onClick prop when zoomed in", async () => {
         // Arrange
-        const {rerender} = renderAndWaitToSettle(
+        const {rerender} = await renderAndWaitForVisible(
             <Zoomable>
                 <span>Some zoomable text</span>
             </Zoomable>,
@@ -295,7 +309,7 @@ describe("Zoomable", () => {
             const props: Record<string, any> = {};
             props[propName] = jest.fn();
 
-            renderAndWaitToSettle(
+            await renderAndWaitForVisible(
                 <Zoomable>
                     <span {...props}>Some zoomable text</span>
                 </Zoomable>,
@@ -314,7 +328,7 @@ describe("Zoomable", () => {
             const props: Record<string, any> = {};
             props[propName] = jest.fn();
 
-            renderAndWaitToSettle(
+            await renderAndWaitForVisible(
                 <Zoomable>
                     <span {...props}>Some zoomable text</span>
                 </Zoomable>,
@@ -526,16 +540,16 @@ describe("Zoomable", () => {
 
         const renderWithAssetContext = (
             component: React.ReactElement,
-        ): {setAssetStatus: jest.Mock} => {
+        ): {setAssetStatus: jest.Mock; container: HTMLElement} => {
             const setAssetStatus = jest.fn();
-            render(
+            const {container} = render(
                 <AssetContext.Provider
                     value={{assetStatuses: {}, setAssetStatus}}
                 >
                     {component}
                 </AssetContext.Provider>,
             );
-            return {setAssetStatus};
+            return {setAssetStatus, container};
         };
 
         const settledKeys = (setAssetStatus: jest.Mock): Array<string> =>
@@ -559,60 +573,67 @@ describe("Zoomable", () => {
             );
         });
 
-        it("reports settled once the entrance animation has finished", () => {
+        it("reports settled once the entrance animation has finished", async () => {
             // Arrange
-            const {setAssetStatus} = renderWithAssetContext(
+            const {setAssetStatus, container} = renderWithAssetContext(
                 <Zoomable>
                     <span>Some zoomable text</span>
                 </Zoomable>,
             );
             const [assetKey] = setAssetStatus.mock.calls[0];
+            // Becoming visible is what starts the entrance animation, so it's
+            // the point we measure the animation's duration from.
+            await waitForVisible(container);
 
             // Act
-            act(() => jest.runAllTimers());
+            act(() =>
+                jest.advanceTimersByTime(ENTRANCE_TRANSITION_DURATION_MS),
+            );
 
             // Assert
             expect(setAssetStatus).toHaveBeenCalledWith(assetKey, true);
         });
 
-        it("does not report settled while the entrance animation is running", () => {
+        it("does not report settled while the entrance animation is running", async () => {
             // Arrange
-            const {setAssetStatus} = renderWithAssetContext(
+            const {setAssetStatus, container} = renderWithAssetContext(
                 <Zoomable>
                     <span>Some zoomable text</span>
                 </Zoomable>,
             );
+            await waitForVisible(container);
 
             // Act
-            // Enough time for measuring to complete and the content to become
-            // visible, but not for the 300ms entrance animation to finish.
-            act(() => jest.advanceTimersByTime(299));
+            // One tick short of the entrance animation finishing.
+            act(() =>
+                jest.advanceTimersByTime(ENTRANCE_TRANSITION_DURATION_MS - 1),
+            );
 
             // Assert
             expect(settledKeys(setAssetStatus)).toHaveLength(0);
         });
 
-        it("reports settled as soon as content is visible when the entrance animation is disabled", () => {
+        it("reports settled as soon as content is visible when the entrance animation is disabled", async () => {
             // Arrange
-            const {setAssetStatus} = renderWithAssetContext(
+            const {setAssetStatus, container} = renderWithAssetContext(
                 <Zoomable disableEntranceAnimation={true}>
                     <span>Some zoomable text</span>
                 </Zoomable>,
             );
             const [assetKey] = setAssetStatus.mock.calls[0];
+            await waitForVisible(container);
 
             // Act
-            // Zoomables initial render without an entrance animation takes a
-            // few clock ticks to settle. We want to wait long enough for these
-            // initial passes to complete and the content to become visible, but
-            // nowhere near the 300ms entrance animation.
-            act(() => jest.advanceTimersByTime(10));
+            // Deliberately nowhere near the entrance animation's duration:
+            // there's no animation to wait out, so settling happens on the
+            // next tick.
+            act(() => jest.advanceTimersByTime(0));
 
             // Assert
             expect(setAssetStatus).toHaveBeenCalledWith(assetKey, true);
         });
 
-        it("reports settled when the content fits and doesn't need scaling", () => {
+        it("reports settled when the content fits and doesn't need scaling", async () => {
             // Arrange
             const setAssetStatus = jest.fn();
             const {container} = render(
@@ -635,26 +656,35 @@ describe("Zoomable", () => {
             });
             const [assetKey] = setAssetStatus.mock.calls[0];
 
-            // Act
-            act(() => jest.runAllTimers());
-
-            // Assert
-            expect(setAssetStatus).toHaveBeenCalledWith(assetKey, true);
+            // Act, Assert
+            // This test only cares that the non-scaling branch settles at all,
+            // so we can wait on the report itself.
+            await waitFor(() =>
+                expect(setAssetStatus).toHaveBeenCalledWith(assetKey, true),
+            );
         });
 
-        it("stays settled after a window resize forces a re-measure", () => {
+        it("stays settled after a window resize forces a re-measure", async () => {
             // Arrange
-            const {setAssetStatus} = renderWithAssetContext(
+            const {setAssetStatus, container} = renderWithAssetContext(
                 <Zoomable>
                     <span>Some zoomable text</span>
                 </Zoomable>,
             );
             const [assetKey] = setAssetStatus.mock.calls[0];
-            act(() => jest.runAllTimers());
+            await waitForVisible(container);
+            act(() =>
+                jest.advanceTimersByTime(ENTRANCE_TRANSITION_DURATION_MS),
+            );
 
             // Act
+            // A resize hides the content and measures it again from scratch, so
+            // wait for it to become visible a second time.
             act(() => window.dispatchEvent(new Event("resize")));
-            act(() => jest.runAllTimers());
+            await waitForVisible(container);
+            act(() =>
+                jest.advanceTimersByTime(ENTRANCE_TRANSITION_DURATION_MS),
+            );
 
             // Assert - we went from not-loaded to loaded and stayed that way.
             expect(setAssetStatus.mock.calls).toEqual([

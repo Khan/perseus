@@ -123,6 +123,9 @@ class Zoomable extends React.Component<Props, State> {
 
     componentDidUpdate() {
         this.maybeInitializeMeasuring();
+        if (this.state.visible) {
+            this.markSettledWhenVisible();
+        }
     }
 
     componentWillUnmount() {
@@ -300,14 +303,12 @@ class Zoomable extends React.Component<Props, State> {
                     this.setState({
                         visible: true,
                     });
-                    this.markSettledWhenVisible();
                 }
             });
         } else {
             this.setState({
                 visible: true,
             });
-            this.markSettledWhenVisible();
         }
     }
 
