@@ -107,3 +107,18 @@ jobs:
                   set -euo pipefail
                   # `|| true`: label must be pre-created in the repo (gh won't auto-create).
                   gh pr edit "$NUM" --repo "$GITHUB_REPOSITORY" --add-label "required-webapp-release" || true
+
+            # Mirrors the production "Clear stale webapp-required signal" step:
+            # once a change no longer requires a webapp release, delete the
+            # comment + remove the label so the PR stops claiming otherwise.
+            - name: Clear stale webapp-required signal
+              if: steps.webapp_check.outputs.required == 'no' && steps.webapp_find.outputs.comment-id != ''
+              shell: bash
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  NUM: ${{ github.event.pull_request.number }}
+                  COMMENT_ID: ${{ steps.webapp_find.outputs.comment-id }}
+              run: |
+                  set -euo pipefail
+                  gh api -X DELETE "repos/$GITHUB_REPOSITORY/issues/comments/$COMMENT_ID" || true
+                  gh pr edit "$NUM" --repo "$GITHUB_REPOSITORY" --remove-label "required-webapp-release" || true
