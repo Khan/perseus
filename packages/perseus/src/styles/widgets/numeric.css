@@ -1,6 +1,6 @@
 .input-with-examples-tooltip {
     font-size: var(--wb-font-body-size-medium);
-    line-height: var(--wb-font-body-lineHeight-large);
+    line-height: var(--wb-font-body-size-medium);
     color: var(--wb-semanticColor-core-foreground-neutral-subtle);
     background: var(--wb-semanticColor-core-background-base-default);
 }
