@@ -17,8 +17,8 @@ const BlankWidget = forwardRef<Widget, BlankProps>(
             .concat(props.displayType !== "normal" ? [styles["super-sub"]] : [])
             .join(" ");
 
-        // This is stubbed for now in order to ensure ref var is used until
-        // we have the FITB Widget and add the getPromptJSON function here.
+        // TODO(LEMS-4471): Write out the getPromptJSON function after checking
+        // with the TUT team about what data they need from this widget.
         useImperativeHandle(ref, () => ({}));
 
         //TO-DO (LEMS-4448): Remove testid once we have a better way to identify a blank-widget
