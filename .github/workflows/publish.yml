@@ -180,6 +180,13 @@ jobs:
             # PR below.
             - name: Detect whether a webapp release is required
               id: webapp_check
+              # Phase 1 only. The raw .changeset/*.md files exist only while a
+              # Version Packages PR is accumulating; on a real Phase 2 publish
+              # run they've already been consumed into CHANGELOGs, so there's
+              # nothing to annotate and this step is skipped entirely.
+              # (README.md is excluded — it's always present in .changeset/ and
+              # isn't a pending changeset.)
+              if: hashFiles('.changeset/*.md', '!.changeset/README.md') != ''
               # Runs BEFORE the release/publish step, so it must never block a
               # real release. On failure its outputs stay empty and every
               # downstream annotation step skips (fail-safe: nothing posted).
