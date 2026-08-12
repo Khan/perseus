@@ -165,6 +165,7 @@ export const PointMoved: Story = {
         // mouse events with those coords set — down on the point (vmouse
         // translates it and it bubbles to document), move/up on document — so
         // the drag actually registers.
+        // eslint-disable-next-line testing-library/prefer-user-event;
         fireEvent.mouseDown(point, {
             button: 0,
             clientX: startX,
@@ -172,6 +173,7 @@ export const PointMoved: Story = {
             pageX: startX,
             pageY: startY,
         });
+        // eslint-disable-next-line testing-library/prefer-user-event;
         fireEvent.mouseMove(document, {
             button: 0,
             clientX: endX,
@@ -179,6 +181,7 @@ export const PointMoved: Story = {
             pageX: endX,
             pageY: startY,
         });
+        // eslint-disable-next-line testing-library/prefer-user-event;
         fireEvent.mouseUp(document, {
             button: 0,
             clientX: endX,

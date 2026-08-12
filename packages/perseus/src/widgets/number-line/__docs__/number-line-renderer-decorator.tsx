@@ -30,7 +30,6 @@ export const numberLineRendererDecorator: Decorator = (
                         graded: true,
                         static: args.static ?? false,
                         alignment: "default",
-                        // eslint-disable-next-line no-restricted-syntax -- args is Partial<T>; all required fields have defaults, but TypeScript can't verify spread completeness at compile time
                         options: {
                             range: [-4, 4],
                             labelRange: [null, null],
@@ -48,7 +47,7 @@ export const numberLineRendererDecorator: Decorator = (
                             showTooltips: false,
                             static: false,
                             ...args,
-                        } as PerseusNumberLineWidgetOptions,
+                        },
                     },
                 },
             })}
