@@ -1,21 +1,10 @@
-import {fireEvent, render, screen} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import TextListEditor from "./text-list-editor";
 
 import type {UserEvent} from "@testing-library/user-event";
-
-const BACKSPACE = 8;
-const ENTER = 13;
-
-// TextListEditor reads the legacy `event.nativeEvent.keyCode`, which
-// user-event does not set on the events it dispatches. Keyboard-driven
-// behavior therefore has to be exercised with an explicit keyCode.
-function pressKey(input: HTMLElement, keyCode: number) {
-    // eslint-disable-next-line testing-library/prefer-user-event
-    fireEvent.keyDown(input, {keyCode});
-}
 
 function getInputs(): HTMLInputElement[] {
     return screen.getAllByRole<HTMLInputElement>("textbox");
@@ -101,7 +90,7 @@ describe("TextListEditor", () => {
         expect(onChange).toHaveBeenLastCalledWith(["apple", "banana", "c"]);
     });
 
-    it("keeps the trailing empty input when backspacing in it, and focuses the previous input", () => {
+    it("keeps the trailing empty input when backspacing in it, and focuses the previous input", async () => {
         // Arrange
         render(
             <TextListEditor
@@ -111,26 +100,26 @@ describe("TextListEditor", () => {
         );
 
         // Act
-        pressKey(getInputs()[2], BACKSPACE);
+        await userEvent.type(getInputs()[2], "{Backspace}");
 
         // Assert
         expect(getValues()).toEqual(["apple", "banana", ""]);
         expect(getInputs()[1]).toHaveFocus();
     });
 
-    it("keeps the only input when backspacing in it", () => {
+    it("keeps the only input when backspacing in it", async () => {
         // Arrange
         render(<TextListEditor onChange={() => {}} />);
 
         // Act
-        pressKey(getInputs()[0], BACKSPACE);
+        await userEvent.type(getInputs()[0], "{Backspace}");
 
         // Assert
         expect(getValues()).toEqual([""]);
         expect(getInputs()[0]).toHaveFocus();
     });
 
-    it("removes an empty input when backspacing in it, and focuses the previous input", () => {
+    it("removes an empty input when backspacing in it, and focuses the previous input", async () => {
         // Arrange
         render(
             <TextListEditor
@@ -140,27 +129,27 @@ describe("TextListEditor", () => {
         );
 
         // Act
-        pressKey(getInputs()[1], BACKSPACE);
+        await userEvent.type(getInputs()[1], "{Backspace}");
 
         // Assert
         expect(getValues()).toEqual(["apple", "banana", ""]);
         expect(getInputs()[0]).toHaveFocus();
     });
 
-    it("removes the option when backspacing away the last character of the second-to-last input", () => {
+    it("removes the option when backspacing away the last character of the second-to-last input", async () => {
         // Arrange
         const onChange = jest.fn();
         render(<TextListEditor options={["apple", "b"]} onChange={onChange} />);
 
         // Act
-        pressKey(getInputs()[1], BACKSPACE);
+        await userEvent.type(getInputs()[1], "{Backspace}");
 
         // Assert
         expect(getValues()).toEqual(["apple", ""]);
         expect(onChange).toHaveBeenLastCalledWith(["apple"]);
     });
 
-    it("inserts an empty input below the current one when Enter is pressed", () => {
+    it("inserts an empty input below the current one when Enter is pressed", async () => {
         // Arrange
         render(
             <TextListEditor
@@ -170,14 +159,14 @@ describe("TextListEditor", () => {
         );
 
         // Act
-        pressKey(getInputs()[0], ENTER);
+        await userEvent.type(getInputs()[0], "{Enter}");
 
         // Assert
         expect(getValues()).toEqual(["apple", "", "banana", ""]);
         expect(getInputs()[1]).toHaveFocus();
     });
 
-    it("focuses the trailing empty input instead of inserting one when Enter is pressed just above it", () => {
+    it("focuses the trailing empty input instead of inserting one when Enter is pressed just above it", async () => {
         // Arrange
         render(
             <TextListEditor
@@ -187,14 +176,14 @@ describe("TextListEditor", () => {
         );
 
         // Act
-        pressKey(getInputs()[1], ENTER);
+        await userEvent.type(getInputs()[1], "{Enter}");
 
         // Assert
         expect(getValues()).toEqual(["apple", "banana", ""]);
         expect(getInputs()[2]).toHaveFocus();
     });
 
-    it("leaves the inputs untouched for other keys", () => {
+    it("leaves the inputs untouched for keys other than Backspace and Enter", async () => {
         // Arrange
         const onChange = jest.fn();
         render(
@@ -205,7 +194,7 @@ describe("TextListEditor", () => {
         );
 
         // Act
-        pressKey(getInputs()[0], 65 /* a */);
+        await userEvent.type(getInputs()[0], "{Escape}");
 
         // Assert
         expect(getValues()).toEqual(["apple", "banana", ""]);

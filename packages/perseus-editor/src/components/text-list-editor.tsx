@@ -62,10 +62,8 @@ class TextListEditor extends React.Component<Props, State> {
         index,
         event,
     ) => {
-        const which = event.nativeEvent.keyCode;
-
         // Backspace deletes an empty input...
-        if (which === 8 /* backspace */ && this.state.items[index] === "") {
+        if (event.key === "Backspace" && this.state.items[index] === "") {
             event.preventDefault();
 
             const items = [...this.state.items];
@@ -88,7 +86,7 @@ class TextListEditor extends React.Component<Props, State> {
             // Deleting the last character in the second-to-last input
             // removes it
         } else if (
-            which === 8 /* backspace */ &&
+            event.key === "Backspace" &&
             this.state.items[index].length === 1 &&
             index === this.state.items.length - 2
         ) {
@@ -100,7 +98,7 @@ class TextListEditor extends React.Component<Props, State> {
             this.props.onChange(items.filter(Boolean));
 
             // Enter adds an option below the current one...
-        } else if (which === 13 /* enter */) {
+        } else if (event.key === "Enter") {
             event.preventDefault();
 
             const items = [...this.state.items];
