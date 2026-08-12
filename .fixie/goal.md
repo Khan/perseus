@@ -489,7 +489,7 @@ review and commit the changes.
 - [x] Migrate `molecule` to `WidgetPropsV2`. WON'T DO - `molecule` will be deleted
 - [x] Migrate `measurer` to `WidgetPropsV2`.
 - [x] Convert `number-line` to a functional component, a la `dropdown`.
-- [ ] Migrate `number-line` to `WidgetPropsV2`. (Was checked off prematurely:
+- [x] Migrate `number-line` to `WidgetPropsV2`. (Was checked off prematurely:
       `number-line.tsx` still uses `WidgetProps` and the type isn't in
       `MIGRATED_WIDGETS`. Must happen before the final cleanup.)
 - [x] Migrate `plotter` to `WidgetPropsV2` (update its editor preview).
