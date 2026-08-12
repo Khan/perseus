@@ -48,6 +48,7 @@ import PerseusMarkdown from "./perseus-markdown.new";
 import QuestionParagraph from "./question-paragraph.new";
 import TranslationLinter from "./translation-linter";
 import Util from "./util";
+import {containerSizeClass} from "./util/sizing-utils";
 import preprocessTex from "./util/tex-preprocess";
 import WidgetContainer from "./widget-container.new";
 import * as Widgets from "./widgets";
@@ -60,6 +61,7 @@ import type {
     FilterCriterion,
     FindWidgetsFunction,
     FocusPath,
+    UniversalWidgetProps,
     Widget,
 } from "./types";
 import type {
@@ -497,10 +499,6 @@ class Renderer
                     }}
                     type={type}
                     widgetProps={this.getWidgetProps(id)}
-                    linterContext={PerseusLinter.pushContextStack(
-                        this.props.linterContext,
-                        "widget",
-                    )}
                 />
             );
         }
@@ -555,7 +553,7 @@ class Renderer
                 );
         }
 
-        const universalProps = {
+        const universalProps: UniversalWidgetProps = {
             userInput: this.props.userInput?.[widgetId],
             widgetId: widgetId,
             widgetIndex: this._getWidgetIndexById(widgetId),
@@ -569,7 +567,14 @@ class Renderer
             onFocus: _.partial(this._onWidgetFocus, widgetId),
             onBlur: _.partial(this._onWidgetBlur, widgetId),
             findWidgets: this.findWidgets,
-            reviewMode: this.props.reviewMode,
+            reviewMode: this.props.reviewMode ?? false,
+            // Default containerSizeClass; overridden in WidgetContainer based
+            // on the measured size of the DOM element.
+            containerSizeClass: containerSizeClass.MEDIUM,
+            linterContext: PerseusLinter.pushContextStack(
+                this.props.linterContext,
+                "widget",
+            ),
             handleUserInput: (newUserInput: UserInput) => {
                 // Calculate widgetsEmpty using the updated user input
                 const updatedUserInput = {
