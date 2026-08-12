@@ -22,6 +22,7 @@ export const MIGRATED_WIDGETS: ReadonlyArray<string> = [
     "video",
     "image",
     "measurer",
+    "number-line",
     "plotter",
     "cs-program",
     "python-program",

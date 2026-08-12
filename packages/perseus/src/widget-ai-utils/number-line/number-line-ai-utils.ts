@@ -78,8 +78,8 @@ export const getPromptJSON = (
     return {
         type: "number-line",
         options: {
-            range: widgetData.range,
-            snapDivisions: widgetData.snapDivisions,
+            range: widgetData.options.range,
+            snapDivisions: widgetData.options.snapDivisions,
         },
         userInput: {
             numLinePosition: userInput.numLinePosition,

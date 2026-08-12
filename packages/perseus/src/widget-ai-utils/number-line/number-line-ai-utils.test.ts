@@ -45,9 +45,11 @@ describe("NumberLine AI utils", () => {
         };
 
         const widgetData: any = {
-            range: [0, 10],
-            numDivisions: 10,
-            snapDivisions: 2,
+            options: {
+                range: [0, 10],
+                numDivisions: 10,
+                snapDivisions: 2,
+            },
             userInput,
         };
 
