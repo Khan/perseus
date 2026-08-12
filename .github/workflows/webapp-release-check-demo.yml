@@ -52,7 +52,10 @@ jobs:
                   else
                       echo "required=no" >> "$GITHUB_OUTPUT"
                   fi
-                  pkgs=$(printf '%s' "$matched" | paste -sd', ' -)
+                  # Join with ", " — paste's multi-char -d is a cycling list of
+                  # single-char delimiters, not a literal separator, so join on
+                  # ',' then expand to ', '.
+                  pkgs=$(printf '%s' "$matched" | paste -sd',' - | sed 's/,/, /g')
                   echo "packages=${pkgs}" >> "$GITHUB_OUTPUT"
                   echo "webapp required: ${matched:+yes}${matched:-no} (${pkgs:-none})"
 
