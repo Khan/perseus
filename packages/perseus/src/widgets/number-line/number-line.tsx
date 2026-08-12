@@ -1,11 +1,11 @@
-import {number as knumber, KhanMath} from "@khanacademy/kmath";
+import {KhanMath, number as knumber} from "@khanacademy/kmath";
 import {useLatestRef, useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {
     forwardRef,
-    useRef,
     useCallback,
     useImperativeHandle,
+    useRef,
     useState,
 } from "react";
 import ReactDOM from "react-dom";
@@ -20,17 +20,17 @@ import KhanColors from "../../util/colors";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
 import type {
-    WidgetExports,
-    Widget,
-    WidgetProps,
     PerseusDependenciesV2,
+    Widget,
+    WidgetExports,
+    WidgetPropsV2,
 } from "../../types";
 import type {NumberLinePromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 import type {
-    Relationship,
+    NumberLinePublicWidgetOptions,
     PerseusNumberLineUserInput,
     PerseusNumberLineWidgetOptions,
-    NumberLinePublicWidgetOptions,
+    Relationship,
 } from "@khanacademy/perseus-core";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
@@ -204,25 +204,18 @@ const TickMarks: any = (Graphie as any).createSimpleClass((graphie, props) => {
 /**
  * The type of the props passed to the NumberLine widget.
  */
-type Props = WidgetProps<
+type Props = WidgetPropsV2<
     PerseusNumberLineWidgetOptions,
     PerseusNumberLineUserInput
 > & {
     dependencies: PerseusDependenciesV2;
 };
 
-// Props with the derived `tickStep` mixed in, so render helpers have it
-// precomputed.
-type CalculatedProps = Props & {
-    tickStep: number;
-};
-
 // Whether the widget's configuration makes a drawable number line. An invalid
 // configuration would send the drawing code into an infinite loop.
 function isValid(props: Props): boolean {
-    const range = props.range;
+    const {range, divisionRange, snapDivisions} = props.options;
     let initialX = props.userInput?.numLinePosition;
-    const divisionRange = props.divisionRange;
 
     initialX = initialX == null ? range[0] : initialX;
 
@@ -232,7 +225,7 @@ function isValid(props: Props): boolean {
         knumber.sign(initialX - range[1]) <= 0 &&
         divisionRange[0] < divisionRange[1] &&
         0 < props.userInput?.numDivisions &&
-        0 < props.snapDivisions
+        0 < snapDivisions
     );
 }
 
@@ -240,6 +233,10 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
     const {strings} = usePerseusI18n();
     const propsRef = useLatestRef(props);
     const [numDivisionsEmpty, setNumDivisionsEmpty] = useState(false);
+    const tickStep = getTickStep(
+        props.options.range,
+        props.userInput.numDivisions,
+    );
 
     // Ref to the <Graphie> instance. Its `movables` map is populated by the
     // string `ref` on <MovablePoint> below (Graphie consumes those children
@@ -262,7 +259,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
 
     useImperativeHandle(ref, () => ({
         focus: () => {
-            if (props.isTickCtrl) {
+            if (props.options.isTickCtrl) {
                 tickCtrlRef.current?.focus();
                 return true;
             }
@@ -282,7 +279,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
         },
 
         getInputPaths: () => {
-            if (props.isTickCtrl) {
+            if (props.options.isTickCtrl) {
                 return [["tick-ctrl"]];
             }
             return [];
@@ -302,15 +299,15 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
         getSerializedState: () => ({
             alignment: props.alignment,
             static: props.static,
-            range: props.range,
-            labelRange: props.labelRange,
-            labelStyle: props.labelStyle,
-            labelTicks: props.labelTicks,
-            divisionRange: props.divisionRange,
-            snapDivisions: props.snapDivisions,
-            isInequality: props.isInequality,
-            showTooltips: props.showTooltips,
-            isTickCtrl: props.isTickCtrl,
+            range: props.options.range,
+            labelRange: props.options.labelRange,
+            labelStyle: props.options.labelStyle,
+            labelTicks: props.options.labelTicks,
+            divisionRange: props.options.divisionRange,
+            snapDivisions: props.options.snapDivisions,
+            isInequality: props.options.isInequality,
+            showTooltips: props.options.showTooltips,
+            isTickCtrl: props.options.isTickCtrl,
             numDivisions: props.userInput.numDivisions,
             numLinePosition: props.userInput.numLinePosition,
             // this seems like a bug, but I'm maintaining the
@@ -351,10 +348,11 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
             const left = range[0] - buffer;
             const right = range[1] + buffer;
 
+            const {labelStyle} = latestProps.options;
             const hasFractionalLabels =
-                latestProps.labelStyle === "improper" ||
-                latestProps.labelStyle === "mixed" ||
-                latestProps.labelStyle === "non-reduced";
+                labelStyle === "improper" ||
+                labelStyle === "mixed" ||
+                labelStyle === "non-reduced";
             const bottom = hasFractionalLabels ? -1.5 : -1;
             const top = 1;
 
@@ -376,12 +374,13 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
     );
 
     function snapNumLinePosition(
-        calculatedProps: CalculatedProps,
+        tickStep: number,
         numLinePosition: number,
     ): number {
-        const left = calculatedProps.range[0];
-        const right = calculatedProps.range[1];
-        const snapX = calculatedProps.tickStep / calculatedProps.snapDivisions;
+        const {range, snapDivisions} = props.options;
+        const left = range[0];
+        const right = range[1];
+        const snapX = tickStep / snapDivisions;
 
         let x = bound(numLinePosition, left, right);
         x = left + knumber.roundTo(x - left, snapX);
@@ -390,8 +389,6 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
     }
 
     function onNumDivisionsChange(numDivisions: number, cb?: () => void) {
-        const width = props.range[1] - props.range[0];
-
         // Don't allow a fraction for the number of divisions
         numDivisions = Math.round(numDivisions);
 
@@ -401,10 +398,10 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
         // If the number of divisions isn't blank, update the number line
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (numDivisions) {
-            const nextProps = {...props, tickStep: width / numDivisions};
+            const newTickStep = getTickStep(props.options.range, numDivisions);
 
             const newNumLinePosition = snapNumLinePosition(
-                nextProps,
+                newTickStep,
                 props.userInput.numLinePosition,
             );
 
@@ -456,22 +453,22 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
         });
     }
 
-    function renderNumberLinePoint(calculatedProps: CalculatedProps) {
-        const isOpen = ["lt", "gt"].includes(calculatedProps.userInput.rel);
+    function renderNumberLinePoint() {
+        const isOpen = ["lt", "gt"].includes(props.userInput.rel);
 
         // In static mode the point's fill and stroke is blue to signify that
         // it can't be interacted with.
         let fill;
         if (isOpen) {
             fill = KhanColors._BACKGROUND;
-        } else if (calculatedProps.static) {
+        } else if (props.static) {
             fill = KhanColors.BLUE;
         } else {
             fill = KhanColors.GREEN;
         }
         const normalStyle = {
             fill: fill,
-            stroke: calculatedProps.static ? KhanColors.BLUE : KhanColors.GREEN,
+            stroke: props.static ? KhanColors.BLUE : KhanColors.GREEN,
             "stroke-width": isOpen ? 3 : 1,
         } as const;
         const highlightStyle = {
@@ -479,7 +476,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
             "stroke-width": isOpen ? 3 : 1,
         } as const;
 
-        const mobileDotStyle = calculatedProps.isInequality
+        const mobileDotStyle = props.options.isInequality
             ? {
                   stroke: KhanColors.GREEN,
                   "fill-opacity": isOpen ? 0 : 1,
@@ -490,7 +487,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
             <MovablePoint
                 ref="numberLinePoint"
                 pointSize={6}
-                coord={[calculatedProps.userInput.numLinePosition, 0]}
+                coord={[props.userInput.numLinePosition, 0]}
                 constraints={[
                     (coord: any, prevCoord) => {
                         // constrain-y
@@ -498,10 +495,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                     },
                     (coord: any, prevCoord) => {
                         // snap X
-                        const x = snapNumLinePosition(
-                            calculatedProps,
-                            coord[0],
-                        );
+                        const x = snapNumLinePosition(tickStep, coord[0]);
                         return [x, coord[1]];
                     },
                 ]}
@@ -510,9 +504,9 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                 onMove={(coord) => {
                     movePosition(coord[0]);
                 }}
-                isMobile={calculatedProps.apiOptions.isMobile}
+                isMobile={props.apiOptions.isMobile}
                 mobileStyleOverride={mobileDotStyle}
-                showTooltips={calculatedProps.showTooltips ?? false}
+                showTooltips={props.options.showTooltips ?? false}
                 xOnlyTooltip={true}
             />
         );
@@ -521,7 +515,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
     function getInequalityEndpoint(): [number, number] {
         const isGreater = ["ge", "gt"].includes(props.userInput.rel);
         const widthInPixels = 400;
-        const range = props.range;
+        const range = props.options.range;
         const scale = (range[1] - range[0]) / widthInPixels;
         const buffer = horizontalPadding * scale;
         const left = range[0] - buffer;
@@ -531,7 +525,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
     }
 
     function renderInequality() {
-        if (props.isInequality) {
+        if (props.options.isInequality) {
             const end = getInequalityEndpoint();
             const style = {
                 arrows: "->",
@@ -556,18 +550,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
 
     function renderGraphie() {
         // Position variables
-        const range = props.range;
-        const width = range[1] - range[0];
-
-        const options = {
-            range: props.range,
-            isTickCtrl: props.isTickCtrl,
-        };
-
-        const calculatedProps: CalculatedProps = {
-            ...props,
-            tickStep: width / props.userInput.numDivisions,
-        };
+        const range = props.options.range;
 
         return (
             <Graphie
@@ -576,9 +559,12 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                 // when the label style changes we want to resize the graphie,
                 // which isn't doable without throwing away the graphie and
                 // making a new one.
-                key={props.labelStyle}
+                key={props.options.labelStyle}
                 box={[props.apiOptions.isMobile ? 288 : 460, 80]}
-                options={options}
+                options={{
+                    range,
+                    isTickCtrl: props.options.isTickCtrl,
+                }}
                 onMouseDown={(coord) => {
                     // `grab` isn't declared on the Movable type; the movable
                     // is populated via the string ref on <MovablePoint>
@@ -592,21 +578,21 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                 isMobile={props.apiOptions.isMobile}
             >
                 <TickMarks
-                    range={calculatedProps.range}
-                    labelTicks={calculatedProps.labelTicks}
-                    labelStyle={calculatedProps.labelStyle}
-                    labelRange={calculatedProps.labelRange}
-                    tickStep={calculatedProps.tickStep}
-                    numDivisions={calculatedProps.userInput.numDivisions}
-                    isMobile={calculatedProps.apiOptions.isMobile}
+                    range={props.options.range}
+                    labelTicks={props.options.labelTicks}
+                    labelStyle={props.options.labelStyle}
+                    labelRange={props.options.labelRange}
+                    tickStep={tickStep}
+                    numDivisions={props.userInput.numDivisions}
+                    isMobile={props.apiOptions.isMobile}
                 />
                 {renderInequality()}
-                {renderNumberLinePoint(calculatedProps)}
+                {renderNumberLinePoint()}
             </Graphie>
         );
     }
 
-    const divisionRange = props.divisionRange;
+    const {divisionRange, isTickCtrl, isInequality} = props.options;
     const divRangeString = divisionRange[0] + EN_DASH + divisionRange[1];
 
     const invalidNumDivisions =
@@ -635,7 +621,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
     );
 
     let tickCtrl;
-    if (props.isTickCtrl) {
+    if (isTickCtrl) {
         const Input = props.apiOptions.customKeypad
             ? SimpleKeypadInput
             : NumberInput;
@@ -674,14 +660,14 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                 <div className="perseus-error">
                     Invalid number line configuration.
                 </div>
-            ) : props.isTickCtrl && invalidNumDivisions ? (
+            ) : isTickCtrl && invalidNumDivisions ? (
                 <div className="perseus-error">
                     {strings.divisions({divRangeString: divRangeString})}
                 </div>
             ) : (
                 renderGraphie()
             )}
-            {!props.static && props.isInequality && inequalityControls}
+            {!props.static && isInequality && inequalityControls}
         </div>
     );
 });
@@ -717,6 +703,14 @@ function getStartNumDivisions(options: NumberLinePublicWidgetOptions) {
     }
 
     return numDivisions;
+}
+
+// The `range` parameter to `getTickStep` should really be typed as `Interval`.
+// It's `number[]` for compatibility with PerseusNumberLineWidgetOptions.
+function getTickStep(range: number[], numDivisions: number) {
+    const [min, max] = range;
+    const width = max - min;
+    return width / numDivisions;
 }
 
 function getCorrectUserInput(
