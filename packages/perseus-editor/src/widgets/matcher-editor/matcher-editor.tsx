@@ -28,7 +28,7 @@ class MatcherEditor extends React.Component<Props> {
     onLabelChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
         const labels = [...this.props.labels];
         labels[index] = e.target.value;
-        this.props.onChange({labels: labels});
+        this.props.onChange({labels});
     };
 
     // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
