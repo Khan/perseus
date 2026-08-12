@@ -10,7 +10,7 @@
 .framework-perseus table.perseus-widget-table-of-values.non-markdown td {
     border: var(--wb-border-width-medium) solid
         var(--wb-semanticColor-core-border-neutral-strong);
-    border-width: 0 var(--wb-border-width-medium);
+    border-width: var(--wb-border-width-none) var(--wb-border-width-medium);
 }
 .framework-perseus
     table.perseus-widget-table-of-values.non-markdown

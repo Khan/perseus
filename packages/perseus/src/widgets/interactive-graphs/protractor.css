@@ -13,9 +13,6 @@
 .MafsView .protractor-rotation-handle-arrow-arc {
     fill: none;
     stroke: var(--mafs-blue);
-    /* 8 has no exact border-width token, and the nearest (thick, 4px) would
-       halve the size of this drag handle's hit-affordance arc — left
-       hardcoded rather than shrinking an interactive control. */
     stroke-width: 8;
     /* `strokeLinecap: square` prevents a hairline crack from appearing
      * between the arc and the arrowheads, by making the arc extend a bit
