@@ -28,6 +28,7 @@ import type {LinterContextProps} from "@khanacademy/perseus-linter";
 type Props = {
     type: string; // widget type/name,
     id: string; // widget id
+    // TODO(LEMS-4354): change to WidgetPropsV2
     widgetProps: WidgetProps<any, PerseusWidgetOptions>;
     linterContext: LinterContextProps;
 };
