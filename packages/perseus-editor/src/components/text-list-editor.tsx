@@ -1,14 +1,14 @@
-import $ from "jquery";
 import * as React from "react";
 
 const textWidthCache: Record<string, number> = {};
 function getTextWidth(text: string): number {
     if (!(text in textWidthCache)) {
         // Hacky way to guess the width of an input box
-        const $test = $("<span>").text(text).appendTo("body");
-        // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
-        textWidthCache[text] = $test.width() + 5;
-        $test.remove();
+        const span = document.createElement("span");
+        span.textContent = text;
+        document.body.appendChild(span);
+        textWidthCache[text] = span.getBoundingClientRect().width + 5;
+        span.remove();
     }
     return textWidthCache[text];
 }
@@ -43,10 +43,7 @@ class TextListEditor extends React.Component<Props, State> {
         });
     }
 
-    onChange: (
-        arg1: number,
-        arg2: React.ChangeEvent<HTMLInputElement>,
-    ) => void = (index, event) => {
+    onChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
         let items = [...this.state.items];
         items[index] = event.target.value;
 
@@ -58,10 +55,7 @@ class TextListEditor extends React.Component<Props, State> {
         this.props.onChange(items.filter(Boolean));
     };
 
-    onKeyDown: (arg1: number, arg2: React.KeyboardEvent) => void = (
-        index,
-        event,
-    ) => {
+    onKeyDown = (index: number, event: React.KeyboardEvent) => {
         // Backspace deletes an empty input...
         if (event.key === "Backspace" && this.state.items[index] === "") {
             event.preventDefault();
