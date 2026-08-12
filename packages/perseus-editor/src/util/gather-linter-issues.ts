@@ -37,7 +37,22 @@ function lintRenderer(content: string, widgets?: PerseusWidgetsMap): Issue[] {
         WARNINGS.texError(error.math, error.message, i),
     );
 
-    return [...linterIssues, ...texIssues];
+    // A linter warning is identified by its rule name, so several occurrences
+    // of one rule in the same renderer arrive sharing an `id`. Stamp an
+    // occurrence ordinal to make each issue's key unique within this renderer,
+    // leaving alone the ids that are already unique (`inaccessible-widget-*`).
+    //
+    // The ordinal counts per rule rather than across the whole list, so a new
+    // warning of one rule doesn't renumber every issue after it.
+    const ruleCounts = new Map<string, number>();
+    return [...linterIssues, ...texIssues].map((issue) => {
+        const ordinal = ruleCounts.get(issue.id) ?? 0;
+        ruleCounts.set(issue.id, ordinal + 1);
+        return {
+            ...issue,
+            instanceId: issue.instanceId ?? `${issue.id}-${ordinal}`,
+        };
+    });
 }
 
 export function gatherLinterIssues(
