@@ -84,7 +84,6 @@ export function useHitbox(params: HitboxParams): React.ReactNode {
         // `role="button"`), so it's `aria-hidden` and carries no role/tabindex
         // (no duplicate control, no extra tab stop). The jsx-a11y rules are
         // disabled for the same reason — pointer input only.
-        // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
         <div
             ref={hitboxRef}
             aria-hidden={true}

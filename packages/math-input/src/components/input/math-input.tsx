@@ -53,7 +53,6 @@ type State = {
     showInputFocusStyle: boolean;
 };
 
-// eslint-disable-next-line react/no-unsafe
 class MathInput extends React.Component<Props, State> {
     static contextType = MathInputI18nContext;
     declare context: React.ContextType<typeof MathInputI18nContext>;
@@ -1025,7 +1024,7 @@ const styles = StyleSheet.create({
         position: "relative",
         display: "inline-block",
         verticalAlign: "middle",
-        maxWidth: inputMaxWidth,
+        maxInlineSize: inputMaxWidth,
     },
 });
 

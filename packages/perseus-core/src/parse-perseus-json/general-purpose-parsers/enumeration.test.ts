@@ -1,7 +1,7 @@
 import {success} from "../result";
 
 import {enumeration} from "./enumeration";
-import {ctx, parseFailureWith} from "./test-helpers";
+import {anyFailure, ctx, parseFailureWith} from "./test-helpers";
 
 describe("enumeration()", () => {
     const fooBarBaz = enumeration("foo", "bar", "baz");
@@ -19,5 +19,18 @@ describe("enumeration()", () => {
                 badValue: "asdf",
             }),
         );
+    });
+
+    it("allows enumerations to contain null or undefined", () => {
+        const fooOrNullish = enumeration("foo", null, undefined);
+        expect(fooOrNullish("foo", ctx())).toEqual(success("foo"));
+        expect(fooOrNullish(null, ctx())).toEqual(success(null));
+        expect(fooOrNullish(undefined, ctx())).toEqual(success(undefined));
+    });
+
+    it("rejects nullish values if they are not enumerated", () => {
+        const foo = enumeration("foo");
+        expect(foo(null, ctx())).toEqual(anyFailure);
+        expect(foo(undefined, ctx())).toEqual(anyFailure);
     });
 });

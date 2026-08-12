@@ -6,6 +6,7 @@
  */
 
 type WidgetName =
+    | "blank"
     | "categorizer"
     | "cs-program"
     | "definition"
@@ -47,6 +48,7 @@ type WidgetName =
     | "video";
 
 type WidgetEnum =
+    | "BLANK"
     | "CATEGORIZER"
     | "CS_PROGRAM"
     | "DEFINITION"
@@ -89,6 +91,7 @@ type WidgetEnum =
     | "VIDEO";
 
 const widgetNameToEnum: Record<WidgetName, WidgetEnum> = {
+    blank: "BLANK",
     categorizer: "CATEGORIZER",
     "cs-program": "CS_PROGRAM",
     definition: "DEFINITION",

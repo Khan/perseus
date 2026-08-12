@@ -1,5 +1,4 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable @typescript-eslint/no-invalid-this */
 /**
  * Collection of classes for rendering the hint editor area,
  * hint editor boxes, and hint previews
@@ -24,7 +23,6 @@ import PreviewWithIframe from "./preview-with-iframe";
 import type {
     APIOptions,
     ImageDict,
-    // eslint-disable-next-line import/no-deprecated
     ChangeHandler,
     DeviceType,
     ImageUploader,
@@ -51,7 +49,6 @@ type HintEditorProps = {
     isFirst: boolean;
     onMove: (direction: number) => unknown;
     onRemove: () => unknown;
-    // eslint-disable-next-line import/no-deprecated
     onChange: ChangeHandler;
     __type?: "hint";
     widgetIsOpen?: boolean;
@@ -204,7 +201,6 @@ type CombinedHintEditorProps = {
     previewURL: string;
     onMove: (direction: number) => unknown;
     onRemove: () => unknown;
-    // eslint-disable-next-line import/no-deprecated
     onChange: ChangeHandler;
     widgetIsOpen?: boolean;
 };
@@ -356,7 +352,6 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
         return _.chain(this.props.hints)
             .map((hint, i) => {
                 return _.map(
-                    // eslint-disable-next-line react/no-string-refs
                     // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
                     this.refs["hintEditor" + i].getSaveWarnings(),
                     (issue) => "Hint " + (i + 1) + ": " + issue,
@@ -371,7 +366,6 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
     }
 
     serializeHint(index: number): Hint {
-        // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
         return this.refs["hintEditor" + index].serialize();
     }
@@ -390,12 +384,9 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
                         hint={hint}
                         pos={i}
                         imageUploader={this.props.imageUploader}
-                        // eslint-disable-next-line react/jsx-no-bind
                         // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onChange={this.handleHintChange.bind(this, i)}
-                        // eslint-disable-next-line react/jsx-no-bind
                         onRemove={this.handleHintRemove.bind(this, i)}
-                        // eslint-disable-next-line react/jsx-no-bind
                         onMove={this.handleHintMove.bind(this, i)}
                         deviceType={this.props.deviceType}
                         apiOptions={this.props.apiOptions}
@@ -422,7 +413,6 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
                 </div>
             </div>
         );
-        /* eslint-enable max-len */
     }
 }
 

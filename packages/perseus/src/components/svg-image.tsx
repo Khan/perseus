@@ -1,5 +1,3 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/no-unsafe */
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import * as React from "react";
@@ -30,12 +28,12 @@ function spinner() {
     return (
         <span
             style={{
-                top: 0,
-                left: 0,
+                insetBlockStart: 0,
+                insetInlineStart: 0,
                 width: "100%",
                 height: "100%",
                 position: "absolute",
-                minWidth: "20px",
+                minInlineSize: "20px",
                 display: "flex",
                 justifyContent: "center",
                 alignContent: "center",
@@ -568,7 +566,6 @@ class SvgImage extends React.Component<Props, State> {
             // documented where it came from.
             graphie = (
                 <Graphie
-                    // eslint-disable-next-line react/no-string-refs
                     ref="graphie"
                     box={box}
                     scale={[40 * this.props.scale, 40 * this.props.scale]}

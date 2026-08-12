@@ -143,6 +143,7 @@ export type MakeWidgetMap<TRegistry> = {
  * @see {@link https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation}
  */
 export interface PerseusWidgetTypes {
+    blank: BlankWidget;
     categorizer: CategorizerWidget;
     "cs-program": CSProgramWidget;
     definition: DefinitionWidget;
@@ -429,6 +430,8 @@ export type WidgetOptions<
 };
 
 // prettier-ignore
+export type BlankWidget = WidgetOptions<'blank', PerseusBlankWidgetOptions>;
+// prettier-ignore
 export type CategorizerWidget = WidgetOptions<'categorizer', PerseusCategorizerWidgetOptions>;
 // prettier-ignore
 export type CSProgramWidget = WidgetOptions<'cs-program', PerseusCSProgramWidgetOptions>;
@@ -521,6 +524,14 @@ export type PerseusImageBackground = {
 export type MarkingsType = "axes" | "graph" | "grid" | "none";
 
 export type AxisLabelLocation = "onAxis" | "alongEdge";
+
+/** Options for the blank widget, used within "Drag And Drop" widgets as the dropzone for answer tiles */
+export type PerseusBlankWidgetOptions = {
+    /** Display Type for how the blank should be rendered */
+    displayType: "normal" | "superscript" | "subscript";
+    /** ID for the correct answer tile for the blank */
+    correctId: string;
+};
 
 /** Options for the categorizer widget. Presents items to sort into groups. */
 export type PerseusCategorizerWidgetOptions = {
@@ -924,13 +935,13 @@ export type PerseusInteractiveGraphWidgetOptions = {
      */
     snapStep?: [x: number, y: number];
     /** An optional image to use in the background */
-    backgroundImage?: PerseusImageBackground;
+    backgroundImage: PerseusImageBackground;
     /**
      * The type of markings to display on the graph.
      */
     markings: MarkingsType;
     /** How to label the X and Y axis. default: ["x", "y"] */
-    labels?: string[];
+    labels: string[];
     /**
      * Specifies the location of the labels on the graph.  default: "onAxis".
      * - "onAxis": Labels are positioned on the axis at the right (x) and top
@@ -939,7 +950,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
      *    edges of the graph. The y label is rotated. Typically used when the
      *    range min is near 0 with longer labels.
      */
-    labelLocation?: AxisLabelLocation;
+    labelLocation: AxisLabelLocation;
     /** Which sides of the graph are bounded (removed axis arrows). */
     showAxisArrows: ShowAxisArrows;
     /**
@@ -956,7 +967,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
      */
     showRuler?: boolean;
     /** Whether to show tooltips on the graph */
-    showTooltips?: boolean;
+    showTooltips: boolean;
     /**
      * The unit to show on the ruler.  e.g. "mm", "cm",  "m", "km", "in", "ft",
      * "yd", "mi".
@@ -1030,6 +1041,12 @@ export type LockedFigureType = LockedFigure["type"];
 
 export type LockedLineStyle = "solid" | "dashed";
 
+/**
+ * Stroke style for fillable locked figures (polygons, ellipses): a solid or
+ * dashed border, or `"none"` to render the fill with no border at all.
+ */
+export type LockedFigureStrokeStyle = LockedLineStyle | "none";
+
 export type LockedPointType = {
     type: "point";
     coord: Coord;
@@ -1076,7 +1093,7 @@ export type LockedEllipseType = {
     angle: number;
     color: LockedFigureColor;
     fillStyle: LockedFigureFillType;
-    strokeStyle: LockedLineStyle;
+    strokeStyle: LockedFigureStrokeStyle;
     weight: StrokeWeight;
     labels: LockedLabelType[];
     ariaLabel?: string;
@@ -1088,7 +1105,7 @@ export type LockedPolygonType = {
     color: LockedFigureColor;
     showVertices: boolean;
     fillStyle: LockedFigureFillType;
-    strokeStyle: LockedLineStyle;
+    strokeStyle: LockedFigureStrokeStyle;
     weight: StrokeWeight;
     labels: LockedLabelType[];
     ariaLabel?: string;
@@ -2246,6 +2263,7 @@ export type PerseusInputNumberAnswer = PerseusNumericInputAnswer;
 export type PerseusInputNumberWidgetOptions = PerseusNumericInputWidgetOptions;
 
 export type PerseusWidgetOptions =
+    | PerseusBlankWidgetOptions
     | PerseusCategorizerWidgetOptions
     | PerseusCSProgramWidgetOptions
     | PerseusDefinitionWidgetOptions
