@@ -1,10 +1,8 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/forbid-prop-types */
 import {
     ordererLogic,
     type OrdererDefaultWidgetOptions,
+    type PerseusOrdererWidgetOptions,
 } from "@khanacademy/perseus-core";
-import PropTypes from "prop-types";
 import * as React from "react";
 
 import InfoTip from "../../components/info-tip";
@@ -15,7 +13,12 @@ const AUTO = "auto";
 const HORIZONTAL = "horizontal";
 const VERTICAL = "vertical";
 
-type Props = any;
+type Props = OrdererDefaultWidgetOptions & {
+    onChange: (
+        newOptions: Partial<PerseusOrdererWidgetOptions>,
+        callback?: () => void,
+    ) => void;
+};
 
 export const getUpdatedOptions = (
     correctOptions: Array<{content: string}>,
@@ -75,14 +78,6 @@ export const getUpdatedOptions = (
 };
 
 class OrdererEditor extends React.Component<Props> {
-    static propTypes = {
-        correctOptions: PropTypes.array,
-        otherOptions: PropTypes.array,
-        height: PropTypes.oneOf([NORMAL, AUTO]),
-        layout: PropTypes.oneOf([HORIZONTAL, VERTICAL]),
-        onChange: PropTypes.func.isRequired,
-    };
-
     static widgetName = "orderer" as const;
 
     static defaultProps: OrdererDefaultWidgetOptions =
@@ -90,12 +85,12 @@ class OrdererEditor extends React.Component<Props> {
 
     onOptionsChange: (
         arg1: "correctOptions" | "otherOptions",
-        arg2: any,
-        arg3: any,
-    ) => any = (whichOptions, options, cb) => {
+        arg2: string[],
+        arg3?: () => void,
+    ) => void = (whichOptions, options, cb) => {
         const updatedOptions = getUpdatedOptions(
-            this.props.correctOptions || [],
-            this.props.otherOptions || [],
+            this.props.correctOptions,
+            this.props.otherOptions,
             whichOptions,
             options,
         );
@@ -103,25 +98,33 @@ class OrdererEditor extends React.Component<Props> {
         this.props.onChange(updatedOptions, cb);
     };
 
-    onLayoutChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
+    onLayoutChange: (arg1: React.ChangeEvent<HTMLSelectElement>) => void = (
         e,
     ) => {
-        this.props.onChange({layout: e.target.value});
+        // The select below only offers these two values, so anything else
+        // falls back to the horizontal layout.
+        this.props.onChange({
+            layout: e.target.value === VERTICAL ? VERTICAL : HORIZONTAL,
+        });
     };
 
-    onHeightChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
+    onHeightChange: (arg1: React.ChangeEvent<HTMLSelectElement>) => void = (
         e,
     ) => {
-        this.props.onChange({height: e.target.value});
+        // The select below only offers these two values, so anything else
+        // falls back to the normal height.
+        this.props.onChange({
+            height: e.target.value === AUTO ? AUTO : NORMAL,
+        });
     };
 
-    serialize: () => any = () => {
+    serialize: () => PerseusOrdererWidgetOptions = () => {
         // We combine the correct answer and the other cards by merging them,
         // removing duplicates and empty cards, and sorting them into
         // categories based on their content
         const {options} = getUpdatedOptions(
-            this.props.correctOptions || [],
-            this.props.otherOptions || [],
+            this.props.correctOptions,
+            this.props.otherOptions,
         );
 
         return {
@@ -177,7 +180,6 @@ class OrdererEditor extends React.Component<Props> {
                         Layout:{" "}
                         <select
                             value={this.props.layout}
-                            // @ts-expect-error - TS2322 - Type '(arg1: ChangeEvent<HTMLInputElement>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'.
                             onChange={this.onLayoutChange}
                         >
                             <option value={HORIZONTAL}>Horizontal</option>
@@ -198,7 +200,6 @@ class OrdererEditor extends React.Component<Props> {
                         Height:{" "}
                         <select
                             value={this.props.height}
-                            // @ts-expect-error - TS2322 - Type '(arg1: ChangeEvent<HTMLInputElement>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'.
                             onChange={this.onHeightChange}
                         >
                             <option value={NORMAL}>Normal</option>

@@ -1,31 +1,26 @@
-/* eslint-disable react/forbid-prop-types */
 import {
     matcherLogic,
     type MatcherDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import InfoTip from "../../components/info-tip";
 import TextListEditor from "../../components/text-list-editor";
 
-type Props = any;
+type Props = MatcherDefaultWidgetOptions & {
+    onChange: (
+        newOptions: Partial<MatcherDefaultWidgetOptions>,
+        callback?: () => void,
+    ) => void;
+};
 
 // JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for adding a matcher widget that allows users to match items from two different sets.
  */
 class MatcherEditor extends React.Component<Props> {
-    static propTypes = {
-        left: PropTypes.array,
-        right: PropTypes.array,
-        labels: PropTypes.array,
-        orderMatters: PropTypes.bool,
-        padding: PropTypes.bool,
-    };
-
     static widgetName = "matcher" as const;
 
     static defaultProps: MatcherDefaultWidgetOptions =
@@ -52,7 +47,7 @@ class MatcherEditor extends React.Component<Props> {
         return [];
     };
 
-    serialize: any = () => {
+    serialize: () => MatcherDefaultWidgetOptions = () => {
         return _.pick(
             this.props,
             "left",

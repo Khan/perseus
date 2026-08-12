@@ -1,11 +1,8 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/forbid-prop-types */
 import {
     sorterLogic,
     type SorterDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -15,31 +12,34 @@ import TextListEditor from "../../components/text-list-editor";
 const HORIZONTAL = "horizontal";
 const VERTICAL = "vertical";
 
-type Props = any;
+type Props = SorterDefaultWidgetOptions & {
+    onChange: (
+        newOptions: Partial<SorterDefaultWidgetOptions>,
+        callback?: () => void,
+    ) => void;
+};
 
 // JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for adding a sorter widget that allows users to arrange items in a specific order.
  */
 class SorterEditor extends React.Component<Props> {
-    static propTypes = {
-        correct: PropTypes.array,
-        layout: PropTypes.oneOf([HORIZONTAL, VERTICAL]),
-        padding: PropTypes.bool,
-    };
-
     static widgetName = "sorter" as const;
 
     static defaultProps: SorterDefaultWidgetOptions =
         sorterLogic.defaultWidgetOptions;
 
-    onLayoutChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
+    onLayoutChange: (arg1: React.ChangeEvent<HTMLSelectElement>) => void = (
         e,
     ) => {
-        this.props.onChange({layout: e.target.value});
+        // The select below only offers these two values, so anything else
+        // falls back to the horizontal layout.
+        this.props.onChange({
+            layout: e.target.value === VERTICAL ? VERTICAL : HORIZONTAL,
+        });
     };
 
-    serialize: (arg1: any) => void = () => {
+    serialize: () => SorterDefaultWidgetOptions = () => {
         return _.pick(this.props, "correct", "layout", "padding");
     };
 
@@ -73,7 +73,6 @@ class SorterEditor extends React.Component<Props> {
                         Layout:{" "}
                         <select
                             value={this.props.layout}
-                            // @ts-expect-error - TS2322 - Type '(arg1: ChangeEvent<HTMLInputElement>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'.
                             onChange={this.onLayoutChange}
                         >
                             <option value={HORIZONTAL}>Horizontal</option>
