@@ -1,4 +1,5 @@
 import {themeModes} from "../../../../../../.storybook/modes";
+import {mobileDecorator} from "../../__testutils__/story-decorators";
 
 import {numberLineRendererDecorator} from "./number-line-renderer-decorator";
 import {waitForError, waitForNumberLine} from "./number-line-story-helpers";
@@ -203,7 +204,7 @@ export const StaticPoint: Story = {
 };
 
 export const Mobile: Story = {
-    decorators: [numberLineRendererDecorator],
+    decorators: [numberLineRendererDecorator, mobileDecorator],
     args: {
         range: [0, 10],
         numDivisions: 5,
@@ -215,7 +216,7 @@ export const Mobile: Story = {
 };
 
 export const MobileInequalityClosed: Story = {
-    decorators: [numberLineRendererDecorator],
+    decorators: [numberLineRendererDecorator, mobileDecorator],
     args: inequalityArgs,
     parameters: {
         apiOptions: {isMobile: true},
@@ -225,7 +226,7 @@ export const MobileInequalityClosed: Story = {
 };
 
 export const MobileInequalityOpen: Story = {
-    decorators: [numberLineRendererDecorator],
+    decorators: [numberLineRendererDecorator, mobileDecorator],
     args: inequalityArgs,
     parameters: {
         apiOptions: {isMobile: true},
