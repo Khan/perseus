@@ -1,12 +1,11 @@
-/* eslint-disable @typescript-eslint/no-invalid-this, react/forbid-prop-types */
+/* eslint-disable @typescript-eslint/no-invalid-this */
 import $ from "jquery";
-import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-const textWidthCache: Record<string, any> = {};
-function getTextWidth(text: any) {
-    if (!textWidthCache[text]) {
+const textWidthCache: Record<string, number> = {};
+function getTextWidth(text: string): number {
+    if (!(text in textWidthCache)) {
         // Hacky way to guess the width of an input box
         const $test = $("<span>").text(text).appendTo("body");
         // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
@@ -16,23 +15,27 @@ function getTextWidth(text: any) {
     return textWidthCache[text];
 }
 
-class TextListEditor extends React.Component<any, any> {
-    static propTypes = {
-        options: PropTypes.array,
-        layout: PropTypes.oneOf(["horizontal", "vertical"]),
-        onChange: PropTypes.func.isRequired,
-    };
+type Props = {
+    options: string[];
+    layout: "horizontal" | "vertical";
+    onChange: (options: string[]) => void;
+};
 
-    static defaultProps: any = {
+type State = {
+    items: string[];
+};
+
+class TextListEditor extends React.Component<Props, State> {
+    static defaultProps: Pick<Props, "options" | "layout"> = {
         options: [],
         layout: "horizontal",
     };
 
-    state: any = {
+    state: State = {
         items: this.props.options.concat(""),
     };
 
-    UNSAFE_componentWillReceiveProps(nextProps: any) {
+    UNSAFE_componentWillReceiveProps(nextProps: Props) {
         this.setState({
             items: nextProps.options.concat(""),
         });

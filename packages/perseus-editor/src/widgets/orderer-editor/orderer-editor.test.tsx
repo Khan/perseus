@@ -82,7 +82,6 @@ describe("OrdererEditor", () => {
                     },
                 ],
             }),
-            undefined,
         );
     });
 
