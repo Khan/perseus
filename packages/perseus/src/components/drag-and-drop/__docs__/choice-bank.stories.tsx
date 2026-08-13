@@ -6,8 +6,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 
 /**
  * `ChoiceBank` holds the draggable answer tiles for the Drag-and-Drop widget
- * family (LEMS-4365). Presentational card + reflow only — dragging is not
- * wired up yet.
+ * family.
  *
  * TODO(LEMS-4363): The tiles below are throwaway placeholders standing in for
  * the real `AnswerTile` component; they only demonstrate how the bank wraps.
@@ -54,12 +53,14 @@ const SAMPLE_TILES = [
     "The mitochondria",
     "π",
     "Independent variable",
+    "\\sqrt{a^2 + b^2}",
+    "The mitochondria is the powerhouse of the cell",
 ];
 
 /** The default bank: a handful of tiles of varying widths. */
 export const Default: Story = {
     render: () => (
-        <ChoiceBank>
+        <ChoiceBank label="Choices">
             {SAMPLE_TILES.map((label) => (
                 <PlaceholderTile key={label}>{label}</PlaceholderTile>
             ))}
@@ -80,7 +81,7 @@ export const Reflow: Story = {
                 border: "1px dashed #ccc",
             }}
         >
-            <ChoiceBank>
+            <ChoiceBank label="Choices">
                 {SAMPLE_TILES.map((label) => (
                     <PlaceholderTile key={label}>{label}</PlaceholderTile>
                 ))}
@@ -92,7 +93,7 @@ export const Reflow: Story = {
 /** Many tiles, to stress the wrapping across several rows. */
 export const ManyTiles: Story = {
     render: () => (
-        <ChoiceBank>
+        <ChoiceBank label="Choices">
             {Array.from({length: 24}, (_, i) => (
                 <PlaceholderTile key={i}>{`Tile ${i + 1}`}</PlaceholderTile>
             ))}
@@ -102,7 +103,7 @@ export const ManyTiles: Story = {
 
 /** An empty bank still reads as a card. */
 export const Empty: Story = {
-    render: () => <ChoiceBank />,
+    render: () => <ChoiceBank label="Choices">{[]}</ChoiceBank>,
 };
 
 /** Right-to-left: the row direction reverses automatically. */

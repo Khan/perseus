@@ -4,17 +4,6 @@ import * as React from "react";
 import {ChoiceBank} from "./choice-bank";
 
 describe("ChoiceBank", () => {
-    it("names the tile list with the default 'Choices' label", () => {
-        // Arrange, Act
-        render(
-            <ChoiceBank>
-                <button>tile</button>
-            </ChoiceBank>,
-        );
-
-        expect(screen.getByRole("list", {name: "Choices"})).toBeInTheDocument();
-    });
-
     it("names the tile list with the label", () => {
         // Arrange, Act
         render(
@@ -29,7 +18,7 @@ describe("ChoiceBank", () => {
     it("renders each child as its own list item", () => {
         // Arrange, Act
         render(
-            <ChoiceBank>
+            <ChoiceBank label="Choices">
                 <button>one</button>
                 <button>two</button>
                 <button>three</button>
@@ -42,7 +31,7 @@ describe("ChoiceBank", () => {
     it("renders the tile content passed as children", () => {
         // Arrange, Act
         render(
-            <ChoiceBank>
+            <ChoiceBank label="Choices">
                 <button>Numerator</button>
             </ChoiceBank>,
         );
@@ -52,9 +41,11 @@ describe("ChoiceBank", () => {
         ).toBeInTheDocument();
     });
 
-    it("renders an empty list when given no tiles", () => {
+    // The bank empties as tiles are placed into blanks.
+    // Guards that it still renders as a named list without crashing.
+    it("renders an empty bank once all tiles are placed", () => {
         // Arrange, Act
-        render(<ChoiceBank />);
+        render(<ChoiceBank label="Choices">{[]}</ChoiceBank>);
 
         expect(screen.getByRole("list", {name: "Choices"})).toBeInTheDocument();
         expect(screen.queryAllByRole("listitem")).toHaveLength(0);

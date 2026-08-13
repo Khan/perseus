@@ -5,22 +5,21 @@ import styles from "./choice-bank.module.css";
 
 interface ChoiceBankProps {
     /**
-     * The answer tiles to lay out. Each renders as its own `<li>`.
+     * The answer tiles to lay out. Each renders as its own `<li>`. Pass an
+     * empty array for an empty bank (e.g. once every tile has been placed).
      */
-    children?: React.ReactNode;
+    children: React.ReactNode;
     /** Visible label; also names the tile list for assistive tech. */
-    label?: string;
+    label: string;
 }
 
 /**
  * ChoiceBank is a reflow-aware card holding the draggable answer tiles: a
- * "Choices" label on top, with tiles wrapping onto new rows below.
- *
- * Tiles render as a labeled `<ul>` so screen readers announce a list of tiles.
+ * label on top, with tiles wrapping onto new rows below.
  */
 export function ChoiceBank({
     children,
-    label = "Choices",
+    label,
 }: ChoiceBankProps): React.ReactElement {
     const labelId = useId();
 
