@@ -8,7 +8,7 @@ import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/interaction/interaction-ai-utils";
 
 import type {Coord} from "../../interactive2/types";
-import type {Widget, WidgetExports, WidgetPropsV2} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {
     PerseusInteractionElement,
@@ -77,7 +77,7 @@ function KAScompile(expr: any, options: KASOptions) {
     return cached;
 }
 
-type Props = WidgetPropsV2<PerseusInteractionWidgetOptions>;
+type Props = WidgetProps<PerseusInteractionWidgetOptions>;
 
 type State = {
     variables: any;

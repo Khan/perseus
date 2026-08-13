@@ -13,7 +13,7 @@ import type {
     PerseusDependenciesV2,
     Widget,
     WidgetExports,
-    WidgetPropsV2,
+    WidgetProps,
 } from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {PerseusPythonProgramWidgetOptions} from "@khanacademy/perseus-core";
@@ -22,7 +22,7 @@ function getUrlFromProgramID(programID: string) {
     return `/python-program/${programID}/embedded`;
 }
 
-type Props = WidgetPropsV2<PerseusPythonProgramWidgetOptions> & {
+type Props = WidgetProps<PerseusPythonProgramWidgetOptions> & {
     dependencies: PerseusDependenciesV2;
 };
 

@@ -13,7 +13,7 @@ import {testDependencies} from "../../../testing/test-dependencies";
 import {containerSizeClass} from "../../../util/sizing-utils";
 import Radio from "../radio-widget";
 
-import type {WidgetPropsV2} from "../../../types";
+import type {WidgetProps} from "../../../types";
 import type {RadioChoiceWithMetadata, RadioProps} from "../radio-widget";
 import type {
     PerseusRadioRubric,
@@ -65,9 +65,9 @@ const getBaseOptions = (overrides?: Partial<RadioProps>): RadioProps => ({
 
 const getBaseProps = (
     overrides?: Partial<
-        WidgetPropsV2<RadioProps, PerseusRadioUserInput, PerseusRadioRubric>
+        WidgetProps<RadioProps, PerseusRadioUserInput, PerseusRadioRubric>
     >,
-): WidgetPropsV2<RadioProps, PerseusRadioUserInput, PerseusRadioRubric> => ({
+): WidgetProps<RadioProps, PerseusRadioUserInput, PerseusRadioRubric> => ({
     options: getBaseOptions(),
     trackInteraction: jest.fn(),
     widgetId: "radio-1",

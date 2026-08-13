@@ -307,8 +307,6 @@ class ExpressionEditor extends React.Component<Props, State> {
                         answerForms: this.props.answerForms,
                     },
                     userInput: ans.value,
-                    // TODO: UniversalWidgetProps should have a generic type arg
-                    // to help scope what user input a widget consumes
                     handleUserInput: (input: PerseusExpressionUserInput) =>
                         this.changeExpressionWidget(index, input),
                     trackInteraction: () => {},

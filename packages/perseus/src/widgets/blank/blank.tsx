@@ -3,16 +3,13 @@ import {forwardRef, useImperativeHandle} from "react";
 
 import styles from "./blank-widget.module.css";
 
-import type {WidgetExports, WidgetPropsV2, Widget} from "../../types";
+import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {
     PerseusBlankWidgetOptions,
     PerseusBlankUserInput,
 } from "@khanacademy/perseus-core";
 
-type BlankProps = WidgetPropsV2<
-    PerseusBlankWidgetOptions,
-    PerseusBlankUserInput
->;
+type BlankProps = WidgetProps<PerseusBlankWidgetOptions, PerseusBlankUserInput>;
 
 const BlankWidget = forwardRef<Widget, BlankProps>(
     function BlankWidget(props, ref) {

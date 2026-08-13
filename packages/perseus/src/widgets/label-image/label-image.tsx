@@ -29,7 +29,7 @@ import {HideAnswersToggle} from "./hide-answers-toggle";
 import Marker from "./marker";
 
 import type {DependencyProps} from "../../dependencies";
-import type {Widget, WidgetExports, WidgetPropsV2} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {LabelImagePromptJSON} from "../../widget-ai-utils/label-image/label-image-ai-utils";
 import type {
     InteractiveMarkerType,
@@ -88,7 +88,7 @@ type Options = Omit<PerseusLabelImageWidgetOptions, "markers"> & {
     preferredPopoverDirection?: PreferredPopoverDirection;
 };
 
-type Props = WidgetPropsV2<Options, PerseusLabelImageUserInput> & {
+type Props = WidgetProps<Options, PerseusLabelImageUserInput> & {
     analytics: DependencyProps["analytics"];
 };
 

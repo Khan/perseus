@@ -6,14 +6,11 @@ import * as React from "react";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
 
 import type {MockWidgetOptions} from "./mock-widget-types";
-import type {WidgetPropsV2, Widget, WidgetExports} from "../../types";
+import type {WidgetProps, Widget, WidgetExports} from "../../types";
 import type {MockWidgetPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
 import type {PerseusMockWidgetUserInput} from "@khanacademy/perseus-score";
 
-type ExternalProps = WidgetPropsV2<
-    MockWidgetOptions,
-    PerseusMockWidgetUserInput
->;
+type ExternalProps = WidgetProps<MockWidgetOptions, PerseusMockWidgetUserInput>;
 
 type Props = ExternalProps;
 

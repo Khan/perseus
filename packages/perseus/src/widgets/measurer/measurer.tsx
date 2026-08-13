@@ -8,11 +8,11 @@ import GraphUtils from "../../util/graph-utils";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/measurer/measurer-ai-utils";
 
 import type {Coord} from "../../interactive2/types";
-import type {Widget, WidgetExports, WidgetPropsV2} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {Interval} from "../../util/interval";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
-type Props = WidgetPropsV2<PerseusMeasurerWidgetOptions>;
+type Props = WidgetProps<PerseusMeasurerWidgetOptions>;
 
 class Measurer extends React.Component<Props> implements Widget {
     // this just helps with TS weak typing when a Widget

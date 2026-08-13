@@ -12,12 +12,12 @@ import {ImageInfoArea} from "./components/image-info-area";
 import styles from "./image-widget.module.css";
 import {isGif, decodeGifFrames} from "./utils";
 
-import type {WidgetExports, Widget, WidgetPropsV2} from "../../types";
+import type {WidgetExports, Widget, WidgetProps} from "../../types";
 import type {ImagePromptJSON} from "../../widget-ai-utils/image/image-ai-utils";
 import type {PerseusImageWidgetOptions} from "@khanacademy/perseus-core";
 import type {ParsedFrame} from "gifuct-js";
 
-type ImageWidgetProps = WidgetPropsV2<PerseusImageWidgetOptions>;
+type ImageWidgetProps = WidgetProps<PerseusImageWidgetOptions>;
 
 const ImageWidget = forwardRef<Widget, ImageWidgetProps>(
     function ImageWidget(props, ref) {

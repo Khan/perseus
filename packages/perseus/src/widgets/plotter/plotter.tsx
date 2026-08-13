@@ -21,11 +21,11 @@ import type {
     PerseusDependenciesV2,
     Widget,
     WidgetExports,
-    WidgetPropsV2,
+    WidgetProps,
 } from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
-type Props = WidgetPropsV2<
+type Props = WidgetProps<
     PlotterPublicWidgetOptions,
     PerseusPlotterUserInput
 > & {

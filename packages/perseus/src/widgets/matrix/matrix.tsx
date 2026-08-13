@@ -19,7 +19,7 @@ import type {
     PerseusDependenciesV2,
     Widget,
     WidgetExports,
-    WidgetPropsV2,
+    WidgetProps,
 } from "../../types";
 import type {MatrixPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 import type {
@@ -77,10 +77,7 @@ const getRefForPath = function (path: FocusPath) {
     return "answer" + row + "," + column;
 };
 
-type Props = WidgetPropsV2<
-    MatrixPublicWidgetOptions,
-    PerseusMatrixUserInput
-> & {
+type Props = WidgetProps<MatrixPublicWidgetOptions, PerseusMatrixUserInput> & {
     dependencies: PerseusDependenciesV2;
 };
 
