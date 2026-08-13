@@ -51,6 +51,40 @@ function nextFrame(): Promise<void> {
     });
 }
 
+let inFlightRequests = 0;
+
+/**
+ * Counts outstanding `fetch` calls, so the wait below can tell a settled story
+ * apart from one that is quietly waiting on a response.
+ *
+ * This matters because a story can look completely finished while it isn't:
+ * `SvgImage` fetches a graphie's label data *before* it renders an `<img>` at
+ * all, so for the length of that request the DOM holds still at the wrong size.
+ * Measured on the matcher "With Images" story, that gap was under a frame on
+ * one load and over three frames on the next — the coin flip that churns
+ * snapshots.
+ *
+ * Runs at import, which is before any story renders. Only story files that opt
+ * into snapshots import this module, so nothing else has its `fetch` wrapped.
+ */
+function trackInFlightRequests(): void {
+    const patched = "__perseusSnapshotFetchPatched";
+    if (window[patched]) {
+        return;
+    }
+    window[patched] = true;
+
+    const originalFetch = window.fetch.bind(window);
+    window.fetch = (...args) => {
+        inFlightRequests += 1;
+        return originalFetch(...args).finally(() => {
+            inFlightRequests -= 1;
+        });
+    };
+}
+
+trackInFlightRequests();
+
 async function waitForStableFrames(
     root: HTMLElement,
     deadline: number,
@@ -82,7 +116,19 @@ async function waitForStableFrames(
 export async function waitForStableLayout(root: HTMLElement): Promise<void> {
     const deadline = performance.now() + MAX_WAIT_MS;
 
-    await waitForStableFrames(root, deadline);
+    while (performance.now() < deadline) {
+        await waitForStableFrames(root, deadline);
+
+        // A story that holds still isn't necessarily done — it may be waiting
+        // on a response that will change it. Give the work a frame to land and
+        // then re-measure, rather than trusting the stillness.
+        if (inFlightRequests > 0) {
+            await nextFrame();
+            continue;
+        }
+
+        return;
+    }
 }
 
 /**
