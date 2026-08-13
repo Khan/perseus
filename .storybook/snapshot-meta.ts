@@ -134,6 +134,17 @@ export async function waitForStableLayout(root: HTMLElement): Promise<void> {
             continue;
         }
 
+        // Laying the story out is what makes the browser request the fonts it
+        // needs, so this check is only meaningful after something has
+        // rendered. Before that, `document.fonts` is empty and `ready`
+        // resolves against nothing — reporting "loaded" while zero faces are.
+        if (document.fonts?.status === "loading") {
+            await document.fonts.ready;
+            // Fonts change text metrics, so the layout we just called stable
+            // may have moved. Measure again.
+            continue;
+        }
+
         return;
     }
 }
