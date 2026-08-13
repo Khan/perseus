@@ -18,7 +18,7 @@ import type {
     PerseusDependenciesV2,
     Widget,
     WidgetExports,
-    WidgetPropsV2,
+    WidgetProps,
 } from "../../types";
 import type {GradedGroupSetPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
 import type {
@@ -91,7 +91,7 @@ class Indicators extends React.Component<IndicatorsProps> {
     }
 }
 
-type Props = WidgetPropsV2<PerseusGradedGroupSetWidgetOptions> & {
+type Props = WidgetProps<PerseusGradedGroupSetWidgetOptions> & {
     trackInteraction: () => void;
     dependencies: PerseusDependenciesV2;
 };

@@ -22,11 +22,7 @@ import {registerWidget} from "../widgets";
 import Explanation from "../widgets/explanation";
 import Image from "../widgets/image";
 
-import type {
-    PerseusDependenciesV2,
-    WidgetExports,
-    WidgetPropsV2,
-} from "../types";
+import type {PerseusDependenciesV2, WidgetExports, WidgetProps} from "../types";
 
 const MockWidgetComponent = ({
     options: {text, fail = false},
@@ -49,8 +45,8 @@ const MockWidget: WidgetExports<typeof MockWidgetComponent> = {
 const getBaseProps = (
     // TODO(benchristel): Pass real type arguments here. Maybe getBaseProps can
     //  be generic.
-    overrides?: Partial<WidgetPropsV2<any, any>>,
-): WidgetPropsV2<any, any> => ({
+    overrides?: Partial<WidgetProps<any, any>>,
+): WidgetProps<any, any> => ({
     options: {},
     trackInteraction: () => {},
     widgetId: "widget 1",
@@ -134,7 +130,7 @@ describe("widget-container", () => {
 
         const renderContainer = (
             type: string,
-            widgetProps: Partial<WidgetPropsV2<any, any>>,
+            widgetProps: Partial<WidgetProps<any, any>>,
         ) => {
             const {container} = render(
                 <Dependencies.DependenciesContext.Provider

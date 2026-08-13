@@ -26,19 +26,14 @@ import {
     shouldShowExamples,
 } from "./utils";
 
-import type {
-    Focusable,
-    Widget,
-    WidgetExports,
-    WidgetPropsV2,
-} from "../../types";
+import type {Focusable, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {NumericInputPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 import type {
     PerseusNumericInputUserInput,
     PerseusNumericInputWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-type Props = WidgetPropsV2<
+type Props = WidgetProps<
     PerseusNumericInputWidgetOptions,
     PerseusNumericInputUserInput
 >;

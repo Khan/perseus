@@ -17,13 +17,13 @@ import {containerSizeClass, getClassFromWidth} from "./util/sizing-utils";
 import {getWidgetSubType} from "./widget-type-utils";
 import * as Widgets from "./widgets";
 
-import type {WidgetPropsV2} from "./types";
+import type {WidgetProps} from "./types";
 
 type Props = {
     type: string; // widget type/name,
     id: string; // widget id
     // TODO(benchristel): Pass real type arguments here.
-    widgetProps: WidgetPropsV2<any, any>;
+    widgetProps: WidgetProps<any, any>;
 };
 
 type State = {

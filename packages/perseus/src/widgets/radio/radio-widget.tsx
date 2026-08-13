@@ -13,7 +13,7 @@ import RadioComponent from "./radio-component";
 import {choiceTransform} from "./util";
 import {getChoiceStates} from "./utils/general-utils";
 
-import type {WidgetPropsV2, ChoiceState, Widget} from "../../types";
+import type {WidgetProps, ChoiceState, Widget} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
     PerseusRadioChoice,
@@ -59,11 +59,7 @@ export interface RadioChoiceWithMetadata extends PerseusRadioChoice {
     correct?: boolean;
 }
 
-type Props = WidgetPropsV2<
-    RadioProps,
-    PerseusRadioUserInput,
-    PerseusRadioRubric
->;
+type Props = WidgetProps<RadioProps, PerseusRadioUserInput, PerseusRadioRubric>;
 
 /**
  * RadioWidget implements the Widget interface for multiple choice questions.

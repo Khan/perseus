@@ -16,7 +16,7 @@ import type {
     PerseusDependenciesV2,
     Widget,
     WidgetExports,
-    WidgetPropsV2,
+    WidgetProps,
 } from "../../types";
 import type {DefinitionPromptJSON} from "../../widget-ai-utils/definition/definition-ai-utils";
 import type {
@@ -24,7 +24,7 @@ import type {
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
-type DefinitionProps = WidgetPropsV2<PerseusDefinitionWidgetOptions> & {
+type DefinitionProps = WidgetProps<PerseusDefinitionWidgetOptions> & {
     widgets: PerseusRenderer["widgets"];
     dependencies: PerseusDependenciesV2;
 };

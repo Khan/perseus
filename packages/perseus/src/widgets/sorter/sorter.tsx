@@ -11,7 +11,7 @@ import type {
     PerseusDependenciesV2,
     Widget,
     WidgetExports,
-    WidgetPropsV2,
+    WidgetProps,
 } from "../../types";
 import type {SorterPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 import type {
@@ -20,10 +20,7 @@ import type {
     SorterPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-type Props = WidgetPropsV2<
-    PerseusSorterWidgetOptions,
-    PerseusSorterUserInput
-> & {
+type Props = WidgetProps<PerseusSorterWidgetOptions, PerseusSorterUserInput> & {
     dependencies: PerseusDependenciesV2;
 };
 

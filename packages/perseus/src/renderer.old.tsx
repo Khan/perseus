@@ -9,11 +9,11 @@
 /* eslint-disable max-lines */
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {
-    Errors,
-    PerseusError,
     applyDefaultsToWidgets,
+    Errors,
     getDefaultAnswerArea,
     mapObject,
+    PerseusError,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
@@ -41,7 +41,7 @@ import InteractionTracker from "./interaction-tracker";
 import JiptParagraphs from "./jipt-paragraphs";
 import {Log} from "./logging/log";
 import {excludeDenylistKeys} from "./mixins/widget-prop-denylist";
-import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
+import {ApiOptions, ClassNames as ApiClassNames} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
 import TranslationLinter from "./translation-linter";
@@ -59,8 +59,8 @@ import type {
     FilterCriterion,
     FindWidgetsFunction,
     FocusPath,
-    UniversalWidgetProps,
     Widget,
+    WidgetProps,
 } from "./types";
 import type {
     HandleUserInputCallback,
@@ -72,14 +72,15 @@ import type {
 } from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
+    PerseusItem,
     PerseusRenderer,
+    PerseusScore,
     PerseusWidget,
+    PerseusWidgetOptions,
     PerseusWidgetsMap,
     ShowSolutions,
-    PerseusScore,
-    UserInputMap,
     UserInput,
-    PerseusItem,
+    UserInputMap,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
@@ -513,8 +514,9 @@ class Renderer
         return widgetIndex;
     }
 
-    // TODO(LEMS-4354): add return type post-migration.
-    getWidgetProps(widgetId: string): any {
+    getWidgetProps(
+        widgetId: string,
+    ): WidgetProps<PerseusWidgetOptions, UserInput> {
         const apiOptions = this.getApiOptions();
         const widgetOptions = this.props.widgets[widgetId].options;
 
@@ -539,7 +541,8 @@ class Renderer
                 );
         }
 
-        const universalProps: UniversalWidgetProps = {
+        return {
+            options: widgetOptions,
             userInput: this.props.userInput?.[widgetId],
             widgetId: widgetId,
             widgetIndex: this._getWidgetIndexById(widgetId),
@@ -583,8 +586,6 @@ class Renderer
             },
             trackInteraction: interactionTracker.track,
         };
-
-        return {options: widgetOptions, ...universalProps};
     }
 
     /**

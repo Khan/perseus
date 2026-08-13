@@ -19,7 +19,7 @@ import type {
     PerseusDependenciesV2,
     Widget,
     WidgetExports,
-    WidgetPropsV2,
+    WidgetProps,
 } from "../../types";
 import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 import type {
@@ -28,11 +28,11 @@ import type {
 } from "@khanacademy/perseus-core";
 
 interface Props
-    extends WidgetPropsV2<
+    extends WidgetProps<
         PerseusCategorizerWidgetOptions,
         PerseusCategorizerUserInput
     > {
-    // TODO(LEMS-4354): Make `dependencies` part of WidgetPropsV2.
+    // TODO(LEMS-4354): Make `dependencies` part of WidgetProps.
     dependencies: PerseusDependenciesV2;
 }
 

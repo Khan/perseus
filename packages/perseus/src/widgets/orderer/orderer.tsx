@@ -13,7 +13,7 @@ import type {
     PerseusDependenciesV2,
     Widget,
     WidgetExports,
-    WidgetPropsV2,
+    WidgetProps,
 } from "../../types";
 import type {OrdererPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
 import type {
@@ -297,7 +297,7 @@ class Card extends React.Component<CardProps, CardState> {
     }
 }
 
-type OrdererProps = WidgetPropsV2<
+type OrdererProps = WidgetProps<
     OrdererPublicWidgetOptions,
     PerseusOrdererUserInput
 > & {dependencies: PerseusDependenciesV2};

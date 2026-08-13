@@ -20,7 +20,7 @@ import type {
     PerseusDependenciesV2,
     Widget,
     WidgetExports,
-    WidgetPropsV2,
+    WidgetProps,
 } from "../../types";
 import type {DropdownPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 import type {
@@ -28,7 +28,7 @@ import type {
     PerseusDropdownWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-type Props = WidgetPropsV2<
+type Props = WidgetProps<
     PerseusDropdownWidgetOptions,
     PerseusDropdownUserInput
 > & {

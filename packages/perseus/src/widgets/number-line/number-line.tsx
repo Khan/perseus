@@ -23,7 +23,7 @@ import type {
     PerseusDependenciesV2,
     Widget,
     WidgetExports,
-    WidgetPropsV2,
+    WidgetProps,
 } from "../../types";
 import type {NumberLinePromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 import type {
@@ -204,7 +204,7 @@ const TickMarks: any = (Graphie as any).createSimpleClass((graphie, props) => {
 /**
  * The type of the props passed to the NumberLine widget.
  */
-type Props = WidgetPropsV2<
+type Props = WidgetProps<
     PerseusNumberLineWidgetOptions,
     PerseusNumberLineUserInput
 > & {
