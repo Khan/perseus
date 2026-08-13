@@ -18,8 +18,7 @@ import type {getPlotterPublicWidgetOptions} from "./plotter/plotter-util";
 import type {getRadioPublicWidgetOptions} from "./radio/radio-util";
 import type {getSorterPublicWidgetOptions} from "./sorter/sorter-util";
 import type {getTablePublicWidgetOptions} from "./table/table-util";
-import type {Version} from "../data-schema";
-import type {Alignment} from "../types";
+import type {Alignment, Version} from "../data-schema";
 
 export type WidgetOptionsUpgradeMap = {
     // OldProps => NewProps,
