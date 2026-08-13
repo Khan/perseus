@@ -144,6 +144,97 @@ describe("parseInteractiveGraphWidget", () => {
         );
     });
 
+    it("parses a fill-only ('none' stroke) locked polygon", () => {
+        const result = parse(
+            {
+                type: "interactive-graph",
+                options: {
+                    step: [1, 1],
+                    markings: "grid",
+                    showProtractor: false,
+                    range: [
+                        [-10, 10],
+                        [-10, 10],
+                    ],
+                    showAxisArrows: {
+                        xMin: true,
+                        xMax: true,
+                        yMin: true,
+                        yMax: true,
+                    },
+                    showAxisTicks: {x: true, y: true},
+                    correct: {
+                        type: "linear",
+                    },
+                    lockedFigures: [
+                        {
+                            type: "polygon",
+                            points: [
+                                [0, 0],
+                                [1, 0],
+                                [1, 1],
+                            ],
+                            color: "blue",
+                            showVertices: false,
+                            fillStyle: "translucent",
+                            strokeStyle: "none",
+                            weight: "thin",
+                        },
+                    ],
+                },
+            },
+            parseInteractiveGraphWidget,
+        );
+
+        expect(result).toEqual(
+            success({
+                type: "interactive-graph",
+                options: {
+                    step: [1, 1],
+                    markings: "grid",
+                    showProtractor: false,
+                    showTooltips: false,
+                    range: [
+                        [-10, 10],
+                        [-10, 10],
+                    ],
+                    showAxisArrows: {
+                        xMin: true,
+                        xMax: true,
+                        yMin: true,
+                        yMax: true,
+                    },
+                    showAxisTicks: {x: true, y: true},
+                    labelLocation: "onAxis",
+                    labels: ["$x$", "$y$"],
+                    backgroundImage: {url: null},
+                    correct: {
+                        type: "linear",
+                    },
+                    graph: {
+                        type: "linear",
+                    },
+                    lockedFigures: [
+                        {
+                            type: "polygon",
+                            points: [
+                                [0, 0],
+                                [1, 0],
+                                [1, 1],
+                            ],
+                            color: "blue",
+                            showVertices: false,
+                            fillStyle: "translucent",
+                            strokeStyle: "none",
+                            weight: "thin",
+                            labels: [],
+                        },
+                    ],
+                },
+            }),
+        );
+    });
+
     it("rejects unrecognized color names on locked figures", () => {
         const result = parse(
             {

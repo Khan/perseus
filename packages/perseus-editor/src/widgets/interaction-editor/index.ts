@@ -1,3 +1,1 @@
-import InteractionEditor from "./interaction-editor";
-
-export default InteractionEditor;
+export {default} from "./interaction-editor";

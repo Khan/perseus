@@ -30,9 +30,7 @@ export const PREVIEW_MESSAGE_SOURCE = "perseus-preview" as const;
 /**
  * Base type for all preview messages
  */
-// TODO(LEMS-4402): unexport this when ParentToIframeMessage contains all
-// current message types.
-export interface PreviewMessageBase {
+interface PreviewMessageBase {
     source: typeof PREVIEW_MESSAGE_SOURCE;
 }
 

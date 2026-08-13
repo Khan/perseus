@@ -1932,6 +1932,52 @@ describe("Interactive Graph", function () {
         });
     });
 
+    describe("fill-only locked figures (strokeStyle 'none')", () => {
+        it("renders a stroke-less polygon so only its fill shows", () => {
+            // Arrange, Act
+            const {container} = renderQuestion(
+                generateInteractiveGraphQuestion({
+                    markings: "none",
+                    correct: generateIGSegmentGraph(),
+                    lockedFigures: [
+                        generateIGLockedPolygon({
+                            strokeStyle: "none",
+                        }),
+                    ],
+                }),
+                blankOptions,
+            );
+
+            // Assert
+            const polygon =
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                container.querySelector(".locked-polygon polygon");
+            expect(polygon).toHaveStyle({stroke: "none"});
+        });
+
+        it("renders a stroke-less ellipse so only its fill shows", () => {
+            // Arrange, Act
+            const {container} = renderQuestion(
+                generateInteractiveGraphQuestion({
+                    markings: "none",
+                    correct: generateIGSegmentGraph(),
+                    lockedFigures: [
+                        generateIGLockedEllipse({
+                            strokeStyle: "none",
+                        }),
+                    ],
+                }),
+                blankOptions,
+            );
+
+            // Assert
+            const ellipse =
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                container.querySelector(".locked-ellipse ellipse");
+            expect(ellipse).toHaveStyle({stroke: "none"});
+        });
+    });
+
     describe("interactive graph screen reader", () => {
         const limitedGraphQuestionRenderers: {
             [K in PerseusGraphType["type"][number]]: PerseusRenderer;
