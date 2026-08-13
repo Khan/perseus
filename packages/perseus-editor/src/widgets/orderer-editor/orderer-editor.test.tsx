@@ -78,7 +78,6 @@ describe("OrdererEditor", () => {
                 correctOptions: [generateOrdererOption(altImage)],
                 options: [generateOrdererOption(altImage)],
             }),
-            undefined,
         );
     });
 
@@ -101,16 +100,13 @@ describe("OrdererEditor", () => {
         await userEvent.type(otherCard, "Emu");
 
         // Assert
-        expect(onChangeMock).toHaveBeenLastCalledWith(
-            {
-                otherOptions: [generateOrdererOption("Emu")],
-                options: [
-                    generateOrdererOption("Cat"),
-                    generateOrdererOption("Emu"),
-                ],
-            },
-            undefined,
-        );
+        expect(onChangeMock).toHaveBeenLastCalledWith({
+            otherOptions: [generateOrdererOption("Emu")],
+            options: [
+                generateOrdererOption("Cat"),
+                generateOrdererOption("Emu"),
+            ],
+        });
     });
 
     it("serializes content correctly", () => {

@@ -91,10 +91,9 @@ describe("sorter-editor", () => {
         await userEvent.type(card, "Emu");
 
         // Assert
-        expect(onChangeMock).toHaveBeenLastCalledWith(
-            {correct: ["Cat", "Emu"]},
-            undefined,
-        );
+        expect(onChangeMock).toHaveBeenLastCalledWith({
+            correct: ["Cat", "Emu"],
+        });
     });
 
     it("serializes the correct answer, layout, and padding", () => {

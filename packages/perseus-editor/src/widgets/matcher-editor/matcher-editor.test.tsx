@@ -93,10 +93,7 @@ describe("matcher-editor", () => {
         await userEvent.type(leftCard, "Emu");
 
         // Assert
-        expect(onChangeMock).toHaveBeenLastCalledWith(
-            {left: ["Cat", "Emu"]},
-            undefined,
-        );
+        expect(onChangeMock).toHaveBeenLastCalledWith({left: ["Cat", "Emu"]});
     });
 
     it("calls onChange with the updated cards when a right card is edited", async () => {
@@ -118,10 +115,9 @@ describe("matcher-editor", () => {
         await userEvent.type(rightCard, "Purr");
 
         // Assert
-        expect(onChangeMock).toHaveBeenLastCalledWith(
-            {right: ["Meow", "Purr"]},
-            undefined,
-        );
+        expect(onChangeMock).toHaveBeenLastCalledWith({
+            right: ["Meow", "Purr"],
+        });
     });
 
     it("calls onChange with the updated labels when the first label is edited", async () => {

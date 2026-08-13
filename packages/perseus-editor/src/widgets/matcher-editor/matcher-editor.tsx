@@ -70,15 +70,15 @@ class MatcherEditor extends React.Component<Props> {
                 <div className="perseus-clearfix">
                     <TextListEditor
                         options={this.props.left}
-                        onChange={(options, cb) => {
-                            this.props.onChange({left: options}, cb);
+                        onChange={(options) => {
+                            this.props.onChange({left: options});
                         }}
                         layout="vertical"
                     />
                     <TextListEditor
                         options={this.props.right}
-                        onChange={(options, cb) => {
-                            this.props.onChange({right: options}, cb);
+                        onChange={(options) => {
+                            this.props.onChange({right: options});
                         }}
                         layout="vertical"
                     />

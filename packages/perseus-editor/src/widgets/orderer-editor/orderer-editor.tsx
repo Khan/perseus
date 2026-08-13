@@ -64,7 +64,6 @@ class OrdererEditor extends React.Component<Props> {
     onOptionsChange = (
         whichOptions: "correctOptions" | "otherOptions",
         options: string[],
-        cb?: () => void,
     ) => {
         const changedCards = options.map(toCard);
         const correctOptions =
@@ -76,13 +75,10 @@ class OrdererEditor extends React.Component<Props> {
                 ? changedCards
                 : this.props.otherOptions;
 
-        this.props.onChange(
-            {
-                [whichOptions]: changedCards,
-                options: mergeCards(correctOptions, otherOptions),
-            },
-            cb,
-        );
+        this.props.onChange({
+            [whichOptions]: changedCards,
+            options: mergeCards(correctOptions, otherOptions),
+        });
     };
 
     onLayoutChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -141,8 +137,8 @@ class OrdererEditor extends React.Component<Props> {
                     options={this.props.correctOptions.map(
                         (option) => option.content,
                     )}
-                    onChange={(options, cb) => {
-                        this.onOptionsChange("correctOptions", options, cb);
+                    onChange={(options) => {
+                        this.onOptionsChange("correctOptions", options);
                     }}
                     layout={this.props.layout}
                 />
@@ -158,8 +154,8 @@ class OrdererEditor extends React.Component<Props> {
                     options={this.props.otherOptions.map(
                         (option) => option.content,
                     )}
-                    onChange={(options, cb) => {
-                        this.onOptionsChange("otherOptions", options, cb);
+                    onChange={(options) => {
+                        this.onOptionsChange("otherOptions", options);
                     }}
                     layout={this.props.layout}
                 />
