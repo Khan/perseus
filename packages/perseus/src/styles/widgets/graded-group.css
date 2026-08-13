@@ -10,7 +10,7 @@
     margin-left: 0;
 }
 .framework-perseus .perseus-graded-group.answer-incorrect {
-    border-left: var(--wb-border-width-medium) solid
+    border-left: var(--wb-border-width-thick) solid
         var(--wb-semanticColor-core-border-critical-default);
     margin-left: 0;
 }

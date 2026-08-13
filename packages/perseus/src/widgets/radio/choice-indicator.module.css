@@ -11,8 +11,7 @@
     font-weight: var(--wb-font-weight-bold);
     height: var(--perseus-multiple-choice-indicator-size);
     line-height: var(--wb-font-heading-lineHeight-small);
-    outline: var(--wb-border-width-none) solid
-        var(--wb-semanticColor-core-background-instructive-default);
+    outline: var(--wb-border-width-none);
     outline-offset: 0;
     padding: 0;
     /* Along with the `transform` property applied to the <fieldset> ancestor,
