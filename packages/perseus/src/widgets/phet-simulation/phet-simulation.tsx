@@ -18,11 +18,11 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import {phoneMargin} from "../../styles/constants";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/phet-simulation/phet-simulation-ai-utils";
 
-import type {WidgetExports, WidgetPropsV2, Widget} from "../../types";
+import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {PerseusPhetSimulationWidgetOptions} from "@khanacademy/perseus-core";
 
-type Props = WidgetPropsV2<PerseusPhetSimulationWidgetOptions>;
+type Props = WidgetProps<PerseusPhetSimulationWidgetOptions>;
 
 type State = {
     banner: {

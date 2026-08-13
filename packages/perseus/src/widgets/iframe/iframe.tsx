@@ -15,7 +15,7 @@ import {getDependencies} from "../../dependencies";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/iframe/iframe-ai-utils";
 
-import type {WidgetExports, WidgetPropsV2, Widget} from "../../types";
+import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {
     PerseusIFrameUserInput,
@@ -24,7 +24,7 @@ import type {
 
 const {updateQueryString} = Util;
 
-type Props = WidgetPropsV2<PerseusIFrameWidgetOptions, PerseusIFrameUserInput>;
+type Props = WidgetProps<PerseusIFrameWidgetOptions, PerseusIFrameUserInput>;
 
 type DefaultProps = {
     userInput: Props["userInput"];

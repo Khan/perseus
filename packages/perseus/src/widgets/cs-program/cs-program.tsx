@@ -13,7 +13,7 @@ import {isFileProtocol} from "../../util/mobile-native-utils";
 import {toAbsoluteUrl} from "../../util/url-utils";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/cs-program/cs-program-ai-utils";
 
-import type {Widget, WidgetExports, WidgetPropsV2} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {
     PerseusCSProgramWidgetOptions,
@@ -22,7 +22,7 @@ import type {
 
 const {updateQueryString} = Util;
 
-type Props = WidgetPropsV2<
+type Props = WidgetProps<
     PerseusCSProgramWidgetOptions,
     PerseusCSProgramUserInput
 >;

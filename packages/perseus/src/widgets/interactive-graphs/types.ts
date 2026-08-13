@@ -1,6 +1,6 @@
 import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import type {Coord} from "../../interactive2/types";
-import type {WidgetPropsV2} from "../../types";
+import type {WidgetProps} from "../../types";
 import type {QuadraticCoords} from "@khanacademy/kmath";
 import type {
     PerseusInteractiveGraphUserInput,
@@ -9,7 +9,7 @@ import type {
 import type {Interval, vec} from "mafs";
 import type {ReactNode} from "react";
 
-export type InteractiveGraphProps = WidgetPropsV2<
+export type InteractiveGraphProps = WidgetProps<
     PerseusInteractiveGraphWidgetOptions,
     PerseusInteractiveGraphUserInput
 >;

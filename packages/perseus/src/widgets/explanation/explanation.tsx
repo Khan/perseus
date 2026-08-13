@@ -18,12 +18,12 @@ import type {
     PerseusDependenciesV2,
     Widget,
     WidgetExports,
-    WidgetPropsV2,
+    WidgetProps,
 } from "../../types";
 import type {ExplanationPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
 import type {PerseusExplanationWidgetOptions} from "@khanacademy/perseus-core";
 
-type Props = WidgetPropsV2<PerseusExplanationWidgetOptions> & {
+type Props = WidgetProps<PerseusExplanationWidgetOptions> & {
     dependencies: PerseusDependenciesV2;
 };
 

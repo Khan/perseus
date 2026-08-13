@@ -454,17 +454,12 @@ export type FilterCriterion =
       ) => boolean);
 
 /**
- * The full set of props provided to a widget whose widget-specific options are
- * nested under a single `options` prop, rather than spread into the top level
- * of props alongside the universal props.
- *
- * This is the target shape of the in-progress WidgetProps redesign. Widgets are
- * migrated to it one at a time; once every widget is migrated this will replace
- * `WidgetProps` and `UniversalWidgetProps` will be inlined here.
- *
- * TODO(LEMS-4354): revise this doc comment post-migration.
+ * The full set of props provided to all widgets when they are rendered. The
+ * widget-specific options that originate from the PerseusItem are nested under
+ * the `options` prop; everything else is provided to every widget regardless of
+ * its `type`.
  */
-export type WidgetPropsV2<
+export type WidgetProps<
     TWidgetOptions,
     TUserInput = Empty,
     // Defines the arguments that can be passed to the `trackInteraction`
@@ -472,15 +467,6 @@ export type WidgetPropsV2<
     TrackingExtraArgs = Empty,
 > = {
     options: TWidgetOptions;
-} & UniversalWidgetProps<TUserInput, TrackingExtraArgs>;
-
-/**
- * The props passed to every widget, regardless of its `type`.
- */
-export type UniversalWidgetProps<
-    TUserInput = Empty,
-    TrackingExtraArgs = Empty,
-> = {
     // This is slightly different from the `trackInteraction` function in
     // APIOptions. This provides the widget an easy way to notify the renderer
     // of an interaction. The Renderer then enriches the data provided with the

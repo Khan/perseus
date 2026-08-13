@@ -43,7 +43,7 @@ import type {
     PerseusDependenciesV2,
     Widget,
     WidgetExports,
-    WidgetPropsV2,
+    WidgetProps,
 } from "../../types";
 import type {GridDimensions} from "../../util";
 import type {GrapherPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
@@ -351,7 +351,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
     }
 }
 
-type Props = WidgetPropsV2<
+type Props = WidgetProps<
     PerseusGrapherWidgetOptions,
     PerseusGrapherUserInput
 > & {dependencies: PerseusDependenciesV2};

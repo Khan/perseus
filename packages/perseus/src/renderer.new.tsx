@@ -59,8 +59,8 @@ import type {
     FilterCriterion,
     FindWidgetsFunction,
     FocusPath,
-    UniversalWidgetProps,
     Widget,
+    WidgetProps,
 } from "./types";
 import type {
     HandleUserInputCallback,
@@ -74,6 +74,7 @@ import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
     PerseusRenderer,
     PerseusWidget,
+    PerseusWidgetOptions,
     PerseusWidgetsMap,
     ShowSolutions,
     PerseusScore,
@@ -521,8 +522,9 @@ class Renderer
         return widgetIndex;
     }
 
-    // TODO(LEMS-4354): add return type post-migration.
-    getWidgetProps(widgetId: string): any {
+    getWidgetProps(
+        widgetId: string,
+    ): WidgetProps<PerseusWidgetOptions, UserInput> {
         const apiOptions = this.getApiOptions();
         const widgetOptions = this.props.widgets[widgetId].options;
 
@@ -547,7 +549,7 @@ class Renderer
                 );
         }
 
-        const universalProps: UniversalWidgetProps = {
+        const universalProps = {
             userInput: this.props.userInput?.[widgetId],
             widgetId: widgetId,
             widgetIndex: this._getWidgetIndexById(widgetId),

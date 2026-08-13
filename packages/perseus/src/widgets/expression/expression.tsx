@@ -19,12 +19,7 @@ import {useDependencies} from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 
-import type {
-    Widget,
-    WidgetExports,
-    FocusPath,
-    WidgetPropsV2,
-} from "../../types";
+import type {Widget, WidgetExports, FocusPath, WidgetProps} from "../../types";
 import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 import type {
     KeypadConfiguration,
@@ -59,7 +54,7 @@ const normalizeTex = (tex: string): string => {
     return anglicizeOperators(tex);
 };
 
-type Props = WidgetPropsV2<
+type Props = WidgetProps<
     PerseusExpressionWidgetOptions,
     PerseusExpressionUserInput
 >;

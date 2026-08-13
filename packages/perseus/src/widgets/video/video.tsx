@@ -13,7 +13,7 @@ import {
     type PerseusDependenciesV2,
     type Widget,
     type WidgetExports,
-    type WidgetPropsV2,
+    type WidgetProps,
 } from "../../types";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/video/video-ai-utils";
 
@@ -32,7 +32,7 @@ const IS_URL = /^https?:\/\//;
 const IS_KA_SITE = /(khanacademy\.org|localhost)/;
 const IS_VIMEO = /(vimeo\.com)/;
 
-type Props = WidgetPropsV2<PerseusVideoWidgetOptions> & {
+type Props = WidgetProps<PerseusVideoWidgetOptions> & {
     dependencies: PerseusDependenciesV2;
 };
 

@@ -8,12 +8,7 @@ import SimpleKeypadInput from "../../components/simple-keypad-input";
 import Renderer from "../../renderer";
 import Util from "../../util";
 
-import type {
-    FocusPath,
-    Widget,
-    WidgetExports,
-    WidgetPropsV2,
-} from "../../types";
+import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusTableWidgetOptions,
     PerseusTableUserInput,
@@ -25,7 +20,7 @@ type EditorProps = {
     onChange: (value: {headers: string[]}) => void;
 };
 
-type Props = WidgetPropsV2<PerseusTableWidgetOptions, PerseusTableUserInput> &
+type Props = WidgetProps<PerseusTableWidgetOptions, PerseusTableUserInput> &
     EditorProps;
 
 // A version of FocusPath that's specific to Table

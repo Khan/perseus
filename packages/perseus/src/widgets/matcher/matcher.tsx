@@ -16,7 +16,7 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matcher/mat
 import type {SortableOption} from "../../components/sortable";
 import type {
     WidgetExports,
-    WidgetPropsV2,
+    WidgetProps,
     Widget,
     PerseusDependenciesV2,
 } from "../../types";
@@ -29,7 +29,7 @@ import type {
 
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 
-type Props = WidgetPropsV2<
+type Props = WidgetProps<
     PerseusMatcherWidgetOptions,
     PerseusMatcherUserInput
 > & {

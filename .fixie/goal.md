@@ -551,7 +551,7 @@ review and commit the changes.
       `getWidgetSubType(type, this.props.widgetProps.options)` and update the
       `widgetProps` prop type (and any lingering
       `WidgetProps<any, PerseusWidgetOptions>` annotations).
-- [ ] Rename `WidgetPropsV2` → `WidgetProps` across the repo; delete the old
+- [x] Rename `WidgetPropsV2` → `WidgetProps` across the repo; delete the old
       spread `WidgetProps` and `UniversalWidgetProps` (inlining its members into
       `WidgetProps`); restore the real return type on both `getWidgetProps`
       methods.

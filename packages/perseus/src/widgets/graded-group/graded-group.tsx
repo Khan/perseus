@@ -27,7 +27,7 @@ import type {
     TrackingGradedGroupExtraArguments,
     Widget,
     WidgetExports,
-    WidgetPropsV2,
+    WidgetProps,
 } from "../../types";
 import type {GradedGroupPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
 import type {
@@ -62,7 +62,7 @@ const getNextState = (
     }
 };
 
-type Props = WidgetPropsV2<
+type Props = WidgetProps<
     PerseusGradedGroupWidgetOptions,
     Empty,
     TrackingGradedGroupExtraArguments
