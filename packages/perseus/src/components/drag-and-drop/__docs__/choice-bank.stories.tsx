@@ -13,7 +13,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
  * the real `AnswerTile` component; they only demonstrate how the bank wraps.
  */
 const meta: Meta<typeof ChoiceBank> = {
-    title: "Components/ChoiceBank",
+    title: "Components/Drag and Drop/Choice Bank",
     component: ChoiceBank,
 };
 
@@ -21,7 +21,7 @@ export default meta;
 
 type Story = StoryObj<typeof ChoiceBank>;
 
-/** TODO(LEMS-4363): Placeholder tile, replaced by the real `AnswerTile`. */
+/** TODO(LEMS-4363): Placeholder tile to be replaced by the real `AnswerTile`. */
 function PlaceholderTile({children}: {children: React.ReactNode}) {
     return (
         <button
@@ -102,7 +102,7 @@ export const ManyTiles: Story = {
 
 /** An empty bank still reads as a card. */
 export const Empty: Story = {
-    render: () => <ChoiceBank>{null}</ChoiceBank>,
+    render: () => <ChoiceBank />,
 };
 
 /** Right-to-left: the row direction reverses automatically. */

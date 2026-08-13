@@ -54,7 +54,7 @@ describe("ChoiceBank", () => {
 
     it("renders an empty list when given no tiles", () => {
         // Arrange, Act
-        render(<ChoiceBank>{null}</ChoiceBank>);
+        render(<ChoiceBank />);
 
         expect(screen.getByRole("list", {name: "Choices"})).toBeInTheDocument();
         expect(screen.queryAllByRole("listitem")).toHaveLength(0);
