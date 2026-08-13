@@ -1,4 +1,4 @@
-import {themeModes} from "../../../../../../.storybook/modes";
+import {snapshotMeta} from "../../../../../../.storybook/snapshot-meta";
 import {
     narrowViewportDecorator,
     rtlDecorator,
@@ -10,9 +10,11 @@ import type {PerseusMatcherWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta<PerseusMatcherWidgetOptions> = {
+    ...snapshotMeta,
     title: "Widgets/Matcher/Visual Regression Tests/Initial State",
     tags: ["!autodocs", "!manifest"],
     parameters: {
+        ...snapshotMeta.parameters,
         docs: {
             description: {
                 component:
@@ -20,7 +22,6 @@ const meta: Meta<PerseusMatcherWidgetOptions> = {
                     "need any interactions to test.",
             },
         },
-        chromatic: {disableSnapshot: false, modes: themeModes},
     },
 };
 export default meta;
