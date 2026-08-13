@@ -1,15 +1,12 @@
-import {components} from "@khanacademy/perseus";
-import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import * as React from "react";
-import invariant from "tiny-invariant";
 
+import InfoTip from "../../../components/info-tip";
+import {TypedSingleSelect} from "../../../components/typed-single-select";
 import styles from "../interactive-graph-editor.module.css";
 import LabeledRow from "../locked-figures/labeled-row";
 
 import type {Props as EditorProps} from "../interactive-graph-editor";
 import type {PerseusGraphTypeVector} from "@khanacademy/perseus-core";
-
-const {InfoTip} = components;
 
 interface Props {
     correct: PerseusGraphTypeVector;
@@ -19,28 +16,17 @@ interface Props {
 export default function VectorAnswerOptions({correct, onChange}: Props) {
     return (
         <LabeledRow label="Student answer must">
-            <SingleSelect
+            <TypedSingleSelect
                 selectedValue={correct.match || "exact"}
-                onChange={(newValue) => {
-                    invariant(
-                        correct.type === "vector",
-                        `Expected graph type to be vector, but got ${correct.type}`,
-                    );
-                    onChange({
-                        correct: {
-                            ...correct,
-                            // eslint-disable-next-line no-restricted-syntax
-                            match: newValue as PerseusGraphTypeVector["match"],
-                        },
-                    });
+                onChange={(match) => {
+                    onChange({correct: {...correct, match}});
                 }}
-                // Never uses placeholder, always has value
-                placeholder=""
+                options={{
+                    exact: "match exactly",
+                    congruent: "be congruent",
+                }}
                 className={styles.singleSelectShort}
-            >
-                <OptionItem value="exact" label="match exactly" />
-                <OptionItem value="congruent" label="be congruent" />
-            </SingleSelect>
+            />
             <InfoTip>
                 <p>
                     Congruency requires only that the vector has the same

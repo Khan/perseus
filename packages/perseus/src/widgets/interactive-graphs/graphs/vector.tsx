@@ -11,6 +11,7 @@ import useGraphConfig from "../reducer/use-graph-config";
 import {TARGET_SIZE} from "../utils";
 
 import Hairlines from "./components/hairlines";
+import {useHitbox} from "./components/hitbox";
 import {MovablePillHandle} from "./components/movable-pill-handle";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {SVGLine} from "./components/svg-line";
@@ -129,8 +130,18 @@ const VectorBody = (props: VectorBodyProps) => {
     const [tailPx, tipPx] = useTransformVectorsToPixels(tail, tip);
 
     const bodyRef = useRef<SVGGElement>(null);
-    const {dragging} = useDraggable({
+    const vectorHitboxRef = useRef<HTMLDivElement>(null);
+
+    // Keyboard drag stays on the focusable SVG group.
+    useDraggable({
         gestureTarget: bodyRef,
+        point: tail,
+        onMove,
+        constrainKeyboardMovement: (p) => snap(snapStep, p),
+    });
+    // Pointer/touch drag runs through the HTML hitbox (Safari-safe).
+    const {dragging} = useDraggable({
+        gestureTarget: vectorHitboxRef,
         point: tail,
         onMove,
         onDragEnd: () => {
@@ -139,6 +150,15 @@ const VectorBody = (props: VectorBodyProps) => {
             bodyRef.current?.blur();
         },
         constrainKeyboardMovement: (p) => snap(snapStep, p),
+    });
+
+    const vectorHitbox = useHitbox({
+        shape: {kind: "line", start: tail, end: tip, thicknessPx: TARGET_SIZE},
+        hitboxRef: vectorHitboxRef,
+        layer: "body",
+        dragging,
+        onHoverChange: setHovered,
+        testId: "movable-vector__hitbox",
     });
 
     // Calculate angle for drag handle rotation
@@ -164,45 +184,49 @@ const VectorBody = (props: VectorBodyProps) => {
     const active = hovered || dragging || focused;
 
     return (
-        <g
-            ref={bodyRef}
-            tabIndex={disableKeyboardInteraction ? -1 : 0}
-            aria-label={ariaLabel}
-            aria-describedby={ariaDescribedBy}
-            aria-disabled={disableKeyboardInteraction}
-            className="movable-line"
-            data-testid="movable-vector"
-            style={{cursor: dragging ? "grabbing" : "grab"}}
-            role="button"
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-        >
-            {/* Transparent hit target for dragging the whole vector */}
-            <SVGLine
-                start={tailPx}
-                end={lineEndPx}
-                style={{stroke: "transparent", strokeWidth: TARGET_SIZE}}
-            />
-            {/* Visible line from tail to tip, pulled back slightly */}
-            <SVGLine
-                start={tailPx}
-                end={lineEndPx}
-                className={`movable-vector-line ${active ? "movable-dragging" : ""}`}
-                style={{stroke: interactiveColor, strokeWidth: sizing.size_020}}
-                testId="movable-vector__line"
-            />
-            {/* Drag handle pill — only visible on hover / focus / drag */}
-            {active && (
-                <MovablePillHandle
-                    center={handlePx}
-                    rotation={angleDeg}
-                    active={active}
-                    focused={focused}
+        <>
+            {vectorHitbox}
+            <g
+                ref={bodyRef}
+                tabIndex={disableKeyboardInteraction ? -1 : 0}
+                aria-label={ariaLabel}
+                aria-describedby={ariaDescribedBy}
+                aria-disabled={disableKeyboardInteraction}
+                className={
+                    hovered
+                        ? "movable-line movable-line--hover"
+                        : "movable-line"
+                }
+                data-testid="movable-vector"
+                style={{cursor: dragging ? "grabbing" : "grab"}}
+                role="button"
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
+            >
+                {/* Pointer/touch dragging (and hover) is handled by the HTML
+                    hitbox (see vectorHitbox); the SVG is visual + keyboard. */}
+                {/* Visible line from tail to tip, pulled back slightly */}
+                <SVGLine
+                    start={tailPx}
+                    end={lineEndPx}
+                    className={`movable-vector-line ${active ? "movable-dragging" : ""}`}
+                    style={{
+                        stroke: interactiveColor,
+                        strokeWidth: sizing.size_020,
+                    }}
+                    testId="movable-vector__line"
                 />
-            )}
-        </g>
+                {/* Drag handle pill — only visible on hover / focus / drag */}
+                {active && (
+                    <MovablePillHandle
+                        center={handlePx}
+                        rotation={angleDeg}
+                        active={active}
+                        focused={focused}
+                    />
+                )}
+            </g>
+        </>
     );
 };
 

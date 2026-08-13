@@ -14,9 +14,9 @@ const {InlineIcon} = components;
 type Props = {
     children: React.ReactElement<any> | ReadonlyArray<React.ReactElement<any>>;
     initiallyVisible: boolean;
-    onDelete?: () => void | null | undefined;
-    onDown?: () => void | null | undefined;
-    onUp?: () => void | null | undefined;
+    onDelete?: (() => void) | null;
+    onDown?: (() => void) | null;
+    onUp?: (() => void) | null;
     title: string | React.ReactElement<any>;
 };
 

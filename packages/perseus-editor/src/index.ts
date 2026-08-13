@@ -15,6 +15,7 @@ export type {Issue} from "./components/issues-panel";
 // Preview system hooks and utilities
 export {usePreviewController} from "./preview/use-preview-controller";
 export {usePreviewPresenter} from "./preview/use-preview-presenter";
+export {A11yOverlays} from "./preview/a11y/overlays";
 export {default as PreviewWithIframe} from "./preview-with-iframe";
 export type {PreviewContent} from "./preview/message-types";
 

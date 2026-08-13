@@ -6,6 +6,7 @@ import {
 } from "../general-purpose-parsers";
 import {isFailure} from "../result";
 
+import {parseBlankWidget} from "./blank-widget";
 import {parseCategorizerWidget} from "./categorizer-widget";
 import {parseCSProgramWidget} from "./cs-program-widget";
 import {parseDefinitionWidget} from "./definition-widget";
@@ -26,7 +27,6 @@ import {parseLabelImageWidget} from "./label-image-widget";
 import {parseMatcherWidget} from "./matcher-widget";
 import {parseMatrixWidget} from "./matrix-widget";
 import {parseMeasurerWidget} from "./measurer-widget";
-import {parseMoleculeRendererWidget} from "./molecule-renderer-widget";
 import {parseNumberLineWidget} from "./number-line-widget";
 import {parseNumericInputWidget} from "./numeric-input-widget";
 import {parseOrdererWidget} from "./orderer-widget";
@@ -98,6 +98,8 @@ const parseWidgetsMapEntry: (
     }
 
     switch (type) {
+        case "blank":
+            return parseAndAssign(`blank ${n}`, parseBlankWidget);
         case "categorizer":
             return parseAndAssign(`categorizer ${n}`, parseCategorizerWidget);
         case "cs-program":
@@ -150,7 +152,7 @@ const parseWidgetsMapEntry: (
         case "molecule-renderer":
             return parseAndAssign(
                 `molecule-renderer ${n}`,
-                parseMoleculeRendererWidget,
+                parseDeprecatedWidget,
             );
         case "number-line":
             return parseAndAssign(`number-line ${n}`, parseNumberLineWidget);

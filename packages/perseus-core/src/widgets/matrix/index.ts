@@ -6,7 +6,7 @@ import type {WidgetLogic} from "../logic-export.types";
 
 export type MatrixDefaultWidgetOptions = Pick<
     PerseusMatrixWidgetOptions,
-    "matrixBoardSize" | "answers" | "prefix" | "suffix" | "cursorPosition"
+    "matrixBoardSize" | "answers" | "prefix" | "suffix"
 >;
 
 const defaultWidgetOptions: MatrixDefaultWidgetOptions = {
@@ -14,7 +14,6 @@ const defaultWidgetOptions: MatrixDefaultWidgetOptions = {
     answers: [[]],
     prefix: "",
     suffix: "",
-    cursorPosition: [0, 0],
 };
 
 const matrixWidgetLogic: WidgetLogic<

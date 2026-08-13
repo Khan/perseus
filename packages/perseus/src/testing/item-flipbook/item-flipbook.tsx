@@ -26,6 +26,6 @@ function useModel<T>(constructor: (observer: () => void) => T): T {
  * App-agnostic hook. Returns a function that requests a re-render of the UI.
  */
 function useRerender(): () => void {
-    const [_, dispatch] = useReducer((n) => n + 1, 0);
+    const [, dispatch] = useReducer((n) => n + 1, 0);
     return dispatch;
 }

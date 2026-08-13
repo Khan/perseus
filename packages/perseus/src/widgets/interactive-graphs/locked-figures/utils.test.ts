@@ -1,4 +1,4 @@
-import {clampDomain} from "./utils";
+import {clampDomain, dashedStrokeStyle, getDashArrayForWeight} from "./utils";
 
 describe("clampDomain", () => {
     test.each`
@@ -28,4 +28,50 @@ describe("clampDomain", () => {
             expect(clampDomain(domain, graphXBounds)).toEqual(expected);
         },
     );
+});
+
+describe("getDashArrayForWeight", () => {
+    test.each`
+        weight      | expected
+        ${"thin"}   | ${"4, 3"}
+        ${"medium"} | ${"8, 6"}
+        ${"thick"}  | ${"16, 12"}
+    `(
+        "scales the dash pattern with the $weight stroke width -> $expected",
+        ({weight, expected}) => {
+            // Arrange, Act
+            const dashArray = getDashArrayForWeight(weight);
+
+            // Assert
+            expect(dashArray).toBe(expected);
+        },
+    );
+});
+
+describe("dashedStrokeStyle", () => {
+    it.each`
+        weight      | expected
+        ${"thin"}   | ${"4, 3"}
+        ${"medium"} | ${"8, 6"}
+        ${"thick"}  | ${"16, 12"}
+    `(
+        "sets the weight-scaled dash pattern for a dashed $weight figure",
+        ({weight, expected}) => {
+            // Arrange, Act
+            const style = dashedStrokeStyle(true, weight);
+
+            // Assert
+            expect(style).toEqual({
+                "--mafs-line-stroke-dash-style": expected,
+            });
+        },
+    );
+
+    it("returns undefined for a solid figure so no inline style is emitted", () => {
+        // Arrange, Act
+        const style = dashedStrokeStyle(false, "thick");
+
+        // Assert
+        expect(style).toBeUndefined();
+    });
 });

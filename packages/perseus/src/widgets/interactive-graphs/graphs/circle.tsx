@@ -8,9 +8,9 @@ import {actions} from "../reducer/interactive-graph-action";
 import {getRadius} from "../reducer/interactive-graph-state";
 import useGraphConfig from "../reducer/use-graph-config";
 
-import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {ClipToGraphBounds} from "./components/clip-to-graph-bounds";
 import Hairlines from "./components/hairlines";
+import {useHitbox} from "./components/hitbox";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {describeCircleGraph} from "./strings/circle";
@@ -45,13 +45,9 @@ type CircleGraphProps = MafsGraphProps<CircleGraphState>;
 // Exported for testing
 export function CircleGraph(props: CircleGraphProps) {
     const {dispatch, graphState} = props;
-    const {center, pointLabels, radiusPoint, snapStep} = graphState;
+    const {center, radiusPoint, snapStep} = graphState;
 
     const {strings, locale} = usePerseusI18n();
-    // Circle only has one labelable point (the radius point at index 0); the
-    // center is a MovableCircle, not a MovablePoint, and is intentionally not
-    // overridden — see MovablePoint's ariaLabel below.
-    const buildLabel = usePointAriaLabel(pointLabels);
 
     const radius = getRadius(graphState);
     const id = React.useId();
@@ -89,14 +85,11 @@ export function CircleGraph(props: CircleGraphProps) {
                 // Radius point aria label reads with every update. The
                 // schema `pointLabels?: string[]` is interpreted for
                 // circle as `[radiusPointLabel]` — only the radius point
-                // (a `MovablePoint`) is labelable. The center is a
-                // `MovableCircle` whose announcement describes the whole
-                // shape ("Circle. The center point is at X comma Y.") and is not
-                // overridden.
-                ariaLabel={
-                    buildLabel(0, radiusPoint) ??
-                    `${srCircleRadiusPoint} ${srCircleRadius}`
-                }
+                // (a `MovablePoint`) is labelable.
+                // The center is a `MovableCircle` whose announcement describes
+                // the whole shape ("Circle. The center point is at X comma Y.")
+                // and is not overridden.
+                ariaLabel={`${srCircleRadiusPoint} ${srCircleRadius}`}
                 // Aria-describedby describes additional info on focus.
                 ariaDescribedBy={`${outerPointsId}`}
                 point={radiusPoint}
@@ -131,13 +124,17 @@ function MovableCircle(props: {
     const {snapStep, disableKeyboardInteraction, interactiveColor} =
         useGraphConfig();
     const [focused, setFocused] = React.useState(false);
+    const [hovered, setHovered] = React.useState(false);
 
     // Keeping focus and gesture targets on separate `<g>`s works around a
     // Safari-specific bug where dragging this group can result in the
     // selection of page content once the cursor crosses the graph's edge.
     // Splitting them resolves it and better mirrors `useControlPoint`.
     const focusableHandleRef = useRef<SVGGElement>(null);
+    // Ref to the visible SVG circle group; not a gesture target — pointer/touch
+    // dragging is captured on the HTML hitbox below.
     const visibleGroupRef = useRef<SVGGElement>(null);
+    const circleHitboxRef = useRef<HTMLDivElement>(null);
 
     // Keyboard support (on focusableHandleRef)
     useDraggable({
@@ -147,12 +144,22 @@ function MovableCircle(props: {
         constrainKeyboardMovement: (p) => snap(snapStep, p),
     });
 
-    // Mouse/Touch support (on the visibleGroupRef)
+    // Mouse/Touch support runs through an HTML hitbox so Safari doesn't scroll
+    // the page during a drag (see hitbox.tsx).
     const {dragging} = useDraggable({
-        gestureTarget: visibleGroupRef,
+        gestureTarget: circleHitboxRef,
         point: center,
         onMove,
         constrainKeyboardMovement: (p) => snap(snapStep, p),
+    });
+
+    const circleHitbox = useHitbox({
+        shape: {kind: "ellipse", center, radius: [radius, radius]},
+        hitboxRef: circleHitboxRef,
+        layer: "body",
+        dragging,
+        onHoverChange: setHovered,
+        testId: "movable-circle__hitbox",
     });
 
     React.useLayoutEffect(() => {
@@ -166,6 +173,7 @@ function MovableCircle(props: {
 
     return (
         <>
+            {circleHitbox}
             <g
                 ref={focusableHandleRef}
                 className="movable-circle-focusable-handle"
@@ -180,7 +188,7 @@ function MovableCircle(props: {
             <g
                 aria-hidden={true}
                 ref={visibleGroupRef}
-                className={`movable-circle ${dragging ? "movable-circle--dragging" : ""}`}
+                className={`movable-circle${dragging ? " movable-circle--dragging" : ""}${hovered ? " movable-circle--hover" : ""}`}
             >
                 <ClipToGraphBounds>
                     <ellipse

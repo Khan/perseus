@@ -1,4 +1,3 @@
-import {components} from "@khanacademy/perseus";
 import {NeutralBadge, StatusBadge} from "@khanacademy/wonder-blocks-badge";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Spring} from "@khanacademy/wonder-blocks-layout";
@@ -8,12 +7,11 @@ import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import Heading from "../../../components/heading";
+import InfoTip from "../../../components/info-tip";
 
 import styles from "./interactive-graph-sr-tree.module.css";
 
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
-
-const {InfoTip} = components;
 
 // Passed to the Badge `styles` prop, which is typed as Wonder Blocks `StyleType`
 // (per-part: root/label) and does not accept a className.

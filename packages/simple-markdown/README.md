@@ -148,14 +148,6 @@ third `_`.
         react: function(node, output) {
             return React.DOM.u(null, output(node.content));
         },
-
-        // Or an html element:
-        // (Note: you may only need to make one of `react:` or
-        // `html:`, as long as you never ask for an outputter
-        // for the other type.)
-        html: function(node, output) {
-            return '<u>' + output(node.content) + '</u>';
-        },
     };
 ```
 
@@ -167,7 +159,7 @@ Then, we need to add this rule to the other rules:
     });
 ```
 
-Finally, we need to build our parser and outputters:
+Finally, we need to build our parser and outputter:
 
 ```javascript
     var rawBuiltParser = SimpleMarkdown.parserFor(rules);
@@ -175,10 +167,7 @@ Finally, we need to build our parser and outputters:
         var blockSource = source + "\n\n";
         return rawBuiltParser(blockSource, {inline: false});
     };
-    // You probably only need one of these: choose depending on
-    // whether you want react nodes or an html string:
     var reactOutput = SimpleMarkdown.outputFor(rules, 'react');
-    var htmlOutput = SimpleMarkdown.outputFor(rules, 'html');
 
 ```
 
@@ -212,10 +201,6 @@ markdown with underlines!
         _owner: null,
         _context: {},
         _store: { validated: false, props: [Object] } } ]
-
-    htmlOutput(syntaxTree)
-
-    => '<div class="paragraph"><u>hello underlines</u></div>'
 ```
 
 
@@ -242,15 +227,12 @@ Parses `source` as block if it ends with `\n\n`, or inline if not.
 
 Returns React-renderable output for `syntaxTree`.
 
-*Note: raw html output will be coming soon*
-
 
 ## Extension Overview
 
 Elements in simple-markdown are generally created from rules.
 For parsing, rules must specify `match` and `parse` methods.
-For output, rules must specify a `react` or `html` method
-(or both), depending on which outputter you create afterwards.
+For output, rules must specify a `react` method.
 
 Here is an example rule, a slightly modified version of what
 simple-markdown uses for parsing **strong** (**bold**) text:
@@ -267,9 +249,6 @@ simple-markdown uses for parsing **strong** (**bold**) text:
         },
         react: function(node, recurseOutput) {
             return React.DOM.strong(null, recurseOutput(node.content));
-        },
-        html: function(node, recurseOutput) {
-            return '<strong>' + recurseOutput(node.content) + '</strong>';
         },
     },
 ```
@@ -375,8 +354,8 @@ intermediate steps in the parsing/output process, if necessary.
 
 The default rules, specified as an object, where the keys are
 the rule types, and the values are objects containing `order`,
-`match`, `parse`, `react`, and `html` fields (these rules can
-be used for both parsing and outputting).
+`match`, `parse`, and `react` fields (these rules can be used
+for both parsing and outputting).
 
 #### `SimpleMarkdown.parserFor(rules)`
 
@@ -391,8 +370,8 @@ object must contain a `match` and a `parse` function.
 
 Takes a `rules` object and a `key` that indicates which key in
 the rules object is mapped to the function that generates the
-output type you want. This will be `'react'` or `'html'` unless
-you are defining a custom output type.
+output type you want. This will be `'react'` unless you are
+defining a custom output type.
 
 It returns a function that outputs a single syntax tree node of
 any type that is in the `rules` object, given a node and a
@@ -421,17 +400,14 @@ var rules = {
 };
 
 var parser = SimpleMarkdown.parserFor(rules);
-var reactOutput = SimpleMarkdown.outputFor(rules, 'react'));
-var htmlOutput = SimpleMarkdown.outputFor(rules, 'html'));
+var reactOutput = SimpleMarkdown.outputFor(rules, 'react');
 
 var blockParseAndOutput = function(source) {
     // Many rules require content to end in \n\n to be interpreted
     // as a block.
     var blockSource = source + "\n\n";
     var parseTree = parser(blockSource, {inline: false});
-    var outputResult = htmlOutput(parseTree);
-    // Or for react output, use:
-    // var outputResult = reactOutput(parseTree);
+    var outputResult = reactOutput(parseTree);
     return outputResult;
 };
 ```

@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-prop-types, react/no-unsafe */
 /**
  * Used in the editors for the Grapher and Interaction widgets.
  */
@@ -14,13 +13,15 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
 
+import InfoTip from "./info-tip";
+
 import type {
     Coords,
     MarkingsType,
     PerseusImageBackground,
 } from "@khanacademy/perseus-core";
 
-const {ButtonGroup, InfoTip, RangeInput} = components;
+const {ButtonGroup, RangeInput} = components;
 
 const defaultBackgroundImage = {
     url: null,
@@ -195,7 +196,7 @@ class GraphSettings extends React.Component<Props, State> {
         };
 
         // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
-        const url = ReactDOM.findDOMNode(this.refs["bg-url"]).value; // eslint-disable-line react/no-string-refs
+        const url = ReactDOM.findDOMNode(this.refs["bg-url"]).value;
         if (url) {
             Util.getImageSize(url, (width, height) => {
                 if (this._isMounted) {
@@ -208,7 +209,7 @@ class GraphSettings extends React.Component<Props, State> {
     }
 
     renderLabelChoices(choices: ReadonlyArray<[string, string]>) {
-        return _.map(choices, function ([name, value]) {
+        return choices.map(function ([name, value]) {
             return (
                 <option key={value} value={value}>
                     {name}
@@ -398,7 +399,7 @@ class GraphSettings extends React.Component<Props, State> {
         this.setState(
             {
                 gridStepTextbox: gridStep,
-                snapStepTextbox: _.map(gridStep, function (step) {
+                snapStepTextbox: gridStep.map(function (step) {
                     return step / 2;
                 }),
             },
@@ -413,7 +414,7 @@ class GraphSettings extends React.Component<Props, State> {
             // eslint-disable-next-line no-restricted-syntax
             (range) => range.map(Number) as [number, number],
         ) as Coords;
-        const step = _.map(this.state.stepTextbox, Number);
+        const step = this.state.stepTextbox.map(Number);
         const gridStep = this.state.gridStepTextbox;
         const snapStep = this.state.snapStepTextbox;
         const image = this.state.backgroundImage;
@@ -463,7 +464,7 @@ class GraphSettings extends React.Component<Props, State> {
         const {TeX} = Dependencies.getDependencies();
         return (
             <div>
-                {_.contains(this.props.editableSettings, "canvas") && (
+                {this.props.editableSettings.includes("canvas") && (
                     <div className="graph-settings">
                         <div className="perseus-widget-row">
                             <label htmlFor="canvas-size">
@@ -484,7 +485,7 @@ class GraphSettings extends React.Component<Props, State> {
                     </div>
                 )}
 
-                {_.contains(this.props.editableSettings, "graph") && (
+                {this.props.editableSettings.includes("graph") && (
                     <div className="graph-settings">
                         <div className="perseus-widget-row">
                             <div className="perseus-widget-left-col">
@@ -493,7 +494,6 @@ class GraphSettings extends React.Component<Props, State> {
                                     id="labels-x"
                                     type="text"
                                     className="graph-settings-axis-label"
-                                    // eslint-disable-next-line react/no-string-refs
                                     ref="labels-0"
                                     onChange={(e) => this.changeLabel(0, e)}
                                     value={this.state.labelsTextbox[0] || ""}
@@ -505,7 +505,6 @@ class GraphSettings extends React.Component<Props, State> {
                                     id="labels-y"
                                     type="text"
                                     className="graph-settings-axis-label"
-                                    // eslint-disable-next-line react/no-string-refs
                                     ref="labels-1"
                                     onChange={(e) => this.changeLabel(1, e)}
                                     value={this.state.labelsTextbox[1] || ""}
@@ -553,7 +552,7 @@ class GraphSettings extends React.Component<Props, State> {
                                 />
                             </div>
                         </div>
-                        {_.contains(this.props.editableSettings, "snap") && (
+                        {this.props.editableSettings.includes("snap") && (
                             <div className="perseus-widget-row">
                                 <div className="perseus-widget-left-col">
                                     <label htmlFor="snap-step">Snap Step</label>
@@ -593,7 +592,7 @@ class GraphSettings extends React.Component<Props, State> {
                     </div>
                 )}
 
-                {_.contains(this.props.editableSettings, "image") && (
+                {this.props.editableSettings.includes("image") && (
                     <div className="image-settings">
                         <div>Background image:</div>
                         <div>
@@ -602,7 +601,6 @@ class GraphSettings extends React.Component<Props, State> {
                                 id="bg-url"
                                 type="text"
                                 className="graph-settings-background-url"
-                                // eslint-disable-next-line react/no-string-refs
                                 ref="bg-url"
                                 value={this.state.backgroundImage.url || ""}
                                 onChange={(e) => {
@@ -626,7 +624,7 @@ class GraphSettings extends React.Component<Props, State> {
                     </div>
                 )}
 
-                {_.contains(this.props.editableSettings, "measure") && (
+                {this.props.editableSettings.includes("measure") && (
                     <div className="misc-settings">
                         <div className="perseus-widget-row">
                             <div className="perseus-widget-left-col">
@@ -688,8 +686,7 @@ class GraphSettings extends React.Component<Props, State> {
                                             onChange={this.changeRulerTicks}
                                             value={this.props.rulerTicks}
                                         >
-                                            {_.map(
-                                                [1, 2, 4, 8, 10, 16],
+                                            {[1, 2, 4, 8, 10, 16].map(
                                                 function (n) {
                                                     return (
                                                         <option

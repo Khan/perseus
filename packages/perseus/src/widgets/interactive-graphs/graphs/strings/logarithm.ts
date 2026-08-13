@@ -1,8 +1,8 @@
 import {coefficients as kmathCoefficients} from "@khanacademy/kmath";
 
 import {X, Y} from "../../math";
+import {getCustomPointLabel} from "../components/build-point-aria-label";
 
-import {withCustomPointLabel} from "./custom-point-label";
 import {srFormatNumber} from "./format-number";
 
 import type {I18nContextType} from "../../../../components/i18n-context";
@@ -15,7 +15,7 @@ const {getLogarithmCoefficients} = kmathCoefficients;
 export function srLogarithmPointLabel(
     state: {
         pointIndex: number;
-        pointLabel: string | number;
+        pointLabel: string | undefined;
         x: number;
         y: number;
         hasCurve: boolean;
@@ -23,25 +23,18 @@ export function srLogarithmPointLabel(
     strings: PerseusStrings,
     locale: string,
 ): string {
-    // A custom author label overrides the point-1/point-2 semantics, matching
-    // the static aria-label behavior in logarithm.tsx.
-    const {x, y, customLabel} = withCustomPointLabel(state, strings, locale);
-    if (customLabel !== undefined) {
-        return customLabel;
-    }
+    const x = srFormatNumber(state.x, locale);
+    const y = srFormatNumber(state.y, locale);
+    // A custom author label identifies the point in place of its sequence
+    // number, keeping the point-1/point-2 semantics.
+    const pointLabel = state.pointLabel ?? `${state.pointIndex + 1}`;
+
     // When no curve is plotted, drop the "on a curve" phrasing
     // in favor of plain point coordinates, matching logarithm.tsx.
     if (!state.hasCurve) {
-        return strings.srPointAtCoordinates({
-            num: state.pointIndex + 1,
-            x,
-            y,
-        });
+        return strings.srPointAtCoordinates({pointLabel, x, y});
     }
-    // Coord layout in logarithm graphs: [point1(0), point2(1)].
-    return state.pointIndex === 0
-        ? strings.srLogarithmPoint1({x, y})
-        : strings.srLogarithmPoint2({x, y});
+    return strings.srLogarithmPoint({pointLabel, x, y});
 }
 
 type LogarithmGraphDescriptionStrings = {
@@ -99,16 +92,28 @@ export function describeLogarithmGraph(
         srLogarithmAsymptote: strings.srLogarithmAsymptote({
             asymptoteX: asymptoteXFormatted,
         }),
-        // When no curve is plotted, drop the "on a curve"
-        // phrasing in favor of plain point coordinates.
-        srLogarithmPoint1:
-            coeffs === undefined
-                ? strings.srPointAtCoordinates({num: 1, ...formattedPoint1})
-                : strings.srLogarithmPoint1(formattedPoint1),
-        srLogarithmPoint2:
-            coeffs === undefined
-                ? strings.srPointAtCoordinates({num: 2, ...formattedPoint2})
-                : strings.srLogarithmPoint2(formattedPoint2),
+        srLogarithmPoint1: srLogarithmPointLabel(
+            {
+                pointIndex: 0,
+                pointLabel: getCustomPointLabel(state.pointLabels, 0),
+                x: point1[X],
+                y: point1[Y],
+                hasCurve: coeffs !== undefined,
+            },
+            strings,
+            locale,
+        ),
+        srLogarithmPoint2: srLogarithmPointLabel(
+            {
+                pointIndex: 1,
+                pointLabel: getCustomPointLabel(state.pointLabels, 1),
+                x: point2[X],
+                y: point2[Y],
+                hasCurve: coeffs !== undefined,
+            },
+            strings,
+            locale,
+        ),
         srLogarithmInteractiveElements: strings.srInteractiveElements({
             elements: strings.srLogarithmInteractiveElements(descriptionArgs),
         }),

@@ -1,5 +1,4 @@
 /* eslint-disable max-lines */
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {
     PerseusMarkdown,
     Util,
@@ -20,7 +19,6 @@ import _ from "underscore";
 import DragTarget from "./components/drag-target";
 import WidgetEditor from "./components/widget-editor";
 import WidgetSelect from "./components/widget-select";
-// eslint-disable-next-line import/no-deprecated
 import {
     getPerseusClipboardData,
     setPerseusClipboardData,
@@ -123,7 +121,6 @@ type Props = Readonly<{
     images: any;
     disabled: boolean;
     widgetEnabled: boolean;
-    immutableWidgets: boolean;
     showWordCount: boolean;
     warnNoPrompt: boolean;
     warnNoWidgets: boolean;
@@ -136,7 +133,6 @@ type DefaultProps = {
     content: string;
     disabled: boolean;
     images: Record<any, any>;
-    immutableWidgets: boolean;
     placeholder: string;
     showWordCount: boolean;
     warnNoPrompt: boolean;
@@ -167,7 +163,6 @@ export type InitializeWidgetOptionsParams = {
     selectedText: string;
 };
 
-// eslint-disable-next-line react/no-unsafe
 class Editor extends React.Component<Props, State> {
     lastUserValue: string | null | undefined;
     // When set, componentDidUpdate will move the textarea cursor to this
@@ -187,7 +182,6 @@ class Editor extends React.Component<Props, State> {
         images: {},
         disabled: false,
         widgetEnabled: true,
-        immutableWidgets: false,
         showWordCount: false,
         warnNoPrompt: false,
         warnNoWidgets: false,
@@ -222,7 +216,6 @@ class Editor extends React.Component<Props, State> {
         // NOTE(jeremy): We use the non-null assertion here (!) because refs
         // are guaranteed to be up-to-date before componentDidMount or
         // componentDidUpdate fires.
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         $(this.textarea.current!)
             // @ts-expect-error - TS2339 - Property 'on' does not exist on type 'JQueryStatic'.
             .on("copy cut", this._maybeCopyWidgets)
@@ -283,9 +276,7 @@ class Editor extends React.Component<Props, State> {
                 ref={id}
                 id={id}
                 key={id}
-                // eslint-disable-next-line react/jsx-no-bind
                 onChange={this._handleWidgetEditorChange.bind(this, id)}
-                // eslint-disable-next-line react/jsx-no-bind
                 onRemove={this._handleWidgetEditorRemove.bind(this, id)}
                 apiOptions={this.props.apiOptions}
                 widgetIsOpen={this.props.widgetIsOpen}
@@ -457,7 +448,6 @@ class Editor extends React.Component<Props, State> {
             // We're in an event handler attached to the textarea, so the ref
             // can't be empty/undefined! (which is why its safe to use the
             // non-null-assertion here. aka the `!` suffix)
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const textarea = this.textarea.current!;
 
             const word = Util.textarea.getWordBeforeCursor(textarea);
@@ -579,11 +569,11 @@ class Editor extends React.Component<Props, State> {
         // see: LEMS-1845
 
         // List of widgets about to be pasted as [[name, number], ...]
-        const widgets = _.keys(widgetData).map((name) => name.split(" "));
+        const widgets = Object.keys(widgetData).map((name) => name.split(" "));
         const widgetTypes = _.uniq(widgets.map((widget) => widget[0]));
 
         // List of existing widgets as [[name, number], ...]
-        const existingWidgets = _.keys(this.props.widgets).map((name) =>
+        const existingWidgets = Object.keys(this.props.widgets).map((name) =>
             name.split(" "),
         );
 
@@ -674,6 +664,10 @@ class Editor extends React.Component<Props, State> {
         const initializeWidgetOptionsParams: InitializeWidgetOptionsParams = {
             selectedText,
         };
+        // TODO(benchristel): get rid of all these different ways of
+        //  initializing widget options. We should probably standardize on
+        //  getting the initial options from
+        //  CoreWidgetRegistry.getDefaultWidgetOptions().
         const startWidgetOptions = widgetEditor?.initializeWidgetOptions?.(
             initializeWidgetOptionsParams,
         );
@@ -776,12 +770,13 @@ class Editor extends React.Component<Props, State> {
     };
 
     getSaveWarnings: () => any = () => {
-        // eslint-disable-next-line react/no-string-refs
-        const widgetIds = _.intersection(this.widgetIds, _.keys(this.refs));
+        const widgetIds = _.intersection(
+            this.widgetIds,
+            Object.keys(this.refs),
+        );
         const warnings = _(widgetIds)
             .chain()
             .map((id) => {
-                // eslint-disable-next-line react/no-string-refs
                 // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
                 const issuesFunc = this.refs[id].getSaveWarnings;
                 const issues = issuesFunc ? issuesFunc() : [];
@@ -838,10 +833,11 @@ class Editor extends React.Component<Props, State> {
         // completely represented in props. ahem //transformer// (and
         // interactive-graph and plotter).
         const widgets: Record<string, any> = {};
-        // eslint-disable-next-line react/no-string-refs
-        const widgetIds = _.intersection(this.widgetIds, _.keys(this.refs));
+        const widgetIds = _.intersection(
+            this.widgetIds,
+            Object.keys(this.refs),
+        );
         _.each(widgetIds, (id) => {
-            // eslint-disable-next-line react/no-string-refs
             // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
             widgets[id] = this.refs[id].serialize();
         });
@@ -948,22 +944,18 @@ class Editor extends React.Component<Props, State> {
                 </select>
             );
 
-            if (!this.props.immutableWidgets) {
-                // eslint-disable-next-line no-restricted-syntax
-                const widgetNodes = Object.values(widgets) as React.ReactNode;
-                widgetsAndTemplates = (
-                    <div className="perseus-editor-widgets">
-                        <div className="perseus-editor-widgets-selectors">
-                            <WidgetSelect onChange={this._addWidget} />
-                            {templatesDropDown}
-                            {wordCountDisplay}
-                        </div>
-                        {widgetNodes}
+            // eslint-disable-next-line no-restricted-syntax
+            const widgetNodes = Object.values(widgets) as React.ReactNode;
+            widgetsAndTemplates = (
+                <div className="perseus-editor-widgets">
+                    <div className="perseus-editor-widgets-selectors">
+                        <WidgetSelect onChange={this._addWidget} />
+                        {templatesDropDown}
+                        {wordCountDisplay}
                     </div>
-                );
-                // Prevent word count from being displayed elsewhere
-                wordCountDisplay = null;
-            }
+                    {widgetNodes}
+                </div>
+            );
         } else {
             underlayPieces = [this.props.content];
         }
@@ -1045,7 +1037,6 @@ class Editor extends React.Component<Props, State> {
                         Graded Groups should contain at least one widget
                     </div>
                 )}
-                {wordCountDisplay}
                 {widgetsAndTemplates}
             </div>
         );

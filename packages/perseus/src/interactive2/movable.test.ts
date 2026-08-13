@@ -84,7 +84,7 @@ describe("Movable", () => {
         const dummyGraphie: any = {};
         const modifySpy = jest.fn().mockName("modify");
 
-        const _ = new Movable(dummyGraphie, {modify: modifySpy});
+        const _0 = new Movable(dummyGraphie, {modify: modifySpy});
 
         const baseExpectedState = {
             add: [],

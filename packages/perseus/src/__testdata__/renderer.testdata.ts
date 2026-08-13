@@ -3,6 +3,7 @@ import {
     generateDefinitionWidget,
     generateDropdownOptions,
     generateDropdownWidget,
+    generateImageOptions,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
 
@@ -34,14 +35,14 @@ export const dropdownWidget: DropdownWidget = generateDropdownWidget({
 export const imageWidget: ImageWidget = {
     alignment: "block",
     graded: true,
-    options: {
+    options: generateImageOptions({
         alt: "A number line labeled 200 to 300 with tick marks at every 5 units. The tick marks at 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, and 300 are labeled. A red circle labeled A is between 220 tick mark and 230 tick mark.",
         backgroundImage: {
             height: 80,
             url: "web+graphie://ka-perseus-graphie.s3.amazonaws.com/3351ccf19e60c28a1d08664f5c16defa76ed0348",
             width: 380,
         },
-    },
+    }),
     static: false,
     type: "image",
     version: {major: 0, minor: 0},

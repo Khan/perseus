@@ -25,7 +25,6 @@ type State = {
  * Enough melodrama. Its an input that only sends changes
  * to its parent on blur.
  */
-// eslint-disable-next-line react/no-unsafe
 class BlurInput extends React.Component<Props, State> {
     input = React.createRef<HTMLInputElement>();
 
@@ -34,7 +33,6 @@ class BlurInput extends React.Component<Props, State> {
         this.state = {value: this.props.value};
     }
 
-    // eslint-disable-next-line react/no-unsafe
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
         this.setState({value: nextProps.value});
     }

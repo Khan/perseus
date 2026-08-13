@@ -97,7 +97,7 @@ export const MultipleInputsInParagraph: Story = {
     decorators: [
         (Story) => (
             // Limit the width to force two inputs to stack vertically.
-            <div style={{maxWidth: "500px"}}>
+            <div style={{maxInlineSize: "500px"}}>
                 <Story />
             </div>
         ),

@@ -14,7 +14,7 @@ if (!existsSync("package.json")) process.exit(0);
 
 const NVM_DIR = "/opt/nvm";
 const NVM_SCRIPT = `${NVM_DIR}/nvm.sh`;
-const NODE_VERSION = "24.13";
+const NODE_VERSION = "24.18";
 
 let env = { ...process.env };
 

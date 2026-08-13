@@ -3,7 +3,7 @@
     width: 100%;
 }
 .framework-perseus .perseus-group .group-icon {
-    font-size: 14px;
+    font-size: var(--wb-sizing-size_140);
     position: absolute;
     top: 50%;
     top: calc(50% - 7px);

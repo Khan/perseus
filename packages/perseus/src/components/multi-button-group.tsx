@@ -121,22 +121,23 @@ const styles = StyleSheet.create({
     buttonStyle: {
         backgroundColor: "white",
         border: "1px solid #ccc",
-        borderLeft: "0",
+        borderInlineStart: "0",
         cursor: "pointer",
         margin: "0",
-        padding: "5px 10px",
+        paddingBlock: "5px",
+        paddingInline: "10px",
         position: "relative", // for hover
 
         ":first-child": {
-            borderLeft: "1px solid #ccc",
-            borderTopLeftRadius: "3px",
-            borderBottomLeftRadius: "3px",
+            borderInlineStart: "1px solid #ccc",
+            borderStartStartRadius: "3px",
+            borderEndStartRadius: "3px",
         },
 
         ":last-child": {
-            borderRight: "1px solid #ccc",
-            borderTopRightRadius: "3px",
-            borderBottomRightRadius: "3px",
+            borderInlineEnd: "1px solid #ccc",
+            borderStartEndRadius: "3px",
+            borderEndEndRadius: "3px",
         },
 
         ":hover": {

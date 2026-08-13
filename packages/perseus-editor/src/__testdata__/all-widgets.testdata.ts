@@ -17,12 +17,15 @@ import {
     generateGroupWidget,
     generateIGLinearGraph,
     generateIGLockedPoint,
+    generateImageOptions,
     generateImageWidget,
     generateInteractiveGraphOptions,
     generateInteractiveGraphWidget,
+    generateMatrixOptions,
     generateNumericInputAnswer,
     generateNumericInputOptions,
     generateNumericInputWidget,
+    generatePlotterOptions,
     generateRadioChoice,
     generateRadioOptions,
     generateRadioWidget,
@@ -152,13 +155,13 @@ export const comprehensiveQuestion: PerseusRenderer = {
             version: {major: 0, minor: 0},
             static: false,
             type: "matrix",
-            options: {
+            options: generateMatrixOptions({
                 matrixBoardSize: [2, 2],
                 answers: [
                     [1, 0],
                     [0, 1],
                 ],
-            },
+            }),
         },
         "definition 1": generateDefinitionWidget({
             options: generateDefinitionOptions({
@@ -176,7 +179,7 @@ export const comprehensiveQuestion: PerseusRenderer = {
             }),
         }),
         "image 1": generateImageWidget({
-            options: {
+            options: generateImageOptions({
                 backgroundImage: {
                     url: "https://ka-perseus-images.s3.amazonaws.com/sample-diagram.png",
                     width: 300,
@@ -189,7 +192,7 @@ export const comprehensiveQuestion: PerseusRenderer = {
                         alignment: "center",
                     },
                 ],
-            },
+            }),
         }),
         "table 1": {
             graded: true,
@@ -211,7 +214,7 @@ export const comprehensiveQuestion: PerseusRenderer = {
             version: {major: 0, minor: 0},
             static: false,
             type: "plotter",
-            options: {
+            options: generatePlotterOptions({
                 type: "pic",
                 labels: ["x", "y"],
                 categories: ["blue"],
@@ -221,7 +224,7 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 correct: [2, 4, 3],
                 starting: [0, 0, 0, 2],
                 plotDimensions: [300, 300],
-            },
+            }),
         },
         "sorter 1": {
             graded: true,

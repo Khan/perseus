@@ -144,8 +144,10 @@ export default function Keypad({extraKeys = [], ...props}: KeypadProps) {
                     <View
                         style={{
                             position: "absolute",
-                            top: sizing.size_120,
-                            right: sizing.size_080,
+                            insetBlockStart: sizing.size_120,
+                            // Using `insetInlineEnd` instead of `right`
+                            // to support RTL.
+                            insetInlineEnd: sizing.size_080,
                             zIndex: 10,
                         }}
                     >

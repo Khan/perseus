@@ -264,8 +264,8 @@ export class Movable<Options extends Record<string, any>> {
             this.draw();
         };
 
-        $(document).bind("vmousemove", moveHandler);
-        $(document).bind("vmouseup", upHandler);
+        $(document).on("vmousemove", moveHandler);
+        $(document).on("vmouseup", upHandler);
     }
 
     _applyConstraints(
@@ -376,7 +376,7 @@ export class Movable<Options extends Record<string, any>> {
             delete this._listenerMap[key];
 
             // Re-index existing events: if they occur after `index`, decrement
-            const keys = _.keys(this._listenerMap);
+            const keys = Object.keys(this._listenerMap);
             keys.forEach((key) => {
                 if (
                     getEventName(key) === eventName &&

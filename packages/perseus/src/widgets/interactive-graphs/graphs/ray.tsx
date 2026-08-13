@@ -3,7 +3,6 @@ import * as React from "react";
 import {usePerseusI18n} from "../../../components/i18n-context";
 import {actions} from "../reducer/interactive-graph-action";
 
-import {usePointAriaLabel} from "./components/build-point-aria-label";
 import {MovableLine} from "./components/movable-line";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {describeRayGraph} from "./strings/ray";
@@ -33,7 +32,7 @@ type Props = MafsGraphProps<RayGraphState>;
 
 const RayGraph = (props: Props) => {
     const {dispatch} = props;
-    const {coords: line, pointLabels} = props.graphState;
+    const {coords: line} = props.graphState;
 
     const handleMoveLine = (newStart: vec.Vector2) =>
         dispatch(actions.ray.moveRay(newStart));
@@ -41,11 +40,10 @@ const RayGraph = (props: Props) => {
         dispatch(actions.ray.movePoint(pointIndex, newPoint));
 
     const {strings, locale} = usePerseusI18n();
-    const buildLabel = usePointAriaLabel(pointLabels);
     const id = React.useId();
     const pointsDescriptionId = id + "-points";
 
-    // Aria label strings
+    // Aria label strings.
     const {
         srRayGraph,
         srRayPoints,
@@ -53,9 +51,6 @@ const RayGraph = (props: Props) => {
         srRayTerminalPoint,
         srRayGrabHandle,
     } = describeRayGraph(props.graphState, {strings, locale});
-
-    const point1AriaLabel = buildLabel(0, line[0]) ?? srRayEndpoint;
-    const point2AriaLabel = buildLabel(1, line[1]) ?? srRayTerminalPoint;
 
     // Ray graphs only have one line
     return (
@@ -67,8 +62,8 @@ const RayGraph = (props: Props) => {
             <MovableLine
                 points={line}
                 ariaLabels={{
-                    point1AriaLabel,
-                    point2AriaLabel,
+                    point1AriaLabel: srRayEndpoint,
+                    point2AriaLabel: srRayTerminalPoint,
                     grabHandleAriaLabel: srRayGrabHandle,
                 }}
                 onMoveLine={handleMoveLine}

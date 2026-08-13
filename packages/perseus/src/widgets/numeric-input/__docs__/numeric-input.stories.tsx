@@ -6,7 +6,7 @@ import {
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
-import {NumericInput} from "../numeric-input.class";
+import {NumericInput} from "../numeric-input";
 import {
     decimalProblem,
     defaultQuestion,
@@ -23,13 +23,6 @@ import type {Meta} from "@storybook/react-vite";
 
 // We're using this format as storybook was not able to infer the type of the options.
 // It also gives us a lovely hover view of the JSON structure.
-const answerFormsArray: string = `[
-    {
-        simplify: string;
-        name: string;
-    }
-]`;
-
 const answersArray: string = `[
     {
         message: string;
@@ -91,17 +84,6 @@ const meta: Meta<typeof NumericInput> = {
                 type: {
                     summary: "array",
                     detail: answersArray,
-                },
-            },
-        },
-        answerForms: {
-            control: {type: "object"},
-            description:
-                "Used by examples, maybe not used and should be removed in the future",
-            table: {
-                type: {
-                    summary: "array",
-                    detail: answerFormsArray,
                 },
             },
         },

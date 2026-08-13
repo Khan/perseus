@@ -143,6 +143,7 @@ export type MakeWidgetMap<TRegistry> = {
  * @see {@link https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation}
  */
 export interface PerseusWidgetTypes {
+    blank: BlankWidget;
     categorizer: CategorizerWidget;
     "cs-program": CSProgramWidget;
     definition: DefinitionWidget;
@@ -163,7 +164,6 @@ export interface PerseusWidgetTypes {
     matcher: MatcherWidget;
     matrix: MatrixWidget;
     measurer: MeasurerWidget;
-    "molecule-renderer": MoleculeRendererWidget;
     "number-line": NumberLineWidget;
     "numeric-input": NumericInputWidget;
     orderer: OrdererWidget;
@@ -176,6 +176,7 @@ export interface PerseusWidgetTypes {
     video: VideoWidget;
 
     // Deprecated widgets
+    "molecule-renderer": DeprecatedStandinWidget;
     "passage-ref-target": DeprecatedStandinWidget;
     "passage-ref": DeprecatedStandinWidget;
     passage: DeprecatedStandinWidget;
@@ -429,6 +430,8 @@ export type WidgetOptions<
 };
 
 // prettier-ignore
+export type BlankWidget = WidgetOptions<'blank', PerseusBlankWidgetOptions>;
+// prettier-ignore
 export type CategorizerWidget = WidgetOptions<'categorizer', PerseusCategorizerWidgetOptions>;
 // prettier-ignore
 export type CSProgramWidget = WidgetOptions<'cs-program', PerseusCSProgramWidgetOptions>;
@@ -487,8 +490,6 @@ export type TableWidget = WidgetOptions<'table', PerseusTableWidgetOptions>;
 // prettier-ignore
 export type InputNumberWidget = WidgetOptions<'input-number', PerseusInputNumberWidgetOptions>;
 // prettier-ignore
-export type MoleculeRendererWidget = WidgetOptions<'molecule-renderer', PerseusMoleculeRendererWidgetOptions>;
-// prettier-ignore
 export type VideoWidget = WidgetOptions<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
 export type DeprecatedStandinWidget = WidgetOptions<'deprecated-standin', object>;
@@ -523,6 +524,14 @@ export type PerseusImageBackground = {
 export type MarkingsType = "axes" | "graph" | "grid" | "none";
 
 export type AxisLabelLocation = "onAxis" | "alongEdge";
+
+/** Options for the blank widget, used within "Drag And Drop" widgets as the dropzone for answer tiles */
+export type PerseusBlankWidgetOptions = {
+    /** Display Type for how the blank should be rendered */
+    displayType: "normal" | "superscript" | "subscript";
+    /** ID for the correct answer tile for the blank */
+    correctId: string;
+};
 
 /** Options for the categorizer widget. Presents items to sort into groups. */
 export type PerseusCategorizerWidgetOptions = {
@@ -869,30 +878,37 @@ export type PerseusGroupWidgetOptions = PerseusRenderer;
 /** Options for the image widget. Shows an image with a caption and alt text. */
 export type PerseusImageWidgetOptions = {
     /** Translatable Markdown; Text to be shown for the title of the image */
-    title?: string;
+    title: string;
     /** Translatable Markdown; Text to be shown in the caption section of an image */
-    caption?: string;
+    caption: string;
     /** Translatable Text; The alt text to be shown in the img.alt attribute */
-    alt?: string;
+    alt: string;
     /** Translatable Markdown; Text to be shown as the long description of an image */
-    longDescription?: string;
+    longDescription: string;
     /**
      * When true, standalone image will be rendered with alt="" and without any alt
      * text, caption, title, or long description.
      */
-    decorative?: boolean;
+    decorative: boolean;
     /** The image details for the image to be displayed */
     backgroundImage: PerseusImageBackground;
     /** The size scale of the image */
-    scale?: number;
-    /** Always false. Not used for this widget */
-    static?: boolean;
-    /** @deprecated - labels were removed from the image widget in 2017 */
-    labels?: Array<PerseusImageLabel>;
-    /** @deprecated - range for labels was removed from the image widget in 2017 */
-    range?: [Interval, Interval];
-    /** @deprecated - box for labels was removed from the image widget in 2017 */
-    box?: Size;
+    scale: number;
+    /**
+     * @deprecated - labels were removed from the image widget editor in 2017,
+     * but still appear in old content.
+     */
+    labels: Array<PerseusImageLabel>;
+    /**
+     * @deprecated - range for labels was removed from the image widget editor
+     * in 2017, but still appears in old content.
+     */
+    range: [Interval, Interval];
+    /**
+     * @deprecated - box for labels was removed from the image widget editor
+     * in 2017, but still appears in old content.
+     */
+    box: Size;
 };
 
 export type PerseusImageLabel = {
@@ -919,13 +935,13 @@ export type PerseusInteractiveGraphWidgetOptions = {
      */
     snapStep?: [x: number, y: number];
     /** An optional image to use in the background */
-    backgroundImage?: PerseusImageBackground;
+    backgroundImage: PerseusImageBackground;
     /**
      * The type of markings to display on the graph.
      */
     markings: MarkingsType;
     /** How to label the X and Y axis. default: ["x", "y"] */
-    labels?: string[];
+    labels: string[];
     /**
      * Specifies the location of the labels on the graph.  default: "onAxis".
      * - "onAxis": Labels are positioned on the axis at the right (x) and top
@@ -934,7 +950,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
      *    edges of the graph. The y label is rotated. Typically used when the
      *    range min is near 0 with longer labels.
      */
-    labelLocation?: AxisLabelLocation;
+    labelLocation: AxisLabelLocation;
     /** Which sides of the graph are bounded (removed axis arrows). */
     showAxisArrows: ShowAxisArrows;
     /**
@@ -951,7 +967,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
      */
     showRuler?: boolean;
     /** Whether to show tooltips on the graph */
-    showTooltips?: boolean;
+    showTooltips: boolean;
     /**
      * The unit to show on the ruler.  e.g. "mm", "cm",  "m", "km", "in", "ft",
      * "yd", "mi".
@@ -1025,6 +1041,12 @@ export type LockedFigureType = LockedFigure["type"];
 
 export type LockedLineStyle = "solid" | "dashed";
 
+/**
+ * Stroke style for fillable locked figures (polygons, ellipses): a solid or
+ * dashed border, or `"none"` to render the fill with no border at all.
+ */
+export type LockedFigureStrokeStyle = LockedLineStyle | "none";
+
 export type LockedPointType = {
     type: "point";
     coord: Coord;
@@ -1071,7 +1093,7 @@ export type LockedEllipseType = {
     angle: number;
     color: LockedFigureColor;
     fillStyle: LockedFigureFillType;
-    strokeStyle: LockedLineStyle;
+    strokeStyle: LockedFigureStrokeStyle;
     weight: StrokeWeight;
     labels: LockedLabelType[];
     ariaLabel?: string;
@@ -1083,7 +1105,7 @@ export type LockedPolygonType = {
     color: LockedFigureColor;
     showVertices: boolean;
     fillStyle: LockedFigureFillType;
-    strokeStyle: LockedLineStyle;
+    strokeStyle: LockedFigureStrokeStyle;
     weight: StrokeWeight;
     labels: LockedLabelType[];
     ariaLabel?: string;
@@ -1554,29 +1576,19 @@ export type PerseusMatrixWidgetAnswers = number[][];
 /** Options for the matrix widget. A grid of numeric cells to fill in. */
 export type PerseusMatrixWidgetOptions = {
     /** Translatable Text; Shown before the matrix */
-    prefix?: string | undefined;
+    prefix: string;
     /** Translatable Text; Shown after the matrix */
-    suffix?: string | undefined;
+    suffix: string;
     /**
      * A data matrix representing the "correct" answers to be entered into the
      * matrix
      */
     answers: PerseusMatrixWidgetAnswers;
     /**
-     * The coordinate location of the cursor position at start.
-     * default: [0, 0]
-     */
-    cursorPosition?: number[] | undefined;
-    /**
      * The coordinate size of the matrix. Only supports 2-dimensional matrix.
      * default: [3, 3]
      */
     matrixBoardSize: number[];
-    /**
-     * Whether this is meant to statically display the answers (true) or be
-     * used as an input field, graded against the answers
-     */
-    static?: boolean | undefined;
 };
 
 /** Options for the measurer widget. A virtual ruler and/or protractor. */
@@ -1640,6 +1652,8 @@ export type PerseusNumericInputWidgetOptions = {
      * Translatable Text; Text to describe this input. This will be shown to
      * users using screenreaders.
      */
+    // TODO(LEMS-4354): Make labelText required and default it to "" in the
+    //  parser.
     labelText?: string | undefined;
     /**
      * Use size "Normal" for all text boxes, unless there are multiple text
@@ -1802,7 +1816,7 @@ export type PerseusPlotterWidgetOptions = {
      * Which ticks to display the labels for. For instance, setting this to "4"
      * will only show every 4th label (plus the last one)
      */
-    labelInterval?: number | null;
+    labelInterval: number;
     /**
      * Creates the specified number of divisions between the horizontal lines.
      * Fewer snaps between lines makes the graph easier for the student to
@@ -1814,12 +1828,15 @@ export type PerseusPlotterWidgetOptions = {
     /** The Y values that represent the correct answer expected */
     correct: number[];
     /** A picture to represent items in a graph. */
-    picUrl?: string | null;
-    /** @deprecated */
-    picSize?: number | null;
-    /** @deprecated */
-    picBoxHeight?: number | null;
-    /** @deprecated */
+    picUrl: string | null;
+    // picSize has no editor controls, but is still present in published
+    // content as of July 2026.
+    picSize: number;
+    // picBoxHeight has no editor controls, but is still present in published
+    // content as of July 2026.
+    picBoxHeight: number;
+    // plotDimensions has no editor controls, but is still present in published
+    // content as of July 2026.
     plotDimensions: number[];
 };
 
@@ -2245,14 +2262,8 @@ export type PerseusInputNumberAnswer = PerseusNumericInputAnswer;
 
 export type PerseusInputNumberWidgetOptions = PerseusNumericInputWidgetOptions;
 
-/** Options for the molecule-renderer widget. Renders a molecule via SMILES. */
-export type PerseusMoleculeRendererWidgetOptions = {
-    widgetId: string;
-    rotationAngle?: number;
-    smiles?: string;
-};
-
 export type PerseusWidgetOptions =
+    | PerseusBlankWidgetOptions
     | PerseusCategorizerWidgetOptions
     | PerseusCSProgramWidgetOptions
     | PerseusDefinitionWidgetOptions
@@ -2271,7 +2282,6 @@ export type PerseusWidgetOptions =
     | PerseusMatcherWidgetOptions
     | PerseusMatrixWidgetOptions
     | PerseusMeasurerWidgetOptions
-    | PerseusMoleculeRendererWidgetOptions
     | PerseusNumberLineWidgetOptions
     | PerseusNumericInputWidgetOptions
     | PerseusOrdererWidgetOptions

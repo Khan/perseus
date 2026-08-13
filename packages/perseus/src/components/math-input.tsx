@@ -17,7 +17,6 @@ import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import $ from "jquery";
 import * as React from "react";
-import _ from "underscore";
 import {v4 as uuid} from "uuid";
 
 import a11y from "../util/a11y";
@@ -174,7 +173,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
         // but it fails tests when I remove it and the way we call
         // methods directly on components makes it difficult to confirm
         // if it's dead code
-        if (_(value).isFunction()) {
+        if (typeof value === "function") {
             value(input);
         } else if (value[0] === "\\") {
             input?.cmd(value).focus();
@@ -569,8 +568,8 @@ const styles = StyleSheet.create({
     wrapperFocused: inputFocused,
     popoverContent: {
         padding: 0,
-        paddingBottom: sizing.size_060,
-        maxWidth: "initial",
+        paddingBlockEnd: sizing.size_060,
+        maxInlineSize: "initial",
     },
 });
 

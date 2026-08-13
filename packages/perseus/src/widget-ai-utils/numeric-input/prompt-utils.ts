@@ -1,4 +1,4 @@
-import type numericInput from "../../widgets/numeric-input/numeric-input.class";
+import type numericInput from "../../widgets/numeric-input/numeric-input";
 import type React from "react";
 
 /**
@@ -33,7 +33,7 @@ export const getPromptJSON = (
 ): NumericInputPromptJSON => {
     return {
         type: "numeric-input",
-        label: widgetData.labelText,
+        label: widgetData.labelText ?? "",
         userInput: {
             value: widgetData.userInput.currentValue,
         },

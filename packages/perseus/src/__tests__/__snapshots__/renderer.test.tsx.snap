@@ -600,7 +600,7 @@ exports[`renderer snapshots renders a placeholder for a deprecated widget: depre
           class="perseus-widget-container widget-block"
         >
           <div
-            style="padding-top: 8px; padding-bottom: 8px;"
+            style="padding-block-start: 8px; padding-block-end: 8px;"
           >
             <div
               class="default_7zhre1-o_O-containerOuter_1fa127e-o_O-infoBanner_rdpfpm"

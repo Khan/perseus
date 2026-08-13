@@ -82,6 +82,8 @@ export * from "./data-schema";
 export {pluck, mapObject} from "./utils/objective_";
 
 /** @hidden */
+export {default as blankLogic} from "./widgets/blank";
+/** @hidden */
 export {default as categorizerLogic} from "./widgets/categorizer";
 /** @hidden */
 export type {CategorizerDefaultWidgetOptions} from "./widgets/categorizer";
@@ -269,6 +271,8 @@ export {
     shuffleSorter,
 } from "./widgets/sorter/sorter-util";
 /** @hidden */
+export type {BlankPublicWidgetOptions} from "./widgets/blank/blank-util";
+/** @hidden */
 export type {SorterPublicWidgetOptions} from "./widgets/sorter/sorter-util";
 /** @hidden */
 export type {LabelImagePublicWidgetOptions} from "./widgets/label-image/label-image-util";
@@ -331,6 +335,11 @@ export {
 // Generators
 /** @hidden */
 export {
+    generateBlankOptions,
+    generateBlankWidget,
+} from "./utils/generators/blank-widget-generator";
+/** @hidden */
+export {
     generateDefinitionOptions,
     generateDefinitionWidget,
 } from "./utils/generators/definition-widget-generator";
@@ -387,6 +396,16 @@ export {
     generateMatcherOptions,
     generateMatcherWidget,
 } from "./utils/generators/matcher-widget-generator";
+/** @hidden */
+export {
+    generateMeasurerOptions,
+    generateMeasurerWidget,
+} from "./utils/generators/measurer-widget-generator";
+/** @hidden */
+export {
+    generateCategorizerOptions,
+    generateCategorizerWidget,
+} from "./utils/generators/categorizer-widget-generator";
 export {
     generateInteractiveGraphOptions,
     generateIGAngleGraph,
@@ -425,6 +444,11 @@ export {
     generatePlotterWidget,
     generatePlotterOptions,
 } from "./utils/generators/plotter-widget-generator";
+/** @hidden */
+export {
+    generatePhetSimulationWidget,
+    generatePhetSimulationOptions,
+} from "./utils/generators/phet-simulation-widget-generator";
 export {generateNumericInputWidget} from "./utils/generators/numeric-input-widget-generator";
 /** @hidden */
 export {

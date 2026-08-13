@@ -8,7 +8,6 @@
 
 /* eslint-disable max-lines */
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/no-unsafe */
 import {
     Errors,
     PerseusError,
@@ -48,7 +47,7 @@ import QuestionParagraph from "./question-paragraph";
 import TranslationLinter from "./translation-linter";
 import Util from "./util";
 import preprocessTex from "./util/tex-preprocess";
-import WidgetContainer from "./widget-container";
+import WidgetContainer from "./widget-container.old";
 import * as Widgets from "./widgets";
 
 import type {DependenciesContext} from "./dependencies";
@@ -167,7 +166,7 @@ export type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
 type State = {
     translationLintErrors: ReadonlyArray<string>;
     widgetInfo: Readonly<PerseusWidgetsMap>;
-    jiptContent: any;
+    jiptContent: string | null;
 };
 
 type FullLinterContext = LinterContextProps & {
@@ -705,7 +704,7 @@ class Renderer
         id: string,
         focusPath: ReadonlyArray<string> = [],
     ) => {
-        if (!_.isArray(focusPath)) {
+        if (!Array.isArray(focusPath)) {
             throw new PerseusError(
                 "widget props.onFocus focusPath must be an Array, " +
                     "but was" +
@@ -760,10 +759,7 @@ class Renderer
         );
     };
 
-    replaceJiptContent: (content: string, paragraphIndex: number) => void = (
-        content: string,
-        paragraphIndex: number,
-    ) => {
+    replaceJiptContent(content: string, paragraphIndex?: number): void {
         if (paragraphIndex == null) {
             // we're not translating paragraph-wise; replace the whole content
             // (we could also theoretically check for apiOptions.isArticle
@@ -809,7 +805,7 @@ class Renderer
                 jiptContent: JiptParagraphs.joinFromArray(paragraphs),
             });
         }
-    };
+    }
 
     // wrap top-level elements in a QuestionParagraph, mostly
     // for appropriate spacing and other css
@@ -818,7 +814,7 @@ class Renderer
         ast: any,
         state: WidgetState,
     ) => {
-        if (_.isArray(ast)) {
+        if (Array.isArray(ast)) {
             // This is duplicated from simple-markdown
             // TODO(aria): Don't duplicate this logic
             const oldKey = state.key;
@@ -902,7 +898,7 @@ class Renderer
         ast: any,
         state: WidgetState,
     ) => {
-        if (_.isArray(ast)) {
+        if (Array.isArray(ast)) {
             // This is duplicated from simple-markdown
             // TODO(aria): Don't duplicate this logic
             const oldKey = state.key;
@@ -1421,7 +1417,6 @@ class Renderer
         _.each(
             this.state.widgetInfo,
             function (info, id) {
-                // eslint-disable-next-line @typescript-eslint/no-invalid-this
                 // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                 // eslint-disable-next-line @typescript-eslint/no-invalid-this
                 const widget = this.getWidgetInstance(id);

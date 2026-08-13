@@ -5,6 +5,7 @@ import {
     generateIGExponentialGraph,
     generateIGLinearGraph,
     generateIGLinearSystemGraph,
+    generateIGLockedFunction,
     generateIGLockedLine,
     generateIGLockedPoint,
     generateIGLockedPolygon,
@@ -33,7 +34,12 @@ import {sinusoidWithPiTicks} from "../interactive-graph.testdata";
 import {interactiveGraphRendererDecorator} from "./interactive-graph-renderer-decorator";
 import {lockedFiguresWithWeight} from "./utils";
 
-import type {PerseusInteractiveGraphWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    LockedFigure,
+    LockedLineStyle,
+    PerseusInteractiveGraphWidgetOptions,
+    StrokeWeight,
+} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta<PerseusInteractiveGraphWidgetOptions> = {
@@ -246,6 +252,13 @@ export const MultipleSegmentsOverlapping: Story = {
     } satisfies Partial<PerseusInteractiveGraphWidgetOptions>,
 };
 
+export const VectorWithTooltips: Story = {
+    args: {
+        correct: generateIGVectorGraph(),
+        showTooltips: true,
+    },
+};
+
 /** Unlimited points graph seeded with two points (via `startCoords`). */
 export const UnlimitedPointGraphWithTwoPoints: Story = {
     args: {
@@ -360,6 +373,194 @@ export const LockedFiguresWithThickWeight: Story = {
     args: {
         correct: generateIGNoneGraph(),
         lockedFigures: lockedFiguresWithWeight("thick"),
+    },
+};
+
+const systemOfInequalitiesFigures = (
+    lineWeight: StrokeWeight,
+    polygonWeight: StrokeWeight = lineWeight,
+    polygonStrokeStyle: LockedLineStyle = "dashed",
+): LockedFigure[] => [
+    generateIGLockedFunction({
+        color: "blue",
+        strokeStyle: "dashed",
+        weight: lineWeight,
+        equation: "-0.5x",
+        directionalAxis: "x",
+        domain: [-10, 10],
+    }),
+    generateIGLockedFunction({
+        color: "green",
+        strokeStyle: "solid",
+        weight: lineWeight,
+        equation: "0.75x - 2",
+        directionalAxis: "x",
+        domain: [-10, 10],
+    }),
+    generateIGLockedPolygon({
+        points: [
+            [-6, 3],
+            [-6, 6],
+            [6, 6],
+            [6, -3],
+        ],
+        color: "blue",
+        showVertices: false,
+        fillStyle: "translucent",
+        strokeStyle: polygonStrokeStyle,
+        weight: polygonWeight,
+    }),
+    generateIGLockedPolygon({
+        points: [
+            [6, 2.5],
+            [6, -6],
+            [-5.3, -6],
+        ],
+        color: "green",
+        showVertices: false,
+        fillStyle: "translucent",
+        strokeStyle: polygonStrokeStyle,
+        weight: polygonWeight,
+    }),
+];
+
+const systemOfInequalitiesArgs = (
+    lineWeight: StrokeWeight,
+    polygonWeight: StrokeWeight = lineWeight,
+    polygonStrokeStyle: LockedLineStyle = "dashed",
+): Partial<PerseusInteractiveGraphWidgetOptions> => ({
+    correct: generateIGNoneGraph(),
+    range: [
+        [-6, 6],
+        [-6, 6],
+    ],
+    markings: "graph",
+    labels: ["$x$", "$y$"],
+    lockedFigures: systemOfInequalitiesFigures(
+        lineWeight,
+        polygonWeight,
+        polygonStrokeStyle,
+    ),
+});
+
+export const LockedFigureThinWeightSample: Story = {
+    args: {
+        correct: generateIGNoneGraph(),
+        range: [
+            [-6, 6],
+            [-6, 6],
+        ],
+        markings: "graph",
+        labels: ["$x$", "$y$"],
+        lockedFigures: [
+            generateIGLockedFunction({
+                color: "grayH",
+                strokeStyle: "dashed",
+                weight: "thin",
+                equation: "-0.5x",
+                directionalAxis: "x",
+                domain: [-10, 10],
+            }),
+            generateIGLockedPolygon({
+                points: [
+                    [1, 1],
+                    [5, 1],
+                    [5, 5],
+                ],
+                color: "gold",
+                showVertices: false,
+                fillStyle: "translucent",
+                strokeStyle: "dashed",
+                weight: "thin",
+            }),
+        ],
+    },
+};
+
+export const LockedFigureMediumWeightSample: Story = {
+    args: systemOfInequalitiesArgs("medium", "thin", "solid"),
+};
+
+export const LockedFigureThickWeightSample: Story = {
+    args: systemOfInequalitiesArgs("thick"),
+};
+
+export const LockedFigureFillOnlyShading: Story = {
+    args: {
+        correct: generateIGNoneGraph(),
+        range: [
+            [-6, 6],
+            [-6, 6],
+        ],
+        markings: "graph",
+        labels: ["$x$", "$y$"],
+        lockedFigures: [
+            generateIGLockedFunction({
+                color: "blue",
+                strokeStyle: "dashed",
+                weight: "thin",
+                equation: "-0.5x",
+                directionalAxis: "x",
+                domain: [-10, 10],
+            }),
+            generateIGLockedFunction({
+                color: "green",
+                strokeStyle: "solid",
+                weight: "thin",
+                equation: "0.75x - 2",
+                directionalAxis: "x",
+                domain: [-10, 10],
+            }),
+            generateIGLockedPolygon({
+                points: [
+                    [-6, 3],
+                    [-6, 6],
+                    [6, 6],
+                    [6, -3],
+                ],
+                color: "blue",
+                showVertices: false,
+                fillStyle: "translucent",
+                strokeStyle: "none",
+                weight: "thin",
+            }),
+            generateIGLockedPolygon({
+                points: [
+                    [6, 2.5],
+                    [6, -6],
+                    [-5.3, -6],
+                ],
+                color: "green",
+                showVertices: false,
+                fillStyle: "translucent",
+                strokeStyle: "none",
+                weight: "thin",
+            }),
+        ],
+    },
+};
+
+// The minimal fill-only case: a single polygon with `strokeStyle: "none"` and
+// nothing overlapping it, so a regression in borderless rendering (a stray
+// border reappearing) shows up on its own.
+export const LockedPolygonWithNoBorder: Story = {
+    args: {
+        correct: generateIGNoneGraph(),
+        lockedFigures: [
+            generateIGLockedPolygon({
+                points: [
+                    [-4, -4],
+                    [-4, 4],
+                    [4, 4],
+                    [4, -4],
+                ],
+                color: "blue",
+                showVertices: false,
+                fillStyle: "translucent",
+                strokeStyle: "none",
+                weight: "thin",
+            }),
+        ],
     },
 };
 

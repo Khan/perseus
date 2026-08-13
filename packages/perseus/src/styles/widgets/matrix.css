@@ -1,3 +1,14 @@
+/* The matrix widget always reads left-to-right, even in right-to-left
+ * languages, because the math notation and operations don't flip. */
+.perseus-matrix {
+    direction: ltr;
+}
+/* The widget as a whole should still sit on the right within an RTL page, so
+ * restore the right alignment that `direction: ltr` would otherwise reset to
+ * the left. Scoped to an RTL ancestor since the root's own direction is ltr. */
+:dir(rtl) .perseus-matrix {
+    text-align: right;
+}
 .perseus-matrix .matrix-prefix,
 .perseus-matrix .matrix-suffix {
     display: inline-block;
@@ -25,20 +36,20 @@
 .perseus-matrix .matrix-bracket {
     border-color: var(--wb-semanticColor-core-border-neutral-strong);
     border-style: solid;
-    border-bottom-width: 2px;
-    border-top-width: 2px;
+    border-bottom-width: var(--wb-border-width-medium);
+    border-top-width: var(--wb-border-width-medium);
     margin-top: -2px;
     position: absolute;
     width: 6px;
 }
 .perseus-matrix .matrix-bracket.bracket-left {
-    border-left-width: 2px;
-    border-right-width: 0;
+    border-left-width: var(--wb-border-width-medium);
+    border-right-width: var(--wb-border-width-none);
     left: 3px;
 }
 .perseus-matrix .matrix-bracket.bracket-right {
-    border-left-width: 0;
-    border-right-width: 2px;
+    border-left-width: var(--wb-border-width-none);
+    border-right-width: var(--wb-border-width-medium);
     margin-left: -3px;
 }
 /* Matrix input cell */

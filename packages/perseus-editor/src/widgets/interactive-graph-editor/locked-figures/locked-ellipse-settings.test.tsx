@@ -37,7 +37,7 @@ describe("LockedEllipseSettings", () => {
             advanceTimers: jest.advanceTimersByTime,
         });
     });
-    test("renders", () => {
+    it("renders", () => {
         // Arrange
 
         // Act
@@ -50,7 +50,7 @@ describe("LockedEllipseSettings", () => {
         expect(titleText).toBeInTheDocument();
     });
 
-    test("calls onChange when the weight is changed", async () => {
+    it("calls onChange when the weight is changed", async () => {
         // Arrange
         const onChangeSpy = jest.fn();
         render(
@@ -74,7 +74,30 @@ describe("LockedEllipseSettings", () => {
         expect(onChangeSpy).toHaveBeenCalledWith({weight: "thick"});
     });
 
-    test("summary reflects radius", () => {
+    it("offers a 'none' stroke option (fill-only shading)", async () => {
+        // Arrange
+        const onChangeSpy = jest.fn();
+        render(
+            <LockedEllipseSettings
+                {...defaultProps}
+                onChangeProps={onChangeSpy}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Act
+        const strokeSelect = screen.getByRole("combobox", {name: "stroke"});
+        await userEvent.click(strokeSelect);
+        const noneOption = screen.getByRole("option", {name: "none"});
+        await userEvent.click(noneOption);
+
+        // Assert
+        expect(onChangeSpy).toHaveBeenCalledWith({strokeStyle: "none"});
+    });
+
+    it("summary reflects radius", () => {
         // Arrange
 
         // Act
@@ -100,7 +123,7 @@ describe("LockedEllipseSettings", () => {
         expect(titleText).toBeInTheDocument();
     });
 
-    test("summary reflects color", () => {
+    it("summary reflects color", () => {
         // Arrange
 
         // Act
@@ -114,7 +137,7 @@ describe("LockedEllipseSettings", () => {
         expect(swatch).toBeInTheDocument();
     });
 
-    test("summary reflects stroke", () => {
+    it("summary reflects stroke", () => {
         // Arrange
 
         // Act
@@ -135,7 +158,7 @@ describe("LockedEllipseSettings", () => {
         expect(swatch).toBeInTheDocument();
     });
 
-    test("summary reflects fill", () => {
+    it("summary reflects fill", () => {
         // Arrange
 
         // Act
@@ -158,7 +181,7 @@ describe("LockedEllipseSettings", () => {
         expect(swatch).toBeInTheDocument();
     });
 
-    test("calls onToggle when header is clicked", async () => {
+    it("calls onToggle when header is clicked", async () => {
         // Arrange
         const onToggle = jest.fn();
         render(
@@ -179,7 +202,7 @@ describe("LockedEllipseSettings", () => {
     });
 
     describe("Labels", () => {
-        test("Updates the label coords when the ellipse center change", async () => {
+        it("Updates the label coords when the ellipse center change", async () => {
             // Arrange
             const onChangeProps = jest.fn();
             render(
@@ -214,7 +237,7 @@ describe("LockedEllipseSettings", () => {
             });
         });
 
-        test("Updates the label color when the ellipse color changes", async () => {
+        it("Updates the label color when the ellipse color changes", async () => {
             // Arrange
             const onChangeProps = jest.fn();
             render(
@@ -250,7 +273,7 @@ describe("LockedEllipseSettings", () => {
             });
         });
 
-        test("Updates the label when the label text changes", async () => {
+        it("Updates the label when the label text changes", async () => {
             // Arrange
             const onChangeProps = jest.fn();
             render(
@@ -277,7 +300,7 @@ describe("LockedEllipseSettings", () => {
             });
         });
 
-        test("Removes label when delete button is clicked", async () => {
+        it("Removes label when delete button is clicked", async () => {
             // Arrange
             const onChangeProps = jest.fn();
             render(
@@ -306,7 +329,7 @@ describe("LockedEllipseSettings", () => {
             });
         });
 
-        test("Adds a new label when the add label button is clicked", async () => {
+        it("Adds a new label when the add label button is clicked", async () => {
             // Arrange
             const onChangeProps = jest.fn();
             render(
@@ -347,7 +370,7 @@ describe("LockedEllipseSettings", () => {
     });
 
     describe("Aria label", () => {
-        test("Renders with aria label", () => {
+        it("Renders with aria label", () => {
             // Arrange
 
             // Act
@@ -365,7 +388,7 @@ describe("LockedEllipseSettings", () => {
             expect(input).toHaveValue("Ellipse at (x, y)");
         });
 
-        test("calls onChangeProps when the aria label is updated", async () => {
+        it("calls onChangeProps when the aria label is updated", async () => {
             // Arrange
             const onChangeProps = jest.fn();
             render(
@@ -388,7 +411,7 @@ describe("LockedEllipseSettings", () => {
             });
         });
 
-        test("aria label autogenerates saying circle when the radii are equal", async () => {
+        it("aria label autogenerates saying circle when the radii are equal", async () => {
             // Arrange
             const onChangeProps = jest.fn();
 
@@ -415,7 +438,7 @@ describe("LockedEllipseSettings", () => {
             });
         });
 
-        test("aria label auto-generates without rotation when ellipse is a circle", async () => {
+        it("aria label auto-generates without rotation when ellipse is a circle", async () => {
             // Arrange
             const onChangeProps = jest.fn();
 
@@ -443,7 +466,7 @@ describe("LockedEllipseSettings", () => {
             });
         });
 
-        test("aria label auto-generates saying ellipse when the radii are different", async () => {
+        it("aria label auto-generates saying ellipse when the radii are different", async () => {
             // Arrange
             const onChangeProps = jest.fn();
 
@@ -470,7 +493,7 @@ describe("LockedEllipseSettings", () => {
             });
         });
 
-        test("aria label auto-generates with rotation when ellipse is rotated", async () => {
+        it("aria label auto-generates with rotation when ellipse is rotated", async () => {
             // Arrange
             const onChangeProps = jest.fn();
 
@@ -498,7 +521,7 @@ describe("LockedEllipseSettings", () => {
             });
         });
 
-        test("aria label auto-generates with one label", async () => {
+        it("aria label auto-generates with one label", async () => {
             // Arrange
             const onChangeProps = jest.fn();
             render(
@@ -530,7 +553,7 @@ describe("LockedEllipseSettings", () => {
             });
         });
 
-        test("aria label auto-generates with multiple labels", async () => {
+        it("aria label auto-generates with multiple labels", async () => {
             // Arrange
             const onChangeProps = jest.fn();
             render(

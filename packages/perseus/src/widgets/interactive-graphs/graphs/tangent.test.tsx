@@ -124,10 +124,12 @@ describe("Tangent graph pointLabels", () => {
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "Point A at 0 comma 0."}),
+            screen.getByRole("button", {
+                name: "Inflection point A at 0 comma 0.",
+            }),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point B at 2 comma 2."}),
+            screen.getByRole("button", {name: "Control point B at 2 comma 2."}),
         ).toBeInTheDocument();
     });
 
@@ -142,7 +144,9 @@ describe("Tangent graph pointLabels", () => {
 
         // Assert
         expect(
-            screen.getByRole("button", {name: "Point A at 0 comma 0."}),
+            screen.getByRole("button", {
+                name: "Inflection point A at 0 comma 0.",
+            }),
         ).toBeInTheDocument();
         expect(
             screen.getByRole("button", {name: "Control point at 2 comma 2."}),
@@ -167,7 +171,7 @@ describe("Tangent graph pointLabels", () => {
             }),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point B at 2 comma 2."}),
+            screen.getByRole("button", {name: "Control point B at 2 comma 2."}),
         ).toBeInTheDocument();
     });
 
@@ -191,8 +195,71 @@ describe("Tangent graph pointLabels", () => {
             }),
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("button", {name: "Point B at 2 comma 2."}),
+            screen.getByRole("button", {name: "Control point B at 2 comma 2."}),
         ).toBeInTheDocument();
+    });
+});
+
+describe("Tangent graph asymptotes", () => {
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    it("renders a visible dashed line for each asymptote in view", () => {
+        // Arrange, Act — points [0,0] and [2,2] give a period of 8, so the
+        // nearest asymptotes sit at x = -4 and x = 4 (both within [-10, 10]).
+        render(<MafsGraph {...baseMafsGraphProps} state={baseTangentState} />);
+
+        // Assert
+        expect(screen.getAllByTestId("tangent-asymptote__line")).toHaveLength(
+            2,
+        );
+    });
+
+    it("renders more asymptote lines as the period shrinks", () => {
+        // Arrange, Act — a smaller horizontal gap between the points shortens
+        // the period, so more asymptotes fall within the visible range.
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseTangentState,
+                    coords: [
+                        [0, 0],
+                        [1, 2],
+                    ],
+                }}
+            />,
+        );
+
+        // Assert — period is 4, so asymptotes sit at x = ..., -6, -2, 2, 6, ...
+        expect(
+            screen.getAllByTestId("tangent-asymptote__line").length,
+        ).toBeGreaterThan(2);
+    });
+
+    it.each`
+        description          | coords
+        ${"vertical line"}   | ${[[0, 0], [0, 2]]}
+        ${"horizontal line"} | ${[[0, 0], [2, 0]]}
+    `("throws when the points form a degenerate $description", ({coords}) => {
+        // A degenerate line has no well-defined tangent, so rendering asserts
+        // against it. Silence React's expected error logging for the throw.
+        jest.spyOn(console, "error").mockImplementation(() => {});
+
+        // Arrange, Act, Assert
+        expect(() =>
+            render(
+                <MafsGraph
+                    {...baseMafsGraphProps}
+                    state={{...baseTangentState, coords}}
+                />,
+            ),
+        ).toThrow(
+            "Tangent requires two control points that differ in both x and y.",
+        );
     });
 });
 
@@ -235,7 +302,11 @@ describe("TangentGraph", () => {
 });
 
 describe("getTangentKeyboardConstraint", () => {
-    it("should snap to the grid and avoid putting points on a vertical line", () => {
+    it("snaps to the grid and steps over both the vertical and horizontal lines through the other point", () => {
+        // Moving point 0 ([0, 0]) while point 1 sits at [1, 1]: an up move
+        // would land on y=1 (same horizontal line) and a right move on x=1
+        // (same vertical line), so each takes an extra snapStep to skip the
+        // degenerate position.
         const coords: TangentGraphState["coords"] = [
             [0, 0],
             [1, 1],
@@ -244,10 +315,10 @@ describe("getTangentKeyboardConstraint", () => {
         const constraint = getTangentKeyboardConstraint(coords, snapStep, 0);
 
         expect(constraint).toEqual({
-            up: [0, 1],
+            up: [0, 2], // Skips the horizontal line at y=1
             down: [0, -1],
             left: [-1, 0],
-            right: [2, 0], // Avoids putting the point on a vertical line
+            right: [2, 0], // Skips the vertical line at x=1
         });
     });
 });

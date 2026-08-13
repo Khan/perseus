@@ -11,22 +11,51 @@ import {
 import {PerseusI18nContext} from "../../components/i18n-context";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
 import {useDependencies} from "../../dependencies";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 
 import InputWithExamples from "./input-with-examples";
-import {type NumericInputProps} from "./numeric-input.class";
 import styles from "./numeric-input.module.css";
 import stylesLegacy from "./numeric-input_legacy-styles";
-import {generateExamples, shouldShowExamples} from "./utils";
+import {
+    generateExamples,
+    getCorrectUserInput,
+    getOneCorrectAnswerFromRubric,
+    getStartUserInput,
+    getUserInputFromSerializedState,
+    normalizeCorrectAnswerForms,
+    shouldShowExamples,
+} from "./utils";
 
-import type {Focusable} from "../../types";
+import type {Focusable, Widget, WidgetExports, WidgetProps} from "../../types";
+import type {NumericInputPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
+import type {
+    PerseusNumericInputUserInput,
+    PerseusNumericInputWidgetOptions,
+} from "@khanacademy/perseus-core";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+
+type Props = WidgetProps<
+    PerseusNumericInputWidgetOptions,
+    PerseusNumericInputUserInput
+>;
+
+// Assert that the PerseusNumericInputWidgetOptions parsed from JSON can be passed
+// as props to this component. This ensures that the PerseusNumericInputWidgetOptions
+// stays in sync with the prop types. The PropsFor<Component> type takes
+// defaultProps into account.
+// TODO(LEMS-4354): Remove these type assertions from all widgets.
+// eslint-disable-next-line no-restricted-syntax
+0 as any as WidgetProps<
+    PerseusNumericInputWidgetOptions,
+    PerseusNumericInputUserInput
+> satisfies PropsFor<typeof NumericInput>;
 
 /**
- * The NumericInputComponent is a child component of the NumericInput class
- * component. It is responsible for rendering the UI elements of the Numeric
- * Input widget.
+ * The NumericInput widget is a numeric input field that supports a variety of
+ * answer forms, including integers, decimals, fractions, and mixed numbers.
  */
-export const NumericInputComponent = forwardRef<Focusable, NumericInputProps>(
-    function NumericInputComponent(props, ref) {
+export const NumericInput = forwardRef<Widget, Props>(
+    function NumericInput(props, ref) {
         const {analytics} = useDependencies();
         const context = useContext(PerseusI18nContext);
         const inputRef = useRef<Focusable>(null);
@@ -43,22 +72,51 @@ export const NumericInputComponent = forwardRef<Focusable, NumericInputProps>(
             });
         });
 
-        // Pass the focus and blur methods to the Numeric Input Class component
         useImperativeHandle(ref, () => ({
-            current: inputRef.current,
-            focus: () => {
+            focus() {
                 if (inputRef.current) {
-                    inputRef.current?.focus();
+                    inputRef.current.focus();
+                    setIsFocused(true);
+                }
+                return true;
+            },
+
+            focusInputPath() {
+                if (inputRef.current) {
+                    inputRef.current.focus();
                     setIsFocused(true);
                 }
             },
-            blur: () => {
+
+            blurInputPath() {
                 if (inputRef.current) {
-                    inputRef.current?.blur();
+                    inputRef.current.blur();
                     setIsFocused(false);
                 }
             },
+
+            // The widget itself is an input, so we return a single empty list to
+            // indicate this.
+            getInputPaths: () => [[]],
+
+            getPromptJSON: (): NumericInputPromptJSON => _getPromptJSON(props),
+
+            /**
+             * @deprecated and likely very broken API
+             * [LEMS-3185] do not trust serializedState
+             */
+            getSerializedState() {
+                const {userInput, labelText, answers, ...rest} = props;
+                return {
+                    ...rest,
+                    answerForms: [],
+                    labelText: labelText ?? "",
+                    currentValue: userInput.currentValue,
+                };
+            },
         }));
+
+        const answerForms = normalizeCorrectAnswerForms(props.answers);
 
         const handleChange = (newValue: string): void => {
             props.handleUserInput({currentValue: newValue});
@@ -133,8 +191,8 @@ export const NumericInputComponent = forwardRef<Focusable, NumericInputProps>(
                 value={props.userInput.currentValue}
                 onChange={handleChange}
                 labelText={props.labelText || context.strings.yourAnswerLabel}
-                examples={generateExamples(props.answerForms, context.strings)}
-                shouldShowExamples={shouldShowExamples(props.answerForms)}
+                examples={generateExamples(answerForms, context.strings)}
+                shouldShowExamples={shouldShowExamples(answerForms)}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 id={props.widgetId}
@@ -145,3 +203,14 @@ export const NumericInputComponent = forwardRef<Focusable, NumericInputProps>(
         );
     },
 );
+
+export default {
+    name: "numeric-input",
+    displayName: "Numeric input",
+    widget: NumericInput,
+    isLintable: true,
+    getCorrectUserInput,
+    getOneCorrectAnswerFromRubric,
+    getStartUserInput,
+    getUserInputFromSerializedState,
+} satisfies WidgetExports<typeof NumericInput>;

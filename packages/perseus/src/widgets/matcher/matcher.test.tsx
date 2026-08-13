@@ -16,7 +16,7 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./matcher.testdata";
 
-import type {Matcher} from "./matcher";
+import type {MatcherHandle} from "./matcher";
 import type {APIOptions, PerseusDependenciesV2} from "../../types";
 
 describe("matcher widget", () => {
@@ -110,7 +110,7 @@ describe("matcher widget", () => {
         await wait();
 
         // Act
-        const matcher: Matcher = renderer.findWidgets("matcher 1")[0];
+        const matcher: MatcherHandle = renderer.findWidgets("matcher 1")[0];
 
         act(() => {
             matcher.moveRightOptionToIndex(
@@ -157,7 +157,7 @@ describe("matcher widget", () => {
             const {renderer} = renderQuestion(question);
 
             // Act
-            const matcher: Matcher = renderer.findWidgets("matcher 1")[0];
+            const matcher: MatcherHandle = renderer.findWidgets("matcher 1")[0];
 
             // Put the right options in the correct order by repeatedly moving
             // answers to the end of the list
@@ -179,7 +179,7 @@ describe("matcher widget", () => {
             const {renderer} = renderQuestion(question);
 
             // Act
-            const matcher: Matcher = renderer.findWidgets("matcher 1")[0];
+            const matcher: MatcherHandle = renderer.findWidgets("matcher 1")[0];
 
             // Put the left options in reverse order
             ["Three", "Two", "One"].forEach((option, index) => {

@@ -1,3 +1,4 @@
+import {generatePlotterOptions} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
 
@@ -53,7 +54,7 @@ describe("plotter widget", () => {
 
     describe("drag text", () => {
         function sharedPlotterOptions(): PerseusPlotterWidgetOptions {
-            return {
+            return generatePlotterOptions({
                 categories: ["0", "1", "2"],
                 plotDimensions: [300, 300],
                 correct: [0, 1, 2],
@@ -63,7 +64,7 @@ describe("plotter widget", () => {
                 snapsPerLine: 1,
                 starting: [0, 0, 0],
                 type: "bar",
-            };
+            });
         }
 
         it("should show drag text when not static", async () => {

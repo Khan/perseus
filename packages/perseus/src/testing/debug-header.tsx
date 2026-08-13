@@ -35,7 +35,11 @@ export const DebugHeader = ({
         >
             <Heading size="xxlarge">{title}</Heading>
             <View
-                style={{marginLeft: "auto", flexDirection: "row", gap: "8px"}}
+                style={{
+                    marginInlineStart: "auto",
+                    flexDirection: "row",
+                    gap: "8px",
+                }}
             >
                 <Switch
                     icon={

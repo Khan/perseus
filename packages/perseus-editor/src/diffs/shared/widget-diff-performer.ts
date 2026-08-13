@@ -37,7 +37,7 @@ const objectEntry = function (before: any, after: any, key) {
     const afterKeys = _.isObject(after) ? _(after).keys() : [];
     const keys = _.union(beforeKeys, afterKeys);
 
-    const children = _.map(keys, function (key) {
+    const children = keys.map(function (key) {
         return performDiff((before || {})[key], (after || {})[key], key);
     });
 

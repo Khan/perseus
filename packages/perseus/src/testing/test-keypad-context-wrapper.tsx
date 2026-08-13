@@ -59,18 +59,18 @@ export default TestKeypadContextWrapper;
 
 const styles = StyleSheet.create({
     keypad: {
-        bottom: 0,
+        insetBlockEnd: 0,
         // The keypad itself needs to respond to events even though
         // we've set its container to pointer-events: none;
         pointerEvents: "all",
     },
     keypadWithBottomOffset: {
-        bottom: 65,
+        insetBlockEnd: 65,
     },
     keypadContainer: {
         position: "absolute",
         width: "100%",
-        bottom: 0,
+        insetBlockEnd: 0,
         // Hide the overflow of this container so when the keypad is
         // dismissed, it doesn't overlap the toolbar.
         overflow: "hidden",
