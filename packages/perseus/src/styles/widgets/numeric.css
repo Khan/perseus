@@ -1,15 +1,15 @@
 .input-with-examples-tooltip {
-    font-size: 18px;
-    line-height: 28px;
-    color: #717378;
-    background: #fff;
+    font-size: var(--wb-font-body-size-medium);
+    line-height: var(--wb-font-body-lineHeight-medium);
+    color: var(--wb-semanticColor-core-foreground-neutral-subtle);
+    background: var(--wb-semanticColor-core-background-base-default);
 }
 .input-with-examples-tooltip ul {
     list-style-type: disc;
     margin-inline-start: 30px;
 }
 .input-with-examples-tooltip strong {
-    font-weight: 700;
+    font-weight: var(--wb-font-weight-bold);
 }
 .input-with-examples-tooltip em {
     font-style: italic;
