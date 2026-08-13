@@ -938,7 +938,9 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
                 // Assert
                 const image = screen.getByRole("figure");
-                expect(image).toHaveStyle(`max-width: ${expectedWidth}px`);
+                expect(image).toHaveStyle(
+                    `max-inline-size: ${expectedWidth}px`,
+                );
             },
         );
 
@@ -965,7 +967,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 // Assert
                 const image = screen.getByRole("figure");
                 expect(image).toHaveStyle(
-                    `max-width: ${earthMoonImage.width}px`,
+                    `max-inline-size: ${earthMoonImage.width}px`,
                 );
             },
         );
@@ -991,7 +993,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
             // Assert - max-width should not be 0, which would collapse the container
             const figure = screen.getByRole("figure");
-            expect(figure).not.toHaveStyle("max-width: 0px");
+            expect(figure).not.toHaveStyle("max-inline-size: 0px");
         });
 
         it.each`
@@ -1032,7 +1034,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 // Assert
                 // Need container query to get the image inside the zoom view,
                 // separate from the original image in the content area.
-                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                // eslint-disable-next-line testing-library/no-node-access
                 const image = document.querySelector(
                     "[role='dialog'] .fixed-to-responsive.svg-image",
                 );
@@ -1088,7 +1090,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 // Assert
                 // Need container query to get the image inside the zoom view,
                 // separate from the original image in the content area.
-                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                // eslint-disable-next-line testing-library/no-node-access
                 const image = document.querySelector(
                     "[role='dialog'] .fixed-to-responsive.svg-image",
                 );

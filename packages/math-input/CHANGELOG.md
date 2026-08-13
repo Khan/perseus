@@ -1,5 +1,45 @@
 # @khanacademy/math-input
 
+## 27.0.2
+
+### Patch Changes
+
+-   Updated dependencies [[`bbf8a63`](https://github.com/Khan/perseus/commit/bbf8a63287d1137e64b58f4902fae06c43042dc0)]:
+    -   @khanacademy/perseus-core@35.0.0
+    -   @khanacademy/keypad-context@3.2.82
+
+## 27.0.1
+
+### Patch Changes
+
+-   [#3981](https://github.com/Khan/perseus/pull/3981) [`da36e20`](https://github.com/Khan/perseus/commit/da36e2018154df985e830abd1ff7448d2d0fe273) Thanks [@maddy531](https://github.com/maddy531)! - Adopt the Wonder Blocks `require-logical-properties-for-rtl` ESLint rule and auto-fix physical CSS properties to their logical equivalents (e.g. `marginLeft` → `marginInlineStart`) for RTL support. No behavior change in LTR; correctly mirrors in RTL.
+
+-   Updated dependencies [[`4639d92`](https://github.com/Khan/perseus/commit/4639d927508f40a0aeb43e31beac46ba266355dd)]:
+    -   @khanacademy/perseus-core@34.1.0
+    -   @khanacademy/keypad-context@3.2.81
+
+## 27.0.0
+
+### Major Changes
+
+-   [#3876](https://github.com/Khan/perseus/pull/3876) [`25e0c4e`](https://github.com/Khan/perseus/commit/25e0c4ec0c9424617a1476c8a0e58284fdf8c4bb) Thanks [@dhalper1](https://github.com/dhalper1)! - Fix "Unable to find node on an unmounted component" error from the mobile keypad: `MobileKeypad.getDOMNode` now returns a container ref instead of calling the deprecated `ReactDOM.findDOMNode`, and the keypad notifies consumers via `onElementMounted(null)` when it unmounts so they don't retain a stale reference.
+
+    Breaking changes:
+
+    -   `KeypadAPI.getDOMNode` now returns `HTMLElement | null` (was `Element | Text | null`).
+    -   `MobileKeypad`'s `onElementMounted` is now typed `(api: KeypadAPI | null) => void` and is called with `null` on unmount, so callbacks must accept `null`.
+
+### Patch Changes
+
+-   [#4024](https://github.com/Khan/perseus/pull/4024) [`c38df95`](https://github.com/Khan/perseus/commit/c38df95f089b31c4338fbbcb88600bff4b5ab859) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused Eslint exceptions
+
+-   [#4048](https://github.com/Khan/perseus/pull/4048) [`fa53b64`](https://github.com/Khan/perseus/commit/fa53b648c5ae56f41fe7449a3c584374a3f36940) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Update wonder-blocks dependencies
+
+-   Updated dependencies [[`c38df95`](https://github.com/Khan/perseus/commit/c38df95f089b31c4338fbbcb88600bff4b5ab859), [`41f38b0`](https://github.com/Khan/perseus/commit/41f38b0fac2795472c3234ad91fd15508fdd4674)]:
+    -   @khanacademy/perseus-core@34.0.2
+    -   @khanacademy/keypad-context@3.2.80
+    -   @khanacademy/perseus-utils@2.1.5
+
 ## 26.6.8
 
 ### Patch Changes

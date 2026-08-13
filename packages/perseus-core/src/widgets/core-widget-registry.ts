@@ -2,6 +2,7 @@ import {Errors} from "../error/errors";
 import {PerseusError} from "../error/perseus-error";
 import Registry from "../utils/registry";
 
+import blankWidgetLogic from "./blank";
 import categorizerWidgetLogic from "./categorizer";
 import csProgramWidgetLogic from "./cs-program";
 import definitionWidgetLogic from "./definition";
@@ -37,8 +38,11 @@ import type {
     PublicWidgetOptionsFunction,
     WidgetLogic,
 } from "./logic-export.types";
-import type {PerseusWidgetOptions, PerseusWidget} from "../data-schema";
-import type {Alignment} from "../types";
+import type {
+    PerseusWidgetOptions,
+    PerseusWidget,
+    Alignment,
+} from "../data-schema";
 
 const widgets = new Registry<WidgetLogic<any, any>>("Core widget registry");
 
@@ -188,6 +192,7 @@ export const getAlignmentClassName = (
  */
 export function registerCoreWidgets() {
     const widgets = [
+        blankWidgetLogic,
         categorizerWidgetLogic,
         csProgramWidgetLogic,
         definitionWidgetLogic,

@@ -153,7 +153,7 @@ const ImageWidget = forwardRef<Widget, ImageWidgetProps>(
                 <figure
                     className="perseus-image-widget"
                     style={{
-                        maxWidth: maxWidth,
+                        maxInlineSize: maxWidth,
                         width: width,
                     }}
                 >
@@ -166,7 +166,7 @@ const ImageWidget = forwardRef<Widget, ImageWidgetProps>(
             <figure
                 className="perseus-image-widget"
                 style={{
-                    maxWidth: maxWidth,
+                    maxInlineSize: maxWidth,
                     width: width,
                 }}
             >

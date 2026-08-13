@@ -1347,7 +1347,6 @@ describe("Graphie drawing tools", () => {
 
                 graphie.addMouseLayer({[eventName]: handler});
 
-                // eslint-disable-next-line testing-library/no-node-access
                 const target = graphie.el.querySelector("rect");
                 expect(target?.getAttribute("width")).toBe("50");
                 expect(target?.getAttribute("height")).toBe("50");

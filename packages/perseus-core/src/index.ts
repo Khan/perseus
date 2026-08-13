@@ -5,7 +5,6 @@ export type {
     MarkerType,
     InteractiveMarkerType,
     Relationship,
-    Alignment,
     RecursiveReadonly,
 } from "./types";
 export type {KeypadKey} from "./keypad";
@@ -81,6 +80,8 @@ export * from "./data-schema";
 /** @hidden */
 export {pluck, mapObject} from "./utils/objective_";
 
+/** @hidden */
+export {default as blankLogic} from "./widgets/blank";
 /** @hidden */
 export {default as categorizerLogic} from "./widgets/categorizer";
 /** @hidden */
@@ -269,6 +270,8 @@ export {
     shuffleSorter,
 } from "./widgets/sorter/sorter-util";
 /** @hidden */
+export type {BlankPublicWidgetOptions} from "./widgets/blank/blank-util";
+/** @hidden */
 export type {SorterPublicWidgetOptions} from "./widgets/sorter/sorter-util";
 /** @hidden */
 export type {LabelImagePublicWidgetOptions} from "./widgets/label-image/label-image-util";
@@ -329,6 +332,11 @@ export {
 } from "./utils/util.graphie";
 
 // Generators
+/** @hidden */
+export {
+    generateBlankOptions,
+    generateBlankWidget,
+} from "./utils/generators/blank-widget-generator";
 /** @hidden */
 export {
     generateDefinitionOptions,
@@ -430,6 +438,12 @@ export {
     generateMatrixWidget,
     generateMatrixOptions,
 } from "./utils/generators/matrix-widget-generator";
+/** @hidden */
+export {
+    generateOrdererWidget,
+    generateOrdererOptions,
+    generateOrdererOption,
+} from "./utils/generators/orderer-widget-generator";
 /** @hidden */
 export {
     generatePlotterWidget,

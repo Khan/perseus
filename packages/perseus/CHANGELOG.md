@@ -1,5 +1,106 @@
 # @khanacademy/perseus
 
+## 84.0.2
+
+### Patch Changes
+
+-   [#3955](https://github.com/Khan/perseus/pull/3955) [`e90af81`](https://github.com/Khan/perseus/commit/e90af815bdef3fd75ca1cff6c6854cdee2d1dbd6) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - FIX: `ServerItemRenderer` now waits for zoomable content to settle before
+    calling the `onRendered` callback.
+
+-   [#4052](https://github.com/Khan/perseus/pull/4052) [`94f42d7`](https://github.com/Khan/perseus/commit/94f42d74e8b840f05b0360e0e631e185db52af18) Thanks [@benchristel](https://github.com/benchristel)! - Delete CSS styles related to the TexButtons component (removed in [#838](https://github.com/Khan/perseus/issues/838)).
+
+-   [#3953](https://github.com/Khan/perseus/pull/3953) [`dd9c4f4`](https://github.com/Khan/perseus/commit/dd9c4f43d2060d931c307e63aa190041dedde1c6) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - FIX: `ServerItemRenderer` no longer calls `onRendered` before
+    asynchronously-rendered content has finished rendering. Assets register
+    themselves while it is still rendering, so it now tracks their statuses
+    synchronously instead of in React state, where they weren't visible until after
+    it had already reported completion. Previously any item containing an async
+    asset — math or images — reported complete during mount, and because that report
+    is only made once, no corrected call followed.
+
+## 84.0.1
+
+### Patch Changes
+
+-   [#4056](https://github.com/Khan/perseus/pull/4056) [`b975d65`](https://github.com/Khan/perseus/commit/b975d65735b39800a5d0719a9352228233183a06) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fixing a forwardRef issue with the blank widget.
+
+## 84.0.0
+
+### Major Changes
+
+-   [#4031](https://github.com/Khan/perseus/pull/4031) [`ce0d820`](https://github.com/Khan/perseus/commit/ce0d82019af3248924201d6a6fda06805ccb84c5) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove `Changeable.propTypes` since both `Changeable` and `PropTypes` are deprecated. This is a major change for `@khanacademy/perseus` since it's removing an export.
+
+-   [#3928](https://github.com/Khan/perseus/pull/3928) [`bbf8a63`](https://github.com/Khan/perseus/commit/bbf8a63287d1137e64b58f4902fae06c43042dc0) Thanks [@Evelas78](https://github.com/Evelas78)! - Created a new blank widget which will require schema updates in both frontend and webapp
+
+### Minor Changes
+
+-   [#4051](https://github.com/Khan/perseus/pull/4051) [`9b1e845`](https://github.com/Khan/perseus/commit/9b1e845261eeccda6df46829a12ca676266c10f2) Thanks [@benchristel](https://github.com/benchristel)! - Migrate hint-related color styles to Wonder Blocks semantic colors. This enables hints to be themed.
+
+### Patch Changes
+
+-   Updated dependencies [[`bbf8a63`](https://github.com/Khan/perseus/commit/bbf8a63287d1137e64b58f4902fae06c43042dc0)]:
+    -   @khanacademy/perseus-core@35.0.0
+    -   @khanacademy/keypad-context@3.2.82
+    -   @khanacademy/kmath@2.4.41
+    -   @khanacademy/math-input@27.0.2
+    -   @khanacademy/perseus-linter@5.1.22
+    -   @khanacademy/perseus-score@8.12.14
+
+## 83.1.0
+
+### Minor Changes
+
+-   [#4004](https://github.com/Khan/perseus/pull/4004) [`4639d92`](https://github.com/Khan/perseus/commit/4639d927508f40a0aeb43e31beac46ba266355dd) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Add "none" (fill-only) stroke style for locked polygons and ellipses
+
+### Patch Changes
+
+-   [#4050](https://github.com/Khan/perseus/pull/4050) [`dd6ff9d`](https://github.com/Khan/perseus/commit/dd6ff9d165dcbb7ad07b52192abceaf5ff51c5a0) Thanks [@handeyeco](https://github.com/handeyeco)! - Reorganize widget editor files
+
+-   [#3981](https://github.com/Khan/perseus/pull/3981) [`da36e20`](https://github.com/Khan/perseus/commit/da36e2018154df985e830abd1ff7448d2d0fe273) Thanks [@maddy531](https://github.com/maddy531)! - Adopt the Wonder Blocks `require-logical-properties-for-rtl` ESLint rule and auto-fix physical CSS properties to their logical equivalents (e.g. `marginLeft` → `marginInlineStart`) for RTL support. No behavior change in LTR; correctly mirrors in RTL.
+
+-   Updated dependencies [[`4639d92`](https://github.com/Khan/perseus/commit/4639d927508f40a0aeb43e31beac46ba266355dd), [`da36e20`](https://github.com/Khan/perseus/commit/da36e2018154df985e830abd1ff7448d2d0fe273)]:
+    -   @khanacademy/perseus-core@34.1.0
+    -   @khanacademy/math-input@27.0.1
+    -   @khanacademy/keypad-context@3.2.81
+    -   @khanacademy/kmath@2.4.40
+    -   @khanacademy/perseus-linter@5.1.21
+    -   @khanacademy/perseus-score@8.12.13
+
+## 83.0.1
+
+### Patch Changes
+
+-   [#4024](https://github.com/Khan/perseus/pull/4024) [`c38df95`](https://github.com/Khan/perseus/commit/c38df95f089b31c4338fbbcb88600bff4b5ab859) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove unused Eslint exceptions
+
+-   [#4037](https://github.com/Khan/perseus/pull/4037) [`36ca8d0`](https://github.com/Khan/perseus/commit/36ca8d0851e23afdb7bc00c2d0a4d712e2d758fe) Thanks [@benchristel](https://github.com/benchristel)! - Internal: GradedGroupSet no longer has defaultProps.
+
+-   [#4048](https://github.com/Khan/perseus/pull/4048) [`fa53b64`](https://github.com/Khan/perseus/commit/fa53b648c5ae56f41fe7449a3c584374a3f36940) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Update wonder-blocks dependencies
+
+-   [#4040](https://github.com/Khan/perseus/pull/4040) [`9f68e16`](https://github.com/Khan/perseus/commit/9f68e164adeb39f80648b581f3e389cd233d0a9c) Thanks [@benchristel](https://github.com/benchristel)! - Internal: MockWidget no longer has defaultProps.
+
+-   [#3974](https://github.com/Khan/perseus/pull/3974) [`e69dab6`](https://github.com/Khan/perseus/commit/e69dab6adc8b433470d74ab3ba1434c1607d7894) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Fix locked figure screen-reader order to match author order
+
+-   [#4023](https://github.com/Khan/perseus/pull/4023) [`41f38b0`](https://github.com/Khan/perseus/commit/41f38b0fac2795472c3234ad91fd15508fdd4674) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the defaultProps of the Interactive Graph widget have been removed.
+
+-   [#4035](https://github.com/Khan/perseus/pull/4035) [`1cabb62`](https://github.com/Khan/perseus/commit/1cabb6281f64fd0c277d564bba4692283b0c276b) Thanks [@benchristel](https://github.com/benchristel)! - Internal: The Group widget no longer has defaultProps; all props are always passed.
+
+-   [#4036](https://github.com/Khan/perseus/pull/4036) [`834951f`](https://github.com/Khan/perseus/commit/834951f1f41ac0e7a1e1ccde403b0453ee37a0b4) Thanks [@benchristel](https://github.com/benchristel)! - Internal: GradedGroup no longer has defaultProps.
+
+-   [#4039](https://github.com/Khan/perseus/pull/4039) [`e32c294`](https://github.com/Khan/perseus/commit/e32c2946edf38519898143d2994e4ab5fdbdcbbd) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Orderer no longer has defaultProps.
+
+-   [#3993](https://github.com/Khan/perseus/pull/3993) [`9cc9875`](https://github.com/Khan/perseus/commit/9cc9875ba57ef609b841323ea1252fabcaa472ad) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Scale locked-figure dash pattern with stroke weight
+
+-   Updated dependencies [[`c38df95`](https://github.com/Khan/perseus/commit/c38df95f089b31c4338fbbcb88600bff4b5ab859), [`fa53b64`](https://github.com/Khan/perseus/commit/fa53b648c5ae56f41fe7449a3c584374a3f36940), [`41f38b0`](https://github.com/Khan/perseus/commit/41f38b0fac2795472c3234ad91fd15508fdd4674), [`25e0c4e`](https://github.com/Khan/perseus/commit/25e0c4ec0c9424617a1476c8a0e58284fdf8c4bb)]:
+    -   @khanacademy/simple-markdown@3.0.1
+    -   @khanacademy/perseus-linter@5.1.20
+    -   @khanacademy/perseus-core@34.0.2
+    -   @khanacademy/math-input@27.0.0
+    -   @khanacademy/kas@2.2.6
+    -   @khanacademy/pure-markdown@2.3.2
+    -   @khanacademy/keypad-context@3.2.80
+    -   @khanacademy/kmath@2.4.39
+    -   @khanacademy/perseus-score@8.12.12
+    -   @khanacademy/perseus-utils@2.1.5
+
 ## 83.0.0
 
 ### Major Changes

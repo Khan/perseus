@@ -1,4 +1,5 @@
-import {screen, render, act} from "@testing-library/react";
+import {getDefaultFigureForType} from "@khanacademy/perseus-core";
+import {screen, render, act, fireEvent} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {vec} from "mafs";
 import React from "react";
@@ -11,14 +12,18 @@ import {
 } from "../../testing/test-dependencies";
 
 import {MafsGraph} from "./mafs-graph";
-import {actions, REMOVE_POINT} from "./reducer/interactive-graph-action";
+import {
+    actions,
+    DELETE_INTENT,
+    REMOVE_POINT,
+} from "./reducer/interactive-graph-action";
 import {interactiveGraphReducer} from "./reducer/interactive-graph-reducer";
 import {calculateNestedSVGCoords, getBaseMafsGraphPropsForTests} from "./utils";
 
 import type {MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState} from "./types";
 import type {PerseusDependenciesV2} from "../../types";
-import type {GraphRange} from "@khanacademy/perseus-core";
+import type {GraphRange, LockedFigure} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const baseMafsProps = getBaseMafsGraphPropsForTests();
@@ -1009,7 +1014,6 @@ describe("MafsGraph", () => {
             // hears how to interact with the graph before the graph
             // description. If this fails, the instructions are rendered after
             // the description.
-            // eslint-disable-next-line testing-library/no-node-access
             expect(description.compareDocumentPosition(instructions)).toBe(
                 Node.DOCUMENT_POSITION_PRECEDING,
             );
@@ -1055,6 +1059,60 @@ describe("MafsGraph", () => {
                 "instructions",
                 "description",
                 "element-details",
+            ]);
+        });
+    });
+
+    describe("locked figure reading order", () => {
+        it("renders locked figures in author order regardless of type", () => {
+            // Arrange
+            const lockedFigures: LockedFigure[] = [
+                {
+                    ...getDefaultFigureForType("point"),
+                    coord: [6, 3],
+                    ariaLabel: "Point A",
+                },
+                {
+                    ...getDefaultFigureForType("vector"),
+                    points: [
+                        [6, 3],
+                        [4, 2],
+                    ],
+                    ariaLabel: "Arrow 1",
+                },
+                {
+                    ...getDefaultFigureForType("point"),
+                    coord: [4, 2],
+                    ariaLabel: "Point B",
+                },
+                {
+                    ...getDefaultFigureForType("vector"),
+                    points: [
+                        [4, 2],
+                        [2, 1],
+                    ],
+                    ariaLabel: "Arrow 2",
+                },
+            ];
+
+            // Act
+            render(
+                <MafsGraph
+                    {...baseMafsProps}
+                    lockedFigures={lockedFigures}
+                    dispatch={() => {}}
+                />,
+            );
+
+            // Assert
+            const labels = screen
+                .getAllByRole("img")
+                .map((figure) => figure.getAttribute("aria-label"));
+            expect(labels).toEqual([
+                "Point A",
+                "Arrow 1",
+                "Point B",
+                "Arrow 2",
             ]);
         });
     });
@@ -1225,6 +1283,46 @@ describe("MafsGraph", () => {
 
             expect(mockDispatch.mock.calls).toContainEqual([
                 {type: REMOVE_POINT, index: 0},
+            ]);
+        });
+
+        it("point - removes the focused point when Delete is pressed on its handle", async () => {
+            // Arrange
+            const mockDispatch = jest.fn();
+            const state: InteractiveGraphState = {
+                type: "point",
+                numPoints: "unlimited",
+                focusedPointIndex: 0,
+                hasBeenInteractedWith: true,
+                showRemovePointButton: true,
+                interactionMode: "keyboard",
+                showKeyboardInteractionInvitation: false,
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                snapStep: [2, 2],
+                coords: [[9, 9]],
+            };
+
+            render(
+                <MafsGraph
+                    {...baseMafsProps}
+                    markings="none"
+                    state={state}
+                    dispatch={mockDispatch}
+                />,
+            );
+
+            // Act: focus the real point handle, then press Delete.
+            const handle = screen.getByTestId(
+                "movable-point__focusable-handle",
+            );
+            handle.focus();
+            await userEvent.keyboard("{Delete}");
+
+            expect(mockDispatch.mock.calls).toContainEqual([
+                {type: DELETE_INTENT},
             ]);
         });
 
@@ -1410,6 +1508,85 @@ describe("MafsGraph", () => {
                 screen.queryByTestId("movable-point__visible-label"),
             ).not.toBeInTheDocument();
         });
+    });
+});
+
+describe("keyboard interaction invitation", () => {
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    const unlimitedPolygonState: InteractiveGraphState = {
+        type: "polygon",
+        numSides: "unlimited",
+        closedPolygon: true,
+        coords: [
+            [-1, 1],
+            [0, 0],
+            [1, 1],
+        ],
+        focusedPointIndex: null,
+        hasBeenInteractedWith: false,
+        interactionMode: "mouse",
+        showAngles: false,
+        showSides: false,
+        showKeyboardInteractionInvitation: false,
+        showRemovePointButton: false,
+        snapStep: [1, 1],
+        snapTo: "grid",
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
+    };
+
+    function getGraphEl(container: HTMLElement): HTMLElement {
+        // eslint-disable-next-line testing-library/no-node-access
+        const graph = container.querySelector<HTMLElement>(".mafs-graph");
+        invariant(graph != null, "expected a .mafs-graph element");
+        return graph;
+    }
+
+    it("invites keyboard interaction when the graph is focused via keyboard", () => {
+        // Arrange
+        const dispatch = jest.fn();
+        const {container} = render(
+            <MafsGraph
+                {...baseMafsProps}
+                state={unlimitedPolygonState}
+                dispatch={dispatch}
+            />,
+        );
+
+        // Act: a real focus is keyboard-driven (`:focus-visible`).
+        act(() => getGraphEl(container).focus());
+
+        // Assert
+        expect(dispatch).toHaveBeenCalledWith(
+            actions.global.changeKeyboardInvitationVisibility(true),
+        );
+    });
+
+    it("does not invite keyboard interaction when the focus is not keyboard-driven", () => {
+        // Arrange
+        const dispatch = jest.fn();
+        const {container} = render(
+            <MafsGraph
+                {...baseMafsProps}
+                state={unlimitedPolygonState}
+                dispatch={dispatch}
+            />,
+        );
+
+        // Act
+        fireEvent.focus(getGraphEl(container));
+
+        // Assert
+        expect(dispatch).not.toHaveBeenCalledWith(
+            actions.global.changeKeyboardInvitationVisibility(true),
+        );
     });
 });
 

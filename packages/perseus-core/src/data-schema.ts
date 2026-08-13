@@ -143,6 +143,7 @@ export type MakeWidgetMap<TRegistry> = {
  * @see {@link https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation}
  */
 export interface PerseusWidgetTypes {
+    blank: BlankWidget;
     categorizer: CategorizerWidget;
     "cs-program": CSProgramWidget;
     definition: DefinitionWidget;
@@ -315,6 +316,27 @@ export type PerseusImageDetail = {
     height: number;
 };
 
+// TODO(benchristel): as of 2026, only some of these alignments appear in our
+//  content corpus. Counts (for all locales):
+//     5955449  "block"
+//     20442080 "default"
+//     12622    "full-width"
+//     52       "wrap-left"
+//     35       "wrap-right"
+//  It seems possible that "wrap-left" and "wrap-right" are vestigial. "inline"
+//  and "inline-block" are definitely unused. Consider removing them from this
+//  type.
+export type Alignment =
+    | "default"
+    | "block"
+    | "inline-block"
+    | "inline"
+    // wrap alignments will be set to inline-block floated left or right this will
+    // allow text to wrap around the widget and not have large space on either side
+    | "wrap-left"
+    | "wrap-right"
+    | "full-width";
+
 /**
  * ItemExtras represent extra UI elements that help the learner in answering
  * the question (such as a calculator for questions where solving by hand is
@@ -408,7 +430,7 @@ export type WidgetOptions<
      * widget logic, which can be various other alignments (e.g.
      * "inline-block", "inline", etc).
      */
-    alignment?: string;
+    alignment?: Alignment;
     /**
      * Options specific to the type field of the widget. See Perseus*WidgetOptions for
      * more details
@@ -428,6 +450,8 @@ export type WidgetOptions<
     version?: Version;
 };
 
+// prettier-ignore
+export type BlankWidget = WidgetOptions<'blank', PerseusBlankWidgetOptions>;
 // prettier-ignore
 export type CategorizerWidget = WidgetOptions<'categorizer', PerseusCategorizerWidgetOptions>;
 // prettier-ignore
@@ -521,6 +545,14 @@ export type PerseusImageBackground = {
 export type MarkingsType = "axes" | "graph" | "grid" | "none";
 
 export type AxisLabelLocation = "onAxis" | "alongEdge";
+
+/** Options for the blank widget, used within "Drag And Drop" widgets as the dropzone for answer tiles */
+export type PerseusBlankWidgetOptions = {
+    /** Display Type for how the blank should be rendered */
+    displayType: "normal" | "superscript" | "subscript";
+    /** ID for the correct answer tile for the blank */
+    correctId: string;
+};
 
 /** Options for the categorizer widget. Presents items to sort into groups. */
 export type PerseusCategorizerWidgetOptions = {
@@ -918,13 +950,13 @@ export type PerseusInteractiveGraphWidgetOptions = {
      */
     snapStep?: [x: number, y: number];
     /** An optional image to use in the background */
-    backgroundImage?: PerseusImageBackground;
+    backgroundImage: PerseusImageBackground;
     /**
      * The type of markings to display on the graph.
      */
     markings: MarkingsType;
     /** How to label the X and Y axis. default: ["x", "y"] */
-    labels?: string[];
+    labels: string[];
     /**
      * Specifies the location of the labels on the graph.  default: "onAxis".
      * - "onAxis": Labels are positioned on the axis at the right (x) and top
@@ -933,7 +965,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
      *    edges of the graph. The y label is rotated. Typically used when the
      *    range min is near 0 with longer labels.
      */
-    labelLocation?: AxisLabelLocation;
+    labelLocation: AxisLabelLocation;
     /** Which sides of the graph are bounded (removed axis arrows). */
     showAxisArrows: ShowAxisArrows;
     /**
@@ -950,7 +982,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
      */
     showRuler?: boolean;
     /** Whether to show tooltips on the graph */
-    showTooltips?: boolean;
+    showTooltips: boolean;
     /**
      * The unit to show on the ruler.  e.g. "mm", "cm",  "m", "km", "in", "ft",
      * "yd", "mi".
@@ -1024,6 +1056,12 @@ export type LockedFigureType = LockedFigure["type"];
 
 export type LockedLineStyle = "solid" | "dashed";
 
+/**
+ * Stroke style for fillable locked figures (polygons, ellipses): a solid or
+ * dashed border, or `"none"` to render the fill with no border at all.
+ */
+export type LockedFigureStrokeStyle = LockedLineStyle | "none";
+
 export type LockedPointType = {
     type: "point";
     coord: Coord;
@@ -1070,7 +1108,7 @@ export type LockedEllipseType = {
     angle: number;
     color: LockedFigureColor;
     fillStyle: LockedFigureFillType;
-    strokeStyle: LockedLineStyle;
+    strokeStyle: LockedFigureStrokeStyle;
     weight: StrokeWeight;
     labels: LockedLabelType[];
     ariaLabel?: string;
@@ -1082,7 +1120,7 @@ export type LockedPolygonType = {
     color: LockedFigureColor;
     showVertices: boolean;
     fillStyle: LockedFigureFillType;
-    strokeStyle: LockedLineStyle;
+    strokeStyle: LockedFigureStrokeStyle;
     weight: StrokeWeight;
     labels: LockedLabelType[];
     ariaLabel?: string;
@@ -2240,6 +2278,7 @@ export type PerseusInputNumberAnswer = PerseusNumericInputAnswer;
 export type PerseusInputNumberWidgetOptions = PerseusNumericInputWidgetOptions;
 
 export type PerseusWidgetOptions =
+    | PerseusBlankWidgetOptions
     | PerseusCategorizerWidgetOptions
     | PerseusCSProgramWidgetOptions
     | PerseusDefinitionWidgetOptions

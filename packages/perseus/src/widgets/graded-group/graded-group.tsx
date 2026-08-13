@@ -1,5 +1,4 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Button from "@khanacademy/wonder-blocks-button";
 import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
@@ -74,15 +73,6 @@ type Props = WidgetProps<
     dependencies: PerseusDependenciesV2;
 };
 
-type DefaultProps = {
-    title: Props["title"];
-    content: Props["content"];
-    widgets: Props["widgets"];
-    images: Props["images"];
-    hint: Props["hint"];
-    linterContext: Props["linterContext"];
-};
-
 type State = {
     status: (typeof GRADING_STATUSES)[keyof typeof GRADING_STATUSES];
     showHint: boolean;
@@ -112,15 +102,6 @@ export class GradedGroup
 {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
-
-    static defaultProps: DefaultProps = {
-        title: "",
-        content: "",
-        widgets: {},
-        images: {},
-        hint: null,
-        linterContext: linterContextDefault,
-    };
 
     state: State = {
         status: GRADING_STATUSES.ungraded,
@@ -374,7 +355,7 @@ export class GradedGroup
                                 kind="secondary"
                                 disabled={this.props.apiOptions.readOnly}
                                 onClick={this.props.onNextQuestion}
-                                style={{marginLeft: 5}}
+                                style={{marginInlineStart: 5}}
                             >
                                 {this.context.strings.nextQuestion}
                             </Button>
@@ -467,20 +448,20 @@ export class GradedGroup
 const styles = StyleSheet.create({
     gradedGroupInSet: {
         // Reset a few desktop-only styles that come from graded-group.css
-        marginLeft: 0,
-        paddingLeft: 0,
+        marginInlineStart: 0,
+        paddingInlineStart: 0,
     },
 
     gradedGroup: {
-        borderTop: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
-        borderBottom: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
+        borderBlockStart: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
+        borderBlockEnd: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
         backgroundColor: semanticColor.core.background.base.subtle,
-        marginLeft: negativePhoneMargin,
-        marginRight: negativePhoneMargin,
-        paddingBottom: phoneMargin,
-        paddingLeft: phoneMargin,
-        paddingRight: phoneMargin,
-        paddingTop: 10,
+        marginInlineStart: negativePhoneMargin,
+        marginInlineEnd: negativePhoneMargin,
+        paddingBlockEnd: phoneMargin,
+        paddingInlineStart: phoneMargin,
+        paddingInlineEnd: phoneMargin,
+        paddingBlockStart: 10,
         width: "auto",
     },
 
@@ -489,7 +470,7 @@ const styles = StyleSheet.create({
         fontSize: font.body.size.small,
         padding: 0,
         border: "none",
-        marginTop: 20,
+        marginBlockStart: 20,
         color: semanticColor.core.foreground.instructive.default,
         cursor: "pointer",
         display: "block",
@@ -498,9 +479,9 @@ const styles = StyleSheet.create({
 
     explanationTitle: {
         backgroundColor: "unset",
-        marginTop: 20,
+        marginBlockStart: 20,
         color: semanticColor.core.foreground.instructive.default,
-        marginBottom: 10,
+        marginBlockEnd: 10,
         cursor: "pointer",
         fontSize: font.body.size.small,
         padding: 0,
@@ -513,7 +494,7 @@ const styles = StyleSheet.create({
         fontSize: font.heading.size.small,
         color: semanticColor.core.foreground.neutral.default,
         textTransform: "uppercase",
-        marginBottom: 11,
+        marginBlockEnd: 11,
         letterSpacing: 0.8,
     },
 });
