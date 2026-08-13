@@ -95,10 +95,10 @@ div.graphie {
 }
 .framework-perseus .paragraph ol {
     list-style: decimal;
-    padding-left: var(--wb-sizing-size_320);
+    padding-left: 2em;
 }
 .framework-perseus blockquote {
-    padding: 0 var(--wb-sizing-size_400);
+    padding: 0 2.5em;
 }
 .framework-perseus .zoomable {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);

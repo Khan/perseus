@@ -112,9 +112,7 @@
     margin-bottom: var(--wb-sizing-size_320);
 }
 .framework-perseus.perseus-mobile .perseus-block-math {
-    -webkit-tap-highlight-color: var(
-        --wb-semanticColor-core-background-base-strong
-    );
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-touch-callout: none;
 }
 @media (max-width: 767px) {
@@ -255,7 +253,7 @@
     }
     .framework-perseus.perseus-mobile pre {
         background-color: var(
-            --wb-semanticColor-core-background-neutral-subtle
+            --wb-semanticColor-core-background-base-subtle
         );
         border-radius: var(--wb-border-radius-radius_040);
         color: var(--wb-semanticColor-core-foreground-neutral-strong);
@@ -333,7 +331,7 @@
     }
     .framework-perseus.perseus-mobile pre {
         background-color: var(
-            --wb-semanticColor-core-background-neutral-subtle
+            --wb-semanticColor-core-background-base-subtle
         );
         border-radius: var(--wb-border-radius-radius_040);
         color: var(--wb-semanticColor-core-foreground-neutral-strong);

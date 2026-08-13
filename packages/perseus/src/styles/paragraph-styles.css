@@ -95,7 +95,7 @@
     .perseus-formats-tooltip
     .paragraph
     ul:not([data-widget="radio"]) {
-    font-size: var(--wb-font-body-size-medium);
+    font-size: 15px;
     line-height: 1.5;
     margin: 0;
 }
@@ -140,7 +140,7 @@
     .perseus-renderer
     > .paragraph
     ul:not([data-widget="radio"], .indicatorContainer) {
-    margin: 0 0 0 var(--wb-sizing-size_160);
+    margin: 0 0 0 1em;
     padding: 0;
 }
 .framework-perseus.perseus-mobile
