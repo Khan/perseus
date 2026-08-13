@@ -53,11 +53,11 @@ The shared **components** (Choice Bank, Answer Tile, Actions Menu) live in
 ([LEMS-4365](https://khanacademy.atlassian.net/browse/LEMS-4365)) is the first
 built there — use it as the reference for structure and the conventions below.
 
-**The `blank` widget is _not_ one of these.** It's built alongside them under the
-same prework epic
-([LEMS-4364](https://khanacademy.atlassian.net/browse/LEMS-4364)), but it's the
-bay for FITB's inline blanks — the other widgets drop into columns. Treat it as
-FITB-specific.
+**The `blank` widget is _not_ one of these**, but a shared piece is expected to
+come out of it: the plan is to lift its **render-specific logic** into a shared
+component the other widgets can reuse. The widget itself
+([LEMS-4364](https://khanacademy.atlassian.net/browse/LEMS-4364)) is likely to
+stay **FITB-specific**, since it's the bay for FITB's *inline* blanks.
 
 ## Where things live in the repo
 
@@ -110,15 +110,32 @@ FITB-specific.
   except Empty). Max **content** width 200px (the content inside a tile, not the
   tile itself); images use one of seven height presets
   (24/36/48/60/72/84/96). Multi-use tiles show an SR-only "N remaining" count
-  and disappear when exhausted. Single- and multi-use tiles can't be mixed.
+  and disappear when exhausted. Single- and multi-use tiles can't be mixed within
+  one widget (an exercise may contain several).
+  - **The 200px cap is a design target, not an enforceable guarantee yet _(open —
+    Aug 2026)_.** Rendered **TeX** width isn't known until it renders, so treat
+    the cap as aspirational there. **Images** are more tractable, but the seven
+    height presets drive the height — width falls out of the aspect ratio and can
+    overflow. That math is computable at authoring time, so the likely answer for
+    images is a **linter warning** rather than a render-time guarantee.
 - **Actions Menu:** because pointer drag isn't available to keyboard/SR users,
   every tile has an Actions Menu button (also available to pointer users) to
   move/clear tiles. It's the first focusable element in a tile, labeled by the
   tile value with SR-only descriptive context ("Penny. 5 remaining. Actions
   Menu."). Menu actions name their target ("Move to Blank 1" / "Clear Blank 1").
+  - **These strings aren't final _(open — Aug 2026)_.** They show the intended
+    shape — value, then state, then control — not settled copy. Confirm the exact
+    wording with design/a11y before building against it.
 - **Announcements:** tile moves are announced via the **Wonder Blocks Announcer**
   (aria-live), e.g. "[Tile] moved to Blank 1" (and swap feedback when a blank was
   already filled).
+  - **@dnd-kit ships its own announcement system too** — the `Accessibility`
+    plugin in `@dnd-kit/dom` (v0.5) takes `announcements`
+    (`dragstart`/`dragmove`/`dragover`/`dragend` → string),
+    `screenReaderInstructions.draggable`, and a `debounce` (default 500ms, on the
+    move/over events). It covers **drags**, pointer and keyboard. An Actions Menu
+    move isn't a drag, so that path likely still needs the Announcer — pick one
+    owner per event, since both firing would double-announce.
 - **Scored state (per Overview):** correct tiles switch to their correct state
   (no Actions Menu); unused tiles become disabled; the Choice Bank drops its
   dashed border, subdues the "Choices" label color, and collapses toward a single
@@ -147,3 +164,6 @@ FITB-specific.
 - Figma (Drag and Drop Widgets): https://www.figma.com/design/kVVUz62ZEMflR7cJVuVBUS/Drag-and-Drop-Widgets
 - Overall epic (Drag and Drop): https://khanacademy.atlassian.net/browse/LEMS-4310
 - Prework epic (shared components / common building blocks): https://khanacademy.atlassian.net/browse/LEMS-4314
+- @dnd-kit React docs: https://dndkit.com/react/quickstart
+- @dnd-kit source — the types are ahead of the docs, so read the `.d.ts` when the
+  site is thin: https://github.com/clauderic/dnd-kit

@@ -62,12 +62,14 @@ standalone blocks so line breaks/reflow can be controlled precisely:
 - In the Choice Bank, tiles hug their contents; the whole **tile** should not
   exceed **256px** (the max choice-bank width at the 320px smallest viewport).
   This is the *tile* width, distinct from the family-wide **200px** max *content*
-  width in the shared spec. Watch i18n — some languages have long words; the max
-  may need to flex.
+  width in the shared spec — which isn't enforceable yet for TeX or images (see
+  the shared overview). Watch i18n — some languages have long words; the max may
+  need to flex.
 - When placed in a blank at narrow viewports, the tile+blank fill the parent
   width (contents stay left-aligned), yielding a placed-tile max width of ~500px
   (depends on blank sizing).
-- Single- vs multi-use is configurable but can't be mixed within one exercise.
+- Single- vs multi-use is configurable but can't be mixed within one widget (an
+  exercise may contain several).
 
 ## Read-aloud for screen reader users (FITB-specific a11y)
 
@@ -91,8 +93,9 @@ entire answer-zone contents as one string.
   perseus-score, editor in perseus-editor, schema in perseus-core, linter rule).
 - **`blank` widget stub:** `packages/perseus/src/widgets/blank/` — the dropzone
   primitive FITB builds on. Built during the shared prework
-  ([LEMS-4364](https://khanacademy.atlassian.net/browse/LEMS-4364)) but **owned by
-  FITB, not shared**. Functional component, `forwardRef` +
+  ([LEMS-4364](https://khanacademy.atlassian.net/browse/LEMS-4364)) and likely to
+  stay **FITB-specific**, though its render-specific logic is expected to be
+  lifted into a shared component. Functional component, `forwardRef` +
   `useImperativeHandle`, CSS modules + `var(--wb-*)`, `hidden: true`. Schema in
   perseus-core: `PerseusBlankWidgetOptions` (`src/data-schema.ts`) and
   `PerseusBlankUserInput` (`src/validation.types.ts`).
