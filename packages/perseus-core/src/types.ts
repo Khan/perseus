@@ -37,17 +37,6 @@ export type InteractiveMarkerType = MarkerType & {
 // Used for NumberLine
 export type Relationship = "eq" | "lt" | "gt" | "le" | "ge";
 
-export type Alignment =
-    | "default"
-    | "block"
-    | "inline-block"
-    | "inline"
-    // wrap alignments will be set to inline-block floated left or right this will
-    // allow text to wrap around the widget and not have large space on either side
-    | "wrap-left"
-    | "wrap-right"
-    | "full-width";
-
 export type RecursiveReadonly<T> = {
     readonly [K in keyof T]: RecursiveReadonly<T[K]>;
 };

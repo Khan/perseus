@@ -35,6 +35,22 @@ export const itemWithNumericInput: PerseusItem = generateTestPerseusItem({
     ],
 });
 
+/**
+ * Content whose only asset is a block of math, which renders asynchronously.
+ */
+export const itemWithMath: PerseusItem = generateTestPerseusItem({
+    question: generateTestPerseusRenderer({content: "$x + y$"}),
+});
+
+/**
+ * Content whose only asset is a table, which is zoomable on mobile.
+ */
+export const itemWithTable: PerseusItem = generateTestPerseusItem({
+    question: generateTestPerseusRenderer({
+        content: "| Column A | Column B |\n| --- | --- |\n| 1 | 2 |",
+    }),
+});
+
 export const itemWithMockWidget: PerseusItem = {
     question: {
         content: "Enter the number $$3$$ in the box: [[\u2603 mock-widget 1]]",
