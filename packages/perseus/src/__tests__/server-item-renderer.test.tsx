@@ -6,7 +6,7 @@ import {
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {within, render, screen, act} from "@testing-library/react";
+import {within, render, screen, act, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -16,7 +16,10 @@ import {
     itemWithRadioAndExpressionWidgets,
     itemWithTwoMockWidgets,
     itemWithMockWidget,
+    itemWithMath,
+    itemWithTable,
 } from "../__testdata__/server-item-renderer.testdata";
+import {ENTRANCE_TRANSITION_DURATION_MS} from "../components/zoomable";
 import * as Dependencies from "../dependencies";
 import {ServerItemRenderer} from "../server-item-renderer";
 import {
@@ -244,6 +247,164 @@ describe("server item renderer", () => {
         act(() => widget.setAssetStatus?.("ABC", true));
 
         // Assert
+        expect(onRendered).toHaveBeenCalledWith(true);
+    });
+
+    it("does not call the onRendered callback while math is still rendering", () => {
+        // Arrange
+        // This TeX never reports rendering, standing in for math that MathJax
+        // hasn't finished with yet.
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+            ...testDependencies,
+            TeX: ({children}: {children: React.ReactNode}) => (
+                <span className="mock-TeX">{children}</span>
+            ),
+        });
+
+        const onRendered = jest.fn();
+
+        // Act
+        render(
+            <RenderStateRoot>
+                <ServerItemRenderer
+                    item={itemWithMath}
+                    problemNum={0}
+                    reviewMode={false}
+                    dependencies={testDependenciesV2}
+                    onRendered={onRendered}
+                />
+            </RenderStateRoot>,
+        );
+
+        // Assert
+        expect(onRendered).not.toHaveBeenCalled();
+    });
+
+    it("calls onRendered only once when an asset settles during mount", () => {
+        // Arrange
+        // `useLayoutEffect` fires in the same commit phase as a class
+        // component's `componentDidMount`, and React commits children before
+        // parents — so this TeX settles its asset before ServerItemRenderer
+        // has mounted, which is the case we're covering. (`useEffect` runs
+        // after paint, so it would land after `componentDidMount` instead.)
+        // https://legacy.reactjs.org/docs/hooks-reference.html#uselayouteffect
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+            ...testDependencies,
+            TeX: ({
+                children,
+                onRender,
+            }: {
+                children: React.ReactNode;
+                onRender?: () => void;
+            }) => {
+                React.useLayoutEffect(() => onRender?.(), [onRender]);
+                return <span className="mock-TeX">{children}</span>;
+            },
+        });
+        const onRendered = jest.fn();
+
+        // Act
+        render(
+            <RenderStateRoot>
+                <ServerItemRenderer
+                    item={itemWithMath}
+                    problemNum={0}
+                    reviewMode={false}
+                    dependencies={testDependenciesV2}
+                    onRendered={onRendered}
+                />
+            </RenderStateRoot>,
+        );
+
+        // Assert
+        expect(onRendered).toHaveBeenCalledTimes(1);
+        expect(onRendered).toHaveBeenCalledWith(true);
+    });
+
+    it("does not call the onRendered callback until zoomable math has settled", async () => {
+        // Arrange
+        // The default test TeX never fires onRender, so we need one that does
+        // in order to get the Zoomable measuring.
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+            ...testDependencies,
+            TeX: ({
+                children,
+                onRender,
+            }: {
+                children: React.ReactNode;
+                onRender?: () => void;
+            }) => {
+                React.useEffect(() => onRender?.(), [onRender]);
+                return <span className="mock-TeX">{children}</span>;
+            },
+        });
+
+        const onRendered = jest.fn();
+
+        // Act
+        render(
+            <RenderStateRoot>
+                <ServerItemRenderer
+                    item={itemWithMath}
+                    problemNum={0}
+                    reviewMode={false}
+                    apiOptions={{isMobile: true}}
+                    dependencies={testDependenciesV2}
+                    onRendered={onRendered}
+                />
+            </RenderStateRoot>,
+        );
+
+        // Assert
+        // On mobile, block math is wrapped in a Zoomable, which renders
+        // asynchronously in order to measure and scale the math after MathJax
+        // has rendered it. waitFor moves the fake clock along between checks,
+        // so we don't have to know how many passes that takes.
+        await waitFor(() => expect(onRendered).toHaveBeenCalledWith(true));
+    });
+
+    it("does not call the onRendered callback until a zoomable table has settled", async () => {
+        // On mobile, tables are wrapped in a Zoomable too, with the entrance
+        // animation left enabled — so settling takes the measuring passes plus
+        // the length of that animation.
+
+        // Arrange
+        const onRendered = jest.fn();
+
+        // Act
+        render(
+            <RenderStateRoot>
+                <ServerItemRenderer
+                    item={itemWithTable}
+                    problemNum={0}
+                    reviewMode={false}
+                    apiOptions={{isMobile: true}}
+                    dependencies={testDependenciesV2}
+                    onRendered={onRendered}
+                />
+            </RenderStateRoot>,
+        );
+
+        // Assert
+        // Guard against the content silently not parsing as a table, which
+        // would skip the Zoomable entirely and make this test vacuous.
+        expect(screen.getByRole("table")).toBeInTheDocument();
+        expect(onRendered).not.toHaveBeenCalled();
+
+        // Measuring finishes and the content starts fading in. Waiting on the
+        // DOM here, rather than flushing timers a set number of times, is what
+        // gives us a reliable point to measure the animation from.
+        await waitFor(() => expect(screen.getByRole("table")).toBeVisible());
+        expect(onRendered).not.toHaveBeenCalled();
+
+        // The entrance animation is running now, so we're still not settled.
+        act(() =>
+            jest.advanceTimersByTime(ENTRANCE_TRANSITION_DURATION_MS - 1),
+        );
+        expect(onRendered).not.toHaveBeenCalled();
+
+        // Now wait for the animation to complete
+        act(() => jest.advanceTimersByTime(2));
         expect(onRendered).toHaveBeenCalledWith(true);
     });
 

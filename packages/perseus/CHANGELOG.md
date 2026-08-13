@@ -1,5 +1,22 @@
 # @khanacademy/perseus
 
+## 84.0.2
+
+### Patch Changes
+
+-   [#3955](https://github.com/Khan/perseus/pull/3955) [`e90af81`](https://github.com/Khan/perseus/commit/e90af815bdef3fd75ca1cff6c6854cdee2d1dbd6) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - FIX: `ServerItemRenderer` now waits for zoomable content to settle before
+    calling the `onRendered` callback.
+
+-   [#4052](https://github.com/Khan/perseus/pull/4052) [`94f42d7`](https://github.com/Khan/perseus/commit/94f42d74e8b840f05b0360e0e631e185db52af18) Thanks [@benchristel](https://github.com/benchristel)! - Delete CSS styles related to the TexButtons component (removed in [#838](https://github.com/Khan/perseus/issues/838)).
+
+-   [#3953](https://github.com/Khan/perseus/pull/3953) [`dd9c4f4`](https://github.com/Khan/perseus/commit/dd9c4f43d2060d931c307e63aa190041dedde1c6) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - FIX: `ServerItemRenderer` no longer calls `onRendered` before
+    asynchronously-rendered content has finished rendering. Assets register
+    themselves while it is still rendering, so it now tracks their statuses
+    synchronously instead of in React state, where they weren't visible until after
+    it had already reported completion. Previously any item containing an async
+    asset — math or images — reported complete during mount, and because that report
+    is only made once, no corrected call followed.
+
 ## 84.0.1
 
 ### Patch Changes
