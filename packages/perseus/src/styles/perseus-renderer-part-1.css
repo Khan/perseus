@@ -67,7 +67,7 @@ div.graphie {
 }
 .framework-perseus div.paragraph {
     font-family: "Lato", sans-serif;
-    font-weight: var(--wb-font-weight-medium);
+    font-weight: var(--wb-font-weight-regular);
     font-size: 18px;
     line-height: 22px;
     margin: 22px 0px;
