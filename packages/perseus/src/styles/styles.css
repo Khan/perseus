@@ -252,9 +252,7 @@
         font-family: Courier, monospace;
     }
     .framework-perseus.perseus-mobile pre {
-        background-color: var(
-            --wb-semanticColor-core-background-base-subtle
-        );
+        background-color: var(--wb-semanticColor-core-background-base-subtle);
         border-radius: var(--wb-border-radius-radius_040);
         color: var(--wb-semanticColor-core-foreground-neutral-strong);
         font-size: 18px;
@@ -330,9 +328,7 @@
         font-family: Courier, monospace;
     }
     .framework-perseus.perseus-mobile pre {
-        background-color: var(
-            --wb-semanticColor-core-background-base-subtle
-        );
+        background-color: var(--wb-semanticColor-core-background-base-subtle);
         border-radius: var(--wb-border-radius-radius_040);
         color: var(--wb-semanticColor-core-foreground-neutral-strong);
         font-size: 18px;
