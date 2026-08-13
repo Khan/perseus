@@ -5,7 +5,6 @@ export type {
     MarkerType,
     InteractiveMarkerType,
     Relationship,
-    Alignment,
     RecursiveReadonly,
 } from "./types";
 export type {KeypadKey} from "./keypad";
