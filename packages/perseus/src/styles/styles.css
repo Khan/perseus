@@ -383,7 +383,7 @@
         filter: invert(1) hue-rotate(180deg) brightness(1.5);
     }
 
-    .mathjax-wrapper {
+    .mathjax-wrapper > mjx-container {
         /* Since we invert all MathJax colors (above), we need to force the
            default foreground color to dark so it will be light when inverted.
            If we don't do this, then math will inherit the theme's foreground
