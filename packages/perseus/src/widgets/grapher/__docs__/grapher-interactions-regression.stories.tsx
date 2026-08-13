@@ -53,15 +53,10 @@ export const MobileHairlines: Story = {
             }
             return el;
         });
-        // Grab a control point and nudge it so its move handler fires, which
-        // renders the crosshair hairlines. We never release the button, so the
-        // grab — and the hairlines — stay visible through the snapshot.
-        //
-        // In graphie's mobile touch mode the grabbed point maps to the corner
-        // of the plot rather than following the synthetic pointer exactly, so
-        // the hairlines render at the graph's edge. That's fine here: this
-        // story exists to capture the hairline *color*, and it does so
-        // deterministically.
+        // In graphie's mobile touch mode the grabbed point maps to the
+        // corner of the plot rather than the synthetic pointer position, so
+        // the hairlines render at the graph's edge — that's fine, since this
+        // story only needs the hairline color, not its exact position.
         const rect = mouseTarget.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
