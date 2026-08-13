@@ -93,17 +93,12 @@ class WidgetContainerOld extends React.Component<Props, State> {
             getWidgetSubType(type, this.props.widgetProps.options) ?? "null";
 
         let alignment = this.props.widgetProps.alignment;
-        if (alignment === "default") {
+        if (alignment == null || alignment === "default") {
             alignment = CoreWidgetRegistry.getDefaultAlignment(type);
         }
 
         // This will set the WidgetContainer's alignment
-        if (alignment != null) {
-            className += CoreWidgetRegistry.getAlignmentClassName(
-                type,
-                alignment,
-            );
-        }
+        className += CoreWidgetRegistry.getAlignmentClassName(type, alignment);
 
         const apiOptions = this.props.widgetProps.apiOptions;
 

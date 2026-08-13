@@ -46,21 +46,23 @@ const MockWidget: WidgetExports<typeof MockWidgetComponent> = {
 };
 
 const getBaseProps = (
+    // TODO(benchristel): Pass real type arguments here. Maybe getBaseProps can
+    //  be generic.
     overrides?: Partial<WidgetPropsV2<any, any>>,
 ): WidgetPropsV2<any, any> => ({
     options: {},
-    trackInteraction: jest.fn(),
+    trackInteraction: () => {},
     widgetId: "widget 1",
     widgetIndex: 0,
     alignment: null,
     static: false,
     problemNum: 0,
     apiOptions: {...ApiOptions.defaults, isMobile: false},
-    onFocus: jest.fn(),
-    onBlur: jest.fn(),
+    onFocus: () => {},
+    onBlur: () => {},
     findWidgets: () => [],
     reviewMode: false,
-    handleUserInput: jest.fn(),
+    handleUserInput: () => {},
     userInput: {},
     linterContext: linterContextDefault,
     containerSizeClass: containerSizeClass.MEDIUM,
@@ -117,43 +119,6 @@ describe("widget-container", () => {
 
         // Assert - widget renders button
         expect(screen.getByText("Explanation")).toBeInTheDocument();
-    });
-
-    it("adds no alignment class when the widget has no alignment", () => {
-        // Arrange
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-
-        registerWidget("explanation", Explanation);
-
-        // Act
-        const {container} = render(
-            <Dependencies.DependenciesContext.Provider
-                value={testDependenciesV2}
-            >
-                <WidgetContainer
-                    type="explanation"
-                    id="explanation 1"
-                    widgetProps={getBaseProps({
-                        alignment: null,
-                        options: {
-                            showPrompt: "Explanation",
-                            hidePrompt: "Hide explanation",
-                            explanation: "This is an explanation",
-                            widgets: {},
-                        },
-                    })}
-                />
-            </Dependencies.DependenciesContext.Provider>,
-        );
-
-        // Assert
-        // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
-        const containerElement = container.querySelector(
-            ".perseus-widget-container",
-        );
-        expect(containerElement?.className).toBe("perseus-widget-container");
     });
 
     it("should send analytics even when widget rendering errors", () => {

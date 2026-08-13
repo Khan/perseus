@@ -47,21 +47,23 @@ const MockWidget: WidgetExports<typeof MockWidgetComponent> = {
 };
 
 const getBaseProps = (
+    // TODO(benchristel): Pass real type arguments here. Maybe getBaseProps can
+    //  be generic.
     overrides?: Partial<WidgetPropsV2<any, any>>,
 ): WidgetPropsV2<any, any> => ({
     options: {},
-    trackInteraction: jest.fn(),
+    trackInteraction: () => {},
     widgetId: "widget 1",
     widgetIndex: 0,
     alignment: null,
     static: false,
     problemNum: 0,
     apiOptions: {...ApiOptions.defaults, isMobile: false},
-    onFocus: jest.fn(),
-    onBlur: jest.fn(),
+    onFocus: () => {},
+    onBlur: () => {},
     findWidgets: () => [],
     reviewMode: false,
-    handleUserInput: jest.fn(),
+    handleUserInput: () => {},
     userInput: {},
     linterContext: linterContextDefault,
     containerSizeClass: containerSizeClass.MEDIUM,
