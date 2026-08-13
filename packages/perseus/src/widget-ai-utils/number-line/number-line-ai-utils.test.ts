@@ -25,7 +25,6 @@ export const question: PerseusRenderer = {
                 isInequality: false,
                 snapDivisions: 2,
                 range: [-4, 4],
-                static: false,
                 correctRel: "eq",
                 numDivisions: 6,
                 divisionRange: [1, 10],

@@ -19,7 +19,6 @@ describe("getNumberLinePublicWidgetOptions", () => {
             snapDivisions: 0,
             isTickCtrl: false,
             showTooltips: false,
-            static: false,
         };
 
         const publicOptions = getNumberLinePublicWidgetOptions(options);
@@ -37,7 +36,6 @@ describe("getNumberLinePublicWidgetOptions", () => {
             snapDivisions: 0,
             isTickCtrl: false,
             showTooltips: false,
-            static: false,
         });
     });
 });

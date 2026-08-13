@@ -44,7 +44,6 @@ const Dropdown = forwardRef<Widget, Props>(function Dropdown(props, ref) {
         placeholder = "",
         apiOptions = ApiOptions.defaults,
         userInput = {value: 0},
-        static: isStatic = false,
         dependencies,
         visibleLabel,
         ariaLabel,
@@ -52,6 +51,7 @@ const Dropdown = forwardRef<Widget, Props>(function Dropdown(props, ref) {
         trackInteraction,
         handleUserInput,
     } = props;
+    const isStatic = props.static ?? false;
 
     // Fire analytics event on mount
     // We intentionally use an empty dependency array here because this analytics

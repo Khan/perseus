@@ -210,7 +210,6 @@ describe("WidgetEditor", () => {
             const options: PerseusDefinitionWidgetOptions = {
                 togglePrompt: "Neat prompt",
                 definition: "Cool definition",
-                static: false,
             };
 
             const props: WidgetEditorProps = {
@@ -247,7 +246,6 @@ describe("WidgetEditor", () => {
             const options: PerseusDefinitionWidgetOptions = {
                 togglePrompt: "Neat prompt",
                 definition: "Cool definition",
-                static: false,
             };
 
             const props: WidgetEditorProps = {

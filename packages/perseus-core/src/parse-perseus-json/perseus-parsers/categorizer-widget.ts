@@ -16,7 +16,6 @@ export const parseCategorizerWidget = parseWidget(
         items: array(string),
         categories: array(string),
         randomizeItems: defaulted(boolean, () => false),
-        static: defaulted(boolean, () => false),
         values: defaulted(array(defaulted(number, () => 0)), () => []),
     }),
 );

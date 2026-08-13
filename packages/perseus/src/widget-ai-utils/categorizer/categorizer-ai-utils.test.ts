@@ -33,7 +33,6 @@ const randomizedQuestion: PerseusRenderer = {
                     "Negative linear relationship",
                     "Nonlinear relationship",
                 ],
-                static: false,
             },
         },
     },

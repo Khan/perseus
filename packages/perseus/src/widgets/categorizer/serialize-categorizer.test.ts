@@ -44,7 +44,6 @@ describe("Categorizer serialization", () => {
                         items: ["uno", "dos", "tres"],
                         randomizeItems: true,
                         values: [],
-                        static: false,
                     },
                 },
             },

@@ -28,7 +28,6 @@ const textQuestion: PerseusRenderer = {
             static: false,
             graded: true,
             options: {
-                static: false,
                 choices: ["Trucks", "Vans", "Cars", "SUVs"],
                 imageAlt:
                     "A bar graph with four bar lines that shows the horizontal axis labeled Number in the parking lot and the vertical axis labeled Vehicle Type. The horizontal axis is labeled, from left to right: 0, 10, 20, 30, 40, and 50. The vertical axis has, from the bottom to the top, four unlabeled bar lines as follows: the first unlabeled bar line extends to the middle of 0 and 10, the second unlabeled bar line extends to 40, the third unlabeled bar line extends to the middle of 20 and 30, and fourth unlabeled bar line extends to 10.",
