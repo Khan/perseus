@@ -85,6 +85,13 @@ function trackInFlightRequests(): void {
 
 trackInFlightRequests();
 
+/** Images load outside `fetch`, so they need checking separately. */
+function hasPendingImages(root: HTMLElement): boolean {
+    return Array.from(root.querySelectorAll("img")).some(
+        (img) => !img.complete,
+    );
+}
+
 async function waitForStableFrames(
     root: HTMLElement,
     deadline: number,
@@ -122,7 +129,7 @@ export async function waitForStableLayout(root: HTMLElement): Promise<void> {
         // A story that holds still isn't necessarily done — it may be waiting
         // on a response that will change it. Give the work a frame to land and
         // then re-measure, rather than trusting the stillness.
-        if (inFlightRequests > 0) {
+        if (inFlightRequests > 0 || hasPendingImages(root)) {
             await nextFrame();
             continue;
         }
