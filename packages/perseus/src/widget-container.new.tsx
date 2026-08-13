@@ -6,10 +6,7 @@
 // TODO(LEMS-4304): feature flag cleanup - rename this file to widget-container.tsx.
 // This file is the new widget container that will replace the old container.
 
-import {
-    CoreWidgetRegistry,
-    type PerseusWidgetOptions,
-} from "@khanacademy/perseus-core";
+import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 import classNames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -25,8 +22,9 @@ import type {WidgetProps} from "./types";
 type Props = {
     type: string; // widget type/name,
     id: string; // widget id
+    // TODO(benchristel): Pass real type arguments here.
     // TODO(LEMS-4354): change to WidgetPropsV2
-    widgetProps: WidgetProps<any, PerseusWidgetOptions>;
+    widgetProps: WidgetProps<any, any>;
 };
 
 type State = {
