@@ -126,7 +126,8 @@ div.graphie {
     font-size: 14px;
 }
 .framework-perseus .number-input {
-    border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-default);
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-default);
     border-radius: var(--wb-border-radius-radius_040);
     margin: 0;
     padding: var(--wb-sizing-size_040) 0;
@@ -147,7 +148,8 @@ div.graphie {
     width: var(--wb-sizing-size_800);
 }
 .framework-perseus .graph-settings .graph-settings-axis-label {
-    border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle);
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
     border-radius: var(--wb-border-radius-radius_040);
     display: inline-block;
     padding: var(--wb-sizing-size_040);
@@ -168,7 +170,8 @@ div.graphie {
 }
 .framework-perseus .misc-settings,
 .framework-perseus .type-settings {
-    border-top: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-strong);
+    border-top: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-strong);
     padding-top: var(--wb-sizing-size_040);
 }
 .framework-perseus .svg-image {

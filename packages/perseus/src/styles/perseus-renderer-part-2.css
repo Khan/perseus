@@ -1,7 +1,8 @@
 /* All perseus-widget-container styles moved to widget-container.css */
 
 .bibliotron-exercise .perseus-hint-renderer {
-    border-left: var(--wb-border-width-thick) solid var(--wb-semanticColor-core-border-neutral-subtle);
+    border-left: var(--wb-border-width-thick) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
     padding-left: var(--wb-sizing-size_160);
     position: relative;
 }
@@ -94,7 +95,8 @@
 }
 .perseus-error {
     background: var(--wb-semanticColor-core-background-critical-subtle);
-    border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-border-critical-default);
+    border: var(--wb-border-width-medium) solid
+        var(--wb-semanticColor-core-border-critical-default);
     border-radius: var(--wb-border-radius-radius_040);
     padding: var(--wb-sizing-size_200);
     margin: var(--wb-sizing-size_160) 0 var(--wb-sizing-size_100);
