@@ -32,7 +32,6 @@ interface Props
         PerseusCategorizerWidgetOptions,
         PerseusCategorizerUserInput
     > {
-    // TODO(LEMS-4354): Make `dependencies` part of WidgetProps.
     dependencies: PerseusDependenciesV2;
 }
 
