@@ -5,7 +5,7 @@
  * that involve the use of images, and enable learners to demonstrate their
  * knowledge by directly interacting with the image.
  */
-
+// ZND
 import {scoreLabelImageMarker} from "@khanacademy/perseus-score";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";

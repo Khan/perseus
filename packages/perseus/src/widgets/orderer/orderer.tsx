@@ -23,7 +23,7 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
-
+//znd
 type PlaceholderCardProps = {
     width: number | null | undefined;
     height: number | null | undefined;

@@ -1,3 +1,4 @@
+/*znd*/
 /* The matrix widget always reads left-to-right, even in right-to-left
  * languages, because the math notation and operations don't flip. */
 .perseus-matrix {
