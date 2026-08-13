@@ -540,10 +540,12 @@ review and commit the changes.
       it has two `static defaultProps` (the `Card` sub-component's and the widget's
       `userInput`-bearing one) — relocate only the option-field defaults.
 - [x] Migrate `mock-widget` (test-only) to `WidgetPropsV2`.
+- [x] Migrate `blank` to `WidgetPropsV2` (missing from the original checklist;
+      it reads `displayType`, so it had to be migrated with the final cleanup).
 
 ### Final cleanup
 
-- [ ] Remove the branch from both `getWidgetProps` methods (always emit the
+- [x] Remove the branch from both `getWidgetProps` methods (always emit the
       `options` shape) and delete the `MIGRATED_WIDGETS` module.
 - [ ] Simplify the `widget-container.tsx` subtype lookup to
       `getWidgetSubType(type, this.props.widgetProps.options)` and update the
