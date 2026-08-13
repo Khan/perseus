@@ -2,14 +2,16 @@
 .draggy-boxy-thing .cards-area {
     /* This is the overall area where cards are dragged to*/
     background: var(--wb-semanticColor-core-background-base-default);
-    border: var(--wb-border-width-thin) solid
-        var(--wb-semanticColor-core-border-neutral-subtle);
+    border-width: var(--wb-border-width-thin);
+    border-style: solid;
+    border-color: var(--wb-semanticColor-core-border-neutral-subtle);
     border-radius: var(--wb-border-radius-radius_040);
 }
 .draggy-boxy-thing .card {
     background-color: var(--wb-semanticColor-core-background-base-default);
-    border: var(--wb-border-width-thin) solid
-        var(--wb-semanticColor-core-border-neutral-subtle);
+    border-width: var(--wb-border-width-thin);
+    border-style: solid;
+    border-color: var(--wb-semanticColor-core-border-neutral-subtle);
     border-radius: var(--wb-border-radius-radius_080);
     cursor: pointer;
     touch-action: none;
@@ -18,14 +20,16 @@
 .draggy-boxy-thing .card.placeholder {
     /* The dashed line box when dragging a card to it */
     background: var(--wb-semanticColor-core-background-base-subtle);
-    border: var(--wb-border-width-thin) solid
-        var(--wb-semanticColor-core-border-neutral-subtle);
+    border-width: var(--wb-border-width-thin);
+    border-style: solid;
+    border-color: var(--wb-semanticColor-core-border-neutral-subtle);
 }
 .draggy-boxy-thing .card.drag-hint {
     /* Dashed line box */
     background: var(--wb-semanticColor-core-background-base-subtle);
-    border: var(--wb-border-width-thin) dashed
-        var(--wb-semanticColor-core-border-neutral-default);
+    border-width: var(--wb-border-width-thin);
+    border-style: dashed;
+    border-color: var(--wb-semanticColor-core-border-neutral-default);
     border-radius: var(--wb-border-radius-radius_040);
     box-shadow: none;
 }
@@ -43,8 +47,9 @@
 .draggy-boxy-thing .card.dragging.removing,
 .draggy-boxy-thing .card.dragging.removing:hover {
     background: var(--wb-semanticColor-core-background-instructive-subtle);
-    border: var(--wb-border-width-medium) solid
-        var(--wb-semanticColor-core-border-instructive-default);
+    border-width: var(--wb-border-width-medium);
+    border-style: solid;
+    border-color: var(--wb-semanticColor-core-border-instructive-default);
 }
 .draggy-boxy-thing .card:hover {
     box-shadow: var(--wb-boxShadow-mid);
