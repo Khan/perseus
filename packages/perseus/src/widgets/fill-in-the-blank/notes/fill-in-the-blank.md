@@ -90,7 +90,9 @@ entire answer-zone contents as one string.
   `__docs__/` stories, registration in `extra-widgets.ts`, scoring in
   perseus-score, editor in perseus-editor, schema in perseus-core, linter rule).
 - **`blank` widget stub:** `packages/perseus/src/widgets/blank/` — the dropzone
-  primitive FITB builds on. Functional component, `forwardRef` +
+  primitive FITB builds on. Built during the shared prework
+  ([LEMS-4364](https://khanacademy.atlassian.net/browse/LEMS-4364)) but **owned by
+  FITB, not shared**. Functional component, `forwardRef` +
   `useImperativeHandle`, CSS modules + `var(--wb-*)`, `hidden: true`. Schema in
   perseus-core: `PerseusBlankWidgetOptions` (`src/data-schema.ts`) and
   `PerseusBlankUserInput` (`src/validation.types.ts`).

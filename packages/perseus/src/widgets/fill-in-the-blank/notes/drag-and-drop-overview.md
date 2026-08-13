@@ -28,25 +28,24 @@ This doc is only useful if it stays true. When editing it:
 A new family of accessible drag-and-drop exercise widgets that share a common
 foundation (layout, components, interaction + a11y model). The widgets:
 
-| Widget | Answer-zone format | Confluence | Epic |
-| --- | --- | --- | --- |
-| **Fill in the Blank** | Inline blanks within content | [FITB](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4711972976/Fill+in+the+Blank) | [LEMS-4311](https://khanacademy.atlassian.net/browse/LEMS-4311) |
-| **Sorter** | Column(s) + optional legend | [Sorter](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4712005818/Sorter) | [LEMS-4312](https://khanacademy.atlassian.net/browse/LEMS-4312) |
-| **Categorizer** | Columns | [Categorizer](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4710040591/Categorizer) | TBD |
-| **Composer** | Columns | [Composer](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4711186826/Composer) | TBD |
+| Widget                                | Answer-zone format | Confluence | Epic |
+|---------------------------------------| --- | --- | --- |
+| **Fill in the Blank**                 | Inline blanks within content | [FITB](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4711972976/Fill+in+the+Blank) | [LEMS-4311](https://khanacademy.atlassian.net/browse/LEMS-4311) |
+| **Sorter** _(existing — to refactor)_ | Column(s) + optional legend | [Sorter](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4712005818/Sorter) | [LEMS-4312](https://khanacademy.atlassian.net/browse/LEMS-4312) |
+| **Categorizer**                       | Columns | [Categorizer](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4710040591/Categorizer) | TBD |
+| **Composer**                          | Columns | [Composer](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4711186826/Composer) | TBD |
 
 ## Shared building blocks (built first, before wiring drag-and-drop)
 
 The strategy is to build the shared pieces first, then wire them to the DnD
 engine holistically once they all exist. The set isn't only components — it also
-includes a shared **widget** and reusable **logic**.
+includes reusable **logic**.
 
 | Piece | Type | What it is | Ticket |
 | --- | --- | --- | --- |
 | **Choice Bank** | Component | The container/drop-zone holding the available Answer Tiles | [LEMS-4365](https://khanacademy.atlassian.net/browse/LEMS-4365) |
 | **Answer Tile** | Component | The individual draggable item | [LEMS-4363](https://khanacademy.atlassian.net/browse/LEMS-4363) |
 | **Actions Menu** | Component | Per-tile control giving keyboard/SR users a way to move tiles | [LEMS-4362](https://khanacademy.atlassian.net/browse/LEMS-4362) |
-| **Blank** | Widget | The bay a tile is dropped into for scoring | [LEMS-4364](https://khanacademy.atlassian.net/browse/LEMS-4364) |
 | **Choice Bank randomization** | Logic | Reusable logic to randomize tile order in the Choice Bank | [LEMS-4388](https://khanacademy.atlassian.net/browse/LEMS-4388) |
 
 The shared **components** (Choice Bank, Answer Tile, Actions Menu) live in
@@ -54,10 +53,17 @@ The shared **components** (Choice Bank, Answer Tile, Actions Menu) live in
 ([LEMS-4365](https://khanacademy.atlassian.net/browse/LEMS-4365)) is the first
 built there — use it as the reference for structure and the conventions below.
 
+**The `blank` widget is _not_ one of these.** It's built alongside them under the
+same prework epic
+([LEMS-4364](https://khanacademy.atlassian.net/browse/LEMS-4364)), but it's the
+bay for FITB's inline blanks — the other widgets drop into columns. Treat it as
+FITB-specific.
+
 ## Where things live in the repo
 
 - **Shared DnD components:** `packages/perseus/src/components/drag-and-drop/`
-- **`blank` widget:** `packages/perseus/src/widgets/blank/`
+- **`blank` widget (FITB-specific, not shared):**
+  `packages/perseus/src/widgets/blank/`
 - **@dnd-kit reference:** `@dnd-kit/react@^0.5.0` is installed in
   `packages/perseus`. Working demo:
   `packages/perseus/src/__docs__/dnd-kit-demo.stories.tsx` — it renders the
@@ -65,7 +71,9 @@ built there — use it as the reference for structure and the conventions below.
   tracked by LEMS-4369.
 - **Do NOT model new work on legacy DnD** (`sorter`, `orderer`, `matcher`) —
   they use the hand-rolled jQuery `components/sortable.tsx` with no keyboard
-  support. Useful only as prior art.
+  support. Useful only as prior art — except `sorter`, which is the live widget
+  being refactored onto the new components, so it's the starting point for that
+  work rather than a pattern to copy.
 
 ## Tech & conventions
 
@@ -118,14 +126,18 @@ built there — use it as the reference for structure and the conventions below.
 
 ## Boundaries / gotchas
 
-- **Build phase _(snapshot — Aug 2026; verify against the epic below)_:** the
-  shared pieces are being built **presentational-first**, before the
-  drag-and-drop engine is wired up (that happens holistically once they exist).
-  While this holds, a ticket to "build component X" usually does **not** include
-  hooking it to @dnd-kit. Once wiring begins this no longer applies — treat the
-  prework epic
+- **Build phase, FITB only _(snapshot — Aug 2026; verify against the epic
+  below)_:** the shared pieces and Fill in the Blank are being built
+  **presentational-first**, before the drag-and-drop engine is wired up (that
+  happens holistically once they exist). While this holds, a ticket to "build
+  component X" usually does **not** include hooking it to @dnd-kit. Once wiring
+  begins this no longer applies — treat the prework epic
   [LEMS-4314](https://khanacademy.atlassian.net/browse/LEMS-4314) as the live
   source of truth and update or drop this note.
+- **Sorter is different: it already ships.** It gets **refactored live**, in
+  place, onto the new components rather than built up presentationally and wired
+  at the end. Confirm the approach per widget rather than assuming the FITB plan
+  applies.
 - Future changes to these components are expected as the parent widgets mature —
   they're a starting foundation, not a frozen contract.
 
