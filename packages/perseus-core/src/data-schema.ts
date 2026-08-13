@@ -1673,7 +1673,7 @@ export type PerseusNumericInputWidgetOptions = {
      * Translatable Text; Text to describe this input. This will be shown to
      * users using screenreaders.
      */
-    // TODO(LEMS-4354): Make labelText required and default it to "" in the
+    // TODO(benchristel): Make labelText required and default it to "" in the
     //  parser.
     labelText?: string | undefined;
     /**
