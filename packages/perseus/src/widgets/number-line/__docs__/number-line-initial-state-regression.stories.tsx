@@ -46,9 +46,9 @@ const inequalityArgs = {
     tickStep: 1,
 } satisfies Partial<PerseusNumberLineWidgetOptions>;
 
-// getStartUserInput always initializes an inequality's relation to "ge", so a
-// story showing any other relation must seed the whole userInput map itself
-// (initialUserInput fully replaces the computed start input).
+// Every inequality story sets initialUserInput explicitly, even when the
+// desired relation matches getStartUserInput's default ("ge") — so a story's
+// behavior never depends on what that default happens to be.
 const inequalityInput = (rel: "ge" | "gt" | "le" | "lt"): UserInputMap => ({
     "number-line 1": {rel, numDivisions: 10, numLinePosition: 0},
 });
