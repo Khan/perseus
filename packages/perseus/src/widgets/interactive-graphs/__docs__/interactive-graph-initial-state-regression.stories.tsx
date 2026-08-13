@@ -485,6 +485,85 @@ export const LockedFigureThickWeightSample: Story = {
     args: systemOfInequalitiesArgs("thick"),
 };
 
+export const LockedFigureFillOnlyShading: Story = {
+    args: {
+        correct: generateIGNoneGraph(),
+        range: [
+            [-6, 6],
+            [-6, 6],
+        ],
+        markings: "graph",
+        labels: ["$x$", "$y$"],
+        lockedFigures: [
+            generateIGLockedFunction({
+                color: "blue",
+                strokeStyle: "dashed",
+                weight: "thin",
+                equation: "-0.5x",
+                directionalAxis: "x",
+                domain: [-10, 10],
+            }),
+            generateIGLockedFunction({
+                color: "green",
+                strokeStyle: "solid",
+                weight: "thin",
+                equation: "0.75x - 2",
+                directionalAxis: "x",
+                domain: [-10, 10],
+            }),
+            generateIGLockedPolygon({
+                points: [
+                    [-6, 3],
+                    [-6, 6],
+                    [6, 6],
+                    [6, -3],
+                ],
+                color: "blue",
+                showVertices: false,
+                fillStyle: "translucent",
+                strokeStyle: "none",
+                weight: "thin",
+            }),
+            generateIGLockedPolygon({
+                points: [
+                    [6, 2.5],
+                    [6, -6],
+                    [-5.3, -6],
+                ],
+                color: "green",
+                showVertices: false,
+                fillStyle: "translucent",
+                strokeStyle: "none",
+                weight: "thin",
+            }),
+        ],
+    },
+};
+
+// The minimal fill-only case: a single polygon with `strokeStyle: "none"` and
+// nothing overlapping it, so a regression in borderless rendering (a stray
+// border reappearing) shows up on its own.
+export const LockedPolygonWithNoBorder: Story = {
+    args: {
+        correct: generateIGNoneGraph(),
+        lockedFigures: [
+            generateIGLockedPolygon({
+                points: [
+                    [-4, -4],
+                    [-4, 4],
+                    [4, 4],
+                    [4, -4],
+                ],
+                color: "blue",
+                showVertices: false,
+                fillStyle: "translucent",
+                strokeStyle: "none",
+                weight: "thin",
+            }),
+        ],
+    },
+};
+
 // Verifies points on the graph boundary (corners and edge midpoints) render as
 // full circles rather than being clipped in half.
 export const LockedPointsAtGraphEdges: Story = {

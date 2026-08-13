@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     newHint: {
         marginBlockEnd: sizing.size_240,
 
-        borderInlineStartColor: semanticColor.core.background.base.subtle,
+        borderInlineStartColor: semanticColor.core.border.neutral.subtle,
         borderInlineStartStyle: "solid",
         borderInlineStartWidth: hintBorderWidth,
 

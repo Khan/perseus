@@ -15,7 +15,9 @@ import {TypedSingleSelect} from "../../../components/typed-single-select";
 
 import ColorSelect from "./color-select";
 import EllipseSwatch from "./ellipse-swatch";
-import LineStrokeSelect from "./line-stroke-select";
+import LineStrokeSelect, {
+    fillableStrokeStyleOptions,
+} from "./line-stroke-select";
 import LineWeightSelect from "./line-weight-select";
 import styles from "./locked-ellipse-settings.module.css";
 import LockedFigureAria from "./locked-figure-aria";
@@ -248,6 +250,7 @@ const LockedEllipseSettings = (props: Props) => {
             {/* Stroke style */}
             <LineStrokeSelect
                 selectedValue={strokeStyle}
+                options={fillableStrokeStyleOptions}
                 editingDisabled={editingDisabled}
                 onChange={(value) => onChangeProps({strokeStyle: value})}
                 containerStyle={{marginBottom: sizing.size_080}}
