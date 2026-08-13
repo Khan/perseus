@@ -16,6 +16,14 @@ import type {
     PreviewContent,
 } from "./message-types";
 
+/**
+ * Sends a message up to the parent editor. The "/" target origin keeps preview
+ * messages same-origin.
+ */
+function postToParent(message: IframeToParentMessage): void {
+    window.parent.postMessage(message, "/");
+}
+
 type UsePreviewPresenterOptions = {
     /**
      * Ref to the element containing the rendered preview content. Used as
@@ -158,7 +166,7 @@ export function usePreviewPresenter(
         window.addEventListener("message", handleMessage);
 
         // Tell parent we're ready for data.
-        window.parent.postMessage(createPreviewIframeReadyMessage(), "/");
+        postToParent(createPreviewIframeReadyMessage());
 
         return () => {
             window.removeEventListener("message", handleMessage);
@@ -251,13 +259,12 @@ export function usePreviewPresenter(
                 ...incompleteMap,
             ]);
 
-            window.parent.postMessage(
+            postToParent(
                 createPreviewA11yReportMessage(
                     violations,
                     incompletes,
                     scannedVersion,
                 ),
-                "/",
             );
         })().finally(() => {
             scanPromiseRef.current = null;
@@ -295,12 +302,11 @@ export function usePreviewPresenter(
             return;
         }
 
-        const message: IframeToParentMessage = {
+        postToParent({
             source: PREVIEW_MESSAGE_SOURCE,
             type: "height-update",
             height,
-        };
-        window.parent.postMessage(message, "/");
+        });
     }, []);
 
     return {

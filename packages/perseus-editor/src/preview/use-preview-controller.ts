@@ -11,11 +11,7 @@ import {
 import {isIframeToParentMessage} from "./message-validators";
 import {sanitizePreviewData} from "./preview-data-sanitizer";
 
-import type {
-    ParentToIframeMessage,
-    PreviewContent,
-    PreviewMessageBase,
-} from "./message-types";
+import type {ParentToIframeMessage, PreviewContent} from "./message-types";
 import type {A11yIssue} from "../components/issues-panel";
 
 export type A11yReport = {
@@ -97,9 +93,7 @@ export function usePreviewController(
     // Sends a message to the iframe, dropping it if the iframe isn't
     // currently mounted (eg. during a reload/remount).
     const postToIframe = React.useCallback(
-        // TODO(LEMS-4402): Change this to ParentToIframeMessage when all A11y
-        // message types are integrated.
-        (message: PreviewMessageBase) => {
+        (message: ParentToIframeMessage) => {
             iframeRef.current?.contentWindow?.postMessage(message, "/");
         },
         [iframeRef],
