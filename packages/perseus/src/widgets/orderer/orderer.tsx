@@ -362,10 +362,10 @@ class Orderer
     }
 
     onClick: (
-        arg1: "bank" | "current",
-        arg2: number,
-        arg3: any,
-        arg4: Element,
+        type: "bank" | "current",
+        index: number,
+        loc: any,
+        draggable: Element,
     ) => void = (type, index, loc, draggable) => {
         // @ts-expect-error - TS2769 - No overload matches this call.
         const $draggable = $(ReactDOM.findDOMNode(draggable));
