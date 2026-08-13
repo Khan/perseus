@@ -6,10 +6,7 @@
 // TODO(LEMS-4304): feature flag cleanup - rename this file to widget-container.tsx.
 // This file is the new widget container that will replace the old container.
 
-import {
-    CoreWidgetRegistry,
-    type PerseusWidgetOptions,
-} from "@khanacademy/perseus-core";
+import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 import classNames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -20,13 +17,13 @@ import {containerSizeClass, getClassFromWidth} from "./util/sizing-utils";
 import {getWidgetSubType} from "./widget-type-utils";
 import * as Widgets from "./widgets";
 
-import type {WidgetProps} from "./types";
+import type {WidgetPropsV2} from "./types";
 
 type Props = {
     type: string; // widget type/name,
     id: string; // widget id
-    // TODO(LEMS-4354): change to WidgetPropsV2
-    widgetProps: WidgetProps<any, PerseusWidgetOptions>;
+    // TODO(benchristel): Pass real type arguments here.
+    widgetProps: WidgetPropsV2<any, any>;
 };
 
 type State = {
@@ -92,15 +89,8 @@ class WidgetContainer extends React.Component<Props, State> {
             return <div className={className} />;
         }
 
-        // During the WidgetProps redesign, a migrated widget nests its options
-        // under `widgetProps.options`; an un-migrated widget spreads them into
-        // the top level of `widgetProps`. Read from whichever shape applies.
-        // TODO(LEMS-4354): clean this up post-migration.
         const subType =
-            getWidgetSubType(
-                type,
-                this.props.widgetProps.options ?? this.props.widgetProps,
-            ) ?? "null";
+            getWidgetSubType(type, this.props.widgetProps.options) ?? "null";
 
         let alignment = this.props.widgetProps.alignment;
         if (alignment == null || alignment === "default") {

@@ -2,6 +2,7 @@ import type {ILogger} from "./logging/log";
 import type {SizeClass} from "./util/sizing-utils";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
 import type {
+    Alignment,
     Hint,
     PerseusAnswerArea,
     PerseusFeatureFlags,
@@ -453,20 +454,6 @@ export type FilterCriterion =
       ) => boolean);
 
 /**
- * The full set of props provided to all widgets when they are rendered. The
- * `TWidgetOptions` generic argument are the widget-specific props that originate
- * from the PerseusItem.
- */
-// TODO(LEMS-4354): clean this up post-migration.
-export type WidgetProps<
-    TWidgetOptions,
-    TUserInput = Empty,
-    // Defines the arguments that can be passed to the `trackInteraction`
-    // function from APIOptions for this widget.
-    TrackingExtraArgs = Empty,
-> = TWidgetOptions & UniversalWidgetProps<TUserInput, TrackingExtraArgs>;
-
-/**
  * The full set of props provided to a widget whose widget-specific options are
  * nested under a single `options` prop, rather than spread into the top level
  * of props alongside the universal props.
@@ -502,7 +489,7 @@ export type UniversalWidgetProps<
     // provided by renderer.jsx#getWidgetProps()
     widgetId: string;
     widgetIndex: number;
-    alignment: string | null | undefined;
+    alignment: Alignment | null | undefined;
     static: boolean | null | undefined;
     graded?: boolean | null;
     problemNum: number | null | undefined;
