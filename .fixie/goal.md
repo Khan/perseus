@@ -547,7 +547,7 @@ review and commit the changes.
 
 - [x] Remove the branch from both `getWidgetProps` methods (always emit the
       `options` shape) and delete the `MIGRATED_WIDGETS` module.
-- [ ] Simplify the `widget-container.tsx` subtype lookup to
+- [x] Simplify the `widget-container.tsx` subtype lookup to
       `getWidgetSubType(type, this.props.widgetProps.options)` and update the
       `widgetProps` prop type (and any lingering
       `WidgetProps<any, PerseusWidgetOptions>` annotations).

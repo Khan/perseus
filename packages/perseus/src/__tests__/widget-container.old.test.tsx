@@ -6,26 +6,31 @@
 // TODO(LEMS-4304): feature flag cleanup - remove this file
 // This file is the original widget-container test file that is being replaced by the new test file.
 
+import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
 import * as Dependencies from "../dependencies";
+import {ApiOptions} from "../perseus-api";
 import {
     testDependencies,
     testDependenciesV2,
 } from "../testing/test-dependencies";
+import {containerSizeClass} from "../util/sizing-utils";
 import WidgetContainer from "../widget-container.old";
 import {registerWidget} from "../widgets";
 import Explanation from "../widgets/explanation";
 
-import type {PerseusDependenciesV2, WidgetExports} from "../types";
+import type {
+    PerseusDependenciesV2,
+    WidgetExports,
+    WidgetPropsV2,
+} from "../types";
 
 const MockWidgetComponent = ({
-    text,
-    fail = false,
+    options: {text, fail = false},
 }: {
-    text: string;
-    fail: boolean;
+    options: {text: string; fail: boolean};
 }) => {
     if (fail) {
         throw new Error("MockWidget failed to render");
@@ -40,6 +45,30 @@ const MockWidget: WidgetExports<typeof MockWidgetComponent> = {
     widget: MockWidgetComponent,
 };
 
+const getBaseProps = (
+    // TODO(benchristel): Pass real type arguments here. Maybe getBaseProps can
+    //  be generic.
+    overrides?: Partial<WidgetPropsV2<any, any>>,
+): WidgetPropsV2<any, any> => ({
+    options: {},
+    trackInteraction: () => {},
+    widgetId: "widget 1",
+    widgetIndex: 0,
+    alignment: null,
+    static: false,
+    problemNum: 0,
+    apiOptions: {...ApiOptions.defaults, isMobile: false},
+    onFocus: () => {},
+    onBlur: () => {},
+    findWidgets: () => [],
+    reviewMode: false,
+    handleUserInput: () => {},
+    userInput: {},
+    linterContext: linterContextDefault,
+    containerSizeClass: containerSizeClass.MEDIUM,
+    ...overrides,
+});
+
 describe("widget-container", () => {
     it("should render nothing when requested widget not registered", () => {
         // Arrange
@@ -50,7 +79,7 @@ describe("widget-container", () => {
             <WidgetContainer
                 type="invalid-widget"
                 id="invalid-widget 1"
-                widgetProps={{apiOptions: {isMobile: false}}}
+                widgetProps={getBaseProps()}
             />,
         );
 
@@ -76,18 +105,14 @@ describe("widget-container", () => {
                 <WidgetContainer
                     type="explanation"
                     id="explanation 1"
-                    widgetProps={{
+                    widgetProps={getBaseProps({
                         options: {
                             showPrompt: "Explanation",
                             hidePrompt: "Hide explanation",
                             explanation: "This is an explanation",
                             widgets: {},
                         },
-
-                        findWidgets: () => [],
-
-                        apiOptions: {isMobile: false},
-                    }}
+                    })}
                 />
             </Dependencies.DependenciesContext.Provider>,
         );
@@ -120,14 +145,9 @@ describe("widget-container", () => {
                 <WidgetContainer
                     type="mock-widget"
                     id="mock-widget 1"
-                    widgetProps={{
-                        text: "Hello world!",
-                        fail: true,
-
-                        findWidgets: () => [],
-
-                        apiOptions: {isMobile: false},
-                    }}
+                    widgetProps={getBaseProps({
+                        options: {text: "Hello world!", fail: true},
+                    })}
                 />
             </Dependencies.DependenciesContext.Provider>,
         );
