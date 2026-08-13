@@ -454,20 +454,6 @@ export type FilterCriterion =
       ) => boolean);
 
 /**
- * The full set of props provided to all widgets when they are rendered. The
- * `TWidgetOptions` generic argument are the widget-specific props that originate
- * from the PerseusItem.
- */
-// TODO(LEMS-4354): clean this up post-migration.
-export type WidgetProps<
-    TWidgetOptions,
-    TUserInput = Empty,
-    // Defines the arguments that can be passed to the `trackInteraction`
-    // function from APIOptions for this widget.
-    TrackingExtraArgs = Empty,
-> = TWidgetOptions & UniversalWidgetProps<TUserInput, TrackingExtraArgs>;
-
-/**
  * The full set of props provided to a widget whose widget-specific options are
  * nested under a single `options` prop, rather than spread into the top level
  * of props alongside the universal props.
