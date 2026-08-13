@@ -2,6 +2,7 @@ import type {ILogger} from "./logging/log";
 import type {SizeClass} from "./util/sizing-utils";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
 import type {
+    Alignment,
     Hint,
     PerseusAnswerArea,
     PerseusFeatureFlags,
@@ -502,7 +503,7 @@ export type UniversalWidgetProps<
     // provided by renderer.jsx#getWidgetProps()
     widgetId: string;
     widgetIndex: number;
-    alignment: string | null | undefined;
+    alignment: Alignment | null | undefined;
     static: boolean | null | undefined;
     graded?: boolean | null;
     problemNum: number | null | undefined;
