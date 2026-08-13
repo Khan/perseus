@@ -50,7 +50,9 @@ includes a shared **widget** and reusable **logic**.
 | **Choice Bank randomization** | Logic | Reusable logic to randomize tile order in the Choice Bank | [LEMS-4388](https://khanacademy.atlassian.net/browse/LEMS-4388) |
 
 The shared **components** (Choice Bank, Answer Tile, Actions Menu) live in
-**`packages/perseus/src/components/drag-and-drop/`**.
+**`packages/perseus/src/components/drag-and-drop/`**. **Choice Bank**
+([LEMS-4365](https://khanacademy.atlassian.net/browse/LEMS-4365)) is the first
+built there — use it as the reference for structure and the conventions below.
 
 ## Where things live in the repo
 
@@ -70,9 +72,15 @@ The shared **components** (Choice Bank, Answer Tile, Actions Menu) live in
 - **New widgets are functional components** conforming to `WidgetExports<T>`.
   See `packages/perseus/src/widgets/CLAUDE.md` for the full new-widget checklist
   (files, registration, scoring, editor, schema, linter).
+- **Component props:** prefer required props over optional-with-defaults; pass
+  user-facing labels as translatable strings (no hardcoded English default); and
+  represent an empty collection as an empty array (`[]`), not `null`.
 - **Styling:** CSS modules with Wonder Blocks CSS custom properties
   (`var(--wb-*)`), not Aphrodite. Tokens come from
   `@khanacademy/wonder-blocks-tokens`.
+- **Storybook stories:** group DnD component stories under the title
+  `Components/Drag and Drop/<Name>` (e.g. `Components/Drag and Drop/Choice Bank`)
+  so they nest consistently in the sidebar.
 - **Designs:** before building any UI, ask the engineer whether they're working
   from a design. If so, ask for the design link or offer to connect to the Figma
   MCP to pull it.
@@ -91,7 +99,8 @@ The shared **components** (Choice Bank, Answer Tile, Actions Menu) live in
   to multiple lines; the bank is 100% of its parent's width with height hugging
   its contents; tiles stack when the container is too narrow.
 - **Answer Tiles:** content types are Text / TeX / Image / Empty (not mixed,
-  except Empty). Max content width 200px; images use one of seven height presets
+  except Empty). Max **content** width 200px (the content inside a tile, not the
+  tile itself); images use one of seven height presets
   (24/36/48/60/72/84/96). Multi-use tiles show an SR-only "N remaining" count
   and disappear when exhausted. Single- and multi-use tiles can't be mixed.
 - **Actions Menu:** because pointer drag isn't available to keyboard/SR users,

@@ -59,9 +59,11 @@ standalone blocks so line breaks/reflow can be controlled precisely:
   tiles unless unavoidable (e.g. balancing a chemical equation).
 - **Single word or standalone character only** — no multi-word tiles (readability
   + reflow).
-- In the Choice Bank, tiles hug their contents and should not exceed **256px**
-  (the max choice-bank width at the 320px smallest viewport). Watch i18n — some
-  languages have long words; the max may need to flex.
+- In the Choice Bank, tiles hug their contents; the whole **tile** should not
+  exceed **256px** (the max choice-bank width at the 320px smallest viewport).
+  This is the *tile* width, distinct from the family-wide **200px** max *content*
+  width in the shared spec. Watch i18n — some languages have long words; the max
+  may need to flex.
 - When placed in a blank at narrow viewports, the tile+blank fill the parent
   width (contents stay left-aligned), yielding a placed-tile max width of ~500px
   (depends on blank sizing).
