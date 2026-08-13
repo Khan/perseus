@@ -3,18 +3,25 @@ import {forwardRef, useImperativeHandle} from "react";
 
 import styles from "./blank-widget.module.css";
 
-import type {WidgetExports, WidgetProps, Widget} from "../../types";
+import type {WidgetExports, WidgetPropsV2, Widget} from "../../types";
 import type {
     PerseusBlankWidgetOptions,
     PerseusBlankUserInput,
 } from "@khanacademy/perseus-core";
 
-type BlankProps = WidgetProps<PerseusBlankWidgetOptions, PerseusBlankUserInput>;
+type BlankProps = WidgetPropsV2<
+    PerseusBlankWidgetOptions,
+    PerseusBlankUserInput
+>;
 
 const BlankWidget = forwardRef<Widget, BlankProps>(
     function BlankWidget(props, ref) {
         const classes = [styles.container]
-            .concat(props.displayType !== "normal" ? [styles["super-sub"]] : [])
+            .concat(
+                props.options.displayType !== "normal"
+                    ? [styles["super-sub"]]
+                    : [],
+            )
             .join(" ");
 
         // TODO(LEMS-4471): Write out the getPromptJSON function after checking
