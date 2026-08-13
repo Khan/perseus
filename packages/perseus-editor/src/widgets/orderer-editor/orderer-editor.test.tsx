@@ -1,11 +1,15 @@
 import {Dependencies} from "@khanacademy/perseus";
+import {
+    generateOrdererOption,
+    generateOrdererOptions,
+} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {testDependencies} from "../../testing/test-dependencies";
 
-import OrdererEditor, {getUpdatedOptions} from "./orderer-editor";
+import OrdererEditor, {mergeCards} from "./orderer-editor";
 
 import type {PerseusOrdererWidgetOptions} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
@@ -71,17 +75,40 @@ describe("OrdererEditor", () => {
         // Verify the options were updated correctly
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
-                correctOptions: [
-                    {
-                        content: altImage,
-                    },
-                ],
-                options: [
-                    {
-                        content: altImage,
-                    },
-                ],
+                correctOptions: [generateOrdererOption(altImage)],
+                options: [generateOrdererOption(altImage)],
             }),
+            undefined,
+        );
+    });
+
+    it("calls onChange with the merged cards when an other card is edited", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <OrdererEditor
+                onChange={onChangeMock}
+                {...generateOrdererOptions({
+                    correctOptions: [generateOrdererOption("Cat")],
+                    otherOptions: [generateOrdererOption("Dog")],
+                })}
+            />,
+        );
+
+        // Act
+        const otherCard = screen.getByDisplayValue("Dog");
+        await userEvent.clear(otherCard);
+        await userEvent.type(otherCard, "Emu");
+
+        // Assert
+        expect(onChangeMock).toHaveBeenLastCalledWith(
+            {
+                otherOptions: [generateOrdererOption("Emu")],
+                options: [
+                    generateOrdererOption("Cat"),
+                    generateOrdererOption("Emu"),
+                ],
+            },
             undefined,
         );
     });
@@ -118,9 +145,9 @@ describe("OrdererEditor", () => {
         // Assert
         expect(serialized).toEqual({
             options: [
-                {content: "Option 1"},
-                {content: "Option 2"},
-                {content: "Option 3"},
+                generateOrdererOption("Option 1"),
+                generateOrdererOption("Option 2"),
+                generateOrdererOption("Option 3"),
             ],
             correctOptions: [
                 {content: "Option 1", widgets: {}, images: {}},
@@ -131,117 +158,143 @@ describe("OrdererEditor", () => {
             layout: "horizontal",
         });
     });
+
+    it("renders an input for each correct and other card", () => {
+        // Arrange, Act
+        render(
+            <OrdererEditor
+                onChange={() => {}}
+                {...generateOrdererOptions({
+                    correctOptions: [
+                        generateOrdererOption("Cat"),
+                        generateOrdererOption("Dog"),
+                    ],
+                    otherOptions: [generateOrdererOption("Emu")],
+                })}
+            />,
+        );
+
+        // Assert
+        expect(screen.getByDisplayValue("Cat")).toBeInTheDocument();
+        expect(screen.getByDisplayValue("Dog")).toBeInTheDocument();
+        expect(screen.getByDisplayValue("Emu")).toBeInTheDocument();
+    });
+
+    it("calls onChange with the new layout when the layout is changed", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <OrdererEditor
+                onChange={onChangeMock}
+                {...generateOrdererOptions({layout: "horizontal"})}
+            />,
+        );
+
+        // Act
+        await userEvent.selectOptions(
+            screen.getByRole("combobox", {name: "Layout:"}),
+            "vertical",
+        );
+
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith({layout: "vertical"});
+    });
+
+    it("calls onChange with the new height when the height is changed", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <OrdererEditor
+                onChange={onChangeMock}
+                {...generateOrdererOptions({height: "normal"})}
+            />,
+        );
+
+        // Act
+        await userEvent.selectOptions(
+            screen.getByRole("combobox", {name: "Height:"}),
+            "auto",
+        );
+
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith({height: "auto"});
+    });
 });
 
-describe("getUpdatedOptions", () => {
-    it("correctly updates correctOptions", () => {
-        // Arrange
-        const existingCorrect = [{content: "existing correct"}];
-        const existingOther = [{content: "existing other"}];
-        const newOptions = ["new option"];
-
-        // Act
-        const props = getUpdatedOptions(
-            existingCorrect,
-            existingOther,
-            "correctOptions",
-            newOptions,
+describe("mergeCards", () => {
+    it("combines the correct cards and the other cards", () => {
+        // Arrange, Act
+        const cards = mergeCards(
+            [generateOrdererOption("a")],
+            [generateOrdererOption("b")],
         );
 
         // Assert
-        expect(props).toEqual({
-            correctOptions: [{content: "new option"}],
-            options: [{content: "existing other"}, {content: "new option"}],
-        });
-    });
-
-    it("correctly updates otherOptions", () => {
-        // Arrange
-        const existingCorrect = [{content: "existing correct"}];
-        const existingOther = [{content: "existing other"}];
-        const newOptions = ["new other"];
-
-        // Act
-        const props = getUpdatedOptions(
-            existingCorrect,
-            existingOther,
-            "otherOptions",
-            newOptions,
-        );
-
-        // Assert
-        expect(props).toEqual({
-            otherOptions: [{content: "new other"}],
-            options: [{content: "existing correct"}, {content: "new other"}],
-        });
-    });
-
-    it("sorts options correctly", () => {
-        // Arrange
-        const existingCorrect = [{content: "3"}, {content: "$b$"}];
-        const existingOther = [{content: "2"}, {content: "1"}];
-        const newOptions = ["2", "a"];
-
-        // Act
-        const props = getUpdatedOptions(
-            existingCorrect,
-            existingOther,
-            "otherOptions",
-            newOptions,
-        );
-
-        // Assert
-        // Sort order should be:
-        // 1. Numbers (2, 3)
-        // 2. $tex$ without numbers ($b$)
-        // 3. Everything else (a)
-        expect(props.options).toEqual([
-            {content: "2"},
-            {content: "3"},
-            {content: "$b$"},
-            {content: "a"},
+        expect(cards).toEqual([
+            generateOrdererOption("a"),
+            generateOrdererOption("b"),
         ]);
     });
 
-    it("removes duplicate options", () => {
-        // Arrange
-        const existingCorrect = [{content: "duplicate"}, {content: "unique"}];
-        const existingOther = [{content: "duplicate"}];
-        const newOptions = ["duplicate"];
-
-        // Act
-        const props = getUpdatedOptions(
-            existingCorrect,
-            existingOther,
-            "otherOptions",
-            newOptions,
+    it("sorts content with numbers ahead of content without", () => {
+        // Arrange, Act
+        const cards = mergeCards(
+            [generateOrdererOption("3"), generateOrdererOption("$b$")],
+            [generateOrdererOption("2"), generateOrdererOption("a")],
         );
 
         // Assert
-        expect(props.options).toEqual([
-            {content: "duplicate"},
-            {content: "unique"},
+        expect(cards).toEqual([
+            generateOrdererOption("2"),
+            generateOrdererOption("3"),
+            generateOrdererOption("$b$"),
+            generateOrdererOption("a"),
         ]);
     });
 
-    it("filters out empty strings", () => {
-        // Arrange
-        const existingCorrect = [{content: ""}, {content: "existing"}];
-        const existingOther = [{content: ""}];
-        const newOptions = ["", "valid"];
-
-        // Act
-        const props = getUpdatedOptions(
-            existingCorrect,
-            existingOther,
-            "otherOptions",
-            newOptions,
+    it("sorts bare variables last", () => {
+        // Arrange, Act
+        const cards = mergeCards(
+            [generateOrdererOption("x + 1"), generateOrdererOption("$y$")],
+            [generateOrdererOption("hello world")],
         );
 
         // Assert
-        expect(props.options).toEqual([
-            {content: "existing"},
-            {content: "valid"},
+        expect(cards).toEqual([
+            generateOrdererOption("x + 1"),
+            generateOrdererOption("hello world"),
+            generateOrdererOption("$y$"),
+        ]);
+    });
+
+    it("removes duplicate cards", () => {
+        // Arrange, Act
+        const cards = mergeCards(
+            [
+                generateOrdererOption("duplicate"),
+                generateOrdererOption("unique"),
+            ],
+            [generateOrdererOption("duplicate")],
+        );
+
+        // Assert
+        expect(cards).toEqual([
+            generateOrdererOption("duplicate"),
+            generateOrdererOption("unique"),
+        ]);
+    });
+
+    it("removes empty cards", () => {
+        // Arrange, Act
+        const cards = mergeCards(
+            [generateOrdererOption(""), generateOrdererOption("existing")],
+            [generateOrdererOption(""), generateOrdererOption("valid")],
+        );
+
+        // Assert
+        expect(cards).toEqual([
+            generateOrdererOption("existing"),
+            generateOrdererOption("valid"),
         ]);
     });
 });
