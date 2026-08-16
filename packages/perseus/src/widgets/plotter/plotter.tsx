@@ -24,6 +24,7 @@ import type {
     WidgetProps,
 } from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
+import {semanticColor, font, tokenValue} from "@khanacademy/wonder-blocks-tokens";
 
 type Props = WidgetProps<
     PlotterPublicWidgetOptions,
@@ -285,7 +286,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
                 );
                 graphie.style(
                     {
-                        stroke: isMobile ? "#e9ebec" : "#000",
+                        stroke: isMobile ? tokenValue(semanticColor.core.border.neutral.subtle) : tokenValue(semanticColor.core.border.neutral.strong),
                         strokeWidth: 1,
                         opacity: isMobile ? 1 : 0.3,
                     },
@@ -304,8 +305,8 @@ class Plotter extends React.Component<Props, State> implements Widget {
                     "center",
                     false,
                 )
-                .css("font-weight", "bold")
-                .css("color", KhanColors.KA_GREEN)
+                .css("font-weight", font.weight.bold)
+                .css("color", tokenValue(semanticColor.core.foreground.neutral.subtle))
                 .css("display", "none");
         }
 
@@ -319,8 +320,8 @@ class Plotter extends React.Component<Props, State> implements Widget {
                     "center",
                     false,
                 )
-                .css("font-weight", "bold")
-                .css("color", KhanColors.KA_GREEN)
+                .css("font-weight", font.weight.bold)
+                .css("color", semanticColor.core.foreground.instructive.default)
                 .css("display", "none");
         }
 
@@ -329,22 +330,15 @@ class Plotter extends React.Component<Props, State> implements Widget {
         }
 
         graphie.style(
-            {stroke: "#000", strokeWidth: 2, opacity: 1.0},
+            {stroke: tokenValue(semanticColor.core.border.neutral.strong), strokeWidth: 2, opacity: 1.0},
             function () {
                 if (isTiledPlot) {
                     if (isDotplot) {
                         // Dotplot is a subtype of tiled plot, here we only draw
                         // the x-axis
-                        graphie.style(
-                            {
-                                stroke: isMobile ? KhanColors.GRAY_G : "#000",
-                                strokeWidth: isMobile ? 1 : 2,
-                            },
-                            () =>
-                                graphie.line(
-                                    [isMobile ? 0 : 0.5, 0],
-                                    [c.dimX - (isMobile ? 0 : 0.5), 0],
-                                ),
+                        graphie.line(
+                            [isMobile ? 0 : 0.5, 0],
+                            [c.dimX - (isMobile ? 0 : 0.5), 0],
                         );
                     } else {
                         graphie.line([0, 0], [c.dimX, 0]);
@@ -354,68 +348,45 @@ class Plotter extends React.Component<Props, State> implements Widget {
                             self.props.options.labels[1].length !== 0 ||
                             !isMobile
                         ) {
-                            graphie.style(
-                                {
-                                    stroke: isMobile
-                                        ? KhanColors.GRAY_G
-                                        : "#000",
-                                    strokeWidth: isMobile ? 1 : 2,
-                                },
-                                () => graphie.line([0, 0], [0, c.dimY]),
-                            );
+                            graphie.line([0, 0], [0, c.dimY]);
                         }
                     }
                 } else {
                     // Draw normal axes
-                    graphie.style(
-                        {
-                            stroke: isMobile ? KhanColors.GRAY_G : "#000",
-                            strokeWidth: isMobile ? 1 : 2,
-                        },
-                        () =>
-                            graphie.line(
-                                [isMobile ? -padX * 3 : 0, 0],
-                                [c.dimX + (isMobile ? padX : 0), 0],
-                            ),
+                    graphie.line(
+                        [isMobile ? -padX * 3 : 0, 0],
+                        [c.dimX + (isMobile ? padX : 0), 0],
                     );
 
                     if (!((isBar || isLine) && isMobile)) {
-                        graphie.style(
-                            {
-                                stroke: isMobile ? KhanColors.GRAY_G : "#000",
-                                strokeWidth: isMobile ? 1 : 2,
-                            },
-                            () => graphie.line([0, 0], [0, c.dimY]),
-                        );
+                        graphie.line([0, 0], [0, c.dimY]);
                     }
                 }
             },
         );
 
-        const xAxisLabel = graphie
+        // x-axis label
+        graphie
             .label(
                 [c.dimX / 2, isMobile ? -padBottom : -35 / c.scale[1]],
                 self.props.options.labels[0],
                 isMobile ? "above" : "below",
                 false,
             )
-            .css("font-weight", "bold");
-        if (isMobile) {
-            xAxisLabel.css("color", KhanColors.GRAY_F);
-        }
+            .css("color", tokenValue(semanticColor.core.foreground.neutral.default))
+            .css("font-weight", font.weight.bold);
 
-        const yAxisLabel = graphie
+        // y-axis label
+        graphie
             .label(
                 [(isMobile ? -35 : -60) / c.scale[0], c.dimY / 2],
                 self.props.options.labels[1],
                 "center",
                 false,
             )
-            .css("font-weight", "bold")
+            .css("color", tokenValue(semanticColor.core.foreground.neutral.default))
+            .css("font-weight", font.weight.bold)
             .addClass("rotate");
-        if (isMobile) {
-            yAxisLabel.css("color", KhanColors.GRAY_F);
-        }
 
         if (this.props.apiOptions.isMobile) {
             this.horizHairline = new WrappedLine(this.graphie, [0, 0], [0, 0], {
@@ -425,7 +396,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
             });
 
             this.horizHairline.attr({
-                stroke: KhanColors.INTERACTIVE,
+                stroke: tokenValue(semanticColor.core.border.instructive.default),
             });
             this.horizHairline.hide();
 
@@ -541,8 +512,8 @@ class Plotter extends React.Component<Props, State> implements Widget {
                 const tickHeight = 6 / c.scale[1];
                 graphie.style(
                     {
-                        stroke: "#000",
-                        strokeWidth: isMobile ? 1 : 2,
+                        stroke: tokenValue(semanticColor.core.foreground.neutral.default),
+                        strokeWidth: 2,
                         opacity: 1.0,
                     },
                     function () {
@@ -602,8 +573,8 @@ class Plotter extends React.Component<Props, State> implements Widget {
 
                 graphie.style(
                     {
-                        stroke: isMobile ? KhanColors.GRAY_G : "#000",
-                        strokeWidth: isMobile ? 1 : 2,
+                        stroke: tokenValue(semanticColor.core.foreground.neutral.default),
+                        strokeWidth: 2,
                         opacity: 1.0,
                     },
                     function () {
@@ -719,7 +690,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
         graphie.style(
             {
                 stroke: "none",
-                fill: isMobile ? KhanColors.BLUE_C : KhanColors.LIGHT_BLUE,
+                fill: tokenValue(semanticColor.core.background.instructive.default),
                 opacity: 1.0,
             },
             function () {
@@ -738,9 +709,9 @@ class Plotter extends React.Component<Props, State> implements Widget {
                 // Don't draw a divider to the left of the first bucket
                 graphie.style(
                     {
-                        stroke: "#000",
+                        stroke: tokenValue(semanticColor.core.border.neutral.subtle),
                         strokeWidth: 1,
-                        opacity: 0.3,
+                        // opacity: 0.3,
                     },
                     function () {
                         config.graph.dividers.push(
@@ -773,9 +744,9 @@ class Plotter extends React.Component<Props, State> implements Widget {
                         },
                     ],
                     onMoveStart: function () {
-                        config.graph.bars[i].attr({
-                            fill: KhanColors.INTERACTIVE,
-                        });
+                        // config.graph.bars[i].attr({
+                        //     fill: ,
+                        // });
                     },
                     onMove: function () {
                         const y = config.graph.lines[i].coord()[1];
@@ -789,9 +760,9 @@ class Plotter extends React.Component<Props, State> implements Widget {
                         scaleBar(i, y);
                     },
                     onMoveEnd: function () {
-                        config.graph.bars[i].attr({
-                            fill: KhanColors.BLUE_C,
-                        });
+                        // config.graph.bars[i].attr({
+                        //     fill: KhanColors.BLUE_C,
+                        // });
                     },
                 },
             );
@@ -906,8 +877,8 @@ class Plotter extends React.Component<Props, State> implements Widget {
                     constrainX: true,
                 },
                 normalStyle: {
-                    fill: KhanColors.INTERACTIVE,
-                    stroke: KhanColors.INTERACTIVE,
+                    fill: tokenValue(semanticColor.core.border.instructive.default),
+                    stroke: tokenValue(semanticColor.core.border.instructive.default),
                 },
                 snapY: c.scaleY / self.props.options.snapsPerLine,
             });
@@ -927,7 +898,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
                         fixed: true,
                     },
                     normalStyle: {
-                        stroke: "#9ab8ed",
+                        stroke: tokenValue(semanticColor.core.border.instructive.subtle),
                         "stroke-width": 2,
                     },
                 });
@@ -949,8 +920,8 @@ class Plotter extends React.Component<Props, State> implements Widget {
                     this.DOT_PLOT_POINT_SIZE() / graphie.scale[1],
                 ],
                 {
-                    fill: KhanColors.INTERACTIVE,
-                    stroke: KhanColors.INTERACTIVE,
+                    fill: tokenValue(semanticColor.core.border.instructive.default),
+                    stroke: tokenValue(semanticColor.core.border.instructive.default),
                 },
             );
         });
@@ -1054,8 +1025,8 @@ class Plotter extends React.Component<Props, State> implements Widget {
                     self.DOT_TICK_POINT_SIZE() / graphie.scale[1],
                 ],
                 {
-                    fill: "#dee1e3",
-                    stroke: "#dee1e3",
+                    fill: tokenValue(semanticColor.core.border.neutral.subtle),
+                    stroke: tokenValue(semanticColor.core.border.neutral.subtle),
                 },
             );
         });
