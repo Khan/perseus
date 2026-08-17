@@ -528,13 +528,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         // Draggable's `onRender`, and a font arriving doesn't re-render
         // anything.
         //
-        // This listens for `loadingdone` rather than awaiting
-        // `document.fonts.ready`, because at mount the browser may not have
-        // requested the font yet -- it requests during layout, which can happen
-        // after this runs, and `ready` resolves immediately while nothing is
-        // pending. The event fires whenever a batch of faces finishes, so it
-        // also catches loads that start after mount. On a warm cache it never
-        // fires and doesn't need to: the first measurement is already right.
+        // NOTE: `loadingdone` never fires in certain situations, e.g. if there are no web fonts on the page or they are all loaded from the browser cache. Don't rely on this event happening!
         document.fonts?.addEventListener("loadingdone", this.remeasureItems);
     }
 
