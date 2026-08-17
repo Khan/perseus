@@ -92,7 +92,7 @@ export const SwitchDirectionButtonClicked: Story = {
     },
 };
 
-export const MakeCircleOpen: Story = {
+export const MakeCircleOpenButtonClicked: Story = {
     decorators: [numberLineRendererDecorator],
     args: inequalityArgs,
     parameters: {
