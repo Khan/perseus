@@ -5095,7 +5095,7 @@ exports[`parseAndMigratePerseusItem given input-number-with-null-version.ts retu
     "metadata": null,
     "widgets": {
       "input-number 1": {
-        "alignment": "",
+        "alignment": "default",
         "graded": true,
         "key": null,
         "options": {
@@ -5168,7 +5168,7 @@ exports[`parseAndMigratePerseusItem given input-number-with-null-version.ts retu
     "metadata": null,
     "widgets": {
       "input-number 1": {
-        "alignment": "",
+        "alignment": "default",
         "graded": true,
         "key": null,
         "options": {

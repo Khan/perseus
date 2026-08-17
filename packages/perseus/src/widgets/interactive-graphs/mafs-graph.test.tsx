@@ -1,5 +1,5 @@
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
-import {screen, render, act} from "@testing-library/react";
+import {screen, render, act, fireEvent} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {vec} from "mafs";
 import React from "react";
@@ -1508,6 +1508,85 @@ describe("MafsGraph", () => {
                 screen.queryByTestId("movable-point__visible-label"),
             ).not.toBeInTheDocument();
         });
+    });
+});
+
+describe("keyboard interaction invitation", () => {
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    const unlimitedPolygonState: InteractiveGraphState = {
+        type: "polygon",
+        numSides: "unlimited",
+        closedPolygon: true,
+        coords: [
+            [-1, 1],
+            [0, 0],
+            [1, 1],
+        ],
+        focusedPointIndex: null,
+        hasBeenInteractedWith: false,
+        interactionMode: "mouse",
+        showAngles: false,
+        showSides: false,
+        showKeyboardInteractionInvitation: false,
+        showRemovePointButton: false,
+        snapStep: [1, 1],
+        snapTo: "grid",
+        range: [
+            [-10, 10],
+            [-10, 10],
+        ],
+    };
+
+    function getGraphEl(container: HTMLElement): HTMLElement {
+        // eslint-disable-next-line testing-library/no-node-access
+        const graph = container.querySelector<HTMLElement>(".mafs-graph");
+        invariant(graph != null, "expected a .mafs-graph element");
+        return graph;
+    }
+
+    it("invites keyboard interaction when the graph is focused via keyboard", () => {
+        // Arrange
+        const dispatch = jest.fn();
+        const {container} = render(
+            <MafsGraph
+                {...baseMafsProps}
+                state={unlimitedPolygonState}
+                dispatch={dispatch}
+            />,
+        );
+
+        // Act: a real focus is keyboard-driven (`:focus-visible`).
+        act(() => getGraphEl(container).focus());
+
+        // Assert
+        expect(dispatch).toHaveBeenCalledWith(
+            actions.global.changeKeyboardInvitationVisibility(true),
+        );
+    });
+
+    it("does not invite keyboard interaction when the focus is not keyboard-driven", () => {
+        // Arrange
+        const dispatch = jest.fn();
+        const {container} = render(
+            <MafsGraph
+                {...baseMafsProps}
+                state={unlimitedPolygonState}
+                dispatch={dispatch}
+            />,
+        );
+
+        // Act
+        fireEvent.focus(getGraphEl(container));
+
+        // Assert
+        expect(dispatch).not.toHaveBeenCalledWith(
+            actions.global.changeKeyboardInvitationVisibility(true),
+        );
     });
 });
 

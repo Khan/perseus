@@ -3,7 +3,10 @@ import {expect, fireEvent} from "storybook/test";
 import {themeModes} from "../../../../../../.storybook/modes";
 
 import {numberLineRendererDecorator} from "./number-line-renderer-decorator";
-import {waitForNumberLine} from "./number-line-story-helpers";
+import {
+    assertPointRendered,
+    waitForNumberLine,
+} from "./number-line-story-helpers";
 
 import type {
     PerseusNumberLineWidgetOptions,
@@ -33,8 +36,6 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-// Shared configuration for the inequality stories: a range that crosses zero
-// with one tick per unit so the ray direction reads clearly.
 const inequalityArgs = {
     isInequality: true,
     range: [-5, 5],
@@ -43,9 +44,6 @@ const inequalityArgs = {
     tickStep: 1,
 } satisfies Partial<PerseusNumberLineWidgetOptions>;
 
-// getStartUserInput always initializes an inequality's relation to "ge", so a
-// story starting from any other relation must seed the whole userInput map
-// itself (initialUserInput fully replaces the computed start input).
 const inequalityInput = (rel: "ge" | "gt" | "le" | "lt"): UserInputMap => ({
     "number-line 1": {rel, numDivisions: 10, numLinePosition: 0},
 });
@@ -57,13 +55,10 @@ const hoverPoint: Story["play"] = async ({canvasElement, userEvent}) => {
     const point = canvasElement.querySelector(
         '[data-interactive-kind-for-testing="movable-point"] ellipse',
     );
-    if (point == null) {
-        throw new Error("movable point has not rendered yet");
-    }
+    assertPointRendered(point);
     await userEvent.hover(point);
 };
 
-// Verifies the highlighted (hovered) state of the interactive closed point.
 export const PointHovered: Story = {
     decorators: [numberLineRendererDecorator],
     args: {
@@ -73,8 +68,6 @@ export const PointHovered: Story = {
     play: hoverPoint,
 };
 
-// Verifies the highlighted (hovered) state of the open (strict inequality) dot:
-// the hollow dot keeps its background fill while the highlight stroke renders.
 export const OpenDotHovered: Story = {
     decorators: [numberLineRendererDecorator],
     args: inequalityArgs,
@@ -84,7 +77,6 @@ export const OpenDotHovered: Story = {
     play: hoverPoint,
 };
 
-// Verifies that clicking "Switch direction" flips the ray from right to left.
 export const SwitchDirectionButtonClicked: Story = {
     decorators: [numberLineRendererDecorator],
     args: inequalityArgs,
@@ -100,9 +92,7 @@ export const SwitchDirectionButtonClicked: Story = {
     },
 };
 
-// Clicking "Make circle open" switches the closed dot to an open one, and the
-// button label itself flips to "Make circle filled".
-export const MakeCircleOpen: Story = {
+export const MakeCircleOpenButtonClicked: Story = {
     decorators: [numberLineRendererDecorator],
     args: inequalityArgs,
     parameters: {
@@ -121,8 +111,6 @@ export const MakeCircleOpen: Story = {
     },
 };
 
-// Verifies that changing the number of divisions in the tick controller
-// redraws the tick marks.
 export const TickDivisionsChanged: Story = {
     decorators: [numberLineRendererDecorator],
     args: {
@@ -140,8 +128,6 @@ export const TickDivisionsChanged: Story = {
     },
 };
 
-// Verifies the point renders in a new position after being dragged away from
-// its default (the left endpoint).
 export const PointMoved: Story = {
     decorators: [numberLineRendererDecorator],
     args: {
@@ -153,9 +139,7 @@ export const PointMoved: Story = {
         const point = canvasElement.querySelector(
             '[data-interactive-kind-for-testing="movable-point"] ellipse',
         );
-        if (point == null) {
-            throw new Error("movable point has not rendered yet");
-        }
+        assertPointRendered(point);
         const {x, y, width, height} = point.getBoundingClientRect();
         const startX = x + width / 2;
         const startY = y + height / 2;
@@ -163,34 +147,30 @@ export const PointMoved: Story = {
         // The legacy movable binds its drag to jQuery-mobile vmouse events,
         // whose handlers read pageX/pageY and live on `document`. Fire native
         // mouse events with those coords set — down on the point (vmouse
-        // translates it and it bubbles to document), move/up on document — so
+        // translates it, and it bubbles to document), move/up on document — so
         // the drag actually registers.
+        // eslint-disable-next-line testing-library/prefer-user-event
         fireEvent.mouseDown(point, {
             button: 0,
             clientX: startX,
             clientY: startY,
-            pageX: startX,
-            pageY: startY,
         });
+        // eslint-disable-next-line testing-library/prefer-user-event
         fireEvent.mouseMove(document, {
             button: 0,
             clientX: endX,
             clientY: startY,
-            pageX: endX,
-            pageY: startY,
         });
+        // eslint-disable-next-line testing-library/prefer-user-event
         fireEvent.mouseUp(document, {
             button: 0,
             clientX: endX,
             clientY: startY,
-            pageX: endX,
-            pageY: startY,
         });
         await waitForNumberLine(canvasElement);
     },
 };
 
-// Verifies the keyboard focus outline on the "Switch direction" button.
 export const SwitchDirectionButtonFocused: Story = {
     decorators: [numberLineRendererDecorator],
     args: inequalityArgs,

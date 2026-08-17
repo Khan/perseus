@@ -1,13 +1,9 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/forbid-prop-types */
 import {
     sorterLogic,
-    type SorterDefaultWidgetOptions,
+    type PerseusSorterWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import PropTypes from "prop-types";
 import * as React from "react";
-import _ from "underscore";
 
 import InfoTip from "../../components/info-tip";
 import TextListEditor from "../../components/text-list-editor";
@@ -15,37 +11,44 @@ import TextListEditor from "../../components/text-list-editor";
 const HORIZONTAL = "horizontal";
 const VERTICAL = "vertical";
 
-type Props = any;
+type Props = PerseusSorterWidgetOptions & {
+    onChange: (
+        newOptions: Partial<PerseusSorterWidgetOptions>,
+        callback?: () => void,
+    ) => void;
+};
 
 // JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for adding a sorter widget that allows users to arrange items in a specific order.
  */
 class SorterEditor extends React.Component<Props> {
-    static propTypes = {
-        correct: PropTypes.array,
-        layout: PropTypes.oneOf([HORIZONTAL, VERTICAL]),
-        padding: PropTypes.bool,
-    };
-
     static widgetName = "sorter" as const;
 
-    static defaultProps: SorterDefaultWidgetOptions =
+    static defaultProps: PerseusSorterWidgetOptions =
         sorterLogic.defaultWidgetOptions;
 
-    onLayoutChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
-        e,
-    ) => {
-        this.props.onChange({layout: e.target.value});
+    onLayoutChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const layout = e.target.value;
+        switch (layout) {
+            case HORIZONTAL:
+            case VERTICAL:
+                this.props.onChange({layout});
+                break;
+            default:
+                throw new Error(`${layout} is not an available layout option`);
+        }
     };
 
-    serialize: (arg1: any) => void = () => {
-        return _.pick(this.props, "correct", "layout", "padding");
+    serialize = (): PerseusSorterWidgetOptions => {
+        return {
+            correct: this.props.correct,
+            layout: this.props.layout,
+            padding: this.props.padding,
+        };
     };
 
     render(): React.ReactNode {
-        const editor = this;
-
         return (
             <div>
                 <div>
@@ -62,8 +65,8 @@ class SorterEditor extends React.Component<Props> {
                 </div>
                 <TextListEditor
                     options={this.props.correct}
-                    onChange={function (options, cb) {
-                        editor.props.onChange({correct: options}, cb);
+                    onChange={(options) => {
+                        this.props.onChange({correct: options});
                     }}
                     layout={this.props.layout}
                 />
@@ -73,7 +76,6 @@ class SorterEditor extends React.Component<Props> {
                         Layout:{" "}
                         <select
                             value={this.props.layout}
-                            // @ts-expect-error - TS2322 - Type '(arg1: ChangeEvent<HTMLInputElement>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'.
                             onChange={this.onLayoutChange}
                         >
                             <option value={HORIZONTAL}>Horizontal</option>

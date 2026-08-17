@@ -193,11 +193,18 @@ describe("describedByIds", () => {
 });
 
 describe("handleFocusEvent", () => {
-    it("invites keyboard interaction when the graph itself is focused via mouse", () => {
+    it("invites keyboard interaction when the mouse-mode graph is focus-visible", () => {
         // Arrange
         const dispatch = jest.fn();
         const target = document.createElement("div");
         target.classList.add("mafs-graph");
+        // The invitation is gated on `:focus-visible`, so the element must
+        // actually be focused. jsdom lacks `:focus-visible`, so
+        // `hasFocusVisible` falls back to `:focus`, which only matches a
+        // focused, in-document element.
+        target.tabIndex = 0;
+        document.body.appendChild(target);
+        target.focus();
 
         // Act
         handleFocusEvent(focusEventOn(target), unlimitedPointState, dispatch);
@@ -206,6 +213,9 @@ describe("handleFocusEvent", () => {
         expect(dispatch).toHaveBeenCalledWith(
             actions.global.changeKeyboardInvitationVisibility(true),
         );
+
+        // Cleanup
+        target.remove();
     });
 
     it("does nothing when the graph is not an unlimited graph", () => {

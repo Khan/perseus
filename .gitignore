@@ -22,3 +22,9 @@ CLAUDE.local.md
 
 # Typedoc generated files (we build these when needed instead of checking them in)
 /docs/*
+
+# Pi-installed project-local packages
+.pi/git/*
+!.pi/git/.gitignore
+
+.pi/npm/

@@ -14,7 +14,10 @@
 }
 .perseus-mobile .tooltip.visible .tooltip-content:before {
     border: solid;
-    border-color: white transparent;
+    border-color: var(--wb-semanticColor-core-border-knockout-default)
+        var(--wb-semanticColor-core-border-disabled-subtle);
+    /* This is a CSS-triangle arrow shape, not a themed border stroke —
+       border-width tokens (max 4px) don't apply to shape geometry. */
     border-width: 10px 10px 0 10px;
     bottom: -10px;
     content: "";
@@ -28,8 +31,8 @@
 }
 .perseus-mobile .tooltip.visible .tooltip-content {
     display: inline-block;
-    background-color: #ffffff;
-    border-radius: 5px;
+    background-color: var(--wb-semanticColor-core-background-base-default);
+    border-radius: var(--wb-border-radius-radius_040);
     bottom: 50px;
     left: 50%;
     transform: translateX(-50%);
@@ -40,7 +43,7 @@
     text-align: center;
 }
 .perseus-mobile .tooltip.visible .tooltip-content mjx-container {
-    color: #71b307 !important;
+    color: var(--wb-semanticColor-core-foreground-neutral-strong) !important;
 }
 .perseus-mobile .graphie-label mjx-container {
     color: inherit !important;

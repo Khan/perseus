@@ -5,12 +5,17 @@ import {themeModes} from "../../../../.storybook/modes";
 import {
     regularTextContent,
     listsContent,
+    mathContent,
+    tableContent,
+    codeContent,
+    blockquoteContent,
 } from "../__testdata__/renderer.testdata";
 import ArticleRenderer from "../article-renderer";
 import {storybookDependenciesV2} from "../testing/test-dependencies";
 import {useStorybookApiOptions} from "../testing/use-storybook-api-options";
 import QuestionRendererForStories from "../widgets/__testutils__/question-renderer-for-stories";
 
+import type {APIOptions} from "../types";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -30,9 +35,12 @@ const meta: Meta<PerseusRenderer> = {
 };
 export default meta;
 
-const RenderArticleContent = (content: string): (() => React.JSX.Element) => {
+const RenderArticleContent = (
+    content: string,
+    baseApiOptions: APIOptions = {},
+): (() => React.JSX.Element) => {
     return function Render() {
-        const apiOptions = useStorybookApiOptions();
+        const apiOptions = useStorybookApiOptions(baseApiOptions);
 
         /*
             These regression tests are focused on how the renderer handles non-widget content.
@@ -67,13 +75,45 @@ const RenderExerciseContent = (content: string): (() => React.JSX.Element) => {
     };
 };
 
-export const ArticleRegularText: Story = {
-    render: RenderArticleContent(regularTextContent),
-};
+function mobileArticleStory(content: string): Story {
+    return {
+        render: RenderArticleContent(content, {isMobile: true}),
+        globals: {viewport: "mobile"},
+    };
+}
 
-export const ArticleLists: Story = {
-    render: RenderArticleContent(listsContent),
-};
+function desktopArticleStory(content: string): Story {
+    return {
+        render: RenderArticleContent(content),
+    };
+}
+
+export const ArticleRegularText: Story =
+    desktopArticleStory(regularTextContent);
+
+export const ArticleRegularTextMobile: Story =
+    mobileArticleStory(regularTextContent);
+
+export const ArticleLists: Story = desktopArticleStory(listsContent);
+
+export const ArticleListsMobile: Story = mobileArticleStory(listsContent);
+
+export const ArticleMath: Story = desktopArticleStory(mathContent);
+
+export const ArticleMathMobile: Story = mobileArticleStory(mathContent);
+
+export const ArticleTable: Story = desktopArticleStory(tableContent);
+
+export const ArticleTableMobile: Story = mobileArticleStory(tableContent);
+
+export const ArticleCode: Story = desktopArticleStory(codeContent);
+
+export const ArticleCodeMobile: Story = mobileArticleStory(codeContent);
+
+export const ArticleBlockquote: Story = desktopArticleStory(blockquoteContent);
+
+export const ArticleBlockquoteMobile: Story =
+    mobileArticleStory(blockquoteContent);
 
 export const ExerciseRegularText: Story = {
     render: RenderExerciseContent(regularTextContent),

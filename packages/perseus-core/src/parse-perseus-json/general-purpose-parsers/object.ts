@@ -8,29 +8,6 @@ import type {Mismatch, ParsedValue, Parser} from "../parser-types";
 type ObjectSchema = Record<keyof any, Parser<any>>;
 
 /**
- * Creates an object parser for the given schema. At runtime,
- * `objectWithAllPropertiesRequired` behaves identically to `object`; the only
- * difference is in the return type of the parser. While `object` types
- * properties as optional if their values can be undefined,
- * `objectWithAllPropertiesRequired` types all properties as required.
- *
- * For example:
- * - `object({foo: optional(string), bar: string})` returns
- *   `Parser<{foo?: undefined | string; bar: string}>`.
- * - `objectWithAllPropertiesRequired({foo: optional(string), bar: string})` returns
- *   `Parser<{foo: undefined | string; bar: string}>`
- *   (note: no question mark on `foo`).
- *
- * @see object
- */
-export function objectWithAllPropertiesRequired<S extends ObjectSchema>(
-    schema: S,
-): Parser<{[K in keyof S]: ParsedValue<S[K]>}> {
-    // eslint-disable-next-line no-restricted-syntax
-    return object(schema) as any;
-}
-
-/**
  * Given a `schema`, returns an object parser. The parser accepts an object
  * iff each sub-parser in the `schema` accepts the object's corresponding
  * property value.

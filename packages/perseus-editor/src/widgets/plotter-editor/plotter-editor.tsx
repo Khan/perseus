@@ -45,7 +45,7 @@ type Props = {
     apiOptions: APIOptions;
     type: PerseusPlotterWidgetOptions["type"];
     labels: Array<string>;
-    categories: ReadonlyArray<string | number>;
+    categories: PerseusPlotterWidgetOptions["categories"];
     scaleY: number;
     maxY: number;
     snapsPerLine: number;
@@ -155,7 +155,6 @@ class PlotterEditor extends React.Component<Props, State> {
         let categories;
         if (type === "histogram") {
             // Switching to histogram, add a label (0) to the left
-            // @ts-expect-error - TS2769
             categories = [formatNumber(0)].concat(this.props.categories);
             this.props.onChange({type: type, categories: categories});
         } else if (this.props.type === "histogram") {

@@ -1,0 +1,51 @@
+/*
+ * ChoiceBank — the card that holds the draggable answer tiles.
+ */
+.choiceBank {
+    /* Label stacked above the tile list. */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--wb-sizing-size_160);
+
+    /* Fill parent width; hug content height. Extra bottom padding per design. */
+    width: 100%;
+    box-sizing: border-box;
+    padding: var(--wb-sizing-size_160) var(--wb-sizing-size_160)
+        var(--wb-sizing-size_240);
+
+    /* Dashed grey border, subtle background, small radius. */
+    border-radius: var(--wb-border-radius-radius_040);
+    border: var(--wb-border-width-thin) dashed
+        var(--wb-semanticColor-core-border-neutral-default);
+    background: var(--wb-semanticColor-core-background-base-subtle);
+}
+
+.label {
+    font-family: var(--wb-font-family-sans);
+    font-size: var(--wb-font-body-size-xsmall);
+    line-height: var(--wb-font-body-lineHeight-xsmall);
+    font-weight: var(--wb-font-weight-bold);
+    color: var(--wb-semanticColor-core-foreground-neutral-default);
+}
+
+.list {
+    /* Reflow: tiles flow inline and wrap onto new rows. No hardcoded physical
+     * direction, so it reverses automatically in RTL. */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: var(--wb-sizing-size_080);
+    row-gap: var(--wb-sizing-size_120);
+
+    /* Reset <ul> defaults; fill the card's width. */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 100%;
+}
+
+.item {
+    display: flex;
+    margin: 0;
+}

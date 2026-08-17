@@ -1,4 +1,5 @@
 import {themeModes} from "../../../../../../.storybook/modes";
+import {mobileDecorator} from "../../__testutils__/story-decorators";
 
 import {numberLineRendererDecorator} from "./number-line-renderer-decorator";
 import {waitForError, waitForNumberLine} from "./number-line-story-helpers";
@@ -45,9 +46,6 @@ const inequalityArgs = {
     tickStep: 1,
 } satisfies Partial<PerseusNumberLineWidgetOptions>;
 
-// getStartUserInput always initializes an inequality's relation to "ge", so a
-// story showing any other relation must seed the whole userInput map itself
-// (initialUserInput fully replaces the computed start input).
 const inequalityInput = (rel: "ge" | "gt" | "le" | "lt"): UserInputMap => ({
     "number-line 1": {rel, numDivisions: 10, numLinePosition: 0},
 });
@@ -62,9 +60,6 @@ const fractionArgs = {
     snapDivisions: 1,
 } satisfies Partial<PerseusNumberLineWidgetOptions>;
 
-// The point is placed at a specific value (3) that falls between tick marks,
-// so this covers both the default line (highlighted blue endpoint ticks,
-// decimal labels) and a point positioned away from an endpoint.
 export const Default: Story = {
     decorators: [numberLineRendererDecorator],
     args: {
@@ -188,20 +183,21 @@ export const InequalityOpenLeft: Story = {
     play: waitForRender,
 };
 
-// Static mode: the answer is shown as a non-editable point and cannot be moved.
 export const StaticPoint: Story = {
     decorators: [numberLineRendererDecorator],
     args: {
-        static: true,
         range: [0, 10],
         numDivisions: 5,
         correctX: 6,
     } satisfies Partial<PerseusNumberLineWidgetOptions>,
+    parameters: {
+        static: true,
+    },
     play: waitForRender,
 };
 
 export const Mobile: Story = {
-    decorators: [numberLineRendererDecorator],
+    decorators: [numberLineRendererDecorator, mobileDecorator],
     args: {
         range: [0, 10],
         numDivisions: 5,
@@ -213,7 +209,7 @@ export const Mobile: Story = {
 };
 
 export const MobileInequalityClosed: Story = {
-    decorators: [numberLineRendererDecorator],
+    decorators: [numberLineRendererDecorator, mobileDecorator],
     args: inequalityArgs,
     parameters: {
         apiOptions: {isMobile: true},
@@ -223,7 +219,7 @@ export const MobileInequalityClosed: Story = {
 };
 
 export const MobileInequalityOpen: Story = {
-    decorators: [numberLineRendererDecorator],
+    decorators: [numberLineRendererDecorator, mobileDecorator],
     args: inequalityArgs,
     parameters: {
         apiOptions: {isMobile: true},

@@ -5,17 +5,16 @@ import * as React from "react";
 import PreviewWithIframe from "./preview-with-iframe";
 import {clone} from "./testing/object-utils";
 
+import type {A11yIssue} from "./components/issues-panel";
 import type {PreviewContent} from "./preview/message-types";
+import type {A11yReport} from "./preview/use-preview-controller";
 
 const mockSendData = jest.fn();
 const mockSetA11yScanningEnabled = jest.fn();
 const mockHighlightIssues = jest.fn();
 const mockClearHighlights = jest.fn();
 let mockHeight: number | null = null;
-let mockA11yReport: {
-    violations: Array<{id: string}>;
-    incompletes: Array<{id: string}>;
-} | null = null;
+let mockA11yReport: A11yReport | null = null;
 
 jest.mock("./preview/use-preview-controller", () => ({
     usePreviewController: () => ({
@@ -27,6 +26,19 @@ jest.mock("./preview/use-preview-controller", () => ({
         a11yReport: mockA11yReport,
     }),
 }));
+
+function makeA11yIssue(id: string): A11yIssue {
+    return {
+        source: "a11y",
+        id,
+        instanceId: `violation-${id}`,
+        description: "description",
+        helpUrl: "https://help",
+        help: "help",
+        impact: "high",
+        message: "message",
+    };
+}
 
 function buildArticleContent(): PreviewContent {
     return {
@@ -264,9 +276,9 @@ describe("PreviewWithIframe", () => {
     describe("onA11yReport prop", () => {
         it("calls onA11yReport with the latest report from usePreviewController", () => {
             // Arrange
-            const report = {
-                violations: [{id: "button-name"}],
-                incompletes: [],
+            const report: A11yReport = {
+                violations: [makeA11yIssue("button-name")],
+                needsReview: [],
             };
             mockA11yReport = report;
             const onA11yReport = jest.fn();
