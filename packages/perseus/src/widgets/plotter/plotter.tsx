@@ -305,6 +305,8 @@ class Plotter extends React.Component<Props, State> implements Widget {
             }
         }
 
+        // Set up the instruction text that tells the learner how to interact
+        // with the plot.
         if ((isBar || isLine) && isMobile && !this.props.static) {
             self.graphie.dragPrompt = graphie
                 .label(
@@ -316,7 +318,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
                 .css("font-weight", font.weight.bold)
                 .css(
                     "color",
-                    tokenValue(semanticColor.core.foreground.neutral.subtle),
+                    tokenValue(semanticColor.core.foreground.neutral.strong),
                 )
                 .css("display", "none");
         }
