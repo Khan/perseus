@@ -277,3 +277,90 @@ state, the commit was split:
 **Pending (user action):** push from CLI (`git push -u origin
 tb/LEMS-4275/convert-grapher`), open the PR, and approve the Chromatic
 snapshots to establish the baseline.
+
+**Update:** the baseline commit (`4f49a4161d`) and PR #3922 were pushed/opened
+prior to this update. Chromatic ran and is pending approval ("7 changes must
+be accepted as baselines") — not yet approved as of this entry. GitHub is
+currently down, so no further pushes are happening until it's back.
+
+Since starting Step 4, the regression stories were also reworked to match the
+categorizer widget's most recent precedent: replaced `component:
+ServerItemRendererWithDebugUI` (item-level renderer with debug UI chrome —
+hints, scoring, JSON editor, action buttons) with a new
+`grapherRendererDecorator` (`grapher-renderer-decorator.tsx`) wrapping
+`QuestionRendererForStories` directly, matching `categorizerRendererDecorator`.
+Rationale: the debug UI chrome added snapshot surface area unrelated to
+grapher's own colors (e.g. a WonderBlocks button restyle elsewhere could
+spuriously diff these stories), and `generateTestPerseusItem(...)` was only
+wrapping the testdata's already-full `PerseusRenderer` questions to satisfy
+`ServerItemRendererWithDebugUI`'s `item: PerseusItem` prop — not because the
+stories needed item-level behavior. `apiOptions` moved from story `args` to
+`parameters`, matching where categorizer's mobile stories put it. One TS/lint
+wrinkle: the `Decorator` type from `@storybook/react-vite` doesn't compose with
+a narrowed `args` shape against `Meta`/`StoryObj`'s untyped decorators array,
+so — matching categorizer's own `args: Record<string, unknown>` typing — a
+single `as` cast was needed with `// eslint-disable-next-line
+no-restricted-syntax` (repo convention per `widget-type-utils.ts`). Verified
+with `pnpm tsc` and `pnpm fixc` (both clean) and `pnpm test
+packages/perseus/src/widgets/grapher` (5 tests passed). Tamara reviewed the
+updated stories locally in Storybook and confirmed they look good. Per her
+direction, these commits will stay local (not pushed) until GitHub is back up.
+
+---
+
+## Step 5 — Font Conversion
+
+The Step 1 audit found no font attributes (`fontSize`, `fontWeight`,
+`lineHeight`, `fontFamily`) in `grapher.tsx`, `util.tsx`, or `index.ts`. Before
+treating this as a full no-op, checked every file `grapher.tsx` directly
+imports for the same four attributes, in case a connected component carried
+font styling into grapher's rendered output:
+
+- Clean: `button-group.tsx`, `graphie.tsx`, `graphie-classes.ts`,
+  `graphie-movables.ts`, `interactive2/wrapped-line.ts`.
+- `interactive2/movable-point.tsx:237` — `fontSize: "2em"` (icon-scaling for
+  the movable-point trash tooltip). Out of scope: this file was already
+  converted for colors under LEMS-4265 (commit `7ca90d3668`, "Update
+  graphie-movables and movable files to use color tokens") — same
+  ownership boundary as the colors note in Step 1 (grapher renders
+  MovablePoint/MovableLine, but their styling belongs to that ticket).
+- `components/svg-image.tsx:336` — a `font-size` percentage
+  (`100 * scale + "%"`) on image labels. Out of scope: shared across many
+  widgets beyond grapher, and the value is a runtime scale multiplier, not a
+  hardcoded design value.
+- `styles/constants.ts` defines `baseFontFamily`/`boldFontFamily`, but
+  `grapher.tsx` only imports `interactiveSizes` from that file — the font
+  constants aren't connected to grapher at all.
+
+**Conclusion:** Step 5 is a no-op for LEMS-4275. No font conversion needed
+anywhere in grapher's own scope.
+
+---
+
+## Step 8 — Figma Token Lookup
+
+### Figma page search
+
+Checked the Perseus Widgets Figma file (`HlLQJqNeMTLenuDfkyzYzE`) for a
+grapher page: `get_metadata` with no `nodeId` returned only one top-level page,
+`0:1` ("Cover"), which drilling in confirmed is literally just a cover/thumbnail
+frame — no widget content. `search_design_system` for "Grapher" returned zero
+components, variables, or styles.
+
+**No Figma design exists for grapher.** Per the workflow's fallback, all three
+audited colors were resolved using `color-conversion-rules.md`'s mapping table
+plus manual semantic reasoning, not Figma.
+
+### Token mapping table
+
+| Audit color | Site | Legacy token | Target token | Source / reasoning |
+|---|---|---|---|---|
+| `DYNAMIC` — desktop curve stroke | grapher.tsx:133 | `color.blue` | `semanticColor.core.foreground.instructive.default` | Mapping table. Exact hex match in default theme (`#1865f2` both sides). |
+| `BLUE_C` — mobile curve stroke | grapher.tsx:132 | none (bespoke literal `#63D9EA`, no `color.*` alias) | `semanticColor.core.foreground.instructive.default` | User decision. Checked the instructive scale directly (`subtle` `#b5cefb`, `default` `#1865f2`, `strong` `#1b50b3`) — none are visually close to the cyan `#63D9EA`, so this isn't a value-preserving rename; it's an intentional visual change (mobile curve becomes the same blue as desktop) made per Tamara's explicit direction to align mobile with desktop. |
+| `INTERACTIVE` — mobile hairlines | grapher.tsx:485/496 | `color.green` | `semanticColor.core.border.instructive.default` | User decision, verified against precedent. Mechanically, `color.green` maps to `semanticColor.core.foreground.success.default` (also an exact hex match, `#00a60e`), but `success` implies correctness/completion, which doesn't fit a live drag-crosshair. Tamara asked to match interactive-graph's own hairline color instead — checked `interactive-graphs/graphs/components/hairlines.tsx:37,44`, which uses `semanticColor.core.border.instructive.default` for both hairline strokes (`border` namespace, not `foreground`, despite being an SVG `stroke` attribute). Using that exact token for consistency across both widgets' hairline treatment. |
+
+No design gaps to flag for design (no Figma page exists at all, so there's
+nothing to compare against or ask design to extend).
+
+**Gate check satisfied:** every audited color now has a target token and a
+recorded rationale. Proceeding to Step 9 (color token conversion).
