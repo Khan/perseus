@@ -5,7 +5,6 @@ export type {
     MarkerType,
     InteractiveMarkerType,
     Relationship,
-    Alignment,
     RecursiveReadonly,
 } from "./types";
 export type {KeypadKey} from "./keypad";
@@ -439,6 +438,12 @@ export {
     generateMatrixWidget,
     generateMatrixOptions,
 } from "./utils/generators/matrix-widget-generator";
+/** @hidden */
+export {
+    generateOrdererWidget,
+    generateOrdererOptions,
+    generateOrdererOption,
+} from "./utils/generators/orderer-widget-generator";
 /** @hidden */
 export {
     generatePlotterWidget,

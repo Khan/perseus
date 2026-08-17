@@ -39,6 +39,8 @@ class PlaceholderCard extends React.Component<PlaceholderCardProps> {
             >
                 <div
                     className="card placeholder"
+                    // Note: To make the placeholder reflect the size of the
+                    // card, update width below to height. Currently not wanted.
                     // eslint-disable-next-line no-restricted-syntax
                     style={{height: this.props.width as number}}
                 />
@@ -71,6 +73,7 @@ type CardProps = {
     animating: boolean;
     width?: number | null | undefined;
     stack: boolean;
+    removing: boolean;
 
     onMouseDown?: any;
     onMouseMove?: any;
@@ -86,6 +89,7 @@ type CardProps = {
 
 type CardDefaultProps = {
     stack: CardProps["stack"];
+    removing: CardProps["removing"];
     animating: CardProps["animating"];
 };
 
@@ -102,6 +106,7 @@ class Card extends React.Component<CardProps, CardState> {
 
     static defaultProps: CardDefaultProps = {
         stack: false,
+        removing: false,
         animating: false,
     };
 
@@ -258,6 +263,13 @@ class Card extends React.Component<CardProps, CardState> {
             className.push("dragging");
             style.left += this.props.mouse.left - this.props.startMouse.left;
             style.top += this.props.mouse.top - this.props.startMouse.top;
+
+            const hasNotMoved =
+                this.props.mouse.left === this.props.startMouse.left &&
+                this.props.mouse.top === this.props.startMouse.top;
+            if (this.props.removing && hasNotMoved) {
+                className.push("removing");
+            }
         }
 
         // Pull out the content to get rendered
@@ -294,6 +306,7 @@ type OrdererProps = WidgetProps<
 
 type OrdererState = {
     dragging: boolean;
+    dragSource: "bank" | "current" | null;
     placeholderIndex: number | null | undefined;
     dragKey: string | null | undefined;
     animating: boolean;
@@ -325,6 +338,7 @@ class Orderer
 {
     state: OrdererState = {
         dragging: false,
+        dragSource: null,
         placeholderIndex: null,
         dragKey: null,
         animating: false,
@@ -347,36 +361,36 @@ class Orderer
         });
     }
 
-    onClick: (arg1: string, arg2: number, arg3: any, arg4: Element) => void = (
-        type,
-        index,
-        loc,
-        draggable,
-    ) => {
+    onClick: (
+        type: "bank" | "current",
+        index: number,
+        loc: any,
+        draggable: Element,
+    ) => void = (type, index, loc, draggable) => {
         // @ts-expect-error - TS2769 - No overload matches this call.
         const $draggable = $(ReactDOM.findDOMNode(draggable));
         const list = this.props.userInput.current.slice();
 
-        let opt;
+        let content: string;
         let placeholderIndex = null;
 
         if (type === "current") {
             // If this is coming from the original list, remove the original
             // card from the list
             list.splice(index, 1);
-            opt = this.props.userInput.current[index];
+            content = this.props.userInput.current[index];
             // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'null'.
             placeholderIndex = index;
-        } else if (type === "bank") {
-            opt = this.props.options[index];
+        } else {
+            content = this.props.options[index].content;
         }
 
         this.props.handleUserInput({current: list});
         this.setState({
             dragging: true,
+            dragSource: type,
             placeholderIndex: placeholderIndex,
-            dragKey: opt.key,
-            dragContent: opt.content,
+            dragContent: content,
             // @ts-expect-error - TS2339 - Property 'width' does not exist on type 'JQueryStatic'.
             dragWidth: $draggable.width(),
             // @ts-expect-error - TS2339 - Property 'height' does not exist on type 'JQueryStatic'.
@@ -421,6 +435,7 @@ class Orderer
             });
             this.setState({
                 dragging: false,
+                dragSource: null,
                 placeholderIndex: null,
                 animating: false,
             });
@@ -601,6 +616,7 @@ class Orderer
                 startMouse={this.state.grabPos}
                 mouse={this.state.mousePos}
                 width={this.state.dragWidth}
+                removing={this.state.dragSource === "current"}
                 onMouseUp={this.onRelease}
                 onMouseMove={this.onMouseMove}
                 key={this.state.dragKey || "draggingCard"}

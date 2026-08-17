@@ -211,6 +211,55 @@ Exceeding reaction chamber thermal limit. We have begun power-supply calibration
 ### Alien Life Forms
 
 Cmdr Riker's nervous system has been invaded by an *unknown microorganism*. The organisms fuse to the nerve, intertwining at the molecular level. That's why the transporter's biofilters couldn't extract it. The vertex waves show a K-complex corresponding to an REM state. The engineering section's critical. Destruction is imminent. Their robes contain ultritium, highly explosive, virtually undetectable by your transporter.
+
+#### Heading Level 4
+
+Some paragraph content...
+
+##### Heading level 5
+
+Some paragraph content...
+
+###### Heading level 6
+
+Some paragraph content...
+`;
+
+export const mathContent = `# Article with math
+
+This is a paragraph that has long sentences so it wraps across multiple lines. The paragraph contains some inline math: $y=x_0^2-1$. This demonstrates how math looks when it contains superscripts and subscripts. Here is some math that's $\\text{\\red{red}}$. And here is a fraction: $\\dfrac{2}{3}$.
+
+Here's some block-level math:
+
+$\\begin{aligned}
+2y+\\redD{7x} &= -5 \\\\
++~5y\\redD{-7x}&=12\\\\
+\\hline\\\\
+7y+0 &=7
+\\end{aligned}$
+
+This is a paragraph after the block math.
+`;
+
+export const tableContent = `# Article with a Markdown table
+
+| column A | column B | column C |
+| -------- | -------- | -------- |
+| turtles  | 42       | $\\text{\\red{red}}$ |
+| bats     | 96       | $\\text{\\blue{blue}}$ |
+| cabbages | 0        | $\\dfrac{1}{2}$ |
+`;
+
+export const codeContent = `# Article with code
+
+Here's an example of how to write a \`greet\` function in Python to implement the famous "Hello, world" program:
+
+\`\`\`python
+def greet():
+    print("Hello, world!")
+\`\`\`
+
+This is a paragraph after the code block. It contains some \`inline code that wraps across multiple lines\`.
 `;
 
 export const listsContent = `## Primary Federation ships involved in the tachyon blockade during the Klingon Civil War:
@@ -246,3 +295,33 @@ export const listsContent = `## Primary Federation ships involved in the tachyon
 
    1. Captain Kathryn Janeway
    1. Commander Chakotay`;
+
+export const blockquoteContent = `# Article with blockquote
+
+A paragraph preceding two blockquotes.
+
+> The most important property of a program is whether it accomplishes the
+> intentions of its user.
+>
+> —[C.A.R. Hoare](https://en.wikiquote.org/wiki/C._A._R._Hoare)
+
+> There are two ways of constructing a software design: One way is to make it
+> so simple that there are obviously no deficiencies and the other way is to
+> make it so complicated that there are no obvious deficiencies. The first
+> method is far more difficult. It demands the same skill, devotion,
+> insight, and even inspiration as the discovery of the simple physical laws
+> which underlie the complex phenomena of nature.
+
+A paragraph in between blockquotes.
+
+> I mean, if 10 years from now, when you are doing something quick and dirty,
+> you suddenly visualize that I am looking over your shoulders and say to
+> yourself "Dijkstra would not have liked this", well, that would be enough
+> immortality for me.
+>
+> —[Edsger W. Dijkstra](https://en.wikiquote.org/wiki/Edsger_W._Dijkstra)
+
+A paragraph following the blockquotes.
+
+
+`;
