@@ -1,5 +1,41 @@
 # @khanacademy/perseus
 
+## 84.1.0
+
+### Minor Changes
+
+-   [#4027](https://github.com/Khan/perseus/pull/4027) [`f2c5a6e`](https://github.com/Khan/perseus/commit/f2c5a6ec5d2f1259690862a76b6b986ed1add9be) Thanks [@Myranae](https://github.com/Myranae)! - Migrate Sortable/Orderer styles to semantic tokens, fix Orderer cards losing their text when removed, and add a color indicator while removing a card.
+
+-   [#4066](https://github.com/Khan/perseus/pull/4066) [`6edb892`](https://github.com/Khan/perseus/commit/6edb892db0d36c51db5e7cac2fe395d052060fff) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add ChoiceBank component for the Drag-and-Drop widget family
+
+-   [#4071](https://github.com/Khan/perseus/pull/4071) [`4846057`](https://github.com/Khan/perseus/commit/4846057c18541513bcc7b7281af6c681e7d143a9) Thanks [@benchristel](https://github.com/benchristel)! - Perseus articles are now styled according to the current theme (Wonder Blocks or Shape Your Learning).
+
+### Patch Changes
+
+-   [#3872](https://github.com/Khan/perseus/pull/3872) [`4bc6934`](https://github.com/Khan/perseus/commit/4bc69342f225267727873040ddd372bd5a3d50a1) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Collect all widget options into a single `options` prop.
+
+-   [#4030](https://github.com/Khan/perseus/pull/4030) [`38beb6a`](https://github.com/Khan/perseus/commit/38beb6ad405811ca17264fda558b884adcf47df6) Thanks [@Myranae](https://github.com/Myranae)! - Convert non-token borders and sizing in definition, explanation, matrix, radio, and group/graded-group to semantic tokens
+
+-   [#4021](https://github.com/Khan/perseus/pull/4021) [`aef2763`](https://github.com/Khan/perseus/commit/aef27633169de9ff1b6b7affbd2309a753484085) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Fix keyboard prompt appearing when dragging the polygon body
+
+-   [#4083](https://github.com/Khan/perseus/pull/4083) [`96d2d65`](https://github.com/Khan/perseus/commit/96d2d65b367f5be2bc8197d12d3c8877c0b72084) Thanks [@benchristel](https://github.com/benchristel)! - Fixes the tokenized background color of Grapher, Measurer, and Orderer to be more similar to the original background color (`#fdfdfd`) in the default theme.
+
+-   [#4069](https://github.com/Khan/perseus/pull/4069) [`b1e7d53`](https://github.com/Khan/perseus/commit/b1e7d530e142619071f04f4aac69cb4a10ac2f9b) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add folder for FillInTheBlank widget and context notes for Drag and Drop work and Fill In The Blank widget
+
+-   [#4029](https://github.com/Khan/perseus/pull/4029) [`82140d0`](https://github.com/Khan/perseus/commit/82140d0ace3f5759991cf401483fd9235859e8f0) Thanks [@Myranae](https://github.com/Myranae)! - Update missed table, interactive graph, and label image styling to semantic tokens
+
+-   [#3921](https://github.com/Khan/perseus/pull/3921) [`a08ebf6`](https://github.com/Khan/perseus/commit/a08ebf6af33ca492601b9bb4d860f9553ec92e98) Thanks [@Myranae](https://github.com/Myranae)! - Create number line generator and add visual regression stories
+
+-   [#4028](https://github.com/Khan/perseus/pull/4028) [`a0c9e01`](https://github.com/Khan/perseus/commit/a0c9e017c0fd505e6b4f3e1289b9b2b1163cd70f) Thanks [@Myranae](https://github.com/Myranae)! - Update some numeric input styling to semantic tokens
+
+-   Updated dependencies [[`191e07b`](https://github.com/Khan/perseus/commit/191e07b481b15cdcec127b9ae8c09eadde38480a), [`93f5fbe`](https://github.com/Khan/perseus/commit/93f5fbea09bcd58f9d8e8a746a0085292a9707ba), [`a08ebf6`](https://github.com/Khan/perseus/commit/a08ebf6af33ca492601b9bb4d860f9553ec92e98)]:
+    -   @khanacademy/perseus-core@36.0.0
+    -   @khanacademy/keypad-context@3.2.83
+    -   @khanacademy/kmath@2.4.42
+    -   @khanacademy/math-input@27.0.3
+    -   @khanacademy/perseus-linter@5.1.23
+    -   @khanacademy/perseus-score@8.12.15
+
 ## 84.0.2
 
 ### Patch Changes
