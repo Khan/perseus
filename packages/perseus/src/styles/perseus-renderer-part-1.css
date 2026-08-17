@@ -9,7 +9,7 @@
     user-select: none;
 }
 .blank-background {
-    background-color: var(--wb-semanticColor-core-background-neutral-subtle);
+    background-color: var(--wb-semanticColor-core-background-base-default);
 }
 .graphie {
     -webkit-user-select: none;
