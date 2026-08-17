@@ -1,8 +1,9 @@
 /* All perseus-widget-container styles moved to widget-container.css */
 
 .bibliotron-exercise .perseus-hint-renderer {
-    border-left: 4px solid var(--wb-semanticColor-core-border-neutral-subtle);
-    padding-left: 16px;
+    border-left: var(--wb-border-width-thick) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+    padding-left: var(--wb-sizing-size_160);
     position: relative;
 }
 .bibliotron-exercise .perseus-hint-renderer:focus {
@@ -17,10 +18,10 @@
 }
 .bibliotron-exercise .perseus-hint-renderer div.paragraph {
     margin-top: 0px;
-    margin-bottom: 16px;
+    margin-bottom: var(--wb-sizing-size_160);
 }
 .bibliotron-exercise .perseus-hint-renderer.last-hint {
-    margin-bottom: 32px;
+    margin-bottom: var(--wb-sizing-size_320);
 }
 @media (max-width: 767px) {
     .bibliotron-exercise .perseus-hint-renderer.last-hint {
@@ -30,8 +31,8 @@
 .perseus-hint-label {
     color: var(--wb-semanticColor-core-foreground-instructive-strong);
     display: none;
-    font-weight: 600;
-    margin-right: 13px;
+    font-weight: var(--wb-font-weight-bold);
+    margin-right: var(--wb-sizing-size_120);
     position: absolute;
     right: 100%;
     white-space: nowrap;
@@ -67,7 +68,7 @@
     box-shadow: unset;
 }
 .perseus-math-input.mq-editable-field.mq-math-mode > .mq-root-block {
-    padding: 4px;
+    padding: var(--wb-sizing-size_040);
 }
 .perseus-math-input.mq-editable-field.mq-math-mode .mq-cursor {
     padding-left: 0;
@@ -87,21 +88,22 @@
 .perseus-widget-editor
     .perseus-math-input.mq-editable-field.mq-math-mode
     > .mq-root-block {
-    border-radius: 0;
+    border-radius: var(--wb-border-radius-radius_0);
 }
 .renderer-widget-error {
-    background-color: #fcc;
+    background-color: var(--wb-semanticColor-core-background-critical-subtle);
 }
 .perseus-error {
-    background: #ffbaba;
-    border: 2px solid red;
-    border-radius: 5px;
-    padding: 20px;
-    margin: 15px 0 10px;
+    background: var(--wb-semanticColor-core-background-critical-subtle);
+    border: var(--wb-border-width-medium) solid
+        var(--wb-semanticColor-core-border-critical-default);
+    border-radius: var(--wb-border-radius-radius_040);
+    padding: var(--wb-sizing-size_200);
+    margin: var(--wb-sizing-size_160) 0 var(--wb-sizing-size_100);
 }
 @media (max-width: 767px) {
     .perseus-renderer-responsive {
-        margin: 0 16px;
+        margin: 0 var(--wb-sizing-size_160);
     }
     .perseus-renderer-responsive .perseus-renderer-responsive {
         margin: 0;
