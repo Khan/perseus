@@ -75,6 +75,38 @@ as shared debt and note it.
 The `"black"` label color is a project-level decision — every graphie widget
 renders through it.
 
+**Decision: migrate both globally.** Chromatic coverage verified before committing
+to this (see below).
+
+### Chromatic coverage for the shared changes
+
+**`graphie.ts:993` `color: "black"`** — only affects text drawn via
+`graphie.label()` (which stamps `.graphie-label`). Blast radius and coverage:
+
+| Widget | Renders `.graphie-label`? | Regression story shows labels? | Verdict |
+|---|---|---|---|
+| grapher | Yes | Yes (`markings:"graph"`) | ✅ covered |
+| plotter | Yes | Yes (axis + category labels) | ✅ covered |
+| number-line | Yes | Yes (`waitForNumberLine` gates on it) | ✅ covered |
+| interaction | Yes (numbered axes) | No regression story | ⚠️ gap — **accepted, not covering now** |
+| measurer, interactive-graphs | No (Raphael paths / Mafs SVG) | n/a | not in blast radius |
+
+The change is verifiable via grapher/plotter/number-line (their snapshots will
+diff). The `interaction` widget renders labels but has no regression story, so
+the change won't independently show for it — **gap accepted**; not adding an
+interaction story at this time.
+
+**`.number-input` CSS** — the class is applied only by `components/number-input.tsx`
+(`"invalid-input": !this._checkValidity(this.props.value)`), driven by the input's
+own value + `checkValidity`. Only **number-line's tick controller** renders it
+(matrix uses `TextInput`, not `NumberInput`; the `.perseus-matrix .number-input`
+rule in `matrix.css` is dead). Coverage:
+- Default border (`#909296`) — ✅ `TickController` story.
+- Invalid `#ffbaba` bg + red outline — ✅ `TickControllerInvalid` story (the
+  input genuinely receives `invalid-input`, not just a sibling error message).
+
+No new stories needed for the `.number-input` change.
+
 ---
 
 ## 3. Already migrated — no action
