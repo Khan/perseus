@@ -465,7 +465,14 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         waitForTexRendererToLoad: true,
     };
 
+    isUnmounted = false;
+
     remeasureItems: () => void = _.debounce(() => {
+        // The debounce can outlive the component: a Draggable's `onRender` or a
+        // font finishing lands, then we unmount inside the 20ms window.
+        if (this.isUnmounted) {
+            return;
+        }
         this.setState({
             // Clear item measurements
             items: Sortable.clearItemMeasurements(this.state.items),
@@ -511,6 +518,23 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         };
     }
 
+    componentDidMount() {
+        // A row's height comes from the line box around its content, which is
+        // sized by the parent font's strut. Measure before that font finishes
+        // loading and every row is a few pixels too tall -- and stays that
+        // way, because `remeasureItems` only ever fires from a Draggable's
+        // `onRender`, and a font arriving doesn't re-render anything.
+        //
+        // This listens for `loadingdone` rather than awaiting
+        // `document.fonts.ready`, because at mount the browser may not have
+        // requested the font yet -- it requests during layout, which can happen
+        // after this runs, and `ready` resolves immediately while nothing is
+        // pending. The event fires whenever a batch of faces finishes, so it
+        // also catches loads that start after mount. On a warm cache it never
+        // fires and doesn't need to: the first measurement is already right.
+        document.fonts?.addEventListener("loadingdone", this.remeasureItems);
+    }
+
     UNSAFE_componentWillReceiveProps(nextProps: SortableProps) {
         const prevProps = this.props;
 
@@ -548,6 +572,11 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                 this.measureItems();
             }, 0);
         }
+    }
+
+    componentWillUnmount() {
+        this.isUnmounted = true;
+        document.fonts?.removeEventListener("loadingdone", this.remeasureItems);
     }
 
     measureItems() {

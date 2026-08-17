@@ -1,15 +1,45 @@
-import {act, render} from "@testing-library/react";
+import {act, render, waitFor} from "@testing-library/react";
 import * as React from "react";
 
 import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
 import Sortable from "../sortable";
 
+/**
+ * Puts a `document.fonts` under the test's control, with loading unfinished.
+ *
+ * jsdom implements no `FontFaceSet`, so there is no accessor to spy on — the
+ * property has to be created outright. Callers must `delete document.fonts`
+ * afterwards; nothing resets it automatically.
+ *
+ * Returns a function that announces a finished batch of font loads, which is
+ * the signal the real `FontFaceSet` emits and the component listens for.
+ */
+function stubFontLoading(): () => void {
+    // A real FontFaceSet is an EventTarget, which is the only part of it the
+    // component touches, so the stub can be a plain one.
+    // eslint-disable-next-line no-restricted-syntax
+    const fonts = new EventTarget() as unknown as FontFaceSet;
+
+    Object.defineProperty(document, "fonts", {
+        value: fonts,
+        configurable: true,
+    });
+
+    return () => fonts.dispatchEvent(new Event("loadingdone"));
+}
+
 describe("Sortable", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+    });
+
+    afterEach(() => {
+        // `Document.fonts` isn't optional, so removing the stub needs a cast.
+        // eslint-disable-next-line no-restricted-syntax
+        delete (document as {fonts?: FontFaceSet}).fonts;
     });
 
     it("should snapshot", () => {
@@ -63,6 +93,40 @@ describe("Sortable", () => {
         expect(container).toMatchSnapshot(
             "second render: displays the sortable",
         );
+    });
+
+    // A row's height is set by the line box around its content, which the
+    // parent font's strut sizes. Measuring before that font loads makes every
+    // row a few pixels too tall, and nothing re-renders when a font arrives, so
+    // without this the wrong height sticks for the life of the component.
+    //
+    // The assertion is on `clearItemMeasurements` rather than on `onMeasure`
+    // because jsdom reports every dimension as 0. That leaves the "dimensions
+    // have been reset" branch of `componentDidUpdate` permanently true, so
+    // `measureItems` re-runs on a loop here and its call count means nothing.
+    it("measures items again once web fonts have loaded", async () => {
+        // Arrange
+        const fontsHaveLoaded = stubFontLoading();
+        const clearMeasurements = jest.spyOn(Sortable, "clearItemMeasurements");
+
+        render(
+            <Sortable
+                layout="vertical"
+                options={["a", "b", "c"]}
+                waitForTexRendererToLoad={false}
+            />,
+        );
+
+        // Ignore the measuring the initial render does, so that what's left is
+        // attributable to the fonts alone.
+        await waitFor(() => expect(clearMeasurements).toHaveBeenCalled());
+        clearMeasurements.mockClear();
+
+        // Act
+        act(() => fontsHaveLoaded());
+
+        // Assert
+        await waitFor(() => expect(clearMeasurements).toHaveBeenCalled());
     });
 });
 
