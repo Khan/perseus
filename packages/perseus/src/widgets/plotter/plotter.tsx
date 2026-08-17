@@ -745,11 +745,6 @@ class Plotter extends React.Component<Props, State> implements Widget {
                             ];
                         },
                     ],
-                    onMoveStart: function () {
-                        // config.graph.bars[i].attr({
-                        //     fill: ,
-                        // });
-                    },
                     onMove: function () {
                         const y = config.graph.lines[i].coord()[1];
 
@@ -760,11 +755,6 @@ class Plotter extends React.Component<Props, State> implements Widget {
                         self._maybeHideDragPrompt();
 
                         scaleBar(i, y);
-                    },
-                    onMoveEnd: function () {
-                        // config.graph.bars[i].attr({
-                        //     fill: KhanColors.BLUE_C,
-                        // });
                     },
                 },
             );
