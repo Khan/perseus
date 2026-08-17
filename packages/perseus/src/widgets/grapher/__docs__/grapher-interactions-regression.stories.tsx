@@ -1,16 +1,15 @@
-import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 import {waitFor} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
-import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {mobileDecorator} from "../../__testutils__/story-decorators";
 import {quadraticQuestion} from "../grapher.testdata";
+
+import {grapherRendererDecorator} from "./grapher-renderer-decorator";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
     title: "Widgets/Grapher/Visual Regression Tests/Interactions",
-    component: ServerItemRendererWithDebugUI,
     tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
@@ -28,17 +27,17 @@ const meta: Meta = {
 };
 export default meta;
 
-type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
+type Story = StoryObj<typeof meta>;
 
 // Grapher only draws its crosshair hairlines on mobile, and only while a
 // movable control point is being grabbed. Pressing and holding a point keeps
 // the grab — and thus the hairlines — active through the snapshot.
 export const MobileHairlines: Story = {
-    args: {
-        item: generateTestPerseusItem({question: quadraticQuestion}),
+    args: {question: quadraticQuestion},
+    decorators: [grapherRendererDecorator, mobileDecorator],
+    parameters: {
         apiOptions: {isMobile: true},
     },
-    decorators: [mobileDecorator],
     play: async ({canvasElement, userEvent}) => {
         // Graphie builds its Raphael layers asynchronously, so the mouse
         // target may not exist yet when play() first runs — wait for it. The
