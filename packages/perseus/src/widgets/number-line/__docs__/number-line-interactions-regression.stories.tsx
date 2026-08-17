@@ -147,7 +147,7 @@ export const PointMoved: Story = {
         // The legacy movable binds its drag to jQuery-mobile vmouse events,
         // whose handlers read pageX/pageY and live on `document`. Fire native
         // mouse events with those coords set — down on the point (vmouse
-        // translates it and it bubbles to document), move/up on document — so
+        // translates it, and it bubbles to document), move/up on document — so
         // the drag actually registers.
         // eslint-disable-next-line testing-library/prefer-user-event
         fireEvent.mouseDown(point, {
