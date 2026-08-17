@@ -28,17 +28,27 @@ Only `_BACKGROUND` is a genuine raw hex.
 
 `packages/perseus/src/widgets/number-line/number-line.tsx`
 
-| Line | Code | Role | Resolves to | Target semantic token |
-|---|---|---|---|---|
-| 162 | `stroke: KhanColors.BLUE` | highlighted tick line | `color.blue` | _TBD_ |
-| 165 | `color: KhanColors.BLUE` | highlighted tick label | `color.blue` | _TBD_ |
-| 466 | `fill = KhanColors._BACKGROUND` | open-circle (hollow) point fill | `#FDFDFD` | _TBD_ |
-| 468 | `fill = KhanColors.BLUE` | static-mode point fill | `color.blue` | _TBD_ |
-| 470 | `fill = KhanColors.GREEN` | interactive point fill | `color.green` | _TBD_ |
-| 474 | `stroke: static ? BLUE : GREEN` | point stroke (normalStyle) | `color.blue` / `color.green` | _TBD_ |
-| 478 | `fill: isOpen ? _BACKGROUND : GREEN` | point highlight fill (**hover-only**) | `#FDFDFD` / `color.green` | _TBD_ |
-| 484 | `stroke: KhanColors.GREEN` | mobile dot style stroke | `color.green` | _TBD_ |
-| 538–540 | `stroke: isMobile ? GREEN : BLUE` | inequality ray | `color.green` / `color.blue` | _TBD_ |
+**Status: ✅ APPLIED.** All colors converted to semantic tokens (wrapped in
+`tokenValue(...)` since graphie needs raw hex). Tokens confirmed against the
+Figma number-line design + the movable-point / interactive-graph references.
+`KhanColors` import removed. Line numbers below are pre-conversion (historical).
+
+| Role | Old (KhanColors) | New semantic token |
+|---|---|---|
+| highlighted tick line | `color.blue` | `foreground.instructive.default` |
+| highlighted tick label | `color.blue` | `foreground.instructive.default` |
+| interactive point fill | `color.green` | `foreground.instructive.default` |
+| static point fill | `color.blue` | `foreground.disabled.strong` |
+| point edge/stroke (filled) | `color.blue` / `color.green` | `border.knockout.default` |
+| open-circle (hollow) fill | `#FDFDFD` | `background.base.default` |
+| open-circle ring (stroke) | `color.blue` / `color.green` | `foreground.instructive.default` (static: `disabled.strong`) |
+| hover highlight fill (filled) | `color.green` | `foreground.instructive.default` |
+| mobile dot stroke | `color.green` | `foreground.instructive.default` |
+| inequality ray | `color.green` (mobile) / `color.blue` (desktop) | `foreground.instructive.default` (unified) |
+
+Key decisions baked in: interactive = instructive, static = disabled (a11y-reasoned
+per interactive-graph), point edge = knockout ring, hollow center = base background,
+and **all green eliminated** (mobile/desktop unified on instructive).
 
 ### Semantic decisions to resolve before converting (Step 8 / Figma)
 These are the spots where a mechanical "blue → one token" mapping would erase
@@ -77,6 +87,15 @@ renders through it.
 
 **Decision: migrate both globally.** Chromatic coverage verified before committing
 to this (see below).
+
+**Status:** `graphie.ts:993` label color ✅ APPLIED (`"black"` →
+`var(--wb-semanticColor-core-foreground-neutral-strong)`; used the CSS var
+directly since it's a DOM span's `color`, not a Raphael attribute). Snapshots
+updated for the affected widgets (number-line, grapher, interaction). The
+`.number-input` CSS change ✅ was resolved upstream (a `main` merge already
+tokenized it): border → `border-neutral-default`, invalid background →
+`background-critical-subtle`, invalid outline → `border-critical-default`.
+Nothing left to do on `.number-input`.
 
 ### Chromatic coverage for the shared changes
 

@@ -990,7 +990,7 @@ export class Graphie {
                 .css({
                     position: "absolute",
                     padding: (pad != null ? pad : 7) + "px",
-                    color: "black",
+                    color: "var(--wb-semanticColor-core-foreground-neutral-strong)",
                 })
                 .data("labelDirection", direction)
                 .appendTo(this.el);

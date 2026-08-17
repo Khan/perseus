@@ -1,5 +1,6 @@
 import {number as knumber, KhanMath} from "@khanacademy/kmath";
 import {useLatestRef, useOnMountEffect} from "@khanacademy/wonder-blocks-core";
+import {semanticColor, tokenValue} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 import {
     forwardRef,
@@ -16,7 +17,6 @@ import NumberInput from "../../components/number-input";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
 import {withDependencies} from "../../components/with-dependencies";
 import InteractiveUtil from "../../interactive2/interactive-util";
-import KhanColors from "../../util/colors";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
 import type {
@@ -159,10 +159,12 @@ const TickMarks: any = (Graphie as any).createSimpleClass((graphie, props) => {
     }
 
     const highlightedLineStyle = {
-        stroke: KhanColors.BLUE,
+        stroke: tokenValue(semanticColor.core.foreground.instructive.default),
         strokeWidth: 3.5,
     };
-    const highlightedTextStyle = {color: KhanColors.BLUE};
+    const highlightedTextStyle = {
+        color: tokenValue(semanticColor.core.foreground.instructive.default),
+    };
 
     // Generate an array of tick numbers:
     //    `Array(Math.round(numDivisions))` makes an array of null values - one for every division marker
@@ -459,29 +461,37 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
     function renderNumberLinePoint(calculatedProps: CalculatedProps) {
         const isOpen = ["lt", "gt"].includes(calculatedProps.userInput.rel);
 
-        // In static mode the point's fill and stroke is blue to signify that
-        // it can't be interacted with.
-        let fill;
-        if (isOpen) {
-            fill = KhanColors._BACKGROUND;
-        } else if (calculatedProps.static) {
-            fill = KhanColors.BLUE;
-        } else {
-            fill = KhanColors.GREEN;
-        }
+        // tokenValue resolves the semantic tokens to raw hex; graphie only
+        // accepts raw CSS colors, not CSS variables.
+        const interactiveColor = tokenValue(
+            semanticColor.core.foreground.instructive.default,
+        );
+        const staticColor = tokenValue(
+            semanticColor.core.foreground.disabled.strong,
+        );
+        const knockoutColor = tokenValue(
+            semanticColor.core.border.knockout.default,
+        );
+        const hollowFill = tokenValue(
+            semanticColor.core.background.base.default,
+        );
+        const pointColor = calculatedProps.static
+            ? staticColor
+            : interactiveColor;
+
         const normalStyle = {
-            fill: fill,
-            stroke: calculatedProps.static ? KhanColors.BLUE : KhanColors.GREEN,
+            fill: isOpen ? hollowFill : pointColor,
+            stroke: isOpen ? pointColor : knockoutColor,
             "stroke-width": isOpen ? 3 : 1,
         } as const;
         const highlightStyle = {
-            fill: isOpen ? KhanColors._BACKGROUND : KhanColors.GREEN,
+            fill: isOpen ? hollowFill : interactiveColor,
             "stroke-width": isOpen ? 3 : 1,
         } as const;
 
         const mobileDotStyle = calculatedProps.isInequality
             ? {
-                  stroke: KhanColors.GREEN,
+                  stroke: interactiveColor,
                   "fill-opacity": isOpen ? 0 : 1,
               }
             : {};
@@ -535,9 +545,9 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
             const end = getInequalityEndpoint();
             const style = {
                 arrows: "->",
-                stroke: props.apiOptions.isMobile
-                    ? KhanColors.GREEN
-                    : KhanColors.BLUE,
+                stroke: tokenValue(
+                    semanticColor.core.foreground.instructive.default,
+                ),
                 strokeWidth: 3.5,
             } as const;
 
