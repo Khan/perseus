@@ -32,6 +32,7 @@ import KhanColors from "./colors";
 import GraphUtils, {polar} from "./graphie";
 
 import type {Coord} from "../interactive2/types";
+import {semanticColor, tokenValue} from "@khanacademy/wonder-blocks-tokens";
 
 export type MouseHandler = (position: Coord) => void;
 
@@ -999,7 +1000,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                 ticks: 0,
                 normalStyle: {},
                 highlightStyle: {
-                    stroke: KhanColors.INTERACTING,
+                    stroke: tokenValue(semanticColor.core.border.instructive.default),
                     "stroke-width": 6,
                 },
                 labelStyle: {
@@ -2152,6 +2153,8 @@ _.extend(GraphUtils.Graphie.prototype, {
     //   - movableAngle.coords
     //         The movableAngle's current coordinates (generated, don't edit).
     //
+    // TODO(benchristel): addMovableAngle is unused. Delete it. MovableAngle
+    //  might be deletable too.
     addMovableAngle: function (options) {
         return new MovableAngle(this, options);
     },
@@ -2160,6 +2163,7 @@ _.extend(GraphUtils.Graphie.prototype, {
     // radius: int
     // circ: graphie circle
     // perim: invisible mouse target for dragging/changing radius
+    // TODO(benchristel): addCircleGraph is unused. Delete it.
     addCircleGraph: function (options) {
         const graphie = this;
         const circle = $.extend(

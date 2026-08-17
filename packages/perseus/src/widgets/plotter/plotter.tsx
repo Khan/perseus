@@ -13,7 +13,6 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import {withDependencies} from "../../components/with-dependencies";
 import Interactive2 from "../../interactive2";
 import WrappedLine from "../../interactive2/wrapped-line";
-import KhanColors from "../../util/colors";
 import GraphUtils from "../../util/graph-utils";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/plotter/plotter-ai-utils";
 
@@ -278,17 +277,20 @@ class Plotter extends React.Component<Props, State> implements Widget {
             // If we have isMobile, we skip the 0 label.
             const initialY = isMobile ? c.scaleY : 0;
             for (let y = initialY; y <= c.dimY; y += c.scaleY) {
+                // y-axis tick labels
                 graphie.label(
                     [0, y],
                     KhanMath.roundToApprox(y, 2),
                     "left",
                     /* isTeX */ true /* for the \approx symbol */,
                 );
+
+                // horizontal lines on graph
                 graphie.style(
                     {
-                        stroke: isMobile ? tokenValue(semanticColor.core.border.neutral.subtle) : tokenValue(semanticColor.core.border.neutral.strong),
+                        stroke: tokenValue(semanticColor.core.border.neutral.default),
                         strokeWidth: 1,
-                        opacity: isMobile ? 1 : 0.3,
+                        opacity: 1,
                     },
                     function () {
                         graphie.line([0, y], [c.dimX, y]);
@@ -321,7 +323,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
                     false,
                 )
                 .css("font-weight", font.weight.bold)
-                .css("color", semanticColor.core.foreground.instructive.default)
+                .css("color", semanticColor.core.foreground.neutral.default)
                 .css("display", "none");
         }
 
@@ -373,7 +375,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
                 isMobile ? "above" : "below",
                 false,
             )
-            .css("color", tokenValue(semanticColor.core.foreground.neutral.default))
+            .css("color", tokenValue(semanticColor.core.foreground.neutral.strong))
             .css("font-weight", font.weight.bold);
 
         // y-axis label
@@ -384,7 +386,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
                 "center",
                 false,
             )
-            .css("color", tokenValue(semanticColor.core.foreground.neutral.default))
+            .css("color", tokenValue(semanticColor.core.foreground.neutral.strong))
             .css("font-weight", font.weight.bold)
             .addClass("rotate");
 
@@ -453,7 +455,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
         return new Promise((resolve) => {
             graphie.style(
                 {
-                    color: isMobile ? KhanColors.GRAY_G : "inherit",
+                    color: tokenValue(semanticColor.core.foreground.neutral.strong),
                     transform: shouldRotate ? labelRotation : "none",
                     transformOrigin: "100%",
                 },
@@ -690,7 +692,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
         graphie.style(
             {
                 stroke: "none",
-                fill: tokenValue(semanticColor.core.background.instructive.default),
+                fill: tokenValue(semanticColor.core.foreground.instructive.subtle),
                 opacity: 1.0,
             },
             function () {
@@ -709,7 +711,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
                 // Don't draw a divider to the left of the first bucket
                 graphie.style(
                     {
-                        stroke: tokenValue(semanticColor.core.border.neutral.subtle),
+                        stroke: tokenValue(semanticColor.core.border.neutral.default),
                         strokeWidth: 1,
                         // opacity: 0.3,
                     },
@@ -727,7 +729,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
 
         if (isMobile) {
             const snap = config.scaleY / self.props.options.snapsPerLine;
-            config.graph.lines[i] = Interactive2.addMaybeMobileMovablePoint(
+            config.graph.lines[i] = Interactive2.addMovablePointV2(
                 this,
                 {
                     coord: [x, startHeight],
@@ -781,7 +783,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
                     constrainX: true,
                 },
                 normalStyle: {
-                    stroke: KhanColors.INTERACTIVE,
+                    stroke: tokenValue(semanticColor.core.foreground.instructive.default),
                     // Don't display graph handles in static mode
                     "stroke-width": this.props.static ? 0 : 4,
                 },
@@ -827,82 +829,47 @@ class Plotter extends React.Component<Props, State> implements Widget {
         const graphie = self.graphie;
         const x = i + (isMobile ? 0.4 : 1);
 
-        if (isMobile) {
-            const snap = config.scaleY / self.props.options.snapsPerLine;
-            c.graph.points[i] = Interactive2.addMaybeMobileMovablePoint(this, {
-                coord: [x, startHeight],
-                constraints: [
-                    (coord, prev, options: any) => {
-                        return [
-                            x,
-                            this._clampValue(
-                                Math.round(coord[1] / snap) * snap,
-                                0,
-                                config.dimY,
-                            ),
-                        ];
-                    },
-                ],
-                onMove: function () {
-                    const y = c.graph.points[i].coord()[1];
-
-                    const values = [...self.props.userInput];
-                    values[i] = y;
-                    self.changeAndTrack(values);
-
-                    self._maybeHideDragPrompt();
+        const snap = config.scaleY / self.props.options.snapsPerLine;
+        c.graph.points[i] = Interactive2.addMovablePointV2(this, {
+            coord: [x, startHeight],
+            constraints: [
+                (coord) => {
+                    return [
+                        x,
+                        this._clampValue(
+                            Math.round(coord[1] / snap) * snap,
+                            0,
+                            config.dimY,
+                        ),
+                    ];
                 },
-            });
+            ],
+            onMove: function () {
+                const y = c.graph.points[i].coord()[1];
 
-            self._maybeShowDragPrompt();
-
-            if (i > 0) {
-                c.graph.lines[i] = Interactive2.addMovableLine(graphie, {
-                    points: [c.graph.points[i - 1], c.graph.points[i]],
-                    constraints: Interactive2.MovablePoint.constraints.fixed(),
-                    normalStyle: {
-                        stroke: KhanColors.BLUE_C,
-                        "stroke-width": 2,
-                    },
-                    highlightStyle: {
-                        stroke: KhanColors.BLUE_C,
-                        "stroke-width": 2,
-                    },
-                });
-            }
-        } else {
-            c.graph.points[i] = graphie.addMovablePoint({
-                coord: [x, startHeight],
-                constraints: {
-                    constrainX: true,
-                },
-                normalStyle: {
-                    fill: tokenValue(semanticColor.core.border.instructive.default),
-                    stroke: tokenValue(semanticColor.core.border.instructive.default),
-                },
-                snapY: c.scaleY / self.props.options.snapsPerLine,
-            });
-            c.graph.points[i].onMove = function (x, y) {
-                y = Math.min(Math.max(y, 0), c.dimY);
                 const values = [...self.props.userInput];
                 values[i] = y;
                 self.changeAndTrack(values);
-                return [x, y];
-            };
 
-            if (i > 0) {
-                c.graph.lines[i] = graphie.addMovableLineSegment({
-                    pointA: c.graph.points[i - 1],
-                    pointZ: c.graph.points[i],
-                    constraints: {
-                        fixed: true,
-                    },
-                    normalStyle: {
-                        stroke: tokenValue(semanticColor.core.border.instructive.subtle),
-                        "stroke-width": 2,
-                    },
-                });
-            }
+                self._maybeHideDragPrompt();
+            },
+        });
+
+        self._maybeShowDragPrompt();
+
+        if (i > 0) {
+            c.graph.lines[i] = Interactive2.addMovableLine(graphie, {
+                points: [c.graph.points[i - 1], c.graph.points[i]],
+                constraints: Interactive2.MovablePoint.constraints.fixed(),
+                normalStyle: {
+                    stroke: tokenValue(semanticColor.core.border.instructive.default),
+                    "stroke-width": 2,
+                },
+                highlightStyle: {
+                    stroke: tokenValue(semanticColor.core.border.instructive.default),
+                    "stroke-width": 2,
+                },
+            });
         }
 
         return x;
