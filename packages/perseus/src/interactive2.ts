@@ -24,7 +24,7 @@ const Interactive2 = {
 
     addMovablePointV2: function (widget: any, extraProps: any): any {
         const commonStyle = {
-            stroke: "#ffffff",
+            stroke: tokenValue(semanticColor.core.border.knockout.default),
             "stroke-width": 3,
             fill: tokenValue(semanticColor.core.foreground.instructive.default),
         };
@@ -34,7 +34,7 @@ const Interactive2 = {
         const highlightStyle = Object.assign(
             {
                 ...commonStyle,
-                "stroke-width": 0,
+                "stroke-width": 2,
                 scale: 0.75,
             },
             extraProps.highlightStyle,
