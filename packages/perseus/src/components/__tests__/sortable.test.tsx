@@ -1,30 +1,30 @@
-import {act, render, waitFor} from "@testing-library/react";
+import {act, render, screen, waitFor} from "@testing-library/react";
 import * as React from "react";
 
 import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
 import Sortable from "../sortable";
 
+type FontsLoadedCallback = () => void;
+
 /**
- * Puts a `document.fonts` under the test's control, with loading unfinished.
+ * Stubs `document.fonts` so we can control it in tests.
  *
- * jsdom implements no `FontFaceSet`, so there is no accessor to spy on — the
- * property has to be created outright. Callers must `delete document.fonts`
- * afterwards; nothing resets it automatically.
+ * The accessor being spied on comes from our jsdom shims
+ * (config/test/attach-jsdom-window-shims.js) — jsdom itself doesn't implement
+ * the CSS Font Loading API.
  *
- * Returns a function that announces a finished batch of font loads, which is
- * the signal the real `FontFaceSet` emits and the component listens for.
+ * Returns a function that publishes the
+ * [`loadingdone`](https://developer.mozilla.org/en-US/docs/Web/API/FontFaceSet/loadingdone_event)
+ * event (signals that the browser has loaded all fonts).
  */
-function stubFontLoading(): () => void {
+function stubFontLoading(): FontsLoadedCallback {
     // A real FontFaceSet is an EventTarget, which is the only part of it the
     // component touches, so the stub can be a plain one.
     // eslint-disable-next-line no-restricted-syntax
     const fonts = new EventTarget() as unknown as FontFaceSet;
 
-    Object.defineProperty(document, "fonts", {
-        value: fonts,
-        configurable: true,
-    });
+    jest.spyOn(document, "fonts", "get").mockReturnValue(fonts);
 
     return () => fonts.dispatchEvent(new Event("loadingdone"));
 }
@@ -34,12 +34,6 @@ describe("Sortable", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
-    });
-
-    afterEach(() => {
-        // `Document.fonts` isn't optional, so removing the stub needs a cast.
-        // eslint-disable-next-line no-restricted-syntax
-        delete (document as {fonts?: FontFaceSet}).fonts;
     });
 
     it("should snapshot", () => {
@@ -95,38 +89,57 @@ describe("Sortable", () => {
         );
     });
 
-    // A row's height is set by the line box around its content, which the
-    // parent font's strut sizes. Measuring before that font loads makes every
-    // row a few pixels too tall, and nothing re-renders when a font arrives, so
-    // without this the wrong height sticks for the life of the component.
-    //
-    // The assertion is on `clearItemMeasurements` rather than on `onMeasure`
-    // because jsdom reports every dimension as 0. That leaves the "dimensions
-    // have been reset" branch of `componentDidUpdate` permanently true, so
-    // `measureItems` re-runs on a loop here and its call count means nothing.
-    it("measures items again once web fonts have loaded", async () => {
+    // A card's height is set by the line box around its content, which the
+    // parent font's strut sizes — so the same card measures taller in the
+    // fallback font than in the web font. Sortable bakes its measurement into
+    // inline styles, and nothing re-renders when a font arrives, so without
+    // the remeasure the fallback-era heights stick for the life of the
+    // component.
+    it("corrects card heights when web fonts load with different metrics", async () => {
         // Arrange
         const fontsHaveLoaded = stubFontLoading();
-        const clearMeasurements = jest.spyOn(Sortable, "clearItemMeasurements");
+
+        // Measurement is font-aware: cards measure 51px tall while only the
+        // fallback font is available, 46px once the web font is active.
+        // (Sortable measures through jQuery's outerHeight, which reads
+        // offsetHeight in jsdom.)
+        let webFontActive = false;
+        jest.spyOn(
+            HTMLElement.prototype,
+            "offsetHeight",
+            "get",
+        ).mockImplementation(() => (webFontActive ? 46 : 51));
+        jest.spyOn(
+            HTMLElement.prototype,
+            "offsetWidth",
+            "get",
+        ).mockImplementation(() => 100);
 
         render(
             <Sortable
-                layout="vertical"
+                layout="horizontal"
                 options={["a", "b", "c"]}
                 waitForTexRendererToLoad={false}
             />,
         );
 
-        // Ignore the measuring the initial render does, so that what's left is
-        // attributable to the fonts alone.
-        await waitFor(() => expect(clearMeasurements).toHaveBeenCalled());
-        clearMeasurements.mockClear();
+        const cardHeights = () =>
+            screen.getAllByRole("listitem").map((li) => li.style.height);
+
+        // The initial measurement runs before the web font loads, so the
+        // fallback font's heights get baked into the cards' inline styles.
+        await waitFor(() =>
+            expect(cardHeights()).toEqual(["51px", "51px", "51px"]),
+        );
 
         // Act
+        webFontActive = true;
         act(() => fontsHaveLoaded());
 
         // Assert
-        await waitFor(() => expect(clearMeasurements).toHaveBeenCalled());
+        await waitFor(() =>
+            expect(cardHeights()).toEqual(["46px", "46px", "46px"]),
+        );
     });
 });
 

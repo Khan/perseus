@@ -468,8 +468,8 @@ class Sortable extends React.Component<SortableProps, SortableState> {
     isUnmounted = false;
 
     remeasureItems: () => void = _.debounce(() => {
-        // The debounce can outlive the component: a Draggable's `onRender` or a
-        // font finishing lands, then we unmount inside the 20ms window.
+        // The debounce can outlive the component if a Draggable's `onRender`
+        // or a font finishing lands, and we unmount inside the 20ms window.
         if (this.isUnmounted) {
             return;
         }
@@ -520,10 +520,11 @@ class Sortable extends React.Component<SortableProps, SortableState> {
 
     componentDidMount() {
         // A row's height comes from the line box around its content, which is
-        // sized by the parent font's strut. Measure before that font finishes
-        // loading and every row is a few pixels too tall -- and stays that
-        // way, because `remeasureItems` only ever fires from a Draggable's
-        // `onRender`, and a font arriving doesn't re-render anything.
+        // sized by the parent font's strut. If we measure before that font
+        // finishes loading then every row is the wrong height -- and stays
+        // that way, because `remeasureItems` only ever fires from a
+        // Draggable's `onRender`, and a font arriving doesn't re-render
+        // anything.
         //
         // This listens for `loadingdone` rather than awaiting
         // `document.fonts.ready`, because at mount the browser may not have
@@ -883,7 +884,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                     />,
                 );
             }
-        }, this);
+        });
 
         return <ul className={className}>{cards}</ul>;
     }

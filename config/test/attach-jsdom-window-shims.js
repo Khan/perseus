@@ -77,6 +77,21 @@ const attachShims = (targetWindow) => {
 
     // JSDOM doesn't implement scrollTo
     targetWindow.scrollTo = () => {};
+
+    // JSDOM doesn't implement the CSS Font Loading API, so `document.fonts`
+    // doesn't exist at all — which also means there's no accessor for
+    // `jest.spyOn(document, "fonts", "get")` to wrap. Defining it as a getter
+    // returning undefined (which code must tolerate anyway) lets tests spy on
+    // it, with Jest handling the restore.
+    if (
+        targetWindow.Document &&
+        !targetWindow.Document.prototype.hasOwnProperty("fonts")
+    ) {
+        Object.defineProperty(targetWindow.Document.prototype, "fonts", {
+            get: () => undefined,
+            configurable: true,
+        });
+    }
 };
 
 module.exports = attachShims;
