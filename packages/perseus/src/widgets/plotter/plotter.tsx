@@ -5,6 +5,11 @@ import {
     type PerseusPlotterWidgetOptions,
     type PlotterPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
+import {
+    semanticColor,
+    font,
+    tokenValue,
+} from "@khanacademy/wonder-blocks-tokens";
 import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
@@ -23,7 +28,6 @@ import type {
     WidgetProps,
 } from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
-import {semanticColor, font, tokenValue} from "@khanacademy/wonder-blocks-tokens";
 
 type Props = WidgetProps<
     PlotterPublicWidgetOptions,
@@ -288,7 +292,9 @@ class Plotter extends React.Component<Props, State> implements Widget {
                 // horizontal lines on graph
                 graphie.style(
                     {
-                        stroke: tokenValue(semanticColor.core.border.neutral.default),
+                        stroke: tokenValue(
+                            semanticColor.core.border.neutral.default,
+                        ),
                         strokeWidth: 1,
                         opacity: 1,
                     },
@@ -308,7 +314,10 @@ class Plotter extends React.Component<Props, State> implements Widget {
                     false,
                 )
                 .css("font-weight", font.weight.bold)
-                .css("color", tokenValue(semanticColor.core.foreground.neutral.subtle))
+                .css(
+                    "color",
+                    tokenValue(semanticColor.core.foreground.neutral.subtle),
+                )
                 .css("display", "none");
         }
 
@@ -332,7 +341,11 @@ class Plotter extends React.Component<Props, State> implements Widget {
         }
 
         graphie.style(
-            {stroke: tokenValue(semanticColor.core.border.neutral.strong), strokeWidth: 2, opacity: 1.0},
+            {
+                stroke: tokenValue(semanticColor.core.border.neutral.strong),
+                strokeWidth: 2,
+                opacity: 1.0,
+            },
             function () {
                 if (isTiledPlot) {
                     if (isDotplot) {
@@ -375,7 +388,10 @@ class Plotter extends React.Component<Props, State> implements Widget {
                 isMobile ? "above" : "below",
                 false,
             )
-            .css("color", tokenValue(semanticColor.core.foreground.neutral.strong))
+            .css(
+                "color",
+                tokenValue(semanticColor.core.foreground.neutral.strong),
+            )
             .css("font-weight", font.weight.bold);
 
         // y-axis label
@@ -386,7 +402,10 @@ class Plotter extends React.Component<Props, State> implements Widget {
                 "center",
                 false,
             )
-            .css("color", tokenValue(semanticColor.core.foreground.neutral.strong))
+            .css(
+                "color",
+                tokenValue(semanticColor.core.foreground.neutral.strong),
+            )
             .css("font-weight", font.weight.bold)
             .addClass("rotate");
 
@@ -398,7 +417,9 @@ class Plotter extends React.Component<Props, State> implements Widget {
             });
 
             this.horizHairline.attr({
-                stroke: tokenValue(semanticColor.core.border.instructive.default),
+                stroke: tokenValue(
+                    semanticColor.core.border.instructive.default,
+                ),
             });
             this.horizHairline.hide();
 
@@ -455,7 +476,9 @@ class Plotter extends React.Component<Props, State> implements Widget {
         return new Promise((resolve) => {
             graphie.style(
                 {
-                    color: tokenValue(semanticColor.core.foreground.neutral.strong),
+                    color: tokenValue(
+                        semanticColor.core.foreground.neutral.strong,
+                    ),
                     transform: shouldRotate ? labelRotation : "none",
                     transformOrigin: "100%",
                 },
@@ -514,7 +537,9 @@ class Plotter extends React.Component<Props, State> implements Widget {
                 const tickHeight = 6 / c.scale[1];
                 graphie.style(
                     {
-                        stroke: tokenValue(semanticColor.core.foreground.neutral.default),
+                        stroke: tokenValue(
+                            semanticColor.core.foreground.neutral.default,
+                        ),
                         strokeWidth: 2,
                         opacity: 1.0,
                     },
@@ -575,7 +600,9 @@ class Plotter extends React.Component<Props, State> implements Widget {
 
                 graphie.style(
                     {
-                        stroke: tokenValue(semanticColor.core.foreground.neutral.default),
+                        stroke: tokenValue(
+                            semanticColor.core.foreground.neutral.default,
+                        ),
                         strokeWidth: 2,
                         opacity: 1.0,
                     },
@@ -692,7 +719,9 @@ class Plotter extends React.Component<Props, State> implements Widget {
         graphie.style(
             {
                 stroke: "none",
-                fill: tokenValue(semanticColor.core.foreground.instructive.subtle),
+                fill: tokenValue(
+                    semanticColor.core.foreground.instructive.subtle,
+                ),
                 opacity: 1.0,
             },
             function () {
@@ -711,7 +740,9 @@ class Plotter extends React.Component<Props, State> implements Widget {
                 // Don't draw a divider to the left of the first bucket
                 graphie.style(
                     {
-                        stroke: tokenValue(semanticColor.core.border.neutral.default),
+                        stroke: tokenValue(
+                            semanticColor.core.border.neutral.default,
+                        ),
                         strokeWidth: 1,
                         // opacity: 0.3,
                     },
@@ -729,35 +760,32 @@ class Plotter extends React.Component<Props, State> implements Widget {
 
         if (isMobile) {
             const snap = config.scaleY / self.props.options.snapsPerLine;
-            config.graph.lines[i] = Interactive2.addMovablePointV2(
-                this,
-                {
-                    coord: [x, startHeight],
-                    constraints: [
-                        (coord: any, prev: any, options: any) => {
-                            return [
-                                x,
-                                this._clampValue(
-                                    Math.round(coord[1] / snap) * snap,
-                                    0,
-                                    config.dimY,
-                                ),
-                            ];
-                        },
-                    ],
-                    onMove: function () {
-                        const y = config.graph.lines[i].coord()[1];
-
-                        const values = [...self.props.userInput];
-                        values[i] = y;
-                        self.changeAndTrack(values);
-
-                        self._maybeHideDragPrompt();
-
-                        scaleBar(i, y);
+            config.graph.lines[i] = Interactive2.addMovablePointV2(this, {
+                coord: [x, startHeight],
+                constraints: [
+                    (coord: any, prev: any, options: any) => {
+                        return [
+                            x,
+                            this._clampValue(
+                                Math.round(coord[1] / snap) * snap,
+                                0,
+                                config.dimY,
+                            ),
+                        ];
                     },
+                ],
+                onMove: function () {
+                    const y = config.graph.lines[i].coord()[1];
+
+                    const values = [...self.props.userInput];
+                    values[i] = y;
+                    self.changeAndTrack(values);
+
+                    self._maybeHideDragPrompt();
+
+                    scaleBar(i, y);
                 },
-            );
+            });
 
             // We set the z-index to 1 here so that the hairlines cover up the
             // points
@@ -773,7 +801,9 @@ class Plotter extends React.Component<Props, State> implements Widget {
                     constrainX: true,
                 },
                 normalStyle: {
-                    stroke: tokenValue(semanticColor.core.foreground.instructive.default),
+                    stroke: tokenValue(
+                        semanticColor.core.foreground.instructive.default,
+                    ),
                     // Don't display graph handles in static mode
                     "stroke-width": this.props.static ? 0 : 4,
                 },
@@ -852,11 +882,15 @@ class Plotter extends React.Component<Props, State> implements Widget {
                 points: [c.graph.points[i - 1], c.graph.points[i]],
                 constraints: Interactive2.MovablePoint.constraints.fixed(),
                 normalStyle: {
-                    stroke: tokenValue(semanticColor.core.border.instructive.default),
+                    stroke: tokenValue(
+                        semanticColor.core.border.instructive.default,
+                    ),
                     "stroke-width": 2,
                 },
                 highlightStyle: {
-                    stroke: tokenValue(semanticColor.core.border.instructive.default),
+                    stroke: tokenValue(
+                        semanticColor.core.border.instructive.default,
+                    ),
                     "stroke-width": 2,
                 },
             });
@@ -877,8 +911,12 @@ class Plotter extends React.Component<Props, State> implements Widget {
                     this.DOT_PLOT_POINT_SIZE() / graphie.scale[1],
                 ],
                 {
-                    fill: tokenValue(semanticColor.core.border.instructive.default),
-                    stroke: tokenValue(semanticColor.core.border.instructive.default),
+                    fill: tokenValue(
+                        semanticColor.core.border.instructive.default,
+                    ),
+                    stroke: tokenValue(
+                        semanticColor.core.border.instructive.default,
+                    ),
                 },
             );
         });
@@ -983,7 +1021,9 @@ class Plotter extends React.Component<Props, State> implements Widget {
                 ],
                 {
                     fill: tokenValue(semanticColor.core.border.neutral.subtle),
-                    stroke: tokenValue(semanticColor.core.border.neutral.subtle),
+                    stroke: tokenValue(
+                        semanticColor.core.border.neutral.subtle,
+                    ),
                 },
             );
         });

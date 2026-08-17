@@ -15,6 +15,7 @@ import {
     geometry,
 } from "@khanacademy/kmath";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import {semanticColor, tokenValue} from "@khanacademy/wonder-blocks-tokens";
 import $ from "jquery";
 import _ from "underscore";
 
@@ -32,7 +33,6 @@ import KhanColors from "./colors";
 import GraphUtils, {polar} from "./graphie";
 
 import type {Coord} from "../interactive2/types";
-import {semanticColor, tokenValue} from "@khanacademy/wonder-blocks-tokens";
 
 export type MouseHandler = (position: Coord) => void;
 
@@ -1000,7 +1000,9 @@ _.extend(GraphUtils.Graphie.prototype, {
                 ticks: 0,
                 normalStyle: {},
                 highlightStyle: {
-                    stroke: tokenValue(semanticColor.core.border.instructive.default),
+                    stroke: tokenValue(
+                        semanticColor.core.border.instructive.default,
+                    ),
                     "stroke-width": 6,
                 },
                 labelStyle: {
