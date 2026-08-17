@@ -520,7 +520,9 @@ class Sortable extends React.Component<SortableProps, SortableState> {
 
     componentDidMount() {
         // A row's height comes from the line box around its content, which is
-        // sized by the parent font's strut. If we measure before that font
+        // sized by the rendered font's metrics. If the font is
+        // fetched from the web rather than installed locally,
+        // and we measure before it finishes loading...
         // finishes loading then every row is the wrong height -- and stays
         // that way, because `remeasureItems` only ever fires from a
         // Draggable's `onRender`, and a font arriving doesn't re-render
