@@ -231,6 +231,60 @@ describe("pure markdown", () => {
 
         it.each([
             {
+                // `$$…$$` (display) math renders instead of leaking as
+                // literal source. Previously the leading `$$` parsed as an
+                // empty math span and the body leaked out as `text`.
+                content: "$$x + y = 7$$",
+                expected: [{type: "blockMath", content: "x + y = 7"}],
+            },
+            {
+                content: "hello $$\\frac{1}{2}$$ world",
+                expected: [
+                    {
+                        type: "paragraph",
+                        content: [
+                            {type: "text", content: "hello "},
+                            {type: "math", content: "\\frac{1}{2}"},
+                            {type: "text", content: " world"},
+                        ],
+                    },
+                ],
+            },
+            {
+                // multi-line environment: braces balance, so the span scan
+                // captures the whole `\begin{aligned}…\end{aligned}` body.
+                content: "$$\\begin{aligned} 3 &= 8x \\end{aligned}$$",
+                expected: [
+                    {
+                        type: "blockMath",
+                        content: "\\begin{aligned} 3 &= 8x \\end{aligned}",
+                    },
+                ],
+            },
+            {
+                // adjacency guard: `$a$$b$` is two inline spans, NOT a
+                // display block — must be unaffected by `$$` handling.
+                content: "$a$$b$",
+                expected: [
+                    {
+                        type: "paragraph",
+                        content: [
+                            {type: "math", content: "a"},
+                            {type: "math", content: "b"},
+                        ],
+                    },
+                ],
+            },
+        ])("should parse double-dollar display math", ({content, expected}) => {
+            // Arrange, Act
+            const parsed = parse(content);
+
+            // Assert
+            expect(parsed).toEqual(expected);
+        });
+
+        it.each([
+            {
                 content: "hello $ single dollar paragraph\n\n not math $",
                 expected: [
                     {
