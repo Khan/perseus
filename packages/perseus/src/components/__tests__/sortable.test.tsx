@@ -89,26 +89,16 @@ describe("Sortable", () => {
         );
     });
 
-    // A card's height is set by the line box around its content, which the
-    // parent font's strut sizes — so the same card measures taller in the
-    // fallback font than in the web font. Sortable bakes its measurement into
-    // inline styles, and nothing re-renders when a font arrives, so without
-    // the remeasure the fallback-era heights stick for the life of the
-    // component.
-    it("corrects card heights when web fonts load with different metrics", async () => {
+    it("updates card heights when fonts load with different metrics", async () => {
         // Arrange
         const fontsHaveLoaded = stubFontLoading();
 
-        // Measurement is font-aware: cards measure 51px tall while only the
-        // fallback font is available, 46px once the web font is active.
-        // (Sortable measures through jQuery's outerHeight, which reads
-        // offsetHeight in jsdom.)
-        let webFontActive = false;
+        let webFontLoaded = false;
         jest.spyOn(
             HTMLElement.prototype,
             "offsetHeight",
             "get",
-        ).mockImplementation(() => (webFontActive ? 46 : 51));
+        ).mockImplementation(() => (webFontLoaded ? 1 : 2));
         jest.spyOn(
             HTMLElement.prototype,
             "offsetWidth",
@@ -129,16 +119,16 @@ describe("Sortable", () => {
         // The initial measurement runs before the web font loads, so the
         // fallback font's heights get baked into the cards' inline styles.
         await waitFor(() =>
-            expect(cardHeights()).toEqual(["51px", "51px", "51px"]),
+            expect(cardHeights()).toEqual(["2px", "2px", "2px"]),
         );
 
         // Act
-        webFontActive = true;
+        webFontLoaded = true;
         act(() => fontsHaveLoaded());
 
         // Assert
         await waitFor(() =>
-            expect(cardHeights()).toEqual(["46px", "46px", "46px"]),
+            expect(cardHeights()).toEqual(["1px", "1px", "1px"]),
         );
     });
 });
