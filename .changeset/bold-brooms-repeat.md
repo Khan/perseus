@@ -1,5 +1,6 @@
 ---
 "@khanacademy/perseus": patch
+"@khanacademy/perseus-editor": patch
 ---
 
-Internal: Collect all options of the Group widget into a single `options` prop.
+Internal: Collect all widget options into a single `options` prop.
