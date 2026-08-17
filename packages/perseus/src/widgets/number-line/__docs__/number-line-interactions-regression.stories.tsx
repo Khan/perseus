@@ -3,7 +3,10 @@ import {expect, fireEvent} from "storybook/test";
 import {themeModes} from "../../../../../../.storybook/modes";
 
 import {numberLineRendererDecorator} from "./number-line-renderer-decorator";
-import {waitForNumberLine} from "./number-line-story-helpers";
+import {
+    assertPointRendered,
+    waitForNumberLine,
+} from "./number-line-story-helpers";
 
 import type {
     PerseusNumberLineWidgetOptions,
@@ -52,9 +55,7 @@ const hoverPoint: Story["play"] = async ({canvasElement, userEvent}) => {
     const point = canvasElement.querySelector(
         '[data-interactive-kind-for-testing="movable-point"] ellipse',
     );
-    if (point == null) {
-        throw new Error("movable point has not rendered yet");
-    }
+    assertPointRendered(point);
     await userEvent.hover(point);
 };
 
@@ -138,9 +139,7 @@ export const PointMoved: Story = {
         const point = canvasElement.querySelector(
             '[data-interactive-kind-for-testing="movable-point"] ellipse',
         );
-        if (point == null) {
-            throw new Error("movable point has not rendered yet");
-        }
+        assertPointRendered(point);
         const {x, y, width, height} = point.getBoundingClientRect();
         const startX = x + width / 2;
         const startY = y + height / 2;
@@ -155,24 +154,18 @@ export const PointMoved: Story = {
             button: 0,
             clientX: startX,
             clientY: startY,
-            pageX: startX,
-            pageY: startY,
         });
         // eslint-disable-next-line testing-library/prefer-user-event
         fireEvent.mouseMove(document, {
             button: 0,
             clientX: endX,
             clientY: startY,
-            pageX: endX,
-            pageY: startY,
         });
         // eslint-disable-next-line testing-library/prefer-user-event
         fireEvent.mouseUp(document, {
             button: 0,
             clientX: endX,
             clientY: startY,
-            pageX: endX,
-            pageY: startY,
         });
         await waitForNumberLine(canvasElement);
     },

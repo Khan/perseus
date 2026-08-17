@@ -1,4 +1,5 @@
 import {waitFor} from "storybook/test";
+import invariant from "tiny-invariant";
 
 // The number line draws in two asynchronous passes: Raphael builds the SVG
 // layers (including the movable point <ellipse>), and every label — decimal
@@ -35,6 +36,12 @@ export const waitForNumberLine = (canvasElement: HTMLElement): Promise<void> =>
             throw new Error("number line labels are still rendering");
         }
     });
+
+export function assertPointRendered(
+    point: Element | null,
+): asserts point is Element {
+    invariant(point != null, "movable point has not rendered yet");
+}
 
 // The invalid-divisions configuration renders an error message in place of the
 // line, so there is no point or labels to wait for — gate on the error text.
