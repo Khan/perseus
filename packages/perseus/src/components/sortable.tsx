@@ -468,8 +468,6 @@ class Sortable extends React.Component<SortableProps, SortableState> {
     isUnmounted = false;
 
     remeasureItems: () => void = _.debounce(() => {
-        // The debounce can outlive the component if a Draggable's `onRender`
-        // or a font finishing lands, and we unmount inside the 20ms window.
         if (this.isUnmounted) {
             return;
         }
