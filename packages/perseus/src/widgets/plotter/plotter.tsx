@@ -735,16 +735,16 @@ class Plotter extends React.Component<Props, State> implements Widget {
             },
         );
 
+        // Divider lines between histogram bars
         if (isHistogram) {
             if (i > 0) {
                 // Don't draw a divider to the left of the first bucket
                 graphie.style(
                     {
                         stroke: tokenValue(
-                            semanticColor.core.border.neutral.default,
+                            semanticColor.core.border.knockout.default,
                         ),
                         strokeWidth: 1,
-                        // opacity: 0.3,
                     },
                     function () {
                         config.graph.dividers.push(
