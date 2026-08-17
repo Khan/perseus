@@ -322,11 +322,11 @@ function pointsFromNormalized(
     // @ts-expect-error - TS2322 - Type 'number[][]' is not assignable to type 'readonly Coord[]'.
     return coordsList.map(function (coords) {
         return coords.map(function (coord, i) {
-            const range: Range = props.range[i];
+            const range: Range = props.options.range[i];
             if (noSnap) {
                 return range[0] + (range[1] - range[0]) * coord;
             }
-            const step = props.step[i];
+            const step = props.options.step[i];
             const nSteps = numSteps(range, step);
             const tick = Math.round(coord * nSteps);
             return range[0] + step * tick;

@@ -81,13 +81,13 @@ export class PhetSimulation
     };
 
     async componentDidMount() {
-        await this.updateSimState(this.props.url);
+        await this.updateSimState(this.props.options.url);
     }
 
-    async componentDidUpdate(prevProps) {
+    async componentDidUpdate(prevProps: Props) {
         // If the URL has changed, update our state
-        if (prevProps.url !== this.props.url) {
-            await this.updateSimState(this.props.url);
+        if (prevProps.options.url !== this.props.options.url) {
+            await this.updateSimState(this.props.options.url);
         }
     }
 
@@ -329,7 +329,7 @@ export class PhetSimulation
                 <View style={iframeContainerStyle}>
                     <iframe
                         ref={this.iframeRef}
-                        title={this.props.description}
+                        title={this.props.options.description}
                         sandbox={sandboxProperties}
                         className={css(styles.iframeResponsive)}
                         src={url?.toString()}

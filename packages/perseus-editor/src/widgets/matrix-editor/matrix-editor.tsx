@@ -64,6 +64,7 @@ class MatrixEditor extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
+        const {matrixBoardSize, prefix, suffix, answers} = this.props;
         const matrixProps: Partial<PropsFor<typeof Matrix>> = {
             onBlur: () => {},
             onFocus: () => {},
@@ -75,7 +76,7 @@ class MatrixEditor extends React.Component<Props> {
             // [, , 5] serializes to [null, null, 5]), and those need to stay
             // empty rather than becoming the text "null".
             userInput: {
-                answers: this.props.answers.map((row) =>
+                answers: answers.map((row) =>
                     row.map((cell) => (cell == null ? "" : String(cell))),
                 ),
             },
@@ -83,6 +84,11 @@ class MatrixEditor extends React.Component<Props> {
                 this.change({answers: userInput.answers});
             },
             ...this.props,
+            options: {
+                matrixBoardSize,
+                prefix,
+                suffix,
+            },
         };
 
         return (

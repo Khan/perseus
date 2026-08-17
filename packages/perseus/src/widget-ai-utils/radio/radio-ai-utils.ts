@@ -68,7 +68,7 @@ export const getPromptJSON = (
     userInput: RecursiveReadonly<PerseusRadioUserInput>,
 ): RadioPromptJSON => {
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    const choices = widgetData.choices || [];
+    const choices = widgetData.options.choices || [];
 
     const options = choices.map((choice) => {
         const option: BasicOption = {

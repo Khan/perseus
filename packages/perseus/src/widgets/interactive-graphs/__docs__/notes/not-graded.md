@@ -37,7 +37,7 @@ scoring time.
 | File | Role |
 |------|------|
 | `perseus-core/src/data-schema.ts` | `WidgetOptions.graded` field + JSDoc (ungraded sketchpad use case) |
-| `perseus/src/types.ts` | `graded?: boolean \| null` on `UniversalWidgetProps`; `supportsUngraded?: boolean` on `WidgetExports` |
+| `perseus/src/types.ts` | `graded?: boolean \| null` on `WidgetProps`; `supportsUngraded?: boolean` on `WidgetExports` |
 | `perseus/src/renderer.new.tsx` / `renderer.old.tsx` | `getWidgetProps()` passes `graded: widgetInfo?.graded`; default widget info sets `graded: true` (`renderer.tsx` is a feature-flag shim that delegates to these) |
 | `perseus/src/widgets.ts` | `supportsUngraded(type)` — reads the explicit `supportsUngraded === true` flag off the widget export |
 | `perseus/src/widgets/interactive-graphs/interactive-graph.tsx` | Sets `supportsUngraded: true` on the IG export; renders the "not graded" indicator; forwards `graded` + `ungradedDescriptionId` to `StatefulMafsGraph` |
@@ -67,7 +67,7 @@ The shipped API diverged from the original plan's names — be aware of both whe
 
 ### Learner (renderer)
 
-- `Renderer.getWidgetProps()` forwards `graded` to the widget via `UniversalWidgetProps`
+- `Renderer.getWidgetProps()` forwards `graded` to the widget as a top-level `WidgetProps` member
   (default `true`).
 - When `graded === false` (and the graph `type` is not `"none"`), the IG widget renders a visible
   `<p>` label — `strings.ungradedInteractiveGraph` — making it clear the graph won't be scored.

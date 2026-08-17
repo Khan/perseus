@@ -107,9 +107,9 @@ class Group extends React.Component<Props> implements Widget {
                             [widgetId]: userInput,
                         });
                     }}
-                    content={this.props.content}
-                    widgets={this.props.widgets}
-                    images={this.props.images}
+                    content={this.props.options.content}
+                    widgets={this.props.options.widgets}
+                    images={this.props.options.images}
                     ref={(ref) => (this.rendererRef = ref)}
                     apiOptions={apiOptions}
                     findExternalWidgets={this.props.findWidgets}

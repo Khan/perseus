@@ -42,7 +42,7 @@ export const getPromptJSON = (
     return {
         type: "orderer",
         options: {
-            options: widgetData.options.map((option) => option.content),
+            options: widgetData.options.options.map((option) => option.content),
         },
         userInput: {
             values: widgetData.userInput.current,
