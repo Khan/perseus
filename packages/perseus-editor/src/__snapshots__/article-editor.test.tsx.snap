@@ -14678,10 +14678,10 @@ table: [[☃ table 1]]
                           <ellipse
                             cx="225"
                             cy="187"
-                            fill="#dee1e3"
+                            fill="none"
                             rx="2"
                             ry="2"
-                            stroke="#dee1e3"
+                            stroke="none"
                             stroke-width="2"
                             style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; display: none;"
                           />
@@ -14697,10 +14697,10 @@ table: [[☃ table 1]]
                           <ellipse
                             cx="225"
                             cy="151"
-                            fill="#dee1e3"
+                            fill="none"
                             rx="2"
                             ry="2"
-                            stroke="#dee1e3"
+                            stroke="none"
                             stroke-width="2"
                             style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; display: none;"
                           />
@@ -14716,10 +14716,10 @@ table: [[☃ table 1]]
                           <ellipse
                             cx="225"
                             cy="115"
-                            fill="#dee1e3"
+                            fill="none"
                             rx="2"
                             ry="2"
-                            stroke="#dee1e3"
+                            stroke="none"
                             stroke-width="2"
                             style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; display: none;"
                           />
@@ -14735,10 +14735,10 @@ table: [[☃ table 1]]
                           <ellipse
                             cx="225"
                             cy="79"
-                            fill="#dee1e3"
+                            fill="none"
                             rx="2"
                             ry="2"
-                            stroke="#dee1e3"
+                            stroke="none"
                             stroke-width="2"
                             style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; display: none;"
                           />
@@ -14754,10 +14754,10 @@ table: [[☃ table 1]]
                           <ellipse
                             cx="225"
                             cy="43.00000000000001"
-                            fill="#dee1e3"
+                            fill="none"
                             rx="2"
                             ry="2"
-                            stroke="#dee1e3"
+                            stroke="none"
                             stroke-width="2"
                             style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; display: none;"
                           />
@@ -14765,7 +14765,7 @@ table: [[☃ table 1]]
                             d="M225,205L225,211.00000000000003"
                             fill="none"
                             opacity="1"
-                            stroke="#000000"
+                            stroke="none"
                             stroke-width="2"
                             style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 1;"
                           />
@@ -14773,7 +14773,7 @@ table: [[☃ table 1]]
                             d="M75,205L375,205"
                             fill="none"
                             opacity="1"
-                            stroke="#000000"
+                            stroke="none"
                             stroke-width="2"
                             style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 1;"
                           />
@@ -14781,7 +14781,7 @@ table: [[☃ table 1]]
                             d="M75,205L75,25.000000000000007"
                             fill="none"
                             opacity="1"
-                            stroke="#000000"
+                            stroke="none"
                             stroke-width="2"
                             style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 1;"
                           />
@@ -14794,19 +14794,19 @@ table: [[☃ table 1]]
                         />
                         <span
                           class="graphie-label"
-                          style="position: absolute; padding: 7px; color: black; left: 225px; top: 205px; margin-left: -0.5px; margin-top: 0px; font-size: 100%; fill: none; transform: none; transform-origin: 100%;"
+                          style="position: absolute; padding: 7px; left: 225px; top: 205px; margin-left: -0.5px; margin-top: 0px; font-size: 100%; fill: none; transform: none; transform-origin: 100%;"
                         >
                           blue
                         </span>
                         <span
                           class="graphie-label"
-                          style="position: absolute; padding: 7px; color: black; left: 225px; top: 240px; margin-left: -0.5px; margin-top: 0px; font-size: 100%; fill: none; font-weight: bold;"
+                          style="position: absolute; padding: 7px; left: 225px; top: 240px; margin-left: -0.5px; margin-top: 0px; font-size: 100%; fill: none; font-weight: var(--wb-font-weight-bold);"
                         >
                           x
                         </span>
                         <span
                           class="graphie-label rotate"
-                          style="position: absolute; padding: 7px; color: black; left: 14.999999999999996px; top: 115px; margin-left: -0.5px; margin-top: 0px; font-size: 100%; fill: none; font-weight: bold;"
+                          style="position: absolute; padding: 7px; left: 14.999999999999996px; top: 115px; margin-left: -0.5px; margin-top: 0px; font-size: 100%; fill: none; font-weight: var(--wb-font-weight-bold);"
                         >
                           y
                         </span>
