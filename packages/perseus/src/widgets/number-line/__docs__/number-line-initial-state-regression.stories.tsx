@@ -46,9 +46,6 @@ const inequalityArgs = {
     tickStep: 1,
 } satisfies Partial<PerseusNumberLineWidgetOptions>;
 
-// Every inequality story sets initialUserInput explicitly, even when the
-// desired relation matches getStartUserInput's default ("ge") — so a story's
-// behavior never depends on what that default happens to be.
 const inequalityInput = (rel: "ge" | "gt" | "le" | "lt"): UserInputMap => ({
     "number-line 1": {rel, numDivisions: 10, numLinePosition: 0},
 });
@@ -63,9 +60,6 @@ const fractionArgs = {
     snapDivisions: 1,
 } satisfies Partial<PerseusNumberLineWidgetOptions>;
 
-// The point is placed at a specific value (3) that falls between tick marks,
-// so this covers both the default line (highlighted blue endpoint ticks,
-// decimal labels) and a point positioned away from an endpoint.
 export const Default: Story = {
     decorators: [numberLineRendererDecorator],
     args: {
@@ -189,7 +183,6 @@ export const InequalityOpenLeft: Story = {
     play: waitForRender,
 };
 
-// Static mode: the answer is shown as a non-editable point and cannot be moved.
 export const StaticPoint: Story = {
     decorators: [numberLineRendererDecorator],
     args: {

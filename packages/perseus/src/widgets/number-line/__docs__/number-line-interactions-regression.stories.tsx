@@ -33,8 +33,6 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-// Shared configuration for the inequality stories: a range that crosses zero
-// with one tick per unit so the ray direction reads clearly.
 const inequalityArgs = {
     isInequality: true,
     range: [-5, 5],
@@ -43,9 +41,6 @@ const inequalityArgs = {
     tickStep: 1,
 } satisfies Partial<PerseusNumberLineWidgetOptions>;
 
-// Every inequality story sets initialUserInput explicitly, even when the
-// desired relation matches getStartUserInput's default ("ge") — so a story's
-// behavior never depends on what that default happens to be.
 const inequalityInput = (rel: "ge" | "gt" | "le" | "lt"): UserInputMap => ({
     "number-line 1": {rel, numDivisions: 10, numLinePosition: 0},
 });
@@ -63,7 +58,6 @@ const hoverPoint: Story["play"] = async ({canvasElement, userEvent}) => {
     await userEvent.hover(point);
 };
 
-// Verifies the highlighted (hovered) state of the interactive closed point.
 export const PointHovered: Story = {
     decorators: [numberLineRendererDecorator],
     args: {
@@ -73,8 +67,6 @@ export const PointHovered: Story = {
     play: hoverPoint,
 };
 
-// Verifies the highlighted (hovered) state of the open (strict inequality) dot:
-// the hollow dot keeps its background fill while the highlight stroke renders.
 export const OpenDotHovered: Story = {
     decorators: [numberLineRendererDecorator],
     args: inequalityArgs,
@@ -84,7 +76,6 @@ export const OpenDotHovered: Story = {
     play: hoverPoint,
 };
 
-// Verifies that clicking "Switch direction" flips the ray from right to left.
 export const SwitchDirectionButtonClicked: Story = {
     decorators: [numberLineRendererDecorator],
     args: inequalityArgs,
@@ -100,8 +91,6 @@ export const SwitchDirectionButtonClicked: Story = {
     },
 };
 
-// Clicking "Make circle open" switches the closed dot to an open one, and the
-// button label itself flips to "Make circle filled".
 export const MakeCircleOpen: Story = {
     decorators: [numberLineRendererDecorator],
     args: inequalityArgs,
@@ -121,8 +110,6 @@ export const MakeCircleOpen: Story = {
     },
 };
 
-// Verifies that changing the number of divisions in the tick controller
-// redraws the tick marks.
 export const TickDivisionsChanged: Story = {
     decorators: [numberLineRendererDecorator],
     args: {
@@ -140,8 +127,6 @@ export const TickDivisionsChanged: Story = {
     },
 };
 
-// Verifies the point renders in a new position after being dragged away from
-// its default (the left endpoint).
 export const PointMoved: Story = {
     decorators: [numberLineRendererDecorator],
     args: {
@@ -193,7 +178,6 @@ export const PointMoved: Story = {
     },
 };
 
-// Verifies the keyboard focus outline on the "Switch direction" button.
 export const SwitchDirectionButtonFocused: Story = {
     decorators: [numberLineRendererDecorator],
     args: inequalityArgs,
