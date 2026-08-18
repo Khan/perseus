@@ -100,6 +100,11 @@ function asMenuChild(element: React.ReactElement): React.ReactElement<any> {
 // so we set a min block size on each item via its `style` prop.
 const itemStyle = {minBlockSize: sizing.size_480};
 
+// A minimum (not fixed) width, in rem so it scales with the user's font
+// size. Short labels get breathing room; long labels can still widen the
+// menu. No sizing token reaches this scale.
+const menuStyle = {minInlineSize: "16rem"};
+
 /**
  * DndActionMenu is the menu that appears on each Answer Tile in our upcoming
  * Drag-and-Drop widget family. It lists every blank the tile can move to and,
@@ -195,6 +200,7 @@ export const DndActionMenu = React.forwardRef<
                 menuText={label}
                 disabled={isDisabled}
                 alignment={placement === "above" ? "top-start" : "bottom-start"}
+                dropdownStyle={menuStyle}
                 testId={`dnd-action-menu-${tileId}`}
                 opener={() => (
                     <MergedRefOpener
