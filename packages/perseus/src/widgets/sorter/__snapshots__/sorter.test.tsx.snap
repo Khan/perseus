@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`sorter widget should snapshot on mobile: first mobile render 1`] = `
+exports[`sorter widget snapshot should snapshot on mobile: first mobile render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -18,105 +18,31 @@ exports[`sorter widget should snapshot on mobile: first mobile render 1`] = `
           <div
             class="perseus-widget-sorter perseus-clearfix"
           >
-            <ul
-              class="sortable_a2rat1 perseus-sortable"
+            <div
+              class="default_7zhre1-o_O-spinnerContainer_agrn11"
             >
-              <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
-                style="position: static; margin: 0px 8px 0px 0px;"
+              <svg
+                height="96"
+                viewBox="0 0 96 96"
+                width="96"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <div
-                  class="perseus-renderer perseus-renderer-responsive"
-                >
-                  <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
-                  >
-                    <div
-                      class="paragraph"
-                    >
-                      Fourth
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
-                style="position: static; margin: 0px 8px 0px 0px;"
+                <path
+                  class="loadingSpinner_1dvgeb3-o_O-inlineStyles_1uct99t"
+                  d="M88.38 46.91a3.818 3.818 0 1 1 7.602 0h.006c.008.362.012.725.012 1.09 0 26.51-21.49 48-48 48S0 74.51 0 48 21.49 0 48 0c.365 0 .728.004 1.09.012v.005a3.818 3.818 0 1 1 0 7.602v.032c-.362-.01-.725-.015-1.09-.015C25.708 7.636 7.636 25.708 7.636 48c0 22.292 18.072 40.364 40.364 40.364 22.292 0 40.364-18.072 40.364-40.364 0-.365-.005-.728-.015-1.09h.032z"
+                  fill-rule="nonzero"
+                />
+              </svg>
+            </div>
+            <div
+              style="display: none;"
+            >
+              <span
+                class="mock-TeX"
               >
-                <div
-                  class="perseus-renderer perseus-renderer-responsive"
-                >
-                  <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
-                  >
-                    <div
-                      class="paragraph"
-                    >
-                      Zeroth
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
-                style="position: static; margin: 0px 8px 0px 0px;"
-              >
-                <div
-                  class="perseus-renderer perseus-renderer-responsive"
-                >
-                  <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
-                  >
-                    <div
-                      class="paragraph"
-                    >
-                      Second
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
-                style="position: static; margin: 0px 8px 0px 0px;"
-              >
-                <div
-                  class="perseus-renderer perseus-renderer-responsive"
-                >
-                  <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
-                  >
-                    <div
-                      class="paragraph"
-                    >
-                      First
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
-                style="position: static; margin: 0px;"
-              >
-                <div
-                  class="perseus-renderer perseus-renderer-responsive"
-                >
-                  <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
-                  >
-                    <div
-                      class="paragraph"
-                    >
-                      Third
-                    </div>
-                  </div>
-                </div>
-              </li>
-            </ul>
+                1
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -125,7 +51,7 @@ exports[`sorter widget should snapshot on mobile: first mobile render 1`] = `
 </div>
 `;
 
-exports[`sorter widget should snapshot: first render 1`] = `
+exports[`sorter widget snapshot should snapshot: first render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -143,105 +69,31 @@ exports[`sorter widget should snapshot: first render 1`] = `
           <div
             class="perseus-widget-sorter perseus-clearfix"
           >
-            <ul
-              class="sortable_a2rat1 perseus-sortable"
+            <div
+              class="default_7zhre1-o_O-spinnerContainer_agrn11"
             >
-              <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
-                style="position: static; margin: 0px 5px 0px 0px;"
+              <svg
+                height="96"
+                viewBox="0 0 96 96"
+                width="96"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <div
-                  class="perseus-renderer perseus-renderer-responsive"
-                >
-                  <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
-                  >
-                    <div
-                      class="paragraph"
-                    >
-                      Fourth
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
-                style="position: static; margin: 0px 5px 0px 0px;"
+                <path
+                  class="loadingSpinner_1dvgeb3-o_O-inlineStyles_1uct99t"
+                  d="M88.38 46.91a3.818 3.818 0 1 1 7.602 0h.006c.008.362.012.725.012 1.09 0 26.51-21.49 48-48 48S0 74.51 0 48 21.49 0 48 0c.365 0 .728.004 1.09.012v.005a3.818 3.818 0 1 1 0 7.602v.032c-.362-.01-.725-.015-1.09-.015C25.708 7.636 7.636 25.708 7.636 48c0 22.292 18.072 40.364 40.364 40.364 22.292 0 40.364-18.072 40.364-40.364 0-.365-.005-.728-.015-1.09h.032z"
+                  fill-rule="nonzero"
+                />
+              </svg>
+            </div>
+            <div
+              style="display: none;"
+            >
+              <span
+                class="mock-TeX"
               >
-                <div
-                  class="perseus-renderer perseus-renderer-responsive"
-                >
-                  <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
-                  >
-                    <div
-                      class="paragraph"
-                    >
-                      Zeroth
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
-                style="position: static; margin: 0px 5px 0px 0px;"
-              >
-                <div
-                  class="perseus-renderer perseus-renderer-responsive"
-                >
-                  <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
-                  >
-                    <div
-                      class="paragraph"
-                    >
-                      Second
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
-                style="position: static; margin: 0px 5px 0px 0px;"
-              >
-                <div
-                  class="perseus-renderer perseus-renderer-responsive"
-                >
-                  <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
-                  >
-                    <div
-                      class="paragraph"
-                    >
-                      First
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
-                style="position: static; margin: 0px;"
-              >
-                <div
-                  class="perseus-renderer perseus-renderer-responsive"
-                >
-                  <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
-                  >
-                    <div
-                      class="paragraph"
-                    >
-                      Third
-                    </div>
-                  </div>
-                </div>
-              </li>
-            </ul>
+                1
+              </span>
+            </div>
           </div>
         </div>
       </div>
