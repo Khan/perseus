@@ -16,9 +16,7 @@ describe("ExtrasEditor", () => {
 
     it("should render correctly with default props", async () => {
         // Act
-        render(
-            <ExtrasEditor editingDisabled={false} onChange={() => {}} />,
-        );
+        render(<ExtrasEditor editingDisabled={false} onChange={() => {}} />);
 
         // Assert
         expect(
