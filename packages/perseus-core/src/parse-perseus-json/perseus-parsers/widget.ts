@@ -1,29 +1,37 @@
 import {
     boolean,
-    enumeration,
     nullable,
     number,
     object,
     optional,
     pipeParsers,
+    string,
 } from "../general-purpose-parsers";
 import {convert} from "../general-purpose-parsers/convert";
 
 import type {Parser} from "../parser-types";
 
-const parseAlignment = pipeParsers(
-    enumeration(
-        "default",
-        "block",
-        "inline-block",
-        "inline",
-        "wrap-left",
-        "wrap-right",
-        "full-width",
-        "",
-        undefined,
-    ),
-).then(convert((value) => (value === "" ? "default" : value))).parser;
+function alignmentToValidValue(alignment: string | undefined) {
+    switch (alignment) {
+        case "":
+            return "default";
+        case "default":
+        case "block":
+        case "inline-block":
+        case "inline":
+        case "wrap-left":
+        case "wrap-right":
+        case "full-width":
+        case undefined:
+            return alignment;
+        default:
+            return "default";
+    }
+}
+
+const parseAlignment = pipeParsers(optional(string)).then(
+    convert(alignmentToValidValue),
+).parser;
 
 export function parseWidget<Type extends string, Options extends object>(
     parseType: Parser<Type>,
