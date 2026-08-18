@@ -133,6 +133,11 @@ export const RightToLeft: Story = {
         ],
         placement: "above",
     },
+    parameters: {
+        // Render in a separate iframe on the docs page so the document-level
+        // dir below doesn't flip the surrounding stories.
+        docs: {story: {inline: false, height: "620px"}},
+    },
     decorators: [
         // The open menu renders in a portal to document.body, so a dir="rtl"
         // wrapper around the story wouldn't reach it. Set dir on the document
