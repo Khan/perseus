@@ -1,12 +1,18 @@
 import {
+    generateSorterOptions,
+    generateSorterWidget,
     generateTestPerseusItem,
+    generateTestPerseusRenderer,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import {act} from "@testing-library/react";
 import * as React from "react";
 
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {
+    testDependencies,
+    testDependenciesV2,
+} from "../../testing/test-dependencies";
 import {wait} from "../../testing/wait";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
@@ -15,15 +21,43 @@ import {basicQuestion} from "./sorter.testdata";
 
 import type {APIOptions} from "../../types";
 
+/*
+Sortable settles its cards from a requestAnimationFrame callback, which can
+land after a test has finished awaiting and React then reports as an
+un-act()-ed update. Fixing it means reworking Sortable's drag animation, so we
+let this one message through — but only this one. Blanket-mocking console.error
+would also swallow genuine React errors and let a regression pass silently.
+*/
+const EXPECTED_CONSOLE_ERROR = /not wrapped in act\(/;
+
 describe("sorter widget", () => {
+    // The card contents in their correct order. Spelled out here, rather than
+    // read back off the fixture, so the assertions don't depend on setup they
+    // don't control.
+    const sortedOrder = ["Zeroth", "First", "Second", "Third", "Fourth"];
+    const sorterQuestion = generateTestPerseusRenderer({
+        content: "[[☃ sorter 1]]",
+        widgets: {
+            "sorter 1": generateSorterWidget({
+                options: generateSorterOptions({correct: sortedOrder}),
+            }),
+        },
+    });
+
+    let unexpectedConsoleErrors: string[] = [];
+
+    afterEach(() => {
+        expect(unexpectedConsoleErrors).toEqual([]);
+    });
+
     beforeEach(() => {
-        /*
-        Sortable misbehaves and sets state after the component has been
-        unmounted. This is existing behavior and its safer to leave the existing
-        implementation and swallow the warning in tests.
-        */
-        jest.spyOn(console, "warn").mockImplementation(() => {});
-        jest.spyOn(console, "error").mockImplementation(() => {});
+        unexpectedConsoleErrors = [];
+        jest.spyOn(console, "error").mockImplementation((...args) => {
+            const message = args.map(String).join(" ");
+            if (!EXPECTED_CONSOLE_ERROR.test(message)) {
+                unexpectedConsoleErrors.push(message);
+            }
+        });
 
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
             ...testDependencies,
@@ -72,6 +106,96 @@ describe("sorter widget", () => {
 
         // Assert
         expect(container).toMatchSnapshot("first mobile render");
+    });
+
+    it("reports itself as rendered to analytics", () => {
+        // Arrange
+        const onAnalyticsEvent = jest.fn();
+
+        // Act
+        renderQuestion(sorterQuestion, undefined, undefined, undefined, {
+            ...testDependenciesV2,
+            analytics: {onAnalyticsEvent},
+        });
+
+        // Assert
+        expect(onAnalyticsEvent).toHaveBeenCalledWith({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "sorter",
+                widgetId: "sorter 1",
+            },
+        });
+    });
+
+    it("starts with the cards shuffled and the input marked unchanged", () => {
+        // Arrange, Act
+        const {renderer} = renderQuestion(sorterQuestion);
+
+        // Assert
+        const userInput = renderer.getUserInputMap()["sorter 1"];
+        expect(userInput.changed).toBe(false);
+        expect([...userInput.options].sort()).toEqual([...sortedOrder].sort());
+    });
+
+    it("reports the new card order and marks the input changed when a card is moved", () => {
+        // Arrange
+        const {renderer} = renderQuestion(sorterQuestion);
+        const sorter = renderer.findWidgets("sorter 1")[0];
+
+        // Act
+        sortedOrder.forEach((option, index) => {
+            act(() => sorter.moveOptionToIndex(option, index));
+        });
+
+        // Assert
+        expect(renderer.getUserInputMap()["sorter 1"]).toEqual({
+            options: sortedOrder,
+            changed: true,
+        });
+    });
+
+    it("tracks an interaction when a card is moved", () => {
+        // Arrange
+        const trackInteraction = jest.fn();
+        const {renderer} = renderQuestion(sorterQuestion, {trackInteraction});
+        const sorter = renderer.findWidgets("sorter 1")[0];
+
+        // Act
+        act(() => sorter.moveOptionToIndex("Zeroth", 4));
+
+        // Assert
+        expect(trackInteraction).toHaveBeenCalledWith({
+            type: "sorter",
+            id: "sorter 1",
+        });
+    });
+
+    it("does not track an interaction before any card is moved", () => {
+        // Arrange, Act
+        const trackInteraction = jest.fn();
+        renderQuestion(sorterQuestion, {trackInteraction});
+
+        // Assert
+        expect(trackInteraction).not.toHaveBeenCalled();
+    });
+
+    it("describes the learner's current card order in the prompt JSON", () => {
+        // Arrange
+        const {renderer} = renderQuestion(sorterQuestion);
+        const sorter = renderer.findWidgets("sorter 1")[0];
+
+        // Act
+        sortedOrder.forEach((option, index) => {
+            act(() => sorter.moveOptionToIndex(option, index));
+        });
+
+        // Assert
+        expect(sorter.getPromptJSON()).toEqual({
+            type: "sorter",
+            userInput: {values: sortedOrder, changed: true},
+        });
     });
 
     const answerfulItem = generateTestPerseusItem({question: basicQuestion});
