@@ -36,7 +36,14 @@
     display: flex;
     align-items: center;
     block-size: var(--wb-sizing-size_280);
-    padding-inline: var(--wb-sizing-size_200);
+    /* Align the header text with the item labels: ActionItem's label inset
+     * comes from the WB cell's themed inline padding (16px classic, 12px
+     * thunderblocks), so reuse that variable rather than the Figma's
+     * absolute 20px, which already includes the themed listbox padding. */
+    padding-inline: var(
+        --wb-c-cell-root-layout-padding-inline-default,
+        var(--wb-sizing-size_160)
+    );
     pointer-events: none;
 
     color: var(--wb-semanticColor-core-foreground-neutral-subtle);
