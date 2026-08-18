@@ -85,20 +85,19 @@ const MergedRefOpener = React.forwardRef<HTMLButtonElement, OpenerInnerProps>(
 );
 
 /**
- * ActionMenu's children type only admits Action/Option/Separator items, so
- * the decorative header span (see its render site) can't be expressed
- * without widening the type. This helper confines that one unsafe cast so
- * every call site stays honestly typed. The durable fix is a first-class
- * header slot in Wonder Blocks (requested with #wonder-blocks).
+ * ActionMenu's children type only accepts Action/Option/Separator items,
+ * which makes it hard to reliably add a header with translated text.
+ * This helper confines that one unsafe cast so every other call site
+ * stays honestly typed.
  */
 function asMenuChild(element: React.ReactElement): React.ReactElement<any> {
-    // eslint-disable-next-line no-restricted-syntax -- deliberate boundary: ActionMenu's Item type can't express the header span
+    // eslint-disable-next-line no-restricted-syntax
     return element as React.ReactElement<any>;
 }
 
-// The design calls for 48px-tall items. ActionItem has no height variant,
-// so we set a min block size on each item via its `style` prop.
-const itemStyle = {minBlockSize: sizing.size_480};
+// The design calls for the menu items to be 48px tall,
+// and WonderBlocks defaults to 40px.
+const menuItemStyle = {minBlockSize: sizing.size_480};
 
 // A minimum (not fixed) width, in rem so it scales with the user's font
 // size. Short labels get breathing room; long labels can still widen the
@@ -160,7 +159,7 @@ export const DndActionMenu = React.forwardRef<
                 label={target.label}
                 aria-label={strings.dndMoveToTarget({target: target.label})}
                 onClick={() => onMove(target.id)}
-                style={itemStyle}
+                style={menuItemStyle}
             />
         )),
     ];
@@ -175,7 +174,7 @@ export const DndActionMenu = React.forwardRef<
                     target: clearAction.targetLabel,
                 })}
                 onClick={clearAction.onClear}
-                style={itemStyle}
+                style={menuItemStyle}
             />,
         );
     }
