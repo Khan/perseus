@@ -470,7 +470,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
             semanticColor.core.border.knockout.default,
         );
         const hollowFill = tokenValue(
-            semanticColor.core.background.base.default,
+            semanticColor.core.foreground.knockout.default,
         );
         const pointColor = props.static ? staticColor : interactiveColor;
 
