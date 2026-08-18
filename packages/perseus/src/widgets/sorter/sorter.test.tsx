@@ -9,12 +9,12 @@ import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
 import {wait} from "../../testing/wait";
 import {scorePerseusItemTesting} from "../../util/test-utils";
-import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
-import {question1} from "../__testdata__/sorter.testdata";
+import {renderQuestion} from "../__testutils__/renderQuestion";
+
+import {question1} from "./sorter.testdata";
 
 import type {APIOptions} from "../../types";
 
-// TODO, this is in the wrong spot; it's in the "components" dir and not the "widgets" dir
 describe("sorter widget", () => {
     beforeEach(() => {
         /*
