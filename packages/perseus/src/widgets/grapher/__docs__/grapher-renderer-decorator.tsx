@@ -6,6 +6,12 @@ import type {APIOptions} from "../../../types";
 import type {PerseusRenderer, UserInputMap} from "@khanacademy/perseus-core";
 import type {Decorator} from "@storybook/react-vite";
 
+function hasQuestionArg(
+    args: Record<string, unknown>,
+): args is {question: PerseusRenderer} {
+    return "question" in args;
+}
+
 export const grapherRendererDecorator: Decorator = (
     _,
     {
@@ -19,11 +25,12 @@ export const grapherRendererDecorator: Decorator = (
         };
     },
 ) => {
-    // eslint-disable-next-line no-restricted-syntax
-    const {question} = args as {question: PerseusRenderer};
+    if (!hasQuestionArg(args)) {
+        throw new Error("grapherRendererDecorator requires a `question` arg");
+    }
     return (
         <QuestionRendererForStories
-            question={question}
+            question={args.question}
             apiOptions={parameters?.apiOptions}
             initialUserInput={parameters?.initialUserInput}
         />
