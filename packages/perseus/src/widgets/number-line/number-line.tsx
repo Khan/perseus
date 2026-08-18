@@ -486,12 +486,15 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
             "stroke-width": isOpen ? 3 : 1,
         } as const;
 
-        const mobileDotStyle = props.options.isInequality
-            ? {
-                  stroke: interactiveColor,
-                  "fill-opacity": isOpen ? 0 : 1,
-              }
-            : {};
+        const mobileDotStyle =
+            props.options.isInequality && isOpen
+                ? {
+                      fill: hollowFill,
+                      "fill-opacity": 1,
+                      stroke: pointColor,
+                      "stroke-width": 3,
+                  }
+                : {};
 
         return (
             <MovablePoint
