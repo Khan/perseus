@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Number-Line Color Migration — Before / After</title>
+<style>
+  :root {
+    --ink: #21242c;
+    --muted: #6b7280;
+    --line: #e5e7eb;
+    --canvas-default: #ffffff;
+    --canvas-thunder: #ffffff;
+    --canvas-syldark: #1a1a24;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 32px;
+    font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--ink);
+    background: #fafafa;
+  }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 24px; }
+  .note {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-left: 4px solid #1865f2;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 0 0 28px;
+    max-width: 900px;
+  }
+  .note strong { color: var(--ink); }
+  table { border-collapse: collapse; width: 100%; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  th, td { border: 1px solid var(--line); padding: 12px 14px; vertical-align: top; text-align: left; }
+  thead th { background: #f3f4f6; font-size: 13px; text-transform: uppercase; letter-spacing: .03em; color: var(--muted); }
+  td.element { min-width: 190px; }
+  td.element .name { font-weight: 600; }
+  td.element .where { color: var(--muted); font-size: 13px; margin-top: 4px; }
+  .swatchcell { text-align: center; width: 130px; }
+  .canvas {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 84px; height: 64px; border-radius: 8px; border: 1px solid var(--line);
+  }
+  .canvas.default { background: var(--canvas-default); }
+  .canvas.thunder { background: var(--canvas-thunder); }
+  .canvas.syldark { background: var(--canvas-syldark); }
+  .hex { font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--muted); margin-top: 6px; }
+  .hex .f { color: var(--ink); }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; margin-top: 6px; }
+  .badge.changed { background: #fde8cf; color: #9a5b00; }
+  .badge.same { background: #e5e7eb; color: #4b5563; }
+  .noticeable { font-size: 13px; }
+  .noticeable .yes { color: #9a5b00; font-weight: 600; }
+  .noticeable .no { color: #4b5563; }
+  .legend { margin: 30px 0 0; max-width: 900px; }
+  .legend table { box-shadow: none; }
+  .legend td, .legend th { font-size: 13px; padding: 8px 12px; }
+  code { background: #f3f4f6; padding: 1px 5px; border-radius: 4px; font-size: 12px; }
+</style>
+</head>
+<body>
+  <h1>Number-Line Color Migration &mdash; Before / After</h1>
+  <p class="sub">LEMS-4269 &middot; hardcoded <code>KhanColors</code> &rarr; Wonder Blocks semantic tokens</p>
+
+  <div class="note">
+    <strong>What changed, in one line:</strong> all green is gone. The interactive
+    point, its hover state, the mobile dot, and the mobile inequality ray went from
+    <span style="color:#00a60e;font-weight:600">green</span> to
+    <span style="color:#1865f2;font-weight:600">instructive blue</span>. The static
+    point went from blue to <span style="color:#909296;font-weight:600">gray</span>
+    (it can't be dragged). Point edges are now a white knockout ring. The already-blue
+    elements (highlighted first tick, labels, desktop ray) look identical in the
+    default theme &mdash; their win is that they now <em>theme correctly</em> in
+    Thunderblocks / dark instead of being a frozen hex.
+    <br /><br />
+    Swatch cells are painted on each theme's real canvas color, so a white knockout
+    ring or a hollow center reads the way it actually will in the widget.
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Element / where to see it</th>
+        <th>Before (hardcoded)</th>
+        <th>After &middot; Default</th>
+        <th>After &middot; Thunderblocks</th>
+        <th>After &middot; Syl-Dark</th>
+        <th>Noticeable?</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <!-- 1. Highlighted first tick + label -->
+      <tr>
+        <td class="element">
+          <div class="name">Highlighted first tick + label</div>
+          <div class="where">Default story (blue first tick &amp; its number)</div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas default"><svg width="56" height="40"><line x1="28" y1="6" x2="28" y2="34" stroke="#1865f2" stroke-width="4"/></svg></div>
+          <div class="hex"><span class="f">#1865f2</span></div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas default"><svg width="56" height="40"><line x1="28" y1="6" x2="28" y2="34" stroke="#1865f2" stroke-width="4"/></svg></div>
+          <div class="hex"><span class="f">#1865f2</span></div>
+          <div class="badge same">Same</div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas thunder"><svg width="56" height="40"><line x1="28" y1="6" x2="28" y2="34" stroke="#5753FA" stroke-width="4"/></svg></div>
+          <div class="hex"><span class="f">#5753FA</span></div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas syldark"><svg width="56" height="40"><line x1="28" y1="6" x2="28" y2="34" stroke="#6C82FF" stroke-width="4"/></svg></div>
+          <div class="hex"><span class="f">#6C82FF</span></div>
+        </td>
+        <td class="noticeable"><span class="no">No change in default.</span> Now themes correctly in TB / dark (was a frozen blue).</td>
+      </tr>
+
+      <!-- 2. Interactive point closed -->
+      <tr>
+        <td class="element">
+          <div class="name">Interactive point &mdash; filled</div>
+          <div class="where">Default, PointMoved, Mobile</div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas default"><svg width="48" height="48"><circle cx="24" cy="24" r="14" fill="#00a60e" stroke="#00a60e" stroke-width="3"/></svg></div>
+          <div class="hex"><span class="f">#00a60e</span> / #00a60e</div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas default"><svg width="48" height="48"><circle cx="24" cy="24" r="14" fill="#1865f2" stroke="#ffffff" stroke-width="3"/></svg></div>
+          <div class="hex"><span class="f">#1865f2</span> / #ffffff</div>
+          <div class="badge changed">Changed</div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas thunder"><svg width="48" height="48"><circle cx="24" cy="24" r="14" fill="#5753FA" stroke="#FFFFFF" stroke-width="3"/></svg></div>
+          <div class="hex"><span class="f">#5753FA</span> / #FFFFFF</div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas syldark"><svg width="48" height="48"><circle cx="24" cy="24" r="14" fill="#6C82FF" stroke="#151521" stroke-width="3"/></svg></div>
+          <div class="hex"><span class="f">#6C82FF</span> / #151521</div>
+        </td>
+        <td class="noticeable"><span class="yes">Yes &mdash; biggest change.</span> Green fill &rarr; blue; green edge &rarr; white ring.</td>
+      </tr>
+
+      <!-- 3. Interactive point open -->
+      <tr>
+        <td class="element">
+          <div class="name">Interactive point &mdash; hollow</div>
+          <div class="where">MakeCircleOpen, OpenDotHovered, Inequality Open</div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas default"><svg width="48" height="48"><circle cx="24" cy="24" r="13" fill="#FDFDFD" stroke="#00a60e" stroke-width="4"/></svg></div>
+          <div class="hex"><span class="f">#FDFDFD</span> / #00a60e</div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas default"><svg width="48" height="48"><circle cx="24" cy="24" r="13" fill="#ffffff" stroke="#1865f2" stroke-width="4"/></svg></div>
+          <div class="hex"><span class="f">#ffffff</span> / #1865f2</div>
+          <div class="badge changed">Changed</div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas thunder"><svg width="48" height="48"><circle cx="24" cy="24" r="13" fill="#FFFFFF" stroke="#5753FA" stroke-width="4"/></svg></div>
+          <div class="hex"><span class="f">#FFFFFF</span> / #5753FA</div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas syldark"><svg width="48" height="48"><circle cx="24" cy="24" r="13" fill="#252531" stroke="#6C82FF" stroke-width="4"/></svg></div>
+          <div class="hex"><span class="f">#252531</span> / #6C82FF</div>
+        </td>
+        <td class="noticeable"><span class="yes">Yes</span> &mdash; ring green &rarr; blue. Center follows the canvas (white in light, dark in syl-dark).</td>
+      </tr>
+
+      <!-- 4. Static point closed -->
+      <tr>
+        <td class="element">
+          <div class="name">Static point &mdash; filled</div>
+          <div class="where">StaticPoint story</div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas default"><svg width="48" height="48"><circle cx="24" cy="24" r="14" fill="#1865f2" stroke="#1865f2" stroke-width="3"/></svg></div>
+          <div class="hex"><span class="f">#1865f2</span> / #1865f2</div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas default"><svg width="48" height="48"><circle cx="24" cy="24" r="14" fill="#909296" stroke="#ffffff" stroke-width="3"/></svg></div>
+          <div class="hex"><span class="f">#909296</span> / #ffffff</div>
+          <div class="badge changed">Changed</div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas thunder"><svg width="48" height="48"><circle cx="24" cy="24" r="14" fill="#A0A1A4" stroke="#FFFFFF" stroke-width="3"/></svg></div>
+          <div class="hex"><span class="f">#A0A1A4</span> / #FFFFFF</div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas syldark"><svg width="48" height="48"><circle cx="24" cy="24" r="14" fill="#8A8B90" stroke="#151521" stroke-width="3"/></svg></div>
+          <div class="hex"><span class="f">#8A8B90</span> / #151521</div>
+        </td>
+        <td class="noticeable"><span class="yes">Yes</span> &mdash; blue &rarr; gray. Signals "not draggable," matching movable-point.</td>
+      </tr>
+
+      <!-- 5. Static point open -->
+      <tr>
+        <td class="element">
+          <div class="name">Static point &mdash; hollow</div>
+          <div class="where">Static + open inequality (edge case)</div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas default"><svg width="48" height="48"><circle cx="24" cy="24" r="13" fill="#FDFDFD" stroke="#1865f2" stroke-width="4"/></svg></div>
+          <div class="hex"><span class="f">#FDFDFD</span> / #1865f2</div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas default"><svg width="48" height="48"><circle cx="24" cy="24" r="13" fill="#ffffff" stroke="#909296" stroke-width="4"/></svg></div>
+          <div class="hex"><span class="f">#ffffff</span> / #909296</div>
+          <div class="badge changed">Changed</div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas thunder"><svg width="48" height="48"><circle cx="24" cy="24" r="13" fill="#FFFFFF" stroke="#A0A1A4" stroke-width="4"/></svg></div>
+          <div class="hex"><span class="f">#FFFFFF</span> / #A0A1A4</div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas syldark"><svg width="48" height="48"><circle cx="24" cy="24" r="13" fill="#252531" stroke="#8A8B90" stroke-width="4"/></svg></div>
+          <div class="hex"><span class="f">#252531</span> / #8A8B90</div>
+        </td>
+        <td class="noticeable"><span class="yes">Yes</span> &mdash; ring blue &rarr; gray.</td>
+      </tr>
+
+      <!-- 6. Hover highlight closed -->
+      <tr>
+        <td class="element">
+          <div class="name">Hover highlight (filled)</div>
+          <div class="where">PointHovered story</div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas default"><svg width="48" height="48"><circle cx="24" cy="24" r="15" fill="#00a60e"/></svg></div>
+          <div class="hex"><span class="f">#00a60e</span></div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas default"><svg width="48" height="48"><circle cx="24" cy="24" r="15" fill="#1865f2"/></svg></div>
+          <div class="hex"><span class="f">#1865f2</span></div>
+          <div class="badge changed">Changed</div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas thunder"><svg width="48" height="48"><circle cx="24" cy="24" r="15" fill="#5753FA"/></svg></div>
+          <div class="hex"><span class="f">#5753FA</span></div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas syldark"><svg width="48" height="48"><circle cx="24" cy="24" r="15" fill="#6C82FF"/></svg></div>
+          <div class="hex"><span class="f">#6C82FF</span></div>
+        </td>
+        <td class="noticeable"><span class="yes">Yes</span> on hover &mdash; green &rarr; blue.</td>
+      </tr>
+
+      <!-- 7. Mobile dot stroke -->
+      <tr>
+        <td class="element">
+          <div class="name">Mobile dot stroke</div>
+          <div class="where">Mobile stories</div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas default"><svg width="48" height="48"><circle cx="24" cy="24" r="14" fill="none" stroke="#00a60e" stroke-width="4"/></svg></div>
+          <div class="hex"><span class="f">#00a60e</span></div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas default"><svg width="48" height="48"><circle cx="24" cy="24" r="14" fill="none" stroke="#1865f2" stroke-width="4"/></svg></div>
+          <div class="hex"><span class="f">#1865f2</span></div>
+          <div class="badge changed">Changed</div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas thunder"><svg width="48" height="48"><circle cx="24" cy="24" r="14" fill="none" stroke="#5753FA" stroke-width="4"/></svg></div>
+          <div class="hex"><span class="f">#5753FA</span></div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas syldark"><svg width="48" height="48"><circle cx="24" cy="24" r="14" fill="none" stroke="#6C82FF" stroke-width="4"/></svg></div>
+          <div class="hex"><span class="f">#6C82FF</span></div>
+        </td>
+        <td class="noticeable"><span class="yes">Yes</span> &mdash; green &rarr; blue.</td>
+      </tr>
+
+      <!-- 8. Inequality ray desktop -->
+      <tr>
+        <td class="element">
+          <div class="name">Inequality ray &mdash; desktop</div>
+          <div class="where">Inequality* desktop stories</div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas default"><svg width="56" height="40"><line x1="6" y1="20" x2="50" y2="20" stroke="#1865f2" stroke-width="4"/></svg></div>
+          <div class="hex"><span class="f">#1865f2</span></div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas default"><svg width="56" height="40"><line x1="6" y1="20" x2="50" y2="20" stroke="#1865f2" stroke-width="4"/></svg></div>
+          <div class="hex"><span class="f">#1865f2</span></div>
+          <div class="badge same">Same</div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas thunder"><svg width="56" height="40"><line x1="6" y1="20" x2="50" y2="20" stroke="#5753FA" stroke-width="4"/></svg></div>
+          <div class="hex"><span class="f">#5753FA</span></div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas syldark"><svg width="56" height="40"><line x1="6" y1="20" x2="50" y2="20" stroke="#6C82FF" stroke-width="4"/></svg></div>
+          <div class="hex"><span class="f">#6C82FF</span></div>
+        </td>
+        <td class="noticeable"><span class="no">No change in default.</span> Now themes in TB / dark.</td>
+      </tr>
+
+      <!-- 9. Inequality ray mobile -->
+      <tr>
+        <td class="element">
+          <div class="name">Inequality ray &mdash; mobile</div>
+          <div class="where">MobileInequality stories</div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas default"><svg width="56" height="40"><line x1="6" y1="20" x2="50" y2="20" stroke="#00a60e" stroke-width="4"/></svg></div>
+          <div class="hex"><span class="f">#00a60e</span></div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas default"><svg width="56" height="40"><line x1="6" y1="20" x2="50" y2="20" stroke="#1865f2" stroke-width="4"/></svg></div>
+          <div class="hex"><span class="f">#1865f2</span></div>
+          <div class="badge changed">Changed</div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas thunder"><svg width="56" height="40"><line x1="6" y1="20" x2="50" y2="20" stroke="#5753FA" stroke-width="4"/></svg></div>
+          <div class="hex"><span class="f">#5753FA</span></div>
+        </td>
+        <td class="swatchcell">
+          <div class="canvas syldark"><svg width="56" height="40"><line x1="6" y1="20" x2="50" y2="20" stroke="#6C82FF" stroke-width="4"/></svg></div>
+          <div class="hex"><span class="f">#6C82FF</span></div>
+        </td>
+        <td class="noticeable"><span class="yes">Yes</span> &mdash; green &rarr; blue; mobile now matches desktop.</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <div class="legend">
+    <h1 style="font-size:16px;margin:0 0 8px">Token &rarr; hex reference</h1>
+    <table>
+      <thead><tr><th>Semantic token</th><th>Default</th><th>Thunderblocks</th><th>Syl-Dark</th></tr></thead>
+      <tbody>
+        <tr><td><code>foreground.instructive.default</code></td><td>#1865f2</td><td>#5753FA</td><td>#6C82FF</td></tr>
+        <tr><td><code>foreground.disabled.strong</code></td><td>#909296</td><td>#A0A1A4</td><td>#8A8B90</td></tr>
+        <tr><td><code>border.knockout.default</code></td><td>#ffffff</td><td>#FFFFFF</td><td>#151521</td></tr>
+        <tr><td><code>background.base.default</code></td><td>#ffffff</td><td>#FFFFFF</td><td>#252531</td></tr>
+      </tbody>
+    </table>
+    <p class="sub" style="margin-top:10px">
+      Before values were single frozen hexes with no theme awareness:
+      <code>KhanColors.BLUE</code> #1865f2, <code>KhanColors.GREEN</code> #00a60e,
+      <code>KhanColors._BACKGROUND</code> #FDFDFD.
+    </p>
+  </div>
+</body>
+</html>

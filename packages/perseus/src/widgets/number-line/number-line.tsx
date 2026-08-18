@@ -484,12 +484,15 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
             "stroke-width": isOpen ? 3 : 1,
         } as const;
 
-        const mobileDotStyle = props.options.isInequality
-            ? {
-                  stroke: interactiveColor,
-                  "fill-opacity": isOpen ? 0 : 1,
-              }
-            : {};
+        const mobileDotStyle =
+            props.options.isInequality && isOpen
+                ? {
+                      fill: hollowFill,
+                      "fill-opacity": 1,
+                      stroke: pointColor,
+                      "stroke-width": 3,
+                  }
+                : {};
 
         return (
             <MovablePoint
@@ -522,7 +525,9 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
 
     function getInequalityEndpoint(): [number, number] {
         const isGreater = ["ge", "gt"].includes(props.userInput.rel);
-        const widthInPixels = 400;
+        const widthInPixels = props.apiOptions.isMobile
+            ? 288 - horizontalPadding * 2
+            : 400;
         const range = props.options.range;
         const scale = (range[1] - range[0]) / widthInPixels;
         const buffer = horizontalPadding * scale;
