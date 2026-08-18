@@ -7,28 +7,6 @@ import Sortable from "../sortable";
 
 type FontsLoadedCallback = () => void;
 
-/**
- * Stubs `document.fonts` so we can control it in tests.
- *
- * The accessor being spied on comes from our jsdom shims
- * (config/test/attach-jsdom-window-shims.js) — jsdom itself doesn't implement
- * the CSS Font Loading API.
- *
- * Returns a function that publishes the
- * [`loadingdone`](https://developer.mozilla.org/en-US/docs/Web/API/FontFaceSet/loadingdone_event)
- * event (signals that the browser has loaded all fonts).
- */
-function stubFontLoading(): FontsLoadedCallback {
-    // A real FontFaceSet is an EventTarget, which is the only part of it the
-    // component touches, so the stub can be a plain one.
-    // eslint-disable-next-line no-restricted-syntax
-    const fonts = new EventTarget() as unknown as FontFaceSet;
-
-    jest.spyOn(document, "fonts", "get").mockReturnValue(fonts);
-
-    return () => fonts.dispatchEvent(new Event("loadingdone"));
-}
-
 describe("Sortable", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
@@ -91,7 +69,12 @@ describe("Sortable", () => {
 
     it("updates card heights when fonts load with different metrics", async () => {
         // Arrange
-        const fontsHaveLoaded = stubFontLoading();
+        // `fonts` is typed as FontFaceSet. A real FontFaceSet is an
+        // EventTarget, which is the only part of it the component touches, so
+        // the stub can be a plain one.
+        // eslint-disable-next-line no-restricted-syntax
+        const fonts = new EventTarget() as unknown as FontFaceSet;
+        jest.spyOn(document, "fonts", "get").mockReturnValue(fonts);
 
         let webFontLoaded = false;
         jest.spyOn(
@@ -124,7 +107,7 @@ describe("Sortable", () => {
 
         // Act
         webFontLoaded = true;
-        act(() => fontsHaveLoaded());
+        act(() => fonts.dispatchEvent(new Event("loadingdone")));
 
         // Assert
         await waitFor(() =>
