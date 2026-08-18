@@ -6,16 +6,7 @@ import "cypress-wait-until";
 import "cypress-real-events";
 
 // Defines the --wb-* custom properties that Wonder Blocks design tokens
-// compile down to. Both Perseus's legacy stylesheets (perseus-renderer.css and
-// everything it @imports) and the Aphrodite styles in components like Sortable
-// reference tokens as `var(--wb-...)`, so without this every color, border,
-// radius, spacing, and font size is an undefined custom property — the
-// declaration becomes invalid at computed-value time and falls back to
-// inherit/initial. The result is a recognizable but unstyled-looking widget:
-// no card borders, no backgrounds, wrong text size.
-//
-// Storybook gets these the same way, via .storybook/styles/shared.css.
-// eslint-disable-next-line import/no-unassigned-import
+// compile down to.
 import "@khanacademy/wonder-blocks-tokens/styles.css";
 
 if (Cypress.env("CYPRESS_COVERAGE")) {

@@ -22,18 +22,16 @@ import {basicQuestion} from "./sorter.testdata";
 import type {APIOptions} from "../../types";
 
 /*
-Sortable settles its cards from a requestAnimationFrame callback, which can
-land after a test has finished awaiting and React then reports as an
-un-act()-ed update. Fixing it means reworking Sortable's drag animation, so we
-let this one message through — but only this one. Blanket-mocking console.error
-would also swallow genuine React errors and let a regression pass silently.
-*/
+ * Sortable settles its cards from a requestAnimationFrame callback, which can
+ * land after a test has finished awaiting and React then reports as an
+ * un-act()-ed update. Fixing it means reworking Sortable's drag animation, so we
+ * let this one message through — but only this one. Blanket-mocking console.error
+ * would also swallow genuine React errors and let a regression pass silently.
+ */
 const EXPECTED_CONSOLE_ERROR = /not wrapped in act\(/;
 
 describe("sorter widget", () => {
-    // The card contents in their correct order. Spelled out here, rather than
-    // read back off the fixture, so the assertions don't depend on setup they
-    // don't control.
+    // The card contents in their correct order
     const sortedOrder = ["Zeroth", "First", "Second", "Third", "Fourth"];
     const sorterQuestion = generateTestPerseusRenderer({
         content: "[[☃ sorter 1]]",
@@ -45,10 +43,6 @@ describe("sorter widget", () => {
     });
 
     let unexpectedConsoleErrors: string[] = [];
-
-    afterEach(() => {
-        expect(unexpectedConsoleErrors).toEqual([]);
-    });
 
     beforeEach(() => {
         unexpectedConsoleErrors = [];
@@ -74,6 +68,10 @@ describe("sorter widget", () => {
                 return <span className="tex-mock">{children}</span>;
             },
         });
+    });
+
+    afterEach(() => {
+        expect(unexpectedConsoleErrors).toEqual([]);
     });
 
     it("should snapshot", async () => {
@@ -129,14 +127,24 @@ describe("sorter widget", () => {
         });
     });
 
-    it("starts with the cards shuffled and the input marked unchanged", () => {
+    it("starts with the cards in a different order from the answer", () => {
+        // Arrange, Act
+        const {renderer} = renderQuestion(sorterQuestion);
+
+        // Assert
+        expect(renderer.getUserInputMap()["sorter 1"].options).not.toEqual(
+            sortedOrder,
+        );
+    });
+
+    it("starts with every card present and the input marked unchanged", () => {
         // Arrange, Act
         const {renderer} = renderQuestion(sorterQuestion);
 
         // Assert
         const userInput = renderer.getUserInputMap()["sorter 1"];
-        expect(userInput.changed).toBe(false);
         expect([...userInput.options].sort()).toEqual([...sortedOrder].sort());
+        expect(userInput.changed).toBe(false);
     });
 
     it("reports the new card order and marks the input changed when a card is moved", () => {

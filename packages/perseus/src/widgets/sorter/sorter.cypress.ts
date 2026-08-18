@@ -5,19 +5,12 @@ import {scorePerseusItemTesting} from "../../util/test-utils";
 
 import {twoCardVerticalQuestion} from "./sorter.testdata";
 
-// NOTE: These tests use Cypress because Sortable computes its reordering from
-//       real measured geometry (it compares the dragged card's offset against
-//       the cumulative heights of the other cards). Under JSDOM every card
-//       measures 0x0, so dragging can't be exercised there at all — which is
-//       why the Jest tests drive the widget through `moveOptionToIndex`
-//       instead. A real browser is the only place an actual drag can be tested.
+// NOTE: These tests use Cypress because
+// - Sortable is currently inaccessible
+// - Drag-and-drop is tricky to test
+// so we're using Cypress to reinforce RTL tests
 
-// Sortable has no test IDs and no aria attributes (it's flagged
-// `accessible: false`, see LEMS-2871), so we select on the class names it
-// hand-appends for CSS back-compat. The `card_*`/`draggable_*` classes
-// alongside them are Aphrodite hashes and are not stable.
 const CARDS = "li.perseus-sortable-draggable";
-// A dragging card is taken out of the flow and positioned absolutely.
 const DRAGGED_CARD = 'li.perseus-sortable-draggable[style*="absolute"]';
 
 // The gap Sorter puts between cards on desktop.
