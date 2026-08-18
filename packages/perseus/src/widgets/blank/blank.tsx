@@ -14,7 +14,11 @@ type BlankProps = WidgetProps<PerseusBlankWidgetOptions, PerseusBlankUserInput>;
 const BlankWidget = forwardRef<Widget, BlankProps>(
     function BlankWidget(props, ref) {
         const classes = [styles.container]
-            .concat(props.displayType !== "normal" ? [styles["super-sub"]] : [])
+            .concat(
+                props.options.displayType !== "normal"
+                    ? [styles["super-sub"]]
+                    : [],
+            )
             .join(" ");
 
         // TODO(LEMS-4471): Write out the getPromptJSON function after checking

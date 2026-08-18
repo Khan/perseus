@@ -52,12 +52,14 @@ describe("Dropdown AI utils", () => {
         };
 
         const widgetData: any = {
-            choices: [
-                {content: "Pickles"},
-                {content: "Tomato"},
-                {content: "Onion"},
-                {content: "Lettuce"},
-            ],
+            options: {
+                choices: [
+                    {content: "Pickles"},
+                    {content: "Tomato"},
+                    {content: "Onion"},
+                    {content: "Lettuce"},
+                ],
+            },
             userInput,
         };
 

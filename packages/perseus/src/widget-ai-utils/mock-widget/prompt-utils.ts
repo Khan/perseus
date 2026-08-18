@@ -17,7 +17,7 @@ export const getPromptJSON = (
     return {
         type: "mock-widget",
         options: {
-            value: widgetData.value,
+            value: widgetData.options.value,
         },
         userInput: {
             value: widgetData.userInput.currentValue,

@@ -2,6 +2,7 @@ import type {ILogger} from "./logging/log";
 import type {SizeClass} from "./util/sizing-utils";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
 import type {
+    Alignment,
     Hint,
     PerseusAnswerArea,
     PerseusFeatureFlags,
@@ -454,8 +455,9 @@ export type FilterCriterion =
 
 /**
  * The full set of props provided to all widgets when they are rendered. The
- * `TWidgetOptions` generic argument are the widget-specific props that originate
- * from the PerseusItem.
+ * widget-specific options that originate from the PerseusItem are nested under
+ * the `options` prop; everything else is provided to every widget regardless of
+ * its `type`.
  */
 export type WidgetProps<
     TWidgetOptions,
@@ -463,12 +465,8 @@ export type WidgetProps<
     // Defines the arguments that can be passed to the `trackInteraction`
     // function from APIOptions for this widget.
     TrackingExtraArgs = Empty,
-> = TWidgetOptions & UniversalWidgetProps<TUserInput, TrackingExtraArgs>;
-
-/**
- * The props passed to every widget, regardless of its `type`.
- */
-type UniversalWidgetProps<TUserInput = Empty, TrackingExtraArgs = Empty> = {
+> = {
+    options: TWidgetOptions;
     // This is slightly different from the `trackInteraction` function in
     // APIOptions. This provides the widget an easy way to notify the renderer
     // of an interaction. The Renderer then enriches the data provided with the
@@ -477,7 +475,7 @@ type UniversalWidgetProps<TUserInput = Empty, TrackingExtraArgs = Empty> = {
     // provided by renderer.jsx#getWidgetProps()
     widgetId: string;
     widgetIndex: number;
-    alignment: string | null | undefined;
+    alignment: Alignment | null | undefined;
     static: boolean | null | undefined;
     graded?: boolean | null;
     problemNum: number | null | undefined;

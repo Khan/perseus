@@ -3,52 +3,55 @@
  */
 import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
-import * as React from "react";
+import React, {forwardRef, useImperativeHandle} from "react";
 
-import {PerseusI18nContext} from "../../components/i18n-context";
+import {usePerseusI18n} from "../../components/i18n-context";
 import {withDependencies} from "../../components/with-dependencies";
-import {
-    type PerseusDependenciesV2,
-    type Widget,
-    type WidgetExports,
-} from "../../types";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/python-program/python-ai-utils";
 
+import type {
+    PerseusDependenciesV2,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
+import type {PerseusPythonProgramWidgetOptions} from "@khanacademy/perseus-core";
 
-function getUrlFromProgramID(programID: any) {
+function getUrlFromProgramID(programID: string) {
     return `/python-program/${programID}/embedded`;
 }
 
-type Props = {
-    programID: string;
-    height: number;
+type Props = WidgetProps<PerseusPythonProgramWidgetOptions> & {
     dependencies: PerseusDependenciesV2;
 };
+
+// The Widget-interface methods this component exposes via its ref.
+type WidgetHandle = Pick<Widget, "getPromptJSON">;
 
 /**
  * This renders the program in an iframe.
  */
-// TODO(benchristel): Rewrite PythonProgram as a functional component,
-//  following dropdown.tsx's example.
-class PythonProgram extends React.Component<Props> implements Widget {
-    static contextType = PerseusI18nContext;
-    declare context: React.ContextType<typeof PerseusI18nContext>;
+const PythonProgram = forwardRef<WidgetHandle, Props>(
+    function PythonProgram(props, ref) {
+        const {strings, locale} = usePerseusI18n();
+        const {programID, height} = props.options;
+        const {dependencies} = props;
 
-    getPromptJSON(): UnsupportedWidgetPromptJSON {
-        return _getPromptJSON();
-    }
+        useImperativeHandle(ref, () => ({
+            getPromptJSON: (): UnsupportedWidgetPromptJSON => {
+                return _getPromptJSON();
+            },
+        }));
 
-    render(): React.ReactNode {
-        let url = getUrlFromProgramID(this.props.programID);
-        url = this.props.dependencies.generateUrl({
-            url,
+        const url = dependencies.generateUrl({
+            url: getUrlFromProgramID(programID),
             context: "python_program:program_url",
-            kaLocale: this.context?.locale,
+            kaLocale: locale,
         });
 
         const iframeStyle = {
-            height: this.props.height,
+            height,
             width: "100%",
         } as const;
 
@@ -66,7 +69,7 @@ class PythonProgram extends React.Component<Props> implements Widget {
         return (
             <View style={styles.container}>
                 <iframe
-                    title={this.context.strings.pythonProgram}
+                    title={strings.pythonProgram}
                     sandbox={sandboxOptions}
                     src={url}
                     style={iframeStyle}
@@ -74,8 +77,8 @@ class PythonProgram extends React.Component<Props> implements Widget {
                 />
             </View>
         );
-    }
-}
+    },
+);
 
 const styles = StyleSheet.create({
     container: {

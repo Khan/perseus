@@ -145,12 +145,6 @@ class PlotterEditor extends React.Component<Props, State> {
         });
     };
 
-    handlePlotterChange: (arg1: any) => void = (newProps) => {
-        const props: Record<string, any> = {};
-        props[this.state.editing] = newProps.values;
-        this.props.onChange(props);
-    };
-
     changeType: (arg1: any) => void = (type) => {
         let categories;
         if (type === "histogram") {
@@ -293,13 +287,26 @@ class PlotterEditor extends React.Component<Props, State> {
             this.props.type,
         );
         const canChangeSnaps = !["pic", "dotplot"].includes(this.props.type);
-        const plotterProps: any = {
-            ...this.props,
+        const plotterProps = {
+            options: {
+                type: this.props.type,
+                labels: this.props.labels,
+                categories: this.props.categories,
+                scaleY: this.props.scaleY,
+                maxY: this.props.maxY,
+                snapsPerLine: this.props.snapsPerLine,
+                picUrl: this.props.picUrl,
+                picSize: this.props.picSize,
+                picBoxHeight: this.props.picBoxHeight,
+                plotDimensions: this.props.plotDimensions,
+                labelInterval: this.props.labelInterval,
+                starting: this.props[this.state.editing],
+            },
+            apiOptions: this.props.apiOptions,
+            static: this.props.static,
             trackInteraction: () => {},
-            starting: this.props[this.state.editing],
-            onChange: this.handlePlotterChange,
             userInput: this.props.correct,
-            handleUserInput: (userInput) => {
+            handleUserInput: (userInput: number[]) => {
                 this.props.onChange({correct: userInput});
             },
         };

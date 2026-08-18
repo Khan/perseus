@@ -102,8 +102,9 @@ const Table = forwardRef<Widget, Props>(function Table(props, ref) {
          * [LEMS-3185] do not trust serializedState
          */
         getSerializedState() {
-            const {userInput, editableHeaders, ...rest} = props;
+            const {userInput, editableHeaders, options, ...rest} = props;
             return {
+                ...options,
                 ...rest,
                 answers: userInput,
             };
@@ -133,11 +134,9 @@ const Table = forwardRef<Widget, Props>(function Table(props, ref) {
 
     // this is for the editing experience
     function handleHeaderChange(index: number, e: {content: string}): void {
-        const headers = props.headers.slice();
+        const headers = [...props.options.headers];
         headers[index] = e.content;
-        props.onChange({
-            headers: headers,
-        });
+        props.onChange({headers});
     }
 
     let InputComponent;
@@ -156,7 +155,7 @@ const Table = forwardRef<Widget, Props>(function Table(props, ref) {
 
     const headerRow = (
         <tr>
-            {props.headers.map((header, i) => {
+            {props.options.headers.map((header, i) => {
                 if (props.editableHeaders) {
                     return (
                         <th key={i}>

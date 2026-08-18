@@ -1,5 +1,23 @@
 # @khanacademy/perseus-editor
 
+## 37.0.1
+
+### Patch Changes
+
+-   [#3872](https://github.com/Khan/perseus/pull/3872) [`4bc6934`](https://github.com/Khan/perseus/commit/4bc69342f225267727873040ddd372bd5a3d50a1) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Collect all widget options into a single `options` prop.
+
+-   [#4062](https://github.com/Khan/perseus/pull/4062) [`191e07b`](https://github.com/Khan/perseus/commit/191e07b481b15cdcec127b9ae8c09eadde38480a) Thanks [@handeyeco](https://github.com/handeyeco)! - Add Orderer generatore to perseus-core and refactor drag-and-drop widget editors
+
+-   [#4065](https://github.com/Khan/perseus/pull/4065) [`929197c`](https://github.com/Khan/perseus/commit/929197cb7fdcc573f85aa0990a82b21aa4541625) Thanks [@handeyeco](https://github.com/handeyeco)! - Clean up TextListEditor used by several drag-and-drop widget editors
+
+-   Updated dependencies [[`4bc6934`](https://github.com/Khan/perseus/commit/4bc69342f225267727873040ddd372bd5a3d50a1), [`38beb6a`](https://github.com/Khan/perseus/commit/38beb6ad405811ca17264fda558b884adcf47df6), [`191e07b`](https://github.com/Khan/perseus/commit/191e07b481b15cdcec127b9ae8c09eadde38480a), [`93f5fbe`](https://github.com/Khan/perseus/commit/93f5fbea09bcd58f9d8e8a746a0085292a9707ba), [`aef2763`](https://github.com/Khan/perseus/commit/aef27633169de9ff1b6b7affbd2309a753484085), [`f2c5a6e`](https://github.com/Khan/perseus/commit/f2c5a6ec5d2f1259690862a76b6b986ed1add9be), [`96d2d65`](https://github.com/Khan/perseus/commit/96d2d65b367f5be2bc8197d12d3c8877c0b72084), [`b1e7d53`](https://github.com/Khan/perseus/commit/b1e7d530e142619071f04f4aac69cb4a10ac2f9b), [`6edb892`](https://github.com/Khan/perseus/commit/6edb892db0d36c51db5e7cac2fe395d052060fff), [`82140d0`](https://github.com/Khan/perseus/commit/82140d0ace3f5759991cf401483fd9235859e8f0), [`a08ebf6`](https://github.com/Khan/perseus/commit/a08ebf6af33ca492601b9bb4d860f9553ec92e98), [`a0c9e01`](https://github.com/Khan/perseus/commit/a0c9e017c0fd505e6b4f3e1289b9b2b1163cd70f), [`4846057`](https://github.com/Khan/perseus/commit/4846057c18541513bcc7b7281af6c681e7d143a9)]:
+    -   @khanacademy/perseus@84.1.0
+    -   @khanacademy/perseus-core@36.0.0
+    -   @khanacademy/keypad-context@3.2.83
+    -   @khanacademy/kmath@2.4.42
+    -   @khanacademy/math-input@27.0.3
+    -   @khanacademy/perseus-linter@5.1.23
+
 ## 37.0.0
 
 ### Major Changes

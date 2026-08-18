@@ -148,7 +148,7 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
 
     handleNextQuestion: () => void = () => {
         const {currentGroup} = this.state;
-        const numGroups = this.props.gradedGroups.length;
+        const numGroups = this.props.options.gradedGroups.length;
 
         if (currentGroup < numGroups - 1) {
             this.setState({currentGroup: currentGroup + 1});
@@ -161,16 +161,17 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
         // to click and switch between different graded groups. Translators
         // prefer to see all strings/labels on all GradedGroups readily visible
         // together instead of clicking on indicators to switch between them.
+        const {gradedGroups} = this.props.options;
         const {JIPT} = getDependencies();
-        if (JIPT.useJIPT && this.props.gradedGroups.length > 1) {
+        if (JIPT.useJIPT && gradedGroups.length > 1) {
             return (
                 <div className={css(styles.container)}>
-                    {this.props.gradedGroups.map((gradedGroup, i) => {
+                    {gradedGroups.map((gradedGroup, i) => {
                         return (
                             <GradedGroup
                                 key={i}
                                 {...this.props}
-                                {...gradedGroup}
+                                options={gradedGroup}
                                 inGradedGroupSet={false}
                                 linterContext={this.props.linterContext}
                             />
@@ -180,18 +181,18 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
             );
         }
 
-        const currentGroup = this.props.gradedGroups[this.state.currentGroup];
+        const currentGroup = gradedGroups[this.state.currentGroup];
 
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!currentGroup) {
             return <span>No current group...</span>;
         }
 
-        const numGroups = this.props.gradedGroups.length;
+        const numGroups = gradedGroups.length;
         const handleNextQuestion =
             this.state.currentGroup < numGroups - 1
                 ? this.handleNextQuestion
-                : null;
+                : undefined;
 
         return (
             <div className={css(styles.container)}>
@@ -202,13 +203,12 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
                     <div className={css(styles.spacer)} />
                     <Indicators
                         currentGroup={this.state.currentGroup}
-                        gradedGroups={this.props.gradedGroups}
+                        gradedGroups={gradedGroups}
                         onChangeCurrentGroup={(currentGroup) =>
                             this.setState({currentGroup})
                         }
                     />
                 </div>
-                {/* @ts-expect-error - TS2769 - No overload matches this call. */}
                 <GradedGroup
                     key={this.state.currentGroup}
                     // @ts-expect-error - TS2322 - Type 'GradedGroup | null' is not assignable to type 'GradedGroup'.
@@ -216,9 +216,13 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
                     ref={(comp) => (this._childGroup = comp)}
                     // We should pass in the set of props explicitly
                     {...this.props}
-                    {...currentGroup}
+                    options={{
+                        ...currentGroup,
+                        // The set renders the group's title itself, above the
+                        // indicators, so the group must not render it again.
+                        title: "",
+                    }}
                     inGradedGroupSet={true}
-                    title={null}
                     onNextQuestion={handleNextQuestion}
                     linterContext={this.props.linterContext}
                 />

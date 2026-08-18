@@ -64,7 +64,7 @@ class Video extends React.Component<Props> implements Widget {
     render(): React.ReactNode {
         const {InitialRequestUrl} = getDependencies();
 
-        const location = this.props.location;
+        const {location} = this.props.options;
         if (!location) {
             return <div />;
         }
