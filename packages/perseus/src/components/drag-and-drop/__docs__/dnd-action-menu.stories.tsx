@@ -95,6 +95,25 @@ export const Disabled: Story = {
     },
 };
 
+/**
+ * Column-based widgets (e.g. Categorizer) use authored column labels as move
+ * targets. Long labels widen the menu past its minimum width and wrap.
+ */
+export const LongCategoryLabels: Story = {
+    args: {
+        label: "Iron",
+        moveTargets: [
+            {id: "col-1", label: "Physical changes to matter"},
+            {id: "col-2", label: "Chemical changes to matter"},
+        ],
+        clearAction: {
+            targetLabel: "Physical changes to matter",
+            onClear: () => {},
+        },
+        placement: "below",
+    },
+};
+
 /** Right-to-left */
 export const RightToLeft: Story = {
     args: {
