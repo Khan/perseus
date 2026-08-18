@@ -364,3 +364,295 @@ nothing to compare against or ask design to extend).
 
 **Gate check satisfied:** every audited color now has a target token and a
 recorded rationale. Proceeding to Step 9 (color token conversion).
+
+---
+
+## Step 9 — Convert Color Tokens
+
+### Files converted
+
+- `packages/perseus/src/widgets/grapher/grapher.tsx` — the only file with
+  color usage per the Step 1 audit. Added `import {semanticColor, tokenValue}
+  from "@khanacademy/wonder-blocks-tokens";` and removed the now-fully-unused
+  `import KhanColors from "../../util/colors";` (all 4 of its usages were
+  converted, and nothing else in the file referenced `KhanColors`).
+
+### Tokens converted
+
+| Site | Before | After |
+|---|---|---|
+| `renderPlot` curve stroke (interactive, mobile + desktop) | `isMobile ? KhanColors.BLUE_C : KhanColors.DYNAMIC` | `tokenValue(semanticColor.core.foreground.instructive.default)` (single value, `isMobile` split removed) |
+| `renderPlot` curve stroke (static) | not previously distinguished | `tokenValue(semanticColor.core.foreground.disabled.strong)` — new conditional branch |
+| `renderAsymptote` hairline-adjacent dash fix | `strokeDasharray` (camelCase, silently dropped by Raphael) | `"stroke-dasharray"` (kebab-case) — bug fix carried over from the tagged exploratory commit, not a token conversion but bundled with this step since it was part of the same prior work |
+| `renderAsymptote` `MovableLine` | no `static` prop passed | `static={this.props.static}` — carried over from the tag so a static grapher's asymptote renders gray/non-draggable |
+| Mobile crosshair hairlines (both horiz/vert `WrappedLine.attr`) | `KhanColors.INTERACTIVE` | `tokenValue(semanticColor.core.border.instructive.default)` |
+
+All values wrapped in `tokenValue(...)` because graphie/Raphael only accepts
+raw CSS color strings, not the CSS custom properties `semanticColor.*`
+resolves to by default.
+
+### Judgment calls
+
+- **Mobile curve color** (`BLUE_C` → `instructive.default`): not a
+  value-preserving rename — `#63D9EA` (cyan) is visibly different from
+  `#1865f2`. Applied per Tamara's explicit direction to align mobile with
+  desktop, discussed and confirmed in Step 8.
+- **Hairlines** (`INTERACTIVE`/`color.green` → `border.instructive.default`):
+  the mechanical mapping-table swap would have been
+  `foreground.success.default` (also an exact hex match), but that's
+  semantically wrong for a live drag-crosshair. Resolved by matching
+  interactive-graph's own `Hairlines` component token exactly, per Tamara's
+  direction — see Step 8 for the full reasoning.
+- **Static curve/asymptote color** (`disabled.strong`): not from the original
+  Step 1 audit (which only covered the 3 `KhanColors` sites) — this is new
+  styling behavior carried over from the tagged exploratory commit, added to
+  make the curve and asymptote match the already-gray static `MovablePoint`s
+  (converted under LEMS-4265) and interactive-graph's own static treatment.
+
+### Verification
+
+`pnpm tsc` and `pnpm fixc` clean. `pnpm test
+packages/perseus/src/widgets/grapher` — one snapshot needed updating (see
+below), then all 6 tests passed.
+
+**Snapshot note:** the "multiple graph types" snapshot test failed with
+`stroke="none"` where it previously had the literal hex. This isn't a
+regression — it's the same `tokenValue()`-in-jsdom limitation LEMS-4265 already
+hit and documented in `movable-point.test.ts`: `tokenValue()` reads CSS custom
+properties, which jsdom doesn't define, so it resolves to `""` and Raphael
+renders that as `stroke="none"` in the test DOM. The real hex resolves
+correctly in an actual browser (Chromatic). Added the same explanatory comment
+pattern used in `movable-point.test.ts` and updated the snapshot.
+
+**Update:** Tamara approved the Step 4 Chromatic baseline in GitHub, then
+committed and pushed these Step 9 color changes herself.
+
+---
+
+## Step 10 — Semantic Check
+
+For each converted token: what the element is doing, whether the semantic
+category/intensity/namespace fit, and confidence.
+
+### `foreground.instructive.default` — curve stroke, interactive (mobile + desktop)
+
+1. **What:** the SVG stroke of the plotted function curve — the primary
+   interactive artifact the user works with on the graph.
+2. **Category:** `instructive` fits — this is the thing actively guiding/being
+   manipulated by the user, same role `DYNAMIC` already served pre-conversion.
+3. **Intensity:** `default` fits — standard interactive presentation, no
+   emphasis or de-emphasis called for.
+4. **Namespace:** `stroke` → `foreground` per the CSS-property table. Correct.
+
+Confident match on all four questions.
+
+### `foreground.disabled.strong` — curve stroke, static
+
+1. **What:** the same curve stroke, but rendered when the grapher is
+   non-interactive (`static: true`) — a fixed reference/correct-answer
+   display, not something the user manipulates.
+2. **Category:** `disabled` fits by definition — "element is not
+   interactable" describes `static: true` exactly.
+3. **Intensity:** `strong` — verified directly against precedent rather than
+   guessed: `mafs-styles.css:27` defines interactive-graph's own
+   `--static-gray: var(--wb-semanticColor-core-foreground-disabled-strong)`,
+   used for the identical "static/muted reference line" purpose. Reusing the
+   same intensity interactive-graph already chose for the same use case is the
+   strongest available justification.
+4. **Namespace:** `stroke` → `foreground`. Correct.
+
+Confident match, directly backed by interactive-graph precedent.
+
+### `border.instructive.default` — mobile crosshair hairlines
+
+1. **What:** two SVG line strokes forming a crosshair guide, shown only while
+   a movable point is actively being dragged on mobile — a temporary
+   reference guide, not primary content.
+2. **Category:** `instructive` fits — the user is in an active
+   interactive/manipulation state; the hairlines guide them to the point's
+   exact position.
+3. **Intensity:** `default` fits — standard use, no emphasis called for.
+4. **Namespace:** this is the one deliberate exception. Mechanically, `stroke`
+   would suggest `foreground` per the general CSS-property table, but the
+   verified precedent (`interactive-graphs/graphs/components/hairlines.tsx`)
+   uses `border`, not `foreground`, for this exact same crosshair-guide
+   purpose. The reasoning: a hairline's semantic role is to mark a reference
+   position/boundary, not to carry expressive foreground content the way a
+   plotted curve or icon does — the same logic behind the existing "1px
+   divider using `backgroundColor` → `border`" special case in
+   `color-conversion-rules.md`. Treating this as a deliberate,
+   precedent-justified exception to the general stroke-implies-foreground
+   heuristic, not an error.
+
+Confident match, though flagged as an intentional exception to the general
+namespace-by-CSS-property rule — justified by direct cross-widget precedent
+rather than the generic mapping.
+
+**Gate check satisfied:** every converted token has a documented semantic
+justification above, not just a mapping-table match.
+
+---
+
+## Note — Ticket Cross-Check (ad hoc, not one of the 16 workflow steps)
+
+Fetched LEMS-4275 directly to confirm nothing called out in the ticket was
+missed. The ticket lists 4 sites in `grapher.tsx`:
+
+| Ticket line | Constant | Value |
+|---|---|---|
+| L124 | `KhanColors.BLUE_C` | `#63D9EA` |
+| L125 | `KhanColors.DYNAMIC` | `color.blue` |
+| L482 | `KhanColors.INTERACTIVE` | `color.green` |
+| L493 | `KhanColors.INTERACTIVE` | `color.green` |
+
+Line numbers differ slightly from the Step 1 audit (132/133/485/496) due to
+unrelated drift in the file between when the ticket was filed and when the
+audit ran — the constants and values match exactly, and `BLUE_C`/`DYNAMIC`
+each only appear once in the file, so there's no ambiguity. All 4 are
+converted (see Step 9). The ticket calls out no font attributes, consistent
+with Step 5's finding. The static-curve-gray behavior and dashed-asymptote fix
+are additive scope beyond the ticket's literal call-outs, carried over from
+the tagged exploratory commit — noted here so it's visible in the PR
+description rather than looking like undocumented scope creep.
+
+---
+
+## Step 11 — Visual Check
+
+No Figma design exists for grapher (established in Step 8), so the
+Figma-vs-Storybook screenshot comparison and Figma-gap flagging don't apply
+here — there's nothing to screenshot or compare against. What's left and
+actually applicable is the regression-story coverage re-check (this step's
+second pass, run after color conversion to catch any newly-visible states):
+
+| State introduced/changed by Step 9 | Covered by a story? |
+|---|---|
+| Curve renders `instructive.default` (desktop) | ✅ `Quadratic`, `ChooseYourOwnFunction` |
+| Curve renders `instructive.default` (mobile, now matching desktop) | ✅ `Mobile` |
+| Curve renders `disabled.strong` (static) | ✅ `Static` — its testdata (`staticExponentialQuestion`) sets `static: true` |
+| Asymptote renders dashed + gray + non-draggable (static) | ✅ Same `Static` story — its testdata includes a real `asymptote`, and stays on the legacy grapher path (2 `availableTypes`, not 1) |
+| Hairlines render `border.instructive.default` (mobile drag) | ✅ `MobileHairlines` |
+
+No coverage gaps found — no new stories needed before the Chromatic push.
+Actual pixel verification for these changes will happen via the Chromatic
+diff in Step 13, not a manual screenshot comparison, since there's no Figma
+reference to compare against.
+
+---
+
+## Step 12 — Pre-Push Quality Checks (Colors)
+
+Ran the full `quality-check-gate.md` checks (plain, no filtering):
+
+- **`pnpm lint`** — clean, no errors.
+- **`pnpm tsc`** — clean, no errors.
+- **`pnpm test`** — full suite: 543/543 test suites passed, 7692 passed / 34
+  skipped / 0 failed, 413/413 snapshots passed.
+- **Interaction play functions (user checkpoint):** not re-verified separately
+  this step — the color/token swap doesn't change interaction mechanics (the
+  `MobileHairlines` grab-and-nudge gesture), only the rendered pixel color,
+  which is what Step 13's Chromatic diff exists to catch. Tamara already
+  verified the play function mechanics when the decorator change was reviewed
+  earlier in this workflow.
+
+---
+
+## Step 13 — Push and Review Chromatic Diffs (Colors)
+
+Tamara committed (`9fdc3b5c5d` "Color and snapshot updates") and pushed the
+Step 9 color changes herself, plus a changeset commit (`dbe5ab974c`) — branch
+is fully in sync with `origin/tb/LEMS-4275/convert-grapher`.
+
+**Pending (user action):** Chromatic ran against the push and is showing "12
+changes must be accepted as baselines" on PR #3922 — not yet reviewed/approved
+as of this entry. This is the actual color-conversion diff (distinct from the
+earlier 7-change story-structure baseline) and needs Tamara's visual review
+against the semantic reasoning logged in Step 10 before it's approved.
+
+---
+
+## Step 14 — Deviation Check
+
+Re-read each step's instruction file and compared against what's recorded
+above. Findings below; steps not listed had no deviations.
+
+### Step 2 — Regression Stories
+- **Followed as instructed:** Partially.
+- **Deviations:**
+  1. Story `args` import test data from `grapher.testdata.ts`
+     (`quadraticQuestion`, `multipleAvailableTypesQuestion`,
+     `staticExponentialQuestion`) rather than defining widget state inline as
+     `args` per `regression-stories.md`'s "do NOT import testdata from test
+     files — stories should be self-contained" rule. This was self-flagged in
+     the original Step 2 entry as a deviation deferred to Step 14.
+  2. (Resolved during this workflow) The original Step 2 entry also flagged
+     using the `component: ServerItemRendererWithDebugUI` + args pattern
+     instead of the documented renderer-decorator pattern. This was fixed
+     later in the workflow (see the Step 4 addendum) — stories now use
+     `grapherRendererDecorator` + `QuestionRendererForStories`.
+- **Type:** Intentional (both — deliberate calls, not oversights).
+- **Recommended Action:**
+  1. Document in PR — not fixing. `grapher.testdata.ts` is shared with
+     `grapher.test.ts` and `grapher.cypress.ts`; inlining equivalent fixtures
+     into the stories would duplicate data already maintained elsewhere, which
+     is scope creep beyond a color/font token migration.
+  2. No action needed — already resolved.
+
+### Step 9 — Convert Color Tokens
+- **Followed as instructed:** Yes, with one deliberate, documented exception.
+- **Deviations:**
+  1. The mobile/vertical hairline strokes use
+     `semanticColor.core.border.instructive.default` rather than the
+     `foreground` namespace `color-conversion-rules.md`'s CSS-property table
+     would suggest for a `stroke` attribute.
+  2. `color-conversion-rules.md` documents two contexts for resolving a token
+     to a raw value (JS token inside `StyleSheet.create()`, or a CSS variable
+     inside a CSS string) — neither covers graphie/Raphael's raw-attribute
+     context, which needs `tokenValue()` to resolve to a literal hex string.
+- **Type:** 1: Intentional (Tamara's direction, verified against
+  interactive-graph's own `Hairlines` component precedent — see Steps 8/10).
+  2: N/A — a gap in the instruction doc's coverage, not a deviation from it;
+  followed established LEMS-4265 precedent (`movable-point.tsx`) instead.
+- **Recommended Action:**
+  1. Document in PR — a reviewer spot-checking against the CSS-property table
+     alone could read this as a mistake without the interactive-graph
+     cross-reference.
+  2. No action needed.
+
+### Process ordering note (not tied to a single step)
+- **Followed as instructed:** No.
+- **Deviations:** Step 13's push happened before Step 12's formal quality gate
+  was run in this conversation — Tamara committed and pushed the color changes
+  herself, and the `pnpm lint`/`pnpm tsc`/`pnpm test` gate was only run
+  afterward, retroactively.
+- **Type:** Intentional (user-directed — Tamara pushed on her own before
+  asking for the remaining steps).
+- **Recommended Action:** No action needed — the retroactive gate came back
+  fully clean (0 lint errors, 0 typecheck errors, 7692/7692 tests passing), so
+  nothing shipped broken. Noting this for the historical record per this
+  step's purpose, not because it caused a problem.
+
+**Summary for Tamara:** two standing, intentional deviations to carry into the
+PR description (testdata imports in stories; hairline `border` namespace), one
+already-resolved deviation (decorator pattern), and one ordering note with no
+required action. See chat for how you'd like to proceed on each. Decision:
+hold off folding the "document in PR" items into the description until
+Step 16.
+
+---
+
+## Step 15 — Add a Changeset
+
+Already done — Tamara created this in the same push as the color changes
+(commit `dbe5ab974c`, `.changeset/tame-cycles-refuse.md`):
+
+```
+---
+"@khanacademy/perseus": patch
+---
+
+Add regression tests for Grapher and update styling to tokens
+```
+
+`patch` matches the workflow's guidance for color/font/styling changes. No
+action needed.
