@@ -68,11 +68,10 @@ type OpenerInnerProps = {
 };
 
 /**
- * ActionMenu clones whatever the `opener` render prop returns and injects its
- * own ref (it needs the opener element to restore focus when the menu
- * closes) — which would clobber a ref placed directly on CustomOpener. This
- * wrapper hands the opener `<button>` to both refs: ActionMenu's injected one
- * and the one DndActionMenu forwards to the parent.
+ * Two things need a ref to the opener button: ActionMenu (to restore focus
+ * when the menu closes) and our parent (to move focus after a tile moves).
+ * ActionMenu overwrites any ref we set directly, so this wrapper catches
+ * ActionMenu's ref and writes the button into both.
  */
 const MergedRefOpener = React.forwardRef<HTMLButtonElement, OpenerInnerProps>(
     function MergedRefOpener({openerRef, ...rest}, injectedRef) {
