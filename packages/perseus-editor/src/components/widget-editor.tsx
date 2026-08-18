@@ -27,7 +27,8 @@ export type WidgetEditorProps = {
     onRemove: () => unknown;
     apiOptions: APIOptions;
     widgetIsOpen?: boolean;
-} & Omit<PerseusWidget, "key">;
+    widgetInfo: PerseusWidget;
+};
 
 type WidgetEditorState = {
     showWidget: boolean;
@@ -35,22 +36,23 @@ type WidgetEditorState = {
 };
 
 // exported for tests
-export const _upgradeWidgetInfo = (props: WidgetEditorProps): PerseusWidget => {
+export function _upgradeWidgetInfo(widgetInfo: PerseusWidget): PerseusWidget {
     // We can't call serialize here because this.refs.widget
     // doesn't exist before this component is mounted.
-    const filteredProps = excludeDenylistKeys(props);
+    // eslint-disable-next-line no-restricted-syntax
+    const filteredWidget: PerseusWidget = excludeDenylistKeys(
+        widgetInfo,
+    ) as any;
 
     // This is circumventing an issue with excludeDenylistKeys;
     // it removes `graded` from WidgetOptions.options (good)
     // but it's also recursive so it removes `graded`
     // from the higher-up WidgetOptions (bad)
     // See: LEMS-4108 and https://khanacademy.slack.com/archives/C01AZ9H8TTQ/p1778089642003609
-    // eslint-disable-next-line no-restricted-syntax
-    (filteredProps as any).graded = props.graded;
+    filteredWidget.graded = widgetInfo.graded;
 
-    // eslint-disable-next-line no-restricted-syntax
-    return applyDefaultsToWidget(filteredProps as PerseusWidget);
-};
+    return applyDefaultsToWidget(filteredWidget);
+}
 
 // This component handles upgading widget editor props via prop
 // upgrade transforms. Widget editors will always be rendered
@@ -66,13 +68,13 @@ class WidgetEditor extends React.Component<
         super(props);
         this.state = {
             showWidget: props.widgetIsOpen ?? true,
-            widgetInfo: _upgradeWidgetInfo(props),
+            widgetInfo: _upgradeWidgetInfo(props.widgetInfo),
         };
         this.widget = React.createRef();
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: WidgetEditorProps) {
-        this.setState({widgetInfo: _upgradeWidgetInfo(nextProps)});
+        this.setState({widgetInfo: _upgradeWidgetInfo(nextProps.widgetInfo)});
         // user can update internal state while the widget is handled globally
         if (
             nextProps.widgetIsOpen != null &&

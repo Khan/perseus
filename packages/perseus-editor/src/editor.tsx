@@ -272,7 +272,7 @@ class Editor extends React.Component<Props, State> {
                 // widget data before specifying the `key` prop, to ensure the
                 // key overrides any `key` field on the widget (which might not
                 // be unique.
-                {...this.props.widgets[id]}
+                widgetInfo={this.props.widgets[id]}
                 ref={id}
                 id={id}
                 key={id}
