@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import {PerseusI18nContextProvider} from "../../i18n-context";
 import {mockStrings} from "../../../strings";
+import {PerseusI18nContextProvider} from "../../i18n-context";
 import {DndActionMenu} from "../dnd-action-menu";
 
 import type {MoveTarget} from "../dnd-action-menu";
