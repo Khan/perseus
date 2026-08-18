@@ -183,10 +183,7 @@ export class GradedGroup
             return;
         }
 
-        if (
-            this.props.apiOptions.isMobile &&
-            answerBarState !== "ACTIVE"
-        ) {
+        if (this.props.apiOptions.isMobile && answerBarState !== "ACTIVE") {
             return;
         }
 
@@ -297,7 +294,10 @@ export class GradedGroup
         const showSolutions = isCorrect ? "all" : "none";
 
         return (
-            <div className={classes} onKeyDownCapture={this._handleConfirmationShortcut}>
+            <div
+                className={classes}
+                onKeyDownCapture={this._handleConfirmationShortcut}
+            >
                 {!!this.props.options.title && (
                     <div className={css(styles.title)}>
                         {this.props.options.title}
