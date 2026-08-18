@@ -11,7 +11,7 @@ import {wait} from "../../testing/wait";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import {question1} from "./sorter.testdata";
+import {basicQuestion} from "./sorter.testdata";
 
 import type {APIOptions} from "../../types";
 
@@ -51,7 +51,7 @@ describe("sorter widget", () => {
         };
 
         // Act
-        const {container} = renderQuestion(question1, apiOptions);
+        const {container} = renderQuestion(basicQuestion, apiOptions);
         await wait();
 
         // Assert
@@ -67,14 +67,14 @@ describe("sorter widget", () => {
         };
 
         // Act
-        const {container} = renderQuestion(question1, apiOptions);
+        const {container} = renderQuestion(basicQuestion, apiOptions);
         await wait();
 
         // Assert
         expect(container).toMatchSnapshot("first mobile render");
     });
 
-    const answerfulItem = generateTestPerseusItem({question: question1});
+    const answerfulItem = generateTestPerseusItem({question: basicQuestion});
     const answerlessItem = splitPerseusItem(answerfulItem);
 
     test("safety check: the answerless data does not contain the correct answer", () => {
