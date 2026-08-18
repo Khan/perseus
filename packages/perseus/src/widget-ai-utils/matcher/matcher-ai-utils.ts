@@ -63,20 +63,20 @@ export type MatcherPromptJSON = {
 
 export type widgetDataPartial = Pick<
     React.ComponentProps<typeof matcher.widget>,
-    "userInput" | "labels" | "left" | "right" | "orderMatters"
+    "userInput" | "options"
 >;
 
 export const getPromptJSON = (
     widgetData: widgetDataPartial,
 ): MatcherPromptJSON => {
-    const {userInput} = widgetData;
+    const {userInput, options} = widgetData;
     return {
         type: "matcher",
         options: {
-            labels: widgetData.labels,
-            left: widgetData.left,
-            right: widgetData.right,
-            orderMatters: widgetData.orderMatters,
+            labels: options.labels,
+            left: options.left,
+            right: options.right,
+            orderMatters: options.orderMatters,
         },
         userInput: {
             left: userInput.left,

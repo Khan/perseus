@@ -124,7 +124,9 @@ const Matcher = forwardRef<MatcherHandle, Props>(function Matcher(props, ref) {
         );
     }
 
-    const showLabels = props.labels.some(isTruthy);
+    const {labels, padding, orderMatters} = props.options;
+
+    const showLabels = labels.some(isTruthy);
     const constraints = {
         height: Math.max(leftHeight, rightHeight),
     };
@@ -138,7 +140,7 @@ const Matcher = forwardRef<MatcherHandle, Props>(function Matcher(props, ref) {
                     <tr className={css(styles.row)}>
                         <th className={css(styles.column, styles.columnLabel)}>
                             <Renderer
-                                content={props.labels[0] || "..."}
+                                content={labels[0] || "..."}
                                 linterContext={props.linterContext}
                                 strings={strings}
                             />
@@ -151,7 +153,7 @@ const Matcher = forwardRef<MatcherHandle, Props>(function Matcher(props, ref) {
                             )}
                         >
                             <Renderer
-                                content={props.labels[1] || "..."}
+                                content={labels[1] || "..."}
                                 linterContext={props.linterContext}
                                 strings={strings}
                             />
@@ -163,8 +165,8 @@ const Matcher = forwardRef<MatcherHandle, Props>(function Matcher(props, ref) {
                         <Sortable
                             options={props.userInput.left}
                             layout={"vertical"}
-                            padding={props.padding}
-                            disabled={!props.orderMatters}
+                            padding={padding}
+                            disabled={!orderMatters}
                             constraints={constraints}
                             onMeasure={(dimensions) =>
                                 setLeftHeight(Math.max(...dimensions.heights))
@@ -179,7 +181,7 @@ const Matcher = forwardRef<MatcherHandle, Props>(function Matcher(props, ref) {
                         <Sortable
                             options={props.userInput.right}
                             layout={"vertical"}
-                            padding={props.padding}
+                            padding={padding}
                             constraints={constraints}
                             onMeasure={(dimensions) =>
                                 setRightHeight(Math.max(...dimensions.heights))

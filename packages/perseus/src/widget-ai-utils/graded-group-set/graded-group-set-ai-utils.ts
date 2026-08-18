@@ -29,7 +29,7 @@ export const getPromptJSON = (
     return {
         type: "graded-group-set",
         options: {
-            groupCount: widgetData.gradedGroups.length,
+            groupCount: widgetData.options.gradedGroups.length,
             currentGroup: activeGroupJSON,
         },
     };

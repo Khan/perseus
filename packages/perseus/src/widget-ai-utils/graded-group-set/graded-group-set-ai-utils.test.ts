@@ -72,7 +72,9 @@ describe("GradedGroupSet AI utils", () => {
         };
 
         const widgetData: any = {
-            gradedGroups: [{title: "Problem 1a"}, {title: "Problem 1b"}],
+            options: {
+                gradedGroups: [{title: "Problem 1a"}, {title: "Problem 1b"}],
+            },
         };
 
         const result = getPromptJSON(widgetData, activeGroupJSON);
@@ -147,7 +149,7 @@ describe("GradedGroupSet AI utils", () => {
                                     userInput: {value: ""},
                                 },
                             },
-                            title: null,
+                            title: "",
                             type: "graded-group",
                             hint: {
                                 content:
@@ -189,7 +191,7 @@ describe("GradedGroupSet AI utils", () => {
                                     userInput: {value: ""},
                                 },
                             },
-                            title: null,
+                            title: "",
                             type: "graded-group",
                             hint: {
                                 content:

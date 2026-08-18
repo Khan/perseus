@@ -25,9 +25,6 @@ type Props = WidgetProps<PerseusSorterWidgetOptions, PerseusSorterUserInput> & {
 };
 
 type DefaultProps = {
-    correct: Props["correct"];
-    layout: Props["layout"];
-    padding: Props["padding"];
     problemNum: Props["problemNum"];
     linterContext: Props["linterContext"];
 };
@@ -36,9 +33,6 @@ class Sorter extends React.Component<Props> implements Widget {
     _isMounted: boolean = false;
 
     static defaultProps: DefaultProps = {
-        correct: [],
-        layout: "horizontal",
-        padding: true,
         problemNum: 0,
         linterContext: linterContextDefault,
     };
@@ -100,9 +94,10 @@ class Sorter extends React.Component<Props> implements Widget {
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState(): any {
-        const {userInput, ...rest} = this.props;
+        const {userInput, options, ...rest} = this.props;
         return {
             ...rest,
+            ...options,
             changed: userInput.changed,
             options: userInput.options,
         };
@@ -116,9 +111,9 @@ class Sorter extends React.Component<Props> implements Widget {
             <div className="perseus-widget-sorter perseus-clearfix">
                 <Sortable
                     options={userInput.options}
-                    layout={this.props.layout}
+                    layout={this.props.options.layout}
                     margin={marginPx}
-                    padding={this.props.padding}
+                    padding={this.props.options.padding}
                     onChange={this.handleChange}
                     linterContext={this.props.linterContext}
                     ref="sortable"

@@ -67,8 +67,12 @@ class MockWidgetComponent extends React.Component<Props> implements Widget {
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState() {
-        const {userInput, ...rest} = this.props;
+        const {userInput, options, ...rest} = this.props;
         return {
+            // `rest` goes last because the renderer used to spread the universal
+            // props over the options, so the universal `static` — not the
+            // option of the same name — is the one that gets serialized.
+            ...options,
             ...rest,
             currentValue: userInput.currentValue,
         };
