@@ -2,11 +2,11 @@ import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import React, {useState} from "react";
 
-import ItemExtrasEditor from "../item-extras-editor";
+import ExtrasEditor from "../extras-editor";
 
 import type {UserEvent} from "@testing-library/user-event";
 
-describe("ItemExtrasEditor", () => {
+describe("ExtrasEditor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -17,7 +17,7 @@ describe("ItemExtrasEditor", () => {
     it("should render correctly with default props", async () => {
         // Act
         render(
-            <ItemExtrasEditor editingDisabled={false} onChange={() => {}} />,
+            <ExtrasEditor editingDisabled={false} onChange={() => {}} />,
         );
 
         // Assert
@@ -36,7 +36,7 @@ describe("ItemExtrasEditor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ItemExtrasEditor
+            <ExtrasEditor
                 editingDisabled={false}
                 calculator={false}
                 onChange={onChangeMock}
@@ -60,7 +60,7 @@ describe("ItemExtrasEditor", () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
-            <ItemExtrasEditor
+            <ExtrasEditor
                 editingDisabled={false}
                 periodicTable={true}
                 periodicTableWithKey={true}
@@ -86,7 +86,7 @@ describe("ItemExtrasEditor", () => {
     });
 
     it("should disable all checkboxes when editingDisabled is true", () => {
-        render(<ItemExtrasEditor editingDisabled={true} onChange={() => {}} />);
+        render(<ExtrasEditor editingDisabled={true} onChange={() => {}} />);
 
         const calculatorCheckbox = screen.getByRole("checkbox", {
             name: "Show calculator",
@@ -135,7 +135,7 @@ describe("ItemExtrasEditor", () => {
             }
 
             return (
-                <ItemExtrasEditor
+                <ExtrasEditor
                     editingDisabled={false}
                     onChange={handleChange}
                     financialCalculatorMonthlyPayment={monthlyPayment}
@@ -219,7 +219,7 @@ describe("ItemExtrasEditor", () => {
             // Arrange
             const onChangeMock = jest.fn();
             render(
-                <ItemExtrasEditor
+                <ExtrasEditor
                     editingDisabled={false}
                     onChange={onChangeMock}
                 />,
@@ -243,7 +243,7 @@ describe("ItemExtrasEditor", () => {
             // Arrange
             const onChangeMock = jest.fn();
             render(
-                <ItemExtrasEditor
+                <ExtrasEditor
                     editingDisabled={false}
                     onChange={onChangeMock}
                     financialCalculatorMonthlyPayment={true}

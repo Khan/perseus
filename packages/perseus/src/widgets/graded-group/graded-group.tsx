@@ -342,6 +342,8 @@ export class GradedGroup
                             />
                         </div>
 
+                        {this.props.answerArea && apiOptions.renderExtras?.(this.props.answerArea, this.props.widgetId)}
+
                         <Button
                             kind="secondary"
                             disabled={this.props.apiOptions.readOnly}

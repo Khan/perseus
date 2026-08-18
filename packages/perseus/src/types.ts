@@ -164,6 +164,7 @@ export type APIOptions = Readonly<{
         focusedElement?: HTMLElement,
     ) => unknown;
     showAlignmentOptions?: boolean;
+    renderExtras? : (answerArea: PerseusAnswerArea, widgetId: string) => React.ReactNode;
     /**
      * A boolean that indicates whether the associated problem has been
      * answered correctly and should no longer be interactive.
