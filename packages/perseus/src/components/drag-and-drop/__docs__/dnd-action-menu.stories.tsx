@@ -12,7 +12,7 @@ const FOUR_BLANKS: ReadonlyArray<MoveTarget> = [
     {id: "blank-4", label: "Blank 4", actionLabel: "Move to Blank 4"},
 ];
 
-/** TODO(LEMS-4363): Placeholder tile chrome around the menu opener. */
+/** TODO(LEMS-4363): Placeholder answer tile until we create the real one */
 function PlaceholderTile({children}: {children: React.ReactNode}) {
     return (
         <div
@@ -37,11 +37,8 @@ function PlaceholderTile({children}: {children: React.ReactNode}) {
 }
 
 /**
- * `DndActionMenu` is the per-tile actions menu for the Drag-and-Drop widget
- * family — the keyboard/screen-reader/single-pointer alternative to dragging.
- *
  * TODO(LEMS-4363): The tile below is a throwaway placeholder standing in for
- * the real `AnswerTile`, which will render this menu at its leading edge.
+ * the real `AnswerTile`, which will be created next after this PR.
  */
 const meta: Meta<typeof DndActionMenu> = {
     title: "Components/Drag and Drop/Action Menu",
@@ -72,14 +69,14 @@ const CLEAR_ACTION = {
     onClear: () => {},
 };
 
-/** A tile in the choice bank: every blank is a target, no Clear, opens above. */
+/** Parent tile is in the choice bank, which should list the available blanks, with no "Clear" option */
 export const InChoiceBank: Story = {
     args: {
-        placement: "above",
+        placement: "below",
     },
 };
 
-/** A tile placed in Blank 1: the other blanks, a separator, then Clear. Opens below. */
+/** A tile placed in Blank 1, which should list the other blanks, and a "Clear" option. */
 export const PlacedInBlank: Story = {
     args: {
         moveTargets: FOUR_BLANKS.slice(1),
@@ -88,24 +85,10 @@ export const PlacedInBlank: Story = {
     },
 };
 
-/** A single-target exercise: one move action only. */
-export const SingleMoveTarget: Story = {
-    args: {
-        moveTargets: FOUR_BLANKS.slice(0, 1),
-        placement: "above",
-    },
-};
-
-/** A placed tile with nowhere else to go: Clear is the only action. */
-export const ClearOnly: Story = {
-    args: {
-        moveTargets: [],
-        clearAction: CLEAR_ACTION,
-        placement: "below",
-    },
-};
-
-/** Scored state: an unused tile's menu is disabled but still focusable. */
+/** Example of the menu being disabled, but still focusable.
+ *  While the designs show the menu disappearing when the tile
+ *  is disabled, it seemed good to have this logic anyway.
+ */
 export const Disabled: Story = {
     args: {
         placement: "above",
@@ -113,16 +96,7 @@ export const Disabled: Story = {
     },
 };
 
-/** A multi-use tile: the SR-only description carries the remaining count. */
-export const MultiUse: Story = {
-    args: {
-        label: "Penny",
-        description: "5 remaining. Actions menu.",
-        placement: "above",
-    },
-};
-
-/** Right-to-left: the opener margin and menu alignment mirror automatically. */
+/** Right-to-left */
 export const RightToLeft: Story = {
     args: {
         label: "بونغو",
@@ -140,7 +114,7 @@ export const RightToLeft: Story = {
     },
     decorators: [
         // The open menu renders in a portal to document.body, so a dir="rtl"
-        // wrapper around the story wouldn't reach it. Set dir on the document
+        // wrapper around the story doesn't work here. Set dir on the document
         // element instead, as a real RTL page does.
         (StoryComponent) => {
             React.useEffect(() => {

@@ -13,7 +13,7 @@ import {useId} from "react";
 import styles from "./dnd-action-menu.module.css";
 
 export type MoveTarget = {
-    /** dnd-kit droppable id of the blank/column. */
+    /** id of the indended blank target */
     id: string;
     /** Translated visible label, e.g. "Blank 1" or a column label. */
     label: string;
@@ -26,17 +26,15 @@ interface DndActionMenuProps {
     tileId: string;
     /** The tile's value — labels the button via aria-labelledby. */
     label: string;
-    /** SR-only description: remaining count (if multi-use) + "actions menu". */
+    /** SR-only description */
     description: string;
     /** Translated visual-only header, e.g. "Move to". */
     headerLabel: string;
     /**
-     * Blanks/columns this tile can move to. `[]` when there are none.
-     * With no move targets and no clearAction, the opener renders disabled
-     * rather than opening an empty menu.
+     * Available Blanks/columns this tile can move to.
      */
     moveTargets: ReadonlyArray<MoveTarget>;
-    /** Called with the target's droppable id when a move action is selected. */
+    /** Called with the target blank's id when a move action is selected. */
     onMove: (targetId: string) => void;
     /** The clear action. Provided only when the tile is placed in a blank. */
     clearAction?: {
@@ -92,14 +90,12 @@ const MENU_WIDTH = 160;
 const itemStyle = {minBlockSize: sizing.size_480};
 
 /**
- * DndActionMenu is the per-tile actions menu for the Drag-and-Drop widget
- * family: the single-pointer/keyboard/screen-reader alternative to dragging
- * (WCAG 2.2 SC 2.5.7). It lists every blank the tile can move to and, when
- * the tile is placed, a Clear action.
+ * DndActionMenu is the menu that appears on each Answer Tile in our upcoming
+ * Drag-and-Drop widget family. It lists every blank the tile can move to and,
+ * when the tile is placed in a blank, a Clear action.
  *
- * Purely presentational — the parent owns dnd-kit wiring, move-announcements
- * (via the WB Announcer), and post-move focus management (via the forwarded
- * ref, which reaches the opener `<button>`).
+ * This is currently purely presentational, and does not include the dnd-kit wiring
+ * or move announcements, which will be tackled in future tickets.
  */
 export const DndActionMenu = React.forwardRef<
     HTMLButtonElement,
@@ -159,9 +155,9 @@ export const DndActionMenu = React.forwardRef<
         );
     }
 
-    // With nothing to move to and nothing to clear, the menu would open
-    // containing only the decorative header — a dead end for keyboard and
-    // screen-reader users — so the opener disables itself instead.
+    // With nothing to move to and nothing to clear, the menu would
+    // contain only the decorative header. While an unlikely situation,
+    // this simply ensures that the button is disabled in such an instance.
     const hasActions = moveTargets.length > 0 || clearAction != null;
     const isDisabled = disabled || !hasActions;
 
