@@ -1,0 +1,65 @@
+/*
+ * DndActionMenu — per-tile actions menu for the Drag-and-Drop family.
+ *
+ * Note: the open menu renders in a portal (document.body), so descendant
+ * selectors from here never reach it. The container is styled via
+ * ActionMenu's dropdownStyle prop; these classes only style elements we
+ * render ourselves (the opener and the injected header span, whose module
+ * class travels with it through the portal).
+ */
+
+.opener {
+    /* Center the dots; pad the hit area beyond the visual icon so the
+     * target is ≥24×24 CSS px (WCAG 2.5.8). */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-inline-size: var(--wb-sizing-size_240);
+    min-block-size: var(--wb-sizing-size_240);
+
+    /* Trailing gap between the handle and the tile content. */
+    margin-inline-end: var(--wb-sizing-size_060);
+
+    color: var(--wb-semanticColor-core-foreground-neutral-default);
+}
+
+/* CustomOpener provides the focus ring but leaves disabled visuals to us. */
+.opener[aria-disabled="true"] {
+    color: var(--wb-semanticColor-core-foreground-disabled-subtle);
+}
+
+.openerIcon {
+    /* The icon is decorative; the button's name comes from aria-labelledby. */
+    pointer-events: none;
+}
+
+/* The visual-only "Move to" header injected as the menu's first child.
+ * pointer-events: none defuses the onClick that ActionMenu clones onto
+ * every child; aria-hidden (set in the component) removes the injected
+ * menuitem role from the accessibility tree. */
+.menuHeader {
+    display: flex;
+    align-items: center;
+    block-size: 28px;
+    padding-inline: var(--wb-sizing-size_200);
+    pointer-events: none;
+
+    color: var(--wb-semanticColor-core-foreground-neutral-subtle);
+    font-family: var(--wb-font-family-sans);
+    font-size: var(--wb-font-body-size-xsmall);
+    line-height: var(--wb-font-body-lineHeight-xsmall);
+    font-weight: var(--wb-font-weight-medium);
+}
+
+/* Screen-reader-only text (opener label/description carriers). */
+.srOnly {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
