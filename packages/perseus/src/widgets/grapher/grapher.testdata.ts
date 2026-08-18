@@ -369,13 +369,6 @@ export const multipleAvailableTypesQuestion: PerseusRenderer = {
     },
 };
 
-// A static multi-function ("choose your own function") grapher whose answer is
-// an exponential, so a single story exercises every movable the grapher still
-// renders through graphie: the movable points, the plotted curve, and the
-// asymptote MovableLine (the grapher's only interactive2 MovableLine). All
-// should render in the muted gray static color. The asymptote sits at y=2 —
-// just off the x-axis rather than on it — so the gray line is clearly visible.
-// The background image is dropped so the snapshot focuses on the graph colors.
 export const staticExponentialQuestion: PerseusRenderer = {
     ...multipleAvailableTypesQuestion,
     widgets: {
