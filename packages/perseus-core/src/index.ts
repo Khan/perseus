@@ -5,7 +5,6 @@ export type {
     MarkerType,
     InteractiveMarkerType,
     Relationship,
-    Alignment,
     RecursiveReadonly,
 } from "./types";
 export type {KeypadKey} from "./keypad";
@@ -441,6 +440,12 @@ export {
 } from "./utils/generators/matrix-widget-generator";
 /** @hidden */
 export {
+    generateOrdererWidget,
+    generateOrdererOptions,
+    generateOrdererOption,
+} from "./utils/generators/orderer-widget-generator";
+/** @hidden */
+export {
     generatePlotterWidget,
     generatePlotterOptions,
 } from "./utils/generators/plotter-widget-generator";
@@ -449,6 +454,11 @@ export {
     generatePhetSimulationWidget,
     generatePhetSimulationOptions,
 } from "./utils/generators/phet-simulation-widget-generator";
+/** @hidden */
+export {
+    generateNumberLineOptions,
+    generateNumberLineWidget,
+} from "./utils/generators/number-line-widget-generator";
 export {generateNumericInputWidget} from "./utils/generators/numeric-input-widget-generator";
 /** @hidden */
 export {

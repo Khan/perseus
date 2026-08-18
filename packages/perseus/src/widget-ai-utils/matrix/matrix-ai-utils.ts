@@ -44,8 +44,8 @@ export const getPromptJSON = (
     return {
         type: "matrix",
         options: {
-            height: widgetData.matrixBoardSize[0],
-            width: widgetData.matrixBoardSize[1],
+            height: widgetData.options.matrixBoardSize[0],
+            width: widgetData.options.matrixBoardSize[1],
         },
         userInput: {
             answerRows: widgetData.userInput.answers,

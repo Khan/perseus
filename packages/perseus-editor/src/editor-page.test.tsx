@@ -3,7 +3,10 @@ import {
     type PerseusOrdererWidgetOptions,
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
-import {getDefaultAnswerArea} from "@khanacademy/perseus-core";
+import {
+    generateOrdererOption,
+    getDefaultAnswerArea,
+} from "@khanacademy/perseus-core";
 import {render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -170,16 +173,8 @@ describe("EditorPage", () => {
         // Verify the options were updated correctly
         expect(widgetOptions).toEqual(
             expect.objectContaining({
-                correctOptions: [
-                    {
-                        content: altImage,
-                    },
-                ],
-                options: [
-                    {
-                        content: altImage,
-                    },
-                ],
+                correctOptions: [generateOrdererOption(altImage)],
+                options: [generateOrdererOption(altImage)],
             }),
         );
     });

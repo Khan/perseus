@@ -57,9 +57,11 @@ describe("Categorizer AI utils", () => {
         };
 
         const widgetData: any = {
-            items: ["Luke Skywalker", "Darth Vader", "Yoda", "Han Solo"],
-            categories: ["Galactic Empire", "Rebel Alliance"],
-            values: [1, 0, 1, 1],
+            options: {
+                items: ["Luke Skywalker", "Darth Vader", "Yoda", "Han Solo"],
+                categories: ["Galactic Empire", "Rebel Alliance"],
+                values: [1, 0, 1, 1],
+            },
             userInput,
         };
 

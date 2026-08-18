@@ -55,18 +55,24 @@ export class FreeResponse extends React.Component<Props> implements Widget {
 
     isOverLimit() {
         return (
-            !this.props.allowUnlimitedCharacters &&
-            this.characterCount() > this.props.characterLimit
+            !this.props.options.allowUnlimitedCharacters &&
+            this.characterCount() > this.props.options.characterLimit
         );
     }
 
     render(): React.ReactNode {
+        const {
+            allowUnlimitedCharacters,
+            characterLimit,
+            question,
+            placeholder,
+        } = this.props.options;
         const isOverLimit = this.isOverLimit();
-        const characterCountText = this.props.allowUnlimitedCharacters
+        const characterCountText = allowUnlimitedCharacters
             ? undefined
             : this.context.strings.characterCount({
                   used: this.characterCount(),
-                  num: this.props.characterLimit,
+                  num: characterLimit,
               });
         if (characterCountText) {
             this.announceCharacterCount(characterCountText, isOverLimit);
@@ -78,7 +84,7 @@ export class FreeResponse extends React.Component<Props> implements Widget {
                     label={
                         <View className="free-response-question">
                             <Renderer
-                                content={this.props.question}
+                                content={question}
                                 strings={this.context.strings}
                             />
                         </View>
@@ -87,7 +93,7 @@ export class FreeResponse extends React.Component<Props> implements Widget {
                         <TextArea
                             error={isOverLimit}
                             onChange={this._handleUserInput}
-                            placeholder={this.props.placeholder}
+                            placeholder={placeholder}
                             style={styles.textarea}
                             value={this.props.userInput.currentValue}
                         />

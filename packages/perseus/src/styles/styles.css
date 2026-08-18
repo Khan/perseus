@@ -2,9 +2,9 @@
     font-family: Courier, monospace;
 }
 .framework-perseus pre {
-    background-color: #f0f1f2;
-    border-radius: 4px;
-    color: #21242c;
+    background-color: var(--wb-semanticColor-core-background-base-subtle);
+    border-radius: var(--wb-border-radius-radius_040);
+    color: var(--wb-semanticColor-core-foreground-neutral-strong);
     font-size: 18px;
     padding: 16px;
     white-space: pre;
@@ -13,23 +13,23 @@
 .framework-perseus.perseus-article:not(.perseus-mobile) table {
     font-size: 20px;
     line-height: 30px;
-    margin-bottom: 32px;
+    margin-bottom: var(--wb-sizing-size_320);
 }
 .framework-perseus.perseus-article:not(.perseus-mobile) h2 {
     font-family: inherit;
     font-size: 30px;
-    font-weight: 700;
+    font-weight: var(--wb-font-weight-bold);
     line-height: 1.1;
-    margin-bottom: 16px;
-    margin-top: 48px;
+    margin-bottom: var(--wb-sizing-size_160);
+    margin-top: var(--wb-sizing-size_480);
 }
 .framework-perseus.perseus-article:not(.perseus-mobile) h3 {
     font-family: inherit;
     font-size: 26px;
     font-weight: 700;
     line-height: 1.1;
-    margin-bottom: 16px;
-    margin-top: 32px;
+    margin-bottom: var(--wb-sizing-size_160);
+    margin-top: var(--wb-sizing-size_320);
 }
 .framework-perseus.perseus-article:not(.perseus-mobile) h4,
 .framework-perseus.perseus-article:not(.perseus-mobile) h5,
@@ -38,11 +38,11 @@
     font-size: 22px;
     font-weight: 700;
     line-height: 25px;
-    margin-bottom: 16px;
-    margin-top: 32px;
+    margin-bottom: var(--wb-sizing-size_160);
+    margin-top: var(--wb-sizing-size_320);
 }
 .framework-perseus.perseus-article:not(.perseus-mobile) blockquote {
-    padding: 0 32px;
+    padding: 0 var(--wb-sizing-size_320);
 }
 .framework-perseus.perseus-article:not(.perseus-mobile) .MathJax .math {
     color: inherit;
@@ -53,7 +53,7 @@
     line-height: 19.6px;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile) .perseus-block-math {
-    margin-bottom: 32px;
+    margin-bottom: var(--wb-sizing-size_320);
     position: relative;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
@@ -63,14 +63,14 @@
     position: absolute;
     right: 0;
     top: 0;
-    width: 30px;
+    width: var(--wb-sizing-size_320);
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-block-math-inner {
     overflow-x: auto;
-    padding-bottom: 8px;
-    padding-right: 20px;
-    padding-top: 8px;
+    padding-bottom: var(--wb-sizing-size_080);
+    padding-right: var(--wb-sizing-size_200);
+    padding-top: var(--wb-sizing-size_080);
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
     > .clearfix:first-child
@@ -105,10 +105,11 @@
     margin-top: 0;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile) pre {
-    margin: 0 -16px 32px -16px;
+    margin: 0 calc(-1 * var(--wb-sizing-size_160)) var(--wb-sizing-size_320)
+        calc(-1 * var(--wb-sizing-size_160));
 }
 .framework-perseus.perseus-mobile .clearfix > .perseus-renderer {
-    margin-bottom: 32px;
+    margin-bottom: var(--wb-sizing-size_320);
 }
 .framework-perseus.perseus-mobile .perseus-block-math {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -116,53 +117,52 @@
 }
 @media (max-width: 767px) {
     .framework-perseus.perseus-mobile h1 {
-        font-weight: 700;
+        font-weight: var(--wb-font-weight-bold);
         padding-top: 0px;
         font-family: inherit;
         font-size: 24px;
         line-height: 1.2;
-        color: #21242c;
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
     .framework-perseus.perseus-mobile h2 {
-        font-weight: 700;
-        padding-top: 16px;
+        font-weight: var(--wb-font-weight-bold);
+        padding-top: var(--wb-sizing-size_160);
         font-family: inherit;
         font-size: 24px;
         line-height: 1.2;
-        color: #3b3e40;
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
     .framework-perseus.perseus-mobile h3,
     .framework-perseus.perseus-mobile h4 {
-        font-weight: 700;
+        font-weight: var(--wb-font-weight-bold);
         padding-top: 0px;
         font-family: inherit;
         font-size: 22px;
         line-height: 1.1;
-        color: #626569;
+        color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile .default-body-text {
         font-family: inherit;
         font-size: 18px;
         line-height: 1.4;
-        color: #626569;
+        color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile blockquote {
         font-family: inherit;
         font-size: 18px;
         line-height: 1.4;
-        color: #626569;
-        color: #888d93;
+        color: var(--wb-semanticColor-core-foreground-neutral-subtle);
     }
     .framework-perseus.perseus-mobile table {
         font-family: inherit;
         font-size: 18px;
         line-height: 1.4;
-        color: #626569;
+        color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
         font-size: 21px;
         line-height: 1.2;
-        color: #21242c;
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
     .framework-perseus.perseus-mobile .perseus-block-math mjx-container {
         font-size: 21px;
@@ -176,69 +176,69 @@
         font-family: Courier, monospace;
     }
     .framework-perseus.perseus-mobile pre {
-        background-color: #f0f1f2;
-        border-radius: 4px;
-        color: #21242c;
+        background-color: var(--wb-semanticColor-core-background-base-subtle);
+        border-radius: var(--wb-border-radius-radius_040);
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
         font-size: 18px;
         line-height: 1.6;
-        padding: 16px;
+        padding: var(--wb-sizing-size_160);
         white-space: pre;
         overflow: auto;
     }
     .framework-perseus.perseus-mobile blockquote {
         padding: 0 0 0 18px;
-        border-left: 4px solid #d8d8d8;
+        border-left: var(--wb-border-width-thick) solid
+            var(--wb-semanticColor-core-border-neutral-subtle);
     }
 }
 @media (min-width: 767px) and (max-width: 1199px) {
     .framework-perseus.perseus-mobile h1 {
-        font-weight: 700;
+        font-weight: var(--wb-font-weight-bold);
         padding-top: 0px;
         font-family: inherit;
         font-size: 30px;
         line-height: 1.1;
-        color: #21242c;
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
     .framework-perseus.perseus-mobile h2 {
-        font-weight: 700;
-        padding-top: 32px;
+        font-weight: var(--wb-font-weight-bold);
+        padding-top: var(--wb-sizing-size_320);
         font-family: inherit;
         font-size: 30px;
         line-height: 1.1;
-        color: #3b3e40;
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
     .framework-perseus.perseus-mobile h3,
     .framework-perseus.perseus-mobile h4 {
-        font-weight: 700;
-        padding-top: 16px;
+        font-weight: var(--wb-font-weight-bold);
+        padding-top: var(--wb-sizing-size_160);
         font-family: inherit;
         font-size: 28px;
         line-height: 1.1;
-        color: #626569;
+        color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile .default-body-text {
         font-family: inherit;
         font-size: 20px;
         line-height: 1.5;
-        color: #626569;
+        color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile blockquote {
         font-family: inherit;
         font-size: 20px;
         line-height: 1.5;
-        color: #626569;
-        color: #888d93;
+        color: var(--wb-semanticColor-core-foreground-neutral-subtle);
     }
     .framework-perseus.perseus-mobile table {
         font-family: inherit;
         font-size: 20px;
         line-height: 1.5;
-        color: #626569;
+        color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
         font-size: 23px;
         line-height: 1.3;
-        color: #21242c;
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
     .framework-perseus.perseus-mobile .perseus-block-math mjx-container {
         font-size: 30px;
@@ -252,69 +252,69 @@
         font-family: Courier, monospace;
     }
     .framework-perseus.perseus-mobile pre {
-        background-color: #f0f1f2;
-        border-radius: 4px;
-        color: #21242c;
+        background-color: var(--wb-semanticColor-core-background-base-subtle);
+        border-radius: var(--wb-border-radius-radius_040);
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
         font-size: 18px;
         line-height: 1.6;
-        padding: 16px;
+        padding: var(--wb-sizing-size_160);
         white-space: pre;
         overflow: auto;
     }
     .framework-perseus.perseus-mobile blockquote {
-        padding: 0 0 0 20px;
-        border-left: 4px solid #d8d8d8;
+        padding: 0 0 0 var(--wb-sizing-size_200);
+        border-left: var(--wb-border-width-thick) solid
+            var(--wb-semanticColor-core-border-neutral-subtle);
     }
 }
 @media (min-width: 1200px) {
     .framework-perseus.perseus-mobile h1 {
-        font-weight: 700;
+        font-weight: var(--wb-font-weight-bold);
         padding-top: 0px;
         font-family: inherit;
         font-size: 35px;
         line-height: 1.1;
-        color: #21242c;
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
     .framework-perseus.perseus-mobile h2 {
-        font-weight: 700;
-        padding-top: 32px;
+        font-weight: var(--wb-font-weight-bold);
+        padding-top: var(--wb-sizing-size_320);
         font-family: inherit;
         font-size: 35px;
         line-height: 1.1;
-        color: #3b3e40;
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
     .framework-perseus.perseus-mobile h3,
     .framework-perseus.perseus-mobile h4 {
-        font-weight: 700;
-        padding-top: 16px;
+        font-weight: var(--wb-font-weight-bold);
+        padding-top: var(--wb-sizing-size_160);
         font-family: inherit;
         font-size: 30px;
         line-height: 1.1;
-        color: #626569;
+        color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile .default-body-text {
         font-family: inherit;
         font-size: 22px;
         line-height: 1.4;
-        color: #626569;
+        color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile blockquote {
         font-family: inherit;
         font-size: 22px;
         line-height: 1.4;
-        color: #626569;
-        color: #888d93;
+        color: var(--wb-semanticColor-core-foreground-neutral-subtle);
     }
     .framework-perseus.perseus-mobile table {
         font-family: inherit;
         font-size: 22px;
         line-height: 1.4;
-        color: #626569;
+        color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
         font-size: 25px;
         line-height: 1.2;
-        color: #21242c;
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
     .framework-perseus.perseus-mobile .perseus-block-math mjx-container {
         font-size: 30px;
@@ -328,18 +328,19 @@
         font-family: Courier, monospace;
     }
     .framework-perseus.perseus-mobile pre {
-        background-color: #f0f1f2;
-        border-radius: 4px;
-        color: #21242c;
+        background-color: var(--wb-semanticColor-core-background-base-subtle);
+        border-radius: var(--wb-border-radius-radius_040);
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
         font-size: 18px;
         line-height: 1.6;
-        padding: 16px;
+        padding: var(--wb-sizing-size_160);
         white-space: pre;
         overflow: auto;
     }
     .framework-perseus.perseus-mobile blockquote {
-        padding: 0 0 0 20px;
-        border-left: 5px solid #d8d8d8;
+        padding: 0 0 0 var(--wb-sizing-size_200);
+        border-left: var(--wb-border-width-thick) solid
+            var(--wb-semanticColor-core-border-neutral-subtle);
     }
 }
 .framework-perseus.perseus-mobile .MathJax .math {
@@ -349,8 +350,8 @@
     text-align: center;
 }
 .framework-perseus.perseus-mobile .perseus-block-math {
-    padding-top: 16px;
-    padding-bottom: 16px;
+    padding-top: var(--wb-sizing-size_160);
+    padding-bottom: var(--wb-sizing-size_160);
 }
 .framework-perseus.perseus-mobile .unresponsive-svg-image,
 .framework-perseus.perseus-mobile .svg-image {
@@ -376,7 +377,7 @@
         filter: invert(1) hue-rotate(180deg) brightness(1.5);
     }
 
-    .mathjax-wrapper {
+    .mathjax-wrapper > mjx-container {
         /* Since we invert all MathJax colors (above), we need to force the
            default foreground color to dark so it will be light when inverted.
            If we don't do this, then math will inherit the theme's foreground

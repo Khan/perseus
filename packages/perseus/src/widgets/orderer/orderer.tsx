@@ -17,12 +17,10 @@ import type {
 } from "../../types";
 import type {OrdererPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
 import type {
-    PerseusOrdererWidgetOptions,
     PerseusOrdererUserInput,
     OrdererPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type PlaceholderCardProps = {
     width: number | null | undefined;
@@ -39,6 +37,8 @@ class PlaceholderCard extends React.Component<PlaceholderCardProps> {
             >
                 <div
                     className="card placeholder"
+                    // Note: To make the placeholder reflect the size of the
+                    // card, update width below to height. Currently not wanted.
                     // eslint-disable-next-line no-restricted-syntax
                     style={{height: this.props.width as number}}
                 />
@@ -71,6 +71,7 @@ type CardProps = {
     animating: boolean;
     width?: number | null | undefined;
     stack: boolean;
+    removing: boolean;
 
     onMouseDown?: any;
     onMouseMove?: any;
@@ -86,6 +87,7 @@ type CardProps = {
 
 type CardDefaultProps = {
     stack: CardProps["stack"];
+    removing: CardProps["removing"];
     animating: CardProps["animating"];
 };
 
@@ -102,6 +104,7 @@ class Card extends React.Component<CardProps, CardState> {
 
     static defaultProps: CardDefaultProps = {
         stack: false,
+        removing: false,
         animating: false,
     };
 
@@ -258,6 +261,13 @@ class Card extends React.Component<CardProps, CardState> {
             className.push("dragging");
             style.left += this.props.mouse.left - this.props.startMouse.left;
             style.top += this.props.mouse.top - this.props.startMouse.top;
+
+            const hasNotMoved =
+                this.props.mouse.left === this.props.startMouse.left &&
+                this.props.mouse.top === this.props.startMouse.top;
+            if (this.props.removing && hasNotMoved) {
+                className.push("removing");
+            }
         }
 
         // Pull out the content to get rendered
@@ -294,6 +304,7 @@ type OrdererProps = WidgetProps<
 
 type OrdererState = {
     dragging: boolean;
+    dragSource: "bank" | "current" | null;
     placeholderIndex: number | null | undefined;
     dragKey: string | null | undefined;
     animating: boolean;
@@ -307,24 +318,13 @@ type OrdererState = {
     onAnimationEnd?: (arg1: any) => void;
 };
 
-// eslint-disable-next-line no-restricted-syntax
-0 as any as WidgetProps<
-    PerseusOrdererWidgetOptions,
-    PerseusOrdererUserInput
-> satisfies PropsFor<typeof WrappedOrderer>;
-
-// eslint-disable-next-line no-restricted-syntax
-0 as any as WidgetProps<
-    OrdererPublicWidgetOptions,
-    PerseusOrdererUserInput
-> satisfies PropsFor<typeof WrappedOrderer>;
-
 class Orderer
     extends React.Component<OrdererProps, OrdererState>
     implements Widget
 {
     state: OrdererState = {
         dragging: false,
+        dragSource: null,
         placeholderIndex: null,
         dragKey: null,
         animating: false,
@@ -347,36 +347,36 @@ class Orderer
         });
     }
 
-    onClick: (arg1: string, arg2: number, arg3: any, arg4: Element) => void = (
-        type,
-        index,
-        loc,
-        draggable,
-    ) => {
+    onClick: (
+        type: "bank" | "current",
+        index: number,
+        loc: any,
+        draggable: Element,
+    ) => void = (type, index, loc, draggable) => {
         // @ts-expect-error - TS2769 - No overload matches this call.
         const $draggable = $(ReactDOM.findDOMNode(draggable));
         const list = this.props.userInput.current.slice();
 
-        let opt;
+        let content: string;
         let placeholderIndex = null;
 
         if (type === "current") {
             // If this is coming from the original list, remove the original
             // card from the list
             list.splice(index, 1);
-            opt = this.props.userInput.current[index];
+            content = this.props.userInput.current[index];
             // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'null'.
             placeholderIndex = index;
-        } else if (type === "bank") {
-            opt = this.props.options[index];
+        } else {
+            content = this.props.options.options[index].content;
         }
 
         this.props.handleUserInput({current: list});
         this.setState({
             dragging: true,
+            dragSource: type,
             placeholderIndex: placeholderIndex,
-            dragKey: opt.key,
-            dragContent: opt.content,
+            dragContent: content,
             // @ts-expect-error - TS2339 - Property 'width' does not exist on type 'JQueryStatic'.
             dragWidth: $draggable.width(),
             // @ts-expect-error - TS2339 - Property 'height' does not exist on type 'JQueryStatic'.
@@ -421,6 +421,7 @@ class Orderer
             });
             this.setState({
                 dragging: false,
+                dragSource: null,
                 placeholderIndex: null,
                 animating: false,
             });
@@ -434,7 +435,7 @@ class Orderer
         if (inCardBank) {
             // If we're in the card bank, go through the options to find the
             // one with the same content
-            this.props.options.forEach((opt, i) => {
+            this.props.options.options.forEach((opt, i) => {
                 if (opt.content === this.state.dragContent) {
                     const card = ReactDOM.findDOMNode(this.refs["bank" + i]);
                     // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
@@ -490,7 +491,7 @@ class Orderer
 
     findCorrectIndex: (arg1: any, arg2: any) => any = (draggable, list) => {
         // Find the correct index for a card given the current cards.
-        const isHorizontal = this.props.layout === "horizontal";
+        const isHorizontal = this.props.options.layout === "horizontal";
         // @ts-expect-error - TS2769 - No overload matches this call.
         const $dragList = $(ReactDOM.findDOMNode(this.refs.dragList));
         // @ts-expect-error - TS2339 - Property 'offset' does not exist on type 'JQueryStatic'.
@@ -537,7 +538,7 @@ class Orderer
             return false;
         }
 
-        const isHorizontal = this.props.layout === "horizontal";
+        const isHorizontal = this.props.options.layout === "horizontal";
         // @ts-expect-error - TS2769 - No overload matches this call.
         const $draggable = $(ReactDOM.findDOMNode(draggable));
         // @ts-expect-error - TS2769 - No overload matches this call.
@@ -583,8 +584,9 @@ class Orderer
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState(): any {
-        const {userInput, ...rest} = this.props;
+        const {userInput, options, ...rest} = this.props;
         return {
+            ...options,
             ...rest,
             current: userInput.current.map((e) => ({content: e})),
         };
@@ -601,6 +603,7 @@ class Orderer
                 startMouse={this.state.grabPos}
                 mouse={this.state.mousePos}
                 width={this.state.dragWidth}
+                removing={this.state.dragSource === "current"}
                 onMouseUp={this.onRelease}
                 onMouseMove={this.onMouseMove}
                 key={this.state.dragKey || "draggingCard"}
@@ -669,7 +672,7 @@ class Orderer
         // This is the bank of stacks of cards
         const bank = (
             <div ref="bank" className="bank perseus-clearfix">
-                {this.props.options.map((opt, i) => {
+                {this.props.options.options.map((opt, i) => {
                     return (
                         <Card
                             ref={"bank" + i}
@@ -696,10 +699,10 @@ class Orderer
                 className={
                     "draggy-boxy-thing orderer " +
                     "height-" +
-                    this.props.height +
+                    this.props.options.height +
                     " " +
                     "layout-" +
-                    this.props.layout +
+                    this.props.options.layout +
                     " " +
                     "blank-background " +
                     "perseus-clearfix "

@@ -201,19 +201,7 @@ Each widget defines its set of options through an options type (always defined i
 
 ### React Types
 
-Each widget is implemented as a React component. As is common with React, the component receives data via render props.
-The code strives to use the following conventions to shape the various concepts of props.
-
-<Markdown>
-    {`
-| Type | Description |
-| ---- | ----------- |
-| \`WidgetProps\<T\>\` | All widgets receive a common set of props from the parent \`Renderer\` component This set of props is defined by the \`WidgetProps\<T\>\` type (\`T\` being the specific render props the widget uses). |
-| External Props | In a few rare cases, this type is defined as the sum of specific WidgetOptions wrapped in the shared \`WidgetOptions\`. |
-| Scoring Data | This type defines the data that the scoring function needs in order to score the learner's guess (aka user input). |
-| \`Props\` | This form the entire set of props that widget's component supports. Typically, it is defined as \`type Props = WidgetProps<WidgetOptions, Rubric>\`. In cases where there are \`WidgetOptions\` that are optional that are provided via \`DefaultProps\`, this \`Props\` type "redefines" these props as \`myProp: NonNullable<ExternalProps["myProps"]>;\`. |
-    `}
-</Markdown>
+Each widget is implemented as a React component. Each widget's `Props` type is derived from `WidgetProps<T>`, where `T` is the type of the widget's `options` in the Perseus JSON.
 
 ## Content Editing
 

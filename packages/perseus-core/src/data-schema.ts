@@ -316,6 +316,27 @@ export type PerseusImageDetail = {
     height: number;
 };
 
+// TODO(benchristel): as of 2026, only some of these alignments appear in our
+//  content corpus. Counts (for all locales):
+//     5955449  "block"
+//     20442080 "default"
+//     12622    "full-width"
+//     52       "wrap-left"
+//     35       "wrap-right"
+//  It seems possible that "wrap-left" and "wrap-right" are vestigial. "inline"
+//  and "inline-block" are definitely unused. Consider removing them from this
+//  type.
+export type Alignment =
+    | "default"
+    | "block"
+    | "inline-block"
+    | "inline"
+    // wrap alignments will be set to inline-block floated left or right this will
+    // allow text to wrap around the widget and not have large space on either side
+    | "wrap-left"
+    | "wrap-right"
+    | "full-width";
+
 /**
  * ItemExtras represent extra UI elements that help the learner in answering
  * the question (such as a calculator for questions where solving by hand is
@@ -409,7 +430,7 @@ export type WidgetOptions<
      * widget logic, which can be various other alignments (e.g.
      * "inline-block", "inline", etc).
      */
-    alignment?: string;
+    alignment?: Alignment;
     /**
      * Options specific to the type field of the widget. See Perseus*WidgetOptions for
      * more details
@@ -1652,7 +1673,7 @@ export type PerseusNumericInputWidgetOptions = {
      * Translatable Text; Text to describe this input. This will be shown to
      * users using screenreaders.
      */
-    // TODO(LEMS-4354): Make labelText required and default it to "" in the
+    // TODO(benchristel): Make labelText required and default it to "" in the
     //  parser.
     labelText?: string | undefined;
     /**
@@ -1707,6 +1728,7 @@ export type PerseusNumberLineWidgetOptions = {
      * The position of the endpoints of the number line. Setting the range
      * constrains the position of the answer and the labels.
      */
+    // TODO(benchristel): type `range` as `[number, number]`.
     range: number[];
     /**
      * This controls the position of the left / right labels. By default, the
@@ -2237,7 +2259,10 @@ export type PerseusIFrameWidgetOptions = {
     height: number | string;
     /** Whether to allow the IFrame to become full-screen (like a video) */
     allowFullScreen: boolean;
-    /** Whether to allow the iframe content to redirect the page */
+    /**
+     * Whether to allow the iframe content to redirect the page
+     * @deprecated - not used in Perseus.
+     */
     allowTopNavigation?: boolean;
     /** Always false */
     static: boolean;

@@ -1,48 +1,39 @@
-/* eslint-disable react/forbid-prop-types */
 import {
     matcherLogic,
-    type MatcherDefaultWidgetOptions,
+    type PerseusMatcherWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import PropTypes from "prop-types";
 import * as React from "react";
-import _ from "underscore";
 
 import InfoTip from "../../components/info-tip";
 import TextListEditor from "../../components/text-list-editor";
 
-type Props = any;
+type Props = PerseusMatcherWidgetOptions & {
+    onChange: (
+        newOptions: Partial<PerseusMatcherWidgetOptions>,
+        callback?: () => void,
+    ) => void;
+};
 
 // JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for adding a matcher widget that allows users to match items from two different sets.
  */
 class MatcherEditor extends React.Component<Props> {
-    static propTypes = {
-        left: PropTypes.array,
-        right: PropTypes.array,
-        labels: PropTypes.array,
-        orderMatters: PropTypes.bool,
-        padding: PropTypes.bool,
-    };
-
     static widgetName = "matcher" as const;
 
-    static defaultProps: MatcherDefaultWidgetOptions =
+    static defaultProps: PerseusMatcherWidgetOptions =
         matcherLogic.defaultWidgetOptions;
 
-    onLabelChange: (
-        arg1: number,
-        arg2: React.ChangeEvent<HTMLInputElement>,
-    ) => void = (index, e) => {
-        const labels = _.clone(this.props.labels);
+    onLabelChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+        const labels = [...this.props.labels];
         labels[index] = e.target.value;
-        this.props.onChange({labels: labels});
+        this.props.onChange({labels});
     };
 
     // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
     // the new linter rules for save warnings.
-    getSaveWarnings: () => ReadonlyArray<string> = () => {
+    getSaveWarnings = (): string[] => {
         if (this.props.left.length !== this.props.right.length) {
             return [
                 "The two halves of the matcher have different numbers" +
@@ -52,15 +43,14 @@ class MatcherEditor extends React.Component<Props> {
         return [];
     };
 
-    serialize: any = () => {
-        return _.pick(
-            this.props,
-            "left",
-            "right",
-            "labels",
-            "orderMatters",
-            "padding",
-        );
+    serialize = (): PerseusMatcherWidgetOptions => {
+        return {
+            left: this.props.left,
+            right: this.props.right,
+            labels: this.props.labels,
+            orderMatters: this.props.orderMatters,
+            padding: this.props.padding,
+        };
     };
 
     render(): React.ReactNode {
@@ -80,15 +70,15 @@ class MatcherEditor extends React.Component<Props> {
                 <div className="perseus-clearfix">
                     <TextListEditor
                         options={this.props.left}
-                        onChange={(options, cb) => {
-                            this.props.onChange({left: options}, cb);
+                        onChange={(options) => {
+                            this.props.onChange({left: options});
                         }}
                         layout="vertical"
                     />
                     <TextListEditor
                         options={this.props.right}
-                        onChange={(options, cb) => {
-                            this.props.onChange({right: options}, cb);
+                        onChange={(options) => {
+                            this.props.onChange({right: options});
                         }}
                         layout="vertical"
                     />
@@ -104,12 +94,16 @@ class MatcherEditor extends React.Component<Props> {
                     <input
                         type="text"
                         defaultValue={this.props.labels[0]}
-                        onChange={this.onLabelChange.bind(this, 0)}
+                        onChange={(e) => {
+                            this.onLabelChange(0, e);
+                        }}
                     />
                     <input
                         type="text"
                         defaultValue={this.props.labels[1]}
-                        onChange={this.onLabelChange.bind(this, 1)}
+                        onChange={(e) => {
+                            this.onLabelChange(1, e);
+                        }}
                     />
                 </div>
                 <div>

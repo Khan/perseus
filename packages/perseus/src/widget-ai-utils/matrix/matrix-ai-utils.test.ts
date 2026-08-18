@@ -1,3 +1,4 @@
+import {generateMatrixOptions} from "@khanacademy/perseus-core";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -54,7 +55,7 @@ describe("Matrix AI utils", () => {
         };
 
         const widgetData: any = {
-            matrixBoardSize: [4, 3],
+            options: generateMatrixOptions({matrixBoardSize: [4, 3]}),
             userInput,
         };
 
