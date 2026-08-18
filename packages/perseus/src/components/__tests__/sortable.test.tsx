@@ -5,8 +5,6 @@ import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
 import Sortable from "../sortable";
 
-type FontsLoadedCallback = () => void;
-
 describe("Sortable", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
