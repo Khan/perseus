@@ -133,12 +133,19 @@ export const RightToLeft: Story = {
         ],
         placement: "above",
     },
-    render: (args) => (
-        <div dir="rtl">
-            <PlaceholderTile>
-                <DndActionMenu {...args} />
-                {args.label}
-            </PlaceholderTile>
-        </div>
-    ),
+    decorators: [
+        // The open menu renders in a portal to document.body, so a dir="rtl"
+        // wrapper around the story wouldn't reach it. Set dir on the document
+        // element instead, as a real RTL page does.
+        (StoryComponent) => {
+            React.useEffect(() => {
+                const previous = document.documentElement.dir;
+                document.documentElement.dir = "rtl";
+                return () => {
+                    document.documentElement.dir = previous;
+                };
+            }, []);
+            return <StoryComponent />;
+        },
+    ],
 };
