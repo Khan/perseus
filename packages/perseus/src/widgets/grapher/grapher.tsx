@@ -10,6 +10,7 @@ import {
     deepClone,
     GrapherUtil,
 } from "@khanacademy/perseus-core";
+import {semanticColor, tokenValue} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 import invariant from "tiny-invariant";
 
@@ -21,7 +22,6 @@ import Interactive2 from "../../interactive2";
 import WrappedLine from "../../interactive2/wrapped-line";
 import {interactiveSizes} from "../../styles/constants";
 import Util from "../../util";
-import KhanColors from "../../util/colors";
 import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
 /* Graphie and relevant components. */
 /* Mixins. */
@@ -127,10 +127,13 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
     renderPlot = () => {
         const model = this.props.model;
         const xRange = this.props.graph.range[0];
+        // tokenValue resolves CSS variable tokens to raw hex — graphie only accepts raw CSS colors
         const style = {
-            stroke: this.props.isMobile
-                ? KhanColors.BLUE_C
-                : KhanColors.DYNAMIC,
+            stroke: tokenValue(
+                this.props.static
+                    ? semanticColor.core.foreground.disabled.strong
+                    : semanticColor.core.foreground.instructive.default,
+            ),
             ...(this.props.isMobile ? {"stroke-width": 3} : {}),
         } as const;
 
@@ -156,13 +159,16 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
         const graph = this.props.graph;
         const asymptote = this._asymptote();
         const showAsymptote = asymptote?.length > 0;
+        // Raphael's .attr() (via WrappedLine) only recognizes kebab-case SVG
+        // attribute names
         const dashed = {
-            strokeDasharray: "- ",
+            "stroke-dasharray": "- ",
         } as const;
 
         return (
             showAsymptote && (
                 <MovableLine
+                    static={this.props.static}
                     onMove={(newCoord, oldCoord) => {
                         // Calculate and apply displacement
                         const delta = kvector.subtract(newCoord, oldCoord);
@@ -482,7 +488,9 @@ class Grapher extends React.Component<Props> implements Widget {
                 hairlineStyle,
             );
             this.horizHairline.attr({
-                stroke: KhanColors.INTERACTIVE,
+                stroke: tokenValue(
+                    semanticColor.core.border.instructive.default,
+                ),
             });
             this.horizHairline.hide();
 
@@ -493,7 +501,9 @@ class Grapher extends React.Component<Props> implements Widget {
                 hairlineStyle,
             );
             this.vertHairline.attr({
-                stroke: KhanColors.INTERACTIVE,
+                stroke: tokenValue(
+                    semanticColor.core.border.instructive.default,
+                ),
             });
             this.vertHairline.hide();
         }
