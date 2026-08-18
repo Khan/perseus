@@ -11,7 +11,7 @@ import {convert} from "../general-purpose-parsers/convert";
 
 import type {Parser} from "../parser-types";
 
-function alignmentToValidValue(alignment: string | undefined) {
+function toValidAlignment(alignment: string | undefined) {
     switch (alignment) {
         case "default":
         case "block":
@@ -28,7 +28,7 @@ function alignmentToValidValue(alignment: string | undefined) {
 }
 
 const parseAlignment = pipeParsers(optional(string)).then(
-    convert(alignmentToValidValue),
+    convert(toValidAlignment),
 ).parser;
 
 export function parseWidget<Type extends string, Options extends object>(
