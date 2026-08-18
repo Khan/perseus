@@ -160,3 +160,35 @@ tool for this widget, and the CSS-pseudo-state approach would capture nothing
 here. (Relevant for the team discussion on hover-snapshot methodology:
 CSS-`:hover`-driven components → pseudo-states addon; JS-driven graphie widgets →
 `play` + `userEvent.hover`.)
+
+---
+
+## 6. Theme resolution note (graphie + `tokenValue`)
+
+Graphie needs raw hex for SVG attributes, so colors are resolved via
+`tokenValue(...)`, which reads `getComputedStyle().getPropertyValue()` **once, at
+draw time**, and bakes a fixed hex into the SVG attribute. Consequences:
+
+- **On a fresh load, the color resolves to the current theme correctly** (default
+  or syl-dark). Verified visually — number-line's point matches interactive-graph's
+  `foreground.instructive.default` on a reloaded syl-dark story.
+- **It does NOT re-resolve on a live theme toggle** — graphie doesn't redraw, so
+  switching themes without reloading leaves the previously-baked (washed-out)
+  color until the next reload.
+- **This is Chromatic-safe:** Chromatic renders each story fresh, once per theme
+  mode, so both `default` and `thunderblocks` snapshots capture the correctly
+  resolved color. The live-toggle staleness is a Storybook dev-time quirk only —
+  not a production or Chromatic issue.
+- Contrast with Mafs/interactive-graph, which uses `var(--wb-…)` directly in CSS
+  (browser re-resolves live per theme). That's why interactive-graph re-themes on
+  a live toggle and graphie widgets don't.
+
+**Same token as interactive-graph.** The point fill is
+`foreground.instructive.default` in both (interactive-graph via
+`--mafs-blue` → `--movable-point-color`). Any residual visual difference on a
+correct render is point *structure* (Mafs's 3-layer halo + knockout ring + center
+vs number-line's fill + thin knockout stroke), not the color.
+
+Broader note for the team: every graphie widget using `tokenValue` bakes a static
+hex and won't re-theme on a live toggle. Cosmetic dev-UX only; flag if a shared
+graphie-theming improvement is ever scoped.

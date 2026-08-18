@@ -990,7 +990,8 @@ export class Graphie {
                 .css({
                     position: "absolute",
                     padding: (pad != null ? pad : 7) + "px",
-                    color: "var(--wb-semanticColor-core-foreground-neutral-strong)",
+                    // Note: Theme aware as is; breaks if converted to a token
+                    color: "black",
                 })
                 .data("labelDirection", direction)
                 .appendTo(this.el);
