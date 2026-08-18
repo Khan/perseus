@@ -908,6 +908,13 @@ export type PerseusStrings = {
     gifPlayButtonLabel: string;
     gifPauseButtonLabel: string;
     definitionIdentifier: ({word}: {word: string}) => string;
+    // Drag-and-drop action menu
+    dndMoveToHeader: string;
+    dndClear: string;
+    dndMoveToTarget: ({target}: {target: string}) => string;
+    dndClearTarget: ({target}: {target: string}) => string;
+    dndActionsMenu: string;
+    dndActionsMenuRemaining: ({count}: {count: number}) => string;
 };
 
 /**
@@ -1853,6 +1860,13 @@ export const strings = {
     gifPlayButtonLabel: "Play Animation",
     gifPauseButtonLabel: "Pause Animation",
     definitionIdentifier: "Definition of: %(word)s",
+    // Drag-and-drop action menu
+    dndMoveToHeader: "Move to",
+    dndClear: "Clear",
+    dndMoveToTarget: "Move to %(target)s",
+    dndClearTarget: "Clear %(target)s",
+    dndActionsMenu: "Actions menu",
+    dndActionsMenuRemaining: "%(count)s remaining. Actions menu",
 } satisfies {
     [key in keyof PerseusStrings]:
         | string
@@ -2372,6 +2386,13 @@ export const mockStrings: PerseusStrings = {
     gifPlayButtonLabel: "Play Animation",
     gifPauseButtonLabel: "Pause Animation",
     definitionIdentifier: ({word}) => `Definition of: ${word}`,
+    // Drag-and-drop action menu
+    dndMoveToHeader: "Move to",
+    dndClear: "Clear",
+    dndMoveToTarget: ({target}) => `Move to ${target}`,
+    dndClearTarget: ({target}) => `Clear ${target}`,
+    dndActionsMenu: "Actions menu",
+    dndActionsMenuRemaining: ({count}) => `${count} remaining. Actions menu`,
 };
 
 // This type helps us make sure all error codes are mapped to strings

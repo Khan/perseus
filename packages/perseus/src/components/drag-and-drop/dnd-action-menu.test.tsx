@@ -7,21 +7,19 @@ import {DndActionMenu} from "./dnd-action-menu";
 import type {MoveTarget} from "./dnd-action-menu";
 
 const THREE_BLANKS: ReadonlyArray<MoveTarget> = [
-    {id: "blank-1", label: "Blank 1", actionLabel: "Move to Blank 1"},
-    {id: "blank-2", label: "Blank 2", actionLabel: "Move to Blank 2"},
-    {id: "blank-3", label: "Blank 3", actionLabel: "Move to Blank 3"},
+    {id: "blank-1", label: "Blank 1"},
+    {id: "blank-2", label: "Blank 2"},
+    {id: "blank-3", label: "Blank 3"},
 ];
 
 function clearAction(onClear: () => void = jest.fn()) {
-    return {label: "Clear", actionLabel: "Clear Blank 1", onClear};
+    return {targetLabel: "Blank 1", onClear};
 }
 
 function defaultProps() {
     return {
         tileId: "tile-1",
         label: "Bongo",
-        description: "Actions menu",
-        headerLabel: "Move to",
         moveTargets: THREE_BLANKS,
         onMove: jest.fn(),
         placement: "above",
@@ -37,19 +35,28 @@ describe("DndActionMenu", () => {
         expect(screen.getByRole("button", {name: "Bongo"})).toBeInTheDocument();
     });
 
+    it("describes the button with the actions-menu text", () => {
+        // Arrange, Act
+        render(<DndActionMenu {...defaultProps()} />);
+
+        expect(
+            screen.getByRole("button", {name: "Bongo"}),
+        ).toHaveAccessibleDescription("Actions menu");
+    });
+
     it("describes the button with the remaining-count text for multi-use tiles", () => {
         // Arrange, Act
         render(
             <DndActionMenu
                 {...defaultProps()}
                 label="Penny"
-                description="5 remaining. Actions menu."
+                remainingUses={5}
             />,
         );
 
         expect(
             screen.getByRole("button", {name: "Penny"}),
-        ).toHaveAccessibleDescription("5 remaining. Actions menu.");
+        ).toHaveAccessibleDescription("5 remaining. Actions menu");
     });
 
     it("opens the menu on click", async () => {
@@ -67,7 +74,7 @@ describe("DndActionMenu", () => {
     it("renders the header text visibly", async () => {
         // Arrange
         const user = userEvent.setup({advanceTimers: jest.advanceTimersByTime});
-        render(<DndActionMenu {...defaultProps()} headerLabel="Move to" />);
+        render(<DndActionMenu {...defaultProps()} />);
 
         // Act
         await user.click(screen.getByRole("button", {name: "Bongo"}));
@@ -79,7 +86,7 @@ describe("DndActionMenu", () => {
     it("hides the header from assistive technology", async () => {
         // Arrange
         const user = userEvent.setup({advanceTimers: jest.advanceTimersByTime});
-        render(<DndActionMenu {...defaultProps()} headerLabel="Move to" />);
+        render(<DndActionMenu {...defaultProps()} />);
 
         // Act
         await user.click(screen.getByRole("button", {name: "Bongo"}));

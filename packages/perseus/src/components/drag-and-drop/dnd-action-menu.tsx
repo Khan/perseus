@@ -10,15 +10,15 @@ import dotsSixVerticalIcon from "@phosphor-icons/core/regular/dots-six-vertical.
 import * as React from "react";
 import {useId} from "react";
 
+import {usePerseusI18n} from "../i18n-context";
+
 import styles from "./dnd-action-menu.module.css";
 
 export type MoveTarget = {
-    /** id of the indended blank target */
+    /** id of the intended blank target */
     id: string;
-    /** Translated visible label, e.g. "Blank 1" or a column label. */
+    /** The blank/column's label, e.g. "Blank 1" or an authored column name. */
     label: string;
-    /** Translated spoken form, e.g. "Move to Blank 1". */
-    actionLabel: string;
 };
 
 interface DndActionMenuProps {
@@ -26,10 +26,11 @@ interface DndActionMenuProps {
     tileId: string;
     /** The tile's value — labels the button via aria-labelledby. */
     label: string;
-    /** SR-only description */
-    description: string;
-    /** Translated visual-only header, e.g. "Move to". */
-    headerLabel: string;
+    /**
+     * Remaining uses for a multi-use tile. When provided, it is spoken as
+     * part of the opener's description ("5 remaining. Actions menu").
+     */
+    remainingUses?: number;
     /**
      * Available Blanks/columns this tile can move to.
      */
@@ -38,16 +39,22 @@ interface DndActionMenuProps {
     onMove: (targetId: string) => void;
     /** The clear action. Provided only when the tile is placed in a blank. */
     clearAction?: {
-        /** Translated visible label, e.g. "Clear". */
-        label: string;
-        /** Translated spoken form, e.g. "Clear Blank 1". */
-        actionLabel: string;
+        /** Label of the blank the tile currently sits in, e.g. "Blank 1". */
+        targetLabel: string;
         onClear: () => void;
     };
     /** Above in the choice bank, below when placed. */
     placement: "above" | "below";
     /** Scored/unused tiles. */
     disabled: boolean;
+}
+
+function assignRef<T>(ref: React.ForwardedRef<T>, value: T | null) {
+    if (typeof ref === "function") {
+        ref(value);
+    } else if (ref) {
+        ref.current = value;
+    }
 }
 
 type OpenerInnerProps = {
@@ -62,31 +69,35 @@ type OpenerInnerProps = {
 
 /**
  * ActionMenu clones whatever the `opener` render prop returns and injects its
- * own ref (for focus-on-close via findDOMNode) — which would clobber a ref
- * placed directly on CustomOpener. This wrapper forwards ActionMenu's
- * injected ref AND mirrors the node into the parent's forwarded ref, so both
- * get the opener `<button>`.
+ * own ref (it needs the opener element to restore focus when the menu
+ * closes) — which would clobber a ref placed directly on CustomOpener. This
+ * wrapper hands the opener `<button>` to both refs: ActionMenu's injected one
+ * and the one DndActionMenu forwards to the parent.
  */
 const MergedRefOpener = React.forwardRef<HTMLButtonElement, OpenerInnerProps>(
     function MergedRefOpener({openerRef, ...rest}, injectedRef) {
         const mergedRef = (node: HTMLButtonElement | null) => {
-            for (const r of [injectedRef, openerRef]) {
-                if (typeof r === "function") {
-                    r(node);
-                } else if (r) {
-                    r.current = node;
-                }
-            }
+            assignRef(injectedRef, node);
+            assignRef(openerRef, node);
         };
         return <CustomOpener ref={mergedRef} {...rest} />;
     },
 );
 
-// The Figma menu is a fixed 160px wide; no sizing token equals 160px.
-const MENU_WIDTH = 160;
+/**
+ * ActionMenu's children type only admits Action/Option/Separator items, so
+ * the decorative header span (see its render site) can't be expressed
+ * without widening the type. This helper confines that one unsafe cast so
+ * every call site stays honestly typed. The durable fix is a first-class
+ * header slot in Wonder Blocks (requested with #wonder-blocks).
+ */
+function asMenuChild(element: React.ReactElement): React.ReactElement<any> {
+    // eslint-disable-next-line no-restricted-syntax -- deliberate boundary: ActionMenu's Item type can't express the header span
+    return element as React.ReactElement<any>;
+}
 
-// Figma item height is 48px. ActionItem has no height variant, so we set a
-// min block size on each item via its (internal-flagged) `style` prop.
+// The design calls for 48px-tall items. ActionItem has no height variant,
+// so we set a min block size on each item via its `style` prop.
 const itemStyle = {minBlockSize: sizing.size_480};
 
 /**
@@ -104,8 +115,7 @@ export const DndActionMenu = React.forwardRef<
     const {
         tileId,
         label,
-        description,
-        headerLabel,
+        remainingUses,
         moveTargets,
         onMove,
         clearAction,
@@ -113,29 +123,37 @@ export const DndActionMenu = React.forwardRef<
         disabled,
     } = props;
 
+    const {strings} = usePerseusI18n();
     const labelId = useId();
     const descriptionId = useId();
 
-    const menuItems: Array<React.ReactElement> = [
+    const description =
+        remainingUses != null
+            ? strings.dndActionsMenuRemaining({count: remainingUses})
+            : strings.dndActionsMenu;
+
+    const menuItems: Array<React.ReactElement<any>> = [
         // ActionMenu has no header slot, so the visual-only "Move to" header
         // rides along as an extra child. ActionMenu clones every child with
         // an injected role="menuitem" and onClick, so the span must be
         // aria-hidden (keeps it out of the accessibility tree — the spoken
         // phrasing lives in each item's aria-label instead) and the CSS sets
         // pointer-events: none (defuses the injected click handler).
-        <span
-            key="header"
-            aria-hidden="true"
-            className={styles.menuHeader}
-            data-testid="dnd-action-menu-header"
-        >
-            {headerLabel}
-        </span>,
+        asMenuChild(
+            <span
+                key="header"
+                aria-hidden="true"
+                className={styles.menuHeader}
+                data-testid="dnd-action-menu-header"
+            >
+                {strings.dndMoveToHeader}
+            </span>,
+        ),
         ...moveTargets.map((target) => (
             <ActionItem
                 key={target.id}
                 label={target.label}
-                aria-label={target.actionLabel}
+                aria-label={strings.dndMoveToTarget({target: target.label})}
                 onClick={() => onMove(target.id)}
                 style={itemStyle}
             />
@@ -147,8 +165,10 @@ export const DndActionMenu = React.forwardRef<
             <SeparatorItem key="separator" />,
             <ActionItem
                 key="clear"
-                label={clearAction.label}
-                aria-label={clearAction.actionLabel}
+                label={strings.dndClear}
+                aria-label={strings.dndClearTarget({
+                    target: clearAction.targetLabel,
+                })}
                 onClick={clearAction.onClear}
                 style={itemStyle}
             />,
@@ -175,7 +195,6 @@ export const DndActionMenu = React.forwardRef<
                 menuText={label}
                 disabled={isDisabled}
                 alignment={placement === "above" ? "top-start" : "bottom-start"}
-                dropdownStyle={{width: MENU_WIDTH}}
                 testId={`dnd-action-menu-${tileId}`}
                 opener={() => (
                     <MergedRefOpener
@@ -192,13 +211,7 @@ export const DndActionMenu = React.forwardRef<
                     </MergedRefOpener>
                 )}
             >
-                {
-                    // Cast: ActionMenu's children type only admits
-                    // Action/Option/Separator items; the decorative header
-                    // span is deliberately smuggled past it (see above).
-                    // eslint-disable-next-line no-restricted-syntax -- deliberate unsafe boundary: ActionMenu's Item type can't express the header span
-                    menuItems as Array<React.ReactElement<any>>
-                }
+                {menuItems}
             </ActionMenu>
         </>
     );

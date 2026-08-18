@@ -1,15 +1,17 @@
 import * as React from "react";
 
+import {PerseusI18nContextProvider} from "../../i18n-context";
+import {mockStrings} from "../../../strings";
 import {DndActionMenu} from "../dnd-action-menu";
 
 import type {MoveTarget} from "../dnd-action-menu";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const FOUR_BLANKS: ReadonlyArray<MoveTarget> = [
-    {id: "blank-1", label: "Blank 1", actionLabel: "Move to Blank 1"},
-    {id: "blank-2", label: "Blank 2", actionLabel: "Move to Blank 2"},
-    {id: "blank-3", label: "Blank 3", actionLabel: "Move to Blank 3"},
-    {id: "blank-4", label: "Blank 4", actionLabel: "Move to Blank 4"},
+    {id: "blank-1", label: "Blank 1"},
+    {id: "blank-2", label: "Blank 2"},
+    {id: "blank-3", label: "Blank 3"},
+    {id: "blank-4", label: "Blank 4"},
 ];
 
 /** TODO(LEMS-4363): Placeholder answer tile until we create the real one */
@@ -52,8 +54,6 @@ const meta: Meta<typeof DndActionMenu> = {
     args: {
         tileId: "tile-1",
         label: "Bongo",
-        description: "Actions menu",
-        headerLabel: "Move to",
         moveTargets: FOUR_BLANKS,
         disabled: false,
     },
@@ -64,8 +64,7 @@ export default meta;
 type Story = StoryObj<typeof DndActionMenu>;
 
 const CLEAR_ACTION = {
-    label: "Clear",
-    actionLabel: "Clear Blank 1",
+    targetLabel: "Blank 1",
     onClear: () => {},
 };
 
@@ -100,10 +99,9 @@ export const Disabled: Story = {
 export const RightToLeft: Story = {
     args: {
         label: "بونغو",
-        headerLabel: "نقل إلى",
         moveTargets: [
-            {id: "blank-1", label: "الفراغ 1", actionLabel: "نقل إلى الفراغ 1"},
-            {id: "blank-2", label: "الفراغ 2", actionLabel: "نقل إلى الفراغ 2"},
+            {id: "blank-1", label: "الفراغ 1"},
+            {id: "blank-2", label: "الفراغ 2"},
         ],
         placement: "above",
     },
@@ -124,7 +122,20 @@ export const RightToLeft: Story = {
                     document.documentElement.dir = previous;
                 };
             }, []);
-            return <StoryComponent />;
+            return (
+                <PerseusI18nContextProvider
+                    strings={{
+                        ...mockStrings,
+                        dndMoveToHeader: "نقل إلى",
+                        dndClear: "مسح",
+                        dndMoveToTarget: ({target}) => `نقل إلى ${target}`,
+                        dndClearTarget: ({target}) => `مسح ${target}`,
+                    }}
+                    locale="ar"
+                >
+                    <StoryComponent />
+                </PerseusI18nContextProvider>
+            );
         },
     ],
 };
