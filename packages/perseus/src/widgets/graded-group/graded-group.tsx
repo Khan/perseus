@@ -16,6 +16,7 @@ import {mapErrorToString} from "../../strings";
 import {phoneMargin, negativePhoneMargin} from "../../styles/constants";
 import UserInputManager from "../../user-input-manager";
 import a11y from "../../util/a11y";
+import {isCtrlOrCmdEnter} from "../../util/keyboard-shortcuts";
 import {getPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
 
 import GradedGroupAnswerBar from "./graded-group-answer-bar";
@@ -164,6 +165,35 @@ export class GradedGroup
         });
     };
 
+    _handleConfirmationShortcut: (e: React.KeyboardEvent) => void = (e) => {
+        if (!isCtrlOrCmdEnter(e)) {
+            return;
+        }
+
+        if (this.props.apiOptions.readOnly) {
+            return;
+        }
+
+        const {answerBarState} = this.state;
+        const isCorrect = answerBarState === "CORRECT";
+
+        if (isCorrect && this.props.onNextQuestion) {
+            e.preventDefault();
+            this.props.onNextQuestion();
+            return;
+        }
+
+        if (
+            this.props.apiOptions.isMobile &&
+            answerBarState !== "ACTIVE"
+        ) {
+            return;
+        }
+
+        e.preventDefault();
+        this._checkAnswer();
+    };
+
     // Mobile API
     getInputPaths: () => ReadonlyArray<FocusPath> = () => {
         return this.rendererRef.current?.getInputPaths() || [];
@@ -267,7 +297,7 @@ export class GradedGroup
         const showSolutions = isCorrect ? "all" : "none";
 
         return (
-            <div className={classes}>
+            <div className={classes} onKeyDownCapture={this._handleConfirmationShortcut}>
                 {!!this.props.options.title && (
                     <div className={css(styles.title)}>
                         {this.props.options.title}
