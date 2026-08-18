@@ -472,9 +472,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
         const hollowFill = tokenValue(
             semanticColor.core.background.base.default,
         );
-        const pointColor = props.static
-            ? staticColor
-            : interactiveColor;
+        const pointColor = props.static ? staticColor : interactiveColor;
 
         const normalStyle = {
             fill: isOpen ? hollowFill : pointColor,
