@@ -474,67 +474,57 @@ class Grapher extends React.Component<Props> implements Widget {
             });
         }
 
-        if (this.props.apiOptions.isMobile) {
-            const hairlineStyle = {
-                normalStyle: {
-                    strokeWidth: 1,
-                },
-            } as const;
+        const hairlineStyle = {
+            normalStyle: {
+                strokeWidth: 1,
+            },
+        } as const;
 
-            this.horizHairline = new WrappedLine(
-                graphie,
-                [0, 0],
-                [0, 0],
-                hairlineStyle,
-            );
-            this.horizHairline.attr({
-                stroke: tokenValue(
-                    semanticColor.core.border.instructive.default,
-                ),
-            });
-            this.horizHairline.hide();
+        this.horizHairline = new WrappedLine(
+            graphie,
+            [0, 0],
+            [0, 0],
+            hairlineStyle,
+        );
+        this.horizHairline.attr({
+            stroke: tokenValue(semanticColor.core.border.instructive.default),
+        });
+        this.horizHairline.hide();
 
-            this.vertHairline = new WrappedLine(
-                graphie,
-                [0, 0],
-                [0, 0],
-                hairlineStyle,
-            );
-            this.vertHairline.attr({
-                stroke: tokenValue(
-                    semanticColor.core.border.instructive.default,
-                ),
-            });
-            this.vertHairline.hide();
-        }
+        this.vertHairline = new WrappedLine(
+            graphie,
+            [0, 0],
+            [0, 0],
+            hairlineStyle,
+        );
+        this.vertHairline.attr({
+            stroke: tokenValue(semanticColor.core.border.instructive.default),
+        });
+        this.vertHairline.hide();
     };
 
     showHairlines: (arg1: Coord) => void = (point) => {
-        if (this.props.apiOptions.isMobile) {
-            // Hairlines are already initialized when the graph is loaded, so
-            // here we just move them to the updated location and make them
-            // visible.
-            this.horizHairline.moveTo(
-                [this.props.graph.range[0][0], point[1]],
-                [this.props.graph.range[0][1], point[1]],
-            );
+        // Hairlines are already initialized when the graph is loaded, so
+        // here we just move them to the updated location and make them
+        // visible.
+        this.horizHairline.moveTo(
+            [this.props.graph.range[0][0], point[1]],
+            [this.props.graph.range[0][1], point[1]],
+        );
 
-            this.horizHairline.show();
+        this.horizHairline.show();
 
-            this.vertHairline.moveTo(
-                [point[0], this.props.graph.range[1][0]],
-                [point[0], this.props.graph.range[1][1]],
-            );
+        this.vertHairline.moveTo(
+            [point[0], this.props.graph.range[1][0]],
+            [point[0], this.props.graph.range[1][1]],
+        );
 
-            this.vertHairline.show();
-        }
+        this.vertHairline.show();
     };
 
     hideHairlines: () => void = () => {
-        if (this.props.apiOptions.isMobile) {
-            this.horizHairline.hide();
-            this.vertHairline.hide();
-        }
+        this.horizHairline.hide();
+        this.vertHairline.hide();
     };
 
     getPromptJSON(): GrapherPromptJSON {

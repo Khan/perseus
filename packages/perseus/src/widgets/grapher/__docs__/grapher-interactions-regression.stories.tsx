@@ -29,7 +29,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-// Grapher only draws its crosshair hairlines on mobile, and only while a
+// Grapher draws crosshair hairlines on both platforms, but only while a
 // movable control point is being grabbed. Pressing and holding a point keeps
 // the grab — and thus the hairlines — active through the snapshot.
 export const MobileHairlines: Story = {
@@ -56,6 +56,31 @@ export const MobileHairlines: Story = {
         // corner of the plot rather than the synthetic pointer position, so
         // the hairlines render at the graph's edge — that's fine, since this
         // story only needs the hairline color, not its exact position.
+        const rect = mouseTarget.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        await userEvent.pointer([
+            {keys: "[MouseLeft>]", target: mouseTarget},
+            {coords: {clientX: centerX + 4, clientY: centerY + 4}},
+        ]);
+    },
+};
+
+export const DesktopHairlines: Story = {
+    args: {question: quadraticQuestion},
+    decorators: [grapherRendererDecorator],
+    play: async ({canvasElement, userEvent}) => {
+        // See MobileHairlines above — same async-Raphael-layer wait, same
+        // inner-<ellipse> mouse target.
+        const mouseTarget = await waitFor(() => {
+            const el = canvasElement.querySelector(
+                '[data-interactive-kind-for-testing="movable-point"] ellipse',
+            );
+            if (el == null) {
+                throw new Error("Movable point mouse target not found");
+            }
+            return el;
+        });
         const rect = mouseTarget.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;

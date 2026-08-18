@@ -12,7 +12,7 @@ const MovablePoint: any = GraphieClasses.createClass({
     movableProps: ["children"],
 
     _getProps: function () {
-        if (!this.props.isMobile) {
+        if (!this.props.isMobile || this.props.static) {
             return this.props;
         }
 

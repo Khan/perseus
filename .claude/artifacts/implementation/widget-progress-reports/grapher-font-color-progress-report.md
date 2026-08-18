@@ -656,3 +656,123 @@ Add regression tests for Grapher and update styling to tokens
 
 `patch` matches the workflow's guidance for color/font/styling changes. No
 action needed.
+
+---
+
+## Post-Step-16 Additions
+
+Work that came up while Tamara was verifying stories locally in Storybook,
+after Step 16's finalize-PR checklist had already been reached. Recorded here
+since it's additive scope beyond the original 16-step workflow, not a new
+numbered step.
+
+### Story restructuring (Tamara, directly)
+
+The initial-state regression stories were restructured into an explicit
+Desktop/Mobile × Quadratic/ChooseYourOwnFunction/Static matrix
+(`DestktopQuadratic` [sic], `DesktopChooseYourOwnFunction`,
+`MobileChooseYourOwnFunction`, `DesktopStatic`, `MobileStatic`,
+`MobileQuadratic`), replacing the earlier single `Quadratic` /
+`ChooseYourOwnFunction` / `Static` / `Mobile` set. This gave broader
+per-platform coverage and is what surfaced the mobile-static bug below.
+
+### Feature: hairlines on desktop, not just mobile
+
+Tamara asked whether the crosshair hairlines could show on more than mobile.
+Traced the gating: three separate `if (this.props.apiOptions.isMobile)`
+checks in `grapher.tsx` (hairline init in `_setupGraphie`, `showHairlines`,
+`hideHairlines`) — `showHairlines`/`hideHairlines` were already threaded to
+`MovablePoint` unconditionally regardless of platform, so removing the three
+gates was a small, contained change. Added `DesktopHairlines` to
+`grapher-interactions-regression.stories.tsx` (same grab-and-nudge play
+function as `MobileHairlines`, no `mobileDecorator`/`apiOptions.isMobile`) and
+updated the stale "only on mobile" doc comment. Updated the "multiple graph
+types" snapshot, since hairline elements (hidden) now exist in desktop's DOM
+tree too. Verified with `pnpm tsc` (clean) and `pnpm test
+packages/perseus/src/widgets/grapher` (6/6 passed).
+
+Considered and declined in the same conversation: unifying point hover
+behavior so mobile points get bigger-on-hover like desktop (currently mobile
+loses its border on hover instead), and swapping desktop to interactive-graph's
+own point component. Both are real component-behavior changes, not
+color-token work — recommended as separate ticket scope rather than folding
+into LEMS-4275. Investigating this is what surfaced the mobile-static bug
+below, ahead of schedule.
+
+### Bug fix: static points not turning gray on mobile
+
+**Symptom:** on the new `MobileStatic` story, the curve and asymptote
+correctly rendered gray (per Step 9's conversion), but movable points stayed
+interactive blue. `DesktopStatic` (identical testdata) rendered correctly.
+
+**Investigation (ruled out, in order):**
+- `static` prop threading from the widget down through `FunctionGrapher` to
+  `MovablePoint` — identical on both platforms, confirmed by reading every
+  hop (`grapherProps.static = this.props.static` → `FunctionGrapherProps` →
+  `<MovablePoint static={this.props.static} />`).
+- `movable-point.tsx`'s own color computation
+  (`tokenValue(state.static ? disabled.strong : instructive.default)`) — no
+  mobile-awareness at all (zero matches for `isMobile` in that file).
+- A hypothesized stale-style-caching bug in the `_.extend` merge chain in
+  `update()`/`modify()` — traced fully; `_createDefaultState()` resets
+  `normalStyle` to `null` on every `modify()` call, so this theory didn't
+  hold.
+- `convertGrapherOptionsToInteractiveGraph` routing to a different component
+  on mobile — only checks `availableTypes.length !== 1`, no `isMobile`
+  dependency.
+- CSS overriding SVG fill under `.perseus-mobile` — no matching rules found.
+
+**Root cause:** Tamara noticed grapher.tsx computes "isMobile" two different
+ways (`this.props.isMobile` on `FunctionGrapher` vs
+`this.props.apiOptions.isMobile` on the outer `Grapher` widget) and asked if
+that was related. It pointed at the right neighborhood, though the actual bug
+turned out to be one layer further down: `packages/perseus/src/components/
+graphie-movables.ts`'s `_getProps()` (the bridge between the React
+`<MovablePoint>` JSX and the imperative `interactive2` point). When
+`this.props.isMobile` is true, it **unconditionally** builds a bigger-touch-
+target `normalStyle`/`highlightStyle` (hardcoded interactive-blue fill,
+`pointSize: 7`, shadow) with no check on `this.props.static` at all. Since
+these get passed as explicit props before reaching `MovablePoint.update()`,
+they win the `_.extend({freshlyComputedColor}, state.normalStyle)` merge
+regardless of what `static` computes — desktop skips this whole branch
+(`if (!this.props.isMobile) return this.props;`), which is why it was never
+affected.
+
+This same function is also why mobile points lose their border on hover
+instead of getting bigger (`highlightStyle: {..., "stroke-width": 0, scale:
+0.75}`) — a detail raised earlier in the same conversation as a separate
+observation. Both trace back to this one hardcoded mobile override.
+
+**Fix:** `packages/perseus/src/components/graphie-movables.ts:15` — changed
+the guard to `if (!this.props.isMobile || this.props.static) { return
+this.props; }`, so static mobile points skip the mobile-only override
+entirely and fall through to `movable-point.tsx`'s own static-vs-interactive
+computation (the same path desktop already used correctly).
+
+**Scope note:** `graphie-movables.ts` is shared across every widget that
+renders a graphie movable point, not just grapher — this is a real bug fix in
+shared code. Confirmed with Tamara before making the change; she opted to fix
+it here rather than route it elsewhere, since it directly blocks the
+`MobileStatic` story she added to this PR.
+
+**Verification:** `pnpm tsc` and `pnpm fixc` clean. Full `pnpm test` — 543/543
+suites, 7686/7686 passing (one jest-worker segfault in an unrelated
+logarithm-scoring test, confirmed flaky by re-running it in isolation — not
+caused by this change). `pnpm test packages/perseus/src/widgets/grapher`
+still 6/6. Tamara confirmed live in Storybook that `MobileStatic` now renders
+correctly.
+
+### Outstanding before next push
+
+- All of the above (story restructuring, hairlines-on-desktop, the
+  graphie-movables.ts fix, and this progress-report update) are currently
+  **uncommitted** local changes — nothing has been committed or pushed since
+  the un-revert.
+- The existing changeset (`tame-cycles-refuse.md`, "Add regression tests for
+  Grapher and update styling to tokens") predates both the hairlines feature
+  and the bug fix — it may be worth expanding to mention them, since a bug
+  fix in shared `graphie-movables.ts` code is more than "styling to tokens."
+  Not yet done — needs Tamara's call on wording.
+- PR #3922's Chromatic build is showing "6 changes must be accepted as
+  baselines" as of this entry — from the push before this round of changes;
+  will need another look once these are committed and pushed.

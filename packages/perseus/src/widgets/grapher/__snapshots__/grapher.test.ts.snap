@@ -2239,6 +2239,58 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                       style="position: absolute; left: 0px; top: 0px;"
                     >
                       <div
+                        style="position: absolute; width: 402px; height: 2px; left: -1px; top: 199px; transform-origin: 1px 1px; transform: translateX(200px) translateY(0px)  translateZ(0)rotate(0deg) scaleX(0) scaleY(1);"
+                      >
+                        <svg
+                          height="2"
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                          version="1.1"
+                          width="402"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <desc
+                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                          >
+                            Created with Raphaël
+                          </desc>
+                          <defs
+                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                          />
+                          <path
+                            d="M1,1L401,1"
+                            fill="none"
+                            stroke="none"
+                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); display: none;"
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        style="position: absolute; width: 402px; height: 2px; left: -1px; top: 199px; transform-origin: 1px 1px; transform: translateX(200px) translateY(0px)  translateZ(0)rotate(0deg) scaleX(0) scaleY(1);"
+                      >
+                        <svg
+                          height="2"
+                          style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                          version="1.1"
+                          width="402"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <desc
+                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                          >
+                            Created with Raphaël
+                          </desc>
+                          <defs
+                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                          />
+                          <path
+                            d="M1,1L401,1"
+                            fill="none"
+                            stroke="none"
+                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); display: none;"
+                          />
+                        </svg>
+                      </div>
+                      <div
                         style="position: absolute; width: 26px; height: 26px; left: 87px; top: 87px; transform: translateX(0px) translateY(0px) translateZ(0);"
                       >
                         <svg
