@@ -48,18 +48,13 @@ export const texQuestion: PerseusRenderer = {
 
 /**
  * A minimal sorter for driving real mouse drags in a browser (see
- * sorter.cypress.ts). Both of its options are chosen to make a drag test
- * deterministic:
+ * sorter.cypress.ts). Both options make the drag deterministic:
  *
- * - Two cards. The initial order comes from `shuffleSorter`, which guarantees
- *   the first card is displaced. With only two cards, the sole permutation
- *   that satisfies that is the reverse, so the widget always starts out as
- *   ["Banana", "Apple"] and a single drag produces the correct answer. No test
- *   needs to know anything about the seeded RNG.
- * - Vertical layout, rather than the default horizontal. Cypress runs at an
- *   iPhone-sized viewport, where horizontal cards (which float) can wrap and
- *   invalidate the single-row width math in Sortable's reorder logic. Vertical
- *   cards stack, so the drag axis is unambiguous.
+ * - Two cards: `shuffleSorter` guarantees the first card is displaced, and with
+ *   two cards the only such permutation is the reverse. So it always starts as
+ *   ["Banana", "Apple"], and one drag gives the correct answer.
+ * - Vertical layout: at Cypress's iPhone-sized viewport, horizontal (floated)
+ *   cards can wrap and break Sortable's single-row width math.
  */
 export const twoCardVerticalQuestion: PerseusRenderer =
     generateTestPerseusRenderer({
