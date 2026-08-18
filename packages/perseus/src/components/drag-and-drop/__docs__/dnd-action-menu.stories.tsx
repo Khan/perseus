@@ -129,7 +129,7 @@ export const RightToLeft: Story = {
                         dndMoveToHeader: "نقل إلى",
                         dndClear: "مسح",
                         dndMoveToTarget: ({target}) => `نقل إلى ${target}`,
-                        dndClearTarget: ({target}) => `مسح ${target}`,
+                        dndClearTarget: ({target}) => `مسح من ${target}`,
                     }}
                     locale="ar"
                 >

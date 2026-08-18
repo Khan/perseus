@@ -1864,7 +1864,7 @@ export const strings = {
     dndMoveToHeader: "Move to",
     dndClear: "Clear",
     dndMoveToTarget: "Move to %(target)s",
-    dndClearTarget: "Clear %(target)s",
+    dndClearTarget: "Clear from %(target)s",
     dndActionsMenu: "Actions menu",
     dndActionsMenuRemaining: "%(count)s remaining. Actions menu",
 } satisfies {
@@ -2390,7 +2390,7 @@ export const mockStrings: PerseusStrings = {
     dndMoveToHeader: "Move to",
     dndClear: "Clear",
     dndMoveToTarget: ({target}) => `Move to ${target}`,
-    dndClearTarget: ({target}) => `Clear ${target}`,
+    dndClearTarget: ({target}) => `Clear from ${target}`,
     dndActionsMenu: "Actions menu",
     dndActionsMenuRemaining: ({count}) => `${count} remaining. Actions menu`,
 };

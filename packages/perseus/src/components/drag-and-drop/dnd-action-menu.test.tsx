@@ -179,7 +179,7 @@ describe("DndActionMenu", () => {
         // Assert — the element right before Clear is WB's separator, which
         // is visual-only (aria-hidden), so it has no "separator" role.
         const clearItem = await screen.findByRole("menuitem", {
-            name: "Clear Blank 1",
+            name: "Clear from Blank 1",
         });
         expect(clearItem).toBeInTheDocument();
         // eslint-disable-next-line testing-library/no-node-access -- the separator is aria-hidden, so sibling order is the only way to assert its position
@@ -201,7 +201,7 @@ describe("DndActionMenu", () => {
 
         // Assert
         const clearItem = await screen.findByRole("menuitem", {
-            name: "Clear Blank 1",
+            name: "Clear from Blank 1",
         });
         expect(clearItem).toHaveTextContent("Clear");
     });
@@ -236,7 +236,7 @@ describe("DndActionMenu", () => {
 
         // Act
         await user.click(
-            await screen.findByRole("menuitem", {name: "Clear Blank 1"}),
+            await screen.findByRole("menuitem", {name: "Clear from Blank 1"}),
         );
 
         // Assert
@@ -260,7 +260,7 @@ describe("DndActionMenu", () => {
         // Assert — only the clear action remains.
         expect(await screen.findAllByRole("menuitem")).toHaveLength(1);
         expect(
-            screen.getByRole("menuitem", {name: "Clear Blank 1"}),
+            screen.getByRole("menuitem", {name: "Clear from Blank 1"}),
         ).toBeInTheDocument();
     });
 
