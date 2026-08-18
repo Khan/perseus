@@ -15,8 +15,7 @@ import type Editor from "../editor";
 import type {APIOptions} from "@khanacademy/perseus";
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
 
-// exported for tests
-export type WidgetEditorProps = {
+type Props = {
     // Unserialized props
     id: string;
     onChange: (
@@ -30,7 +29,7 @@ export type WidgetEditorProps = {
     widgetInfo: PerseusWidget;
 };
 
-type WidgetEditorState = {
+type State = {
     showWidget: boolean;
     widgetInfo: PerseusWidget;
 };
@@ -58,13 +57,10 @@ export function _upgradeWidgetInfo(widgetInfo: PerseusWidget): PerseusWidget {
 // upgrade transforms. Widget editors will always be rendered
 // with all available transforms applied, but the results of those
 // transforms will not be propogated upwards until serialization.
-class WidgetEditor extends React.Component<
-    WidgetEditorProps,
-    WidgetEditorState
-> {
+class WidgetEditor extends React.Component<Props, State> {
     widget: React.RefObject<Editor>;
 
-    constructor(props: WidgetEditorProps) {
+    constructor(props: Props) {
         super(props);
         this.state = {
             showWidget: props.widgetIsOpen ?? true,
@@ -73,7 +69,7 @@ class WidgetEditor extends React.Component<
         this.widget = React.createRef();
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps: WidgetEditorProps) {
+    UNSAFE_componentWillReceiveProps(nextProps: Props) {
         this.setState({widgetInfo: _upgradeWidgetInfo(nextProps.widgetInfo)});
         // user can update internal state while the widget is handled globally
         if (
@@ -90,7 +86,7 @@ class WidgetEditor extends React.Component<
     };
 
     _handleWidgetChange = (
-        newProps: WidgetEditorProps,
+        newProps: Props,
         cb: () => unknown,
         silent: boolean,
     ) => {
