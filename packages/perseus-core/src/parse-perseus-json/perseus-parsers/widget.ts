@@ -13,8 +13,6 @@ import type {Parser} from "../parser-types";
 
 function alignmentToValidValue(alignment: string | undefined) {
     switch (alignment) {
-        case "":
-            return "default";
         case "default":
         case "block":
         case "inline-block":
