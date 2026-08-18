@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 36.1.0
+
+### Minor Changes
+
+-   [#4093](https://github.com/Khan/perseus/pull/4093) [`92722a7`](https://github.com/Khan/perseus/commit/92722a76d91c9e5c41b870341b44efbe45bf8318) Thanks [@benchristel](https://github.com/benchristel)! - The Perseus parsers now handle unrecognized values for a widget's `alignment`, and convert them to `"default"`.
+
 ## 36.0.0
 
 ### Major Changes
