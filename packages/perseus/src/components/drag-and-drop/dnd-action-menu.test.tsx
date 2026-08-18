@@ -12,6 +12,10 @@ const THREE_BLANKS: ReadonlyArray<MoveTarget> = [
     {id: "blank-3", label: "Blank 3", actionLabel: "Move to Blank 3"},
 ];
 
+function clearAction(onClear: () => void = jest.fn()) {
+    return {label: "Clear", actionLabel: "Clear Blank 1", onClear};
+}
+
 function defaultProps() {
     return {
         tileId: "tile-1",
@@ -20,8 +24,6 @@ function defaultProps() {
         headerLabel: "Move to",
         moveTargets: THREE_BLANKS,
         onMove: jest.fn(),
-        clearLabel: "Clear",
-        clearActionLabel: "Clear Blank 1",
         placement: "above",
         disabled: false,
     } as const;
@@ -145,7 +147,7 @@ describe("DndActionMenu", () => {
     it("omits the clear action when the tile is not placed in a blank", async () => {
         // Arrange
         const user = userEvent.setup({advanceTimers: jest.advanceTimersByTime});
-        render(<DndActionMenu {...defaultProps()} onClear={undefined} />);
+        render(<DndActionMenu {...defaultProps()} />);
 
         // Act
         await user.click(screen.getByRole("button", {name: "Bongo"}));
@@ -160,7 +162,9 @@ describe("DndActionMenu", () => {
     it("renders the clear action after a separator when the tile is placed", async () => {
         // Arrange
         const user = userEvent.setup({advanceTimers: jest.advanceTimersByTime});
-        render(<DndActionMenu {...defaultProps()} onClear={jest.fn()} />);
+        render(
+            <DndActionMenu {...defaultProps()} clearAction={clearAction()} />,
+        );
 
         // Act
         await user.click(screen.getByRole("button", {name: "Bongo"}));
@@ -182,12 +186,7 @@ describe("DndActionMenu", () => {
         // Arrange
         const user = userEvent.setup({advanceTimers: jest.advanceTimersByTime});
         render(
-            <DndActionMenu
-                {...defaultProps()}
-                onClear={jest.fn()}
-                clearLabel="Clear"
-                clearActionLabel="Clear Blank 1"
-            />,
+            <DndActionMenu {...defaultProps()} clearAction={clearAction()} />,
         );
 
         // Act
@@ -220,7 +219,12 @@ describe("DndActionMenu", () => {
         // Arrange
         const user = userEvent.setup({advanceTimers: jest.advanceTimersByTime});
         const onClear = jest.fn();
-        render(<DndActionMenu {...defaultProps()} onClear={onClear} />);
+        render(
+            <DndActionMenu
+                {...defaultProps()}
+                clearAction={clearAction(onClear)}
+            />,
+        );
         await user.click(screen.getByRole("button", {name: "Bongo"}));
 
         // Act
@@ -239,7 +243,7 @@ describe("DndActionMenu", () => {
             <DndActionMenu
                 {...defaultProps()}
                 moveTargets={[]}
-                onClear={jest.fn()}
+                clearAction={clearAction()}
             />,
         );
 
@@ -265,6 +269,38 @@ describe("DndActionMenu", () => {
         // Assert — still focusable (aria-disabled), but the menu won't open.
         expect(opener).toHaveAttribute("aria-disabled", "true");
         expect(screen.queryByRole("menuitem")).not.toBeInTheDocument();
+    });
+
+    it("disables the opener when there are no move targets and no clear action", async () => {
+        // Arrange — nothing to move to and nothing to clear would open an
+        // empty menu, so the opener must disable itself.
+        const user = userEvent.setup({advanceTimers: jest.advanceTimersByTime});
+        render(<DndActionMenu {...defaultProps()} moveTargets={[]} />);
+        const opener = screen.getByRole("button", {name: "Bongo"});
+
+        // Act
+        await user.click(opener);
+
+        // Assert
+        expect(opener).toHaveAttribute("aria-disabled", "true");
+        expect(screen.queryByRole("menuitem")).not.toBeInTheDocument();
+    });
+
+    it("returns focus to the opener after a move action is selected", async () => {
+        // Arrange — guards the MergedRefOpener wiring: ActionMenu can only
+        // restore focus on close if its injected ref reached the button.
+        const user = userEvent.setup({advanceTimers: jest.advanceTimersByTime});
+        render(<DndActionMenu {...defaultProps()} />);
+        const opener = screen.getByRole("button", {name: "Bongo"});
+        await user.click(opener);
+
+        // Act
+        await user.click(
+            await screen.findByRole("menuitem", {name: "Move to Blank 2"}),
+        );
+
+        // Assert
+        expect(opener).toHaveFocus();
     });
 
     it('aligns the menu above the opener when placement is "above"', async () => {

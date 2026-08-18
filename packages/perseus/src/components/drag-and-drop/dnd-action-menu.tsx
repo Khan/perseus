@@ -30,15 +30,22 @@ interface DndActionMenuProps {
     description: string;
     /** Translated visual-only header, e.g. "Move to". */
     headerLabel: string;
-    /** Blanks/columns this tile can move to. `[]` when there are none. */
+    /**
+     * Blanks/columns this tile can move to. `[]` when there are none.
+     * With no move targets and no clearAction, the opener renders disabled
+     * rather than opening an empty menu.
+     */
     moveTargets: ReadonlyArray<MoveTarget>;
+    /** Called with the target's droppable id when a move action is selected. */
     onMove: (targetId: string) => void;
-    /** Provided only when the tile is placed in a blank. */
-    onClear?: () => void;
-    /** Translated visible label for the clear action, e.g. "Clear". */
-    clearLabel: string;
-    /** Translated spoken form, e.g. "Clear Blank 1". */
-    clearActionLabel: string;
+    /** The clear action. Provided only when the tile is placed in a blank. */
+    clearAction?: {
+        /** Translated visible label, e.g. "Clear". */
+        label: string;
+        /** Translated spoken form, e.g. "Clear Blank 1". */
+        actionLabel: string;
+        onClear: () => void;
+    };
     /** Above in the choice bank, below when placed. */
     placement: "above" | "below";
     /** Scored/unused tiles. */
@@ -77,13 +84,11 @@ const MergedRefOpener = React.forwardRef<HTMLButtonElement, OpenerInnerProps>(
     },
 );
 
-// The Figma menu is a fixed 160px wide. There is no sizing token for 160px,
-// and the menu shouldn't scale with font size, so the value is hardcoded.
+// The Figma menu is a fixed 160px wide; no sizing token equals 160px.
 const MENU_WIDTH = 160;
 
 // Figma item height is 48px. ActionItem has no height variant, so we set a
-// min block size on each item. Cosmetic — falls back to WB's default height
-// if the (internal-flagged) `style` prop stops being honored.
+// min block size on each item via its (internal-flagged) `style` prop.
 const itemStyle = {minBlockSize: sizing.size_480};
 
 /**
@@ -107,9 +112,7 @@ export const DndActionMenu = React.forwardRef<
         headerLabel,
         moveTargets,
         onMove,
-        onClear,
-        clearLabel,
-        clearActionLabel,
+        clearAction,
         placement,
         disabled,
     } = props;
@@ -143,24 +146,27 @@ export const DndActionMenu = React.forwardRef<
         )),
     ];
 
-    if (onClear) {
+    if (clearAction) {
         menuItems.push(
             <SeparatorItem key="separator" />,
             <ActionItem
                 key="clear"
-                label={clearLabel}
-                aria-label={clearActionLabel}
-                onClick={onClear}
+                label={clearAction.label}
+                aria-label={clearAction.actionLabel}
+                onClick={clearAction.onClear}
                 style={itemStyle}
             />,
         );
     }
 
+    // With nothing to move to and nothing to clear, the menu would open
+    // containing only the decorative header — a dead end for keyboard and
+    // screen-reader users — so the opener disables itself instead.
+    const hasActions = moveTargets.length > 0 || clearAction != null;
+    const isDisabled = disabled || !hasActions;
+
     return (
         <>
-            {/* The opener's accessible name is the tile value and its
-                description carries the SR-only context ("5 remaining.
-                Actions menu."), per the DnD Overview's labelling model. */}
             <span id={labelId} className={styles.srOnly}>
                 {label}
             </span>
@@ -171,14 +177,14 @@ export const DndActionMenu = React.forwardRef<
                 // menuText is required by ActionMenu but unused with a
                 // custom opener; the real name comes from aria-labelledby.
                 menuText={label}
-                disabled={disabled}
+                disabled={isDisabled}
                 alignment={placement === "above" ? "top-start" : "bottom-start"}
                 dropdownStyle={{width: MENU_WIDTH}}
                 testId={`dnd-action-menu-${tileId}`}
                 opener={() => (
                     <MergedRefOpener
                         openerRef={ref}
-                        disabled={disabled}
+                        disabled={isDisabled}
                         aria-labelledby={labelId}
                         aria-describedby={descriptionId}
                         className={styles.opener}
@@ -186,7 +192,6 @@ export const DndActionMenu = React.forwardRef<
                         <PhosphorIcon
                             icon={dotsSixVerticalIcon}
                             size="medium"
-                            className={styles.openerIcon}
                         />
                     </MergedRefOpener>
                 )}

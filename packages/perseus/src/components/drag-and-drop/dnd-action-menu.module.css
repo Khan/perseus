@@ -17,7 +17,6 @@
     min-inline-size: var(--wb-sizing-size_240);
     min-block-size: var(--wb-sizing-size_240);
 
-    /* Trailing gap between the handle and the tile content. */
     margin-inline-end: var(--wb-sizing-size_060);
 
     color: var(--wb-semanticColor-core-foreground-neutral-default);
@@ -28,19 +27,15 @@
     color: var(--wb-semanticColor-core-foreground-disabled-subtle);
 }
 
-.openerIcon {
-    /* The icon is decorative; the button's name comes from aria-labelledby. */
-    pointer-events: none;
-}
-
-/* The visual-only "Move to" header injected as the menu's first child.
- * pointer-events: none defuses the onClick that ActionMenu clones onto
- * every child; aria-hidden (set in the component) removes the injected
- * menuitem role from the accessibility tree. */
+/* The visual-only "Move to" header — see dnd-action-menu.tsx for why it
+ * exists. pointer-events: none is load-bearing: without it, clicking the
+ * header fires the onClick ActionMenu injects and WB's dropdown internals
+ * throw (they expect every child to be a registered item). Untestable in
+ * jsdom, which doesn't apply CSS-module styles. */
 .menuHeader {
     display: flex;
     align-items: center;
-    block-size: 28px;
+    block-size: var(--wb-sizing-size_280);
     padding-inline: var(--wb-sizing-size_200);
     pointer-events: none;
 
