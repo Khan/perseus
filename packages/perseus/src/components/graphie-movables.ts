@@ -36,7 +36,6 @@ const MovablePoint: any = GraphieClasses.createClass({
                 ...commonStyle,
                 "stroke-width": 0,
                 scale: 0.75,
-                ...(this.props.mobileStyleOverride || {}),
             },
             shadow: true,
             tooltip: this.props.showTooltips,

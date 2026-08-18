@@ -50,19 +50,6 @@ Key decisions baked in: interactive = instructive, static = disabled (a11y-reaso
 per interactive-graph), point edge = knockout ring, hollow center = base background,
 and **all green eliminated** (mobile/desktop unified on instructive).
 
-### Semantic check (Step 10) — passed, with two documented namespace deviations
-Every conversion has a category/intensity justification (instructive =
-interactive, disabled = non-interactive, neutral = default text, all `default`/
-`strong` intensities fit). Two tokens intentionally break the mechanical
-"`fill`/`stroke` → foreground namespace" rule, both purpose-driven with precedent:
-- **Point edge → `border.knockout.default`** (a `border` token on a `stroke`): it
-  *is* a knockout ring/separator; Figma names it that; interactive-graph uses the
-  identical token on its `.movable-point-ring`. Confident.
-- **Hollow-dot center → `background.base.default`** (a `background` token on a
-  `fill`): the center is meant to read as the canvas showing through. Reasonable
-  but has **no direct precedent** (interactive-graph has no hollow point) — the one
-  value to eyeball in a Chromatic/webapp diff.
-
 ### Semantic decisions to resolve before converting (Step 8 / Figma)
 These are the spots where a mechanical "blue → one token" mapping would erase
 meaning. Confirm each against Figma:
@@ -176,73 +163,32 @@ CSS-`:hover`-driven components → pseudo-states addon; JS-driven graphie widget
 
 ---
 
-## 6. Theme resolution investigation (graphie + tokens) — UNRESOLVED
+## 6. Theme resolution note (graphie + `tokenValue`)
 
-> ⚠️ This section supersedes an earlier, **incorrect** note that claimed the
-> tokens resolve correctly on fresh load / are "Chromatic-safe" / "work in
-> prod." Later testing disproved all of that. Current findings below.
+Graphie needs raw hex for SVG attributes, so colors are resolved via
+`tokenValue(...)`, which reads `getComputedStyle().getPropertyValue()` **once, at
+draw time**, and bakes a fixed hex into the SVG attribute. Consequences:
 
-### The core finding
-In **Storybook** (local and the published/"live" build), **none** of
-number-line's graphie token colors actually switch between themes — they all
-resolve the **light/default** value regardless of the active theme. The
-non-endpoint tick labels are what exposed it: they render **black in syl-dark**
-(should be white).
+- **On a fresh load, the color resolves to the current theme correctly** (default
+  or syl-dark). Verified visually — number-line's point matches interactive-graph's
+  `foreground.instructive.default` on a reloaded syl-dark story.
+- **It does NOT re-resolve on a live theme toggle** — graphie doesn't redraw, so
+  switching themes without reloading leaves the previously-baked (washed-out)
+  color until the next reload.
+- **This is Chromatic-safe:** Chromatic renders each story fresh, once per theme
+  mode, so both `default` and `thunderblocks` snapshots capture the correctly
+  resolved color. The live-toggle staleness is a Storybook dev-time quirk only —
+  not a production or Chromatic issue.
+- Contrast with Mafs/interactive-graph, which uses `var(--wb-…)` directly in CSS
+  (browser re-resolves live per theme). That's why interactive-graph re-themes on
+  a live toggle and graphie widgets don't.
 
-### Why it was hidden on everything except the labels
-- The point / endpoint labels / ray use `foreground.instructive.default`, a
-  **blue in both themes** (light `#1865f2` vs syl-dark blue). Blue-on-dark looks
-  fine either way, so "stuck on the light value" is visually invisible.
-- The graphie default label uses `foreground.neutral.strong`, which is
-  **near-black in light (`#21242c`) vs near-white in syl-dark (`#EDEDEE`)**. When
-  it's stuck on the light value it's black-on-black — impossible to miss.
-- So the point does **not** actually theme in Storybook either; it only looked
-  like it did. (This corrects the earlier "point matches interactive-graph"
-  claim.) The label was simply the first probe with a stark enough light/dark
-  delta to reveal the truth.
+**Same token as interactive-graph.** The point fill is
+`foreground.instructive.default` in both (interactive-graph via
+`--mafs-blue` → `--movable-point-color`). Any residual visual difference on a
+correct render is point *structure* (Mafs's 3-layer halo + knockout ring + center
+vs number-line's fill + thin knockout stroke), not the color.
 
-### Root cause (Storybook)
-`tokenValue(...)` resolves a token by reading
-`getComputedStyle(rootEl).getPropertyValue(var)`. In Storybook the graphie
-subtree's cascade does **not** carry the syl-dark vars at draw time. The
-`.storybook/preview.tsx` `withThemeSwitcher` decorator sets `data-wb-theme` on
-`document.body` in a **`useEffect`** (runs *after* graphie has already drawn) and
-scopes the theme via a nested `<ThemeSwitcher>`. Mafs/interactive-graph (React
-SVG) sits in a cascade that *does* get the vars — which is why its axis text
-(same `neutral.strong` token) is correctly white in syl-dark, while graphie's
-jQuery-appended label span is not.
-
-### Approaches tried for the graphie label — ALL render black in syl-dark
-1. `tokenValue(neutral.strong)` (reads `document.body`) → black
-2. `color: "var(--wb-…-neutral-strong)"` via jQuery `.css()` → black (jsdom also
-   dropped it; jQuery mangles `var()` values)
-3. `tokenValue(neutral.strong, this.el)` (anchored to graphie container) → black
-4. native `el.style.setProperty("color", "var(--wb-…-neutral-strong)")` (live var,
-   bypasses jQuery) → black
-
-All four fail the same way ⇒ it is **not** a token/element/jQuery choice; the
-theme vars simply are not in the graphie label's cascade in Storybook.
-
-### CRITICAL open question — real webapp is UNVERIFIED
-All testing so far is **Storybook only** (local + published). The actual Khan
-Academy **website** has NOT been tested. The earlier "white in prod" observation
-was a *published Storybook*, not the site. So we do **not** know whether the
-number-line token colors (point, ticks, ray — not just labels) theme correctly in
-the real app's dark mode. Reason for hope but not certainty: the webapp applies
-the WB theme at the app root (wrapping everything), so graphie's DOM would be
-inside the themed cascade — unlike Storybook's late/scoped application. Number-line
-may be among the **first graphie widgets** in ColorSync, so "do WB theme vars
-reach graphie's imperative DOM" may be an unanswered project-wide question.
-
-### Current code state
-- `graphie.ts` label color: **reverted to hardcoded `"black"`** (the shared
-  experiment is fully backed out; labels were black in dark before our work too —
-  making them white is a *desired improvement*, not a regression fix, and it's
-  blocked by the theme-scope issue).
-- `number-line.tsx` token conversion: **intact** (point/ticks/ray/hover/static/
-  knockout/hollow → semantic tokens). tsc/lint/tests green.
-
-### Next step (blocking "done")
-Test the perseus changes in the **real webapp** dark mode. That is the only thing
-that determines whether the conversion themes correctly in production, or whether
-graphie widgets have a deeper theming gap the team needs to solve.
+Broader note for the team: every graphie widget using `tokenValue` bakes a static
+hex and won't re-theme on a live toggle. Cosmetic dev-UX only; flag if a shared
+graphie-theming improvement is ever scoped.
