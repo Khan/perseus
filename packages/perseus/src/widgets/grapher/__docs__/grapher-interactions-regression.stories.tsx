@@ -54,8 +54,7 @@ export const MobileHairlines: Story = {
         });
         // In graphie's mobile touch mode the grabbed point maps to the
         // corner of the plot rather than the synthetic pointer position, so
-        // the hairlines render at the graph's edge — that's fine, since this
-        // story only needs the hairline color, not its exact position.
+        // the hairlines render at the graph's edge
         const rect = mouseTarget.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
