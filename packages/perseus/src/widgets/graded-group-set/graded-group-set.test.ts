@@ -1,5 +1,5 @@
 import {type PerseusRenderer} from "@khanacademy/perseus-core";
-import {act, screen} from "@testing-library/react";
+import {act, fireEvent, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
@@ -132,6 +132,23 @@ describe("graded group set widget", () => {
         await userEvent.click(
             screen.getByRole("button", {name: "Next question"}),
         );
+
+        // Assert
+        expect(screen.getByText("Problem 1b")).toBeVisible();
+    });
+
+    it("should advance to next group when Ctrl+Enter is pressed", async () => {
+        // Arrange
+        renderQuestion(article1);
+        await userEvent.type(screen.getByRole("textbox"), "0.9");
+        await userEvent.click(screen.getByRole("button", {name: "Check"}));
+
+        const nextQuestionButton = screen.getByRole("button", {
+            name: "Next question",
+        });
+
+        // Act
+        fireEvent.keyDown(nextQuestionButton, {ctrlKey: true, key: "Enter"});
 
         // Assert
         expect(screen.getByText("Problem 1b")).toBeVisible();
