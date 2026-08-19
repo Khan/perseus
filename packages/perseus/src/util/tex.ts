@@ -39,17 +39,17 @@ export default {
         force?: boolean,
         callback?: () => unknown,
     ) {
-        const cachedFormula = elem.getAttribute("data-math-formula");
+        const dataMathFormula = elem.getAttribute("data-math-formula");
 
         // Only process if it hasn't been done before, or it is forced
-        if (cachedFormula == null || force) {
+        if (dataMathFormula == null || force) {
             const texHolder = findChildOrAdd(elem, "tex-holder");
 
             // If text wasn't provided, we use the cached text.
             // NOTE(benchristel): I'm not sure if text can ever be null. It's
             // possible we don't need this check.
-            if (text == null && cachedFormula) {
-                text = cachedFormula;
+            if (text == null && dataMathFormula) {
+                text = dataMathFormula;
             }
 
             text = text != null ? text + "" : "";
