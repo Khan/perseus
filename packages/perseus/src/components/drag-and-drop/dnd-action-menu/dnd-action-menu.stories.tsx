@@ -4,16 +4,12 @@ import {mockStrings} from "../../../strings";
 import {PerseusI18nContextProvider} from "../../i18n-context";
 
 import {DndActionMenu} from "./dnd-action-menu";
+import {
+    generateActionMenuProps,
+    generateTestBlanks,
+} from "./dnd-action-menu.testdata";
 
-import type {MoveTarget} from "./dnd-action-menu";
 import type {Meta, StoryObj} from "@storybook/react-vite";
-
-const FOUR_BLANKS: ReadonlyArray<MoveTarget> = [
-    {id: "blank-1", label: "Blank 1"},
-    {id: "blank-2", label: "Blank 2"},
-    {id: "blank-3", label: "Blank 3"},
-    {id: "blank-4", label: "Blank 4"},
-];
 
 /** TODO(LEMS-4363): Placeholder answer tile until we create the real one */
 function PlaceholderTile({children}: {children: React.ReactNode}) {
@@ -53,11 +49,8 @@ const meta: Meta<typeof DndActionMenu> = {
         </PlaceholderTile>
     ),
     args: {
-        tileId: "tile-1",
-        label: "Bongo",
-        moveTargets: FOUR_BLANKS,
-        onMove: () => {},
-        disabled: false,
+        ...generateActionMenuProps(),
+        moveTargets: generateTestBlanks(4),
     },
 };
 
@@ -72,7 +65,7 @@ export const InChoiceBank: Story = {};
 /** A tile placed in Blank 1, which should list the other blanks, and a "Clear" option. */
 export const PlacedInBlank: Story = {
     args: {
-        moveTargets: FOUR_BLANKS.slice(1),
+        moveTargets: generateTestBlanks(4).slice(1),
         targetLabel: "Blank 1",
         onClear: () => {},
     },

@@ -21,9 +21,7 @@ export type MoveTarget = {
     label: string;
 };
 
-interface DndActionMenuProps {
-    /** id of the parent AnswerTile. */
-    tileId: string;
+export interface DndActionMenuProps {
     /** The tile's value — labels the button via aria-labelledby. */
     label: string;
     /**
@@ -49,17 +47,6 @@ interface DndActionMenuProps {
     disabled: boolean;
 }
 
-/**
- * ActionMenu's children type only accepts Action/Option/Separator items,
- * which makes it hard to reliably add a header with translated text.
- * This helper confines that one unsafe cast so every other call site
- * stays honestly typed.
- */
-function asMenuChild(element: React.ReactElement): React.ReactElement<any> {
-    // eslint-disable-next-line no-restricted-syntax
-    return element as React.ReactElement<any>;
-}
-
 // The design calls for the menu items to be 48px tall,
 // and WonderBlocks defaults to 40px.
 const menuItemStyle = {minBlockSize: sizing.size_480};
@@ -82,7 +69,6 @@ export const DndActionMenu = React.forwardRef<
     DndActionMenuProps
 >(function DndActionMenu(props, ref): React.ReactElement {
     const {
-        tileId,
         label,
         remainingUses,
         moveTargets,
@@ -109,17 +95,19 @@ export const DndActionMenu = React.forwardRef<
         // an injected role="menuitem" and onClick, so the span must be
         // aria-hidden (keeps it out of the accessibility tree — the spoken
         // phrasing lives in each item's aria-label instead) and the CSS sets
-        // pointer-events: none (defuses the injected click handler).
-        asMenuChild(
+        // pointer-events: none (defuses the injected click handler). The
+        // cast sneaks the span past ActionMenu's children type, which only
+        // accepts Action/Option/Separator items.
+        // eslint-disable-next-line no-restricted-syntax
+        (
             <span
                 key="header"
                 aria-hidden="true"
                 className={styles.menuHeader}
-                data-testid="dnd-action-menu-header"
             >
                 {strings.moveTo}
-            </span>,
-        ),
+            </span>
+        ) as React.ReactElement<any>,
         ...moveTargets.map((target) => (
             <ActionItem
                 key={target.id}
@@ -176,7 +164,6 @@ export const DndActionMenu = React.forwardRef<
                 // up with the opener's edge ("start").
                 alignment="auto-start"
                 dropdownStyle={menuStyle}
-                testId={`dnd-action-menu-${tileId}`}
                 opener={() => (
                     <MergedRefOpener
                         openerRef={ref}
