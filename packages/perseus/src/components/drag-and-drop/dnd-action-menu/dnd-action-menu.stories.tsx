@@ -66,6 +66,7 @@ export default meta;
 type Story = StoryObj<typeof DndActionMenu>;
 
 /** Parent tile is in the choice bank, which should list the available blanks, with no "Clear" option */
+// No overrides — the shared args on `meta` model this state already.
 export const InChoiceBank: Story = {};
 
 /** A tile placed in Blank 1, which should list the other blanks, and a "Clear" option. */
@@ -133,10 +134,10 @@ export const RightToLeft: Story = {
                 <PerseusI18nContextProvider
                     strings={{
                         ...mockStrings,
-                        dndMoveToHeader: "نقل إلى",
-                        dndClear: "مسح",
-                        dndMoveToTarget: ({target}) => `نقل إلى ${target}`,
-                        dndClearTarget: ({target}) => `مسح من ${target}`,
+                        moveTo: "نقل إلى",
+                        clear: "مسح",
+                        moveToTarget: ({target}) => `نقل إلى ${target}`,
+                        clearTarget: ({target}) => `مسح من ${target}`,
                     }}
                     locale="ar"
                 >

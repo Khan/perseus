@@ -38,8 +38,9 @@ interface DndActionMenuProps {
     /** Called with the target blank's id when a move action is selected. */
     onMove: (targetId: string) => void;
     /**
-     * Label of the blank the tile currently sits in, e.g. "Blank 1".
-     * Provided together with onClear when the tile is placed in a blank.
+     * Visible label (not the id) of the blank/column the tile currently
+     * sits in, e.g. "Blank 1" — spoken in the clear action as
+     * "Clear from Blank 1". Provide together with onClear.
      */
     targetLabel?: string;
     /** Callback for removing the tile from its blank. */
@@ -97,8 +98,8 @@ export const DndActionMenu = React.forwardRef<
 
     const description =
         remainingUses != null
-            ? `${strings.dndRemaining({num: remainingUses})} ${strings.dndActionsMenu}`
-            : strings.dndActionsMenu;
+            ? `${strings.menuRemaining({num: remainingUses})} ${strings.actionsMenu}`
+            : strings.actionsMenu;
 
     const showClearAction = onClear != null && targetLabel != null;
 
@@ -116,14 +117,14 @@ export const DndActionMenu = React.forwardRef<
                 className={styles.menuHeader}
                 data-testid="dnd-action-menu-header"
             >
-                {strings.dndMoveToHeader}
+                {strings.moveTo}
             </span>,
         ),
         ...moveTargets.map((target) => (
             <ActionItem
                 key={target.id}
                 label={target.label}
-                aria-label={strings.dndMoveToTarget({target: target.label})}
+                aria-label={strings.moveToTarget({target: target.label})}
                 onClick={() => onMove(target.id)}
                 style={menuItemStyle}
             />
@@ -135,8 +136,8 @@ export const DndActionMenu = React.forwardRef<
             <SeparatorItem key="separator" />,
             <ActionItem
                 key="clear"
-                label={strings.dndClear}
-                aria-label={strings.dndClearTarget({target: targetLabel})}
+                label={strings.clear}
+                aria-label={strings.clearTarget({target: targetLabel})}
                 onClick={onClear}
                 style={menuItemStyle}
             />,
@@ -170,8 +171,9 @@ export const DndActionMenu = React.forwardRef<
                 // custom opener; the real name comes from aria-labelledby.
                 menuText={label}
                 disabled={isDisabled}
-                // "auto" lets Popper open the menu on whichever side of the
-                // opener has the most room, based on scroll position.
+                // "auto-start": Popper opens the menu on whichever side of
+                // the opener has the most room ("auto") and lines its edge
+                // up with the opener's edge ("start").
                 alignment="auto-start"
                 dropdownStyle={menuStyle}
                 testId={`dnd-action-menu-${tileId}`}

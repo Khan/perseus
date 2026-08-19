@@ -908,14 +908,14 @@ export type PerseusStrings = {
     gifPlayButtonLabel: string;
     gifPauseButtonLabel: string;
     definitionIdentifier: ({word}: {word: string}) => string;
-    // Drag-and-drop action menu
-    dndMoveToHeader: string;
-    dndClear: string;
-    dndMoveToTarget: ({target}: {target: string}) => string;
-    dndClearTarget: ({target}: {target: string}) => string;
-    dndActionsMenu: string;
+    // Drag-and-drop
+    moveTo: string;
+    clear: string;
+    moveToTarget: ({target}: {target: string}) => string;
+    clearTarget: ({target}: {target: string}) => string;
+    actionsMenu: string;
     // `num` is the special variable name used to determine plurality
-    dndRemaining: ({num}: {num: number}) => string;
+    menuRemaining: ({num}: {num: number}) => string;
 };
 
 /**
@@ -1861,13 +1861,13 @@ export const strings = {
     gifPlayButtonLabel: "Play Animation",
     gifPauseButtonLabel: "Pause Animation",
     definitionIdentifier: "Definition of: %(word)s",
-    // Drag-and-drop action menu
-    dndMoveToHeader: "Move to",
-    dndClear: "Clear",
-    dndMoveToTarget: "Move to %(target)s",
-    dndClearTarget: "Clear from %(target)s",
-    dndActionsMenu: "Actions menu",
-    dndRemaining: {
+    // Drag-and-drop
+    moveTo: "Move to",
+    clear: "Clear",
+    moveToTarget: "Move to %(target)s",
+    clearTarget: "Clear from %(target)s",
+    actionsMenu: "Actions menu",
+    menuRemaining: {
         one: "%(num)s remaining.",
         other: "%(num)s remaining.",
     },
@@ -2390,13 +2390,13 @@ export const mockStrings: PerseusStrings = {
     gifPlayButtonLabel: "Play Animation",
     gifPauseButtonLabel: "Pause Animation",
     definitionIdentifier: ({word}) => `Definition of: ${word}`,
-    // Drag-and-drop action menu
-    dndMoveToHeader: "Move to",
-    dndClear: "Clear",
-    dndMoveToTarget: ({target}) => `Move to ${target}`,
-    dndClearTarget: ({target}) => `Clear from ${target}`,
-    dndActionsMenu: "Actions menu",
-    dndRemaining: ({num}) => `${num} remaining.`,
+    // Drag-and-drop
+    moveTo: "Move to",
+    clear: "Clear",
+    moveToTarget: ({target}) => `Move to ${target}`,
+    clearTarget: ({target}) => `Clear from ${target}`,
+    actionsMenu: "Actions menu",
+    menuRemaining: ({num}) => `${num} remaining.`,
 };
 
 // This type helps us make sure all error codes are mapped to strings
