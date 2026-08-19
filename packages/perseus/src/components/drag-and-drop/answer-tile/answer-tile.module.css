@@ -1,9 +1,9 @@
 /*
- * AnswerTile — the card a learner moves into a blank.
+ * AnswerTile — the card that a learner moves into a blank.
  *
- * The leading 6px gap between the menu/icon and the content is owned by the
- * leading element itself (the menu opener already carries a 6px trailing
- * margin; the state icon mirrors it), so the tile sets no gap of its own.
+ * The tile sets no gap of its own. The leading element owns the 6px gap
+ * before the content: the menu opener has a 6px trailing margin, and the
+ * state icon copies it.
  */
 .tile {
     display: flex;
@@ -19,7 +19,7 @@
     font-family: var(--wb-font-family-sans);
     font-size: var(--wb-font-body-size-medium);
     font-weight: var(--wb-font-weight-semi);
-    /* Per design, the medium body size pairs with the large line height. */
+    /* The design pairs the medium body size with the large line height. */
     line-height: var(--wb-font-body-lineHeight-large);
     word-break: break-word;
 }
@@ -31,9 +31,9 @@
     box-shadow: 0 2px 2px var(--wb-semanticColor-core-shadow-transparent-low);
 }
 
-/* Scored borders are thicker (2px vs 1px), so scored states give up that
- * extra width from their padding — the tile keeps the same overall size
- * and nothing shifts when the parent flips states. */
+/* Scored borders are 2px. The rest border is 1px. Scored states remove
+ * the extra 1px from their padding. The tile keeps the same size, so
+ * nothing moves when the state changes. */
 .correct,
 .incorrect {
     padding-block: calc(
@@ -68,9 +68,10 @@
     display: inline-flex;
 }
 
-/* In an inline blank the menu stays out of the way until the learner
- * hovers or tabs to it. Hidden visually only — the opener must stay
- * focusable and clickable for keyboard and screen reader users. */
+/* In an inline blank, the menu is hidden until the learner hovers on
+ * the tile or moves focus into it. The menu is only hidden visually.
+ * The opener stays focusable and clickable for keyboard and screen
+ * reader users. */
 .menuOnDemand {
     opacity: 0;
 }
@@ -80,8 +81,8 @@
     opacity: 1;
 }
 
-/* The check/x box matches the menu opener: a 24px square with a 6px
- * trailing margin, so scored and rest tiles align. */
+/* The check/x box has the same size as the menu opener: a 24px square
+ * with a 6px trailing margin. Scored and rest tiles align as a result. */
 .stateIcon {
     display: inline-flex;
     align-items: center;
@@ -94,29 +95,29 @@
 .content {
     display: flex;
     justify-content: center;
-    /* Text and TeX reflow past this width; content never scrolls. */
+    /* Text and TeX wrap at this width. Content never scrolls. */
     max-inline-size: 200px;
     padding-inline-end: var(--wb-sizing-size_060);
-    /* Scored colors recolor the rendered markdown. */
+    /* The rendered markdown gets its color from the tile's state. */
     color: inherit;
 }
 
-/* Images follow their preset height but never overflow the tile. */
+/* Images keep their set height. They must not overflow the tile. */
 .content img {
     max-inline-size: 100%;
 }
 
-/* The renderer wraps content in .paragraph divs that carry Perseus's
- * global page styles (Lato 18px, 22px vertical margins). The tile owns
- * its own typography, so undo them here. The .tile prefix keeps this
- * selector more specific than the global one. */
+/* The renderer puts content in .paragraph divs. Perseus gives those
+ * divs global page styles: Lato 18px and 22px vertical margins. The
+ * tile owns its own typography, so we remove those styles here. The
+ * .tile prefix makes this selector win against the global one. */
 .tile .content :global(div.paragraph) {
     margin: 0;
     font: inherit;
 }
 
-/* An empty tile keeps a minimum width so it's still a visible,
- * targetable card. 6.4rem = 64px at KA's 10px root font size. */
+/* An empty tile keeps a minimum width. The learner can then see it and
+ * select it. 6.4rem = 64px at KA's 10px root font size. */
 .emptyContent {
     min-inline-size: 6.4rem;
 }
