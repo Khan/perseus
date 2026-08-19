@@ -57,6 +57,12 @@ export default meta;
 
 type Story = StoryObj<typeof DndActionMenu>;
 
+/**
+ * The action menu on a tile in the choice bank: a "Move to" header followed
+ * by one action per available blank. Click the six-dot handle to open it.
+ */
+export const Default: Story = {};
+
 /** Parent tile is in the choice bank, which should list the available blanks, with no "Clear" option */
 // No overrides — the shared args on `meta` model this state already.
 export const InChoiceBank: Story = {};
