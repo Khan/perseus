@@ -186,10 +186,18 @@ export const DndActionMenu = React.forwardRef<
 
     return (
         <>
-            <span id={labelId} className={styles.srOnly}>
+            {/* Name and description sources for the opener button. They are
+                aria-hidden so browse-mode screen readers don't also hit them
+                as loose text — aria-labelledby/aria-describedby still resolve
+                hidden nodes. */}
+            <span id={labelId} aria-hidden="true" className={styles.srOnly}>
                 {label}
             </span>
-            <span id={descriptionId} className={styles.srOnly}>
+            <span
+                id={descriptionId}
+                aria-hidden="true"
+                className={styles.srOnly}
+            >
                 {description}
             </span>
             <ActionMenu
