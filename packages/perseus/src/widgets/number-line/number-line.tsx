@@ -44,6 +44,7 @@ const bound = (x: number, gt: any, lt: any) => Math.min(Math.max(x, gt), lt);
 const EN_DASH = "\u2013";
 const horizontalPadding = 30;
 
+// 460/288 are the full box; drawable width is box − padding·2
 const MOBILE_BOX_WIDTH = 288;
 const DESKTOP_BOX_WIDTH = 460;
 
