@@ -89,8 +89,11 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
     const {tileId, content, label, state, menu, menuVisibility} = props;
     const {strings} = usePerseusI18n();
 
+    // The icon for the current answer state, if one exists.
     const scoredIcon = scoredIcons[state];
     // Whitespace-only content would render an invisible, unlabeled tile.
+    // This protection might not be needed, depending on how we implement
+    // the Content Editor experience, but it seemed wise to add this for now.
     const isEmpty = content.trim() === "";
 
     // The tile starts with the actions menu or, when scored, an icon.
