@@ -1,9 +1,5 @@
 /*
  * AnswerTile — the card that a learner moves into a blank.
- *
- * The tile sets no gap of its own. The leading element owns the 6px gap
- * before the content: the menu opener has a 6px trailing margin, and the
- * state icon copies it.
  */
 .tile {
     display: flex;
@@ -64,8 +60,15 @@
     color: var(--wb-semanticColor-core-foreground-disabled-strong);
 }
 
-.menuContainer {
-    display: inline-flex;
+/* The box at the start of the tile. It holds the actions menu or the
+ * scored icon, and it owns the 6px gap before the content. */
+.startContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-inline-size: var(--wb-sizing-size_240);
+    block-size: var(--wb-sizing-size_240);
+    margin-inline-end: var(--wb-sizing-size_060);
 }
 
 /* In an inline blank, the menu is hidden until the learner hovers on
@@ -79,17 +82,6 @@
 .tile:hover .menuOnDemand,
 .tile:focus-within .menuOnDemand {
     opacity: 1;
-}
-
-/* The check/x box has the same size as the menu opener: a 24px square
- * with a 6px trailing margin. Scored and rest tiles align as a result. */
-.stateIcon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    inline-size: var(--wb-sizing-size_240);
-    block-size: var(--wb-sizing-size_240);
-    margin-inline-end: var(--wb-sizing-size_060);
 }
 
 .content {

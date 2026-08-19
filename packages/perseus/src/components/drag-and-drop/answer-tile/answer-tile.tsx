@@ -142,7 +142,7 @@ function TileActionsMenu(props: {
     return (
         <span
             className={classNames(
-                styles.menuContainer,
+                styles.startContainer,
                 visibility === "on-hover-or-focus" && styles.menuOnDemand,
             )}
         >
@@ -165,7 +165,7 @@ function TileScoredIcon(props: {
 }): React.ReactElement {
     return (
         <span
-            className={styles.stateIcon}
+            className={styles.startContainer}
             // This icon is decorative. The widget announces the
             // result to screen readers, not the tile.
             aria-hidden="true"

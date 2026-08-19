@@ -17,8 +17,6 @@
     min-inline-size: var(--wb-sizing-size_240);
     min-block-size: var(--wb-sizing-size_240);
 
-    margin-inline-end: var(--wb-sizing-size_060);
-
     color: var(--wb-semanticColor-core-foreground-neutral-default);
 }
 
