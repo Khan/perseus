@@ -90,6 +90,8 @@ describe("DndActionMenu", () => {
         await user.click(screen.getByRole("button", {name: "Bongo"}));
 
         // Assert — no clear action, so every menu item is a move action.
+        // findBy waits for the menu's portal to render; once one query has
+        // succeeded, the remaining assertions can use synchronous getBy.
         expect(await screen.findAllByRole("menuitem")).toHaveLength(3);
         expect(screen.getByText("Blank 1")).toBeInTheDocument();
         expect(screen.getByText("Blank 2")).toBeInTheDocument();

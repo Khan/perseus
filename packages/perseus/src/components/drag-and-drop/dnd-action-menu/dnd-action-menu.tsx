@@ -10,6 +10,7 @@ import * as React from "react";
 import {useId} from "react";
 
 import {usePerseusI18n} from "../../i18n-context";
+import a11yStyles from "../../../styles/a11y.module.css";
 
 import styles from "./dnd-action-menu.module.css";
 import {MergedRefOpener} from "./merged-ref-opener";
@@ -46,15 +47,6 @@ export interface DndActionMenuProps {
     /** Scored/unused tiles. */
     disabled: boolean;
 }
-
-// The design calls for the menu items to be 48px tall,
-// and WonderBlocks defaults to 40px.
-const menuItemStyle = {minBlockSize: sizing.size_480};
-
-// A minimum (not fixed) width, in rem so it scales with the user's font
-// size. Short labels get breathing room; long labels can still widen the
-// menu. No sizing token reaches this scale.
-const menuStyle = {minInlineSize: "16rem"};
 
 /**
  * DndActionMenu is the menu that appears on each Answer Tile in our upcoming
@@ -140,13 +132,17 @@ export const DndActionMenu = React.forwardRef<
                 aria-hidden so browse-mode screen readers don't also hit them
                 as loose text — aria-labelledby/aria-describedby still resolve
                 hidden nodes. */}
-            <span id={labelId} aria-hidden="true" className={styles.srOnly}>
+            <span
+                id={labelId}
+                aria-hidden="true"
+                className={a11yStyles.srOnly}
+            >
                 {label}
             </span>
             <span
                 id={descriptionId}
                 aria-hidden="true"
-                className={styles.srOnly}
+                className={a11yStyles.srOnly}
             >
                 {description}
             </span>
@@ -180,3 +176,15 @@ export const DndActionMenu = React.forwardRef<
         </>
     );
 });
+
+// These live at module scope (rather than inline) so they keep a stable
+// identity across renders, and at the end of the file per convention.
+
+// The design calls for the menu items to be 48px tall,
+// and WonderBlocks defaults to 40px.
+const menuItemStyle = {minBlockSize: sizing.size_480};
+
+// A minimum (not fixed) width, in rem so it scales with the user's font
+// size. Short labels get breathing room; long labels can still widen the
+// menu. No sizing token reaches this scale.
+const menuStyle = {minInlineSize: "16rem"};
