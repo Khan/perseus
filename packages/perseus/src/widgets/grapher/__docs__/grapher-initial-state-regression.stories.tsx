@@ -1,6 +1,7 @@
 import {themeModes} from "../../../../../../.storybook/modes";
 import {mobileDecorator} from "../../__testutils__/story-decorators";
 import {
+    multipleAvailableTypesExponentialQuestion,
     multipleAvailableTypesQuestion,
     quadraticQuestion,
     staticExponentialQuestion,
@@ -69,5 +70,30 @@ export const MobileQuadratic: Story = {
     args: {question: quadraticQuestion},
     parameters: {
         apiOptions: {isMobile: true},
+    },
+};
+
+// Exponential's default asymptote position is normalized to the middle of
+// the graph's range, which lands right on top of the x-axis and makes the
+// dashed line indistinguishable from the axis. Seeding userInput directly
+// lets us start the asymptote off-axis so the dashed styling is actually
+// visible in the snapshot.
+export const DesktopDashedAsymptote: Story = {
+    decorators: [grapherRendererDecorator],
+    args: {question: multipleAvailableTypesExponentialQuestion},
+    parameters: {
+        initialUserInput: {
+            "grapher 1": {
+                type: "exponential",
+                coords: [
+                    [0, 3],
+                    [1, 4],
+                ],
+                asymptote: [
+                    [-10, -3],
+                    [10, -3],
+                ],
+            },
+        },
     },
 };

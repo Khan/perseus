@@ -2,7 +2,10 @@ import {waitFor} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import {mobileDecorator} from "../../__testutils__/story-decorators";
-import {quadraticQuestion} from "../grapher.testdata";
+import {
+    multipleAvailableTypesExponentialQuestion,
+    quadraticQuestion,
+} from "../grapher.testdata";
 
 import {grapherRendererDecorator} from "./grapher-renderer-decorator";
 
@@ -71,4 +74,47 @@ export const DesktopHairlines: Story = {
     args: {question: quadraticQuestion},
     decorators: [grapherRendererDecorator],
     play: dragMovablePoint,
+};
+
+// The asymptote's grab handler is bound to the inner Raphael <path>, not the
+// wrapper <div> that carries the data attribute. Pressing and dragging it to
+// a new position (without releasing) moves the dashed line off the x-axis
+// and leaves it "grabbed" -- isHovering only resets on mouseup, so this
+// single interaction doubles as a hover snapshot of the dragged line.
+export const DesktopAsymptoteHover: Story = {
+    args: {question: multipleAvailableTypesExponentialQuestion},
+    decorators: [grapherRendererDecorator],
+    parameters: {
+        initialUserInput: {
+            "grapher 1": {
+                type: "exponential",
+                coords: [
+                    [0, 3],
+                    [1, 4],
+                ],
+                asymptote: [
+                    [-10, -3],
+                    [10, -3],
+                ],
+            },
+        },
+    },
+    play: async ({canvasElement, userEvent}) => {
+        const mouseTarget = await waitFor(() => {
+            const el = canvasElement.querySelector(
+                '[data-interactive-kind-for-testing="movable-line"] path',
+            );
+            if (el == null) {
+                throw new Error("Asymptote mouse target not found");
+            }
+            return el;
+        });
+        const rect = mouseTarget.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        await userEvent.pointer([
+            {keys: "[MouseLeft>]", target: mouseTarget},
+            {coords: {clientX: centerX, clientY: centerY + 40}},
+        ]);
+    },
 };
