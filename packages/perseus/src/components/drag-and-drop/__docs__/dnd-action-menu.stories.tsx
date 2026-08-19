@@ -2,7 +2,6 @@ import * as React from "react";
 
 import {mockStrings} from "../../../strings";
 import {PerseusI18nContextProvider} from "../../i18n-context";
-
 import {DndActionMenu} from "../dnd-action-menu";
 import {
     generateActionMenuProps,
