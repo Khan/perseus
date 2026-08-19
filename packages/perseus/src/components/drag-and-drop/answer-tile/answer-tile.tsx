@@ -89,18 +89,18 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
     const {tileId, content, label, state, menu, menuVisibility} = props;
     const {strings} = usePerseusI18n();
 
-    const stateIcon = stateIcons[state];
+    const scoredIcon = scoredIcons[state];
     const showMenu = state === "rest" && menu != null;
     // Whitespace-only content would render an invisible, unlabeled tile.
     const isEmpty = content.trim() === "";
 
-    let leadingBox: React.ReactNode = null;
+    let menuOrScoredIcon: React.ReactNode = null;
     if (showMenu) {
         const {menuRef, ...menuProps} = menu;
-        leadingBox = (
+        menuOrScoredIcon = (
             <span
                 className={classNames(
-                    styles.menuBox,
+                    styles.menuContainer,
                     menuVisibility === "on-hover-or-focus" &&
                         styles.menuOnDemand,
                 )}
@@ -115,8 +115,8 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
                 />
             </span>
         );
-    } else if (stateIcon) {
-        leadingBox = (
+    } else if (scoredIcon) {
+        menuOrScoredIcon = (
             <span
                 className={styles.stateIcon}
                 // This icon is decorative. The widget announces the
@@ -124,7 +124,7 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
                 aria-hidden="true"
                 data-testid={`answer-tile-state-icon-${tileId}`}
             >
-                <PhosphorIcon icon={stateIcon} size="medium" />
+                <PhosphorIcon icon={scoredIcon} size="medium" />
             </span>
         );
     }
@@ -134,7 +134,7 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
             className={classNames(styles.tile, stateClasses[state])}
             data-testid={`answer-tile-${tileId}`}
         >
-            {leadingBox}
+            {menuOrScoredIcon}
             <span
                 className={classNames(
                     styles.content,
@@ -159,7 +159,7 @@ const stateClasses: Record<AnswerTileState, string> = {
     disabled: styles.disabled,
 };
 
-const stateIcons: Partial<Record<AnswerTileState, string>> = {
+const scoredIcons: Partial<Record<AnswerTileState, string>> = {
     correct: checkIcon,
     incorrect: xIcon,
 };
