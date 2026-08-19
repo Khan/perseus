@@ -53,9 +53,6 @@ export const MobileHairlines: Story = {
             }
             return el;
         });
-        // In graphie's mobile touch mode the grabbed point maps to the
-        // corner of the plot rather than the synthetic pointer position, so
-        // the hairlines render at the graph's edge
         const rect = mouseTarget.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
@@ -86,7 +83,7 @@ export const DesktopHairlines: Story = {
         const centerY = rect.top + rect.height / 2;
         await userEvent.pointer([
             {keys: "[MouseLeft>]", target: mouseTarget},
-            {coords: {clientX: centerX + 4, clientY: centerY + 4}},
+            {coords: {clientX: centerX, clientY: centerY}},
         ]);
     },
 };
