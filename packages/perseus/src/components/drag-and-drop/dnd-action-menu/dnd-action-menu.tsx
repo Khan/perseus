@@ -9,8 +9,8 @@ import dotsSixVerticalIcon from "@phosphor-icons/core/regular/dots-six-vertical.
 import * as React from "react";
 import {useId} from "react";
 
-import {usePerseusI18n} from "../../i18n-context";
 import a11yStyles from "../../../styles/a11y.module.css";
+import {usePerseusI18n} from "../../i18n-context";
 
 import styles from "./dnd-action-menu.module.css";
 import {MergedRefOpener} from "./merged-ref-opener";
@@ -132,11 +132,7 @@ export const DndActionMenu = React.forwardRef<
                 aria-hidden so browse-mode screen readers don't also hit them
                 as loose text — aria-labelledby/aria-describedby still resolve
                 hidden nodes. */}
-            <span
-                id={labelId}
-                aria-hidden="true"
-                className={a11yStyles.srOnly}
-            >
+            <span id={labelId} aria-hidden="true" className={a11yStyles.srOnly}>
                 {label}
             </span>
             <span
