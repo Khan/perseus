@@ -331,9 +331,9 @@ export class GradedGroup
                             />
                         </div>
 
-                        {this.props.answerArea &&
+                        {this.props.options.answerArea &&
                             apiOptions.renderExtras?.(
-                                this.props.answerArea,
+                                this.props.options.answerArea,
                                 this.props.widgetId,
                             )}
 
