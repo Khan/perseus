@@ -8,9 +8,10 @@ import {
 
 import {grapherRendererDecorator} from "./grapher-renderer-decorator";
 
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const meta: Meta = {
+const meta: Meta<{question: PerseusRenderer}> = {
     title: "Widgets/Grapher/Visual Regression Tests/Initial State",
     tags: ["!autodocs", "!manifest"],
     parameters: {
