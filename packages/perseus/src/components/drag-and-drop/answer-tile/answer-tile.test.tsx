@@ -90,6 +90,15 @@ describe("AnswerTile", () => {
 
             expect(screen.getByText("(empty)")).toBeInTheDocument();
         });
+
+        it("treats whitespace-only content as empty", () => {
+            // Arrange, Act
+            render(
+                <AnswerTile {...defaultProps()} content="  " label="(empty)" />,
+            );
+
+            expect(screen.getByText("(empty)")).toBeInTheDocument();
+        });
     });
 
     describe("menu integration", () => {
@@ -171,23 +180,20 @@ describe("AnswerTile", () => {
     });
 
     describe("states", () => {
-        it("renders the check icon when the state is correct", () => {
-            // Arrange, Act
-            render(<AnswerTile {...defaultProps()} state="correct" />);
+        // The icon graphic (check vs x) lives in a generated stylesheet,
+        // so jsdom cannot tell the two apart. The stories cover which
+        // glyph shows for each state.
+        it.each(["correct", "incorrect"] as const)(
+            "renders a state icon when the state is %s",
+            (state) => {
+                // Arrange, Act
+                render(<AnswerTile {...defaultProps()} state={state} />);
 
-            expect(
-                screen.getByTestId("answer-tile-state-icon-tile-1"),
-            ).toBeInTheDocument();
-        });
-
-        it("renders the x icon when the state is incorrect", () => {
-            // Arrange, Act
-            render(<AnswerTile {...defaultProps()} state="incorrect" />);
-
-            expect(
-                screen.getByTestId("answer-tile-state-icon-tile-1"),
-            ).toBeInTheDocument();
-        });
+                expect(
+                    screen.getByTestId("answer-tile-state-icon-tile-1"),
+                ).toBeInTheDocument();
+            },
+        );
 
         it("hides the state icons from assistive technology", () => {
             // Arrange, Act

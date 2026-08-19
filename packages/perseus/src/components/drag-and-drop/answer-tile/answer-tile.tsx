@@ -91,6 +91,8 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
 
     const stateIcon = stateIcons[state];
     const showMenu = state === "rest" && menu != null;
+    // Whitespace-only content would render an invisible, unlabeled tile.
+    const isEmpty = content.trim() === "";
 
     let leadingBox: React.ReactNode = null;
     if (showMenu) {
@@ -107,6 +109,8 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
                     ref={menuRef}
                     {...menuProps}
                     label={label}
+                    // Always false: scored tiles remove the menu instead
+                    // of disabling it, and they never reach this branch.
                     disabled={false}
                 />
             </span>
@@ -134,10 +138,10 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
             <span
                 className={classNames(
                     styles.content,
-                    content === "" && styles.emptyContent,
+                    isEmpty && styles.emptyContent,
                 )}
             >
-                {content === "" ? (
+                {isEmpty ? (
                     // An empty tile must have a spoken value.
                     <span className={a11yStyles.srOnly}>{label}</span>
                 ) : (
@@ -147,9 +151,6 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
         </div>
     );
 }
-
-// These constants are at module scope, at the end of the file per
-// convention. They keep the same identity on each render.
 
 const stateClasses: Record<AnswerTileState, string> = {
     rest: styles.rest,
