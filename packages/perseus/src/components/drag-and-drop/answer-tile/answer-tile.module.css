@@ -1,0 +1,122 @@
+/*
+ * AnswerTile — the card a learner moves into a blank.
+ *
+ * The leading 6px gap between the menu/icon and the content is owned by the
+ * leading element itself (the menu opener already carries a 6px trailing
+ * margin; the state icon mirrors it), so the tile sets no gap of its own.
+ */
+.tile {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+
+    padding-block: var(--wb-sizing-size_080);
+    padding-inline: var(--wb-sizing-size_100);
+
+    border-radius: var(--wb-border-radius-radius_080);
+    background: var(--wb-semanticColor-core-background-base-default);
+
+    font-family: var(--wb-font-family-sans);
+    font-size: var(--wb-font-body-size-medium);
+    font-weight: var(--wb-font-weight-semi);
+    /* Per design, the medium body size pairs with the large line height. */
+    line-height: var(--wb-font-body-lineHeight-large);
+    word-break: break-word;
+}
+
+.rest {
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+    color: var(--wb-semanticColor-core-foreground-neutral-strong);
+    box-shadow: 0 2px 2px var(--wb-semanticColor-core-shadow-transparent-low);
+}
+
+/* Scored borders are thicker (2px vs 1px), so scored states give up that
+ * extra width from their padding — the tile keeps the same overall size
+ * and nothing shifts when the parent flips states. */
+.correct,
+.incorrect {
+    padding-block: calc(
+        var(--wb-sizing-size_080) -
+            (var(--wb-border-width-medium) - var(--wb-border-width-thin))
+    );
+    padding-inline: calc(
+        var(--wb-sizing-size_100) -
+            (var(--wb-border-width-medium) - var(--wb-border-width-thin))
+    );
+}
+
+.correct {
+    border: var(--wb-border-width-medium) solid
+        var(--wb-semanticColor-core-border-success-default);
+    color: var(--wb-semanticColor-core-foreground-success-default);
+}
+
+.incorrect {
+    border: var(--wb-border-width-medium) solid
+        var(--wb-semanticColor-core-border-critical-default);
+    color: var(--wb-semanticColor-core-foreground-critical-default);
+}
+
+.disabled {
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+    color: var(--wb-semanticColor-core-foreground-disabled-strong);
+}
+
+.menuBox {
+    display: inline-flex;
+}
+
+/* In an inline blank the menu stays out of the way until the learner
+ * hovers or tabs to it. Hidden visually only — the opener must stay
+ * focusable and clickable for keyboard and screen reader users. */
+.menuOnDemand {
+    opacity: 0;
+}
+
+.tile:hover .menuOnDemand,
+.tile:focus-within .menuOnDemand {
+    opacity: 1;
+}
+
+/* The check/x box matches the menu opener: a 24px square with a 6px
+ * trailing margin, so scored and rest tiles align. */
+.stateIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: var(--wb-sizing-size_240);
+    block-size: var(--wb-sizing-size_240);
+    margin-inline-end: var(--wb-sizing-size_060);
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    /* Text and TeX reflow past this width; content never scrolls. */
+    max-inline-size: 200px;
+    padding-inline-end: var(--wb-sizing-size_060);
+    /* Scored colors recolor the rendered markdown. */
+    color: inherit;
+}
+
+/* Images follow their preset height but never overflow the tile. */
+.content img {
+    max-inline-size: 100%;
+}
+
+/* The renderer wraps content in .paragraph divs that carry Perseus's
+ * global page styles (Lato 18px, 22px vertical margins). The tile owns
+ * its own typography, so undo them here. The .tile prefix keeps this
+ * selector more specific than the global one. */
+.tile .content :global(div.paragraph) {
+    margin: 0;
+    font: inherit;
+}
+
+/* An empty tile keeps a minimum width so it's still a visible,
+ * targetable card. 6.4rem = 64px at KA's 10px root font size. */
+.emptyContent {
+    min-inline-size: 6.4rem;
+}

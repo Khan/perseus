@@ -1,15 +1,14 @@
 import * as React from "react";
 
+import {AnswerTile} from "../answer-tile";
 import {ChoiceBank} from "../choice-bank";
 
+import type {AnswerTileMenuConfig} from "../answer-tile";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 /**
  * `ChoiceBank` holds the draggable answer tiles for the Drag-and-Drop widget
  * family.
- *
- * TODO(LEMS-4363): The tiles below are throwaway placeholders standing in for
- * the real `AnswerTile` component; they only demonstrate how the bank wraps.
  */
 const meta: Meta<typeof ChoiceBank> = {
     title: "Components/Drag and Drop/Choice Bank",
@@ -20,29 +19,13 @@ export default meta;
 
 type Story = StoryObj<typeof ChoiceBank>;
 
-/** TODO(LEMS-4363): Placeholder tile to be replaced by the real `AnswerTile`. */
-function PlaceholderTile({children}: {children: React.ReactNode}) {
-    return (
-        <button
-            type="button"
-            style={{
-                display: "inline-flex",
-                alignItems: "center",
-                minBlockSize: 48,
-                paddingBlock: 8,
-                paddingInline: 12,
-                borderRadius: 8,
-                border: "1px solid var(--wb-semanticColor-core-border-neutral-default)",
-                background:
-                    "var(--wb-semanticColor-core-background-base-default)",
-                font: "inherit",
-                cursor: "grab",
-            }}
-        >
-            {children}
-        </button>
-    );
-}
+const MENU: AnswerTileMenuConfig = {
+    moveTargets: [
+        {id: "blank-1", label: "Blank 1"},
+        {id: "blank-2", label: "Blank 2"},
+    ],
+    onMove: () => {},
+};
 
 const SAMPLE_TILES = [
     "Numerator",
@@ -53,19 +36,26 @@ const SAMPLE_TILES = [
     "The mitochondria",
     "π",
     "Independent variable",
-    "\\sqrt{a^2 + b^2}",
+    "$\\sqrt{a^2 + b^2}$",
     "The mitochondria is the powerhouse of the cell",
 ];
 
+function sampleTiles() {
+    return SAMPLE_TILES.map((value, index) => (
+        <AnswerTile
+            key={value}
+            tileId={`tile-${index}`}
+            content={value}
+            label={value}
+            state="rest"
+            menu={MENU}
+        />
+    ));
+}
+
 /** The default bank: a handful of tiles of varying widths. */
 export const Default: Story = {
-    render: () => (
-        <ChoiceBank label="Choices">
-            {SAMPLE_TILES.map((label) => (
-                <PlaceholderTile key={label}>{label}</PlaceholderTile>
-            ))}
-        </ChoiceBank>
-    ),
+    render: () => <ChoiceBank label="Choices">{sampleTiles()}</ChoiceBank>,
 };
 
 /** Drag the bottom-right resize handle to watch the tiles wrap. */
@@ -81,11 +71,7 @@ export const Reflow: Story = {
                 border: "1px dashed #ccc",
             }}
         >
-            <ChoiceBank label="Choices">
-                {SAMPLE_TILES.map((label) => (
-                    <PlaceholderTile key={label}>{label}</PlaceholderTile>
-                ))}
-            </ChoiceBank>
+            <ChoiceBank label="Choices">{sampleTiles()}</ChoiceBank>
         </div>
     ),
 };
@@ -95,7 +81,14 @@ export const ManyTiles: Story = {
     render: () => (
         <ChoiceBank label="Choices">
             {Array.from({length: 24}, (_, i) => (
-                <PlaceholderTile key={i}>{`Tile ${i + 1}`}</PlaceholderTile>
+                <AnswerTile
+                    key={i}
+                    tileId={`tile-${i}`}
+                    content={`Tile ${i + 1}`}
+                    label={`Tile ${i + 1}`}
+                    state="rest"
+                    menu={MENU}
+                />
             ))}
         </ChoiceBank>
     ),
@@ -110,11 +103,7 @@ export const Empty: Story = {
 export const RightToLeft: Story = {
     render: () => (
         <div dir="rtl">
-            <ChoiceBank label="الخيارات">
-                {SAMPLE_TILES.map((label) => (
-                    <PlaceholderTile key={label}>{label}</PlaceholderTile>
-                ))}
-            </ChoiceBank>
+            <ChoiceBank label="الخيارات">{sampleTiles()}</ChoiceBank>
         </div>
     ),
 };
