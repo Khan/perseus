@@ -45,8 +45,7 @@
         "axe-core": "^4.11.0",
         "katex": "0.11.1",
         "mafs": "^0.19.0",
-        "tiny-invariant": "catalog:prodDeps",
-        "jquery": "catalog:prodDeps"
+        "tiny-invariant": "catalog:prodDeps"
     },
     "devDependencies": {
         "@khanacademy/mathjax-renderer": "catalog:devDeps",
@@ -112,6 +111,6 @@
     },
     "keywords": [],
     "khan": {
-        "catalogHash": "d7dbbe60b9cbfe1a"
+        "catalogHash": "7f07796630cee0b3"
     }
 }

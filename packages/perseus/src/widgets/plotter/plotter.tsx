@@ -133,7 +133,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
     setupGraphie(prevValues: number[]): void {
         const self = this;
         self.shouldSetupGraphie = false;
-        $(this.graphieDiv.current!).empty();
+        this.graphieDiv.current!.innerHTML = "";
         // @ts-expect-error - Argument of type 'Element | Text | null' is not assignable to parameter of type 'HTMLElement'.
         const graphie = GraphUtils.createGraphie(this.graphieDiv.current);
 
@@ -1095,7 +1095,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
                         );
                     }
                 }
-                $(pic[0]).css({display: show ? "inline" : "none"});
+                pic[0].style.display = show ? "inline" : "none";
 
                 graphie.dotTicks[i][j][0].style.display =
                     show || !isMobile ? "none" : "inline";

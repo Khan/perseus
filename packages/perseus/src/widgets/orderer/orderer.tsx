@@ -22,6 +22,8 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
+const noop = () => {};
+
 type PlaceholderCardProps = {
     width: number | null | undefined;
     height: number | null | undefined;
@@ -273,7 +275,7 @@ class Card extends React.Component<CardProps, CardState> {
         // Pull out the content to get rendered
         const rendererProps = {content: this.props.content};
 
-        const onMouseDown = this.props.animating ? $.noop : this.onMouseDown;
+        const onMouseDown = this.props.animating ? noop : this.onMouseDown;
 
         return (
             // eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO(LEMS-2871): Address a11y error
@@ -638,7 +640,7 @@ class Orderer
                     linterContext={this.props.linterContext}
                     onMouseDown={
                         this.state.animating
-                            ? $.noop
+                            ? noop
                             : this.onClick.bind(null, "current", i)
                     }
                 />
@@ -683,7 +685,7 @@ class Orderer
                             linterContext={this.props.linterContext}
                             onMouseDown={
                                 this.state.animating
-                                    ? $.noop
+                                    ? noop
                                     : this.onClick.bind(null, "bank", i)
                             }
                             onMouseMove={this.onMouseMove}
