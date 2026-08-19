@@ -10,6 +10,7 @@ import {
     testDependencies,
     testDependenciesV2,
 } from "../../testing/test-dependencies";
+import {deriveUserInputFromSerializedState} from "../../user-input-manager";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
@@ -100,6 +101,49 @@ describe("Sorter serialization", () => {
                 },
             },
             hints: [],
+        });
+    });
+
+    it("restores the answered card order from serialized state", () => {
+        // Arrange
+        const item = generateBasicSorter();
+        const {renderer} = renderQuestion(item);
+        const sorter = renderer.questionRenderer.findWidgets("sorter 1")[0];
+        ["First", "Second", "Third"].forEach((option, index) => {
+            act(() => sorter.moveOptionToIndex(option, index));
+        });
+        const serializedState = renderer.getSerializedState();
+
+        // Act
+        const restored = deriveUserInputFromSerializedState(
+            serializedState.question,
+            item.question.widgets,
+        );
+
+        // Assert
+        expect(restored).toEqual({
+            "sorter 1": {
+                options: ["First", "Second", "Third"],
+                changed: true,
+            },
+        });
+    });
+
+    it("restores the shuffled order as unanswered when no card has been moved", () => {
+        // Arrange
+        const item = generateBasicSorter();
+        const {renderer} = renderQuestion(item);
+        const shuffledOrder = renderer.getUserInput()["sorter 1"].options;
+
+        // Act
+        const restored = deriveUserInputFromSerializedState(
+            renderer.getSerializedState().question,
+            item.question.widgets,
+        );
+
+        // Assert
+        expect(restored).toEqual({
+            "sorter 1": {options: shuffledOrder, changed: false},
         });
     });
 });

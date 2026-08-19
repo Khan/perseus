@@ -1,5 +1,19 @@
 # @khanacademy/perseus
 
+## 84.1.1
+
+### Patch Changes
+
+-   [#4085](https://github.com/Khan/perseus/pull/4085) [`d5a4643`](https://github.com/Khan/perseus/commit/d5a46431256cf4b2db7c7fe8812c6d57e5bb1d99) Thanks [@handeyeco](https://github.com/handeyeco)! - Test changes only: adding some coverage to Sorter
+
+-   Updated dependencies [[`92722a7`](https://github.com/Khan/perseus/commit/92722a76d91c9e5c41b870341b44efbe45bf8318)]:
+    -   @khanacademy/perseus-core@36.1.0
+    -   @khanacademy/keypad-context@3.2.84
+    -   @khanacademy/kmath@2.4.43
+    -   @khanacademy/math-input@27.0.4
+    -   @khanacademy/perseus-linter@5.1.24
+    -   @khanacademy/perseus-score@8.12.16
+
 ## 84.1.0
 
 ### Minor Changes

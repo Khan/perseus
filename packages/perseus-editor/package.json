@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "37.0.1",
+    "version": "37.0.2",
     "publishConfig": {
         "access": "public"
     },
@@ -45,7 +45,8 @@
         "axe-core": "^4.11.0",
         "katex": "0.11.1",
         "mafs": "^0.19.0",
-        "tiny-invariant": "catalog:prodDeps"
+        "tiny-invariant": "catalog:prodDeps",
+        "jquery": "catalog:prodDeps"
     },
     "devDependencies": {
         "@khanacademy/mathjax-renderer": "catalog:devDeps",
@@ -72,7 +73,6 @@
         "@phosphor-icons/core": "catalog:devDeps",
         "aphrodite": "catalog:devDeps",
         "classnames": "catalog:devDeps",
-        "jquery": "catalog:devDeps",
         "jsdiff": "workspace:*",
         "perseus-build-settings": "workspace:*",
         "prop-types": "catalog:devDeps",
@@ -105,7 +105,6 @@
         "@phosphor-icons/core": "catalog:peerDeps",
         "aphrodite": "catalog:peerDeps",
         "classnames": "catalog:peerDeps",
-        "jquery": "catalog:peerDeps",
         "prop-types": "catalog:peerDeps",
         "react": "catalog:peerDeps",
         "react-dom": "catalog:peerDeps",
