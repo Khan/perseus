@@ -152,7 +152,9 @@ describe("DndActionMenu", () => {
     it("calls onMove with the target id when a move action is selected", async () => {
         // Arrange
         const onMove = jest.fn();
-        render(<DndActionMenu {...generateActionMenuProps()} onMove={onMove} />);
+        render(
+            <DndActionMenu {...generateActionMenuProps()} onMove={onMove} />,
+        );
         await user.click(screen.getByRole("button", {name: "Bongo"}));
 
         // Act

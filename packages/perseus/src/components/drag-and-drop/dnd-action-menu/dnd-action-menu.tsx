@@ -100,11 +100,7 @@ export const DndActionMenu = React.forwardRef<
         // accepts Action/Option/Separator items.
         // eslint-disable-next-line no-restricted-syntax
         (
-            <span
-                key="header"
-                aria-hidden="true"
-                className={styles.menuHeader}
-            >
+            <span key="header" aria-hidden="true" className={styles.menuHeader}>
                 {strings.moveTo}
             </span>
         ) as React.ReactElement<any>,
