@@ -138,30 +138,3 @@ export const ScoredComposition: Story = {
         </div>
     ),
 };
-
-/** Tiles of different widths wrap in a ChoiceBank. */
-export const InAChoiceBank: Story = {
-    render: () => (
-        <div style={{maxInlineSize: 480}}>
-            <ChoiceBank label="Choices">
-                {[
-                    "Numerator",
-                    "42",
-                    "Photosynthesis",
-                    "π",
-                    "Independent variable",
-                    "The mitochondria is the powerhouse of the cell",
-                ].map((value, index) => (
-                    <AnswerTile
-                        key={value}
-                        tileId={`tile-${index}`}
-                        content={value}
-                        label={value}
-                        state="rest"
-                        menu={generateAnswerTileMenu()}
-                    />
-                ))}
-            </ChoiceBank>
-        </div>
-    ),
-};

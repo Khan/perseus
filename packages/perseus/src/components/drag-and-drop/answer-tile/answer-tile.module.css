@@ -95,7 +95,8 @@
 .content {
     display: flex;
     justify-content: center;
-    /* Text and TeX wrap at this width. Content never scrolls. */
+    /* Text wraps at this width. TeX does not wrap, so wide TeX can go
+     * past this limit. Content never scrolls. */
     max-inline-size: 200px;
     padding-inline-end: var(--wb-sizing-size_060);
     /* The rendered markdown gets its color from the tile's state. */

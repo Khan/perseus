@@ -1,9 +1,9 @@
 import * as React from "react";
 
 import {AnswerTile} from "../answer-tile";
+import {generateAnswerTileMenu} from "../answer-tile/answer-tile.testdata";
 import {ChoiceBank} from "../choice-bank";
 
-import type {AnswerTileMenuConfig} from "../answer-tile";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 /**
@@ -18,14 +18,6 @@ const meta: Meta<typeof ChoiceBank> = {
 export default meta;
 
 type Story = StoryObj<typeof ChoiceBank>;
-
-const MENU: AnswerTileMenuConfig = {
-    moveTargets: [
-        {id: "blank-1", label: "Blank 1"},
-        {id: "blank-2", label: "Blank 2"},
-    ],
-    onMove: () => {},
-};
 
 const SAMPLE_TILES = [
     "Numerator",
@@ -48,7 +40,7 @@ function sampleTiles() {
             content={value}
             label={value}
             state="rest"
-            menu={MENU}
+            menu={generateAnswerTileMenu()}
         />
     ));
 }
@@ -87,7 +79,7 @@ export const ManyTiles: Story = {
                     content={`Tile ${i + 1}`}
                     label={`Tile ${i + 1}`}
                     state="rest"
-                    menu={MENU}
+                    menu={generateAnswerTileMenu()}
                 />
             ))}
         </ChoiceBank>
