@@ -15,7 +15,6 @@ import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {Heading} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
-import $ from "jquery";
 import * as React from "react";
 import {v4 as uuid} from "uuid";
 
@@ -247,7 +246,16 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                             // key. Since this isn't an actual <input> element, we have
                             // to manually trigger the usually automatic form submit.
                             if (this.__mathFieldWrapperRef) {
-                                $(this.__mathFieldWrapperRef).submit();
+                                // Dispatch a bubbling "submit" event so that
+                                // whichever ancestor form/handler owns
+                                // submission picks it up, the same way a real
+                                // <input> inside a <form> would.
+                                this.__mathFieldWrapperRef.dispatchEvent(
+                                    new Event("submit", {
+                                        bubbles: true,
+                                        cancelable: true,
+                                    }),
+                                );
                             }
                         },
                         upOutOf: (mathField: MathFieldInterface) => {

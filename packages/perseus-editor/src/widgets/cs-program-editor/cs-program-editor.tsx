@@ -10,7 +10,6 @@ import {
 } from "@khanacademy/perseus";
 import {Errors} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import $ from "jquery";
 import * as React from "react";
 
 import BlurInput from "../../components/blur-input";
@@ -157,8 +156,21 @@ class CSProgramEditor extends React.Component<CSProgramEditorProps> {
             : "https://www.khanacademy.org";
         const baseUrl = `${host}/api/internal/scratchpads/${programID}`;
 
-        $.getJSON(baseUrl)
-            .done((programInfo) => {
+        const fetchProgramInfo = async () => {
+            const response = await fetch(baseUrl);
+            if (!response.ok) {
+                throw new Error(
+                    `Request for scratchpad info failed with status ${response.status} ${response.statusText}`,
+                );
+            }
+            return response.json();
+        };
+
+        // We pass both callbacks to a single `then` (rather than chaining a
+        // `catch`) so that an error thrown while applying the new options
+        // doesn't also trigger the fallback-to-defaults path below.
+        fetchProgramInfo().then(
+            (programInfo) => {
                 const programType = programInfo.userAuthoredContentType;
                 this.change({
                     width: programInfo.width,
@@ -166,16 +178,14 @@ class CSProgramEditor extends React.Component<CSProgramEditorProps> {
                     programID: programID,
                     programType: programType,
                 });
-            })
-            .fail((jqxhr, textStatus, error) => {
+            },
+            (error) => {
                 Log.error(
                     "Error retrieving scratchpad info for program ID ",
                     Errors.TransientService,
                     {
-                        // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'Error | null | undefined'.
                         cause: error,
                         loggedMetadata: {
-                            textStatus,
                             programID,
                         },
                     },
@@ -186,7 +196,8 @@ class CSProgramEditor extends React.Component<CSProgramEditorProps> {
                     programID: programID,
                     programType: null,
                 });
-            });
+            },
+        );
     };
 
     serialize: () => any = () => {

@@ -1,9 +1,7 @@
 import {describe, beforeEach, it} from "@jest/globals";
 import {act, render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-import $ from "jquery";
 import * as React from "react";
-import ReactDOM from "react-dom";
 
 import * as Dependencies from "../dependencies";
 import {ClassNames} from "../perseus-api";
@@ -68,13 +66,10 @@ describe("Perseus API", function () {
             const allInputs = screen.queryAllByRole("textbox");
 
             inputPaths.forEach((inputPath, i) => {
-                // @ts-expect-error - TS2769 - No overload matches this call.
-                const $node = $(renderer.getDOMNodeForPath(inputPath));
-                // @ts-expect-error - TS2769 - No overload matches this call.
-                const $input = $(ReactDOM.findDOMNode(allInputs[i]));
-                // @ts-expect-error - TS2339 - Property 'closest' does not exist on type 'JQueryStatic'.
-                // eslint-disable-next-line testing-library/no-node-access
-                expect($input.closest($node).length).toBeTruthy();
+                const node = renderer.getDOMNodeForPath(inputPath);
+                const input = allInputs[i];
+
+                expect(node).toContainElement(input);
             });
         });
     });

@@ -7,7 +7,6 @@
  *  but could also be used for embedding viz's hosted elsewhere.
  */
 
-import $ from "jquery";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
@@ -44,11 +43,11 @@ class Iframe extends React.Component<Props> implements Widget {
     };
 
     componentDidMount() {
-        $(window).on("message", this.handleMessageEvent);
+        window.addEventListener("message", this.handleMessageEvent);
     }
 
     componentWillUnmount() {
-        $(window).off("message", this.handleMessageEvent);
+        window.removeEventListener("message", this.handleMessageEvent);
     }
 
     getPromptJSON(): UnsupportedWidgetPromptJSON {
@@ -65,13 +64,13 @@ class Iframe extends React.Component<Props> implements Widget {
         return {...defaults, ...options, ...rest};
     }
 
-    handleMessageEvent: (arg1: any) => void = (e) => {
+    handleMessageEvent: (arg1: MessageEvent) => void = (e) => {
         // We receive data from the iframe that contains {passed: true/false}
         //  and use that to set the status
         // It could also contain an optional message
         let data: Record<string, any> = {};
         try {
-            data = JSON.parse(e.originalEvent.data);
+            data = JSON.parse(e.data);
         } catch {
             return;
         }

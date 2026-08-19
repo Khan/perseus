@@ -1,5 +1,4 @@
 import {type PerseusMeasurerWidgetOptions} from "@khanacademy/perseus-core";
-import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
@@ -48,9 +47,11 @@ class Measurer extends React.Component<Props> implements Widget {
 
     setupGraphie() {
         const graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
-        // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'empty' does not exist on type 'JQueryStatic'.
-        $(graphieDiv).empty();
-        // @ts-expect-error - Argument of type 'Element | Text | null' is not assignable to parameter of type 'HTMLElement'.
+        if (graphieDiv == null || graphieDiv instanceof Text) {
+            throw new Error("No graphie container div found");
+        }
+        graphieDiv.innerHTML = "";
+        // @ts-expect-error - Argument of type 'Element' is not assignable to parameter of type 'HTMLElement'.
         const graphie = (this.graphie = GraphUtils.createGraphie(graphieDiv));
 
         const scale: Coord = [40, 40];
