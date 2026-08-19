@@ -142,6 +142,9 @@ export const DndActionMenu = React.forwardRef<
             >
                 {description}
             </span>
+            {/* TODO(LEMS-4369): the drag-wiring ticket needs to close this
+                menu when a drag starts; WB ActionMenu already supports
+                controlled opened/onToggle props to pass through here. */}
             <ActionMenu
                 // menuText is required by ActionMenu but unused with a
                 // custom opener; the real name comes from aria-labelledby.

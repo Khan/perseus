@@ -37,9 +37,15 @@ export const MergedRefOpener = React.forwardRef<
     HTMLButtonElement,
     MergedRefOpenerProps
 >(function MergedRefOpener({openerRef, ...rest}, injectedRef) {
-    const mergedRef = (node: HTMLButtonElement | null) => {
-        assignRef(injectedRef, node);
-        assignRef(openerRef, node);
-    };
+    // Memoized so React doesn't detach and reattach both refs on every
+    // render — dnd-kit will register this button as a drag handle through
+    // openerRef, and re-registration churn mid-drag is worth avoiding.
+    const mergedRef = React.useCallback(
+        (node: HTMLButtonElement | null) => {
+            assignRef(injectedRef, node);
+            assignRef(openerRef, node);
+        },
+        [injectedRef, openerRef],
+    );
     return <CustomOpener ref={mergedRef} {...rest} />;
 });

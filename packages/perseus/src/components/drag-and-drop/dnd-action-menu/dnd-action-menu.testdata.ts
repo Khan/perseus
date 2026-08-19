@@ -11,11 +11,14 @@ export function generateTestBlanks(
 }
 
 /** Generates a complete, valid set of props for a tile in the choice bank. */
-export function generateActionMenuProps(): DndActionMenuProps {
+export function generateActionMenuProps(
+    overrides?: Partial<DndActionMenuProps>,
+): DndActionMenuProps {
     return {
         label: "Bongo",
         moveTargets: generateTestBlanks(),
         onMove: () => {},
         disabled: false,
+        ...overrides,
     };
 }
