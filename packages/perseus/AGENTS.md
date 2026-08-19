@@ -29,10 +29,8 @@ pnpm storybook
 
 ## Perseus-specific Rules
 
-- **Check for existing stories first.** Stories live next to their component;
-  when a component has several files, group them in a folder per component
-  (see `components/drag-and-drop/dnd-action-menu/`). Some older stories still
-  sit in `__docs__/` directories and haven't been migrated yet — avoid
+- **Check for existing stories first.** New stories go in `__docs__/` directories.
+  Some older stories are colocated directly but haven't been migrated yet — avoid
   duplicating what's already there.
 - **Every new widget needs stories** covering each key visual state.
 - **Add `!manifest` to non-component stories.** Documentation pages, visual

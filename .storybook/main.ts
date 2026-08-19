@@ -104,12 +104,11 @@ const config: StorybookConfig = {
         // directories. This glob covers both.
         "../packages/perseus-editor/src/**/*.@(stories.ts|stories.tsx|mdx)",
 
-        // Docs for Perseus widgets, components, and renderers. Stories are
-        // colocated with their component (some older ones still live in
-        // `__docs__` directories); this glob covers both.
+        // Docs for Perseus widgets, components, and renderers
         // Exclude notes directories (used for internal documentation (AI context), not stories)
         "!../**/notes/**",
-        "../packages/perseus/src/**/*.@(stories.ts|stories.tsx|mdx)",
+        "../packages/perseus/src/**/__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
+        "../packages/perseus/src/widgets/**/**/*.@(stories.ts|stories.tsx|mdx)",
 
         // Docs for Math Input
         "../packages/math-input/src/**/*.stories.tsx",

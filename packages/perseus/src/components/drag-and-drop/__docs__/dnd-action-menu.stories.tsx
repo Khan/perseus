@@ -3,11 +3,11 @@ import * as React from "react";
 import {mockStrings} from "../../../strings";
 import {PerseusI18nContextProvider} from "../../i18n-context";
 
-import {DndActionMenu} from "./dnd-action-menu";
+import {DndActionMenu} from "../dnd-action-menu";
 import {
     generateActionMenuProps,
     generateTestBlanks,
-} from "./dnd-action-menu.testdata";
+} from "../dnd-action-menu/dnd-action-menu.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
