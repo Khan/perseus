@@ -149,15 +149,8 @@ const Line: any = GraphieClasses.createClass({
 
     modify: function () {
         const props = this.props;
-
-        if (props.style && props.style.arrows) {
-            this.line.remove();
-            this.line = this.graphie.line(props.start, props.end, props.style);
-            return;
-        }
-
-        const path = this.graphie.svgPath([props.start, props.end]);
-        this.line.attr(_.extend({}, props.style, {path: path}));
+        this.line.remove();
+        this.line = this.graphie.line(props.start, props.end, props.style);
     },
 
     remove: function () {

@@ -44,6 +44,16 @@ const bound = (x: number, gt: any, lt: any) => Math.min(Math.max(x, gt), lt);
 const EN_DASH = "\u2013";
 const horizontalPadding = 30;
 
+const MOBILE_BOX_WIDTH = 288;
+const DESKTOP_BOX_WIDTH = 460;
+
+function getNumberLineWidthPx(isMobile: boolean): number {
+    return (
+        (isMobile ? MOBILE_BOX_WIDTH : DESKTOP_BOX_WIDTH) -
+        horizontalPadding * 2
+    );
+}
+
 const reverseRel: Record<Relationship, Relationship> = {
     eq: "eq",
     ge: "le",
@@ -339,9 +349,9 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
             }
 
             // Position variables
-            const widthInPixels = latestProps.apiOptions.isMobile
-                ? 288 - horizontalPadding * 2
-                : 400;
+            const widthInPixels = getNumberLineWidthPx(
+                latestProps.apiOptions.isMobile,
+            );
             const range = options.range;
             const scale = (range[1] - range[0]) / widthInPixels;
             const buffer = horizontalPadding * scale;
@@ -488,7 +498,6 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
             props.options.isInequality && isOpen
                 ? {
                       fill: hollowFill,
-                      "fill-opacity": 1,
                       stroke: pointColor,
                       "stroke-width": 3,
                   }
@@ -525,9 +534,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
 
     function getInequalityEndpoint(): [number, number] {
         const isGreater = ["ge", "gt"].includes(props.userInput.rel);
-        const widthInPixels = props.apiOptions.isMobile
-            ? 288 - horizontalPadding * 2
-            : 400;
+        const widthInPixels = getNumberLineWidthPx(props.apiOptions.isMobile);
         const range = props.options.range;
         const scale = (range[1] - range[0]) / widthInPixels;
         const buffer = horizontalPadding * scale;
@@ -573,7 +580,12 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                 // which isn't doable without throwing away the graphie and
                 // making a new one.
                 key={props.options.labelStyle}
-                box={[props.apiOptions.isMobile ? 288 : 460, 80]}
+                box={[
+                    props.apiOptions.isMobile
+                        ? MOBILE_BOX_WIDTH
+                        : DESKTOP_BOX_WIDTH,
+                    80,
+                ]}
                 options={{
                     range,
                     isTickCtrl: props.options.isTickCtrl,
