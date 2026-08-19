@@ -1,17 +1,19 @@
-import {generateTestPerseusItem} from "@khanacademy/perseus-core";
-
 import {themeModes} from "../../../../../../.storybook/modes";
-import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import {mobileDecorator} from "../../__testutils__/story-decorators";
 import {
+    multipleAvailableTypesExponentialQuestion,
     multipleAvailableTypesQuestion,
     quadraticQuestion,
+    staticExponentialQuestion,
 } from "../grapher.testdata";
 
+import {grapherRendererDecorator} from "./grapher-renderer-decorator";
+
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const meta: Meta = {
+const meta: Meta<{question: PerseusRenderer}> = {
     title: "Widgets/Grapher/Visual Regression Tests/Initial State",
-    component: ServerItemRendererWithDebugUI,
     tags: ["!autodocs", "!manifest"],
     parameters: {
         docs: {
@@ -30,18 +32,68 @@ const meta: Meta = {
 };
 export default meta;
 
-type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
+type Story = StoryObj<typeof meta>;
 
-export const Quadratic: Story = {
-    args: {
-        item: generateTestPerseusItem({question: quadraticQuestion}),
+export const DestktopQuadratic: Story = {
+    decorators: [grapherRendererDecorator],
+    args: {question: quadraticQuestion},
+};
+
+export const DesktopChooseYourOwnFunction: Story = {
+    decorators: [grapherRendererDecorator],
+    args: {question: multipleAvailableTypesQuestion},
+};
+
+export const MobileChooseYourOwnFunction: Story = {
+    decorators: [grapherRendererDecorator, mobileDecorator],
+    args: {question: multipleAvailableTypesQuestion},
+    parameters: {
+        apiOptions: {isMobile: true},
     },
 };
 
-export const ChooseYourOwnFunction: Story = {
-    args: {
-        item: generateTestPerseusItem({
-            question: multipleAvailableTypesQuestion,
-        }),
+export const DesktopStatic: Story = {
+    decorators: [grapherRendererDecorator],
+    args: {question: staticExponentialQuestion},
+};
+
+export const MobileStatic: Story = {
+    decorators: [grapherRendererDecorator, mobileDecorator],
+    args: {question: staticExponentialQuestion},
+    parameters: {
+        apiOptions: {isMobile: true},
+    },
+};
+
+export const MobileQuadratic: Story = {
+    decorators: [grapherRendererDecorator, mobileDecorator],
+    args: {question: quadraticQuestion},
+    parameters: {
+        apiOptions: {isMobile: true},
+    },
+};
+
+// Exponential's default asymptote position is normalized to the middle of
+// the graph's range, which lands right on top of the x-axis and makes the
+// dashed line indistinguishable from the axis. Seeding userInput directly
+// lets us start the asymptote off-axis so the dashed styling is actually
+// visible in the snapshot.
+export const DesktopDashedAsymptote: Story = {
+    decorators: [grapherRendererDecorator],
+    args: {question: multipleAvailableTypesExponentialQuestion},
+    parameters: {
+        initialUserInput: {
+            "grapher 1": {
+                type: "exponential",
+                coords: [
+                    [0, 3],
+                    [1, 4],
+                ],
+                asymptote: [
+                    [-10, -3],
+                    [10, -3],
+                ],
+            },
+        },
     },
 };
