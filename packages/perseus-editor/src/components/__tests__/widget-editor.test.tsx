@@ -2,8 +2,8 @@ import {ApiOptions, Dependencies} from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
     generateDefinitionOptions,
-    generateImageOptions,
-    generateRadioOptions,
+    generateImageWidget,
+    generateRadioWidget,
 } from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -48,14 +48,7 @@ describe("WidgetEditor", () => {
             render(
                 <WidgetEditor
                     id="radio 1"
-                    widgetInfo={{
-                        type: "radio",
-                        alignment: "default",
-                        static: false,
-                        graded: true,
-                        options: generateRadioOptions(),
-                        version: {major: 0, minor: 0},
-                    }}
+                    widgetInfo={generateRadioWidget()}
                     onChange={() => {}}
                     onRemove={() => {}}
                     apiOptions={{
@@ -84,14 +77,7 @@ describe("WidgetEditor", () => {
             render(
                 <WidgetEditor
                     id="image 1"
-                    widgetInfo={{
-                        type: "image",
-                        alignment: "block",
-                        static: false,
-                        graded: true,
-                        options: generateImageOptions(),
-                        version: {major: 0, minor: 0},
-                    }}
+                    widgetInfo={generateImageWidget()}
                     onChange={() => {}}
                     onRemove={() => {}}
                     apiOptions={{
@@ -119,14 +105,7 @@ describe("WidgetEditor", () => {
             render(
                 <WidgetEditor
                     id="radio 1"
-                    widgetInfo={{
-                        type: "radio",
-                        alignment: "default",
-                        static: false,
-                        graded: true,
-                        options: generateRadioOptions(),
-                        version: {major: 0, minor: 0},
-                    }}
+                    widgetInfo={generateRadioWidget()}
                     onChange={() => {}}
                     onRemove={() => {}}
                     apiOptions={{
@@ -153,14 +132,7 @@ describe("WidgetEditor", () => {
             render(
                 <WidgetEditor
                     id="image 1"
-                    widgetInfo={{
-                        type: "image",
-                        alignment: "block",
-                        static: false,
-                        graded: true,
-                        options: generateImageOptions(),
-                        version: {major: 0, minor: 0},
-                    }}
+                    widgetInfo={generateImageWidget()}
                     onChange={onChangeMock}
                     onRemove={() => {}}
                     apiOptions={{
@@ -196,14 +168,7 @@ describe("WidgetEditor", () => {
             render(
                 <WidgetEditor
                     id="image 1"
-                    widgetInfo={{
-                        type: "image",
-                        alignment: "block",
-                        static: false,
-                        graded: true,
-                        options: generateImageOptions(),
-                        version: {major: 0, minor: 0},
-                    }}
+                    widgetInfo={generateImageWidget()}
                     onChange={() => {}}
                     onRemove={() => {}}
                     apiOptions={{
