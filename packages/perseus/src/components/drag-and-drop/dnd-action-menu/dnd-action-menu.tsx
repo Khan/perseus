@@ -39,10 +39,14 @@ export interface DndActionMenuProps {
     /**
      * Visible label (not the id) of the blank/column the tile currently
      * sits in, e.g. "Blank 1" — spoken in the clear action as
-     * "Clear from Blank 1". Provide together with onClear.
+     * "Clear from Blank 1". Omit for a tile in the choice bank.
      */
     targetLabel?: string;
-    /** Callback for removing the tile from its blank. */
+    /**
+     * Callback for removing the tile from its blank. May be passed
+     * unconditionally; the clear action only renders when targetLabel is
+     * also present (i.e. the tile is placed).
+     */
     onClear?: () => void;
     /** Scored/unused tiles. */
     disabled: boolean;
