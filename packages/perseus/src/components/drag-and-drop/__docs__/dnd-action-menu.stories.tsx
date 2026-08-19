@@ -55,6 +55,7 @@ const meta: Meta<typeof DndActionMenu> = {
         tileId: "tile-1",
         label: "Bongo",
         moveTargets: FOUR_BLANKS,
+        onMove: () => {},
         disabled: false,
     },
 };

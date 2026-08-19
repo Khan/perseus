@@ -132,7 +132,7 @@ export const DndActionMenu = React.forwardRef<
 
     const description =
         remainingUses != null
-            ? strings.dndActionsMenuRemaining({count: remainingUses})
+            ? strings.dndActionsMenuRemaining({num: remainingUses})
             : strings.dndActionsMenu;
 
     const menuItems: Array<React.ReactElement<any>> = [
