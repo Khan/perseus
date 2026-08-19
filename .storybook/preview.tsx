@@ -80,19 +80,12 @@ const withFeatureFlags: Decorator = (Story, context: StoryContext) => {
 const withThemeSwitcher: Decorator = (Story, context: StoryContext) => {
     const theme = context.globals.theme;
 
-    // Set now too, not just in the effect below: that effect runs after
-    // children already drew, so relying on it alone can leave things like
-    // graphie's colors stuck on the wrong theme.
+    // Set during render, not in an effect: effects run after children
+    // already drew, which can leave things like graphie's colors stuck on
+    // the wrong theme.
     if (theme) {
         document.body.setAttribute(THEME_DATA_ATTRIBUTE, theme);
     }
-
-    React.useEffect(() => {
-        if (theme) {
-            // Switch the body class based on the theme.
-            document.body.setAttribute(THEME_DATA_ATTRIBUTE, theme);
-        }
-    }, [theme]);
 
     return (
         <ThemeSwitcherContext.Provider value={theme ?? "default"}>
