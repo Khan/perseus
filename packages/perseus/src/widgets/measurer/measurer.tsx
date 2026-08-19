@@ -16,10 +16,9 @@ class Measurer extends React.Component<Props> implements Widget {
     // this just helps with TS weak typing when a Widget
     // doesn't implement any Widget methods
     isWidget = true as const;
-
+    graphieDivRef = React.createRef<HTMLDivElement>();
     ruler;
     protractor;
-    graphieDivRef = React.createRef<HTMLDivElement>();
 
     componentDidMount() {
         this.setupGraphie();
