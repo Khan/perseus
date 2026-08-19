@@ -90,51 +90,27 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
     const {strings} = usePerseusI18n();
 
     const scoredIcon = scoredIcons[state];
-    const showMenu = state === "rest" && menu != null;
     // Whitespace-only content would render an invisible, unlabeled tile.
     const isEmpty = content.trim() === "";
 
-    let menuOrScoredIcon: React.ReactNode = null;
-    if (showMenu) {
-        const {menuRef, ...menuProps} = menu;
-        menuOrScoredIcon = (
-            <span
-                className={classNames(
-                    styles.menuContainer,
-                    menuVisibility === "on-hover-or-focus" &&
-                        styles.menuOnDemand,
-                )}
-            >
-                <DndActionMenu
-                    ref={menuRef}
-                    {...menuProps}
-                    label={label}
-                    // Always false: scored tiles remove the menu instead
-                    // of disabling it, and they never reach this branch.
-                    disabled={false}
-                />
-            </span>
-        );
-    } else if (scoredIcon) {
-        menuOrScoredIcon = (
-            <span
-                className={styles.stateIcon}
-                // This icon is decorative. The widget announces the
-                // result to screen readers, not the tile.
-                aria-hidden="true"
-                data-testid={`answer-tile-state-icon-${tileId}`}
-            >
-                <PhosphorIcon icon={scoredIcon} size="medium" />
-            </span>
-        );
-    }
-
+    // The tile starts with the actions menu or, when scored, an icon.
+    // The two can never show together: only "rest" shows the menu, and
+    // only "correct" and "incorrect" have an icon.
     return (
         <div
             className={classNames(styles.tile, stateClasses[state])}
             data-testid={`answer-tile-${tileId}`}
         >
-            {menuOrScoredIcon}
+            {state === "rest" && menu != null && (
+                <TileActionsMenu
+                    menu={menu}
+                    label={label}
+                    visibility={menuVisibility}
+                />
+            )}
+            {scoredIcon != null && (
+                <TileScoredIcon icon={scoredIcon} tileId={tileId} />
+            )}
             <span
                 className={classNames(
                     styles.content,
@@ -149,6 +125,51 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
                 )}
             </span>
         </div>
+    );
+}
+
+/** The actions menu at the start of a resting tile. */
+function TileActionsMenu(props: {
+    menu: AnswerTileMenuConfig;
+    label: string;
+    visibility: AnswerTileProps["menuVisibility"];
+}): React.ReactElement {
+    const {menu, label, visibility} = props;
+    const {menuRef, ...menuProps} = menu;
+    return (
+        <span
+            className={classNames(
+                styles.menuContainer,
+                visibility === "on-hover-or-focus" && styles.menuOnDemand,
+            )}
+        >
+            <DndActionMenu
+                ref={menuRef}
+                {...menuProps}
+                label={label}
+                // Always false: scored tiles remove the menu instead
+                // of disabling it, so a rendered menu is never disabled.
+                disabled={false}
+            />
+        </span>
+    );
+}
+
+/** The check or x icon at the start of a scored tile. */
+function TileScoredIcon(props: {
+    icon: string;
+    tileId: string;
+}): React.ReactElement {
+    return (
+        <span
+            className={styles.stateIcon}
+            // This icon is decorative. The widget announces the
+            // result to screen readers, not the tile.
+            aria-hidden="true"
+            data-testid={`answer-tile-state-icon-${props.tileId}`}
+        >
+            <PhosphorIcon icon={props.icon} size="medium" />
+        </span>
     );
 }
 
