@@ -70,18 +70,13 @@ const CLEAR_ACTION = {
 };
 
 /** Parent tile is in the choice bank, which should list the available blanks, with no "Clear" option */
-export const InChoiceBank: Story = {
-    args: {
-        placement: "below",
-    },
-};
+export const InChoiceBank: Story = {};
 
 /** A tile placed in Blank 1, which should list the other blanks, and a "Clear" option. */
 export const PlacedInBlank: Story = {
     args: {
         moveTargets: FOUR_BLANKS.slice(1),
         clearAction: CLEAR_ACTION,
-        placement: "below",
     },
 };
 
@@ -91,7 +86,6 @@ export const PlacedInBlank: Story = {
  */
 export const Disabled: Story = {
     args: {
-        placement: "above",
         disabled: true,
     },
 };
@@ -111,7 +105,6 @@ export const LongCategoryLabels: Story = {
             targetLabel: "Physical changes to matter",
             onClear: () => {},
         },
-        placement: "below",
     },
 };
 
@@ -123,7 +116,6 @@ export const RightToLeft: Story = {
             {id: "blank-1", label: "الفراغ 1"},
             {id: "blank-2", label: "الفراغ 2"},
         ],
-        placement: "above",
     },
     parameters: {
         // Render in a separate iframe on the docs page so the document-level

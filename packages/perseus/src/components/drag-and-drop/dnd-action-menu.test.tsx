@@ -22,7 +22,6 @@ function defaultProps() {
         label: "Bongo",
         moveTargets: THREE_BLANKS,
         onMove: jest.fn(),
-        placement: "above",
         disabled: false,
     } as const;
 }
@@ -308,36 +307,6 @@ describe("DndActionMenu", () => {
 
         // Assert
         expect(opener).toHaveFocus();
-    });
-
-    it('aligns the menu above the opener when placement is "above"', async () => {
-        // Arrange
-        const user = userEvent.setup({advanceTimers: jest.advanceTimersByTime});
-        render(<DndActionMenu {...defaultProps()} placement="above" />);
-
-        // Act
-        await user.click(screen.getByRole("button", {name: "Bongo"}));
-
-        // Assert
-        expect(await screen.findByTestId("dropdown-popper")).toHaveAttribute(
-            "data-placement",
-            "top-start",
-        );
-    });
-
-    it('aligns the menu below the opener when placement is "below"', async () => {
-        // Arrange
-        const user = userEvent.setup({advanceTimers: jest.advanceTimersByTime});
-        render(<DndActionMenu {...defaultProps()} placement="below" />);
-
-        // Act
-        await user.click(screen.getByRole("button", {name: "Bongo"}));
-
-        // Assert
-        expect(await screen.findByTestId("dropdown-popper")).toHaveAttribute(
-            "data-placement",
-            "bottom-start",
-        );
     });
 
     it("forwards its ref to the opener button", () => {

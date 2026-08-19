@@ -43,8 +43,6 @@ interface DndActionMenuProps {
         targetLabel: string;
         onClear: () => void;
     };
-    /** Above in the choice bank, below when placed. */
-    placement: "above" | "below";
     /** Scored/unused tiles. */
     disabled: boolean;
 }
@@ -122,7 +120,6 @@ export const DndActionMenu = React.forwardRef<
         moveTargets,
         onMove,
         clearAction,
-        placement,
         disabled,
     } = props;
 
@@ -205,7 +202,9 @@ export const DndActionMenu = React.forwardRef<
                 // custom opener; the real name comes from aria-labelledby.
                 menuText={label}
                 disabled={isDisabled}
-                alignment={placement === "above" ? "top-start" : "bottom-start"}
+                // "auto" lets Popper open the menu on whichever side of the
+                // opener has the most room, based on scroll position.
+                alignment="auto-start"
                 dropdownStyle={menuStyle}
                 testId={`dnd-action-menu-${tileId}`}
                 opener={() => (
