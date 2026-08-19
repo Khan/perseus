@@ -7,10 +7,10 @@ import {ChoiceBank} from "../choice-bank";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 /**
- * `AnswerTile` is the card a learner moves into a blank in the Drag-and-Drop
- * widget family. It renders authored markdown content (text, TeX, or an
- * image), composes the `DndActionMenu` at its leading edge, and shows the
- * parent-set scored states.
+ * `AnswerTile` is the card that a learner moves into a blank. It is part
+ * of the Drag-and-Drop widget family. The tile shows authored markdown
+ * content: text, TeX, or an image. It puts the `DndActionMenu` at its
+ * leading edge. The parent widget sets the scored states.
  *
  * Turn on Thunderblocks to match the provided designs.
  */
@@ -19,7 +19,7 @@ const meta: Meta<typeof AnswerTile> = {
     component: AnswerTile,
     decorators: [
         (StoryComponent) => (
-            // Tiles hug their content; don't let the canvas stretch them.
+            // Tiles hug their content. Do not let the canvas stretch them.
             <div style={{display: "flex", margin: 32}}>
                 <StoryComponent />
             </div>
@@ -40,7 +40,7 @@ type Story = StoryObj<typeof AnswerTile>;
 
 export const Text: Story = {};
 
-/** Text wraps once it reaches the 200px content width cap. */
+/** Text wraps when it is wider than the 200px content width limit. */
 export const WrappingText: Story = {
     args: {
         content: "The mitochondria is the powerhouse of the cell",
@@ -56,9 +56,9 @@ export const TeX: Story = {
 };
 
 /**
- * The image renders at its natural size, capped by the tile's content
- * width. The authored height presets come later, from the widget, via
- * the Renderer's `images` size mapping.
+ * The image shows at its natural size, up to the tile's content width.
+ * The authored height presets come later. The widget will supply them
+ * through the Renderer's `images` size mapping.
  */
 export const Image: Story = {
     args: {
@@ -68,7 +68,7 @@ export const Image: Story = {
     },
 };
 
-/** An empty tile keeps a minimum width and a spoken "(empty)" value. */
+/** An empty tile keeps a minimum width. It has a spoken "(empty)" value. */
 export const Empty: Story = {
     args: {
         content: "",
@@ -94,14 +94,14 @@ export const Disabled: Story = {
     },
 };
 
-/** In an inline blank the menu shows only on hover or keyboard focus. */
+/** In an inline blank, the menu shows only on hover or keyboard focus. */
 export const MenuOnHoverOrFocus: Story = {
     args: {
         menuVisibility: "on-hover-or-focus",
     },
 };
 
-/** A scored bank: correct tiles beside disabled (unused) ones. */
+/** A scored bank: correct tiles next to disabled (unused) tiles. */
 export const ScoredComposition: Story = {
     render: () => (
         <div style={{maxInlineSize: 480}}>
@@ -139,7 +139,7 @@ export const ScoredComposition: Story = {
     ),
 };
 
-/** Mixed-width tiles wrapping in a ChoiceBank. */
+/** Tiles of different widths wrap in a ChoiceBank. */
 export const InAChoiceBank: Story = {
     render: () => (
         <div style={{maxInlineSize: 480}}>

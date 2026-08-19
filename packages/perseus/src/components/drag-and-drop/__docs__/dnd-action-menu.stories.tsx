@@ -9,7 +9,7 @@ import {
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-/** Leave the menu room to open in the story canvas. */
+/** Give the menu room to open in the story canvas. */
 function StoryPadding({children}: {children: React.ReactNode}) {
     return (
         <div style={{display: "flex", marginBlock: 240, marginInline: 32}}>
@@ -19,8 +19,8 @@ function StoryPadding({children}: {children: React.ReactNode}) {
 }
 
 /**
- * `DndActionMenu` is composed by `AnswerTile`, so these stories render the
- * menu through the tile, the way widgets consume it.
+ * `AnswerTile` contains the `DndActionMenu`. These stories show the menu
+ * inside the tile, because that is how widgets use it.
  */
 const meta: Meta<typeof DndActionMenu> = {
     title: "Components/Drag and Drop/Action Menu",
@@ -74,8 +74,8 @@ export const PlacedInBlank: Story = {
 /** Example of the menu being disabled, but still focusable.
  *  While the designs show the menu disappearing when the tile
  *  is disabled, it seemed good to have this logic anyway.
- *  Rendered directly — AnswerTile never disables its menu (scored
- *  tiles remove it instead), so the tile can't show this state.
+ *  This story shows the menu without a tile. AnswerTile never disables
+ *  its menu, because scored tiles remove the menu instead.
  */
 export const Disabled: Story = {
     render: (args) => (
