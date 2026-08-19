@@ -540,7 +540,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
                 graphie.style(
                     {
                         stroke: tokenValue(
-                            semanticColor.core.foreground.neutral.default,
+                            semanticColor.core.border.neutral.strong,
                         ),
                         strokeWidth: 2,
                         opacity: 1.0,
@@ -603,7 +603,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
                 graphie.style(
                     {
                         stroke: tokenValue(
-                            semanticColor.core.foreground.neutral.default,
+                            semanticColor.core.border.neutral.strong,
                         ),
                         strokeWidth: 2,
                         opacity: 1.0,
@@ -914,10 +914,10 @@ class Plotter extends React.Component<Props, State> implements Widget {
                 ],
                 {
                     fill: tokenValue(
-                        semanticColor.core.border.instructive.default,
+                        semanticColor.core.foreground.instructive.default,
                     ),
                     stroke: tokenValue(
-                        semanticColor.core.border.instructive.default,
+                        semanticColor.core.foreground.instructive.default,
                     ),
                 },
             );
