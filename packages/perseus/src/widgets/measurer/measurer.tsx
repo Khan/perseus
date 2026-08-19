@@ -1,6 +1,5 @@
 import {type PerseusMeasurerWidgetOptions} from "@khanacademy/perseus-core";
 import * as React from "react";
-import ReactDOM from "react-dom";
 
 import SvgImage from "../../components/svg-image";
 import GraphUtils from "../../util/graph-utils";
@@ -20,6 +19,7 @@ class Measurer extends React.Component<Props> implements Widget {
 
     ruler;
     protractor;
+    graphieDivRef = React.createRef<HTMLDivElement>();
 
     componentDidMount() {
         this.setupGraphie();
@@ -46,13 +46,12 @@ class Measurer extends React.Component<Props> implements Widget {
     }
 
     setupGraphie() {
-        const graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
-        if (graphieDiv == null || graphieDiv instanceof Text) {
+        const graphieDiv = this.graphieDivRef.current;
+        if (graphieDiv == null) {
             throw new Error("No graphie container div found");
         }
         graphieDiv.innerHTML = "";
-        // @ts-expect-error - Argument of type 'Element' is not assignable to parameter of type 'HTMLElement'.
-        const graphie = (this.graphie = GraphUtils.createGraphie(graphieDiv));
+        const graphie = GraphUtils.createGraphie(graphieDiv);
 
         const scale: Coord = [40, 40];
         const range: [Interval, Interval] = [
@@ -132,7 +131,7 @@ class Measurer extends React.Component<Props> implements Widget {
                         />
                     </div>
                 )}
-                <div className="graphie" ref="graphieDiv" />
+                <div className="graphie" ref={this.graphieDivRef} />
             </div>
         );
     }
