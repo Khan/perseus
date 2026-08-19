@@ -48,10 +48,8 @@ interface DndActionMenuProps {
 }
 
 /**
- * Points a ref at `value`. React refs come in two shapes — a callback
- * function, or an object with a `.current` field — and writing to one
- * means checking which shape you have. (Same helper every ref-merging
- * utility ships, e.g. Radix's `setRef`.)
+ * Points a ref at `value`. React refs are either a callback function or
+ * an object with `.current`, so setting one means handling both shapes.
  */
 function assignRef<T>(ref: React.ForwardedRef<T>, value: T | null) {
     if (typeof ref === "function") {
