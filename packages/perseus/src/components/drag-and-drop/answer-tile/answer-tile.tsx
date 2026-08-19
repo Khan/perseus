@@ -101,7 +101,8 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
     // only "correct" and "incorrect" have an icon.
     return (
         <div
-            className={classNames(styles.tile, stateClasses[state])}
+            // Each state has a CSS class with the same name.
+            className={classNames(styles.tile, styles[state])}
             data-testid={`answer-tile-${tileId}`}
         >
             {state === "rest" && menu != null && (
@@ -175,13 +176,6 @@ function TileScoredIcon(props: {
         </span>
     );
 }
-
-const stateClasses: Record<AnswerTileState, string> = {
-    rest: styles.rest,
-    correct: styles.correct,
-    incorrect: styles.incorrect,
-    disabled: styles.disabled,
-};
 
 const scoredIcons: Partial<Record<AnswerTileState, string>> = {
     correct: checkIcon,
