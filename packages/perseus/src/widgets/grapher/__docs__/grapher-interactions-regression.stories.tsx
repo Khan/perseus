@@ -30,6 +30,31 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+// Graphie builds its Raphael layers asynchronously, so the mouse target may
+// not exist yet when play() first runs — wait for it. The grab handler is
+// bound to the inner Raphael <ellipse>, not the wrapper <div> that carries
+// the data-interactive-kind-for-testing attribute. A bare press doesn't
+// register as a grab in this test environment — a second pointer action is
+// needed too, even one at the same coordinates.
+const dragMovablePoint: Story["play"] = async ({canvasElement, userEvent}) => {
+    const mouseTarget = await waitFor(() => {
+        const el = canvasElement.querySelector(
+            '[data-interactive-kind-for-testing="movable-point"] ellipse',
+        );
+        if (el == null) {
+            throw new Error("Movable point mouse target not found");
+        }
+        return el;
+    });
+    const rect = mouseTarget.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    await userEvent.pointer([
+        {keys: "[MouseLeft>]", target: mouseTarget},
+        {coords: {clientX: centerX, clientY: centerY}},
+    ]);
+};
+
 // Grapher draws crosshair hairlines on both platforms, but only while a
 // movable control point is being grabbed. Pressing and holding a point keeps
 // the grab — and thus the hairlines — active through the snapshot.
@@ -39,51 +64,11 @@ export const MobileHairlines: Story = {
     parameters: {
         apiOptions: {isMobile: true},
     },
-    play: async ({canvasElement, userEvent}) => {
-        // Graphie builds its Raphael layers asynchronously, so the mouse
-        // target may not exist yet when play() first runs — wait for it. The
-        // grab handler is bound to the inner Raphael <ellipse>, not the wrapper
-        // <div> that carries the data-interactive-kind-for-testing attribute.
-        const mouseTarget = await waitFor(() => {
-            const el = canvasElement.querySelector(
-                '[data-interactive-kind-for-testing="movable-point"] ellipse',
-            );
-            if (el == null) {
-                throw new Error("Movable point mouse target not found");
-            }
-            return el;
-        });
-        const rect = mouseTarget.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        await userEvent.pointer([
-            {keys: "[MouseLeft>]", target: mouseTarget},
-            {coords: {clientX: centerX + 4, clientY: centerY + 4}},
-        ]);
-    },
+    play: dragMovablePoint,
 };
 
 export const DesktopHairlines: Story = {
     args: {question: quadraticQuestion},
     decorators: [grapherRendererDecorator],
-    play: async ({canvasElement, userEvent}) => {
-        // See MobileHairlines above — same async-Raphael-layer wait, same
-        // inner-<ellipse> mouse target.
-        const mouseTarget = await waitFor(() => {
-            const el = canvasElement.querySelector(
-                '[data-interactive-kind-for-testing="movable-point"] ellipse',
-            );
-            if (el == null) {
-                throw new Error("Movable point mouse target not found");
-            }
-            return el;
-        });
-        const rect = mouseTarget.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        await userEvent.pointer([
-            {keys: "[MouseLeft>]", target: mouseTarget},
-            {coords: {clientX: centerX, clientY: centerY}},
-        ]);
-    },
+    play: dragMovablePoint,
 };
