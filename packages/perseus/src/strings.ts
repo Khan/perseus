@@ -915,7 +915,7 @@ export type PerseusStrings = {
     dndClearTarget: ({target}: {target: string}) => string;
     dndActionsMenu: string;
     // `num` is the special variable name used to determine plurality
-    dndActionsMenuRemaining: ({num}: {num: number}) => string;
+    dndRemaining: ({num}: {num: number}) => string;
 };
 
 /**
@@ -1867,9 +1867,9 @@ export const strings = {
     dndMoveToTarget: "Move to %(target)s",
     dndClearTarget: "Clear from %(target)s",
     dndActionsMenu: "Actions menu",
-    dndActionsMenuRemaining: {
-        one: "%(num)s remaining. Actions menu",
-        other: "%(num)s remaining. Actions menu",
+    dndRemaining: {
+        one: "%(num)s remaining.",
+        other: "%(num)s remaining.",
     },
 } satisfies {
     [key in keyof PerseusStrings]:
@@ -2396,7 +2396,7 @@ export const mockStrings: PerseusStrings = {
     dndMoveToTarget: ({target}) => `Move to ${target}`,
     dndClearTarget: ({target}) => `Clear from ${target}`,
     dndActionsMenu: "Actions menu",
-    dndActionsMenuRemaining: ({num}) => `${num} remaining. Actions menu`,
+    dndRemaining: ({num}) => `${num} remaining.`,
 };
 
 // This type helps us make sure all error codes are mapped to strings

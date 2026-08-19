@@ -2,9 +2,10 @@ import * as React from "react";
 
 import {mockStrings} from "../../../strings";
 import {PerseusI18nContextProvider} from "../../i18n-context";
-import {DndActionMenu} from "../dnd-action-menu";
 
-import type {MoveTarget} from "../dnd-action-menu";
+import {DndActionMenu} from "./dnd-action-menu";
+
+import type {MoveTarget} from "./dnd-action-menu";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const FOUR_BLANKS: ReadonlyArray<MoveTarget> = [
@@ -64,11 +65,6 @@ export default meta;
 
 type Story = StoryObj<typeof DndActionMenu>;
 
-const CLEAR_ACTION = {
-    targetLabel: "Blank 1",
-    onClear: () => {},
-};
-
 /** Parent tile is in the choice bank, which should list the available blanks, with no "Clear" option */
 export const InChoiceBank: Story = {};
 
@@ -76,7 +72,8 @@ export const InChoiceBank: Story = {};
 export const PlacedInBlank: Story = {
     args: {
         moveTargets: FOUR_BLANKS.slice(1),
-        clearAction: CLEAR_ACTION,
+        targetLabel: "Blank 1",
+        onClear: () => {},
     },
 };
 
@@ -101,10 +98,8 @@ export const LongCategoryLabels: Story = {
             {id: "col-1", label: "Physical changes to matter"},
             {id: "col-2", label: "Chemical changes to matter"},
         ],
-        clearAction: {
-            targetLabel: "Physical changes to matter",
-            onClear: () => {},
-        },
+        targetLabel: "Physical changes to matter",
+        onClear: () => {},
     },
 };
 

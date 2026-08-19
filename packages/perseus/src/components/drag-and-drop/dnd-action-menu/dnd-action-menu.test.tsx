@@ -12,10 +12,6 @@ const THREE_BLANKS: ReadonlyArray<MoveTarget> = [
     {id: "blank-3", label: "Blank 3"},
 ];
 
-function clearAction(onClear: () => void = jest.fn()) {
-    return {targetLabel: "Blank 1", onClear};
-}
-
 function defaultProps() {
     return {
         tileId: "tile-1",
@@ -169,7 +165,11 @@ describe("DndActionMenu", () => {
         // Arrange
         const user = userEvent.setup({advanceTimers: jest.advanceTimersByTime});
         render(
-            <DndActionMenu {...defaultProps()} clearAction={clearAction()} />,
+            <DndActionMenu
+                {...defaultProps()}
+                targetLabel="Blank 1"
+                onClear={jest.fn()}
+            />,
         );
 
         // Act
@@ -192,7 +192,11 @@ describe("DndActionMenu", () => {
         // Arrange
         const user = userEvent.setup({advanceTimers: jest.advanceTimersByTime});
         render(
-            <DndActionMenu {...defaultProps()} clearAction={clearAction()} />,
+            <DndActionMenu
+                {...defaultProps()}
+                targetLabel="Blank 1"
+                onClear={jest.fn()}
+            />,
         );
 
         // Act
@@ -228,7 +232,8 @@ describe("DndActionMenu", () => {
         render(
             <DndActionMenu
                 {...defaultProps()}
-                clearAction={clearAction(onClear)}
+                targetLabel="Blank 1"
+                onClear={onClear}
             />,
         );
         await user.click(screen.getByRole("button", {name: "Bongo"}));
@@ -249,7 +254,8 @@ describe("DndActionMenu", () => {
             <DndActionMenu
                 {...defaultProps()}
                 moveTargets={[]}
-                clearAction={clearAction()}
+                targetLabel="Blank 1"
+                onClear={jest.fn()}
             />,
         );
 

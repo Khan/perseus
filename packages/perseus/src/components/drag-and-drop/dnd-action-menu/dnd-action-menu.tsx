@@ -1,7 +1,6 @@
 import {
     ActionItem,
     ActionMenu,
-    CustomOpener,
     SeparatorItem,
 } from "@khanacademy/wonder-blocks-dropdown";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
@@ -10,9 +9,10 @@ import dotsSixVerticalIcon from "@phosphor-icons/core/regular/dots-six-vertical.
 import * as React from "react";
 import {useId} from "react";
 
-import {usePerseusI18n} from "../i18n-context";
+import {usePerseusI18n} from "../../i18n-context";
 
 import styles from "./dnd-action-menu.module.css";
+import {MergedRefOpener} from "./merged-ref-opener";
 
 export type MoveTarget = {
     /** id of the intended blank target */
@@ -37,53 +37,16 @@ interface DndActionMenuProps {
     moveTargets: ReadonlyArray<MoveTarget>;
     /** Called with the target blank's id when a move action is selected. */
     onMove: (targetId: string) => void;
-    /** The clear action. Provided only when the tile is placed in a blank. */
-    clearAction?: {
-        /** Label of the blank the tile currently sits in, e.g. "Blank 1". */
-        targetLabel: string;
-        onClear: () => void;
-    };
+    /**
+     * Label of the blank the tile currently sits in, e.g. "Blank 1".
+     * Provided together with onClear when the tile is placed in a blank.
+     */
+    targetLabel?: string;
+    /** Callback for removing the tile from its blank. */
+    onClear?: () => void;
     /** Scored/unused tiles. */
     disabled: boolean;
 }
-
-/**
- * Points a ref at `value`. React refs are either a callback function or
- * an object with `.current`, so setting one means handling both shapes.
- */
-function assignRef<T>(ref: React.ForwardedRef<T>, value: T | null) {
-    if (typeof ref === "function") {
-        ref(value);
-    } else if (ref) {
-        ref.current = value;
-    }
-}
-
-type OpenerInnerProps = {
-    /** The parent-facing ref, forwarded by DndActionMenu for focus return. */
-    openerRef: React.ForwardedRef<HTMLButtonElement>;
-    disabled: boolean;
-    "aria-labelledby": string;
-    "aria-describedby": string;
-    className: string;
-    children: React.ReactNode;
-};
-
-/**
- * Two things need a ref to the opener button: ActionMenu (to restore focus
- * when the menu closes) and our parent (to move focus after a tile moves).
- * ActionMenu overwrites any ref we set directly, so this wrapper catches
- * ActionMenu's ref and writes the button into both.
- */
-const MergedRefOpener = React.forwardRef<HTMLButtonElement, OpenerInnerProps>(
-    function MergedRefOpener({openerRef, ...rest}, injectedRef) {
-        const mergedRef = (node: HTMLButtonElement | null) => {
-            assignRef(injectedRef, node);
-            assignRef(openerRef, node);
-        };
-        return <CustomOpener ref={mergedRef} {...rest} />;
-    },
-);
 
 /**
  * ActionMenu's children type only accepts Action/Option/Separator items,
@@ -123,7 +86,8 @@ export const DndActionMenu = React.forwardRef<
         remainingUses,
         moveTargets,
         onMove,
-        clearAction,
+        targetLabel,
+        onClear,
         disabled,
     } = props;
 
@@ -133,8 +97,10 @@ export const DndActionMenu = React.forwardRef<
 
     const description =
         remainingUses != null
-            ? strings.dndActionsMenuRemaining({num: remainingUses})
+            ? `${strings.dndRemaining({num: remainingUses})} ${strings.dndActionsMenu}`
             : strings.dndActionsMenu;
+
+    const showClearAction = onClear != null && targetLabel != null;
 
     const menuItems: Array<React.ReactElement<any>> = [
         // ActionMenu has no header slot, so the visual-only "Move to" header
@@ -164,16 +130,14 @@ export const DndActionMenu = React.forwardRef<
         )),
     ];
 
-    if (clearAction) {
+    if (showClearAction) {
         menuItems.push(
             <SeparatorItem key="separator" />,
             <ActionItem
                 key="clear"
                 label={strings.dndClear}
-                aria-label={strings.dndClearTarget({
-                    target: clearAction.targetLabel,
-                })}
-                onClick={clearAction.onClear}
+                aria-label={strings.dndClearTarget({target: targetLabel})}
+                onClick={onClear}
                 style={menuItemStyle}
             />,
         );
@@ -182,7 +146,7 @@ export const DndActionMenu = React.forwardRef<
     // With nothing to move to and nothing to clear, the menu would
     // contain only the decorative header. While an unlikely situation,
     // this simply ensures that the button is disabled in such an instance.
-    const hasActions = moveTargets.length > 0 || clearAction != null;
+    const hasActions = moveTargets.length > 0 || showClearAction;
     const isDisabled = disabled || !hasActions;
 
     return (
