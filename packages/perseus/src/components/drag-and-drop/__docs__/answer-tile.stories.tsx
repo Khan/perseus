@@ -29,7 +29,6 @@ const meta: Meta<typeof AnswerTile> = {
         tileId: "tile-1",
         content: "Bongo",
         label: "Bongo",
-        state: "rest",
         menu: generateAnswerTileMenu(),
     },
 };
@@ -78,19 +77,19 @@ export const Empty: Story = {
 
 export const Correct: Story = {
     args: {
-        state: "correct",
+        showCorrectness: "correct",
     },
 };
 
 export const Incorrect: Story = {
     args: {
-        state: "incorrect",
+        showCorrectness: "incorrect",
     },
 };
 
 export const Disabled: Story = {
     args: {
-        state: "disabled",
+        disabled: true,
     },
 };
 
@@ -110,28 +109,28 @@ export const ScoredComposition: Story = {
                     tileId="tile-1"
                     content="2Mg"
                     label="2Mg"
-                    state="correct"
+                    showCorrectness="correct"
                     menu={null}
                 />
                 <AnswerTile
                     tileId="tile-2"
                     content="$O_2$"
                     label="O 2"
-                    state="correct"
+                    showCorrectness="correct"
                     menu={null}
                 />
                 <AnswerTile
                     tileId="tile-3"
                     content="acoustic"
                     label="acoustic"
-                    state="disabled"
+                    disabled={true}
                     menu={null}
                 />
                 <AnswerTile
                     tileId="tile-4"
                     content="steel"
                     label="steel"
-                    state="disabled"
+                    disabled={true}
                     menu={null}
                 />
             </ChoiceBank>

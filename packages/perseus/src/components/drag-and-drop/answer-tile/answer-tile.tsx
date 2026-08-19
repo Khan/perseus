@@ -13,8 +13,6 @@ import styles from "./answer-tile.module.css";
 
 import type {DndActionMenuProps} from "../dnd-action-menu";
 
-export type AnswerTileState = "rest" | "correct" | "incorrect" | "disabled";
-
 /**
  * The widget owns this data. The tile passes it to the DndActionMenu.
  * The type comes from the menu's own props, without the props that the
@@ -55,13 +53,20 @@ interface AnswerTileProps {
      */
     label: string;
     /**
-     * The scored state of the tile. The parent widget owns it:
-     * - "rest": default look; the menu shows when `menu` is not null.
-     * - "correct": green 2px border and a check icon. No menu, no shadow.
-     * - "incorrect": red 2px border and an x icon. No menu, no shadow.
-     * - "disabled": grey content. No menu, no icon, no shadow.
+     * The scored result for a tile placed in a blank. Omit before
+     * scoring. "correct" shows a green border and a check icon.
+     * "incorrect" shows a red border and an x icon. Both remove the
+     * menu and the shadow.
+     *
+     * A scored tile is either placed (showCorrectness) or unused
+     * (disabled), never both. If both arrive, showCorrectness wins.
      */
-    state: AnswerTileState;
+    showCorrectness?: "correct" | "incorrect";
+    /**
+     * Dims the tile and removes its menu and shadow. The widgets use
+     * this for unused choice-bank tiles after scoring.
+     */
+    disabled?: boolean;
     /**
      * Data for the tile's DndActionMenu. Pass null to show no menu, for
      * example in a static preview. Scored tiles never show the menu, so
@@ -86,34 +91,37 @@ interface AnswerTileProps {
  * The tile is only visual for now. A later ticket adds the drag wiring.
  */
 export function AnswerTile(props: AnswerTileProps): React.ReactElement {
-    const {tileId, content, label, state, menu, menuVisibility} = props;
+    const {tileId, content, label, showCorrectness, disabled, menu} = props;
     const {strings} = usePerseusI18n();
 
-    // The icon for the current answer state, if one exists.
-    const scoredIcon = scoredIcons[state];
     // Whitespace-only content would render an invisible, unlabeled tile.
     // This protection might not be needed, depending on how we implement
     // the Content Editor experience, but it seemed wise to add this for now.
     const isEmpty = content.trim() === "";
 
     // The tile starts with the actions menu or, when scored, an icon.
-    // The two can never show together: only "rest" shows the menu, and
-    // only "correct" and "incorrect" have an icon.
+    // The two never show together: a scored tile has no menu.
     return (
         <div
-            // Each state has a CSS class with the same name.
-            className={classNames(styles.tile, styles[state])}
+            className={classNames(
+                styles.tile,
+                showCorrectness != null && styles[showCorrectness],
+                disabled && styles.disabled,
+            )}
             data-testid={`answer-tile-${tileId}`}
         >
-            {state === "rest" && menu != null && (
+            {menu != null && !disabled && showCorrectness == null && (
                 <TileActionsMenu
                     menu={menu}
                     label={label}
-                    visibility={menuVisibility}
+                    visibility={props.menuVisibility}
                 />
             )}
-            {scoredIcon != null && (
-                <TileScoredIcon icon={scoredIcon} tileId={tileId} />
+            {showCorrectness != null && (
+                <TileScoredIcon
+                    icon={scoredIcons[showCorrectness]}
+                    tileId={tileId}
+                />
             )}
             <span
                 className={classNames(
@@ -177,7 +185,7 @@ function TileScoredIcon(props: {
     );
 }
 
-const scoredIcons: Partial<Record<AnswerTileState, string>> = {
+const scoredIcons: Record<"correct" | "incorrect", string> = {
     correct: checkIcon,
     incorrect: xIcon,
 };

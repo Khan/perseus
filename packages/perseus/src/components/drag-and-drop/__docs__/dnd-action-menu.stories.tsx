@@ -31,7 +31,6 @@ const meta: Meta<typeof DndActionMenu> = {
                 tileId="tile-1"
                 content={args.label}
                 label={args.label}
-                state="rest"
                 menu={{
                     remainingUses: args.remainingUses,
                     moveTargets: args.moveTargets,
