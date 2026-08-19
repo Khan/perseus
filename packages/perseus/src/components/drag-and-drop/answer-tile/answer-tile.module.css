@@ -18,18 +18,16 @@
     /* The design pairs the medium body size with the large line height. */
     line-height: var(--wb-font-body-lineHeight-large);
     word-break: break-word;
-}
 
-.rest {
     border: var(--wb-border-width-thin) solid
         var(--wb-semanticColor-core-border-neutral-subtle);
     color: var(--wb-semanticColor-core-foreground-neutral-strong);
     box-shadow: 0 2px 2px var(--wb-semanticColor-core-shadow-transparent-low);
 }
 
-/* Scored borders are 2px. The rest border is 1px. Scored states remove
- * the extra 1px from their padding. The tile keeps the same size, so
- * nothing moves when the state changes. */
+/* Scored borders are 2px. The default border is 1px. Scored tiles
+ * remove the extra 1px from their padding. The tile keeps the same
+ * size, so nothing moves when the question is scored. */
 .correct,
 .incorrect {
     padding-block: calc(
@@ -46,18 +44,19 @@
     border: var(--wb-border-width-medium) solid
         var(--wb-semanticColor-core-border-success-default);
     color: var(--wb-semanticColor-core-foreground-success-default);
+    box-shadow: none;
 }
 
 .incorrect {
     border: var(--wb-border-width-medium) solid
         var(--wb-semanticColor-core-border-critical-default);
     color: var(--wb-semanticColor-core-foreground-critical-default);
+    box-shadow: none;
 }
 
 .disabled {
-    border: var(--wb-border-width-thin) solid
-        var(--wb-semanticColor-core-border-neutral-subtle);
     color: var(--wb-semanticColor-core-foreground-disabled-strong);
+    box-shadow: none;
 }
 
 /* The box at the start of the tile. It holds the actions menu or the

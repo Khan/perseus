@@ -39,7 +39,6 @@ function sampleTiles() {
             tileId={`tile-${index}`}
             content={value}
             label={value}
-            state="rest"
             menu={generateAnswerTileMenu()}
         />
     ));
@@ -78,7 +77,6 @@ export const ManyTiles: Story = {
                     tileId={`tile-${i}`}
                     content={`Tile ${i + 1}`}
                     label={`Tile ${i + 1}`}
-                    state="rest"
                     menu={generateAnswerTileMenu()}
                 />
             ))}

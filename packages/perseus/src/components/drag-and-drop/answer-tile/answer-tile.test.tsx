@@ -19,7 +19,6 @@ function defaultProps() {
         tileId: "tile-1",
         content: "Bongo",
         label: "Bongo",
-        state: "rest",
         menu: null,
     } as const;
 }
@@ -179,15 +178,20 @@ describe("AnswerTile", () => {
         });
     });
 
-    describe("states", () => {
+    describe("scored states", () => {
         // The icon graphic (check vs x) lives in a generated stylesheet,
         // so jsdom cannot tell the two apart. The stories cover which
-        // glyph shows for each state.
+        // glyph shows for each result.
         it.each(["correct", "incorrect"] as const)(
-            "renders a state icon when the state is %s",
-            (state) => {
+            "renders a scored icon when showCorrectness is %s",
+            (showCorrectness) => {
                 // Arrange, Act
-                render(<AnswerTile {...defaultProps()} state={state} />);
+                render(
+                    <AnswerTile
+                        {...defaultProps()}
+                        showCorrectness={showCorrectness}
+                    />,
+                );
 
                 expect(
                     screen.getByTestId("answer-tile-state-icon-tile-1"),
@@ -195,23 +199,25 @@ describe("AnswerTile", () => {
             },
         );
 
-        it("hides the state icons from assistive technology", () => {
+        it("hides the scored icons from assistive technology", () => {
             // Arrange, Act
-            render(<AnswerTile {...defaultProps()} state="correct" />);
+            render(
+                <AnswerTile {...defaultProps()} showCorrectness="correct" />,
+            );
 
             expect(
                 screen.getByTestId("answer-tile-state-icon-tile-1"),
             ).toHaveAttribute("aria-hidden", "true");
         });
 
-        it.each(["correct", "incorrect", "disabled"] as const)(
-            "does not render the action menu when the state is %s",
-            (state) => {
+        it.each(["correct", "incorrect"] as const)(
+            "does not render the action menu when showCorrectness is %s",
+            (showCorrectness) => {
                 // Arrange, Act
                 render(
                     <AnswerTile
                         {...defaultProps()}
-                        state={state}
+                        showCorrectness={showCorrectness}
                         menu={generateAnswerTileMenu()}
                     />,
                 );
@@ -220,18 +226,31 @@ describe("AnswerTile", () => {
             },
         );
 
-        it("renders no state icon when the state is disabled", () => {
+        it("does not render the action menu when the tile is disabled", () => {
             // Arrange, Act
-            render(<AnswerTile {...defaultProps()} state="disabled" />);
+            render(
+                <AnswerTile
+                    {...defaultProps()}
+                    disabled={true}
+                    menu={generateAnswerTileMenu()}
+                />,
+            );
+
+            expect(screen.queryByRole("button")).not.toBeInTheDocument();
+        });
+
+        it("renders no scored icon when the tile is disabled", () => {
+            // Arrange, Act
+            render(<AnswerTile {...defaultProps()} disabled={true} />);
 
             expect(
                 screen.queryByTestId("answer-tile-state-icon-tile-1"),
             ).not.toBeInTheDocument();
         });
 
-        it("marks the tile as disabled via its class when the state is disabled", () => {
+        it("marks a disabled tile via its class", () => {
             // Arrange, Act
-            render(<AnswerTile {...defaultProps()} state="disabled" />);
+            render(<AnswerTile {...defaultProps()} disabled={true} />);
 
             expect(screen.getByTestId("answer-tile-tile-1")).toHaveClass(
                 "disabled",
