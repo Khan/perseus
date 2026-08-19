@@ -334,7 +334,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
                     false,
                 )
                 .css("font-weight", font.weight.bold)
-                .css("color", semanticColor.core.foreground.neutral.default)
+                .css("color", semanticColor.core.foreground.neutral.strong)
                 .css("display", "none");
         }
 
