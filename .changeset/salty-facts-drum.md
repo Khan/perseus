@@ -2,4 +2,4 @@
 "@khanacademy/perseus-editor": minor
 ---
 
-Content creators can now suppress value inversion in dark mode for SVG images as well as PNGs."
+Content creators can now exempt SVG and GIF images from being inverted in dark mode, in addition to PNGs.
