@@ -35,6 +35,14 @@ describe("isGraphicalImage", () => {
         expect(isGraphicalImage("https://example.com/foo.png?q=1")).toBe(true);
     });
 
+    it("is false for a non-graphical image URL with a query param containing a graphical filename", () => {
+        // This test forces us to actually parse the URL, not just pattern-match
+        // on the string.
+        expect(isGraphicalImage("https://example.com/foo.jpg?q=bar.png")).toBe(
+            false,
+        );
+    });
+
     it("is false for an image with an unrecognized extension starting with .png", () => {
         expect(isGraphicalImage("https://example.com/foo.pngqxz")).toBe(false);
     });
