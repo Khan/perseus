@@ -70,7 +70,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: var(--wb-semanticColor-learning-embeddedContent-background-default);
+    background-color: var(
+        --wb-semanticColor-learning-embeddedContent-background-default
+    );
     width: 100%;
     max-height: var(--perseus-image-modal-panel-height);
 }
