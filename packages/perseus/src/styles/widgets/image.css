@@ -49,7 +49,6 @@
 .perseus-image-preview-container[data-wb-theme$="-dark"] {
     img[src$=".png"],
     img[src$=".svg"],
-    img[src$=".gif"],
     .graphie,
     .perseus-block-math .mathjax-wrapper {
         filter: invert(1) hue-rotate(180deg) brightness(1.5);

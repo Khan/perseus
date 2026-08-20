@@ -373,7 +373,6 @@
      */
     img[src$=".png"],
     img[src$=".svg"],
-    img[src$=".gif"],
     .graphie:not(.perseus-widget-plotter),
     .mathjax-wrapper:not(.graphie:not(.perseus-widget-plotter) *) {
         /* This filter is applied to PNG/SVG images, Graphie (excluding the

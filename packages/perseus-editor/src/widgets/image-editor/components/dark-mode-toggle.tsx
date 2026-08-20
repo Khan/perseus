@@ -93,8 +93,8 @@ export default function DarkModeToggle({
                     {!isGraphicalImage(backgroundImage.url) && (
                         <strong>
                             {" "}
-                            This option is only available for PNG, SVG, and GIF
-                            images. Other types of images (e.g. JPG) never
+                            This option is only available for PNG and SVG
+                            images. Other types of images (e.g. JPG, GIF) never
                             change in dark mode.
                         </strong>
                     )}
@@ -105,14 +105,14 @@ export default function DarkModeToggle({
 }
 
 /**
- * Determines whether an image is a "graphical" type like PNG, SVG, or GIF,
- * with large flat areas of meaningful color.
+ * Determines whether an image is a "graphical" type (PNG or SVG) with large
+ * flat areas of meaningful color and potentially a transparent background.
  */
 // exported for testing
 export function isGraphicalImage(url: string | null | undefined): boolean {
     try {
         const {pathname} = new URL(url ?? "");
-        return /\.(png|svg|gif)$/.test(pathname);
+        return /\.(png|svg)$/.test(pathname);
     } catch {
         return false;
     }

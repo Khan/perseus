@@ -11,10 +11,6 @@ describe("isGraphicalImage", () => {
         expect(isGraphicalImage("https://example.com/foo.svg")).toBe(true);
     });
 
-    it("is true for a GIF", () => {
-        expect(isGraphicalImage("https://example.com/foo.gif")).toBe(true);
-    });
-
     it("is false for a JPEG", () => {
         expect(isGraphicalImage("https://example.com/foo.jpg")).toBe(false);
     });
