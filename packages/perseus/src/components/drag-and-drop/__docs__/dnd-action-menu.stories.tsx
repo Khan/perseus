@@ -102,6 +102,17 @@ export const LongCategoryLabels: Story = {
     },
 };
 
+/**
+ * A multi-use tile: the remaining-use count is spoken as part of the
+ * opener's description ("Penny, 5 remaining. Actions menu").
+ */
+export const MultiUse: Story = {
+    args: {
+        label: "Penny",
+        remainingUses: 5,
+    },
+};
+
 /** Right-to-left */
 export const RightToLeft: Story = {
     args: {
