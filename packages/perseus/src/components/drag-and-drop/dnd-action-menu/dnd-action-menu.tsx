@@ -84,7 +84,7 @@ export const DndActionMenu = React.forwardRef<
 
     const showClearAction = onClear != null && targetLabel != null;
 
-    const menuItems: Array<React.ReactElement<any>> = [
+    const menuItems = [
         // ActionMenu has no header slot, so the visual-only "Move to" header
         // rides along as an extra child. ActionMenu clones every child with
         // an injected role="menuitem" and onClick, so the span must be
@@ -93,12 +93,10 @@ export const DndActionMenu = React.forwardRef<
         // pointer-events: none (defuses the injected click handler). The
         // cast sneaks the span past ActionMenu's children type, which only
         // accepts Action/Option/Separator items.
-        // eslint-disable-next-line no-restricted-syntax
-        (
-            <span key="header" aria-hidden="true" className={styles.menuHeader}>
-                {strings.moveTo}
-            </span>
-        ) as React.ReactElement<any>,
+
+        <span key="header" aria-hidden="true" className={styles.menuHeader}>
+            {strings.moveTo}
+        </span>,
         ...moveTargets.map((target) => (
             <ActionItem
                 key={target.id}
