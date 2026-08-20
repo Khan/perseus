@@ -10,8 +10,8 @@ import * as React from "react";
 import {useId} from "react";
 
 import a11yStyles from "../../../styles/a11y.module.css";
-
 import {tempDndStrings as strings} from "../temp-strings";
+
 import styles from "./dnd-action-menu.module.css";
 import {MergedRefOpener} from "./merged-ref-opener";
 
