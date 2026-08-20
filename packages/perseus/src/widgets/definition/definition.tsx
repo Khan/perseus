@@ -29,19 +29,9 @@ type DefinitionProps = WidgetProps<PerseusDefinitionWidgetOptions> & {
     dependencies: PerseusDependenciesV2;
 };
 
-type DefaultProps = {
-    togglePrompt: string;
-    definition: string;
-};
-
 class Definition extends React.Component<DefinitionProps> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
-
-    static defaultProps: DefaultProps = {
-        togglePrompt: "define me",
-        definition: "definition goes here",
-    };
 
     // this just helps with TS weak typing when a Widget
     // doesn't implement any Widget methods
@@ -76,7 +66,7 @@ class Definition extends React.Component<DefinitionProps> implements Widget {
                             >
                                 <Renderer
                                     apiOptions={this.props.apiOptions}
-                                    content={this.props.definition}
+                                    content={this.props.options.definition}
                                     widgets={this.props.widgets}
                                     strings={this.context.strings}
                                 />
@@ -92,12 +82,12 @@ class Definition extends React.Component<DefinitionProps> implements Widget {
                                 setActiveDefinitionId(this.props.widgetId);
                             }}
                             aria-label={this.context.strings.definitionIdentifier(
-                                {word: this.props.togglePrompt},
+                                {word: this.props.options.togglePrompt},
                             )}
                         >
                             {() => (
                                 <span className={styles.definition}>
-                                    {this.props.togglePrompt}
+                                    {this.props.options.togglePrompt}
                                 </span>
                             )}
                         </Clickable>

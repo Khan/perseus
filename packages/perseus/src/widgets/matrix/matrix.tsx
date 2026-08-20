@@ -1,5 +1,4 @@
 import {getMatrixSize} from "@khanacademy/perseus-core";
-import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {border} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
@@ -12,7 +11,6 @@ import SimpleKeypadInput from "../../components/simple-keypad-input";
 import TextInput from "../../components/text-input";
 import {withDependencies} from "../../components/with-dependencies";
 import InteractiveUtil from "../../interactive2/interactive-util";
-import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 
@@ -29,7 +27,6 @@ import type {
     PerseusMatrixUserInput,
     PerseusMatrixWidgetOptions,
 } from "@khanacademy/perseus-core";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {assert} = InteractiveUtil;
 
@@ -80,29 +77,8 @@ const getRefForPath = function (path: FocusPath) {
     return "answer" + row + "," + column;
 };
 
-// Assert that the PerseusMatrixWidgetOptions parsed from JSON can be passed
-// as props to this component. This ensures that the PerseusMatrixWidgetOptions
-// stays in sync with the prop types. The PropsFor<Component> type takes
-// defaultProps into account, which is important because
-// PerseusMatrixWidgetOptions has optional fields which receive defaults via
-// defaultProps.
-// eslint-disable-next-line no-restricted-syntax
-0 as any as WidgetProps<
-    PerseusMatrixWidgetOptions,
-    PerseusMatrixUserInput
-> satisfies PropsFor<typeof WrappedMatrix>;
-
 type Props = WidgetProps<MatrixPublicWidgetOptions, PerseusMatrixUserInput> & {
     dependencies: PerseusDependenciesV2;
-};
-
-type DefaultProps = {
-    matrixBoardSize: Props["matrixBoardSize"];
-    prefix: string;
-    suffix: string;
-    apiOptions: Props["apiOptions"];
-    linterContext: Props["linterContext"];
-    userInput: PerseusMatrixUserInput;
 };
 
 type State = {
@@ -116,17 +92,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
 
     // @ts-expect-error - TS2564 - Property 'cursorPosition' has no initializer and is not definitely assigned in the constructor.
     cursorPosition: [number, number];
-
-    static defaultProps: DefaultProps = {
-        matrixBoardSize: [3, 3],
-        prefix: "",
-        suffix: "",
-        apiOptions: ApiOptions.defaults,
-        linterContext: linterContextDefault,
-        userInput: {
-            answers: [[]],
-        },
-    };
 
     state: State = {
         cursorPosition: [0, 0],
@@ -147,8 +112,8 @@ class Matrix extends React.Component<Props, State> implements Widget {
 
     getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
         const inputPaths: Array<ReadonlyArray<string>> = [];
-        const maxRows = this.props.matrixBoardSize[0];
-        const maxCols = this.props.matrixBoardSize[1];
+        const maxRows = this.props.options.matrixBoardSize[0];
+        const maxCols = this.props.options.matrixBoardSize[1];
 
         for (let row = 0; row < maxRows; row++) {
             for (let col = 0; col < maxCols; col++) {
@@ -199,8 +164,8 @@ class Matrix extends React.Component<Props, State> implements Widget {
         col,
         e,
     ) => {
-        const maxRow = this.props.matrixBoardSize[0];
-        const maxCol = this.props.matrixBoardSize[1];
+        const maxRow = this.props.options.matrixBoardSize[0];
+        const maxCol = this.props.options.matrixBoardSize[1];
 
         const curInput = this.refs[getRefForPath(getInputPath(row, col))];
         // @ts-expect-error - TS2339 - Property 'getStringValue' does not exist on type 'ReactInstance'.
@@ -289,8 +254,9 @@ class Matrix extends React.Component<Props, State> implements Widget {
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState(): any {
-        const {userInput, ...rest} = this.props;
+        const {userInput, options, ...rest} = this.props;
         return {
+            ...options,
             ...rest,
             answers: userInput.answers,
             cursorPosition: this.state.cursorPosition,
@@ -310,8 +276,8 @@ class Matrix extends React.Component<Props, State> implements Widget {
         const {INPUT_MARGIN, INPUT_HEIGHT, INPUT_WIDTH} = dimensions;
 
         const matrixSize = getMatrixSize(this.props.userInput.answers);
-        const maxRows = this.props.matrixBoardSize[0];
-        const maxCols = this.props.matrixBoardSize[1];
+        const maxRows = this.props.options.matrixBoardSize[0];
+        const maxCols = this.props.options.matrixBoardSize[1];
         const cursorRow = this.state.cursorPosition[0];
         const cursorCol = this.state.cursorPosition[1];
 
@@ -335,10 +301,10 @@ class Matrix extends React.Component<Props, State> implements Widget {
 
         return (
             <div className={className}>
-                {this.props.prefix && (
+                {this.props.options.prefix && (
                     <div className="matrix-prefix">
                         <Renderer
-                            content={this.props.prefix}
+                            content={this.props.options.prefix}
                             linterContext={this.props.linterContext}
                             strings={this.context.strings}
                         />
@@ -485,10 +451,10 @@ class Matrix extends React.Component<Props, State> implements Widget {
                         );
                     })}
                 </div>
-                {this.props.suffix && (
+                {this.props.options.suffix && (
                     <div className="matrix-suffix">
                         <Renderer
-                            content={this.props.suffix}
+                            content={this.props.options.suffix}
                             linterContext={this.props.linterContext}
                             strings={this.context.strings}
                         />

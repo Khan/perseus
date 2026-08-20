@@ -50,12 +50,14 @@ describe("InteractiveGraph AI utils", () => {
                     [2, 2],
                 ],
             },
-            backgroundImage: {url: "https://example.com/image.png"},
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            labels: ["$x$", "$y$"],
+            options: {
+                backgroundImage: {url: "https://example.com/image.png"},
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                labels: ["$x$", "$y$"],
+            },
         };
 
         const userInput: PerseusInteractiveGraphUserInput = {
@@ -109,12 +111,14 @@ describe("InteractiveGraph AI utils", () => {
                     radius: 5,
                 },
             },
-            backgroundImage: {url: "https://example.com/image.png"},
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            labels: ["$x$", "$y$"],
+            options: {
+                backgroundImage: {url: "https://example.com/image.png"},
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                labels: ["$x$", "$y$"],
+            },
         };
 
         const userInput: PerseusInteractiveGraphUserInput = {
@@ -158,12 +162,14 @@ describe("InteractiveGraph AI utils", () => {
                     [1, 1],
                 ],
             },
-            backgroundImage: {url: "https://example.com/image.png"},
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            labels: ["$x$", "$y$"],
+            options: {
+                backgroundImage: {url: "https://example.com/image.png"},
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                labels: ["$x$", "$y$"],
+            },
         };
 
         const userInput: PerseusInteractiveGraphUserInput = {
@@ -217,12 +223,14 @@ describe("InteractiveGraph AI utils", () => {
                     ],
                 ],
             },
-            backgroundImage: {url: "https://example.com/image.png"},
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            labels: ["$x$", "$y$"],
+            options: {
+                backgroundImage: {url: "https://example.com/image.png"},
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                labels: ["$x$", "$y$"],
+            },
         };
 
         const userInput: PerseusInteractiveGraphUserInput = {
@@ -286,12 +294,14 @@ describe("InteractiveGraph AI utils", () => {
                 numPoints: "unlimited",
                 startCoords: [1, 1],
             },
-            backgroundImage: {url: "https://example.com/image.png"},
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            labels: ["$x$", "$y$"],
+            options: {
+                backgroundImage: {url: "https://example.com/image.png"},
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                labels: ["$x$", "$y$"],
+            },
         };
 
         const userInput: PerseusInteractiveGraphUserInput = {
@@ -340,12 +350,14 @@ describe("InteractiveGraph AI utils", () => {
                     [2, 2],
                 ],
             },
-            backgroundImage: {url: "https://example.com/image.png"},
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            labels: ["$x$", "$y$"],
+            options: {
+                backgroundImage: {url: "https://example.com/image.png"},
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                labels: ["$x$", "$y$"],
+            },
         };
 
         const userInput: PerseusInteractiveGraphUserInput = {
@@ -399,12 +411,14 @@ describe("InteractiveGraph AI utils", () => {
                     [2, 2],
                 ],
             },
-            backgroundImage: {url: "https://example.com/image.png"},
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            labels: ["$x$", "$y$"],
+            options: {
+                backgroundImage: {url: "https://example.com/image.png"},
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                labels: ["$x$", "$y$"],
+            },
         };
 
         const userInput: PerseusInteractiveGraphUserInput = {
@@ -455,12 +469,14 @@ describe("InteractiveGraph AI utils", () => {
                     [1, 1],
                 ],
             },
-            backgroundImage: {url: "https://example.com/image.png"},
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            labels: ["$x$", "$y$"],
+            options: {
+                backgroundImage: {url: "https://example.com/image.png"},
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                labels: ["$x$", "$y$"],
+            },
         };
 
         const userInput: PerseusInteractiveGraphUserInput = {
@@ -509,12 +525,14 @@ describe("InteractiveGraph AI utils", () => {
                     [1, 1],
                 ],
             },
-            backgroundImage: {url: "https://example.com/image.png"},
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            labels: ["$x$", "$y$"],
+            options: {
+                backgroundImage: {url: "https://example.com/image.png"},
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                labels: ["$x$", "$y$"],
+            },
         };
 
         const userInput: any = {
@@ -563,12 +581,14 @@ describe("InteractiveGraph AI utils", () => {
                     [1, 1],
                 ],
             },
-            backgroundImage: {url: "https://example.com/image.png"},
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            labels: ["$x$", "$y$"],
+            options: {
+                backgroundImage: {url: "https://example.com/image.png"},
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                labels: ["$x$", "$y$"],
+            },
         };
 
         const userInput: PerseusInteractiveGraphUserInput = {
@@ -612,12 +632,14 @@ describe("InteractiveGraph AI utils", () => {
             userInput: {
                 type: "fake-graph-type",
             },
-            backgroundImage: {url: "https://example.com/image.png"},
-            range: [
-                [-10, 10],
-                [-10, 10],
-            ],
-            labels: ["$x$", "$y$"],
+            options: {
+                backgroundImage: {url: "https://example.com/image.png"},
+                range: [
+                    [-10, 10],
+                    [-10, 10],
+                ],
+                labels: ["$x$", "$y$"],
+            },
         };
 
         const userInput: any = {

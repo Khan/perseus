@@ -6,8 +6,9 @@ import {
 import {srFormatNumber} from "./format-number";
 
 import type {I18nContextType} from "../../../../components/i18n-context";
-import type {InteractiveGraphProps, PolygonGraphState} from "../../types";
+import type {PolygonGraphState} from "../../types";
 import type {PerseusStrings} from "@khanacademy/perseus/strings";
+import type {PerseusInteractiveGraphWidgetOptions} from "@khanacademy/perseus-core";
 import type {vec} from "mafs";
 
 export function srPolygonLabel(
@@ -45,7 +46,7 @@ type PolygonGraphDescriptionStrings = {
 export function describePolygonGraph(
     state: PolygonGraphState,
     i18n: I18nContextType,
-    markings: InteractiveGraphProps["markings"],
+    markings: PerseusInteractiveGraphWidgetOptions["markings"],
 ): PolygonGraphDescriptionStrings {
     const {strings, locale} = i18n;
     const {coords, pointLabels} = state;

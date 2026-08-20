@@ -9,11 +9,11 @@
 /* eslint-disable max-lines */
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {
-    Errors,
-    PerseusError,
     applyDefaultsToWidgets,
+    Errors,
     getDefaultAnswerArea,
     mapObject,
+    PerseusError,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
@@ -23,7 +23,6 @@ import {
     scoreWidgetsFunctional,
 } from "@khanacademy/perseus-score";
 import classNames from "classnames";
-import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -41,11 +40,12 @@ import InteractionTracker from "./interaction-tracker";
 import JiptParagraphs from "./jipt-paragraphs";
 import {Log} from "./logging/log";
 import {excludeDenylistKeys} from "./mixins/widget-prop-denylist";
-import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
+import {ApiOptions, ClassNames as ApiClassNames} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
 import TranslationLinter from "./translation-linter";
 import Util from "./util";
+import {containerSizeClass} from "./util/sizing-utils";
 import preprocessTex from "./util/tex-preprocess";
 import WidgetContainer from "./widget-container.old";
 import * as Widgets from "./widgets";
@@ -71,15 +71,15 @@ import type {
 } from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
+    PerseusItem,
     PerseusRenderer,
+    PerseusScore,
     PerseusWidget,
     PerseusWidgetOptions,
     PerseusWidgetsMap,
     ShowSolutions,
-    PerseusScore,
-    UserInputMap,
     UserInput,
-    PerseusItem,
+    UserInputMap,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
@@ -489,10 +489,6 @@ class Renderer
                     }}
                     type={type}
                     widgetProps={this.getWidgetProps(id)}
-                    linterContext={PerseusLinter.pushContextStack(
-                        this.props.linterContext,
-                        "widget",
-                    )}
                 />
             );
         }
@@ -519,9 +515,9 @@ class Renderer
 
     getWidgetProps(
         widgetId: string,
-    ): WidgetProps<any, any, PerseusWidgetOptions> {
+    ): WidgetProps<PerseusWidgetOptions, UserInput> {
         const apiOptions = this.getApiOptions();
-        const widgetProps = this.props.widgets[widgetId].options;
+        const widgetOptions = this.props.widgets[widgetId].options;
 
         // The widget needs access to its "scoring data" at all times when in review
         // mode (which is really just part of its widget info).
@@ -545,7 +541,7 @@ class Renderer
         }
 
         return {
-            ...widgetProps,
+            options: widgetOptions,
             userInput: this.props.userInput?.[widgetId],
             widgetId: widgetId,
             widgetIndex: this._getWidgetIndexById(widgetId),
@@ -559,7 +555,14 @@ class Renderer
             onFocus: _.partial(this._onWidgetFocus, widgetId),
             onBlur: _.partial(this._onWidgetBlur, widgetId),
             findWidgets: this.findWidgets,
-            reviewMode: this.props.reviewMode,
+            reviewMode: this.props.reviewMode ?? false,
+            // Default containerSizeClass; overridden in WidgetContainer based
+            // on the measured size of the DOM element.
+            containerSizeClass: containerSizeClass.MEDIUM,
+            linterContext: PerseusLinter.pushContextStack(
+                this.props.linterContext,
+                "widget",
+            ),
             handleUserInput: (newUserInput: UserInput) => {
                 // Calculate widgetsEmpty using the updated user input
                 const updatedUserInput = {
@@ -1222,16 +1225,19 @@ class Renderer
 
         // In the common case of no callback specified, avoid this work.
         if (onRender !== noopOnRender || oldOnRender !== noopOnRender) {
-            // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'find' does not exist on type 'JQueryStatic'.
-            const $images = $(ReactDOM.findDOMNode(this)).find("img");
+            const node = ReactDOM.findDOMNode(this);
 
             // Fire callback on image load...
-            if (oldOnRender !== noopOnRender) {
-                $images.off("load", oldOnRender);
-            }
+            if (node instanceof Element) {
+                node.querySelectorAll("img").forEach((image) => {
+                    if (oldOnRender !== noopOnRender) {
+                        image.removeEventListener("load", oldOnRender);
+                    }
 
-            if (onRender !== noopOnRender) {
-                $images.on("load", onRender);
+                    if (onRender !== noopOnRender) {
+                        image.addEventListener("load", onRender);
+                    }
+                });
             }
         }
 

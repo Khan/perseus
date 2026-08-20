@@ -10,6 +10,7 @@ import {
     deepClone,
     GrapherUtil,
 } from "@khanacademy/perseus-core";
+import {semanticColor, tokenValue} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 import invariant from "tiny-invariant";
 
@@ -21,7 +22,6 @@ import Interactive2 from "../../interactive2";
 import WrappedLine from "../../interactive2/wrapped-line";
 import {interactiveSizes} from "../../styles/constants";
 import Util from "../../util";
-import KhanColors from "../../util/colors";
 import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
 /* Graphie and relevant components. */
 /* Mixins. */
@@ -52,6 +52,7 @@ import type {
     PerseusGrapherUserInput,
     GrapherPublicWidgetOptions,
     GrapherFunctionType,
+    Interval,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -127,10 +128,13 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
     renderPlot = () => {
         const model = this.props.model;
         const xRange = this.props.graph.range[0];
+        // tokenValue resolves CSS variable tokens to raw hex — graphie only accepts raw CSS colors
         const style = {
-            stroke: this.props.isMobile
-                ? KhanColors.BLUE_C
-                : KhanColors.DYNAMIC,
+            stroke: tokenValue(
+                this.props.static
+                    ? semanticColor.core.foreground.disabled.strong
+                    : semanticColor.core.foreground.instructive.default,
+            ),
             ...(this.props.isMobile ? {"stroke-width": 3} : {}),
         } as const;
 
@@ -156,13 +160,16 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
         const graph = this.props.graph;
         const asymptote = this._asymptote();
         const showAsymptote = asymptote?.length > 0;
+        // Raphael's .attr() (via WrappedLine) only recognizes kebab-case SVG
+        // attribute names
         const dashed = {
-            strokeDasharray: "- ",
+            "stroke-dasharray": "- ",
         } as const;
 
         return (
             showAsymptote && (
                 <MovableLine
+                    static={this.props.static}
                     onMove={(newCoord, oldCoord) => {
                         // Calculate and apply displacement
                         const delta = kvector.subtract(newCoord, oldCoord);
@@ -377,7 +384,7 @@ class Grapher extends React.Component<Props> implements Widget {
     };
 
     handleActiveTypeChange: (arg1: any) => any = (newType) => {
-        const graph = this.props.graph;
+        const {graph} = this.props.options;
         const plot = {
             ...this.props.userInput,
             ...defaultPlotProps(newType, graph),
@@ -385,12 +392,12 @@ class Grapher extends React.Component<Props> implements Widget {
         this.props.handleUserInput(plot);
     };
 
-    _getGridConfig(
-        options: Props["graph"] & {
-            box: NonNullable<Props["graph"]["box"]>;
-            gridStep: NonNullable<Props["graph"]["gridStep"]>;
-        },
-    ): ReadonlyArray<GridDimensions> {
+    _getGridConfig(options: {
+        box: [width: number, height: number];
+        step: [x: number, y: number];
+        gridStep: [x: number, y: number];
+        range: [x: Interval, y: Interval];
+    }): ReadonlyArray<GridDimensions> {
         return options.step.map((step, i) => {
             return Util.gridDimensionConfig(
                 step,
@@ -468,63 +475,58 @@ class Grapher extends React.Component<Props> implements Widget {
             });
         }
 
-        if (this.props.apiOptions.isMobile) {
-            const hairlineStyle = {
-                normalStyle: {
-                    strokeWidth: 1,
-                },
-            } as const;
+        const hairlineStyle = {
+            normalStyle: {
+                strokeWidth: 1,
+            },
+        } as const;
 
-            this.horizHairline = new WrappedLine(
-                graphie,
-                [0, 0],
-                [0, 0],
-                hairlineStyle,
-            );
-            this.horizHairline.attr({
-                stroke: KhanColors.INTERACTIVE,
-            });
-            this.horizHairline.hide();
+        this.horizHairline = new WrappedLine(
+            graphie,
+            [0, 0],
+            [0, 0],
+            hairlineStyle,
+        );
+        this.horizHairline.attr({
+            stroke: tokenValue(semanticColor.core.border.instructive.default),
+        });
+        this.horizHairline.hide();
 
-            this.vertHairline = new WrappedLine(
-                graphie,
-                [0, 0],
-                [0, 0],
-                hairlineStyle,
-            );
-            this.vertHairline.attr({
-                stroke: KhanColors.INTERACTIVE,
-            });
-            this.vertHairline.hide();
-        }
+        this.vertHairline = new WrappedLine(
+            graphie,
+            [0, 0],
+            [0, 0],
+            hairlineStyle,
+        );
+        this.vertHairline.attr({
+            stroke: tokenValue(semanticColor.core.border.instructive.default),
+        });
+        this.vertHairline.hide();
     };
 
     showHairlines: (arg1: Coord) => void = (point) => {
-        if (this.props.apiOptions.isMobile) {
-            // Hairlines are already initialized when the graph is loaded, so
-            // here we just move them to the updated location and make them
-            // visible.
-            this.horizHairline.moveTo(
-                [this.props.graph.range[0][0], point[1]],
-                [this.props.graph.range[0][1], point[1]],
-            );
+        const {graph} = this.props.options;
+        // Hairlines are already initialized when the graph is loaded, so
+        // here we just move them to the updated location and make them
+        // visible.
+        this.horizHairline.moveTo(
+            [graph.range[0][0], point[1]],
+            [graph.range[0][1], point[1]],
+        );
 
-            this.horizHairline.show();
+        this.horizHairline.show();
 
-            this.vertHairline.moveTo(
-                [point[0], this.props.graph.range[1][0]],
-                [point[0], this.props.graph.range[1][1]],
-            );
+        this.vertHairline.moveTo(
+            [point[0], graph.range[1][0]],
+            [point[0], graph.range[1][1]],
+        );
 
-            this.vertHairline.show();
-        }
+        this.vertHairline.show();
     };
 
     hideHairlines: () => void = () => {
-        if (this.props.apiOptions.isMobile) {
-            this.horizHairline.hide();
-            this.vertHairline.hide();
-        }
+        this.horizHairline.hide();
+        this.vertHairline.hide();
     };
 
     getPromptJSON(): GrapherPromptJSON {
@@ -536,22 +538,22 @@ class Grapher extends React.Component<Props> implements Widget {
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState() {
-        const {userInput, correct, ...rest} = this.props;
+        const {userInput, options, ...rest} = this.props;
+        const {correct, ...optionsRest} = options;
         return {
+            ...optionsRest,
             ...rest,
             plot: this.props.userInput,
         };
     }
 
     getAvailableTypes(): GrapherFunctionType[] {
+        const {correct, availableTypes} = this.props.options;
         if (this.props.static) {
-            invariant(
-                this.props.correct,
-                "static widgets must have a correct answer",
-            );
-            return [this.props.correct.type];
+            invariant(correct, "static widgets must have a correct answer");
+            return [correct.type];
         }
-        return this.props.availableTypes;
+        return availableTypes;
     }
 
     renderLegacyGrapher() {
@@ -581,13 +583,14 @@ class Grapher extends React.Component<Props> implements Widget {
 
         // Calculate additional graph properties so that the same values are
         // passed in to both FunctionGrapher and Graphie.
+        const {graph} = this.props.options;
         const options = {
-            ...this.props.graph,
-            ...getGridAndSnapSteps(this.props.graph, box[0]),
+            ...graph,
+            ...getGridAndSnapSteps(graph, box[0]),
             gridConfig: this._getGridConfig({
-                ...this.props.graph,
+                ...graph,
                 box: box,
-                ...getGridAndSnapSteps(this.props.graph, box[0]),
+                ...getGridAndSnapSteps(graph, box[0]),
             }),
         } as const;
 
@@ -611,7 +614,7 @@ class Grapher extends React.Component<Props> implements Widget {
             asymptote: asymptote,
             static: this.props.static,
             isMobile: this.props.apiOptions.isMobile,
-            showTooltips: this.props.graph.showTooltips,
+            showTooltips: graph.showTooltips,
             showHairlines: this.showHairlines,
             hideHairlines: this.hideHairlines,
         } as const;
@@ -626,9 +629,9 @@ class Grapher extends React.Component<Props> implements Widget {
     }
 
     render(): React.ReactNode {
-        const interactiveGraphOptions = convertGrapherOptionsToInteractiveGraph(
-            this.props,
-        );
+        const {options, ...universalProps} = this.props;
+        const interactiveGraphOptions =
+            convertGrapherOptionsToInteractiveGraph(options);
         if (interactiveGraphOptions == null) {
             return this.renderLegacyGrapher();
         }
@@ -637,8 +640,8 @@ class Grapher extends React.Component<Props> implements Widget {
 
         return (
             <InteractiveGraph.widget
-                {...this.props}
-                {...interactiveGraphOptions}
+                {...universalProps}
+                options={interactiveGraphOptions}
                 userInput={interactiveGraphUserInput}
                 handleUserInput={(interactiveGraphUserInput) =>
                     this.props.handleUserInput(
@@ -686,12 +689,6 @@ function getCorrectUserInput(
     );
     return options.correct;
 }
-
-// eslint-disable-next-line no-restricted-syntax
-0 as any as WidgetProps<
-    PerseusGrapherWidgetOptions,
-    PerseusGrapherUserInput
-> satisfies PropsFor<typeof WrappedGrapher>;
 
 const WrappedGrapher = withDependencies(Grapher);
 

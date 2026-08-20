@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "37.0.0",
+    "version": "37.1.0",
     "publishConfig": {
         "access": "public"
     },
@@ -72,7 +72,6 @@
         "@phosphor-icons/core": "catalog:devDeps",
         "aphrodite": "catalog:devDeps",
         "classnames": "catalog:devDeps",
-        "jquery": "catalog:devDeps",
         "jsdiff": "workspace:*",
         "perseus-build-settings": "workspace:*",
         "prop-types": "catalog:devDeps",
@@ -105,7 +104,6 @@
         "@phosphor-icons/core": "catalog:peerDeps",
         "aphrodite": "catalog:peerDeps",
         "classnames": "catalog:peerDeps",
-        "jquery": "catalog:peerDeps",
         "prop-types": "catalog:peerDeps",
         "react": "catalog:peerDeps",
         "react-dom": "catalog:peerDeps",
@@ -113,6 +111,6 @@
     },
     "keywords": [],
     "khan": {
-        "catalogHash": "d7dbbe60b9cbfe1a"
+        "catalogHash": "7f07796630cee0b3"
     }
 }

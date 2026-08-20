@@ -1,5 +1,25 @@
 # @khanacademy/perseus-core
 
+## 36.1.0
+
+### Minor Changes
+
+-   [#4093](https://github.com/Khan/perseus/pull/4093) [`92722a7`](https://github.com/Khan/perseus/commit/92722a76d91c9e5c41b870341b44efbe45bf8318) Thanks [@benchristel](https://github.com/benchristel)! - The Perseus parsers now handle unrecognized values for a widget's `alignment`, and convert them to `"default"`.
+
+## 36.0.0
+
+### Major Changes
+
+-   [#4064](https://github.com/Khan/perseus/pull/4064) [`93f5fbe`](https://github.com/Khan/perseus/commit/93f5fbea09bcd58f9d8e8a746a0085292a9707ba) Thanks [@benchristel](https://github.com/benchristel)! - The `alignment` property of `WidgetOptions` is now typed as a string union, instead of `string`.
+
+### Minor Changes
+
+-   [#4062](https://github.com/Khan/perseus/pull/4062) [`191e07b`](https://github.com/Khan/perseus/commit/191e07b481b15cdcec127b9ae8c09eadde38480a) Thanks [@handeyeco](https://github.com/handeyeco)! - Add Orderer generatore to perseus-core and refactor drag-and-drop widget editors
+
+### Patch Changes
+
+-   [#3921](https://github.com/Khan/perseus/pull/3921) [`a08ebf6`](https://github.com/Khan/perseus/commit/a08ebf6af33ca492601b9bb4d860f9553ec92e98) Thanks [@Myranae](https://github.com/Myranae)! - Create number line generator and add visual regression stories
+
 ## 35.0.0
 
 ### Major Changes

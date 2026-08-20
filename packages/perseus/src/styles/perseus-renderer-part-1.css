@@ -2,14 +2,14 @@
     position: relative;
 }
 .framework-perseus.perseus-mobile {
-    margin-top: 48px;
+    margin-top: var(--wb-sizing-size_480);
 }
 .no-select {
     -webkit-user-select: none;
     user-select: none;
 }
 .blank-background {
-    background-color: #fdfdfd;
+    background-color: var(--wb-semanticColor-core-background-base-default);
 }
 .graphie {
     -webkit-user-select: none;
@@ -37,15 +37,15 @@ div.graphie {
 #answercontent input[type="number"].perseus-input-size-normal,
 .framework-perseus input[type="text"].perseus-input-size-normal,
 .framework-perseus input[type="number"].perseus-input-size-normal {
-    border: 1px solid #ccc;
-    width: 80px;
+    border: 1px solid var(--wb-semanticColor-core-border-neutral-subtle);
+    width: var(--wb-sizing-size_800);
 }
 #answercontent input[type="text"].perseus-input-size-small,
 #answercontent input[type="number"].perseus-input-size-small,
 .framework-perseus input[type="text"].perseus-input-size-small,
 .framework-perseus input[type="number"].perseus-input-size-small {
-    border: 1px solid #ccc;
-    width: 40px;
+    border: 1px solid var(--wb-semanticColor-core-border-neutral-subtle);
+    width: var(--wb-sizing-size_400);
 }
 #answercontent input[type="text"].perseus-input-right-align,
 #answercontent input[type="number"].perseus-input-right-align,
@@ -67,19 +67,15 @@ div.graphie {
 }
 .framework-perseus div.paragraph {
     font-family: "Lato", sans-serif;
-    font-weight: 400;
+    font-weight: var(--wb-font-weight-regular);
     font-size: 18px;
     line-height: 22px;
     margin: 22px 0px;
 }
-.framework-perseus .test-prep-blurb div.paragraph {
-    font-size: 16px;
-    line-height: 20px;
-}
 .framework-perseus div.instructions {
     display: block;
     font-family: "Noto Serif", serif;
-    font-weight: 800;
+    font-weight: var(--wb-font-weight-black);
     font-size: 18px;
     line-height: 22px;
     font-style: italic;
@@ -89,12 +85,12 @@ div.graphie {
     > .paragraph
     > ul:not([data-widget="radio"]),
 .framework-perseus .perseus-renderer > .paragraph > ol {
-    margin: 0px 0px 22px 0px;
+    margin: 0px 0px var(--wb-sizing-size_220) 0px;
 }
 .framework-perseus
     .paragraph
     ul:not([data-widget="radio"], .indicatorContainer) {
-    padding-left: 35px;
+    padding-left: var(--wb-sizing-size_360);
     list-style-type: disc;
 }
 .framework-perseus .paragraph ol {
@@ -114,10 +110,10 @@ div.graphie {
     line-height: 0;
 }
 .framework-perseus .range-input {
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid var(--wb-semanticColor-core-border-neutral-subtle);
+    border-radius: var(--wb-border-radius-radius_040);
     display: inline-block;
-    padding: 0px 5px;
+    padding: 0px var(--wb-sizing-size_040);
 }
 .framework-perseus .range-input > input {
     border: 0;
@@ -126,38 +122,40 @@ div.graphie {
     width: 30px;
 }
 .framework-perseus .range-input > span {
-    color: #999;
+    color: var(--wb-semanticColor-core-foreground-neutral-subtle);
     font-size: 14px;
 }
 .framework-perseus .number-input {
-    border: 1px solid #909296;
-    border-radius: 5px;
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-default);
+    border-radius: var(--wb-border-radius-radius_040);
     margin: 0;
-    padding: 5px 0;
+    padding: var(--wb-sizing-size_040) 0;
     text-align: center;
-    width: 40px;
+    width: var(--wb-sizing-size_400);
 }
 .framework-perseus .number-input.invalid-input {
-    background-color: #ffbaba;
-    outline-color: red;
+    background-color: var(--wb-semanticColor-core-background-critical-subtle);
+    outline-color: var(--wb-semanticColor-core-border-critical-default);
 }
 .framework-perseus .number-input.mini {
-    width: 40px;
+    width: var(--wb-sizing-size_400);
 }
 .framework-perseus .number-input.small {
-    width: 60px;
+    width: var(--wb-sizing-size_640);
 }
 .framework-perseus .number-input.normal {
-    width: 80px;
+    width: var(--wb-sizing-size_800);
 }
 .framework-perseus .graph-settings .graph-settings-axis-label {
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+    border-radius: var(--wb-border-radius-radius_040);
     display: inline-block;
-    padding: 5px 5px;
+    padding: var(--wb-sizing-size_040);
     width: 70px;
     float: right;
-    margin: 0 5px;
+    margin: 0 var(--wb-sizing-size_040);
 }
 .framework-perseus .graph-settings .graph-settings-background-url {
     width: 250px;
@@ -168,12 +166,13 @@ div.graphie {
 .framework-perseus .graph-settings,
 .framework-perseus .image-settings,
 .framework-perseus .misc-settings {
-    padding-bottom: 5px;
+    padding-bottom: var(--wb-sizing-size_040);
 }
 .framework-perseus .misc-settings,
 .framework-perseus .type-settings {
-    border-top: 1px solid black;
-    padding-top: 5px;
+    border-top: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-strong);
+    padding-top: var(--wb-sizing-size_040);
 }
 .framework-perseus .svg-image {
     display: block;
@@ -216,7 +215,7 @@ div.graphie {
 }
 .framework-perseus:not(.perseus-mobile) table th,
 .framework-perseus:not(.perseus-mobile) table td {
-    padding: 5px 10px;
+    padding: var(--wb-sizing-size_060) var(--wb-sizing-size_100);
     text-align: left;
 }
 .framework-perseus:not(.perseus-mobile) table th[align="center"],
@@ -230,8 +229,8 @@ div.graphie {
 .framework-perseus:not(.perseus-mobile) table th {
     border-bottom: var(--wb-border-width-medium) solid
         var(--wb-semanticColor-core-border-neutral-subtle);
-    font-weight: bold;
-    padding-bottom: 2px;
+    font-weight: var(--wb-font-weight-bold);
+    padding-bottom: var(--wb-sizing-size_020);
 }
 .framework-perseus:not(.perseus-mobile) table tr:nth-child(odd) td {
     background-color: var(--wb-semanticColor-core-background-base-subtle);
@@ -278,7 +277,7 @@ div.graphie {
 }
 .framework-perseus.perseus-mobile table th,
 .framework-perseus.perseus-mobile table td {
-    padding: 16px;
+    padding: var(--wb-sizing-size_160);
     text-align: left;
 }
 .framework-perseus.perseus-mobile table th[align="center"],
@@ -313,6 +312,7 @@ div.graphie {
     font-size: larger;
 }
 /* Widget CSS */
+/* TODO(benchristel): .perseus-graph-padding seems to be unused. Remove? */
 .perseus-graph-padding {
     box-sizing: content-box;
     padding: 25px 25px 0 0;

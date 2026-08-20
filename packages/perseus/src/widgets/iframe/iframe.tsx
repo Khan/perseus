@@ -7,7 +7,6 @@
  *  but could also be used for embedding viz's hosted elsewhere.
  */
 
-import $ from "jquery";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
@@ -27,8 +26,6 @@ const {updateQueryString} = Util;
 type Props = WidgetProps<PerseusIFrameWidgetOptions, PerseusIFrameUserInput>;
 
 type DefaultProps = {
-    allowFullScreen: Props["allowFullScreen"];
-    allowTopNavigation: Props["allowTopNavigation"];
     userInput: Props["userInput"];
 };
 
@@ -38,8 +35,6 @@ class Iframe extends React.Component<Props> implements Widget {
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
     static defaultProps: DefaultProps = {
-        allowFullScreen: false,
-        allowTopNavigation: false,
         userInput: {
             status: "incomplete",
             // optional message
@@ -48,11 +43,11 @@ class Iframe extends React.Component<Props> implements Widget {
     };
 
     componentDidMount() {
-        $(window).on("message", this.handleMessageEvent);
+        window.addEventListener("message", this.handleMessageEvent);
     }
 
     componentWillUnmount() {
-        $(window).off("message", this.handleMessageEvent);
+        window.removeEventListener("message", this.handleMessageEvent);
     }
 
     getPromptJSON(): UnsupportedWidgetPromptJSON {
@@ -64,17 +59,18 @@ class Iframe extends React.Component<Props> implements Widget {
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState(): any {
-        const {userInput, alignment, ...rest} = this.props;
-        return rest;
+        const {userInput, alignment, options, ...rest} = this.props;
+        const defaults = {allowTopNavigation: false};
+        return {...defaults, ...options, ...rest};
     }
 
-    handleMessageEvent: (arg1: any) => void = (e) => {
+    handleMessageEvent: (arg1: MessageEvent) => void = (e) => {
         // We receive data from the iframe that contains {passed: true/false}
         //  and use that to set the status
         // It could also contain an optional message
         let data: Record<string, any> = {};
         try {
-            data = JSON.parse(e.originalEvent.data);
+            data = JSON.parse(e.data);
         } catch {
             return;
         }
@@ -91,9 +87,11 @@ class Iframe extends React.Component<Props> implements Widget {
     };
 
     render(): React.ReactNode {
+        const {width, height, allowFullScreen} = this.props.options;
+
         const style = {
-            width: String(this.props.width),
-            height: String(this.props.height),
+            width: String(width),
+            height: String(height),
         } as const;
 
         const {InitialRequestUrl} = getDependencies();
@@ -105,7 +103,7 @@ class Iframe extends React.Component<Props> implements Widget {
             }
         });
 
-        let url = this.props.url;
+        let url = this.props.options.url;
 
         // If the URL doesnt start with http, it must be a program ID
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -114,8 +112,8 @@ class Iframe extends React.Component<Props> implements Widget {
                 "https://www.khanacademy.org/computer-programming/program/" +
                 url +
                 "/embedded?buttons=no&embed=yes&editor=no&author=no";
-            url = updateQueryString(url, "width", `${this.props.width}`);
-            url = updateQueryString(url, "height", `${this.props.height}`);
+            url = updateQueryString(url, "width", `${width}`);
+            url = updateQueryString(url, "height", `${height}`);
             // Origin is used by output.js in deciding to send messages
             url = updateQueryString(url, "origin", InitialRequestUrl.origin);
         }
@@ -127,9 +125,9 @@ class Iframe extends React.Component<Props> implements Widget {
         }
 
         // Turn array of [{name: "", value: ""}] into object
-        if (this.props.settings) {
+        if (this.props.options.settings) {
             const settings: Record<string, any> = {};
-            this.props.settings.forEach((setting) => {
+            this.props.options.settings.forEach((setting) => {
                 if (setting.name && setting.value) {
                     settings[setting.name] = setting.value;
                 }
@@ -151,7 +149,7 @@ class Iframe extends React.Component<Props> implements Widget {
                 sandbox={sandboxProperties}
                 style={style}
                 src={url}
-                allowFullScreen={this.props.allowFullScreen}
+                allowFullScreen={allowFullScreen}
             />
         );
     }

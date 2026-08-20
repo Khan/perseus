@@ -1,10 +1,8 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable react/forbid-prop-types */
 import {
     ordererLogic,
-    type OrdererDefaultWidgetOptions,
+    type PerseusOrdererWidgetOptions,
+    type PerseusRenderer,
 } from "@khanacademy/perseus-core";
-import PropTypes from "prop-types";
 import * as React from "react";
 
 import InfoTip from "../../components/info-tip";
@@ -15,117 +13,104 @@ const AUTO = "auto";
 const HORIZONTAL = "horizontal";
 const VERTICAL = "vertical";
 
-type Props = any;
+type Props = PerseusOrdererWidgetOptions & {
+    onChange: (
+        newOptions: Partial<PerseusOrdererWidgetOptions>,
+        callback?: () => void,
+    ) => void;
+};
 
-export const getUpdatedOptions = (
-    correctOptions: Array<{content: string}>,
-    otherOptions: Array<{content: string}>,
-    whichOptions?: string,
-    options?: string[],
-): Record<string, any> => {
-    // Update the changed options by mapping the options to an array of objects with a content property
-    const props: Record<string, any> = {};
-    if (whichOptions && options !== undefined) {
-        props[whichOptions] = options.map((option) => ({
-            content: option,
-        }));
+const toCard = (content: string): PerseusRenderer => ({
+    content,
+    widgets: {},
+    images: {},
+});
+
+// Cards are displayed grouped by content: numbers first, then everything
+// else, then bare variables and $tex$.
+const getCategoryScore = (content: string): number => {
+    if (/\d/.test(content)) {
+        return 0;
     }
+    if (/^\$?[a-zA-Z]+\$?$/.test(content)) {
+        return 2;
+    }
+    return 1;
+};
 
-    // Get content from correctOptions (either updated or existing)
-    const correctOptionsToUse =
-        whichOptions === "correctOptions"
-            ? props.correctOptions
-            : correctOptions;
+/**
+ * The cards the student picks from: the correct answer and the distractors,
+ * with duplicates and empty cards removed.
+ */
+export const mergeCards = (
+    correctOptions: PerseusRenderer[],
+    otherOptions: PerseusRenderer[],
+): PerseusRenderer[] => {
+    const allCards = [...correctOptions, ...otherOptions];
 
-    // Get content from otherOptions (either updated or existing)
-    const otherOptionsToUse =
-        whichOptions === "otherOptions" ? props.otherOptions : otherOptions;
-
-    // Combine all content items
-    const allOptions = [...correctOptionsToUse, ...otherOptionsToUse];
-
-    // Get unique content items
-    const updatedOptions = [...new Set(allOptions.map((item) => item.content))]
-        // filter out empty strings
+    return [...new Set(allCards.map((card) => card.content))]
         .filter((content) => content !== "")
-        // Alphabetical sort
         .sort()
-        // Category sort
-        .sort((a, b) => {
-            const getCategoryScore = (content) => {
-                // 1. Any content that contains numbers
-                if (/\d/.test(content)) {
-                    return 0;
-                }
-                // 2. $tex$ or variables without any numbers
-                if (/^\$?[a-zA-Z]+\$?$/.test(content)) {
-                    return 2;
-                }
-                // 3. Everything else
-                return 1;
-            };
-            return getCategoryScore(a) - getCategoryScore(b);
-        })
-        .map((content) => ({content}));
-
-    return {
-        ...props,
-        options: updatedOptions,
-    };
+        .sort((a, b) => getCategoryScore(a) - getCategoryScore(b))
+        .map(toCard);
 };
 
 class OrdererEditor extends React.Component<Props> {
-    static propTypes = {
-        correctOptions: PropTypes.array,
-        otherOptions: PropTypes.array,
-        height: PropTypes.oneOf([NORMAL, AUTO]),
-        layout: PropTypes.oneOf([HORIZONTAL, VERTICAL]),
-        onChange: PropTypes.func.isRequired,
-    };
-
     static widgetName = "orderer" as const;
 
-    static defaultProps: OrdererDefaultWidgetOptions =
+    static defaultProps: PerseusOrdererWidgetOptions =
         ordererLogic.defaultWidgetOptions;
 
-    onOptionsChange: (
-        arg1: "correctOptions" | "otherOptions",
-        arg2: any,
-        arg3: any,
-    ) => any = (whichOptions, options, cb) => {
-        const updatedOptions = getUpdatedOptions(
-            this.props.correctOptions || [],
-            this.props.otherOptions || [],
-            whichOptions,
-            options,
-        );
-
-        this.props.onChange(updatedOptions, cb);
-    };
-
-    onLayoutChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
-        e,
+    onOptionsChange = (
+        whichOptions: "correctOptions" | "otherOptions",
+        options: string[],
     ) => {
-        this.props.onChange({layout: e.target.value});
+        const changedCards = options.map(toCard);
+        const correctOptions =
+            whichOptions === "correctOptions"
+                ? changedCards
+                : this.props.correctOptions;
+        const otherOptions =
+            whichOptions === "otherOptions"
+                ? changedCards
+                : this.props.otherOptions;
+
+        this.props.onChange({
+            [whichOptions]: changedCards,
+            options: mergeCards(correctOptions, otherOptions),
+        });
     };
 
-    onHeightChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
-        e,
-    ) => {
-        this.props.onChange({height: e.target.value});
+    onLayoutChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const layout = e.target.value;
+        switch (layout) {
+            case HORIZONTAL:
+            case VERTICAL:
+                this.props.onChange({layout});
+                break;
+            default:
+                throw new Error(`${layout} is not an available layout option`);
+        }
     };
 
-    serialize: () => any = () => {
-        // We combine the correct answer and the other cards by merging them,
-        // removing duplicates and empty cards, and sorting them into
-        // categories based on their content
-        const {options} = getUpdatedOptions(
-            this.props.correctOptions || [],
-            this.props.otherOptions || [],
-        );
+    onHeightChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const height = e.target.value;
+        switch (height) {
+            case NORMAL:
+            case AUTO:
+                this.props.onChange({height});
+                break;
+            default:
+                throw new Error(`${height} is not an available height option`);
+        }
+    };
 
+    serialize = (): PerseusOrdererWidgetOptions => {
         return {
-            options: options,
+            options: mergeCards(
+                this.props.correctOptions,
+                this.props.otherOptions,
+            ),
             correctOptions: this.props.correctOptions,
             otherOptions: this.props.otherOptions,
             height: this.props.height,
@@ -135,7 +120,7 @@ class OrdererEditor extends React.Component<Props> {
 
     render(): React.ReactNode {
         return (
-            <div className="perseus-widget-orderer">
+            <div>
                 <div>
                     {" "}
                     Correct answer:{" "}
@@ -152,7 +137,9 @@ class OrdererEditor extends React.Component<Props> {
                     options={this.props.correctOptions.map(
                         (option) => option.content,
                     )}
-                    onChange={this.onOptionsChange.bind(this, "correctOptions")}
+                    onChange={(options) => {
+                        this.onOptionsChange("correctOptions", options);
+                    }}
                     layout={this.props.layout}
                 />
 
@@ -167,7 +154,9 @@ class OrdererEditor extends React.Component<Props> {
                     options={this.props.otherOptions.map(
                         (option) => option.content,
                     )}
-                    onChange={this.onOptionsChange.bind(this, "otherOptions")}
+                    onChange={(options) => {
+                        this.onOptionsChange("otherOptions", options);
+                    }}
                     layout={this.props.layout}
                 />
 
@@ -177,7 +166,6 @@ class OrdererEditor extends React.Component<Props> {
                         Layout:{" "}
                         <select
                             value={this.props.layout}
-                            // @ts-expect-error - TS2322 - Type '(arg1: ChangeEvent<HTMLInputElement>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'.
                             onChange={this.onLayoutChange}
                         >
                             <option value={HORIZONTAL}>Horizontal</option>
@@ -198,7 +186,6 @@ class OrdererEditor extends React.Component<Props> {
                         Height:{" "}
                         <select
                             value={this.props.height}
-                            // @ts-expect-error - TS2322 - Type '(arg1: ChangeEvent<HTMLInputElement>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'.
                             onChange={this.onHeightChange}
                         >
                             <option value={NORMAL}>Normal</option>

@@ -6,11 +6,7 @@
 // TODO(LEMS-4304): feature flag cleanup - rename this file to widget-container.tsx.
 // This file is the new widget container that will replace the old container.
 
-import {
-    CoreWidgetRegistry,
-    type PerseusWidgetOptions,
-} from "@khanacademy/perseus-core";
-import {linterContextDefault} from "@khanacademy/perseus-linter";
+import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 import classNames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -22,17 +18,12 @@ import {getWidgetSubType} from "./widget-type-utils";
 import * as Widgets from "./widgets";
 
 import type {WidgetProps} from "./types";
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type Props = {
     type: string; // widget type/name,
     id: string; // widget id
-    widgetProps: WidgetProps<any, PerseusWidgetOptions>;
-    linterContext: LinterContextProps;
-};
-
-type DefaultProps = {
-    linterContext: LinterContextProps;
+    // TODO(benchristel): Pass real type arguments here.
+    widgetProps: WidgetProps<any, any>;
 };
 
 type State = {
@@ -41,10 +32,6 @@ type State = {
 
 class WidgetContainer extends React.Component<Props, State> {
     widgetRef = React.createRef<React.ComponentType<any>>();
-
-    static defaultProps: DefaultProps = {
-        linterContext: linterContextDefault,
-    };
 
     state: State = {
         sizeClass: containerSizeClass.MEDIUM,
@@ -103,7 +90,7 @@ class WidgetContainer extends React.Component<Props, State> {
         }
 
         const subType =
-            getWidgetSubType(type, this.props.widgetProps) ?? "null";
+            getWidgetSubType(type, this.props.widgetProps.options) ?? "null";
 
         let alignment = this.props.widgetProps.alignment;
         if (alignment == null || alignment === "default") {
@@ -151,9 +138,12 @@ class WidgetContainer extends React.Component<Props, State> {
         // to default to false.
         // The linter context might be a constant object (and it isn't owned
         // by us anyway), so we copy it if we have to modify it.
+        // TODO(benchristel): Since linting logic varies by widget, it should
+        //  live in the individual widget components, not here. Refactor to
+        //  remove this `isLintable` check.
         const linterContext = Widgets.isLintable(type)
-            ? this.props.linterContext
-            : {...this.props.linterContext, highlightLint: false};
+            ? this.props.widgetProps.linterContext
+            : {...this.props.widgetProps.linterContext, highlightLint: false};
 
         // Note: if you add more props here, please consider whether or not
         // it should be auto-serialized.

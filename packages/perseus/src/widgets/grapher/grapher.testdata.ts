@@ -369,6 +369,58 @@ export const multipleAvailableTypesQuestion: PerseusRenderer = {
     },
 };
 
+export const staticExponentialQuestion: PerseusRenderer = {
+    ...multipleAvailableTypesQuestion,
+    widgets: {
+        "grapher 1": {
+            ...multipleAvailableTypesQuestion.widgets["grapher 1"],
+            static: true,
+            options: {
+                ...multipleAvailableTypesQuestion.widgets["grapher 1"].options,
+                correct: {
+                    type: "exponential",
+                    coords: [
+                        [0, 3],
+                        [1, 4],
+                    ],
+                    asymptote: [
+                        [-10, 2],
+                        [10, 2],
+                    ],
+                },
+                graph: {
+                    ...multipleAvailableTypesQuestion.widgets["grapher 1"]
+                        .options.graph,
+                    backgroundImage: {url: null},
+                },
+            },
+        },
+    },
+};
+
+export const multipleAvailableTypesExponentialQuestion: PerseusRenderer = {
+    ...multipleAvailableTypesQuestion,
+    widgets: {
+        "grapher 1": {
+            ...multipleAvailableTypesQuestion.widgets["grapher 1"],
+            options: {
+                ...multipleAvailableTypesQuestion.widgets["grapher 1"].options,
+                correct: {
+                    type: "exponential",
+                    coords: [
+                        [0, 3],
+                        [1, 4],
+                    ],
+                    asymptote: [
+                        [-10, -3],
+                        [10, -3],
+                    ],
+                },
+            },
+        },
+    },
+};
+
 export const simpleQuestion: PerseusRenderer = {
     content:
         "Put one dot on { x:0, y:0 } and one dot on { x:5, y:5 }\n\n[[☃ grapher 1]]",

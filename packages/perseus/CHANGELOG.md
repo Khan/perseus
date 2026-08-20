@@ -1,5 +1,73 @@
 # @khanacademy/perseus
 
+## 84.2.0
+
+### Minor Changes
+
+-   [#4081](https://github.com/Khan/perseus/pull/4081) [`37d4457`](https://github.com/Khan/perseus/commit/37d44579e75ddad16b6d96f5c85f9b9e8ae212af) Thanks [@benchristel](https://github.com/benchristel)! - The Plotter widget is now styled using Wonder Blocks semantic colors, which allow it to be themed.
+
+-   [#4096](https://github.com/Khan/perseus/pull/4096) [`9be52ec`](https://github.com/Khan/perseus/commit/9be52ec615403aa0236226564a60a09c139606f6) Thanks [@nedredmond](https://github.com/nedredmond)! - jquery moves from a peer dep to a direct dep. Will not break any current or future consumers; just leaves a redundant dep in the consuming package config that the consuming app can remove.
+
+### Patch Changes
+
+-   [#4088](https://github.com/Khan/perseus/pull/4088) [`707bce5`](https://github.com/Khan/perseus/commit/707bce562ac369bfd67b084afb5e2cbd27c06b78) Thanks [@Myranae](https://github.com/Myranae)! - Add the ray arrow for number line and fix styling
+
+-   [#4086](https://github.com/Khan/perseus/pull/4086) [`2f7bdee`](https://github.com/Khan/perseus/commit/2f7bdeee7cbd5773069fcd95b26e42f8558d51cc) Thanks [@Myranae](https://github.com/Myranae)! - Convert number-line styles to use tokens
+
+-   [#4097](https://github.com/Khan/perseus/pull/4097) [`1a06aad`](https://github.com/Khan/perseus/commit/1a06aad62bc5fe6cec1de0dc6d91ff9413848c6b) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove some uses of jQuery
+
+-   [#3922](https://github.com/Khan/perseus/pull/3922) [`7c10823`](https://github.com/Khan/perseus/commit/7c10823c74a97690eb85e635fcdafc7265f81a62) Thanks [@Myranae](https://github.com/Myranae)! - Add regression tests for Grapher and update styling to tokens
+
+## 84.1.1
+
+### Patch Changes
+
+-   [#4085](https://github.com/Khan/perseus/pull/4085) [`d5a4643`](https://github.com/Khan/perseus/commit/d5a46431256cf4b2db7c7fe8812c6d57e5bb1d99) Thanks [@handeyeco](https://github.com/handeyeco)! - Test changes only: adding some coverage to Sorter
+
+-   Updated dependencies [[`92722a7`](https://github.com/Khan/perseus/commit/92722a76d91c9e5c41b870341b44efbe45bf8318)]:
+    -   @khanacademy/perseus-core@36.1.0
+    -   @khanacademy/keypad-context@3.2.84
+    -   @khanacademy/kmath@2.4.43
+    -   @khanacademy/math-input@27.0.4
+    -   @khanacademy/perseus-linter@5.1.24
+    -   @khanacademy/perseus-score@8.12.16
+
+## 84.1.0
+
+### Minor Changes
+
+-   [#4027](https://github.com/Khan/perseus/pull/4027) [`f2c5a6e`](https://github.com/Khan/perseus/commit/f2c5a6ec5d2f1259690862a76b6b986ed1add9be) Thanks [@Myranae](https://github.com/Myranae)! - Migrate Sortable/Orderer styles to semantic tokens, fix Orderer cards losing their text when removed, and add a color indicator while removing a card.
+
+-   [#4066](https://github.com/Khan/perseus/pull/4066) [`6edb892`](https://github.com/Khan/perseus/commit/6edb892db0d36c51db5e7cac2fe395d052060fff) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add ChoiceBank component for the Drag-and-Drop widget family
+
+-   [#4071](https://github.com/Khan/perseus/pull/4071) [`4846057`](https://github.com/Khan/perseus/commit/4846057c18541513bcc7b7281af6c681e7d143a9) Thanks [@benchristel](https://github.com/benchristel)! - Perseus articles are now styled according to the current theme (Wonder Blocks or Shape Your Learning).
+
+### Patch Changes
+
+-   [#3872](https://github.com/Khan/perseus/pull/3872) [`4bc6934`](https://github.com/Khan/perseus/commit/4bc69342f225267727873040ddd372bd5a3d50a1) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Collect all widget options into a single `options` prop.
+
+-   [#4030](https://github.com/Khan/perseus/pull/4030) [`38beb6a`](https://github.com/Khan/perseus/commit/38beb6ad405811ca17264fda558b884adcf47df6) Thanks [@Myranae](https://github.com/Myranae)! - Convert non-token borders and sizing in definition, explanation, matrix, radio, and group/graded-group to semantic tokens
+
+-   [#4021](https://github.com/Khan/perseus/pull/4021) [`aef2763`](https://github.com/Khan/perseus/commit/aef27633169de9ff1b6b7affbd2309a753484085) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Interactive Graph] Fix keyboard prompt appearing when dragging the polygon body
+
+-   [#4083](https://github.com/Khan/perseus/pull/4083) [`96d2d65`](https://github.com/Khan/perseus/commit/96d2d65b367f5be2bc8197d12d3c8877c0b72084) Thanks [@benchristel](https://github.com/benchristel)! - Fixes the tokenized background color of Grapher, Measurer, and Orderer to be more similar to the original background color (`#fdfdfd`) in the default theme.
+
+-   [#4069](https://github.com/Khan/perseus/pull/4069) [`b1e7d53`](https://github.com/Khan/perseus/commit/b1e7d530e142619071f04f4aac69cb4a10ac2f9b) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add folder for FillInTheBlank widget and context notes for Drag and Drop work and Fill In The Blank widget
+
+-   [#4029](https://github.com/Khan/perseus/pull/4029) [`82140d0`](https://github.com/Khan/perseus/commit/82140d0ace3f5759991cf401483fd9235859e8f0) Thanks [@Myranae](https://github.com/Myranae)! - Update missed table, interactive graph, and label image styling to semantic tokens
+
+-   [#3921](https://github.com/Khan/perseus/pull/3921) [`a08ebf6`](https://github.com/Khan/perseus/commit/a08ebf6af33ca492601b9bb4d860f9553ec92e98) Thanks [@Myranae](https://github.com/Myranae)! - Create number line generator and add visual regression stories
+
+-   [#4028](https://github.com/Khan/perseus/pull/4028) [`a0c9e01`](https://github.com/Khan/perseus/commit/a0c9e017c0fd505e6b4f3e1289b9b2b1163cd70f) Thanks [@Myranae](https://github.com/Myranae)! - Update some numeric input styling to semantic tokens
+
+-   Updated dependencies [[`191e07b`](https://github.com/Khan/perseus/commit/191e07b481b15cdcec127b9ae8c09eadde38480a), [`93f5fbe`](https://github.com/Khan/perseus/commit/93f5fbea09bcd58f9d8e8a746a0085292a9707ba), [`a08ebf6`](https://github.com/Khan/perseus/commit/a08ebf6af33ca492601b9bb4d860f9553ec92e98)]:
+    -   @khanacademy/perseus-core@36.0.0
+    -   @khanacademy/keypad-context@3.2.83
+    -   @khanacademy/kmath@2.4.42
+    -   @khanacademy/math-input@27.0.3
+    -   @khanacademy/perseus-linter@5.1.23
+    -   @khanacademy/perseus-score@8.12.15
+
 ## 84.0.2
 
 ### Patch Changes

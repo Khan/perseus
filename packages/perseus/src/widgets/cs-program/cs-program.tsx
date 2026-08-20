@@ -55,7 +55,7 @@ const CSProgram = forwardRef<Widget, Props>(function CSProgram(props, ref) {
         settings,
         showEditor = false,
         showButtons = false,
-    } = props;
+    } = props.options;
 
     // We receive data from the iframe that contains
     // {testsPassed: true/false} and use that to set the status. It could
@@ -96,10 +96,11 @@ const CSProgram = forwardRef<Widget, Props>(function CSProgram(props, ref) {
          * [LEMS-3185] do not trust serializedState
          */
         getSerializedState: (): any => {
-            const {userInput, alignment, ...rest} = props;
+            const {userInput, alignment, options, ...rest} = props;
             return {
+                ...options,
                 ...rest,
-                programType: rest.programType || null,
+                programType: options.programType || null,
             };
         },
     }));

@@ -49,6 +49,11 @@ describe("grapher widget", () => {
         await waitForInitialGraphieRender();
 
         // Assert
+        // Note: the curve's stroke resolves to "" in jsdom because
+        // tokenValue() reads CSS custom properties, which jsdom doesn't
+        // define. Raphael then renders "" as stroke="none" in the DOM
+        // (visible in the snapshot). The correct hex resolves in a real
+        // browser (Chromatic).
         expect(container).toMatchSnapshot("initial render");
     });
 
