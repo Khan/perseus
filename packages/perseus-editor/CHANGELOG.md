@@ -1,5 +1,20 @@
 # @khanacademy/perseus-editor
 
+## 37.1.0
+
+### Minor Changes
+
+-   [#4081](https://github.com/Khan/perseus/pull/4081) [`37d4457`](https://github.com/Khan/perseus/commit/37d44579e75ddad16b6d96f5c85f9b9e8ae212af) Thanks [@benchristel](https://github.com/benchristel)! - The Plotter widget is now styled using Wonder Blocks semantic colors, which allow it to be themed.
+
+-   [#4096](https://github.com/Khan/perseus/pull/4096) [`9be52ec`](https://github.com/Khan/perseus/commit/9be52ec615403aa0236226564a60a09c139606f6) Thanks [@nedredmond](https://github.com/nedredmond)! - jquery moves from a peer dep to a direct dep. Will not break any current or future consumers; just leaves a redundant dep in the consuming package config that the consuming app can remove.
+
+### Patch Changes
+
+-   [#4097](https://github.com/Khan/perseus/pull/4097) [`1a06aad`](https://github.com/Khan/perseus/commit/1a06aad62bc5fe6cec1de0dc6d91ff9413848c6b) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove some uses of jQuery
+
+-   Updated dependencies [[`37d4457`](https://github.com/Khan/perseus/commit/37d44579e75ddad16b6d96f5c85f9b9e8ae212af), [`9be52ec`](https://github.com/Khan/perseus/commit/9be52ec615403aa0236226564a60a09c139606f6), [`707bce5`](https://github.com/Khan/perseus/commit/707bce562ac369bfd67b084afb5e2cbd27c06b78), [`2f7bdee`](https://github.com/Khan/perseus/commit/2f7bdeee7cbd5773069fcd95b26e42f8558d51cc), [`1a06aad`](https://github.com/Khan/perseus/commit/1a06aad62bc5fe6cec1de0dc6d91ff9413848c6b), [`7c10823`](https://github.com/Khan/perseus/commit/7c10823c74a97690eb85e635fcdafc7265f81a62)]:
+    -   @khanacademy/perseus@84.2.0
+
 ## 37.0.2
 
 ### Patch Changes
