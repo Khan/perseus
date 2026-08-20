@@ -23,7 +23,6 @@ import {
     scoreWidgetsFunctional,
 } from "@khanacademy/perseus-score";
 import classNames from "classnames";
-import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -1226,16 +1225,19 @@ class Renderer
 
         // In the common case of no callback specified, avoid this work.
         if (onRender !== noopOnRender || oldOnRender !== noopOnRender) {
-            // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'find' does not exist on type 'JQueryStatic'.
-            const $images = $(ReactDOM.findDOMNode(this)).find("img");
+            const node = ReactDOM.findDOMNode(this);
 
             // Fire callback on image load...
-            if (oldOnRender !== noopOnRender) {
-                $images.off("load", oldOnRender);
-            }
+            if (node instanceof Element) {
+                node.querySelectorAll("img").forEach((image) => {
+                    if (oldOnRender !== noopOnRender) {
+                        image.removeEventListener("load", oldOnRender);
+                    }
 
-            if (onRender !== noopOnRender) {
-                $images.on("load", onRender);
+                    if (onRender !== noopOnRender) {
+                        image.addEventListener("load", onRender);
+                    }
+                });
             }
         }
 

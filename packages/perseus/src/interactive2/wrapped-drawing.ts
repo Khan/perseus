@@ -3,7 +3,6 @@
  */
 
 import {vector as kvector} from "@khanacademy/kmath";
-import $ from "jquery";
 
 import InteractiveUtil from "./interactive-util";
 
@@ -59,7 +58,7 @@ export default abstract class WrappedDrawing {
 
     remove() {
         this.visibleShape.remove();
-        $(this.wrapper).remove();
+        this.wrapper.remove();
     }
 
     getMouseTarget() {

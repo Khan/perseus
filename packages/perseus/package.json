@@ -3,7 +3,7 @@
     "description": "Core Perseus API (includes renderers and widgets)",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "84.1.0",
+    "version": "84.1.1",
     "publishConfig": {
         "access": "public"
     },
@@ -55,7 +55,8 @@
         "gifuct-js": "^2.1.2",
         "mafs": "0.19.0",
         "tiny-invariant": "catalog:prodDeps",
-        "uuid": "^10.0.0"
+        "uuid": "^10.0.0",
+        "jquery": "catalog:prodDeps"
     },
     "devDependencies": {
         "@khanacademy/wonder-blocks-announcer": "catalog:devDeps",
@@ -85,7 +86,6 @@
         "@popperjs/core": "catalog:devDeps",
         "aphrodite": "catalog:devDeps",
         "classnames": "catalog:devDeps",
-        "jquery": "catalog:devDeps",
         "perseus-build-settings": "workspace:*",
         "prop-types": "catalog:devDeps",
         "raphael": "workspace:*",
@@ -122,7 +122,6 @@
         "@popperjs/core": "catalog:peerDeps",
         "aphrodite": "catalog:peerDeps",
         "classnames": "catalog:peerDeps",
-        "jquery": "catalog:peerDeps",
         "prop-types": "catalog:peerDeps",
         "react": "catalog:peerDeps",
         "react-dom": "catalog:peerDeps",

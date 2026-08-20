@@ -1,7 +1,5 @@
 import {type PerseusMeasurerWidgetOptions} from "@khanacademy/perseus-core";
-import $ from "jquery";
 import * as React from "react";
-import ReactDOM from "react-dom";
 
 import SvgImage from "../../components/svg-image";
 import GraphUtils from "../../util/graph-utils";
@@ -18,7 +16,7 @@ class Measurer extends React.Component<Props> implements Widget {
     // this just helps with TS weak typing when a Widget
     // doesn't implement any Widget methods
     isWidget = true as const;
-
+    graphieDivRef = React.createRef<HTMLDivElement>();
     ruler;
     protractor;
 
@@ -47,11 +45,12 @@ class Measurer extends React.Component<Props> implements Widget {
     }
 
     setupGraphie() {
-        const graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
-        // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'empty' does not exist on type 'JQueryStatic'.
-        $(graphieDiv).empty();
-        // @ts-expect-error - Argument of type 'Element | Text | null' is not assignable to parameter of type 'HTMLElement'.
-        const graphie = (this.graphie = GraphUtils.createGraphie(graphieDiv));
+        const graphieDiv = this.graphieDivRef.current;
+        if (graphieDiv == null) {
+            throw new Error("No graphie container div found");
+        }
+        graphieDiv.innerHTML = "";
+        const graphie = GraphUtils.createGraphie(graphieDiv);
 
         const scale: Coord = [40, 40];
         const range: [Interval, Interval] = [
@@ -131,7 +130,7 @@ class Measurer extends React.Component<Props> implements Widget {
                         />
                     </div>
                 )}
-                <div className="graphie" ref="graphieDiv" />
+                <div className="graphie" ref={this.graphieDivRef} />
             </div>
         );
     }
