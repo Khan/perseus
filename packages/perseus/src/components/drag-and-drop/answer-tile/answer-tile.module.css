@@ -6,6 +6,10 @@
     align-items: center;
     box-sizing: border-box;
 
+    /* One-line tiles are 48px tall in the design. Taller content still
+     * grows the tile, because this is a minimum. */
+    min-block-size: var(--wb-sizing-size_480);
+
     padding-block: var(--wb-sizing-size_080);
     padding-inline: var(--wb-sizing-size_100);
 
