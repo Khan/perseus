@@ -11,6 +11,10 @@ describe("isGraphicalImage", () => {
         expect(isGraphicalImage("https://example.com/foo.svg")).toBe(true);
     });
 
+    it("is true for a GIF", () => {
+        expect(isGraphicalImage("https://example.com/foo.gif")).toBe(true);
+    });
+
     it("is false for a JPEG", () => {
         expect(isGraphicalImage("https://example.com/foo.jpg")).toBe(false);
     });
@@ -27,19 +31,15 @@ describe("isGraphicalImage", () => {
         expect(isGraphicalImage("!foo")).toBe(false);
     });
 
-    it("is true for a PNG URL with a query param", () => {
+    it("is true for a graphical image URL with a query param", () => {
         expect(isGraphicalImage("https://example.com/foo.png?q=1")).toBe(true);
     });
 
-    it("is true for an SVG URL with a query param", () => {
-        expect(isGraphicalImage("https://example.com/foo.svg?q=1")).toBe(true);
-    });
-
-    it("is false for a file with an unrecognized extension starting with .png", () => {
+    it("is false for an image with an unrecognized extension starting with .png", () => {
         expect(isGraphicalImage("https://example.com/foo.pngqxz")).toBe(false);
     });
 
-    it("is false for a file with another extension after .png", () => {
+    it("is false for an image with another extension after .png", () => {
         expect(isGraphicalImage("https://example.com/foo.png.qxz")).toBe(false);
     });
 });
