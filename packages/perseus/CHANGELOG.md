@@ -1,5 +1,15 @@
 # @khanacademy/perseus
 
+## 84.3.0
+
+### Minor Changes
+
+-   [#4100](https://github.com/Khan/perseus/pull/4100) [`f533e12`](https://github.com/Khan/perseus/commit/f533e124310ff0827af74d7303c2537dbdb737da) Thanks [@benchristel](https://github.com/benchristel)! - The Definition widget now contrasts more clearly with surrounding text, especially in dark mode.
+
+### Patch Changes
+
+-   [#3983](https://github.com/Khan/perseus/pull/3983) [`8e55ded`](https://github.com/Khan/perseus/commit/8e55ded23dc3bee126d738e8190b650ceef80229) Thanks [@handeyeco](https://github.com/handeyeco)! - Some text changes for the NumericInput examples
+
 ## 84.2.0
 
 ### Minor Changes
