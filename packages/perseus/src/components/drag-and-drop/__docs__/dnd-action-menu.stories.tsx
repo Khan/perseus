@@ -1,7 +1,5 @@
 import * as React from "react";
 
-import {mockStrings} from "../../../strings";
-import {PerseusI18nContextProvider} from "../../i18n-context";
 import {DndActionMenu} from "../dnd-action-menu";
 import {
     generateActionMenuProps,
@@ -139,20 +137,10 @@ export const RightToLeft: Story = {
                     document.documentElement.dir = previous;
                 };
             }, []);
-            return (
-                <PerseusI18nContextProvider
-                    strings={{
-                        ...mockStrings,
-                        moveTo: "نقل إلى",
-                        clear: "مسح",
-                        moveToTarget: ({target}) => `نقل إلى ${target}`,
-                        clearTarget: ({target}) => `مسح من ${target}`,
-                    }}
-                    locale="ar"
-                >
-                    <StoryComponent />
-                </PerseusI18nContextProvider>
-            );
+            // Note: the fixed copy ("Move to", "Clear") renders in English
+            // here — the temporary strings module isn't swappable per story.
+            // Full RTL copy returns when the strings move into PerseusStrings.
+            return <StoryComponent />;
         },
     ],
 };

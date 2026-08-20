@@ -10,8 +10,8 @@ import * as React from "react";
 import {useId} from "react";
 
 import a11yStyles from "../../../styles/a11y.module.css";
-import {usePerseusI18n} from "../../i18n-context";
 
+import {tempDndStrings as strings} from "../temp-strings";
 import styles from "./dnd-action-menu.module.css";
 import {MergedRefOpener} from "./merged-ref-opener";
 
@@ -74,7 +74,6 @@ export const DndActionMenu = React.forwardRef<
         disabled,
     } = props;
 
-    const {strings} = usePerseusI18n();
     const descriptionId = useId();
 
     const description =

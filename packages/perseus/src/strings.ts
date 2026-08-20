@@ -908,14 +908,6 @@ export type PerseusStrings = {
     gifPlayButtonLabel: string;
     gifPauseButtonLabel: string;
     definitionIdentifier: ({word}: {word: string}) => string;
-    // Drag-and-drop
-    moveTo: string;
-    clear: string;
-    moveToTarget: ({target}: {target: string}) => string;
-    clearTarget: ({target}: {target: string}) => string;
-    actionsMenu: string;
-    // `num` is the special variable name used to determine plurality
-    menuRemaining: ({num}: {num: number}) => string;
 };
 
 /**
@@ -1861,16 +1853,6 @@ export const strings = {
     gifPlayButtonLabel: "Play Animation",
     gifPauseButtonLabel: "Pause Animation",
     definitionIdentifier: "Definition of: %(word)s",
-    // Drag-and-drop
-    moveTo: "Move to",
-    clear: "Clear",
-    moveToTarget: "Move to %(target)s",
-    clearTarget: "Clear from %(target)s",
-    actionsMenu: "Actions menu",
-    menuRemaining: {
-        one: "%(num)s remaining.",
-        other: "%(num)s remaining.",
-    },
 } satisfies {
     [key in keyof PerseusStrings]:
         | string
@@ -2390,13 +2372,6 @@ export const mockStrings: PerseusStrings = {
     gifPlayButtonLabel: "Play Animation",
     gifPauseButtonLabel: "Pause Animation",
     definitionIdentifier: ({word}) => `Definition of: ${word}`,
-    // Drag-and-drop
-    moveTo: "Move to",
-    clear: "Clear",
-    moveToTarget: ({target}) => `Move to ${target}`,
-    clearTarget: ({target}) => `Clear from ${target}`,
-    actionsMenu: "Actions menu",
-    menuRemaining: ({num}) => `${num} remaining.`,
 };
 
 // This type helps us make sure all error codes are mapped to strings
