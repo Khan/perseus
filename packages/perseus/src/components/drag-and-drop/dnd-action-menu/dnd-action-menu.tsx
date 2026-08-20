@@ -23,7 +23,7 @@ export type MoveTarget = {
 };
 
 export interface DndActionMenuProps {
-    /** The tile's value — labels the button via aria-labelledby. */
+    /** The tile's value — labels the button via aria-label. */
     label: string;
     /**
      * Remaining uses for a multi-use tile. When provided, it is spoken as
@@ -75,7 +75,6 @@ export const DndActionMenu = React.forwardRef<
     } = props;
 
     const {strings} = usePerseusI18n();
-    const labelId = useId();
     const descriptionId = useId();
 
     const description =
@@ -132,13 +131,9 @@ export const DndActionMenu = React.forwardRef<
 
     return (
         <>
-            {/* Name and description sources for the opener button. They are
-                aria-hidden so browse-mode screen readers don't also hit them
-                as loose text — aria-labelledby/aria-describedby still resolve
-                hidden nodes. */}
-            <span id={labelId} aria-hidden="true" className={a11yStyles.srOnly}>
-                {label}
-            </span>
+            {/* Description source for the opener button. aria-hidden so
+                browse-mode screen readers don't hit it as loose text —
+                aria-describedby still resolves hidden nodes. */}
             <span
                 id={descriptionId}
                 aria-hidden="true"
@@ -151,7 +146,7 @@ export const DndActionMenu = React.forwardRef<
                 controlled opened/onToggle props to pass through here. */}
             <ActionMenu
                 // menuText is required by ActionMenu but unused with a
-                // custom opener; the real name comes from aria-labelledby.
+                // custom opener; the real name comes from aria-label.
                 menuText={label}
                 disabled={isDisabled}
                 // "auto-start": Popper opens the menu on whichever side of
@@ -163,7 +158,7 @@ export const DndActionMenu = React.forwardRef<
                     <MergedRefOpener
                         openerRef={ref}
                         disabled={isDisabled}
-                        aria-labelledby={labelId}
+                        aria-label={label}
                         aria-describedby={descriptionId}
                         className={styles.opener}
                     >

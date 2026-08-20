@@ -21,7 +21,7 @@ type MergedRefOpenerProps = {
     /** The parent-facing ref, forwarded by DndActionMenu for focus return. */
     openerRef: React.ForwardedRef<HTMLButtonElement>;
     disabled: boolean;
-    "aria-labelledby": string;
+    "aria-label": string;
     "aria-describedby": string;
     className: string;
     children: React.ReactNode;
