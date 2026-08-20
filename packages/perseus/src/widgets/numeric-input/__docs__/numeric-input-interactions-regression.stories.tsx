@@ -157,6 +157,29 @@ const allAnswerForms: PerseusNumericInputWidgetOptions["answers"] = [
     },
 ];
 
+// Six of the seven supported answer forms. We deliberately stop at six:
+// supplying all seven flips the widget into "all forms accepted" mode, which
+// HIDES the examples tooltip entirely (see `shouldShowExamples`). Six is the
+// most forms we can show while still rendering the full bulleted example list.
+const allAnswerFormsSimplified: PerseusNumericInputWidgetOptions["answers"] = [
+    {
+        value: 5,
+        status: "correct",
+        message: "",
+        answerForms: [
+            "integer",
+            "decimal",
+            "proper",
+            "improper",
+            "mixed",
+            "pi",
+        ],
+        simplify: "required",
+        strict: false,
+        maxError: 0,
+    },
+];
+
 /**
  * Verifies the focused tooltip when many answer forms are accepted. With more
  * than two examples the tooltip switches from an inline string to a bulleted
@@ -170,6 +193,21 @@ export const WithTooltipAllAnswerForms: Story = {
     args: {
         size: "normal",
         answers: allAnswerForms,
+    },
+    play: async ({canvas}) => {
+        const input = canvas.getByRole("textbox");
+        input.focus();
+    },
+};
+
+export const WithTooltipAllAnswerFormsSimplified: Story = {
+    decorators: [numericInputRendererDecorator],
+    parameters: {
+        initialUserInput: {"numeric-input 1": {currentValue: "1701"}},
+    },
+    args: {
+        size: "normal",
+        answers: allAnswerFormsSimplified,
     },
     play: async ({canvas}) => {
         const input = canvas.getByRole("textbox");

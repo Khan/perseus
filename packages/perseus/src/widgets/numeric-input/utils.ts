@@ -56,8 +56,11 @@ export const generateExamples = (
         return NumericExampleStrings[form.name](form, strings);
     });
 
+    const yourAnswerText =
+        uniqueForms.length > 1 ? strings.yourAnswerCanBe : strings.yourAnswer;
+
     // Add the "Your answer" string to the beginning of the examples list.
-    return [strings.yourAnswer].concat(examples);
+    return [yourAnswerText].concat(examples);
 };
 
 /**
