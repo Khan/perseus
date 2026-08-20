@@ -84,16 +84,17 @@ export const DndActionMenu = React.forwardRef<
 
     const showClearAction = onClear != null && targetLabel != null;
 
+    // Built as a flat array rather than inline JSX children: ActionMenu's
+    // children type only admits menu items per child expression, but it
+    // accepts a single JSX.Element[] wholesale — which also lets the
+    // decorative header span through. See the comment on the span below.
     const menuItems = [
         // ActionMenu has no header slot, so the visual-only "Move to" header
         // rides along as an extra child. ActionMenu clones every child with
         // an injected role="menuitem" and onClick, so the span must be
         // aria-hidden (keeps it out of the accessibility tree — the spoken
         // phrasing lives in each item's aria-label instead) and the CSS sets
-        // pointer-events: none (defuses the injected click handler). The
-        // cast sneaks the span past ActionMenu's children type, which only
-        // accepts Action/Option/Separator items.
-
+        // pointer-events: none (defuses the injected click handler).
         <span key="header" aria-hidden="true" className={styles.menuHeader}>
             {strings.moveTo}
         </span>,
