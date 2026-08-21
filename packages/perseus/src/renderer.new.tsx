@@ -1420,30 +1420,6 @@ class Renderer
     };
 
     /**
-     * Serializes widget state. Seems to be used only by editors though.
-     *
-     * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState
-     */
-    serialize: () => Record<any, any> = () => {
-        const state: Record<string, any> = {};
-        _.each(
-            this.state.widgetInfo,
-            function (info, id) {
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                // eslint-disable-next-line @typescript-eslint/no-invalid-this
-                const widget = this.getWidgetInstance(id);
-                const s = widget.serialize();
-                if (!_.isEmpty(s)) {
-                    state[id] = s;
-                }
-            },
-            this,
-        );
-        return state;
-    };
-
-    /**
      * Returns an array of widget ids that are empty (meaning widgets where the
      * learner has not interacted with the widget yet or has not filled in all
      * fields).  For example, the `interactive-graph` widget is considered

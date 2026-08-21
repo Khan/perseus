@@ -57,7 +57,7 @@ export function _upgradeWidgetInfo(widgetInfo: PerseusWidget): PerseusWidget {
 // with all available transforms applied, but the results of those
 // transforms will not be propogated upwards until serialization.
 class WidgetEditor extends React.Component<Props, State> {
-    widget: React.RefObject<{
+    widgetSpecificEditor: React.RefObject<{
         serialize(): unknown;
         getSaveWarnings?: () => unknown;
     }>;
@@ -68,7 +68,7 @@ class WidgetEditor extends React.Component<Props, State> {
             showWidget: props.widgetIsOpen ?? true,
             widgetInfo: _upgradeWidgetInfo(props.widgetInfo),
         };
-        this.widget = React.createRef();
+        this.widgetSpecificEditor = React.createRef();
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
@@ -97,7 +97,7 @@ class WidgetEditor extends React.Component<Props, State> {
             ...this.state.widgetInfo,
             options: {
                 ...this.state.widgetInfo.options,
-                ...(this.widget.current?.serialize() ?? {}),
+                ...(this.widgetSpecificEditor.current?.serialize() ?? {}),
                 ...newOptions,
             },
         } as PerseusWidget;
@@ -136,7 +136,7 @@ class WidgetEditor extends React.Component<Props, State> {
     };
 
     getSaveWarnings = () => {
-        const issuesFunc = this.widget.current?.getSaveWarnings;
+        const issuesFunc = this.widgetSpecificEditor.current?.getSaveWarnings;
         return issuesFunc ? issuesFunc() : [];
     };
 
@@ -153,7 +153,9 @@ class WidgetEditor extends React.Component<Props, State> {
             // `{Ed && ...}` guard in render()). In that case fall back to the
             // last-known options rather than dereferencing a null ref, which
             // previously crashed the editor when toggling JSON mode.
-            options: this.widget.current?.serialize() ?? widgetInfo.options,
+            options:
+                this.widgetSpecificEditor.current?.serialize() ??
+                widgetInfo.options,
             version: widgetInfo.version,
         };
     };
@@ -235,7 +237,7 @@ class WidgetEditor extends React.Component<Props, State> {
                 >
                     {Ed && (
                         <Ed
-                            ref={this.widget}
+                            ref={this.widgetSpecificEditor}
                             onChange={this._handleWidgetChange}
                             static={widgetInfo.static}
                             graded={widgetInfo.graded}
