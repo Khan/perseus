@@ -29,9 +29,11 @@ describe("AnswerTile", () => {
 
     it("renders text content from markdown", () => {
         // Arrange, Act
-        render(<AnswerTile {...generateAnswerTileProps({content: "Bongo"})} />);
+        render(
+            <AnswerTile {...generateAnswerTileProps({content: "Banana"})} />,
+        );
 
-        expect(screen.getByText("Bongo")).toBeInTheDocument();
+        expect(screen.getByText("Banana")).toBeInTheDocument();
     });
 
     it("renders image content with its alt text", async () => {
