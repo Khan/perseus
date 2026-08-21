@@ -695,18 +695,12 @@ export type PerseusExpressionAnswerForm = {
 export type PerseusGradedGroupWidgetOptions = {
     /** Translatable Text; A title to be displayed for the group. */
     title: string;
-    /** Not used in Perseus (but is set in (en, pt) production data) */
-    hasHint?: boolean | null | undefined;
     /** A section to define hints for the group. */
     hint?: PerseusRenderer | null | undefined;
     /** Translatable Markdown. May include widgets and images embedded. */
     content: string;
     /** See {@link PerseusRenderer.widgets} */
     widgets: PerseusWidgetsMap;
-    /** Not used in Perseus */
-    widgetEnabled?: boolean | null | undefined;
-    /** Not used in Perseus */
-    immutableWidgets?: boolean | null | undefined;
     /** See {@link PerseusRenderer.images} */
     images: {
         [key: string]: PerseusImageDetail;

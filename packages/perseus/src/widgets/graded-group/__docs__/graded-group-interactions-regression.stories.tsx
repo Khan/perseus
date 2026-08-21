@@ -54,7 +54,6 @@ const sharedArgs = {
         images: {},
         widgets: {},
     },
-    hasHint: true,
     images: {},
 } satisfies Partial<PerseusGradedGroupWidgetOptions>;
 
@@ -72,7 +71,6 @@ const textOnlyArgs = {
         images: {},
         widgets: {},
     },
-    hasHint: true,
     images: {},
 } satisfies Partial<PerseusGradedGroupWidgetOptions>;
 

@@ -85,8 +85,6 @@ This tests if dropdown widgets trigger the mobile answer bar correctly.`,
                             content:
                                 "Think about what you see when you look up on a clear day!",
                         }),
-                        widgetEnabled: true,
-                        immutableWidgets: false,
                     }),
                 ],
             },
