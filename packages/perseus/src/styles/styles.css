@@ -366,6 +366,11 @@
  * GLOBAL DARK MODE SETTINGS *
  *****************************/
 [data-wb-theme$="-dark"] .framework-perseus {
+    /* TODO(benchristel): this set of file extensions is duplicated in
+     * image.css and dark-mode-toggle.tsx. Replace these selectors with a
+     * class that gets added to images that should be inverted, so the set of
+     * extensions can have a single representation in TypeScript code.
+     */
     img[src$=".png"],
     img[src$=".svg"],
     .graphie:not(.perseus-widget-plotter),
