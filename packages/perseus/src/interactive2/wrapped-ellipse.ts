@@ -1,4 +1,5 @@
 import {vector as kvector} from "@khanacademy/kmath";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import _ from "underscore";
 
 import InteractiveUtil from "./interactive-util";
@@ -13,6 +14,8 @@ const DEFAULT_OPTIONS = {
     shadow: false,
     disableMouseEventsOnWrapper: false,
 } as const;
+
+export const wrappedEllipseShadow = `drop-shadow(0px 0px 2px ${semanticColor.core.foreground.instructive.default})`;
 
 class WrappedEllipse extends WrappedDrawing {
     initialPoint: Coord;
@@ -59,7 +62,7 @@ class WrappedEllipse extends WrappedDrawing {
         }
 
         if (options.shadow) {
-            const filter = "drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5))";
+            const filter = wrappedEllipseShadow;
             const wrapper = this.wrapper;
             wrapper.style.filter = filter;
 
