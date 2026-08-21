@@ -94,7 +94,7 @@
      * past this limit. Content never scrolls. */
     max-inline-size: 200px;
     padding-inline-end: var(--wb-sizing-size_060);
-    /* The rendered markdown gets its color from the tile's state. */
+    /* The rendered markdown inherits the scored or disabled text color. */
     color: inherit;
 }
 

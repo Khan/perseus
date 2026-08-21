@@ -14,16 +14,16 @@ import styles from "./answer-tile.module.css";
 import type {DndActionMenuProps} from "../dnd-action-menu";
 
 /**
- * The widget owns this data. The tile passes it to the DndActionMenu.
- * The type comes from the menu's own props, without the props that the
- * tile supplies itself. When the menu gets a new prop, this type includes
- * it automatically. The two components cannot go out of sync.
+ * The widget-supplied data for a tile's actions menu: the blanks the tile
+ * can move to, the move/clear callbacks, and the remaining-use count.
+ *
+ * Derived from DndActionMenuProps minus the props the tile fills in
+ * itself (label, disabled), so it tracks the menu's API automatically.
  */
 export type AnswerTileMenuConfig = Omit<
     DndActionMenuProps,
-    // We use keyof Pick<> here, not plain strings. If one of these prop
-    // names changes in dnd-action-menu, the code will not compile. A
-    // plain Omit would accept the old name without an error.
+    // keyof Pick<> instead of plain strings: if the menu renames one of
+    // these props, this line fails to compile instead of going stale.
     keyof Pick<DndActionMenuProps, "label" | "disabled">
 > & {
     /**
@@ -69,8 +69,8 @@ interface AnswerTileProps {
     disabled?: boolean;
     /**
      * Data for the tile's DndActionMenu. Pass null to show no menu, for
-     * example in a static preview. Scored tiles never show the menu, so
-     * this prop only applies when the state is "rest".
+     * example in a static preview. Ignored on scored and disabled tiles,
+     * which never show the menu.
      */
     menu: AnswerTileMenuConfig | null;
     /**
@@ -86,7 +86,8 @@ interface AnswerTileProps {
  * AnswerTile is the card that a learner moves into a blank. It is part of
  * the Drag-and-Drop widget family. The tile shows authored markdown
  * content: text, TeX, or an image. It puts the DndActionMenu at its
- * leading edge. The parent widget sets the scored states.
+ * leading edge. The parent widget sets showCorrectness and disabled
+ * after scoring.
  *
  * The tile is only visual for now. A later ticket adds the drag wiring.
  */
