@@ -72,13 +72,6 @@ export interface AnswerTileProps {
      * move focus after a tile moves.
      */
     menuRef?: React.Ref<HTMLButtonElement>;
-
-    /**
-     * When the menu is visible. Use "always" (the default) in choice
-     * banks and column blanks. Use "on-hover-or-focus" in an inline
-     * blank, so the sentence stays easy to read.
-     */
-    menuVisibility?: "always" | "on-hover-or-focus";
 }
 
 /**
@@ -119,7 +112,6 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
                     onClear={props.onClear}
                     remainingUses={props.remainingUses}
                     menuRef={props.menuRef}
-                    visibility={props.menuVisibility}
                 />
             )}
             {showCorrectness != null && (
@@ -154,15 +146,9 @@ function TileActionsMenu(props: {
     onClear?: () => void;
     remainingUses?: number;
     menuRef?: React.Ref<HTMLButtonElement>;
-    visibility: AnswerTileProps["menuVisibility"];
 }): React.ReactElement {
     return (
-        <span
-            className={classNames(
-                styles.startContainer,
-                props.visibility === "on-hover-or-focus" && styles.menuOnDemand,
-            )}
-        >
+        <span className={styles.startContainer}>
             <DndActionMenu
                 ref={props.menuRef}
                 label={props.label}

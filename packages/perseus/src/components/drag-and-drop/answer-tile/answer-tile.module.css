@@ -74,19 +74,6 @@
     margin-inline-end: var(--wb-sizing-size_060);
 }
 
-/* In an inline blank, the menu is hidden until the learner hovers on
- * the tile or moves focus into it. The menu is only hidden visually.
- * The opener stays focusable and clickable for keyboard and screen
- * reader users. */
-.menuOnDemand {
-    opacity: 0;
-}
-
-.tile:hover .menuOnDemand,
-.tile:focus-within .menuOnDemand {
-    opacity: 1;
-}
-
 .content {
     display: flex;
     justify-content: center;

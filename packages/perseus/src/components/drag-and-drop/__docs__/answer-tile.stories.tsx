@@ -89,13 +89,6 @@ export const Disabled: Story = {
     },
 };
 
-/** In an inline blank, the menu shows only on hover or keyboard focus. */
-export const MenuOnHoverOrFocus: Story = {
-    args: {
-        menuVisibility: "on-hover-or-focus",
-    },
-};
-
 /** A scored bank: correct tiles next to disabled (unused) tiles. */
 export const ScoredComposition: Story = {
     render: () => (
