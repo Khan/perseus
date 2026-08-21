@@ -48,7 +48,6 @@ class CategorizerEditor extends React.Component<Props> {
                 // The preview keeps the authored item order so the editor's
                 // item list lines up with the rows of the preview table.
                 randomizeItems: false,
-                static: false,
                 values: [],
             },
             userInput: {values: this.props.values},

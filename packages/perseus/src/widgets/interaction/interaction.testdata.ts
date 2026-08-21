@@ -248,7 +248,6 @@ export const question1: PerseusRenderer = {
                     tickStep: [0.5, 1],
                     valid: "Step is too large, there must be at least 3 ticks.",
                 },
-                static: false,
             },
             static: false,
             type: "interaction",
@@ -267,7 +266,6 @@ export const questionWithMovablePointMissingConstraints: PerseusRenderer = {
         "interaction 1": {
             graded: true,
             options: {
-                static: false,
                 elements: [
                     {
                         key: "movable-point-64f8ec",

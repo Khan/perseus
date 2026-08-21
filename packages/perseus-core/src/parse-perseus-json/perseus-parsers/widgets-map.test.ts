@@ -114,7 +114,6 @@ describe("parseWidgetsMap", () => {
                     items: [],
                     categories: [],
                     randomizeItems: false,
-                    static: false,
                     values: [],
                 },
             },
@@ -151,7 +150,6 @@ describe("parseWidgetsMap", () => {
                 options: generateDefinitionOptions({
                     togglePrompt: "",
                     definition: "",
-                    static: false,
                 }),
             }),
         };
@@ -169,7 +167,6 @@ describe("parseWidgetsMap", () => {
                 options: {
                     choices: [],
                     placeholder: "",
-                    static: false,
                 },
             },
         };
@@ -189,7 +186,6 @@ describe("parseWidgetsMap", () => {
                     hidePrompt: "",
                     explanation: "",
                     widgets: {},
-                    static: false,
                 },
             },
         };
@@ -363,7 +359,6 @@ describe("parseWidgetsMap", () => {
                     width: 1,
                     height: 1,
                     allowFullScreen: false,
-                    static: false,
                 },
             },
         };
@@ -436,7 +431,6 @@ describe("parseWidgetsMap", () => {
                 type: "interaction",
                 version: {major: 0, minor: 0},
                 options: {
-                    static: false,
                     graph: {
                         box: [1, 1],
                         range: [
@@ -472,7 +466,6 @@ describe("parseWidgetsMap", () => {
                     markers: [],
                     hideChoicesFromInstructions: false,
                     multipleAnswers: false,
-                    static: false,
                 },
             },
         };
@@ -584,7 +577,6 @@ describe("parseWidgetsMap", () => {
                     divisionRange: [],
                     snapDivisions: 1,
                     correctX: 1,
-                    static: false,
                     isTickCtrl: false,
                 },
             },
@@ -645,7 +637,6 @@ describe("parseWidgetsMap", () => {
                     passageText: "",
                     passageTitle: "",
                     showLineNumbers: false,
-                    static: false,
                 },
             },
         };
@@ -659,7 +650,6 @@ describe("parseWidgetsMap", () => {
                     passageText: "",
                     passageTitle: "",
                     showLineNumbers: false,
-                    static: false,
                 },
             },
         };

@@ -23,7 +23,6 @@ class VideoEditor extends React.Component<VideoEditorProps> {
     serialize: () => PerseusVideoWidgetOptions = () => {
         return {
             location: this.props.location,
-            static: this.props.static,
         };
     };
 
