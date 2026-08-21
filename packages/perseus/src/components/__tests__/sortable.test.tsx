@@ -1,4 +1,4 @@
-import {act, render} from "@testing-library/react";
+import {act, render, screen, waitFor} from "@testing-library/react";
 import * as React from "react";
 
 import * as Dependencies from "../../dependencies";
@@ -62,6 +62,54 @@ describe("Sortable", () => {
         // Assert
         expect(container).toMatchSnapshot(
             "second render: displays the sortable",
+        );
+    });
+
+    it("updates card heights when fonts load with different metrics", async () => {
+        // Arrange
+        // `fonts` is typed as FontFaceSet. A real FontFaceSet is an
+        // EventTarget, which is the only part of it the component touches, so
+        // the stub can be a plain one.
+        // eslint-disable-next-line no-restricted-syntax
+        const fonts = new EventTarget() as unknown as FontFaceSet;
+        jest.spyOn(document, "fonts", "get").mockReturnValue(fonts);
+
+        let webFontLoaded = false;
+        jest.spyOn(
+            HTMLElement.prototype,
+            "offsetHeight",
+            "get",
+        ).mockImplementation(() => (webFontLoaded ? 1 : 2));
+        jest.spyOn(
+            HTMLElement.prototype,
+            "offsetWidth",
+            "get",
+        ).mockImplementation(() => 100);
+
+        render(
+            <Sortable
+                layout="horizontal"
+                options={["a", "b", "c"]}
+                waitForTexRendererToLoad={false}
+            />,
+        );
+
+        const cardHeights = () =>
+            screen.getAllByRole("listitem").map((li) => li.style.height);
+
+        // The initial measurement runs before the web font loads, so the
+        // fallback font's heights get baked into the cards' inline styles.
+        await waitFor(() =>
+            expect(cardHeights()).toEqual(["2px", "2px", "2px"]),
+        );
+
+        // Act
+        webFontLoaded = true;
+        act(() => fonts.dispatchEvent(new Event("loadingdone")));
+
+        // Assert
+        await waitFor(() =>
+            expect(cardHeights()).toEqual(["1px", "1px", "1px"]),
         );
     });
 });

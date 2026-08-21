@@ -465,7 +465,12 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         waitForTexRendererToLoad: true,
     };
 
+    isUnmounted = false;
+
     remeasureItems: () => void = _.debounce(() => {
+        if (this.isUnmounted) {
+            return;
+        }
         this.setState({
             // Clear item measurements
             items: Sortable.clearItemMeasurements(this.state.items),
@@ -511,6 +516,19 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         };
     }
 
+    componentDidMount() {
+        // A row's height comes from the line box around its content, which is
+        // sized by the rendered font's metrics. If the font is fetched from
+        // the web rather than installed locally, and we measure before it
+        // finishes loading, then every row would be stuck at the wrong height
+        // if we didn't tell React to re-render here.
+        //
+        // NOTE: `loadingdone` never fires in certain situations, e.g. if
+        // there are no web fonts on the page or they are all loaded from the
+        // browser cache. Don't rely on this event happening!
+        document.fonts?.addEventListener("loadingdone", this.remeasureItems);
+    }
+
     UNSAFE_componentWillReceiveProps(nextProps: SortableProps) {
         const prevProps = this.props;
 
@@ -548,6 +566,11 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                 this.measureItems();
             }, 0);
         }
+    }
+
+    componentWillUnmount() {
+        this.isUnmounted = true;
+        document.fonts?.removeEventListener("loadingdone", this.remeasureItems);
     }
 
     measureItems() {
@@ -854,7 +877,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                     />,
                 );
             }
-        }, this);
+        });
 
         return <ul className={className}>{cards}</ul>;
     }
