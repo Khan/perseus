@@ -1,6 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {number as knumber} from "@khanacademy/kmath";
-import {components, EditorJsonify} from "@khanacademy/perseus";
+import {components} from "@khanacademy/perseus";
 import {
     numberLineLogic,
     type NumberLineDefaultWidgetOptions,
@@ -10,8 +10,9 @@ import * as React from "react";
 import _ from "underscore";
 
 import InfoTip from "../../components/info-tip";
+import EditorJsonify from "../../mixins/editor-jsonify";
 
-import type {Changeable} from "@khanacademy/perseus";
+import type {ChangeableProps} from "../../mixins/changeable";
 
 const {ButtonGroup, NumberInput, RangeInput} = components;
 
@@ -41,7 +42,7 @@ type Props = {
 
     static?: boolean;
     showTooltips: boolean;
-} & Changeable.ChangeableProps;
+} & ChangeableProps;
 
 // JSDoc will be shown in Storybook widget editor description
 /**

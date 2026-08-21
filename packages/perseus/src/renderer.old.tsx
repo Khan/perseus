@@ -11,6 +11,7 @@
 import {
     applyDefaultsToWidgets,
     Errors,
+    excludeDenylistKeys,
     getDefaultAnswerArea,
     mapObject,
     PerseusError,
@@ -39,7 +40,6 @@ import ErrorBoundary from "./error-boundary";
 import InteractionTracker from "./interaction-tracker";
 import JiptParagraphs from "./jipt-paragraphs";
 import {Log} from "./logging/log";
-import {excludeDenylistKeys} from "./mixins/widget-prop-denylist";
 import {ApiOptions, ClassNames as ApiClassNames} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";

@@ -1,11 +1,15 @@
-import {components, Changeable, Dependencies} from "@khanacademy/perseus";
+import {components, Dependencies} from "@khanacademy/perseus";
 import * as React from "react";
+
+import {deprecatedChangeableChange} from "../../mixins/changeable";
 
 import MathquillInput from "./mathquill-input";
 
+import type {ChangeableProps} from "../../mixins/changeable";
+
 const {ButtonGroup, NumberInput} = components;
 
-type Props = Changeable.ChangeableProps & {
+type Props = ChangeableProps & {
     constraint: string;
     constraintFn: string;
     constraintXMax: string;
@@ -41,7 +45,7 @@ class ConstraintEditor extends React.Component<Props> {
     ) => (value?: any, callback?: () => unknown) => unknown = (
         propName: string,
     ): ((value?: any, callback?: () => unknown) => unknown) => {
-        return Changeable.change.call(this, propName);
+        return deprecatedChangeableChange.call(this, propName);
     };
 
     render(): React.ReactNode {

@@ -1,7 +1,8 @@
-import {Widgets, excludeDenylistKeys} from "@khanacademy/perseus";
+import {Widgets} from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
     applyDefaultsToWidget,
+    excludeDenylistKeys,
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";

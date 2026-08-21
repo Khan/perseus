@@ -1,5 +1,4 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {Changeable, EditorJsonify} from "@khanacademy/perseus";
 import {
     iframeLogic,
     type IFrameDefaultWidgetOptions,
@@ -9,12 +8,12 @@ import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 
 import BlurInput from "../../components/blur-input";
+import {deprecatedChangeableChange} from "../../mixins/changeable";
+import EditorJsonify from "../../mixins/editor-jsonify";
 
-type ChangeFn = typeof Changeable.change;
+import type {ChangeableProps, ChangeFn} from "../../mixins/changeable";
 
-interface PairEditorProps
-    extends PerseusCSProgramSetting,
-        Changeable.ChangeableProps {}
+interface PairEditorProps extends PerseusCSProgramSetting, ChangeableProps {}
 
 /**
  * This is used for editing a name/value pair.
@@ -25,7 +24,7 @@ interface PairEditorProps
  */
 class PairEditor extends React.Component<PairEditorProps> {
     change: ChangeFn = (...args) => {
-        return Changeable.change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     render(): React.ReactNode {
@@ -50,7 +49,7 @@ class PairEditor extends React.Component<PairEditorProps> {
     }
 }
 
-interface PairsEditorProps extends Changeable.ChangeableProps {
+interface PairsEditorProps extends ChangeableProps {
     pairs: PerseusCSProgramSetting[];
 }
 
@@ -63,7 +62,7 @@ interface PairsEditorProps extends Changeable.ChangeableProps {
  */
 class PairsEditor extends React.Component<PairsEditorProps> {
     change: ChangeFn = (...args) => {
-        return Changeable.change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     handlePairChange = (pairIndex: any, pair: any) => {
@@ -95,7 +94,7 @@ class PairsEditor extends React.Component<PairsEditorProps> {
 
 interface IframeEditorProps
     extends IFrameDefaultWidgetOptions,
-        Changeable.ChangeableProps {}
+        ChangeableProps {}
 
 /**
  * This is the main editor for this widget, to specify all the options.
@@ -107,7 +106,7 @@ class IframeEditor extends React.Component<IframeEditorProps> {
         iframeLogic.defaultWidgetOptions;
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     handleSettingsChange: (arg1: any) => void = (settings) => {

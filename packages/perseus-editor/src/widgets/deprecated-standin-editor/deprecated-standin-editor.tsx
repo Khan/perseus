@@ -1,5 +1,6 @@
-import {EditorJsonify} from "@khanacademy/perseus";
 import * as React from "react";
+
+import EditorJsonify from "../../mixins/editor-jsonify";
 
 type Props = {
     // Callback for when a widget prop is changed.
