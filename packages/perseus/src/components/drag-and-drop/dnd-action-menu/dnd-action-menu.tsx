@@ -83,10 +83,6 @@ export const DndActionMenu = React.forwardRef<
 
     const showClearAction = onClear != null && clearFromLabel != null;
 
-    // Built as a flat array rather than inline JSX children: ActionMenu's
-    // children type only admits menu items per child expression, but it
-    // accepts a single JSX.Element[] wholesale — which also lets the
-    // decorative header span through. See the comment on the span below.
     const menuItems = [
         // ActionMenu has no header slot, so the visual-only "Move to" header
         // rides along as an extra child. ActionMenu clones every child with
@@ -147,9 +143,6 @@ export const DndActionMenu = React.forwardRef<
                 // custom opener; the real name comes from aria-label.
                 menuText={label}
                 disabled={isDisabled}
-                // "auto-start": Popper opens the menu on whichever side of
-                // the opener has the most room ("auto") and lines its edge
-                // up with the opener's edge ("start").
                 alignment="auto-start"
                 dropdownStyle={menuStyle}
                 opener={() => (
@@ -172,9 +165,6 @@ export const DndActionMenu = React.forwardRef<
         </>
     );
 });
-
-// These live at module scope (rather than inline) so they keep a stable
-// identity across renders, and at the end of the file per convention.
 
 // The design calls for the menu items to be 48px tall,
 // and WonderBlocks defaults to 40px.

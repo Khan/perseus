@@ -6,7 +6,7 @@
  * surface with every tweak. Each entry mirrors the shape it will have in
  * PerseusStrings.
  *
- * TODO(LEMS-4314): once the copy is finalized, move these entries into
+ * TODO(LEMS-4368): once the copy is finalized, move these entries into
  * PerseusStrings (strings.ts) and swap consumers to usePerseusI18n.
  */
 export const tempDndStrings = {

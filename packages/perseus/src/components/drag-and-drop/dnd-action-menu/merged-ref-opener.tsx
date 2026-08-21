@@ -14,8 +14,7 @@ function assignRef<T>(ref: React.ForwardedRef<T>, value: T | null) {
 }
 
 /**
- * Our wrapper's props, not Wonder Blocks types: everything except openerRef
- * is passed straight through to WB's CustomOpener.
+ * Props for the custom Action Menu opener
  */
 type MergedRefOpenerProps = {
     /** The parent-facing ref, forwarded by DndActionMenu for focus return. */
