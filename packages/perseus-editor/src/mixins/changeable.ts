@@ -8,12 +8,23 @@
  * this.props.onChange with the modified props.
  */
 
-import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import {
+    Errors,
+    excludeDenylistKeys,
+    PerseusError,
+} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
-import {excludeDenylistKeys} from "./widget-prop-denylist";
-
-import type {ChangeFn} from "../types";
+// Used to type the `change` method on all widgets.
+export type ChangeFn = (
+    newPropsOrSinglePropName:
+        | string
+        | {
+              [key: string]: any;
+          },
+    propValue?: any,
+    callback?: () => unknown,
+) => any;
 
 const USAGE =
     "Usage:\n" +

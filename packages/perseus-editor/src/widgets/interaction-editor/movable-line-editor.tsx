@@ -1,14 +1,16 @@
-import {components, Changeable, Dependencies} from "@khanacademy/perseus";
+import {components, Dependencies} from "@khanacademy/perseus";
 import * as React from "react";
+
+import {change} from "../../mixins/changeable";
 
 import ConstraintEditor from "./constraint-editor";
 import MathquillInput from "./mathquill-input";
 
-type ChangeFn = typeof Changeable.change;
+import type {ChangeableProps, ChangeFn} from "../../mixins/changeable";
 
 const {NumberInput} = components;
 
-type Props = Changeable.ChangeableProps & {
+type Props = ChangeableProps & {
     startX: string;
     startY: string;
     endX: string;
@@ -48,7 +50,7 @@ class MovableLineEditor extends React.Component<Props> {
     };
 
     change: ChangeFn = (...args) => {
-        return Changeable.change.apply(this, args);
+        return change.apply(this, args);
     };
 
     render(): React.ReactNode {

@@ -1,20 +1,21 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
+import {components} from "@khanacademy/perseus";
 import {definitionLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../../editor";
+import {change} from "../../mixins/changeable";
+import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {InitializeWidgetOptionsParams} from "../../editor";
+import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {DefinitionDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 const {TextInput} = components;
 
-interface Props
-    extends DefinitionDefaultWidgetOptions,
-        Changeable.ChangeableProps {
+interface Props extends DefinitionDefaultWidgetOptions, ChangeableProps {
     apiOptions?: APIOptionsWithDefaults;
 }
 
@@ -44,7 +45,7 @@ class DefinitionEditor extends React.Component<Props> {
     }
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
+        return change.apply(this, args);
     };
 
     serialize: () => any = () => {

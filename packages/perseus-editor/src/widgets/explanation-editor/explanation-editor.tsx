@@ -1,19 +1,20 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
+import {components} from "@khanacademy/perseus";
 import {explanationLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../../editor";
+import {change} from "../../mixins/changeable";
+import EditorJsonify from "../../mixins/editor-jsonify";
 
+import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {ExplanationDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 const {TextInput} = components;
 
-interface Props
-    extends ExplanationDefaultWidgetOptions,
-        Changeable.ChangeableProps {
+interface Props extends ExplanationDefaultWidgetOptions, ChangeableProps {
     apiOptions?: APIOptionsWithDefaults;
 }
 
@@ -28,7 +29,7 @@ class ExplanationEditor extends React.Component<Props> {
         explanationLogic.defaultWidgetOptions;
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
+        return change.apply(this, args);
     };
 
     serialize: () => any = () => {
