@@ -3,6 +3,7 @@ import {describe, beforeAll, beforeEach, afterEach, it} from "@jest/globals";
 import {
     generateImageOptions,
     generateTestPerseusItem,
+    generateTestPerseusRenderer,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import {act, screen, waitFor, within} from "@testing-library/react";
@@ -903,12 +904,22 @@ describe("renderer", () => {
 
         it("should throw if widget provides invalid focus path", () => {
             // Arrange
-            const {renderer} = renderQuestion(definitionItem);
-            const [widget2] = renderer.findWidgets("definition 2");
+            const {renderer} = renderQuestion(
+                generateTestPerseusRenderer({
+                    content: "[[\u2603 mock-widget 1]]",
+                    widgets: {
+                        "mock-widget 1": {
+                            type: "mock-widget",
+                            options: {value: ""},
+                        },
+                    },
+                }),
+            );
+            const [widget] = renderer.findWidgets("mock-widget 1");
 
             // Act and Assert
             expect(() => {
-                widget2.props.onFocus("this is not an array");
+                widget.props.onFocus("this is not an array");
             }).toThrow("widget props.onFocus focusPath must be an Array");
         });
 
