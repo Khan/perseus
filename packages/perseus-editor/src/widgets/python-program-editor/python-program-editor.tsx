@@ -1,7 +1,10 @@
-import {components, Changeable} from "@khanacademy/perseus";
+import {components} from "@khanacademy/perseus";
 import {pythonProgramLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import {deprecatedChangeableChange} from "../../mixins/changeable";
+
+import type {ChangeableProps} from "../../mixins/changeable";
 import type {
     PerseusPythonProgramWidgetOptions,
     PythonProgramDefaultWidgetOptions,
@@ -9,7 +12,7 @@ import type {
 
 const {NumberInput, TextInput} = components;
 
-type Props = Changeable.ChangeableProps & {
+type Props = ChangeableProps & {
     programID: string;
     height: number;
 };
@@ -43,7 +46,7 @@ class PythonProgramEditor extends React.Component<Props> {
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
         // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
-        return Changeable.change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     serialize(): PerseusPythonProgramWidgetOptions {

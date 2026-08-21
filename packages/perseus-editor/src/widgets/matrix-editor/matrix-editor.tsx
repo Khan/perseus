@@ -1,15 +1,13 @@
-import {
-    components,
-    Changeable,
-    EditorJsonify,
-    MatrixWidget,
-} from "@khanacademy/perseus";
+import {components, MatrixWidget} from "@khanacademy/perseus";
 import {getMatrixSize, matrixLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../../editor";
+import {deprecatedChangeableChange} from "../../mixins/changeable";
+import EditorJsonify from "../../mixins/editor-jsonify";
 
+import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {MatrixDefaultWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -21,7 +19,7 @@ const Matrix = MatrixWidget.widget;
 // have to cap it at some point.
 const MAX_BOARD_SIZE = 6;
 
-interface Props extends MatrixDefaultWidgetOptions, Changeable.ChangeableProps {
+interface Props extends MatrixDefaultWidgetOptions, ChangeableProps {
     apiOptions: APIOptionsWithDefaults;
 }
 
@@ -35,7 +33,7 @@ class MatrixEditor extends React.Component<Props> {
         if (this.props.apiOptions.editingDisabled) {
             return;
         }
-        return Changeable.change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     onMatrixBoardSizeChange: (arg1: [number, number]) => void = (range) => {

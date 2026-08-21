@@ -1,24 +1,21 @@
-import {
-    Categorizer as CategorizerWidget,
-    Changeable,
-    EditorJsonify,
-} from "@khanacademy/perseus";
+import {Categorizer as CategorizerWidget} from "@khanacademy/perseus";
 import {categorizerLogic} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";
 
 import TextListEditor from "../../components/text-list-editor";
+import {deprecatedChangeableChange} from "../../mixins/changeable";
+import EditorJsonify from "../../mixins/editor-jsonify";
 
+import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {CategorizerDefaultWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const Categorizer = CategorizerWidget.widget;
 
-interface Props
-    extends CategorizerDefaultWidgetOptions,
-        Changeable.ChangeableProps {
+interface Props extends CategorizerDefaultWidgetOptions, ChangeableProps {
     apiOptions?: APIOptionsWithDefaults;
 }
 
@@ -33,7 +30,7 @@ class CategorizerEditor extends React.Component<Props> {
         categorizerLogic.defaultWidgetOptions;
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     serialize: () => any = () => {

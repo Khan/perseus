@@ -1,4 +1,3 @@
-import {EditorJsonify} from "@khanacademy/perseus";
 import {
     dropdownLogic,
     type DropdownDefaultWidgetOptions,
@@ -16,6 +15,7 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import InfoTip from "../../components/info-tip";
+import EditorJsonify from "../../mixins/editor-jsonify";
 
 type Props = any;
 

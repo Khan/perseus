@@ -501,17 +501,6 @@ export type WidgetProps<
     containerSizeClass: SizeClass;
 };
 
-// Used to type the `change` method on all widgets.
-export type ChangeFn = (
-    newPropsOrSinglePropName:
-        | string
-        | {
-              [key: string]: any;
-          },
-    propValue?: any,
-    callback?: () => unknown,
-) => any;
-
 export type SharedRendererProps = {
     apiOptions: APIOptions;
     linterContext: LinterContextProps;
