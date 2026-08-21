@@ -10,7 +10,8 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
  * `AnswerTile` is the card that a learner moves into a blank. It is part
  * of the Drag-and-Drop widget family. The tile shows authored markdown
  * content: text, TeX, or an image. It puts the `DndActionMenu` at its
- * leading edge. The parent widget sets the scored states.
+ * leading edge. The parent widget sets showCorrectness and disabled
+ * after scoring.
  *
  * Turn on Thunderblocks to match the provided designs.
  */
