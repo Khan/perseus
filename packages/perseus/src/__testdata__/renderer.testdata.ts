@@ -227,19 +227,7 @@ Some paragraph content...
 
 export const mathContent = `# Article with math
 
-This is a paragraph that has long sentences so it wraps across multiple lines. The paragraph contains some inline math: $y=x_0^2-1$. This demonstrates how math looks when it contains superscripts and subscripts. Here is some math that's $\\text{\\red{red}}$. And here is a fraction: $\\dfrac{2}{3}$.
-
-Here's some block-level math:
-
-$\\begin{aligned}
-2y+\\redD{7x} &= -5 \\\\
-+~5y\\redD{-7x}&=12\\\\
-\\hline\\\\
-7y+0 &=7
-\\end{aligned}$
-
-This is a paragraph after the block math.
-`;
+This is a paragraph that has long sentences so it wraps across multiple lines. The paragraph contains some inline math: $y=x_0^2-1$. This demonstrates how math looks when it contains superscripts and subscripts. Here is some math that's $\\text{\\red{red}}$. And here is a fraction: $\\dfrac{2}{3}$.`;
 
 export const tableContent = `# Article with a Markdown table
 
