@@ -132,12 +132,7 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
                     )}
                 </span>
             )}
-            <div
-                className={classNames(
-                    styles.content,
-                    isEmpty && styles.emptyContent,
-                )}
-            >
+            <div className={styles.content}>
                 {isEmpty ? (
                     // An empty tile must have a spoken value.
                     <span className={a11yStyles.srOnly}>{label}</span>
