@@ -520,8 +520,8 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         // A row's height comes from the line box around its content, which is
         // sized by the rendered font's metrics. If the font is fetched from
         // the web rather than installed locally, and we measure before it
-        // finishes loading, then every row is the wrong height -- and stays
-        // that way. Fonts loading don't trigger any sort of React re-render.
+        // finishes loading, then every row would be stuck at the wrong height
+        // if we didn't tell React to re-render here.
         //
         // NOTE: `loadingdone` never fires in certain situations, e.g. if
         // there are no web fonts on the page or they are all loaded from the
