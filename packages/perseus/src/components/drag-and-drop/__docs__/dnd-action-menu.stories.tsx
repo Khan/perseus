@@ -35,7 +35,7 @@ const meta: Meta<typeof DndActionMenu> = {
                     remainingUses: args.remainingUses,
                     moveTargets: args.moveTargets,
                     onMove: args.onMove,
-                    targetLabel: args.targetLabel,
+                    clearFromLabel: args.clearFromLabel,
                     onClear: args.onClear,
                 }}
             />
