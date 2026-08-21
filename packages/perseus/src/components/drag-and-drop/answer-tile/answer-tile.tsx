@@ -15,8 +15,8 @@ import type {MoveTarget} from "../dnd-action-menu";
 
 export interface AnswerTileProps {
     /**
-     * The unique identifier of this tile. It is used for scoring, drag
-     * wiring, and test ids.
+     * The unique identifier of an Answer Tile, which is used
+     * for both scoring and dragging.
      */
     tileId: string;
     /**
@@ -25,17 +25,12 @@ export interface AnswerTileProps {
      */
     content: string;
     /**
-     * The spoken value of the tile, as translated plain text. It names
-     * the menu opener ("Bongo. Actions menu."). We cannot compute it
-     * from TeX or image markdown, so the caller must supply it.
-     * For an empty tile, pass the translated "(empty)".
+     * The aria-label of the tile, as translated plain text.
      */
     label: string;
     /**
-     * The scored result for a tile placed in a blank. Omit before
-     * scoring. "correct" shows a green border and a check icon.
-     * "incorrect" shows a red border and an x icon. Both replace the
-     * menu and remove the shadow.
+     * Used to provide visible feedback regarding whether the user
+     * answered the question correctly or incorrectly.
      *
      * A scored tile is either placed (showCorrectness) or unused
      * (disabled), never both. If both arrive, showCorrectness wins.
@@ -48,16 +43,14 @@ export interface AnswerTileProps {
     disabled?: boolean;
     /**
      * Blanks the tile can move to. An empty array is valid: a placed
-     * tile in a one-blank exercise can only be cleared, and the menu
-     * disables itself when it has no actions at all.
+     * tile in a one-blank exercise can only be cleared,
      */
     moveTargets: ReadonlyArray<MoveTarget>;
     /** Called with the target blank's id when a move action is selected. */
     onMove: (targetId: string) => void;
     /**
-     * Visible label of the blank/column the tile currently sits in,
-     * spoken as "Clear from Blank 1". Provide with onClear when the
-     * tile is placed.
+     * Label of the blank/column the tile currently sits in, which is used
+     * as part of the aria-label for the "Clear" button in the Action Menu.
      */
     clearFromLabel?: string;
     /** Callback for removing the tile from its blank. */
