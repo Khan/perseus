@@ -43,7 +43,7 @@ describe("AnswerTile", () => {
         render(
             <AnswerTile
                 {...generateAnswerTileProps({
-                    content: "![a bongo drum](https://example.com/bongo.png)",
+                    content: "![a bongo drum](http://localhost/bongo.png)",
                     label: "a bongo drum",
                 })}
             />,
