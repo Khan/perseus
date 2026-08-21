@@ -21,7 +21,6 @@ export function generateNumberLineOptions(
         correctX: null,
         initialX: null,
         showTooltips: false,
-        static: false,
     };
 
     return {
