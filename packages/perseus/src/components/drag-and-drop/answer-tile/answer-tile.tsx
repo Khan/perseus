@@ -46,9 +46,6 @@ export interface AnswerTileProps {
      * this for unused choice-bank tiles after scoring.
      */
     disabled?: boolean;
-
-    // The next six props feed the tile's DndActionMenu. The menu shows
-    // unless the tile is scored or disabled.
     /**
      * Blanks the tile can move to. An empty array is valid: a placed
      * tile in a one-blank exercise can only be cleared, and the menu
