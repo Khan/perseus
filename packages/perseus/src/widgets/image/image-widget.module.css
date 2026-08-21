@@ -77,7 +77,7 @@
     max-height: var(--perseus-image-modal-panel-height);
 }
 
-.modal-image-background {
+.modal-image-container :global(.svg-image) {
     background-color: var(--wb-semanticColor-core-background-base-default);
 }
 

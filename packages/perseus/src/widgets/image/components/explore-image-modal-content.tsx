@@ -114,44 +114,38 @@ export default function ExploreImageModalContent({
     return (
         <div className={styles.modalPanelContainer}>
             <div className={styles.modalImageContainer}>
-                <div className={styles.modalImageBackground}>
-                    {/* Need to use SvgImage in order to load Graphie images */}
-                    <AssetContext.Consumer>
-                        {({setAssetStatus}) => (
-                            <SvgImage
-                                src={backgroundImage.url!}
-                                // Don't allow opening a modal within a modal.
-                                allowZoom={false}
-                                alt={caption === alt ? "" : alt}
-                                width={width}
-                                height={height}
-                                scale={scale}
-                                extraGraphie={{
-                                    box: box,
-                                    range: range,
-                                    labels: labels ?? [],
-                                }}
-                                zoomToFullSizeOnMobile={apiOptions.isMobile}
-                                constrainHeight={apiOptions.isMobile}
-                                allowFullBleed={apiOptions.isMobile}
-                                setAssetStatus={setAssetStatus}
-                                isGifPlaying={
-                                    imageIsGif ? isGifPlaying : undefined
-                                }
-                                onGifLoop={
-                                    imageIsGif
-                                        ? () => setIsGifPlaying(false)
-                                        : undefined
-                                }
-                                gifFrames={
-                                    imageIsGif
-                                        ? gifFrames ?? undefined
-                                        : undefined
-                                }
-                            />
-                        )}
-                    </AssetContext.Consumer>
-                </div>
+                {/* Need to use SvgImage in order to load Graphie images */}
+                <AssetContext.Consumer>
+                    {({setAssetStatus}) => (
+                        <SvgImage
+                            src={backgroundImage.url!}
+                            // Don't allow opening a modal within a modal.
+                            allowZoom={false}
+                            alt={caption === alt ? "" : alt}
+                            width={width}
+                            height={height}
+                            scale={scale}
+                            extraGraphie={{
+                                box: box,
+                                range: range,
+                                labels: labels ?? [],
+                            }}
+                            zoomToFullSizeOnMobile={apiOptions.isMobile}
+                            constrainHeight={apiOptions.isMobile}
+                            allowFullBleed={apiOptions.isMobile}
+                            setAssetStatus={setAssetStatus}
+                            isGifPlaying={imageIsGif ? isGifPlaying : undefined}
+                            onGifLoop={
+                                imageIsGif
+                                    ? () => setIsGifPlaying(false)
+                                    : undefined
+                            }
+                            gifFrames={
+                                imageIsGif ? gifFrames ?? undefined : undefined
+                            }
+                        />
+                    )}
+                </AssetContext.Consumer>
             </div>
             <div
                 className={`perseus-image-modal-description ${styles.modalDescriptionContainer}`}
