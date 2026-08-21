@@ -10,8 +10,8 @@ import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
 
 import Editor from "../../editor";
-import {deprecatedChangeableChange} from "../../mixins/changeable";
 import ExtrasEditor from "../../extras-editor";
+import {deprecatedChangeableChange} from "../../mixins/changeable";
 
 import styles from "./graded-group-editor.module.css";
 
