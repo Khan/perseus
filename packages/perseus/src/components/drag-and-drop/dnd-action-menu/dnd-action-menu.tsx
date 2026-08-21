@@ -38,14 +38,14 @@ export interface DndActionMenuProps {
     onMove: (targetId: string) => void;
     /**
      * Visible label (not the id) of the blank/column the tile currently
-     * sits in, e.g. "Blank 1" — spoken in the clear action as
-     * "Clear from Blank 1". Omit for a tile in the choice bank.
+     * sits in, e.g. "Blank 1" — named for where it's spoken: the clear
+     * action's "Clear from Blank 1". Omit for a tile in the choice bank.
      */
-    targetLabel?: string;
+    clearFromLabel?: string;
     /**
      * Callback for removing the tile from its blank. May be passed
-     * unconditionally; the clear action only renders when targetLabel is
-     * also present (i.e. the tile is placed).
+     * unconditionally; the clear action only renders when clearFromLabel
+     * is also present (i.e. the tile is placed).
      */
     onClear?: () => void;
     /** Scored/unused tiles. */
@@ -69,7 +69,7 @@ export const DndActionMenu = React.forwardRef<
         remainingUses,
         moveTargets,
         onMove,
-        targetLabel,
+        clearFromLabel,
         onClear,
         disabled,
     } = props;
@@ -81,7 +81,7 @@ export const DndActionMenu = React.forwardRef<
             ? `${strings.menuRemaining({num: remainingUses})} ${strings.actionsMenu}`
             : strings.actionsMenu;
 
-    const showClearAction = onClear != null && targetLabel != null;
+    const showClearAction = onClear != null && clearFromLabel != null;
 
     // Built as a flat array rather than inline JSX children: ActionMenu's
     // children type only admits menu items per child expression, but it
@@ -114,7 +114,7 @@ export const DndActionMenu = React.forwardRef<
             <ActionItem
                 key="clear"
                 label={strings.clear}
-                aria-label={strings.clearTarget({target: targetLabel})}
+                aria-label={strings.clearTarget({target: clearFromLabel})}
                 onClick={onClear}
                 style={menuItemStyle}
             />,

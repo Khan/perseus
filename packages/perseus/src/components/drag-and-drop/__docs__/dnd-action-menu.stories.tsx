@@ -69,7 +69,7 @@ export const InChoiceBank: Story = {};
 export const PlacedInBlank: Story = {
     args: {
         moveTargets: generateTestBlanks(4).slice(1),
-        targetLabel: "Blank 1",
+        clearFromLabel: "Blank 1",
         onClear: () => {},
     },
 };
@@ -95,7 +95,7 @@ export const LongCategoryLabels: Story = {
             {id: "col-1", label: "Physical changes to matter"},
             {id: "col-2", label: "Chemical changes to matter"},
         ],
-        targetLabel: "Physical changes to matter",
+        clearFromLabel: "Physical changes to matter",
         onClear: () => {},
     },
 };
