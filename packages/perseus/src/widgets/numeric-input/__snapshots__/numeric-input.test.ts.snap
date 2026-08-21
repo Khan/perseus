@@ -220,10 +220,10 @@ exports[`numeric-input widget Should render tooltip as list when multiple format
             id="aria-for-:ri:"
             style="display: none;"
           >
-            Your answer should be 
-                   a simplified proper fraction, like 3/5, or
-a simplified improper fraction, like 7/4, or
-a mixed number, like 1 and 3/4
+            Your answer can be 
+                   a simplified proper fraction (like 1/2 or 3/4), or
+a simplified improper fraction (like 5/4 or 9/8), or
+a mixed number (like 1 and 3/4 or 2 and 5/6)
           </span>
         </div>
          
@@ -281,7 +281,7 @@ exports[`numeric-input widget Should render tooltip using only correct answer fo
             style="display: none;"
           >
             Your answer should be 
-                   a simplified proper fraction, like 3/5
+                   a simplified proper fraction (like 1/2 or 3/4)
           </span>
         </div>
          
@@ -339,7 +339,7 @@ exports[`numeric-input widget Should render tooltip when format option is given:
             style="display: none;"
           >
             Your answer should be 
-                   a simplified proper fraction, like 3/5
+                   a simplified proper fraction (like 1/2 or 3/4)
           </span>
         </div>
          
