@@ -6,9 +6,11 @@
     align-items: center;
     box-sizing: border-box;
 
-    /* One-line tiles are 48px tall in the design. Taller content still
-     * grows the tile, because this is a minimum. */
+    /* One-line tiles are 48px tall and the narrowest tiles (empty and
+     * single-character) are 64px wide in the design. Larger content
+     * still grows the tile, because these are minimums. */
     min-block-size: var(--wb-sizing-size_480);
+    min-inline-size: var(--wb-sizing-size_640);
 
     padding-block: var(--wb-sizing-size_080);
     padding-inline: var(--wb-sizing-size_100);
@@ -77,6 +79,9 @@
 .content {
     display: flex;
     justify-content: center;
+    /* Fill the leftover width in a minimum-width tile, so narrow
+     * content stays centered. */
+    flex-grow: 1;
     /* Text wraps at this width. TeX does not wrap, so wide TeX can go
      * past this limit. Content never scrolls. */
     max-inline-size: 200px;
@@ -97,10 +102,4 @@
 .tile .content :global(div.paragraph) {
     margin: 0;
     font: inherit;
-}
-
-/* An empty tile keeps a minimum width. The learner can then see it and
- * select it. 6.4rem = 64px at KA's 10px root font size. */
-.emptyContent {
-    min-inline-size: 6.4rem;
 }
