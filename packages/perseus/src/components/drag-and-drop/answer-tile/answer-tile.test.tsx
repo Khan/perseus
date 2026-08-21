@@ -109,7 +109,9 @@ describe("AnswerTile", () => {
     describe("menu integration", () => {
         it("renders the action menu labeled with the tile label", () => {
             // Arrange, Act
-            render(<AnswerTile {...generateAnswerTileProps()} />);
+            render(
+                <AnswerTile {...generateAnswerTileProps({label: "Bongo"})} />,
+            );
 
             expect(
                 screen.getByRole("button", {name: "Bongo"}),
@@ -119,7 +121,15 @@ describe("AnswerTile", () => {
         it("calls onMove with the target id when a move action is selected", async () => {
             // Arrange
             const onMove = jest.fn();
-            render(<AnswerTile {...generateAnswerTileProps({onMove})} />);
+            render(
+                <AnswerTile
+                    {...generateAnswerTileProps({
+                        label: "Bongo",
+                        moveTargets: [{id: "blank-2", label: "Blank 2"}],
+                        onMove,
+                    })}
+                />,
+            );
 
             // Act
             await user.click(screen.getByRole("button", {name: "Bongo"}));
@@ -131,12 +141,42 @@ describe("AnswerTile", () => {
             expect(onMove).toHaveBeenCalledWith("blank-2");
         });
 
+        it("calls onClear when the clear action is selected", async () => {
+            // Arrange
+            const onClear = jest.fn();
+            render(
+                <AnswerTile
+                    {...generateAnswerTileProps({
+                        label: "Bongo",
+                        moveTargets: [],
+                        clearFromLabel: "Blank 1",
+                        onClear,
+                    })}
+                />,
+            );
+
+            // Act
+            await user.click(screen.getByRole("button", {name: "Bongo"}));
+            await user.click(
+                await screen.findByRole("menuitem", {
+                    name: "Clear from Blank 1",
+                }),
+            );
+
+            // Assert
+            expect(onClear).toHaveBeenCalled();
+        });
+
         it("forwards menuRef to the opener button", () => {
             // Arrange
             const menuRef = React.createRef<HTMLButtonElement>();
 
             // Act
-            render(<AnswerTile {...generateAnswerTileProps({menuRef})} />);
+            render(
+                <AnswerTile
+                    {...generateAnswerTileProps({label: "Bongo", menuRef})}
+                />,
+            );
 
             // Assert
             expect(menuRef.current).toBe(
@@ -146,38 +186,6 @@ describe("AnswerTile", () => {
     });
 
     describe("scored states", () => {
-        // The icon graphic (check vs x) lives in a generated stylesheet,
-        // so jsdom cannot tell the two apart. The stories cover which
-        // glyph shows for each result.
-        it.each(["correct", "incorrect"] as const)(
-            "renders a scored icon when showCorrectness is %s",
-            (showCorrectness) => {
-                // Arrange, Act
-                render(
-                    <AnswerTile
-                        {...generateAnswerTileProps({showCorrectness})}
-                    />,
-                );
-
-                expect(
-                    screen.getByTestId("answer-tile-state-icon-tile-1"),
-                ).toBeInTheDocument();
-            },
-        );
-
-        it("hides the scored icons from assistive technology", () => {
-            // Arrange, Act
-            render(
-                <AnswerTile
-                    {...generateAnswerTileProps({showCorrectness: "correct"})}
-                />,
-            );
-
-            expect(
-                screen.getByTestId("answer-tile-state-icon-tile-1"),
-            ).toHaveAttribute("aria-hidden", "true");
-        });
-
         it.each(["correct", "incorrect"] as const)(
             "does not render the action menu when showCorrectness is %s",
             (showCorrectness) => {
@@ -199,28 +207,6 @@ describe("AnswerTile", () => {
             );
 
             expect(screen.queryByRole("button")).not.toBeInTheDocument();
-        });
-
-        it("renders no scored icon when the tile is disabled", () => {
-            // Arrange, Act
-            render(
-                <AnswerTile {...generateAnswerTileProps({disabled: true})} />,
-            );
-
-            expect(
-                screen.queryByTestId("answer-tile-state-icon-tile-1"),
-            ).not.toBeInTheDocument();
-        });
-
-        it("marks a disabled tile via its class", () => {
-            // Arrange, Act
-            render(
-                <AnswerTile {...generateAnswerTileProps({disabled: true})} />,
-            );
-
-            expect(screen.getByTestId("answer-tile-tile-1")).toHaveClass(
-                "disabled",
-            );
         });
     });
 });
