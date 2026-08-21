@@ -77,9 +77,7 @@ function Indicators(props: IndicatorsProps) {
     );
 }
 
-type Props = WidgetProps<PerseusGradedGroupSetWidgetOptions> & {
-    trackInteraction: () => void;
-};
+type Props = WidgetProps<PerseusGradedGroupSetWidgetOptions>;
 
 const GradedGroupSet = forwardRef<Widget, Props>(
     function GradedGroupSet(props, ref) {
