@@ -139,12 +139,16 @@ export const DndActionMenu = React.forwardRef<
                 menu when a drag starts; WB ActionMenu already supports
                 controlled opened/onToggle props to pass through here. */}
             <ActionMenu
-                // menuText is required by ActionMenu but unused with a
-                // custom opener; the real name comes from aria-label.
+                // menuText here is required but unused, as we are using
+                // a custom opener with a button instead.
                 menuText={label}
                 disabled={isDisabled}
                 alignment="auto-start"
-                dropdownStyle={menuStyle}
+                // A minimum (not fixed) width, in rem so it scales with the
+                // user's font size. Short labels get breathing room; long
+                // labels can still widen the menu. No sizing token reaches
+                // this scale.
+                dropdownStyle={{minInlineSize: "16rem"}}
                 opener={() => (
                     <MergedRefOpener
                         openerRef={ref}
@@ -169,8 +173,3 @@ export const DndActionMenu = React.forwardRef<
 // The design calls for the menu items to be 48px tall,
 // and WonderBlocks defaults to 40px.
 const menuItemStyle = {minBlockSize: sizing.size_480};
-
-// A minimum (not fixed) width, in rem so it scales with the user's font
-// size. Short labels get breathing room; long labels can still widen the
-// menu. No sizing token reaches this scale.
-const menuStyle = {minInlineSize: "16rem"};

@@ -37,12 +37,8 @@
     /* Align the header text with the item labels: ActionItem's label inset
      * comes from the WB cell's themed inline padding (16px classic, 12px
      * thunderblocks), so reuse that variable rather than hardcoding a
-     * value that only matches one theme. The nested var() is a fallback:
-     * 16px if WB ever renames its cell padding variable. */
-    padding-inline: var(
-        --wb-c-cell-root-layout-padding-inline-default,
-        var(--wb-sizing-size_160)
-    );
+     * value that only matches one theme. */
+    padding-inline: var(--wb-c-cell-root-layout-padding-inline-default);
     pointer-events: none;
 
     color: var(--wb-semanticColor-core-foreground-neutral-subtle);
