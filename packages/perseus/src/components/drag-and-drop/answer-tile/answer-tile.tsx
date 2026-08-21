@@ -33,8 +33,8 @@ export interface AnswerTileProps {
      * Used to provide visible feedback regarding whether the user
      * answered the question correctly or incorrectly.
      *
-     * A scored tile is either placed (showCorrectness) or unused
-     * (disabled), never both. If both arrive, showCorrectness wins.
+     * Never pass this together with `disabled`: a scored tile is either
+     * placed (showCorrectness) or unused (disabled).
      */
     showCorrectness?: "correct" | "incorrect";
     /**
@@ -102,21 +102,12 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
             className={classNames(
                 styles.tile,
                 showCorrectness != null && styles[showCorrectness],
-                // showCorrectness wins when both arrive.
-                disabled && showCorrectness == null && styles.disabled,
+                disabled && styles.disabled,
             )}
         >
-            {(showCorrectness != null || !disabled) && (
+            {!disabled && (
                 <span className={styles.startContainer}>
-                    {showCorrectness != null ? (
-                        // An unlabeled PhosphorIcon is aria-hidden by
-                        // default. The widget announces the result to
-                        // screen readers, not the tile.
-                        <PhosphorIcon
-                            icon={scoredIcons[showCorrectness]}
-                            size="medium"
-                        />
-                    ) : (
+                    {showCorrectness == null ? (
                         <DndActionMenu
                             ref={menuRef}
                             label={label}
@@ -129,6 +120,14 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
                             // instead of disabling it, so a rendered menu
                             // is never disabled.
                             disabled={false}
+                        />
+                    ) : (
+                        // An unlabeled PhosphorIcon is aria-hidden by
+                        // default. The widget announces the result to
+                        // screen readers, not the tile.
+                        <PhosphorIcon
+                            icon={scoredIcons[showCorrectness]}
+                            size="medium"
                         />
                     )}
                 </span>
