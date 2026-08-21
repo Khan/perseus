@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import {AnswerTile} from "../answer-tile";
-import {generateAnswerTileMenu} from "../answer-tile/answer-tile.testdata";
+import {generateAnswerTileProps} from "../answer-tile/answer-tile.testdata";
 import {ChoiceBank} from "../choice-bank";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -36,10 +36,11 @@ function sampleTiles() {
     return SAMPLE_TILES.map((value, index) => (
         <AnswerTile
             key={value}
-            tileId={`tile-${index}`}
-            content={value}
-            label={value}
-            menu={generateAnswerTileMenu()}
+            {...generateAnswerTileProps({
+                tileId: `tile-${index}`,
+                content: value,
+                label: value,
+            })}
         />
     ));
 }
@@ -74,10 +75,11 @@ export const ManyTiles: Story = {
             {Array.from({length: 24}, (_, i) => (
                 <AnswerTile
                     key={i}
-                    tileId={`tile-${i}`}
-                    content={`Tile ${i + 1}`}
-                    label={`Tile ${i + 1}`}
-                    menu={generateAnswerTileMenu()}
+                    {...generateAnswerTileProps({
+                        tileId: `tile-${i}`,
+                        content: `Tile ${i + 1}`,
+                        label: `Tile ${i + 1}`,
+                    })}
                 />
             ))}
         </ChoiceBank>

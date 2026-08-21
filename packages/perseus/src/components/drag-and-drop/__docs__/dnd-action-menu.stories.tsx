@@ -31,13 +31,11 @@ const meta: Meta<typeof DndActionMenu> = {
                 tileId="tile-1"
                 content={args.label}
                 label={args.label}
-                menu={{
-                    remainingUses: args.remainingUses,
-                    moveTargets: args.moveTargets,
-                    onMove: args.onMove,
-                    clearFromLabel: args.clearFromLabel,
-                    onClear: args.onClear,
-                }}
+                moveTargets={args.moveTargets}
+                onMove={args.onMove}
+                clearFromLabel={args.clearFromLabel}
+                onClear={args.onClear}
+                remainingUses={args.remainingUses}
             />
         </StoryPadding>
     ),

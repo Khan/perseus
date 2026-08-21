@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import {AnswerTile} from "../answer-tile";
-import {generateAnswerTileMenu} from "../answer-tile/answer-tile.testdata";
+import {generateAnswerTileProps} from "../answer-tile/answer-tile.testdata";
 import {ChoiceBank} from "../choice-bank";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -26,12 +26,7 @@ const meta: Meta<typeof AnswerTile> = {
             </div>
         ),
     ],
-    args: {
-        tileId: "tile-1",
-        content: "Bongo",
-        label: "Bongo",
-        menu: generateAnswerTileMenu(),
-    },
+    args: generateAnswerTileProps(),
 };
 
 export default meta;
@@ -107,34 +102,47 @@ export const ScoredComposition: Story = {
         <div style={{maxInlineSize: 480}}>
             <ChoiceBank label="Choices">
                 <AnswerTile
-                    tileId="tile-1"
-                    content="2Mg"
-                    label="2Mg"
-                    showCorrectness="correct"
-                    menu={null}
+                    {...generateAnswerTileProps({
+                        tileId: "tile-1",
+                        content: "2Mg",
+                        label: "2Mg",
+                        showCorrectness: "correct",
+                    })}
                 />
                 <AnswerTile
-                    tileId="tile-2"
-                    content="$O_2$"
-                    label="O 2"
-                    showCorrectness="correct"
-                    menu={null}
+                    {...generateAnswerTileProps({
+                        tileId: "tile-2",
+                        content: "$O_2$",
+                        label: "O 2",
+                        showCorrectness: "correct",
+                    })}
                 />
                 <AnswerTile
-                    tileId="tile-3"
-                    content="acoustic"
-                    label="acoustic"
-                    disabled={true}
-                    menu={null}
+                    {...generateAnswerTileProps({
+                        tileId: "tile-3",
+                        content: "acoustic",
+                        label: "acoustic",
+                        disabled: true,
+                    })}
                 />
                 <AnswerTile
-                    tileId="tile-4"
-                    content="steel"
-                    label="steel"
-                    disabled={true}
-                    menu={null}
+                    {...generateAnswerTileProps({
+                        tileId: "tile-4",
+                        content: "steel",
+                        label: "steel",
+                        disabled: true,
+                    })}
                 />
             </ChoiceBank>
         </div>
     ),
+};
+
+/** A placed tile in a one-blank exercise: the menu only offers Clear. */
+export const OnlyClearAction: Story = {
+    args: {
+        moveTargets: [],
+        clearFromLabel: "Blank 1",
+        onClear: () => {},
+    },
 };

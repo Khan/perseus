@@ -1,12 +1,15 @@
 import {generateTestBlanks} from "../dnd-action-menu/dnd-action-menu.testdata";
 
-import type {AnswerTileMenuConfig} from "./answer-tile";
+import type {AnswerTileProps} from "./answer-tile";
 
-/** Generates the menu data that a widget supplies for a tile in the choice bank. */
-export function generateAnswerTileMenu(
-    overrides: Partial<AnswerTileMenuConfig> = {},
-): AnswerTileMenuConfig {
+/** Generates a complete, valid set of props for a tile in the choice bank. */
+export function generateAnswerTileProps(
+    overrides: Partial<AnswerTileProps> = {},
+): AnswerTileProps {
     return {
+        tileId: "tile-1",
+        content: "Bongo",
+        label: "Bongo",
         moveTargets: generateTestBlanks(),
         onMove: () => {},
         ...overrides,

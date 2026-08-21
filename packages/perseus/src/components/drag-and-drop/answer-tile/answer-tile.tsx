@@ -11,28 +11,9 @@ import {DndActionMenu} from "../dnd-action-menu";
 
 import styles from "./answer-tile.module.css";
 
-import type {DndActionMenuProps} from "../dnd-action-menu";
+import type {MoveTarget} from "../dnd-action-menu";
 
-/**
- * The widget-supplied data for a tile's actions menu: the blanks the tile
- * can move to, the move/clear callbacks, and the remaining-use count.
- *
- * Derived from DndActionMenuProps minus the props the tile fills in
- * itself (label, disabled), so it tracks the menu's API automatically.
- */
-export type AnswerTileMenuConfig = Omit<
-    DndActionMenuProps,
-    "label" | "disabled"
-> & {
-    /**
-     * This ref points to the menu's opener button. The parent uses it to
-     * move focus after a tile moves. It is a separate field because a
-     * forwarded ref is not part of the menu's props type.
-     */
-    menuRef?: React.Ref<HTMLButtonElement>;
-};
-
-interface AnswerTileProps {
+export interface AnswerTileProps {
     /**
      * The unique identifier of this tile. It is used for scoring, drag
      * wiring, and test ids.
@@ -53,8 +34,8 @@ interface AnswerTileProps {
     /**
      * The scored result for a tile placed in a blank. Omit before
      * scoring. "correct" shows a green border and a check icon.
-     * "incorrect" shows a red border and an x icon. Both remove the
-     * menu and the shadow.
+     * "incorrect" shows a red border and an x icon. Both replace the
+     * menu and remove the shadow.
      *
      * A scored tile is either placed (showCorrectness) or unused
      * (disabled), never both. If both arrive, showCorrectness wins.
@@ -65,17 +46,37 @@ interface AnswerTileProps {
      * this for unused choice-bank tiles after scoring.
      */
     disabled?: boolean;
+
+    // The next six props feed the tile's DndActionMenu. The menu shows
+    // unless the tile is scored or disabled.
     /**
-     * Data for the tile's DndActionMenu. Pass null to show no menu, for
-     * example in a static preview. Ignored on scored and disabled tiles,
-     * which never show the menu.
+     * Blanks the tile can move to. An empty array is valid: a placed
+     * tile in a one-blank exercise can only be cleared, and the menu
+     * disables itself when it has no actions at all.
      */
-    menu: AnswerTileMenuConfig | null;
+    moveTargets: ReadonlyArray<MoveTarget>;
+    /** Called with the target blank's id when a move action is selected. */
+    onMove: (targetId: string) => void;
+    /**
+     * Visible label of the blank/column the tile currently sits in,
+     * spoken as "Clear from Blank 1". Provide with onClear when the
+     * tile is placed.
+     */
+    clearFromLabel?: string;
+    /** Callback for removing the tile from its blank. */
+    onClear?: () => void;
+    /** Remaining uses for a multi-use tile, spoken by the menu opener. */
+    remainingUses?: number;
+    /**
+     * This ref points to the menu's opener button. The parent uses it to
+     * move focus after a tile moves.
+     */
+    menuRef?: React.Ref<HTMLButtonElement>;
+
     /**
      * When the menu is visible. Use "always" (the default) in choice
      * banks and column blanks. Use "on-hover-or-focus" in an inline
-     * blank, so the sentence stays easy to read. This prop does nothing
-     * when no menu shows.
+     * blank, so the sentence stays easy to read.
      */
     menuVisibility?: "always" | "on-hover-or-focus";
 }
@@ -90,7 +91,7 @@ interface AnswerTileProps {
  * The tile is only visual for now. A later ticket adds the drag wiring.
  */
 export function AnswerTile(props: AnswerTileProps): React.ReactElement {
-    const {tileId, content, label, showCorrectness, disabled, menu} = props;
+    const {tileId, content, label, showCorrectness, disabled} = props;
     const {strings} = usePerseusI18n();
 
     // Whitespace-only content would render an invisible, unlabeled tile.
@@ -109,10 +110,15 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
             )}
             data-testid={`answer-tile-${tileId}`}
         >
-            {menu != null && !disabled && showCorrectness == null && (
+            {!disabled && showCorrectness == null && (
                 <TileActionsMenu
-                    menu={menu}
                     label={label}
+                    moveTargets={props.moveTargets}
+                    onMove={props.onMove}
+                    clearFromLabel={props.clearFromLabel}
+                    onClear={props.onClear}
+                    remainingUses={props.remainingUses}
+                    menuRef={props.menuRef}
                     visibility={props.menuVisibility}
                 />
             )}
@@ -139,25 +145,32 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
     );
 }
 
-/** The actions menu at the start of a resting tile. */
+/** The actions menu at the start of an unscored tile. */
 function TileActionsMenu(props: {
-    menu: AnswerTileMenuConfig;
     label: string;
+    moveTargets: ReadonlyArray<MoveTarget>;
+    onMove: (targetId: string) => void;
+    clearFromLabel?: string;
+    onClear?: () => void;
+    remainingUses?: number;
+    menuRef?: React.Ref<HTMLButtonElement>;
     visibility: AnswerTileProps["menuVisibility"];
 }): React.ReactElement {
-    const {menu, label, visibility} = props;
-    const {menuRef, ...menuProps} = menu;
     return (
         <span
             className={classNames(
                 styles.startContainer,
-                visibility === "on-hover-or-focus" && styles.menuOnDemand,
+                props.visibility === "on-hover-or-focus" && styles.menuOnDemand,
             )}
         >
             <DndActionMenu
-                ref={menuRef}
-                {...menuProps}
-                label={label}
+                ref={props.menuRef}
+                label={props.label}
+                moveTargets={props.moveTargets}
+                onMove={props.onMove}
+                clearFromLabel={props.clearFromLabel}
+                onClear={props.onClear}
+                remainingUses={props.remainingUses}
                 // Always false: scored tiles remove the menu instead
                 // of disabling it, so a rendered menu is never disabled.
                 disabled={false}
