@@ -136,7 +136,7 @@ describe("DndActionMenu", () => {
         render(
             <DndActionMenu
                 {...generateActionMenuProps()}
-                targetLabel="Blank 1"
+                clearFromLabel="Blank 1"
                 onClear={jest.fn()}
             />,
         );
@@ -174,7 +174,7 @@ describe("DndActionMenu", () => {
         render(
             <DndActionMenu
                 {...generateActionMenuProps()}
-                targetLabel="Blank 1"
+                clearFromLabel="Blank 1"
                 onClear={onClear}
             />,
         );
@@ -195,7 +195,7 @@ describe("DndActionMenu", () => {
             <DndActionMenu
                 {...generateActionMenuProps()}
                 moveTargets={[]}
-                targetLabel="Blank 1"
+                clearFromLabel="Blank 1"
                 onClear={jest.fn()}
             />,
         );
