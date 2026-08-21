@@ -42,8 +42,9 @@ export interface AnswerTileProps {
      */
     disabled?: boolean;
     /**
-     * Blanks the tile can move to. An empty array is valid: a placed
-     * tile in a one-blank exercise can only be cleared,
+     * Blanks the tile can move to, which populate the menu.
+     * An empty array is valid: a placed tile in a one-blank exercise
+     * can only be cleared, due to no other legitimate moveTargets.
      */
     moveTargets: ReadonlyArray<MoveTarget>;
     /** Called with the target blank's id when a move action is selected. */
