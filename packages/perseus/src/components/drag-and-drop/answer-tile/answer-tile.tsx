@@ -25,7 +25,8 @@ export interface AnswerTileProps {
      */
     content: string;
     /**
-     * The aria-label of the tile, as translated plain text.
+     * Labels the tile's menu button for screen readers, as translated
+     * plain text.
      */
     label: string;
     /**
@@ -75,7 +76,18 @@ export interface AnswerTileProps {
  * The tile is only visual for now. A later ticket adds the drag wiring.
  */
 export function AnswerTile(props: AnswerTileProps): React.ReactElement {
-    const {tileId, content, label, showCorrectness, disabled} = props;
+    const {
+        content,
+        label,
+        showCorrectness,
+        disabled,
+        moveTargets,
+        onMove,
+        clearFromLabel,
+        onClear,
+        remainingUses,
+        menuRef,
+    } = props;
     const {strings} = usePerseusI18n();
 
     // Whitespace-only content would render an invisible, unlabeled tile.
@@ -90,28 +102,41 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
             className={classNames(
                 styles.tile,
                 showCorrectness != null && styles[showCorrectness],
-                disabled && styles.disabled,
+                // showCorrectness wins when both arrive.
+                disabled && showCorrectness == null && styles.disabled,
             )}
-            data-testid={`answer-tile-${tileId}`}
         >
             {!disabled && showCorrectness == null && (
-                <TileActionsMenu
-                    label={label}
-                    moveTargets={props.moveTargets}
-                    onMove={props.onMove}
-                    clearFromLabel={props.clearFromLabel}
-                    onClear={props.onClear}
-                    remainingUses={props.remainingUses}
-                    menuRef={props.menuRef}
-                />
+                <span className={styles.startContainer}>
+                    <DndActionMenu
+                        ref={menuRef}
+                        label={label}
+                        moveTargets={moveTargets}
+                        onMove={onMove}
+                        clearFromLabel={clearFromLabel}
+                        onClear={onClear}
+                        remainingUses={remainingUses}
+                        // Always false: scored tiles remove the menu instead
+                        // of disabling it, so a rendered menu is never
+                        // disabled.
+                        disabled={false}
+                    />
+                </span>
             )}
             {showCorrectness != null && (
-                <TileScoredIcon
-                    icon={scoredIcons[showCorrectness]}
-                    tileId={tileId}
-                />
+                <span
+                    className={styles.startContainer}
+                    // The icon is decorative. The widget announces the
+                    // result to screen readers, not the tile.
+                    aria-hidden="true"
+                >
+                    <PhosphorIcon
+                        icon={scoredIcons[showCorrectness]}
+                        size="medium"
+                    />
+                </span>
             )}
-            <span
+            <div
                 className={classNames(
                     styles.content,
                     isEmpty && styles.emptyContent,
@@ -123,54 +148,8 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
                 ) : (
                     <Renderer content={content} strings={strings} />
                 )}
-            </span>
+            </div>
         </div>
-    );
-}
-
-/** The actions menu at the start of an unscored tile. */
-function TileActionsMenu(props: {
-    label: string;
-    moveTargets: ReadonlyArray<MoveTarget>;
-    onMove: (targetId: string) => void;
-    clearFromLabel?: string;
-    onClear?: () => void;
-    remainingUses?: number;
-    menuRef?: React.Ref<HTMLButtonElement>;
-}): React.ReactElement {
-    return (
-        <span className={styles.startContainer}>
-            <DndActionMenu
-                ref={props.menuRef}
-                label={props.label}
-                moveTargets={props.moveTargets}
-                onMove={props.onMove}
-                clearFromLabel={props.clearFromLabel}
-                onClear={props.onClear}
-                remainingUses={props.remainingUses}
-                // Always false: scored tiles remove the menu instead
-                // of disabling it, so a rendered menu is never disabled.
-                disabled={false}
-            />
-        </span>
-    );
-}
-
-/** The check or x icon at the start of a scored tile. */
-function TileScoredIcon(props: {
-    icon: string;
-    tileId: string;
-}): React.ReactElement {
-    return (
-        <span
-            className={styles.startContainer}
-            // This icon is decorative. The widget announces the
-            // result to screen readers, not the tile.
-            aria-hidden="true"
-            data-testid={`answer-tile-state-icon-${props.tileId}`}
-        >
-            <PhosphorIcon icon={props.icon} size="medium" />
-        </span>
     );
 }
 
