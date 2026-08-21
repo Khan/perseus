@@ -167,13 +167,19 @@ describe("numeric-input widget", () => {
 
         // Assert
         expect(
-            screen.getByText(/a simplified proper fraction, like 3\/5, or/),
+            screen.getByText(
+                /a simplified proper fraction \(like 1\/2 or 3\/4\)/,
+            ),
         ).toBeInTheDocument();
         expect(
-            screen.getByText(/a simplified improper fraction, like 7\/4, or/),
+            screen.getByText(
+                /a simplified improper fraction \(like 5\/4 or 9\/8\)/,
+            ),
         ).toBeInTheDocument();
         expect(
-            screen.getByText(/a mixed number, like 1 and 3\/4/),
+            screen.getByText(
+                /a mixed number \(like 1 and 3\/4 or 2 and 5\/6\)/,
+            ),
         ).toBeInTheDocument();
     });
 
@@ -616,15 +622,19 @@ describe("interactive: full vs answerless", () => {
 
             // Assert
             expect(
-                screen.getByText(/a simplified proper fraction, like 3\/5, or/),
-            ).toBeInTheDocument();
-            expect(
                 screen.getByText(
-                    /a simplified improper fraction, like 7\/4, or/,
+                    /a simplified proper fraction \(like 1\/2 or 3\/4\)/,
                 ),
             ).toBeInTheDocument();
             expect(
-                screen.getByText(/a mixed number, like 1 and 3\/4/),
+                screen.getByText(
+                    /a simplified improper fraction \(like 5\/4 or 9\/8\)/,
+                ),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByText(
+                    /a mixed number \(like 1 and 3\/4 or 2 and 5\/6\)/,
+                ),
             ).toBeInTheDocument();
 
             await userEvent.type(

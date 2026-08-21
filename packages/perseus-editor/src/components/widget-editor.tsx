@@ -11,7 +11,6 @@ import SectionControlButton from "./section-control-button";
 import ToggleableCaret from "./toggleable-caret";
 import WidgetEditorSettings from "./widget-editor-settings";
 
-import type Editor from "../editor";
 import type {APIOptions} from "@khanacademy/perseus";
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
 
@@ -58,7 +57,10 @@ export function _upgradeWidgetInfo(widgetInfo: PerseusWidget): PerseusWidget {
 // with all available transforms applied, but the results of those
 // transforms will not be propogated upwards until serialization.
 class WidgetEditor extends React.Component<Props, State> {
-    widget: React.RefObject<Editor>;
+    widgetSpecificEditor: React.RefObject<{
+        serialize(): unknown;
+        getSaveWarnings?: () => unknown;
+    }>;
 
     constructor(props: Props) {
         super(props);
@@ -66,7 +68,7 @@ class WidgetEditor extends React.Component<Props, State> {
             showWidget: props.widgetIsOpen ?? true,
             widgetInfo: _upgradeWidgetInfo(props.widgetInfo),
         };
-        this.widget = React.createRef();
+        this.widgetSpecificEditor = React.createRef();
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
@@ -86,7 +88,7 @@ class WidgetEditor extends React.Component<Props, State> {
     };
 
     _handleWidgetChange = (
-        newProps: Props,
+        newOptions: PerseusWidget["options"],
         cb: () => unknown,
         silent: boolean,
     ) => {
@@ -95,8 +97,8 @@ class WidgetEditor extends React.Component<Props, State> {
             ...this.state.widgetInfo,
             options: {
                 ...this.state.widgetInfo.options,
-                ...(this.widget.current?.serialize() ?? {}),
-                ...newProps,
+                ...(this.widgetSpecificEditor.current?.serialize() ?? {}),
+                ...newOptions,
             },
         } as PerseusWidget;
         this.props.onChange(newWidgetInfo, cb, silent);
@@ -134,7 +136,7 @@ class WidgetEditor extends React.Component<Props, State> {
     };
 
     getSaveWarnings = () => {
-        const issuesFunc = this.widget.current?.getSaveWarnings;
+        const issuesFunc = this.widgetSpecificEditor.current?.getSaveWarnings;
         return issuesFunc ? issuesFunc() : [];
     };
 
@@ -151,7 +153,9 @@ class WidgetEditor extends React.Component<Props, State> {
             // `{Ed && ...}` guard in render()). In that case fall back to the
             // last-known options rather than dereferencing a null ref, which
             // previously crashed the editor when toggling JSON mode.
-            options: this.widget.current?.serialize() ?? widgetInfo.options,
+            options:
+                this.widgetSpecificEditor.current?.serialize() ??
+                widgetInfo.options,
             version: widgetInfo.version,
         };
     };
@@ -233,7 +237,7 @@ class WidgetEditor extends React.Component<Props, State> {
                 >
                     {Ed && (
                         <Ed
-                            ref={this.widget}
+                            ref={this.widgetSpecificEditor}
                             onChange={this._handleWidgetChange}
                             static={widgetInfo.static}
                             graded={widgetInfo.graded}

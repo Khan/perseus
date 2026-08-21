@@ -33,9 +33,6 @@ export default function DarkModeToggle({
     })();
     const suppressFilter = imageUrl?.searchParams.has("dark-mode") ?? false;
 
-    // Determine if the image is a PNG, regardless of any possible query string.
-    const imageIsPng = /\.png(\?.*)?$/.test(backgroundImage.url ?? "");
-
     const toggleDarkMode = () => {
         onShowToggle(showDarkMode ? undefined : "syl-dark");
         setShowDarkMode(!showDarkMode);
@@ -83,21 +80,40 @@ export default function DarkModeToggle({
                 <LabeledSwitch
                     label="Suppress Dark Mode Filter"
                     checked={suppressFilter}
-                    disabled={editingDisabled || !imageIsPng}
+                    disabled={
+                        editingDisabled ||
+                        !isGraphicalImage(backgroundImage.url)
+                    }
                     onChange={toggleSuppressFilter}
                 />
                 <InfoTip>
                     When the color in the image is important (like in an image
                     of a flag), you can suppress the filter that is used to make
                     images compatible with dark mode.
-                    {!imageIsPng && (
+                    {!isGraphicalImage(backgroundImage.url) && (
                         <strong>
                             {" "}
-                            This option is only available for PNG images!
+                            This option is only available for PNG and SVG
+                            images. Other types of images (e.g. JPG, GIF) never
+                            change in dark mode.
                         </strong>
                     )}
                 </InfoTip>
             </div>
         </div>
     );
+}
+
+/**
+ * Determines whether an image is a "graphical" type (PNG or SVG) with large
+ * flat areas of meaningful color and potentially a transparent background.
+ */
+// exported for testing
+export function isGraphicalImage(url: string | null | undefined): boolean {
+    try {
+        const {pathname} = new URL(url ?? "");
+        return /\.(png|svg)$/.test(pathname);
+    } catch {
+        return false;
+    }
 }
