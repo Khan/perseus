@@ -711,6 +711,8 @@ export type PerseusGradedGroupWidgetOptions = {
     images: {
         [key: string]: PerseusImageDetail;
     };
+    /** optional content extras (calculators/financial calcs/periodic tables) */
+    answerArea?: PerseusAnswerArea;
 };
 
 /** Options for the graded-group-set widget. A set of graded groups. */

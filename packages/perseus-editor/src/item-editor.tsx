@@ -5,7 +5,7 @@ import _ from "underscore";
 import {A11yContext} from "./components/a11y-context";
 import DeviceFramer from "./components/device-framer";
 import Editor from "./editor";
-import ItemExtrasEditor from "./item-extras-editor";
+import ExtrasEditor from "./extras-editor";
 import PreviewWithIframe from "./preview-with-iframe";
 import {createPreviewContentDeriver} from "./util/derive-question-preview-content";
 
@@ -63,7 +63,7 @@ class ItemEditor extends React.Component<Props> {
         answerArea: {},
     };
     questionEditor = React.createRef<Editor>();
-    itemExtrasEditor = React.createRef<ItemExtrasEditor>();
+    extrasEditor = React.createRef<ExtrasEditor>();
     derivePreviewContent = createPreviewContentDeriver();
 
     // Notify the parent that the question or answer area has been updated.
@@ -78,7 +78,7 @@ class ItemEditor extends React.Component<Props> {
         this.updateProps({question});
     };
 
-    handleItemExtrasChange = (newProps: Partial<PerseusAnswerArea>) => {
+    handleExtrasChange = (newProps: Partial<PerseusAnswerArea>) => {
         const answerArea = _.extend({}, this.props.answerArea, newProps);
         this.updateProps({answerArea});
     };
@@ -100,12 +100,12 @@ class ItemEditor extends React.Component<Props> {
             "cannot serialize ItemEditor without Editor",
         );
         invariant(
-            this.itemExtrasEditor.current,
-            "cannot serialize ItemEditor without ItemExtrasEditor",
+            this.extrasEditor.current,
+            "cannot serialize ItemEditor without ExtrasEditor",
         );
         return {
             question: this.questionEditor.current.serialize(),
-            answerArea: this.itemExtrasEditor.current.serialize(),
+            answerArea: this.extrasEditor.current.serialize(),
         };
     }
 
@@ -177,10 +177,10 @@ class ItemEditor extends React.Component<Props> {
                 <div className="perseus-editor-row perseus-answer-container">
                     <div className="perseus-editor-left-cell">
                         <div className="pod-title">Question extras</div>
-                        <ItemExtrasEditor
-                            ref={this.itemExtrasEditor}
+                        <ExtrasEditor
+                            ref={this.extrasEditor}
                             apiOptions={this.props.apiOptions}
-                            onChange={this.handleItemExtrasChange}
+                            onChange={this.handleExtrasChange}
                             editingDisabled={editingDisabled}
                             {...this.props.answerArea}
                         />

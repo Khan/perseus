@@ -3,7 +3,7 @@ import type {WidgetLogic} from "../logic-export.types";
 
 export type GradedGroupDefaultWidgetOptions = Pick<
     PerseusGradedGroupWidgetOptions,
-    "title" | "content" | "widgets" | "images" | "hint"
+    "title" | "content" | "widgets" | "images" | "hint" | "answerArea"
 >;
 
 const defaultWidgetOptions: GradedGroupDefaultWidgetOptions = {

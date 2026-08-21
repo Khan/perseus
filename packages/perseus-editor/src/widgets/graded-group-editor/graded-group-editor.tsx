@@ -1,12 +1,16 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {components} from "@khanacademy/perseus";
-import {gradedGroupLogic} from "@khanacademy/perseus-core";
+import {
+    gradedGroupLogic,
+    getDefaultAnswerArea,
+} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
 
 import Editor from "../../editor";
+import ExtrasEditor from "../../extras-editor";
 import {deprecatedChangeableChange} from "../../mixins/changeable";
 
 import styles from "./graded-group-editor.module.css";
@@ -60,6 +64,9 @@ class GradedGroupEditor extends React.Component<Props> {
             title: this.props.title,
             ...this.editor.current?.serialize(),
             hint: this.hintEditor.current?.serialize(),
+            ...(this.props.answerArea
+                ? {answerArea: this.props.answerArea}
+                : {}),
         };
     };
 
@@ -133,6 +140,20 @@ class GradedGroupEditor extends React.Component<Props> {
                         </Button>
                     </div>
                 )}
+                <ExtrasEditor
+                    {...(this.props.answerArea ?? getDefaultAnswerArea())}
+                    apiOptions={this.props.apiOptions}
+                    editingDisabled={editingDisabled}
+                    onChange={(changes) => {
+                        this.props.onChange({
+                            answerArea: {
+                                ...getDefaultAnswerArea(),
+                                ...this.props.answerArea,
+                                ...changes,
+                            },
+                        });
+                    }}
+                />
             </div>
         );
     }
