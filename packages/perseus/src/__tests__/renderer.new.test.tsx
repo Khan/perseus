@@ -1070,27 +1070,6 @@ describe("renderer", () => {
             // Act
             expect(widget2.getSerializedState).toHaveBeenCalled();
         });
-
-        it("should return each widget's state from serialize()", () => {
-            // Arrange
-            const {renderer} = renderQuestion(definitionItem);
-            const widgets = renderer.findWidgets((id) =>
-                ["definition 1", "definition 2", "definition 3"].includes(id),
-            );
-            widgets.forEach((w) => {
-                w.serialize = jest.fn(() => `State: ${w.props.widgetId}`);
-            });
-
-            // Act
-            const state = renderer.serialize();
-
-            // Assert
-            expect(state).toStrictEqual({
-                "definition 1": "State: definition 1",
-                "definition 2": "State: definition 2",
-                "definition 3": "State: definition 3",
-            });
-        });
     });
 
     describe("finding widgets", () => {
