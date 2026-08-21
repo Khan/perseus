@@ -8,32 +8,24 @@ import _ from "underscore";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 import InlineIcon from "../../components/inline-icon";
-import {withDependencies} from "../../components/with-dependencies";
+import {useDependencies} from "../../dependencies";
 import {iconCircle, iconCircleThin} from "../../icon-paths";
 import Renderer from "../../renderer";
 import mediaQueries from "../../styles/media-queries";
 import sharedStyles from "../../styles/shared";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 
-import type {
-    PerseusDependenciesV2,
-    Widget,
-    WidgetExports,
-    WidgetProps,
-} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 import type {
     PerseusCategorizerUserInput,
     PerseusCategorizerWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-interface Props
-    extends WidgetProps<
-        PerseusCategorizerWidgetOptions,
-        PerseusCategorizerUserInput
-    > {
-    dependencies: PerseusDependenciesV2;
-}
+type Props = WidgetProps<
+    PerseusCategorizerWidgetOptions,
+    PerseusCategorizerUserInput
+>;
 
 const Categorizer = forwardRef<Widget, Props>(function Categorizer(props, ref) {
     const {items, categories, randomizeItems} = props.options;
@@ -44,8 +36,8 @@ const Categorizer = forwardRef<Widget, Props>(function Categorizer(props, ref) {
         linterContext,
         handleUserInput,
         trackInteraction,
-        dependencies,
     } = props;
+    const dependencies = useDependencies();
     const {strings} = usePerseusI18n();
     const idPrefix = useMemo(() => _.uniqueId("perseus_radio_"), []);
 
@@ -72,6 +64,9 @@ const Categorizer = forwardRef<Widget, Props>(function Categorizer(props, ref) {
             return {
                 ...options,
                 ...rest,
+                // `dependencies` probably shouldn't be included here, but this
+                // is for legacy compatibility.
+                dependencies,
                 values: userInput.values,
             };
         },
@@ -305,17 +300,12 @@ function getStartUserInput(): PerseusCategorizerUserInput {
     };
 }
 
-const WrappedCategorizer = withDependencies(Categorizer);
-
 export default {
     name: "categorizer",
     displayName: "Categorizer",
-    widget: WrappedCategorizer,
+    widget: Categorizer,
     getUserInputFromSerializedState,
     getCorrectUserInput,
     getStartUserInput,
     isLintable: true,
-} satisfies WidgetExports<
-    typeof WrappedCategorizer,
-    PerseusCategorizerUserInput
->;
+} satisfies WidgetExports<typeof Categorizer, PerseusCategorizerUserInput>;
