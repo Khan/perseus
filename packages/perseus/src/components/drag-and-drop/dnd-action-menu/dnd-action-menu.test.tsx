@@ -82,7 +82,7 @@ describe("DndActionMenu", () => {
         ).not.toBeInTheDocument();
     });
 
-    it("renders a labeled move action for each move target", async () => {
+    it("renders a move action per target, with visible and spoken labels", async () => {
         // Arrange
         render(<DndActionMenu {...generateActionMenuProps()} />);
 
@@ -92,29 +92,14 @@ describe("DndActionMenu", () => {
         // Assert — no clear action, so every menu item is a move action.
         // findBy waits for the menu's portal to render; once one query has
         // succeeded, the remaining assertions can use synchronous getBy.
+        // Each item shows the target's name ("Blank 1") but is spoken with
+        // the full action phrasing ("Move to Blank 1").
         expect(await screen.findAllByRole("menuitem")).toHaveLength(3);
-        expect(screen.getByText("Blank 1")).toBeInTheDocument();
-        expect(screen.getByText("Blank 2")).toBeInTheDocument();
-        expect(screen.getByText("Blank 3")).toBeInTheDocument();
-    });
-
-    it("gives each move action its spoken action label", async () => {
-        // Arrange
-        render(<DndActionMenu {...generateActionMenuProps()} />);
-
-        // Act
-        await user.click(screen.getByRole("button", {name: "Bongo"}));
-
-        // Assert
-        expect(
-            await screen.findByRole("menuitem", {name: "Move to Blank 1"}),
-        ).toBeInTheDocument();
-        expect(
-            screen.getByRole("menuitem", {name: "Move to Blank 2"}),
-        ).toBeInTheDocument();
-        expect(
-            screen.getByRole("menuitem", {name: "Move to Blank 3"}),
-        ).toBeInTheDocument();
+        for (const target of ["Blank 1", "Blank 2", "Blank 3"]) {
+            expect(
+                screen.getByRole("menuitem", {name: `Move to ${target}`}),
+            ).toHaveTextContent(target);
+        }
     });
 
     it("omits the clear action when the tile is not placed in a blank", async () => {
