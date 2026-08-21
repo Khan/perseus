@@ -22,9 +22,7 @@ import type {DndActionMenuProps} from "../dnd-action-menu";
  */
 export type AnswerTileMenuConfig = Omit<
     DndActionMenuProps,
-    // keyof Pick<> instead of plain strings: if the menu renames one of
-    // these props, this line fails to compile instead of going stale.
-    keyof Pick<DndActionMenuProps, "label" | "disabled">
+    "label" | "disabled"
 > & {
     /**
      * This ref points to the menu's opener button. The parent uses it to
