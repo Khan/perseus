@@ -1,5 +1,16 @@
 # @khanacademy/perseus-editor
 
+## 37.1.1
+
+### Patch Changes
+
+-   [#4087](https://github.com/Khan/perseus/pull/4087) [`9912a5c`](https://github.com/Khan/perseus/commit/9912a5c94b903723cab2bd15ebea46728c6a4f0e) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the WidgetEditor now receives the entire `PerseusWidget` object via a `widgetInfo` prop, instead of having the properties of `PerseusWidget` spread into its props.
+
+-   [#4090](https://github.com/Khan/perseus/pull/4090) [`ddab64b`](https://github.com/Khan/perseus/commit/ddab64b4fc44dc4eb4f3c74873ebd3fa50285412) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Improved type safety in the WidgetEditor component
+
+-   Updated dependencies [[`f533e12`](https://github.com/Khan/perseus/commit/f533e124310ff0827af74d7303c2537dbdb737da), [`8e55ded`](https://github.com/Khan/perseus/commit/8e55ded23dc3bee126d738e8190b650ceef80229)]:
+    -   @khanacademy/perseus@84.3.0
+
 ## 37.1.0
 
 ### Minor Changes
