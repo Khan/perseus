@@ -11,7 +11,10 @@ import {themeModes} from "../../../../../../.storybook/modes";
 import ArticleRenderer from "../../../article-renderer";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {storybookDependenciesV2} from "../../../testing/test-dependencies";
-import {groupedRadioRationaleQuestion} from "../../graded-group/graded-group.testdata";
+import {
+    groupedRadioRationaleQuestion,
+    groupedMultipleSelectRationaleQuestion,
+} from "../../graded-group/graded-group.testdata";
 
 import {radioRendererDecoratorWithDebugUI} from "./radio-renderer-decorator";
 
@@ -157,11 +160,11 @@ export const SelectChoiceMoveFocusAfter: Story = {
     },
 };
 
-/* The following stories don't use the Radio args, beacuse they are not
+/* The following stories don't use the Radio args, because they are not
    directly rendered Radio widgets. These are examples of other environments
    that Radio can be rendered within. */
 
-export const GradedGroupWrapper = {
+export const GradedGroupWrapperSingleSelect = {
     render: function Render() {
         return (
             <ServerItemRendererWithDebugUI
@@ -173,6 +176,33 @@ export const GradedGroupWrapper = {
     },
     play: async ({canvas, userEvent}) => {
         const choiceToClick = canvas.getByRole("button", {
+            name: "(Choice C) Correct",
+        });
+        await userEvent.click(choiceToClick);
+        const checkAnswerButton = canvas.getAllByRole("button", {
+            name: "Check",
+        })[0];
+        await userEvent.click(checkAnswerButton);
+        await checkAnswerButton.blur();
+    },
+};
+
+export const GradedGroupWrapperMultipleSelect = {
+    render: function Render() {
+        return (
+            <ServerItemRendererWithDebugUI
+                item={generateTestPerseusItem({
+                    question: groupedMultipleSelectRationaleQuestion,
+                })}
+            />
+        );
+    },
+    play: async ({canvas, userEvent}) => {
+        let choiceToClick = canvas.getByRole("button", {
+            name: "(Choice A) Correct",
+        });
+        await userEvent.click(choiceToClick);
+        choiceToClick = canvas.getByRole("button", {
             name: "(Choice C) Correct",
         });
         await userEvent.click(choiceToClick);
