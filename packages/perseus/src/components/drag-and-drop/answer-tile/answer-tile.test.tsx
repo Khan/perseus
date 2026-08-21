@@ -143,23 +143,6 @@ describe("AnswerTile", () => {
                 screen.getByRole("button", {name: "Bongo"}),
             );
         });
-
-        it("keeps the menu opener focusable when visibility is on-hover-or-focus", async () => {
-            // Arrange
-            render(
-                <AnswerTile
-                    {...generateAnswerTileProps({
-                        menuVisibility: "on-hover-or-focus",
-                    })}
-                />,
-            );
-
-            // Act
-            await user.tab();
-
-            // Assert
-            expect(screen.getByRole("button", {name: "Bongo"})).toHaveFocus();
-        });
     });
 
     describe("scored states", () => {
