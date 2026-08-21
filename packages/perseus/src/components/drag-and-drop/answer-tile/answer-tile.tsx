@@ -106,34 +106,31 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
                 disabled && showCorrectness == null && styles.disabled,
             )}
         >
-            {!disabled && showCorrectness == null && (
+            {(showCorrectness != null || !disabled) && (
                 <span className={styles.startContainer}>
-                    <DndActionMenu
-                        ref={menuRef}
-                        label={label}
-                        moveTargets={moveTargets}
-                        onMove={onMove}
-                        clearFromLabel={clearFromLabel}
-                        onClear={onClear}
-                        remainingUses={remainingUses}
-                        // Always false: scored tiles remove the menu instead
-                        // of disabling it, so a rendered menu is never
-                        // disabled.
-                        disabled={false}
-                    />
-                </span>
-            )}
-            {showCorrectness != null && (
-                <span
-                    className={styles.startContainer}
-                    // The icon is decorative. The widget announces the
-                    // result to screen readers, not the tile.
-                    aria-hidden="true"
-                >
-                    <PhosphorIcon
-                        icon={scoredIcons[showCorrectness]}
-                        size="medium"
-                    />
+                    {showCorrectness != null ? (
+                        // An unlabeled PhosphorIcon is aria-hidden by
+                        // default. The widget announces the result to
+                        // screen readers, not the tile.
+                        <PhosphorIcon
+                            icon={scoredIcons[showCorrectness]}
+                            size="medium"
+                        />
+                    ) : (
+                        <DndActionMenu
+                            ref={menuRef}
+                            label={label}
+                            moveTargets={moveTargets}
+                            onMove={onMove}
+                            clearFromLabel={clearFromLabel}
+                            onClear={onClear}
+                            remainingUses={remainingUses}
+                            // Always false: scored tiles remove the menu
+                            // instead of disabling it, so a rendered menu
+                            // is never disabled.
+                            disabled={false}
+                        />
+                    )}
                 </span>
             )}
             <div
