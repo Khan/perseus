@@ -15,16 +15,11 @@ import Graphie from "../../components/graphie";
 import {usePerseusI18n} from "../../components/i18n-context";
 import NumberInput from "../../components/number-input";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
-import {withDependencies} from "../../components/with-dependencies";
+import {useDependencies} from "../../dependencies";
 import InteractiveUtil from "../../interactive2/interactive-util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
-import type {
-    PerseusDependenciesV2,
-    Widget,
-    WidgetExports,
-    WidgetProps,
-} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {NumberLinePromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 import type {
     NumberLinePublicWidgetOptions,
@@ -220,9 +215,7 @@ const TickMarks: any = (Graphie as any).createSimpleClass((graphie, props) => {
 type Props = WidgetProps<
     PerseusNumberLineWidgetOptions,
     PerseusNumberLineUserInput
-> & {
-    dependencies: PerseusDependenciesV2;
-};
+>;
 
 // Whether the widget's configuration makes a drawable number line. An invalid
 // configuration would send the drawing code into an infinite loop.
@@ -244,6 +237,7 @@ function isValid(props: Props): boolean {
 
 const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
     const {strings} = usePerseusI18n();
+    const dependencies = useDependencies();
     const propsRef = useLatestRef(props);
     const [numDivisionsEmpty, setNumDivisionsEmpty] = useState(false);
     const tickStep = getTickStep(
@@ -260,7 +254,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
     const tickCtrlRef = useRef<NumberInput | SimpleKeypadInput>(null);
 
     useOnMountEffect(() => {
-        props.dependencies.analytics.onAnalyticsEvent({
+        dependencies.analytics.onAnalyticsEvent({
             type: "perseus:widget:rendered:ti",
             payload: {
                 widgetSubType: "null",
@@ -769,13 +763,11 @@ function getStartUserInput(
     };
 }
 
-const WrappedNumberLine = withDependencies(NumberLine);
-
 export default {
     name: "number-line",
     displayName: "Number line",
-    widget: WrappedNumberLine,
+    widget: NumberLine,
     getCorrectUserInput,
     getStartUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof WrappedNumberLine>;
+} satisfies WidgetExports<typeof NumberLine>;
