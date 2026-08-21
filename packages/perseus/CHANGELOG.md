@@ -1,5 +1,34 @@
 # @khanacademy/perseus
 
+## 85.0.0
+
+### Major Changes
+
+-   [#4110](https://github.com/Khan/perseus/pull/4110) [`0767712`](https://github.com/Khan/perseus/commit/07677120b27fa61507e31d13bdc3eb45fbd0206e) Thanks [@handeyeco](https://github.com/handeyeco)! - Move editor-specific mixins from Perseus to PerseusEditor
+
+-   [#4108](https://github.com/Khan/perseus/pull/4108) [`3dae49e`](https://github.com/Khan/perseus/commit/3dae49e12dc2ca5d2b3a1090ecf27a9fbe3c154c) Thanks [@benchristel](https://github.com/benchristel)! - The deprecated `Renderer#serialize()` method has been removed.
+
+### Patch Changes
+
+-   [#4106](https://github.com/Khan/perseus/pull/4106) [`cd1bef6`](https://github.com/Khan/perseus/commit/cd1bef6ebc8c0043435f62ff8f262a069758843d) Thanks [@benchristel](https://github.com/benchristel)! - Internal: The Definition widget is now a functional component.
+
+-   [#4107](https://github.com/Khan/perseus/pull/4107) [`161bcef`](https://github.com/Khan/perseus/commit/161bceffe364d1755a11bab902aa60124283e6ac) Thanks [@Myranae](https://github.com/Myranae)! - Fix contrast issues with label image answer bubble
+
+-   [#4082](https://github.com/Khan/perseus/pull/4082) [`6d8d09d`](https://github.com/Khan/perseus/commit/6d8d09d62bbb2bd192f74aca3814e07f3fa2f0b8) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Sortable (used by matcher and sorter) remeasures its rows once web fonts
+    finish loading. Before, rows were measured against the fallback font's line
+    box and never again, so on a cold cache every row rendered a few pixels too
+    tall and stayed that way for the session.
+
+-   [#4103](https://github.com/Khan/perseus/pull/4103) [`13da83d`](https://github.com/Khan/perseus/commit/13da83da28cc29c320e003013607ea139348bda1) Thanks [@Myranae](https://github.com/Myranae)! - Update image widget modal background to stay dark across themes
+
+-   Updated dependencies [[`0767712`](https://github.com/Khan/perseus/commit/07677120b27fa61507e31d13bdc3eb45fbd0206e)]:
+    -   @khanacademy/perseus-core@36.2.0
+    -   @khanacademy/keypad-context@3.2.85
+    -   @khanacademy/kmath@2.4.44
+    -   @khanacademy/math-input@27.0.5
+    -   @khanacademy/perseus-linter@5.1.25
+    -   @khanacademy/perseus-score@8.12.17
+
 ## 84.3.0
 
 ### Minor Changes

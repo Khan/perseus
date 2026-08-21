@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 36.2.0
+
+### Minor Changes
+
+-   [#4110](https://github.com/Khan/perseus/pull/4110) [`0767712`](https://github.com/Khan/perseus/commit/07677120b27fa61507e31d13bdc3eb45fbd0206e) Thanks [@handeyeco](https://github.com/handeyeco)! - Move editor-specific mixins from Perseus to PerseusEditor
+
 ## 36.1.0
 
 ### Minor Changes
