@@ -48,8 +48,8 @@ const Definition = forwardRef<Widget, Props>(function Definition(props, ref) {
                     dismissEnabled
                     content={
                         <PopoverContentCore
+                            // TODO: replace stylesLegacy with `className={styles.tooltipBody}` once 'className' is supported
                             style={stylesLegacy.tooltipBody}
-                            // className={styles.tooltipBody} - uncomment when 'className' is supported
                             closeButtonVisible={true}
                         >
                             <Renderer
