@@ -1,7 +1,7 @@
 import {components, Dependencies} from "@khanacademy/perseus";
 import * as React from "react";
 
-import {change} from "../../mixins/changeable";
+import {deprecatedChangeableChange} from "../../mixins/changeable";
 
 import MathquillInput from "./mathquill-input";
 
@@ -45,7 +45,7 @@ class ConstraintEditor extends React.Component<Props> {
     ) => (value?: any, callback?: () => unknown) => unknown = (
         propName: string,
     ): ((value?: any, callback?: () => unknown) => unknown) => {
-        return change.call(this, propName);
+        return deprecatedChangeableChange.call(this, propName);
     };
 
     render(): React.ReactNode {

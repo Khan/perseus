@@ -20,7 +20,7 @@ import {
 } from "../../components/segmented-control";
 import {TypedSingleSelect} from "../../components/typed-single-select";
 import Editor from "../../editor";
-import {change} from "../../mixins/changeable";
+import {deprecatedChangeableChange} from "../../mixins/changeable";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
 import styles from "./numeric-input-editor.module.css";
@@ -93,7 +93,7 @@ class NumericInputEditor extends React.Component<Props, State> {
     }
 
     change: ChangeFn = (...args) => {
-        return change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     onToggleAnswers = (answerIndex: number) => {

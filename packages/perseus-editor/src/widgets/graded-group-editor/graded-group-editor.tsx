@@ -7,7 +7,7 @@ import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
 
 import Editor from "../../editor";
-import {change} from "../../mixins/changeable";
+import {deprecatedChangeableChange} from "../../mixins/changeable";
 
 import styles from "./graded-group-editor.module.css";
 
@@ -34,7 +34,7 @@ class GradedGroupEditor extends React.Component<Props> {
     hintEditor = React.createRef<Editor>();
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     handleAddHint: () => void = () => {

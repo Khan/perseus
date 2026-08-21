@@ -4,7 +4,7 @@ import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../../editor";
-import {change} from "../../mixins/changeable";
+import {deprecatedChangeableChange} from "../../mixins/changeable";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {ChangeableProps} from "../../mixins/changeable";
@@ -33,7 +33,7 @@ class MatrixEditor extends React.Component<Props> {
         if (this.props.apiOptions.editingDisabled) {
             return;
         }
-        return change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     onMatrixBoardSizeChange: (arg1: [number, number]) => void = (range) => {

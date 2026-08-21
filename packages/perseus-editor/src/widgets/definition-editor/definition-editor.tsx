@@ -5,7 +5,7 @@ import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../../editor";
-import {change} from "../../mixins/changeable";
+import {deprecatedChangeableChange} from "../../mixins/changeable";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {InitializeWidgetOptionsParams} from "../../editor";
@@ -45,7 +45,7 @@ class DefinitionEditor extends React.Component<Props> {
     }
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     serialize: () => any = () => {

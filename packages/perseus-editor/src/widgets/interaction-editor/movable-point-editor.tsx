@@ -1,7 +1,7 @@
 import {components, Dependencies} from "@khanacademy/perseus";
 import * as React from "react";
 
-import {change} from "../../mixins/changeable";
+import {deprecatedChangeableChange} from "../../mixins/changeable";
 
 import ConstraintEditor from "./constraint-editor";
 import MathquillInput from "./mathquill-input";
@@ -43,7 +43,7 @@ class MovablePointEditor extends React.Component<Props> {
     };
 
     change: ChangeFn = (...args) => {
-        return change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     render(): React.ReactNode {

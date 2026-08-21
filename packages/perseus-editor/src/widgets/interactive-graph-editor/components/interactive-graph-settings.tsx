@@ -11,7 +11,7 @@ import _ from "underscore";
 
 import Heading from "../../../components/heading";
 import InfoTip from "../../../components/info-tip";
-import {change} from "../../../mixins/changeable";
+import {deprecatedChangeableChange} from "../../../mixins/changeable";
 import LabeledRow from "../locked-figures/labeled-row";
 
 import AxisArrowSwitches from "./axis-arrow-switches";
@@ -213,7 +213,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
     }
 
     change: ChangeFn = (...args) => {
-        return change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     changeBackgroundUrl = (e) => {

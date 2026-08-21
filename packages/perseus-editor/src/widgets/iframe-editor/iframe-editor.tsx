@@ -8,7 +8,7 @@ import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 
 import BlurInput from "../../components/blur-input";
-import {change} from "../../mixins/changeable";
+import {deprecatedChangeableChange} from "../../mixins/changeable";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {ChangeableProps, ChangeFn} from "../../mixins/changeable";
@@ -24,7 +24,7 @@ interface PairEditorProps extends PerseusCSProgramSetting, ChangeableProps {}
  */
 class PairEditor extends React.Component<PairEditorProps> {
     change: ChangeFn = (...args) => {
-        return change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     render(): React.ReactNode {
@@ -62,7 +62,7 @@ interface PairsEditorProps extends ChangeableProps {
  */
 class PairsEditor extends React.Component<PairsEditorProps> {
     change: ChangeFn = (...args) => {
-        return change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     handlePairChange = (pairIndex: any, pair: any) => {
@@ -106,7 +106,7 @@ class IframeEditor extends React.Component<IframeEditorProps> {
         iframeLogic.defaultWidgetOptions;
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     handleSettingsChange: (arg1: any) => void = (settings) => {

@@ -9,7 +9,7 @@ import * as React from "react";
 
 import BlurInput from "../../components/blur-input";
 import InfoTip from "../../components/info-tip";
-import {change} from "../../mixins/changeable";
+import {deprecatedChangeableChange} from "../../mixins/changeable";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {ChangeableProps, ChangeFn} from "../../mixins/changeable";
@@ -37,7 +37,7 @@ class PairEditor extends React.Component<PairEditorProps> {
     };
 
     change: ChangeFn = (...args) => {
-        return change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     render(): React.ReactNode {
@@ -76,7 +76,7 @@ interface PairsEditorProps extends ChangeableProps {
  */
 class PairsEditor extends React.Component<PairsEditorProps> {
     change: ChangeFn = (...args) => {
-        return change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     handlePairChange = (pairIndex, pair: any) => {
@@ -134,7 +134,7 @@ class CSProgramEditor extends React.Component<CSProgramEditorProps> {
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
         // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
-        return change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     _handleSettingsChange: (arg1: any) => void = (settings) => {

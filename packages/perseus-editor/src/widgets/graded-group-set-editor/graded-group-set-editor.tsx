@@ -1,7 +1,7 @@
 import {gradedGroupSetLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {change} from "../../mixins/changeable";
+import {deprecatedChangeableChange} from "../../mixins/changeable";
 import GradedGroupEditor from "../graded-group-editor";
 
 import type {ChangeableProps} from "../../mixins/changeable";
@@ -27,7 +27,7 @@ class GradedGroupSetEditor extends React.Component<Props> {
     }
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     getSaveWarnings: () => ReadonlyArray<any> = () => {

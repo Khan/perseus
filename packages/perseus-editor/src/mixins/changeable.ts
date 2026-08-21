@@ -94,7 +94,7 @@ const _changeSingle = function (
  *
  * @deprecated
  */
-export const change: ChangeFn = function (
+export const deprecatedChangeableChange: ChangeFn = function (
     newPropsOrSinglePropName,
     propValue,
     callback,

@@ -5,7 +5,7 @@ import * as React from "react";
 import _ from "underscore";
 
 import TextListEditor from "../../components/text-list-editor";
-import {change} from "../../mixins/changeable";
+import {deprecatedChangeableChange} from "../../mixins/changeable";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {ChangeableProps} from "../../mixins/changeable";
@@ -30,7 +30,7 @@ class CategorizerEditor extends React.Component<Props> {
         categorizerLogic.defaultWidgetOptions;
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     serialize: () => any = () => {
