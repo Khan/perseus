@@ -1,0 +1,105 @@
+/*
+ * AnswerTile — the card that a learner moves into a blank.
+ */
+.tile {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+
+    /* One-line tiles are 48px tall and the narrowest tiles (empty and
+     * single-character) are 64px wide in the design. Larger content
+     * still grows the tile, because these are minimums. */
+    min-block-size: var(--wb-sizing-size_480);
+    min-inline-size: var(--wb-sizing-size_640);
+
+    padding-block: var(--wb-sizing-size_080);
+    padding-inline: var(--wb-sizing-size_100);
+
+    border-radius: var(--wb-border-radius-radius_080);
+    background: var(--wb-semanticColor-core-background-base-default);
+
+    font-family: var(--wb-font-family-sans);
+    font-size: var(--wb-font-body-size-medium);
+    font-weight: var(--wb-font-weight-semi);
+    /* The design pairs the medium body size with the large line height. */
+    line-height: var(--wb-font-body-lineHeight-large);
+    word-break: break-word;
+
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+    color: var(--wb-semanticColor-core-foreground-neutral-strong);
+    box-shadow: 0 2px 2px var(--wb-semanticColor-core-shadow-transparent-low);
+}
+
+/* Scored borders are 2px. The default border is 1px. Scored tiles
+ * remove the extra 1px from their padding. The tile keeps the same
+ * size, so nothing moves when the question is scored. */
+.correct,
+.incorrect {
+    padding-block: calc(
+        var(--wb-sizing-size_080) -
+            (var(--wb-border-width-medium) - var(--wb-border-width-thin))
+    );
+    padding-inline: calc(
+        var(--wb-sizing-size_100) -
+            (var(--wb-border-width-medium) - var(--wb-border-width-thin))
+    );
+}
+
+.correct {
+    border: var(--wb-border-width-medium) solid
+        var(--wb-semanticColor-core-border-success-default);
+    color: var(--wb-semanticColor-core-foreground-success-default);
+    box-shadow: none;
+}
+
+.incorrect {
+    border: var(--wb-border-width-medium) solid
+        var(--wb-semanticColor-core-border-critical-default);
+    color: var(--wb-semanticColor-core-foreground-critical-default);
+    box-shadow: none;
+}
+
+.disabled {
+    color: var(--wb-semanticColor-core-foreground-disabled-strong);
+    box-shadow: none;
+}
+
+/* The box at the start of the tile. It holds the actions menu or the
+ * scored icon, and it owns the 6px gap before the content. */
+.startContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-inline-size: var(--wb-sizing-size_240);
+    block-size: var(--wb-sizing-size_240);
+    margin-inline-end: var(--wb-sizing-size_060);
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    /* Fill the leftover width in a minimum-width tile, so narrow
+     * content stays centered. */
+    flex-grow: 1;
+    /* Text wraps at this width. TeX does not wrap, so wide TeX can go
+     * past this limit. Content never scrolls. */
+    max-inline-size: 200px;
+    padding-inline-end: var(--wb-sizing-size_060);
+    /* The rendered markdown inherits the scored or disabled text color. */
+    color: inherit;
+}
+
+/* Images keep their set height. They must not overflow the tile. */
+.content img {
+    max-inline-size: 100%;
+}
+
+/* The renderer puts content in .paragraph divs. Perseus gives those
+ * divs global page styles: Lato 18px and 22px vertical margins. The
+ * tile owns its own typography, so we remove those styles here. The
+ * .tile prefix makes this selector win against the global one. */
+.tile .content :global(div.paragraph) {
+    margin: 0;
+    font: inherit;
+}
