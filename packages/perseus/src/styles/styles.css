@@ -366,13 +366,19 @@
  * GLOBAL DARK MODE SETTINGS *
  *****************************/
 [data-wb-theme$="-dark"] .framework-perseus {
+    /* TODO(benchristel): this set of file extensions is duplicated in
+     * image.css and dark-mode-toggle.tsx. Replace these selectors with a
+     * class that gets added to images that should be inverted, so the set of
+     * extensions can have a single representation in TypeScript code.
+     */
     img[src$=".png"],
     img[src$=".svg"],
-    .graphie,
-    .mathjax-wrapper:not(.graphie *) {
-        /* This filter is applied to PNG/SVG images, Graphie (e.g. label
-           text), and MathJax. MathJax inside Graphie labels is excluded so it
-           doesn't get double-inverted. JPEGs & GIFs are untouched.
+    .graphie:not(.perseus-widget-plotter),
+    .mathjax-wrapper:not(.graphie:not(.perseus-widget-plotter) *) {
+        /* This filter is applied to PNG/SVG images, Graphie (excluding the
+           Plotter, which is themed), and MathJax. MathJax inside inverted
+           Graphies is excluded so it doesn't get double-inverted. JPEGs & GIFs
+           are untouched.
          */
         filter: invert(1) hue-rotate(180deg) brightness(1.5);
     }

@@ -12,7 +12,6 @@ import {
     getWidgetIdsFromContent,
     PerseusError,
 } from "@khanacademy/perseus-core";
-import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
 
@@ -213,14 +212,6 @@ class Editor extends React.Component<Props, State> {
         // this.props.onChange during that, since it calls our parent's
         // setState
         this._sizeImages(this.props);
-        // NOTE(jeremy): We use the non-null assertion here (!) because refs
-        // are guaranteed to be up-to-date before componentDidMount or
-        // componentDidUpdate fires.
-        $(this.textarea.current!)
-            // @ts-expect-error - TS2339 - Property 'on' does not exist on type 'JQueryStatic'.
-            .on("copy cut", this._maybeCopyWidgets)
-            // @ts-expect-error - TS2769 - No overload matches this call.
-            .on("paste", this._maybePasteWidgets);
     }
 
     componentDidUpdate(prevProps: Props) {
@@ -272,7 +263,7 @@ class Editor extends React.Component<Props, State> {
                 // widget data before specifying the `key` prop, to ensure the
                 // key overrides any `key` field on the widget (which might not
                 // be unique.
-                {...this.props.widgets[id]}
+                widgetInfo={this.props.widgets[id]}
                 ref={id}
                 id={id}
                 key={id}
@@ -507,6 +498,10 @@ class Editor extends React.Component<Props, State> {
         async (e: React.SyntheticEvent<HTMLTextAreaElement>) => {
             e.preventDefault();
 
+            // Read the event target synchronously: `currentTarget` is only
+            // valid while the event is being dispatched, and we await below.
+            const textarea = e.currentTarget;
+
             const {widgets, text: textToBePasted} =
                 await getPerseusClipboardData();
 
@@ -533,7 +528,6 @@ class Editor extends React.Component<Props, State> {
 
             // Add pasted text to previous content, replacing selected text to
             // replicate normal paste behavior.
-            const textarea = e.currentTarget;
             const selectionStart = textarea.selectionStart;
             const newContent =
                 this.state.textAreaValue.substr(0, selectionStart) +
@@ -978,6 +972,9 @@ class Editor extends React.Component<Props, State> {
                 aria-label="Markdown content"
                 onChange={this.handleChange}
                 onKeyDown={this._handleKeyDown}
+                onCopy={this._maybeCopyWidgets}
+                onCut={this._maybeCopyWidgets}
+                onPaste={this._maybePasteWidgets}
                 placeholder={this.props.placeholder}
                 disabled={this.props.disabled}
                 value={this.state.textAreaValue}

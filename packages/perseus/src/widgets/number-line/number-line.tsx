@@ -1,5 +1,6 @@
 import {KhanMath, number as knumber} from "@khanacademy/kmath";
 import {useLatestRef, useOnMountEffect} from "@khanacademy/wonder-blocks-core";
+import {semanticColor, tokenValue} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 import {
     forwardRef,
@@ -16,7 +17,6 @@ import NumberInput from "../../components/number-input";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
 import {withDependencies} from "../../components/with-dependencies";
 import InteractiveUtil from "../../interactive2/interactive-util";
-import KhanColors from "../../util/colors";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
 import type {
@@ -43,6 +43,17 @@ const bound = (x: number, gt: any, lt: any) => Math.min(Math.max(x, gt), lt);
 
 const EN_DASH = "\u2013";
 const horizontalPadding = 30;
+
+// 460/288 are the full box; drawable width is box − padding·2
+const MOBILE_BOX_WIDTH = 288;
+const DESKTOP_BOX_WIDTH = 460;
+
+function getNumberLineWidthPx(isMobile: boolean): number {
+    return (
+        (isMobile ? MOBILE_BOX_WIDTH : DESKTOP_BOX_WIDTH) -
+        horizontalPadding * 2
+    );
+}
 
 const reverseRel: Record<Relationship, Relationship> = {
     eq: "eq",
@@ -159,10 +170,12 @@ const TickMarks: any = (Graphie as any).createSimpleClass((graphie, props) => {
     }
 
     const highlightedLineStyle = {
-        stroke: KhanColors.BLUE,
+        stroke: tokenValue(semanticColor.core.foreground.instructive.default),
         strokeWidth: 3.5,
     };
-    const highlightedTextStyle = {color: KhanColors.BLUE};
+    const highlightedTextStyle = {
+        color: tokenValue(semanticColor.core.foreground.instructive.default),
+    };
 
     // Generate an array of tick numbers:
     //    `Array(Math.round(numDivisions))` makes an array of null values - one for every division marker
@@ -337,9 +350,9 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
             }
 
             // Position variables
-            const widthInPixels = latestProps.apiOptions.isMobile
-                ? 288 - horizontalPadding * 2
-                : 400;
+            const widthInPixels = getNumberLineWidthPx(
+                latestProps.apiOptions.isMobile,
+            );
             const range = options.range;
             const scale = (range[1] - range[0]) / widthInPixels;
             const buffer = horizontalPadding * scale;
@@ -456,32 +469,40 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
     function renderNumberLinePoint() {
         const isOpen = ["lt", "gt"].includes(props.userInput.rel);
 
-        // In static mode the point's fill and stroke is blue to signify that
-        // it can't be interacted with.
-        let fill;
-        if (isOpen) {
-            fill = KhanColors._BACKGROUND;
-        } else if (props.static) {
-            fill = KhanColors.BLUE;
-        } else {
-            fill = KhanColors.GREEN;
-        }
+        // tokenValue resolves the semantic tokens to raw hex; graphie only
+        // accepts raw CSS colors, not CSS variables.
+        const interactiveColor = tokenValue(
+            semanticColor.core.foreground.instructive.default,
+        );
+        const staticColor = tokenValue(
+            semanticColor.core.foreground.disabled.strong,
+        );
+        const knockoutColor = tokenValue(
+            semanticColor.core.border.knockout.default,
+        );
+        const hollowFill = tokenValue(
+            semanticColor.core.foreground.knockout.default,
+        );
+        const pointColor = props.static ? staticColor : interactiveColor;
+
         const normalStyle = {
-            fill: fill,
-            stroke: props.static ? KhanColors.BLUE : KhanColors.GREEN,
+            fill: isOpen ? hollowFill : pointColor,
+            stroke: isOpen ? pointColor : knockoutColor,
             "stroke-width": isOpen ? 3 : 1,
         } as const;
         const highlightStyle = {
-            fill: isOpen ? KhanColors._BACKGROUND : KhanColors.GREEN,
+            fill: isOpen ? hollowFill : interactiveColor,
             "stroke-width": isOpen ? 3 : 1,
         } as const;
 
-        const mobileDotStyle = props.options.isInequality
-            ? {
-                  stroke: KhanColors.GREEN,
-                  "fill-opacity": isOpen ? 0 : 1,
-              }
-            : {};
+        const mobileDotStyle =
+            props.options.isInequality && isOpen
+                ? {
+                      fill: hollowFill,
+                      stroke: pointColor,
+                      "stroke-width": 3,
+                  }
+                : {};
 
         return (
             <MovablePoint
@@ -514,7 +535,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
 
     function getInequalityEndpoint(): [number, number] {
         const isGreater = ["ge", "gt"].includes(props.userInput.rel);
-        const widthInPixels = 400;
+        const widthInPixels = getNumberLineWidthPx(props.apiOptions.isMobile);
         const range = props.options.range;
         const scale = (range[1] - range[0]) / widthInPixels;
         const buffer = horizontalPadding * scale;
@@ -529,9 +550,9 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
             const end = getInequalityEndpoint();
             const style = {
                 arrows: "->",
-                stroke: props.apiOptions.isMobile
-                    ? KhanColors.GREEN
-                    : KhanColors.BLUE,
+                stroke: tokenValue(
+                    semanticColor.core.foreground.instructive.default,
+                ),
                 strokeWidth: 3.5,
             } as const;
 
@@ -560,7 +581,12 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                 // which isn't doable without throwing away the graphie and
                 // making a new one.
                 key={props.options.labelStyle}
-                box={[props.apiOptions.isMobile ? 288 : 460, 80]}
+                box={[
+                    props.apiOptions.isMobile
+                        ? MOBILE_BOX_WIDTH
+                        : DESKTOP_BOX_WIDTH,
+                    80,
+                ]}
                 options={{
                     range,
                     isTickCtrl: props.options.isTickCtrl,

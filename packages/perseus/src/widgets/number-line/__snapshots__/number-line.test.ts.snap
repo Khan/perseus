@@ -150,14 +150,14 @@ exports[`number-line widget snapshots can handle fractions: show fractions 1`] =
                   <path
                     d="M30,48L30,32"
                     fill="none"
-                    stroke="#1865f2"
+                    stroke="none"
                     stroke-width="3.5"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 3.5;"
                   />
                   <path
                     d="M87.14285714285712,48L87.14285714285712,32"
                     fill="none"
-                    stroke="#1865f2"
+                    stroke="none"
                     stroke-width="3.5"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 3.5;"
                   />
@@ -228,11 +228,11 @@ exports[`number-line widget snapshots can handle fractions: show fractions 1`] =
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#00a60e"
+                        fill="none"
                         r="NaN"
                         rx="6"
                         ry="6"
-                        stroke="#00a60e"
+                        stroke="none"
                         stroke-width="1"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1;"
                         transform=""
@@ -278,7 +278,7 @@ exports[`number-line widget snapshots can handle fractions: show fractions 1`] =
                 <span
                   class="graphie-label"
                   data-math-formula="0"
-                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 30px; top: 46.8px; fill: none;"
+                  style="position: absolute; padding: 7px; left: 30px; top: 46.8px; fill: none;"
                 >
                   <span
                     class="tex-holder"
@@ -287,7 +287,7 @@ exports[`number-line widget snapshots can handle fractions: show fractions 1`] =
                 <span
                   class="graphie-label"
                   data-math-formula="\\dfrac{1}{6}"
-                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 87.14285714285712px; top: 46.8px; fill: none;"
+                  style="position: absolute; padding: 7px; left: 87.14285714285712px; top: 46.8px; fill: none;"
                 >
                   <span
                     class="tex-holder"
@@ -507,7 +507,7 @@ exports[`number-line widget snapshots default: first render 1`] = `
                   <path
                     d="M29.999999999999982,48L29.999999999999982,32"
                     fill="none"
-                    stroke="#1865f2"
+                    stroke="none"
                     stroke-width="3.5"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 3.5;"
                   />
@@ -563,7 +563,7 @@ exports[`number-line widget snapshots default: first render 1`] = `
                   <path
                     d="M430,48L430,32"
                     fill="none"
-                    stroke="#1865f2"
+                    stroke="none"
                     stroke-width="3.5"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 3.5;"
                   />
@@ -592,11 +592,11 @@ exports[`number-line widget snapshots default: first render 1`] = `
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#00a60e"
+                        fill="none"
                         r="NaN"
                         rx="6"
                         ry="6"
-                        stroke="#00a60e"
+                        stroke="none"
                         stroke-width="1"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1;"
                         transform=""
@@ -642,7 +642,7 @@ exports[`number-line widget snapshots default: first render 1`] = `
                 <span
                   class="graphie-label"
                   data-math-formula="-4"
-                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 29.999999999999982px; top: 61.2px; fill: none;"
+                  style="position: absolute; padding: 7px; left: 29.999999999999982px; top: 61.2px; fill: none;"
                 >
                   <span
                     class="tex-holder"
@@ -714,7 +714,7 @@ exports[`number-line widget snapshots default: first render 1`] = `
                 <span
                   class="graphie-label"
                   data-math-formula="4"
-                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 430px; top: 61.2px; fill: none;"
+                  style="position: absolute; padding: 7px; left: 430px; top: 61.2px; fill: none;"
                 >
                   <span
                     class="tex-holder"
@@ -880,7 +880,7 @@ exports[`number-line widget snapshots endpoints are highlighted when labels are 
                   <path
                     d="M30,48L30,32"
                     fill="none"
-                    stroke="#1865f2"
+                    stroke="none"
                     stroke-width="3.5"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 3.5;"
                   />
@@ -985,7 +985,7 @@ exports[`number-line widget snapshots endpoints are highlighted when labels are 
                   <path
                     d="M330,48L330,32"
                     fill="none"
-                    stroke="#1865f2"
+                    stroke="none"
                     stroke-width="3.5"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 3.5;"
                   />
@@ -1049,11 +1049,11 @@ exports[`number-line widget snapshots endpoints are highlighted when labels are 
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#00a60e"
+                        fill="none"
                         r="NaN"
                         rx="6"
                         ry="6"
-                        stroke="#00a60e"
+                        stroke="none"
                         stroke-width="1"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1;"
                         transform=""
@@ -1099,7 +1099,7 @@ exports[`number-line widget snapshots endpoints are highlighted when labels are 
                 <span
                   class="graphie-label"
                   data-math-formula="-10"
-                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 30px; top: 61.2px; fill: none;"
+                  style="position: absolute; padding: 7px; left: 30px; top: 61.2px; fill: none;"
                 >
                   <span
                     class="tex-holder"
@@ -1234,7 +1234,7 @@ exports[`number-line widget snapshots endpoints are highlighted when labels are 
                 <span
                   class="graphie-label"
                   data-math-formula="5"
-                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 330px; top: 61.2px; fill: none;"
+                  style="position: absolute; padding: 7px; left: 330px; top: 61.2px; fill: none;"
                 >
                   <span
                     class="tex-holder"
@@ -1480,7 +1480,7 @@ exports[`number-line widget snapshots endpoints are highlighted when labels are 
                   <path
                     d="M130,48L130,32"
                     fill="none"
-                    stroke="#1865f2"
+                    stroke="none"
                     stroke-width="3.5"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 3.5;"
                   />
@@ -1585,7 +1585,7 @@ exports[`number-line widget snapshots endpoints are highlighted when labels are 
                   <path
                     d="M430,48L430,32"
                     fill="none"
-                    stroke="#1865f2"
+                    stroke="none"
                     stroke-width="3.5"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 3.5;"
                   />
@@ -1614,11 +1614,11 @@ exports[`number-line widget snapshots endpoints are highlighted when labels are 
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#00a60e"
+                        fill="none"
                         r="NaN"
                         rx="6"
                         ry="6"
-                        stroke="#00a60e"
+                        stroke="none"
                         stroke-width="1"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1;"
                         transform=""
@@ -1709,7 +1709,7 @@ exports[`number-line widget snapshots endpoints are highlighted when labels are 
                 <span
                   class="graphie-label"
                   data-math-formula="-5"
-                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 130px; top: 61.2px; fill: none;"
+                  style="position: absolute; padding: 7px; left: 130px; top: 61.2px; fill: none;"
                 >
                   <span
                     class="tex-holder"
@@ -1844,7 +1844,7 @@ exports[`number-line widget snapshots endpoints are highlighted when labels are 
                 <span
                   class="graphie-label"
                   data-math-formula="10"
-                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 430px; top: 61.2px; fill: none;"
+                  style="position: absolute; padding: 7px; left: 430px; top: 61.2px; fill: none;"
                 >
                   <span
                     class="tex-holder"
@@ -2024,7 +2024,7 @@ exports[`number-line widget snapshots labels are highlighted when part of the ti
                   <path
                     d="M110,48L110,32"
                     fill="none"
-                    stroke="#1865f2"
+                    stroke="none"
                     stroke-width="3.5"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 3.5;"
                   />
@@ -2066,7 +2066,7 @@ exports[`number-line widget snapshots labels are highlighted when part of the ti
                   <path
                     d="M350,48L350,32"
                     fill="none"
-                    stroke="#1865f2"
+                    stroke="none"
                     stroke-width="3.5"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 3.5;"
                   />
@@ -2109,11 +2109,11 @@ exports[`number-line widget snapshots labels are highlighted when part of the ti
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#00a60e"
+                        fill="none"
                         r="NaN"
                         rx="6"
                         ry="6"
-                        stroke="#00a60e"
+                        stroke="none"
                         stroke-width="1"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1;"
                         transform=""
@@ -2177,7 +2177,7 @@ exports[`number-line widget snapshots labels are highlighted when part of the ti
                 <span
                   class="graphie-label"
                   data-math-formula="-6"
-                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 110px; top: 61.2px; fill: none;"
+                  style="position: absolute; padding: 7px; left: 110px; top: 61.2px; fill: none;"
                 >
                   <span
                     class="tex-holder"
@@ -2231,7 +2231,7 @@ exports[`number-line widget snapshots labels are highlighted when part of the ti
                 <span
                   class="graphie-label"
                   data-math-formula="6"
-                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 350px; top: 61.2px; fill: none;"
+                  style="position: absolute; padding: 7px; left: 350px; top: 61.2px; fill: none;"
                 >
                   <span
                     class="tex-holder"
@@ -2436,7 +2436,7 @@ exports[`number-line widget snapshots labels are inserted when NOT part of the t
                   <path
                     d="M130,48L130,32"
                     fill="none"
-                    stroke="#1865f2"
+                    stroke="none"
                     stroke-width="3.5"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 3.5;"
                   />
@@ -2478,7 +2478,7 @@ exports[`number-line widget snapshots labels are inserted when NOT part of the t
                   <path
                     d="M330,48L330,32"
                     fill="none"
-                    stroke="#1865f2"
+                    stroke="none"
                     stroke-width="3.5"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 3.5;"
                   />
@@ -2528,11 +2528,11 @@ exports[`number-line widget snapshots labels are inserted when NOT part of the t
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#00a60e"
+                        fill="none"
                         r="NaN"
                         rx="6"
                         ry="6"
-                        stroke="#00a60e"
+                        stroke="none"
                         stroke-width="1"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1;"
                         transform=""
@@ -2605,7 +2605,7 @@ exports[`number-line widget snapshots labels are inserted when NOT part of the t
                 <span
                   class="graphie-label"
                   data-math-formula="-5"
-                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 130px; top: 61.2px; fill: none;"
+                  style="position: absolute; padding: 7px; left: 130px; top: 61.2px; fill: none;"
                 >
                   <span
                     class="tex-holder"
@@ -2659,7 +2659,7 @@ exports[`number-line widget snapshots labels are inserted when NOT part of the t
                 <span
                   class="graphie-label"
                   data-math-formula="5"
-                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 330px; top: 61.2px; fill: none;"
+                  style="position: absolute; padding: 7px; left: 330px; top: 61.2px; fill: none;"
                 >
                   <span
                     class="tex-holder"
@@ -2857,7 +2857,7 @@ exports[`number-line widget snapshots mobile: first mobile render 1`] = `
                   <path
                     d="M29.999999999999993,48L29.999999999999993,32"
                     fill="none"
-                    stroke="#1865f2"
+                    stroke="none"
                     stroke-width="3.5"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); shape-rendering: crispEdges; stroke-width: 3.5;"
                   />
@@ -2913,7 +2913,7 @@ exports[`number-line widget snapshots mobile: first mobile render 1`] = `
                   <path
                     d="M258,48L258,32"
                     fill="none"
-                    stroke="#1865f2"
+                    stroke="none"
                     stroke-width="3.5"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); shape-rendering: crispEdges; stroke-width: 3.5;"
                   />
@@ -2992,7 +2992,7 @@ exports[`number-line widget snapshots mobile: first mobile render 1`] = `
                 <span
                   class="graphie-label"
                   data-math-formula="-4"
-                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 29.999999999999993px; top: 61.2px; fill: none;"
+                  style="position: absolute; padding: 7px; left: 29.999999999999993px; top: 61.2px; fill: none;"
                 >
                   <span
                     class="tex-holder"
@@ -3064,7 +3064,7 @@ exports[`number-line widget snapshots mobile: first mobile render 1`] = `
                 <span
                   class="graphie-label"
                   data-math-formula="4"
-                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 258px; top: 61.2px; fill: none;"
+                  style="position: absolute; padding: 7px; left: 258px; top: 61.2px; fill: none;"
                 >
                   <span
                     class="tex-holder"
@@ -3230,7 +3230,7 @@ exports[`number-line widget snapshots only endpoints/labels show when "Show labe
                   <path
                     d="M30,48L30,32"
                     fill="none"
-                    stroke="#1865f2"
+                    stroke="none"
                     stroke-width="3.5"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 3.5;"
                   />
@@ -3370,7 +3370,7 @@ exports[`number-line widget snapshots only endpoints/labels show when "Show labe
                   <path
                     d="M430,48L430,32"
                     fill="none"
-                    stroke="#1865f2"
+                    stroke="none"
                     stroke-width="3.5"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 3.5;"
                   />
@@ -3399,11 +3399,11 @@ exports[`number-line widget snapshots only endpoints/labels show when "Show labe
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#00a60e"
+                        fill="none"
                         r="NaN"
                         rx="6"
                         ry="6"
-                        stroke="#00a60e"
+                        stroke="none"
                         stroke-width="1"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1;"
                         transform=""
@@ -3449,7 +3449,7 @@ exports[`number-line widget snapshots only endpoints/labels show when "Show labe
                 <span
                   class="graphie-label"
                   data-math-formula="-10"
-                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 30px; top: 61.2px; fill: none;"
+                  style="position: absolute; padding: 7px; left: 30px; top: 61.2px; fill: none;"
                 >
                   <span
                     class="tex-holder"
@@ -3458,7 +3458,7 @@ exports[`number-line widget snapshots only endpoints/labels show when "Show labe
                 <span
                   class="graphie-label"
                   data-math-formula="10"
-                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 430px; top: 61.2px; fill: none;"
+                  style="position: absolute; padding: 7px; left: 430px; top: 61.2px; fill: none;"
                 >
                   <span
                     class="tex-holder"
@@ -3666,7 +3666,7 @@ exports[`number-line widget snapshots only endpoints/labels show when "Show labe
                   <path
                     d="M150,48L150,32"
                     fill="none"
-                    stroke="#1865f2"
+                    stroke="none"
                     stroke-width="3.5"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 3.5;"
                   />
@@ -3722,7 +3722,7 @@ exports[`number-line widget snapshots only endpoints/labels show when "Show labe
                   <path
                     d="M310,48L310,32"
                     fill="none"
-                    stroke="#1865f2"
+                    stroke="none"
                     stroke-width="3.5"
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 3.5;"
                   />
@@ -3793,11 +3793,11 @@ exports[`number-line widget snapshots only endpoints/labels show when "Show labe
                       <ellipse
                         cx="NaN"
                         cy="NaN"
-                        fill="#00a60e"
+                        fill="none"
                         r="NaN"
                         rx="6"
                         ry="6"
-                        stroke="#00a60e"
+                        stroke="none"
                         stroke-width="1"
                         style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1;"
                         transform=""
@@ -3843,7 +3843,7 @@ exports[`number-line widget snapshots only endpoints/labels show when "Show labe
                 <span
                   class="graphie-label"
                   data-math-formula="-4"
-                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 150px; top: 61.2px; fill: none;"
+                  style="position: absolute; padding: 7px; left: 150px; top: 61.2px; fill: none;"
                 >
                   <span
                     class="tex-holder"
@@ -3852,7 +3852,7 @@ exports[`number-line widget snapshots only endpoints/labels show when "Show labe
                 <span
                   class="graphie-label"
                   data-math-formula="4"
-                  style="position: absolute; padding: 7px; color: rgb(24, 101, 242); left: 310px; top: 61.2px; fill: none;"
+                  style="position: absolute; padding: 7px; left: 310px; top: 61.2px; fill: none;"
                 >
                   <span
                     class="tex-holder"

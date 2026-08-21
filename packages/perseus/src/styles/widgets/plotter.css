@@ -13,10 +13,3 @@
 .categories-title {
     font-size: 14px;
 }
-.perseus-mobile .perseus-widget-plotter {
-    border: solid 0.5px #babec2;
-    border-radius: 4px;
-}
-.perseus-mobile .perseus-widget-plotter .graphie-label mjx-container {
-    color: #626569;
-}

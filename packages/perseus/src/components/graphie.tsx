@@ -1,5 +1,4 @@
 import {approximateDeepEqual, Errors} from "@khanacademy/perseus-core";
-import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
 
@@ -209,7 +208,8 @@ class Graphie extends React.Component<Props> {
 
         if (this.props.responsive) {
             // Overwrite fixed styles set in init()
-            $(graphieDiv).css({width: "100%", height: "100%"});
+            graphieDiv.style.width = "100%";
+            graphieDiv.style.height = "100%";
             graphie.raphael.setSize("100%", "100%");
         }
 

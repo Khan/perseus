@@ -1,5 +1,47 @@
 # @khanacademy/perseus
 
+## 84.3.0
+
+### Minor Changes
+
+-   [#4100](https://github.com/Khan/perseus/pull/4100) [`f533e12`](https://github.com/Khan/perseus/commit/f533e124310ff0827af74d7303c2537dbdb737da) Thanks [@benchristel](https://github.com/benchristel)! - The Definition widget now contrasts more clearly with surrounding text, especially in dark mode.
+
+### Patch Changes
+
+-   [#3983](https://github.com/Khan/perseus/pull/3983) [`8e55ded`](https://github.com/Khan/perseus/commit/8e55ded23dc3bee126d738e8190b650ceef80229) Thanks [@handeyeco](https://github.com/handeyeco)! - Some text changes for the NumericInput examples
+
+## 84.2.0
+
+### Minor Changes
+
+-   [#4081](https://github.com/Khan/perseus/pull/4081) [`37d4457`](https://github.com/Khan/perseus/commit/37d44579e75ddad16b6d96f5c85f9b9e8ae212af) Thanks [@benchristel](https://github.com/benchristel)! - The Plotter widget is now styled using Wonder Blocks semantic colors, which allow it to be themed.
+
+-   [#4096](https://github.com/Khan/perseus/pull/4096) [`9be52ec`](https://github.com/Khan/perseus/commit/9be52ec615403aa0236226564a60a09c139606f6) Thanks [@nedredmond](https://github.com/nedredmond)! - jquery moves from a peer dep to a direct dep. Will not break any current or future consumers; just leaves a redundant dep in the consuming package config that the consuming app can remove.
+
+### Patch Changes
+
+-   [#4088](https://github.com/Khan/perseus/pull/4088) [`707bce5`](https://github.com/Khan/perseus/commit/707bce562ac369bfd67b084afb5e2cbd27c06b78) Thanks [@Myranae](https://github.com/Myranae)! - Add the ray arrow for number line and fix styling
+
+-   [#4086](https://github.com/Khan/perseus/pull/4086) [`2f7bdee`](https://github.com/Khan/perseus/commit/2f7bdeee7cbd5773069fcd95b26e42f8558d51cc) Thanks [@Myranae](https://github.com/Myranae)! - Convert number-line styles to use tokens
+
+-   [#4097](https://github.com/Khan/perseus/pull/4097) [`1a06aad`](https://github.com/Khan/perseus/commit/1a06aad62bc5fe6cec1de0dc6d91ff9413848c6b) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove some uses of jQuery
+
+-   [#3922](https://github.com/Khan/perseus/pull/3922) [`7c10823`](https://github.com/Khan/perseus/commit/7c10823c74a97690eb85e635fcdafc7265f81a62) Thanks [@Myranae](https://github.com/Myranae)! - Add regression tests for Grapher and update styling to tokens
+
+## 84.1.1
+
+### Patch Changes
+
+-   [#4085](https://github.com/Khan/perseus/pull/4085) [`d5a4643`](https://github.com/Khan/perseus/commit/d5a46431256cf4b2db7c7fe8812c6d57e5bb1d99) Thanks [@handeyeco](https://github.com/handeyeco)! - Test changes only: adding some coverage to Sorter
+
+-   Updated dependencies [[`92722a7`](https://github.com/Khan/perseus/commit/92722a76d91c9e5c41b870341b44efbe45bf8318)]:
+    -   @khanacademy/perseus-core@36.1.0
+    -   @khanacademy/keypad-context@3.2.84
+    -   @khanacademy/kmath@2.4.43
+    -   @khanacademy/math-input@27.0.4
+    -   @khanacademy/perseus-linter@5.1.24
+    -   @khanacademy/perseus-score@8.12.16
+
 ## 84.1.0
 
 ### Minor Changes

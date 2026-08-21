@@ -23,7 +23,6 @@ import {
     scoreWidgetsFunctional,
 } from "@khanacademy/perseus-score";
 import classNames from "classnames";
-import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -1226,16 +1225,19 @@ class Renderer
 
         // In the common case of no callback specified, avoid this work.
         if (onRender !== noopOnRender || oldOnRender !== noopOnRender) {
-            // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'find' does not exist on type 'JQueryStatic'.
-            const $images = $(ReactDOM.findDOMNode(this)).find("img");
+            const node = ReactDOM.findDOMNode(this);
 
             // Fire callback on image load...
-            if (oldOnRender !== noopOnRender) {
-                $images.off("load", oldOnRender);
-            }
+            if (node instanceof Element) {
+                node.querySelectorAll("img").forEach((image) => {
+                    if (oldOnRender !== noopOnRender) {
+                        image.removeEventListener("load", oldOnRender);
+                    }
 
-            if (onRender !== noopOnRender) {
-                $images.on("load", onRender);
+                    if (onRender !== noopOnRender) {
+                        image.addEventListener("load", onRender);
+                    }
+                });
             }
         }
 
@@ -1408,30 +1410,6 @@ class Renderer
         if (this._currentFocus) {
             this.blurPath(this._currentFocus);
         }
-    };
-
-    /**
-     * Serializes widget state. Seems to be used only by editors though.
-     *
-     * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState
-     */
-    serialize: () => Record<any, any> = () => {
-        const state: Record<string, any> = {};
-        _.each(
-            this.state.widgetInfo,
-            function (info, id) {
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                // eslint-disable-next-line @typescript-eslint/no-invalid-this
-                const widget = this.getWidgetInstance(id);
-                const s = widget.serialize();
-                if (!_.isEmpty(s)) {
-                    state[id] = s;
-                }
-            },
-            this,
-        );
-        return state;
     };
 
     /**

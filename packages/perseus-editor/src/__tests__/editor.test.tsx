@@ -5,7 +5,7 @@ import {
     Util,
 } from "@khanacademy/perseus";
 import {generateImageOptions} from "@khanacademy/perseus-core";
-import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
+import {act, render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -401,10 +401,7 @@ describe("Editor", () => {
             // Act
             textarea.focus();
             textarea.setSelectionRange(1, 1);
-            // NOTE: we use `fireEvent` because userEvent.paste doesn't go
-            // through the jQuery-bound paste listener, but fireEvent does.
-            // eslint-disable-next-line testing-library/prefer-user-event
-            fireEvent.paste(textarea);
+            await userEvent.paste("_");
 
             // Assert
             await waitFor(() => {

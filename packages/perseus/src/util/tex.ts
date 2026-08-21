@@ -1,17 +1,20 @@
 import {KhanMath} from "@khanacademy/kmath";
-import $ from "jquery";
 import * as React from "react";
 
 import {getDependencies} from "../dependencies";
 
 import reactRender from "./react-render";
 
-function findChildOrAdd(elem: any, className: string) {
-    const $child = $(elem).find("." + className);
-    if ($child.length === 0) {
-        return $("<span>").addClass(className).appendTo($(elem));
+function findChildOrAdd(elem: HTMLElement, className: string): HTMLElement {
+    const child = elem.querySelector<HTMLElement>("." + className);
+    if (child) {
+        return child;
     }
-    return $child;
+
+    const newChild = document.createElement("span");
+    newChild.classList.add(className);
+    elem.appendChild(newChild);
+    return newChild;
 }
 
 export default {
@@ -36,18 +39,17 @@ export default {
         force?: boolean,
         callback?: () => unknown,
     ) {
-        const $elem = $(elem);
+        const dataMathFormula = elem.getAttribute("data-math-formula");
 
         // Only process if it hasn't been done before, or it is forced
-        if ($elem.attr("data-math-formula") == null || force) {
-            const $texHolder = findChildOrAdd($elem, "tex-holder");
+        if (dataMathFormula == null || force) {
+            const texHolder = findChildOrAdd(elem, "tex-holder");
 
             // If text wasn't provided, we use the cached text.
             // NOTE(benchristel): I'm not sure if text can ever be null. It's
             // possible we don't need this check.
-            if (text == null && $elem.attr("data-math-formula")) {
-                // @ts-expect-error - TS2322 - Type 'string | undefined' is not assignable to type 'string'.
-                text = $elem.attr("data-math-formula");
+            if (text == null && dataMathFormula) {
+                text = dataMathFormula;
             }
 
             text = text != null ? text + "" : "";
@@ -56,7 +58,7 @@ export default {
             text = KhanMath.cleanMath(text);
 
             // Store the formula that we're using
-            $elem.attr("data-math-formula", text);
+            elem.setAttribute("data-math-formula", text);
 
             const {TeX} = await getDependencies();
             // We use createElement instead of JSX here because we can't name this file tex.tsx;
@@ -67,7 +69,7 @@ export default {
                     children: text,
                     onRender: callback,
                 }),
-                $texHolder[0],
+                texHolder,
             );
         }
     },
