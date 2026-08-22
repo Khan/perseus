@@ -320,11 +320,6 @@ code {
 .perseus-hints-editor .add-hint {
     font-size: 13px;
 }
-.perseus-hints-editor
-    .perseus-editor-row:first-child
-    .perseus-editor-right-cell {
-    border-top: 0;
-}
 .perseus-hint-editor + div .perseus-hint-renderer {
     width: 100%;
 }
