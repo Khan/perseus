@@ -2,10 +2,10 @@ import * as React from "react";
 import invariant from "tiny-invariant";
 import _ from "underscore";
 
+import CombinedHintsEditor from "./combined-hints-editor";
 import {A11yContext} from "./components/a11y-context";
 import DeviceFramer from "./components/device-framer";
 import Editor from "./editor";
-import CombinedHintsEditor from "./hint-editor";
 import ItemExtrasEditor from "./item-extras-editor";
 import PreviewWithIframe from "./preview-with-iframe";
 import {createPreviewContentDeriver} from "./util/derive-question-preview-content";
