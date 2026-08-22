@@ -87,17 +87,9 @@ class ItemEditor extends React.Component<Props> {
 
     // TODO(benchristel): Correctly type all getSaveWarnings methods.
     getSaveWarnings: () => any = () => {
-        invariant(
-            this.questionEditor.current,
-            "cannot getSaveWarnings without Editor",
-        );
-        invariant(
-            this.hintsEditor.current,
-            "cannot getSaveWarnings without CombinedHintsEditor",
-        );
         return [
-            ...this.questionEditor.current.getSaveWarnings(),
-            ...this.hintsEditor.current.getSaveWarnings(),
+            ...(this.questionEditor.current?.getSaveWarnings() ?? []),
+            ...(this.hintsEditor.current?.getSaveWarnings() ?? []),
         ];
     };
 
