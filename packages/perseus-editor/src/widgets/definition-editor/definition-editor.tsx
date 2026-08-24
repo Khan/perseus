@@ -11,11 +11,11 @@ import EditorJsonify from "../../mixins/editor-jsonify";
 import type {InitializeWidgetOptionsParams} from "../../editor";
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
-import type {DefinitionDefaultWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusDefinitionWidgetOptions} from "@khanacademy/perseus-core";
 
 const {TextInput} = components;
 
-interface Props extends DefinitionDefaultWidgetOptions, ChangeableProps {
+interface Props extends PerseusDefinitionWidgetOptions, ChangeableProps {
     apiOptions?: APIOptionsWithDefaults;
 }
 
@@ -27,12 +27,12 @@ interface Props extends DefinitionDefaultWidgetOptions, ChangeableProps {
 class DefinitionEditor extends React.Component<Props> {
     static widgetName = "definition" as const;
 
-    static defaultProps: DefinitionDefaultWidgetOptions =
+    static defaultProps: PerseusDefinitionWidgetOptions =
         definitionLogic.defaultWidgetOptions;
 
     static initializeWidgetOptions(
         params: InitializeWidgetOptionsParams,
-    ): DefinitionDefaultWidgetOptions {
+    ): PerseusDefinitionWidgetOptions {
         const defaultWidgetOptions = {
             ...definitionLogic.defaultWidgetOptions,
         };

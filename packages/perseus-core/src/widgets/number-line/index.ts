@@ -4,28 +4,18 @@ import type {NumberLinePublicWidgetOptions} from "./number-line-util";
 import type {PerseusNumberLineWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
-export type NumberLineDefaultWidgetOptions = Pick<
-    PerseusNumberLineWidgetOptions,
-    | "range"
-    | "labelRange"
-    | "labelStyle"
-    | "labelTicks"
-    | "divisionRange"
-    | "numDivisions"
-    | "snapDivisions"
-    | "tickStep"
-    | "correctRel"
-    | "correctX"
-    | "initialX"
-    | "showTooltips"
->;
-
-const defaultWidgetOptions: NumberLineDefaultWidgetOptions = {
+const defaultWidgetOptions: PerseusNumberLineWidgetOptions = {
     range: [0, 10],
 
     labelRange: [null, null],
     labelStyle: "decimal",
     labelTicks: true,
+    // The tick controller is opt-in: by default the author fixes the number of
+    // divisions rather than letting the student change it.
+    isTickCtrl: false,
+    // Derived from `correctRel` by the editor (`isInequality: correctRel !==
+    // "eq"`), so this must stay in sync with the `correctRel: "eq"` default.
+    isInequality: false,
 
     divisionRange: [1, 12],
     numDivisions: 5,

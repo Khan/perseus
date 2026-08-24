@@ -1,6 +1,5 @@
 import {
     imageLogic,
-    type ImageDefaultWidgetOptions,
     type PerseusImageWidgetOptions,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
@@ -25,7 +24,7 @@ class ImageEditor extends React.Component<Props> {
     static displayName = "ImageEditor";
     static widgetName = "image";
 
-    static defaultProps: ImageDefaultWidgetOptions =
+    static defaultProps: PerseusImageWidgetOptions =
         imageLogic.defaultWidgetOptions;
 
     serialize() {

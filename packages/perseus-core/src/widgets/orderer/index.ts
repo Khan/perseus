@@ -1,19 +1,27 @@
 import {getOrdererPublicWidgetOptions} from "./orderer-util";
 
 import type {OrdererPublicWidgetOptions} from "./orderer-util";
-import type {PerseusOrdererWidgetOptions} from "../../data-schema";
+import type {
+    PerseusOrdererWidgetOptions,
+    PerseusRenderer,
+} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
-export type OrdererDefaultWidgetOptions = Pick<
-    PerseusOrdererWidgetOptions,
-    "correctOptions" | "otherOptions" | "height" | "layout"
->;
+const toCard = (content: string): PerseusRenderer => ({
+    content,
+    widgets: {},
+    images: {},
+});
 
-const defaultWidgetOptions: OrdererDefaultWidgetOptions = {
-    // eslint-disable-next-line no-restricted-syntax
-    correctOptions: [{content: "$x$"}] as any,
-    // eslint-disable-next-line no-restricted-syntax
-    otherOptions: [{content: "$y$"}] as any,
+const defaultCorrectOptions = [toCard("$x$")];
+const defaultOtherOptions = [toCard("$y$")];
+
+const defaultWidgetOptions: PerseusOrdererWidgetOptions = {
+    correctOptions: defaultCorrectOptions,
+    otherOptions: defaultOtherOptions,
+    // `options` is the deck the student picks from, which the editor keeps in
+    // sync as the union of the correct answer and the distractors.
+    options: [...defaultCorrectOptions, ...defaultOtherOptions],
     height: "normal",
     layout: "horizontal",
 };

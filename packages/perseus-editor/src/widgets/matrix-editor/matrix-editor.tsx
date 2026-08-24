@@ -9,7 +9,7 @@ import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
-import type {MatrixDefaultWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusMatrixWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {RangeInput} = components;
@@ -19,14 +19,14 @@ const Matrix = MatrixWidget.widget;
 // have to cap it at some point.
 const MAX_BOARD_SIZE = 6;
 
-interface Props extends MatrixDefaultWidgetOptions, ChangeableProps {
+interface Props extends PerseusMatrixWidgetOptions, ChangeableProps {
     apiOptions: APIOptionsWithDefaults;
 }
 
 class MatrixEditor extends React.Component<Props> {
     static widgetName = "matrix" as const;
 
-    static defaultProps: MatrixDefaultWidgetOptions =
+    static defaultProps: PerseusMatrixWidgetOptions =
         matrixLogic.defaultWidgetOptions;
 
     change: (arg1: any, arg2?: any, arg3?: any) => any = (...args) => {

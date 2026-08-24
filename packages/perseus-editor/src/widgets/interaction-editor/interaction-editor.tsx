@@ -2,7 +2,7 @@ import {Dependencies, Util} from "@khanacademy/perseus";
 import {
     interactionLogic,
     type Coords,
-    type InteractionDefaultWidgetOptions,
+    type PerseusInteractionWidgetOptions,
     type MarkingsType,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
@@ -64,7 +64,7 @@ type State = any;
  */
 class InteractionEditor extends React.Component<Props, State> {
     static widgetName = "interaction" as const;
-    static defaultProps: InteractionDefaultWidgetOptions =
+    static defaultProps: PerseusInteractionWidgetOptions =
         interactionLogic.defaultWidgetOptions;
 
     state: State = {

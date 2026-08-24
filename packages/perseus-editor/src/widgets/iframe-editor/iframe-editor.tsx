@@ -1,7 +1,7 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {
     iframeLogic,
-    type IFrameDefaultWidgetOptions,
+    type PerseusIFrameWidgetOptions,
     type PerseusCSProgramSetting,
 } from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
@@ -93,7 +93,7 @@ class PairsEditor extends React.Component<PairsEditorProps> {
 }
 
 interface IframeEditorProps
-    extends IFrameDefaultWidgetOptions,
+    extends PerseusIFrameWidgetOptions,
         ChangeableProps {}
 
 /**
@@ -102,7 +102,7 @@ interface IframeEditorProps
 class IframeEditor extends React.Component<IframeEditorProps> {
     static widgetName = "iframe" as const;
 
-    static defaultProps: IFrameDefaultWidgetOptions =
+    static defaultProps: PerseusIFrameWidgetOptions =
         iframeLogic.defaultWidgetOptions;
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {

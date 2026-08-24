@@ -3,17 +3,7 @@ import {getIFramePublicWidgetOptions} from "./iframe-util";
 import type {PerseusIFrameWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
-export type IFrameDefaultWidgetOptions = Pick<
-    PerseusIFrameWidgetOptions,
-    | "url"
-    | "settings"
-    | "width"
-    | "height"
-    | "allowFullScreen"
-    | "allowTopNavigation"
->;
-
-const defaultWidgetOptions: IFrameDefaultWidgetOptions = {
+const defaultWidgetOptions: PerseusIFrameWidgetOptions = {
     url: "",
     settings: [{name: "", value: ""}],
     width: "400",

@@ -13,10 +13,7 @@ import SelectImage from "./select-image";
 
 import type {PreferredPopoverDirection} from "./behavior";
 import type {APIOptions} from "@khanacademy/perseus";
-import type {
-    PerseusLabelImageWidgetOptions,
-    LabelImageDefaultWidgetOptions,
-} from "@khanacademy/perseus-core";
+import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
 interface Props {
     apiOptions: APIOptions;
@@ -49,7 +46,7 @@ interface Props {
 class LabelImageEditor extends React.Component<Props> {
     private _questionMarkers: QuestionMarkers | null | undefined;
 
-    static defaultProps: LabelImageDefaultWidgetOptions =
+    static defaultProps: PerseusLabelImageWidgetOptions =
         labelImageLogic.defaultWidgetOptions;
 
     static widgetName = "label-image" as const;

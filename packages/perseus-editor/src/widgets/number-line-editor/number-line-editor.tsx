@@ -3,7 +3,7 @@ import {number as knumber} from "@khanacademy/kmath";
 import {components} from "@khanacademy/perseus";
 import {
     numberLineLogic,
-    type NumberLineDefaultWidgetOptions,
+    type PerseusNumberLineWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
@@ -52,7 +52,7 @@ type Props = {
 class NumberLineEditor extends React.Component<Props> {
     static widgetName = "number-line" as const;
 
-    static defaultProps: NumberLineDefaultWidgetOptions =
+    static defaultProps: PerseusNumberLineWidgetOptions =
         numberLineLogic.defaultWidgetOptions;
 
     onRangeChange: (arg1: Range) => void = (range) => {

@@ -1,19 +1,7 @@
 import type {PerseusImageWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
-export type ImageDefaultWidgetOptions = Pick<
-    PerseusImageWidgetOptions,
-    | "title"
-    | "range"
-    | "box"
-    | "backgroundImage"
-    | "scale"
-    | "labels"
-    | "alt"
-    | "caption"
->;
-
-const defaultWidgetOptions: ImageDefaultWidgetOptions = {
+const defaultWidgetOptions: PerseusImageWidgetOptions = {
     title: "",
     range: [
         [0, 10],
@@ -29,6 +17,11 @@ const defaultWidgetOptions: ImageDefaultWidgetOptions = {
     labels: [],
     alt: "",
     caption: "",
+    longDescription: "",
+    // Images are not decorative by default: an image with no alt text is
+    // treated as inaccessible (see `accessible` below) until an author either
+    // writes alt text or explicitly marks the image as decorative.
+    decorative: false,
 };
 
 const imageWidgetLogic: WidgetLogic<PerseusImageWidgetOptions> = {
