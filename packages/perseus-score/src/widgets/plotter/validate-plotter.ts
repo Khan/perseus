@@ -2,7 +2,7 @@ import {approximateDeepEqual} from "@khanacademy/perseus-core";
 
 import type {
     PerseusPlotterUserInput,
-    PerseusPlotterValidationData,
+    PerseusPlotterWidgetOptions,
     ValidationResult,
 } from "@khanacademy/perseus-core";
 
@@ -16,11 +16,11 @@ function validatePlotter(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: PerseusPlotterUserInput | undefined,
-    validationData: PerseusPlotterValidationData,
+    widgetOptions: PerseusPlotterWidgetOptions,
 ): ValidationResult {
     if (
         userInput == null ||
-        approximateDeepEqual(userInput, validationData.starting)
+        approximateDeepEqual(userInput, widgetOptions.starting)
     ) {
         return {
             type: "invalid",

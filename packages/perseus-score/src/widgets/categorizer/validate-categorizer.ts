@@ -1,7 +1,7 @@
 import {
     ErrorCodes,
     type PerseusCategorizerUserInput,
-    type PerseusCategorizerValidationData,
+    type PerseusCategorizerWidgetOptions,
     type ValidationResult,
 } from "@khanacademy/perseus-core";
 
@@ -10,19 +10,20 @@ import {
  * a category for each item.
  * @param userInput - The user's input corresponding to an array of indices that
  * represent the selected category for each row/item.
- * @param validationData - An array of strings corresponding to each row/item
+ * @param widgetOptions - The widget's options; only `items` is read, to learn
+ * how many rows/items there are
  */
 function validateCategorizer(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: PerseusCategorizerUserInput | undefined,
-    validationData: PerseusCategorizerValidationData,
+    widgetOptions: PerseusCategorizerWidgetOptions,
 ): ValidationResult {
     if (userInput == null) {
         return {type: "invalid", message: null};
     }
 
-    const incomplete = validationData.items.some(
+    const incomplete = widgetOptions.items.some(
         (_, i) => userInput.values[i] == null,
     );
 

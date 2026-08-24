@@ -72,8 +72,8 @@ export function emptyWidgetsFunctional(
 
         const validator = getWidgetValidator(widget.type);
         const userInput = userInputMap[id];
-        const validationData = widget.options;
-        const score = validator?.(userInput, validationData, locale);
+        const widgetOptions = widget.options;
+        const score = validator?.(userInput, widgetOptions, locale);
 
         if (score) {
             return scoreIsEmpty(score);

@@ -4,22 +4,22 @@ import {emptyWidgetsFunctional} from "../../validate";
 
 import type {
     PerseusGroupUserInput,
-    PerseusGroupValidationData,
+    PerseusGroupWidgetOptions,
     ValidationResult,
 } from "@khanacademy/perseus-core";
 
 function validateGroup(
     userInput: PerseusGroupUserInput | undefined,
-    validationData: PerseusGroupValidationData,
+    widgetOptions: PerseusGroupWidgetOptions,
     locale: string,
 ): ValidationResult {
     if (userInput == null) {
         return {type: "invalid", message: null};
     }
 
-    const widgetIds = getWidgetIdsFromContent(validationData.content);
+    const widgetIds = getWidgetIdsFromContent(widgetOptions.content);
     const emptyWidgets = emptyWidgetsFunctional(
-        validationData.widgets,
+        widgetOptions.widgets,
         widgetIds,
         userInput,
         locale,

@@ -2,13 +2,13 @@ import {getTestDropdownWidget} from "../../util/test-helpers";
 
 import validateGroup from "./validate-group";
 
-import type {PerseusGroupValidationData} from "@khanacademy/perseus-core";
+import type {PerseusGroupWidgetOptions} from "@khanacademy/perseus-core";
 
 describe("validateGroup", () => {
     it("returns invalid when the user input is undefined", () => {
         // Arrange:
         const userInput = undefined;
-        const validationData: PerseusGroupValidationData = {
+        const widgetOptions: PerseusGroupWidgetOptions = {
             content: "[[☃ dropdown 1]]",
             widgets: {
                 "dropdown 1": getTestDropdownWidget(),
@@ -17,7 +17,7 @@ describe("validateGroup", () => {
         };
 
         // Act:
-        const result = validateGroup(userInput, validationData, "en");
+        const result = validateGroup(userInput, widgetOptions, "en");
 
         // Assert:
         expect(result).toHaveInvalidInput();

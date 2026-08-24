@@ -9,19 +9,14 @@
  *     data the user entered. This is referred to as the 'guess' in some older
  *     parts of Perseus.
  *
- *   * `Perseus<Widget>ValidationData`: the data needed to do validation of the
- *     user input. Validation refers to the different checks that we can do
- *     both on the client-side (before submitting user input for scoring) and
- *     on the server-side (when we score it). As such, it cannot contain any of
- *     the sensitive scoring data that would reveal the answer.
- *
- * Scoring has no dedicated type. A widget's scoring function receives the
- * widget's full `Perseus<Widget>WidgetOptions` (see `data-schema.ts`), which is
- * where the sensitive answer data lives. There used to be a parallel family of
- * `Perseus<Widget>Rubric` types naming just the subset of options a scorer
- * reads, but they were hand-maintained duplicates that drifted out of sync, and
- * nothing ever constructed one — the value handed to a scorer has always been
- * the widget's options object verbatim.
+ * Validation and scoring have no dedicated types. Both a widget's validator and
+ * its scoring function receive the widget's full `Perseus<Widget>WidgetOptions`
+ * (see `data-schema.ts`). There used to be parallel families of
+ * `Perseus<Widget>Rubric` and `Perseus<Widget>ValidationData` types naming just
+ * the subset of options each function reads, but they were hand-maintained
+ * duplicates that drifted out of sync, and nothing ever constructed one — the
+ * value handed to a validator or scorer has always been the widget's options
+ * object verbatim.
  */
 
 import type {
@@ -29,18 +24,22 @@ import type {
     PerseusGraphType,
     PerseusWidgetOptions,
     MakeWidgetMap,
-    PerseusRenderer,
 } from "./data-schema";
 import type {ErrorCode} from "./error-codes";
 import type {Relationship} from "./types";
 
 /**
- * The signature of a widget's client-side validation function. This function
- * runs before the learner submits their attempt, so it will be passed
- * answerless widget option data (as returned by `PublicWidgetOptionsFunction`).
+ * The signature of a widget's validation function. This runs before scoring to
+ * decide whether the user's input is ready to be scored at all (eg. whether the
+ * widget has been filled in).
  *
  * Returns an invalid result (ie. empty) if the input is not yet ready to be
  * scored, or null if valid.
+ *
+ * Validators are handed the widget's options — the same object the scorer
+ * receives. A validator should not read the answer, but whether the answer is
+ * actually present depends on what the host application supplies: nothing in
+ * this path applies `PublicWidgetOptionsFunction` to strip it.
  */
 export type WidgetValidatorFunction = (
     /**
@@ -49,8 +48,8 @@ export type WidgetValidatorFunction = (
      */
     userInput: UserInput | undefined,
 
-    /** The answerless data needed to validate the input. */
-    validationData: ValidationData,
+    /** The widget's options. */
+    widgetOptions: PerseusWidgetOptions,
 
     /**
      * The user's locale, needed for some validations. For example,
@@ -138,15 +137,6 @@ export type PerseusCategorizerUserInput = {
     values: Array<number | null | undefined>;
 };
 
-/** Validation data for the Categorizer widget. */
-export type PerseusCategorizerValidationData = {
-    /**
-     * Translatable text; items to categorize.
-     * e.g. ["banana", "yellow", "apple", "purple", "shirt"]
-     */
-    items: string[];
-};
-
 /** User input for the CS Program widget. */
 export type PerseusCSProgramUserInput = {
     /**
@@ -172,12 +162,6 @@ export type PerseusDropdownUserInput = {
  * string the learner typed, parsed by @khanacademy/kas for scoring.
  */
 export type PerseusExpressionUserInput = string;
-
-/**
- * Validation data for the Group widget: the full renderer content used to
- * recursively validate nested widgets.
- */
-export type PerseusGroupValidationData = PerseusRenderer;
 
 /**
  * User input for the Group widget: a map of widget IDs to each widget's user
@@ -245,12 +229,6 @@ export type PerseusMatcherUserInput = {
     right: string[];
 };
 
-/**
- * Validation data for the Matrix widget; currently empty — validation is
- * performed from user input alone.
- */
-export type PerseusMatrixValidationData = Empty;
-
 /** User input for the Matrix widget. */
 export type PerseusMatrixUserInput = {
     /**
@@ -303,12 +281,6 @@ export type PerseusOrdererUserInput = {
      * compared against the widget options' correctOptions to score.
      */
     current: string[];
-};
-
-/** Validation data for the Plotter widget. */
-export type PerseusPlotterValidationData = {
-    /** The initial Y-axis values the chart is pre-populated with. */
-    starting: number[];
 };
 
 /**
@@ -386,18 +358,3 @@ export type UserInput = UserInputRegistry[keyof UserInputRegistry];
  * of the widget ID).
  */
 export type UserInputMap = MakeWidgetMap<UserInputRegistry>;
-
-/**
- * A registry mapping widget type names to their client-side
- * validation data types.
- */
-export interface ValidationDataTypes {
-    categorizer: PerseusCategorizerValidationData;
-    group: PerseusGroupValidationData;
-    plotter: PerseusPlotterValidationData;
-}
-
-/**
- * A union type of all the different widget validation data types that exist.
- */
-export type ValidationData = ValidationDataTypes[keyof ValidationDataTypes];
