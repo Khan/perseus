@@ -427,6 +427,8 @@ export {
     generateSorterOptions,
 } from "./utils/generators/sorter-widget-generator";
 /** @hidden */
+export {generateTableOptions} from "./utils/generators/table-widget-generator";
+/** @hidden */
 export {generateGrapherWidgetOptions} from "./utils/generators/grapher-widget-generator";
 
 export {
