@@ -19,7 +19,7 @@ const defaultOtherOptions = [toCard("$y$")];
 const defaultWidgetOptions: PerseusOrdererWidgetOptions = {
     correctOptions: defaultCorrectOptions,
     otherOptions: defaultOtherOptions,
-    // `options` is the deck the student picks from, which the editor keeps in
+    // `options` is the card bank the learner picks from, which the editor keeps in
     // sync as the union of the correct answer and the distractors.
     options: [...defaultCorrectOptions, ...defaultOtherOptions],
     height: "normal",

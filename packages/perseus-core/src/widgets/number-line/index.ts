@@ -10,8 +10,8 @@ const defaultWidgetOptions: PerseusNumberLineWidgetOptions = {
     labelRange: [null, null],
     labelStyle: "decimal",
     labelTicks: true,
-    // The tick controller is opt-in: by default the author fixes the number of
-    // divisions rather than letting the student change it.
+    // The tick controller is opt-in: by default the content creator fixes the number of
+    // divisions rather than letting the learner change it.
     isTickCtrl: false,
     // Derived from `correctRel` by the editor (`isInequality: correctRel !==
     // "eq"`), so this must stay in sync with the `correctRel: "eq"` default.
