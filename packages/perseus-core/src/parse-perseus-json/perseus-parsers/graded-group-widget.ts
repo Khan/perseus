@@ -2,6 +2,7 @@ import {
     constant,
     number,
     object,
+    optional,
     pipeParsers,
     record,
     string,
