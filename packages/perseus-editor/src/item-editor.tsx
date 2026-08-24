@@ -117,7 +117,7 @@ class ItemEditor extends React.Component<Props> {
         };
     }
 
-    renderItemEditor(): React.ReactNode {
+    render(): React.ReactNode {
         const isMobile =
             this.props.deviceType === "phone" ||
             this.props.deviceType === "tablet";
@@ -196,33 +196,20 @@ class ItemEditor extends React.Component<Props> {
 
                     <div className="perseus-editor-right-cell" />
                 </div>
+
+                <CombinedHintsEditor
+                    ref={this.hintsEditor}
+                    itemId={this.props.itemId}
+                    hints={this.props.hints}
+                    imageUploader={this.props.imageUploader}
+                    onChange={this.props.onChange}
+                    deviceType={this.props.deviceType}
+                    apiOptions={this.props.apiOptions}
+                    previewURL={this.props.previewURL}
+                    highlightLint={this.props.highlightLint}
+                    widgetIsOpen={this.props.widgetIsOpen}
+                />
             </div>
-        );
-    }
-
-    renderHintsEditor() {
-        return (
-            <CombinedHintsEditor
-                ref={this.hintsEditor}
-                itemId={this.props.itemId}
-                hints={this.props.hints}
-                imageUploader={this.props.imageUploader}
-                onChange={this.props.onChange}
-                deviceType={this.props.deviceType}
-                apiOptions={this.props.apiOptions}
-                previewURL={this.props.previewURL}
-                highlightLint={this.props.highlightLint}
-                widgetIsOpen={this.props.widgetIsOpen}
-            />
-        );
-    }
-
-    render() {
-        return (
-            <>
-                {this.renderItemEditor()}
-                {this.renderHintsEditor()}
-            </>
         );
     }
 }

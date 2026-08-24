@@ -242,8 +242,7 @@ code {
 #perseus .perseus-answer-container > div {
     padding-bottom: 25px;
 }
-#perseus .add-choice-container,
-#perseus .add-hint-container {
+#perseus .add-choice-container {
     display: flex;
     flex-direction: row;
     margin-bottom: 20px;
@@ -316,9 +315,6 @@ code {
     float: right;
     font-size: 13px;
     padding: 0 10px;
-}
-.perseus-hints-editor .add-hint {
-    font-size: 13px;
 }
 .perseus-hint-editor + div .perseus-hint-renderer {
     width: 100%;
@@ -1055,6 +1051,9 @@ code {
 /* Reset fieldset min-width as our editors include a fieldset element
 nested within a table cell, which results in native browser styling that
 breaks the layout depending on the widget editors used.*/
+/* TODO(benchristel): this is the only usage of .perseus-editor-table. Use a
+ * different selector here, then remove the perseus-editor-table class.
+ */
 .perseus-editor-table fieldset {
     min-inline-size: 0;
     min-width: 0;
