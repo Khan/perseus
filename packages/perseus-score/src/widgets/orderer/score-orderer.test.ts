@@ -1,11 +1,11 @@
 import scoreOrderer from "./score-orderer";
 
 import type {
-    PerseusOrdererRubric,
+    PerseusOrdererWidgetOptions,
     PerseusOrdererUserInput,
 } from "@khanacademy/perseus-core";
 
-function generateOrdererRubric(): PerseusOrdererRubric {
+function generateOrdererRubric(): PerseusOrdererWidgetOptions {
     return {
         otherOptions: [],
         layout: "horizontal",
@@ -26,7 +26,7 @@ function generateOrdererRubric(): PerseusOrdererRubric {
 describe("scoreOrderer", () => {
     it("is invalid when the userInput is undefined", () => {
         // Arrange
-        const rubric: PerseusOrdererRubric = generateOrdererRubric();
+        const rubric: PerseusOrdererWidgetOptions = generateOrdererRubric();
         const userInput = undefined;
 
         // Act
@@ -38,7 +38,7 @@ describe("scoreOrderer", () => {
 
     it("is correct when the userInput is in the same order and is the same length as the rubric's correctOption content items", () => {
         // Arrange
-        const rubric: PerseusOrdererRubric = generateOrdererRubric();
+        const rubric: PerseusOrdererWidgetOptions = generateOrdererRubric();
 
         const userInput: PerseusOrdererUserInput = {
             current: rubric.correctOptions.map((e) => e.content),
@@ -53,7 +53,7 @@ describe("scoreOrderer", () => {
 
     it("is incorrect when the userInput is not in the same order as the rubric's correctOption content items", () => {
         // Arrange
-        const rubric: PerseusOrdererRubric = generateOrdererRubric();
+        const rubric: PerseusOrdererWidgetOptions = generateOrdererRubric();
 
         const userInput: PerseusOrdererUserInput = {
             current: rubric.options.map((e) => e.content),
@@ -68,7 +68,7 @@ describe("scoreOrderer", () => {
 
     it("is incorrect when the userInput is not the same length as the rubric's correctOption content items", () => {
         // Arrange
-        const rubric: PerseusOrdererRubric = generateOrdererRubric();
+        const rubric: PerseusOrdererWidgetOptions = generateOrdererRubric();
 
         const userInput: PerseusOrdererUserInput = {
             current: rubric.correctOptions.map((e) => e.content).slice(1),

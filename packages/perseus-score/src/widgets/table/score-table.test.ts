@@ -2,7 +2,7 @@ import scoreTable from "./score-table";
 import * as TableValidator from "./validate-table";
 
 import type {
-    PerseusTableRubric,
+    PerseusTableWidgetOptions,
     PerseusTableUserInput,
 } from "@khanacademy/perseus-core";
 
@@ -18,11 +18,14 @@ describe("scoreTable", () => {
             ["3", "4"],
         ];
 
-        const rubric: PerseusTableRubric = {
+        const rubric: PerseusTableWidgetOptions = {
             answers: [
                 ["1", "2"],
                 ["3", "4"],
             ],
+            headers: ["", ""],
+            rows: 2,
+            columns: 2,
         };
 
         // Act
@@ -44,11 +47,14 @@ describe("scoreTable", () => {
             ["3", "4"],
         ];
 
-        const rubric: PerseusTableRubric = {
+        const rubric: PerseusTableWidgetOptions = {
             answers: [
                 ["1", "2"],
                 ["3", "4"],
             ],
+            headers: ["", ""],
+            rows: 2,
+            columns: 2,
         };
 
         // Act
@@ -66,11 +72,14 @@ describe("scoreTable", () => {
             ["3", "4"],
         ];
 
-        const rubric: PerseusTableRubric = {
+        const rubric: PerseusTableWidgetOptions = {
             answers: [
                 ["1", "2"],
                 ["3", "4"],
             ],
+            headers: ["", ""],
+            rows: 2,
+            columns: 2,
         };
 
         // Act
@@ -88,11 +97,14 @@ describe("scoreTable", () => {
             ["5", "6"],
         ];
 
-        const rubric: PerseusTableRubric = {
+        const rubric: PerseusTableWidgetOptions = {
             answers: [
                 ["1", "2"],
                 ["3", "4"],
             ],
+            headers: ["", ""],
+            rows: 2,
+            columns: 2,
         };
 
         // Act
@@ -109,11 +121,14 @@ describe("scoreTable", () => {
             ["3", "5"],
         ];
 
-        const rubric: PerseusTableRubric = {
+        const rubric: PerseusTableWidgetOptions = {
             answers: [
                 ["1", "2"],
                 ["3", "4"],
             ],
+            headers: ["", ""],
+            rows: 2,
+            columns: 2,
         };
 
         // Act
@@ -130,11 +145,14 @@ describe("scoreTable", () => {
             ["3", "4"],
         ];
 
-        const rubric: PerseusTableRubric = {
+        const rubric: PerseusTableWidgetOptions = {
             answers: [
                 ["1", "2"],
                 ["3", "4"],
             ],
+            headers: ["", ""],
+            rows: 2,
+            columns: 2,
         };
 
         // Act
@@ -151,11 +169,14 @@ describe("scoreTable", () => {
             ["3.0", "4.0"],
         ];
 
-        const rubric: PerseusTableRubric = {
+        const rubric: PerseusTableWidgetOptions = {
             answers: [
                 ["1", "2"],
                 ["3", "4"],
             ],
+            headers: ["", ""],
+            rows: 2,
+            columns: 2,
         };
 
         // Act

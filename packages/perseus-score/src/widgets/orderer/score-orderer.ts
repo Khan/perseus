@@ -1,7 +1,7 @@
 import _ from "underscore";
 
 import type {
-    PerseusOrdererRubric,
+    PerseusOrdererWidgetOptions,
     PerseusOrdererUserInput,
     PerseusScore,
 } from "@khanacademy/perseus-core";
@@ -10,7 +10,7 @@ function scoreOrderer(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: PerseusOrdererUserInput | undefined,
-    rubric: PerseusOrdererRubric,
+    rubric: PerseusOrdererWidgetOptions,
 ): PerseusScore {
     if (userInput == null) {
         return {type: "invalid", message: null};

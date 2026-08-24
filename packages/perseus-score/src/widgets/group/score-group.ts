@@ -2,7 +2,7 @@ import {scoreWidgetsFunctional} from "../../score";
 import flattenScores from "../../util/flatten-scores";
 
 import type {
-    PerseusGroupRubric,
+    PerseusGroupWidgetOptions,
     PerseusGroupUserInput,
     PerseusScore,
 } from "@khanacademy/perseus-core";
@@ -11,7 +11,7 @@ import type {
 // it. As such, scoring a group means scoring all widgets it contains.
 function scoreGroup(
     userInput: PerseusGroupUserInput | undefined,
-    rubric: PerseusGroupRubric,
+    rubric: PerseusGroupWidgetOptions,
     locale: string,
 ): PerseusScore {
     if (userInput == null) {

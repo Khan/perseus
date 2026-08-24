@@ -1,20 +1,19 @@
+import {generateMatrixOptions} from "@khanacademy/perseus-core";
+
 import scoreMatrix from "./score-matrix";
 
-import type {
-    PerseusMatrixRubric,
-    PerseusMatrixUserInput,
-} from "@khanacademy/perseus-core";
+import type {PerseusMatrixUserInput} from "@khanacademy/perseus-core";
 
 describe("scoreMatrix", () => {
     it("returns invalid for undefined user input", () => {
         // Arrange
-        const rubric: PerseusMatrixRubric = {
+        const rubric = generateMatrixOptions({
             answers: [
                 [0, 1, 2],
                 [3, 4, 5],
                 [6, 7, 8],
             ],
-        };
+        });
 
         const userInput = undefined;
 
@@ -27,13 +26,13 @@ describe("scoreMatrix", () => {
 
     it("can be answered correctly", () => {
         // Arrange
-        const rubric: PerseusMatrixRubric = {
+        const rubric = generateMatrixOptions({
             answers: [
                 [0, 1, 2],
                 [3, 4, 5],
                 [6, 7, 8],
             ],
-        };
+        });
 
         const userInput: PerseusMatrixUserInput = {
             answers: rubric.answers.map((row) => row.map((num) => String(num))),
@@ -48,13 +47,13 @@ describe("scoreMatrix", () => {
 
     it("can be answered incorrectly", () => {
         // Arrange
-        const rubric: PerseusMatrixRubric = {
+        const rubric = generateMatrixOptions({
             answers: [
                 [0, 1, 2],
                 [3, 4, 5],
                 [6, 7, 8],
             ],
-        };
+        });
 
         const userInput: PerseusMatrixUserInput = {
             answers: [
@@ -73,13 +72,13 @@ describe("scoreMatrix", () => {
 
     it("is considered incorrect when the size is wrong", () => {
         // Arrange
-        const rubric: PerseusMatrixRubric = {
+        const rubric = generateMatrixOptions({
             answers: [
                 [0, 1, 2],
                 [3, 4, 5],
                 [6, 7, 8],
             ],
-        };
+        });
 
         const correctUserInput: PerseusMatrixUserInput = {
             answers: rubric.answers.map((row) => row.map((num) => String(num))),

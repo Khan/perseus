@@ -1,12 +1,12 @@
-import validateCategorizer from "./validate-categorizer";
+import {generateCategorizerOptions} from "@khanacademy/perseus-core";
 
-import type {PerseusCategorizerValidationData} from "@khanacademy/perseus-core";
+import validateCategorizer from "./validate-categorizer";
 
 describe("validateCategorizer", () => {
     it("returns a score of 'invalid' when the user input is undefined", () => {
-        const rubric: PerseusCategorizerValidationData = {
+        const rubric = generateCategorizerOptions({
             items: ["apples", "oranges"],
-        };
+        });
 
         const userInput = undefined;
 
@@ -16,9 +16,9 @@ describe("validateCategorizer", () => {
     });
 
     it("tells the learner its not complete if not selected", () => {
-        const validationData: PerseusCategorizerValidationData = {
+        const validationData = generateCategorizerOptions({
             items: ["apples", "oranges"],
-        };
+        });
 
         const userInput = {
             values: [2],
@@ -29,9 +29,9 @@ describe("validateCategorizer", () => {
     });
 
     it("returns null if the userInput is valid", () => {
-        const validationData: PerseusCategorizerValidationData = {
+        const validationData = generateCategorizerOptions({
             items: ["apples", "oranges"],
-        };
+        });
 
         const userInput = {
             values: [2, 4],

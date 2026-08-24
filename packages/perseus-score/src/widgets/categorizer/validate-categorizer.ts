@@ -1,7 +1,7 @@
 import {
     ErrorCodes,
     type PerseusCategorizerUserInput,
-    type PerseusCategorizerValidationData,
+    type PerseusCategorizerWidgetOptions,
     type ValidationResult,
 } from "@khanacademy/perseus-core";
 
@@ -16,7 +16,7 @@ function validateCategorizer(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: PerseusCategorizerUserInput | undefined,
-    validationData: PerseusCategorizerValidationData,
+    validationData: PerseusCategorizerWidgetOptions,
 ): ValidationResult {
     if (userInput == null) {
         return {type: "invalid", message: null};

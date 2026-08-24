@@ -424,6 +424,8 @@ export {
     generateSorterWidget,
     generateSorterOptions,
 } from "./utils/generators/sorter-widget-generator";
+/** @hidden */
+export {generateGrapherWidgetOptions} from "./utils/generators/grapher-widget-generator";
 
 export {
     getAnswersFromWidgets,

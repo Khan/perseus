@@ -8,7 +8,7 @@ import {
 
 import type {TangentCoefficient} from "@khanacademy/kmath";
 import type {
-    PerseusGrapherRubric,
+    PerseusGrapherWidgetOptions,
     PerseusGrapherUserInput,
     PerseusScore,
     GrapherAnswerTypes,
@@ -46,7 +46,7 @@ function scoreGrapher(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: PerseusGrapherUserInput | undefined,
-    rubric: PerseusGrapherRubric,
+    rubric: PerseusGrapherWidgetOptions,
 ): PerseusScore {
     if (userInput == null) {
         return {
@@ -55,7 +55,7 @@ function scoreGrapher(
         };
     }
 
-    if (userInput.type !== rubric.correct.type) {
+    if (userInput.type !== rubric.correct!.type) {
         return {
             type: "points",
             earned: 0,
@@ -73,7 +73,7 @@ function scoreGrapher(
     }
 
     const guessCoeffs = getCoefficientsByType(userInput);
-    const correctCoeffs = getCoefficientsByType(rubric.correct);
+    const correctCoeffs = getCoefficientsByType(rubric.correct!);
 
     if (guessCoeffs == null || correctCoeffs == null) {
         return {
