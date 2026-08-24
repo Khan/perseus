@@ -23,7 +23,8 @@ export default {
     // NumericInput in 2026.
     widget: numericInput.widget,
     isLintable: true,
-    getOneCorrectAnswerFromRubric: numericInput.getOneCorrectAnswerFromRubric,
+    getOneCorrectAnswerFromWidgetOptions:
+        numericInput.getOneCorrectAnswerFromWidgetOptions,
     getStartUserInput: numericInput.getStartUserInput,
     getCorrectUserInput: numericInput.getCorrectUserInput,
     getUserInputFromSerializedState,

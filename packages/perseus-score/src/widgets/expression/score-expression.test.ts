@@ -1,12 +1,7 @@
-import {ErrorCodes} from "@khanacademy/perseus-core";
+import {ErrorCodes, generateExpressionOptions} from "@khanacademy/perseus-core";
 
 import scoreExpression from "./score-expression";
 import {expressionItem3Options} from "./score-expression.testdata";
-
-import type {
-    PerseusExpressionRubric,
-    PerseusExpressionWidgetOptions,
-} from "@khanacademy/perseus-core";
 
 describe("scoreExpression", () => {
     it("should score undefined user input as invalid", function () {
@@ -90,7 +85,7 @@ describe("scoreExpression", () => {
     });
 
     it("should handle TeX", () => {
-        const item: PerseusExpressionRubric = {
+        const item = generateExpressionOptions({
             answerForms: [
                 {
                     considered: "correct",
@@ -100,7 +95,7 @@ describe("scoreExpression", () => {
                 },
             ],
             functions: [],
-        };
+        });
 
         const result = scoreExpression("\\sqrt{42^{2}}", item, "en");
         expect(result).toHaveBeenAnsweredCorrectly();
@@ -110,7 +105,7 @@ describe("scoreExpression", () => {
         // The correct answer is 8. The content creator has predicted "8d" as a
         // wrong answer and added it accordingly. When the student enters "8d",
         // their answer should be marked incorrect instead of invalid.
-        const rubric: PerseusExpressionRubric = {
+        const widgetOptions = generateExpressionOptions({
             answerForms: [
                 {
                     considered: "correct",
@@ -127,15 +122,15 @@ describe("scoreExpression", () => {
             ],
             functions: [],
             extraKeys: ["d"],
-        };
+        });
 
-        const result = scoreExpression("8d", rubric, "en");
+        const result = scoreExpression("8d", widgetOptions, "en");
 
         expect(result).toHaveBeenAnsweredIncorrectly();
     });
 
     it("should return a WRONG_LETTER_ERROR when student uses an unexpected variable", function () {
-        const rubric: PerseusExpressionRubric = {
+        const widgetOptions = generateExpressionOptions({
             answerForms: [
                 {
                     considered: "correct",
@@ -146,16 +141,16 @@ describe("scoreExpression", () => {
             ],
             functions: [],
             extraKeys: [],
-        };
+        });
 
-        const result = scoreExpression("8d", rubric, "en");
+        const result = scoreExpression("8d", widgetOptions, "en");
 
         expect(result).toHaveInvalidInput();
         expect(result.message).toBe(ErrorCodes.WRONG_LETTER_ERROR);
     });
 
     it("should return a WRONG_CASE_ERROR when student uses wrong variable case", function () {
-        const rubric: PerseusExpressionRubric = {
+        const widgetOptions = generateExpressionOptions({
             answerForms: [
                 {
                     considered: "correct",
@@ -166,9 +161,9 @@ describe("scoreExpression", () => {
             ],
             functions: [],
             extraKeys: ["x"],
-        };
+        });
 
-        const result = scoreExpression("8X", rubric, "en");
+        const result = scoreExpression("8X", widgetOptions, "en");
 
         expect(result).toHaveInvalidInput();
         expect(result.message).toBe(ErrorCodes.WRONG_CASE_ERROR);
@@ -179,7 +174,7 @@ describe("scoreExpression", () => {
         // "X" is a case-mismatch for "x", but "d" is entirely unexpected.
         // The letter error takes priority over the case error as it is more
         // applicable/universal to both situations.
-        const rubric: PerseusExpressionRubric = {
+        const widgetOptions = generateExpressionOptions({
             answerForms: [
                 {
                     considered: "correct",
@@ -190,9 +185,9 @@ describe("scoreExpression", () => {
             ],
             functions: [],
             extraKeys: ["x"],
-        };
+        });
 
-        const result = scoreExpression("8Xd", rubric, "en");
+        const result = scoreExpression("8Xd", widgetOptions, "en");
 
         expect(result).toHaveInvalidInput();
         expect(result.message).toBe(ErrorCodes.WRONG_LETTER_ERROR);
@@ -201,7 +196,7 @@ describe("scoreExpression", () => {
     it("should score as incorrect when the answer uses a variable the student omitted", function () {
         // The check is one-directional: student vars must appear in the answer,
         // but the answer may use variables the student didn't include.
-        const rubric: PerseusExpressionRubric = {
+        const widgetOptions = generateExpressionOptions({
             answerForms: [
                 {
                     considered: "correct",
@@ -212,15 +207,15 @@ describe("scoreExpression", () => {
             ],
             functions: [],
             extraKeys: ["d"],
-        };
+        });
 
-        const result = scoreExpression("8", rubric, "en");
+        const result = scoreExpression("8", widgetOptions, "en");
 
         expect(result).toHaveBeenAnsweredIncorrectly();
     });
 
     it("should keep checking answer forms when earlier forms don't match", function () {
-        const rubric: PerseusExpressionRubric = {
+        const widgetOptions = generateExpressionOptions({
             answerForms: [
                 {
                     considered: "correct",
@@ -237,9 +232,9 @@ describe("scoreExpression", () => {
             ],
             functions: [],
             extraKeys: ["x", "y"],
-        };
+        });
 
-        const result = scoreExpression("y + 1", rubric, "en");
+        const result = scoreExpression("y + 1", widgetOptions, "en");
 
         expect(result).toHaveBeenAnsweredCorrectly();
     });
@@ -251,7 +246,7 @@ describe("scoreExpression", () => {
         const partialReversed = "f(2) = 4 + f(3)";
         const fullyReversed = "f(3) + 4 = f(2)";
 
-        const item: PerseusExpressionWidgetOptions = {
+        const item = generateExpressionOptions({
             answerForms: [
                 {
                     considered: "correct",
@@ -266,7 +261,7 @@ describe("scoreExpression", () => {
             buttonsVisible: "focused",
             visibleLabel: "Visible",
             ariaLabel: "Aria",
-        };
+        });
 
         // Act
         // Assert

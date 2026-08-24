@@ -450,7 +450,7 @@ describe("input-number", () => {
     });
 });
 
-describe("getOneCorrectAnswerFromRubric", () => {
+describe("getOneCorrectAnswerFromWidgetOptions", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
@@ -459,7 +459,7 @@ describe("getOneCorrectAnswerFromRubric", () => {
 
     it("should return empty if the answer value is null", () => {
         // Arrange
-        const rubric = generateInputNumberOptions({
+        const widgetOptions = generateInputNumberOptions({
             answers: [
                 generateInputNumberAnswer({
                     value: null,
@@ -468,7 +468,8 @@ describe("getOneCorrectAnswerFromRubric", () => {
         });
 
         // Act
-        const result = InputNumber.getOneCorrectAnswerFromRubric?.(rubric);
+        const result =
+            InputNumber.getOneCorrectAnswerFromWidgetOptions?.(widgetOptions);
 
         // Assert
         expect(result).toBe("");
@@ -476,7 +477,7 @@ describe("getOneCorrectAnswerFromRubric", () => {
 
     it("should return the answer value if maxError is 0", () => {
         // Arrange
-        const rubric = generateInputNumberOptions({
+        const widgetOptions = generateInputNumberOptions({
             answers: [
                 generateInputNumberAnswer({
                     value: 42,
@@ -486,7 +487,8 @@ describe("getOneCorrectAnswerFromRubric", () => {
         });
 
         // Act
-        const result = InputNumber.getOneCorrectAnswerFromRubric?.(rubric);
+        const result =
+            InputNumber.getOneCorrectAnswerFromWidgetOptions?.(widgetOptions);
 
         // Assert
         expect(result).toEqual("42");
@@ -494,7 +496,7 @@ describe("getOneCorrectAnswerFromRubric", () => {
 
     it("should return the answer value if maxError is undefined", () => {
         // Arrange
-        const rubric = generateInputNumberOptions({
+        const widgetOptions = generateInputNumberOptions({
             answers: [
                 generateInputNumberAnswer({
                     value: 42,
@@ -504,7 +506,8 @@ describe("getOneCorrectAnswerFromRubric", () => {
         });
 
         // Act
-        const result = InputNumber.getOneCorrectAnswerFromRubric?.(rubric);
+        const result =
+            InputNumber.getOneCorrectAnswerFromWidgetOptions?.(widgetOptions);
 
         // Assert
         expect(result).toEqual("42");
@@ -512,7 +515,7 @@ describe("getOneCorrectAnswerFromRubric", () => {
 
     it("should return the answer value with an error band if maxError is greater than zero", () => {
         // Arrange
-        const rubric = generateInputNumberOptions({
+        const widgetOptions = generateInputNumberOptions({
             answers: [
                 generateInputNumberAnswer({
                     value: 0,
@@ -522,7 +525,8 @@ describe("getOneCorrectAnswerFromRubric", () => {
         });
 
         // Act
-        const result = InputNumber.getOneCorrectAnswerFromRubric?.(rubric);
+        const result =
+            InputNumber.getOneCorrectAnswerFromWidgetOptions?.(widgetOptions);
 
         // Assert
         expect(result).toEqual("0 ± 0.1");

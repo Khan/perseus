@@ -7,7 +7,7 @@ describe("scoreQuadratic", () => {
         const userInput: PerseusGraphTypeQuadratic = {
             type: "quadratic",
         };
-        const rubric: PerseusGraphTypeQuadratic = {
+        const correct: PerseusGraphTypeQuadratic = {
             type: "quadratic",
             coords: [
                 [0, 0],
@@ -16,12 +16,12 @@ describe("scoreQuadratic", () => {
             ],
         };
 
-        const score = scoreQuadratic(userInput, rubric);
+        const score = scoreQuadratic(userInput, correct);
 
         expect(score).toHaveInvalidInput();
     });
 
-    it("returns invalid score when missing rubric coords", () => {
+    it("returns invalid score when missing correct coords", () => {
         const userInput: PerseusGraphTypeQuadratic = {
             type: "quadratic",
             coords: [
@@ -30,11 +30,11 @@ describe("scoreQuadratic", () => {
                 [2, 0],
             ],
         };
-        const rubric: PerseusGraphTypeQuadratic = {
+        const correct: PerseusGraphTypeQuadratic = {
             type: "quadratic",
         };
 
-        const score = scoreQuadratic(userInput, rubric);
+        const score = scoreQuadratic(userInput, correct);
 
         expect(score).toHaveInvalidInput();
     });
@@ -48,7 +48,7 @@ describe("scoreQuadratic", () => {
                 [2, 0],
             ],
         };
-        const rubric: PerseusGraphTypeQuadratic = {
+        const correct: PerseusGraphTypeQuadratic = {
             type: "quadratic",
             coords: [
                 [0, 0],
@@ -57,7 +57,7 @@ describe("scoreQuadratic", () => {
             ],
         };
 
-        const score = scoreQuadratic(userInput, rubric);
+        const score = scoreQuadratic(userInput, correct);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -71,7 +71,7 @@ describe("scoreQuadratic", () => {
                 [2, 0],
             ],
         };
-        const rubric: PerseusGraphTypeQuadratic = {
+        const correct: PerseusGraphTypeQuadratic = {
             type: "quadratic",
             coords: [
                 [0, 0],
@@ -80,7 +80,7 @@ describe("scoreQuadratic", () => {
             ],
         };
 
-        const score = scoreQuadratic(userInput, rubric);
+        const score = scoreQuadratic(userInput, correct);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });

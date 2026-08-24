@@ -7,19 +7,19 @@ describe("scoreLinear", () => {
         const userInput: PerseusGraphTypeLinear = {
             type: "linear",
         };
-        const rubric: PerseusGraphTypeLinear = {
+        const correct: PerseusGraphTypeLinear = {
             type: "linear",
             coords: [
                 [-1, -1],
                 [1, 1],
             ],
         };
-        const score = scoreLinear(userInput, rubric);
+        const score = scoreLinear(userInput, correct);
 
         expect(score).toHaveInvalidInput();
     });
 
-    it("returns invalid score when missing rubric data", () => {
+    it("returns invalid score when missing correct data", () => {
         const userInput: PerseusGraphTypeLinear = {
             type: "linear",
             coords: [
@@ -27,10 +27,10 @@ describe("scoreLinear", () => {
                 [1, 1],
             ],
         };
-        const rubric: PerseusGraphTypeLinear = {
+        const correct: PerseusGraphTypeLinear = {
             type: "linear",
         };
-        const score = scoreLinear(userInput, rubric);
+        const score = scoreLinear(userInput, correct);
 
         expect(score).toHaveInvalidInput();
     });
@@ -43,14 +43,14 @@ describe("scoreLinear", () => {
                 [1, 1],
             ],
         };
-        const rubric: PerseusGraphTypeLinear = {
+        const correct: PerseusGraphTypeLinear = {
             type: "linear",
             coords: [
                 [-1, -1],
                 [1, 1],
             ],
         };
-        const score = scoreLinear(userInput, rubric);
+        const score = scoreLinear(userInput, correct);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -63,14 +63,14 @@ describe("scoreLinear", () => {
                 [1, 1],
             ],
         };
-        const rubric: PerseusGraphTypeLinear = {
+        const correct: PerseusGraphTypeLinear = {
             type: "linear",
             coords: [
                 [-1, -1],
                 [1, 1],
             ],
         };
-        const score = scoreLinear(userInput, rubric);
+        const score = scoreLinear(userInput, correct);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });

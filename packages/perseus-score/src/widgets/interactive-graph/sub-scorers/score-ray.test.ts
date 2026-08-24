@@ -5,7 +5,7 @@ import type {PerseusGraphTypeRay} from "@khanacademy/perseus-core";
 describe("scoreRay", () => {
     it("returns invalid score when missing user input coords", () => {
         const userInput: PerseusGraphTypeRay = {type: "ray"};
-        const rubric: PerseusGraphTypeRay = {
+        const correct: PerseusGraphTypeRay = {
             type: "ray",
             coords: [
                 [0, 0],
@@ -13,10 +13,10 @@ describe("scoreRay", () => {
             ],
         };
 
-        expect(scoreRay(userInput, rubric)).toHaveInvalidInput();
+        expect(scoreRay(userInput, correct)).toHaveInvalidInput();
     });
 
-    it("returns invalid score when missing rubric coords", () => {
+    it("returns invalid score when missing correct coords", () => {
         const userInput: PerseusGraphTypeRay = {
             type: "ray",
             coords: [
@@ -24,9 +24,9 @@ describe("scoreRay", () => {
                 [1, 1],
             ],
         };
-        const rubric: PerseusGraphTypeRay = {type: "ray"};
+        const correct: PerseusGraphTypeRay = {type: "ray"};
 
-        expect(scoreRay(userInput, rubric)).toHaveInvalidInput();
+        expect(scoreRay(userInput, correct)).toHaveInvalidInput();
     });
 
     it("returns correct score when start matches and direction point is collinear", () => {
@@ -39,7 +39,7 @@ describe("scoreRay", () => {
                 [2, 2],
             ],
         };
-        const rubric: PerseusGraphTypeRay = {
+        const correct: PerseusGraphTypeRay = {
             type: "ray",
             coords: [
                 [0, 0],
@@ -47,7 +47,7 @@ describe("scoreRay", () => {
             ],
         };
 
-        expect(scoreRay(userInput, rubric)).toHaveBeenAnsweredCorrectly();
+        expect(scoreRay(userInput, correct)).toHaveBeenAnsweredCorrectly();
     });
 
     it("returns incorrect score when start point does not match", () => {
@@ -58,7 +58,7 @@ describe("scoreRay", () => {
                 [2, 1],
             ],
         };
-        const rubric: PerseusGraphTypeRay = {
+        const correct: PerseusGraphTypeRay = {
             type: "ray",
             coords: [
                 [0, 0],
@@ -66,7 +66,7 @@ describe("scoreRay", () => {
             ],
         };
 
-        expect(scoreRay(userInput, rubric)).toHaveBeenAnsweredIncorrectly();
+        expect(scoreRay(userInput, correct)).toHaveBeenAnsweredIncorrectly();
     });
 
     it("returns incorrect score when direction is not collinear with correct ray", () => {
@@ -77,7 +77,7 @@ describe("scoreRay", () => {
                 [1, 2],
             ],
         };
-        const rubric: PerseusGraphTypeRay = {
+        const correct: PerseusGraphTypeRay = {
             type: "ray",
             coords: [
                 [0, 0],
@@ -85,6 +85,6 @@ describe("scoreRay", () => {
             ],
         };
 
-        expect(scoreRay(userInput, rubric)).toHaveBeenAnsweredIncorrectly();
+        expect(scoreRay(userInput, correct)).toHaveBeenAnsweredIncorrectly();
     });
 });

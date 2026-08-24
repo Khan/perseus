@@ -7,17 +7,17 @@ import type {
 
 export function scoreVector(
     userInput: PerseusGraphTypeVector,
-    rubric: PerseusGraphTypeVector,
+    correctGraph: PerseusGraphTypeVector,
 ): PerseusScore {
-    if (!userInput.coords || !rubric.coords) {
+    if (!userInput.coords || !correctGraph.coords) {
         return {type: "invalid", message: null};
     }
 
     const guess = userInput.coords;
-    const correct = rubric.coords;
+    const correct = correctGraph.coords;
 
     let match: boolean;
-    if (rubric.match === "congruent") {
+    if (correctGraph.match === "congruent") {
         // Congruent: same direction and magnitude, any position.
         // Compare the component form ⟨dx, dy⟩ of each vector.
         const guessDelta = [

@@ -2,7 +2,7 @@ import invariant from "tiny-invariant";
 
 import {
     generateGrapherGraph,
-    generateGrapherWidgetOptions,
+    generateGrapherOptions,
 } from "../../utils/generators/grapher-widget-generator";
 
 import type {PerseusGrapherWidgetOptions} from "../../data-schema";
@@ -15,7 +15,7 @@ describe("grapherWidgetLogic.accessible()", () => {
 
     // A Grapher widget is accessible iff it has no background image and
     // a single non-quadratic function type.
-    const accessibleGraph = generateGrapherWidgetOptions({
+    const accessibleGraph = generateGrapherOptions({
         graph: generateGrapherGraph({backgroundImage: {url: null}}),
         availableTypes: ["linear"],
     });

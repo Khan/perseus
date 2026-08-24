@@ -4,13 +4,13 @@ import type {PerseusCategorizerValidationData} from "@khanacademy/perseus-core";
 
 describe("validateCategorizer", () => {
     it("returns a score of 'invalid' when the user input is undefined", () => {
-        const rubric: PerseusCategorizerValidationData = {
+        const widgetOptions: PerseusCategorizerValidationData = {
             items: ["apples", "oranges"],
         };
 
         const userInput = undefined;
 
-        const score = validateCategorizer(userInput, rubric);
+        const score = validateCategorizer(userInput, widgetOptions);
 
         expect(score).toHaveInvalidInput();
     });

@@ -10,14 +10,14 @@ import type {
 
 export function scoreQuadratic(
     userInput: PerseusGraphTypeQuadratic,
-    rubric: PerseusGraphTypeQuadratic,
+    correct: PerseusGraphTypeQuadratic,
 ): PerseusScore {
-    if (!userInput.coords || !rubric.coords) {
+    if (!userInput.coords || !correct.coords) {
         return {type: "invalid", message: null};
     }
 
     const guessCoeffs = getQuadraticCoefficients(userInput.coords);
-    const correctCoeffs = getQuadraticCoefficients(rubric.coords);
+    const correctCoeffs = getQuadraticCoefficients(correct.coords);
     const isCorrect = approximateDeepEqual(guessCoeffs, correctCoeffs);
     return {
         type: "points",

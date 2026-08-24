@@ -1,7 +1,7 @@
 import scoreRadio from "./score-radio";
 
 import type {
-    PerseusRadioRubric,
+    PerseusRadioWidgetOptions,
     PerseusRadioUserInput,
 } from "@khanacademy/perseus-core";
 
@@ -9,7 +9,7 @@ describe("scoreRadio", () => {
     it("is invalid when the user input is undefined", () => {
         const userInput = undefined;
 
-        const rubric: PerseusRadioRubric = {
+        const widgetOptions: PerseusRadioWidgetOptions = {
             choices: [
                 {
                     id: "0-0-0-0-0",
@@ -34,7 +34,7 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const score = scoreRadio(userInput, rubric);
+        const score = scoreRadio(userInput, widgetOptions);
 
         expect(score).toHaveInvalidInput();
     });
@@ -44,7 +44,7 @@ describe("scoreRadio", () => {
             selectedChoiceIds: ["0-0-0-0-0"],
         };
 
-        const rubric: PerseusRadioRubric = {
+        const widgetOptions: PerseusRadioWidgetOptions = {
             choices: [
                 {
                     id: "0-0-0-0-0",
@@ -70,7 +70,7 @@ describe("scoreRadio", () => {
             countChoices: true,
         };
 
-        const score = scoreRadio(userInput, rubric);
+        const score = scoreRadio(userInput, widgetOptions);
 
         expect(score).toHaveInvalidInput();
     });
@@ -80,7 +80,7 @@ describe("scoreRadio", () => {
             selectedChoiceIds: ["0-0-0-0-0"],
         };
 
-        const rubric: PerseusRadioRubric = {
+        const widgetOptions: PerseusRadioWidgetOptions = {
             choices: [
                 {
                     id: "0-0-0-0-0",
@@ -106,7 +106,7 @@ describe("scoreRadio", () => {
             countChoices: false,
         };
 
-        const score = scoreRadio(userInput, rubric);
+        const score = scoreRadio(userInput, widgetOptions);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -116,7 +116,7 @@ describe("scoreRadio", () => {
             selectedChoiceIds: ["0-0-0-0-0", "4-4-4-4-4"],
         };
 
-        const rubric: PerseusRadioRubric = {
+        const widgetOptions: PerseusRadioWidgetOptions = {
             choices: [
                 {
                     id: "0-0-0-0-0",
@@ -147,7 +147,7 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const score = scoreRadio(userInput, rubric);
+        const score = scoreRadio(userInput, widgetOptions);
 
         expect(score).toHaveInvalidInput();
     });
@@ -157,7 +157,7 @@ describe("scoreRadio", () => {
             selectedChoiceIds: ["0-0-0-0-0"],
         };
 
-        const rubric: PerseusRadioRubric = {
+        const widgetOptions: PerseusRadioWidgetOptions = {
             choices: [
                 {
                     id: "0-0-0-0-0",
@@ -182,7 +182,7 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const score = scoreRadio(userInput, rubric);
+        const score = scoreRadio(userInput, widgetOptions);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -192,7 +192,7 @@ describe("scoreRadio", () => {
             selectedChoiceIds: ["3-3-3-3-3"],
         };
 
-        const rubric: PerseusRadioRubric = {
+        const widgetOptions: PerseusRadioWidgetOptions = {
             choices: [
                 {
                     id: "0-0-0-0-0",
@@ -217,7 +217,7 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const score = scoreRadio(userInput, rubric);
+        const score = scoreRadio(userInput, widgetOptions);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -227,7 +227,7 @@ describe("scoreRadio", () => {
             selectedChoiceIds: ["0-0-0-0-0", "1-1-1-1-1"],
         };
 
-        const rubric: PerseusRadioRubric = {
+        const widgetOptions: PerseusRadioWidgetOptions = {
             choices: [
                 {
                     id: "0-0-0-0-0",
@@ -252,7 +252,7 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const score = scoreRadio(userInput, rubric);
+        const score = scoreRadio(userInput, widgetOptions);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -262,7 +262,7 @@ describe("scoreRadio", () => {
             selectedChoiceIds: ["0-0-0-0-0", "3-3-3-3-3"],
         };
 
-        const rubric: PerseusRadioRubric = {
+        const widgetOptions: PerseusRadioWidgetOptions = {
             choices: [
                 {
                     id: "0-0-0-0-0",
@@ -287,7 +287,7 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const score = scoreRadio(userInput, rubric);
+        const score = scoreRadio(userInput, widgetOptions);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -297,7 +297,7 @@ describe("scoreRadio", () => {
             selectedChoiceIds: ["4-4-4-4-4"],
         };
 
-        const rubric: PerseusRadioRubric = {
+        const widgetOptions: PerseusRadioWidgetOptions = {
             choices: [
                 {
                     id: "0-0-0-0-0",
@@ -328,7 +328,7 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const score = scoreRadio(userInput, rubric);
+        const score = scoreRadio(userInput, widgetOptions);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -338,7 +338,7 @@ describe("scoreRadio", () => {
             selectedChoiceIds: ["4-4-4-4-4"],
         };
 
-        const rubric: PerseusRadioRubric = {
+        const widgetOptions: PerseusRadioWidgetOptions = {
             choices: [
                 {
                     id: "0-0-0-0-0",
@@ -369,7 +369,7 @@ describe("scoreRadio", () => {
             ],
         };
 
-        const score = scoreRadio(userInput, rubric);
+        const score = scoreRadio(userInput, widgetOptions);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });

@@ -1,10 +1,9 @@
+import {generateTableOptions} from "@khanacademy/perseus-core";
+
 import scoreTable from "./score-table";
 import * as TableValidator from "./validate-table";
 
-import type {
-    PerseusTableRubric,
-    PerseusTableUserInput,
-} from "@khanacademy/perseus-core";
+import type {PerseusTableUserInput} from "@khanacademy/perseus-core";
 
 describe("scoreTable", () => {
     it("should be correctly answerable if validation passes", function () {
@@ -18,15 +17,15 @@ describe("scoreTable", () => {
             ["3", "4"],
         ];
 
-        const rubric: PerseusTableRubric = {
+        const widgetOptions = generateTableOptions({
             answers: [
                 ["1", "2"],
                 ["3", "4"],
             ],
-        };
+        });
 
         // Act
-        const score = scoreTable(userInput, rubric);
+        const score = scoreTable(userInput, widgetOptions);
 
         // Assert
         expect(mockValidator).toHaveBeenCalledWith(userInput);
@@ -44,15 +43,15 @@ describe("scoreTable", () => {
             ["3", "4"],
         ];
 
-        const rubric: PerseusTableRubric = {
+        const widgetOptions = generateTableOptions({
             answers: [
                 ["1", "2"],
                 ["3", "4"],
             ],
-        };
+        });
 
         // Act
-        const score = scoreTable(userInput, rubric);
+        const score = scoreTable(userInput, widgetOptions);
 
         // Assert
         expect(mockValidator).toHaveBeenCalledWith(userInput);
@@ -66,15 +65,15 @@ describe("scoreTable", () => {
             ["3", "4"],
         ];
 
-        const rubric: PerseusTableRubric = {
+        const widgetOptions = generateTableOptions({
             answers: [
                 ["1", "2"],
                 ["3", "4"],
             ],
-        };
+        });
 
         // Act
-        const result = scoreTable(userInput, rubric);
+        const result = scoreTable(userInput, widgetOptions);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -88,15 +87,15 @@ describe("scoreTable", () => {
             ["5", "6"],
         ];
 
-        const rubric: PerseusTableRubric = {
+        const widgetOptions = generateTableOptions({
             answers: [
                 ["1", "2"],
                 ["3", "4"],
             ],
-        };
+        });
 
         // Act
-        const result = scoreTable(userInput, rubric);
+        const result = scoreTable(userInput, widgetOptions);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
@@ -109,15 +108,15 @@ describe("scoreTable", () => {
             ["3", "5"],
         ];
 
-        const rubric: PerseusTableRubric = {
+        const widgetOptions = generateTableOptions({
             answers: [
                 ["1", "2"],
                 ["3", "4"],
             ],
-        };
+        });
 
         // Act
-        const result = scoreTable(userInput, rubric);
+        const result = scoreTable(userInput, widgetOptions);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
@@ -130,15 +129,15 @@ describe("scoreTable", () => {
             ["3", "4"],
         ];
 
-        const rubric: PerseusTableRubric = {
+        const widgetOptions = generateTableOptions({
             answers: [
                 ["1", "2"],
                 ["3", "4"],
             ],
-        };
+        });
 
         // Act
-        const result = scoreTable(userInput, rubric);
+        const result = scoreTable(userInput, widgetOptions);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();
@@ -151,15 +150,15 @@ describe("scoreTable", () => {
             ["3.0", "4.0"],
         ];
 
-        const rubric: PerseusTableRubric = {
+        const widgetOptions = generateTableOptions({
             answers: [
                 ["1", "2"],
                 ["3", "4"],
             ],
-        };
+        });
 
         // Act
-        const result = scoreTable(userInput, rubric);
+        const result = scoreTable(userInput, widgetOptions);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();

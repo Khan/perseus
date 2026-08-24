@@ -17,7 +17,6 @@ import type {WidgetProps, ChoiceState, Widget} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
     PerseusRadioChoice,
-    PerseusRadioRubric,
     PerseusRadioUserInput,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
@@ -59,7 +58,7 @@ export interface RadioChoiceWithMetadata extends PerseusRadioChoice {
     correct?: boolean;
 }
 
-type Props = WidgetProps<RadioProps, PerseusRadioUserInput, PerseusRadioRubric>;
+type Props = WidgetProps<RadioProps, PerseusRadioUserInput>;
 
 /**
  * RadioWidget implements the Widget interface for multiple choice questions.
@@ -292,7 +291,7 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
          * 1. Processes each choice's content
          * 2. Maps state properties (selected, rationaleShown, etc.) to component props
          * 3. Renders content and rationales with nested widget support
-         * 4. Determines correctness display based on choice data or review rubric
+         * 4. Determines correctness display based on choice data or review widgetOptions
          *
          * @param choiceStates - The current state of each choice
          * @returns An array of formatted choice props ready for the RadioComponent

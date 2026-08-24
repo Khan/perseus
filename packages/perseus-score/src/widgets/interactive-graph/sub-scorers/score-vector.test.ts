@@ -5,7 +5,7 @@ import type {PerseusGraphTypeVector} from "@khanacademy/perseus-core";
 describe("scoreVector", () => {
     it("returns invalid when user input has no coords", () => {
         const userInput: PerseusGraphTypeVector = {type: "vector"};
-        const rubric: PerseusGraphTypeVector = {
+        const correct: PerseusGraphTypeVector = {
             type: "vector",
             coords: [
                 [0, 0],
@@ -13,10 +13,10 @@ describe("scoreVector", () => {
             ],
         };
 
-        expect(scoreVector(userInput, rubric)).toHaveInvalidInput();
+        expect(scoreVector(userInput, correct)).toHaveInvalidInput();
     });
 
-    it("returns invalid when rubric has no coords", () => {
+    it("returns invalid when correct has no coords", () => {
         const userInput: PerseusGraphTypeVector = {
             type: "vector",
             coords: [
@@ -24,9 +24,9 @@ describe("scoreVector", () => {
                 [1, 1],
             ],
         };
-        const rubric: PerseusGraphTypeVector = {type: "vector"};
+        const correct: PerseusGraphTypeVector = {type: "vector"};
 
-        expect(scoreVector(userInput, rubric)).toHaveInvalidInput();
+        expect(scoreVector(userInput, correct)).toHaveInvalidInput();
     });
 
     it("returns correct for exact match with same tail and tip", () => {
@@ -37,7 +37,7 @@ describe("scoreVector", () => {
                 [3, 4],
             ],
         };
-        const rubric: PerseusGraphTypeVector = {
+        const correct: PerseusGraphTypeVector = {
             type: "vector",
             coords: [
                 [1, 2],
@@ -45,7 +45,7 @@ describe("scoreVector", () => {
             ],
         };
 
-        expect(scoreVector(userInput, rubric)).toHaveBeenAnsweredCorrectly();
+        expect(scoreVector(userInput, correct)).toHaveBeenAnsweredCorrectly();
     });
 
     it("returns incorrect for exact match when positions differ", () => {
@@ -56,7 +56,7 @@ describe("scoreVector", () => {
                 [2, 2],
             ],
         };
-        const rubric: PerseusGraphTypeVector = {
+        const correct: PerseusGraphTypeVector = {
             type: "vector",
             coords: [
                 [1, 2],
@@ -64,12 +64,12 @@ describe("scoreVector", () => {
             ],
         };
 
-        expect(scoreVector(userInput, rubric)).toHaveBeenAnsweredIncorrectly();
+        expect(scoreVector(userInput, correct)).toHaveBeenAnsweredIncorrectly();
     });
 
     it("returns correct for congruent match when delta is the same", () => {
         // guess: tail (2,3), tip (4,5) → delta [2,2]
-        // rubric: tail (0,0), tip (2,2) → delta [2,2]
+        // correct: tail (0,0), tip (2,2) → delta [2,2]
         const userInput: PerseusGraphTypeVector = {
             type: "vector",
             coords: [
@@ -77,7 +77,7 @@ describe("scoreVector", () => {
                 [4, 5],
             ],
         };
-        const rubric: PerseusGraphTypeVector = {
+        const correct: PerseusGraphTypeVector = {
             type: "vector",
             match: "congruent",
             coords: [
@@ -86,12 +86,12 @@ describe("scoreVector", () => {
             ],
         };
 
-        expect(scoreVector(userInput, rubric)).toHaveBeenAnsweredCorrectly();
+        expect(scoreVector(userInput, correct)).toHaveBeenAnsweredCorrectly();
     });
 
     it("returns incorrect for congruent match when delta differs", () => {
         // guess: tail (0,0), tip (1,2) → delta [1,2]
-        // rubric: tail (0,0), tip (2,2) → delta [2,2]
+        // correct: tail (0,0), tip (2,2) → delta [2,2]
         const userInput: PerseusGraphTypeVector = {
             type: "vector",
             coords: [
@@ -99,7 +99,7 @@ describe("scoreVector", () => {
                 [1, 2],
             ],
         };
-        const rubric: PerseusGraphTypeVector = {
+        const correct: PerseusGraphTypeVector = {
             type: "vector",
             match: "congruent",
             coords: [
@@ -108,6 +108,6 @@ describe("scoreVector", () => {
             ],
         };
 
-        expect(scoreVector(userInput, rubric)).toHaveBeenAnsweredIncorrectly();
+        expect(scoreVector(userInput, correct)).toHaveBeenAnsweredIncorrectly();
     });
 });

@@ -10,13 +10,13 @@ import type {
 
 export function scoreExponential(
     userInput: PerseusGraphTypeExponential,
-    rubric: PerseusGraphTypeExponential,
+    correct: PerseusGraphTypeExponential,
 ): PerseusScore {
     if (
         !userInput.coords ||
         userInput.asymptote == null ||
-        !rubric.coords ||
-        rubric.asymptote == null
+        !correct.coords ||
+        correct.asymptote == null
     ) {
         return {type: "invalid", message: null};
     }
@@ -26,8 +26,8 @@ export function scoreExponential(
         userInput.asymptote,
     );
     const correctCoeffs = getExponentialCoefficients(
-        rubric.coords,
-        rubric.asymptote,
+        correct.coords,
+        correct.asymptote,
     );
     const isCorrect =
         guessCoeffs != null &&

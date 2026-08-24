@@ -1,26 +1,26 @@
 import {describe, it, expect} from "@jest/globals";
 
-import {generateGrapherWidgetOptions} from "../../utils/generators/grapher-widget-generator";
+import {generateGrapherOptions} from "../../utils/generators/grapher-widget-generator";
 
 import {convertGrapherOptionsToInteractiveGraph} from "./to-interactive-graph";
 
 describe("convertGrapherOptionsToInteractiveGraph", () => {
     it("returns null given a graph with multiple available function types", () => {
-        const grapher = generateGrapherWidgetOptions({
+        const grapher = generateGrapherOptions({
             availableTypes: ["sinusoid", "linear"],
         });
         expect(convertGrapherOptionsToInteractiveGraph(grapher)).toBe(null);
     });
 
     it("returns null given a quadratic graph", () => {
-        const grapher = generateGrapherWidgetOptions({
+        const grapher = generateGrapherOptions({
             availableTypes: ["quadratic"],
         });
         expect(convertGrapherOptionsToInteractiveGraph(grapher)).toBe(null);
     });
 
     it("converts the 'correct' field if present", () => {
-        const grapher = generateGrapherWidgetOptions({
+        const grapher = generateGrapherOptions({
             availableTypes: ["sinusoid"],
             correct: {
                 type: "sinusoid",
@@ -43,7 +43,7 @@ describe("convertGrapherOptionsToInteractiveGraph", () => {
     });
 
     it("defaults the 'correct' field if missing", () => {
-        const grapher = generateGrapherWidgetOptions({
+        const grapher = generateGrapherOptions({
             availableTypes: ["sinusoid"],
             correct: undefined,
         });
@@ -56,9 +56,9 @@ describe("convertGrapherOptionsToInteractiveGraph", () => {
     });
 
     it("defaults showTooltips to false", () => {
-        const grapher = generateGrapherWidgetOptions({
+        const grapher = generateGrapherOptions({
             graph: {
-                ...generateGrapherWidgetOptions().graph,
+                ...generateGrapherOptions().graph,
                 showTooltips: undefined,
             },
         });
@@ -69,9 +69,9 @@ describe("convertGrapherOptionsToInteractiveGraph", () => {
     });
 
     it("preserves showTooltips when true", () => {
-        const grapher = generateGrapherWidgetOptions({
+        const grapher = generateGrapherOptions({
             graph: {
-                ...generateGrapherWidgetOptions().graph,
+                ...generateGrapherOptions().graph,
                 showTooltips: true,
             },
         });
@@ -82,10 +82,10 @@ describe("convertGrapherOptionsToInteractiveGraph", () => {
     });
 
     it("wraps axis labels in $...$ delimiters so they are interpreted as TeX", () => {
-        const grapher = generateGrapherWidgetOptions({
+        const grapher = generateGrapherOptions({
             availableTypes: ["sinusoid"],
             graph: {
-                ...generateGrapherWidgetOptions().graph,
+                ...generateGrapherOptions().graph,
                 labels: ["x", "f(x)"],
             },
         });

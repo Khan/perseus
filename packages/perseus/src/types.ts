@@ -420,8 +420,8 @@ export type WidgetExports<
     /** When true, the widget editor shows a "Graded" toggle. */
     supportsUngraded?: boolean;
 
-    getOneCorrectAnswerFromRubric?: (
-        rubric: WidgetOptions,
+    getOneCorrectAnswerFromWidgetOptions?: (
+        widgetOptions: WidgetOptions,
     ) => string | null | undefined;
 
     // TODO(LEMS-3185): remove serializedState

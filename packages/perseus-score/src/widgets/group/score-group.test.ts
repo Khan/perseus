@@ -1,12 +1,12 @@
 import scoreGroup from "./score-group";
 
-import type {PerseusGroupRubric} from "@khanacademy/perseus-core";
+import type {PerseusGroupWidgetOptions} from "@khanacademy/perseus-core";
 
 describe("scoreGroup", () => {
     it("returns a score of 'invalid' when the user input is undefined", () => {
         // Arrange:
         const userInput = undefined;
-        const rubric: PerseusGroupRubric = {
+        const widgetOptions: PerseusGroupWidgetOptions = {
             content: "",
             images: {},
             widgets: {
@@ -26,7 +26,7 @@ describe("scoreGroup", () => {
         };
 
         // Act:
-        const result = scoreGroup(userInput, rubric, "en");
+        const result = scoreGroup(userInput, widgetOptions, "en");
 
         // Assert:
         expect(result).toHaveInvalidInput();

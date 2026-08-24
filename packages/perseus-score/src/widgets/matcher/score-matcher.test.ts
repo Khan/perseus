@@ -1,22 +1,21 @@
+import {generateMatcherOptions} from "@khanacademy/perseus-core";
+
 import scoreMatcher from "./score-matcher";
 
-import type {
-    PerseusMatcherRubric,
-    PerseusMatcherUserInput,
-} from "@khanacademy/perseus-core";
+import type {PerseusMatcherUserInput} from "@khanacademy/perseus-core";
 
 describe("scoreMatcher", () => {
     it("returns invalid for undefined user input", () => {
         // Arrange
         const userInput = undefined;
 
-        const rubric: PerseusMatcherRubric = {
+        const widgetOptions = generateMatcherOptions({
             left: ["1", "0+1"],
             right: ["2", "0+2"],
-        };
+        });
 
         // Act
-        const result = scoreMatcher(userInput, rubric);
+        const result = scoreMatcher(userInput, widgetOptions);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -29,13 +28,13 @@ describe("scoreMatcher", () => {
             right: ["cool", "beans"],
         };
 
-        const rubric: PerseusMatcherRubric = {
+        const widgetOptions = generateMatcherOptions({
             left: ["1", "0+1"],
             right: ["2", "0+2"],
-        };
+        });
 
         // Act
-        const result = scoreMatcher(userInput, rubric);
+        const result = scoreMatcher(userInput, widgetOptions);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
@@ -43,18 +42,18 @@ describe("scoreMatcher", () => {
 
     it("can be answered correctly", () => {
         // Arrange
-        const rubric: PerseusMatcherRubric = {
+        const widgetOptions = generateMatcherOptions({
             left: ["1", "0+1"],
             right: ["2", "0+2"],
-        };
+        });
 
         const userInput: PerseusMatcherUserInput = {
-            left: [...rubric.left],
-            right: [...rubric.right],
+            left: [...widgetOptions.left],
+            right: [...widgetOptions.right],
         };
 
         // Act
-        const result = scoreMatcher(userInput, rubric);
+        const result = scoreMatcher(userInput, widgetOptions);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();

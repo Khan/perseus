@@ -1,5 +1,5 @@
 import type {
-    PerseusCategorizerRubric,
+    PerseusCategorizerWidgetOptions,
     PerseusCategorizerUserInput,
     PerseusScore,
 } from "@khanacademy/perseus-core";
@@ -8,13 +8,13 @@ function scoreCategorizer(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: PerseusCategorizerUserInput | undefined,
-    rubric: PerseusCategorizerRubric,
+    widgetOptions: PerseusCategorizerWidgetOptions,
 ): PerseusScore {
     if (userInput == null) {
         return {type: "invalid", message: null};
     }
     let allCorrect = true;
-    rubric.values.forEach((value, i) => {
+    widgetOptions.values.forEach((value, i) => {
         if (userInput.values[i] !== value) {
             allCorrect = false;
         }

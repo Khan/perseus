@@ -1,7 +1,7 @@
 import {number as knumber} from "@khanacademy/kmath";
 
 import type {
-    PerseusNumberLineRubric,
+    PerseusNumberLineWidgetOptions,
     PerseusNumberLineUserInput,
     PerseusScore,
 } from "@khanacademy/perseus-core";
@@ -10,32 +10,33 @@ function scoreNumberLine(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: PerseusNumberLineUserInput | undefined,
-    rubric: PerseusNumberLineRubric,
+    widgetOptions: PerseusNumberLineWidgetOptions,
 ): PerseusScore {
     if (userInput == null) {
         return {type: "invalid", message: null};
     }
 
-    const divisionRange = rubric.divisionRange;
+    const divisionRange = widgetOptions.divisionRange;
     const outsideAllowedRange =
         userInput.numDivisions > divisionRange[1] ||
         userInput.numDivisions < divisionRange[0];
 
-    if (rubric.isTickCtrl && outsideAllowedRange) {
+    if (widgetOptions.isTickCtrl && outsideAllowedRange) {
         return {
             type: "invalid",
             message: "Number of divisions is outside the allowed range.",
         };
     }
 
-    const range = rubric.range;
-    const start = rubric.initialX != null ? rubric.initialX : range[0];
-    const startRel = rubric.isInequality ? "ge" : "eq";
-    const correctRel = rubric.correctRel || "eq";
+    const range = widgetOptions.range;
+    const start =
+        widgetOptions.initialX != null ? widgetOptions.initialX : range[0];
+    const startRel = widgetOptions.isInequality ? "ge" : "eq";
+    const correctRel = widgetOptions.correctRel || "eq";
     const correctPos = knumber.equal(
         userInput.numLinePosition,
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        rubric.correctX || 0,
+
+        widgetOptions.correctX || 0,
     );
 
     if (correctPos && correctRel === userInput.rel) {

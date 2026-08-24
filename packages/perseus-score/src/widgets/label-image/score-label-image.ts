@@ -1,6 +1,6 @@
 import type {
     PerseusLabelImageUserInput,
-    PerseusLabelImageRubric,
+    PerseusLabelImageWidgetOptions,
     PerseusScore,
 } from "@khanacademy/perseus-core";
 
@@ -14,7 +14,7 @@ export type InteractiveMarkerScore = {
 
 export function scoreLabelImageMarker(
     userInput: PerseusLabelImageUserInput["markers"][number]["selected"],
-    rubric: PerseusLabelImageRubric["markers"][number]["answers"],
+    widgetOptions: PerseusLabelImageWidgetOptions["markers"][number]["answers"],
 ): InteractiveMarkerScore {
     const score = {
         hasAnswers: false,
@@ -25,11 +25,11 @@ export function scoreLabelImageMarker(
         score.hasAnswers = true;
     }
 
-    if (rubric.length > 0) {
-        if (userInput && userInput.length === rubric.length) {
+    if (widgetOptions.length > 0) {
+        if (userInput && userInput.length === widgetOptions.length) {
             // All correct answers are selected by the user.
             score.isCorrect = userInput.every((choice) =>
-                rubric.includes(choice),
+                widgetOptions.includes(choice),
             );
         }
     } else if (!userInput || userInput.length === 0) {
@@ -44,7 +44,7 @@ function scoreLabelImage(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: PerseusLabelImageUserInput | undefined,
-    rubric: PerseusLabelImageRubric,
+    widgetOptions: PerseusLabelImageWidgetOptions,
 ): PerseusScore {
     if (userInput == null) {
         return {type: "invalid", message: null};
@@ -55,7 +55,7 @@ function scoreLabelImage(
     for (let i = 0; i < userInput.markers.length; i++) {
         const score = scoreLabelImageMarker(
             userInput.markers[i].selected,
-            rubric.markers[i].answers,
+            widgetOptions.markers[i].answers,
         );
 
         if (score.isCorrect) {

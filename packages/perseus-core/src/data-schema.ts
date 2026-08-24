@@ -714,7 +714,7 @@ export type GraphRange = [
 /**
  * The state of the grapher widget's plotted function, discriminated by
  * the `type` field. Used as both the learner's
- * user input and the rubric's correct answer.
+ * user input and the widget options' correct answer.
  */
 export type GrapherAnswerTypes =
     | {
@@ -1401,113 +1401,6 @@ export type PerseusGraphTypeVector = {
      *  "congruent" — same direction and magnitude, any position. */
     match?: "exact" | "congruent";
 };
-
-type AbsoluteValueGraphCorrect = {
-    type: "absolute-value";
-    coords: [Coord, Coord];
-};
-
-type AngleGraphCorrect = {
-    type: "angle";
-    allowReflexAngles: boolean;
-    match?: "congruent";
-    coords: [Coord, Coord, Coord];
-};
-
-type CircleGraphCorrect = {
-    type: "circle";
-    center: Coord;
-    radius: number;
-};
-
-type LinearGraphCorrect = {
-    type: "linear";
-    coords: CollinearTuple;
-};
-
-type LinearSystemGraphCorrect = {
-    type: "linear-system";
-    coords: [CollinearTuple, CollinearTuple];
-};
-
-type NoneGraphCorrect = {
-    type: "none";
-};
-
-type PointGraphCorrect = {
-    type: "point";
-    coords: Coord[];
-};
-
-type PolygonGraphCorrect = {
-    type: "polygon";
-    match: "similar" | "congruent" | "approx";
-    coords: Coord[];
-};
-
-type QuadraticGraphCorrect = {
-    type: "quadratic";
-    coords: [Coord, Coord, Coord];
-};
-
-type SegmentGraphCorrect = {
-    type: "segment";
-    coords: CollinearTuple[];
-};
-
-type SinusoidGraphCorrect = {
-    type: "sinusoid";
-    coords: CollinearTuple;
-};
-
-type ExponentialGraphCorrect = {
-    type: "exponential";
-    coords: CollinearTuple;
-    asymptote: number;
-};
-
-type TangentGraphCorrect = {
-    type: "tangent";
-    coords: CollinearTuple;
-};
-
-type LogarithmGraphCorrect = {
-    type: "logarithm";
-    coords: CollinearTuple;
-    asymptote: number;
-};
-
-type RayGraphCorrect = {
-    type: "ray";
-    coords: CollinearTuple;
-};
-
-type VectorGraphCorrect = {
-    type: "vector";
-    coords: CollinearTuple;
-    /** How to match the answer.
-     *  "exact" (default) — both tail and tip must match exactly.
-     *  "congruent" — same direction and magnitude, any position. */
-    match?: "exact" | "congruent";
-};
-
-export type PerseusGraphCorrectType =
-    | AbsoluteValueGraphCorrect
-    | AngleGraphCorrect
-    | CircleGraphCorrect
-    | LinearGraphCorrect
-    | LinearSystemGraphCorrect
-    | NoneGraphCorrect
-    | PointGraphCorrect
-    | PolygonGraphCorrect
-    | QuadraticGraphCorrect
-    | RayGraphCorrect
-    | SegmentGraphCorrect
-    | SinusoidGraphCorrect
-    | ExponentialGraphCorrect
-    | TangentGraphCorrect
-    | LogarithmGraphCorrect
-    | VectorGraphCorrect;
 
 /** Options for the label-image widget. Asks learners to label image parts. */
 export type PerseusLabelImageWidgetOptions = {
@@ -2263,6 +2156,13 @@ export type PerseusInputNumberAnswer = PerseusNumericInputAnswer;
 
 export type PerseusInputNumberWidgetOptions = PerseusNumericInputWidgetOptions;
 
+/**
+ * A union of every widget's options type.
+ *
+ * NOTE: This must be kept in sync with `PerseusWidgetTypes`. It intentionally
+ * omits `DeprecatedStandinWidget` (whose options are typed `object`) and any
+ * widget registered from outside this package via declaration merging.
+ */
 export type PerseusWidgetOptions =
     | PerseusBlankWidgetOptions
     | PerseusCategorizerWidgetOptions
@@ -2274,6 +2174,8 @@ export type PerseusWidgetOptions =
     | PerseusFreeResponseWidgetOptions
     | PerseusGradedGroupSetWidgetOptions
     | PerseusGradedGroupWidgetOptions
+    | PerseusGrapherWidgetOptions
+    | PerseusGroupWidgetOptions
     | PerseusIFrameWidgetOptions
     | PerseusImageWidgetOptions
     | PerseusInputNumberWidgetOptions
@@ -2288,6 +2190,7 @@ export type PerseusWidgetOptions =
     | PerseusOrdererWidgetOptions
     | PerseusPhetSimulationWidgetOptions
     | PerseusPlotterWidgetOptions
+    | PerseusPythonProgramWidgetOptions
     | PerseusRadioWidgetOptions
     | PerseusSorterWidgetOptions
     | PerseusTableWidgetOptions

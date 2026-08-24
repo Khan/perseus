@@ -7,7 +7,7 @@ describe("scoreAbsoluteValue", () => {
         const userInput: PerseusGraphTypeAbsoluteValue = {
             type: "absolute-value",
         };
-        const rubric: PerseusGraphTypeAbsoluteValue = {
+        const correct: PerseusGraphTypeAbsoluteValue = {
             type: "absolute-value",
             coords: [
                 [0, 0],
@@ -15,12 +15,12 @@ describe("scoreAbsoluteValue", () => {
             ],
         };
 
-        const score = scoreAbsoluteValue(userInput, rubric);
+        const score = scoreAbsoluteValue(userInput, correct);
 
         expect(score).toHaveInvalidInput();
     });
 
-    it("returns invalid score when missing rubric coords", () => {
+    it("returns invalid score when missing correct coords", () => {
         const userInput: PerseusGraphTypeAbsoluteValue = {
             type: "absolute-value",
             coords: [
@@ -28,11 +28,11 @@ describe("scoreAbsoluteValue", () => {
                 [1, 1],
             ],
         };
-        const rubric: PerseusGraphTypeAbsoluteValue = {
+        const correct: PerseusGraphTypeAbsoluteValue = {
             type: "absolute-value",
         };
 
-        const score = scoreAbsoluteValue(userInput, rubric);
+        const score = scoreAbsoluteValue(userInput, correct);
 
         expect(score).toHaveInvalidInput();
     });
@@ -45,7 +45,7 @@ describe("scoreAbsoluteValue", () => {
                 [1, 1],
             ],
         };
-        const rubric: PerseusGraphTypeAbsoluteValue = {
+        const correct: PerseusGraphTypeAbsoluteValue = {
             type: "absolute-value",
             coords: [
                 [0, 0],
@@ -53,7 +53,7 @@ describe("scoreAbsoluteValue", () => {
             ],
         };
 
-        const score = scoreAbsoluteValue(userInput, rubric);
+        const score = scoreAbsoluteValue(userInput, correct);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -67,7 +67,7 @@ describe("scoreAbsoluteValue", () => {
                 [1, 2],
             ],
         };
-        const rubric: PerseusGraphTypeAbsoluteValue = {
+        const correct: PerseusGraphTypeAbsoluteValue = {
             type: "absolute-value",
             coords: [
                 [0, 0],
@@ -75,7 +75,7 @@ describe("scoreAbsoluteValue", () => {
             ],
         };
 
-        const score = scoreAbsoluteValue(userInput, rubric);
+        const score = scoreAbsoluteValue(userInput, correct);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });

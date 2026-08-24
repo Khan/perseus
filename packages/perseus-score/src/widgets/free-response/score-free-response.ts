@@ -1,6 +1,6 @@
 import type {
     PerseusFreeResponseUserInput,
-    PerseusFreeResponseRubric,
+    PerseusFreeResponseWidgetOptions,
     PerseusScore,
 } from "@khanacademy/perseus-core";
 
@@ -8,7 +8,7 @@ function scoreFreeResponse(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: PerseusFreeResponseUserInput | undefined,
-    rubric: PerseusFreeResponseRubric,
+    widgetOptions: PerseusFreeResponseWidgetOptions,
     locale: string,
 ): PerseusScore {
     // TODO(AX-961): Implement support for external scoring. Since the user's

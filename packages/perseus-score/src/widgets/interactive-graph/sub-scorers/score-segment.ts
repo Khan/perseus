@@ -8,14 +8,14 @@ import type {
 
 export function scoreSegment(
     userInput: PerseusGraphTypeSegment,
-    rubric: PerseusGraphTypeSegment,
+    correctGraph: PerseusGraphTypeSegment,
 ): PerseusScore {
-    if (!userInput.coords || !rubric.coords) {
+    if (!userInput.coords || !correctGraph.coords) {
         return {type: "invalid", message: null};
     }
 
     let guess = deepClone(userInput.coords);
-    let correct = deepClone(rubric.coords);
+    let correct = deepClone(correctGraph.coords);
     guess = _.invoke(guess, "sort").sort();
     correct = _.invoke(correct, "sort").sort();
 

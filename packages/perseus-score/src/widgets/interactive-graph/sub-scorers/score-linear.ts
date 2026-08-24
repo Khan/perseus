@@ -9,14 +9,14 @@ import type {
 
 export function scoreLinear(
     userInput: PerseusGraphTypeLinear,
-    rubric: PerseusGraphTypeLinear,
+    correctGraph: PerseusGraphTypeLinear,
 ): PerseusScore {
-    if (!userInput.coords || !rubric.coords) {
+    if (!userInput.coords || !correctGraph.coords) {
         return {type: "invalid", message: null};
     }
 
     const guess = userInput.coords;
-    const correct = rubric.coords;
+    const correct = correctGraph.coords;
 
     // If both of the guess points are on the correct line, it's
     // correct.

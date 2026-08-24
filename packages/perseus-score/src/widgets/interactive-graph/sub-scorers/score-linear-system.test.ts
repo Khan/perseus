@@ -7,7 +7,7 @@ describe("scoreLinearSystem", () => {
         const userInput: PerseusGraphTypeLinearSystem = {
             type: "linear-system",
         };
-        const rubric: PerseusGraphTypeLinearSystem = {
+        const correct: PerseusGraphTypeLinearSystem = {
             type: "linear-system",
             coords: [
                 [
@@ -21,10 +21,10 @@ describe("scoreLinearSystem", () => {
             ],
         };
 
-        expect(scoreLinearSystem(userInput, rubric)).toHaveInvalidInput();
+        expect(scoreLinearSystem(userInput, correct)).toHaveInvalidInput();
     });
 
-    it("returns invalid score when rubric coords are missing", () => {
+    it("returns invalid score when correct coords are missing", () => {
         const userInput: PerseusGraphTypeLinearSystem = {
             type: "linear-system",
             coords: [
@@ -38,11 +38,11 @@ describe("scoreLinearSystem", () => {
                 ],
             ],
         };
-        const rubric: PerseusGraphTypeLinearSystem = {
+        const correct: PerseusGraphTypeLinearSystem = {
             type: "linear-system",
         };
 
-        expect(scoreLinearSystem(userInput, rubric)).toHaveInvalidInput();
+        expect(scoreLinearSystem(userInput, correct)).toHaveInvalidInput();
     });
 
     it("returns correct score when lines match in the same order", () => {
@@ -59,7 +59,7 @@ describe("scoreLinearSystem", () => {
                 ],
             ],
         };
-        const rubric: PerseusGraphTypeLinearSystem = {
+        const correct: PerseusGraphTypeLinearSystem = {
             type: "linear-system",
             coords: [
                 [
@@ -74,7 +74,7 @@ describe("scoreLinearSystem", () => {
         };
 
         expect(
-            scoreLinearSystem(userInput, rubric),
+            scoreLinearSystem(userInput, correct),
         ).toHaveBeenAnsweredCorrectly();
     });
 
@@ -92,7 +92,7 @@ describe("scoreLinearSystem", () => {
                 ],
             ],
         };
-        const rubric: PerseusGraphTypeLinearSystem = {
+        const correct: PerseusGraphTypeLinearSystem = {
             type: "linear-system",
             coords: [
                 [
@@ -107,7 +107,7 @@ describe("scoreLinearSystem", () => {
         };
 
         expect(
-            scoreLinearSystem(userInput, rubric),
+            scoreLinearSystem(userInput, correct),
         ).toHaveBeenAnsweredCorrectly();
     });
 
@@ -125,7 +125,7 @@ describe("scoreLinearSystem", () => {
                 ],
             ],
         };
-        const rubric: PerseusGraphTypeLinearSystem = {
+        const correct: PerseusGraphTypeLinearSystem = {
             type: "linear-system",
             coords: [
                 [
@@ -140,7 +140,7 @@ describe("scoreLinearSystem", () => {
         };
 
         expect(
-            scoreLinearSystem(userInput, rubric),
+            scoreLinearSystem(userInput, correct),
         ).toHaveBeenAnsweredIncorrectly();
     });
 });

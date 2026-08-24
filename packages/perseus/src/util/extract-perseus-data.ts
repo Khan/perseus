@@ -110,19 +110,19 @@ export const getAnswerFromUserInput = (widgetType: string, userInput: any) => {
 
 /* Returns the correct answer for a given widget ID and Perseus Item */
 // TODO (LEMS-1835): We should fix the resonse type from getWidget to be specific.
-// TODO (LEMS-1836): We should also consider adding the getOneCorrectAnswerFromRubric method to all widgets.
+// TODO (LEMS-1836): We should also consider adding the getOneCorrectAnswerFromWidgetOptions method to all widgets.
 export const getCorrectAnswerForWidgetId = (
     widgetId: string,
     itemData: PerseusItem,
 ): string | null | undefined => {
-    const rubric = itemData.question.widgets[widgetId].options;
+    const widgetOptions = itemData.question.widgets[widgetId].options;
     const widgetMap = itemData.question.widgets;
     // eslint-disable-next-line no-restricted-syntax
     const widgetType = getWidgetTypeByWidgetId(widgetId, widgetMap) as string;
 
     const widget = Widgets.getWidgetExport(widgetType);
 
-    return widget?.getOneCorrectAnswerFromRubric?.(rubric);
+    return widget?.getOneCorrectAnswerFromWidgetOptions?.(widgetOptions);
 };
 
 /* Verify if the widget ID exists in the content string of the Perseus Item */

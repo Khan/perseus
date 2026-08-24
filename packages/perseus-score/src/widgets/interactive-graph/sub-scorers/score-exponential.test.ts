@@ -8,7 +8,7 @@ describe("scoreExponential", () => {
             type: "exponential",
             asymptote: 3,
         };
-        const rubric: PerseusGraphTypeExponential = {
+        const correct: PerseusGraphTypeExponential = {
             type: "exponential",
             coords: [
                 [0, 5],
@@ -17,7 +17,7 @@ describe("scoreExponential", () => {
             asymptote: 3,
         };
 
-        const score = scoreExponential(userInput, rubric);
+        const score = scoreExponential(userInput, correct);
 
         expect(score).toHaveInvalidInput();
     });
@@ -30,7 +30,7 @@ describe("scoreExponential", () => {
                 [1, 11],
             ],
         };
-        const rubric: PerseusGraphTypeExponential = {
+        const correct: PerseusGraphTypeExponential = {
             type: "exponential",
             coords: [
                 [0, 5],
@@ -39,12 +39,12 @@ describe("scoreExponential", () => {
             asymptote: 3,
         };
 
-        const score = scoreExponential(userInput, rubric);
+        const score = scoreExponential(userInput, correct);
 
         expect(score).toHaveInvalidInput();
     });
 
-    it("returns invalid score when missing rubric coords", () => {
+    it("returns invalid score when missing correct coords", () => {
         const userInput: PerseusGraphTypeExponential = {
             type: "exponential",
             coords: [
@@ -53,17 +53,17 @@ describe("scoreExponential", () => {
             ],
             asymptote: 3,
         };
-        const rubric: PerseusGraphTypeExponential = {
+        const correct: PerseusGraphTypeExponential = {
             type: "exponential",
             asymptote: 3,
         };
 
-        const score = scoreExponential(userInput, rubric);
+        const score = scoreExponential(userInput, correct);
 
         expect(score).toHaveInvalidInput();
     });
 
-    it("returns invalid score when missing rubric asymptote", () => {
+    it("returns invalid score when missing correct asymptote", () => {
         const userInput: PerseusGraphTypeExponential = {
             type: "exponential",
             coords: [
@@ -72,7 +72,7 @@ describe("scoreExponential", () => {
             ],
             asymptote: 3,
         };
-        const rubric: PerseusGraphTypeExponential = {
+        const correct: PerseusGraphTypeExponential = {
             type: "exponential",
             coords: [
                 [0, 5],
@@ -80,7 +80,7 @@ describe("scoreExponential", () => {
             ],
         };
 
-        const score = scoreExponential(userInput, rubric);
+        const score = scoreExponential(userInput, correct);
 
         expect(score).toHaveInvalidInput();
     });
@@ -95,7 +95,7 @@ describe("scoreExponential", () => {
             ],
             asymptote: 3,
         };
-        const rubric: PerseusGraphTypeExponential = {
+        const correct: PerseusGraphTypeExponential = {
             type: "exponential",
             coords: [
                 [0, 5],
@@ -104,7 +104,7 @@ describe("scoreExponential", () => {
             asymptote: 3,
         };
 
-        const score = scoreExponential(userInput, rubric);
+        const score = scoreExponential(userInput, correct);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -119,7 +119,7 @@ describe("scoreExponential", () => {
             ],
             asymptote: 0,
         };
-        const rubric: PerseusGraphTypeExponential = {
+        const correct: PerseusGraphTypeExponential = {
             type: "exponential",
             coords: [
                 [0, 5],
@@ -128,7 +128,7 @@ describe("scoreExponential", () => {
             asymptote: 3,
         };
 
-        const score = scoreExponential(userInput, rubric);
+        const score = scoreExponential(userInput, correct);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });

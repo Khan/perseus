@@ -5,23 +5,23 @@ import type {PerseusGraphTypePoint} from "@khanacademy/perseus-core";
 describe("scorePoint", () => {
     it("returns invalid when user input has no coords", () => {
         const userInput: PerseusGraphTypePoint = {type: "point"};
-        const rubric: PerseusGraphTypePoint = {
+        const correct: PerseusGraphTypePoint = {
             type: "point",
             coords: [[1, 2]],
         };
 
-        expect(scorePoint(userInput, rubric)).toHaveInvalidInput();
+        expect(scorePoint(userInput, correct)).toHaveInvalidInput();
     });
 
-    it("throws when rubric has null coords", () => {
+    it("throws when correct has null coords", () => {
         const userInput: PerseusGraphTypePoint = {
             type: "point",
             coords: [[1, 2]],
         };
-        const rubric: PerseusGraphTypePoint = {type: "point", coords: null};
+        const correct: PerseusGraphTypePoint = {type: "point", coords: null};
 
-        expect(() => scorePoint(userInput, rubric)).toThrow(
-            "Point graph rubric has null coords",
+        expect(() => scorePoint(userInput, correct)).toThrow(
+            "Point graph correct has null coords",
         );
     });
 
@@ -33,7 +33,7 @@ describe("scorePoint", () => {
                 [3, 4],
             ],
         };
-        const rubric: PerseusGraphTypePoint = {
+        const correct: PerseusGraphTypePoint = {
             type: "point",
             coords: [
                 [1, 2],
@@ -41,7 +41,7 @@ describe("scorePoint", () => {
             ],
         };
 
-        expect(scorePoint(userInput, rubric)).toHaveBeenAnsweredCorrectly();
+        expect(scorePoint(userInput, correct)).toHaveBeenAnsweredCorrectly();
     });
 
     it("returns correct when coords match in different order", () => {
@@ -52,7 +52,7 @@ describe("scorePoint", () => {
                 [1, 2],
             ],
         };
-        const rubric: PerseusGraphTypePoint = {
+        const correct: PerseusGraphTypePoint = {
             type: "point",
             coords: [
                 [1, 2],
@@ -60,7 +60,7 @@ describe("scorePoint", () => {
             ],
         };
 
-        expect(scorePoint(userInput, rubric)).toHaveBeenAnsweredCorrectly();
+        expect(scorePoint(userInput, correct)).toHaveBeenAnsweredCorrectly();
     });
 
     it("returns incorrect when coords do not match", () => {
@@ -68,11 +68,11 @@ describe("scorePoint", () => {
             type: "point",
             coords: [[5, 6]],
         };
-        const rubric: PerseusGraphTypePoint = {
+        const correct: PerseusGraphTypePoint = {
             type: "point",
             coords: [[1, 2]],
         };
 
-        expect(scorePoint(userInput, rubric)).toHaveBeenAnsweredIncorrectly();
+        expect(scorePoint(userInput, correct)).toHaveBeenAnsweredIncorrectly();
     });
 });

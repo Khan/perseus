@@ -1,3 +1,5 @@
+import {generateLabelImageOptions} from "@khanacademy/perseus-core";
+
 import scoreLabelImage, {scoreLabelImageMarker} from "./score-label-image";
 
 describe("scoreLabelImageMarker", function () {
@@ -60,24 +62,30 @@ describe("scoreLabelImage", function () {
     it("should grade as invalid for undefined user input", function () {
         const userInput = undefined;
 
-        const rubric = {
+        const widgetOptions = generateLabelImageOptions({
             markers: [
                 {
                     label: "England",
                     answers: [],
+                    x: 0,
+                    y: 0,
                 },
                 {
                     label: "Germany",
                     answers: [],
+                    x: 0,
+                    y: 0,
                 },
                 {
                     label: "Italy",
                     answers: [],
+                    x: 0,
+                    y: 0,
                 },
             ],
-        };
+        });
 
-        const score = scoreLabelImage(userInput, rubric);
+        const score = scoreLabelImage(userInput, widgetOptions);
 
         expect(score).toHaveInvalidInput();
     });
@@ -100,24 +108,30 @@ describe("scoreLabelImage", function () {
             ],
         };
 
-        const rubric = {
+        const widgetOptions = generateLabelImageOptions({
             markers: [
                 {
                     label: "England",
                     answers: [],
+                    x: 0,
+                    y: 0,
                 },
                 {
                     label: "Germany",
                     answers: [],
+                    x: 0,
+                    y: 0,
                 },
                 {
                     label: "Italy",
                     answers: [],
+                    x: 0,
+                    y: 0,
                 },
             ],
-        };
+        });
 
-        const score = scoreLabelImage(userInput, rubric);
+        const score = scoreLabelImage(userInput, widgetOptions);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -140,24 +154,30 @@ describe("scoreLabelImage", function () {
             ],
         };
 
-        const rubric = {
+        const widgetOptions = generateLabelImageOptions({
             markers: [
                 {
                     label: "England",
                     answers: ["Mini", "Morris Minor", "Reliant Robin"],
+                    x: 0,
+                    y: 0,
                 },
                 {
                     label: "Germany",
                     answers: ["BMW", "Volkswagen", "Porsche"],
+                    x: 0,
+                    y: 0,
                 },
                 {
                     label: "Italy",
                     answers: ["Lamborghini", "Fiat", "Ferrari"],
+                    x: 0,
+                    y: 0,
                 },
             ],
-        };
+        });
 
-        const score = scoreLabelImage(userInput, rubric);
+        const score = scoreLabelImage(userInput, widgetOptions);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -180,24 +200,30 @@ describe("scoreLabelImage", function () {
             ],
         };
 
-        const rubric = {
+        const widgetOptions = generateLabelImageOptions({
             markers: [
                 {
                     label: "England",
                     answers: ["Mini", "Morris Minor", "Reliant Robin"],
+                    x: 0,
+                    y: 0,
                 },
                 {
                     label: "Germany",
                     answers: ["BMW", "Volkswagen", "Porsche"],
+                    x: 0,
+                    y: 0,
                 },
                 {
                     label: "Italy",
                     answers: ["Lamborghini", "Fiat", "Ferrari"],
+                    x: 0,
+                    y: 0,
                 },
             ],
-        };
+        });
 
-        const score = scoreLabelImage(userInput, rubric);
+        const score = scoreLabelImage(userInput, widgetOptions);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });

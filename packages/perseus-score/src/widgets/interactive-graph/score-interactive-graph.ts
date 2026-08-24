@@ -18,7 +18,7 @@ import {scoreVector} from "./sub-scorers/score-vector";
 
 import type {
     PerseusInteractiveGraphUserInput,
-    PerseusInteractiveGraphRubric,
+    PerseusInteractiveGraphWidgetOptions,
     PerseusScore,
 } from "@khanacademy/perseus-core";
 
@@ -26,14 +26,14 @@ function scoreInteractiveGraph(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: PerseusInteractiveGraphUserInput | undefined,
-    rubric: PerseusInteractiveGraphRubric,
+    widgetOptions: PerseusInteractiveGraphWidgetOptions,
 ): PerseusScore {
     if (userInput == null) {
         return {type: "invalid", message: null};
     }
 
     // None-type graphs are not graded
-    if (userInput.type === "none" && rubric.correct.type === "none") {
+    if (userInput.type === "none" && widgetOptions.correct.type === "none") {
         return {
             type: "points",
             earned: 0,
@@ -54,77 +54,86 @@ function scoreInteractiveGraph(
 
     if (
         userInput.type === "absolute-value" &&
-        rubric.correct.type === "absolute-value"
+        widgetOptions.correct.type === "absolute-value"
     ) {
-        return scoreAbsoluteValue(userInput, rubric.correct);
-    } else if (userInput.type === "angle" && rubric.correct.type === "angle") {
-        return scoreAngle(userInput, rubric.correct);
+        return scoreAbsoluteValue(userInput, widgetOptions.correct);
+    } else if (
+        userInput.type === "angle" &&
+        widgetOptions.correct.type === "angle"
+    ) {
+        return scoreAngle(userInput, widgetOptions.correct);
     } else if (
         userInput.type === "circle" &&
-        rubric.correct.type === "circle"
+        widgetOptions.correct.type === "circle"
     ) {
-        return scoreCircle(userInput, rubric.correct);
+        return scoreCircle(userInput, widgetOptions.correct);
     } else if (
         userInput.type === "exponential" &&
-        rubric.correct.type === "exponential" &&
+        widgetOptions.correct.type === "exponential" &&
         userInput.asymptote != null
     ) {
-        return scoreExponential(userInput, rubric.correct);
+        return scoreExponential(userInput, widgetOptions.correct);
     } else if (
         userInput.type === "linear" &&
-        rubric.correct.type === "linear"
+        widgetOptions.correct.type === "linear"
     ) {
-        return scoreLinear(userInput, rubric.correct);
+        return scoreLinear(userInput, widgetOptions.correct);
     } else if (
         userInput.type === "linear-system" &&
-        rubric.correct.type === "linear-system"
+        widgetOptions.correct.type === "linear-system"
     ) {
-        return scoreLinearSystem(userInput, rubric.correct);
+        return scoreLinearSystem(userInput, widgetOptions.correct);
     } else if (
         userInput.type === "logarithm" &&
-        rubric.correct.type === "logarithm" &&
+        widgetOptions.correct.type === "logarithm" &&
         userInput.asymptote != null
     ) {
-        return scoreLogarithm(userInput, rubric.correct);
-    } else if (userInput.type === "point" && rubric.correct.type === "point") {
-        return scorePoint(userInput, rubric.correct);
+        return scoreLogarithm(userInput, widgetOptions.correct);
+    } else if (
+        userInput.type === "point" &&
+        widgetOptions.correct.type === "point"
+    ) {
+        return scorePoint(userInput, widgetOptions.correct);
     } else if (
         userInput.type === "polygon" &&
-        rubric.correct.type === "polygon"
+        widgetOptions.correct.type === "polygon"
     ) {
-        return scorePolygon(userInput, rubric.correct);
+        return scorePolygon(userInput, widgetOptions.correct);
     } else if (
         userInput.type === "quadratic" &&
-        rubric.correct.type === "quadratic"
+        widgetOptions.correct.type === "quadratic"
     ) {
-        return scoreQuadratic(userInput, rubric.correct);
-    } else if (userInput.type === "ray" && rubric.correct.type === "ray") {
-        return scoreRay(userInput, rubric.correct);
+        return scoreQuadratic(userInput, widgetOptions.correct);
+    } else if (
+        userInput.type === "ray" &&
+        widgetOptions.correct.type === "ray"
+    ) {
+        return scoreRay(userInput, widgetOptions.correct);
     } else if (
         userInput.type === "segment" &&
-        rubric.correct.type === "segment"
+        widgetOptions.correct.type === "segment"
     ) {
-        return scoreSegment(userInput, rubric.correct);
+        return scoreSegment(userInput, widgetOptions.correct);
     } else if (
         userInput.type === "sinusoid" &&
-        rubric.correct.type === "sinusoid"
+        widgetOptions.correct.type === "sinusoid"
     ) {
-        return scoreSinusoid(userInput, rubric.correct);
+        return scoreSinusoid(userInput, widgetOptions.correct);
     } else if (
         userInput.type === "tangent" &&
-        rubric.correct.type === "tangent"
+        widgetOptions.correct.type === "tangent"
     ) {
-        return scoreTangent(userInput, rubric.correct);
+        return scoreTangent(userInput, widgetOptions.correct);
     } else if (
         userInput.type === "vector" &&
-        rubric.correct.type === "vector"
+        widgetOptions.correct.type === "vector"
     ) {
-        return scoreVector(userInput, rubric.correct);
+        return scoreVector(userInput, widgetOptions.correct);
     }
 
     // The input wasn't correct, so check if it's a blank input or if it's
     // actually just wrong
-    if (!hasValue || _.isEqual(userInput, rubric.graph)) {
+    if (!hasValue || _.isEqual(userInput, widgetOptions.graph)) {
         // We're where we started.
         return {
             type: "invalid",

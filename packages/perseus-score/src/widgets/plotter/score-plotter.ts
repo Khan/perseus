@@ -2,7 +2,7 @@ import {approximateDeepEqual} from "@khanacademy/perseus-core";
 
 import type {
     PerseusPlotterUserInput,
-    PerseusPlotterRubric,
+    PerseusPlotterWidgetOptions,
     PerseusScore,
 } from "@khanacademy/perseus-core";
 
@@ -10,11 +10,11 @@ function scorePlotter(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: PerseusPlotterUserInput | undefined,
-    rubric: PerseusPlotterRubric,
+    widgetOptions: PerseusPlotterWidgetOptions,
 ): PerseusScore {
     return {
         type: "points",
-        earned: approximateDeepEqual(userInput, rubric.correct) ? 1 : 0,
+        earned: approximateDeepEqual(userInput, widgetOptions.correct) ? 1 : 0,
         total: 1,
         message: null,
     };

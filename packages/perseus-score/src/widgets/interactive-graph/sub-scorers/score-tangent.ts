@@ -11,14 +11,14 @@ import type {
 
 export function scoreTangent(
     userInput: PerseusGraphTypeTangent,
-    rubric: PerseusGraphTypeTangent,
+    correct: PerseusGraphTypeTangent,
 ): PerseusScore {
-    if (!userInput.coords || !rubric.coords) {
+    if (!userInput.coords || !correct.coords) {
         return {type: "invalid", message: null};
     }
 
     const guessCoeffs = getTangentCoefficients(userInput.coords);
-    const correctCoeffs = getTangentCoefficients(rubric.coords);
+    const correctCoeffs = getTangentCoefficients(correct.coords);
     const canonicalGuessCoeffs = canonicalTangentCoefficients(guessCoeffs);
     const canonicalCorrectCoeffs = canonicalTangentCoefficients(correctCoeffs);
     const isCorrect = approximateDeepEqual(

@@ -7,9 +7,9 @@ import splitPerseusRenderer from "./split-perseus-renderer";
 import type {PerseusItem} from "../data-schema";
 
 /**
- * Return a copy of a PerseusItem with rubric data removed (ie answers)
+ * Return a copy of a PerseusItem with answer data removed
  *
- * @param original - the original, full PerseusItem (which includes the rubric - aka answer data)
+ * @param original - the original, full PerseusItem (which includes the answer data)
  */
 export default function splitPerseusItem(original: PerseusItem): PerseusItem {
     const item = deepClone(original);
@@ -37,7 +37,7 @@ export default function splitPerseusItem(original: PerseusItem): PerseusItem {
 }
 
 /**
- * Returns a JSON copy of a PerseusItem with rubric data (i.e. answers and
+ * Returns a JSON copy of a PerseusItem with answer data (i.e. answers and
  * hints) removed. Idempotent and deterministic.
  *
  * @param data a {@linkcode PerseusItem}, either as JSON or as an object.

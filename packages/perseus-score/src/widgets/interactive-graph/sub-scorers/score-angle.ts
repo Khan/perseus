@@ -15,11 +15,11 @@ import type {
 
 export function scoreAngle(
     userInput: PerseusGraphTypeAngle,
-    rubric: PerseusGraphTypeAngle,
+    correctGraph: PerseusGraphTypeAngle,
 ): PerseusScore {
     const coords = userInput.coords;
-    const correct = rubric.coords;
-    const allowReflexAngles = rubric.allowReflexAngles;
+    const correct = correctGraph.coords;
+    const allowReflexAngles = correctGraph.allowReflexAngles;
 
     // While the angle graph should always have 3 points, our types
     // technically allow for null values. We'll check for that here.
@@ -36,7 +36,7 @@ export function scoreAngle(
         : coords;
 
     let match: boolean;
-    if (rubric.match === "congruent") {
+    if (correctGraph.match === "congruent") {
         const guessAngle = getClockwiseAngle(guess, allowReflexAngles);
         const correctAngle = correct
             ? getClockwiseAngle(correct, allowReflexAngles)

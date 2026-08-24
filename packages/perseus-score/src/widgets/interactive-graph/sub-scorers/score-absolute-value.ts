@@ -10,15 +10,15 @@ import type {
 
 export function scoreAbsoluteValue(
     userInput: PerseusGraphTypeAbsoluteValue,
-    rubric: PerseusGraphTypeAbsoluteValue,
+    correct: PerseusGraphTypeAbsoluteValue,
 ): PerseusScore {
-    if (!userInput.coords || !rubric.coords) {
+    if (!userInput.coords || !correct.coords) {
         return {type: "invalid", message: null};
     }
 
     const userCoeffs = getAbsoluteValueCoefficients(userInput.coords);
-    const rubricCoeffs = getAbsoluteValueCoefficients(rubric.coords);
-    const isCorrect = approximateDeepEqual(userCoeffs, rubricCoeffs);
+    const correctCoeffs = getAbsoluteValueCoefficients(correct.coords);
+    const isCorrect = approximateDeepEqual(userCoeffs, correctCoeffs);
     return {
         type: "points",
         earned: isCorrect ? 1 : 0,

@@ -1,16 +1,15 @@
+import {generateNumberLineOptions} from "@khanacademy/perseus-core";
+
 import scoreNumberLine from "./score-number-line";
 
-import type {
-    PerseusNumberLineRubric,
-    PerseusNumberLineUserInput,
-} from "@khanacademy/perseus-core";
+import type {PerseusNumberLineUserInput} from "@khanacademy/perseus-core";
 
 describe("scoreNumberLine", () => {
     it("is invalid when user input is undefined", () => {
         // Arrange
         const userInput = undefined;
 
-        const rubric: PerseusNumberLineRubric = {
+        const widgetOptions = generateNumberLineOptions({
             correctRel: "eq",
             correctX: -1.5,
             initialX: 0,
@@ -18,10 +17,10 @@ describe("scoreNumberLine", () => {
             isInequality: false,
             isTickCtrl: true,
             divisionRange: [-1, 1],
-        };
+        });
 
         // Act
-        const validationError = scoreNumberLine(userInput, rubric);
+        const validationError = scoreNumberLine(userInput, widgetOptions);
 
         // Assert
         expect(validationError).toHaveInvalidInput();
@@ -35,7 +34,7 @@ describe("scoreNumberLine", () => {
             numLinePosition: 10,
         };
 
-        const rubric: PerseusNumberLineRubric = {
+        const widgetOptions = generateNumberLineOptions({
             correctRel: "eq",
             correctX: -1.5,
             initialX: 0,
@@ -43,10 +42,10 @@ describe("scoreNumberLine", () => {
             isInequality: false,
             isTickCtrl: true,
             divisionRange: [-1, 1],
-        };
+        });
 
         // Act
-        const validationError = scoreNumberLine(userInput, rubric);
+        const validationError = scoreNumberLine(userInput, widgetOptions);
 
         // Assert
         expect(validationError).toHaveInvalidInput(
@@ -62,7 +61,7 @@ describe("scoreNumberLine", () => {
             numLinePosition: 0,
         };
 
-        const rubric: PerseusNumberLineRubric = {
+        const widgetOptions = generateNumberLineOptions({
             correctRel: "eq",
             correctX: -1.5,
             initialX: 0,
@@ -70,10 +69,10 @@ describe("scoreNumberLine", () => {
             isInequality: false,
             isTickCtrl: true,
             divisionRange: [-10, 10],
-        };
+        });
 
         // Act
-        const score = scoreNumberLine(userInput, rubric);
+        const score = scoreNumberLine(userInput, widgetOptions);
 
         // Assert
         expect(score).toHaveInvalidInput();
@@ -87,7 +86,7 @@ describe("scoreNumberLine", () => {
             numLinePosition: -1.5,
         };
 
-        const rubric: PerseusNumberLineRubric = {
+        const widgetOptions = generateNumberLineOptions({
             correctRel: "eq",
             correctX: -1.5,
             initialX: -1,
@@ -95,10 +94,10 @@ describe("scoreNumberLine", () => {
             isInequality: false,
             isTickCtrl: true,
             divisionRange: [-10, 10],
-        };
+        });
 
         // Act
-        const score = scoreNumberLine(userInput, rubric);
+        const score = scoreNumberLine(userInput, widgetOptions);
 
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly();
@@ -112,7 +111,7 @@ describe("scoreNumberLine", () => {
             numLinePosition: 1.5,
         };
 
-        const rubric: PerseusNumberLineRubric = {
+        const widgetOptions = generateNumberLineOptions({
             correctRel: "eq",
             correctX: -1.5,
             initialX: -1,
@@ -120,10 +119,10 @@ describe("scoreNumberLine", () => {
             isInequality: false,
             isTickCtrl: true,
             divisionRange: [-10, 10],
-        };
+        });
 
         // Act
-        const score = scoreNumberLine(userInput, rubric);
+        const score = scoreNumberLine(userInput, widgetOptions);
 
         // Assert
         expect(score).toHaveBeenAnsweredIncorrectly();

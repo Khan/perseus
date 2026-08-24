@@ -24,9 +24,8 @@ import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expres
 import type {
     KeypadConfiguration,
     KeypadKey,
-    PerseusExpressionRubric,
-    PerseusExpressionUserInput,
     PerseusExpressionWidgetOptions,
+    PerseusExpressionUserInput,
 } from "@khanacademy/perseus-core";
 
 // Map of international operator names to their English equivalents
@@ -374,12 +373,12 @@ function getStartUserInput(): PerseusExpressionUserInput {
     return "";
 }
 
-function getOneCorrectAnswerFromRubric(
-    rubric: PerseusExpressionRubric,
+function getOneCorrectAnswerFromWidgetOptions(
+    widgetOptions: PerseusExpressionWidgetOptions,
 ): string | null | undefined {
     // TODO(LEMS-2656): remove TS suppression
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    const correctAnswers = (rubric.answerForms || []).filter(
+    const correctAnswers = (widgetOptions.answerForms || []).filter(
         (answerForm) => answerForm.considered === "correct",
     );
     if (correctAnswers.length === 0) {
@@ -407,7 +406,7 @@ export default {
     // For use by the editor
     isLintable: true,
 
-    getOneCorrectAnswerFromRubric,
+    getOneCorrectAnswerFromWidgetOptions,
     getStartUserInput,
     getCorrectUserInput,
     getUserInputFromSerializedState,

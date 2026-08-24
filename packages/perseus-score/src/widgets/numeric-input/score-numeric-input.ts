@@ -5,7 +5,7 @@ import {parseTex} from "../../util/tex-wrangler";
 
 import type {Score} from "../../util/answer-types";
 import type {
-    PerseusNumericInputRubric,
+    PerseusNumericInputWidgetOptions,
     PerseusNumericInputUserInput,
     PerseusScore,
     MathFormat,
@@ -69,7 +69,7 @@ function scoreNumericInput(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: PerseusNumericInputUserInput | undefined,
-    rubric: PerseusNumericInputRubric,
+    widgetOptions: PerseusNumericInputWidgetOptions,
     locale?: string,
 ): PerseusScore {
     if (userInput == null) {
@@ -114,13 +114,13 @@ function scoreNumericInput(
     // If `currentValue` is not TeX, this should be a no-op.
     const currentValue = parseTex(userInput.currentValue);
 
-    const normalizedAnswerExpected = rubric.answers
+    const normalizedAnswerExpected = widgetOptions.answers
         .filter((answer) => answer.status === "correct")
         .every((answer) => answer.value != null && Math.abs(answer.value) <= 1);
 
     // The coefficient is an attribute of the widget
     let localValue: string | number = currentValue;
-    if (rubric.coefficient) {
+    if (widgetOptions.coefficient) {
         if (!localValue) {
             localValue = 1;
         } else if (localValue === "-") {
@@ -129,7 +129,7 @@ function scoreNumericInput(
     }
     const matchedAnswer:
         | (PerseusNumericInputAnswer & {score: Score})
-        | undefined = rubric.answers
+        | undefined = widgetOptions.answers
         .map((answer) => {
             const validateFn = createValidator(answer);
             const score = validateFn(

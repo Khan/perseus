@@ -424,6 +424,16 @@ export {
     generateSorterWidget,
     generateSorterOptions,
 } from "./utils/generators/sorter-widget-generator";
+/** @hidden */
+export {
+    generateTableWidget,
+    generateTableOptions,
+} from "./utils/generators/table-widget-generator";
+/** @hidden */
+export {
+    generateGrapherOptions,
+    generateGrapherGraph,
+} from "./utils/generators/grapher-widget-generator";
 
 export {
     getAnswersFromWidgets,

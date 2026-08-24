@@ -12,7 +12,7 @@ import KhanAnswerTypes from "../../util/answer-types";
 import type {Score} from "../../util/answer-types";
 import type {
     PerseusExpressionAnswerForm,
-    PerseusExpressionRubric,
+    PerseusExpressionWidgetOptions,
     PerseusExpressionUserInput,
     PerseusScore,
 } from "@khanacademy/perseus-core";
@@ -73,7 +73,7 @@ function scoreExpression(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: PerseusExpressionUserInput | undefined,
-    rubric: PerseusExpressionRubric,
+    widgetOptions: PerseusExpressionWidgetOptions,
     locale: string,
 ): PerseusScore {
     if (userInput == null) {
@@ -81,7 +81,7 @@ function scoreExpression(
     }
 
     const options = {
-        ...rubric,
+        ...widgetOptions,
         decimal_separator: getDecimalSeparator(locale),
         divide_symbol: getDivideSymbol(locale),
     };
@@ -97,9 +97,9 @@ function scoreExpression(
     const studentVars = parsedStudent.expr.getVars();
 
     const createValidator = (answer: PerseusExpressionAnswerForm) => {
-        // We parse with `rubric` (not `options`) so the solution isn't
+        // We parse with `widgetOptions` (not `options`) so the solution isn't
         // affected by the student's locale (e.g. a different decimal separator).
-        const expression = KAS.parse(answer.value, rubric);
+        const expression = KAS.parse(answer.value, widgetOptions);
         // An answer may not parse if the expression was defined incorrectly,
         // for example if a symbol from the function variables list was used.
         if (!expression.parsed) {
@@ -107,7 +107,7 @@ function scoreExpression(
             throw new PerseusError(
                 "Unable to parse solution answer for expression",
                 Errors.InvalidInput,
-                {metadata: {rubric: JSON.stringify(rubric)}},
+                {metadata: {widgetOptions: JSON.stringify(widgetOptions)}},
             );
         }
 
@@ -116,7 +116,7 @@ function scoreExpression(
         const varError = getVarError(
             studentVars,
             expression.expr.getVars(),
-            rubric.extraKeys ?? [],
+            widgetOptions.extraKeys ?? [],
         );
         if (varError != null) {
             return (input: string): Score => ({
@@ -151,7 +151,7 @@ function scoreExpression(
     let matchMessage: string | undefined;
     let allEmpty = true;
     let firstUngradedResult: Score | undefined;
-    for (const answerForm of rubric.answerForms ?? []) {
+    for (const answerForm of widgetOptions.answerForms ?? []) {
         const validator = createValidator(answerForm);
         if (validator == null) {
             continue;

@@ -1,10 +1,8 @@
+import {generateGrapherOptions} from "@khanacademy/perseus-core";
+
 import scoreGrapher from "./score-grapher";
 
-import type {
-    PerseusGrapherRubric,
-    PerseusGrapherUserInput,
-    Coord,
-} from "@khanacademy/perseus-core";
+import type {PerseusGrapherUserInput, Coord} from "@khanacademy/perseus-core";
 
 describe("scoreGrapher", () => {
     it("is invalid when user input is undefined", () => {
@@ -18,16 +16,16 @@ describe("scoreGrapher", () => {
             [-10, -10],
             [10, 10],
         ];
-        const rubric: PerseusGrapherRubric = {
+        const widgetOptions = generateGrapherOptions({
             correct: {
                 type: "logarithm",
                 asymptote,
                 coords,
             },
-        };
+        });
 
         // Act
-        const result = scoreGrapher(userInput, rubric);
+        const result = scoreGrapher(userInput, widgetOptions);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -50,16 +48,16 @@ describe("scoreGrapher", () => {
             coords,
         };
 
-        const rubric: PerseusGrapherRubric = {
+        const widgetOptions = generateGrapherOptions({
             correct: {
                 type: "logarithm",
                 asymptote,
                 coords,
             },
-        };
+        });
 
         // Act
-        const result = scoreGrapher(userInput, rubric);
+        const result = scoreGrapher(userInput, widgetOptions);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
@@ -82,16 +80,16 @@ describe("scoreGrapher", () => {
             coords: null,
         };
 
-        const rubric: PerseusGrapherRubric = {
+        const widgetOptions = generateGrapherOptions({
             correct: {
                 type: "exponential",
                 asymptote,
                 coords,
             },
-        };
+        });
 
         // Act
-        const result = scoreGrapher(userInput, rubric);
+        const result = scoreGrapher(userInput, widgetOptions);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -112,22 +110,22 @@ describe("scoreGrapher", () => {
             coords,
         };
 
-        const rubric: PerseusGrapherRubric = {
+        const widgetOptions = generateGrapherOptions({
             correct: {
                 type: "linear",
                 coords,
             },
-        };
+        });
 
         // Act
-        const result = scoreGrapher(userInput, rubric);
+        const result = scoreGrapher(userInput, widgetOptions);
 
         // Assert
         expect(result).toHaveInvalidInput();
     });
 
-    it("is invalid when rubric has null coords", () => {
-        // The rubric.correct.coords are null in some cases in legacy data.
+    it("is invalid when widgetOptions has null coords", () => {
+        // The widgetOptions.correct.coords are null in some cases in legacy data.
         // Before this test was added and made to pass, the scoring code would
         // throw an exception if the coords were null. From a learner's
         // perspective, they'd click the "check answer" button and nothing
@@ -143,15 +141,15 @@ describe("scoreGrapher", () => {
             ],
         };
 
-        const rubric: PerseusGrapherRubric = {
+        const widgetOptions = generateGrapherOptions({
             correct: {
                 type: "linear",
                 coords: null,
             },
-        };
+        });
 
         // Act
-        const result = scoreGrapher(userInput, rubric);
+        const result = scoreGrapher(userInput, widgetOptions);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -169,21 +167,21 @@ describe("scoreGrapher", () => {
             coords,
         };
 
-        const rubric: PerseusGrapherRubric = {
+        const widgetOptions = generateGrapherOptions({
             correct: {
                 type: "linear",
                 coords,
             },
-        };
+        });
 
         // Act
-        const result = scoreGrapher(userInput, rubric);
+        const result = scoreGrapher(userInput, widgetOptions);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();
     });
 
-    it("scores tangent as correct when user coords match rubric coords", () => {
+    it("scores tangent as correct when user coords match widgetOptions coords", () => {
         // Arrange
         const coords: [Coord, Coord] = [
             [0, 0],
@@ -195,15 +193,15 @@ describe("scoreGrapher", () => {
             coords,
         };
 
-        const rubric: PerseusGrapherRubric = {
+        const widgetOptions = generateGrapherOptions({
             correct: {
                 type: "tangent",
                 coords,
             },
-        };
+        });
 
         // Act
-        const result = scoreGrapher(userInput, rubric);
+        const result = scoreGrapher(userInput, widgetOptions);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();
@@ -224,15 +222,15 @@ describe("scoreGrapher", () => {
             coords,
         };
 
-        const rubric: PerseusGrapherRubric = {
+        const widgetOptions = generateGrapherOptions({
             correct: {
                 type: "tangent",
                 coords,
             },
-        };
+        });
 
         // Act
-        const result = scoreGrapher(userInput, rubric);
+        const result = scoreGrapher(userInput, widgetOptions);
 
         // Assert
         expect(result).toHaveInvalidInput();
@@ -248,7 +246,7 @@ describe("scoreGrapher", () => {
             ],
         };
 
-        const rubric: PerseusGrapherRubric = {
+        const widgetOptions = generateGrapherOptions({
             correct: {
                 type: "tangent",
                 coords: [
@@ -256,10 +254,10 @@ describe("scoreGrapher", () => {
                     [3, 3],
                 ],
             },
-        };
+        });
 
         // Act
-        const result = scoreGrapher(userInput, rubric);
+        const result = scoreGrapher(userInput, widgetOptions);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
@@ -275,7 +273,7 @@ describe("scoreGrapher", () => {
             ],
         };
 
-        const rubric: PerseusGrapherRubric = {
+        const widgetOptions = generateGrapherOptions({
             correct: {
                 type: "linear",
                 coords: [
@@ -283,10 +281,10 @@ describe("scoreGrapher", () => {
                     [10, 10],
                 ],
             },
-        };
+        });
 
         // Act
-        const result = scoreGrapher(userInput, rubric);
+        const result = scoreGrapher(userInput, widgetOptions);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();

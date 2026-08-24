@@ -5,7 +5,7 @@ import type {PerseusGraphTypeAngle} from "@khanacademy/perseus-core";
 describe("scoreAngle", () => {
     it("returns invalid when user input has no coords", () => {
         const userInput: PerseusGraphTypeAngle = {type: "angle"};
-        const rubric: PerseusGraphTypeAngle = {
+        const correct: PerseusGraphTypeAngle = {
             type: "angle",
             coords: [
                 [-5, 0],
@@ -14,11 +14,11 @@ describe("scoreAngle", () => {
             ],
         };
 
-        expect(scoreAngle(userInput, rubric)).toHaveInvalidInput();
+        expect(scoreAngle(userInput, correct)).toHaveInvalidInput();
     });
 
     it("returns correct for congruent match when angles have the same measure", () => {
-        // Both are 90-degree angles at the origin; guess arms are 2 units, rubric arms are 1 unit.
+        // Both are 90-degree angles at the origin; guess arms are 2 units, correct arms are 1 unit.
         const userInput: PerseusGraphTypeAngle = {
             type: "angle",
             coords: [
@@ -27,7 +27,7 @@ describe("scoreAngle", () => {
                 [0, 2],
             ],
         };
-        const rubric: PerseusGraphTypeAngle = {
+        const correct: PerseusGraphTypeAngle = {
             type: "angle",
             match: "congruent",
             coords: [
@@ -37,11 +37,11 @@ describe("scoreAngle", () => {
             ],
         };
 
-        expect(scoreAngle(userInput, rubric)).toHaveBeenAnsweredCorrectly();
+        expect(scoreAngle(userInput, correct)).toHaveBeenAnsweredCorrectly();
     });
 
     it("returns incorrect for congruent match when angles have different measures", () => {
-        // guess is a 45-degree angle; rubric is a 90-degree angle.
+        // guess is a 45-degree angle; correct is a 90-degree angle.
         const userInput: PerseusGraphTypeAngle = {
             type: "angle",
             coords: [
@@ -50,7 +50,7 @@ describe("scoreAngle", () => {
                 [1, 1],
             ],
         };
-        const rubric: PerseusGraphTypeAngle = {
+        const correct: PerseusGraphTypeAngle = {
             type: "angle",
             match: "congruent",
             coords: [
@@ -60,7 +60,7 @@ describe("scoreAngle", () => {
             ],
         };
 
-        expect(scoreAngle(userInput, rubric)).toHaveBeenAnsweredIncorrectly();
+        expect(scoreAngle(userInput, correct)).toHaveBeenAnsweredIncorrectly();
     });
 
     it("returns correct for exact match when vertex matches and arms are collinear with correct rays", () => {
@@ -73,7 +73,7 @@ describe("scoreAngle", () => {
                 [0, 2],
             ],
         };
-        const rubric: PerseusGraphTypeAngle = {
+        const correct: PerseusGraphTypeAngle = {
             type: "angle",
             coords: [
                 [1, 0],
@@ -82,7 +82,7 @@ describe("scoreAngle", () => {
             ],
         };
 
-        expect(scoreAngle(userInput, rubric)).toHaveBeenAnsweredCorrectly();
+        expect(scoreAngle(userInput, correct)).toHaveBeenAnsweredCorrectly();
     });
 
     it("returns incorrect for exact match when vertex does not match", () => {
@@ -94,7 +94,7 @@ describe("scoreAngle", () => {
                 [1, 2],
             ],
         };
-        const rubric: PerseusGraphTypeAngle = {
+        const correct: PerseusGraphTypeAngle = {
             type: "angle",
             coords: [
                 [1, 0],
@@ -103,7 +103,7 @@ describe("scoreAngle", () => {
             ],
         };
 
-        expect(scoreAngle(userInput, rubric)).toHaveBeenAnsweredIncorrectly();
+        expect(scoreAngle(userInput, correct)).toHaveBeenAnsweredIncorrectly();
     });
 
     it("returns incorrect for exact match when arms are not collinear with correct rays", () => {
@@ -115,7 +115,7 @@ describe("scoreAngle", () => {
                 [1, 2],
             ],
         };
-        const rubric: PerseusGraphTypeAngle = {
+        const correct: PerseusGraphTypeAngle = {
             type: "angle",
             coords: [
                 [1, 0],
@@ -124,12 +124,12 @@ describe("scoreAngle", () => {
             ],
         };
 
-        expect(scoreAngle(userInput, rubric)).toHaveBeenAnsweredIncorrectly();
+        expect(scoreAngle(userInput, correct)).toHaveBeenAnsweredIncorrectly();
     });
 
     it("reverses coords and returns correct when angle is clockwise and allowReflexAngles is false", () => {
         // guess coords are in clockwise order (reflex direction); with allowReflexAngles false,
-        // they are reversed before scoring and then match the rubric's reversed ordering.
+        // they are reversed before scoring and then match the correct's reversed ordering.
         const userInput: PerseusGraphTypeAngle = {
             type: "angle",
             coords: [
@@ -138,7 +138,7 @@ describe("scoreAngle", () => {
                 [5, 5],
             ],
         };
-        const rubric: PerseusGraphTypeAngle = {
+        const correct: PerseusGraphTypeAngle = {
             type: "angle",
             allowReflexAngles: false,
             coords: [
@@ -148,7 +148,7 @@ describe("scoreAngle", () => {
             ],
         };
 
-        expect(scoreAngle(userInput, rubric)).toHaveBeenAnsweredCorrectly();
+        expect(scoreAngle(userInput, correct)).toHaveBeenAnsweredCorrectly();
     });
 
     it("does not reverse coords when allowReflexAngles is true, even for clockwise angles", () => {
@@ -161,7 +161,7 @@ describe("scoreAngle", () => {
                 [-5, -5],
             ],
         };
-        const rubric: PerseusGraphTypeAngle = {
+        const correct: PerseusGraphTypeAngle = {
             type: "angle",
             allowReflexAngles: true,
             coords: [
@@ -171,6 +171,6 @@ describe("scoreAngle", () => {
             ],
         };
 
-        expect(scoreAngle(userInput, rubric)).toHaveBeenAnsweredCorrectly();
+        expect(scoreAngle(userInput, correct)).toHaveBeenAnsweredCorrectly();
     });
 });

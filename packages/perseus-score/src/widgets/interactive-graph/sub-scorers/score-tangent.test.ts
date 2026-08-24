@@ -7,7 +7,7 @@ describe("scoreTangent", () => {
         const userInput: PerseusGraphTypeTangent = {
             type: "tangent",
         };
-        const rubric: PerseusGraphTypeTangent = {
+        const correct: PerseusGraphTypeTangent = {
             type: "tangent",
             coords: [
                 [0, 0],
@@ -15,12 +15,12 @@ describe("scoreTangent", () => {
             ],
         };
 
-        const score = scoreTangent(userInput, rubric);
+        const score = scoreTangent(userInput, correct);
 
         expect(score).toHaveInvalidInput();
     });
 
-    it("returns invalid score when missing rubric coords", () => {
+    it("returns invalid score when missing correct coords", () => {
         const userInput: PerseusGraphTypeTangent = {
             type: "tangent",
             coords: [
@@ -28,11 +28,11 @@ describe("scoreTangent", () => {
                 [1, 1],
             ],
         };
-        const rubric: PerseusGraphTypeTangent = {
+        const correct: PerseusGraphTypeTangent = {
             type: "tangent",
         };
 
-        const score = scoreTangent(userInput, rubric);
+        const score = scoreTangent(userInput, correct);
 
         expect(score).toHaveInvalidInput();
     });
@@ -45,7 +45,7 @@ describe("scoreTangent", () => {
                 [1, 1],
             ],
         };
-        const rubric: PerseusGraphTypeTangent = {
+        const correct: PerseusGraphTypeTangent = {
             type: "tangent",
             coords: [
                 [0, 0],
@@ -53,7 +53,7 @@ describe("scoreTangent", () => {
             ],
         };
 
-        const score = scoreTangent(userInput, rubric);
+        const score = scoreTangent(userInput, correct);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -67,7 +67,7 @@ describe("scoreTangent", () => {
                 [2, 1],
             ],
         };
-        const rubric: PerseusGraphTypeTangent = {
+        const correct: PerseusGraphTypeTangent = {
             type: "tangent",
             coords: [
                 [0, 0],
@@ -75,7 +75,7 @@ describe("scoreTangent", () => {
             ],
         };
 
-        const score = scoreTangent(userInput, rubric);
+        const score = scoreTangent(userInput, correct);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -89,7 +89,7 @@ describe("scoreTangent", () => {
                 [5, 1],
             ],
         };
-        const rubric: PerseusGraphTypeTangent = {
+        const correct: PerseusGraphTypeTangent = {
             type: "tangent",
             coords: [
                 [0, 0],
@@ -97,7 +97,7 @@ describe("scoreTangent", () => {
             ],
         };
 
-        const score = scoreTangent(userInput, rubric);
+        const score = scoreTangent(userInput, correct);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });

@@ -10,20 +10,20 @@ import type {
 
 export function scoreCircle(
     userInput: PerseusGraphTypeCircle,
-    rubric: PerseusGraphTypeCircle,
+    correct: PerseusGraphTypeCircle,
 ): PerseusScore {
     if (
         userInput.center == null ||
         userInput.radius == null ||
-        rubric.center == null ||
-        rubric.radius == null
+        correct.center == null ||
+        correct.radius == null
     ) {
         return {type: "invalid", message: null};
     }
 
     const isCorrect =
-        approximateDeepEqual(userInput.center, rubric.center) &&
-        approximateEqual(userInput.radius, rubric.radius);
+        approximateDeepEqual(userInput.center, correct.center) &&
+        approximateEqual(userInput.radius, correct.radius);
 
     return {
         type: "points",

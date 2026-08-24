@@ -1,11 +1,11 @@
 import scoreOrderer from "./score-orderer";
 
 import type {
-    PerseusOrdererRubric,
+    PerseusOrdererWidgetOptions,
     PerseusOrdererUserInput,
 } from "@khanacademy/perseus-core";
 
-function generateOrdererRubric(): PerseusOrdererRubric {
+function generateOrdererWidgetOptions(): PerseusOrdererWidgetOptions {
     return {
         otherOptions: [],
         layout: "horizontal",
@@ -26,56 +26,62 @@ function generateOrdererRubric(): PerseusOrdererRubric {
 describe("scoreOrderer", () => {
     it("is invalid when the userInput is undefined", () => {
         // Arrange
-        const rubric: PerseusOrdererRubric = generateOrdererRubric();
+        const widgetOptions: PerseusOrdererWidgetOptions =
+            generateOrdererWidgetOptions();
         const userInput = undefined;
 
         // Act
-        const result = scoreOrderer(userInput, rubric);
+        const result = scoreOrderer(userInput, widgetOptions);
 
         // Assert
         expect(result).toHaveInvalidInput();
     });
 
-    it("is correct when the userInput is in the same order and is the same length as the rubric's correctOption content items", () => {
+    it("is correct when the userInput is in the same order and is the same length as the widgetOptions's correctOption content items", () => {
         // Arrange
-        const rubric: PerseusOrdererRubric = generateOrdererRubric();
+        const widgetOptions: PerseusOrdererWidgetOptions =
+            generateOrdererWidgetOptions();
 
         const userInput: PerseusOrdererUserInput = {
-            current: rubric.correctOptions.map((e) => e.content),
+            current: widgetOptions.correctOptions.map((e) => e.content),
         };
 
         // Act
-        const result = scoreOrderer(userInput, rubric);
+        const result = scoreOrderer(userInput, widgetOptions);
 
         // Assert
         expect(result).toHaveBeenAnsweredCorrectly();
     });
 
-    it("is incorrect when the userInput is not in the same order as the rubric's correctOption content items", () => {
+    it("is incorrect when the userInput is not in the same order as the widgetOptions's correctOption content items", () => {
         // Arrange
-        const rubric: PerseusOrdererRubric = generateOrdererRubric();
+        const widgetOptions: PerseusOrdererWidgetOptions =
+            generateOrdererWidgetOptions();
 
         const userInput: PerseusOrdererUserInput = {
-            current: rubric.options.map((e) => e.content),
+            current: widgetOptions.options.map((e) => e.content),
         };
 
         // Act
-        const result = scoreOrderer(userInput, rubric);
+        const result = scoreOrderer(userInput, widgetOptions);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();
     });
 
-    it("is incorrect when the userInput is not the same length as the rubric's correctOption content items", () => {
+    it("is incorrect when the userInput is not the same length as the widgetOptions's correctOption content items", () => {
         // Arrange
-        const rubric: PerseusOrdererRubric = generateOrdererRubric();
+        const widgetOptions: PerseusOrdererWidgetOptions =
+            generateOrdererWidgetOptions();
 
         const userInput: PerseusOrdererUserInput = {
-            current: rubric.correctOptions.map((e) => e.content).slice(1),
+            current: widgetOptions.correctOptions
+                .map((e) => e.content)
+                .slice(1),
         };
 
         // Act
-        const result = scoreOrderer(userInput, rubric);
+        const result = scoreOrderer(userInput, widgetOptions);
 
         // Assert
         expect(result).toHaveBeenAnsweredIncorrectly();

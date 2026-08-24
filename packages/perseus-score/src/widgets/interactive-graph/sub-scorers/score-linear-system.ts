@@ -9,14 +9,14 @@ import type {
 
 export function scoreLinearSystem(
     userInput: PerseusGraphTypeLinearSystem,
-    rubric: PerseusGraphTypeLinearSystem,
+    correctGraph: PerseusGraphTypeLinearSystem,
 ): PerseusScore {
-    if (!userInput.coords || !rubric.coords) {
+    if (!userInput.coords || !correctGraph.coords) {
         return {type: "invalid", message: null};
     }
 
     const guess = userInput.coords;
-    const correct = rubric.coords;
+    const correct = correctGraph.coords;
 
     const isCorrect =
         (collinear(correct[0][0], correct[0][1], guess[0][0]) &&

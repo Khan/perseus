@@ -1,3 +1,5 @@
+import {generateFreeResponseOptions} from "@khanacademy/perseus-core";
+
 import scoreFreeResponse from "./score-free-response";
 
 describe("scoreFreeResponse", () => {
@@ -5,7 +7,7 @@ describe("scoreFreeResponse", () => {
         const userInput = {
             currentValue: "The answer is 42.",
         };
-        const rubric = {
+        const widgetOptions = generateFreeResponseOptions({
             question:
                 "What is the answer to life, the universe, and everything?",
             scoringCriteria: [
@@ -13,9 +15,9 @@ describe("scoreFreeResponse", () => {
                     text: "Must contain 42",
                 },
             ],
-        };
+        });
 
-        const score = scoreFreeResponse(userInput, rubric, "en");
+        const score = scoreFreeResponse(userInput, widgetOptions, "en");
         expect(score).toEqual({
             type: "points",
             earned: 0,

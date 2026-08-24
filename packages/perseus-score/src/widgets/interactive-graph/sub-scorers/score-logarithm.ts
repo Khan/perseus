@@ -10,13 +10,13 @@ import type {
 
 export function scoreLogarithm(
     userInput: PerseusGraphTypeLogarithm,
-    rubric: PerseusGraphTypeLogarithm,
+    correct: PerseusGraphTypeLogarithm,
 ): PerseusScore {
     if (
         !userInput.coords ||
         userInput.asymptote == null ||
-        !rubric.coords ||
-        rubric.asymptote == null
+        !correct.coords ||
+        correct.asymptote == null
     ) {
         return {type: "invalid", message: null};
     }
@@ -26,8 +26,8 @@ export function scoreLogarithm(
         userInput.asymptote,
     );
     const correctCoeffs = getLogarithmCoefficients(
-        rubric.coords,
-        rubric.asymptote,
+        correct.coords,
+        correct.asymptote,
     );
     const isCorrect =
         guessCoeffs != null &&

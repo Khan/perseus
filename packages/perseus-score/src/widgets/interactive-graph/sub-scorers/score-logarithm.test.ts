@@ -8,7 +8,7 @@ describe("scoreLogarithm", () => {
             type: "logarithm",
             asymptote: 3,
         };
-        const rubric: PerseusGraphTypeLogarithm = {
+        const correct: PerseusGraphTypeLogarithm = {
             type: "logarithm",
             coords: [
                 [5, 0],
@@ -17,7 +17,7 @@ describe("scoreLogarithm", () => {
             asymptote: 3,
         };
 
-        const score = scoreLogarithm(userInput, rubric);
+        const score = scoreLogarithm(userInput, correct);
 
         expect(score).toHaveInvalidInput();
     });
@@ -30,7 +30,7 @@ describe("scoreLogarithm", () => {
                 [11, 1],
             ],
         };
-        const rubric: PerseusGraphTypeLogarithm = {
+        const correct: PerseusGraphTypeLogarithm = {
             type: "logarithm",
             coords: [
                 [5, 0],
@@ -39,12 +39,12 @@ describe("scoreLogarithm", () => {
             asymptote: 3,
         };
 
-        const score = scoreLogarithm(userInput, rubric);
+        const score = scoreLogarithm(userInput, correct);
 
         expect(score).toHaveInvalidInput();
     });
 
-    it("returns invalid score when missing rubric coords", () => {
+    it("returns invalid score when missing correct coords", () => {
         const userInput: PerseusGraphTypeLogarithm = {
             type: "logarithm",
             coords: [
@@ -53,17 +53,17 @@ describe("scoreLogarithm", () => {
             ],
             asymptote: 3,
         };
-        const rubric: PerseusGraphTypeLogarithm = {
+        const correct: PerseusGraphTypeLogarithm = {
             type: "logarithm",
             asymptote: 3,
         };
 
-        const score = scoreLogarithm(userInput, rubric);
+        const score = scoreLogarithm(userInput, correct);
 
         expect(score).toHaveInvalidInput();
     });
 
-    it("returns invalid score when missing rubric asymptote", () => {
+    it("returns invalid score when missing correct asymptote", () => {
         const userInput: PerseusGraphTypeLogarithm = {
             type: "logarithm",
             coords: [
@@ -72,7 +72,7 @@ describe("scoreLogarithm", () => {
             ],
             asymptote: 3,
         };
-        const rubric: PerseusGraphTypeLogarithm = {
+        const correct: PerseusGraphTypeLogarithm = {
             type: "logarithm",
             coords: [
                 [5, 0],
@@ -80,7 +80,7 @@ describe("scoreLogarithm", () => {
             ],
         };
 
-        const score = scoreLogarithm(userInput, rubric);
+        const score = scoreLogarithm(userInput, correct);
 
         expect(score).toHaveInvalidInput();
     });
@@ -95,7 +95,7 @@ describe("scoreLogarithm", () => {
             ],
             asymptote: 3,
         };
-        const rubric: PerseusGraphTypeLogarithm = {
+        const correct: PerseusGraphTypeLogarithm = {
             type: "logarithm",
             coords: [
                 [5, 0],
@@ -104,7 +104,7 @@ describe("scoreLogarithm", () => {
             asymptote: 3,
         };
 
-        const score = scoreLogarithm(userInput, rubric);
+        const score = scoreLogarithm(userInput, correct);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -119,7 +119,7 @@ describe("scoreLogarithm", () => {
             ],
             asymptote: 0,
         };
-        const rubric: PerseusGraphTypeLogarithm = {
+        const correct: PerseusGraphTypeLogarithm = {
             type: "logarithm",
             coords: [
                 [5, 0],
@@ -128,7 +128,7 @@ describe("scoreLogarithm", () => {
             asymptote: 3,
         };
 
-        const score = scoreLogarithm(userInput, rubric);
+        const score = scoreLogarithm(userInput, correct);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });

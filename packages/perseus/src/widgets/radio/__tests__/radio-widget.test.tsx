@@ -15,10 +15,7 @@ import Radio from "../radio-widget";
 
 import type {WidgetProps} from "../../../types";
 import type {RadioChoiceWithMetadata, RadioProps} from "../radio-widget";
-import type {
-    PerseusRadioRubric,
-    PerseusRadioUserInput,
-} from "@khanacademy/perseus-core";
+import type {PerseusRadioUserInput} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 const baseOptions = generateRadioOptions({
@@ -64,10 +61,8 @@ const getBaseOptions = (overrides?: Partial<RadioProps>): RadioProps => ({
 });
 
 const getBaseProps = (
-    overrides?: Partial<
-        WidgetProps<RadioProps, PerseusRadioUserInput, PerseusRadioRubric>
-    >,
-): WidgetProps<RadioProps, PerseusRadioUserInput, PerseusRadioRubric> => ({
+    overrides?: Partial<WidgetProps<RadioProps, PerseusRadioUserInput>>,
+): WidgetProps<RadioProps, PerseusRadioUserInput> => ({
     options: getBaseOptions(),
     trackInteraction: jest.fn(),
     widgetId: "radio-1",

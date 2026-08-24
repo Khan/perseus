@@ -7,7 +7,7 @@ describe("scoreSinusoid", () => {
         const userInput: PerseusGraphTypeSinusoid = {
             type: "sinusoid",
         };
-        const rubric: PerseusGraphTypeSinusoid = {
+        const correct: PerseusGraphTypeSinusoid = {
             type: "sinusoid",
             coords: [
                 [0, 0],
@@ -15,12 +15,12 @@ describe("scoreSinusoid", () => {
             ],
         };
 
-        const score = scoreSinusoid(userInput, rubric);
+        const score = scoreSinusoid(userInput, correct);
 
         expect(score).toHaveInvalidInput();
     });
 
-    it("returns invalid score when missing rubric coords", () => {
+    it("returns invalid score when missing correct coords", () => {
         const userInput: PerseusGraphTypeSinusoid = {
             type: "sinusoid",
             coords: [
@@ -28,11 +28,11 @@ describe("scoreSinusoid", () => {
                 [1, 1],
             ],
         };
-        const rubric: PerseusGraphTypeSinusoid = {
+        const correct: PerseusGraphTypeSinusoid = {
             type: "sinusoid",
         };
 
-        const score = scoreSinusoid(userInput, rubric);
+        const score = scoreSinusoid(userInput, correct);
 
         expect(score).toHaveInvalidInput();
     });
@@ -45,7 +45,7 @@ describe("scoreSinusoid", () => {
                 [1, 1],
             ],
         };
-        const rubric: PerseusGraphTypeSinusoid = {
+        const correct: PerseusGraphTypeSinusoid = {
             type: "sinusoid",
             coords: [
                 [0, 0],
@@ -53,7 +53,7 @@ describe("scoreSinusoid", () => {
             ],
         };
 
-        const score = scoreSinusoid(userInput, rubric);
+        const score = scoreSinusoid(userInput, correct);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });
@@ -61,13 +61,13 @@ describe("scoreSinusoid", () => {
     it("returns incorrect score when sinusoid coefficients do not match", () => {
         const userInput: PerseusGraphTypeSinusoid = {
             type: "sinusoid",
-            // amplitude 2, different from rubric
+            // amplitude 2, different from correct
             coords: [
                 [0, 0],
                 [1, 2],
             ],
         };
-        const rubric: PerseusGraphTypeSinusoid = {
+        const correct: PerseusGraphTypeSinusoid = {
             type: "sinusoid",
             coords: [
                 [0, 0],
@@ -75,7 +75,7 @@ describe("scoreSinusoid", () => {
             ],
         };
 
-        const score = scoreSinusoid(userInput, rubric);
+        const score = scoreSinusoid(userInput, correct);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
@@ -90,7 +90,7 @@ describe("scoreSinusoid", () => {
                 [5, 1],
             ],
         };
-        const rubric: PerseusGraphTypeSinusoid = {
+        const correct: PerseusGraphTypeSinusoid = {
             type: "sinusoid",
             coords: [
                 [0, 0],
@@ -98,7 +98,7 @@ describe("scoreSinusoid", () => {
             ],
         };
 
-        const score = scoreSinusoid(userInput, rubric);
+        const score = scoreSinusoid(userInput, correct);
 
         expect(score).toHaveBeenAnsweredCorrectly();
     });

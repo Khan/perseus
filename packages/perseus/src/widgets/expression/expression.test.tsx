@@ -1,10 +1,10 @@
 import {it, describe, beforeEach} from "@jest/globals";
 import {
-    splitPerseusItem,
-    generateTestPerseusItem,
-    generateExpressionWidget,
     generateExpressionAnswerForm,
     generateExpressionOptions,
+    generateExpressionWidget,
+    generateTestPerseusItem,
+    splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
@@ -27,11 +27,7 @@ import {
     expressionItemWithLabels,
 } from "./expression.testdata";
 
-import type {
-    PerseusItem,
-    PerseusRenderer,
-    PerseusExpressionRubric,
-} from "@khanacademy/perseus-core";
+import type {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const renderAndAnswer = async (
@@ -352,23 +348,25 @@ describe("Expression Widget", function () {
         });
     });
 
-    describe("getOneCorrectAnswerFromRubric", () => {
+    describe("getOneCorrectAnswerFromWidgetOptions", () => {
         beforeEach(() => {
             jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
                 testDependencies,
             );
         });
 
-        it("should return undefined if rubric.value is null/undefined", () => {
+        it("should return undefined if widgetOptions.value is null/undefined", () => {
             // Arrange
-            const rubric: PerseusExpressionRubric = {
+            const widgetOptions = generateExpressionOptions({
                 answerForms: [],
                 functions: [],
-            };
+            });
 
             // Act
             const result =
-                ExpressionWidgetExport.getOneCorrectAnswerFromRubric?.(rubric);
+                ExpressionWidgetExport.getOneCorrectAnswerFromWidgetOptions?.(
+                    widgetOptions,
+                );
 
             // Assert
             expect(result).toBeUndefined();
@@ -376,7 +374,7 @@ describe("Expression Widget", function () {
 
         it("returns a correct answer when there is one correct answer", () => {
             // Arrange
-            const rubric: PerseusExpressionRubric = {
+            const widgetOptions = generateExpressionOptions({
                 answerForms: [
                     {
                         value: "123",
@@ -386,11 +384,13 @@ describe("Expression Widget", function () {
                     },
                 ],
                 functions: [],
-            };
+            });
 
             // Act
             const result =
-                ExpressionWidgetExport.getOneCorrectAnswerFromRubric?.(rubric);
+                ExpressionWidgetExport.getOneCorrectAnswerFromWidgetOptions?.(
+                    widgetOptions,
+                );
 
             // Assert
             expect(result).toEqual("123");
@@ -398,7 +398,7 @@ describe("Expression Widget", function () {
 
         it("returns the first correct answer when there are multiple correct answers", () => {
             // Arrange
-            const rubric: PerseusExpressionRubric = {
+            const widgetOptions = generateExpressionOptions({
                 answerForms: [
                     {
                         value: "123",
@@ -414,11 +414,13 @@ describe("Expression Widget", function () {
                     },
                 ],
                 functions: [],
-            };
+            });
 
             // Act
             const result =
-                ExpressionWidgetExport.getOneCorrectAnswerFromRubric?.(rubric);
+                ExpressionWidgetExport.getOneCorrectAnswerFromWidgetOptions?.(
+                    widgetOptions,
+                );
 
             // Assert
             expect(result).toEqual("123");

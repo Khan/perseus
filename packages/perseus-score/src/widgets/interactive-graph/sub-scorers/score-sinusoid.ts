@@ -11,14 +11,14 @@ import type {
 
 export function scoreSinusoid(
     userInput: PerseusGraphTypeSinusoid,
-    rubric: PerseusGraphTypeSinusoid,
+    correct: PerseusGraphTypeSinusoid,
 ): PerseusScore {
-    if (!userInput.coords || !rubric.coords) {
+    if (!userInput.coords || !correct.coords) {
         return {type: "invalid", message: null};
     }
 
     const guessCoeffs = getSinusoidCoefficients(userInput.coords);
-    const correctCoeffs = getSinusoidCoefficients(rubric.coords);
+    const correctCoeffs = getSinusoidCoefficients(correct.coords);
     const canonicalGuessCoeffs = canonicalSineCoefficients(guessCoeffs);
     const canonicalCorrectCoeffs = canonicalSineCoefficients(correctCoeffs);
     const isCorrect = approximateDeepEqual(

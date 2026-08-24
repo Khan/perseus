@@ -10,14 +10,14 @@ import type {
 
 export function scoreRay(
     userInput: PerseusGraphTypeRay,
-    rubric: PerseusGraphTypeRay,
+    correctGraph: PerseusGraphTypeRay,
 ): PerseusScore {
-    if (!userInput.coords || !rubric.coords) {
+    if (!userInput.coords || !correctGraph.coords) {
         return {type: "invalid", message: null};
     }
 
     const guess = userInput.coords;
-    const correct = rubric.coords;
+    const correct = correctGraph.coords;
 
     const isCorrect =
         approximateDeepEqual(guess[0], correct[0]) &&

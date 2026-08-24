@@ -1,21 +1,20 @@
+import {generateBlankOptions} from "@khanacademy/perseus-core";
+
 import scoreBlank from "./score-blank";
 
-import type {
-    PerseusBlankRubric,
-    PerseusBlankUserInput,
-} from "@khanacademy/perseus-core";
+import type {PerseusBlankUserInput} from "@khanacademy/perseus-core";
 
 describe("scoreBlank", () => {
     it("returns a score of 'invalid' when the user input is undefined", () => {
         // Arrange
-        const rubric: PerseusBlankRubric = {
+        const widgetOptions = generateBlankOptions({
             correctId: "answer-tile-1",
-        };
+        });
 
         const userInput = undefined;
 
         // Act
-        const score = scoreBlank(userInput, rubric);
+        const score = scoreBlank(userInput, widgetOptions);
 
         // Assert
         expect(score).toHaveInvalidInput();
@@ -23,16 +22,16 @@ describe("scoreBlank", () => {
 
     it("gives points when the selected tile matches the correct answer", () => {
         // Arrange
-        const rubric: PerseusBlankRubric = {
+        const widgetOptions = generateBlankOptions({
             correctId: "answer-tile-1",
-        };
+        });
 
         const userInput: PerseusBlankUserInput = {
             selected: "answer-tile-1",
         };
 
         // Act
-        const score = scoreBlank(userInput, rubric);
+        const score = scoreBlank(userInput, widgetOptions);
 
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly();
@@ -40,16 +39,16 @@ describe("scoreBlank", () => {
 
     it("does not give points when the selected tile does not match the correct answer", () => {
         // Arrange
-        const rubric: PerseusBlankRubric = {
+        const widgetOptions = generateBlankOptions({
             correctId: "answer-tile-1",
-        };
+        });
 
         const userInput: PerseusBlankUserInput = {
             selected: "answer-tile-2",
         };
 
         // Act
-        const score = scoreBlank(userInput, rubric);
+        const score = scoreBlank(userInput, widgetOptions);
 
         // Assert
         expect(score).toHaveBeenAnsweredIncorrectly();
@@ -57,16 +56,16 @@ describe("scoreBlank", () => {
 
     it("returns a score of 'invalid' when no tile has been selected", () => {
         // Arrange
-        const rubric: PerseusBlankRubric = {
+        const widgetOptions = generateBlankOptions({
             correctId: "answer-tile-1",
-        };
+        });
 
         const userInput: PerseusBlankUserInput = {
             selected: null,
         };
 
         // Act
-        const score = scoreBlank(userInput, rubric);
+        const score = scoreBlank(userInput, widgetOptions);
 
         // Assert
         expect(score).toHaveInvalidInput();

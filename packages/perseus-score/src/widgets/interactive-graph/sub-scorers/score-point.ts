@@ -7,18 +7,18 @@ import type {
 
 export function scorePoint(
     userInput: PerseusGraphTypePoint,
-    rubric: PerseusGraphTypePoint,
+    correctGraph: PerseusGraphTypePoint,
 ): PerseusScore {
     if (!userInput.coords) {
         return {type: "invalid", message: null};
     }
 
-    if (rubric.coords == null) {
-        throw new Error("Point graph rubric has null coords");
+    if (correctGraph.coords == null) {
+        throw new Error("Point graph correct has null coords");
     }
 
     const guess = userInput.coords.slice();
-    const correct = rubric.coords.slice();
+    const correct = correctGraph.coords.slice();
     // Everything's already rounded so we shouldn't need to do an
     // eq() comparison but _.isEqual(0, -0) is false, so we'll use
     // eq() anyway. The sort should be fine because it'll stringify

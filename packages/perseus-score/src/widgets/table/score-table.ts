@@ -4,14 +4,14 @@ import {filterNonEmpty} from "./utils";
 import validateTable from "./validate-table";
 
 import type {
-    PerseusTableRubric,
+    PerseusTableWidgetOptions,
     PerseusScore,
     PerseusTableUserInput,
 } from "@khanacademy/perseus-core";
 
 function scoreTable(
     userInput: PerseusTableUserInput,
-    rubric: PerseusTableRubric,
+    widgetOptions: PerseusTableWidgetOptions,
 ): PerseusScore {
     const validationResult = validateTable(userInput);
     if (validationResult != null) {
@@ -19,7 +19,7 @@ function scoreTable(
     }
 
     const supplied = filterNonEmpty(userInput);
-    const solution = filterNonEmpty(rubric.answers);
+    const solution = filterNonEmpty(widgetOptions.answers);
     if (supplied.length !== solution.length) {
         return {
             type: "points",

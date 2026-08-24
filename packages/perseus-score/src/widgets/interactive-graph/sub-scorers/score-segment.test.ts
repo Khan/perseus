@@ -5,7 +5,7 @@ import type {PerseusGraphTypeSegment} from "@khanacademy/perseus-core";
 describe("scoreSegment", () => {
     it("returns invalid when user input has no coords", () => {
         const userInput: PerseusGraphTypeSegment = {type: "segment"};
-        const rubric: PerseusGraphTypeSegment = {
+        const correct: PerseusGraphTypeSegment = {
             type: "segment",
             coords: [
                 [
@@ -15,10 +15,10 @@ describe("scoreSegment", () => {
             ],
         };
 
-        expect(scoreSegment(userInput, rubric)).toHaveInvalidInput();
+        expect(scoreSegment(userInput, correct)).toHaveInvalidInput();
     });
 
-    it("returns invalid when rubric has no coords", () => {
+    it("returns invalid when correct has no coords", () => {
         const userInput: PerseusGraphTypeSegment = {
             type: "segment",
             coords: [
@@ -28,9 +28,9 @@ describe("scoreSegment", () => {
                 ],
             ],
         };
-        const rubric: PerseusGraphTypeSegment = {type: "segment"};
+        const correct: PerseusGraphTypeSegment = {type: "segment"};
 
-        expect(scoreSegment(userInput, rubric)).toHaveInvalidInput();
+        expect(scoreSegment(userInput, correct)).toHaveInvalidInput();
     });
 
     it("returns correct when segment endpoints are in reversed order", () => {
@@ -44,7 +44,7 @@ describe("scoreSegment", () => {
                 ],
             ],
         };
-        const rubric: PerseusGraphTypeSegment = {
+        const correct: PerseusGraphTypeSegment = {
             type: "segment",
             coords: [
                 [
@@ -54,11 +54,11 @@ describe("scoreSegment", () => {
             ],
         };
 
-        expect(scoreSegment(userInput, rubric)).toHaveBeenAnsweredCorrectly();
+        expect(scoreSegment(userInput, correct)).toHaveBeenAnsweredCorrectly();
     });
 
     it("returns correct when multiple segments are in a different order", () => {
-        // Two segments given in opposite order from the rubric.
+        // Two segments given in opposite order from the correct.
         const userInput: PerseusGraphTypeSegment = {
             type: "segment",
             coords: [
@@ -72,7 +72,7 @@ describe("scoreSegment", () => {
                 ],
             ],
         };
-        const rubric: PerseusGraphTypeSegment = {
+        const correct: PerseusGraphTypeSegment = {
             type: "segment",
             coords: [
                 [
@@ -86,10 +86,10 @@ describe("scoreSegment", () => {
             ],
         };
 
-        expect(scoreSegment(userInput, rubric)).toHaveBeenAnsweredCorrectly();
+        expect(scoreSegment(userInput, correct)).toHaveBeenAnsweredCorrectly();
     });
 
-    it("returns incorrect when segment does not match rubric", () => {
+    it("returns incorrect when segment does not match correct", () => {
         const userInput: PerseusGraphTypeSegment = {
             type: "segment",
             coords: [
@@ -99,7 +99,7 @@ describe("scoreSegment", () => {
                 ],
             ],
         };
-        const rubric: PerseusGraphTypeSegment = {
+        const correct: PerseusGraphTypeSegment = {
             type: "segment",
             coords: [
                 [
@@ -109,6 +109,8 @@ describe("scoreSegment", () => {
             ],
         };
 
-        expect(scoreSegment(userInput, rubric)).toHaveBeenAnsweredIncorrectly();
+        expect(
+            scoreSegment(userInput, correct),
+        ).toHaveBeenAnsweredIncorrectly();
     });
 });

@@ -19,7 +19,7 @@ import stylesLegacy from "./numeric-input_legacy-styles";
 import {
     generateExamples,
     getCorrectUserInput,
-    getOneCorrectAnswerFromRubric,
+    getOneCorrectAnswerFromWidgetOptions,
     getStartUserInput,
     getUserInputFromSerializedState,
     normalizeCorrectAnswerForms,
@@ -199,7 +199,7 @@ export default {
     widget: NumericInput,
     isLintable: true,
     getCorrectUserInput,
-    getOneCorrectAnswerFromRubric,
+    getOneCorrectAnswerFromWidgetOptions,
     getStartUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof NumericInput>;

@@ -1,16 +1,19 @@
 import {approximateDeepEqual} from "@khanacademy/perseus-core";
 
 import type {
-    PerseusSorterRubric,
+    PerseusSorterWidgetOptions,
     PerseusSorterUserInput,
     PerseusScore,
 } from "@khanacademy/perseus-core";
 
 function scoreSorter(
     userInput: PerseusSorterUserInput,
-    rubric: PerseusSorterRubric,
+    widgetOptions: PerseusSorterWidgetOptions,
 ): PerseusScore {
-    const correct = approximateDeepEqual(userInput.options, rubric.correct);
+    const correct = approximateDeepEqual(
+        userInput.options,
+        widgetOptions.correct,
+    );
     return {
         type: "points",
         earned: correct ? 1 : 0,

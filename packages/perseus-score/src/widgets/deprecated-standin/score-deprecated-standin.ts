@@ -9,7 +9,7 @@ import type {PerseusScore} from "@khanacademy/perseus-core";
  */
 function scoreDeprecatedStandin(
     userInput: any,
-    rubric: any,
+    widgetOptions: any,
     locale: string,
 ): PerseusScore {
     return {

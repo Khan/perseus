@@ -6,9 +6,9 @@ import deepClone from "./deep-clone";
 import type {PerseusRenderer} from "../data-schema";
 
 /**
- * Return a copy of a PerseusRenderer with rubric data removed (ie answers)
+ * Return a copy of a PerseusRenderer with answer data removed
  *
- * @param original - the original, full PerseusRenderer (which includes the rubric - aka answer data)
+ * @param original - the original, full PerseusRenderer (which includes the answer data)
  */
 export default function splitPerseusRenderer(
     original: PerseusRenderer,

@@ -1,18 +1,17 @@
+import {generateDropdownOptions} from "@khanacademy/perseus-core";
+
 import scoreDropdown from "./score-dropdown";
 
-import type {
-    PerseusDropdownRubric,
-    PerseusDropdownUserInput,
-} from "@khanacademy/perseus-core";
+import type {PerseusDropdownUserInput} from "@khanacademy/perseus-core";
 
 describe("scoreDropdown", () => {
     it("returns a score of 'invalid' when the user input is undefined", () => {
         // Arrange
         const userInput = undefined;
-        const rubric: PerseusDropdownRubric = {choices: []};
+        const widgetOptions = generateDropdownOptions({choices: []});
 
         // Act
-        const score = scoreDropdown(userInput, rubric);
+        const score = scoreDropdown(userInput, widgetOptions);
 
         expect(score).toHaveInvalidInput();
     });
@@ -22,7 +21,7 @@ describe("scoreDropdown", () => {
         const userInput: PerseusDropdownUserInput = {
             value: 1,
         };
-        const rubric: PerseusDropdownRubric = {
+        const widgetOptions = generateDropdownOptions({
             choices: [
                 {
                     content: "greater than or equal to",
@@ -33,10 +32,10 @@ describe("scoreDropdown", () => {
                     correct: true,
                 },
             ],
-        };
+        });
 
         // Act
-        const score = scoreDropdown(userInput, rubric);
+        const score = scoreDropdown(userInput, widgetOptions);
 
         // Assert
         expect(score).toHaveBeenAnsweredIncorrectly();
@@ -47,7 +46,7 @@ describe("scoreDropdown", () => {
         const userInput: PerseusDropdownUserInput = {
             value: 2,
         };
-        const rubric: PerseusDropdownRubric = {
+        const widgetOptions = generateDropdownOptions({
             choices: [
                 {
                     content: "greater than or equal to",
@@ -58,10 +57,10 @@ describe("scoreDropdown", () => {
                     correct: true,
                 },
             ],
-        };
+        });
 
         // Act
-        const score = scoreDropdown(userInput, rubric);
+        const score = scoreDropdown(userInput, widgetOptions);
 
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly();
