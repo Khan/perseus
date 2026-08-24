@@ -4964,7 +4964,7 @@ table: [[☃ table 1]]
                               width="50"
                             >
                               <path
-                                d="M8 25C14.2 11 18.8 11 25 25C31.2 39 35.8 39 42 25"
+                                d="M8 25C11.1 13 13.4 13 16.5 25C19.6 37 21.9 37 25 25C28.1 13 30.4 13 33.5 25C36.6 37 38.9 37 42 25"
                                 fill="none"
                                 stroke="var(--wb-semanticColor-core-foreground-instructive-default)"
                                 stroke-linecap="round"
@@ -4988,7 +4988,7 @@ table: [[☃ table 1]]
                               width="50"
                             >
                               <path
-                                d="M13.7 38.9L15.6 35.3L17.4 32.5L19.3 30.3L21.2 28.4L23.1 26.7L25 25L26.9 23.3L28.8 21.6L30.7 19.7L32.6 17.5L34.4 14.7L36.3 11.1"
+                                d="M8 42L8.2 38.6L8.5 35.2L9.1 31.8L10.4 28.4L13.7 25L16.9 21.6L18.3 18.2L18.8 14.8L19.1 11.4L19.3 8M19.3 42L19.5 38.6L19.8 35.2L20.4 31.8L21.7 28.4L25 25L28.3 21.6L29.6 18.2L30.2 14.8L30.5 11.4L30.7 8M30.7 42L30.9 38.6L31.2 35.2L31.7 31.8L33.1 28.4L36.3 25L39.6 21.6L40.9 18.2L41.5 14.8L41.8 11.4L42 8"
                                 fill="none"
                                 stroke="var(--wb-semanticColor-core-foreground-instructive-default)"
                                 stroke-linecap="round"
