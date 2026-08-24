@@ -54,6 +54,9 @@ import type {
 } from "./data-schema";
 import type {ErrorCode} from "./error-codes";
 import type {Relationship} from "./types";
+import type {CategorizerPublicWidgetOptions} from "./widgets/categorizer/categorizer-util";
+import type {GroupPublicWidgetOptions} from "./widgets/group/group-util";
+import type {PlotterPublicWidgetOptions} from "./widgets/plotter/plotter-util";
 
 /**
  * The signature of a widget's client-side validation function. This function
@@ -415,9 +418,9 @@ export type UserInputMap = MakeWidgetMap<UserInputRegistry>;
  * validation data types.
  */
 export interface ValidationDataTypes {
-    categorizer: PerseusCategorizerWidgetOptions;
-    group: PerseusGroupWidgetOptions;
-    plotter: PerseusPlotterWidgetOptions;
+    categorizer: CategorizerPublicWidgetOptions;
+    group: GroupPublicWidgetOptions;
+    plotter: PlotterPublicWidgetOptions;
 }
 
 /**

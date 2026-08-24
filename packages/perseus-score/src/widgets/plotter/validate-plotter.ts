@@ -2,7 +2,7 @@ import {approximateDeepEqual} from "@khanacademy/perseus-core";
 
 import type {
     PerseusPlotterUserInput,
-    PerseusPlotterWidgetOptions,
+    PlotterPublicWidgetOptions,
     ValidationResult,
 } from "@khanacademy/perseus-core";
 
@@ -16,7 +16,7 @@ function validatePlotter(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: PerseusPlotterUserInput | undefined,
-    validationData: PerseusPlotterWidgetOptions,
+    validationData: PlotterPublicWidgetOptions,
 ): ValidationResult {
     if (
         userInput == null ||

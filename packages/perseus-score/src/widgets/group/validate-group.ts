@@ -4,13 +4,13 @@ import {emptyWidgetsFunctional} from "../../validate";
 
 import type {
     PerseusGroupUserInput,
-    PerseusGroupWidgetOptions,
+    GroupPublicWidgetOptions,
     ValidationResult,
 } from "@khanacademy/perseus-core";
 
 function validateGroup(
     userInput: PerseusGroupUserInput | undefined,
-    validationData: PerseusGroupWidgetOptions,
+    validationData: GroupPublicWidgetOptions,
     locale: string,
 ): ValidationResult {
     if (userInput == null) {

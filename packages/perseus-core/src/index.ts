@@ -202,6 +202,8 @@ export type {GrapherPublicWidgetOptions} from "./widgets/grapher/grapher-util";
 /** @hidden */
 export {getGroupPublicWidgetOptions} from "./widgets/group/group-util";
 /** @hidden */
+export type {GroupPublicWidgetOptions} from "./widgets/group/group-util";
+/** @hidden */
 export {
     getInteractiveGraphPublicWidgetOptions,
     type InteractiveGraphPublicWidgetOptions,
