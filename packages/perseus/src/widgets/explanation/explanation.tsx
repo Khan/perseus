@@ -1,9 +1,9 @@
 import Button from "@khanacademy/wonder-blocks-button";
-import {Id, useOnMountEffect, View} from "@khanacademy/wonder-blocks-core";
+import {useOnMountEffect, View} from "@khanacademy/wonder-blocks-core";
 import caretDown from "@phosphor-icons/core/regular/caret-down.svg";
 import caretUp from "@phosphor-icons/core/regular/caret-up.svg";
 import * as React from "react";
-import {forwardRef, useImperativeHandle, useState} from "react";
+import {forwardRef, useId, useImperativeHandle, useState} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 import {useDependencies} from "../../dependencies";
@@ -38,6 +38,7 @@ const Explanation = forwardRef<Widget, Props>(function Explanation(props, ref) {
     const {strings} = usePerseusI18n();
     const dependencies = useDependencies();
     const [expanded, setExpanded] = useState(false);
+    const contentId = useId();
 
     const {hidePrompt, showPrompt, explanation, widgets} = props.options;
 
@@ -80,60 +81,54 @@ const Explanation = forwardRef<Widget, Props>(function Explanation(props, ref) {
     ];
 
     return (
-        <Id>
-            {(contentId) => (
-                <>
-                    <Button
-                        aria-expanded={expanded}
-                        aria-controls={contentId}
-                        endIcon={expanded ? caretUp : caretDown}
-                        kind="tertiary"
-                        labelStyle={stylesLegacy.labelStyle}
-                        onClick={onClick}
-                        size="small"
-                        style={stylesLegacy.buttonStyleOverrides}
-                    >
-                        {expanded ? hidePrompt : showPrompt}
-                    </Button>
+        <>
+            <Button
+                aria-expanded={expanded}
+                aria-controls={contentId}
+                endIcon={expanded ? caretUp : caretDown}
+                kind="tertiary"
+                labelStyle={stylesLegacy.labelStyle}
+                onClick={onClick}
+                size="small"
+                style={stylesLegacy.buttonStyleOverrides}
+            >
+                {expanded ? hidePrompt : showPrompt}
+            </Button>
 
-                    <View
-                        id={contentId}
-                        style={legacyContentStyling}
-                        className={contentClasses.join(" ")}
-                        aria-hidden={!expanded}
-                        testId="content-container"
-                    >
-                        <View
-                            className={styles.contentWrapper}
-                            style={stylesLegacy.contentWrapper}
-                        >
-                            <UserInputManager widgets={widgets} problemNum={0}>
-                                {({
-                                    userInput,
-                                    handleUserInput,
-                                    initializeUserInput,
-                                }) => {
-                                    return (
-                                        <Renderer
-                                            apiOptions={props.apiOptions}
-                                            content={explanation}
-                                            widgets={widgets}
-                                            linterContext={props.linterContext}
-                                            strings={strings}
-                                            userInput={userInput}
-                                            handleUserInput={handleUserInput}
-                                            initializeUserInput={
-                                                initializeUserInput
-                                            }
-                                        />
-                                    );
-                                }}
-                            </UserInputManager>
-                        </View>
-                    </View>
-                </>
-            )}
-        </Id>
+            <View
+                id={contentId}
+                style={legacyContentStyling}
+                className={contentClasses.join(" ")}
+                aria-hidden={!expanded}
+                testId="content-container"
+            >
+                <View
+                    className={styles.contentWrapper}
+                    style={stylesLegacy.contentWrapper}
+                >
+                    <UserInputManager widgets={widgets} problemNum={0}>
+                        {({
+                            userInput,
+                            handleUserInput,
+                            initializeUserInput,
+                        }) => {
+                            return (
+                                <Renderer
+                                    apiOptions={props.apiOptions}
+                                    content={explanation}
+                                    widgets={widgets}
+                                    linterContext={props.linterContext}
+                                    strings={strings}
+                                    userInput={userInput}
+                                    handleUserInput={handleUserInput}
+                                    initializeUserInput={initializeUserInput}
+                                />
+                            );
+                        }}
+                    </UserInputManager>
+                </View>
+            </View>
+        </>
     );
 });
 
