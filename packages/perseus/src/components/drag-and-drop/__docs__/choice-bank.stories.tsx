@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import {AnswerTile} from "../answer-tile";
 import {generateAnswerTileProps} from "../answer-tile/answer-tile.testdata";
 import {ChoiceBank} from "../choice-bank";
+import {PerseusDndProvider} from "../perseus-dnd-provider";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -32,22 +32,28 @@ const SAMPLE_TILES = [
     "The mitochondria is the powerhouse of the cell",
 ];
 
-function sampleTiles() {
-    return SAMPLE_TILES.map((value, index) => (
-        <AnswerTile
-            key={value}
-            {...generateAnswerTileProps({
-                tileId: `tile-${index}`,
-                content: value,
-                label: value,
-            })}
-        />
-    ));
-}
+const sampleTiles = SAMPLE_TILES.map((value, index) =>
+    generateAnswerTileProps({
+        tileId: `tile-${index}`,
+        content: value,
+        label: value,
+    }),
+);
+
+const manyTiles = Array.from({length: 24}, (_, i) =>
+    generateAnswerTileProps({
+        tileId: `tile-${i}`,
+        content: `Tile ${i + 1}`,
+        label: `Tile ${i + 1}`,
+    }),
+);
 
 /** The default bank: a handful of tiles of varying widths. */
 export const Default: Story = {
-    render: () => <ChoiceBank label="Choices">{sampleTiles()}</ChoiceBank>,
+    args: {
+        label: "Choices",
+        answerTiles: sampleTiles,
+    },
 };
 
 /** Drag the bottom-right resize handle to watch the tiles wrap. */
@@ -63,39 +69,32 @@ export const Reflow: Story = {
                 border: "1px dashed #ccc",
             }}
         >
-            <ChoiceBank label="Choices">{sampleTiles()}</ChoiceBank>
+            <ChoiceBank label="Choices" answerTiles={sampleTiles} />
         </div>
     ),
 };
 
 /** Many tiles, to stress the wrapping across several rows. */
 export const ManyTiles: Story = {
-    render: () => (
-        <ChoiceBank label="Choices">
-            {Array.from({length: 24}, (_, i) => (
-                <AnswerTile
-                    key={i}
-                    {...generateAnswerTileProps({
-                        tileId: `tile-${i}`,
-                        content: `Tile ${i + 1}`,
-                        label: `Tile ${i + 1}`,
-                    })}
-                />
-            ))}
-        </ChoiceBank>
-    ),
+    args: {
+        label: "Choices",
+        answerTiles: manyTiles,
+    },
 };
 
 /** An empty bank still reads as a card. */
 export const Empty: Story = {
-    render: () => <ChoiceBank label="Choices">{[]}</ChoiceBank>,
+    args: {
+        label: "Choices",
+        answerTiles: [],
+    },
 };
 
 /** Right-to-left: the row direction reverses automatically. */
 export const RightToLeft: Story = {
     render: () => (
         <div dir="rtl">
-            <ChoiceBank label="الخيارات">{sampleTiles()}</ChoiceBank>
+            <ChoiceBank label="الخيارات" answerTiles={sampleTiles} />
         </div>
     ),
 };

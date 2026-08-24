@@ -1,3 +1,4 @@
+import {useDraggable} from "@dnd-kit/react";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import checkIcon from "@phosphor-icons/core/regular/check.svg";
 import xIcon from "@phosphor-icons/core/regular/x.svg";
@@ -87,8 +88,13 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
         onClear,
         remainingUses,
         menuRef,
+        tileId,
     } = props;
     const {strings} = usePerseusI18n();
+
+    const {ref: dragRef} = useDraggable({
+        id: tileId,
+    });
 
     // Whitespace-only content would render an invisible, unlabeled tile.
     // This protection might not be needed, depending on how we implement
@@ -98,12 +104,13 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
     // The tile starts with the actions menu or, when scored, an icon.
     // The two never show together: a scored tile has no menu.
     return (
-        <div
+        <li
             className={classNames(
                 styles.tile,
                 showCorrectness != null && styles[showCorrectness],
                 disabled && styles.disabled,
             )}
+            ref={dragRef}
         >
             {!disabled && (
                 <span className={styles.startContainer}>
@@ -140,7 +147,7 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
                     <Renderer content={content} strings={strings} />
                 )}
             </div>
-        </div>
+        </li>
     );
 }
 
