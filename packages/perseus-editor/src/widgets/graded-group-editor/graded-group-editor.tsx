@@ -14,20 +14,20 @@ import styles from "./graded-group-editor.module.css";
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
-    GradedGroupDefaultWidgetOptions,
+    PerseusGradedGroupWidgetOptions,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
 const {TextInput} = components;
 
-interface Props extends GradedGroupDefaultWidgetOptions, ChangeableProps {
+interface Props extends PerseusGradedGroupWidgetOptions, ChangeableProps {
     apiOptions?: APIOptionsWithDefaults;
 }
 
 class GradedGroupEditor extends React.Component<Props> {
     static widgetName = "graded-group" as const;
 
-    static defaultProps: GradedGroupDefaultWidgetOptions =
+    static defaultProps: PerseusGradedGroupWidgetOptions =
         gradedGroupLogic.defaultWidgetOptions;
 
     editor = React.createRef<Editor>();

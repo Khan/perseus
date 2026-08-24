@@ -10,7 +10,7 @@ import {deprecatedChangeableChange} from "../../mixins/changeable";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {ChangeableProps} from "../../mixins/changeable";
-import type {MeasurerDefaultWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusMeasurerWidgetOptions} from "@khanacademy/perseus-core";
 
 const {NumberInput, RangeInput} = components;
 
@@ -20,12 +20,12 @@ const defaultImage = {
     left: 0,
 } as const;
 
-interface Props extends MeasurerDefaultWidgetOptions, ChangeableProps {}
+interface Props extends PerseusMeasurerWidgetOptions, ChangeableProps {}
 
 class MeasurerEditor extends React.Component<Props> {
     static widgetName = "measurer" as const;
 
-    static defaultProps: MeasurerDefaultWidgetOptions =
+    static defaultProps: PerseusMeasurerWidgetOptions =
         measurerLogic.defaultWidgetOptions;
 
     className = "perseus-widget-measurer";

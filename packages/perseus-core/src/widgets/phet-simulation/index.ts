@@ -1,12 +1,7 @@
 import type {PerseusPhetSimulationWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
-export type PhetSimulationDefaultWidgetOptions = Pick<
-    PerseusPhetSimulationWidgetOptions,
-    "url" | "description"
->;
-
-const defaultWidgetOptions: PhetSimulationDefaultWidgetOptions = {
+const defaultWidgetOptions: PerseusPhetSimulationWidgetOptions = {
     url: "",
     description: "",
 };

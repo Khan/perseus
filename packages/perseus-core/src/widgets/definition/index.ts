@@ -1,12 +1,7 @@
 import type {PerseusDefinitionWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
-export type DefinitionDefaultWidgetOptions = Pick<
-    PerseusDefinitionWidgetOptions,
-    "togglePrompt" | "definition"
->;
-
-const defaultWidgetOptions: DefinitionDefaultWidgetOptions = {
+const defaultWidgetOptions: PerseusDefinitionWidgetOptions = {
     togglePrompt: "",
     definition: "",
 };

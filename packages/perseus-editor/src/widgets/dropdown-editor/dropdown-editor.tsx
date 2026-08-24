@@ -1,6 +1,6 @@
 import {
     dropdownLogic,
-    type DropdownDefaultWidgetOptions,
+    type PerseusDropdownWidgetOptions,
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {TextField} from "@khanacademy/wonder-blocks-form";
@@ -36,7 +36,7 @@ class DropdownEditor extends React.Component<Props> {
 
     static widgetName = "dropdown" as const;
 
-    static defaultProps: DropdownDefaultWidgetOptions =
+    static defaultProps: PerseusDropdownWidgetOptions =
         dropdownLogic.defaultWidgetOptions;
 
     onVisibleLabelChange: (arg1: string) => void = (visibleLabel) => {

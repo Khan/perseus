@@ -14,7 +14,7 @@ import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {ChangeableProps, ChangeFn} from "../../mixins/changeable";
 import type {
-    CSProgramDefaultWidgetOptions,
+    PerseusCSProgramWidgetOptions,
     PerseusCSProgramSetting,
 } from "@khanacademy/perseus-core";
 
@@ -123,7 +123,7 @@ function isolateProgramID(programUrl: string) {
 }
 
 interface CSProgramEditorProps
-    extends CSProgramDefaultWidgetOptions,
+    extends PerseusCSProgramWidgetOptions,
         ChangeableProps {}
 
 /**
