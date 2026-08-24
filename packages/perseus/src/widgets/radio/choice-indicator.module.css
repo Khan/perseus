@@ -28,7 +28,7 @@
 
 /* Focus/Hover outline */
 .base:before {
-    --perseus-multiple-choice-focus-size: calc(var(--perseus-multiple-choice-indicator-size) + (0 * var(--wb-border-width-medium)));
+    --perseus-multiple-choice-focus-size: var(--perseus-multiple-choice-indicator-size);
     --perseus-multiple-choice-focus-offset: calc(0px - ( 2 * var(--wb-border-width-medium)));
     border: var(--wb-border-width-medium) solid transparent;
     content: "";
