@@ -30,17 +30,55 @@ type QuestionMarkersProps = {
     editingDisabled: boolean;
 };
 
-class QuestionMarkers extends React.Component<QuestionMarkersProps> {
-    private _markers: Array<Marker | null | undefined> = [];
+type QuestionMarkersState = {
+    // Identifies the marker whose answer choices dropdown is open, by the same
+    // coordinate key used for its React key, or null when none is open. Holding
+    // a single value here (rather than a flag on each Marker) is what keeps at
+    // most one dropdown open at a time. A key that no longer matches any marker
+    // — because that marker was deleted — simply leaves them all closed.
+    openMarkerKey: string | null;
+};
+
+const markerKey = (
+    marker: PerseusLabelImageWidgetOptions["markers"][number],
+): string => `${marker.x}.${marker.y}`;
+
+class QuestionMarkers extends React.Component<
+    QuestionMarkersProps,
+    QuestionMarkersState
+> {
+    state: QuestionMarkersState = {openMarkerKey: null};
 
     openDropdownForMarkerIndices(indices: ReadonlyArray<number>) {
-        // Open answer selection dropdown for each of the specified markers.
-        indices.forEach((index) => {
-            if (this._markers[index]) {
-                this._markers[index]?.openDropdown();
-            }
-        });
+        // Only one dropdown can be open at a time, so of the newly added
+        // markers we reveal the first. In practice markers are added one at a
+        // time, so this is only ever ambiguous when the whole marker list is
+        // replaced at once.
+        // Indexing is typed as always succeeding, so widen it to tell the
+        // truth about a caller passing an index we don't have a marker for.
+        const marker:
+            | PerseusLabelImageWidgetOptions["markers"][number]
+            | undefined = this.props.markers[indices[0]];
+
+        if (marker !== undefined) {
+            this.setState({openMarkerKey: markerKey(marker)});
+        }
     }
+
+    handleMarkerOpenedChange: (key: string, opened: boolean) => void = (
+        key,
+        opened,
+    ) => {
+        this.setState(({openMarkerKey}) => {
+            if (opened) {
+                return {openMarkerKey: key};
+            }
+
+            // Ignore a close from a marker that is no longer the open one, so
+            // that a stale close can't shut the dropdown that just opened.
+            return openMarkerKey === key ? {openMarkerKey: null} : null;
+        });
+    };
 
     handleImageDoubleClick: (e: React.MouseEvent) => void = (
         e: React.MouseEvent,
@@ -120,29 +158,39 @@ class QuestionMarkers extends React.Component<QuestionMarkersProps> {
                             onDoubleClick={this.handleImageDoubleClick}
                         />
 
-                        {markers.map((marker, index) => (
-                            <Marker
-                                {...marker}
-                                choices={choices}
-                                key={`${marker.x}.${marker.y}`}
-                                // Update marker in the list.
-                                onChange={(marker) =>
-                                    onChange([
-                                        ...markers.slice(0, index),
-                                        marker,
-                                        ...markers.slice(index + 1),
-                                    ])
-                                }
-                                // Remove marker from the list.
-                                onRemove={() =>
-                                    onChange([
-                                        ...markers.slice(0, index),
-                                        ...markers.slice(index + 1),
-                                    ])
-                                }
-                                ref={(node) => (this._markers[index] = node)}
-                            />
-                        ))}
+                        {markers.map((marker, index) => {
+                            const key = markerKey(marker);
+
+                            return (
+                                <Marker
+                                    {...marker}
+                                    choices={choices}
+                                    key={key}
+                                    opened={this.state.openMarkerKey === key}
+                                    onOpenedChange={(opened) =>
+                                        this.handleMarkerOpenedChange(
+                                            key,
+                                            opened,
+                                        )
+                                    }
+                                    // Update marker in the list.
+                                    onChange={(marker) =>
+                                        onChange([
+                                            ...markers.slice(0, index),
+                                            marker,
+                                            ...markers.slice(index + 1),
+                                        ])
+                                    }
+                                    // Remove marker from the list.
+                                    onRemove={() =>
+                                        onChange([
+                                            ...markers.slice(0, index),
+                                            ...markers.slice(index + 1),
+                                        ])
+                                    }
+                                />
+                            );
+                        })}
                     </div>
                 )}
             </div>
