@@ -28,6 +28,5 @@ export const parseLabelImageWidget = parseWidget(
         ),
         hideChoicesFromInstructions: boolean,
         multipleAnswers: boolean,
-        static: defaulted(boolean, () => false),
     }),
 );

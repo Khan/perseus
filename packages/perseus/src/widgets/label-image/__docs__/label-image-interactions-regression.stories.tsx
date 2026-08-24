@@ -27,7 +27,6 @@ type Story = StoryObj<typeof meta>;
  ***********************************************************************/
 
 const barGraphArgs: PerseusLabelImageWidgetOptions = {
-    static: false,
     imageUrl:
         "web+graphie://ka-perseus-graphie.s3.amazonaws.com/56c60c72e96cd353e4a8b5434506cd3a21e717af",
     imageWidth: 415,

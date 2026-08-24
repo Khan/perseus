@@ -1472,7 +1472,6 @@ describe("isDifferentQuestion", () => {
                 "dropdown 1": {
                     type: "dropdown",
                     options: {
-                        static: false,
                         placeholder: "greater/less than or equal to",
                         choices: [
                             {
@@ -1558,7 +1557,6 @@ describe("isDifferentQuestion", () => {
                 "dropdown 1": {
                     type: "dropdown",
                     options: {
-                        static: false,
                         placeholder: "greater/less than or equal to",
                         choices: [
                             {
@@ -1581,7 +1579,6 @@ describe("isDifferentQuestion", () => {
                 "dropdown 1": {
                     type: "dropdown",
                     options: {
-                        static: false,
                         placeholder: "greater/less than or equal to",
                         choices: [
                             {
