@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
         },
 
         ":hover": {
-            backgroundColor: semanticColor.core.background.neutral.subtle,
+            backgroundColor: semanticColor.core.background.instructive.subtle,
         },
 
         ":focus": {
@@ -144,6 +144,7 @@ const styles = StyleSheet.create({
 
     selectedStyle: {
         backgroundColor: semanticColor.core.background.instructive.subtle,
+        borderBlockEnd: `${border.width.thick} solid ${semanticColor.core.border.instructive.default}`,
     },
 
     disabledStyle: {
