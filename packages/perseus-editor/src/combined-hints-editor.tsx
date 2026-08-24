@@ -399,7 +399,7 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
         });
 
         return (
-            <div className="perseus-hints-editor perseus-editor-table">
+            <>
                 {hintElems}
                 <div className="perseus-editor-row">
                     <Button
@@ -411,7 +411,7 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
                         Add a hint
                     </Button>
                 </div>
-            </div>
+            </>
         );
     }
 }
