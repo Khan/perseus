@@ -62,28 +62,7 @@ describe("scoreLabelImage", function () {
     it("should grade as invalid for undefined user input", function () {
         const userInput = undefined;
 
-        const rubric = generateLabelImageOptions({
-            markers: [
-                {
-                    label: "England",
-                    answers: [],
-                    x: 0,
-                    y: 0,
-                },
-                {
-                    label: "Germany",
-                    answers: [],
-                    x: 0,
-                    y: 0,
-                },
-                {
-                    label: "Italy",
-                    answers: [],
-                    x: 0,
-                    y: 0,
-                },
-            ],
-        });
+        const rubric = generateLabelImageOptions();
 
         const score = scoreLabelImage(userInput, rubric);
 
