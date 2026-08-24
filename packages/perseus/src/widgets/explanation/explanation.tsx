@@ -63,9 +63,6 @@ const Explanation = forwardRef<Widget, Props>(function Explanation(props, ref) {
         props.trackInteraction();
     }
 
-    const promptText = expanded ? hidePrompt : showPrompt;
-    const caretIcon = expanded ? caretUp : caretDown;
-
     // TODO (LEMS-3815): Remove legacy styles
     const legacyContentStyling = [
         stylesLegacy.content,
@@ -89,14 +86,14 @@ const Explanation = forwardRef<Widget, Props>(function Explanation(props, ref) {
                     <Button
                         aria-expanded={expanded}
                         aria-controls={contentId}
-                        endIcon={caretIcon}
+                        endIcon={expanded ? caretUp : caretDown}
                         kind="tertiary"
                         labelStyle={stylesLegacy.labelStyle}
                         onClick={onClick}
                         size="small"
                         style={stylesLegacy.buttonStyleOverrides}
                     >
-                        {promptText}
+                        {expanded ? hidePrompt : showPrompt}
                     </Button>
 
                     <View
