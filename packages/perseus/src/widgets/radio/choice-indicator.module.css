@@ -28,16 +28,15 @@
 
 /* Focus/Hover outline */
 .base:before {
-    --perseus-multiple-choice-focus-size: var(--perseus-multiple-choice-indicator-size);
     --perseus-multiple-choice-focus-offset: calc(0px - ( 2 * var(--wb-border-width-medium)));
     border: var(--wb-border-width-medium) solid transparent;
     content: "";
-    height: var(--perseus-multiple-choice-focus-size);
+    height: var(--perseus-multiple-choice-indicator-size);
     inset-block-start: var(--perseus-multiple-choice-focus-offset);
     inset-inline-start: var(--perseus-multiple-choice-focus-offset);
     outline: var(--wb-border-width-medium) solid transparent;
     position: absolute;
-    width: var(--perseus-multiple-choice-focus-size);
+    width: var(--perseus-multiple-choice-indicator-size);
 }
 
 /* Show outline on hover, focus, and when the choice container is hovered.
