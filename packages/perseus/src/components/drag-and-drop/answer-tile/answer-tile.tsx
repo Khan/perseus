@@ -1,3 +1,4 @@
+import {useDraggable} from "@dnd-kit/react";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import checkIcon from "@phosphor-icons/core/regular/check.svg";
 import xIcon from "@phosphor-icons/core/regular/x.svg";
@@ -12,9 +13,6 @@ import {DndActionMenu} from "../dnd-action-menu";
 import styles from "./answer-tile.module.css";
 
 import type {MoveTarget} from "../dnd-action-menu";
-
-/** What a scored tile shows. Each value names a CSS class in the module. */
-export type TileScoring = "correct" | "incorrect" | "unused";
 
 export interface AnswerTileProps {
     /**
@@ -33,14 +31,18 @@ export interface AnswerTileProps {
      */
     label: string;
     /**
-     * The result the tile shows once the question is scored. A placed tile
-     * is "correct" or "incorrect"; a tile the learner left in the choice
-     * bank is "unused", which dims it. Omit it before scoring.
+     * Used to provide visible feedback regarding whether the user
+     * answered the question correctly or incorrectly.
      *
-     * A scored tile has no menu and cannot be dragged, whichever result
-     * it shows.
+     * Never pass this together with `disabled`: a scored tile is either
+     * placed (showCorrectness) or unused (disabled).
      */
-    scoring?: TileScoring;
+    showCorrectness?: "correct" | "incorrect";
+    /**
+     * Dims the tile and removes its menu and shadow. The widgets use
+     * this for unused choice-bank tiles after scoring.
+     */
+    disabled?: boolean;
     /**
      * Blanks the tile can move to, which populate the menu.
      * An empty array is valid: a placed tile in a one-blank exercise
@@ -63,19 +65,14 @@ export interface AnswerTileProps {
      * move focus after a tile moves.
      */
     menuRef?: React.Ref<HTMLButtonElement>;
-    /**
-     * Display height in pixels for an image tile's image. The schema
-     * types this as a plain number; the editor offers 24-96 in steps
-     * of 12.
-     */
-    imageHeight?: number;
 }
 
 /**
  * AnswerTile is the card that a learner moves into a blank. It is part of
  * the Drag-and-Drop widget family. The tile shows authored markdown
  * content: text, TeX, or an image. It puts the DndActionMenu at its
- * leading edge. The parent widget sets `scoring` after scoring.
+ * leading edge. The parent widget sets showCorrectness and disabled
+ * after scoring.
  *
  * The tile is only visual for now. A later ticket adds the drag wiring.
  */
@@ -83,83 +80,74 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
     const {
         content,
         label,
-        scoring,
+        showCorrectness,
+        disabled,
         moveTargets,
         onMove,
         clearFromLabel,
         onClear,
         remainingUses,
         menuRef,
-        imageHeight,
+        tileId,
     } = props;
     const {strings} = usePerseusI18n();
 
+    const {ref: dragRef} = useDraggable({
+        id: tileId,
+    });
+
     // Whitespace-only content would render an invisible, unlabeled tile.
+    // This protection might not be needed, depending on how we implement
+    // the Content Editor experience, but it seemed wise to add this for now.
     const isEmpty = content.trim() === "";
 
-    const tileClasses = classNames(
-        styles.tile,
-        scoring != null && styles[scoring],
-    );
-
-    // What the tile leads with. The menu is the normal state; scoring
-    // replaces it with a result icon, or with nothing for an unused
-    // tile, which has no action to offer and no result to report.
-    const renderTileStart = () => {
-        if (scoring === "unused") {
-            return null;
-        }
-        if (scoring != null) {
-            // The icon is decoration: the widget announces the result
-            // to screen readers, not the tile.
-            return (
-                <div className={styles.startContainer}>
-                    <PhosphorIcon
-                        aria-hidden="true"
-                        icon={scoredIcons[scoring]}
-                        size="medium"
-                    />
-                </div>
-            );
-        }
-        return (
-            <div className={styles.startContainer}>
-                <DndActionMenu
-                    ref={menuRef}
-                    tileLabel={label}
-                    moveTargets={moveTargets}
-                    onMove={onMove}
-                    clearFromLabel={clearFromLabel}
-                    onClear={onClear}
-                    remainingUses={remainingUses}
-                />
-            </div>
-        );
-    };
-
-    // The tile face: the authored markdown or, for an empty tile, a
-    // spoken value alone.
-    const renderTileContent = () => {
-        if (isEmpty) {
-            return <span className={a11yStyles.srOnly}>{label}</span>;
-        }
-        return <Renderer content={content} strings={strings} />;
-    };
-
-    const imageHeightStyle: React.CSSProperties | undefined =
-        imageHeight != null
-            ? {
-                  // @ts-expect-error TS2353: CSSProperties has no keys
-                  // for CSS custom properties.
-                  "--answer-tile-image-height": `${imageHeight}px`,
-              }
-            : undefined;
-
+    // The tile starts with the actions menu or, when scored, an icon.
+    // The two never show together: a scored tile has no menu.
     return (
-        <div className={tileClasses} style={imageHeightStyle}>
-            {renderTileStart()}
-            <div className={styles.content}>{renderTileContent()}</div>
-        </div>
+        <li
+            className={classNames(
+                styles.tile,
+                showCorrectness != null && styles[showCorrectness],
+                disabled && styles.disabled,
+            )}
+            ref={dragRef}
+        >
+            {!disabled && (
+                <span className={styles.startContainer}>
+                    {showCorrectness == null ? (
+                        <DndActionMenu
+                            ref={menuRef}
+                            label={label}
+                            moveTargets={moveTargets}
+                            onMove={onMove}
+                            clearFromLabel={clearFromLabel}
+                            onClear={onClear}
+                            remainingUses={remainingUses}
+                            // Always false: scored tiles remove the menu
+                            // instead of disabling it, so a rendered menu
+                            // is never disabled.
+                            disabled={false}
+                        />
+                    ) : (
+                        // An unlabeled PhosphorIcon is aria-hidden by
+                        // default. The widget announces the result to
+                        // screen readers, not the tile.
+                        <PhosphorIcon
+                            icon={scoredIcons[showCorrectness]}
+                            size="medium"
+                        />
+                    )}
+                </span>
+            )}
+            <div className={styles.content}>
+                {isEmpty ? (
+                    // An empty tile must have a spoken value.
+                    <span className={a11yStyles.srOnly}>{label}</span>
+                ) : (
+                    <Renderer content={content} strings={strings} />
+                )}
+            </div>
+        </li>
     );
 }
 

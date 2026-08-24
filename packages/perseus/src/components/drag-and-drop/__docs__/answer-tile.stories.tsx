@@ -10,8 +10,8 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
  * `AnswerTile` is the card that a learner moves into a blank. It is part
  * of the Drag-and-Drop widget family. The tile shows authored markdown
  * content: text, TeX, or an image. It puts the `DndActionMenu` at its
- * leading edge. The parent widget sets `scoring` once the question is
- * scored.
+ * leading edge. The parent widget sets showCorrectness and disabled
+ * after scoring.
  *
  * Turn on Thunderblocks to match the provided designs.
  */
@@ -74,63 +74,20 @@ export const Empty: Story = {
 
 export const Correct: Story = {
     args: {
-        scoring: "correct",
+        showCorrectness: "correct",
     },
 };
 
 export const Incorrect: Story = {
     args: {
-        scoring: "incorrect",
+        showCorrectness: "incorrect",
     },
 };
 
-/** A tile the learner left in the bank when the question was scored. */
-export const Unused: Story = {
+export const Disabled: Story = {
     args: {
-        scoring: "unused",
+        disabled: true,
     },
-};
-
-/** A scored bank: correct tiles next to unused ones. */
-export const ScoredComposition: Story = {
-    render: () => (
-        <div style={{maxInlineSize: 480}}>
-            <ChoiceBank label="Choices">
-                <AnswerTile
-                    {...generateAnswerTileProps({
-                        tileId: "tile-1",
-                        content: "2Mg",
-                        label: "2Mg",
-                        scoring: "correct",
-                    })}
-                />
-                <AnswerTile
-                    {...generateAnswerTileProps({
-                        tileId: "tile-2",
-                        content: "$O_2$",
-                        label: "O 2",
-                        scoring: "correct",
-                    })}
-                />
-                <AnswerTile
-                    {...generateAnswerTileProps({
-                        tileId: "tile-3",
-                        content: "acoustic",
-                        label: "acoustic",
-                        scoring: "unused",
-                    })}
-                />
-                <AnswerTile
-                    {...generateAnswerTileProps({
-                        tileId: "tile-4",
-                        content: "steel",
-                        label: "steel",
-                        scoring: "unused",
-                    })}
-                />
-            </ChoiceBank>
-        </div>
-    ),
 };
 
 /** A placed tile in a one-blank exercise: the menu only offers Clear. */
