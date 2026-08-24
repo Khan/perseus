@@ -176,7 +176,11 @@ export type * from "./widgets/logic-export.types";
 export * as CoreWidgetRegistry from "./widgets/core-widget-registry";
 
 /** @hidden */
-export {getOrdererPublicWidgetOptions} from "./widgets/orderer/orderer-util";
+export {
+    getOrdererPublicWidgetOptions,
+    mergeCards,
+    toCard,
+} from "./widgets/orderer/orderer-util";
 /** @hidden */
 export type {OrdererPublicWidgetOptions} from "./widgets/orderer/orderer-util";
 /** @hidden */
