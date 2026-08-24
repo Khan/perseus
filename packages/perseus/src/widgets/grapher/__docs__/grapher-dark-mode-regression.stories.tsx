@@ -1,4 +1,4 @@
-import {multipleAvailableTypesQuestion} from "../grapher.testdata";
+import {allAvailableTypesQuestion} from "../grapher.testdata";
 
 import {grapherRendererDecorator} from "./grapher-renderer-decorator";
 
@@ -30,5 +30,5 @@ type Story = StoryObj<typeof meta>;
 
 export const DesktopFunctionTypeSelector: Story = {
     decorators: [grapherRendererDecorator],
-    args: {question: multipleAvailableTypesQuestion},
+    args: {question: allAvailableTypesQuestion},
 };
