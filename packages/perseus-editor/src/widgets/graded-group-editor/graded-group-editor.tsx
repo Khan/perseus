@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {components, Changeable} from "@khanacademy/perseus";
+import {components} from "@khanacademy/perseus";
 import {gradedGroupLogic} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
@@ -7,34 +7,34 @@ import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
 
 import Editor from "../../editor";
+import {deprecatedChangeableChange} from "../../mixins/changeable";
 
 import styles from "./graded-group-editor.module.css";
 
+import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
-    GradedGroupDefaultWidgetOptions,
+    PerseusGradedGroupWidgetOptions,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
 const {TextInput} = components;
 
-interface Props
-    extends GradedGroupDefaultWidgetOptions,
-        Changeable.ChangeableProps {
+interface Props extends PerseusGradedGroupWidgetOptions, ChangeableProps {
     apiOptions?: APIOptionsWithDefaults;
 }
 
 class GradedGroupEditor extends React.Component<Props> {
     static widgetName = "graded-group" as const;
 
-    static defaultProps: GradedGroupDefaultWidgetOptions =
+    static defaultProps: PerseusGradedGroupWidgetOptions =
         gradedGroupLogic.defaultWidgetOptions;
 
     editor = React.createRef<Editor>();
     hintEditor = React.createRef<Editor>();
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     handleAddHint: () => void = () => {

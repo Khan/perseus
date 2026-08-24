@@ -1,15 +1,14 @@
-import {Changeable} from "@khanacademy/perseus";
 import {gradedGroupSetLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import {deprecatedChangeableChange} from "../../mixins/changeable";
 import GradedGroupEditor from "../graded-group-editor";
 
+import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
-import type {GradedGroupSetDefaultWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusGradedGroupSetWidgetOptions} from "@khanacademy/perseus-core";
 
-interface Props
-    extends GradedGroupSetDefaultWidgetOptions,
-        Changeable.ChangeableProps {
+interface Props extends PerseusGradedGroupSetWidgetOptions, ChangeableProps {
     apiOptions?: APIOptionsWithDefaults;
 }
 
@@ -19,7 +18,7 @@ class GradedGroupSetEditor extends React.Component<Props> {
 
     static widgetName = "graded-group-set" as const;
 
-    static defaultProps: GradedGroupSetDefaultWidgetOptions =
+    static defaultProps: PerseusGradedGroupSetWidgetOptions =
         gradedGroupSetLogic.defaultWidgetOptions;
 
     // TODO(jangmi, CP-3288): Remove usage of `UNSAFE_componentWillMount`
@@ -28,7 +27,7 @@ class GradedGroupSetEditor extends React.Component<Props> {
     }
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     getSaveWarnings: () => ReadonlyArray<any> = () => {

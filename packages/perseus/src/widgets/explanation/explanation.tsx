@@ -1,12 +1,12 @@
-import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Button from "@khanacademy/wonder-blocks-button";
-import {Id, View} from "@khanacademy/wonder-blocks-core";
+import {useOnMountEffect, View} from "@khanacademy/wonder-blocks-core";
 import caretDown from "@phosphor-icons/core/regular/caret-down.svg";
 import caretUp from "@phosphor-icons/core/regular/caret-up.svg";
 import * as React from "react";
+import {forwardRef, useId, useImperativeHandle, useState} from "react";
 
-import {PerseusI18nContext} from "../../components/i18n-context";
-import {withDependencies} from "../../components/with-dependencies";
+import {usePerseusI18n} from "../../components/i18n-context";
+import {useDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
 import UserInputManager from "../../user-input-manager";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
@@ -27,14 +27,6 @@ type Props = WidgetProps<PerseusExplanationWidgetOptions> & {
     dependencies: PerseusDependenciesV2;
 };
 
-type DefaultProps = {
-    linterContext: Props["linterContext"];
-};
-
-type State = {
-    expanded: boolean;
-};
-
 function mediaQueryIsMatched(mediaQuery: string): boolean {
     if (typeof window.matchMedia !== "function") {
         return false;
@@ -42,146 +34,107 @@ function mediaQueryIsMatched(mediaQuery: string): boolean {
     return window.matchMedia(mediaQuery).matches;
 }
 
-class Explanation extends React.Component<Props, State> implements Widget {
-    static contextType = PerseusI18nContext;
-    declare context: React.ContextType<typeof PerseusI18nContext>;
+const Explanation = forwardRef<Widget, Props>(function Explanation(props, ref) {
+    const {strings} = usePerseusI18n();
+    const dependencies = useDependencies();
+    const [expanded, setExpanded] = useState(false);
+    const contentId = useId();
 
-    static defaultProps: DefaultProps = {
-        linterContext: linterContextDefault,
-    };
+    const {hidePrompt, showPrompt, explanation, widgets} = props.options;
 
-    // this just helps with TS weak typing when a Widget
-    // doesn't implement any Widget methods
-    isWidget = true as const;
-
-    state: State = {
-        expanded: false,
-    };
-
-    componentDidMount() {
-        this.props.dependencies.analytics.onAnalyticsEvent({
+    useOnMountEffect(() => {
+        dependencies.analytics.onAnalyticsEvent({
             type: "perseus:widget:rendered:ti",
             payload: {
                 widgetSubType: "null",
                 widgetType: "explanation",
-                widgetId: this.props.widgetId,
+                widgetId: props.widgetId,
             },
         });
+    });
+
+    useImperativeHandle(ref, () => ({
+        getPromptJSON(): ExplanationPromptJSON {
+            return _getPromptJSON(props);
+        },
+    }));
+
+    function onClick() {
+        setExpanded(!expanded);
+        props.trackInteraction();
     }
 
-    _onClick: () => void = () => {
-        this.setState({
-            expanded: !this.state.expanded,
-        });
-        this.props.trackInteraction();
-    };
+    // TODO (LEMS-3815): Remove legacy styles
+    const legacyContentStyling = [
+        stylesLegacy.content,
+        expanded ? stylesLegacy.contentExpanded : stylesLegacy.contentCollapsed,
+        mediaQueryIsMatched("(prefers-reduced-motion: no-preference)") &&
+            (expanded
+                ? stylesLegacy.transitionExpanded
+                : stylesLegacy.transitionCollapsed),
+    ];
 
-    getPromptJSON(): ExplanationPromptJSON {
-        return _getPromptJSON(this.props);
-    }
+    const contentClasses = [
+        styles.content,
+        expanded ? styles.contentExpanded : styles.contentCollapsed,
+        expanded ? styles.transitionExpanded : styles.transitionCollapsed,
+    ];
 
-    render(): React.ReactNode {
-        const {hidePrompt, showPrompt, explanation, widgets} =
-            this.props.options;
+    return (
+        <>
+            <Button
+                aria-expanded={expanded}
+                aria-controls={contentId}
+                endIcon={expanded ? caretUp : caretDown}
+                kind="tertiary"
+                labelStyle={stylesLegacy.labelStyle}
+                onClick={onClick}
+                size="small"
+                style={stylesLegacy.buttonStyleOverrides}
+            >
+                {expanded ? hidePrompt : showPrompt}
+            </Button>
 
-        const promptText = this.state.expanded ? hidePrompt : showPrompt;
-        const caretIcon = this.state.expanded ? caretUp : caretDown;
-
-        // TODO (LEMS-3815): Remove legacy styles
-        const legacyContentStyling = [
-            stylesLegacy.content,
-            this.state.expanded
-                ? stylesLegacy.contentExpanded
-                : stylesLegacy.contentCollapsed,
-            mediaQueryIsMatched("(prefers-reduced-motion: no-preference)") &&
-                (this.state.expanded
-                    ? stylesLegacy.transitionExpanded
-                    : stylesLegacy.transitionCollapsed),
-        ];
-
-        const contentClasses = [
-            styles.content,
-            this.state.expanded
-                ? styles.contentExpanded
-                : styles.contentCollapsed,
-            this.state.expanded
-                ? styles.transitionExpanded
-                : styles.transitionCollapsed,
-        ];
-
-        return (
-            <Id>
-                {(contentId) => (
-                    <>
-                        <Button
-                            aria-expanded={this.state.expanded}
-                            aria-controls={contentId}
-                            endIcon={caretIcon}
-                            kind="tertiary"
-                            labelStyle={stylesLegacy.labelStyle}
-                            onClick={this._onClick}
-                            size="small"
-                            style={stylesLegacy.buttonStyleOverrides}
-                        >
-                            {promptText}
-                        </Button>
-
-                        <View
-                            id={contentId}
-                            style={legacyContentStyling}
-                            className={contentClasses.join(" ")}
-                            aria-hidden={!this.state.expanded}
-                            testId="content-container"
-                        >
-                            <View
-                                className={styles.contentWrapper}
-                                style={stylesLegacy.contentWrapper}
-                            >
-                                <UserInputManager
+            <View
+                id={contentId}
+                style={legacyContentStyling}
+                className={contentClasses.join(" ")}
+                aria-hidden={!expanded}
+                testId="content-container"
+            >
+                <View
+                    className={styles.contentWrapper}
+                    style={stylesLegacy.contentWrapper}
+                >
+                    <UserInputManager widgets={widgets} problemNum={0}>
+                        {({
+                            userInput,
+                            handleUserInput,
+                            initializeUserInput,
+                        }) => {
+                            return (
+                                <Renderer
+                                    apiOptions={props.apiOptions}
+                                    content={explanation}
                                     widgets={widgets}
-                                    problemNum={0}
-                                >
-                                    {({
-                                        userInput,
-                                        handleUserInput,
-                                        initializeUserInput,
-                                    }) => {
-                                        return (
-                                            <Renderer
-                                                apiOptions={
-                                                    this.props.apiOptions
-                                                }
-                                                content={explanation}
-                                                widgets={widgets}
-                                                linterContext={
-                                                    this.props.linterContext
-                                                }
-                                                strings={this.context.strings}
-                                                userInput={userInput}
-                                                handleUserInput={
-                                                    handleUserInput
-                                                }
-                                                initializeUserInput={
-                                                    initializeUserInput
-                                                }
-                                            />
-                                        );
-                                    }}
-                                </UserInputManager>
-                            </View>
-                        </View>
-                    </>
-                )}
-            </Id>
-        );
-    }
-}
-
-const WrappedExplanation = withDependencies(Explanation);
+                                    linterContext={props.linterContext}
+                                    strings={strings}
+                                    userInput={userInput}
+                                    handleUserInput={handleUserInput}
+                                    initializeUserInput={initializeUserInput}
+                                />
+                            );
+                        }}
+                    </UserInputManager>
+                </View>
+            </View>
+        </>
+    );
+});
 
 export default {
     name: "explanation",
     displayName: "Explanation",
-    widget: WrappedExplanation,
+    widget: Explanation,
     isLintable: true,
-} satisfies WidgetExports<typeof WrappedExplanation>;
+} satisfies WidgetExports<typeof Explanation>;

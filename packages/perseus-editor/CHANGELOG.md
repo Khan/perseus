@@ -1,5 +1,31 @@
 # @khanacademy/perseus-editor
 
+## 38.0.0
+
+### Major Changes
+
+-   [#4072](https://github.com/Khan/perseus/pull/4072) [`fe85d50`](https://github.com/Khan/perseus/commit/fe85d503ec26f124dd62447428bc5aad5dd414dd) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove `static` from `Perseus*WidgetOptions` since it was shadowed by `static` in `WidgetOptions` (the higher-level type). This has some large implications: types in `perseus-core` have changed and serialization in `perseus-editor` and `perseus` are also likely to change.
+
+### Minor Changes
+
+-   [#4101](https://github.com/Khan/perseus/pull/4101) [`2a57799`](https://github.com/Khan/perseus/commit/2a577994cc07b78077f394b06d7fe8d2101fbc61) Thanks [@benchristel](https://github.com/benchristel)! - Content creators can now exempt SVG images from being inverted in dark mode, in addition to PNGs.
+
+### Patch Changes
+
+-   [#4110](https://github.com/Khan/perseus/pull/4110) [`0767712`](https://github.com/Khan/perseus/commit/07677120b27fa61507e31d13bdc3eb45fbd0206e) Thanks [@handeyeco](https://github.com/handeyeco)! - Move editor-specific mixins from Perseus to PerseusEditor
+
+-   [#4032](https://github.com/Khan/perseus/pull/4032) [`77f6c96`](https://github.com/Khan/perseus/commit/77f6c962b11298f662de5258081d9b41649f40c1) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove `hasHint`, `widgetEnabled`, and `immutableWidgets` from `PerseusGradedGroupWidgetOptions` as they were marked as unused.
+
+-   [#4108](https://github.com/Khan/perseus/pull/4108) [`3dae49e`](https://github.com/Khan/perseus/commit/3dae49e12dc2ca5d2b3a1090ecf27a9fbe3c154c) Thanks [@benchristel](https://github.com/benchristel)! - The deprecated `Renderer#serialize()` method has been removed.
+
+-   Updated dependencies [[`fe85d50`](https://github.com/Khan/perseus/commit/fe85d503ec26f124dd62447428bc5aad5dd414dd), [`0767712`](https://github.com/Khan/perseus/commit/07677120b27fa61507e31d13bdc3eb45fbd0206e), [`cd1bef6`](https://github.com/Khan/perseus/commit/cd1bef6ebc8c0043435f62ff8f262a069758843d), [`161bcef`](https://github.com/Khan/perseus/commit/161bceffe364d1755a11bab902aa60124283e6ac), [`6d8d09d`](https://github.com/Khan/perseus/commit/6d8d09d62bbb2bd192f74aca3814e07f3fa2f0b8), [`13da83d`](https://github.com/Khan/perseus/commit/13da83da28cc29c320e003013607ea139348bda1), [`77f6c96`](https://github.com/Khan/perseus/commit/77f6c962b11298f662de5258081d9b41649f40c1), [`3dae49e`](https://github.com/Khan/perseus/commit/3dae49e12dc2ca5d2b3a1090ecf27a9fbe3c154c)]:
+    -   @khanacademy/perseus-core@37.0.0
+    -   @khanacademy/perseus@85.0.0
+    -   @khanacademy/keypad-context@3.2.85
+    -   @khanacademy/kmath@2.4.44
+    -   @khanacademy/math-input@27.0.5
+    -   @khanacademy/perseus-linter@5.1.25
+
 ## 37.1.1
 
 ### Patch Changes

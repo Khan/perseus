@@ -5,7 +5,7 @@ import {
 } from "@khanacademy/perseus-core";
 
 import type {
-    DefinitionDefaultWidgetOptions,
+    PerseusDefinitionWidgetOptions,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
@@ -45,7 +45,7 @@ export const article = {
     },
 };
 
-export const definitionQuestionOptions: DefinitionDefaultWidgetOptions =
+export const definitionQuestionOptions: PerseusDefinitionWidgetOptions =
     generateDefinitionOptions({
         definition:
             "The Allies, led by the United Kingdom, the United States, and the Soviet Union, were the group of countries who opposed the Axis powers (Germany, Japan, and Italy) during World War II.",

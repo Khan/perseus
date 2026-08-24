@@ -1,8 +1,9 @@
-import {EditorJsonify, Util} from "@khanacademy/perseus";
+import {Util} from "@khanacademy/perseus";
 import {labelImageLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import FormWrappedTextField from "../../components/form-wrapped-text-field";
+import EditorJsonify from "../../mixins/editor-jsonify";
 
 import AnswerChoices from "./answer-choices";
 import Behavior from "./behavior";
@@ -12,10 +13,7 @@ import SelectImage from "./select-image";
 
 import type {PreferredPopoverDirection} from "./behavior";
 import type {APIOptions} from "@khanacademy/perseus";
-import type {
-    PerseusLabelImageWidgetOptions,
-    LabelImageDefaultWidgetOptions,
-} from "@khanacademy/perseus-core";
+import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
 interface Props {
     apiOptions: APIOptions;
@@ -48,7 +46,7 @@ interface Props {
 class LabelImageEditor extends React.Component<Props> {
     private _questionMarkers: QuestionMarkers | null | undefined;
 
-    static defaultProps: LabelImageDefaultWidgetOptions =
+    static defaultProps: PerseusLabelImageWidgetOptions =
         labelImageLogic.defaultWidgetOptions;
 
     static widgetName = "label-image" as const;

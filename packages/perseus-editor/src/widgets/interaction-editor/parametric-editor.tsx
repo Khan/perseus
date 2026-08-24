@@ -1,18 +1,17 @@
-import {
-    components,
-    Changeable,
-    Dependencies,
-    KhanColors,
-} from "@khanacademy/perseus";
+import {components, Dependencies, KhanColors} from "@khanacademy/perseus";
 import * as React from "react";
+
+import {deprecatedChangeableChange} from "../../mixins/changeable";
 
 import ColorPicker from "./color-picker";
 import DashPicker from "./dash-picker";
 import MathquillInput from "./mathquill-input";
 
+import type {ChangeableProps} from "../../mixins/changeable";
+
 const {NumberInput} = components;
 
-type Props = Changeable.ChangeableProps & {
+type Props = ChangeableProps & {
     x: string;
     y: string;
     rangeMin: string;
@@ -45,7 +44,7 @@ class ParametricEditor extends React.Component<Props> {
     };
 
     change: (arg1: any, arg2?: any, arg3?: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     render(): React.ReactNode {

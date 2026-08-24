@@ -212,7 +212,6 @@ describe("number-line widget", () => {
 
         function getInequalityOptions(): PerseusNumberLineWidgetOptions {
             return {
-                static: false, // <= important
                 isInequality: true, // <= important
                 correctRel: "le",
                 correctX: -1,
@@ -334,7 +333,6 @@ describe("number-line widget", () => {
         isInequality: false,
         snapDivisions: 2,
         range: [-4, 4],
-        static: false,
         correctRel: "eq",
         numDivisions: null,
         divisionRange: [1, 10],

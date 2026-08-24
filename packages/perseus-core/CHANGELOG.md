@@ -1,5 +1,17 @@
 # @khanacademy/perseus-core
 
+## 37.0.0
+
+### Major Changes
+
+-   [#4072](https://github.com/Khan/perseus/pull/4072) [`fe85d50`](https://github.com/Khan/perseus/commit/fe85d503ec26f124dd62447428bc5aad5dd414dd) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove `static` from `Perseus*WidgetOptions` since it was shadowed by `static` in `WidgetOptions` (the higher-level type). This has some large implications: types in `perseus-core` have changed and serialization in `perseus-editor` and `perseus` are also likely to change.
+
+-   [#4032](https://github.com/Khan/perseus/pull/4032) [`77f6c96`](https://github.com/Khan/perseus/commit/77f6c962b11298f662de5258081d9b41649f40c1) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove `hasHint`, `widgetEnabled`, and `immutableWidgets` from `PerseusGradedGroupWidgetOptions` as they were marked as unused.
+
+### Minor Changes
+
+-   [#4110](https://github.com/Khan/perseus/pull/4110) [`0767712`](https://github.com/Khan/perseus/commit/07677120b27fa61507e31d13bdc3eb45fbd0206e) Thanks [@handeyeco](https://github.com/handeyeco)! - Move editor-specific mixins from Perseus to PerseusEditor
+
 ## 36.1.0
 
 ### Minor Changes

@@ -4,12 +4,7 @@ import type {NumericInputPublicWidgetOptions} from "./numeric-input-util";
 import type {PerseusNumericInputWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
-export type NumericInputDefaultWidgetOptions = Pick<
-    PerseusNumericInputWidgetOptions,
-    "answers" | "size" | "coefficient" | "labelText" | "textAlign"
->;
-
-const defaultWidgetOptions: NumericInputDefaultWidgetOptions = {
+const defaultWidgetOptions: PerseusNumericInputWidgetOptions = {
     answers: [
         {
             value: null,

@@ -6,6 +6,7 @@ import {
     generateImageOptions,
     generateTestPerseusItem,
     splitPerseusItem,
+    generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
 import {act, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -906,12 +907,22 @@ describe("renderer", () => {
 
         it("should throw if widget provides invalid focus path", () => {
             // Arrange
-            const {renderer} = renderQuestion(definitionItem);
-            const [widget2] = renderer.findWidgets("definition 2");
+            const {renderer} = renderQuestion(
+                generateTestPerseusRenderer({
+                    content: "[[\u2603 mock-widget 1]]",
+                    widgets: {
+                        "mock-widget 1": {
+                            type: "mock-widget",
+                            options: {value: ""},
+                        },
+                    },
+                }),
+            );
+            const [widget] = renderer.findWidgets("mock-widget 1");
 
             // Act and Assert
             expect(() => {
-                widget2.props.onFocus("this is not an array");
+                widget.props.onFocus("this is not an array");
             }).toThrow("widget props.onFocus focusPath must be an Array");
         });
 
@@ -1069,27 +1080,6 @@ describe("renderer", () => {
 
             // Act
             expect(widget2.getSerializedState).toHaveBeenCalled();
-        });
-
-        it("should return each widget's state from serialize()", () => {
-            // Arrange
-            const {renderer} = renderQuestion(definitionItem);
-            const widgets = renderer.findWidgets((id) =>
-                ["definition 1", "definition 2", "definition 3"].includes(id),
-            );
-            widgets.forEach((w) => {
-                w.serialize = jest.fn(() => `State: ${w.props.widgetId}`);
-            });
-
-            // Act
-            const state = renderer.serialize();
-
-            // Assert
-            expect(state).toStrictEqual({
-                "definition 1": "State: definition 1",
-                "definition 2": "State: definition 2",
-                "definition 3": "State: definition 3",
-            });
         });
     });
 
@@ -1645,7 +1635,6 @@ describe("isDifferentQuestion", () => {
                 "dropdown 1": {
                     type: "dropdown",
                     options: {
-                        static: false,
                         placeholder: "greater/less than or equal to",
                         choices: [
                             {
@@ -1731,7 +1720,6 @@ describe("isDifferentQuestion", () => {
                 "dropdown 1": {
                     type: "dropdown",
                     options: {
-                        static: false,
                         placeholder: "greater/less than or equal to",
                         choices: [
                             {
@@ -1754,7 +1742,6 @@ describe("isDifferentQuestion", () => {
                 "dropdown 1": {
                     type: "dropdown",
                     options: {
-                        static: false,
                         placeholder: "greater/less than or equal to",
                         choices: [
                             {

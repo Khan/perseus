@@ -8,7 +8,7 @@ import invariant from "tiny-invariant";
 import Editor from "../../editor";
 
 import type {
-    GroupDefaultWidgetOptions,
+    PerseusGroupWidgetOptions,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
@@ -24,7 +24,7 @@ class GroupEditor extends React.Component<Props> {
 
     static widgetName = "group" as const;
 
-    static defaultProps: GroupDefaultWidgetOptions =
+    static defaultProps: PerseusGroupWidgetOptions =
         groupLogic.defaultWidgetOptions;
 
     editor = React.createRef<Editor>();

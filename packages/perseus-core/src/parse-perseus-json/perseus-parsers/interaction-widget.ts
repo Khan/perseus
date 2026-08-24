@@ -139,7 +139,6 @@ const parseRectangleElement = object({
 export const parseInteractionWidget = parseWidget(
     constant("interaction"),
     object({
-        static: defaulted(boolean, () => false),
         graph: object({
             editableSettings: optional(array(enumeration("canvas", "graph"))),
             box: pairOfNumbers,

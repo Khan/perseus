@@ -4,12 +4,7 @@ import type {GrapherPublicWidgetOptions} from "./grapher-util";
 import type {PerseusGrapherWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
-export type GrapherDefaultWidgetOptions = Pick<
-    PerseusGrapherWidgetOptions,
-    "graph" | "correct" | "availableTypes"
->;
-
-const defaultWidgetOptions: GrapherDefaultWidgetOptions = {
+const defaultWidgetOptions: PerseusGrapherWidgetOptions = {
     graph: {
         labels: ["x", "y"],
         range: [

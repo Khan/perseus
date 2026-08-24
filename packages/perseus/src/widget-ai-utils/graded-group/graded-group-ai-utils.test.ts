@@ -32,7 +32,6 @@ const question: PerseusRenderer = generateTestPerseusRenderer({
                         static: false,
                         graded: true,
                         options: {
-                            static: false,
                             items: [
                                 "Some bacteria conduct photosynthesis and produce oxygen, much like plants.",
                                 "Bacteria are always autotrophic but they may get energy from either light or chemical sources.",
@@ -57,7 +56,6 @@ const question: PerseusRenderer = generateTestPerseusRenderer({
                             static: true,
                             graded: true,
                             options: {
-                                static: false,
                                 items: [
                                     "Some bacteria conduct photosynthesis and produce oxygen, much like plants.",
                                     "Bacteria are always autotrophic but they may get energy from either light or chemical sources.",

@@ -35,7 +35,6 @@ export const article1: PerseusRenderer = {
                                 }),
                             }),
                         },
-                        hasHint: true,
                         hint: generateTestPerseusRenderer({
                             content:
                                 "There are many ways to solve this problem. Let's see two student solutions.\n\n###Student A's solution:\n\nI thought in terms of tenths.\n\n$\\phantom{=}0.5 + 0.4$\n\n$=5$ tenths $+ ~4$ tenths\n\n$=9$ tenths\n\n$=0.9$\n\n###Student B's solution:\n\nI used tenths grids.\n\n[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]\n\n$\\blueD{0.5} + \\greenD{0.4} = 0.9$\n\n###The answer:\n\n$0.5 + 0.4 = 0.9$",
@@ -72,8 +71,6 @@ export const article1: PerseusRenderer = {
                                 }),
                             },
                         }),
-                        widgetEnabled: true,
-                        immutableWidgets: false,
                     }),
                     generateGradedGroupOptions({
                         title: "Problem 1b",
@@ -87,7 +84,6 @@ export const article1: PerseusRenderer = {
                                 }),
                             }),
                         },
-                        hasHint: true,
                         hint: generateTestPerseusRenderer({
                             content:
                                 "There are many ways to solve this problem. Let's see two student solutions.\n\n###Student A's solution:\n\nI thought in terms of tenths.\n\n$\\phantom{=}0.6 + 0.4$\n\n$=6$ tenths $+ ~4$ tenths\n\n$=10$ tenths\n\n$=1$\n\n###Student B's solution:\n\nI used tenths grids.\n\n[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]\n\n$\\blueD{0.6} + \\greenD{0.4} = 1$\n\n###The answer:\n\n$0.6 + 0.4 = 1$",
@@ -124,8 +120,6 @@ export const article1: PerseusRenderer = {
                                 }),
                             },
                         }),
-                        widgetEnabled: true,
-                        immutableWidgets: false,
                     }),
                     generateGradedGroupOptions({
                         title: "Problem 1c",
@@ -141,7 +135,6 @@ export const article1: PerseusRenderer = {
                                 }),
                             }),
                         },
-                        hasHint: true,
                         hint: generateTestPerseusRenderer({
                             content:
                                 "There are many ways to solve this problem. Let's see two student solutions.\n\n###Student A's solution:\n\nI thought in terms of tenths.\n\n$\\phantom{=}0.8 + 0.4$\n\n$=8$ tenths $+ ~4$ tenths\n\n$=12$ tenths\n\n$=1.2$\n\n###Student B's solution:\n\nI used tenths grids.\n\n[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]\n$\\blueD{0.8} + \\greenD{0.4} = 1.2$\n\n###The answer:\n\n$ 0.8+0.4=1.2 $",
@@ -178,8 +171,6 @@ export const article1: PerseusRenderer = {
                                 }),
                             },
                         }),
-                        widgetEnabled: true,
-                        immutableWidgets: false,
                     }),
                 ],
             },
@@ -227,8 +218,6 @@ export const groupSetRadioRationaleQuestion: PerseusRenderer =
                             hint: generateTestPerseusRenderer({
                                 content: "This is an example hint.",
                             }),
-                            widgetEnabled: true,
-                            immutableWidgets: false,
                         }),
                         generateGradedGroupOptions({
                             title: "Question 2",
@@ -273,8 +262,6 @@ export const groupSetRadioRationaleQuestion: PerseusRenderer =
                             hint: generateTestPerseusRenderer({
                                 content: "This is an example hint.",
                             }),
-                            widgetEnabled: true,
-                            immutableWidgets: false,
                         }),
                     ],
                 },

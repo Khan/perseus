@@ -8,7 +8,6 @@ export type CategorizerPublicWidgetOptions = {
     items: PerseusCategorizerWidgetOptions["items"];
     categories: PerseusCategorizerWidgetOptions["categories"];
     randomizeItems: PerseusCategorizerWidgetOptions["randomizeItems"];
-    static: PerseusCategorizerWidgetOptions["static"];
 };
 
 /**
@@ -22,6 +21,5 @@ export function getCategorizerPublicWidgetOptions(
         items: options.items,
         categories: options.categories,
         randomizeItems: options.randomizeItems,
-        static: options.static,
     };
 }

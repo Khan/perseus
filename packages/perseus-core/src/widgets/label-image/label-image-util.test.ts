@@ -25,7 +25,6 @@ describe("getLabelImagePublicWidgetOptions", () => {
             imageAlt: "",
             hideChoicesFromInstructions: false,
             multipleAnswers: false,
-            static: false,
         };
 
         const publicWidgetOptions = getLabelImagePublicWidgetOptions(options);
@@ -45,7 +44,6 @@ describe("getLabelImagePublicWidgetOptions", () => {
             imageAlt: "",
             hideChoicesFromInstructions: false,
             multipleAnswers: false,
-            static: false,
         });
     });
 });

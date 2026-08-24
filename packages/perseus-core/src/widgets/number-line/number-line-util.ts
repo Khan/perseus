@@ -14,7 +14,6 @@ export type NumberLinePublicWidgetOptions = Pick<
     | "tickStep"
     | "initialX"
     | "showTooltips"
-    | "static"
 >;
 
 export function getNumberLinePublicWidgetOptions(

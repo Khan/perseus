@@ -40,7 +40,6 @@ describe("Dropdown serialization", () => {
                 "dropdown 1": {
                     type: "dropdown",
                     options: {
-                        static: false,
                         placeholder: "Choose",
                         choices: [
                             {

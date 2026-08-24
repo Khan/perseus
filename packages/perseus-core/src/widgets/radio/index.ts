@@ -6,17 +6,7 @@ import type {WidgetLogic} from "../logic-export.types";
 
 const currentVersion = {major: 3, minor: 0};
 
-export type RadioDefaultWidgetOptions = Pick<
-    PerseusRadioWidgetOptions,
-    | "choices"
-    | "randomize"
-    | "hasNoneOfTheAbove"
-    | "multipleSelect"
-    | "countChoices"
-    | "deselectEnabled"
->;
-
-const defaultWidgetOptions: RadioDefaultWidgetOptions = {
+const defaultWidgetOptions: PerseusRadioWidgetOptions = {
     choices: [
         {content: "", id: "radio-choice-0"},
         {content: "", id: "radio-choice-1"},
