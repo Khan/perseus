@@ -18,10 +18,9 @@ const defaultWidgetOptions: PerseusImageWidgetOptions = {
     alt: "",
     caption: "",
     longDescription: "",
-    // Marking an image decorative (rendering it with `alt=""` and no caption,
-    // title, or long description) is an explicit author choice, so it starts
-    // off. Note these defaults are inaccessible either way until a background
-    // image is chosen -- see `accessible` below.
+    // Images are not decorative by default: an image with no alt text is
+    // treated as inaccessible (see `accessible` below) until an author either
+    // writes alt text or explicitly marks the image as decorative.
     decorative: false,
 };
 

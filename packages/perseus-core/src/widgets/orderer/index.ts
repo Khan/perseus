@@ -14,7 +14,7 @@ const defaultOtherOptions = [toCard("$y$")];
 const defaultWidgetOptions: PerseusOrdererWidgetOptions = {
     correctOptions: defaultCorrectOptions,
     otherOptions: defaultOtherOptions,
-    // `options` is the deck the student picks from, derived the same way the
+    // `options` is the card bank the learner picks from, derived the same way the
     // editor re-derives it on every edit.
     options: mergeCards(defaultCorrectOptions, defaultOtherOptions),
     height: "normal",
