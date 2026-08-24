@@ -7,7 +7,6 @@ import type {PerseusDropdownWidgetOptions} from "../../data-schema";
 export type DropdownPublicWidgetOptions = {
     choices: ReadonlyArray<{content: string}>;
     placeholder: PerseusDropdownWidgetOptions["placeholder"];
-    static: PerseusDropdownWidgetOptions["static"];
     visibleLabel?: PerseusDropdownWidgetOptions["visibleLabel"];
     ariaLabel?: PerseusDropdownWidgetOptions["ariaLabel"];
 };
@@ -22,7 +21,6 @@ export function getDropdownPublicWidgetOptions(
     return {
         choices: options.choices.map((choice) => ({content: choice.content})),
         placeholder: options.placeholder,
-        static: options.static,
         visibleLabel: options.visibleLabel,
         ariaLabel: options.ariaLabel,
     };

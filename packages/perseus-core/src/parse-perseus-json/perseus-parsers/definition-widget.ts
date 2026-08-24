@@ -1,5 +1,4 @@
-import {boolean, constant, object, string} from "../general-purpose-parsers";
-import {defaulted} from "../general-purpose-parsers/defaulted";
+import {constant, object, string} from "../general-purpose-parsers";
 
 import {parseWidget} from "./widget";
 
@@ -8,6 +7,5 @@ export const parseDefinitionWidget = parseWidget(
     object({
         togglePrompt: string,
         definition: string,
-        static: defaulted(boolean, () => false),
     }),
 );

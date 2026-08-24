@@ -565,8 +565,6 @@ export type PerseusCategorizerWidgetOptions = {
     categories: string[];
     /** Whether the items should be randomized */
     randomizeItems: boolean;
-    /** Whether this widget is displayed with the results and immutable */
-    static: boolean;
     /**
      * The correct answers where index relates to the items and value relates to
      * the category. e.g. [0, 1, 0, 1, 2]
@@ -580,8 +578,6 @@ export type PerseusDefinitionWidgetOptions = {
     togglePrompt: string;
     /** Translatable text; the definition of the word. e.g. "where 2 rays connect" */
     definition: string;
-    /** Always false. Not used for this widget */
-    static: boolean;
 };
 
 /** Options for the dropdown widget. A list of choices in a dropdown. */
@@ -590,8 +586,6 @@ export type PerseusDropdownWidgetOptions = {
     choices: PerseusDropdownChoice[];
     /** Translatable Text; placeholder text for a dropdown. e.g. "Please select a fruit" */
     placeholder: string;
-    /** Always false. Not used for this widget */
-    static: boolean;
     /** Translatable Text; visible label for the dropdown */
     visibleLabel?: string;
     /** Translatable Text; aria label that screen readers will read */
@@ -627,8 +621,6 @@ export type PerseusExplanationWidgetOptions = {
      * widgets are here.
      */
     widgets: PerseusWidgetsMap;
-    /** Always false. Not used for this widget */
-    static: boolean;
 };
 
 export type LegacyButtonSets = Array<
@@ -695,18 +687,12 @@ export type PerseusExpressionAnswerForm = {
 export type PerseusGradedGroupWidgetOptions = {
     /** Translatable Text; A title to be displayed for the group. */
     title: string;
-    /** Not used in Perseus (but is set in (en, pt) production data) */
-    hasHint?: boolean | null | undefined;
     /** A section to define hints for the group. */
     hint?: PerseusRenderer | null | undefined;
     /** Translatable Markdown. May include widgets and images embedded. */
     content: string;
     /** See {@link PerseusRenderer.widgets} */
     widgets: PerseusWidgetsMap;
-    /** Not used in Perseus */
-    widgetEnabled?: boolean | null | undefined;
-    /** Not used in Perseus */
-    immutableWidgets?: boolean | null | undefined;
     /** See {@link PerseusRenderer.images} */
     images: {
         [key: string]: PerseusImageDetail;
@@ -1543,8 +1529,6 @@ export type PerseusLabelImageWidgetOptions = {
     hideChoicesFromInstructions: boolean;
     /** Allow multiple answers per marker */
     multipleAnswers: boolean;
-    /** Always false. Not used for this widget */
-    static: boolean;
 };
 
 export type PerseusLabelImageMarker = {
@@ -1787,8 +1771,6 @@ export type PerseusNumberLineWidgetOptions = {
     initialX?: number | null;
     /** Show tooltips */
     showTooltips?: boolean;
-    /** When true, the answer is displayed and is immutable */
-    static: boolean;
 };
 
 /** Options for the orderer widget. Cards to place in the correct order. */
@@ -1942,8 +1924,6 @@ export type PerseusInteractionWidgetOptions = {
     graph: PerseusInteractionGraph;
     /** The elements of the graph */
     elements: PerseusInteractionElement[];
-    /** Always false. Not used for this widget */
-    static: boolean;
 };
 
 export type PerseusInteractionGraph = {
@@ -2266,8 +2246,6 @@ export type PerseusIFrameWidgetOptions = {
      * @deprecated - not used in Perseus.
      */
     allowTopNavigation?: boolean;
-    /** Always false */
-    static: boolean;
 };
 
 /** Options for the phet-simulation widget. Embeds a PhET simulation. */
@@ -2281,8 +2259,6 @@ export type PerseusPhetSimulationWidgetOptions = {
 /** Options for the video widget. Embeds a video by its location ID. */
 export type PerseusVideoWidgetOptions = {
     location: string;
-    /** `static` is not used for the video widget. */
-    static?: boolean;
 };
 
 export type PerseusInputNumberAnswer = PerseusNumericInputAnswer;

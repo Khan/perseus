@@ -12,7 +12,6 @@ describe("getDropdownPublicWidgetOptions", () => {
                 {content: "3", correct: true},
             ],
             placeholder: "Select an option",
-            static: false,
             visibleLabel: "Test Label",
             ariaLabel: "Test Aria Label",
         };
@@ -24,7 +23,6 @@ describe("getDropdownPublicWidgetOptions", () => {
         expect(publicWidgetOptions).toEqual({
             choices: [{content: "1"}, {content: "2"}, {content: "3"}],
             placeholder: "Select an option",
-            static: false,
             visibleLabel: "Test Label",
             ariaLabel: "Test Aria Label",
         });
