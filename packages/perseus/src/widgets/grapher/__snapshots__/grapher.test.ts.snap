@@ -2754,7 +2754,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                 style="display: inline-block;"
               >
                 <button
-                  class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59"
+                  class="buttonStyle_14yq0v6-o_O-selectedStyle_1kw54nb"
                   title="Linear"
                   type="button"
                 >
@@ -2764,7 +2764,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                   />
                 </button>
                 <button
-                  class="buttonStyle_zxbos0"
+                  class="buttonStyle_14yq0v6"
                   title="Absolute_value"
                   type="button"
                 >
@@ -2774,7 +2774,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                   />
                 </button>
                 <button
-                  class="buttonStyle_zxbos0"
+                  class="buttonStyle_14yq0v6"
                   title="Quadratic"
                   type="button"
                 >
@@ -2784,7 +2784,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                   />
                 </button>
                 <button
-                  class="buttonStyle_zxbos0"
+                  class="buttonStyle_14yq0v6"
                   title="Exponential"
                   type="button"
                 >
@@ -2794,7 +2794,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                   />
                 </button>
                 <button
-                  class="buttonStyle_zxbos0"
+                  class="buttonStyle_14yq0v6"
                   title="Logarithm"
                   type="button"
                 >

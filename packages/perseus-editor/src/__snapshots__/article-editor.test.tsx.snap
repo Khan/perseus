@@ -1842,7 +1842,7 @@ table: [[☃ table 1]]
                               style="display: inline-block;"
                             >
                               <button
-                                class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59-o_O-answerStatusCorrect_7ab65q-o_O-disabledStyle_1spc5g0"
+                                class="buttonStyle_14yq0v6-o_O-selectedStyle_1kw54nb-o_O-answerStatusCorrect_7ab65q-o_O-disabledStyle_1spc5g0"
                                 disabled=""
                                 title="This answer will be considered correct"
                                 type="button"
@@ -1850,7 +1850,7 @@ table: [[☃ table 1]]
                                 correct
                               </button>
                               <button
-                                class="buttonStyle_zxbos0-o_O-disabledStyle_1spc5g0"
+                                class="buttonStyle_14yq0v6-o_O-disabledStyle_1spc5g0"
                                 disabled=""
                                 title="This answer will be considered wrong"
                                 type="button"
@@ -1858,7 +1858,7 @@ table: [[☃ table 1]]
                                 wrong
                               </button>
                               <button
-                                class="buttonStyle_zxbos0-o_O-disabledStyle_1spc5g0"
+                                class="buttonStyle_14yq0v6-o_O-disabledStyle_1spc5g0"
                                 disabled=""
                                 title="This answer will be considered ungraded"
                                 type="button"
@@ -4809,19 +4809,19 @@ table: [[☃ table 1]]
                               style="display: inline-block;"
                             >
                               <button
-                                class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59"
+                                class="buttonStyle_14yq0v6-o_O-selectedStyle_1kw54nb"
                                 type="button"
                               >
                                 Graph
                               </button>
                               <button
-                                class="buttonStyle_zxbos0"
+                                class="buttonStyle_14yq0v6"
                                 type="button"
                               >
                                 Grid
                               </button>
                               <button
-                                class="buttonStyle_zxbos0"
+                                class="buttonStyle_14yq0v6"
                                 type="button"
                               >
                                 None
@@ -8598,19 +8598,19 @@ table: [[☃ table 1]]
                                   style="display: inline-block;"
                                 >
                                   <button
-                                    class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59"
+                                    class="buttonStyle_14yq0v6-o_O-selectedStyle_1kw54nb"
                                     type="button"
                                   >
                                     Graph
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0"
+                                    class="buttonStyle_14yq0v6"
                                     type="button"
                                   >
                                     Grid
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0"
+                                    class="buttonStyle_14yq0v6"
                                     type="button"
                                   >
                                     None
@@ -8797,25 +8797,25 @@ table: [[☃ table 1]]
                                   style="display: inline-block;"
                                 >
                                   <button
-                                    class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59"
+                                    class="buttonStyle_14yq0v6-o_O-selectedStyle_1kw54nb"
                                     type="button"
                                   >
                                     None
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0"
+                                    class="buttonStyle_14yq0v6"
                                     type="button"
                                   >
                                     Snap
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0"
+                                    class="buttonStyle_14yq0v6"
                                     type="button"
                                   >
                                     x=
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0"
+                                    class="buttonStyle_14yq0v6"
                                     type="button"
                                   >
                                     y=
@@ -11160,14 +11160,14 @@ table: [[☃ table 1]]
                                   style="display: inline-block;"
                                 >
                                   <button
-                                    class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59-o_O-disabledStyle_1spc5g0"
+                                    class="buttonStyle_14yq0v6-o_O-selectedStyle_1kw54nb-o_O-disabledStyle_1spc5g0"
                                     disabled=""
                                     type="button"
                                   >
                                     On Axis
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0-o_O-disabledStyle_1spc5g0"
+                                    class="buttonStyle_14yq0v6-o_O-disabledStyle_1spc5g0"
                                     disabled=""
                                     type="button"
                                   >
@@ -11653,28 +11653,28 @@ table: [[☃ table 1]]
                                   style="display: inline-block;"
                                 >
                                   <button
-                                    class="buttonStyle_zxbos0-o_O-disabledStyle_1spc5g0"
+                                    class="buttonStyle_14yq0v6-o_O-disabledStyle_1spc5g0"
                                     disabled=""
                                     type="button"
                                   >
                                     Axes
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59-o_O-disabledStyle_1spc5g0"
+                                    class="buttonStyle_14yq0v6-o_O-selectedStyle_1kw54nb-o_O-disabledStyle_1spc5g0"
                                     disabled=""
                                     type="button"
                                   >
                                     Graph
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0-o_O-disabledStyle_1spc5g0"
+                                    class="buttonStyle_14yq0v6-o_O-disabledStyle_1spc5g0"
                                     disabled=""
                                     type="button"
                                   >
                                     Grid
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0-o_O-disabledStyle_1spc5g0"
+                                    class="buttonStyle_14yq0v6-o_O-disabledStyle_1spc5g0"
                                     disabled=""
                                     type="button"
                                   >
@@ -13357,28 +13357,28 @@ table: [[☃ table 1]]
                           style="display: inline-block;"
                         >
                           <button
-                            class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59"
+                            class="buttonStyle_14yq0v6-o_O-selectedStyle_1kw54nb"
                             title="Decimals"
                             type="button"
                           >
                             0.75
                           </button>
                           <button
-                            class="buttonStyle_zxbos0"
+                            class="buttonStyle_14yq0v6"
                             title="Improper fractions"
                             type="button"
                           >
                             ⁷⁄₄
                           </button>
                           <button
-                            class="buttonStyle_zxbos0"
+                            class="buttonStyle_14yq0v6"
                             title="Mixed numbers"
                             type="button"
                           >
                             1¾
                           </button>
                           <button
-                            class="buttonStyle_zxbos0"
+                            class="buttonStyle_14yq0v6"
                             title="Non-reduced"
                             type="button"
                           >
