@@ -28,7 +28,9 @@
 
 /* Focus/Hover outline */
 .base:before {
-    --perseus-multiple-choice-focus-offset: calc(0px - ( 2 * var(--wb-border-width-medium)));
+    --perseus-multiple-choice-focus-offset: calc(
+        0px - (2 * var(--wb-border-width-medium))
+    );
     border: var(--wb-border-width-medium) solid transparent;
     content: "";
     height: var(--perseus-multiple-choice-indicator-size);
@@ -62,7 +64,9 @@
         --wb-semanticColor-action-primary-progressive-default-background
     );
     border-color: transparent;
-    color: var(--wb-semanticColor-action-primary-progressive-default-foreground);
+    color: var(
+        --wb-semanticColor-action-primary-progressive-default-foreground
+    );
 }
 
 /* Icon inside the button when showing correctness */
@@ -98,7 +102,8 @@
     color: var(--wb-semanticColor-core-foreground-knockout-default);
 }
 
-.is-correct[aria-pressed="true"], .is-correct[aria-pressed="true"]:before {
+.is-correct[aria-pressed="true"],
+.is-correct[aria-pressed="true"]:before {
     width: var(--perseus-multiple-choice-indicator-correct-size);
 }
 
@@ -108,7 +113,8 @@
     color: var(--wb-semanticColor-core-foreground-neutral-subtle);
 }
 
-.circle-shape, .circle-shape:before {
+.circle-shape,
+.circle-shape:before {
     /* Why set border-radius to 100vh?
        Extremely large border radii cause an overlap situation,
            resulting in a recalculation to the smallest radius that doesn't cause overlap,
@@ -128,5 +134,7 @@
 }
 
 .square-shape:before {
-    border-radius: calc(var(--wb-sizing-size_040) + var(--wb-border-width-medium));
+    border-radius: calc(
+        var(--wb-sizing-size_040) + var(--wb-border-width-medium)
+    );
 }
