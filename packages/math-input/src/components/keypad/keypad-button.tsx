@@ -9,7 +9,7 @@ import ButtonAsset from "./button-assets";
 import type {KeyConfig, ClickKeyCallback} from "../../types";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
-export type KeypadButtonProps = {
+export interface KeypadButtonProps {
     // 0 indexed [x, y] position in keypad CSS grid
     coord: readonly [number, number];
     keyConfig: KeyConfig;
@@ -19,7 +19,7 @@ export type KeypadButtonProps = {
     // Apply secondary button styles
     secondary?: boolean;
     style?: StyleType;
-};
+}
 
 export const KeypadButton = ({
     coord,

@@ -70,11 +70,11 @@ function buildNormalFunctionCallback(command: string) {
     };
 }
 
-type KeyTranslatorStrings = {
+interface KeyTranslatorStrings {
     sin: string;
     cos: string;
     tan: string;
-};
+}
 
 export const getKeyTranslator = (
     locale: string,

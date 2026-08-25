@@ -18,21 +18,21 @@ import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const AnimationDurationInMS = 200;
 
-type Props = {
+interface Props {
     onElementMounted?: (api: KeypadAPI | null) => void;
     onDismiss?: () => void;
     style?: StyleType;
     onAnalyticsEvent: AnalyticsEventHandlerFn;
     setKeypadActive: (keypadActive: boolean) => void;
     keypadActive: boolean;
-};
+}
 
-type State = {
+interface State {
     containerWidth: number;
     keypadConfig?: KeypadConfiguration;
     keyHandler?: KeyHandler;
     cursor?: Cursor;
-};
+}
 
 /**
  * This is the v2 equivalent of v1's ProvidedKeypad. It follows the same

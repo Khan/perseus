@@ -10,10 +10,10 @@ import {mockStrings} from "../strings";
 
 import type {MathInputStrings} from "../strings";
 
-type I18nContextType = {
+interface I18nContextType {
     strings: MathInputStrings;
     locale: string;
-};
+}
 
 // @ts-expect-error - TS2322 - Type 'Context<{ strings: {}; locale: string; }>' is not assignable to type 'Context<I18nContextType>'.
 export const MathInputI18nContext: React.Context<I18nContextType> =

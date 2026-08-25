@@ -6,9 +6,9 @@ import {KeypadButton} from "../keypad-button";
 
 import type {ClickKeyCallback} from "../../../types";
 
-type Props = {
+interface Props {
     onClickKey: ClickKeyCallback;
-};
+}
 
 export default function GeometryPage(props: Props) {
     const {onClickKey} = props;

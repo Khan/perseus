@@ -6,10 +6,10 @@ import {KeypadButton} from "../keypad-button";
 
 import type {ClickKeyCallback} from "../../../types";
 
-type Props = {
+interface Props {
     onClickKey: ClickKeyCallback;
     scientific?: boolean;
-};
+}
 
 export default function NumbersPage({onClickKey, scientific}: Props) {
     const {strings} = useMathInputI18n();

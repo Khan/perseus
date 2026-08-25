@@ -22,7 +22,7 @@ import type {Cursor, KeypadAPI, KeypadContextType} from "../../types";
 
 const constrainingFrictionFactor = 0.8;
 
-type Props = {
+interface Props {
     keypadElement?: KeypadAPI;
     ariaLabel: string;
     onBlur: () => void;
@@ -30,28 +30,28 @@ type Props = {
     onFocus: () => void;
     style: any;
     value: string;
-};
+}
 
-type DefaultProps = {
+interface DefaultProps {
     style: Props["style"];
     value: Props["value"];
-};
+}
 
-type HandleState = {
+interface HandleState {
     animateIntoPosition?: boolean;
     visible: boolean;
     x?: number;
     y?: number;
-};
+}
 
-type State = {
+interface State {
     // Whether the input is currently the focused element.
     focused: boolean;
     handle: HandleState;
     // Whether to show the focus style for the input. We are handling this separately, as
     // we want the input to appear focused even when the focus is actually on the keypad.
     showInputFocusStyle: boolean;
-};
+}
 
 class MathInput extends React.Component<Props, State> {
     static contextType = MathInputI18nContext;

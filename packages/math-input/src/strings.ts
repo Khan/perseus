@@ -1,7 +1,7 @@
 /**
  * The translated strings that are used to render the Math Input.
  */
-export type MathInputStrings = {
+export interface MathInputStrings {
     mathInputBox: string;
     fingerTap: string;
     before: ({obj}: {obj: string}) => string;
@@ -66,7 +66,7 @@ export type MathInputStrings = {
     navOutOfDenominator: string;
     delete: string;
     dismiss: string;
-};
+}
 
 /**
  * Untranslated strings used in the math input. To be used by an external

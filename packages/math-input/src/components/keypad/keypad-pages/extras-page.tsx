@@ -7,10 +7,10 @@ import {KeypadButton} from "../keypad-button";
 import type {ClickKeyCallback} from "../../../types";
 import type {KeypadKey} from "@khanacademy/perseus-core";
 
-type Props = {
+interface Props {
     extraKeys: ReadonlyArray<KeypadKey>;
     onClickKey: ClickKeyCallback;
-};
+}
 
 const columns = 3;
 

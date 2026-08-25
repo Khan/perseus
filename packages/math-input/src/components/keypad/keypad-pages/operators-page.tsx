@@ -6,13 +6,13 @@ import {KeypadButton} from "../keypad-button";
 
 import type {ClickKeyCallback} from "../../../types";
 
-type Props = {
+interface Props {
     onClickKey: ClickKeyCallback;
     preAlgebra?: boolean;
     logarithms?: boolean;
     basicRelations?: boolean;
     advancedRelations?: boolean;
-};
+}
 
 export default function OperatorsPage(props: Props) {
     const {

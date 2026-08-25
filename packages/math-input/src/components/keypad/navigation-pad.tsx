@@ -10,9 +10,9 @@ import NavigationButton from "./navigation-button";
 
 import type {ClickKeyCallback} from "../../types";
 
-type Props = {
+interface Props {
     onClickKey: ClickKeyCallback;
-};
+}
 
 export default function NavigationPad(props: Props) {
     const {onClickKey} = props;

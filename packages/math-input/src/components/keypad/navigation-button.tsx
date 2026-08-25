@@ -9,12 +9,12 @@ import ButtonAsset from "./button-assets";
 import type {KeyConfig, ClickKeyCallback} from "../../types";
 import type {KeypadKey} from "@khanacademy/perseus-core";
 
-type KeypadButtonProps = {
+interface KeypadButtonProps {
     // 0 indexed [x, y] position in keypad CSS grid
     coord: readonly [number, number];
     keyConfig: KeyConfig;
     onClickKey: ClickKeyCallback;
-};
+}
 
 function getStyles(key: KeypadKey) {
     switch (key) {

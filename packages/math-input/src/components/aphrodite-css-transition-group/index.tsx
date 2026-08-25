@@ -43,7 +43,7 @@ import TransitionChild from "./transition-child";
 
 import type {AnimationStyles} from "./types";
 
-type Props = {
+interface Props {
     // If a function is provided, that function will be called to retrieve the
     // current set of animation styles to be used when animating the children.
     transitionStyle: AnimationStyles | (() => AnimationStyles);
@@ -51,7 +51,7 @@ type Props = {
     transitionEnterTimeout?: number;
     transitionLeaveTimeout?: number;
     children?: React.ReactNode;
-};
+}
 
 class AphroditeCSSTransitionGroup extends React.Component<Props> {
     render(): React.ReactNode {

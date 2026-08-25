@@ -10,13 +10,13 @@ import {getCursorContextConfig} from "./utils/get-cursor-context-config";
 import type {ClickKeyCallback, KeypadPageType} from "../../types";
 import type {CursorContext} from "../input/cursor-contexts";
 
-type Props = {
+interface Props {
     onClickKey: ClickKeyCallback;
     selectedPage: KeypadPageType;
     cursorContext?: (typeof CursorContext)[keyof typeof CursorContext];
     convertDotToTimes?: boolean;
     divisionKey?: boolean;
-};
+}
 
 export default function SharedKeys(props: Props) {
     const {

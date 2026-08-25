@@ -8,10 +8,10 @@ import {getCursorContextConfig} from "../utils/get-cursor-context-config";
 import type {ClickKeyCallback} from "../../../types";
 import type {CursorContext} from "../../input/cursor-contexts";
 
-type Props = {
+interface Props {
     onClickKey: ClickKeyCallback;
     cursorContext?: (typeof CursorContext)[keyof typeof CursorContext];
-};
+}
 
 export default function FractionsPage(props: Props) {
     const {onClickKey, cursorContext} = props;

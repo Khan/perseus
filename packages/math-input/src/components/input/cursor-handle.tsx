@@ -18,7 +18,7 @@ const cursorRadiusPx = cursorHandleRadiusPx;
 const cursorHeightPx = cursorHandleDistanceMultiplier * (cursorRadiusPx * 4);
 const cursorWidthPx = 4 * cursorRadiusPx;
 
-type Props = {
+interface Props {
     animateIntoPosition: boolean;
     onTouchCancel: (arg1: React.TouchEvent<HTMLSpanElement>) => void;
     onTouchEnd: (arg1: React.TouchEvent<HTMLSpanElement>) => void;
@@ -27,14 +27,14 @@ type Props = {
     visible: boolean;
     x: number;
     y: number;
-};
+}
 
-type DefaultProps = {
+interface DefaultProps {
     animateIntoPosition: Props["animateIntoPosition"];
     visible: Props["visible"];
     x: Props["x"];
     y: Props["y"];
-};
+}
 
 class CursorHandle extends React.Component<Props> {
     static defaultProps: DefaultProps = {

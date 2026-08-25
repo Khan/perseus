@@ -18,7 +18,9 @@ import {useMathInputI18n} from "../i18n-context";
 
 import type {KeypadKey} from "@khanacademy/perseus-core";
 
-type Props = {id: KeypadKey};
+interface Props {
+    id: KeypadKey;
+}
 
 export default function ButtonAsset({id}: Props): React.ReactNode {
     const {locale, strings} = useMathInputI18n();

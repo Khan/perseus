@@ -16,12 +16,12 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
-type Props = {
+interface Props {
     onChangeMathInput: (mathInputTex: string) => void;
     keypadClosed?: boolean;
     onAnalyticsEvent?: AnalyticsEventHandlerFn;
     portuguese?: boolean;
-};
+}
 
 function V2KeypadWithMathquill(props: Props) {
     const mathFieldWrapperRef = React.useRef<HTMLDivElement>(null);

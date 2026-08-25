@@ -16,10 +16,10 @@ type ChildProps = {
     in?: boolean; // provided by TransitionGroup
 } & WithActionSchedulerProps;
 
-type ChildState = {
+interface ChildState {
     // Keeps track of whether we should render our children or not.
     status: "mounted" | "unmounted";
-};
+}
 
 class TransitionChild extends React.Component<ChildProps, ChildState> {
     // Each 2-tuple in the queue represents two classnames: one to remove and

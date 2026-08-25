@@ -3,10 +3,10 @@ import * as React from "react";
 
 import type {KeypadPageType} from "../../types";
 
-type Props = {
+interface Props {
     tintColor: string;
     type: KeypadPageType;
-};
+}
 
 const TabIconLabel = function ({tintColor, type}: Props): React.ReactElement {
     switch (type) {

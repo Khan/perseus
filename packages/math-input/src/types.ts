@@ -14,22 +14,22 @@ export enum MathFieldActionType {
     MQ_END = 0,
 }
 
-type IconConfig = {
+interface IconConfig {
     data: string;
-};
+}
 
-export type KeyConfig = {
+export interface KeyConfig {
     id: KeypadKey;
     type: KeyType;
     icon: IconConfig;
     ariaLabel: string;
-};
+}
 
 export type KeyHandler = (key: KeypadKey) => Cursor;
 
-export type Cursor = {
+export interface Cursor {
     context: (typeof CursorContext)[keyof typeof CursorContext];
-};
+}
 
 export type ClickKeyCallback = (
     key: KeypadKey,
@@ -53,7 +53,7 @@ export interface KeypadAPI {
     getDOMNode: () => HTMLElement | null;
 }
 
-export type KeypadContextType = {
+export interface KeypadContextType {
     setKeypadActive: (keypadActive: boolean) => void;
     keypadActive: boolean;
     setKeypadElement: (keypadElement?: KeypadAPI) => void;
@@ -66,4 +66,4 @@ export type KeypadContextType = {
         scrollableElement?: HTMLElement | null | undefined,
     ) => void;
     scrollableElement: HTMLElement | null | undefined;
-};
+}
