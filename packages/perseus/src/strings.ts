@@ -4,7 +4,7 @@ import type {ErrorCodes} from "@khanacademy/perseus-core";
 /**
  * The translated strings that are used to render Perseus.
  */
-export type PerseusStrings = {
+export interface PerseusStrings {
     // `num` is a special variable name that is used to determine the plurality
     // of the translated string.
     characterCount: ({used, num}: {used: number; num: number}) => string;
@@ -911,7 +911,7 @@ export type PerseusStrings = {
     gifPlayButtonLabel: string;
     gifPauseButtonLabel: string;
     definitionIdentifier: ({word}: {word: string}) => string;
-};
+}
 
 /**
  * Untranslated strings used in Perseus. To be used by an external

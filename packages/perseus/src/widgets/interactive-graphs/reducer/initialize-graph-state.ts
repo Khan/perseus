@@ -28,12 +28,12 @@ import type {Interval} from "mafs";
 
 const {magnitude, vector} = geometry;
 
-export type InitializeGraphStateParams = {
+export interface InitializeGraphStateParams {
     range: [x: Interval, y: Interval];
     step: [x: number, y: number];
     snapStep: [x: number, y: number];
     graph: PerseusGraphType;
-};
+}
 
 export function initializeGraphState(
     params: InitializeGraphStateParams,

@@ -24,10 +24,10 @@ type Props = WidgetProps<PerseusSorterWidgetOptions, PerseusSorterUserInput> & {
     dependencies: PerseusDependenciesV2;
 };
 
-type DefaultProps = {
+interface DefaultProps {
     problemNum: Props["problemNum"];
     linterContext: Props["linterContext"];
-};
+}
 
 class Sorter extends React.Component<Props> implements Widget {
     _isMounted: boolean = false;

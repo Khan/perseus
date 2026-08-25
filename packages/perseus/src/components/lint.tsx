@@ -19,7 +19,7 @@ enum Severity {
     OfflineReportingOnly = 4,
 }
 
-type Props = {
+interface Props {
     /** The children are the linty content we're highlighting */
     children: React.ReactNode;
     /** Inline lint is highlighted differently than block lint. */
@@ -40,11 +40,11 @@ type Props = {
      * from 1 (indicating an error) to 4 (offline reporting only)
      */
     severity?: Severity;
-};
+}
 
-type State = {
+interface State {
     tooltipAbove: boolean;
-};
+}
 
 /**
  * This component renders "lint" nodes in a markdown parse tree. Lint nodes

@@ -32,7 +32,7 @@ import type {
 
 type ButtonsVisibleType = "always" | "never" | "focused";
 
-export type KeypadButtonSets = {
+export interface KeypadButtonSets {
     advancedRelations?: boolean;
     basicRelations?: boolean;
     divisionKey?: boolean;
@@ -40,9 +40,9 @@ export type KeypadButtonSets = {
     preAlgebra?: boolean;
     trigonometry?: boolean;
     scientific?: boolean;
-};
+}
 
-type Props = {
+interface Props {
     className?: string;
     value: string;
     onChange: any;
@@ -69,7 +69,7 @@ type Props = {
      */
     buttonsVisible?: ButtonsVisibleType;
     onAnalyticsEvent: AnalyticsEventHandlerFn;
-};
+}
 
 type InnerProps = Props & {
     // NOTE(john): We'd like to use the real MathInputStrings type here, but
@@ -78,17 +78,17 @@ type InnerProps = Props & {
     mathInputStrings: any;
 };
 
-type DefaultProps = {
+interface DefaultProps {
     value: Props["value"];
     convertDotToTimes: Props["convertDotToTimes"];
-};
+}
 
-type State = {
+interface State {
     focused: boolean;
     keypadOpen: boolean;
     cursorContext: (typeof CursorContext)[keyof typeof CursorContext];
     openedWithEventType?: string;
-};
+}
 
 // A WYSIWYG math input that calls `onChange(LaTeX-string)`
 class InnerMathInput extends React.Component<InnerProps, State> {

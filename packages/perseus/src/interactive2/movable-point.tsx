@@ -98,7 +98,7 @@ const DEFAULT_STATE = {
     touchOffset: null,
 } as const;
 
-type State = {
+interface State {
     add: unknown[];
     added: boolean;
     constraints: Constraint[];
@@ -124,7 +124,7 @@ type State = {
     visibleShape: {wrapper: HTMLElement; toBack(): void; toFront(): void};
     normalStyle: Record<string, any>;
     highlightStyle: Record<string, any>;
-};
+}
 const tooltipResetFunctions: Array<() => void> = [];
 
 export class MovablePoint {

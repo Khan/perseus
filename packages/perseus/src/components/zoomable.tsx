@@ -21,10 +21,10 @@ export const ENTRANCE_TRANSITION_DURATION_MS = 300;
 
 let assetKeyCounter = 0;
 
-type Bounds = {
+interface Bounds {
     width: number;
     height: number;
-};
+}
 
 type Props = {
     children: React.ReactNode;
@@ -48,21 +48,21 @@ type Props = {
     readyToMeasure: boolean;
 } & WithActionSchedulerProps;
 
-type DefaultProps = {
+interface DefaultProps {
     animateHeight: Props["animateHeight"];
     computeChildBounds: Props["computeChildBounds"];
     readyToMeasure: Props["readyToMeasure"];
     disableEntranceAnimation: Props["disableEntranceAnimation"];
-};
+}
 
-type State = {
+interface State {
     visible: boolean;
     marginBottomPx: number;
     compactHeight?: number | null | undefined;
     expandedHeight?: number | null | undefined;
     scale?: number | null | undefined;
     zoomed: boolean;
-};
+}
 
 /**
  * Zooms child to fit with tap-to-zoom behavior.

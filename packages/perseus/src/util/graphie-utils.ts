@@ -23,7 +23,7 @@ export type GraphieRange = [number, number];
 /**
  * A Graphie label.
  */
-export type GraphieLabel = {
+export interface GraphieLabel {
     // The text of the label.
     content: string;
 
@@ -48,18 +48,18 @@ export type GraphieLabel = {
 
     // Whether content is TeX.
     typesetAsMath: boolean;
-};
+}
 
 /**
  * The Graphie data (labels, etc.)
  */
-export type GraphieData = {
+export interface GraphieData {
     // The x, y axis range of the Graphie.
     range: [GraphieRange, GraphieRange];
 
     // The labels in the Graphie.
     labels: Array<GraphieLabel>;
-};
+}
 
 function getLocale() {
     const {JIPT, kaLocale} = getDependencies();
@@ -120,10 +120,10 @@ export function parseDataFromJSONP(
     }
 }
 
-type CacheEntry = {
+interface CacheEntry {
     labels: ReadonlyArray<any>;
     range: [Coord, Coord];
-};
+}
 
 // The global cache of label data. Its format is:
 // {

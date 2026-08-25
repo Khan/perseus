@@ -6,7 +6,7 @@
 
 import * as React from "react";
 
-type Context = {
+interface Context {
     // A dictionary of asset statues.  See server-item-renderer.jsx for
     // an example of its definition.
     assetStatuses: {
@@ -18,7 +18,7 @@ type Context = {
     // setAssetStatus(key, true) must be called when the component has
     // fully rendered itself.  See svg-image.jsx and tex.jsx.
     setAssetStatus: (assetKey: string, loaded: boolean) => void;
-};
+}
 
 const defaultContext: Context = {
     assetStatuses: {},

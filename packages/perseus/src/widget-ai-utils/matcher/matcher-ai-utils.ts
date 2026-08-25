@@ -7,7 +7,7 @@ import type React from "react";
  * dragging cards in the right column to align with their corresponding items
  * in the left column.
  */
-export type MatcherPromptJSON = {
+export interface MatcherPromptJSON {
     type: "matcher";
 
     /**
@@ -59,7 +59,7 @@ export type MatcherPromptJSON = {
          */
         right: ReadonlyArray<string>;
     };
-};
+}
 
 export type widgetDataPartial = Pick<
     React.ComponentProps<typeof matcher.widget>,

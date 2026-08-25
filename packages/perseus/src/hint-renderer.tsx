@@ -42,9 +42,9 @@ type Props = SharedRendererProps & {
     dependencies: PerseusDependenciesV2;
 };
 
-type DefaultProps = {
+interface DefaultProps {
     linterContext: Props["linterContext"];
-};
+}
 
 /* Renders just a hint preview */
 class HintRenderer extends React.Component<Props> {

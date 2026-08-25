@@ -12,7 +12,7 @@ import type {CSSCursor} from "./css-cursor";
 import type {vec} from "mafs";
 import type {ForwardedRef} from "react";
 
-type Props = {
+interface Props {
     point: vec.Vector2;
     angle: number; // degrees counterclockwise from the positive x-axis
     dragging: boolean;
@@ -24,7 +24,7 @@ type Props = {
     showFocusRing: boolean;
     cursor?: CSSCursor | undefined;
     onClick?: () => unknown;
-};
+}
 
 // Straight-line chevron arrowhead: two lines meeting at the tip.
 // Wings at (-5, ±5) give exactly 45° per side (90° total opening).

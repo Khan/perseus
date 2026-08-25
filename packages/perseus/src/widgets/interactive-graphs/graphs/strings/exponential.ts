@@ -37,22 +37,22 @@ export function srExponentialPointLabel(
     return strings.srExponentialPoint({pointLabel, x, y});
 }
 
-type ExponentialGraphDescriptionStrings = {
+interface ExponentialGraphDescriptionStrings {
     srExponentialGraph: string;
     srExponentialDescription: string;
     srExponentialAsymptote: string;
     srExponentialPoint1: string;
     srExponentialPoint2: string;
     srExponentialInteractiveElements: string;
-};
+}
 
-type ExponentialDescriptionArgs = {
+interface ExponentialDescriptionArgs {
     point1X: string;
     point1Y: string;
     point2X: string;
     point2Y: string;
     asymptoteY: string;
-};
+}
 
 export function describeExponentialGraph(
     state: ExponentialGraphState,

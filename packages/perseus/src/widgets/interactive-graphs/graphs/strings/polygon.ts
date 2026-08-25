@@ -35,13 +35,13 @@ export function srPolygonLabel(
     return `${elementsLabel} ${pointsString}`;
 }
 
-type PolygonGraphDescriptionStrings = {
+interface PolygonGraphDescriptionStrings {
     srPolygonGraph: string;
     srPolygonGraphPointsNum: string;
     srPolygonGraphPoints?: string;
     srPolygonElementsNum: string;
     srPolygonInteractiveElements: string | null;
-};
+}
 
 export function describePolygonGraph(
     state: PolygonGraphState,

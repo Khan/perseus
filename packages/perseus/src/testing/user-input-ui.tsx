@@ -6,9 +6,9 @@ import ReactJson from "react-json-view";
 
 import type {UserInputMap} from "@khanacademy/perseus-core";
 
-type Props = {
+interface Props {
     userInput: UserInputMap;
-};
+}
 
 export default function UserInputUI({userInput}: Props) {
     return (

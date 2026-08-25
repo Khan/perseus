@@ -1,12 +1,12 @@
 import * as React from "react";
 
-type Props = {
+interface Props {
     className?: string | null | undefined;
     translationIndex: number;
     paragraphIndex?: number;
     children?: React.ReactNode;
     inline?: boolean;
-};
+}
 
 class QuestionParagraph extends React.Component<Props> {
     render(): React.ReactNode {

@@ -20,10 +20,10 @@ import type * as React from "react";
 
 export type FocusPath = ReadonlyArray<string> | null | undefined;
 
-export type Dimensions = {
+export interface Dimensions {
     width?: number;
     height?: number;
-};
+}
 
 export type DeviceType = "phone" | "tablet" | "desktop";
 
@@ -83,15 +83,15 @@ export interface Widget {
     getPromptJSON?: () => WidgetPromptJSON;
 }
 
-export type ImageDict = {
+export interface ImageDict {
     [url: string]: Dimensions;
-};
+}
 
 export type EditorMode = "edit" | "preview" | "json";
 
-export type ChoiceState = {
+export interface ChoiceState {
     selected: boolean;
-};
+}
 
 /**
  * TODO(LEMS-3245) remove ChangeHandler
@@ -145,11 +145,11 @@ type GenerateUrlContext =
     | "python_program:program_url"
     | "video:video_url";
 
-export type GenerateUrlArgs = {
+export interface GenerateUrlArgs {
     url: string;
     context: GenerateUrlContext;
     kaLocale?: string;
-};
+}
 
 /**
  * APIOptions provides different ways to customize the behaviour of Perseus.
@@ -228,12 +228,12 @@ export type APIOptions = Readonly<{
     flags?: Record<(typeof PerseusFeatureFlags)[number], boolean>;
 }>;
 
-type TeXProps = {
+interface TeXProps {
     children: string;
     onClick?: () => unknown;
     onRender?: (root?: any) => unknown;
     style?: any;
-};
+}
 
 export type DomInsertCheckFn = (
     text: string,
@@ -242,9 +242,9 @@ export type DomInsertCheckFn = (
     jiptString?: string,
 ) => string | false;
 
-type JIPT = {
+interface JIPT {
     useJIPT: boolean;
-};
+}
 
 /**
  * A label element returned by graphie.label().
@@ -257,20 +257,20 @@ export type GraphieLabelElement = ReturnType<typeof $<HTMLElement>> & {
     processText: (text: string) => void;
 };
 
-export type JiptLabelStore = {
+export interface JiptLabelStore {
     addLabel: (label?: GraphieLabelElement, useMath?: boolean) => void;
-};
+}
 
 export interface JiptRenderer {
     replaceJiptContent(content: string, paragraphIndex?: number): void;
 }
 
-type JiptTranslationComponents = {
+interface JiptTranslationComponents {
     addComponent: (renderer: JiptRenderer) => number;
     removeComponentAtIndex: (index: number) => void;
-};
+}
 
-export type VideoData = {
+export interface VideoData {
     __typename: "Video";
     id: string;
     title: string | null | undefined;
@@ -282,7 +282,7 @@ export type VideoData = {
      */
     youtubeId: string | null | undefined;
     contentId: string | null | undefined;
-};
+}
 
 interface StaticUrlFn {
     (maybeRelativeUrl: string): string;
@@ -292,11 +292,11 @@ interface StaticUrlFn {
 }
 
 // A dependency for getting URLs
-type InitialRequestUrlInterface = {
+interface InitialRequestUrlInterface {
     origin: string;
     host: string;
     protocol: string;
-};
+}
 
 export type VideoKind = "YOUTUBE_ID" | "READABLE_ID";
 
@@ -311,7 +311,7 @@ export type VideoKind = "YOUTUBE_ID" | "READABLE_ID";
  * could be used. Aim to shrink the footprint of PerseusDependencies and try to
  * use alternative methods where possible.
  */
-export type PerseusDependencies = {
+export interface PerseusDependencies {
     // JIPT
     JIPT: JIPT;
     graphieMovablesJiptLabels: JiptLabelStore;
@@ -332,7 +332,7 @@ export type PerseusDependencies = {
     // RequestInfo
     isDevServer: boolean;
     kaLocale: string;
-};
+}
 
 /**
  * The modern iteration of Perseus Depedndencies. These dependencies are
@@ -391,14 +391,14 @@ export type Tracking =
     | "all";
 
 // See graded-group widget
-export type TrackingGradedGroupExtraArguments = {
+export interface TrackingGradedGroupExtraArguments {
     status: "correct" | "incorrect" | "invalid";
-};
+}
 
 // See sequence widget
-type TrackingSequenceExtraArguments = {
+interface TrackingSequenceExtraArguments {
     visible: number;
-};
+}
 
 type WidgetOptions = any;
 
@@ -459,13 +459,13 @@ export type FilterCriterion =
  * the `options` prop; everything else is provided to every widget regardless of
  * its `type`.
  */
-export type WidgetProps<
+export interface WidgetProps<
     TWidgetOptions,
     TUserInput = Empty,
     // Defines the arguments that can be passed to the `trackInteraction`
     // function from APIOptions for this widget.
     TrackingExtraArgs = Empty,
-> = {
+> {
     options: TWidgetOptions;
     // This is slightly different from the `trackInteraction` function in
     // APIOptions. This provides the widget an easy way to notify the renderer
@@ -495,12 +495,12 @@ export type WidgetProps<
     // provided by widget-container.jsx#render()
     linterContext: LinterContextProps;
     containerSizeClass: SizeClass;
-};
+}
 
-export type SharedRendererProps = {
+export interface SharedRendererProps {
     apiOptions: APIOptions;
     linterContext: LinterContextProps;
-};
+}
 
 export interface Focusable {
     focus: () => void;

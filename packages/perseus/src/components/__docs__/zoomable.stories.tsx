@@ -4,10 +4,10 @@ import Zoomable from "../zoomable";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-type Bounds = {
+interface Bounds {
     width: number;
     height: number;
-};
+}
 
 const computeChildBounds = (
     parentNode: HTMLElement,

@@ -7,13 +7,13 @@ import type React from "react";
  * renders a term and displays its definition in a popover when clicked.
  * Learners' interactions with this widget are not graded.
  */
-export type DefinitionPromptJSON = {
+export interface DefinitionPromptJSON {
     type: "definition";
     /** The definition of the term. */
     definition: string;
     /** The term being defined. */
     togglePrompt: string;
-};
+}
 
 export const getPromptJSON = (
     widgetData: React.ComponentProps<typeof definition.widget>,

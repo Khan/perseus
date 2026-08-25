@@ -20,7 +20,7 @@ const createGraphie = GraphUtils.createGraphie;
 const {nestedMap} = Util;
 const {assert} = InteractiveUtil;
 
-type Props = {
+interface Props {
     addMouseLayer?: boolean;
     box: Size;
     range: [Coord, Coord];
@@ -47,14 +47,14 @@ type Props = {
     onClick?: (at: Coord) => void;
     onMouseDown?: (at: Coord) => void;
     onMouseMove?: (at: Coord) => void;
-};
+}
 
-type DefaultProps = {
+interface DefaultProps {
     range: Props["range"];
     options: Props["options"];
     responsive: Props["responsive"];
     addMouseLayer: Props["addMouseLayer"];
-};
+}
 
 interface Movable {
     remove(): void;

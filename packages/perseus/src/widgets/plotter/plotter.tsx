@@ -36,9 +36,9 @@ type Props = WidgetProps<
     dependencies: PerseusDependenciesV2;
 };
 
-type State = {
+interface State {
     categoryHeights: Record<string, number>;
-};
+}
 
 class Plotter extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;

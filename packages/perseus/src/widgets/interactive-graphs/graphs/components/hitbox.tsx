@@ -37,7 +37,7 @@ type HitboxShape =
     // Filled polygon through its vertices (polygon bodies).
     | {kind: "polygon"; vertices: ReadonlyArray<vec.Vector2>};
 
-type HitboxParams = {
+interface HitboxParams {
     shape: HitboxShape;
     /** Assigned to the hitbox element; use as the `useDraggable` gestureTarget. */
     hitboxRef: React.RefObject<HTMLDivElement>;
@@ -51,7 +51,7 @@ type HitboxParams = {
     onClick?: () => void;
     onHoverChange?: (hovered: boolean) => void;
     testId?: string;
-};
+}
 
 export function useHitbox(params: HitboxParams): React.ReactNode {
     const {

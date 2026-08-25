@@ -6,7 +6,7 @@ import type {
 } from "@khanacademy/perseus-core";
 
 // Define state type
-export type ItemRendererState = {
+export interface ItemRendererState {
     isMobile: boolean;
     isRtl: boolean;
     perseusItem: PerseusItem;
@@ -19,7 +19,7 @@ export type ItemRendererState = {
     hintsVisible: number;
     key: number; // For forcing remount
     reviewMode: boolean;
-};
+}
 
 // Define action types
 export type ItemRendererAction =

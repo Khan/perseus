@@ -39,13 +39,13 @@ export function srAbsoluteValuePointLabel(
     return `${armLabel} ${slopeLabel}`;
 }
 
-type AbsoluteValueGraphDescriptionStrings = {
+interface AbsoluteValueGraphDescriptionStrings {
     srAbsoluteValueGraph: string;
     srAbsoluteValueVertexPoint: string;
     srAbsoluteValueArmPoint: string;
     srAbsoluteValueDescription: string;
     srAbsoluteValueSlope: string;
-};
+}
 
 export function describeAbsoluteValueGraph(
     state: AbsoluteValueGraphState,

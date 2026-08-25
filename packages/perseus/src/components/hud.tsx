@@ -77,12 +77,12 @@ const HiddenIcon = () => (
     </svg>
 );
 
-type Props = {
+interface Props {
     message: string;
     enabled: boolean;
     onClick: () => void;
     fixedPosition?: boolean;
-};
+}
 
 /**
  * A "heads-up display" (HUD) indicator that includes a short message (usually

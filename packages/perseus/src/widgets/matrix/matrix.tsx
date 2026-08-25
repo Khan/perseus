@@ -81,10 +81,10 @@ type Props = WidgetProps<MatrixPublicWidgetOptions, PerseusMatrixUserInput> & {
     dependencies: PerseusDependenciesV2;
 };
 
-type State = {
+interface State {
     // The coordinate location of the cursor position at start. default: [0, 0]
     cursorPosition: ReadonlyArray<number>;
-};
+}
 
 class Matrix extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;

@@ -44,7 +44,7 @@ function spinner() {
     );
 }
 
-export type Props = {
+export interface Props {
     apiOptions?: APIOptions;
     allowFullBleed?: boolean;
     allowZoom: boolean;
@@ -109,9 +109,9 @@ export type Props = {
      */
     onGifLoop?: () => void;
     gifFrames?: ParsedFrame[] | undefined;
-};
+}
 
-type DefaultProps = {
+interface DefaultProps {
     constrainHeight: NonNullable<Props["constrainHeight"]>;
     onUpdate: NonNullable<Props["onUpdate"]>;
     responsive: NonNullable<Props["responsive"]>;
@@ -119,20 +119,20 @@ type DefaultProps = {
     setAssetStatus: NonNullable<Props["setAssetStatus"]>;
     src: NonNullable<Props["src"]>;
     zoomToFullSizeOnMobile: NonNullable<Props["zoomToFullSizeOnMobile"]>;
-};
+}
 
-type Label = {
+interface Label {
     coordinates: ReadonlyArray<any>;
     content: string;
     alignment: Alignment;
     typesetAsMath: boolean;
-};
+}
 
-type LabelsRenderedMap = {
+interface LabelsRenderedMap {
     [label: string]: boolean;
-};
+}
 
-type State = {
+interface State {
     // For labeled SVGs, when both dataLoaded and imageLoaded are true,
     // indicates that loading has completed.
     dataLoaded: boolean;
@@ -148,7 +148,7 @@ type State = {
     labelDataIsLocalized: boolean;
     labels: ReadonlyArray<Label>;
     range: [Coord, Coord];
-};
+}
 
 class SvgImage extends React.Component<Props, State> {
     static contextType = PerseusI18nContext;

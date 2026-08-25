@@ -8,7 +8,7 @@ import type React from "react";
  * selecting an inequality relationship (e.g. ≤, ≥) when the widget is in
  * inequality mode.
  */
-export type NumberLinePromptJSON = {
+export interface NumberLinePromptJSON {
     type: "number-line";
 
     /**
@@ -69,7 +69,7 @@ export type NumberLinePromptJSON = {
          */
         rel: string;
     };
-};
+}
 
 export const getPromptJSON = (
     widgetData: React.ComponentProps<typeof numberLine.widget>,

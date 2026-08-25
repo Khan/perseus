@@ -8,7 +8,7 @@ import type React from "react";
 /**
  * A single answer choice in a radio widget.
  */
-type BasicOption = {
+interface BasicOption {
     /**
      * The label displayed for this choice.
      */
@@ -26,14 +26,14 @@ type BasicOption = {
      * content creator supplied one.
      */
     rationale?: string;
-};
+}
 
 /**
  * JSON describing a radio (multiple-choice) widget. Intended for consumption
  * by AI tools. A radio widget presents a list of answer choices and asks the
  * learner to select one (or, when multiple-select is enabled, one or more).
  */
-export type RadioPromptJSON = {
+export interface RadioPromptJSON {
     type: "radio";
 
     /**
@@ -61,7 +61,7 @@ export type RadioPromptJSON = {
          */
         selectedOptions: ReadonlyArray<string>;
     };
-};
+}
 
 export const getPromptJSON = (
     widgetData: RecursiveReadonly<React.ComponentProps<typeof radio.widget>>,

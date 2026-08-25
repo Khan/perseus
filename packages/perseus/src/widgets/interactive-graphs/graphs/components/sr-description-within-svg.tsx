@@ -2,10 +2,10 @@ import * as React from "react";
 
 import a11y from "../../../../util/a11y";
 
-type Props = {
+interface Props {
     id: string;
     children: React.ReactNode | string;
-};
+}
 
 /**
  * If an element has an `aria-describedby` attribute, it needs to point to

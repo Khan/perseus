@@ -13,7 +13,7 @@ import type {CSSCursor} from "./css-cursor";
 import type {vec} from "mafs";
 import type {ForwardedRef} from "react";
 
-type Props = {
+interface Props {
     point: vec.Vector2;
     dragging: boolean;
     focused: boolean;
@@ -24,7 +24,7 @@ type Props = {
     showFocusRing: boolean;
     cursor?: CSSCursor | undefined;
     onClick?: () => unknown;
-};
+}
 
 // MovablePointView is a purely presentational component (i.e. it is a pure
 // function with no state or effects) that renders the SVG for a movable point

@@ -8,14 +8,14 @@ import {useEffect, useRef, useState} from "react";
 import {usePerseusI18n} from "./i18n-context";
 import styles from "./scrollable-view.module.css";
 
-type ScrollAxisX = {
+interface ScrollAxisX {
     overflowX: React.CSSProperties["overflowX"];
     overflowY?: React.CSSProperties["overflowY"];
-};
-type ScrollAxisY = {
+}
+interface ScrollAxisY {
     overflowY: React.CSSProperties["overflowY"];
     overflowX?: React.CSSProperties["overflowX"];
-};
+}
 
 interface ScrollableAreaPropsBase extends React.HTMLAttributes<HTMLDivElement> {
     children?: React.ReactNode;

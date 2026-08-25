@@ -12,10 +12,10 @@ import type {LockedFunctionType} from "@khanacademy/perseus-core";
 
 const LockedFunction = (props: LockedFunctionType) => {
     const {range} = useGraphConfig();
-    type Equation = {
+    interface Equation {
         [k: string]: any;
         eval: (number) => number;
-    };
+    }
     const [equation, setEquation]: [
         Equation | undefined,
         React.Dispatch<React.SetStateAction<Equation | undefined>>,

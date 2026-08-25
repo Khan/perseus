@@ -33,7 +33,7 @@ const verifyRealTimers = () => {
     }
 };
 
-type WaitOptions = {
+interface WaitOptions {
     /**
      * The time in milliseconds to wait on each wait.
      * Defaults to 0. Any number less than 0 will be treated as 0.
@@ -44,7 +44,7 @@ type WaitOptions = {
      * Defaults to 1. Any number below 1 will be treated as 1.
      */
     count?: number;
-};
+}
 
 const unverifiedWait = (delay: number, count: number) =>
     new Promise(

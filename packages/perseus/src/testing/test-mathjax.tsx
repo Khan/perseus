@@ -18,10 +18,10 @@ const renderer = new MathJaxRenderer({
     locale: "en",
 });
 
-type Props = {
+interface Props {
     children: string;
     onRender?: (root?: any) => unknown;
-};
+}
 
 export function TestMathjax({children: tex, onRender}: Props) {
     const ref = React.useRef<HTMLSpanElement>(null);

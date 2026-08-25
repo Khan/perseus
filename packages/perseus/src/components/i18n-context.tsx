@@ -10,10 +10,10 @@ import {mockStrings} from "../strings";
 
 import type {PerseusStrings} from "../strings";
 
-export type I18nContextType = {
+export interface I18nContextType {
     strings: PerseusStrings;
     locale: string;
-};
+}
 
 export const mockPerseusI18nContext = {
     strings: mockStrings,

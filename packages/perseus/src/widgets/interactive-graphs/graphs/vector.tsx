@@ -108,13 +108,13 @@ const VectorGraph = (props: Props) => {
     );
 };
 
-type VectorBodyProps = {
+interface VectorBodyProps {
     tail: vec.Vector2;
     tip: vec.Vector2;
     ariaLabel: string;
     ariaDescribedBy: string;
     onMove: (newStart: vec.Vector2) => unknown;
-};
+}
 
 // The vector body is the grab handle for translating the entire vector.
 // Dragging it moves both the tail and tip by the same delta, preserving
@@ -230,13 +230,13 @@ const VectorBody = (props: VectorBodyProps) => {
     );
 };
 
-type TipArrowheadParams = {
+interface TipArrowheadParams {
     tail: vec.Vector2;
     tip: vec.Vector2;
     ariaLabel: string;
     ariaDescribedBy: string;
     onMove: (destination: vec.Vector2) => unknown;
-};
+}
 
 // Hook that sets up the draggable arrowhead control at the tip of the
 // vector. Returns the rendered elements plus drag/focus state (used by

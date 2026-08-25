@@ -3,9 +3,9 @@
  */
 import * as React from "react";
 
-type MathRenderingContextType = {
+interface MathRenderingContextType {
     shouldAddAriaLabels: boolean;
-};
+}
 
 /**
  * A React context for managing math rendering options.

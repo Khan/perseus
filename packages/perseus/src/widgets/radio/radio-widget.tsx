@@ -35,7 +35,7 @@ export interface ChoiceType {
     isNoneOfTheAbove: boolean;
 }
 
-export type RadioProps = {
+export interface RadioProps {
     numCorrect: number;
     hasNoneOfTheAbove?: boolean;
     multipleSelect?: boolean;
@@ -44,12 +44,12 @@ export type RadioProps = {
     choices: RadioChoiceWithMetadata[];
     choiceStates?: ChoiceState[];
     randomize?: boolean;
-};
+}
 
-type RadioWidgetHandle = {
+interface RadioWidgetHandle {
     getSerializedState(): any;
     getPromptJSON(): RadioPromptJSON;
-};
+}
 
 /**
  * RadioChoiceWithMetadata is used for server-side scoring

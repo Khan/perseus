@@ -28,13 +28,13 @@ type Props = PropsFor<typeof Renderer> & {
     dependencies: PerseusDependenciesV2;
 };
 
-type DefaultProps = {
+interface DefaultProps {
     linterContext: Props["linterContext"];
-};
+}
 
-type State = {
+interface State {
     isFinalHelpPage: boolean;
-};
+}
 
 class HintsRenderer extends React.Component<Props, State> {
     static contextType = PerseusI18nContext;

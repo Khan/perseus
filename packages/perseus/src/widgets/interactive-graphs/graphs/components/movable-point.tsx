@@ -6,7 +6,7 @@ import type {CSSCursor} from "./css-cursor";
 import type {KeyboardMovementConstraint} from "../use-draggable";
 import type {vec} from "mafs";
 
-type Props = {
+interface Props {
     point: vec.Vector2;
     ariaDescribedBy?: string;
     ariaLabel?: string;
@@ -28,7 +28,7 @@ type Props = {
     onDragEnd?: () => unknown;
     onFocus?: (event: React.FocusEvent) => unknown;
     onMove?: (newPoint: vec.Vector2) => unknown;
-};
+}
 
 export const MovablePoint = React.forwardRef(function MovablePointWithRef(
     props: Props,

@@ -19,16 +19,16 @@ import * as Widgets from "./widgets";
 
 import type {WidgetProps} from "./types";
 
-type Props = {
+interface Props {
     type: string; // widget type/name,
     id: string; // widget id
     // TODO(benchristel): Pass real type arguments here.
     widgetProps: WidgetProps<any, any>;
-};
+}
 
-type State = {
+interface State {
     sizeClass: "small" | "medium" | "large" | "xlarge";
-};
+}
 
 class WidgetContainerOld extends React.Component<Props, State> {
     widgetRef = React.createRef<React.ComponentType<any>>();

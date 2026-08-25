@@ -25,9 +25,9 @@ const {updateQueryString} = Util;
 
 type Props = WidgetProps<PerseusIFrameWidgetOptions, PerseusIFrameUserInput>;
 
-type DefaultProps = {
+interface DefaultProps {
     userInput: Props["userInput"];
-};
+}
 
 /* This renders the iframe and handles validation via window.postMessage */
 class Iframe extends React.Component<Props> implements Widget {

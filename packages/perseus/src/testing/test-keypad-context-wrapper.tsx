@@ -8,13 +8,13 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {action} from "storybook/actions";
 
-type Props = {
+interface Props {
     children: React.ReactElement;
     /**
      * Whether we need to offset the keypad to account for the footer.
      */
     hasFooter?: boolean;
-};
+}
 
 const Footer = ({
     hasFooter = false,

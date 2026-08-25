@@ -16,19 +16,19 @@ export type HandleUserInputCallback = (
     widgetsEmpty: boolean,
 ) => void;
 
-type FunctionChildParams = {
+interface FunctionChildParams {
     userInput: UserInputMap;
     handleUserInput: HandleUserInputCallback;
     initializeUserInput: InitializeUserInputCallback;
-};
+}
 
-type Props = {
+interface Props {
     widgets: PerseusWidgetsMap;
     problemNum: number;
     initialUserInput?: UserInputMap;
     handleUserInput?: (userInput: UserInputMap, widgetsEmpty: boolean) => void;
     children: (payload: FunctionChildParams) => JSX.Element | null;
-};
+}
 
 /**
  * Initialize the starting UserInput state:

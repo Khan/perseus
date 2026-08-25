@@ -33,9 +33,9 @@ const Point = Graphie.Point;
 const Rect = Graphie.Rect;
 const {unescapeMathMode} = Util;
 
-type KASOptions = {
+interface KASOptions {
     functions: any;
-};
+}
 
 // Memoize KAS parsing
 function KAShashFunc(expr: any, options?: KASOptions) {
@@ -79,10 +79,10 @@ function KAScompile(expr: any, options: KASOptions) {
 
 type Props = WidgetProps<PerseusInteractionWidgetOptions>;
 
-type State = {
+interface State {
     variables: any;
     functions: any;
-};
+}
 
 class Interaction extends React.Component<Props, State> implements Widget {
     // this just helps with TS weak typing when a Widget

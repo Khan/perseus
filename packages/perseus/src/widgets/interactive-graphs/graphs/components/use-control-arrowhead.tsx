@@ -13,7 +13,7 @@ import {MovableArrowheadView} from "./movable-arrowhead-view";
 import type {KeyboardMovementConstraint} from "../use-draggable";
 import type {vec} from "mafs";
 
-type Params = {
+interface Params {
     point: vec.Vector2;
     angle: number; // degrees counterclockwise from the positive x-axis
     ariaDescribedBy?: string;
@@ -22,14 +22,14 @@ type Params = {
     sequenceNumber?: number;
     onMove?: ((newPoint: vec.Vector2) => unknown) | undefined;
     onDragEnd?: (() => unknown) | undefined;
-};
+}
 
-type Return = {
+interface Return {
     focusableHandle: React.ReactNode;
     visibleArrowhead: React.ReactNode;
     dragging: boolean;
     focused: boolean;
-};
+}
 
 // useControlArrowhead mirrors useControlPoint but renders a
 // MovableArrowheadView instead of a MovablePointView.  It provides

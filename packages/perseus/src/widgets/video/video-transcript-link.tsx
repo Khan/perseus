@@ -24,9 +24,9 @@ const getYoutubeId = (url: string): string => {
 };
 
 // will accept a youtube link or a video's slug name from embedded video and then query accordingly.
-type Props = {
+interface Props {
     location: string;
-};
+}
 
 /**
  * Video Transcript Link Component.

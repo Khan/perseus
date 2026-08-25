@@ -3,16 +3,16 @@ import * as React from "react";
 
 import {Log} from "./logging/log";
 
-type Props = {
+interface Props {
     children: React.ReactNode;
     metadata?: Record<string, string>;
 
     // A callback that is called when the error boundary traps an error.
     onError?: (error: Error, info: any) => void;
-};
-type State = {
+}
+interface State {
     error: string;
-};
+}
 
 class ErrorBoundary extends React.Component<Props, State> {
     constructor(props: Props) {

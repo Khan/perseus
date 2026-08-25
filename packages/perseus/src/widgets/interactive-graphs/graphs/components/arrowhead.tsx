@@ -5,12 +5,12 @@ import {pathBuilder} from "../../../../util/svg";
 import {X, Y} from "../../math";
 import {useTransformVectorsToPixels} from "../use-transform";
 
-type Props = {
+interface Props {
     tip: vec.Vector2;
     angle: number; // degrees counterclockwise from the positive x-axis
     color?: string;
     strokeWidth?: number;
-};
+}
 
 // We use the pathBuilder here to scale up the SVG path coordinates used
 // elsewhere for arrowheads. We scale in the path itself instead of using a CSS

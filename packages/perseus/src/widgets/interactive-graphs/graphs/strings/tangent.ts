@@ -37,13 +37,13 @@ export function srTangentPointLabel(
         : strings.srTangentControlPoint({x, y});
 }
 
-type TangentGraphDescriptionStrings = {
+interface TangentGraphDescriptionStrings {
     srTangentGraph: string;
     srTangentDescription: string;
     srTangentInflectionPoint: string;
     srTangentControlPoint: string;
     srTangentInteractiveElements: string;
-};
+}
 
 export function describeTangentGraph(
     state: TangentGraphState,

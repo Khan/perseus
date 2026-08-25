@@ -22,7 +22,7 @@ import {AnswerPill} from "./answer-pill";
 import type {IconType} from "../../components/icon";
 import type {CSSProperties} from "aphrodite";
 
-type Props = {
+interface Props {
     selected?: string[];
     showCorrectness?: "correct" | "incorrect";
     label: string;
@@ -35,7 +35,7 @@ type Props = {
     showAnswer?: boolean;
     focused: boolean;
     hovered: boolean;
-};
+}
 
 function shouldReduceMotion(): boolean {
     // We cannot use matchMedia during SSR.

@@ -12,7 +12,7 @@ import {SVGLine} from "./svg-line";
 import type {KeyboardMovementConstraint} from "../use-draggable";
 import type {vec} from "mafs";
 
-type Props = {
+interface Props {
     /** Pixel-space start point of the asymptote line. */
     start: vec.Vector2;
     /** Pixel-space end point of the asymptote line. */
@@ -38,7 +38,7 @@ type Props = {
      * but below the drag handle in the SVG stacking order.
      */
     children?: React.ReactNode;
-};
+}
 
 export function MovableAsymptote(props: Props) {
     const {

@@ -18,7 +18,7 @@ import {isCorrect} from "../util/scoring";
 
 import type {PerseusScore, ShowSolutions} from "@khanacademy/perseus-core";
 
-type DebugCheckAnswerFooterProps = {
+interface DebugCheckAnswerFooterProps {
     score: PerseusScore | undefined;
     showSolutions: ShowSolutions;
     popover: {
@@ -30,7 +30,7 @@ type DebugCheckAnswerFooterProps = {
         skip: () => void;
         check: () => void;
     };
-};
+}
 
 /**
  * A component that renders the debug check answer footer for Perseus items

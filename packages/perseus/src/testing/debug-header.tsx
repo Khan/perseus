@@ -7,13 +7,13 @@ import textAlignLeft from "@phosphor-icons/core/regular/text-align-left.svg";
 import textAlignRight from "@phosphor-icons/core/regular/text-align-right.svg";
 import * as React from "react";
 
-type DebugHeaderProps = {
+interface DebugHeaderProps {
     title: string;
     isMobile: boolean;
     isRtl: boolean;
     onToggleMobile: (isMobile: boolean) => void;
     onToggleRtl: (isRtl: boolean) => void;
-};
+}
 
 /**
  * A component that renders the header for the debug UI

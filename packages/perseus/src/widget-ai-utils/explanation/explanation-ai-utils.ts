@@ -7,7 +7,7 @@ import type React from "react";
  * click to see more details about a topic. Learners' interactions with this
  * widget are not graded.
  */
-export type ExplanationPromptJSON = {
+export interface ExplanationPromptJSON {
     type: "explanation";
     /**
      * The clickable text shown when the disclosure is closed.
@@ -17,7 +17,7 @@ export type ExplanationPromptJSON = {
      * The text shown when the disclosure is open.
      */
     explanation: string;
-};
+}
 
 export const getPromptJSON = (
     widgetData: React.ComponentProps<typeof explanation.widget>,

@@ -5,7 +5,7 @@ import type {PerseusExpressionUserInput} from "@khanacademy/perseus-core";
  * The expression widget shows an input field that allows a user to input a
  * math expression or equation.
  */
-export type ExpressionPromptJSON = {
+export interface ExpressionPromptJSON {
     type: "expression";
 
     /** The label shown on the input field */
@@ -19,7 +19,7 @@ export type ExpressionPromptJSON = {
         /** The expression or equation input by the user. Uses TeX syntax. */
         value: string;
     };
-};
+}
 
 export const getPromptJSON = (
     label: string | undefined,

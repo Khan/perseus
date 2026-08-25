@@ -1,11 +1,11 @@
 import type {InteractiveGraphState} from "../types";
 import type {Interval, vec} from "mafs";
 
-export type MovablePointLabel = {
+export interface MovablePointLabel {
     key: string;
     coord: vec.Vector2;
     text: string;
-};
+}
 
 // One of 8 cardinal directions used to anchor a visible label relative to
 // its movable point. `n` = label sits north of the point, `ne` = north-east,

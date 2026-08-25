@@ -4,9 +4,9 @@ import VideoTranscriptLink from "../video-transcript-link";
 
 type StoryArgs = Record<any, any>;
 
-type Story = {
+interface Story {
     title: string;
-};
+}
 
 // eslint-disable-next-line no-restricted-syntax
 export default {

@@ -43,14 +43,14 @@ export function srQuadraticPointLabel(
     return `${pointString} ${getQuadraticVertexString(state.vertex, strings)}`;
 }
 
-type QuadraticGraphDescriptionStrings = {
+interface QuadraticGraphDescriptionStrings {
     srQuadraticGraph: string;
     srQuadraticDirection?: string;
     srQuadraticVertex?: string;
     srQuadraticXIntercepts?: string;
     srQuadraticYIntercept: string;
     srQuadraticInteractiveElements: string;
-};
+}
 
 // Exported for testing
 export function describeQuadraticGraph(

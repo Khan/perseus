@@ -8,88 +8,88 @@ import type React from "react";
 type Coord = [x: number, y: number];
 type CollinearTuple = readonly [Coord, Coord];
 
-type AngleGraphOptions = {
+interface AngleGraphOptions {
     type: "angle";
     angleOffsetDegrees?: number | null;
     startCoords?: readonly [Coord, Coord, Coord];
-};
+}
 
-type CircleGraphOptions = {
+interface CircleGraphOptions {
     type: "circle";
     startParams: {
         center?: Coord;
         radius?: number;
     };
-};
+}
 
-type LinearGraphOptions = {
+interface LinearGraphOptions {
     type: "linear";
     startCoords?: CollinearTuple;
-};
+}
 
-type LinearSystemGraphOptions = {
+interface LinearSystemGraphOptions {
     type: "linear-system";
     startCoords?: readonly CollinearTuple[];
-};
+}
 
-type PointGraphOptions = {
+interface PointGraphOptions {
     type: "point";
     numPoints?: number | "unlimited";
     startCoords?: readonly Coord[];
-};
+}
 
-type PolygonGraphOptions = {
+interface PolygonGraphOptions {
     type: "polygon";
     match?: string;
     numSides?: number | "unlimited";
     startCoords?: readonly Coord[];
-};
+}
 
-type QuadraticGraphOptions = {
+interface QuadraticGraphOptions {
     type: "quadratic";
     startCoords?: readonly [Coord, Coord, Coord];
-};
+}
 
-type RayGraphOptions = {
+interface RayGraphOptions {
     type: "ray";
     startCoords?: CollinearTuple;
-};
+}
 
-type SegmentGraphOptions = {
+interface SegmentGraphOptions {
     type: "segment";
     numSegments?: number;
     startCoords?: CollinearTuple[];
-};
+}
 
-type SinusoidGraphOptions = {
+interface SinusoidGraphOptions {
     type: "sinusoid";
     startCoords?: readonly Coord[];
-};
+}
 
-type AbsoluteValueGraphOptions = {
+interface AbsoluteValueGraphOptions {
     type: "absolute-value";
     startCoords?: readonly [Coord, Coord];
-};
+}
 
-type TangentGraphOptions = {
+interface TangentGraphOptions {
     type: "tangent";
     startCoords?: readonly Coord[];
-};
+}
 
-type ExponentialGraphOptions = {
+interface ExponentialGraphOptions {
     type: "exponential";
     startCoords?: {coords: readonly [Coord, Coord]; asymptote: number};
-};
+}
 
-type LogarithmGraphOptions = {
+interface LogarithmGraphOptions {
     type: "logarithm";
     startCoords?: {coords: readonly [Coord, Coord]; asymptote: number};
-};
+}
 
-type VectorGraphOptions = {
+interface VectorGraphOptions {
     type: "vector";
     startCoords?: CollinearTuple;
-};
+}
 
 type NoneGraphOptions = Record<string, never>;
 
@@ -111,73 +111,73 @@ type GraphOptions =
     | LogarithmGraphOptions
     | VectorGraphOptions;
 
-type AngleUserInput = {
+interface AngleUserInput {
     coords?: readonly [Coord, Coord, Coord];
     angleOffsetDegrees?: number | null;
-};
+}
 
-type CircleUserInput = {
+interface CircleUserInput {
     center?: Coord;
     radius?: number;
-};
+}
 
-type LinearUserInput = {
+interface LinearUserInput {
     coords?: CollinearTuple;
-};
+}
 
-type LinearSystemInput = {
+interface LinearSystemInput {
     coords?: readonly CollinearTuple[] | null;
-};
+}
 
-type PointUserInput = {
+interface PointUserInput {
     coords?: readonly Coord[] | null;
-};
+}
 
-type PolygonUserInput = {
+interface PolygonUserInput {
     coords?: readonly Coord[] | null;
-};
+}
 
-type QuadraticUserInput = {
+interface QuadraticUserInput {
     coords?: readonly [Coord, Coord, Coord] | null;
-};
+}
 
-type RayUserInput = {
+interface RayUserInput {
     coords?: CollinearTuple | null;
-};
+}
 
-type SegmentUserInput = {
+interface SegmentUserInput {
     coords?: readonly CollinearTuple[] | null;
-};
+}
 
-type SinusoidUserInput = {
+interface SinusoidUserInput {
     coords?: readonly Coord[] | null;
-};
+}
 
-type AbsoluteValueUserInput = {
+interface AbsoluteValueUserInput {
     coords?: readonly [Coord, Coord] | null;
-};
+}
 
-type ExponentialUserInput = {
+interface ExponentialUserInput {
     coords?: readonly Coord[] | null;
     asymptote?: number | null;
-};
+}
 
-type LogarithmUserInput = {
+interface LogarithmUserInput {
     coords?: readonly Coord[] | null;
     asymptote?: number | null;
-};
+}
 
-type TangentUserInput = {
+interface TangentUserInput {
     // TODO(LEMS-4033): change to a more self-explanatory format. These points
     //  are special (one is at the midline of the graph, the other determines
     //  the period and vertical scaling) but I am not sure of their exact
     //  mathematical significance.
     coords?: readonly Coord[] | null;
-};
+}
 
-type VectorUserInput = {
+interface VectorUserInput {
     coords?: CollinearTuple | null;
-};
+}
 
 type UserInput =
     | AbsoluteValueUserInput
@@ -202,7 +202,7 @@ type UserInput =
  * Cartesian plane. The user can move and reshape these elements by dragging
  * control points.
  */
-export type InteractiveGraphPromptJSON = {
+export interface InteractiveGraphPromptJSON {
     type: "interactive-graph";
 
     /**
@@ -227,7 +227,7 @@ export type InteractiveGraphPromptJSON = {
         backgroundImageUrl: string | null | undefined;
     };
     userInput: UserInput;
-};
+}
 
 export const getPromptJSON = (
     props: React.ComponentProps<typeof interactiveGraph.widget>,

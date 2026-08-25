@@ -76,7 +76,7 @@ const typeSelectorStyle = {
     padding: "5px 5px",
 } as const;
 
-type FunctionGrapherProps = {
+interface FunctionGrapherProps {
     graph: any;
     coords: any;
     asymptote: any;
@@ -87,7 +87,7 @@ type FunctionGrapherProps = {
     showTooltips: boolean;
     static: boolean;
     onChange: (arg: any) => void;
-};
+}
 
 type DefaultFunctionGrapherProps = any;
 

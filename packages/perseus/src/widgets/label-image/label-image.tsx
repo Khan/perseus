@@ -63,10 +63,10 @@ type Direction =
           y: 0;
       };
 
-type Point = {
+interface Point {
     x: number;
     y: number;
-};
+}
 
 export type OptionalAnswersMarkerType = Omit<
     InteractiveMarkerType,
@@ -92,14 +92,14 @@ type Props = WidgetProps<Options, PerseusLabelImageUserInput> & {
     analytics: DependencyProps["analytics"];
 };
 
-type LabelImageState = {
+interface LabelImageState {
     // The user selected marker index, defaults to -1, no selection.
     activeMarkerIndex: number;
     // Whether any of the markers were interacted with by the user.
     markersInteracted: boolean;
     // Hide answer pills.
     hideAnswers: boolean;
-};
+}
 
 function isAnswerful(
     marker: OptionalAnswersMarkerType | InteractiveMarkerType,

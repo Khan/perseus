@@ -4,10 +4,10 @@
 
 import * as React from "react";
 
-type DefintionContext = {
+interface DefintionContext {
     activeDefinitionId: string | null | undefined;
     setActiveDefinitionId: (arg1?: string | null | undefined) => void;
-};
+}
 
 const defaultContext: DefintionContext = {
     activeDefinitionId: null,
@@ -17,13 +17,13 @@ const defaultContext: DefintionContext = {
 const DefinitionContext: React.Context<DefintionContext> =
     React.createContext(defaultContext);
 
-type ProviderState = {
+interface ProviderState {
     activeDefinitionId: string | null | undefined;
-};
+}
 
-type ProviderProps = {
+interface ProviderProps {
     children: any;
-};
+}
 export class DefinitionProvider extends React.Component<
     ProviderProps,
     ProviderState

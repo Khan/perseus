@@ -20,7 +20,7 @@ import type {
     PerseusInteractiveGraphWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-export type StatefulMafsGraphProps = {
+export interface StatefulMafsGraphProps {
     box: [number, number];
     backgroundImage?: PerseusInteractiveGraphWidgetOptions["backgroundImage"];
     graph: PerseusGraphType;
@@ -52,11 +52,11 @@ export type StatefulMafsGraphProps = {
     widgetId: string;
     graded?: boolean | null;
     ungradedDescriptionId?: string;
-};
+}
 
-export type StatefulMafsGraphType = {
+export interface StatefulMafsGraphType {
     getUserInput: () => PerseusInteractiveGraphUserInput;
-};
+}
 
 export const StatefulMafsGraph = React.forwardRef<
     StatefulMafsGraphType,

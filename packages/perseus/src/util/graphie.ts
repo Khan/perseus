@@ -46,16 +46,19 @@ interface RaphaelElement {
     };
 }
 
-type PositionedShape = {wrapper: HTMLDivElement; visibleShape: RaphaelElement};
+interface PositionedShape {
+    wrapper: HTMLDivElement;
+    visibleShape: RaphaelElement;
+}
 
-type StyleParams = {
+interface StyleParams {
     fill?: string;
     labelDistance?: number;
     opacity?: number;
     step?: Coord;
     stroke?: string;
     strokeWidth?: number;
-};
+}
 
 type LabelPosition =
     | "center"

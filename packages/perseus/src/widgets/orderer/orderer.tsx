@@ -24,10 +24,10 @@ import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 const noop = () => {};
 
-type PlaceholderCardProps = {
+interface PlaceholderCardProps {
     width: number | null | undefined;
     height: number | null | undefined;
-};
+}
 
 class PlaceholderCard extends React.Component<PlaceholderCardProps> {
     render(): React.ReactNode {
@@ -59,12 +59,12 @@ class DragHintCard extends React.Component<any> {
     }
 }
 
-type Position = {
+interface Position {
     left: number;
     top: number;
-};
+}
 
-type CardProps = {
+interface CardProps {
     content: string;
     fakeRef?: string;
     mouse?: Position;
@@ -85,17 +85,17 @@ type CardProps = {
     animateTo?: Position | null | undefined;
     onAnimationEnd?: any;
     linterContext: LinterContextProps;
-};
+}
 
-type CardDefaultProps = {
+interface CardDefaultProps {
     stack: CardProps["stack"];
     removing: CardProps["removing"];
     animating: CardProps["animating"];
-};
+}
 
-type CardState = {
+interface CardState {
     dragging: boolean;
-};
+}
 
 class Card extends React.Component<CardProps, CardState> {
     static contextType = PerseusI18nContext;
@@ -304,7 +304,7 @@ type OrdererProps = WidgetProps<
     PerseusOrdererUserInput
 > & {dependencies: PerseusDependenciesV2};
 
-type OrdererState = {
+interface OrdererState {
     dragging: boolean;
     dragSource: "bank" | "current" | null;
     placeholderIndex: number | null | undefined;
@@ -318,7 +318,7 @@ type OrdererState = {
     mousePos?: any;
     animateTo: Position | null | undefined;
     onAnimationEnd?: (arg1: any) => void;
-};
+}
 
 class Orderer
     extends React.Component<OrdererProps, OrdererState>

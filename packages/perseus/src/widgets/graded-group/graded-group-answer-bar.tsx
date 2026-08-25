@@ -27,7 +27,7 @@ export type ANSWER_BAR_STATES =
     // The widgets in this grade-group are disabled.
     | "CORRECT";
 
-type Props = {
+interface Props {
     answerBarState: ANSWER_BAR_STATES;
     apiOptions: APIOptions;
     onCheckAnswer: () => unknown;
@@ -35,7 +35,7 @@ type Props = {
     // answering one graded group out of a set. If this is null, the
     // "Next question" button will not appear.
     onNextQuestion?: () => unknown;
-};
+}
 
 class GradedGroupAnswerBar extends React.Component<Props> {
     static contextType = PerseusI18nContext;

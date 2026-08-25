@@ -3,7 +3,7 @@ import {getDependencies} from "../dependencies";
 import type {ErrorKind} from "@khanacademy/perseus-core";
 import type {Metadata} from "@khanacademy/wonder-stuff-core";
 
-export type LogErrorOptions = {
+export interface LogErrorOptions {
     // The cause of the error.
     cause?: Error | null | undefined;
     // Extra metadata about the error that is safe and small enough to send to
@@ -13,7 +13,7 @@ export type LogErrorOptions = {
     // explicitly marked to _not_ be delivered to any configured logging
     // systems.
     metadata?: Metadata | null | undefined;
-};
+}
 
 /**
  * Provides logging infrastructure for Perseus

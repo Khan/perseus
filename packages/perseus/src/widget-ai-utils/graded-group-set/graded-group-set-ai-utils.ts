@@ -9,7 +9,7 @@ import type React from "react";
  * Graded group sets are provided for learners to check their own understanding
  * of a concept.
  */
-export type GradedGroupSetPromptJSON = {
+export interface GradedGroupSetPromptJSON {
     type: "graded-group-set";
 
     /** The configuration of the widget, set by the content creator. */
@@ -20,7 +20,7 @@ export type GradedGroupSetPromptJSON = {
         /** The currently-displayed question */
         currentGroup: GradedGroupPromptJSON;
     };
-};
+}
 
 export const getPromptJSON = (
     widgetData: React.ComponentProps<typeof gradedGroupSet.widget>,

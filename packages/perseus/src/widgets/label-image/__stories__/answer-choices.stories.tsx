@@ -5,9 +5,9 @@ import AnswerChoices from "../answer-choices";
 
 type StoryArgs = Record<any, any>;
 
-type Story = {
+interface Story {
     title: string;
-};
+}
 
 // eslint-disable-next-line no-restricted-syntax
 export default {

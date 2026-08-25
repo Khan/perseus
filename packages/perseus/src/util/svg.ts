@@ -71,7 +71,10 @@ export class PathBuilder {
     }
 }
 
-type Command = {action: "M" | "L" | "C" | "A"; args: number[]};
+interface Command {
+    action: "M" | "L" | "C" | "A";
+    args: number[];
+}
 
 function commandToString(command: Command): string {
     return `${command.action}${command.args.join(" ")}`;

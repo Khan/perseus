@@ -1,6 +1,6 @@
 import * as React from "react";
 
-type InlineIconProps = {
+interface InlineIconProps {
     // An SVG path to render.
     path: string;
     // The path's viewBox dimensions.
@@ -11,7 +11,7 @@ type InlineIconProps = {
     // A11y description for this icon. If absent, icon is marked
     // aria-hidden=true
     title?: string;
-};
+}
 
 /**
  * Takes an SVG icon and renders it inline.

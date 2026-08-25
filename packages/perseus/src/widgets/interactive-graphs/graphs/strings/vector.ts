@@ -24,14 +24,14 @@ export function srVectorPointLabel(
         : strings.srVectorHeadPoint({x, y});
 }
 
-type VectorGraphDescriptionStrings = {
+interface VectorGraphDescriptionStrings {
     srVectorGraph: string;
     srVectorPoints: string;
     srVectorDescription: string;
     srVectorHeadPoint: string;
     srVectorGrabHandle: string;
     srVectorInteractiveElement: string;
-};
+}
 
 // Exported for testing
 export function describeVectorGraph(

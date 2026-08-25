@@ -6,21 +6,21 @@ import type React from "react";
  * label. Used in the `options` section to describe the marker's identity and
  * correct answers.
  */
-type BaseMarker = {
+interface BaseMarker {
     /**
      * The text label identifying this marker's position on the image. Not
      * shown directly to the learner; used to correlate options markers with
      * user input markers.
      */
     label: string;
-};
+}
 
 /**
  * A marker as it appears in the user input section. Extends the base marker
  * with optional correct answers (when present) and the learner's current
  * selections.
  */
-type UserInputMarker = {
+interface UserInputMarker {
     /**
      * The text label identifying this marker's position on the image.
      * Corresponds to the matching marker in `options.markers`.
@@ -43,7 +43,7 @@ type UserInputMarker = {
      * the learner has not yet made a selection for this marker.
      */
     selected?: ReadonlyArray<string>;
-};
+}
 
 /**
  * JSON describing a label-image widget. Intended for consumption by AI tools.
@@ -51,7 +51,7 @@ type UserInputMarker = {
  * specific locations. The learner selects one or more answer labels from a
  * shared list of choices for each marker.
  */
-export type LabelImagePromptJSON = {
+export interface LabelImagePromptJSON {
     type: "label-image";
 
     /**
@@ -94,7 +94,7 @@ export type LabelImagePromptJSON = {
          */
         markers: UserInputMarker[];
     };
-};
+}
 
 export const getPromptJSON = (
     widgetData: React.ComponentProps<typeof labelImage.widget>,

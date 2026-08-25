@@ -14,11 +14,11 @@ import type {
     PerseusTableUserInput,
 } from "@khanacademy/perseus-core";
 
-type EditorProps = {
+interface EditorProps {
     editableHeaders?: boolean;
     Editor: any;
     onChange: (value: {headers: string[]}) => void;
-};
+}
 
 type Props = WidgetProps<PerseusTableWidgetOptions, PerseusTableUserInput> &
     EditorProps;

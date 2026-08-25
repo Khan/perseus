@@ -3,7 +3,12 @@ import * as React from "react";
 import useGraphConfig from "../../reducer/use-graph-config";
 import {calculateNestedSVGCoords} from "../../utils";
 
-type Insets = {top?: number; right?: number; bottom?: number; left?: number};
+interface Insets {
+    top?: number;
+    right?: number;
+    bottom?: number;
+    left?: number;
+}
 
 // Clips its children to the graph's visible bounds via a nested <svg>
 // sized to the graph range (default SVG overflow:hidden does the

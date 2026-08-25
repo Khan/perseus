@@ -31,10 +31,10 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> &
         dependencies: PerseusDependenciesV2;
     };
 
-type DefaultProps = {
+interface DefaultProps {
     apiOptions: Props["apiOptions"];
     linterContext: Props["linterContext"];
-};
+}
 
 class ArticleRenderer
     extends React.Component<Props>

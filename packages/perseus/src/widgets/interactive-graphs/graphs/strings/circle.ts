@@ -48,14 +48,14 @@ export function srCircleCenterLabel(
     });
 }
 
-type CircleGraphDescriptionStrings = {
+interface CircleGraphDescriptionStrings {
     srCircleGraph: string;
     srCircleShape: string;
     srCircleRadiusPoint: string;
     srCircleRadius: string;
     srCircleOuterPoints: string;
     srCircleInteractiveElement: string;
-};
+}
 
 // Exported for testing
 export function describeCircleGraph(

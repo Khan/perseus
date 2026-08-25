@@ -5,14 +5,14 @@ import {srFormatNumber} from "./format-number";
 import type {I18nContextType} from "../../../../components/i18n-context";
 import type {LinearGraphState} from "../../types";
 
-type LinearGraphDescriptionStrings = {
+interface LinearGraphDescriptionStrings {
     srLinearGraph: string;
     srLinearGraphPoints: string;
     srLinearGrabHandle: string;
     slopeString: string;
     interceptString: string;
     srLinearInteractiveElement: string;
-};
+}
 
 // Exported for testing
 export function describeLinearGraph(

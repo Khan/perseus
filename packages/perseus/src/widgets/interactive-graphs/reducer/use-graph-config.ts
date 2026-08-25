@@ -8,7 +8,7 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {Interval, vec} from "mafs";
 
-export type GraphConfig = {
+export interface GraphConfig {
     range: [Interval, Interval];
     tickStep: vec.Vector2;
     gridStep: vec.Vector2;
@@ -24,7 +24,7 @@ export type GraphConfig = {
     interactiveColor?: string;
     showAxisArrows: ShowAxisArrows;
     showAxisTicks: ShowAxisTicks;
-};
+}
 
 const defaultGraphConfig: GraphConfig = {
     range: [

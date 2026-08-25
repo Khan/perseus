@@ -470,11 +470,11 @@ export function getLengthOfSegment(segment: PairOfPoints) {
     return kpoint.distanceToPoint(...segment);
 }
 
-export type AbsoluteValueCoefficients = {
+export interface AbsoluteValueCoefficients {
     m: number;
     h: number;
     v: number;
-};
+}
 
 /**
  * Compute the coefficients [m, h, v] for f(x) = m * |x - h| + v from two

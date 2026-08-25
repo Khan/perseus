@@ -14,7 +14,7 @@ import type {CSSCursor} from "./css-cursor";
 import type {KeyboardMovementConstraint} from "../use-draggable";
 import type {vec} from "mafs";
 
-type Params = {
+interface Params {
     point: vec.Vector2;
     ariaDescribedBy?: string;
     ariaLabel?: string;
@@ -38,14 +38,14 @@ type Params = {
     onClick?: (() => unknown) | undefined;
     onFocus?: ((event: React.FocusEvent) => unknown) | undefined;
     onBlur?: ((event: React.FocusEvent) => unknown) | undefined;
-};
+}
 
-type Return = {
+interface Return {
     focusableHandle: React.ReactNode;
     visiblePoint: React.ReactNode;
     focusableHandleRef: React.RefObject<SVGGElement>;
     visiblePointRef: React.RefObject<SVGGElement>;
-};
+}
 
 export function useControlPoint(params: Params): Return {
     const {snapStep, disableKeyboardInteraction} = useGraphConfig();

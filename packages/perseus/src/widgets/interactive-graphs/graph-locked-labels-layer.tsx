@@ -4,9 +4,9 @@ import LockedLabel from "./locked-figures/locked-label";
 
 import type {LockedFigure} from "@khanacademy/perseus-core";
 
-type Props = {
+interface Props {
     lockedFigures: ReadonlyArray<LockedFigure>;
-};
+}
 
 export default function GraphLockedLabelsLayer(props: Props) {
     const {lockedFigures} = props;

@@ -4,7 +4,7 @@ import type React from "react";
 /**
  * JSON describing an image widget. Intended for consumption by AI tools.
  */
-export type ImagePromptJSON = {
+export interface ImagePromptJSON {
     type: "image";
 
     /** Configuration set by the content creator. */
@@ -29,7 +29,7 @@ export type ImagePromptJSON = {
 
         imageUrl: string | null | undefined;
     };
-};
+}
 
 export const getPromptJSON = (
     widgetData: React.ComponentProps<typeof image.widget>,

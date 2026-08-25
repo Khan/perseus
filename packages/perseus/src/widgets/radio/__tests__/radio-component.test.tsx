@@ -8,11 +8,11 @@ import RadioComponent from "../radio-component";
 import type {RadioComponentProps} from "../radio-component";
 import type {ChoiceType} from "../radio-widget";
 
-type overrideProps = {
+interface overrideProps {
     choiceOverrides?: Partial<ChoiceType>;
     onChoiceChange?: (choiceId: string, newCheckedState: boolean) => void;
     reviewMode?: boolean;
-};
+}
 
 const baseChoiceValues = {
     checked: false,
@@ -118,6 +118,9 @@ describe("Radio widget UI component", () => {
             ${true}    | ${false}  | ${"wrong"}          | ${"in review mode and choice is NOT correct"}
             ${false}   | ${false}  | ${undefined}        | ${"NOT in review mode and choice is NOT correct"}
         `("sends '$expectedCorrectness' to the choice when $when", (args) => {
+            // A `Record` isn't castable to an interface, which has no implicit
+            // index signature.
+
             type testArgs = {
                 reviewMode: boolean;
                 isCorrect: boolean;
@@ -219,6 +222,9 @@ describe("Radio widget UI component", () => {
             ${false}   | ${true}   | ${"(Choice A)"}          | ${"does NOT show"} | ${"when NOT in review mode and choice is correct"}
             ${false}   | ${false}  | ${"(Choice A)"}          | ${"does NOT show"} | ${"when NOT in review mode and choice is NOT correct"}
         `("$shows correctness in the accessible name $when", (args) => {
+            // A `Record` isn't castable to an interface, which has no implicit
+            // index signature.
+
             type testArgs = {
                 reviewMode: boolean;
                 isCorrect: boolean;

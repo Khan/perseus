@@ -1,11 +1,11 @@
 import * as React from "react";
 
-type Props = {
+interface Props {
     className?: string | null | undefined;
     translationIndex?: number;
     paragraphIndex?: number;
     children?: React.ReactNode;
-};
+}
 
 const QuestionParagraph = ({
     className,

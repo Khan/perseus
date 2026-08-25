@@ -7,7 +7,7 @@ import type React from "react";
  * The grapher widget displays a Cartesian plane where the learner can plot an
  * equation by clicking and dragging control points.
  */
-export type GrapherPromptJSON = {
+export interface GrapherPromptJSON {
     type: "grapher";
 
     /** The configuration of the widget, set by the content creator. */
@@ -57,7 +57,7 @@ export type GrapherPromptJSON = {
      * learner's attempt to answer a question.
      */
     userInput: GrapherAnswerTypes;
-};
+}
 
 export const getPromptJSON = (
     widgetData: React.ComponentProps<typeof grapher.widget>,

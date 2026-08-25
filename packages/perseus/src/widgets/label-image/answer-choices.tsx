@@ -13,14 +13,14 @@ import Renderer from "../../renderer";
 
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
-type AnswerType = {
+interface AnswerType {
     // The answer string, can be plain text or a TeX expression.
     content: string;
     // Whether the answer is selected.
     checked: boolean;
-};
+}
 
-type AnswerChoicesProps = {
+interface AnswerChoicesProps {
     // The list of possible answers in a specific order.
     choices: ReadonlyArray<AnswerType>;
     // Whether multiple answers may be chosen.
@@ -33,7 +33,7 @@ type AnswerChoicesProps = {
     onToggle: (opened: boolean) => unknown;
     // Whether the answer choices are disabled.
     disabled: boolean;
-};
+}
 
 const AnswerChoices = (props: AnswerChoicesProps) => {
     const {strings} = usePerseusI18n();

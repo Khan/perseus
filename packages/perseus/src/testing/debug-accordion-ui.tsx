@@ -18,12 +18,12 @@ import type {
     UserInputMap,
 } from "@khanacademy/perseus-core";
 
-type DebugAccordionUIProps = {
+interface DebugAccordionUIProps {
     score: PerseusScore | undefined;
     userInput: UserInputMap | undefined;
     perseusItem: PerseusItem;
     updateJson: (json: string) => boolean;
-};
+}
 
 /**
  * ScoreHeader displays the score state with colored indicators

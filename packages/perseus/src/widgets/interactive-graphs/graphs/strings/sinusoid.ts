@@ -46,13 +46,13 @@ export function srSinusoidPointLabel(
         : strings.srSinusoidMinPoint({x, y});
 }
 
-type SinusoidGraphDescriptionStrings = {
+interface SinusoidGraphDescriptionStrings {
     srSinusoidGraph: string;
     srSinusoidDescription: string;
     srSinusoidRootPoint: string;
     srSinusoidPeakPoint: string;
     srSinusoidInteractiveElements: string;
-};
+}
 
 export function describeSinusoidGraph(
     state: SinusoidGraphState,

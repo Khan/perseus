@@ -21,7 +21,7 @@ const FOCUS_RING_PAD = 2;
 const GRIP_DOT_MAJOR_OFFSETS = [-3, 0, 3];
 const GRIP_DOT_MINOR_OFFSETS = [-2, 2];
 
-type Props = {
+interface Props {
     /** Pixel-space center of the handle (already transformed from graph coordinates). */
     center: vec.Vector2;
     /** Whether the handle is in active state (shows grip dots, uses larger dimensions). */
@@ -34,7 +34,7 @@ type Props = {
      * @default 0
      */
     rotation?: number;
-};
+}
 
 /**
  * Shared pill-shaped drag handle used by vector and asymptote graph elements.

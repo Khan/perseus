@@ -1,8 +1,17 @@
 import type {PerseusItem} from "@khanacademy/perseus-core";
 
-export type NoItem = {status: "no-item"};
-export type ParseError = {status: "parse-error"; message: string};
-export type Item = {status: "item"; item: PerseusItem; key: string};
+export interface NoItem {
+    status: "no-item";
+}
+export interface ParseError {
+    status: "parse-error";
+    message: string;
+}
+export interface Item {
+    status: "item";
+    item: PerseusItem;
+    key: string;
+}
 
 /**
  * The information displayed in the item display section of the UI. One of:

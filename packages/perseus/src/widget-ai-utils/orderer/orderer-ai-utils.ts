@@ -8,7 +8,7 @@ import type React from "react";
  * same card may appear multiple times in the correct answer but is displayed
  * only once in the card bank.
  */
-export type OrdererPromptJSON = {
+export interface OrdererPromptJSON {
     type: "orderer";
 
     /**
@@ -34,7 +34,7 @@ export type OrdererPromptJSON = {
          */
         values: ReadonlyArray<string>;
     };
-};
+}
 
 export const getPromptJSON = (
     widgetData: React.ComponentProps<typeof orderer.widget>,

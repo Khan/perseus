@@ -27,13 +27,13 @@ type Props = WidgetProps<PerseusExplanationWidgetOptions> & {
     dependencies: PerseusDependenciesV2;
 };
 
-type DefaultProps = {
+interface DefaultProps {
     linterContext: Props["linterContext"];
-};
+}
 
-type State = {
+interface State {
     expanded: boolean;
-};
+}
 
 function mediaQueryIsMatched(mediaQuery: string): boolean {
     if (typeof window.matchMedia !== "function") {

@@ -6,9 +6,9 @@ import {useTransformVectorsToPixels} from "../use-transform";
 
 import type {Coord} from "@khanacademy/perseus-core";
 
-type Props = {
+interface Props {
     point: Coord;
-};
+}
 
 export default function Hairlines(props: Props) {
     const {point} = props;

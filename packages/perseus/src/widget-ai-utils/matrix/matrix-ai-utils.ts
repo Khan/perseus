@@ -5,7 +5,7 @@ import type React from "react";
  * JSON describing a matrix widget. Intended for consumption by AI tools.
  * A matrix widget displays a grid of numeric cells that the learner fills in.
  */
-export type MatrixPromptJSON = {
+export interface MatrixPromptJSON {
     type: "matrix";
 
     /**
@@ -36,7 +36,7 @@ export type MatrixPromptJSON = {
          */
         answerRows: ReadonlyArray<ReadonlyArray<string>>;
     };
-};
+}
 
 export const getPromptJSON = (
     widgetData: React.ComponentProps<typeof matrix.widget>,

@@ -6,7 +6,7 @@ import type React from "react";
  * A numeric-input widget displays a single text field where the learner types
  * a numeric answer (integer, decimal, fraction, etc.).
  */
-export type NumericInputPromptJSON = {
+export interface NumericInputPromptJSON {
     type: "numeric-input";
 
     /**
@@ -26,7 +26,7 @@ export type NumericInputPromptJSON = {
          */
         value: string;
     };
-};
+}
 
 export const getPromptJSON = (
     widgetData: React.ComponentProps<typeof numericInput.widget>,

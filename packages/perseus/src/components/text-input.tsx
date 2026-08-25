@@ -5,7 +5,7 @@ import * as React from "react";
 
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
-type Props = {
+interface Props {
     value: string | number | null;
     onChange: (arg1?: any) => void;
     className?: string;
@@ -18,12 +18,12 @@ type Props = {
     onKeyDown?: () => void;
     style?: StyleType;
     "aria-describedby"?: string;
-};
+}
 
-type DefaultProps = {
+interface DefaultProps {
     value: Props["value"];
     disabled: Props["disabled"];
-};
+}
 
 let lastId = 0;
 function uniqueIdForInput(prefix = "input-") {

@@ -40,7 +40,7 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
-type OwnProps = {
+interface OwnProps {
     hintsVisible?: number;
     item: PerseusItem;
     problemNum?: number;
@@ -48,11 +48,11 @@ type OwnProps = {
     keypadElement?: KeypadAPI | null | undefined;
     dependencies: PerseusDependenciesV2;
     showSolutions?: ShowSolutions;
-};
+}
 
-type HOCProps = {
+interface HOCProps {
     onRendered: (isRendered: boolean) => void;
-};
+}
 
 type Props = SharedRendererProps & OwnProps & HOCProps;
 
@@ -64,10 +64,10 @@ type DefaultProps = Required<
  * @deprecated and likely a very broken API
  * [LEMS-3185] do not trust serializedState
  */
-type SerializedState = {
+interface SerializedState {
     question: any;
     hints: any;
-};
+}
 
 export class ServerItemRenderer
     extends React.Component<Props>

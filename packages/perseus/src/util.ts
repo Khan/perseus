@@ -14,40 +14,40 @@ import type {Coord, Range} from "@khanacademy/perseus-core";
 import type {ASTNode, SingleASTNode} from "@khanacademy/simple-markdown";
 import type * as React from "react";
 
-type WordPosition = {
+interface WordPosition {
     start: number;
     end: number;
-};
+}
 
-type WordAndPosition = {
+interface WordAndPosition {
     string: string;
     pos: WordPosition;
-};
+}
 
-export type ParsedValue = {
+export interface ParsedValue {
     value: number;
     exact: boolean;
-};
+}
 
-export type GridDimensions = {
+export interface GridDimensions {
     scale: number;
     tickStep: number;
     unityLabel: boolean;
-};
+}
 
-type QueryParams = {
+interface QueryParams {
     [param: string]: string;
-};
+}
 
-export type Position = {
+export interface Position {
     top: number;
     left: number;
-};
+}
 
-type TouchHandlers = {
+interface TouchHandlers {
     pointerDown: boolean;
     currentTouchIdentifier: string | null | undefined;
-};
+}
 
 let supportsPassive = false;
 

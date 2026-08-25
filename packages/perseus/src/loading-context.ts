@@ -8,9 +8,9 @@
  */
 import * as React from "react";
 
-type Context = {
+interface Context {
     onRendered: (isRendered: boolean) => void;
-};
+}
 
 const defaultContext: Context = {
     onRendered: (isRendered: boolean) => {},

@@ -39,14 +39,14 @@ const applyStoryArgs = (
     return q;
 };
 
-type StoryArgs = {
+interface StoryArgs {
     preferredPopoverDirection: string;
-};
+}
 
-type ImageStory = {
+interface ImageStory {
     title: string;
     args: StoryArgs;
-};
+}
 
 export const LabelWidgetWithText = (args: StoryArgs): React.ReactElement => {
     return (

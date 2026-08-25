@@ -1,7 +1,7 @@
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 
-type Props = {
+interface Props {
     /**
      * The initial values of the buttons selected, defaults to null (no
      * selection).
@@ -36,12 +36,12 @@ type Props = {
      * Defaults to `true`
      */
     allowEmpty?: boolean;
-};
+}
 
-type DefaultProps = {
+interface DefaultProps {
     allowEmpty: Props["allowEmpty"];
     values: Props["values"];
-};
+}
 
 /**
  * MultiButtonGroup is an aesthetically pleasing group of buttons,

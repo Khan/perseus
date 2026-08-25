@@ -42,12 +42,12 @@ const addOffsetParentScroll = ($el: any, position: any) => {
     };
 };
 
-type PlaceholderProps = {
+interface PlaceholderProps {
     layout: Layout;
     width: number;
     height: number;
     margin?: string;
-};
+}
 
 // A placeholder that appears in the sortable whenever an item is dragged.
 class Placeholder extends React.Component<PlaceholderProps> {
@@ -71,7 +71,7 @@ class Placeholder extends React.Component<PlaceholderProps> {
     }
 }
 
-type DraggableProps = {
+interface DraggableProps {
     content: string;
     endPosition?: {left: number; top: number};
     includePadding: boolean;
@@ -86,20 +86,20 @@ type DraggableProps = {
     onRender: () => void;
     state: ItemState;
     linterContext: LinterContextProps;
-};
+}
 
-type DefaultDraggableProps = {
+interface DefaultDraggableProps {
     includePadding: DraggableProps["includePadding"];
     type: DraggableProps["state"];
     linterContext: DraggableProps["linterContext"];
-};
+}
 
-type DraggableState = {
+interface DraggableState {
     startPosition: Position;
     startMouse: Position;
     mouse: Position;
     dragging?: boolean;
-};
+}
 
 // A draggable item in the sortable. Can be in one of four states:
 //     Static:    The item is not being interacted with.
@@ -406,7 +406,7 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
 
 export type SortableOption = string;
 
-type SortableProps = {
+interface SortableProps {
     constraints:
         | {
               width: number;
@@ -425,9 +425,9 @@ type SortableProps = {
     linterContext: LinterContextProps;
     options: ReadonlyArray<SortableOption>;
     waitForTexRendererToLoad: boolean;
-};
+}
 
-type DefaultProps = {
+interface DefaultProps {
     constraints: SortableProps["constraints"];
     disabled: SortableProps["disabled"];
     layout: SortableProps["layout"];
@@ -437,21 +437,21 @@ type DefaultProps = {
     padding: SortableProps["padding"];
     linterContext: SortableProps["linterContext"];
     waitForTexRendererToLoad: SortableProps["waitForTexRendererToLoad"];
-};
+}
 
-type SortableItem = {
+interface SortableItem {
     option: SortableOption;
     key: number;
     state: ItemState;
     endPosition?: Position;
     width: number;
     height: number;
-};
+}
 
-type SortableState = {
+interface SortableState {
     items: ReadonlyArray<SortableItem>;
     texRendererLoaded: boolean;
-};
+}
 class Sortable extends React.Component<SortableProps, SortableState> {
     static defaultProps: DefaultProps = {
         layout: "horizontal",

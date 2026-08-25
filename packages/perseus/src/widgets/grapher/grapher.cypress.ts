@@ -44,7 +44,10 @@ const POINTS =
 const POINT_HANDLE = "[data-testid=movable-point__focusable-handle]";
 const ASYMPTOTE_HANDLE = "[data-testid=movable-asymptote]";
 
-type Coords = {x: number; y: number};
+interface Coords {
+    x: number;
+    y: number;
+}
 
 // Pulls the "... at X comma Y." coordinates out of a point handle's aria-label
 // (e.g. "Vertex point at 8 comma 1." or "Point 1 at -5 comma 5.").

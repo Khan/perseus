@@ -6,7 +6,7 @@ import type {PerseusSorterUserInput} from "@khanacademy/perseus-core";
  * correct order by dragging them. The cards are initially displayed in a
  * randomized order.
  */
-export type SorterPromptJSON = {
+export interface SorterPromptJSON {
     type: "sorter";
 
     /**
@@ -27,7 +27,7 @@ export type SorterPromptJSON = {
          */
         changed: boolean;
     };
-};
+}
 
 export const getPromptJSON = (
     userInput: PerseusSorterUserInput,

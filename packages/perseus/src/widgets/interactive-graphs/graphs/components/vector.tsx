@@ -14,14 +14,14 @@ import {SVGLine} from "./svg-line";
 
 const {calculateAngleInDegrees} = angles;
 
-type Props = {
+interface Props {
     tail: vec.Vector2;
     tip: vec.Vector2;
     color?: string;
     strokeWidth?: number;
     style?: React.SVGProps<SVGLineElement>["style"];
     testId?: string;
-};
+}
 
 export function Vector(props: Props) {
     const {interactiveColor} = useGraphConfig();

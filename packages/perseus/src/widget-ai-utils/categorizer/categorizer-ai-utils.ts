@@ -9,7 +9,7 @@ import type React from "react";
  * that category. Only one bubble in each row can be filled. Learners fill
  * bubbles by clicking on them.
  */
-export type CategorizerPromptJSON = {
+export interface CategorizerPromptJSON {
     type: "categorizer";
 
     /**
@@ -42,7 +42,7 @@ export type CategorizerPromptJSON = {
          */
         itemToCategoryMapping: ReadonlyArray<number | null | undefined>;
     };
-};
+}
 
 export const getPromptJSON = (
     widgetData: React.ComponentProps<typeof categorizer.widget>,

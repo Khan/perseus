@@ -7,18 +7,18 @@ import * as React from "react";
 
 import {getDependencies} from "../dependencies";
 
-type Props = {
+interface Props {
     children: string;
     // Pass through prop to TeX from react-components-package.
     onRender: () => void;
     // If provided, use AssetContext.Consumer, see renderer.jsx.
     // If not, it defaults to a no-op.
     setAssetStatus: (assetKey: string, loaded: boolean) => void;
-};
+}
 
-type State = {
+interface State {
     rendered: boolean;
-};
+}
 
 export default class Tex extends React.Component<Props, State> {
     _hasRendered: boolean;

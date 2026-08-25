@@ -20,7 +20,7 @@ import {negativePhoneMargin} from "../styles/constants";
 
 const MIN_VIEWPORT_HEIGHT = 480;
 
-type Props = {
+interface Props {
     width: number;
     height: number;
     children: React.ReactNode;
@@ -28,18 +28,18 @@ type Props = {
     constrainHeight?: boolean;
     allowFullBleed?: boolean;
     scale?: number;
-};
+}
 
-type DefaultProps = {
+interface DefaultProps {
     className: Props["className"];
     constrainHeight: Props["constrainHeight"];
     allowFullBleed: Props["allowFullBleed"];
-};
+}
 
-type State = {
+interface State {
     viewportHeight: number | null;
     viewportWidth: number | null;
-};
+}
 
 class FixedToResponsive extends React.Component<Props, State> {
     _isMounted = false;

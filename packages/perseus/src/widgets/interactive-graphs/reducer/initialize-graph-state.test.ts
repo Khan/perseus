@@ -4,11 +4,11 @@ import {initializeGraphState} from "./initialize-graph-state";
 
 import type {PerseusInteractiveGraphWidgetOptions} from "@khanacademy/perseus-core";
 
-type BaseGraphData = {
+interface BaseGraphData {
     range: PerseusInteractiveGraphWidgetOptions["range"];
     step: [x: number, y: number];
     snapStep: [x: number, y: number];
-};
+}
 
 const baseGraphData: BaseGraphData = {
     range: [

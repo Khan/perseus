@@ -27,14 +27,14 @@ import type {RefObject} from "react";
  * all copies or substantial portions of the Software.
  */
 
-export type Params = {
+export interface Params {
     gestureTarget: RefObject<Element>;
     onMove: (point: vec.Vector2) => unknown;
     onDragStart?: () => unknown;
     onDragEnd?: () => unknown;
     point: vec.Vector2;
     constrainKeyboardMovement: KeyboardMovementConstraint;
-};
+}
 
 export type KeyboardMovementConstraint =
     // The function form of KeyboardMovementConstraint should be a "snap"
@@ -52,9 +52,9 @@ export type KeyboardMovementConstraint =
           down: vec.Vector2;
       };
 
-type DragState = {
+interface DragState {
     dragging: boolean;
-};
+}
 
 export function useDraggable(args: Params): DragState {
     const {

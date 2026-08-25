@@ -2,10 +2,10 @@ import type {WidgetOptions} from "@khanacademy/perseus-core";
 
 export type MockWidget = WidgetOptions<"mock-widget", MockWidgetOptions>;
 
-export type MockWidgetOptions = {
+export interface MockWidgetOptions {
     static?: boolean;
     value: string;
-};
+}
 
 // Extend the widget registries for testing
 // See @khanacademy/perseus-core's PerseusWidgetTypes for a full explanation.

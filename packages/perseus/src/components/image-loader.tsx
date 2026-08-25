@@ -11,15 +11,15 @@ const Status = {
     FAILED: "failed",
 } as const;
 
-export type ImageProps = {
+export interface ImageProps {
     alt: string;
     title?: string;
     ["aria-hidden"]?: boolean;
     tabIndex?: number;
     style?: Dimensions;
-};
+}
 
-type Props = {
+interface Props {
     children?: React.ReactNode;
     imgProps: ImageProps;
     onError?: (event: Event) => void;
@@ -30,11 +30,11 @@ type Props = {
     preloader: (() => React.ReactNode) | null | undefined;
     src: string;
     dependencies: PerseusDependenciesV2;
-};
+}
 
-type State = {
+interface State {
     status: (typeof Status)[keyof typeof Status];
-};
+}
 
 /**
  * Component to display an image (or other React components) while the desired

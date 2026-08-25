@@ -11,12 +11,12 @@ import AssetContext from "../asset-context";
 import TeX from "./tex";
 import Zoomable from "./zoomable";
 
-type Props = {
+interface Props {
     children: string;
-};
-type State = {
+}
+interface State {
     isRendered: boolean;
-};
+}
 
 const computeMathBounds = (
     parentNode: HTMLElement,

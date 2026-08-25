@@ -24,14 +24,14 @@ import type {PerseusPhetSimulationWidgetOptions} from "@khanacademy/perseus-core
 
 type Props = WidgetProps<PerseusPhetSimulationWidgetOptions>;
 
-type State = {
+interface State {
     banner: {
         message: string;
         kind: "warning" | "critical";
     } | null;
     url: URL | null;
     isFullScreen: boolean;
-};
+}
 
 // Safari still exposes the Fullscreen API behind a webkit prefix in some
 // versions, so we check for both the standard and prefixed variants.

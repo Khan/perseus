@@ -34,14 +34,14 @@ export function srRayPointLabel(
         : strings.srRayTerminalPoint({x, y});
 }
 
-type RayGraphDescriptionStrings = {
+interface RayGraphDescriptionStrings {
     srRayGraph: string;
     srRayPoints: string;
     srRayEndpoint: string;
     srRayTerminalPoint: string;
     srRayGrabHandle: string;
     srRayInteractiveElement: string;
-};
+}
 
 // Exported for testing
 export function describeRayGraph(

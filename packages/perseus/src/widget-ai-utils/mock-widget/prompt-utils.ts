@@ -1,7 +1,7 @@
 import type mockWidget from "../../widgets/mock-widgets/mock-widget";
 import type React from "react";
 
-export type MockWidgetPromptJSON = {
+export interface MockWidgetPromptJSON {
     type: "mock-widget";
     options: {
         value: string;
@@ -9,7 +9,7 @@ export type MockWidgetPromptJSON = {
     userInput: {
         value: string;
     };
-};
+}
 
 export const getPromptJSON = (
     widgetData: React.ComponentProps<typeof mockWidget.widget>,

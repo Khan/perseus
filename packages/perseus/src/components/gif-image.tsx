@@ -2,7 +2,7 @@ import * as React from "react";
 
 import type {ParsedFrame} from "gifuct-js";
 
-type Props = {
+interface Props {
     alt: string;
     width?: number;
     height?: number;
@@ -17,7 +17,7 @@ type Props = {
      */
     onLoad?: () => void;
     gifFrames: ParsedFrame[] | undefined;
-};
+}
 
 /**
  * Renders a GIF using canvas-based frame-by-frame playback.

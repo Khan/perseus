@@ -16,7 +16,7 @@ import type {APIOptions} from "../types";
 import type {PerseusArticle} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
-type Props = {
+interface Props {
     title?: string;
     /**
      * The Perseus Article to render. Under the hood this has been named
@@ -25,7 +25,7 @@ type Props = {
     json: PerseusArticle;
     apiOptions?: APIOptions;
     linterContext?: LinterContextProps;
-};
+}
 
 export const ArticleRendererWithDebugUI = ({
     title = "📜 Article",

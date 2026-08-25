@@ -12,13 +12,13 @@ const BASE_ICON_SIZE = 10;
 // If you pass in an object you need to specify an SVG path to
 // render along with the width and height of the path (to ensure
 // that it gets scaled correctly).
-export type IconType = {
+export interface IconType {
     height: number;
     path: string;
     width: number;
-};
+}
 
-type Props = {
+interface Props {
     // The className used for the SVG object (see the pathClassName prop as
     // well).
     className?: string;
@@ -46,7 +46,7 @@ type Props = {
     size?: number;
     // Alt text set on SVG icon
     alt?: string;
-};
+}
 
 /**
  * An SVG Icon

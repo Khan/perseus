@@ -17,14 +17,14 @@ import type {APIOptions} from "../types";
 import type {PerseusItem, ShowSolutions} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
-type Props = {
+interface Props {
     title?: string;
     item: PerseusItem;
     apiOptions?: APIOptions;
     linterContext?: LinterContextProps;
     reviewMode?: boolean;
     showSolutions?: ShowSolutions;
-};
+}
 
 /**
  * ServerItemRendererWithDebugUI is a component that renders a Perseus item with debug UI controls

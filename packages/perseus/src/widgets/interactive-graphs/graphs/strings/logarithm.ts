@@ -37,22 +37,22 @@ export function srLogarithmPointLabel(
     return strings.srLogarithmPoint({pointLabel, x, y});
 }
 
-type LogarithmGraphDescriptionStrings = {
+interface LogarithmGraphDescriptionStrings {
     srLogarithmGraph: string;
     srLogarithmDescription: string;
     srLogarithmAsymptote: string;
     srLogarithmPoint1: string;
     srLogarithmPoint2: string;
     srLogarithmInteractiveElements: string;
-};
+}
 
-type LogarithmDescriptionArgs = {
+interface LogarithmDescriptionArgs {
     point1X: string;
     point1Y: string;
     point2X: string;
     point2Y: string;
     asymptoteX: string;
-};
+}
 
 export function describeLogarithmGraph(
     state: LogarithmGraphState,

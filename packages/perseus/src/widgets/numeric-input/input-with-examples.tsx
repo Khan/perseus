@@ -15,7 +15,7 @@ import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const {captureScratchpadTouchStart} = Util;
 
-type Props = {
+interface Props {
     value: string;
     onChange: any;
     className?: string;
@@ -31,7 +31,7 @@ type Props = {
     style?: StyleType;
     id: string;
     linterContext?: LinterContextProps;
-};
+}
 
 /**
  * The InputWithExamples component is a child component of the NumericInput

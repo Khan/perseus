@@ -114,14 +114,14 @@ const isIdPathPrefix = function (
     });
 };
 
-type WidgetState = {
+interface WidgetState {
     isMobile?: boolean;
     inTable?: boolean;
     key?: number;
     paragraphIndex?: number;
     foundFullWidth?: boolean;
     baseElements?: any;
-};
+}
 
 type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     content: PerseusRenderer["content"];
@@ -163,11 +163,11 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     strings: PerseusStrings;
 };
 
-type State = {
+interface State {
     translationLintErrors: ReadonlyArray<string>;
     widgetInfo: Readonly<PerseusWidgetsMap>;
     jiptContent: string | null;
-};
+}
 
 type FullLinterContext = LinterContextProps & {
     content: string;

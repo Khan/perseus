@@ -86,7 +86,7 @@ import "./mafs-styles.css";
 
 const GRAPH_LEFT_MARGIN = 20;
 
-export type MafsGraphProps = {
+export interface MafsGraphProps {
     box: [number, number];
     backgroundImage?: PerseusInteractiveGraphWidgetOptions["backgroundImage"];
     lockedFigures: PerseusInteractiveGraphWidgetOptions["lockedFigures"];
@@ -110,7 +110,7 @@ export type MafsGraphProps = {
     static: boolean | null | undefined;
     widgetId: string;
     ungradedDescriptionId?: string;
-};
+}
 
 export const MafsGraph = (props: MafsGraphProps) => {
     const {

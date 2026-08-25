@@ -5,7 +5,7 @@ import type React from "react";
  * JSON describing a dropdown widget. Intended for consumption by AI tools.
  * The dropdown widget displays a menu of options.
  */
-export type DropdownPromptJSON = {
+export interface DropdownPromptJSON {
     type: "dropdown";
 
     /**
@@ -23,7 +23,7 @@ export type DropdownPromptJSON = {
     userInput: {
         selectedIndex: number;
     };
-};
+}
 
 export const getPromptJSON = (
     widgetData: React.ComponentProps<typeof dropdown.widget>,

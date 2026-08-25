@@ -26,11 +26,11 @@ import type {
     PerseusGradedGroupWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-type IndicatorsProps = {
+interface IndicatorsProps {
     currentGroup: number;
     gradedGroups: ReadonlyArray<PerseusGradedGroupWidgetOptions>;
     onChangeCurrentGroup: (groupNumber: number) => void;
-};
+}
 
 class Indicators extends React.Component<IndicatorsProps> {
     static contextType = PerseusI18nContext;
@@ -96,9 +96,9 @@ type Props = WidgetProps<PerseusGradedGroupSetWidgetOptions> & {
     dependencies: PerseusDependenciesV2;
 };
 
-type State = {
+interface State {
     currentGroup: number;
-};
+}
 
 class GradedGroupSet extends React.Component<Props, State> implements Widget {
     // @ts-expect-error - TS2564 - Property '_childGroup' has no initializer and is not definitely assigned in the constructor.

@@ -9,7 +9,7 @@ export type Constraint = (
     options: ConstraintCallbacks,
 ) => Coord | boolean | undefined;
 
-export type ConstraintCallbacks = {
+export interface ConstraintCallbacks {
     onSkipRemaining(): void;
     onOutOfBounds?: () => void;
-};
+}

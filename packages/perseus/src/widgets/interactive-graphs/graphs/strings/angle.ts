@@ -52,13 +52,13 @@ export function srAnglePointLabel(
     }
 }
 
-type AngleGraphDescriptionStrings = {
+interface AngleGraphDescriptionStrings {
     srAngleGraphAriaLabel: string;
     srAngleGraphAriaDescription: string;
     srAngleStartingSide: string;
     srAngleEndingSide: string;
     srAngleVertex: string;
-};
+}
 
 export function describeAngleGraph(
     state: AngleGraphState,

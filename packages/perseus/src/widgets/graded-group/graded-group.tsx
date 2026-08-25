@@ -72,12 +72,12 @@ type Props = WidgetProps<
     dependencies: PerseusDependenciesV2;
 };
 
-type State = {
+interface State {
     status: (typeof GRADING_STATUSES)[keyof typeof GRADING_STATUSES];
     showHint: boolean;
     message: string;
     answerBarState: ANSWER_BAR_STATES;
-};
+}
 
 // A Graded Group is more or less a Group widget that displays a check
 // answer button below the rendered content. When clicked, the widget grades
