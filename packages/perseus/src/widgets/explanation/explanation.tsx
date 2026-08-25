@@ -14,18 +14,11 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/explanation
 import styles from "./explanation.module.css";
 import stylesLegacy from "./explanation_legacy-styles";
 
-import type {
-    PerseusDependenciesV2,
-    Widget,
-    WidgetExports,
-    WidgetProps,
-} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {ExplanationPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
 import type {PerseusExplanationWidgetOptions} from "@khanacademy/perseus-core";
 
-type Props = WidgetProps<PerseusExplanationWidgetOptions> & {
-    dependencies: PerseusDependenciesV2;
-};
+type Props = WidgetProps<PerseusExplanationWidgetOptions>;
 
 function mediaQueryIsMatched(mediaQuery: string): boolean {
     if (typeof window.matchMedia !== "function") {
