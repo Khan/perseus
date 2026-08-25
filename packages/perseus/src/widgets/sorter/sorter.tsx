@@ -16,7 +16,7 @@ import type {
 
 type Props = WidgetProps<PerseusSorterWidgetOptions, PerseusSorterUserInput>;
 
-interface SorterHandle extends Widget {
+export interface SorterHandle extends Widget {
     /**
      * Programatic API for moving options. This is used by testing.
      *
