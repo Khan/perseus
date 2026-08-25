@@ -9,12 +9,12 @@ const MAXERROR_EPSILON = Math.pow(2, -42);
 
 type Guess = any;
 type Predicate = (guess: number, maxError: number) => boolean;
-type TransformedFraction = {
+interface TransformedFraction {
     value: number;
     exact: boolean;
-};
+}
 
-export type Score = {
+export interface Score {
     empty: boolean;
     correct: boolean;
     message: string | null | undefined;
@@ -22,9 +22,9 @@ export type Score = {
     guess: Guess;
     // It would be nice if we could ungraded required
     ungraded?: boolean;
-};
+}
 
-type PredicateValidatorOptions = {
+interface PredicateValidatorOptions {
     // TODO(benchristel): `true` should not be allowed for `simplify`.
     simplify?: "required" | "optional" | "enforced" | true;
     ratio?: boolean;
@@ -36,7 +36,7 @@ type PredicateValidatorOptions = {
     decimal_separator?: string;
     fallback?: string;
     message?: string;
-};
+}
 
 /**
  * Answer types

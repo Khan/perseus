@@ -11,9 +11,9 @@ import type {
     UserInput,
 } from "@khanacademy/perseus-core";
 
-type WidgetScores = {
+interface WidgetScores {
     [widgetId: string]: PerseusScore;
-};
+}
 
 type PerseusScoreWithWidgetScores = PerseusScore & {
     /**

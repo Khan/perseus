@@ -1,7 +1,7 @@
-export type PerseusMockWidgetRubric = {
+export interface PerseusMockWidgetRubric {
     value: string;
-};
+}
 
-export type PerseusMockWidgetUserInput = {
+export interface PerseusMockWidgetUserInput {
     currentValue: string;
-};
+}

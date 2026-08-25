@@ -5,12 +5,12 @@ import type {
 } from "@khanacademy/perseus-core";
 
 // Question state for marker as result of user selected answers.
-export type InteractiveMarkerScore = {
+export interface InteractiveMarkerScore {
     // Whether user selected answers for the marker.
     hasAnswers: boolean;
     // Whether user (answer) selection answered the question correctly.
     isCorrect: boolean;
-};
+}
 
 export function scoreLabelImageMarker(
     userInput: PerseusLabelImageUserInput["markers"][number]["selected"],

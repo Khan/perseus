@@ -39,10 +39,10 @@ import validateSorter from "./sorter/validate-sorter";
 import scoreTable from "./table/score-table";
 import validateTable from "./table/validate-table";
 
-type ScoringLogic = {
+interface ScoringLogic {
     scorer: WidgetScorerFunction;
     validator?: WidgetValidatorFunction;
-};
+}
 
 const widgets = new Registry<ScoringLogic>("Score widget registry");
 
