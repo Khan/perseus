@@ -11,14 +11,14 @@ export type PartialParser<Input, Output> = (
 
 export type ParseResult<T> = Result<T, Mismatch[]>;
 
-export type Mismatch = {
+export interface Mismatch {
     // Descriptions of the allowed types or schemas.
     // E.g. ["string", "number"] means that the value was expected to be a
     // string or a number.
     expected: string[];
     badValue: unknown;
     path: PathSegment[];
-};
+}
 
 // `keyof any` is any key that can be used to index an object or array.
 // It is essentially equivalent to `symbol | string | number`.

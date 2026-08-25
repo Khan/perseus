@@ -1,9 +1,9 @@
 import type {ErrorKind} from "./errors";
 import type {Metadata} from "@khanacademy/wonder-stuff-core";
 
-type Options = {
+interface Options {
     metadata?: Metadata | null | undefined;
-};
+}
 
 export class PerseusError extends Error {
     kind: ErrorKind;

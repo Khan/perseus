@@ -3,7 +3,7 @@ import type {Coord} from "../data-schema";
 export type Coords = [Coord, Coord];
 
 // Includes common properties for all function types and plotDefaults
-type SharedGrapherType = {
+interface SharedGrapherType {
     url: string;
     defaultCoords: Coords;
     getFunctionForCoeffs: (coeffs: ReadonlyArray<number>, x: number) => number;
@@ -17,9 +17,9 @@ type SharedGrapherType = {
         coords: Coords,
         asymptote?: Coords,
     ) => ReadonlyArray<number> | undefined;
-};
+}
 
-type AsymptoticGraphsType = {
+interface AsymptoticGraphsType {
     defaultAsymptote: Coords;
     extraCoordConstraint: (
         newCoord: Coord,
@@ -36,7 +36,7 @@ type AsymptoticGraphsType = {
         graph: any,
     ) => Coord;
     allowReflectOverAsymptote: boolean;
-};
+}
 
 export type LinearType = SharedGrapherType & {
     getPropsForCoeffs: (coeffs: ReadonlyArray<number>) => {fn: any};

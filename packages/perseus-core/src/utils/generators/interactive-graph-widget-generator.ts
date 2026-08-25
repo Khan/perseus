@@ -288,10 +288,13 @@ export function generateInteractiveGraphQuestion(
             asymptote,
             match,
             ...graphConfig
+
+            // The graph types are interfaces, which have no implicit index
+            // signature, so the cast has to go via `unknown`.
             // eslint-disable-next-line no-restricted-syntax
-        } = widgetOptions.correct as Record<string, unknown>;
+        } = widgetOptions.correct as unknown as Record<string, unknown>;
         // eslint-disable-next-line no-restricted-syntax
-        widgetOptions.graph = graphConfig as PerseusGraphType;
+        widgetOptions.graph = graphConfig as unknown as PerseusGraphType;
     }
 
     const optionsWithDefaults = {

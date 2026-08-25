@@ -8,7 +8,7 @@ import type {
  * For details on the individual options, see the
  * PerseusLabelImageWidgetOptions type
  */
-export type LabelImagePublicWidgetOptions = {
+export interface LabelImagePublicWidgetOptions {
     choices: PerseusLabelImageWidgetOptions["choices"];
     imageUrl: PerseusLabelImageWidgetOptions["imageUrl"];
     imageAlt: PerseusLabelImageWidgetOptions["imageAlt"];
@@ -18,7 +18,7 @@ export type LabelImagePublicWidgetOptions = {
     hideChoicesFromInstructions: PerseusLabelImageWidgetOptions["hideChoicesFromInstructions"];
     multipleAnswers: PerseusLabelImageWidgetOptions["multipleAnswers"];
     static: PerseusLabelImageWidgetOptions["static"];
-};
+}
 
 export type LabelImageMarkerPublicData = Pick<
     PerseusLabelImageMarker,

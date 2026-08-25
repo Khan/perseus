@@ -2,8 +2,14 @@ import invariant from "tiny-invariant";
 
 export type Result<S, F> = Success<S> | Failure<F>;
 
-export type Success<T> = {type: "success"; value: T};
-export type Failure<T> = {type: "failure"; detail: T};
+export interface Success<T> {
+    type: "success";
+    value: T;
+}
+export interface Failure<T> {
+    type: "failure";
+    detail: T;
+}
 
 export function success<T>(value: T): Success<T> {
     return {type: "success", value};

@@ -6,13 +6,13 @@ import type {PerseusSorterWidgetOptions} from "../../data-schema";
  * For details on the individual options, see the
  * PerseusSorterWidgetOptions type
  */
-export type SorterPublicWidgetOptions = {
+export interface SorterPublicWidgetOptions {
     // TODO(benchristel): rename to `cards`; the whole point of public widget
     // options is that this isn't the correct order!
     correct: PerseusSorterWidgetOptions["correct"];
     padding: PerseusSorterWidgetOptions["padding"];
     layout: PerseusSorterWidgetOptions["layout"];
-};
+}
 
 /**
  * Given a PerseusSorterWidgetOptions object, return a new object with only

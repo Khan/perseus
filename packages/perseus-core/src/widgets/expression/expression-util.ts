@@ -4,7 +4,7 @@ import type {PerseusExpressionWidgetOptions} from "../../data-schema";
  * For details on the individual options, see the
  * PerseusExpressionWidgetOptions type
  */
-export type ExpressionPublicWidgetOptions = {
+export interface ExpressionPublicWidgetOptions {
     buttonSets: PerseusExpressionWidgetOptions["buttonSets"];
     functions: PerseusExpressionWidgetOptions["functions"];
     times: PerseusExpressionWidgetOptions["times"];
@@ -12,7 +12,7 @@ export type ExpressionPublicWidgetOptions = {
     ariaLabel?: PerseusExpressionWidgetOptions["ariaLabel"];
     buttonsVisible?: PerseusExpressionWidgetOptions["buttonsVisible"];
     extraKeys?: PerseusExpressionWidgetOptions["extraKeys"];
-};
+}
 
 /**
  * Given a PerseusExpressionWidgetOptions object, return a new object with only

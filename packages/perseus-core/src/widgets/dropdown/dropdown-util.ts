@@ -4,13 +4,13 @@ import type {PerseusDropdownWidgetOptions} from "../../data-schema";
  * For details on the individual options, see the
  * PerseusDropdownWidgetOptions type
  */
-export type DropdownPublicWidgetOptions = {
+export interface DropdownPublicWidgetOptions {
     choices: ReadonlyArray<{content: string}>;
     placeholder: PerseusDropdownWidgetOptions["placeholder"];
     static: PerseusDropdownWidgetOptions["static"];
     visibleLabel?: PerseusDropdownWidgetOptions["visibleLabel"];
     ariaLabel?: PerseusDropdownWidgetOptions["ariaLabel"];
-};
+}
 
 /**
  * Given a PerseusDropdownWidgetOptions object, return a new object with only

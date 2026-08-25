@@ -7,7 +7,7 @@ import type {
  * For details on the individual options, see the
  * PerseusRadioWidgetOptions type.
  */
-export type RadioPublicWidgetOptions = {
+export interface RadioPublicWidgetOptions {
     choices: ReadonlyArray<RadioChoicePublicData>;
     hasNoneOfTheAbove?: PerseusRadioWidgetOptions["hasNoneOfTheAbove"];
     countChoices?: PerseusRadioWidgetOptions["countChoices"];
@@ -15,7 +15,7 @@ export type RadioPublicWidgetOptions = {
     randomize?: PerseusRadioWidgetOptions["randomize"];
     multipleSelect?: PerseusRadioWidgetOptions["multipleSelect"];
     deselectEnabled?: PerseusRadioWidgetOptions["deselectEnabled"];
-};
+}
 
 /**
  * Only the options from each Radio choice that should be exposed to the client.

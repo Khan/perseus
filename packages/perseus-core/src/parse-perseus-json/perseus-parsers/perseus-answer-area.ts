@@ -10,7 +10,7 @@ import {convert} from "../general-purpose-parsers/convert";
 
 type CalculatorVariant = "scientific" | "graphing" | "four_function";
 
-type ParsedAnswerArea = {
+interface ParsedAnswerArea {
     calculator: boolean;
     calculatorVariant?: CalculatorVariant;
     financialCalculatorMonthlyPayment: boolean;
@@ -18,7 +18,7 @@ type ParsedAnswerArea = {
     financialCalculatorTimeToPayOff: boolean;
     periodicTable: boolean;
     periodicTableWithKey: boolean;
-};
+}
 
 const booleanOrFalse = defaulted(boolean, () => false);
 // Normalize legacy null values to undefined so content editors aren't prompted with a save warning.

@@ -20,10 +20,10 @@ import type {getSorterPublicWidgetOptions} from "./sorter/sorter-util";
 import type {getTablePublicWidgetOptions} from "./table/table-util";
 import type {Alignment, Version} from "../data-schema";
 
-export type WidgetOptionsUpgradeMap = {
+export interface WidgetOptionsUpgradeMap {
     // OldProps => NewProps,
     [targetMajorVersion: string]: (arg1: any) => any;
-};
+}
 
 /**
  * A union type of all the functions that provide public widget options.
@@ -53,10 +53,10 @@ export type PublicWidgetOptionsFunction =
     | typeof getSorterPublicWidgetOptions
     | typeof getTablePublicWidgetOptions;
 
-export type WidgetLogic<
+export interface WidgetLogic<
     TWidgetOptions = never,
     TPublicWidgetOptions = never,
-> = {
+> {
     name: string;
     /**
      * The widget version. Any time the _major_ version changes, the widget
@@ -79,4 +79,4 @@ export type WidgetLogic<
      * be shared with the client.
      */
     getPublicWidgetOptions?: (options: TWidgetOptions) => TPublicWidgetOptions;
-};
+}

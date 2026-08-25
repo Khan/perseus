@@ -114,12 +114,12 @@ export type KeypadKey = (typeof KeypadKeys)[number];
 
 export type KeypadType = "FRACTION" | "EXPRESSION";
 
-export type KeypadConfiguration = {
+export interface KeypadConfiguration {
     keypadType: KeypadType;
     extraKeys?: KeypadKey[];
     times?: boolean;
     scientific?: boolean;
-};
+}
 
 // Used by KeypadContext to pass around a renderer reference
 export interface KeypadContextRendererInterface {

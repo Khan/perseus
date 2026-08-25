@@ -13,9 +13,9 @@ import {isFailure} from "../result";
 import type {Version} from "../../data-schema";
 import type {ParseContext, Parser} from "../parser-types";
 
-type Versioned = {
+interface Versioned {
     version?: Version;
-};
+}
 
 /**
  * Creates a parser for a widget options type with multiple major versions. Old

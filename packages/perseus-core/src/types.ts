@@ -16,7 +16,7 @@ export interface RendererInterface {
 }
 
 // Base marker, with the props that are set by the editor.
-export type MarkerType = {
+export interface MarkerType {
     // The list of correct answers expected for the marker.
     answers: string[];
     // The marker title or description.
@@ -24,7 +24,7 @@ export type MarkerType = {
     // The marker coordinates on the question image as percent of image size.
     x: number;
     y: number;
-};
+}
 
 // Additional props that are set when user interacts with the marker.
 // TODO(LEMS-3199): don't mash together UI state with widget options

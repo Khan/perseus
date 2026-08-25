@@ -27,13 +27,13 @@ export const shuffleMatcher = (
  * For details on the individual options, see the
  * PerseusMatcherWidgetOptions type
  */
-export type MatcherPublicWidgetOptions = {
+export interface MatcherPublicWidgetOptions {
     labels: PerseusMatcherWidgetOptions["labels"];
     left: PerseusMatcherWidgetOptions["left"];
     right: PerseusMatcherWidgetOptions["right"];
     orderMatters: PerseusMatcherWidgetOptions["orderMatters"];
     padding: PerseusMatcherWidgetOptions["padding"];
-};
+}
 
 /**
  * Given a PerseusMatcherWidgetOptions object, return a new object with only

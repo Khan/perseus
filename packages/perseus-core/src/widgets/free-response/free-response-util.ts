@@ -4,12 +4,12 @@ import type {PerseusFreeResponseWidgetOptions} from "../../data-schema";
  * For details on the individual options, see the
  * {@link PerseusFreeResponseWidgetOptions} type
  */
-export type FreeResponsePublicWidgetOptions = {
+export interface FreeResponsePublicWidgetOptions {
     allowUnlimitedCharacters: PerseusFreeResponseWidgetOptions["allowUnlimitedCharacters"];
     characterLimit: PerseusFreeResponseWidgetOptions["characterLimit"];
     placeholder: PerseusFreeResponseWidgetOptions["placeholder"];
     question: PerseusFreeResponseWidgetOptions["question"];
-};
+}
 
 /**
  * Given a FreeResponsePublicWidgetOptions object, return a new object with only

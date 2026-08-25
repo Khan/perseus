@@ -13,7 +13,7 @@ import type {
 } from "../data-schema";
 import type {UserInputMap} from "../validation.types";
 
-export type ParseFailureDetail = {
+export interface ParseFailureDetail {
     /**
      * A human-readable error message describing where in the object tree
      * parsing failed.
@@ -24,7 +24,7 @@ export type ParseFailureDetail = {
      * Use at your own risk.
      */
     invalidObject: unknown;
-};
+}
 
 /**
  * Parses a PerseusItem from a plain object or JSON string, migrates old

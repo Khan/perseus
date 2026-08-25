@@ -4,12 +4,12 @@ import type {PerseusCategorizerWidgetOptions} from "../../data-schema";
  * For details on the individual options, see the
  * PerseusCategorizerWidgetOptions type
  */
-export type CategorizerPublicWidgetOptions = {
+export interface CategorizerPublicWidgetOptions {
     items: PerseusCategorizerWidgetOptions["items"];
     categories: PerseusCategorizerWidgetOptions["categories"];
     randomizeItems: PerseusCategorizerWidgetOptions["randomizeItems"];
     static: PerseusCategorizerWidgetOptions["static"];
-};
+}
 
 /**
  * Given a PerseusCategorizerWidgetOptions object, return a new object with only

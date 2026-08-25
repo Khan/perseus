@@ -14,23 +14,23 @@ import {versionedWidgetOptions} from "./versioned-widget-options";
 import type {Parser} from "../parser-types";
 
 describe("versionedWidgetOptions parser", () => {
-    type OptionsV0 = {
+    interface OptionsV0 {
         type: "test-widget";
         version: {major: 0; minor: number};
         answer: string;
-    };
+    }
 
-    type OptionsV1 = {
+    interface OptionsV1 {
         type: "test-widget";
         version: {major: 1; minor: number};
         answers: string[];
-    };
+    }
 
-    type OptionsV2 = {
+    interface OptionsV2 {
         type: "test-widget";
         version: {major: 2; minor: number};
         correctAnswers: string[];
-    };
+    }
 
     const parseOptionsV0: Parser<OptionsV0> = object({
         type: constant("test-widget"),
