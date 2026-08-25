@@ -86,7 +86,7 @@ const Sorter = forwardRef<SorterHandle, Props>(function Sorter(props, ref) {
     }
 
     return (
-        <div className="perseus-widget-sorter perseus-clearfix">
+        <div className="perseus-clearfix">
             <Sortable
                 options={userInput.options}
                 layout={layout}
