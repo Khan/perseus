@@ -31,6 +31,9 @@ describe("generateTableOptions", () => {
         const options = generateTableOptions({
             answers: [["1", "2"]],
             rows: 5,
+            // `columns: 7` doesn't really make sense,
+            // but this test is testing that we prefer the provided `columns`
+            // over the calculated `columns`
             columns: 7,
             headers: ["a", "b"],
         });
