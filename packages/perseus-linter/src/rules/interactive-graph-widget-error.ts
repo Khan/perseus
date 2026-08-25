@@ -95,14 +95,14 @@ export default Rule.makeRule({
 // Fields checked in addition to `type`, `showPointLabels`, and `pointLabels`
 // so we can compute the expected label count for graph types whose number
 // of labelable points depends on runtime configuration.
-type ShowPointLabelsShape = {
+interface ShowPointLabelsShape {
     type: string;
     showPointLabels?: boolean;
     pointLabels?: readonly string[];
     numPoints?: number | "unlimited";
     numSides?: number | "unlimited";
     numSegments?: number;
-};
+}
 
 function checkShowPointLabelsHasLabels(
     g: ShowPointLabelsShape | undefined,

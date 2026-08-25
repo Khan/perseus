@@ -124,7 +124,7 @@ import Selector from "./selector";
 
 import type {TraversalState, TreeNode} from "./tree-transformer";
 
-export type MakeRuleOptions = {
+export interface MakeRuleOptions {
     name: string;
     pattern?: RegExp;
     severity?: number;
@@ -139,14 +139,14 @@ export type MakeRuleOptions = {
         context: LintRuleContextObject,
     ) => LintTesterReturnType;
     applies?: AppliesTester;
-};
+}
 
 // This represents the type returned by String.match(). It is an
 // array of strings, but also has index:number and input:string properties.
 // TypeScript doesn't handle it well, so we punt and just use any.
 type PatternMatchType = any;
 
-export type LinterWarning = {
+export interface LinterWarning {
     rule: string;
     message: string;
     start: number;
@@ -154,7 +154,7 @@ export type LinterWarning = {
     target?: string;
     severity: number;
     metadata?: Record<string, any>;
-};
+}
 
 // This is the return type of the check() method of a Rule object
 export type RuleCheckReturnType = LinterWarning | null | undefined;

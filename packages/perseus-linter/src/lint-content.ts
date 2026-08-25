@@ -9,10 +9,10 @@ import type {
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
-export type LinterWarningItem = {
+export interface LinterWarningItem {
     question: LinterWarning[];
     hints: LinterWarning[][];
-};
+}
 /**
  * Lint a full Perseus item, including the question and all hints.
  *
