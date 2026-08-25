@@ -94,7 +94,7 @@ function getFactors(expr: Expr): Expr[] {
     }
 }
 
-type Hints = {
+interface Hints {
     parens?: boolean;
     divide?: boolean;
     root?: boolean;
@@ -103,14 +103,14 @@ type Hints = {
     entered?: boolean;
     negate?: boolean;
     open?: boolean;
-};
+}
 
 type Vars = Record<string, string>;
 
-type Options = {
+interface Options {
     preciseFloats?: boolean;
     once?: boolean;
-};
+}
 
 /* abstract base expression node */
 abstract class Expr {
@@ -2176,12 +2176,12 @@ export class Log extends Expr {
     }
 }
 
-type TrigFunc = {
+interface TrigFunc {
     eval: (arg: number) => number;
     codegen: string | ((argStr: string) => string);
     tex: string;
     expand?: () => Expr;
-};
+}
 
 /* trigonometric functions */
 export class Trig extends Expr {
@@ -3589,11 +3589,11 @@ parser.yy = {
     },
 };
 
-type ParseOptions = {
+interface ParseOptions {
     functions?: ReadonlyArray<string>;
     decimal_separator?: string;
     divide_symbol?: string;
-};
+}
 
 export const parse = function (input: string, options?: ParseOptions) {
     try {

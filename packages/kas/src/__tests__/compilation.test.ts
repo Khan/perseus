@@ -1,8 +1,8 @@
 import * as KAS from "../index";
 
-type Variables = {
+interface Variables {
     [key: string]: string | number | ((arg1: number) => number);
-};
+}
 
 expect.extend({
     toCompileAs(
