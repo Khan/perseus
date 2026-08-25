@@ -5,6 +5,7 @@ import {
     PerseusError,
     GrapherUtil,
 } from "@khanacademy/perseus-core";
+import invariant from "tiny-invariant";
 
 import type {TangentCoefficient} from "@khanacademy/kmath";
 import type {
@@ -55,7 +56,11 @@ function scoreGrapher(
         };
     }
 
-    if (userInput.type !== rubric.correct!.type) {
+    invariant(
+        rubric.correct != null,
+        "correct is null or undefined in scoreGrapher",
+    );
+    if (userInput.type !== rubric.correct.type) {
         return {
             type: "points",
             earned: 0,

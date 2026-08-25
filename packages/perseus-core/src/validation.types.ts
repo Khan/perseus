@@ -32,25 +32,8 @@
 import type {
     GrapherAnswerTypes,
     MakeWidgetMap,
-    PerseusCategorizerWidgetOptions,
-    PerseusDropdownWidgetOptions,
-    PerseusExpressionWidgetOptions,
-    PerseusGradedGroupSetWidgetOptions,
-    PerseusGradedGroupWidgetOptions,
     PerseusGraphType,
-    PerseusGrapherWidgetOptions,
-    PerseusGroupWidgetOptions,
-    PerseusInteractiveGraphWidgetOptions,
-    PerseusLabelImageWidgetOptions,
-    PerseusMatcherWidgetOptions,
-    PerseusMatrixWidgetOptions,
-    PerseusNumberLineWidgetOptions,
-    PerseusNumericInputWidgetOptions,
-    PerseusOrdererWidgetOptions,
-    PerseusPlotterWidgetOptions,
-    PerseusRadioWidgetOptions,
-    PerseusSorterWidgetOptions,
-    PerseusTableWidgetOptions,
+    PerseusWidgetOptions,
 } from "./data-schema";
 import type {ErrorCode} from "./error-codes";
 import type {Relationship} from "./types";
@@ -92,7 +75,7 @@ export type WidgetScorerFunction = (
     userInput: UserInput | undefined,
 
     /** The scoring criteria containing the correct answer. */
-    rubric: Rubric,
+    rubric: PerseusWidgetOptions,
 
     /**
      * The locale for locale-sensitive scoring (eg. decimal separators).
@@ -344,35 +327,6 @@ export type PerseusSorterUserInput = {
  * entered by the learner, scored against the rubric's answers.
  */
 export type PerseusTableUserInput = string[][];
-
-/**
- * A registry mapping widget type names to their rubric types.
- */
-// NOTE: Extend this interface to add new widget rubric types.
-export interface RubricRegistry {
-    categorizer: PerseusCategorizerWidgetOptions;
-    dropdown: PerseusDropdownWidgetOptions;
-    expression: PerseusExpressionWidgetOptions;
-    "graded-group-set": PerseusGradedGroupSetWidgetOptions;
-    "graded-group": PerseusGradedGroupWidgetOptions;
-    grapher: PerseusGrapherWidgetOptions;
-    group: PerseusGroupWidgetOptions;
-    "input-number": PerseusNumericInputWidgetOptions;
-    "interactive-graph": PerseusInteractiveGraphWidgetOptions;
-    "label-image": PerseusLabelImageWidgetOptions;
-    matcher: PerseusMatcherWidgetOptions;
-    matrix: PerseusMatrixWidgetOptions;
-    "number-line": PerseusNumberLineWidgetOptions;
-    "numeric-input": PerseusNumericInputWidgetOptions;
-    orderer: PerseusOrdererWidgetOptions;
-    plotter: PerseusPlotterWidgetOptions;
-    radio: PerseusRadioWidgetOptions;
-    sorter: PerseusSorterWidgetOptions;
-    table: PerseusTableWidgetOptions;
-}
-
-/** A union of all widget rubric types. */
-export type Rubric = RubricRegistry[keyof RubricRegistry];
 
 /**
  * This is an interface so that it can be extended if a widget is created
