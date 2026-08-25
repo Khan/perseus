@@ -1,4 +1,4 @@
-export type KeypadContextType = {
+export interface KeypadContextType {
     setKeypadActive: (keypadActive: boolean) => void;
     keypadActive: boolean;
     setKeypadElement: (keypadElement?: any) => void;
@@ -9,4 +9,4 @@ export type KeypadContextType = {
         scrollableElement?: HTMLElement | null | undefined,
     ) => void;
     scrollableElement: HTMLElement | null | undefined;
-};
+}
