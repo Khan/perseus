@@ -69,13 +69,6 @@ const NumericInput = forwardRef<Widget, Props>(
                 return true;
             },
 
-            focusInputPath() {
-                if (inputRef.current) {
-                    inputRef.current.focus();
-                    setIsFocused(true);
-                }
-            },
-
             blurInputPath() {
                 if (inputRef.current) {
                     inputRef.current.blur();

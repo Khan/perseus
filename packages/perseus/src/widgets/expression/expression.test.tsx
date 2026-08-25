@@ -496,21 +496,6 @@ describe("Expression Widget", function () {
             expect(expressionInput).not.toHaveFocus();
         });
 
-        it("can be focused via a function", () => {
-            // arrange
-            const {renderer} = renderQuestion(
-                expressionItemMultipleEquivalentAnswers.question,
-            );
-            const expression = renderer.findWidgets("expression 1")[0];
-
-            // act
-            act(() => expression.focusInputPath());
-
-            // Assert
-            const expressionInput = screen.getByRole("textbox");
-            expect(expressionInput).toHaveFocus();
-        });
-
         it("returns true from focus() and succeeds even if called before the DOM ID is assigned", () => {
             // Arrange
             const {renderer} = renderQuestion(

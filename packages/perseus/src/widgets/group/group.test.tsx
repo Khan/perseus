@@ -92,18 +92,6 @@ describe("group widget", () => {
             );
         });
 
-        it("should forward focusInputPath calls to Renderer", () => {
-            // Arrange
-            const {renderer} = renderQuestion(question1);
-
-            // Act
-            // focusPath() calls focusInputPath() on the focused widget
-            act(() => renderer.focusPath(["group 2", "numeric-input 2"]));
-
-            // Assert
-            expect(screen.getAllByRole("textbox")[1]).toHaveFocus();
-        });
-
         it("should forward blurInputPath calls to Renderer", async () => {
             // Arrange
             const {renderer} = renderQuestion(question1);

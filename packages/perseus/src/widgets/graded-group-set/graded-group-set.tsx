@@ -138,10 +138,6 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
         return this._childGroup.focus();
     };
 
-    focusInputPath: (arg1: FocusPath) => void = (path) => {
-        this._childGroup.focusInputPath(path);
-    };
-
     blurInputPath: (arg1: FocusPath) => void = (path) => {
         this._childGroup.blurInputPath(path);
     };

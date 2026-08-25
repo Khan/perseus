@@ -598,28 +598,6 @@ describe("server item renderer", () => {
                 null,
             );
         });
-
-        it("should focus the widget requested in focusPath()", () => {
-            // Arrange
-            const onFocusChange = jest.fn();
-            const {renderer} = renderQuestion(itemWithMockWidget, {
-                onFocusChange,
-            });
-
-            // Act
-            act(() => renderer.focusPath(["mock-widget 1"]));
-
-            // We have some async processes that need to be resolved here
-            jest.runAllTimers();
-
-            // Assert
-            expect(onFocusChange).toHaveBeenCalledWith(
-                ["mock-widget 1"],
-                null,
-                0,
-                expect.any(Object),
-            );
-        });
     });
 
     describe("state serialization", () => {

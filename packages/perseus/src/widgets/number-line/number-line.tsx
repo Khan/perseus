@@ -279,12 +279,6 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
             return false;
         },
 
-        focusInputPath: (path) => {
-            if (path?.length === 1) {
-                tickCtrlRef.current?.focus();
-            }
-        },
-
         blurInputPath: (path) => {
             if (path?.length === 1) {
                 tickCtrlRef.current?.blur();

@@ -63,15 +63,14 @@ describe("table", () => {
             expect(screen.getAllByRole("textbox")[0]).toHaveFocus();
         });
 
-        it("focuses and blurs cells by path", () => {
+        it("blurs a cell by path", () => {
             const table = renderTable();
             // Row 1, column 0 is the fourth cell of a 2x3 table.
             const cell = screen.getAllByRole("textbox")[3];
-
-            act(() => table.focusInputPath(["1", "0"]));
-            expect(cell).toHaveFocus();
+            act(() => cell.focus());
 
             act(() => table.blurInputPath(["1", "0"]));
+
             expect(cell).not.toHaveFocus();
         });
 

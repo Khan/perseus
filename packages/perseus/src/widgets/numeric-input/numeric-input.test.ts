@@ -495,17 +495,17 @@ describe("Numeric input widget", () => {
         expect(numericInput.getInputPaths()).toEqual([[]]);
     });
 
-    it("focuses and blurs the input via focusInputPath()/blurInputPath()", () => {
+    it("blurs the input via blurInputPath()", () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
         const numericInput = renderer.findWidgets("numeric-input 1")[0];
         const input = screen.getByRole("textbox", {hidden: true});
+        act(() => numericInput.focus());
 
-        // Act, Assert
-        act(() => numericInput.focusInputPath([]));
-        expect(input).toHaveFocus();
-
+        // Act
         act(() => numericInput.blurInputPath([]));
+
+        // Assert
         expect(input).not.toHaveFocus();
     });
 

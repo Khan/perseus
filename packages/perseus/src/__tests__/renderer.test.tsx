@@ -923,37 +923,10 @@ describe("renderer", () => {
             }).toThrow("widget props.onFocus focusPath must be an Array");
         });
 
-        it("should focus the input at the requested FocusPath", () => {
-            // Arrange
-            const {renderer} = renderQuestion(question2);
-
-            // Act
-            act(() => renderer.focusPath(["mock-widget 1"]));
-
-            // Assert
-            expect(screen.getByRole("textbox")).toHaveFocus();
-        });
-
-        it("should do nothing if requested FocusPath is already focused", () => {
-            // Arrange
-            const onFocusChange = jest.fn();
-            const {renderer} = renderQuestion(question2, {
-                onFocusChange,
-            });
-            act(() => renderer.focusPath(["mock-widget 1"]));
-            onFocusChange.mockClear();
-
-            // Act
-            act(() => renderer.focusPath(["mock-widget 1"]));
-
-            // Assert
-            expect(onFocusChange).not.toHaveBeenCalled();
-        });
-
         it("should blur current widget when focus changes", () => {
             // Arrange
             const onFocusChange = jest.fn();
-            const {renderer} = renderQuestion(
+            renderQuestion(
                 {
                     ...question2,
                     content:
@@ -966,11 +939,11 @@ describe("renderer", () => {
                 },
                 {onFocusChange},
             );
-            act(() => renderer.focusPath(["mock-widget 1"]));
+            act(() => screen.getAllByRole("textbox")[0].focus());
             onFocusChange.mockClear();
 
             // Act
-            act(() => renderer.focusPath(["mock-widget 2"]));
+            act(() => screen.getAllByRole("textbox")[1].focus());
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(

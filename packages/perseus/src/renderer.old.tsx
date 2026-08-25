@@ -1366,26 +1366,6 @@ class Renderer
         return inputPaths;
     };
 
-    focusPath: (path: FocusPath) => void = (path: FocusPath) => {
-        // No need to focus if it's already focused
-        if (_.isEqual(this._currentFocus, path)) {
-            return;
-        }
-        if (this._currentFocus) {
-            // Unfocus old path, if exists
-            this.blurPath(this._currentFocus);
-        }
-
-        // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
-        const widgetId = _.first(path);
-        // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
-        const interWidgetPath = _.rest(path);
-
-        // Widget handles parsing of the interWidgetPath
-        const focusWidget = this.getWidgetInstance(widgetId);
-        focusWidget?.focusInputPath?.(interWidgetPath);
-    };
-
     blurPath: (path: FocusPath) => void = (path: FocusPath) => {
         // No need to blur if it's not focused
         if (!_.isEqual(this._currentFocus, path)) {

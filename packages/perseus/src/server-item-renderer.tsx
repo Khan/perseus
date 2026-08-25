@@ -245,10 +245,6 @@ export class ServerItemRenderer
         }, 0);
     }
 
-    focusPath(path: FocusPath): void {
-        return this.questionRenderer.focusPath(path);
-    }
-
     blurPath(path: FocusPath): void {
         return this.questionRenderer.blurPath(path);
     }

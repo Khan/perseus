@@ -69,10 +69,6 @@ class Group extends React.Component<Props> implements Widget {
         return this.rendererRef?.focus() ?? false;
     }
 
-    focusInputPath: (arg1: FocusPath) => void = (path) => {
-        this.rendererRef?.focusPath(path);
-    };
-
     blurInputPath: (arg1: FocusPath) => void = (path) => {
         this.rendererRef?.blurPath(path);
     };
