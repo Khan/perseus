@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
 
     selectedStyle: {
         backgroundColor: semanticColor.core.background.instructive.subtle,
-        borderBlockEnd: `${border.width.thick} solid ${semanticColor.core.border.instructive.default}`,
+        boxShadow: `inset 0 calc(-1 * ${border.width.thick}) 0 ${semanticColor.core.border.instructive.default}`,
     },
 
     disabledStyle: {
