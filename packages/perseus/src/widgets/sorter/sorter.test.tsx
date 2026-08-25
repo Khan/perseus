@@ -19,6 +19,7 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {basicQuestion} from "./sorter.testdata";
 
+import type {SorterHandle} from "./sorter";
 import type {APIOptions} from "../../types";
 
 /*
@@ -155,7 +156,7 @@ describe("sorter widget", () => {
         it("reports the new card order and marks the input changed when a card is moved", () => {
             // Arrange
             const {renderer} = renderQuestion(sorterQuestion);
-            const sorter = renderer.findWidgets("sorter 1")[0];
+            const sorter: SorterHandle = renderer.findWidgets("sorter 1")[0];
 
             // Act
             sortedOrder.forEach((option, index) => {
@@ -175,7 +176,7 @@ describe("sorter widget", () => {
             const {renderer} = renderQuestion(sorterQuestion, {
                 trackInteraction,
             });
-            const sorter = renderer.findWidgets("sorter 1")[0];
+            const sorter: SorterHandle = renderer.findWidgets("sorter 1")[0];
 
             // Act
             act(() => sorter.moveOptionToIndex("Zeroth", 4));
@@ -199,7 +200,7 @@ describe("sorter widget", () => {
         it("describes the learner's current card order in the prompt JSON", () => {
             // Arrange
             const {renderer} = renderQuestion(sorterQuestion);
-            const sorter = renderer.findWidgets("sorter 1")[0];
+            const sorter: SorterHandle = renderer.findWidgets("sorter 1")[0];
 
             // Act
             sortedOrder.forEach((option, index) => {
