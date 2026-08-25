@@ -410,6 +410,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                 hovered={false}
                                 focused={false}
                                 active={false}
+                                pressed={false}
                             />
                         ) : (
                             <Clickable
@@ -475,21 +476,25 @@ class MathInput extends React.Component<Props, State> {
     }
 }
 
-const MathInputIcon = ({hovered, focused, active}) => {
+const MathInputIcon = ({hovered, focused, pressed, active}) => {
     let fillColor: string | undefined;
     switch (true) {
-        case focused || active:
+        case focused || active || pressed:
             fillColor = semanticColor.core.foreground.knockout.default;
             break;
         case hovered:
-            fillColor = semanticColor.core.background.instructive.default;
+            fillColor = semanticColor.core.foreground.instructive.default;
             break;
         default:
             fillColor = semanticColor.core.foreground.neutral.default;
             break;
     }
-    const dynamicClass =
-        active || focused ? styles.iconActive : styles.iconInactive;
+    let dynamicClass = styles.iconInactive;
+    if (pressed || focused) {
+        dynamicClass = styles.iconPressed;
+    } else if (active) {
+        dynamicClass = styles.iconExpanded;
+    }
     return (
         <View style={[styles.iconContainer, dynamicClass]}>
             <svg
@@ -557,8 +562,13 @@ const styles = StyleSheet.create({
         border: `${border.width.medium} solid ${semanticColor.core.border.disabled.subtle}`,
         backgroundColor: semanticColor.core.background.neutral.subtle,
     },
-    iconActive: {
+    iconPressed: {
         border: `${border.width.medium} solid ${semanticColor.core.foreground.instructive.default}`,
+        boxShadow: `inset 0 0 0 ${border.width.medium} ${semanticColor.core.border.knockout.default}`,
+        backgroundColor: semanticColor.core.background.neutral.default,
+    },
+    iconExpanded: {
+        border: `${border.width.medium} solid transparent`,
         backgroundColor: semanticColor.core.background.neutral.default,
     },
     outerWrapper: {
