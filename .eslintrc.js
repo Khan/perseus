@@ -512,6 +512,10 @@ module.exports = {
         "@typescript-eslint/no-empty-function": "off",
         "@typescript-eslint/no-invalid-this": "error",
         "@typescript-eslint/no-this-alias": "off",
+        "@typescript-eslint/consistent-type-definitions": [
+            "error",
+            "interface",
+        ],
         "@typescript-eslint/consistent-type-imports": [
             "error",
             {

@@ -157,6 +157,7 @@ type DefaultInOutRule = SingleNodeParserRule & ElementReactOutputRule;
 
 // An interface has no implicit index signature, so it wouldn't satisfy
 // OutputRules<Result>.
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type DefaultRules = {
     readonly Array: {
         readonly react: ArrayNodeOutput<ReactElements>;

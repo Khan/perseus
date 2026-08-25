@@ -120,7 +120,7 @@ describe("Radio widget UI component", () => {
         `("sends '$expectedCorrectness' to the choice when $when", (args) => {
             // A `Record` isn't castable to an interface, which has no implicit
             // index signature.
-
+            // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
             type testArgs = {
                 reviewMode: boolean;
                 isCorrect: boolean;
@@ -224,7 +224,7 @@ describe("Radio widget UI component", () => {
         `("$shows correctness in the accessible name $when", (args) => {
             // A `Record` isn't castable to an interface, which has no implicit
             // index signature.
-
+            // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
             type testArgs = {
                 reviewMode: boolean;
                 isCorrect: boolean;

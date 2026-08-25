@@ -4,7 +4,7 @@ import path from "node:path";
 
 import yaml from "yaml";
 
-export type PackageJson = {
+export interface PackageJson {
     name: string;
     version?: string;
     private?: boolean;
@@ -13,15 +13,15 @@ export type PackageJson = {
     khan?: {
         catalogHash?: string;
     };
-};
+}
 
-export type PnpmWorkspace = {
+export interface PnpmWorkspace {
     catalogs: {
         prodDeps?: Record<string, string>;
         peerDeps?: Record<string, string>;
         devDeps?: Record<string, string>;
     };
-};
+}
 
 /**
  * Load the pnpm workspace configuration containing catalog dependencies.
