@@ -66,6 +66,7 @@ class WithState extends React.Component<
                     imageWidth={1280}
                     imageHeight={1024}
                     markers={markers}
+                    multipleAnswers={true}
                     onChange={(markers) => this.setState({markers})}
                     editingDisabled={false}
                 />
@@ -81,6 +82,7 @@ export const Empty = (args: StoryArgs): React.ReactElement => {
         imageWidth: 0,
         imageHeight: 0,
         markers: [],
+        multipleAnswers: true,
         onChange: () => {},
         editingDisabled: false,
     };
@@ -102,6 +104,7 @@ export const Filled = (args: StoryArgs): React.ReactElement => {
                 y: 50,
             },
         ],
+        multipleAnswers: true,
         onChange: () => {},
         editingDisabled: false,
     };

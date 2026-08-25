@@ -8,6 +8,8 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type MarkerProps = PropsFor<typeof Marker>;
 
+type WrapperProps = Omit<MarkerProps, "opened" | "onOpenedChange">;
+
 type StoryArgs = Record<string, MarkerProps>;
 
 type Story = {
@@ -32,17 +34,31 @@ const styles = StyleSheet.create({
     },
 });
 
-const Wrapper = (props: MarkerProps) => (
-    <div className={css(styles.wrapper)}>
-        <Marker {...props} />
-    </div>
-);
+// `opened` is owned by QuestionMarkers in production so that opening one
+// marker closes the rest; the story stands in for that owner.
+const Wrapper = (props: WrapperProps) => {
+    const [opened, setOpened] = React.useState(false);
+
+    return (
+        <div className={css(styles.wrapper)}>
+            <Marker
+                {...props}
+                opened={opened}
+                onOpenedChange={(opened) => {
+                    action("onOpenedChange")(opened);
+                    setOpened(opened);
+                }}
+            />
+        </div>
+    );
+};
 
 export const Empty = (args: StoryArgs): React.ReactElement => {
-    const props: MarkerProps = {
+    const props: WrapperProps = {
         answers: [],
         choices: [],
         label: "",
+        multipleAnswers: true,
         onChange: (...args) => {
             action("onChange")(...args);
         },
@@ -56,7 +72,7 @@ export const Empty = (args: StoryArgs): React.ReactElement => {
 };
 
 export const WithAnswers = (args: StoryArgs): React.ReactElement => {
-    const props: MarkerProps = {
+    const props: WrapperProps = {
         answers: ["BMW", "Ferrari"],
         choices: [
             "Lamborghini",
@@ -67,6 +83,7 @@ export const WithAnswers = (args: StoryArgs): React.ReactElement => {
             "Ferrari",
         ],
         label: "Automotive",
+        multipleAnswers: true,
         onChange: (...args) => {
             action("onChange")(...args);
         },

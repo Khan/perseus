@@ -235,6 +235,7 @@ class LabelImageEditor extends React.Component<Props> {
                     imageWidth={imageWidth}
                     imageHeight={imageHeight}
                     markers={markers}
+                    multipleAnswers={multipleAnswers}
                     onChange={this.handleMarkersChange}
                     ref={(node) => (this._questionMarkers = node)}
                 />

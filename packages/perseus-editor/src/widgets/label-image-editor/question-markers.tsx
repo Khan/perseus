@@ -17,6 +17,9 @@ import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 type QuestionMarkersProps = {
     // The list of possible answers in a specific order.
     choices: string[];
+    // Whether a marker may have more than one answer, mirroring the widget
+    // option of the same name.
+    multipleAnswers: boolean;
     // The question image properties.
     imageUrl: string;
     imageWidth: number;
@@ -115,8 +118,15 @@ class QuestionMarkers extends React.Component<
     };
 
     render(): React.ReactNode {
-        const {choices, imageUrl, imageWidth, imageHeight, markers, onChange} =
-            this.props;
+        const {
+            choices,
+            imageUrl,
+            imageWidth,
+            imageHeight,
+            markers,
+            multipleAnswers,
+            onChange,
+        } = this.props;
 
         const staticUrl = Dependencies.getDependencies().staticUrl;
 
@@ -165,6 +175,7 @@ class QuestionMarkers extends React.Component<
                                 <Marker
                                     {...marker}
                                     choices={choices}
+                                    multipleAnswers={multipleAnswers}
                                     key={key}
                                     opened={this.state.openMarkerKey === key}
                                     onOpenedChange={(opened) =>

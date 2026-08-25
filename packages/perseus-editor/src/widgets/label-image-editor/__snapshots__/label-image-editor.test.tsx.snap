@@ -74,15 +74,25 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
           class="image_1jsfej4"
           src="mockStaticUrl(https://example.com/test-image.png)"
         />
-        <div
-          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
+        <button
+          aria-controls=":rc:"
+          aria-expanded="false"
+          aria-label="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+          class="marker_1gkxi9i-o_O-markerWithAnswers_1gtt1k8"
+          id=":rc:-anchor"
           style="left: 25%; top: 25%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+          type="button"
         />
-        <div
-          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
+        <button
+          aria-controls=":rd:"
+          aria-expanded="false"
+          aria-label="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+          class="marker_1gkxi9i-o_O-markerWithAnswers_1gtt1k8"
+          id=":rd:-anchor"
           style="left: 50%; top: 50%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+          type="button"
         />
       </div>
     </div>
@@ -407,15 +417,25 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
           class="image_1jsfej4"
           src="mockStaticUrl(https://example.com/test-image.png)"
         />
-        <div
-          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
+        <button
+          aria-controls=":re:"
+          aria-expanded="false"
+          aria-label="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+          class="marker_1gkxi9i-o_O-markerWithAnswers_1gtt1k8"
+          id=":re:-anchor"
           style="left: 25%; top: 25%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+          type="button"
         />
-        <div
-          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
+        <button
+          aria-controls=":rf:"
+          aria-expanded="false"
+          aria-label="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+          class="marker_1gkxi9i-o_O-markerWithAnswers_1gtt1k8"
+          id=":rf:-anchor"
           style="left: 50%; top: 50%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+          type="button"
         />
       </div>
     </div>
@@ -740,15 +760,25 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
           class="image_1jsfej4"
           src="mockStaticUrl(https://example.com/test-image.png)"
         />
-        <div
-          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
+        <button
+          aria-controls=":ri:"
+          aria-expanded="false"
+          aria-label="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+          class="marker_1gkxi9i-o_O-markerWithAnswers_1gtt1k8"
+          id=":ri:-anchor"
           style="left: 25%; top: 25%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+          type="button"
         />
-        <div
-          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
+        <button
+          aria-controls=":rj:"
+          aria-expanded="false"
+          aria-label="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+          class="marker_1gkxi9i-o_O-markerWithAnswers_1gtt1k8"
+          id=":rj:-anchor"
           style="left: 50%; top: 50%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+          type="button"
         />
       </div>
     </div>
@@ -1073,15 +1103,25 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
           class="image_1jsfej4"
           src="mockStaticUrl(https://example.com/test-image.png)"
         />
-        <div
-          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
+        <button
+          aria-controls=":rg:"
+          aria-expanded="false"
+          aria-label="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+          class="marker_1gkxi9i-o_O-markerWithAnswers_1gtt1k8"
+          id=":rg:-anchor"
           style="left: 25%; top: 25%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+          type="button"
         />
-        <div
-          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
+        <button
+          aria-controls=":rh:"
+          aria-expanded="false"
+          aria-label="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+          class="marker_1gkxi9i-o_O-markerWithAnswers_1gtt1k8"
+          id=":rh:-anchor"
           style="left: 50%; top: 50%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+          type="button"
         />
       </div>
     </div>
@@ -1406,15 +1446,25 @@ exports[`label-image-editor popover direction snapshots should render with UP po
           class="image_1jsfej4"
           src="mockStaticUrl(https://example.com/test-image.png)"
         />
-        <div
-          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
+        <button
+          aria-controls=":ra:"
+          aria-expanded="false"
+          aria-label="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+          class="marker_1gkxi9i-o_O-markerWithAnswers_1gtt1k8"
+          id=":ra:-anchor"
           style="left: 25%; top: 25%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+          type="button"
         />
-        <div
-          class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy"
+        <button
+          aria-controls=":rb:"
+          aria-expanded="false"
+          aria-label="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+          class="marker_1gkxi9i-o_O-markerWithAnswers_1gtt1k8"
+          id=":rb:-anchor"
           style="left: 50%; top: 50%;"
           title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
+          type="button"
         />
       </div>
     </div>
