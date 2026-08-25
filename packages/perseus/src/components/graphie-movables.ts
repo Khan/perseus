@@ -38,7 +38,7 @@ const MovablePoint: any = GraphieClasses.createClass({
                 scale: 0.75,
                 ...(this.props.mobileStyleOverride || {}),
             },
-            shadow: true,
+            shadow: this.props.shadow ?? true,
             tooltip: this.props.showTooltips,
             pointSize: 7,
         });

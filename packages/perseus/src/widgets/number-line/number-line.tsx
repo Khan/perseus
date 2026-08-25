@@ -520,6 +520,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                         return [x, coord[1]];
                     },
                 ]}
+                shadow={!isOpen}
                 normalStyle={normalStyle}
                 highlightStyle={highlightStyle}
                 onMove={(coord) => {
