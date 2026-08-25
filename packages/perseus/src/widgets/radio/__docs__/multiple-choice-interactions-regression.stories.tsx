@@ -198,14 +198,16 @@ export const GradedGroupWrapperMultipleSelect = {
         );
     },
     play: async ({canvas, userEvent}) => {
-        let choiceToClick = canvas.getByRole("button", {
-            name: "(Choice A) Correct",
-        });
-        await userEvent.click(choiceToClick);
-        choiceToClick = canvas.getByRole("button", {
-            name: "(Choice C) Correct",
-        });
-        await userEvent.click(choiceToClick);
+        await userEvent.click(
+            canvas.getByRole("button", {
+                name: "(Choice A) Correct",
+            }),
+        );
+        await userEvent.click(
+            canvas.getByRole("button", {
+                name: "(Choice C) Correct",
+            }),
+        );
         const checkAnswerButton = canvas.getAllByRole("button", {
             name: "Check",
         })[0];
