@@ -13,6 +13,8 @@ const DEFAULT_OPTIONS = {
     disableMouseEventsOnWrapper: false,
 } as const;
 
+// NOTE: we're using a foreground color for the shadow here because
+// semanticColor.core.shadow.transparent.color isn't visible enough.
 export const wrappedEllipseShadow = `drop-shadow(0px 0px 2px ${semanticColor.core.foreground.instructive.default})`;
 
 class WrappedEllipse extends WrappedDrawing {
