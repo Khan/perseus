@@ -520,9 +520,11 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                         return [x, coord[1]];
                     },
                 ]}
+                // Only mobile points have shadows by default; desktop points
+                // have never had one, so don't turn one on here.
                 // FIXME: the shadow isn't updated when toggling isOpen via
                 //  handleToggleStrict().
-                shadow={!isOpen}
+                shadow={!!props.apiOptions.isMobile && !isOpen}
                 normalStyle={normalStyle}
                 highlightStyle={highlightStyle}
                 onMove={(coord) => {
