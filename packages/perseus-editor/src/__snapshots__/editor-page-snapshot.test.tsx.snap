@@ -60,7 +60,7 @@ exports[`EditorPage should match snapshot for editing disabled for all widgets 1
             </span>
           </button>
           <button
-            class="buttonStyle_16wwnfc-o_O-selectedStyle_1ehzjk"
+            class="buttonStyle_16wwnfc-o_O-selectedStyle_1qwmlm3"
             type="button"
           >
             <span>
@@ -1958,7 +1958,7 @@ table: [[☃ table 1]]
                               style="display: inline-block;"
                             >
                               <button
-                                class="buttonStyle_16wwnfc-o_O-selectedStyle_1ehzjk-o_O-answerStatusCorrect_7ab65q-o_O-disabledStyle_1spc5g0"
+                                class="buttonStyle_16wwnfc-o_O-selectedStyle_1qwmlm3-o_O-answerStatusCorrect_7ab65q-o_O-disabledStyle_1spc5g0"
                                 disabled=""
                                 title="This answer will be considered correct"
                                 type="button"
@@ -4925,7 +4925,7 @@ table: [[☃ table 1]]
                               style="display: inline-block;"
                             >
                               <button
-                                class="buttonStyle_16wwnfc-o_O-selectedStyle_1ehzjk"
+                                class="buttonStyle_16wwnfc-o_O-selectedStyle_1qwmlm3"
                                 type="button"
                               >
                                 Graph
@@ -8756,7 +8756,7 @@ table: [[☃ table 1]]
                                   style="display: inline-block;"
                                 >
                                   <button
-                                    class="buttonStyle_16wwnfc-o_O-selectedStyle_1ehzjk"
+                                    class="buttonStyle_16wwnfc-o_O-selectedStyle_1qwmlm3"
                                     type="button"
                                   >
                                     Graph
@@ -8955,7 +8955,7 @@ table: [[☃ table 1]]
                                   style="display: inline-block;"
                                 >
                                   <button
-                                    class="buttonStyle_16wwnfc-o_O-selectedStyle_1ehzjk"
+                                    class="buttonStyle_16wwnfc-o_O-selectedStyle_1qwmlm3"
                                     type="button"
                                   >
                                     None
@@ -11318,7 +11318,7 @@ table: [[☃ table 1]]
                                   style="display: inline-block;"
                                 >
                                   <button
-                                    class="buttonStyle_16wwnfc-o_O-selectedStyle_1ehzjk-o_O-disabledStyle_1spc5g0"
+                                    class="buttonStyle_16wwnfc-o_O-selectedStyle_1qwmlm3-o_O-disabledStyle_1spc5g0"
                                     disabled=""
                                     type="button"
                                   >
@@ -11818,7 +11818,7 @@ table: [[☃ table 1]]
                                     Axes
                                   </button>
                                   <button
-                                    class="buttonStyle_16wwnfc-o_O-selectedStyle_1ehzjk-o_O-disabledStyle_1spc5g0"
+                                    class="buttonStyle_16wwnfc-o_O-selectedStyle_1qwmlm3-o_O-disabledStyle_1spc5g0"
                                     disabled=""
                                     type="button"
                                   >
@@ -13515,7 +13515,7 @@ table: [[☃ table 1]]
                           style="display: inline-block;"
                         >
                           <button
-                            class="buttonStyle_16wwnfc-o_O-selectedStyle_1ehzjk"
+                            class="buttonStyle_16wwnfc-o_O-selectedStyle_1qwmlm3"
                             title="Decimals"
                             type="button"
                           >
