@@ -203,7 +203,7 @@ describe("graded group set widget", () => {
         const {renderer} = renderQuestion(article1);
 
         // Act
-        const inputPaths = renderer.getInputPaths();
+        const inputPaths = renderer.deprecatedGetInputPaths();
 
         // Assert
         expect(inputPaths).toMatchInlineSnapshot(`
@@ -222,7 +222,7 @@ describe("graded group set widget", () => {
 
         // Act
         // The first "focusable" widget receives focus...
-        act(() => renderer.focus());
+        act(() => renderer.deprecatedFocus());
 
         // Assert
         expect(screen.getByRole("textbox")).toHaveFocus();
@@ -234,7 +234,10 @@ describe("graded group set widget", () => {
 
         // Act
         act(() =>
-            renderer.focusPath(["graded-group-set 1", "numeric-input 1"]),
+            renderer.deprecatedFocusPath([
+                "graded-group-set 1",
+                "numeric-input 1",
+            ]),
         );
 
         // Assert
@@ -247,7 +250,12 @@ describe("graded group set widget", () => {
         await userEvent.click(screen.getByRole("textbox"));
 
         // Act
-        act(() => renderer.blurPath(["graded-group-set 1", "numeric-input 1"]));
+        act(() =>
+            renderer.deprecatedBlurPath([
+                "graded-group-set 1",
+                "numeric-input 1",
+            ]),
+        );
 
         // Assert
         expect(screen.getByRole("textbox")).not.toHaveFocus();

@@ -427,7 +427,7 @@ describe("input-number", () => {
         const {renderer} = renderQuestion(question);
 
         // Act
-        const gotFocus = await act(() => renderer.focus());
+        const gotFocus = await act(() => renderer.deprecatedFocus());
 
         // Assert
         expect(screen.getByRole("textbox")).toHaveFocus();
@@ -437,11 +437,11 @@ describe("input-number", () => {
     it("supports blurring", async () => {
         // Arrange
         const {renderer} = renderQuestion(question);
-        await act(() => renderer.focus());
+        await act(() => renderer.deprecatedFocus());
         expect(screen.getByRole("textbox")).toHaveFocus();
 
         // Act
-        await act(() => renderer.blur());
+        await act(() => renderer.deprecatedBlur());
 
         // Assert
         await waitFor(() => {
@@ -559,7 +559,7 @@ describe("focus state", () => {
         const {renderer} = renderQuestion(question);
 
         // Act
-        const gotFocus = await act(() => renderer.focus());
+        const gotFocus = await act(() => renderer.deprecatedFocus());
 
         // Assert
         expect(screen.getByRole("textbox")).toHaveFocus();
@@ -569,11 +569,11 @@ describe("focus state", () => {
     it("supports blurring", async () => {
         //  Arrange
         const {renderer} = renderQuestion(question);
-        await act(() => renderer.focus());
+        await act(() => renderer.deprecatedFocus());
         expect(screen.getByRole("textbox")).toHaveFocus();
 
         // Act
-        await act(() => renderer.blur());
+        await act(() => renderer.deprecatedBlur());
 
         // Assert
         await waitFor(() => {

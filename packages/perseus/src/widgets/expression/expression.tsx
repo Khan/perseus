@@ -227,7 +227,7 @@ export const Expression = forwardRef<Widget, Props>(
              *
              * @returns true if focus is on the input element after the operation
              */
-            focus: (): boolean => {
+            deprecatedFocus: (): boolean => {
                 const targetBefore = getFocusTarget();
 
                 // Try direct focus first; this may be a custom KeypadInput or MathInput.
@@ -252,11 +252,11 @@ export const Expression = forwardRef<Widget, Props>(
                 return document.activeElement === targetAfter;
             },
 
-            focusInputPath: (path: FocusPath) => {
+            deprecatedFocusInputPath: (path: FocusPath) => {
                 inputRef.current?.focus?.(setKeypadActive);
             },
 
-            blurInputPath: (path: FocusPath) => {
+            deprecatedBlurInputPath: (path: FocusPath) => {
                 if (typeof inputRef.current?.blur === "function") {
                     inputRef.current?.blur();
                 }
@@ -266,7 +266,7 @@ export const Expression = forwardRef<Widget, Props>(
                 inputRef.current?.insert?.(keyPressed);
             },
 
-            getInputPaths: () => [[]],
+            deprecatedGetInputPaths: () => [[]],
 
             getUserInput: (): PerseusExpressionUserInput => {
                 return normalizeTex(userInput);

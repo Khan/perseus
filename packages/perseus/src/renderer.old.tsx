@@ -77,6 +77,7 @@ import type {
     PerseusWidget,
     PerseusWidgetOptions,
     PerseusWidgetsMap,
+    RendererInterface,
     ShowSolutions,
     UserInput,
     UserInputMap,
@@ -229,7 +230,7 @@ export function isDifferentQuestion(
 
 class Renderer
     extends React.Component<Props, State>
-    implements GetPromptJSONInterface
+    implements RendererInterface, GetPromptJSONInterface
 {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
@@ -1262,7 +1263,7 @@ class Renderer
             const prevFocus = this._currentFocus;
 
             if (prevFocus) {
-                this.blurPath(prevFocus);
+                this.deprecatedBlurPath(prevFocus);
             }
 
             this._currentFocus = path;
@@ -1270,13 +1271,13 @@ class Renderer
         }
     };
 
-    focus: () => boolean | null | undefined = () => {
+    deprecatedFocus: () => boolean | null | undefined = () => {
         let id;
         let focusResult;
         for (let i = 0; i < this.widgetIds.length; i++) {
             const widgetId = this.widgetIds[i];
             const widget = this.getWidgetInstance(widgetId);
-            const widgetFocusResult = widget?.focus?.();
+            const widgetFocusResult = widget?.deprecatedFocus?.();
             // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (widgetFocusResult) {
                 id = widgetId;
@@ -1317,42 +1318,43 @@ class Renderer
         }
     };
 
-    getDOMNodeForPath: (path: FocusPath) => Element | Text | null | undefined =
-        (path: FocusPath) => {
-            // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
-            const widgetId = _.first(path);
-            // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
-            const interWidgetPath = _.rest(path);
+    deprecatedGetDOMNodeForPath: (
+        path: FocusPath,
+    ) => Element | Text | null | undefined = (path: FocusPath) => {
+        // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
+        const widgetId = _.first(path);
+        // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
+        const interWidgetPath = _.rest(path);
 
-            // Widget handles parsing of the interWidgetPath. If the path is empty
-            // beyond the widgetID, as a special case we just return the widget's
-            // DOM node.
-            const widget = this.getWidgetInstance(widgetId);
-            if (widget?.getDOMNodeForPath) {
-                return widget.getDOMNodeForPath(interWidgetPath);
+        // Widget handles parsing of the interWidgetPath. If the path is empty
+        // beyond the widgetID, as a special case we just return the widget's
+        // DOM node.
+        const widget = this.getWidgetInstance(widgetId);
+        if (widget?.deprecatedGetDOMNodeForPath) {
+            return widget.deprecatedGetDOMNodeForPath(interWidgetPath);
+        }
+        if (interWidgetPath.length === 0) {
+            const container = this._widgetContainers.get(
+                makeContainerId(widgetId),
+            );
+            if (container) {
+                // Use the container ref so function components that expose an
+                // imperative handle (and thus aren't valid ReactDOM targets)
+                // still produce a DOM node.
+                return ReactDOM.findDOMNode(container);
             }
-            if (interWidgetPath.length === 0) {
-                const container = this._widgetContainers.get(
-                    makeContainerId(widgetId),
-                );
-                if (container) {
-                    // Use the container ref so function components that expose an
-                    // imperative handle (and thus aren't valid ReactDOM targets)
-                    // still produce a DOM node.
-                    return ReactDOM.findDOMNode(container);
-                }
-                // @ts-expect-error - TS2345 - Argument of type 'Widget | null | undefined' is not assignable to parameter of type 'ReactInstance | null | undefined'.
-                return ReactDOM.findDOMNode(widget);
-            }
-        };
+            // @ts-expect-error - TS2345 - Argument of type 'Widget | null | undefined' is not assignable to parameter of type 'ReactInstance | null | undefined'.
+            return ReactDOM.findDOMNode(widget);
+        }
+    };
 
-    getInputPaths: () => ReadonlyArray<FocusPath> = () => {
+    deprecatedGetInputPaths: () => ReadonlyArray<FocusPath> = () => {
         const inputPaths: Array<FocusPath> = [];
         this.widgetIds.forEach((widgetId: string) => {
             const widget = this.getWidgetInstance(widgetId);
-            if (widget && widget.getInputPaths) {
+            if (widget && widget.deprecatedGetInputPaths) {
                 // Grab all input paths and add widgetID to the front
-                const widgetInputPaths = widget.getInputPaths();
+                const widgetInputPaths = widget.deprecatedGetInputPaths();
                 // Prefix paths with their widgetID and add to collective
                 // list of paths.
                 // @ts-expect-error - TS2345 - Argument of type '(inputPath: string) => void' is not assignable to parameter of type 'CollectionIterator<FocusPath, void, readonly FocusPath[]>'.
@@ -1366,14 +1368,14 @@ class Renderer
         return inputPaths;
     };
 
-    focusPath: (path: FocusPath) => void = (path: FocusPath) => {
+    deprecatedFocusPath: (path: FocusPath) => void = (path: FocusPath) => {
         // No need to focus if it's already focused
         if (_.isEqual(this._currentFocus, path)) {
             return;
         }
         if (this._currentFocus) {
             // Unfocus old path, if exists
-            this.blurPath(this._currentFocus);
+            this.deprecatedBlurPath(this._currentFocus);
         }
 
         // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
@@ -1383,10 +1385,10 @@ class Renderer
 
         // Widget handles parsing of the interWidgetPath
         const focusWidget = this.getWidgetInstance(widgetId);
-        focusWidget?.focusInputPath?.(interWidgetPath);
+        focusWidget?.deprecatedFocusInputPath?.(interWidgetPath);
     };
 
-    blurPath: (path: FocusPath) => void = (path: FocusPath) => {
+    deprecatedBlurPath: (path: FocusPath) => void = (path: FocusPath) => {
         // No need to blur if it's not focused
         if (!_.isEqual(this._currentFocus, path)) {
             return;
@@ -1402,13 +1404,13 @@ class Renderer
         if (widget) {
             const blurWidget = this.getWidgetInstance(widgetId);
             // Widget handles parsing of the interWidgetPath
-            blurWidget?.blurInputPath?.(interWidgetPath);
+            blurWidget?.deprecatedBlurInputPath?.(interWidgetPath);
         }
     };
 
-    blur: () => void = () => {
+    deprecatedBlur: () => void = () => {
         if (this._currentFocus) {
-            this.blurPath(this._currentFocus);
+            this.deprecatedBlurPath(this._currentFocus);
         }
     };
 

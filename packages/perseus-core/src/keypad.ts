@@ -123,5 +123,8 @@ export type KeypadConfiguration = {
 
 // Used by KeypadContext to pass around a renderer reference
 export interface KeypadContextRendererInterface {
-    blur(): void;
+    /**
+     * @deprecated
+     */
+    deprecatedBlur(): void;
 }

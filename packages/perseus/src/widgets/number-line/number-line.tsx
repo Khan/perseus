@@ -271,7 +271,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
     });
 
     useImperativeHandle(ref, () => ({
-        focus: () => {
+        deprecatedFocus: () => {
             if (props.options.isTickCtrl) {
                 tickCtrlRef.current?.focus();
                 return true;
@@ -279,26 +279,26 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
             return false;
         },
 
-        focusInputPath: (path) => {
+        deprecatedFocusInputPath: (path) => {
             if (path?.length === 1) {
                 tickCtrlRef.current?.focus();
             }
         },
 
-        blurInputPath: (path) => {
+        deprecatedBlurInputPath: (path) => {
             if (path?.length === 1) {
                 tickCtrlRef.current?.blur();
             }
         },
 
-        getInputPaths: () => {
+        deprecatedGetInputPaths: () => {
             if (props.options.isTickCtrl) {
                 return [["tick-ctrl"]];
             }
             return [];
         },
 
-        getDOMNodeForPath: (inputPath) => {
+        deprecatedGetDOMNodeForPath: (inputPath) => {
             if (inputPath?.length === 1) {
                 return ReactDOM.findDOMNode(tickCtrlRef.current);
             }

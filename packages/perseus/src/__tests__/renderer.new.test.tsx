@@ -802,7 +802,7 @@ describe("renderer", () => {
             });
 
             // Act
-            const focusResult = renderer.focus();
+            const focusResult = renderer.deprecatedFocus();
 
             // Assert
             expect(focusResult).toBe(true);
@@ -840,7 +840,7 @@ describe("renderer", () => {
             );
 
             // Act
-            const focusResult = renderer.focus();
+            const focusResult = renderer.deprecatedFocus();
 
             // Assert
             expect(focusResult).toBeFalsy();
@@ -931,7 +931,7 @@ describe("renderer", () => {
             const {renderer} = renderQuestion(question2);
 
             // Act
-            act(() => renderer.focusPath(["mock-widget 1"]));
+            act(() => renderer.deprecatedFocusPath(["mock-widget 1"]));
 
             // Assert
             expect(screen.getByRole("textbox")).toHaveFocus();
@@ -943,11 +943,11 @@ describe("renderer", () => {
             const {renderer} = renderQuestion(question2, {
                 onFocusChange,
             });
-            act(() => renderer.focusPath(["mock-widget 1"]));
+            act(() => renderer.deprecatedFocusPath(["mock-widget 1"]));
             onFocusChange.mockClear();
 
             // Act
-            act(() => renderer.focusPath(["mock-widget 1"]));
+            act(() => renderer.deprecatedFocusPath(["mock-widget 1"]));
 
             // Assert
             expect(onFocusChange).not.toHaveBeenCalled();
@@ -969,11 +969,11 @@ describe("renderer", () => {
                 },
                 {onFocusChange},
             );
-            act(() => renderer.focusPath(["mock-widget 1"]));
+            act(() => renderer.deprecatedFocusPath(["mock-widget 1"]));
             onFocusChange.mockClear();
 
             // Act
-            act(() => renderer.focusPath(["mock-widget 2"]));
+            act(() => renderer.deprecatedFocusPath(["mock-widget 2"]));
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
@@ -1003,7 +1003,7 @@ describe("renderer", () => {
             onFocusChange.mockClear();
 
             // Act
-            act(() => renderer.blurPath(["mock-widget 1"]));
+            act(() => renderer.deprecatedBlurPath(["mock-widget 1"]));
 
             // Assert
             expect(onFocusChange).not.toHaveBeenCalled();
@@ -1030,7 +1030,7 @@ describe("renderer", () => {
             onFocusChange.mockClear();
 
             // Act
-            act(() => renderer.blur());
+            act(() => renderer.deprecatedBlur());
             act(() => jest.runOnlyPendingTimers()); // There's a _.defer() in this code path
 
             // Assert
@@ -1058,7 +1058,7 @@ describe("renderer", () => {
             );
 
             // Act
-            act(() => renderer.blur());
+            act(() => renderer.deprecatedBlur());
             act(() => jest.runOnlyPendingTimers()); // There's a _.defer() in this code path
 
             // Assert
@@ -1240,35 +1240,35 @@ describe("renderer", () => {
         });
     });
 
-    describe("getDOMNodeForPath", () => {
+    describe("deprecatedGetDOMNodeForPath", () => {
         it("should return the DOM node for the widget at requested FocusPath", () => {
             // Arrange
             const {renderer} = renderQuestion(question1);
 
             // Act
-            const node = renderer.getDOMNodeForPath(["dropdown 1"]);
+            const node = renderer.deprecatedGetDOMNodeForPath(["dropdown 1"]);
 
             // Assert
             // @ts-expect-error - TS2345 - Argument of type 'Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement'.
             expect(within(node).queryAllByRole("combobox")).toHaveLength(1);
         });
 
-        it("should return the widget's getDOMNodeForPath() result for the widget at requested FocusPath", () => {
+        it("should return the widget's deprecatedGetDOMNodeForPath() result for the widget at requested FocusPath", () => {
             // Arrange
             const {renderer} = renderQuestion(definitionItem);
             const widget2DOMNode = <span />;
             const [widget2] = renderer.findWidgets("definition 2");
-            widget2.getDOMNodeForPath = jest.fn(() => widget2DOMNode);
+            widget2.deprecatedGetDOMNodeForPath = jest.fn(() => widget2DOMNode);
 
             // Act
-            const node = renderer.getDOMNodeForPath(["definition 2"]);
+            const node = renderer.deprecatedGetDOMNodeForPath(["definition 2"]);
 
             // Assert
             expect(node).toBe(widget2DOMNode);
         });
     });
 
-    describe("getInputPaths", () => {
+    describe("deprecatedGetInputPaths", () => {
         it("should return all input paths for all rendererd widgets", () => {
             // Arrange
             const {renderer} = renderQuestion(definitionItem);
@@ -1278,15 +1278,18 @@ describe("renderer", () => {
                         id,
                     ),
                 );
-            definition1.getInputPaths = jest.fn(() => ["input 1"]);
-            definition2.getInputPaths = jest.fn(() => ["input 2", "input 3"]);
-            definition3.getInputPaths = jest.fn(() => [
+            definition1.deprecatedGetInputPaths = jest.fn(() => ["input 1"]);
+            definition2.deprecatedGetInputPaths = jest.fn(() => [
+                "input 2",
+                "input 3",
+            ]);
+            definition3.deprecatedGetInputPaths = jest.fn(() => [
                 ["input 4", "sub-input 4.1"],
                 "input 5",
             ]);
 
             // Act
-            const inputPaths = renderer.getInputPaths();
+            const inputPaths = renderer.deprecatedGetInputPaths();
 
             // Assert
             expect(inputPaths).toMatchInlineSnapshot(`

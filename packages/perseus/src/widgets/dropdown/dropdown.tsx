@@ -81,7 +81,7 @@ const Dropdown = forwardRef<Widget, Props>(function Dropdown(props, ref) {
 
     // Expose Widget interface methods via ref
     useImperativeHandle(ref, () => ({
-        focus: (): boolean => {
+        deprecatedFocus: (): boolean => {
             // Don't attempt to focus when interactions are disabled
             if (apiOptions.readOnly || isStatic) {
                 return false;

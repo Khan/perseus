@@ -54,7 +54,7 @@ describe("group widget", () => {
             });
 
             // Act
-            act(() => renderer.focus());
+            act(() => renderer.deprecatedFocus());
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
@@ -81,7 +81,7 @@ describe("group widget", () => {
             onFocusChange.mockClear();
 
             // Act
-            act(() => renderer.blur());
+            act(() => renderer.deprecatedBlur());
 
             // Assert
             await waitFor(() =>
@@ -92,19 +92,21 @@ describe("group widget", () => {
             );
         });
 
-        it("should forward focusInputPath calls to Renderer", () => {
+        it("should forward deprecatedFocusInputPath calls to Renderer", () => {
             // Arrange
             const {renderer} = renderQuestion(question1);
 
             // Act
-            // focusPath() calls focusInputPath() on the focused widget
-            act(() => renderer.focusPath(["group 2", "numeric-input 2"]));
+            // deprecatedFocusPath() calls deprecatedFocusInputPath() on the focused widget
+            act(() =>
+                renderer.deprecatedFocusPath(["group 2", "numeric-input 2"]),
+            );
 
             // Assert
             expect(screen.getAllByRole("textbox")[1]).toHaveFocus();
         });
 
-        it("should forward blurInputPath calls to Renderer", async () => {
+        it("should forward deprecatedBlurInputPath calls to Renderer", async () => {
             // Arrange
             const {renderer} = renderQuestion(question1);
             const textbox = screen.getAllByRole("textbox")[1];
@@ -112,8 +114,10 @@ describe("group widget", () => {
             await userEvent.click(textbox);
 
             // Act
-            // blurPath() calls blurInputPath() on the focused widget
-            act(() => renderer.blurPath(["group 2", "numeric-input 2"]));
+            // deprecatedBlurPath() calls deprecatedBlurInputPath() on the focused widget
+            act(() =>
+                renderer.deprecatedBlurPath(["group 2", "numeric-input 2"]),
+            );
 
             // Assert
             expect(textbox).not.toHaveFocus();
@@ -312,7 +316,7 @@ describe("group widget", () => {
         const {renderer} = renderQuestion(question1);
 
         // Act
-        const paths = renderer.getInputPaths();
+        const paths = renderer.deprecatedGetInputPaths();
 
         // Assert
         expect(paths).toMatchInlineSnapshot(`

@@ -127,7 +127,7 @@ describe("server item renderer", () => {
         const {renderer} = renderQuestion(itemWithMockWidget);
 
         // Act
-        const node = renderer.getDOMNodeForPath(["mock-widget 1"]);
+        const node = renderer.deprecatedGetDOMNodeForPath(["mock-widget 1"]);
 
         // Assert
         // @ts-expect-error - TS2345 - Argument of type 'Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement'.
@@ -467,7 +467,7 @@ describe("server item renderer", () => {
             });
 
             // Act
-            const gotFocus = await act(() => renderer.focus());
+            const gotFocus = await act(() => renderer.deprecatedFocus());
 
             // We have some async processes that need to be resolved here
             jest.runAllTimers();
@@ -512,7 +512,7 @@ describe("server item renderer", () => {
             );
 
             // Act
-            const gotFocus = await act(() => renderer.focus());
+            const gotFocus = await act(() => renderer.deprecatedFocus());
 
             // We have some async processes that need to be resolved here
             jest.runAllTimers();
@@ -534,10 +534,10 @@ describe("server item renderer", () => {
             const {renderer} = renderQuestion(itemWithMockWidget, {
                 onFocusChange,
             });
-            act(() => renderer.focus());
+            act(() => renderer.deprecatedFocus());
 
             // Act
-            act(() => renderer.blur());
+            act(() => renderer.deprecatedBlur());
 
             // We have some async processes that need to be resolved here
             jest.runAllTimers();
@@ -580,10 +580,10 @@ describe("server item renderer", () => {
                 {onFocusChange, isMobile: true},
                 {keypadElement},
             );
-            act(() => renderer.focus());
+            act(() => renderer.deprecatedFocus());
 
             // Act
-            act(() => renderer.blur());
+            act(() => renderer.deprecatedBlur());
 
             // We have some async processes that need to be resolved here
             jest.runAllTimers();
@@ -607,7 +607,7 @@ describe("server item renderer", () => {
             });
 
             // Act
-            act(() => renderer.focusPath(["mock-widget 1"]));
+            act(() => renderer.deprecatedFocusPath(["mock-widget 1"]));
 
             // We have some async processes that need to be resolved here
             jest.runAllTimers();

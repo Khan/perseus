@@ -35,24 +35,24 @@ describe("Perseus API", function () {
         registerWidget("mock-widget", MockWidget);
     });
 
-    describe("getInputPaths", function () {
+    describe("deprecatedGetInputPaths", function () {
         it("should be able to find all the input widgets", function () {
             const {renderer} = renderQuestion(mockWidget2Item.question);
-            const numPaths = renderer.getInputPaths().length;
+            const numPaths = renderer.deprecatedGetInputPaths().length;
             expect(numPaths).toBe(2);
         });
 
         it("should be able to find all inputs within widgets", function () {
             const {renderer} = renderQuestion(tableItem.question);
-            const numPaths = renderer.getInputPaths().length;
+            const numPaths = renderer.deprecatedGetInputPaths().length;
             expect(numPaths).toBe(8);
         });
     });
 
-    describe("getDOMNodeForPath", function () {
+    describe("deprecatedGetDOMNodeForPath", function () {
         it("should find one DOM node per <input>", function () {
             const {renderer} = renderQuestion(mockWidget2Item.question);
-            const inputPaths = renderer.getInputPaths();
+            const inputPaths = renderer.deprecatedGetInputPaths();
 
             const allInputs = screen.queryAllByRole("textbox");
 
@@ -61,12 +61,12 @@ describe("Perseus API", function () {
 
         it("should find the right DOM nodes for the <input>s", function () {
             const {renderer} = renderQuestion(mockWidget2Item.question);
-            const inputPaths = renderer.getInputPaths();
+            const inputPaths = renderer.deprecatedGetInputPaths();
 
             const allInputs = screen.queryAllByRole("textbox");
 
             inputPaths.forEach((inputPath, i) => {
-                const node = renderer.getDOMNodeForPath(inputPath);
+                const node = renderer.deprecatedGetDOMNodeForPath(inputPath);
                 const input = allInputs[i];
 
                 expect(node).toContainElement(input);

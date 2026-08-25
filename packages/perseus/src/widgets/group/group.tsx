@@ -61,20 +61,20 @@ class Group extends React.Component<Props> implements Widget {
     };
 
     // Mobile API:
-    getInputPaths() {
-        return this.rendererRef?.getInputPaths() ?? [];
+    deprecatedGetInputPaths() {
+        return this.rendererRef?.deprecatedGetInputPaths() ?? [];
     }
 
-    focus() {
-        return this.rendererRef?.focus() ?? false;
+    deprecatedFocus() {
+        return this.rendererRef?.deprecatedFocus() ?? false;
     }
 
-    focusInputPath: (arg1: FocusPath) => void = (path) => {
-        this.rendererRef?.focusPath(path);
+    deprecatedFocusInputPath: (arg1: FocusPath) => void = (path) => {
+        this.rendererRef?.deprecatedFocusPath(path);
     };
 
-    blurInputPath: (arg1: FocusPath) => void = (path) => {
-        this.rendererRef?.blurPath(path);
+    deprecatedBlurInputPath: (arg1: FocusPath) => void = (path) => {
+        this.rendererRef?.deprecatedBlurPath(path);
     };
 
     render(): React.ReactNode {

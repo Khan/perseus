@@ -124,8 +124,8 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
     }
 
     // Mobile API
-    getInputPaths: () => ReadonlyArray<FocusPath> = () => {
-        return this._childGroup.getInputPaths();
+    deprecatedGetInputPaths: () => ReadonlyArray<FocusPath> = () => {
+        return this._childGroup.deprecatedGetInputPaths();
     };
 
     getPromptJSON(): GradedGroupSetPromptJSON {
@@ -134,16 +134,16 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
         return getPromptJSON(this.props, activeGroupPromptJSON);
     }
 
-    focus: () => boolean = () => {
-        return this._childGroup.focus();
+    deprecatedFocus: () => boolean = () => {
+        return this._childGroup.deprecatedFocus();
     };
 
-    focusInputPath: (arg1: FocusPath) => void = (path) => {
-        this._childGroup.focusInputPath(path);
+    deprecatedFocusInputPath: (arg1: FocusPath) => void = (path) => {
+        this._childGroup.deprecatedFocusInputPath(path);
     };
 
-    blurInputPath: (arg1: FocusPath) => void = (path) => {
-        this._childGroup.blurInputPath(path);
+    deprecatedBlurInputPath: (arg1: FocusPath) => void = (path) => {
+        this._childGroup.deprecatedBlurInputPath(path);
     };
 
     handleNextQuestion: () => void = () => {

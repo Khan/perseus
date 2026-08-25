@@ -9,9 +9,16 @@ export interface RendererInterface {
      * @deprecated - do not use in new code.
      */
     getSerializedState(): any;
-    // TODO(LEMS-3185): remove serializedState
-    blur(): void;
-    focus(): boolean | null | undefined;
+
+    /**
+     * @deprecated
+     */
+    deprecatedBlur(): void;
+
+    /**
+     * @deprecated
+     */
+    deprecatedFocus(): boolean | null | undefined;
     props: any;
 }
 

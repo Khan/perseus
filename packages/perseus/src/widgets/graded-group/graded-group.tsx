@@ -165,8 +165,8 @@ export class GradedGroup
     };
 
     // Mobile API
-    getInputPaths: () => ReadonlyArray<FocusPath> = () => {
-        return this.rendererRef.current?.getInputPaths() || [];
+    deprecatedGetInputPaths: () => ReadonlyArray<FocusPath> = () => {
+        return this.rendererRef.current?.deprecatedGetInputPaths() || [];
     };
 
     getPromptJSON(): GradedGroupPromptJSON {
@@ -184,16 +184,16 @@ export class GradedGroup
         );
     }
 
-    focus: () => boolean = () => {
-        return !!this.rendererRef.current?.focus();
+    deprecatedFocus: () => boolean = () => {
+        return !!this.rendererRef.current?.deprecatedFocus();
     };
 
-    focusInputPath: (arg1: any) => void = (path) => {
-        this.rendererRef.current?.focusPath(path);
+    deprecatedFocusInputPath: (arg1: any) => void = (path) => {
+        this.rendererRef.current?.deprecatedFocusPath(path);
     };
 
-    blurInputPath: (arg1: any) => void = (path) => {
-        this.rendererRef.current?.blurPath(path);
+    deprecatedBlurInputPath: (arg1: any) => void = (path) => {
+        this.rendererRef.current?.deprecatedBlurPath(path);
     };
 
     render(): React.ReactNode {

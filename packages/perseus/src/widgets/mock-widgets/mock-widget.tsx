@@ -33,26 +33,27 @@ class MockWidgetComponent extends React.Component<Props> implements Widget {
         return _getPromptJSON(this.props);
     }
 
-    focus: () => boolean = () => {
+    deprecatedFocus: () => boolean = () => {
         this.inputRef?.focus();
         return true;
     };
 
-    focusInputPath: () => void = () => {
+    deprecatedFocusInputPath: () => void = () => {
         this.props.onFocus([]);
         this.inputRef?.focus();
     };
 
-    blurInputPath: () => void = () => {
+    deprecatedBlurInputPath: () => void = () => {
         this.props.onBlur([]);
         this.inputRef?.blur();
     };
 
-    getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
-        // The widget itself is an input, so we return a single empty list to
-        // indicate this.
-        return [[]];
-    };
+    deprecatedGetInputPaths: () => ReadonlyArray<ReadonlyArray<string>> =
+        () => {
+            // The widget itself is an input, so we return a single empty list to
+            // indicate this.
+            return [[]];
+        };
 
     handleChange: (
         newValue: string,
@@ -87,8 +88,8 @@ class MockWidgetComponent extends React.Component<Props> implements Widget {
                     value={this.props.userInput.currentValue}
                     onChange={this.handleChange}
                     id={this.props.widgetId}
-                    onFocus={this.focusInputPath}
-                    onBlur={this.blurInputPath}
+                    onFocus={this.deprecatedFocusInputPath}
+                    onBlur={this.deprecatedBlurInputPath}
                 />
             </View>
         );

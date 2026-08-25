@@ -110,20 +110,21 @@ class Matrix extends React.Component<Props, State> implements Widget {
         this.cursorPosition = [0, 0];
     }
 
-    getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
-        const inputPaths: Array<ReadonlyArray<string>> = [];
-        const maxRows = this.props.options.matrixBoardSize[0];
-        const maxCols = this.props.options.matrixBoardSize[1];
+    deprecatedGetInputPaths: () => ReadonlyArray<ReadonlyArray<string>> =
+        () => {
+            const inputPaths: Array<ReadonlyArray<string>> = [];
+            const maxRows = this.props.options.matrixBoardSize[0];
+            const maxCols = this.props.options.matrixBoardSize[1];
 
-        for (let row = 0; row < maxRows; row++) {
-            for (let col = 0; col < maxCols; col++) {
-                const inputPath = getInputPath(row, col);
-                inputPaths.push(inputPath);
+            for (let row = 0; row < maxRows; row++) {
+                for (let col = 0; col < maxCols; col++) {
+                    const inputPath = getInputPath(row, col);
+                    inputPaths.push(inputPath);
+                }
             }
-        }
 
-        return inputPaths;
-    };
+            return inputPaths;
+        };
 
     _handleFocus: (arg1: any, arg2: any) => void = (row, col) => {
         this.props.onFocus(getInputPath(row, col));
@@ -133,18 +134,18 @@ class Matrix extends React.Component<Props, State> implements Widget {
         this.props.onBlur(getInputPath(row, col));
     };
 
-    focus: () => boolean = () => {
-        this.focusInputPath(getDefaultPath());
+    deprecatedFocus: () => boolean = () => {
+        this.deprecatedFocusInputPath(getDefaultPath());
         return true;
     };
 
-    focusInputPath: (arg1: any) => void = (path) => {
+    deprecatedFocusInputPath: (arg1: any) => void = (path) => {
         const inputID = getRefForPath(path);
         // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs[inputID].focus();
     };
 
-    blurInputPath: (arg1: any) => void = (path) => {
+    deprecatedBlurInputPath: (arg1: any) => void = (path) => {
         if (path.length === 0) {
             path = getDefaultPath();
         }
@@ -154,7 +155,7 @@ class Matrix extends React.Component<Props, State> implements Widget {
         this.refs[inputID].blur();
     };
 
-    getDOMNodeForPath(path: FocusPath) {
+    deprecatedGetDOMNodeForPath(path: FocusPath) {
         const inputID = getRefForPath(path);
         return ReactDOM.findDOMNode(this.refs[inputID]);
     }

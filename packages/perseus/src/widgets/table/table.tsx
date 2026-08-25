@@ -69,20 +69,20 @@ const Table = forwardRef<Widget, Props>(function Table(props, ref) {
     const cellRefs = useRef<Record<string, Cell | undefined>>({});
 
     useImperativeHandle(ref, () => ({
-        focus(): boolean {
+        deprecatedFocus(): boolean {
             getCellForPath(getDefaultPath())?.focus();
             return true;
         },
 
-        focusInputPath(path: FocusPath): void {
+        deprecatedFocusInputPath(path: FocusPath): void {
             getCellForPath(path)?.focus();
         },
 
-        blurInputPath(path: FocusPath): void {
+        deprecatedBlurInputPath(path: FocusPath): void {
             getCellForPath(path)?.blur();
         },
 
-        getDOMNodeForPath(path: FocusPath): Element | Text | null {
+        deprecatedGetDOMNodeForPath(path: FocusPath): Element | Text | null {
             const cell = getCellForPath(path);
             if (cell instanceof HTMLInputElement) {
                 return cell;
@@ -92,7 +92,7 @@ const Table = forwardRef<Widget, Props>(function Table(props, ref) {
             return ReactDOM.findDOMNode(cell ?? null);
         },
 
-        getInputPaths: (): string[][] =>
+        deprecatedGetInputPaths: (): string[][] =>
             props.userInput.flatMap((rowArr, r) =>
                 rowArr.map((_, c) => getInputPath(r, c)),
             ),

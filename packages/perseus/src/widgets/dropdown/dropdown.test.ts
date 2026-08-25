@@ -146,7 +146,7 @@ describe("Dropdown widget", () => {
         const {renderer} = renderQuestion(basicDropdown);
 
         // Act
-        const focused = renderer.focus();
+        const focused = renderer.deprecatedFocus();
 
         // Assert
         expect(focused).toBe(true);
@@ -167,7 +167,7 @@ describe("Dropdown widget", () => {
         const {renderer} = renderQuestion(basicDropdown, {readOnly: true});
 
         // Act
-        const focused = renderer.focus();
+        const focused = renderer.deprecatedFocus();
 
         // Assert
         expect(focused).toBeFalsy();
@@ -195,7 +195,7 @@ describe("Dropdown widget", () => {
         const {renderer} = renderQuestion(staticDropdown);
 
         // Act
-        const focused = renderer.focus();
+        const focused = renderer.deprecatedFocus();
 
         // Assert
         expect(focused).toBeFalsy();
@@ -210,7 +210,7 @@ describe("Dropdown widget", () => {
         button.setAttribute("aria-disabled", "true");
 
         // Act
-        const focused = renderer.focus();
+        const focused = renderer.deprecatedFocus();
 
         // Assert
         expect(focused).toBeFalsy();

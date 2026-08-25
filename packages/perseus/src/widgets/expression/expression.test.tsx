@@ -504,14 +504,14 @@ describe("Expression Widget", function () {
             const expression = renderer.findWidgets("expression 1")[0];
 
             // act
-            act(() => expression.focusInputPath());
+            act(() => expression.deprecatedFocusInputPath());
 
             // Assert
             const expressionInput = screen.getByRole("textbox");
             expect(expressionInput).toHaveFocus();
         });
 
-        it("returns true from focus() and succeeds even if called before the DOM ID is assigned", () => {
+        it("returns true from deprecatedFocus() and succeeds even if called before the DOM ID is assigned", () => {
             // Arrange
             const {renderer} = renderQuestion(
                 expressionItemMultipleEquivalentAnswers.question,
@@ -521,7 +521,7 @@ describe("Expression Widget", function () {
             expressionInput.removeAttribute("id");
 
             // Act
-            const focused = expression.focus();
+            const focused = expression.deprecatedFocus();
 
             // Assert
             expect(focused).toBe(true);
@@ -540,7 +540,7 @@ describe("Expression Widget", function () {
 
             // Should not throw or cause errors
             expect(() => {
-                expression.focus();
+                expression.deprecatedFocus();
             }).not.toThrow();
         });
     });

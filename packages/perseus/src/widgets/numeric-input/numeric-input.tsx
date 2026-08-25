@@ -61,7 +61,7 @@ const NumericInput = forwardRef<Widget, Props>(
         });
 
         useImperativeHandle(ref, () => ({
-            focus() {
+            deprecatedFocus() {
                 if (inputRef.current) {
                     inputRef.current.focus();
                     setIsFocused(true);
@@ -69,14 +69,14 @@ const NumericInput = forwardRef<Widget, Props>(
                 return true;
             },
 
-            focusInputPath() {
+            deprecatedFocusInputPath() {
                 if (inputRef.current) {
                     inputRef.current.focus();
                     setIsFocused(true);
                 }
             },
 
-            blurInputPath() {
+            deprecatedBlurInputPath() {
                 if (inputRef.current) {
                     inputRef.current.blur();
                     setIsFocused(false);
@@ -85,7 +85,7 @@ const NumericInput = forwardRef<Widget, Props>(
 
             // The widget itself is an input, so we return a single empty list to
             // indicate this.
-            getInputPaths: () => [[]],
+            deprecatedGetInputPaths: () => [[]],
 
             getPromptJSON: (): NumericInputPromptJSON => _getPromptJSON(props),
 

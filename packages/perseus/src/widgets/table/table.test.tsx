@@ -55,10 +55,10 @@ describe("table", () => {
             return renderer.findWidgets("table 1")[0];
         }
 
-        it("focuses the cell at row 0, column 0 on focus()", () => {
+        it("focuses the cell at row 0, column 0 on deprecatedFocus()", () => {
             const table = renderTable();
 
-            act(() => table.focus());
+            act(() => table.deprecatedFocus());
 
             expect(screen.getAllByRole("textbox")[0]).toHaveFocus();
         });
@@ -68,17 +68,17 @@ describe("table", () => {
             // Row 1, column 0 is the fourth cell of a 2x3 table.
             const cell = screen.getAllByRole("textbox")[3];
 
-            act(() => table.focusInputPath(["1", "0"]));
+            act(() => table.deprecatedFocusInputPath(["1", "0"]));
             expect(cell).toHaveFocus();
 
-            act(() => table.blurInputPath(["1", "0"]));
+            act(() => table.deprecatedBlurInputPath(["1", "0"]));
             expect(cell).not.toHaveFocus();
         });
 
-        it("lists cell paths in row-major order on getInputPaths()", () => {
+        it("lists cell paths in row-major order on deprecatedGetInputPaths()", () => {
             const table = renderTable();
 
-            expect(table.getInputPaths()).toEqual([
+            expect(table.deprecatedGetInputPaths()).toEqual([
                 ["0", "0"],
                 ["0", "1"],
                 ["0", "2"],
@@ -88,10 +88,10 @@ describe("table", () => {
             ]);
         });
 
-        it("gets a cell's input element on getDOMNodeForPath()", () => {
+        it("gets a cell's input element on deprecatedGetDOMNodeForPath()", () => {
             const table = renderTable();
 
-            expect(table.getDOMNodeForPath(["0", "1"])).toBe(
+            expect(table.deprecatedGetDOMNodeForPath(["0", "1"])).toBe(
                 screen.getAllByRole("textbox")[1],
             );
         });
@@ -101,7 +101,7 @@ describe("table", () => {
         it("gets a cell's input element when customKeypad = true", () => {
             const table = renderTable({customKeypad: true});
 
-            expect(table.getDOMNodeForPath(["0", "1"])).toBe(
+            expect(table.deprecatedGetDOMNodeForPath(["0", "1"])).toBe(
                 screen.getAllByRole("textbox")[1],
             );
         });

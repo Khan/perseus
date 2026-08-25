@@ -463,7 +463,7 @@ describe("Numeric input widget", () => {
         const {renderer} = renderQuestion(question1);
 
         // Act
-        const gotFocus = await act(() => renderer.focus());
+        const gotFocus = await act(() => renderer.deprecatedFocus());
 
         // Assert
         expect(gotFocus).toBe(true);
@@ -476,7 +476,7 @@ describe("Numeric input widget", () => {
         // Act
         const input = screen.getByRole("textbox", {hidden: true});
         act(() => input.focus());
-        act(() => renderer.blur());
+        act(() => renderer.deprecatedBlur());
 
         // Assert
         // eslint-disable-next-line testing-library/no-node-access
@@ -485,27 +485,27 @@ describe("Numeric input widget", () => {
         );
     });
 
-    it("returns a single empty input path from getInputPaths()", () => {
+    it("returns a single empty input path from deprecatedGetInputPaths()", () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
         const numericInput = renderer.findWidgets("numeric-input 1")[0];
 
         // Act, Assert
         // The widget is itself an input, so it reports one path: its own.
-        expect(numericInput.getInputPaths()).toEqual([[]]);
+        expect(numericInput.deprecatedGetInputPaths()).toEqual([[]]);
     });
 
-    it("focuses and blurs the input via focusInputPath()/blurInputPath()", () => {
+    it("focuses and blurs the input via deprecatedFocusInputPath()/deprecatedBlurInputPath()", () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
         const numericInput = renderer.findWidgets("numeric-input 1")[0];
         const input = screen.getByRole("textbox", {hidden: true});
 
         // Act, Assert
-        act(() => numericInput.focusInputPath([]));
+        act(() => numericInput.deprecatedFocusInputPath([]));
         expect(input).toHaveFocus();
 
-        act(() => numericInput.blurInputPath([]));
+        act(() => numericInput.deprecatedBlurInputPath([]));
         expect(input).not.toHaveFocus();
     });
 

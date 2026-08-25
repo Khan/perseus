@@ -181,7 +181,7 @@ export class ServerItemRenderer
         this._currentFocus = newFocus;
 
         // Determine whether the newly focused path represents an input.
-        const inputPaths = this.getInputPaths();
+        const inputPaths = this.deprecatedGetInputPaths();
         const didFocusInput =
             this._currentFocus &&
             inputPaths.some((inputPath) => {
@@ -208,7 +208,9 @@ export class ServerItemRenderer
                     keypadHeight,
                     // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'false | Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement | undefined'.
                     didFocusInput &&
-                        this.questionRenderer.getDOMNodeForPath(newFocus),
+                        this.questionRenderer.deprecatedGetDOMNodeForPath(
+                            newFocus,
+                        ),
                 );
             }, 0);
         }
@@ -245,30 +247,33 @@ export class ServerItemRenderer
         }, 0);
     }
 
-    focusPath(path: FocusPath): void {
-        return this.questionRenderer.focusPath(path);
+    deprecatedFocusPath(path: FocusPath): void {
+        return this.questionRenderer.deprecatedFocusPath(path);
     }
 
-    blurPath(path: FocusPath): void {
-        return this.questionRenderer.blurPath(path);
+    deprecatedBlurPath(path: FocusPath): void {
+        return this.questionRenderer.deprecatedBlurPath(path);
     }
 
-    getDOMNodeForPath(path: FocusPath): Element | Text | null | undefined {
-        return this.questionRenderer.getDOMNodeForPath(path);
+    deprecatedGetDOMNodeForPath(
+        path: FocusPath,
+    ): Element | Text | null | undefined {
+        return this.questionRenderer.deprecatedGetDOMNodeForPath(path);
     }
 
-    getInputPaths(): ReadonlyArray<FocusPath> {
-        const questionAreaInputPaths = this.questionRenderer.getInputPaths();
+    deprecatedGetInputPaths(): ReadonlyArray<FocusPath> {
+        const questionAreaInputPaths =
+            this.questionRenderer.deprecatedGetInputPaths();
         return questionAreaInputPaths;
     }
 
-    focus(): boolean | null | undefined {
-        return this.questionRenderer.focus();
+    deprecatedFocus(): boolean | null | undefined {
+        return this.questionRenderer.deprecatedFocus();
     }
 
-    blur(): void {
+    deprecatedBlur(): void {
         if (this._currentFocus) {
-            this.blurPath(this._currentFocus);
+            this.deprecatedBlurPath(this._currentFocus);
         }
     }
 

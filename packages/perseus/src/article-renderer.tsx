@@ -91,13 +91,13 @@ class ArticleRenderer
             const [sectionIndex, ...focusPath] = this._currentFocus;
 
             const inputPaths =
-                this.sectionRenderers[sectionIndex].getInputPaths();
+                this.sectionRenderers[sectionIndex].deprecatedGetInputPaths();
 
             didFocusInput = inputPaths.some((inputPath) => {
                 return Util.inputPathsEqual(inputPath, focusPath);
             });
             focusedInput =
-                this.sectionRenderers[sectionIndex].getDOMNodeForPath(
+                this.sectionRenderers[sectionIndex].deprecatedGetDOMNodeForPath(
                     focusPath,
                 );
         }
@@ -153,10 +153,10 @@ class ArticleRenderer
         });
     };
 
-    blur: () => void = () => {
+    deprecatedBlur: () => void = () => {
         if (this._currentFocus) {
             const [sectionIndex, ...inputPath] = this._currentFocus;
-            this.sectionRenderers[sectionIndex].blurPath(inputPath);
+            this.sectionRenderers[sectionIndex].deprecatedBlurPath(inputPath);
         }
     };
 

@@ -55,13 +55,21 @@ export interface Widget {
      * @deprecated
      */
     isWidget?: true;
-    focus?: () =>
+
+    /**
+     * @deprecated
+     */
+    deprecatedFocus?: () =>
         | {
               id: string;
               path: FocusPath;
           }
         | boolean;
-    getDOMNodeForPath?: (path: FocusPath) => Element | Text | null;
+
+    /**
+     * @deprecated
+     */
+    deprecatedGetDOMNodeForPath?: (path: FocusPath) => Element | Text | null;
 
     /**
      * If the widget does not implement this function,
@@ -76,9 +84,20 @@ export interface Widget {
      */
     getSerializedState?: () => SerializedState; // SUSPECT,
 
-    blurInputPath?: (path: FocusPath) => void;
-    focusInputPath?: (path: FocusPath) => void;
-    getInputPaths?: () => ReadonlyArray<FocusPath>;
+    /**
+     * @deprecated
+     */
+    deprecatedBlurInputPath?: (path: FocusPath) => void;
+
+    /**
+     * @deprecated
+     */
+    deprecatedFocusInputPath?: (path: FocusPath) => void;
+
+    /**
+     * @deprecated
+     */
+    deprecatedGetInputPaths?: () => ReadonlyArray<FocusPath>;
 
     getPromptJSON?: () => WidgetPromptJSON;
 }
