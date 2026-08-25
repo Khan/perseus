@@ -1,7 +1,7 @@
 import validateBlank from "./validate-blank";
 
 import type {
-    PerseusBlankRubric,
+    PerseusBlankWidgetOptions,
     PerseusBlankUserInput,
     PerseusScore,
 } from "@khanacademy/perseus-core";
@@ -10,7 +10,7 @@ function scoreBlank(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: PerseusBlankUserInput | undefined,
-    rubric: PerseusBlankRubric,
+    rubric: PerseusBlankWidgetOptions,
 ): PerseusScore {
     const validationResult = validateBlank(userInput);
     if (validationResult != null) {

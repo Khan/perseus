@@ -12,7 +12,7 @@ import KhanAnswerTypes from "../../util/answer-types";
 import type {Score} from "../../util/answer-types";
 import type {
     PerseusExpressionAnswerForm,
-    PerseusExpressionRubric,
+    PerseusExpressionWidgetOptions,
     PerseusExpressionUserInput,
     PerseusScore,
 } from "@khanacademy/perseus-core";
@@ -73,7 +73,7 @@ function scoreExpression(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: PerseusExpressionUserInput | undefined,
-    rubric: PerseusExpressionRubric,
+    rubric: PerseusExpressionWidgetOptions,
     locale: string,
 ): PerseusScore {
     if (userInput == null) {

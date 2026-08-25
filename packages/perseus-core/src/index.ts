@@ -202,6 +202,8 @@ export type {GrapherPublicWidgetOptions} from "./widgets/grapher/grapher-util";
 /** @hidden */
 export {getGroupPublicWidgetOptions} from "./widgets/group/group-util";
 /** @hidden */
+export type {GroupPublicWidgetOptions} from "./widgets/group/group-util";
+/** @hidden */
 export {
     getInteractiveGraphPublicWidgetOptions,
     type InteractiveGraphPublicWidgetOptions,
@@ -424,6 +426,10 @@ export {
     generateSorterWidget,
     generateSorterOptions,
 } from "./utils/generators/sorter-widget-generator";
+/** @hidden */
+export {generateTableOptions} from "./utils/generators/table-widget-generator";
+/** @hidden */
+export {generateGrapherWidgetOptions} from "./utils/generators/grapher-widget-generator";
 
 export {
     getAnswersFromWidgets,

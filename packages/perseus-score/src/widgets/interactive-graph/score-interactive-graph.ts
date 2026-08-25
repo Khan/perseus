@@ -18,7 +18,7 @@ import {scoreVector} from "./sub-scorers/score-vector";
 
 import type {
     PerseusInteractiveGraphUserInput,
-    PerseusInteractiveGraphRubric,
+    PerseusInteractiveGraphWidgetOptions,
     PerseusScore,
 } from "@khanacademy/perseus-core";
 
@@ -26,7 +26,7 @@ function scoreInteractiveGraph(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: PerseusInteractiveGraphUserInput | undefined,
-    rubric: PerseusInteractiveGraphRubric,
+    rubric: PerseusInteractiveGraphWidgetOptions,
 ): PerseusScore {
     if (userInput == null) {
         return {type: "invalid", message: null};

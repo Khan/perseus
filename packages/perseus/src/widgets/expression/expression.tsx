@@ -24,9 +24,8 @@ import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expres
 import type {
     KeypadConfiguration,
     KeypadKey,
-    PerseusExpressionRubric,
-    PerseusExpressionUserInput,
     PerseusExpressionWidgetOptions,
+    PerseusExpressionUserInput,
 } from "@khanacademy/perseus-core";
 
 // Map of international operator names to their English equivalents
@@ -375,7 +374,7 @@ function getStartUserInput(): PerseusExpressionUserInput {
 }
 
 function getOneCorrectAnswerFromRubric(
-    rubric: PerseusExpressionRubric,
+    rubric: PerseusExpressionWidgetOptions,
 ): string | null | undefined {
     // TODO(LEMS-2656): remove TS suppression
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
