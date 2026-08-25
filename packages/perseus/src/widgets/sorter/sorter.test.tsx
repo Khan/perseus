@@ -207,10 +207,12 @@ describe("sorter widget", () => {
             });
 
             // Assert
-            expect(sorter.getPromptJSON()).toEqual({
-                type: "sorter",
-                userInput: {values: sortedOrder, changed: true},
-            });
+            expect(renderer.findWidgets("sorter 1")[0].getPromptJSON()).toEqual(
+                {
+                    type: "sorter",
+                    userInput: {values: sortedOrder, changed: true},
+                },
+            );
         });
     });
 

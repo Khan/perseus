@@ -6,10 +6,7 @@ import {act} from "@testing-library/react";
 
 import {renderQuestion} from "../../__tests__/test-utils";
 import * as Dependencies from "../../dependencies";
-import {
-    testDependencies,
-    testDependenciesV2,
-} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import {deriveUserInputFromSerializedState} from "../../user-input-manager";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
@@ -97,7 +94,6 @@ describe("Sorter serialization", () => {
                     changed: true,
                     layout: "horizontal",
                     padding: true,
-                    dependencies: testDependenciesV2,
                 },
             },
             hints: [],
