@@ -520,8 +520,8 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                         return [x, coord[1]];
                     },
                 ]}
-                // Only mobile points have shadows by default; desktop points
-                // have never had one, so don't turn one on here.
+                // Don't show a shadow on open points; it just makes the border
+                // look blurry.
                 shadow={!!props.apiOptions.isMobile && !isOpen}
                 normalStyle={normalStyle}
                 highlightStyle={highlightStyle}
