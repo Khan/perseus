@@ -32,7 +32,6 @@ const Sorter = forwardRef<SorterHandle, Props>(function Sorter(props, ref) {
 
     const {options, userInput, widgetId, linterContext, apiOptions} = props;
     const {layout, padding} = options;
-    const marginPx = apiOptions.isMobile ? 8 : 5;
 
     useOnMountEffect(() => {
         dependencies.analytics.onAnalyticsEvent({
@@ -91,7 +90,7 @@ const Sorter = forwardRef<SorterHandle, Props>(function Sorter(props, ref) {
             <Sortable
                 options={userInput.options}
                 layout={layout}
-                margin={marginPx}
+                margin={apiOptions.isMobile ? 8 : 5}
                 padding={padding}
                 onChange={handleChange}
                 linterContext={linterContext}
