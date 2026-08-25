@@ -11,7 +11,7 @@ import {
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
-import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
+import {border, semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {Heading} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
@@ -107,7 +107,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
 
     state: State = {
         focused: false,
-        keypadOpen: this.props.buttonsVisible === "always" ? true : false,
+        keypadOpen: this.props.buttonsVisible === "always",
         cursorContext: CursorContext.NONE,
     };
 
@@ -341,6 +341,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                 <div
                     style={{
                         display: "flex",
+                        alignItems: "center",
                         padding: 1,
                     }}
                     onClick={(e) => {
@@ -478,15 +479,13 @@ const MathInputIcon = ({hovered, focused, active}) => {
     let fillColor: string | undefined;
     switch (true) {
         case focused || active:
-            fillColor =
-                semanticColor.action.primary.progressive.default.foreground;
+            fillColor = semanticColor.core.foreground.knockout.default;
             break;
         case hovered:
-            fillColor =
-                semanticColor.action.primary.progressive.hover.background;
+            fillColor = semanticColor.core.background.instructive.default;
             break;
         default:
-            fillColor = semanticColor.core.foreground.neutral.strong;
+            fillColor = semanticColor.core.foreground.neutral.default;
             break;
     }
     const dynamicClass =
@@ -543,9 +542,7 @@ const mapButtonSets = (buttonSets?: LegacyButtonSets) => {
 };
 
 const inputFocused = {
-    borderWidth: 2,
     borderColor: semanticColor.core.border.instructive.default,
-    margin: -1,
 };
 
 const styles = StyleSheet.create({
@@ -553,23 +550,23 @@ const styles = StyleSheet.create({
         display: "flex",
         justifyContent: "center",
         height: "100%",
-        padding: sizing.size_040,
-        borderRadius: 1,
+        padding: sizing.size_060,
+        borderRadius: border.radius.radius_040,
     },
     iconInactive: {
-        border: "2px solid transparent",
+        border: `${border.width.medium} solid ${semanticColor.core.border.disabled.subtle}`,
         backgroundColor: semanticColor.core.background.neutral.subtle,
     },
     iconActive: {
-        border: `2px solid ${semanticColor.core.border.knockout.default}`,
+        border: `${border.width.medium} solid ${semanticColor.core.foreground.instructive.default}`,
         backgroundColor: semanticColor.core.background.neutral.default,
     },
     outerWrapper: {
         display: "inline-block",
         borderStyle: "solid",
-        borderWidth: 1,
+        borderWidth: border.width.thin,
         borderColor: semanticColor.core.border.neutral.default,
-        borderRadius: 3,
+        borderRadius: border.radius.radius_080,
         background: semanticColor.core.background.base.default,
         ":hover": inputFocused,
     },
