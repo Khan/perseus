@@ -520,6 +520,8 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                         return [x, coord[1]];
                     },
                 ]}
+                // FIXME: the shadow isn't updated when toggling isOpen via
+                //  handleToggleStrict().
                 shadow={!isOpen}
                 normalStyle={normalStyle}
                 highlightStyle={highlightStyle}
