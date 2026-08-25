@@ -44,32 +44,27 @@ const Sorter = forwardRef<SorterHandle, Props>(function Sorter(props, ref) {
         });
     });
 
-    useImperativeHandle(
-        ref,
-        () => ({
-            moveOptionToIndex: (option, index) => {
-                sortable.current?.moveOptionToIndex(option, index);
-            },
+    useImperativeHandle(ref, () => ({
+        moveOptionToIndex: (option, index) => {
+            sortable.current?.moveOptionToIndex(option, index);
+        },
 
-            getPromptJSON: (): SorterPromptJSON =>
-                _getPromptJSON(props.userInput),
+        getPromptJSON: (): SorterPromptJSON => _getPromptJSON(props.userInput),
 
-            /**
-             * @deprecated and likely very broken API
-             * [LEMS-3185] do not trust serializedState
-             */
-            getSerializedState: (): any => {
-                const {userInput, options, ...rest} = props;
-                return {
-                    ...rest,
-                    ...options,
-                    changed: userInput.changed,
-                    options: userInput.options,
-                };
-            },
-        }),
-        [props],
-    );
+        /**
+         * @deprecated and likely very broken API
+         * [LEMS-3185] do not trust serializedState
+         */
+        getSerializedState: (): any => {
+            const {userInput, options, ...rest} = props;
+            return {
+                ...rest,
+                ...options,
+                changed: userInput.changed,
+                options: userInput.options,
+            };
+        },
+    }));
 
     function handleChange() {
         props.handleUserInput({
