@@ -6,11 +6,11 @@ export type Capture =
           index?: number;
       });
 
-export type State = {
+export interface State {
     key?: string | number | undefined;
     inline?: boolean | null | undefined;
     [key: string]: any;
-};
+}
 
 export type MatchFunction = {
     regex?: RegExp;

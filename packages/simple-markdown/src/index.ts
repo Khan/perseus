@@ -27,14 +27,14 @@ export {libVersion} from "./version";
 
 type Attr = string | number | boolean | null | undefined;
 
-type SingleASTNode = {
+interface SingleASTNode {
     type: string;
     [key: string]: any;
-};
+}
 
-type UnTypedASTNode = {
+interface UnTypedASTNode {
     [key: string]: any;
-};
+}
 
 type ASTNode = SingleASTNode | Array<SingleASTNode>;
 
@@ -78,7 +78,7 @@ type ArrayNodeOutput<Result> = (
 type ReactOutput = Output<ReactElements>;
 type ReactNodeOutput = NodeOutput<ReactElements>;
 
-type ParserRule = {
+interface ParserRule {
     readonly order: number;
     readonly match: MatchFunction;
     readonly quality?: (
@@ -87,9 +87,9 @@ type ParserRule = {
         prevCapture: string,
     ) => number;
     readonly parse: ParseFunction;
-};
+}
 
-type SingleNodeParserRule = {
+interface SingleNodeParserRule {
     readonly order: number;
     readonly match: MatchFunction;
     readonly quality?: (
@@ -98,63 +98,65 @@ type SingleNodeParserRule = {
         prevCapture: string,
     ) => number;
     readonly parse: SingleNodeParseFunction;
-};
+}
 
-type ReactOutputRule = {
+interface ReactOutputRule {
     // we allow null because some rules are never output results, and that's
     // legal as long as no parsers return an AST node matching that rule.
     // We don't use ? because this makes it be explicitly defined as either
     // a valid function or null, so it can't be forgotten.
     readonly react: ReactNodeOutput | null;
-};
+}
 
-type ArrayRule = {
+interface ArrayRule {
     // @ts-expect-error - TS2411 - Property 'react' of type 'ArrayNodeOutput<ReactNode> | undefined' is not assignable to 'string' index type 'ArrayNodeOutput<any>'.
     readonly react?: ArrayNodeOutput<ReactElements>;
     readonly [key: string]: ArrayNodeOutput<any>;
-};
+}
 
-type ParserRules = {
+interface ParserRules {
     // @ts-expect-error - TS2411 - Property 'Array' of type 'ArrayRule | undefined' is not assignable to 'string' index type 'ParserRule'.
     readonly Array?: ArrayRule;
     readonly [type: string]: ParserRule;
-};
+}
 
-type OutputRules<Rule> = {
+interface OutputRules<Rule> {
     // @ts-expect-error - TS2411 - Property 'Array' of type 'ArrayRule | undefined' is not assignable to 'string' index type 'Rule'.
     readonly Array?: ArrayRule;
     readonly [type: string]: Rule;
-};
-type Rules<OutputRule> = {
+}
+interface Rules<OutputRule> {
     // @ts-expect-error - TS2411 - Property 'Array' of type 'ArrayRule | undefined' is not assignable to 'string' index type 'ParserRule & OutputRule'.
     readonly Array?: ArrayRule;
     readonly [type: string]: ParserRule & OutputRule;
-};
-type ReactRules = {
+}
+interface ReactRules {
     // @ts-expect-error - TS2411 - Property 'Array' of type '{ readonly react: ArrayNodeOutput<ReactNode>; } | undefined' is not assignable to 'string' index type 'ParserRule & ReactOutputRule'.
     readonly Array?: {
         readonly react: ArrayNodeOutput<ReactElements>;
     };
     readonly [type: string]: ParserRule & ReactOutputRule;
-};
+}
 
 // We want to clarify our defaultRules types a little bit more so clients can
 // reuse defaultRules built-ins. So we make some stronger guarantess when
 // we can:
-type NonNullReactOutputRule = {
+interface NonNullReactOutputRule {
     readonly react: ReactNodeOutput;
-};
-type ElementReactOutputRule = {
+}
+interface ElementReactOutputRule {
     readonly react: NodeOutput<ReactElement>;
-};
-type TextReactOutputRule = {
+}
+interface TextReactOutputRule {
     readonly react: NodeOutput<string>;
-};
+}
 type DefaultInRule = SingleNodeParserRule & ReactOutputRule;
 type TextInOutRule = SingleNodeParserRule & TextReactOutputRule;
 type LenientInOutRule = SingleNodeParserRule & NonNullReactOutputRule;
 type DefaultInOutRule = SingleNodeParserRule & ElementReactOutputRule;
 
+// An interface has no implicit index signature, so it wouldn't satisfy
+// OutputRules<Result>.
 type DefaultRules = {
     readonly Array: {
         readonly react: ArrayNodeOutput<ReactElements>;
@@ -189,13 +191,13 @@ type DefaultRules = {
     readonly text: TextInOutRule;
 };
 
-type RefNode = {
+interface RefNode {
     type: string;
     content?: ASTNode;
     target?: string;
     title?: string;
     alt?: string;
-};
+}
 
 // End TypeScript Definitions
 
@@ -1682,7 +1684,7 @@ var ReactMarkdown = function (props: Props): React.ReactElement {
     return reactElement("div", null, divProps);
 };
 
-type Exports = {
+interface Exports {
     readonly defaultRules: DefaultRules;
     readonly parserFor: (
         rules: ParserRules,
@@ -1759,7 +1761,7 @@ type Exports = {
      * @deprecated
      */
     readonly defaultOutput: (...args: any[]) => any;
-};
+}
 
 export type {
     // Hopefully you shouldn't have to use these, but they're here if you need!
