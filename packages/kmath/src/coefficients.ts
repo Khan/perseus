@@ -3,19 +3,19 @@ import type {Coord} from "@khanacademy/perseus-core";
 
 export type AbsoluteValueCoefficient = [m: number, h: number, v: number];
 
-export type NamedSineCoefficient = {
+export interface NamedSineCoefficient {
     amplitude: number;
     angularFrequency: number;
     phase: number;
     verticalOffset: number;
-};
+}
 
-export type NamedTangentCoefficient = {
+export interface NamedTangentCoefficient {
     amplitude: number;
     angularFrequency: number;
     phase: number;
     verticalOffset: number;
-};
+}
 
 export function getSinusoidCoefficients(
     coords: ReadonlyArray<Coord>,
@@ -34,24 +34,24 @@ export function getSinusoidCoefficients(
 }
 
 /** Coefficients for f(x) = a·ln(b·x + c). */
-export type LogarithmCoefficient = {
+export interface LogarithmCoefficient {
     /** Vertical scale factor. */
     a: number;
     /** Horizontal scale factor. */
     b: number;
     /** Horizontal shift (determines vertical asymptote at x = −c/b). */
     c: number;
-};
+}
 
 /** Coefficients for f(x) = a·eᵇˣ + c. */
-export type ExponentialCoefficient = {
+export interface ExponentialCoefficient {
     /** Vertical scale factor (amplitude). */
     a: number;
     /** Growth/decay rate (exponent coefficient). */
     b: number;
     /** Vertical shift (horizontal asymptote y-value). */
     c: number;
-};
+}
 
 /**
  * Returns the coefficients {a, b, c} for f(x) = a·eᵇˣ + c given two points
