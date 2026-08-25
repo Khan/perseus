@@ -24,15 +24,15 @@ function postToParent(message: IframeToParentMessage): void {
     window.parent.postMessage(message, "/");
 }
 
-type UsePreviewPresenterOptions = {
+interface UsePreviewPresenterOptions {
     /**
      * Ref to the element containing the rendered preview content. Used as
      * the root for axe-core accessibility scans.
      */
     contentContainerRef?: React.RefObject<HTMLElement | null>;
-};
+}
 
-type UsePreviewPresenterResult = {
+interface UsePreviewPresenterResult {
     /**
      * The preview content received from the parent, or null if not yet loaded
      */
@@ -59,7 +59,7 @@ type UsePreviewPresenterResult = {
      * message.
      */
     highlightTargets: Element[];
-};
+}
 
 /**
  * Hook for preview iframe to receive data from parent and send updates back.

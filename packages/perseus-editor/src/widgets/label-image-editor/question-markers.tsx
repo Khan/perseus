@@ -14,7 +14,7 @@ import Marker from "./marker";
 
 import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
-type QuestionMarkersProps = {
+interface QuestionMarkersProps {
     // The list of possible answers in a specific order.
     choices: string[];
     // The question image properties.
@@ -28,7 +28,7 @@ type QuestionMarkersProps = {
     // Whether the editor is disabled. Can be set via API options
     // to make the editor read-only when needed.
     editingDisabled: boolean;
-};
+}
 
 class QuestionMarkers extends React.Component<QuestionMarkersProps> {
     private _markers: Array<Marker | null | undefined> = [];

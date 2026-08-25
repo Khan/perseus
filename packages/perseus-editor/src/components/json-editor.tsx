@@ -4,18 +4,18 @@ import _ from "underscore";
 
 import type {Result} from "@khanacademy/perseus-core";
 
-type Props<TData> = {
+interface Props<TData> {
     multiLine: boolean;
     value: TData;
     onChange: (newJson: TData) => void;
     parser: (json: string) => Result<TData, unknown>;
     editingDisabled: boolean;
-};
+}
 
-type State = {
+interface State {
     currentValue: string | undefined;
     valid: boolean | undefined;
-};
+}
 
 class JsonEditor<TData> extends React.Component<Props<TData>, State> {
     static displayName: "JsonEditor";

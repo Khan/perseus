@@ -2,10 +2,10 @@ import {ApiOptions} from "@khanacademy/perseus";
 
 import type {APIOptions, APIOptionsWithDefaults} from "@khanacademy/perseus";
 
-export type DeviceApiOptionsInputs = {
+export interface DeviceApiOptionsInputs {
     apiOptions: APIOptions | undefined;
     touch: boolean;
-};
+}
 
 function buildDeviceApiOptions(
     inputs: DeviceApiOptionsInputs,

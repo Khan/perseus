@@ -28,7 +28,7 @@ const findAndFocusElement = (component?: Element | null) => {
     }
 };
 
-type Props = {
+interface Props {
     // The value to use when the option is selected
     value: string;
     // The display of the option
@@ -50,7 +50,7 @@ type Props = {
     testId?: string;
     // Text to provide for assistive tech users
     ariaLabel?: string;
-};
+}
 
 const check = `M10,3.8C10,4,9.9,4.2,9.8,4.3L5.1,8.9L4.3,9.8C4.2,9.9,4,10,3.8,10
  S3.5,9.9,3.4,9.8L2.5,8.9L0.2,6.6C0.1,6.5,0,6.3,0,6.2s0.1-0.3,0.2-0.4

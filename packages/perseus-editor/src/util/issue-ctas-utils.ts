@@ -9,10 +9,10 @@ import {
 // Match image markdown syntax: ![alt text](url)
 const IMAGE_MARKDOWN_REGEX = /!\[[^\]]*\]\([^)]+\)/g;
 
-type IssueCta = {
+interface IssueCta {
     label: string;
     onClick: () => void;
-};
+}
 
 // Exported for testing
 /**

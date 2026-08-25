@@ -10,9 +10,9 @@ type MarkerProps = PropsFor<typeof Marker>;
 
 type StoryArgs = Record<string, MarkerProps>;
 
-type Story = {
+interface Story {
     title: string;
-};
+}
 
 // eslint-disable-next-line no-restricted-syntax
 export default {

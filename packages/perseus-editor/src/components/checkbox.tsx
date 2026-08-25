@@ -10,7 +10,7 @@ import {gray41, gray68} from "../styles/global-colors";
 
 import HoverBehavior from "./hover-behavior";
 
-type CheckboxProps = {
+interface CheckboxProps {
     // Whether or not the checkbox is checked.  The parent responsible for
     // responding to onChange events and updating this prop appropriately.
     checked: boolean;
@@ -32,7 +32,7 @@ type CheckboxProps = {
     dataTestId?: string;
     // Unique identifier for this checkbox.
     id?: string;
-};
+}
 
 const borderRadius = 4;
 

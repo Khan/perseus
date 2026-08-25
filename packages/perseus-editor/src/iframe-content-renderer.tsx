@@ -46,7 +46,7 @@ window.addEventListener("message", (event) => {
     }
 });
 
-type Props = {
+interface Props {
     // The HTML content to render to the iframe
     // content?: string,
 
@@ -59,7 +59,7 @@ type Props = {
     // Whether to make the iframe's height match its content's height,
     // used to prevent scrolling inside the iframe.
     seamless: boolean;
-};
+}
 
 class IframeContentRenderer extends React.Component<Props> {
     _frame: HTMLIFrameElement | null | undefined;

@@ -9,7 +9,7 @@ import {useId} from "react";
 
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
-type Props = {
+interface Props {
     label: string;
     checked: boolean;
     labelSide?: "start" | "end";
@@ -17,7 +17,7 @@ type Props = {
     style?: StyleType;
     disabled?: boolean;
     onChange: (newValue: boolean) => void;
-};
+}
 
 const LabeledSwitch = (props: Props) => {
     const {

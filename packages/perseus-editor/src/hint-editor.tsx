@@ -33,7 +33,7 @@ import type {
     PerseusWidgetsMap,
 } from "@khanacademy/perseus-core";
 
-type HintEditorProps = {
+interface HintEditorProps {
     itemId?: string;
     apiOptions?: APIOptions;
     className: string;
@@ -52,7 +52,7 @@ type HintEditorProps = {
     onChange: ChangeHandler;
     __type?: "hint";
     widgetIsOpen?: boolean;
-};
+}
 
 /* Renders a hint editor box
  *
@@ -187,7 +187,7 @@ class HintEditor extends React.Component<HintEditorProps> {
     }
 }
 
-type CombinedHintEditorProps = {
+interface CombinedHintEditorProps {
     itemId?: string;
     apiOptions?: APIOptions;
     deviceType: DeviceType;
@@ -203,7 +203,7 @@ type CombinedHintEditorProps = {
     onRemove: () => unknown;
     onChange: ChangeHandler;
     widgetIsOpen?: boolean;
-};
+}
 
 /* A single hint-row containing a hint editor and preview */
 class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
@@ -284,7 +284,7 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
     }
 }
 
-type CombinedHintsEditorProps = {
+interface CombinedHintsEditorProps {
     apiOptions?: APIOptions;
     deviceType: DeviceType;
     imageUploader?: ImageUploader;
@@ -297,7 +297,7 @@ type CombinedHintsEditorProps = {
     // for non-content library exercise questions.
     itemId?: string;
     widgetIsOpen?: boolean;
-};
+}
 
 /* The entire hints editing/preview area
  *

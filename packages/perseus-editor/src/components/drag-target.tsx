@@ -16,21 +16,21 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
-type Props = {
+interface Props {
     onDrop: (e: React.MouseEvent) => unknown;
     shouldDragHighlight: (e: React.MouseEvent) => boolean;
     style?: React.CSSProperties;
     children?: React.ReactNode;
     className?: string;
-};
+}
 
-type DefaultProps = {
+interface DefaultProps {
     shouldDragHighlight: Props["shouldDragHighlight"];
-};
+}
 
-type State = {
+interface State {
     dragHover: boolean;
-};
+}
 class DragTarget extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
         shouldDragHighlight: () => true,

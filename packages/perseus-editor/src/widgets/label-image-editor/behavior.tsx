@@ -16,7 +16,7 @@ export type PreferredPopoverDirection =
     | "LEFT"
     | "RIGHT";
 
-type Props = {
+interface Props {
     // Whether multiple answer choices may be selected for markers.
     multipleAnswers: boolean;
     // Whether to hide answer choices from user instructions.
@@ -29,7 +29,7 @@ type Props = {
         hideChoicesFromInstructions?: boolean;
         preferredPopoverDirection?: PreferredPopoverDirection;
     }) => void;
-};
+}
 
 const Behavior = ({
     multipleAnswers,

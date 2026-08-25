@@ -3,10 +3,10 @@ import * as React from "react";
 
 const {ButtonGroup} = components;
 
-type Props = {
+interface Props {
     value?: string;
     onChange: (value: string) => void;
-};
+}
 
 class ArrowPicker extends React.Component<Props> {
     static defaultProps: {

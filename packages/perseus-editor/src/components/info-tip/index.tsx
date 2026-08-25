@@ -13,9 +13,9 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type Props = PropsFor<typeof InfoTipBase>;
 
-type State = {
+interface State {
     didMount: boolean;
-};
+}
 
 class InfoTip extends React.Component<Props, State> {
     state: State = {

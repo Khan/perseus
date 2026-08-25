@@ -15,7 +15,7 @@ import WidgetEditorSettings from "./widget-editor-settings";
 import type {APIOptions} from "@khanacademy/perseus";
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
 
-type Props = {
+interface Props {
     // Unserialized props
     id: string;
     onChange: (
@@ -27,12 +27,12 @@ type Props = {
     apiOptions: APIOptions;
     widgetIsOpen?: boolean;
     widgetInfo: PerseusWidget;
-};
+}
 
-type State = {
+interface State {
     showWidget: boolean;
     widgetInfo: PerseusWidget;
-};
+}
 
 // exported for tests
 export function _upgradeWidgetInfo(widgetInfo: PerseusWidget): PerseusWidget {

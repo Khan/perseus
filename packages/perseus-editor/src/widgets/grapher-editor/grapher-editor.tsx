@@ -28,13 +28,13 @@ const Grapher = GrapherWidget.widget;
 const {chooseType, defaultPlotProps, getEquationString, typeToButton} =
     GrapherUtil;
 
-type Props = {
+interface Props {
     onChange: (newProps: Record<string, unknown>) => void;
     graph: PerseusGrapherWidgetOptions["graph"];
     correct: GrapherAnswerTypes;
     availableTypes: PerseusGrapherWidgetOptions["availableTypes"];
     apiOptions: APIOptionsWithDefaults;
-};
+}
 
 class GrapherEditor extends React.Component<Props> {
     static widgetName = "grapher" as const;

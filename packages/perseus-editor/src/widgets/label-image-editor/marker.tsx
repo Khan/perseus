@@ -25,11 +25,11 @@ type MarkerProps = PerseusLabelImageWidgetOptions["markers"][number] & {
     onRemove: () => void;
 };
 
-type State = {
+interface State {
     // Whether answer choices dropdown is shown, controlled by the user clicking
     // on the marker icon.
     showDropdown: boolean;
-};
+}
 
 class Marker extends React.Component<MarkerProps, State> {
     _marker: HTMLElement | null | undefined;

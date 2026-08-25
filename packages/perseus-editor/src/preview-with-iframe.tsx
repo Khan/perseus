@@ -5,7 +5,7 @@ import {usePreviewController} from "./preview/use-preview-controller";
 import type {PreviewContent} from "./preview/message-types";
 import type {A11yReport} from "./preview/use-preview-controller";
 
-type Props = {
+interface Props {
     /**
      * The URL that the iframe should load
      */
@@ -40,7 +40,7 @@ type Props = {
      * `null` if scanning is disabled).
      */
     onA11yReport?: (report: A11yReport | null) => void;
-};
+}
 
 /**
  * Displays content in an iframe, isolating it from the parent page and

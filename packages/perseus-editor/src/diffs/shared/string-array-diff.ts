@@ -1,23 +1,23 @@
 import jsdiff from "jsdiff";
 import _ from "underscore";
 
-type ImageEntry = {
+interface ImageEntry {
     value: string[];
     added?: boolean;
     removed?: boolean;
-};
+}
 
 type ImageStatus = "unchanged" | "added" | "removed";
 
-type ImageDiff = {
+interface ImageDiff {
     value: string;
     status: ImageStatus;
-};
+}
 
-export type ImageDiffResult = {
+export interface ImageDiffResult {
     before: ImageDiff[];
     after: ImageDiff[];
-};
+}
 
 function statusFor(chunk: ImageEntry): ImageStatus {
     if (chunk.added) {

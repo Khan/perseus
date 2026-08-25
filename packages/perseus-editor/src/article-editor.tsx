@@ -41,14 +41,14 @@ import type {PerseusArticle, PerseusRenderer} from "@khanacademy/perseus-core";
 
 const {HUD} = components;
 
-type DefaultProps = {
+interface DefaultProps {
     json: PerseusArticle;
     mode: "diff" | "edit" | "json" | "preview";
     screen: "phone" | "tablet" | "desktop";
     sectionImageUploadGenerator: (
         i: number,
     ) => React.ReactElement<React.ComponentProps<"span">>;
-};
+}
 
 type Props = DefaultProps & {
     apiOptions?: APIOptions;
@@ -61,11 +61,11 @@ type Props = DefaultProps & {
     onChange: (changes: {json: PerseusArticle}) => void;
 };
 
-type State = {
+interface State {
     highlightLint: boolean;
     // An array of `Issue`s per section of the article.
     issues: Issue[][];
-};
+}
 
 export default class ArticleEditor extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {

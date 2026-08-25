@@ -11,10 +11,10 @@ import ScrolllessNumberTextField from "../../../components/scrollless-number-tex
 
 import type {Coord} from "@khanacademy/perseus";
 
-type CircleCoords = {
+interface CircleCoords {
     center: Coord;
     radius: number;
-};
+}
 
 interface StartCoordsCircleProps {
     startCoords: CircleCoords;

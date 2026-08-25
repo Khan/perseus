@@ -2,16 +2,16 @@ import * as React from "react";
 
 import type {CSSProperties} from "aphrodite";
 
-type Props = {
+interface Props {
     value: string;
     onChange: (arg1: string) => void;
     className?: string;
     style?: CSSProperties;
-};
+}
 
-type State = {
+interface State {
     value: string;
-};
+}
 
 /* You know when you want to propagate input to a parent...
  * but then that parent does something with the input...

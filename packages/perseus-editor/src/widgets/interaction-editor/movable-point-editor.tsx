@@ -19,13 +19,13 @@ type Props = ChangeableProps & {
     varSubscript: number;
 };
 
-type DefaultProps = {
+interface DefaultProps {
     startX: Props["startX"];
     startY: Props["startY"];
     constraint: Props["constraint"];
     snap: Props["snap"];
     constraintFn: Props["constraintFn"];
-};
+}
 
 // Editor for interactive movable points
 class MovablePointEditor extends React.Component<Props> {

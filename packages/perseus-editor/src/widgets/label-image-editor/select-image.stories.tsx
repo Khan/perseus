@@ -7,9 +7,9 @@ import type {SelectImageProps} from "./select-image";
 
 type StoryArgs = Record<string, SelectImageProps>;
 
-type Story = {
+interface Story {
     title: string;
-};
+}
 
 // eslint-disable-next-line no-restricted-syntax
 export default {

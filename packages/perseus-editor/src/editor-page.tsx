@@ -34,14 +34,14 @@ import type {
 
 const {HUD} = components;
 
-type OnChangeParams = {
+interface OnChangeParams {
     jsonMode?: boolean;
     question?: PerseusRenderer;
     hints?: Hint[];
     answerArea?: PerseusAnswerArea | null | undefined;
-};
+}
 
-type Props = {
+interface Props {
     /** Additional templates that the host application would like to display
      * within the Perseus Editor.
      */
@@ -84,17 +84,17 @@ type Props = {
     /** The problem number, used for deterministic random seeding in the
      * preview. */
     problemNum?: number;
-};
+}
 
-type DefaultProps = {
+interface DefaultProps {
     answerArea: Props["answerArea"];
     developerMode: Props["developerMode"];
     hints: Props["hints"];
     jsonMode: Props["jsonMode"];
     onChange: Props["onChange"];
-};
+}
 
-type State = {
+interface State {
     json: PerseusItem;
     highlightLint: boolean;
     widgetsAreOpen: boolean;
@@ -103,7 +103,7 @@ type State = {
     a11yScanningEnabled: boolean;
     /** instanceIds of the issues with an active "Show Me" highlight. */
     highlightInstanceIds: string[];
-};
+}
 
 class EditorPage extends React.Component<Props, State> {
     itemEditor = React.createRef<ItemEditor>();

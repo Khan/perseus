@@ -5,10 +5,10 @@ import CoordInput from "./coord-input";
 
 import type {Coord} from "@khanacademy/perseus";
 
-type ExponentialStartCoords = {
+interface ExponentialStartCoords {
     coords: [Coord, Coord];
     asymptote: number;
-};
+}
 
 interface StartCoordsExponentialProps {
     startCoords: ExponentialStartCoords;

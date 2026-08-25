@@ -23,11 +23,11 @@ const LIGHT_COLORS = [
     "#fff",
 ];
 
-type Props = {
+interface Props {
     lightColors?: boolean;
     value?: string;
     onChange: (value: string) => void;
-};
+}
 
 class ColorPicker extends React.Component<Props> {
     static defaultProps: {

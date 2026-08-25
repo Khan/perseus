@@ -16,7 +16,7 @@ import {gray41} from "../styles/global-colors";
 
 import type {components} from "@khanacademy/perseus";
 
-type Props = {
+interface Props {
     // This id is used to tie the input field to the label that describes it.
     id?: string;
     testId?: string;
@@ -66,11 +66,11 @@ type Props = {
     // aria
     ["aria-label"]?: string;
     ["aria-describedby"]?: string | undefined;
-};
+}
 
-type State = {
+interface State {
     focused: boolean;
-};
+}
 
 type PropsWithForwardRef = Props & {
     forwardedRef: React.ForwardedRef<HTMLInputElement>;

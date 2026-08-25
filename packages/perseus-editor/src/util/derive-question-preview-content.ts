@@ -6,14 +6,14 @@ import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 type QuestionPreview = Extract<PreviewContent, {type: "question"}>;
 
-export type DerivePreviewContentInputs = {
+export interface DerivePreviewContentInputs {
     question: PerseusRenderer | undefined;
     apiOptions: APIOptions | undefined;
     deviceType: DeviceType;
     highlightLint: boolean;
     problemNum: number | undefined;
     legacyPerseusLint: ReadonlyArray<string>;
-};
+}
 
 function legacyPerseusLintEqual(
     a: ReadonlyArray<string>,

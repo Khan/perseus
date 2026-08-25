@@ -6,10 +6,10 @@ import type {ImageWidget} from "@khanacademy/perseus-core";
 
 const {SvgImage} = components;
 
-type ImageWidgetDiffProps = {
+interface ImageWidgetDiffProps {
     after: ImageWidget | undefined;
     before: ImageWidget | undefined;
-};
+}
 
 // For image widgets, show the actual image
 class ImageWidgetDiff extends React.Component<ImageWidgetDiffProps> {

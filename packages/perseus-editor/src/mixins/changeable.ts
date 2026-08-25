@@ -134,7 +134,7 @@ export const deprecatedChangeableChange: ChangeFn = function (
  *
  * @deprecated
  */
-export type ChangeableProps = {
+export interface ChangeableProps {
     onChange: (
         values: {
             [key: string]: any;
@@ -142,4 +142,4 @@ export type ChangeableProps = {
         callback?: (() => unknown) | null | undefined,
         silent?: boolean,
     ) => unknown;
-};
+}

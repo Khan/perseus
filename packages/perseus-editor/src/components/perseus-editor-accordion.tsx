@@ -6,7 +6,7 @@ import * as React from "react";
 
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
-type Props = {
+interface Props {
     animated?: boolean;
     children: React.ReactNode | React.ReactNode[];
     header: string | React.ReactElement;
@@ -15,7 +15,7 @@ type Props = {
     panelStyle?: StyleType;
     headerStyle?: StyleType;
     onToggle?: (expanded: boolean) => void;
-};
+}
 
 const PerseusEditorAccordion = (props: Props) => {
     const {

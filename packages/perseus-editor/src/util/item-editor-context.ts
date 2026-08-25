@@ -2,10 +2,10 @@ import * as React from "react";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
-export type ItemEditorContextType = {
+export interface ItemEditorContextType {
     question: PerseusRenderer;
     onEditorChange: (newProps: any) => void;
-};
+}
 
 const defaultItemEditorContext: ItemEditorContextType = {
     question: {content: "", widgets: {}, images: {}},

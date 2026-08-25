@@ -17,10 +17,10 @@ const AFTER = "after";
 
 const IMAGE_REGEX = /http.*?\.png|web\+graphie[^)]*/g;
 
-type ContentDiff = {
+interface ContentDiff {
     before: React.JSX.Element[];
     after: React.JSX.Element[];
-};
+}
 
 const imagesInString = function (str: string | undefined) {
     return str?.match(IMAGE_REGEX) || [];
@@ -36,14 +36,14 @@ const classFor = function (entry: Entry, ifAdded: string, ifRemoved: string) {
     return "";
 };
 
-type Image = {
+interface Image {
     value: string;
     status: "unchanged" | "added" | "removed";
-};
+}
 
-type ImageDiffSideProps = {
+interface ImageDiffSideProps {
     images: Image[];
-};
+}
 
 class ImageDiffSide extends React.Component<ImageDiffSideProps> {
     render(): React.ReactNode {
@@ -74,15 +74,15 @@ class ImageDiffSide extends React.Component<ImageDiffSideProps> {
     }
 }
 
-type TextDiffProps = {
+interface TextDiffProps {
     title: string;
     after: string | undefined;
     before: string | undefined;
-};
+}
 
-type TextDiffState = {
+interface TextDiffState {
     collapsed: boolean;
-};
+}
 
 class TextDiff extends React.Component<TextDiffProps, TextDiffState> {
     static defaultProps: Partial<TextDiffProps> = {

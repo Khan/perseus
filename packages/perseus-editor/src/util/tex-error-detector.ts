@@ -7,10 +7,10 @@ import katex from "katex";
 // eslint-disable-next-line import/no-unassigned-import
 import "../katex-mhchem";
 
-type TexError = {
+interface TexError {
     math: string;
     message: string;
-};
+}
 
 /**
  * Macros that our real math renderer (@khanacademy/mathjax-renderer) accepts

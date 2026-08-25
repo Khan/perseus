@@ -2,9 +2,9 @@ import {Widgets} from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
 
-type WidgetSelectProps = {
+interface WidgetSelectProps {
     onChange?: (widgetType: string) => unknown;
-};
+}
 
 class WidgetSelect extends React.Component<WidgetSelectProps> {
     shouldComponentUpdate() {

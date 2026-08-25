@@ -23,7 +23,7 @@ type Props = ChangeableProps & {
     strokeWidth: number;
 };
 
-type DefaultProps = {
+interface DefaultProps {
     startX: Props["startX"];
     startY: Props["startY"];
     endX: Props["endX"];
@@ -32,7 +32,7 @@ type DefaultProps = {
     strokeDasharray: Props["strokeDasharray"];
     arrows: Props["arrows"];
     strokeWidth: Props["strokeWidth"];
-};
+}
 
 // Editor for non-interactive line segments
 class LineEditor extends React.Component<Props> {

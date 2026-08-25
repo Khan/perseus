@@ -5,11 +5,11 @@ import * as React from "react";
 
 import Heading from "../../../components/heading";
 
-type Props = {
+interface Props {
     id: string;
     equationString: string;
     children: React.ReactNode;
-};
+}
 export function InteractiveGraphCorrectAnswer(props: Props) {
     return (
         <>

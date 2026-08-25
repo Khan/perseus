@@ -21,7 +21,7 @@ type Props = ChangeableProps & {
     strokeWidth: number;
 };
 
-type DefaultProps = {
+interface DefaultProps {
     x: Props["x"];
     y: Props["y"];
     rangeMin: Props["rangeMin"];
@@ -29,7 +29,7 @@ type DefaultProps = {
     color: Props["color"];
     strokeDasharray: Props["strokeDasharray"];
     strokeWidth: Props["strokeWidth"];
-};
+}
 
 // Editor for parametric plots
 class ParametricEditor extends React.Component<Props> {

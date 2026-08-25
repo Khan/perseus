@@ -1,9 +1,9 @@
 import * as React from "react";
 
-type Props = {
+interface Props {
     targets: ReadonlyArray<Element>;
     container: HTMLElement | null;
-};
+}
 
 type Rect = Pick<DOMRect, "top" | "left" | "width" | "height">;
 

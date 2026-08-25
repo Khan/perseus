@@ -16,12 +16,12 @@ interface Props {
     dependencies: PerseusDependenciesV2;
 }
 
-type ArticleDiffState = {
+interface ArticleDiffState {
     // Externally we allow both arrays and single PerseusRenderer objects.
     // Internally we convert to arrays.
     before: PerseusRenderer[];
     after: PerseusRenderer[];
-};
+}
 
 class ArticleDiff extends React.Component<Props, ArticleDiffState> {
     static _stateFromProps: (arg1: Props) => ArticleDiffState = (props) => {

@@ -14,12 +14,12 @@ import {sanitizePreviewData} from "./preview-data-sanitizer";
 import type {ParentToIframeMessage, PreviewContent} from "./message-types";
 import type {A11yIssue} from "../components/issues-panel";
 
-export type A11yReport = {
+export interface A11yReport {
     violations: A11yIssue[];
     needsReview: A11yIssue[];
-};
+}
 
-type UsePreviewControllerResult = {
+interface UsePreviewControllerResult {
     /**
      * Send preview content data to the iframe
      */
@@ -44,7 +44,7 @@ type UsePreviewControllerResult = {
      * The latest accessibility report received from the iframe (null if none)
      */
     a11yReport: A11yReport | null;
-};
+}
 
 /**
  * Hook for parent/editor to send data to preview iframe and receive updates.

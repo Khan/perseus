@@ -9,9 +9,9 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 type QuestionMarkersProps = PropsFor<typeof QuestionMarkers>;
 type StoryArgs = Record<string, QuestionMarkersProps>;
 
-type Story = {
+interface Story {
     title: string;
-};
+}
 
 // eslint-disable-next-line no-restricted-syntax
 export default {

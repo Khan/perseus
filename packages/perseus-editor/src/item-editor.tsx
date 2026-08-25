@@ -22,7 +22,7 @@ import type {
     PerseusItem,
 } from "@khanacademy/perseus-core";
 
-type Props = {
+interface Props {
     /** Additional templates that the host application would like to display
      * within the Perseus Editor.
      */
@@ -45,7 +45,7 @@ type Props = {
     /** The problem number, used for deterministic random seeding in the
      * preview. */
     problemNum?: number;
-};
+}
 
 // NOTE: ItemEditor does not actually produce an entire PerseusItem. Hints are
 // edited separately.

@@ -16,13 +16,13 @@ type Props = ChangeableProps & {
     width: string;
 };
 
-type DefaultProps = {
+interface DefaultProps {
     color: Props["color"];
     coordX: Props["coordX"];
     coordY: Props["coordY"];
     height: Props["height"];
     width: Props["width"];
-};
+}
 
 // Editor for rectangles
 class RectangleEditor extends React.Component<Props> {

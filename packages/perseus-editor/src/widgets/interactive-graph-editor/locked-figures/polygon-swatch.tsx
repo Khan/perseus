@@ -13,13 +13,13 @@ import type {
     LockedFigureStrokeStyle,
 } from "@khanacademy/perseus-core";
 
-type Props = {
+interface Props {
     color: LockedFigureColor;
     fillStyle: LockedFigureFillType;
     // "none" renders no border (a valid CSS border-style), reflecting a
     // stroke-less (fill-only) polygon.
     strokeStyle: LockedFigureStrokeStyle;
-};
+}
 
 const PolygonSwatch = (props: Props) => {
     const {color, fillStyle, strokeStyle} = props;

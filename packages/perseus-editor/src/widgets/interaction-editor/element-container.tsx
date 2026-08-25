@@ -11,18 +11,18 @@ import {
 
 const {InlineIcon} = components;
 
-type Props = {
+interface Props {
     children: React.ReactElement<any> | ReadonlyArray<React.ReactElement<any>>;
     initiallyVisible: boolean;
     onDelete?: (() => void) | null;
     onDown?: (() => void) | null;
     onUp?: (() => void) | null;
     title: string | React.ReactElement<any>;
-};
+}
 
-type State = {
+interface State {
     show: boolean;
-};
+}
 
 class ElementContainer extends React.Component<Props, State> {
     static defaultProps: {

@@ -15,9 +15,9 @@ const impactStringMap = {
     low: "Guideline",
 };
 
-type IssueProps = {
+interface IssueProps {
     issue: Issue;
-};
+}
 
 const IssueDetails = ({issue}: IssueProps) => {
     const [expanded, setExpanded] = React.useState(false);

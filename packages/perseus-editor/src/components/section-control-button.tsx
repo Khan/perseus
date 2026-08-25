@@ -4,12 +4,12 @@ import * as React from "react";
 
 import type {PhosphorIconAsset} from "@khanacademy/wonder-blocks-icon";
 
-type SectionControlButtonProps = {
+interface SectionControlButtonProps {
     icon: PhosphorIconAsset;
     onClick: () => unknown;
     title: string;
     disabled: boolean;
-};
+}
 
 const SectionControlButton = ({
     icon,

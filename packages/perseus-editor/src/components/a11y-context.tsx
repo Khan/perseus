@@ -3,7 +3,7 @@ import * as React from "react";
 import type {A11yIssue} from "./issues-panel";
 import type {A11yReport} from "../preview/use-preview-controller";
 
-export type A11yContextValue = {
+export interface A11yContextValue {
     /** Turns one issue's highlight on or off. */
     setIssueHighlight: (instanceId: string, highlighted: boolean) => void;
     /** Whether the preview iframe's axe-core scan is enabled. */
@@ -17,7 +17,7 @@ export type A11yContextValue = {
     onA11yReport: (report: A11yReport | null) => void;
     /** The latest scan's issues, for display in `IssuesPanel`. */
     axeCoreIssues: A11yIssue[];
-};
+}
 
 /**
  * Builds an A11yContextValue, defaulting any field a caller doesn't

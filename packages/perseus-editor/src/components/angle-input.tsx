@@ -9,10 +9,10 @@ import ScrolllessNumberTextField from "./scrollless-number-text-field";
 
 const {convertDegreesToRadians, convertRadiansToDegrees} = angles;
 
-type Props = {
+interface Props {
     angle: number;
     onChange: (angle: number) => void;
-};
+}
 
 const AngleInput = (props: Props) => {
     const {angle, onChange} = props;

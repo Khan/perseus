@@ -3,9 +3,9 @@ import caretRight from "@phosphor-icons/core/bold/caret-right-bold.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-type Props = {
+interface Props {
     isExpanded: boolean;
-};
+}
 
 /**
  * Displays a caret in either expanded or collapsed state. For use in headings

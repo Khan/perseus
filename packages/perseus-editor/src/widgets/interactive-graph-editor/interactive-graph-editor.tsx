@@ -50,7 +50,7 @@ type InteractiveGraphProps = PropsFor<typeof InteractiveGraph>;
 
 type Range = [min: number, max: number];
 
-export type Props = {
+export interface Props {
     apiOptions: APIOptionsWithDefaults;
 
     /**
@@ -157,7 +157,7 @@ export type Props = {
      * Whether this widget is graded.
      */
     graded?: boolean;
-};
+}
 
 // JSDoc will be shown in Storybook widget editor description
 /**

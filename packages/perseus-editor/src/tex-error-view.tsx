@@ -4,13 +4,13 @@ import * as React from "react";
 
 import ToggleableCaret from "./components/toggleable-caret";
 
-type Props = {
+interface Props {
     errorList: ReadonlyArray<{math: string; message: string}>;
-};
+}
 
-type State = {
+interface State {
     showErrors: boolean;
-};
+}
 
 /**
  * Displays a collapsable list of TeX rendering errors.

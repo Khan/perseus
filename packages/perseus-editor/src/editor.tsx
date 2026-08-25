@@ -128,7 +128,7 @@ type Props = Readonly<{
     onChange: (changes: Partial<PerseusRenderer>) => void;
 }>;
 
-type DefaultProps = {
+interface DefaultProps {
     content: string;
     disabled: boolean;
     images: Record<any, any>;
@@ -142,9 +142,9 @@ type DefaultProps = {
     };
     additionalTemplates: Props["additionalTemplates"];
     apiOptions: APIOptions;
-};
+}
 
-type State = {
+interface State {
     textAreaValue: string;
     // Stores the last-seen version of each widget passed to the `widgets`
     // prop. This allows widgets to be recreated when the user deletes a
@@ -153,14 +153,14 @@ type State = {
     // `rememberedWidgetsForUndo` is not cleared during the lifetime of the
     // component instance.
     rememberedWidgetsForUndo: PerseusWidgetsMap;
-};
+}
 
 // Contextual information that widgets can use,
 // through initializeWidgetOptions,
 // to initialize widget options
-export type InitializeWidgetOptionsParams = {
+export interface InitializeWidgetOptionsParams {
     selectedText: string;
-};
+}
 
 class Editor extends React.Component<Props, State> {
     lastUserValue: string | null | undefined;

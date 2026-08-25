@@ -6,12 +6,12 @@ import performDiff from "./shared/widget-diff-performer";
 
 import type {ImageWidget, PerseusWidget} from "@khanacademy/perseus-core";
 
-type WidgetDiffProps = {
+interface WidgetDiffProps {
     after: PerseusWidget | undefined;
     before: PerseusWidget | undefined;
     title: string;
     type: PerseusWidget["type"] | undefined;
-};
+}
 
 class WidgetDiff extends React.Component<WidgetDiffProps> {
     render(): React.ReactNode {

@@ -64,9 +64,9 @@ export function getIssueKey(issue: Issue): string {
     return issue.instanceId ?? issue.id;
 }
 
-type IssuesPanelProps = {
+interface IssuesPanelProps {
     issues?: Issue[];
-};
+}
 
 const IssuesPanel = (props: IssuesPanelProps) => {
     const {issues = []} = props;

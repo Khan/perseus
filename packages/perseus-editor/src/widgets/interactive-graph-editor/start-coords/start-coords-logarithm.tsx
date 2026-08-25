@@ -9,10 +9,10 @@ import {getLogarithmEquation} from "./util";
 
 import type {Coord} from "@khanacademy/perseus";
 
-type LogarithmStartCoords = {
+interface LogarithmStartCoords {
     coords: [Coord, Coord];
     asymptote: number;
-};
+}
 
 interface StartCoordsLogarithmProps {
     startCoords: LogarithmStartCoords;

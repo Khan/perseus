@@ -1,10 +1,10 @@
 import {components} from "@khanacademy/perseus";
 import * as React from "react";
 
-type Props = {
+interface Props {
     value?: string;
     onChange: (value: string) => void;
-};
+}
 
 const {ButtonGroup} = components;
 

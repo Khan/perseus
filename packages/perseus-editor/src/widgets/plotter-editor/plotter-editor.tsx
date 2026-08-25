@@ -41,7 +41,7 @@ const editorDefaults = {
     snapsPerLine: 2,
 } as const;
 
-type Props = {
+interface Props {
     apiOptions: APIOptions;
     type: PerseusPlotterWidgetOptions["type"];
     labels: Array<string>;
@@ -58,16 +58,16 @@ type Props = {
     correct: ReadonlyArray<number>;
     static: boolean;
     onChange: any;
-};
+}
 
-type State = {
+interface State {
     editing: EditingState;
     pic: any;
     loadedUrl: string | null;
     minX: number | null;
     maxX: number | null;
     tickStep: number | null;
-};
+}
 
 const formatNumber = (num) => "$" + knumber.round(num, 2) + "$";
 

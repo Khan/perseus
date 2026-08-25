@@ -13,22 +13,22 @@ const AFTER = "after";
 
 const UNCHANGED = "unchanged";
 
-type Entry = {
+interface Entry {
     after: string;
     before: string;
     children: Entry[];
     key: string;
     status: "unchanged" | "added" | "removed" | "changed";
-};
+}
 
-type DiffSideProps = {
+interface DiffSideProps {
     className: string;
     depth: number;
     propKey: string;
     showKey: boolean;
     side: "before" | "after";
     value: string;
-};
+}
 
 class DiffSide extends React.Component<DiffSideProps> {
     render(): React.ReactNode {
@@ -58,10 +58,10 @@ class DiffSide extends React.Component<DiffSideProps> {
     }
 }
 
-type CollapsedRowProps = {
+interface CollapsedRowProps {
     depth: number;
     onClick: () => void;
-};
+}
 
 class CollapsedRow extends React.Component<CollapsedRowProps> {
     static defaultProps = {
@@ -104,15 +104,15 @@ class CollapsedRow extends React.Component<CollapsedRowProps> {
     }
 }
 
-type DiffEntryProps = {
+interface DiffEntryProps {
     depth: number;
     entry: Entry;
     expanded?: boolean;
-};
+}
 
-type DiffEntryState = {
+interface DiffEntryState {
     expanded: boolean;
-};
+}
 // Component representing a single property that may be nested.
 class DiffEntry extends React.Component<DiffEntryProps, DiffEntryState> {
     static defaultProps = {

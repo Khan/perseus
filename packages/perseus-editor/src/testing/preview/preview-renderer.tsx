@@ -22,11 +22,11 @@ import {storybookDependenciesV2} from "../test-dependencies";
 
 import type {PreviewContent} from "../../preview/message-types";
 
-type Props = {
+interface Props {
     content: PreviewContent;
     isMobile: boolean;
     hasLintGutter: boolean;
-};
+}
 
 function PreviewWithKeypad({
     isMobile,

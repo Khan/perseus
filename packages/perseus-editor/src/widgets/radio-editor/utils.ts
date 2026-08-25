@@ -5,11 +5,11 @@ import type {PerseusRadioChoice} from "@khanacademy/perseus-core";
 
 // Minimal type for markdown AST nodes used in traverseContent callback
 // The upstream traverseContent uses `any`, so we define what we need here
-type MarkdownNode = {
+interface MarkdownNode {
     type: string;
     target?: string;
     alt?: string;
-};
+}
 
 export function getMovedChoices(
     choices: PerseusRadioChoice[],

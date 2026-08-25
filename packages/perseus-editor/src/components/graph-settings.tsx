@@ -32,7 +32,7 @@ const defaultBackgroundImage = {
 function numSteps(range: [number, number], step: number) {
     return Math.floor((range[1] - range[0]) / step);
 }
-type Props = {
+interface Props {
     editableSettings: ReadonlyArray<
         "canvas" | "graph" | "snap" | "image" | "measure"
     >;
@@ -51,9 +51,9 @@ type Props = {
     rulerLabel: string;
     rulerTicks: number;
     onChange: (values: Record<string, unknown>) => void;
-};
+}
 
-type DefaultProps = {
+interface DefaultProps {
     editableSettings: Props["editableSettings"];
     box: Props["box"];
     labels: Props["labels"];
@@ -69,16 +69,16 @@ type DefaultProps = {
     showProtractor?: Props["showProtractor"];
     showRuler?: Props["showRuler"];
     showTooltips?: Props["showTooltips"];
-};
+}
 
-type State = {
+interface State {
     labelsTextbox: readonly string[];
     gridStepTextbox: number[];
     snapStepTextbox: number[];
     stepTextbox: number[];
     rangeTextbox: [number, number][];
     backgroundImage: PerseusImageBackground;
-};
+}
 
 class GraphSettings extends React.Component<Props, State> {
     static displayName: "GraphSettings";

@@ -13,15 +13,15 @@ function getTextWidth(text: string): number {
     return textWidthCache[text];
 }
 
-type Props = {
+interface Props {
     options: string[];
     layout: "horizontal" | "vertical";
     onChange: (options: string[]) => void;
-};
+}
 
-type State = {
+interface State {
     items: string[];
-};
+}
 
 class TextListEditor extends React.Component<Props, State> {
     static defaultProps: Pick<Props, "options" | "layout"> = {

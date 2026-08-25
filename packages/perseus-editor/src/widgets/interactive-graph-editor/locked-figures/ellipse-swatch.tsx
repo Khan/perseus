@@ -13,11 +13,11 @@ import type {
     LockedFigureStrokeStyle,
 } from "@khanacademy/perseus-core";
 
-type Props = {
+interface Props {
     color: LockedFigureColor;
     fillStyle: LockedFigureFillType;
     strokeStyle: LockedFigureStrokeStyle;
-};
+}
 
 const EllipseSwatch = (props: Props) => {
     const {color, fillStyle, strokeStyle} = props;

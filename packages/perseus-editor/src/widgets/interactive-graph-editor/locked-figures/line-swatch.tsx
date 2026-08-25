@@ -7,10 +7,10 @@ import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-type Props = {
+interface Props {
     color: LockedFigureColor;
     lineStyle: "solid" | "dashed";
-};
+}
 
 const LineSwatch = (props: Props) => {
     const {color, lineStyle} = props;

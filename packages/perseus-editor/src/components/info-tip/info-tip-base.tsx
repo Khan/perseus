@@ -6,9 +6,9 @@ import questionIcon from "@phosphor-icons/core/regular/question.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-type Props = {
+interface Props {
     children: React.ReactNode;
-};
+}
 
 const InfoTipBase = (props: Props) => {
     return (

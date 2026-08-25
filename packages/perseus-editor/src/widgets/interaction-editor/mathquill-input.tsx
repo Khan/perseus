@@ -7,10 +7,10 @@ import {useRef, useEffect} from "react";
 
 import type {MathFieldInterface} from "@khanacademy/math-input";
 
-type Props = {
+interface Props {
     value: string;
     onChange: (value: string) => void;
-};
+}
 
 /**
  * A simple Mathquill MathField input for the InteractionEditor.

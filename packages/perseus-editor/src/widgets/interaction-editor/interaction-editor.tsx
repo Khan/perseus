@@ -24,18 +24,20 @@ const {unescapeMathMode} = Util;
 
 // The starting options for each element type offered by the "Add an element"
 // dropdown. Element types with no entry here start out with no options.
+// The `defaultProps` are interfaces, which have no implicit index signature;
+// spreading them into a literal gives something assignable to Record.
 const defaultOptionsByElementType: Record<string, Record<string, unknown>> = {
-    point: PointEditor.defaultProps,
-    line: LineEditor.defaultProps,
-    "movable-point": MovablePointEditor.defaultProps,
-    "movable-line": MovableLineEditor.defaultProps,
-    function: FunctionEditor.defaultProps,
-    parametric: ParametricEditor.defaultProps,
-    label: LabelEditor.defaultProps,
-    rectangle: RectangleEditor.defaultProps,
+    point: {...PointEditor.defaultProps},
+    line: {...LineEditor.defaultProps},
+    "movable-point": {...MovablePointEditor.defaultProps},
+    "movable-line": {...MovableLineEditor.defaultProps},
+    function: {...FunctionEditor.defaultProps},
+    parametric: {...ParametricEditor.defaultProps},
+    label: {...LabelEditor.defaultProps},
+    rectangle: {...RectangleEditor.defaultProps},
 };
 
-type Graph = {
+interface Graph {
     box: ReadonlyArray<number>;
     labels: ReadonlyArray<string>;
     range: Coords;
@@ -43,13 +45,13 @@ type Graph = {
     gridStep: [number, number];
     markings: MarkingsType;
     valid?: boolean;
-};
+}
 
-type Props = {
+interface Props {
     onChange: (newProps: Record<string, unknown>) => void;
     elements: ReadonlyArray<any>;
     graph: Graph;
-};
+}
 
 type State = any;
 

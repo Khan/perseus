@@ -17,10 +17,10 @@ import type {
  * passing it to the renderer, which fills in the `stack`.
  */
 // TODO(jeremy): Remove this type and inline it into the messages that use it.
-type PreviewLinterContext = {
+interface PreviewLinterContext {
     contentType: string;
     highlightLint: boolean;
-};
+}
 
 /**
  * Constant identifier for all Perseus preview messages
@@ -55,42 +55,42 @@ interface PreviewMessageVersioned extends PreviewMessageBase {
  * renderer itself; the legacy answer-area tools and hints are previewed
  * elsewhere.
  */
-export type QuestionPreviewData = {
+export interface QuestionPreviewData {
     question: PerseusRenderer;
     apiOptions: SerializableApiOptions;
     linterContext: PreviewLinterContext;
     reviewMode?: boolean;
     legacyPerseusLint?: ReadonlyArray<string>;
     problemNum?: number;
-};
+}
 
 /**
  * Data for single hint preview (used in hint editor)
  */
-export type HintPreviewData = {
+export interface HintPreviewData {
     hint: Hint;
     pos: number;
     apiOptions: SerializableApiOptions;
     linterContext: PreviewLinterContext;
-};
+}
 
 /**
  * Data for a single article section preview (used in edit mode for one section)
  */
-export type ArticleSectionPreviewData = {
+export interface ArticleSectionPreviewData {
     article: PerseusRenderer;
     apiOptions: SerializableApiOptions;
     linterContext: PreviewLinterContext;
     legacyPerseusLint?: ReadonlyArray<string>;
-};
+}
 
 /**
  * Data for article-all preview (used in preview mode to render all sections at once)
  */
-export type ArticleAllPreviewData = {
+export interface ArticleAllPreviewData {
     article: ReadonlyArray<PerseusRenderer>;
     apiOptions: SerializableApiOptions;
-};
+}
 
 /**
  * Data for the interactive exercise preview (drives the exercise editor's
@@ -102,11 +102,11 @@ export type ArticleAllPreviewData = {
  * inside the iframe — the parent only sends these fields and never observes or
  * controls the exercise state.
  */
-export type ExercisePreviewData = {
+export interface ExercisePreviewData {
     item: PerseusItem;
     apiOptions: SerializableApiOptions;
     showRationales: boolean;
-};
+}
 
 /**
  * Union of all preview content types

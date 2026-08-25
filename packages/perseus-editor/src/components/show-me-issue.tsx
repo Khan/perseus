@@ -4,13 +4,13 @@ import * as React from "react";
 
 import {A11yContext} from "./a11y-context";
 
-type Props = {
+interface Props {
     /**
      * The issue's highlight handle. Absent when the issue has nothing in the
      * preview to point at, which is what makes the toggle unavailable.
      */
     instanceId?: string;
-};
+}
 
 const showMeStyle = {
     marginBlockStart: "1em",

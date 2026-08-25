@@ -8,9 +8,9 @@ import type {AnswerChoicesProps} from "./answer-choices";
 
 type StoryArgs = Record<string, AnswerChoicesProps>;
 
-type Story = {
+interface Story {
     title: string;
-};
+}
 
 // eslint-disable-next-line no-restricted-syntax
 export default {

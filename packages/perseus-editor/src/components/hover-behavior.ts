@@ -44,7 +44,7 @@
  */
 import * as React from "react";
 
-type Handlers = {
+interface Handlers {
     onBlur: () => unknown;
     onClick: (e: React.MouseEvent) => unknown;
     onFocus: () => unknown;
@@ -53,20 +53,20 @@ type Handlers = {
     onMouseLeave: () => unknown;
     onTouchStart: () => unknown;
     onTouchEnd: () => unknown;
-};
+}
 
-type State = {
+interface State {
     focused: boolean;
     hovered: boolean;
-};
+}
 
-type Props = {
+interface Props {
     children?: (state: State, handlers: Handlers) => React.ReactElement;
     disabled?: boolean;
     onClick?: (e: React.MouseEvent) => unknown;
     startHovered: boolean;
     shouldUpdate: () => boolean;
-};
+}
 
 export default class HoverBehavior extends React.Component<Props, State> {
     // @ts-expect-error - TS2564 - Property 'focusFlag' has no initializer and is not definitely assigned in the constructor.

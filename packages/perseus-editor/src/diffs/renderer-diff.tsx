@@ -42,7 +42,7 @@ const filterWidgetInfo = function (
     return filteredWidgetInfo;
 };
 
-type Props = {
+interface Props {
     // The "after" props of the renderer. Will be displayed on the right.
     after: PerseusRenderer | undefined;
     // The "before" props of the renderer. Will be displayed on the left.
@@ -54,7 +54,7 @@ type Props = {
     // The heading to render above the side by side diff.
     // (In a code review tool this would be the filename.)
     title: string;
-};
+}
 
 class RendererDiff extends React.Component<Props> {
     static defaultProps: Partial<Omit<Props, "title">> = {

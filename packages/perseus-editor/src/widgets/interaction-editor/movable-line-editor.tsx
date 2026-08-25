@@ -22,7 +22,7 @@ type Props = ChangeableProps & {
     endSubscript: number;
 };
 
-type DefaultProps = {
+interface DefaultProps {
     startX: Props["startX"];
     startY: Props["startY"];
     endX: Props["endX"];
@@ -30,7 +30,7 @@ type DefaultProps = {
     constraint: Props["constraint"];
     snap: Props["snap"];
     constraintFn: Props["constraintFn"];
-};
+}
 
 // Editor for interactive movable line segments
 class MovableLineEditor extends React.Component<Props> {

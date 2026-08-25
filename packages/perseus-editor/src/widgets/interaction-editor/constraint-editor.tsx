@@ -19,7 +19,7 @@ type Props = ChangeableProps & {
     snap: number;
 };
 
-type DefaultProps = {
+interface DefaultProps {
     constraint: Props["constraint"];
     constraintFn: Props["constraintFn"];
     constraintXMax: Props["constraintXMax"];
@@ -27,7 +27,7 @@ type DefaultProps = {
     constraintYMax: Props["constraintYMax"];
     constraintYMin: Props["constraintYMin"];
     snap: Props["snap"];
-};
+}
 
 class ConstraintEditor extends React.Component<Props> {
     static defaultProps: DefaultProps = {

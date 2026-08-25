@@ -20,14 +20,14 @@ type Props = ChangeableProps & {
     strokeWidth: number;
 };
 
-type DefaultProps = {
+interface DefaultProps {
     value: Props["value"];
     rangeMin: Props["rangeMin"];
     rangeMax: Props["rangeMax"];
     color: Props["color"];
     strokeDasharray: Props["strokeDasharray"];
     strokeWidth: Props["strokeWidth"];
-};
+}
 
 // Editor for function plots
 class FunctionEditor extends React.Component<Props> {

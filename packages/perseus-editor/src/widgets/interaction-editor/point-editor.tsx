@@ -14,11 +14,11 @@ type Props = ChangeableProps & {
     color: string;
 };
 
-type DefaultProps = {
+interface DefaultProps {
     coordX: Props["coordX"];
     coordY: Props["coordY"];
     color: Props["color"];
-};
+}
 
 // Editor for non-interactive points
 class PointEditor extends React.Component<Props> {

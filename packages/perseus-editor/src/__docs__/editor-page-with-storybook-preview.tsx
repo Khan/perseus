@@ -17,11 +17,11 @@ import EditorPage from "../editor-page";
 
 import {usePreviewUrl} from "./use-preview-url";
 
-type Props = {
+interface Props {
     apiOptions?: APIOptions;
     question?: PerseusRenderer;
     hints?: Hint[];
-};
+}
 
 const testDependenciesV2: PerseusDependenciesV2 = {
     analytics: {

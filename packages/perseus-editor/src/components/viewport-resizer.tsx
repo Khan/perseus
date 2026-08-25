@@ -12,7 +12,7 @@ import type {DeviceType} from "@khanacademy/perseus";
 
 const {ButtonGroup, InlineIcon} = components;
 
-type Props = {
+interface Props {
     /** The current device type that is selected. */
     deviceType: DeviceType;
     /**
@@ -20,7 +20,7 @@ type Props = {
      * viewport to resize to.
      */
     onViewportSizeChanged: (deviceType: DeviceType) => unknown;
-};
+}
 
 const ViewportResizer = (props: Props) => {
     const phoneButtonContents = (

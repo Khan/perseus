@@ -14,9 +14,9 @@ import type {RadioOptionContentAndImageEditorHandle} from "./radio-option-conten
 import type {ChoiceMovementType} from "./radio-option-settings-actions";
 import type {PerseusRadioChoice} from "@khanacademy/perseus-core";
 
-export type RadioOptionSettingsHandle = {
+export interface RadioOptionSettingsHandle {
     focus: () => void;
-};
+}
 
 interface RadioOptionSettingsProps {
     index: number;

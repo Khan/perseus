@@ -5,9 +5,9 @@ import SectionControlButton from "../section-control-button";
 
 type StoryArgs = Record<string, unknown>;
 
-type Story = {
+interface Story {
     title: string;
-};
+}
 
 // eslint-disable-next-line no-restricted-syntax
 export default {

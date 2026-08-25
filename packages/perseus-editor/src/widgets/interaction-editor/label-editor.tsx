@@ -17,12 +17,12 @@ type Props = ChangeableProps & {
     label: string;
 };
 
-type DefaultProps = {
+interface DefaultProps {
     color: Props["color"];
     coordX: Props["coordX"];
     coordY: Props["coordY"];
     label: Props["label"];
-};
+}
 
 // Editor for labels
 class LabelEditor extends React.Component<Props> {

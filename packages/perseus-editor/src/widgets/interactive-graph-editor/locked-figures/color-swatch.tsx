@@ -7,11 +7,11 @@ import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-type Props = {
+interface Props {
     color: LockedFigureColor;
     filled?: boolean;
     decorative?: boolean;
-};
+}
 
 const ColorSwatch = (props: Props) => {
     const {color, filled = true, decorative = false} = props;

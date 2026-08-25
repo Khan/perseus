@@ -4,12 +4,12 @@ import {Heading} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import ReactJson from "react-json-view";
 
-type Props = {
+interface Props {
     rendererTitle: React.ReactNode;
     renderer: React.ReactNode;
     JSONTitle?: string;
     jsonObject: any;
-};
+}
 
 /**
  * This component is used in Storybook to render both the renderer and the JSON object in a split view.
