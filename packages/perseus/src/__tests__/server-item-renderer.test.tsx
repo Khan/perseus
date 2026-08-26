@@ -21,7 +21,8 @@ import {
 } from "../__testdata__/server-item-renderer.testdata";
 import {ENTRANCE_TRANSITION_DURATION_MS} from "../components/zoomable";
 import * as Dependencies from "../dependencies";
-import {ServerItemRenderer} from "../server-item-renderer";
+import LoadingContext from "../loading-context";
+import ServerItemRenderer from "../server-item-renderer";
 import {
     testDependencies,
     testDependenciesV2,
@@ -34,6 +35,7 @@ import MockAssetLoadingWidgetExport, {
 
 import {renderQuestion} from "./test-utils";
 
+import type {ServerItemRendererHandle} from "../server-item-renderer";
 import type {MockAssetLoadingWidget} from "../widgets/mock-widgets/mock-asset-loading-widget";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {UserEvent} from "@testing-library/user-event";
@@ -173,18 +175,19 @@ describe("server item renderer", () => {
         );
 
         const onRendered = jest.fn();
-        let renderer: ServerItemRenderer | null | undefined;
+        let renderer: ServerItemRendererHandle | null | undefined;
         const {rerender} = render(
-            <RenderStateRoot>
-                <ServerItemRenderer
-                    ref={(component) => (renderer = component)}
-                    item={mockedAssetItem}
-                    problemNum={0}
-                    reviewMode={false}
-                    onRendered={onRendered}
-                    dependencies={testDependenciesV2}
-                />
-            </RenderStateRoot>,
+            <LoadingContext.Provider value={{onRendered}}>
+                <RenderStateRoot>
+                    <ServerItemRenderer
+                        ref={(component) => (renderer = component)}
+                        item={mockedAssetItem}
+                        problemNum={0}
+                        reviewMode={false}
+                        dependencies={testDependenciesV2}
+                    />
+                </RenderStateRoot>
+            </LoadingContext.Provider>,
         );
         if (renderer == null) {
             throw new Error("Renderer failed to render.");
@@ -198,15 +201,16 @@ describe("server item renderer", () => {
         }
 
         rerender(
-            <RenderStateRoot>
-                <ServerItemRenderer
-                    item={mockedAssetItem}
-                    problemNum={1}
-                    reviewMode={false}
-                    onRendered={onRendered}
-                    dependencies={testDependenciesV2}
-                />
-            </RenderStateRoot>,
+            <LoadingContext.Provider value={{onRendered}}>
+                <RenderStateRoot>
+                    <ServerItemRenderer
+                        item={mockedAssetItem}
+                        problemNum={1}
+                        reviewMode={false}
+                        dependencies={testDependenciesV2}
+                    />
+                </RenderStateRoot>
+            </LoadingContext.Provider>,
         );
 
         // Act
@@ -235,15 +239,16 @@ describe("server item renderer", () => {
 
         // Act
         render(
-            <RenderStateRoot>
-                <ServerItemRenderer
-                    item={itemWithMath}
-                    problemNum={0}
-                    reviewMode={false}
-                    dependencies={testDependenciesV2}
-                    onRendered={onRendered}
-                />
-            </RenderStateRoot>,
+            <LoadingContext.Provider value={{onRendered}}>
+                <RenderStateRoot>
+                    <ServerItemRenderer
+                        item={itemWithMath}
+                        problemNum={0}
+                        reviewMode={false}
+                        dependencies={testDependenciesV2}
+                    />
+                </RenderStateRoot>
+            </LoadingContext.Provider>,
         );
 
         // Assert
@@ -275,15 +280,16 @@ describe("server item renderer", () => {
 
         // Act
         render(
-            <RenderStateRoot>
-                <ServerItemRenderer
-                    item={itemWithMath}
-                    problemNum={0}
-                    reviewMode={false}
-                    dependencies={testDependenciesV2}
-                    onRendered={onRendered}
-                />
-            </RenderStateRoot>,
+            <LoadingContext.Provider value={{onRendered}}>
+                <RenderStateRoot>
+                    <ServerItemRenderer
+                        item={itemWithMath}
+                        problemNum={0}
+                        reviewMode={false}
+                        dependencies={testDependenciesV2}
+                    />
+                </RenderStateRoot>
+            </LoadingContext.Provider>,
         );
 
         // Assert
@@ -313,16 +319,17 @@ describe("server item renderer", () => {
 
         // Act
         render(
-            <RenderStateRoot>
-                <ServerItemRenderer
-                    item={itemWithMath}
-                    problemNum={0}
-                    reviewMode={false}
-                    apiOptions={{isMobile: true}}
-                    dependencies={testDependenciesV2}
-                    onRendered={onRendered}
-                />
-            </RenderStateRoot>,
+            <LoadingContext.Provider value={{onRendered}}>
+                <RenderStateRoot>
+                    <ServerItemRenderer
+                        item={itemWithMath}
+                        problemNum={0}
+                        reviewMode={false}
+                        apiOptions={{isMobile: true}}
+                        dependencies={testDependenciesV2}
+                    />
+                </RenderStateRoot>
+            </LoadingContext.Provider>,
         );
 
         // Assert
@@ -343,16 +350,17 @@ describe("server item renderer", () => {
 
         // Act
         render(
-            <RenderStateRoot>
-                <ServerItemRenderer
-                    item={itemWithTable}
-                    problemNum={0}
-                    reviewMode={false}
-                    apiOptions={{isMobile: true}}
-                    dependencies={testDependenciesV2}
-                    onRendered={onRendered}
-                />
-            </RenderStateRoot>,
+            <LoadingContext.Provider value={{onRendered}}>
+                <RenderStateRoot>
+                    <ServerItemRenderer
+                        item={itemWithTable}
+                        problemNum={0}
+                        reviewMode={false}
+                        apiOptions={{isMobile: true}}
+                        dependencies={testDependenciesV2}
+                    />
+                </RenderStateRoot>
+            </LoadingContext.Provider>,
         );
 
         // Assert
@@ -401,15 +409,16 @@ describe("server item renderer", () => {
 
         // Act
         render(
-            <RenderStateRoot>
-                <ServerItemRenderer
-                    item={content}
-                    problemNum={0}
-                    reviewMode={false}
-                    dependencies={testDependenciesV2}
-                    onRendered={onRendered}
-                />
-            </RenderStateRoot>,
+            <LoadingContext.Provider value={{onRendered}}>
+                <RenderStateRoot>
+                    <ServerItemRenderer
+                        item={content}
+                        problemNum={0}
+                        reviewMode={false}
+                        dependencies={testDependenciesV2}
+                    />
+                </RenderStateRoot>
+            </LoadingContext.Provider>,
         );
 
         // Assert

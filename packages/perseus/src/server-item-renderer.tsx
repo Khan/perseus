@@ -70,7 +70,7 @@ export type SerializedState = {
     hints: any;
 };
 
-export class ServerItemRenderer
+class ServerItemRenderer
     extends React.Component<Props>
     implements
         RendererInterface,

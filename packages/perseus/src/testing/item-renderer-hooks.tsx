@@ -6,7 +6,7 @@ import invariant from "tiny-invariant";
 
 import {createInitialState, itemRendererReducer} from "./item-renderer-reducer";
 
-import type {ServerItemRenderer} from "../server-item-renderer";
+import type {ServerItemRendererHandle} from "../server-item-renderer";
 import type {APIOptions} from "../types";
 import type {
     PerseusItem,
@@ -24,7 +24,7 @@ export const useItemRenderer = (
     reviewMode: boolean = false,
     showSolutions?: ShowSolutions,
 ) => {
-    const ref = useRef<ServerItemRenderer>(null);
+    const ref = useRef<ServerItemRendererHandle>(null);
     const [state, dispatch] = useReducer(
         itemRendererReducer,
         createInitialState(
