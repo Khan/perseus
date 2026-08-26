@@ -72,7 +72,7 @@ const tabsStyles = {
         display: "flex",
         flexDirection: "row",
         flexWrap: "nowrap",
-        backgroundColor: semanticColor.core.background.neutral.subtle,
+        backgroundColor: semanticColor.core.background.disabled.strong,
         direction: "ltr",
     },
 } as const;
