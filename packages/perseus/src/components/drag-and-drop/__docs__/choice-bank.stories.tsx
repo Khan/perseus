@@ -2,7 +2,6 @@ import * as React from "react";
 
 import {generateAnswerTileProps} from "../answer-tile/answer-tile.testdata";
 import {ChoiceBank} from "../choice-bank";
-import {PerseusDndProvider} from "../perseus-dnd-provider";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

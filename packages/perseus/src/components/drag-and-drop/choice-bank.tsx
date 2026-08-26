@@ -10,9 +10,16 @@ interface ChoiceBankProps {
      * The answer tiles to lay out. Each renders as its own `<li>`. Pass an
      * empty array for an empty bank (e.g. once every tile has been placed).
      */
-    answerTiles: AnswerTileProps[];
+    answerTiles: ReadonlyArray<AnswerTileProps>;
     /** Visible label; also names the tile list for assistive tech. */
     label: string;
+    /**
+     * Identifies the bank's drop target in drag events: a tile dropped
+     * here returns to the bank. Pass a stable id when the widget needs to
+     * recognize the bank in its drag-end handling; defaults to a generated
+     * unique id.
+     */
+    bankId?: string;
 }
 
 /**
@@ -22,11 +29,11 @@ interface ChoiceBankProps {
 export function ChoiceBank({
     answerTiles,
     label,
+    bankId,
 }: ChoiceBankProps): React.ReactElement {
     const labelId = useId();
-    const id = "droppable" + answerTiles[0].label;
-    console.log("bank id: " + id);
-    const {ref} = useDroppable({id});
+    const generatedBankId = useId();
+    const {ref} = useDroppable({id: bankId ?? generatedBankId});
 
     return (
         <div className={styles.choiceBank}>
@@ -35,7 +42,9 @@ export function ChoiceBank({
             </span>
             <ul ref={ref} className={styles.list} aria-labelledby={labelId}>
                 {answerTiles.map((answerTile) => (
-                    <AnswerTile key={answerTile.tileId} {...answerTile} />
+                    <li key={answerTile.tileId} className={styles.item}>
+                        <AnswerTile {...answerTile} />
+                    </li>
                 ))}
             </ul>
         </div>

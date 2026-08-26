@@ -1,2 +1,2 @@
-export {Blank} from "./blank";
-export type {BlankProps} from "./blank";
+export {BlankComponent} from "./blank-component";
+export type {BlankComponentProps} from "./blank-component";
