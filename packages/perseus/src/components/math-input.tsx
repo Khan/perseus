@@ -477,8 +477,18 @@ class MathInput extends React.Component<Props, State> {
     }
 }
 
-const MathInputIcon = ({hovered, focused, pressed, active}) => {
-    let fillColor: string | undefined;
+const MathInputIcon = ({
+    hovered,
+    focused,
+    pressed,
+    active,
+}: {
+    hovered: boolean;
+    focused: boolean;
+    pressed: boolean;
+    active: boolean;
+}) => {
+    let fillColor: string;
     switch (true) {
         case focused || pressed || active:
             fillColor = semanticColor.core.foreground.knockout.default;
@@ -491,13 +501,13 @@ const MathInputIcon = ({hovered, focused, pressed, active}) => {
             break;
     }
     const dynamicClass =
-        focused || pressed ?
-            styles.iconActive
+        focused || pressed
+            ? styles.iconActive
             : active
-                ? styles.iconExpanded
-                : hovered
-                    ? styles.iconHovered
-                    : styles.iconInactive;
+              ? styles.iconExpanded
+              : hovered
+                ? styles.iconHovered
+                : styles.iconInactive;
     return (
         <View style={[styles.iconContainer, dynamicClass]}>
             <svg
@@ -550,7 +560,7 @@ const mapButtonSets = (buttonSets?: LegacyButtonSets) => {
 };
 
 const inputFocused = {
-    borderColor: semanticColor.core.border.instructive.default
+    borderColor: semanticColor.core.border.instructive.default,
 };
 
 const styles = StyleSheet.create({
