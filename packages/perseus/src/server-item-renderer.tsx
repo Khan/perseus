@@ -473,9 +473,6 @@ export default React.forwardRef<
                 get questionRenderer() {
                     return instance().questionRenderer;
                 },
-                get props() {
-                    return instance().props;
-                },
             };
         },
         [],
