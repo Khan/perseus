@@ -410,6 +410,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                 hovered={false}
                                 focused={false}
                                 active={false}
+                                pressed={false}
                             />
                         ) : (
                             <Clickable
@@ -419,6 +420,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                         : this.context.strings.openKeypad
                                 }
                                 role="button"
+                                hideDefaultFocusRing
                                 onClick={() =>
                                     this.state.keypadOpen
                                         ? this.closeKeypad()
@@ -475,10 +477,10 @@ class MathInput extends React.Component<Props, State> {
     }
 }
 
-const MathInputIcon = ({hovered, focused, active}) => {
+const MathInputIcon = ({hovered, focused, pressed, active}) => {
     let fillColor: string | undefined;
     switch (true) {
-        case focused || active:
+        case focused || pressed || active:
             fillColor = semanticColor.core.foreground.knockout.default;
             break;
         case hovered:
@@ -489,11 +491,13 @@ const MathInputIcon = ({hovered, focused, active}) => {
             break;
     }
     const dynamicClass =
-        active || focused ?
+        focused || pressed ?
             styles.iconActive
-            : hovered
-                ? styles.iconHovered
-                : styles.iconInactive;
+            : active
+                ? styles.iconExpanded
+                : hovered
+                    ? styles.iconHovered
+                    : styles.iconInactive;
     return (
         <View style={[styles.iconContainer, dynamicClass]}>
             <svg
@@ -565,14 +569,17 @@ const styles = StyleSheet.create({
         backgroundColor: semanticColor.core.background.neutral.subtle,
     },
     iconActive: {
-        // border: `${border.width.medium} solid ${semanticColor.core.foreground.instructive.default}`,
-        borderColor: semanticColor.focus.inner,
-        outlineColor: semanticColor.focus.outer,
+        borderColor: semanticColor.focus.outer,
+        boxShadow: `inset 0 0 0 ${border.width.medium} ${semanticColor.focus.inner}`,
+        backgroundColor: semanticColor.core.background.neutral.default,
+    },
+    iconExpanded: {
+        borderColor: "transparent",
         backgroundColor: semanticColor.core.background.neutral.default,
     },
     iconHovered: {
-        borderColor: semanticColor.focus.inner,
-        outlineColor: semanticColor.focus.outer,
+        borderColor: semanticColor.focus.outer,
+        boxShadow: `inset 0 0 0 ${border.width.medium} ${semanticColor.focus.inner}`,
         backgroundColor: semanticColor.core.background.neutral.subtle,
     },
     outerWrapper: {
@@ -580,7 +587,7 @@ const styles = StyleSheet.create({
         borderStyle: "solid",
         borderWidth: border.width.thin,
         borderColor: semanticColor.core.border.neutral.default,
-        borderRadius: border.radius.radius_080,
+        borderRadius: border.radius.radius_040,
         background: semanticColor.core.background.base.default,
         ":hover": inputFocused,
     },
