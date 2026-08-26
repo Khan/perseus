@@ -1,8 +1,8 @@
 import {themeModes} from "../../../../../../.storybook/modes";
 import {mobileDecorator} from "../../__testutils__/story-decorators";
 import {
+    allAvailableTypesQuestion,
     multipleAvailableTypesExponentialQuestion,
-    multipleAvailableTypesQuestion,
     quadraticQuestion,
     staticExponentialQuestion,
 } from "../grapher.testdata";
@@ -41,12 +41,12 @@ export const DestktopQuadratic: Story = {
 
 export const DesktopChooseYourOwnFunction: Story = {
     decorators: [grapherRendererDecorator],
-    args: {question: multipleAvailableTypesQuestion},
+    args: {question: allAvailableTypesQuestion},
 };
 
 export const MobileChooseYourOwnFunction: Story = {
     decorators: [grapherRendererDecorator, mobileDecorator],
-    args: {question: multipleAvailableTypesQuestion},
+    args: {question: allAvailableTypesQuestion},
     parameters: {
         apiOptions: {isMobile: true},
     },
