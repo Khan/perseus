@@ -4,9 +4,8 @@ import type {PerseusStrings} from "../../strings";
 import type {
     MathFormat,
     PerseusNumericInputAnswerForm,
-    PerseusNumericInputRubric,
-    PerseusNumericInputUserInput,
     PerseusNumericInputWidgetOptions,
+    PerseusNumericInputUserInput,
 } from "@khanacademy/perseus-core";
 
 /**
@@ -240,7 +239,7 @@ export function getCorrectUserInput(
 }
 
 export function getOneCorrectAnswerFromRubric(
-    rubric: PerseusNumericInputRubric,
+    rubric: PerseusNumericInputWidgetOptions,
 ): string | null | undefined {
     const correctAnswers = rubric.answers.filter(
         (answer) => answer.status === "correct",

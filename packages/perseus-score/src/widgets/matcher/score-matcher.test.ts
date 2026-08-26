@@ -1,19 +1,18 @@
+import {generateMatcherOptions} from "@khanacademy/perseus-core";
+
 import scoreMatcher from "./score-matcher";
 
-import type {
-    PerseusMatcherRubric,
-    PerseusMatcherUserInput,
-} from "@khanacademy/perseus-core";
+import type {PerseusMatcherUserInput} from "@khanacademy/perseus-core";
 
 describe("scoreMatcher", () => {
     it("returns invalid for undefined user input", () => {
         // Arrange
         const userInput = undefined;
 
-        const rubric: PerseusMatcherRubric = {
+        const rubric = generateMatcherOptions({
             left: ["1", "0+1"],
             right: ["2", "0+2"],
-        };
+        });
 
         // Act
         const result = scoreMatcher(userInput, rubric);
@@ -29,10 +28,10 @@ describe("scoreMatcher", () => {
             right: ["cool", "beans"],
         };
 
-        const rubric: PerseusMatcherRubric = {
+        const rubric = generateMatcherOptions({
             left: ["1", "0+1"],
             right: ["2", "0+2"],
-        };
+        });
 
         // Act
         const result = scoreMatcher(userInput, rubric);
@@ -43,10 +42,10 @@ describe("scoreMatcher", () => {
 
     it("can be answered correctly", () => {
         // Arrange
-        const rubric: PerseusMatcherRubric = {
+        const rubric = generateMatcherOptions({
             left: ["1", "0+1"],
             right: ["2", "0+2"],
-        };
+        });
 
         const userInput: PerseusMatcherUserInput = {
             left: [...rubric.left],

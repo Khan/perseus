@@ -1,5 +1,5 @@
 import type {
-    PerseusDropdownRubric,
+    PerseusDropdownWidgetOptions,
     PerseusDropdownUserInput,
     PerseusScore,
 } from "@khanacademy/perseus-core";
@@ -8,7 +8,7 @@ function scoreDropdown(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: PerseusDropdownUserInput | undefined,
-    rubric: PerseusDropdownRubric,
+    rubric: PerseusDropdownWidgetOptions,
 ): PerseusScore {
     if (userInput == null) {
         return {type: "invalid", message: null};

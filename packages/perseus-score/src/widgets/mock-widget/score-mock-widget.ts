@@ -1,7 +1,7 @@
 import validateMockWidget from "./validate-mock-widget";
 
 import type {
-    PerseusMockWidgetRubric,
+    PerseusMockWidgetOptions,
     PerseusMockWidgetUserInput,
 } from "./mock-widget-validation.types";
 import type {PerseusScore} from "@khanacademy/perseus-core";
@@ -10,7 +10,7 @@ function scoreMockWidget(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: PerseusMockWidgetUserInput | undefined,
-    rubric: PerseusMockWidgetRubric,
+    rubric: PerseusMockWidgetOptions,
 ): PerseusScore {
     const validationResult = validateMockWidget(userInput);
     if (validationResult != null) {

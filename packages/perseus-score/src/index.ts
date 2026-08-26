@@ -41,7 +41,7 @@ export {default as hasEmptyDINERWidgets} from "./has-empty-diner-widgets";
 export {default as isWidgetScoreable} from "./util/is-widget-scoreable";
 
 export type {
-    PerseusMockWidgetRubric,
+    PerseusMockWidgetOptions,
     PerseusMockWidgetUserInput,
 } from "./widgets/mock-widget/mock-widget-validation.types";
 
