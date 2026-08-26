@@ -9,6 +9,7 @@ import {StyleSheet, css} from "aphrodite";
  * This component is compatible with server-rendering of a perseus exercise.
  */
 import * as React from "react";
+import invariant from "tiny-invariant";
 import _ from "underscore";
 
 import AssetContext from "./asset-context";
@@ -64,7 +65,7 @@ type DefaultProps = Required<
  * @deprecated and likely a very broken API
  * [LEMS-3185] do not trust serializedState
  */
-type SerializedState = {
+export type SerializedState = {
     question: any;
     hints: any;
 };
@@ -424,17 +425,69 @@ const styles = StyleSheet.create({
     },
 });
 
+export interface ServerItemRendererHandle
+    extends RendererInterface,
+        KeypadContextRendererInterface,
+        GetPromptJSONInterface {
+    getUserInput(): UserInputMap;
+    getNumHints(): number;
+    getWidgetIds(): ReadonlyArray<string>;
+    getDOMNodeForPath(path: FocusPath): Element | Text | null | undefined;
+    focusPath(path: FocusPath): void;
+    blurPath(path: FocusPath): void;
+    getInputPaths(): ReadonlyArray<FocusPath>;
+    getSerializedState(): SerializedState;
+    readonly questionRenderer: Renderer;
+}
+
 export default React.forwardRef<
-    ServerItemRenderer,
+    ServerItemRendererHandle,
     Omit<PropsFor<typeof ServerItemRenderer>, "onRendered">
 >(function ServerItemRendererWithRef(props, ref) {
+    const innerRef = React.useRef<ServerItemRenderer>(null);
+
+    React.useImperativeHandle(
+        ref,
+        () => {
+            const instance = (): ServerItemRenderer => {
+                const current = innerRef.current;
+                invariant(
+                    current,
+                    "ServerItemRenderer: ref was used before mount or after unmount",
+                );
+                return current;
+            };
+
+            return {
+                focus: () => instance().focus(),
+                blur: () => instance().blur(),
+                focusPath: (path) => instance().focusPath(path),
+                blurPath: (path) => instance().blurPath(path),
+                getDOMNodeForPath: (path) => instance().getDOMNodeForPath(path),
+                getInputPaths: () => instance().getInputPaths(),
+                getNumHints: () => instance().getNumHints(),
+                getPromptJSON: () => instance().getPromptJSON(),
+                getUserInput: () => instance().getUserInput(),
+                getWidgetIds: () => instance().getWidgetIds(),
+                getSerializedState: () => instance().getSerializedState(),
+                get questionRenderer() {
+                    return instance().questionRenderer;
+                },
+                get props() {
+                    return instance().props;
+                },
+            };
+        },
+        [],
+    );
+
     return (
         <LoadingContext.Consumer>
             {({onRendered}) => (
                 <ServerItemRenderer
                     {...props}
                     onRendered={onRendered}
-                    ref={ref}
+                    ref={innerRef}
                 />
             )}
         </LoadingContext.Consumer>
