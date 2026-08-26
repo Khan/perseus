@@ -58,7 +58,10 @@ class ArticleDiff extends React.Component<Props, ArticleDiffState> {
             <Dependencies.DependenciesContext.Provider
                 value={this.props.dependencies}
             >
-                <div className="framework-perseus">{sections}</div>
+                {/* TODO(LEMS-4492): remove wb-themed-math */}
+                <div className="framework-perseus wb-themed-math">
+                    {sections}
+                </div>
             </Dependencies.DependenciesContext.Provider>
         );
     }

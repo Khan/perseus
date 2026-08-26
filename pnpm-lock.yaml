@@ -7,8 +7,8 @@ settings:
 catalogs:
   devDeps:
     '@khanacademy/mathjax-renderer':
-      specifier: 3.1.4
-      version: 3.1.4
+      specifier: 3.2.0
+      version: 3.2.0
     '@khanacademy/wonder-blocks-accordion':
       specifier: 3.1.69
       version: 3.1.69
@@ -179,7 +179,7 @@ importers:
         version: 1.0.0(eslint@8.57.1)(typescript@5.9.3)
       '@khanacademy/mathjax-renderer':
         specifier: catalog:devDeps
-        version: 3.1.4
+        version: 3.2.0
       '@khanacademy/wonder-blocks-accordion':
         specifier: catalog:devDeps
         version: 3.1.69(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
@@ -524,7 +524,7 @@ importers:
     devDependencies:
       '@khanacademy/mathjax-renderer':
         specifier: catalog:devDeps
-        version: 3.1.4
+        version: 3.2.0
       '@khanacademy/wonder-blocks-clickable':
         specifier: catalog:devDeps
         version: 8.2.9(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
@@ -797,7 +797,7 @@ importers:
     devDependencies:
       '@khanacademy/mathjax-renderer':
         specifier: catalog:devDeps
-        version: 3.1.4
+        version: 3.2.0
       '@khanacademy/wonder-blocks-accordion':
         specifier: catalog:devDeps
         version: 3.1.69(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
@@ -2408,8 +2408,8 @@ packages:
   '@khanacademy/eslint-plugin@3.1.2':
     resolution: {integrity: sha512-+9ohgHE6R0ox98rcfh28D4Hmue4acL3fUh8wZ7JwVBXE9JWBRWaehWRwYyKi71rUI9g2ierY4Gu5qbPx2LhOpQ==}
 
-  '@khanacademy/mathjax-renderer@3.1.4':
-    resolution: {integrity: sha512-27COKZ01wo0rb8xNrVnT3Q8tk70tS9pKb7fMET+vjvAD3ZuhgfHDqaou6RRqf7T9wQb7K1l3b56wqulaGTR94w==}
+  '@khanacademy/mathjax-renderer@3.2.0':
+    resolution: {integrity: sha512-9njJGqo8RBE8OK2e6bwRa8dwwqklY0D1jRVmyYjKUJGhIlEql0YRRR5LxmuTTSitGSkLuYPpDeHeQIdLLsiKMg==}
     engines: {node: '>=24.18 <25'}
 
   '@khanacademy/wonder-blocks-accordion@3.1.69':
@@ -11443,7 +11443,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@khanacademy/mathjax-renderer@3.1.4':
+  '@khanacademy/mathjax-renderer@3.2.0':
     dependencies:
       mathjax-full: 3.2.2
       mu-lambda: 0.0.3

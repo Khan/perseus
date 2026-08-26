@@ -365,7 +365,7 @@
 /*****************************
  * GLOBAL DARK MODE SETTINGS *
  *****************************/
-[data-wb-theme$="-dark"] .framework-perseus {
+[data-wb-theme$="-dark"] .framework-perseus:not(.wb-themed-math) {
     /* TODO(benchristel): this set of file extensions is duplicated in
      * image.css and dark-mode-toggle.tsx. Replace these selectors with a
      * class that gets added to images that should be inverted, so the set of
@@ -393,5 +393,34 @@
            washed out by the brightness filter, so they end up as #fff anyway.
          */
         color: black;
+    }
+}
+
+/* TODO(LEMS-4492): remove the .wb-themed-math class once math uses WB
+   tokens everywhere. In the future, the styles below should become the only
+   dark mode styles.
+ */
+[data-wb-theme$="-dark"] .framework-perseus.wb-themed-math {
+    /* TODO(benchristel): this set of file extensions is duplicated in
+     * image.css and dark-mode-toggle.tsx. Replace these selectors with a
+     * class that gets added to images that should be inverted, so the set of
+     * extensions can have a single representation in TypeScript code.
+     */
+    img[src$=".png"],
+    img[src$=".svg"],
+    .graphie:not(.perseus-widget-plotter) > svg {
+        /* Invert the colors of PNG/SVG images and Graphie SVGs (excluding the
+           Plotter, which is themed).
+         */
+        filter: invert(1) hue-rotate(180deg) brightness(1.5);
+    }
+
+    .graphie-label {
+        /* Graphie hardcodes `color: black` on its label elements, so we have
+           to override that with `!important`.
+         */
+        color: var(
+            --wb-semanticColor-core-foreground-neutral-default
+        ) !important;
     }
 }

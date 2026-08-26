@@ -3,7 +3,7 @@
 exports[`ItemDiff renders a diff view 1`] = `
 <div>
   <div
-    class="framework-perseus"
+    class="framework-perseus wb-themed-math"
   >
     <div>
       <div>

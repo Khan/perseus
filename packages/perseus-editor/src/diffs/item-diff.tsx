@@ -61,7 +61,8 @@ class ItemDiff extends React.Component<Props> {
             <Dependencies.DependenciesContext.Provider
                 value={this.props.dependencies}
             >
-                <div className="framework-perseus">
+                {/* TODO(LEMS-4492): remove wb-themed-math */}
+                <div className="framework-perseus wb-themed-math">
                     {question}
                     {extras}
                     {hints.length > 0 && <div className="diff-separator" />}
