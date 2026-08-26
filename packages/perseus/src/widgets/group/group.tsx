@@ -66,7 +66,7 @@ class Group extends React.Component<Props> implements Widget {
     }
 
     focus() {
-        return this.rendererRef?.focus() ?? false;
+        return this.rendererRef?.focusPerseus() ?? false;
     }
 
     focusInputPath: (arg1: FocusPath) => void = (path) => {

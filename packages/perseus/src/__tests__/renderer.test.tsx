@@ -799,7 +799,7 @@ describe("renderer", () => {
             });
 
             // Act
-            const focusResult = renderer.focus();
+            const focusResult = renderer.focusPerseus();
 
             // Assert
             expect(focusResult).toBe(true);
@@ -837,7 +837,7 @@ describe("renderer", () => {
             );
 
             // Act
-            const focusResult = renderer.focus();
+            const focusResult = renderer.focusPerseus();
 
             // Assert
             expect(focusResult).toBeFalsy();
@@ -1027,7 +1027,7 @@ describe("renderer", () => {
             onFocusChange.mockClear();
 
             // Act
-            act(() => renderer.blur());
+            act(() => renderer.blurPerseus());
             act(() => jest.runOnlyPendingTimers()); // There's a _.defer() in this code path
 
             // Assert
@@ -1037,7 +1037,7 @@ describe("renderer", () => {
             );
         });
 
-        it("should do nothing when blur() called but no widget focused", () => {
+        it("should do nothing when blurPerseus() called but no widget focused", () => {
             // Arrange
             const onFocusChange = jest.fn();
             const {renderer} = renderQuestion(
@@ -1055,7 +1055,7 @@ describe("renderer", () => {
             );
 
             // Act
-            act(() => renderer.blur());
+            act(() => renderer.blurPerseus());
             act(() => jest.runOnlyPendingTimers()); // There's a _.defer() in this code path
 
             // Assert

@@ -4,15 +4,14 @@
 // Interfact currently only implemented by
 // ServerItemRenderer
 export interface RendererInterface {
+    blurPerseus(): void;
+    focusPerseus(): boolean | null | undefined;
+
     // TODO(LEMS-3185): remove serializedState
     /**
      * @deprecated - do not use in new code.
      */
     getSerializedState(): any;
-    // TODO(LEMS-3185): remove serializedState
-    blur(): void;
-    focus(): boolean | null | undefined;
-    props: any;
 }
 
 // Base marker, with the props that are set by the editor.

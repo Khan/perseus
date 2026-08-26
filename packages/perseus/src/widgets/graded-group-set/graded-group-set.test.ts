@@ -222,7 +222,7 @@ describe("graded group set widget", () => {
 
         // Act
         // The first "focusable" widget receives focus...
-        act(() => renderer.focus());
+        act(() => renderer.focusPerseus());
 
         // Assert
         expect(screen.getByRole("textbox")).toHaveFocus();

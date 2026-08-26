@@ -54,7 +54,7 @@ describe("group widget", () => {
             });
 
             // Act
-            act(() => renderer.focus());
+            act(() => renderer.focusPerseus());
 
             // Assert
             expect(onFocusChange).toHaveBeenCalledWith(
@@ -81,7 +81,7 @@ describe("group widget", () => {
             onFocusChange.mockClear();
 
             // Act
-            act(() => renderer.blur());
+            act(() => renderer.blurPerseus());
 
             // Assert
             await waitFor(() =>

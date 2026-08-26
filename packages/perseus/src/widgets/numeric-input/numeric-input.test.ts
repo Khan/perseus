@@ -463,7 +463,7 @@ describe("Numeric input widget", () => {
         const {renderer} = renderQuestion(question1);
 
         // Act
-        const gotFocus = await act(() => renderer.focus());
+        const gotFocus = await act(() => renderer.focusPerseus());
 
         // Assert
         expect(gotFocus).toBe(true);
@@ -476,7 +476,7 @@ describe("Numeric input widget", () => {
         // Act
         const input = screen.getByRole("textbox", {hidden: true});
         act(() => input.focus());
-        act(() => renderer.blur());
+        act(() => renderer.blurPerseus());
 
         // Assert
         // eslint-disable-next-line testing-library/no-node-access

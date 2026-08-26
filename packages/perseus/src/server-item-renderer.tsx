@@ -262,11 +262,11 @@ export class ServerItemRenderer
         return questionAreaInputPaths;
     }
 
-    focus(): boolean | null | undefined {
-        return this.questionRenderer.focus();
+    focusPerseus(): boolean | null | undefined {
+        return this.questionRenderer.focusPerseus();
     }
 
-    blur(): void {
+    blurPerseus(): void {
         if (this._currentFocus) {
             this.blurPath(this._currentFocus);
         }

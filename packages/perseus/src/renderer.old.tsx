@@ -77,6 +77,7 @@ import type {
     PerseusWidget,
     PerseusWidgetOptions,
     PerseusWidgetsMap,
+    RendererInterface,
     ShowSolutions,
     UserInput,
     UserInputMap,
@@ -229,7 +230,7 @@ export function isDifferentQuestion(
 
 class Renderer
     extends React.Component<Props, State>
-    implements GetPromptJSONInterface
+    implements RendererInterface, GetPromptJSONInterface
 {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
@@ -1270,7 +1271,7 @@ class Renderer
         }
     };
 
-    focus: () => boolean | null | undefined = () => {
+    focusPerseus: () => boolean | null | undefined = () => {
         let id;
         let focusResult;
         for (let i = 0; i < this.widgetIds.length; i++) {
@@ -1406,7 +1407,7 @@ class Renderer
         }
     };
 
-    blur: () => void = () => {
+    blurPerseus: () => void = () => {
         if (this._currentFocus) {
             this.blurPath(this._currentFocus);
         }

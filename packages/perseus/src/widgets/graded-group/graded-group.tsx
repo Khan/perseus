@@ -185,7 +185,7 @@ export class GradedGroup
     }
 
     focus: () => boolean = () => {
-        return !!this.rendererRef.current?.focus();
+        return !!this.rendererRef.current?.focusPerseus();
     };
 
     focusInputPath: (arg1: any) => void = (path) => {

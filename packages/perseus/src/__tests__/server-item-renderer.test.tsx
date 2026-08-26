@@ -467,7 +467,7 @@ describe("server item renderer", () => {
             });
 
             // Act
-            const gotFocus = await act(() => renderer.focus());
+            const gotFocus = await act(() => renderer.focusPerseus());
 
             // We have some async processes that need to be resolved here
             jest.runAllTimers();
@@ -512,7 +512,7 @@ describe("server item renderer", () => {
             );
 
             // Act
-            const gotFocus = await act(() => renderer.focus());
+            const gotFocus = await act(() => renderer.focusPerseus());
 
             // We have some async processes that need to be resolved here
             jest.runAllTimers();
@@ -534,10 +534,10 @@ describe("server item renderer", () => {
             const {renderer} = renderQuestion(itemWithMockWidget, {
                 onFocusChange,
             });
-            act(() => renderer.focus());
+            act(() => renderer.focusPerseus());
 
             // Act
-            act(() => renderer.blur());
+            act(() => renderer.blurPerseus());
 
             // We have some async processes that need to be resolved here
             jest.runAllTimers();
@@ -580,10 +580,10 @@ describe("server item renderer", () => {
                 {onFocusChange, isMobile: true},
                 {keypadElement},
             );
-            act(() => renderer.focus());
+            act(() => renderer.focusPerseus());
 
             // Act
-            act(() => renderer.blur());
+            act(() => renderer.blurPerseus());
 
             // We have some async processes that need to be resolved here
             jest.runAllTimers();

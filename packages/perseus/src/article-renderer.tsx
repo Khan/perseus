@@ -153,7 +153,7 @@ class ArticleRenderer
         });
     };
 
-    blur: () => void = () => {
+    blurPerseus: () => void = () => {
         if (this._currentFocus) {
             const [sectionIndex, ...inputPath] = this._currentFocus;
             this.sectionRenderers[sectionIndex].blurPath(inputPath);
