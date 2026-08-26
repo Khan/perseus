@@ -421,6 +421,10 @@ const styles = StyleSheet.create({
     },
 });
 
+// By wrapping ServerItemRenderer in a
+// functional component with a handle, it allows
+// us to scope our external API to only the functionality
+// that we want consumers to be using
 export interface ServerItemRendererHandle
     extends RendererInterface,
         KeypadContextRendererInterface,
@@ -447,6 +451,7 @@ export default React.forwardRef<
 >(function ServerItemRendererWithRef(props, ref) {
     const innerRef = React.useRef<ServerItemRenderer>(null);
 
+    // external imperative API for ServerItemRenderer
     React.useImperativeHandle(
         ref,
         () => {
