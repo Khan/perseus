@@ -273,10 +273,6 @@ class ServerItemRenderer
         }
     }
 
-    getNumHints(): number {
-        return this.props.item.hints.length;
-    }
-
     getPromptJSON(): RendererPromptJSON {
         return this.questionRenderer.getPromptJSON();
     }
