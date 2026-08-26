@@ -489,7 +489,11 @@ const MathInputIcon = ({hovered, focused, active}) => {
             break;
     }
     const dynamicClass =
-        active || focused ? styles.iconActive : styles.iconInactive;
+        active || focused ?
+            styles.iconActive
+            : hovered
+                ? styles.iconHovered
+                : styles.iconInactive;
     return (
         <View style={[styles.iconContainer, dynamicClass]}>
             <svg
@@ -542,8 +546,7 @@ const mapButtonSets = (buttonSets?: LegacyButtonSets) => {
 };
 
 const inputFocused = {
-    borderColor: semanticColor.focus.inner,
-    outlineColor: semanticColor.focus.outer,
+    borderColor: semanticColor.core.border.instructive.default
 };
 
 const styles = StyleSheet.create({
@@ -553,15 +556,24 @@ const styles = StyleSheet.create({
         height: "100%",
         padding: sizing.size_060,
         borderRadius: border.radius.radius_040,
+        borderWidth: border.width.medium,
+        borderStyle: "solid",
     },
     iconInactive: {
-        border: `${border.width.medium} solid ${semanticColor.core.border.disabled.subtle}`,
-        outline: `${border.width.medium} solid ${semanticColor.core.border.disabled.subtle}`,
+        borderColor: semanticColor.core.border.disabled.subtle,
+        outlineColor: semanticColor.core.border.disabled.subtle,
         backgroundColor: semanticColor.core.background.neutral.subtle,
     },
     iconActive: {
-        border: `${border.width.medium} solid ${semanticColor.core.foreground.instructive.default}`,
+        // border: `${border.width.medium} solid ${semanticColor.core.foreground.instructive.default}`,
+        borderColor: semanticColor.focus.inner,
+        outlineColor: semanticColor.focus.outer,
         backgroundColor: semanticColor.core.background.neutral.default,
+    },
+    iconHovered: {
+        borderColor: semanticColor.focus.inner,
+        outlineColor: semanticColor.focus.outer,
+        backgroundColor: semanticColor.core.background.neutral.subtle,
     },
     outerWrapper: {
         display: "inline-block",
