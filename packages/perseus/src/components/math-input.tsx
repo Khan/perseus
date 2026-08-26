@@ -578,8 +578,7 @@ const styles = StyleSheet.create({
         backgroundColor: semanticColor.core.background.neutral.default,
     },
     iconHovered: {
-        borderColor: semanticColor.focus.outer,
-        boxShadow: `inset 0 0 0 ${border.width.medium} ${semanticColor.focus.inner}`,
+        borderColor: "transparent",
         backgroundColor: semanticColor.core.background.neutral.subtle,
     },
     outerWrapper: {
