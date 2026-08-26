@@ -547,7 +547,8 @@ const mapButtonSets = (buttonSets?: LegacyButtonSets) => {
 };
 
 const inputFocused = {
-    borderColor: semanticColor.core.border.instructive.default,
+    borderColor: semanticColor.focus.inner,
+    outlineColor: semanticColor.focus.outer,
 };
 
 const styles = StyleSheet.create({
@@ -560,6 +561,7 @@ const styles = StyleSheet.create({
     },
     iconInactive: {
         border: `${border.width.medium} solid ${semanticColor.core.border.disabled.subtle}`,
+        outline: `${border.width.medium} solid ${semanticColor.core.border.disabled.subtle}`,
         backgroundColor: semanticColor.core.background.neutral.subtle,
     },
     iconPressed: {
