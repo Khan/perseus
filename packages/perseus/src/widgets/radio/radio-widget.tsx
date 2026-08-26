@@ -17,7 +17,7 @@ import type {WidgetProps, ChoiceState, Widget} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
     PerseusRadioChoice,
-    PerseusRadioRubric,
+    PerseusRadioWidgetOptions,
     PerseusRadioUserInput,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
@@ -59,7 +59,11 @@ export interface RadioChoiceWithMetadata extends PerseusRadioChoice {
     correct?: boolean;
 }
 
-type Props = WidgetProps<RadioProps, PerseusRadioUserInput, PerseusRadioRubric>;
+type Props = WidgetProps<
+    RadioProps,
+    PerseusRadioUserInput,
+    PerseusRadioWidgetOptions
+>;
 
 /**
  * RadioWidget implements the Widget interface for multiple choice questions.

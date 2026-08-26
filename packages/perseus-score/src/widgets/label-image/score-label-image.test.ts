@@ -1,3 +1,5 @@
+import {generateLabelImageOptions} from "@khanacademy/perseus-core";
+
 import scoreLabelImage, {scoreLabelImageMarker} from "./score-label-image";
 
 describe("scoreLabelImageMarker", function () {
@@ -60,22 +62,7 @@ describe("scoreLabelImage", function () {
     it("should grade as invalid for undefined user input", function () {
         const userInput = undefined;
 
-        const rubric = {
-            markers: [
-                {
-                    label: "England",
-                    answers: [],
-                },
-                {
-                    label: "Germany",
-                    answers: [],
-                },
-                {
-                    label: "Italy",
-                    answers: [],
-                },
-            ],
-        };
+        const rubric = generateLabelImageOptions();
 
         const score = scoreLabelImage(userInput, rubric);
 
@@ -100,22 +87,28 @@ describe("scoreLabelImage", function () {
             ],
         };
 
-        const rubric = {
+        const rubric = generateLabelImageOptions({
             markers: [
                 {
                     label: "England",
                     answers: [],
+                    x: 0,
+                    y: 0,
                 },
                 {
                     label: "Germany",
                     answers: [],
+                    x: 0,
+                    y: 0,
                 },
                 {
                     label: "Italy",
                     answers: [],
+                    x: 0,
+                    y: 0,
                 },
             ],
-        };
+        });
 
         const score = scoreLabelImage(userInput, rubric);
 
@@ -140,22 +133,28 @@ describe("scoreLabelImage", function () {
             ],
         };
 
-        const rubric = {
+        const rubric = generateLabelImageOptions({
             markers: [
                 {
                     label: "England",
                     answers: ["Mini", "Morris Minor", "Reliant Robin"],
+                    x: 0,
+                    y: 0,
                 },
                 {
                     label: "Germany",
                     answers: ["BMW", "Volkswagen", "Porsche"],
+                    x: 0,
+                    y: 0,
                 },
                 {
                     label: "Italy",
                     answers: ["Lamborghini", "Fiat", "Ferrari"],
+                    x: 0,
+                    y: 0,
                 },
             ],
-        };
+        });
 
         const score = scoreLabelImage(userInput, rubric);
 
@@ -180,22 +179,28 @@ describe("scoreLabelImage", function () {
             ],
         };
 
-        const rubric = {
+        const rubric = generateLabelImageOptions({
             markers: [
                 {
                     label: "England",
                     answers: ["Mini", "Morris Minor", "Reliant Robin"],
+                    x: 0,
+                    y: 0,
                 },
                 {
                     label: "Germany",
                     answers: ["BMW", "Volkswagen", "Porsche"],
+                    x: 0,
+                    y: 0,
                 },
                 {
                     label: "Italy",
                     answers: ["Lamborghini", "Fiat", "Ferrari"],
+                    x: 0,
+                    y: 0,
                 },
             ],
-        };
+        });
 
         const score = scoreLabelImage(userInput, rubric);
 

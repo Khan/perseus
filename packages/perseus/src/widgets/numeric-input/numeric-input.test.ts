@@ -32,11 +32,7 @@ import {
 } from "./numeric-input.testdata";
 import {findCommonFractions, findPrecision} from "./utils";
 
-import type {
-    PerseusItem,
-    PerseusNumericInputRubric,
-    PerseusRenderer,
-} from "@khanacademy/perseus-core";
+import type {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("numeric-input widget", () => {
@@ -289,10 +285,9 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
             (widgetOptions && widgetOptions.answers) || [];
 
         const singleAnswer =
-            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.({
-                answers,
-                coefficient: false,
-            });
+            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.(
+                generateNumericInputOptions({answers, coefficient: false}),
+            );
         expect(singleAnswer).toBe("12.2");
     });
 
@@ -304,25 +299,23 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
             // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             (widgetOptions && widgetOptions.answers) || [];
         const singleAnswer =
-            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.({
-                answers,
-                coefficient: false,
-            });
+            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.(
+                generateNumericInputOptions({answers, coefficient: false}),
+            );
         expect(singleAnswer).toBe("1252");
     });
 
     it("can not get a correct answer from scoring data with no answer", () => {
         const answers: Array<never> = [];
         const singleAnswer =
-            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.({
-                answers,
-                coefficient: false,
-            });
+            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.(
+                generateNumericInputOptions({answers, coefficient: false}),
+            );
         expect(singleAnswer).toBeUndefined();
     });
 
     it("supports error bars", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [
                 {
                     status: "correct",
@@ -335,7 +328,7 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
                 },
             ],
             coefficient: true,
-        };
+        });
         const singleAnswer =
             NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.(rubric);
         expect(singleAnswer).toBe("1 ± 0.2");
