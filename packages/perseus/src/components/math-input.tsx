@@ -484,7 +484,7 @@ const MathInputIcon = ({hovered, focused, pressed, active}) => {
             fillColor = semanticColor.core.foreground.knockout.default;
             break;
         case hovered:
-            fillColor = semanticColor.core.background.instructive.default;
+            fillColor = semanticColor.core.foreground.instructive.strong;
             break;
         default:
             fillColor = semanticColor.core.foreground.neutral.default;
