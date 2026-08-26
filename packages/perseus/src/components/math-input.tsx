@@ -564,8 +564,7 @@ const styles = StyleSheet.create({
         borderStyle: "solid",
     },
     iconInactive: {
-        borderColor: semanticColor.core.border.disabled.subtle,
-        outlineColor: semanticColor.core.border.disabled.subtle,
+        borderColor: semanticColor.core.transparent,
         backgroundColor: semanticColor.core.background.neutral.subtle,
     },
     iconActive: {
@@ -574,11 +573,11 @@ const styles = StyleSheet.create({
         backgroundColor: semanticColor.core.background.neutral.default,
     },
     iconExpanded: {
-        borderColor: "transparent",
+        borderColor: semanticColor.core.transparent,
         backgroundColor: semanticColor.core.background.neutral.default,
     },
     iconHovered: {
-        borderColor: "transparent",
+        borderColor: semanticColor.core.transparent,
         backgroundColor: semanticColor.core.background.neutral.subtle,
     },
     outerWrapper: {
