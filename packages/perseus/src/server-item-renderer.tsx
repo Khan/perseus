@@ -65,7 +65,7 @@ type DefaultProps = Required<
  * @deprecated and likely a very broken API
  * [LEMS-3185] do not trust serializedState
  */
-export type SerializedState = {
+type SerializedState = {
     question: any;
     hints: any;
 };
