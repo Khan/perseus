@@ -77,6 +77,28 @@ const attachShims = (targetWindow) => {
 
     // JSDOM doesn't implement scrollTo
     targetWindow.scrollTo = () => {};
+
+    // JSDOM doesn't implement ResizeObserver. @dnd-kit/dom constructs one
+    // as soon as it is imported, so any test that renders a draggable or
+    // droppable component needs at least this inert stub.
+    if (!targetWindow.ResizeObserver) {
+        targetWindow.ResizeObserver = class ResizeObserver {
+            observe() {}
+            unobserve() {}
+            disconnect() {}
+        };
+    }
+
+    // JSDOM doesn't define PointerEvent, and @dnd-kit/dom's pointer sensor
+    // runs `event instanceof PointerEvent` on every pointerdown. This shim
+    // only needs to exist for that check; user-event's synthesized pointer
+    // events are MouseEvents, so the check stays false and no drag starts
+    // (which is what tests want — pointer drags aren't simulated in JSDOM).
+    if (!targetWindow.PointerEvent) {
+        targetWindow.PointerEvent = class PointerEvent extends (
+            targetWindow.MouseEvent
+        ) {};
+    }
 };
 
 module.exports = attachShims;

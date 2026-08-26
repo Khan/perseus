@@ -1,0 +1,43 @@
+/* The sizes are minimums, not fixed: an empty blank shows a 65x48 slot,
+   and a filled blank grows to hug the placed tile (per the FITB spec).
+   The tile keeps its natural one-line width this way — text must not
+   wrap and TeX cannot, so the blank stretches instead of overflowing. */
+.container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-width: 65px;
+    min-height: 48px;
+    padding: var(--wb-sizing-size_0);
+
+    border-radius: var(--wb-border-radius-radius_040);
+    border: var(--wb-border-width-thin) dashed
+        var(--wb-semanticColor-core-border-neutral-default);
+    background: var(--wb-semanticColor-core-background-base-subtle);
+}
+
+.container.super-sub {
+    min-width: 26px;
+    min-height: 28px;
+}
+
+/* A filled blank shows only its tile: no slot chrome, no minimum size
+   (the Figma Answer Blank component has only a Rest variant, and placed
+   tiles render bare in the reference frames). */
+.container.filled {
+    min-width: 0;
+    min-height: 0;
+    border: none;
+    background: transparent;
+}
+
+/* TODO(design): placeholder highlight until design provides drop-target
+   frames for the Drag-and-Drop family. The explicit border-width restores
+   a visible edge when the target is a filled blank (swap affordance). */
+.container.drop-target {
+    border-width: var(--wb-border-width-thin);
+    border-style: solid;
+    border-color: var(--wb-semanticColor-core-border-instructive-default);
+    background: var(--wb-semanticColor-core-background-instructive-subtle);
+}

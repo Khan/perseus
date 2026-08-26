@@ -89,6 +89,43 @@ export const Disabled: Story = {
     },
 };
 
+/** A scored bank: correct tiles next to disabled (unused) tiles. */
+export const ScoredComposition: Story = {
+    render: () => (
+        <div style={{maxInlineSize: 480}}>
+            <ChoiceBank
+                label="Choices"
+                answerTiles={[
+                    generateAnswerTileProps({
+                        tileId: "tile-1",
+                        content: "2Mg",
+                        label: "2Mg",
+                        showCorrectness: "correct",
+                    }),
+                    generateAnswerTileProps({
+                        tileId: "tile-2",
+                        content: "$O_2$",
+                        label: "O 2",
+                        showCorrectness: "correct",
+                    }),
+                    generateAnswerTileProps({
+                        tileId: "tile-3",
+                        content: "acoustic",
+                        label: "acoustic",
+                        disabled: true,
+                    }),
+                    generateAnswerTileProps({
+                        tileId: "tile-4",
+                        content: "steel",
+                        label: "steel",
+                        disabled: true,
+                    }),
+                ]}
+            />
+        </div>
+    ),
+};
+
 /** A placed tile in a one-blank exercise: the menu only offers Clear. */
 export const OnlyClearAction: Story = {
     args: {

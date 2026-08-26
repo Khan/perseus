@@ -94,6 +94,9 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
 
     const {ref: dragRef} = useDraggable({
         id: tileId,
+        // Scored and unused tiles lose their drag function (per the
+        // Drag-and-Drop Overview spec).
+        disabled: disabled === true || showCorrectness != null,
     });
 
     // Whitespace-only content would render an invisible, unlabeled tile.
@@ -103,8 +106,11 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
 
     // The tile starts with the actions menu or, when scored, an icon.
     // The two never show together: a scored tile has no menu.
+    // A semantics-free root: the tile renders inside a ChoiceBank list
+    // item, inside a blank, or standalone, so any landmark or list
+    // semantics belong to those containers, not the tile.
     return (
-        <li
+        <div
             className={classNames(
                 styles.tile,
                 showCorrectness != null && styles[showCorrectness],
@@ -147,7 +153,7 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
                     <Renderer content={content} strings={strings} />
                 )}
             </div>
-        </li>
+        </div>
     );
 }
 

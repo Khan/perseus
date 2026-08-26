@@ -1,3 +1,4 @@
+import {DragDropProvider, useDragDropManager} from "@dnd-kit/react";
 import {act, render, screen} from "@testing-library/react";
 import {userEvent} from "@testing-library/user-event";
 import * as React from "react";
@@ -12,12 +13,30 @@ import {
 import {AnswerTile} from "./answer-tile";
 import {generateAnswerTileProps} from "./answer-tile.testdata";
 
+import type {DragDropManager} from "@dnd-kit/react";
 import type {UserEvent} from "@testing-library/user-event";
+
+// Renders tiles inside their own drag context and captures the manager,
+// so tests can assert on the registered draggables' state.
+let capturedManager: DragDropManager | null = null;
+function CaptureManager() {
+    capturedManager = useDragDropManager();
+    return null;
+}
+function DndProbeWrapper({children}: {children: React.ReactNode}) {
+    return (
+        <DragDropProvider>
+            <CaptureManager />
+            {children}
+        </DragDropProvider>
+    );
+}
 
 describe("AnswerTile", () => {
     let user: UserEvent;
 
     beforeEach(() => {
+        capturedManager = null;
         user = userEvent.setup({advanceTimers: jest.advanceTimersByTime});
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
@@ -118,6 +137,42 @@ describe("AnswerTile", () => {
 
         // Assert
         expect(onClear).toHaveBeenCalled();
+    });
+
+    // The drag gating is asserted on the dnd-kit registry (the state the
+    // sensors consult) rather than on DOM attributes, whose application
+    // is scheduled on animation frames that JSDOM never delivers.
+    it("registers the tile as draggable", () => {
+        // Arrange, Act
+        render(<AnswerTile {...generateAnswerTileProps()} />, {
+            wrapper: DndProbeWrapper,
+        });
+
+        const [draggable] = capturedManager!.registry.draggables.value;
+        expect(draggable.disabled).toBe(false);
+    });
+
+    it("disables dragging for a scored tile", () => {
+        // Arrange, Act
+        render(
+            <AnswerTile
+                {...generateAnswerTileProps({showCorrectness: "correct"})}
+            />,
+            {wrapper: DndProbeWrapper},
+        );
+
+        const [draggable] = capturedManager!.registry.draggables.value;
+        expect(draggable.disabled).toBe(true);
+    });
+
+    it("disables dragging for a disabled tile", () => {
+        // Arrange, Act
+        render(<AnswerTile {...generateAnswerTileProps({disabled: true})} />, {
+            wrapper: DndProbeWrapper,
+        });
+
+        const [draggable] = capturedManager!.registry.draggables.value;
+        expect(draggable.disabled).toBe(true);
     });
 
     // menuRef is optional too, and the widget's after-move focus return
