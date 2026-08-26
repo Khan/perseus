@@ -644,7 +644,7 @@ const KhanAnswerTypes = {
                     let interpretedGuess = false;
                     _.each(forms, function (form) {
                         const anyAreNaN = _.any(form(guess), function (t) {
-                            return t.value != null && !_.isNaN(t.value);
+                            return t.value != null && !Number.isNaN(t.value);
                         });
 
                         if (anyAreNaN) {
