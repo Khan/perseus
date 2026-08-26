@@ -6,7 +6,7 @@ import {
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {within, render, screen, act, waitFor} from "@testing-library/react";
+import {render, screen, act, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -120,36 +120,6 @@ describe("server item renderer", () => {
             "mock-widget 1": {currentValue: "1"},
             "mock-widget 2": {currentValue: "2"},
         });
-    });
-
-    it("should return the DOM node for the requested focus path", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(itemWithMockWidget);
-
-        // Act
-        const node = renderer.getDOMNodeForPath(["mock-widget 1"]);
-
-        // Assert
-        // @ts-expect-error - TS2345 - Argument of type 'Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement'.
-        expect(await within(node).findAllByRole("textbox")).toHaveLength(1);
-    });
-
-    it("should return the number of hints available", () => {
-        // Arrange
-        const {renderer} = renderQuestion({
-            ...itemWithMockWidget,
-            hints: [
-                {content: "Hint #1", images: {}, widgets: {}},
-                {content: "Hint #2", images: {}, widgets: {}},
-                {content: "Hint #3", images: {}, widgets: {}},
-            ],
-        });
-
-        // Act
-        const numHints = renderer.getNumHints();
-
-        // Assert
-        expect(numHints).toBe(3);
     });
 
     it("should return all widget ids", () => {
@@ -596,28 +566,6 @@ describe("server item renderer", () => {
                 ["numeric-input 1"],
                 0,
                 null,
-            );
-        });
-
-        it("should focus the widget requested in focusPath()", () => {
-            // Arrange
-            const onFocusChange = jest.fn();
-            const {renderer} = renderQuestion(itemWithMockWidget, {
-                onFocusChange,
-            });
-
-            // Act
-            act(() => renderer.focusPath(["mock-widget 1"]));
-
-            // We have some async processes that need to be resolved here
-            jest.runAllTimers();
-
-            // Assert
-            expect(onFocusChange).toHaveBeenCalledWith(
-                ["mock-widget 1"],
-                null,
-                0,
-                expect.any(Object),
             );
         });
     });

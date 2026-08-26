@@ -430,13 +430,18 @@ export interface ServerItemRendererHandle
         KeypadContextRendererInterface,
         GetPromptJSONInterface {
     getUserInput(): UserInputMap;
-    getNumHints(): number;
     getWidgetIds(): ReadonlyArray<string>;
-    getDOMNodeForPath(path: FocusPath): Element | Text | null | undefined;
-    focusPath(path: FocusPath): void;
-    blurPath(path: FocusPath): void;
-    getInputPaths(): ReadonlyArray<FocusPath>;
+
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState
+     */
     getSerializedState(): SerializedState;
+
+    /**
+     * @deprecated do not reach into inner
+     * class component properties
+     */
     readonly questionRenderer: Renderer;
 }
 
@@ -461,11 +466,6 @@ export default React.forwardRef<
             return {
                 focus: () => instance().focus(),
                 blur: () => instance().blur(),
-                focusPath: (path) => instance().focusPath(path),
-                blurPath: (path) => instance().blurPath(path),
-                getDOMNodeForPath: (path) => instance().getDOMNodeForPath(path),
-                getInputPaths: () => instance().getInputPaths(),
-                getNumHints: () => instance().getNumHints(),
                 getPromptJSON: () => instance().getPromptJSON(),
                 getUserInput: () => instance().getUserInput(),
                 getWidgetIds: () => instance().getWidgetIds(),
