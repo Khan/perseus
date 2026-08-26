@@ -396,7 +396,7 @@ class Editor extends React.Component<Props, State> {
 
                 return {file: file, sentinel: sentinel};
             })
-            .reject(_.isNull)
+            .reject((fileAndSentinel) => fileAndSentinel === null)
             .tap(() => {
                 // See componentDidUpdate() for how this flag is used
                 this.lastUserValue = origContent;
