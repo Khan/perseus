@@ -482,7 +482,7 @@ const MathInputIcon = ({hovered, focused, active}) => {
                 semanticColor.action.primary.progressive.default.foreground;
             break;
         case hovered:
-            fillColor = semanticColor.core.foreground.instructive.default;
+            fillColor = semanticColor.core.foreground.instructive.strong;
             break;
         default:
             fillColor = semanticColor.core.foreground.neutral.strong;
