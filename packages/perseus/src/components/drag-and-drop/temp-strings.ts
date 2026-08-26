@@ -16,4 +16,13 @@ export const tempDndStrings = {
     clearTarget: ({target}: {target: string}) => `Clear from ${target}`,
     actionsMenu: "Actions menu",
     menuRemaining: ({num}: {num: number}) => `${num} remaining.`,
+    choices: "Choices",
+    blankLabel: ({num}: {num: number}) => `Blank ${num}`,
+    movedToTarget: ({tile, target}: {tile: string; target: string}) =>
+        `${tile} moved to ${target}.`,
+    returnedToChoices: ({tile}: {tile: string}) =>
+        `${tile} returned to Choices.`,
+    // The FITB spec's label is pending finalization ("read aloud" is the
+    // working copy from the Confluence page).
+    readAloud: "Read aloud",
 };
