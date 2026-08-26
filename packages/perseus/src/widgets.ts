@@ -44,7 +44,7 @@ export const replaceWidget = (type: string, replacementType: string) => {
         throw new PerseusError(errorMsg, Errors.Internal);
     }
 
-    registerWidget(type, substituteWidget);
+    widgets.replace(type, substituteWidget);
 };
 
 export const replaceDeprecatedWidgets = () => {
@@ -90,7 +90,7 @@ export const replaceEditor = (type: string, replacementType: string) => {
         return;
     }
 
-    editors.set(type, substituteEditor);
+    editors.replace(type, substituteEditor);
 };
 
 export const replaceDeprecatedEditors = () => {
@@ -132,17 +132,18 @@ export const getEditor = (type: string): Editor | null => {
 };
 
 export const getPublicWidgets = (): Record<string, WidgetExports> => {
-    return widgets.entries().reduce((acc, [key, value]) => {
+    const publicWidgets: Record<string, WidgetExports> = {};
+    for (const [key, value] of widgets.entries()) {
         /**
          * Even though we don't want content creators adding new "hidden" widgets,
          * we still have to maintain editors for hidden widgets in order to support
          * old content. So this lets us use hidden widgets in Storybook.
          */
         if (process.env.STORYBOOK || !value.hidden) {
-            acc[key] = value;
+            publicWidgets[key] = value;
         }
-        return acc;
-    }, {});
+    }
+    return publicWidgets;
 };
 
 export const getAllWidgetTypes = (): ReadonlyArray<string> => {
