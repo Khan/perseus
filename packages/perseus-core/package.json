@@ -7,7 +7,8 @@
     "publishConfig": {
         "access": "public",
         "exports": {
-            ".": "./dist/index.js"
+            ".": "./dist/index.js",
+            "./init": "./dist/init.js"
         }
     },
     "repository": {
@@ -20,7 +21,8 @@
     },
     "type": "module",
     "exports": {
-        ".": "./src/index.ts"
+        ".": "./src/index.ts",
+        "./init": "./src/init.ts"
     },
     "files": [
         "dist"

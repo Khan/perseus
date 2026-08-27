@@ -1,3 +1,4 @@
+import {initPerseusCore} from "./init";
 import {traverse} from "./traversal";
 import {generateBlankWidget} from "./utils/generators/blank-widget-generator";
 import {
@@ -5,7 +6,6 @@ import {
     generateFillInTheBlankOptions,
     generateFillInTheBlankWidget,
 } from "./utils/generators/fill-in-the-blank-widget-generator";
-import {registerCoreWidgets} from "./widgets/core-widget-registry";
 
 import type {PerseusRenderer} from "./data-schema";
 
@@ -165,7 +165,7 @@ const assertNonMutative = () => {
 
 describe("Traversal", () => {
     beforeAll(() => {
-        registerCoreWidgets();
+        initPerseusCore();
     });
 
     it("should call a root level content field", () => {

@@ -1,39 +1,8 @@
+/** Provides registration and lookup for widget logic. */
+// Widget-logic imports are prohibited here by the dependency rule.
 import {Errors} from "../error/errors";
 import {PerseusError} from "../error/perseus-error";
 import Registry from "../utils/registry";
-
-import blankWidgetLogic from "./blank";
-import categorizerWidgetLogic from "./categorizer";
-import csProgramWidgetLogic from "./cs-program";
-import definitionWidgetLogic from "./definition";
-import deprecatedStandinWidgetLogic from "./deprecated-standin";
-import dropdownWidgetLogic from "./dropdown";
-import explanationWidgetLogic from "./explanation";
-import expressionWidgetLogic from "./expression";
-import fillInTheBlankWidgetLogic from "./fill-in-the-blank";
-import gradedGroupWidgetLogic from "./graded-group";
-import gradedGroupSetWidgetLogic from "./graded-group-set";
-import grapherWidgetLogic from "./grapher";
-import groupWidgetLogic from "./group";
-import iframeWidgetLogic from "./iframe";
-import imageWidgetLogic from "./image";
-import inputNumberWidgetLogic from "./input-number";
-import interactionWidgetLogic from "./interaction";
-import interactiveGraphWidgetLogic from "./interactive-graph";
-import labelImageWidgetLogic from "./label-image";
-import matcherWidgetLogic from "./matcher";
-import matrixWidgetLogic from "./matrix";
-import measurerWidgetLogic from "./measurer";
-import numberLineWidgetLogic from "./number-line";
-import numericInputWidgetLogic from "./numeric-input";
-import ordererWidgetLogic from "./orderer";
-import phetSimulationWidgetLogic from "./phet-simulation";
-import plotterWidgetLogic from "./plotter";
-import pythonProgramWidgetLogic from "./python-program";
-import radioWidgetLogic from "./radio";
-import sorterWidgetLogic from "./sorter";
-import tableWidgetLogic from "./table";
-import videoWidgetLogic from "./video";
 
 import type {
     PublicWidgetOptionsFunction,
@@ -45,8 +14,25 @@ import type {
     Alignment,
 } from "../data-schema";
 
+/**
+ * A widget logic of any concrete widget's shape, as the registry stores them.
+ */
+export type AnyWidgetLogic = WidgetLogic<never, any>;
+
 const widgets = new Registry<WidgetLogic<any, any>>("Core widget registry");
 
+/** Register one widget logic under its own `name`. */
+export function registerLogic(logic: AnyWidgetLogic) {
+    // eslint-disable-next-line no-restricted-syntax
+    widgets.set(logic.name, logic as WidgetLogic<any, any>);
+}
+
+/** Register several widget logics, each under its own `name`. */
+export function registerLogics(logics: ReadonlyArray<AnyWidgetLogic>) {
+    logics.forEach(registerLogic);
+}
+
+/** @deprecated Use `registerLogic`, which reads the type from `logic.name`. */
 export function registerWidget(type: string, logic: WidgetLogic<any, any>) {
     widgets.set(type, logic);
 }
@@ -183,52 +169,3 @@ export const getAlignmentClassName = (
             return "";
     }
 };
-
-/**
- * We use a function here rather than registering widgets
- * at the top-level of the file to avoid circular dependencies.
- * Logic that needs core widget functionality
- * (like a prod or in tests)
- * need to call this function before trying to use that logic.
- */
-export function registerCoreWidgets() {
-    const widgets = [
-        blankWidgetLogic,
-        categorizerWidgetLogic,
-        csProgramWidgetLogic,
-        definitionWidgetLogic,
-        deprecatedStandinWidgetLogic,
-        dropdownWidgetLogic,
-        explanationWidgetLogic,
-        expressionWidgetLogic,
-        fillInTheBlankWidgetLogic,
-        gradedGroupWidgetLogic,
-        gradedGroupSetWidgetLogic,
-        grapherWidgetLogic,
-        groupWidgetLogic,
-        iframeWidgetLogic,
-        imageWidgetLogic,
-        inputNumberWidgetLogic,
-        interactionWidgetLogic,
-        interactiveGraphWidgetLogic,
-        labelImageWidgetLogic,
-        matcherWidgetLogic,
-        matrixWidgetLogic,
-        measurerWidgetLogic,
-        numberLineWidgetLogic,
-        numericInputWidgetLogic,
-        ordererWidgetLogic,
-        phetSimulationWidgetLogic,
-        plotterWidgetLogic,
-        pythonProgramWidgetLogic,
-        radioWidgetLogic,
-        sorterWidgetLogic,
-        tableWidgetLogic,
-        videoWidgetLogic,
-    ];
-
-    widgets.forEach((w) => {
-        // eslint-disable-next-line no-restricted-syntax
-        registerWidget(w.name, w as WidgetLogic<any, any>);
-    });
-}

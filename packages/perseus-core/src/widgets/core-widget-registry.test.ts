@@ -1,5 +1,11 @@
 import * as CoreWidgetRegistry from "./core-widget-registry";
-import {registerWidget, traverseChildWidgets} from "./core-widget-registry";
+import {
+    getCurrentVersion,
+    isWidgetRegistered,
+    registerLogics,
+    registerWidget,
+    traverseChildWidgets,
+} from "./core-widget-registry";
 
 import type {PerseusWidget} from "../data-schema";
 
@@ -25,6 +31,21 @@ describe("core-widget-registry", () => {
             );
         },
     );
+
+    describe("registerLogics", () => {
+        it("registers each logic under its own name", () => {
+            registerLogics([
+                {name: "_first_", version: {major: 3, minor: 0}},
+                {name: "_second_", version: {major: 7, minor: 0}},
+            ]);
+
+            expect(isWidgetRegistered("_first_")).toBe(true);
+            expect(getCurrentVersion("_second_")).toEqual({
+                major: 7,
+                minor: 0,
+            });
+        });
+    });
 
     describe("traverseChildWidgets", () => {
         const realTraverseChildWidgets = (options, traverseRenderer) => {
