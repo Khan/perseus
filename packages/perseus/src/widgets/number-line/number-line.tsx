@@ -520,6 +520,9 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                         return [x, coord[1]];
                     },
                 ]}
+                // Don't show a shadow on open points; it just makes the border
+                // look blurry.
+                shadow={!!props.apiOptions.isMobile && !isOpen}
                 normalStyle={normalStyle}
                 highlightStyle={highlightStyle}
                 onMove={(coord) => {
