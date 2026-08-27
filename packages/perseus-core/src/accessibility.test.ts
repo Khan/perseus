@@ -1,4 +1,5 @@
 import {isItemAccessible} from "./accessibility";
+import {initPerseusCore} from "./init";
 import {
     generateExplanationOptions,
     generateExplanationWidget,
@@ -21,13 +22,12 @@ import {
     generateTestPerseusItem,
     generateTestPerseusRenderer,
 } from "./utils/test-utils";
-import {registerCoreWidgets} from "./widgets/core-widget-registry";
 
 import type {PerseusItem} from "./data-schema";
 
 describe("isItemAccessible", () => {
     beforeEach(() => {
-        registerCoreWidgets();
+        initPerseusCore();
     });
 
     describe("widgets", () => {

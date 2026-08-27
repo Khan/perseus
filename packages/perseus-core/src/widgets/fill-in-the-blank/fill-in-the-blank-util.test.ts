@@ -1,9 +1,9 @@
+import {initPerseusCore} from "../../init";
 import {generateBlankWidget} from "../../utils/generators/blank-widget-generator";
 import {
     generateAnswerTile,
     generateFillInTheBlankOptions,
 } from "../../utils/generators/fill-in-the-blank-widget-generator";
-import {registerCoreWidgets} from "../core-widget-registry";
 
 import {getFillInTheBlankPublicWidgetOptions} from "./fill-in-the-blank-util";
 
@@ -12,7 +12,7 @@ import type {PerseusFillInTheBlankWidgetOptions} from "../../data-schema";
 // The split walks the nested widgets through the core registry, so the blank
 // widget's own logic has to be registered for its options to be stripped.
 beforeAll(() => {
-    registerCoreWidgets();
+    initPerseusCore();
 });
 
 function optionsWithTwoBlanks(): PerseusFillInTheBlankWidgetOptions {

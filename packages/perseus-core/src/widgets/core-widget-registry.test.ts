@@ -1,6 +1,9 @@
 import * as CoreWidgetRegistry from "./core-widget-registry";
 import {
+    getCurrentVersion,
     isInlineWidget,
+    isWidgetRegistered,
+    registerLogics,
     registerWidget,
     traverseChildWidgets,
 } from "./core-widget-registry";
@@ -30,6 +33,29 @@ describe("core-widget-registry", () => {
             );
         },
     );
+
+    describe("registerLogics", () => {
+        it("registers each logic under its own name", () => {
+            registerLogics([
+                {
+                    name: "_first_",
+                    version: {major: 3, minor: 0},
+                    defaultWidgetOptions: {},
+                },
+                {
+                    name: "_second_",
+                    version: {major: 7, minor: 0},
+                    defaultWidgetOptions: {},
+                },
+            ]);
+
+            expect(isWidgetRegistered("_first_")).toBe(true);
+            expect(getCurrentVersion("_second_")).toEqual({
+                major: 7,
+                minor: 0,
+            });
+        });
+    });
 
     describe("traverseChildWidgets", () => {
         const realTraverseChildWidgets = (options, traverseRenderer) => {

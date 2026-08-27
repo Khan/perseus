@@ -19,6 +19,8 @@
         "@khanacademy/eslint-plugin": "^3.1.2",
         "@khanacademy/eslint-plugin-wonder-blocks": "1.0.0",
         "@khanacademy/mathjax-renderer": "catalog:devDeps",
+        "@khanacademy/perseus": "workspace:*",
+        "@khanacademy/perseus-core": "workspace:*",
         "@khanacademy/wonder-blocks-accordion": "catalog:devDeps",
         "@khanacademy/wonder-blocks-config": "catalog:devDeps",
         "@khanacademy/wonder-blocks-core": "catalog:devDeps",

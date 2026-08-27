@@ -452,6 +452,6 @@ export {getPerseusAIData} from "./utils/extract-perseus-ai-data";
 /** @hidden */
 export {excludeDenylistKeys} from "./utils/widget-prop-denylist";
 
-import {registerCoreWidgets} from "./widgets/core-widget-registry";
+import {initPerseusCore} from "./init";
 
-registerCoreWidgets();
+initPerseusCore();

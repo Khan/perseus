@@ -3,11 +3,9 @@ import {join} from "path";
 
 import _ from "underscore";
 
+import {initPerseusCore} from "../../init";
 import splitPerseusItem from "../../utils/split-perseus-item";
-import {
-    getCurrentVersion,
-    registerCoreWidgets,
-} from "../../widgets/core-widget-registry";
+import {getCurrentVersion} from "../../widgets/core-widget-registry";
 import {anySuccess} from "../general-purpose-parsers/test-helpers";
 import {
     parseAndMigratePerseusArticle,
@@ -49,7 +47,7 @@ const rendererDataFiles = fs.readdirSync(rendererDataDir);
 
 describe("parseAndMigratePerseusItem", () => {
     beforeAll(() => {
-        registerCoreWidgets();
+        initPerseusCore();
     });
 
     describe.each(itemDataFiles)("given %s", (filename) => {
@@ -239,7 +237,7 @@ describe("parseAndMigratePerseusArticle", () => {
 
 describe("parseAndMigrateUserInputMap", () => {
     beforeAll(() => {
-        registerCoreWidgets();
+        initPerseusCore();
     });
 
     describe.each(userInputDataFiles)("given the data from %s", (filename) => {
@@ -287,7 +285,7 @@ describe("parseAndMigrateUserInputMap", () => {
 
 describe("parseAndMigratePerseusRenderer", () => {
     beforeAll(() => {
-        registerCoreWidgets();
+        initPerseusCore();
     });
 
     describe.each(rendererDataFiles)("given %s", (filename) => {
