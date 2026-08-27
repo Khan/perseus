@@ -437,6 +437,84 @@ describe("server item renderer", () => {
         expect(Object.keys(json.widgets)).toEqual(widgetKeys);
     });
 
+    describe("imperative handle", () => {
+        // Callers commonly attach an inline arrow function as the ref, which
+        // React detaches and reattaches on every commit because its identity
+        // changes each render. React also folds `ref` into the dependency list
+        // it uses for useImperativeHandle, so the handle has to be built once
+        // and reused rather than recreated whenever the ref changes.
+        it("returns the same handle after a re-render with a new ref callback", () => {
+            // Arrange
+            const handles: Array<ServerItemRendererHandle | null> = [];
+            const renderWithRef = (
+                refCallback: (handle: ServerItemRendererHandle | null) => void,
+            ) => (
+                <RenderStateRoot>
+                    <ServerItemRenderer
+                        ref={refCallback}
+                        item={itemWithMockWidget}
+                        problemNum={0}
+                        reviewMode={false}
+                        dependencies={testDependenciesV2}
+                    />
+                </RenderStateRoot>
+            );
+            const {rerender} = render(
+                renderWithRef((node) => handles.push(node)),
+            );
+
+            // Act
+            rerender(renderWithRef((node) => handles.push(node)));
+
+            // Assert
+            // Compared as a boolean rather than with toBe(): a failure message
+            // would serialize the handle, and its questionRenderer getter drags
+            // in the whole renderer instance.
+            const attached = handles.filter(Boolean);
+            expect(attached.length).toBe(2);
+            expect(attached[0] === attached[1]).toBe(true);
+        });
+
+        it("does not re-render forever when a caller stores the handle in state", () => {
+            // Arrange
+            // A new handle per render would make setRenderer see a new value
+            // every time, re-rendering the caller forever. The cap keeps a
+            // regression failing this assertion rather than hanging the suite.
+            const renderLimit = 20;
+            let renderCount = 0;
+
+            function Harness() {
+                const [, setRenderer] =
+                    React.useState<ServerItemRendererHandle | null>(null);
+                renderCount++;
+
+                return (
+                    <ServerItemRenderer
+                        ref={(node) => {
+                            if (renderCount < renderLimit) {
+                                setRenderer(node);
+                            }
+                        }}
+                        item={itemWithMockWidget}
+                        problemNum={0}
+                        reviewMode={false}
+                        dependencies={testDependenciesV2}
+                    />
+                );
+            }
+
+            // Act
+            render(
+                <RenderStateRoot>
+                    <Harness />
+                </RenderStateRoot>,
+            );
+
+            // Assert
+            expect(renderCount).toBeLessThan(renderLimit);
+        });
+    });
+
     describe("focus management", () => {
         it("calls onFocusChange when focusing the renderer", async () => {
             // Arranged

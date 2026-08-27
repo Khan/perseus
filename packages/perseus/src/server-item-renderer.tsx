@@ -451,33 +451,42 @@ export default React.forwardRef<
 >(function ServerItemRendererWithRef(props, ref) {
     const innerRef = React.useRef<ServerItemRenderer>(null);
 
-    // external imperative API for ServerItemRenderer
-    React.useImperativeHandle(
-        ref,
-        () => {
-            const instance = (): ServerItemRenderer => {
-                const current = innerRef.current;
-                invariant(
-                    current,
-                    "ServerItemRenderer: ref was used before mount or after unmount",
-                );
-                return current;
-            };
+    // external imperative API for ServerItemRenderer.
+    //
+    // The handle is built exactly once and stored in a ref so that its identity
+    // never changes for the lifetime of this component. That stability matters:
+    // React appends `ref` to the dependency list it uses internally for
+    // `useImperativeHandle`, so a caller passing an inline callback ref (whose
+    // identity changes every render) makes the create function re-run on every
+    // render. If that produced a new handle each time, callers that store the
+    // handle in state would loop forever ("Maximum update depth exceeded").
+    // Every method reads through `innerRef`, so nothing here needs to change
+    // across renders.
+    const handleRef = React.useRef<ServerItemRendererHandle | null>(null);
+    if (handleRef.current === null) {
+        const instance = (): ServerItemRenderer => {
+            const current = innerRef.current;
+            invariant(
+                current,
+                "ServerItemRenderer: ref was used before mount or after unmount",
+            );
+            return current;
+        };
 
-            return {
-                focus: () => instance().focus(),
-                blur: () => instance().blur(),
-                getPromptJSON: () => instance().getPromptJSON(),
-                getUserInput: () => instance().getUserInput(),
-                getWidgetIds: () => instance().getWidgetIds(),
-                getSerializedState: () => instance().getSerializedState(),
-                get questionRenderer() {
-                    return instance().questionRenderer;
-                },
-            };
-        },
-        [],
-    );
+        handleRef.current = {
+            focus: () => instance().focus(),
+            blur: () => instance().blur(),
+            getPromptJSON: () => instance().getPromptJSON(),
+            getUserInput: () => instance().getUserInput(),
+            getWidgetIds: () => instance().getWidgetIds(),
+            getSerializedState: () => instance().getSerializedState(),
+            get questionRenderer() {
+                return instance().questionRenderer;
+            },
+        };
+    }
+
+    React.useImperativeHandle(ref, () => handleRef.current!, []);
 
     return (
         <LoadingContext.Consumer>
