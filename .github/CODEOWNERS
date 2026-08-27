@@ -4,9 +4,6 @@
 # AI Utils are owned by Tutor Platform
 widget-ai-utils/* @Khan/tut
 
-# For image widget project
-**/widgets/image/** @nishasy @ivyolamit @catandthemachines
-
 # For the Color Sync renderer updates
 packages/perseus/src/perseus-markdown.new.tsx @nishasy @markfitzgerald @myranae
 packages/perseus/src/perseus-markdown.tsx @nishasy @markfitzgerald @myranae
