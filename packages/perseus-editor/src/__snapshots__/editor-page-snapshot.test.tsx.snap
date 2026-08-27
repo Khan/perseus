@@ -15552,10 +15552,10 @@ table: [[☃ table 1]]
                     class="perseus-widget-editor-content enter"
                   >
                     <div
-                      class="default_7zhre1-o_O-editor_qvunv6"
+                      class="default_7zhre1 editor"
                     >
                       <div
-                        class="default_7zhre1-o_O-section_1d3v9jw"
+                        class="default_7zhre1 section"
                       >
                         <div>
                           Correct answer
@@ -15566,17 +15566,17 @@ table: [[☃ table 1]]
                           />
                         </div>
                         <ol
-                          class="default_7zhre1-o_O-cards_b4wskx"
+                          class="default_7zhre1 cards"
                         >
                           <li
-                            class="default_7zhre1-o_O-card_tlw8lk"
+                            class="default_7zhre1 card"
                           >
                             <input
                               aria-disabled="false"
                               aria-invalid="false"
                               aria-label="Card 1"
                               aria-required="false"
-                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-cardInput_t0tx82"
+                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_t0tx82"
                               id=":r64:"
                               type="text"
                               value="1"
@@ -15616,14 +15616,14 @@ table: [[☃ table 1]]
                             </button>
                           </li>
                           <li
-                            class="default_7zhre1-o_O-card_tlw8lk"
+                            class="default_7zhre1 card"
                           >
                             <input
                               aria-disabled="false"
                               aria-invalid="false"
                               aria-label="Card 2"
                               aria-required="false"
-                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-cardInput_t0tx82"
+                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_t0tx82"
                               id=":r65:"
                               type="text"
                               value="2"
@@ -15663,14 +15663,14 @@ table: [[☃ table 1]]
                             </button>
                           </li>
                           <li
-                            class="default_7zhre1-o_O-card_tlw8lk"
+                            class="default_7zhre1 card"
                           >
                             <input
                               aria-disabled="false"
                               aria-invalid="false"
                               aria-label="Card 3"
                               aria-required="false"
-                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-cardInput_t0tx82"
+                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_t0tx82"
                               id=":r66:"
                               type="text"
                               value="3"
@@ -15710,14 +15710,14 @@ table: [[☃ table 1]]
                             </button>
                           </li>
                           <li
-                            class="default_7zhre1-o_O-card_tlw8lk"
+                            class="default_7zhre1 card"
                           >
                             <input
                               aria-disabled="false"
                               aria-invalid="false"
                               aria-label="Card 4"
                               aria-required="false"
-                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-cardInput_t0tx82"
+                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_t0tx82"
                               id=":r67:"
                               type="text"
                               value="4"
@@ -15757,14 +15757,14 @@ table: [[☃ table 1]]
                             </button>
                           </li>
                           <li
-                            class="default_7zhre1-o_O-card_tlw8lk"
+                            class="default_7zhre1 card"
                           >
                             <input
                               aria-disabled="false"
                               aria-invalid="false"
                               aria-label="Card 5"
                               aria-required="false"
-                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-cardInput_t0tx82"
+                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_t0tx82"
                               id=":r68:"
                               type="text"
                               value="5"
@@ -15806,7 +15806,7 @@ table: [[☃ table 1]]
                         </ol>
                         <button
                           aria-disabled="false"
-                          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1xfocwy-o_O-addCard_1bfjkya"
+                          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1xfocwy add-card"
                           data-kind="tertiary"
                           type="button"
                         >

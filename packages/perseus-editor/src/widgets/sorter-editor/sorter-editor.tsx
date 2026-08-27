@@ -19,66 +19,84 @@ import styles from "./sorter-editor.module.css";
 // but 10 is our hard limit
 const maxCards = 10;
 
+const defaultOptions = sorterLogic.defaultWidgetOptions;
+
 const layoutOptions = {
     horizontal: "Horizontal",
     vertical: "Vertical",
 } as const satisfies Record<PerseusSorterWidgetOptions["layout"], string>;
 
-type Props = PerseusSorterWidgetOptions & {
+// The widget options are optional because WidgetEditor renders this editor with
+// whatever options the content has, and content predating an option won't carry
+// it. The defaults below fill in the gaps.
+type Props = Partial<PerseusSorterWidgetOptions> & {
     onChange: (
         newOptions: Partial<PerseusSorterWidgetOptions>,
         callback?: () => void,
     ) => void;
 };
 
+/**
+ * What WidgetEditor can call on this editor through its ref. It serializes the
+ * editor mid-edit, to fold the editor's current options into the change it's
+ * about to publish, so `serialize` has to report the options this editor was
+ * last rendered with.
+ */
+type SorterEditorHandle = {
+    serialize: () => PerseusSorterWidgetOptions;
+};
+
 // JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for adding a sorter widget that allows users to arrange items in a specific order.
  */
-class SorterEditor extends React.Component<Props> {
-    static widgetName = "sorter" as const;
+const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
+    function SorterEditor(
+        {
+            correct = defaultOptions.correct,
+            layout = defaultOptions.layout,
+            padding = defaultOptions.padding,
+            onChange,
+        },
+        ref,
+    ) {
+        React.useImperativeHandle(
+            ref,
+            () => ({
+                serialize: () => ({correct, layout, padding}),
+            }),
+            [correct, layout, padding],
+        );
 
-    static defaultProps: PerseusSorterWidgetOptions =
-        sorterLogic.defaultWidgetOptions;
-
-    onCardChange = (index: number, value: string) => {
-        const correct = [...this.props.correct];
-        correct[index] = value;
-        this.props.onChange({correct});
-    };
-
-    onAddCard = () => {
-        if (this.props.correct.length >= maxCards) {
-            return;
-        }
-        this.props.onChange({correct: [...this.props.correct, ""]});
-    };
-
-    onMoveCard = (index: number, offset: -1 | 1) => {
-        const correct = [...this.props.correct];
-        const newIndex = index + offset;
-        [correct[index], correct[newIndex]] = [
-            correct[newIndex],
-            correct[index],
-        ];
-        this.props.onChange({correct});
-    };
-
-    onDeleteCard = (index: number) => {
-        this.props.onChange({
-            correct: this.props.correct.filter((card, i) => i !== index),
-        });
-    };
-
-    serialize = (): PerseusSorterWidgetOptions => {
-        return {
-            correct: this.props.correct,
-            layout: this.props.layout,
-            padding: this.props.padding,
+        const onCardChange = (index: number, value: string) => {
+            const newCorrect = [...correct];
+            newCorrect[index] = value;
+            onChange({correct: newCorrect});
         };
-    };
 
-    render(): React.ReactNode {
+        const onAddCard = () => {
+            if (correct.length >= maxCards) {
+                return;
+            }
+            onChange({correct: [...correct, ""]});
+        };
+
+        const onMoveCard = (index: number, offset: -1 | 1) => {
+            const newCorrect = [...correct];
+            const newIndex = index + offset;
+            [newCorrect[index], newCorrect[newIndex]] = [
+                newCorrect[newIndex],
+                newCorrect[index],
+            ];
+            onChange({correct: newCorrect});
+        };
+
+        const onDeleteCard = (index: number) => {
+            onChange({
+                correct: correct.filter((card, i) => i !== index),
+            });
+        };
+
         return (
             <View className={styles.editor}>
                 <View className={styles.section}>
@@ -99,19 +117,17 @@ class SorterEditor extends React.Component<Props> {
                         </InfoTip>
                     </div>
                     <View tag="ol" className={styles.cards}>
-                        {this.props.correct.map((card, i) => (
+                        {correct.map((card, i) => (
                             <CardEditor
                                 key={i}
                                 index={i}
                                 value={card}
                                 isFirst={i === 0}
-                                isLast={i === this.props.correct.length - 1}
-                                onChange={(value) =>
-                                    this.onCardChange(i, value)
-                                }
-                                onMoveUp={() => this.onMoveCard(i, -1)}
-                                onMoveDown={() => this.onMoveCard(i, 1)}
-                                onDelete={() => this.onDeleteCard(i)}
+                                isLast={i === correct.length - 1}
+                                onChange={(value) => onCardChange(i, value)}
+                                onMoveUp={() => onMoveCard(i, -1)}
+                                onMoveDown={() => onMoveCard(i, 1)}
+                                onDelete={() => onDeleteCard(i)}
                             />
                         ))}
                     </View>
@@ -119,8 +135,8 @@ class SorterEditor extends React.Component<Props> {
                         kind="tertiary"
                         startIcon={plusCircle}
                         className={styles.addCard}
-                        disabled={this.props.correct.length >= maxCards}
-                        onClick={this.onAddCard}
+                        disabled={correct.length >= maxCards}
+                        onClick={onAddCard}
                     >
                         Add a card
                     </Button>
@@ -131,9 +147,9 @@ class SorterEditor extends React.Component<Props> {
                         field={
                             <TypedSingleSelect
                                 options={layoutOptions}
-                                selectedValue={this.props.layout}
-                                onChange={(layout) =>
-                                    this.props.onChange({layout})
+                                selectedValue={layout}
+                                onChange={(newLayout) =>
+                                    onChange({layout: newLayout})
                                 }
                             />
                         }
@@ -149,9 +165,9 @@ class SorterEditor extends React.Component<Props> {
                 <div>
                     <Checkbox
                         label="Padding"
-                        checked={this.props.padding}
+                        checked={padding}
                         onChange={(value) => {
-                            this.props.onChange({padding: value});
+                            onChange({padding: value});
                         }}
                     />
                     <InfoTip>
@@ -162,7 +178,17 @@ class SorterEditor extends React.Component<Props> {
                 </div>
             </View>
         );
-    }
-}
+    },
+);
 
-export default SorterEditor;
+export default Object.assign(SorterEditor, {
+    // Widgets.registerEditors registers the editor under this name, and throws
+    // without it.
+    widgetName: "sorter" as const,
+
+    // Read directly by the editor page to seed the options of a newly inserted
+    // sorter. It's deliberately not how this component gets its own defaults —
+    // React only applies defaultProps to a component's props up to React 18,
+    // so the defaults live in the destructuring above instead.
+    defaultProps: defaultOptions,
+});
