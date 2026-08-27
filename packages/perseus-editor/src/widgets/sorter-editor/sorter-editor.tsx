@@ -2,10 +2,12 @@ import {
     sorterLogic,
     type PerseusSorterWidgetOptions,
 } from "@khanacademy/perseus-core";
+import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox, TextField} from "@khanacademy/wonder-blocks-form";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
+import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -24,28 +26,26 @@ type Props = PerseusSorterWidgetOptions & {
     ) => void;
 };
 
-type State = {
-    // The cards being edited, always with a trailing empty card that authors
-    // type into to add another. Kept in local state (rather than read straight
-    // off `props.correct`) so that a card can be cleared and retyped without
-    // its input disappearing mid-edit.
-    cards: string[];
-};
-
 type CardEditorProps = {
     // The cards have no visible label, but screen reader users still need each
     // input to have a distinguishable name, hence the aria-label.
     ariaLabel: string;
     value: string;
     onChange: (value: string) => void;
+    inputRef: React.Ref<HTMLInputElement>;
 };
 
 /**
  * An editor for a single sorter card.
  */
-function CardEditor({ariaLabel, value, onChange}: CardEditorProps) {
+function CardEditor({ariaLabel, value, onChange, inputRef}: CardEditorProps) {
     return (
-        <TextField aria-label={ariaLabel} value={value} onChange={onChange} />
+        <TextField
+            aria-label={ariaLabel}
+            value={value}
+            onChange={onChange}
+            ref={inputRef}
+        />
     );
 }
 
@@ -53,33 +53,38 @@ function CardEditor({ariaLabel, value, onChange}: CardEditorProps) {
 /**
  * An editor for adding a sorter widget that allows users to arrange items in a specific order.
  */
-class SorterEditor extends React.Component<Props, State> {
+class SorterEditor extends React.Component<Props> {
     static widgetName = "sorter" as const;
 
     static defaultProps: PerseusSorterWidgetOptions =
         sorterLogic.defaultWidgetOptions;
 
-    state: State = {cards: [...this.props.correct, ""]};
+    // The card inputs, by index, so a newly added card can be focused.
+    cardInputs: (HTMLInputElement | null)[] = [];
 
-    componentDidUpdate(prevProps: Props) {
-        if (prevProps.correct !== this.props.correct) {
-            this.setState({cards: [...this.props.correct, ""]});
+    // Set when the author adds a card, then consumed once the new input has
+    // rendered — focus can't move to an input that doesn't exist yet.
+    pendingFocusIndex: number | null = null;
+
+    componentDidUpdate() {
+        const index = this.pendingFocusIndex;
+        if (index != null) {
+            this.pendingFocusIndex = null;
+            this.cardInputs[index]?.focus();
         }
     }
 
     onCardChange = (index: number, value: string) => {
-        const cards = [...this.state.cards];
-        cards[index] = value;
+        const correct = [...this.props.correct];
+        correct[index] = value;
+        this.props.onChange({correct});
+    };
 
-        // Typing in the trailing card turns it into a real one, so grow the
-        // list to keep an empty card available for the next one.
-        if (index === cards.length - 1) {
-            cards.push("");
-        }
-
-        this.setState({cards});
-        // Empty cards are editing scaffolding, not answers.
-        this.props.onChange({correct: cards.filter(Boolean)});
+    onAddCard = () => {
+        // Focus the card that's about to render so the author can type into it
+        // right away instead of tabbing back from the button.
+        this.pendingFocusIndex = this.props.correct.length;
+        this.props.onChange({correct: [...this.props.correct, ""]});
     };
 
     serialize = (): PerseusSorterWidgetOptions => {
@@ -103,25 +108,37 @@ class SorterEditor extends React.Component<Props, State> {
                                 cards in a randomized order, which is how the
                                 student will see them.
                             </p>
+                            <p>
+                                For horizontal orientation, the top input
+                                represents the leftmost card and the bottom
+                                input represents the rightmost card.
+                            </p>
                         </InfoTip>
                     </div>
                     <View tag="ol" style={styles.cards}>
-                        {this.state.cards.map((card, i) => (
+                        {this.props.correct.map((card, i) => (
                             <View tag="li" key={i}>
                                 <CardEditor
-                                    ariaLabel={
-                                        i === this.state.cards.length - 1
-                                            ? "Add a card"
-                                            : `Card ${i + 1}`
-                                    }
+                                    ariaLabel={`Card ${i + 1}`}
                                     value={card}
                                     onChange={(value) =>
                                         this.onCardChange(i, value)
                                     }
+                                    inputRef={(node) => {
+                                        this.cardInputs[i] = node;
+                                    }}
                                 />
                             </View>
                         ))}
                     </View>
+                    <Button
+                        kind="tertiary"
+                        startIcon={plusCircle}
+                        style={styles.addCard}
+                        onClick={this.onAddCard}
+                    >
+                        Add a card
+                    </Button>
                 </View>
                 <View>
                     <LabeledField
@@ -182,6 +199,11 @@ const styles = StyleSheet.create({
         // above own the spacing around the list.
         marginBlock: 0,
         gap: sizing.size_120,
+    },
+    // Keep the button hugging its label rather than stretching to the width of
+    // the card inputs above it.
+    addCard: {
+        alignSelf: "flex-start",
     },
 });
 

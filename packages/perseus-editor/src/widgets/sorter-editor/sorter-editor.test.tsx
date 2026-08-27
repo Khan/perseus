@@ -8,7 +8,34 @@ import {testDependencies} from "../../testing/test-dependencies";
 
 import SorterEditor from "./sorter-editor";
 
+import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
+
+/**
+ * Renders the editor the way the content editor does: every change is fed back
+ * in as props. Tests that make more than one edit, or that depend on the editor
+ * re-rendering, need this rather than a bare `render`.
+ */
+function renderControlled(
+    options: PerseusSorterWidgetOptions,
+    onChange?: (newOptions: Partial<PerseusSorterWidgetOptions>) => void,
+) {
+    function Controlled() {
+        const [currentOptions, setCurrentOptions] = React.useState(options);
+
+        return (
+            <SorterEditor
+                {...currentOptions}
+                onChange={(newOptions) => {
+                    onChange?.(newOptions);
+                    setCurrentOptions((prev) => ({...prev, ...newOptions}));
+                }}
+            />
+        );
+    }
+
+    return render(<Controlled />);
+}
 
 describe("sorter-editor", () => {
     let userEvent: UserEvent;
@@ -92,11 +119,9 @@ describe("sorter-editor", () => {
     it("calls onChange with the updated correct answer when a card is edited", async () => {
         // Arrange
         const onChangeMock = jest.fn();
-        render(
-            <SorterEditor
-                onChange={onChangeMock}
-                {...generateSorterOptions({correct: ["Cat", "Dog"]})}
-            />,
+        renderControlled(
+            generateSorterOptions({correct: ["Cat", "Dog"]}),
+            onChangeMock,
         );
 
         // Act
@@ -108,6 +133,49 @@ describe("sorter-editor", () => {
         expect(onChangeMock).toHaveBeenLastCalledWith({
             correct: ["Cat", "Emu"],
         });
+    });
+
+    it("calls onChange with an empty card appended when the add button is clicked", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <SorterEditor
+                onChange={onChangeMock}
+                {...generateSorterOptions({correct: ["Cat", "Dog"]})}
+            />,
+        );
+
+        // Act
+        await userEvent.click(screen.getByRole("button", {name: "Add a card"}));
+
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith({
+            correct: ["Cat", "Dog", ""],
+        });
+    });
+
+    it("focuses the new card's input after a card is added", async () => {
+        // Arrange
+        renderControlled(generateSorterOptions({correct: ["Cat", "Dog"]}));
+
+        // Act
+        await userEvent.click(screen.getByRole("button", {name: "Add a card"}));
+
+        // Assert
+        expect(screen.getByRole("textbox", {name: "Card 3"})).toHaveFocus();
+    });
+
+    it("does not render an empty card until one is added", () => {
+        // Arrange, Act
+        render(
+            <SorterEditor
+                onChange={() => {}}
+                {...generateSorterOptions({correct: ["Cat", "Dog"]})}
+            />,
+        );
+
+        // Assert
+        expect(screen.getAllByRole("textbox")).toHaveLength(2);
     });
 
     it("serializes the correct answer, layout, and padding", () => {

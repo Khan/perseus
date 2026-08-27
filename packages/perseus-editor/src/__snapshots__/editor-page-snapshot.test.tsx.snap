@@ -15638,21 +15638,26 @@ table: [[☃ table 1]]
                               value="5"
                             />
                           </li>
-                          <li
-                            class="default_7zhre1"
-                          >
-                            <input
-                              aria-disabled="false"
-                              aria-invalid="false"
-                              aria-label="Add a card"
-                              aria-required="false"
-                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
-                              id=":r69:"
-                              type="text"
-                              value=""
-                            />
-                          </li>
                         </ol>
+                        <button
+                          aria-disabled="false"
+                          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1xfocwy-o_O-addCard_1bfjkya"
+                          data-kind="tertiary"
+                          type="button"
+                        >
+                          <div
+                            class="default_7zhre1-o_O-iconWrapper_bqwm7d"
+                          >
+                            <span
+                              class="svg_1q6jc65-o_O-medium_12bui46-o_O-startIcon_1ll1fk7-o_O-tertiaryStartIcon_121powu-o_O-inlineStyles_1gy2kn5"
+                            />
+                          </div>
+                          <span
+                            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+                          >
+                            Add a card
+                          </span>
+                        </button>
                       </div>
                       <div
                         class="default_7zhre1"
@@ -15665,8 +15670,8 @@ table: [[☃ table 1]]
                           >
                             <label
                               class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_qt7cw0-o_O-labelWithNoDescription_i032sc"
-                              for=":r6a:-labeled-field-field"
-                              id=":r6a:-labeled-field-label"
+                              for=":r69:-labeled-field-field"
+                              id=":r69:-labeled-field-label"
                             >
                               Layout
                             </label>
@@ -15675,14 +15680,14 @@ table: [[☃ table 1]]
                             class="default_7zhre1-o_O-menuWrapper_1rs652y"
                           >
                             <button
-                              aria-controls=":r6b:"
+                              aria-controls=":r6a:"
                               aria-describedby=""
                               aria-expanded="false"
                               aria-haspopup="listbox"
                               aria-invalid="false"
                               aria-required="false"
                               class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_znuyo8"
-                              id=":r6a:-labeled-field-field"
+                              id=":r69:-labeled-field-field"
                               role="combobox"
                               type="button"
                             >
@@ -15701,7 +15706,7 @@ table: [[☃ table 1]]
                             aria-atomic="true"
                             aria-live="assertive"
                             class="default_7zhre1-o_O-helperTextWithIcon_1hmzxfl"
-                            id=":r6a:-labeled-field-error"
+                            id=":r69:-labeled-field-error"
                           />
                         </div>
                         <span
@@ -15729,7 +15734,7 @@ table: [[☃ table 1]]
                                   aria-invalid="false"
                                   checked=""
                                   class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_1ywap6u"
-                                  id=":r6d:"
+                                  id=":r6c:"
                                   type="checkbox"
                                 />
                                 <span
@@ -15741,7 +15746,7 @@ table: [[☃ table 1]]
                               class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy"
                             >
                               <label
-                                for=":r6d:"
+                                for=":r6c:"
                               >
                                 Padding
                               </label>
@@ -16016,6 +16021,54 @@ table: [[☃ table 1]]
                           aria-invalid="false"
                           class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
                           disabled=""
+                          id=":r6d:"
+                          type="checkbox"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
+                    >
+                      <label
+                        for=":r6d:"
+                      >
+                        <div
+                          class="default_7zhre1-o_O-inlineStyles_qb00m9"
+                        >
+                          Show calculator
+                           
+                          <span
+                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
+                            tabindex="0"
+                          />
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="default_7zhre1"
+              >
+                <div
+                  class="default_7zhre1"
+                >
+                  <div
+                    class="default_7zhre1-o_O-wrapper_119rz02"
+                    tabindex="-1"
+                  >
+                    <div
+                      class="default_7zhre1-o_O-choiceWrapper_s2wtqp"
+                    >
+                      <div
+                        class="default_7zhre1-o_O-inputWrapper_w6nz04-o_O-inputWrapper_1k6ggkh"
+                        data-testid="wb-checkbox-wrapper"
+                      >
+                        <input
+                          aria-checked="false"
+                          aria-invalid="false"
+                          class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
+                          disabled=""
                           id=":r6e:"
                           type="checkbox"
                         />
@@ -16030,7 +16083,7 @@ table: [[☃ table 1]]
                         <div
                           class="default_7zhre1-o_O-inlineStyles_qb00m9"
                         >
-                          Show calculator
+                          Show financial calculator
                            
                           <span
                             class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
@@ -16074,54 +16127,6 @@ table: [[☃ table 1]]
                     >
                       <label
                         for=":r6f:"
-                      >
-                        <div
-                          class="default_7zhre1-o_O-inlineStyles_qb00m9"
-                        >
-                          Show financial calculator
-                           
-                          <span
-                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
-                            tabindex="0"
-                          />
-                        </div>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="default_7zhre1"
-              >
-                <div
-                  class="default_7zhre1"
-                >
-                  <div
-                    class="default_7zhre1-o_O-wrapper_119rz02"
-                    tabindex="-1"
-                  >
-                    <div
-                      class="default_7zhre1-o_O-choiceWrapper_s2wtqp"
-                    >
-                      <div
-                        class="default_7zhre1-o_O-inputWrapper_w6nz04-o_O-inputWrapper_1k6ggkh"
-                        data-testid="wb-checkbox-wrapper"
-                      >
-                        <input
-                          aria-checked="false"
-                          aria-invalid="false"
-                          class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
-                          disabled=""
-                          id=":r6g:"
-                          type="checkbox"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
-                    >
-                      <label
-                        for=":r6g:"
                       >
                         <div
                           class="default_7zhre1-o_O-inlineStyles_qb00m9"
