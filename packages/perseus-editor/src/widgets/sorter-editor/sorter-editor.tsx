@@ -30,13 +30,6 @@ type Props = PerseusSorterWidgetOptions & {
     ) => void;
 };
 
-// The controls in a card's row. Reordering and deleting shuffle the rows
-// around, so the editor needs to name a specific one when moving focus.
-type CardControl = "input" | "moveUp" | "moveDown" | "delete";
-
-const controlKey = (index: number, control: CardControl) =>
-    `${index}:${control}`;
-
 type CardEditorProps = {
     // Zero-based, but the cards are numbered from one in their labels so the
     // numbering matches what the author sees.
@@ -48,9 +41,6 @@ type CardEditorProps = {
     onMoveUp: () => void;
     onMoveDown: () => void;
     onDelete: () => void;
-    // Hands each control's DOM node to the editor, which moves focus once a
-    // card has been added, moved, or deleted.
-    registerControl: (control: CardControl, node: HTMLElement | null) => void;
 };
 
 /**
@@ -66,16 +56,8 @@ function CardEditor({
     onMoveUp,
     onMoveDown,
     onDelete,
-    registerControl,
 }: CardEditorProps) {
     const cardNumber = index + 1;
-
-    // IconButton's ref can also be a react-router Link, which has nothing to
-    // focus, so only DOM nodes are worth keeping.
-    const registerButton =
-        (control: CardControl) =>
-        (node: React.ComponentRef<typeof IconButton> | null) =>
-            registerControl(control, node instanceof HTMLElement ? node : null);
 
     return (
         <View tag="li" style={styles.card}>
@@ -90,7 +72,6 @@ function CardEditor({
                 value={value}
                 onChange={onChange}
                 style={styles.cardInput}
-                ref={(node) => registerControl("input", node)}
             />
             <IconButton
                 aria-label={`Move card ${cardNumber} up`}
@@ -100,7 +81,6 @@ function CardEditor({
                 size="small"
                 disabled={isFirst}
                 onClick={onMoveUp}
-                ref={registerButton("moveUp")}
             />
             <IconButton
                 aria-label={`Move card ${cardNumber} down`}
@@ -110,7 +90,6 @@ function CardEditor({
                 size="small"
                 disabled={isLast}
                 onClick={onMoveDown}
-                ref={registerButton("moveDown")}
             />
             <IconButton
                 aria-label={`Delete card ${cardNumber}`}
@@ -119,7 +98,6 @@ function CardEditor({
                 actionType="destructive"
                 size="small"
                 onClick={onDelete}
-                ref={registerButton("delete")}
             />
         </View>
     );
@@ -135,42 +113,6 @@ class SorterEditor extends React.Component<Props> {
     static defaultProps: PerseusSorterWidgetOptions =
         sorterLogic.defaultWidgetOptions;
 
-    // Every card control currently rendered, keyed by card index and control.
-    cardControls = new Map<string, HTMLElement>();
-
-    addCardButton = React.createRef<HTMLButtonElement>();
-
-    // What to focus once the changed list of cards has rendered. Focus has to
-    // wait: the control the author clicked may not exist yet (a card that's
-    // being added), may be gone (a card that's being deleted), or may now
-    // belong to a different card (the cards on either side of a move).
-    pendingFocus: (() => void) | null = null;
-
-    componentDidUpdate() {
-        const focus = this.pendingFocus;
-        if (focus) {
-            this.pendingFocus = null;
-            focus();
-        }
-    }
-
-    registerCardControl = (
-        index: number,
-        control: CardControl,
-        node: HTMLElement | null,
-    ) => {
-        const key = controlKey(index, control);
-        if (node) {
-            this.cardControls.set(key, node);
-        } else {
-            this.cardControls.delete(key);
-        }
-    };
-
-    focusCardControl = (index: number, control: CardControl) => {
-        this.cardControls.get(controlKey(index, control))?.focus();
-    };
-
     onCardChange = (index: number, value: string) => {
         const correct = [...this.props.correct];
         correct[index] = value;
@@ -178,10 +120,6 @@ class SorterEditor extends React.Component<Props> {
     };
 
     onAddCard = () => {
-        // Focus the card that's about to render so the author can type into it
-        // right away instead of tabbing back from the button.
-        const index = this.props.correct.length;
-        this.pendingFocus = () => this.focusCardControl(index, "input");
         this.props.onChange({correct: [...this.props.correct, ""]});
     };
 
@@ -192,33 +130,13 @@ class SorterEditor extends React.Component<Props> {
             correct[newIndex],
             correct[index],
         ];
-
-        // Follow the card to its new position, so pressing the same button
-        // again keeps moving the same card in the same direction.
-        this.pendingFocus = () =>
-            this.focusCardControl(
-                newIndex,
-                offset === -1 ? "moveUp" : "moveDown",
-            );
         this.props.onChange({correct});
     };
 
     onDeleteCard = (index: number) => {
-        const correct = this.props.correct.filter((card, i) => i !== index);
-
-        // Stay on the delete button, which now belongs to the card that moved
-        // up into this slot (or to the new last card, if this was the last
-        // one). With no cards left there is nothing to delete, so fall back to
-        // the button that adds one.
-        this.pendingFocus =
-            correct.length === 0
-                ? () => this.addCardButton.current?.focus()
-                : () =>
-                      this.focusCardControl(
-                          Math.min(index, correct.length - 1),
-                          "delete",
-                      );
-        this.props.onChange({correct});
+        this.props.onChange({
+            correct: this.props.correct.filter((card, i) => i !== index),
+        });
     };
 
     serialize = (): PerseusSorterWidgetOptions => {
@@ -263,9 +181,6 @@ class SorterEditor extends React.Component<Props> {
                                 onMoveUp={() => this.onMoveCard(i, -1)}
                                 onMoveDown={() => this.onMoveCard(i, 1)}
                                 onDelete={() => this.onDeleteCard(i)}
-                                registerControl={(control, node) =>
-                                    this.registerCardControl(i, control, node)
-                                }
                             />
                         ))}
                     </View>
@@ -274,7 +189,6 @@ class SorterEditor extends React.Component<Props> {
                         startIcon={plusCircle}
                         style={styles.addCard}
                         onClick={this.onAddCard}
-                        ref={this.addCardButton}
                     >
                         Add a card
                     </Button>
