@@ -15494,52 +15494,94 @@ table: [[☃ table 1]]
                           tabindex="0"
                         />
                       </div>
-                      <ul
-                        class="perseus-text-list-editor perseus-clearfix layout-horizontal"
+                      <ol
+                        class="default_7zhre1-o_O-cards_18gwzo2"
                       >
-                        <li>
+                        <li
+                          class="default_7zhre1"
+                        >
                           <input
-                            style="width: 5px;"
+                            aria-disabled="false"
+                            aria-invalid="false"
+                            aria-label="Card 1"
+                            aria-required="false"
+                            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
+                            id=":r6c:"
                             type="text"
                             value="1"
                           />
                         </li>
-                        <li>
+                        <li
+                          class="default_7zhre1"
+                        >
                           <input
-                            style="width: 5px;"
+                            aria-disabled="false"
+                            aria-invalid="false"
+                            aria-label="Card 2"
+                            aria-required="false"
+                            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
+                            id=":r6d:"
                             type="text"
                             value="2"
                           />
                         </li>
-                        <li>
+                        <li
+                          class="default_7zhre1"
+                        >
                           <input
-                            style="width: 5px;"
+                            aria-disabled="false"
+                            aria-invalid="false"
+                            aria-label="Card 3"
+                            aria-required="false"
+                            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
+                            id=":r6e:"
                             type="text"
                             value="3"
                           />
                         </li>
-                        <li>
+                        <li
+                          class="default_7zhre1"
+                        >
                           <input
-                            style="width: 5px;"
+                            aria-disabled="false"
+                            aria-invalid="false"
+                            aria-label="Card 4"
+                            aria-required="false"
+                            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
+                            id=":r6f:"
                             type="text"
                             value="4"
                           />
                         </li>
-                        <li>
+                        <li
+                          class="default_7zhre1"
+                        >
                           <input
-                            style="width: 5px;"
+                            aria-disabled="false"
+                            aria-invalid="false"
+                            aria-label="Card 5"
+                            aria-required="false"
+                            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
+                            id=":r6g:"
                             type="text"
                             value="5"
                           />
                         </li>
-                        <li>
+                        <li
+                          class="default_7zhre1"
+                        >
                           <input
-                            style="width: 5px;"
+                            aria-disabled="false"
+                            aria-invalid="false"
+                            aria-label="Add a card"
+                            aria-required="false"
+                            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
+                            id=":r6h:"
                             type="text"
                             value=""
                           />
                         </li>
-                      </ul>
+                      </ol>
                       <div>
                         <label>
                            
@@ -15583,7 +15625,7 @@ table: [[☃ table 1]]
                                   aria-invalid="false"
                                   checked=""
                                   class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_1ywap6u"
-                                  id=":r6c:"
+                                  id=":r6i:"
                                   type="checkbox"
                                 />
                                 <span
@@ -15595,7 +15637,7 @@ table: [[☃ table 1]]
                               class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy"
                             >
                               <label
-                                for=":r6c:"
+                                for=":r6i:"
                               >
                                 Padding:
                               </label>

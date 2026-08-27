@@ -15561,52 +15561,94 @@ table: [[☃ table 1]]
                           tabindex="0"
                         />
                       </div>
-                      <ul
-                        class="perseus-text-list-editor perseus-clearfix layout-horizontal"
+                      <ol
+                        class="default_7zhre1-o_O-cards_18gwzo2"
                       >
-                        <li>
+                        <li
+                          class="default_7zhre1"
+                        >
                           <input
-                            style="width: 5px;"
+                            aria-disabled="false"
+                            aria-invalid="false"
+                            aria-label="Card 1"
+                            aria-required="false"
+                            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
+                            id=":r64:"
                             type="text"
                             value="1"
                           />
                         </li>
-                        <li>
+                        <li
+                          class="default_7zhre1"
+                        >
                           <input
-                            style="width: 5px;"
+                            aria-disabled="false"
+                            aria-invalid="false"
+                            aria-label="Card 2"
+                            aria-required="false"
+                            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
+                            id=":r65:"
                             type="text"
                             value="2"
                           />
                         </li>
-                        <li>
+                        <li
+                          class="default_7zhre1"
+                        >
                           <input
-                            style="width: 5px;"
+                            aria-disabled="false"
+                            aria-invalid="false"
+                            aria-label="Card 3"
+                            aria-required="false"
+                            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
+                            id=":r66:"
                             type="text"
                             value="3"
                           />
                         </li>
-                        <li>
+                        <li
+                          class="default_7zhre1"
+                        >
                           <input
-                            style="width: 5px;"
+                            aria-disabled="false"
+                            aria-invalid="false"
+                            aria-label="Card 4"
+                            aria-required="false"
+                            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
+                            id=":r67:"
                             type="text"
                             value="4"
                           />
                         </li>
-                        <li>
+                        <li
+                          class="default_7zhre1"
+                        >
                           <input
-                            style="width: 5px;"
+                            aria-disabled="false"
+                            aria-invalid="false"
+                            aria-label="Card 5"
+                            aria-required="false"
+                            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
+                            id=":r68:"
                             type="text"
                             value="5"
                           />
                         </li>
-                        <li>
+                        <li
+                          class="default_7zhre1"
+                        >
                           <input
-                            style="width: 5px;"
+                            aria-disabled="false"
+                            aria-invalid="false"
+                            aria-label="Add a card"
+                            aria-required="false"
+                            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
+                            id=":r69:"
                             type="text"
                             value=""
                           />
                         </li>
-                      </ul>
+                      </ol>
                       <div>
                         <label>
                            
@@ -15650,7 +15692,7 @@ table: [[☃ table 1]]
                                   aria-invalid="false"
                                   checked=""
                                   class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_1ywap6u"
-                                  id=":r64:"
+                                  id=":r6a:"
                                   type="checkbox"
                                 />
                                 <span
@@ -15662,7 +15704,7 @@ table: [[☃ table 1]]
                               class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy"
                             >
                               <label
-                                for=":r64:"
+                                for=":r6a:"
                               >
                                 Padding:
                               </label>
@@ -15937,7 +15979,7 @@ table: [[☃ table 1]]
                           aria-invalid="false"
                           class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
                           disabled=""
-                          id=":r65:"
+                          id=":r6b:"
                           type="checkbox"
                         />
                       </div>
@@ -15946,7 +15988,7 @@ table: [[☃ table 1]]
                       class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
                     >
                       <label
-                        for=":r65:"
+                        for=":r6b:"
                       >
                         <div
                           class="default_7zhre1-o_O-inlineStyles_qb00m9"
@@ -15985,7 +16027,7 @@ table: [[☃ table 1]]
                           aria-invalid="false"
                           class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
                           disabled=""
-                          id=":r66:"
+                          id=":r6c:"
                           type="checkbox"
                         />
                       </div>
@@ -15994,7 +16036,7 @@ table: [[☃ table 1]]
                       class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
                     >
                       <label
-                        for=":r66:"
+                        for=":r6c:"
                       >
                         <div
                           class="default_7zhre1-o_O-inlineStyles_qb00m9"
@@ -16033,7 +16075,7 @@ table: [[☃ table 1]]
                           aria-invalid="false"
                           class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
                           disabled=""
-                          id=":r67:"
+                          id=":r6d:"
                           type="checkbox"
                         />
                       </div>
@@ -16042,7 +16084,7 @@ table: [[☃ table 1]]
                       class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
                     >
                       <label
-                        for=":r67:"
+                        for=":r6d:"
                       >
                         <div
                           class="default_7zhre1-o_O-inlineStyles_qb00m9"
