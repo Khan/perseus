@@ -15502,74 +15502,239 @@ table: [[☃ table 1]]
                           class="default_7zhre1-o_O-cards_b4wskx"
                         >
                           <li
-                            class="default_7zhre1"
+                            class="default_7zhre1-o_O-card_tlw8lk"
                           >
                             <input
                               aria-disabled="false"
                               aria-invalid="false"
                               aria-label="Card 1"
                               aria-required="false"
-                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
+                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-cardInput_t0tx82"
                               id=":r6c:"
                               type="text"
                               value="1"
                             />
+                            <button
+                              aria-disabled="true"
+                              aria-label="Move card 1 up"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1-o_O-disabled_1y1yrlc"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_1w2ke9h"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Move card 1 down"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_514u8y"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Delete card 1"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1ugjna4"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_q5oi6w"
+                              />
+                            </button>
                           </li>
                           <li
-                            class="default_7zhre1"
+                            class="default_7zhre1-o_O-card_tlw8lk"
                           >
                             <input
                               aria-disabled="false"
                               aria-invalid="false"
                               aria-label="Card 2"
                               aria-required="false"
-                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
+                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-cardInput_t0tx82"
                               id=":r6d:"
                               type="text"
                               value="2"
                             />
+                            <button
+                              aria-disabled="false"
+                              aria-label="Move card 2 up"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_1w2ke9h"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Move card 2 down"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_514u8y"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Delete card 2"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1ugjna4"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_q5oi6w"
+                              />
+                            </button>
                           </li>
                           <li
-                            class="default_7zhre1"
+                            class="default_7zhre1-o_O-card_tlw8lk"
                           >
                             <input
                               aria-disabled="false"
                               aria-invalid="false"
                               aria-label="Card 3"
                               aria-required="false"
-                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
+                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-cardInput_t0tx82"
                               id=":r6e:"
                               type="text"
                               value="3"
                             />
+                            <button
+                              aria-disabled="false"
+                              aria-label="Move card 3 up"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_1w2ke9h"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Move card 3 down"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_514u8y"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Delete card 3"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1ugjna4"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_q5oi6w"
+                              />
+                            </button>
                           </li>
                           <li
-                            class="default_7zhre1"
+                            class="default_7zhre1-o_O-card_tlw8lk"
                           >
                             <input
                               aria-disabled="false"
                               aria-invalid="false"
                               aria-label="Card 4"
                               aria-required="false"
-                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
+                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-cardInput_t0tx82"
                               id=":r6f:"
                               type="text"
                               value="4"
                             />
+                            <button
+                              aria-disabled="false"
+                              aria-label="Move card 4 up"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_1w2ke9h"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Move card 4 down"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_514u8y"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Delete card 4"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1ugjna4"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_q5oi6w"
+                              />
+                            </button>
                           </li>
                           <li
-                            class="default_7zhre1"
+                            class="default_7zhre1-o_O-card_tlw8lk"
                           >
                             <input
                               aria-disabled="false"
                               aria-invalid="false"
                               aria-label="Card 5"
                               aria-required="false"
-                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
+                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-cardInput_t0tx82"
                               id=":r6g:"
                               type="text"
                               value="5"
                             />
+                            <button
+                              aria-disabled="false"
+                              aria-label="Move card 5 up"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_1w2ke9h"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="true"
+                              aria-label="Move card 5 down"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1-o_O-disabled_1y1yrlc"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_514u8y"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Delete card 5"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1ugjna4"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_q5oi6w"
+                              />
+                            </button>
                           </li>
                         </ol>
                         <button

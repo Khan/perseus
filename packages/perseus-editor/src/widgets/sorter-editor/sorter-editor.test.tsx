@@ -178,6 +178,157 @@ describe("sorter-editor", () => {
         expect(screen.getAllByRole("textbox")).toHaveLength(2);
     });
 
+    it("swaps a card with the one above it when move up is clicked", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <SorterEditor
+                onChange={onChangeMock}
+                {...generateSorterOptions({correct: ["Cat", "Dog", "Emu"]})}
+            />,
+        );
+
+        // Act
+        await userEvent.click(
+            screen.getByRole("button", {name: "Move card 3 up"}),
+        );
+
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith({
+            correct: ["Cat", "Emu", "Dog"],
+        });
+    });
+
+    it("swaps a card with the one below it when move down is clicked", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <SorterEditor
+                onChange={onChangeMock}
+                {...generateSorterOptions({correct: ["Cat", "Dog", "Emu"]})}
+            />,
+        );
+
+        // Act
+        await userEvent.click(
+            screen.getByRole("button", {name: "Move card 1 down"}),
+        );
+
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith({
+            correct: ["Dog", "Cat", "Emu"],
+        });
+    });
+
+    it("disables move up on the first card and move down on the last card", () => {
+        // Arrange, Act
+        render(
+            <SorterEditor
+                onChange={() => {}}
+                {...generateSorterOptions({correct: ["Cat", "Dog", "Emu"]})}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Move card 1 up"}),
+        ).toHaveAttribute("aria-disabled", "true");
+        expect(
+            screen.getByRole("button", {name: "Move card 3 down"}),
+        ).toHaveAttribute("aria-disabled", "true");
+        expect(
+            screen.getByRole("button", {name: "Move card 1 down"}),
+        ).toHaveAttribute("aria-disabled", "false");
+        expect(
+            screen.getByRole("button", {name: "Move card 3 up"}),
+        ).toHaveAttribute("aria-disabled", "false");
+    });
+
+    it("keeps focus on the moved card so it can be moved again", async () => {
+        // Arrange
+        renderControlled(
+            generateSorterOptions({correct: ["Cat", "Dog", "Emu"]}),
+        );
+
+        // Act
+        await userEvent.click(
+            screen.getByRole("button", {name: "Move card 3 up"}),
+        );
+
+        // Assert: "Emu" is now the second card, so its own move up button is
+        // the one that should have focus.
+        expect(screen.getByDisplayValue("Emu")).toHaveAccessibleName("Card 2");
+        expect(
+            screen.getByRole("button", {name: "Move card 2 up"}),
+        ).toHaveFocus();
+    });
+
+    it("removes a card when its delete button is clicked", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <SorterEditor
+                onChange={onChangeMock}
+                {...generateSorterOptions({correct: ["Cat", "Dog", "Emu"]})}
+            />,
+        );
+
+        // Act
+        await userEvent.click(
+            screen.getByRole("button", {name: "Delete card 2"}),
+        );
+
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith({correct: ["Cat", "Emu"]});
+    });
+
+    it("focuses the card that takes the deleted card's place", async () => {
+        // Arrange
+        renderControlled(
+            generateSorterOptions({correct: ["Cat", "Dog", "Emu"]}),
+        );
+
+        // Act
+        await userEvent.click(
+            screen.getByRole("button", {name: "Delete card 2"}),
+        );
+
+        // Assert: "Emu" moved up into the deleted card's slot.
+        expect(screen.getByDisplayValue("Emu")).toHaveAccessibleName("Card 2");
+        expect(
+            screen.getByRole("button", {name: "Delete card 2"}),
+        ).toHaveFocus();
+    });
+
+    it("focuses the last remaining card when the last card is deleted", async () => {
+        // Arrange
+        renderControlled(generateSorterOptions({correct: ["Cat", "Dog"]}));
+
+        // Act
+        await userEvent.click(
+            screen.getByRole("button", {name: "Delete card 2"}),
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Delete card 1"}),
+        ).toHaveFocus();
+    });
+
+    it("focuses the add button when the only card is deleted", async () => {
+        // Arrange
+        renderControlled(generateSorterOptions({correct: ["Cat"]}));
+
+        // Act
+        await userEvent.click(
+            screen.getByRole("button", {name: "Delete card 1"}),
+        );
+
+        // Assert
+        expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
+        expect(screen.getByRole("button", {name: "Add a card"})).toHaveFocus();
+    });
+
     it("serializes the correct answer, layout, and padding", () => {
         // Arrange
         const editorRef = React.createRef<SorterEditor>();
