@@ -207,6 +207,103 @@ describe("sorter-editor", () => {
         ).toHaveAttribute("aria-disabled", "false");
     });
 
+    // Content authored before the ten-card cap can have more cards than the
+    // editor now lets you add. The cap only blocks growth: those cards must
+    // still be visible and editable, and the extras must not be dropped.
+    describe("existing content over the ten-card limit", () => {
+        const fifteenCards = Array.from(
+            {length: 15},
+            (_, i) => `Item ${i + 1}`,
+        );
+
+        it("renders an input for every card", () => {
+            // Arrange, Act
+            render(
+                <SorterEditor
+                    onChange={() => {}}
+                    {...generateSorterOptions({correct: fifteenCards})}
+                />,
+            );
+
+            // Assert
+            expect(screen.getAllByRole("textbox")).toHaveLength(15);
+            expect(screen.getByDisplayValue("Item 15")).toBeInTheDocument();
+        });
+
+        it("calls onChange with the updated correct answer when a card past the limit is edited", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            renderControlled(
+                generateSorterOptions({correct: fifteenCards}),
+                onChangeMock,
+            );
+
+            // Act
+            const card = screen.getByDisplayValue("Item 15");
+            await userEvent.clear(card);
+            await userEvent.type(card, "Emu");
+
+            // Assert
+            expect(onChangeMock).toHaveBeenLastCalledWith({
+                correct: [...fifteenCards.slice(0, 14), "Emu"],
+            });
+        });
+
+        it("removes a card past the limit when its delete button is clicked", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            render(
+                <SorterEditor
+                    onChange={onChangeMock}
+                    {...generateSorterOptions({correct: fifteenCards})}
+                />,
+            );
+
+            // Act
+            await userEvent.click(
+                screen.getByRole("button", {name: "Delete card 15"}),
+            );
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledWith({
+                correct: fifteenCards.slice(0, 14),
+            });
+        });
+
+        it("serializes all of the cards, including the ones past the limit", () => {
+            // Arrange
+            const editorRef = React.createRef<SorterEditor>();
+            render(
+                <SorterEditor
+                    ref={editorRef}
+                    onChange={() => {}}
+                    {...generateSorterOptions({correct: fifteenCards})}
+                />,
+            );
+
+            // Act
+            const serialized = editorRef.current?.serialize();
+
+            // Assert
+            expect(serialized?.correct).toEqual(fifteenCards);
+        });
+
+        it("disables the add button", () => {
+            // Arrange, Act
+            render(
+                <SorterEditor
+                    onChange={() => {}}
+                    {...generateSorterOptions({correct: fifteenCards})}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("button", {name: "Add a card"}),
+            ).toHaveAttribute("aria-disabled", "true");
+        });
+    });
+
     it("does not render an empty card until one is added", () => {
         // Arrange, Act
         render(
