@@ -1,7 +1,6 @@
-import {vector as kvector} from "@khanacademy/kmath";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import _ from "underscore";
 
-import InteractiveUtil from "./interactive-util";
 import WrappedDrawing from "./wrapped-drawing";
 
 import type {Coord} from "./types";
@@ -13,6 +12,10 @@ const DEFAULT_OPTIONS = {
     shadow: false,
     disableMouseEventsOnWrapper: false,
 } as const;
+
+// NOTE: we're using a foreground color for the shadow here because
+// semanticColor.core.shadow.transparent.color isn't visible enough.
+export const wrappedEllipseShadow = `drop-shadow(0px 0px 2px ${semanticColor.core.foreground.instructive.default})`;
 
 class WrappedEllipse extends WrappedDrawing {
     initialPoint: Coord;
@@ -58,34 +61,20 @@ class WrappedEllipse extends WrappedDrawing {
             this.graphie.addToVisibleLayerWrapper(this.wrapper);
         }
 
-        if (options.shadow) {
-            const filter = "drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5))";
-            const wrapper = this.wrapper;
-            wrapper.style.filter = filter;
-
-            this.moveTo = function (point: any) {
-                const delta = kvector.subtract(
-                    this.graphie.scalePoint(point),
-                    this.graphie.scalePoint(this.initialPoint),
-                );
-                const do3dTransform = InteractiveUtil.getCanUse3dTransform();
-                const transform =
-                    "translateX(" +
-                    Math.round(delta[0]) +
-                    "px) " +
-                    "translateY(" +
-                    Math.round(delta[1]) +
-                    "px)" +
-                    (do3dTransform ? " translateZ(0)" : "");
-                this.transform(transform);
-            };
-        }
+        this.setShadow(options.shadow);
 
         if (options.disableMouseEventsOnWrapper) {
             this.wrapper.style.pointerEvents = "none";
             // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
             this.visibleShape.node.style.pointerEvents = "auto";
         }
+    }
+
+    /**
+     * Turns the ellipse's drop shadow on or off.
+     */
+    setShadow(shadow: boolean) {
+        this.wrapper.style.filter = shadow ? wrappedEllipseShadow : "";
     }
 }
 
