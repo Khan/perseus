@@ -25,28 +25,42 @@ describe("sorter-editor", () => {
     it("renders", async () => {
         render(<SorterEditor onChange={() => {}} />);
 
-        expect(screen.getByText("Correct answer:")).toBeInTheDocument();
+        expect(screen.getByText("Correct answer")).toBeInTheDocument();
     });
 
     it("should be possible to change layout to vertical", async () => {
+        // Arrange
         const onChangeMock = jest.fn();
+        render(
+            <SorterEditor
+                onChange={onChangeMock}
+                {...generateSorterOptions({layout: "horizontal"})}
+            />,
+        );
 
-        render(<SorterEditor onChange={onChangeMock} />);
+        // Act
+        await userEvent.click(screen.getByRole("combobox", {name: "Layout"}));
+        await userEvent.click(screen.getByRole("option", {name: "Vertical"}));
 
-        const select = screen.getByRole("combobox", {name: "Layout:"});
-        await userEvent.selectOptions(select, "vertical");
-
+        // Assert
         expect(onChangeMock).toHaveBeenCalledWith({layout: "vertical"});
     });
 
     it("should be possible to change layout to horizontal", async () => {
+        // Arrange
         const onChangeMock = jest.fn();
+        render(
+            <SorterEditor
+                onChange={onChangeMock}
+                {...generateSorterOptions({layout: "vertical"})}
+            />,
+        );
 
-        render(<SorterEditor onChange={onChangeMock} />);
+        // Act
+        await userEvent.click(screen.getByRole("combobox", {name: "Layout"}));
+        await userEvent.click(screen.getByRole("option", {name: "Horizontal"}));
 
-        const select = screen.getByRole("combobox", {name: "Layout:"});
-        await userEvent.selectOptions(select, "horizontal");
-
+        // Assert
         expect(onChangeMock).toHaveBeenCalledWith({layout: "horizontal"});
     });
 
@@ -55,7 +69,7 @@ describe("sorter-editor", () => {
 
         render(<SorterEditor onChange={onChangeMock} />);
 
-        await userEvent.click(screen.getByRole("checkbox", {name: "Padding:"}));
+        await userEvent.click(screen.getByRole("checkbox", {name: "Padding"}));
 
         expect(onChangeMock).toHaveBeenCalledWith({padding: false});
     });

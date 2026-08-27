@@ -4,14 +4,18 @@ import {
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox, TextField} from "@khanacademy/wonder-blocks-form";
+import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import InfoTip from "../../components/info-tip";
+import {TypedSingleSelect} from "../../components/typed-single-select";
 
-const HORIZONTAL = "horizontal";
-const VERTICAL = "vertical";
+const layoutOptions = {
+    horizontal: "Horizontal",
+    vertical: "Vertical",
+} as const satisfies Record<PerseusSorterWidgetOptions["layout"], string>;
 
 type Props = PerseusSorterWidgetOptions & {
     onChange: (
@@ -78,18 +82,6 @@ class SorterEditor extends React.Component<Props, State> {
         this.props.onChange({correct: cards.filter(Boolean)});
     };
 
-    onLayoutChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const layout = e.target.value;
-        switch (layout) {
-            case HORIZONTAL:
-            case VERTICAL:
-                this.props.onChange({layout});
-                break;
-            default:
-                throw new Error(`${layout} is not an available layout option`);
-        }
-    };
-
     serialize = (): PerseusSorterWidgetOptions => {
         return {
             correct: this.props.correct,
@@ -100,48 +92,50 @@ class SorterEditor extends React.Component<Props, State> {
 
     render(): React.ReactNode {
         return (
-            <div>
-                <div>
-                    {" "}
-                    Correct answer:{" "}
-                    <InfoTip>
-                        <p>
-                            Enter the correct answer (in the correct order)
-                            here. The preview on the right will have the cards
-                            in a randomized order, which is how the student will
-                            see them.
-                        </p>
-                    </InfoTip>
-                </div>
-                <View tag="ol" style={styles.cards}>
-                    {this.state.cards.map((card, i) => (
-                        <View tag="li" key={i}>
-                            <CardEditor
-                                ariaLabel={
-                                    i === this.state.cards.length - 1
-                                        ? "Add a card"
-                                        : `Card ${i + 1}`
-                                }
-                                value={card}
-                                onChange={(value) =>
-                                    this.onCardChange(i, value)
+            <View style={styles.editor}>
+                <View style={styles.section}>
+                    <div>
+                        Correct answer{" "}
+                        <InfoTip>
+                            <p>
+                                Enter the correct answer (in the correct order)
+                                here. The preview on the right will have the
+                                cards in a randomized order, which is how the
+                                student will see them.
+                            </p>
+                        </InfoTip>
+                    </div>
+                    <View tag="ol" style={styles.cards}>
+                        {this.state.cards.map((card, i) => (
+                            <View tag="li" key={i}>
+                                <CardEditor
+                                    ariaLabel={
+                                        i === this.state.cards.length - 1
+                                            ? "Add a card"
+                                            : `Card ${i + 1}`
+                                    }
+                                    value={card}
+                                    onChange={(value) =>
+                                        this.onCardChange(i, value)
+                                    }
+                                />
+                            </View>
+                        ))}
+                    </View>
+                </View>
+                <View>
+                    <LabeledField
+                        label="Layout"
+                        field={
+                            <TypedSingleSelect
+                                options={layoutOptions}
+                                selectedValue={this.props.layout}
+                                onChange={(layout) =>
+                                    this.props.onChange({layout})
                                 }
                             />
-                        </View>
-                    ))}
-                </View>
-                <div>
-                    <label>
-                        {" "}
-                        Layout:{" "}
-                        <select
-                            value={this.props.layout}
-                            onChange={this.onLayoutChange}
-                        >
-                            <option value={HORIZONTAL}>Horizontal</option>
-                            <option value={VERTICAL}>Vertical</option>
-                        </select>
-                    </label>
+                        }
+                    />
                     <InfoTip>
                         <p>
                             Use the horizontal layout for short text and small
@@ -149,10 +143,10 @@ class SorterEditor extends React.Component<Props, State> {
                             and larger images.
                         </p>
                     </InfoTip>
-                </div>
+                </View>
                 <div>
                     <Checkbox
-                        label="Padding:"
+                        label="Padding"
                         checked={this.props.padding}
                         onChange={(value) => {
                             this.props.onChange({padding: value});
@@ -164,18 +158,29 @@ class SorterEditor extends React.Component<Props, State> {
                         </p>
                     </InfoTip>
                 </div>
-            </div>
+            </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    // Separates the three sections (cards, layout, padding) from each other.
+    editor: {
+        gap: sizing.size_240,
+    },
+    // Separates a section's label from the control it describes. Smaller than
+    // the gap between sections so each label groups with its own control.
+    section: {
+        gap: sizing.size_080,
+    },
     // The cards always stack in the editor, regardless of the `layout` option,
     // which only controls how the widget renders for students.
     cards: {
         listStyle: "none",
         paddingInlineStart: 0,
-        marginBlock: sizing.size_080,
+        // Drop the browser's default list margins; `section` and `editor`
+        // above own the spacing around the list.
+        marginBlock: 0,
         gap: sizing.size_120,
     },
 });
