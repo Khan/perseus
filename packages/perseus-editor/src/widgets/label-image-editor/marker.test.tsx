@@ -27,7 +27,10 @@ describe("Marker", () => {
             const onRemove = jest.fn();
 
             // Act
-            const {container} = render(
+            // `baseElement` (document.body) rather than `container`, because
+            // Wonder Blocks Popover portals the dropdown out of the render
+            // container.
+            const {baseElement} = render(
                 <Marker
                     answers={[]}
                     choices={[]}
@@ -48,7 +51,7 @@ describe("Marker", () => {
 
             // Assert
             expect(screen.getByDisplayValue("Marker 1")).toBeInTheDocument();
-            expect(container).toMatchSnapshot();
+            expect(baseElement).toMatchSnapshot();
         });
 
         it("renders with answers and choices", async () => {
@@ -57,7 +60,10 @@ describe("Marker", () => {
             const onRemove = jest.fn();
 
             // Act
-            const {container} = render(
+            // `baseElement` (document.body) rather than `container`, because
+            // Wonder Blocks Popover portals the dropdown out of the render
+            // container.
+            const {baseElement} = render(
                 <Marker
                     answers={["Answer 1", "Answer 2"]}
                     choices={["Choice 1", "Choice 2"]}
@@ -80,7 +86,7 @@ describe("Marker", () => {
             expect(screen.getByDisplayValue("Marker 1")).toBeInTheDocument();
             expect(screen.getByText("Choice 1")).toBeInTheDocument();
             expect(screen.getByText("Choice 2")).toBeInTheDocument();
-            expect(container).toMatchSnapshot();
+            expect(baseElement).toMatchSnapshot();
         });
     });
 });
