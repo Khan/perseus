@@ -312,7 +312,7 @@ const styles = StyleSheet.create({
         // The active pip is filled in — background and border both in the fill
         // color — so it shows up as a solid circle the same size as the ring pips.
         backgroundColor: semanticColor.core.foreground.instructive.default,
-        borderColor: semanticColor.core.border.instructive.default,
+        borderColor: semanticColor.core.transparent,
     },
 
     container: {
