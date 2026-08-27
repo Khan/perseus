@@ -49,12 +49,6 @@ function CardEditor({
 
     return (
         <View tag="li" className={styles.card}>
-            {/*
-             * The cards have no visible label, but screen reader users still
-             * need each input to have a distinguishable name, hence the
-             * aria-label. The card's controls are named the same way so it's
-             * clear which card each one acts on.
-             */}
             <TextField
                 aria-label={`Card ${cardNumber}`}
                 value={value}

@@ -1,5 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
-import {generateSorterOptions} from "@khanacademy/perseus-core";
+import {generateSorterOptions, sorterLogic} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -12,6 +12,14 @@ import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 /**
+ * WidgetEditor holds the editor by ref and calls `serialize()` on it, so that
+ * handle is part of the editor's contract with the rest of the system. Deriving
+ * the type from the component keeps these tests tied to the contract rather than
+ * to how the component happens to be written.
+ */
+type SorterEditorHandle = React.ElementRef<typeof SorterEditor>;
+
+/**
  * Renders the editor the way the content editor does: every change is fed back
  * in as props. Tests that make more than one edit, or that depend on the editor
  * re-rendering, need this rather than a bare `render`.
@@ -19,12 +27,14 @@ import type {UserEvent} from "@testing-library/user-event";
 function renderControlled(
     options: PerseusSorterWidgetOptions,
     onChange?: (newOptions: Partial<PerseusSorterWidgetOptions>) => void,
+    ref?: React.Ref<SorterEditorHandle>,
 ) {
     function Controlled() {
         const [currentOptions, setCurrentOptions] = React.useState(options);
 
         return (
             <SorterEditor
+                ref={ref}
                 {...currentOptions}
                 onChange={(newOptions) => {
                     onChange?.(newOptions);
@@ -272,7 +282,7 @@ describe("sorter-editor", () => {
 
         it("serializes all of the cards, including the ones past the limit", () => {
             // Arrange
-            const editorRef = React.createRef<SorterEditor>();
+            const editorRef = React.createRef<SorterEditorHandle>();
             render(
                 <SorterEditor
                     ref={editorRef}
@@ -432,7 +442,7 @@ describe("sorter-editor", () => {
 
     it("serializes the correct answer, layout, and padding", () => {
         // Arrange
-        const editorRef = React.createRef<SorterEditor>();
+        const editorRef = React.createRef<SorterEditorHandle>();
         render(
             <SorterEditor
                 ref={editorRef}
@@ -454,5 +464,76 @@ describe("sorter-editor", () => {
             layout: "vertical",
             padding: false,
         });
+    });
+
+    // WidgetEditor serializes the editor *during* an edit, to fold the editor's
+    // current options into the change it's about to publish. A handle that
+    // captured the props it was created with would serialize pre-edit options
+    // and quietly revert the author's work, so serializing has to see the props
+    // from the latest render, not the first one.
+    it("serializes card edits made after the first render", async () => {
+        // Arrange
+        const editorRef = React.createRef<SorterEditorHandle>();
+        renderControlled(
+            generateSorterOptions({correct: ["Cat", "Dog"]}),
+            undefined,
+            editorRef,
+        );
+
+        // Act
+        const card = screen.getByDisplayValue("Dog");
+        await userEvent.clear(card);
+        await userEvent.type(card, "Emu");
+
+        // Assert
+        expect(editorRef.current?.serialize()).toMatchObject({
+            correct: ["Cat", "Emu"],
+        });
+    });
+
+    it("serializes layout changes made after the first render", async () => {
+        // Arrange
+        const editorRef = React.createRef<SorterEditorHandle>();
+        renderControlled(
+            generateSorterOptions({layout: "horizontal"}),
+            undefined,
+            editorRef,
+        );
+
+        // Act
+        await userEvent.click(screen.getByRole("combobox", {name: "Layout"}));
+        await userEvent.click(screen.getByRole("option", {name: "Vertical"}));
+
+        // Assert
+        expect(editorRef.current?.serialize()).toMatchObject({
+            layout: "vertical",
+        });
+    });
+
+    // The editor is registered by its widget name (Widgets.registerEditors
+    // throws without one) and the editor page reads its default options to seed
+    // a newly inserted sorter. Both are read off the component itself, so
+    // they're part of its public surface, not implementation detail.
+    it("exposes the widget name it is registered under", () => {
+        // Arrange, Act, Assert
+        expect(SorterEditor.widgetName).toBe("sorter");
+    });
+
+    it("exposes the default widget options a new sorter starts with", () => {
+        // Arrange, Act, Assert
+        expect(SorterEditor.defaultProps).toEqual(
+            sorterLogic.defaultWidgetOptions,
+        );
+    });
+
+    it("renders the default cards when no options are given", () => {
+        // Arrange, Act
+        render(<SorterEditor onChange={() => {}} />);
+
+        // Assert
+        expect(screen.getAllByRole("textbox")).toHaveLength(3);
+        expect(screen.getByDisplayValue("$x$")).toBeInTheDocument();
+        expect(screen.getByDisplayValue("$y$")).toBeInTheDocument();
+        expect(screen.getByDisplayValue("$z$")).toBeInTheDocument();
     });
 });
