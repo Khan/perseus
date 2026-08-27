@@ -2,13 +2,12 @@ import {makeSafeUrl} from "@khanacademy/perseus-core";
 import {
     phetSimulationLogic,
     type PerseusPhetSimulationWidgetOptions,
-    type PhetSimulationDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {LabeledTextField} from "@khanacademy/wonder-blocks-form";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
-type Props = PhetSimulationDefaultWidgetOptions & {
+type Props = PerseusPhetSimulationWidgetOptions & {
     onChange: (arg1: {
         url?: Props["url"];
         description?: Props["description"];
@@ -21,7 +20,7 @@ type Props = PhetSimulationDefaultWidgetOptions & {
  * with physics simulations.
  */
 class PhetSimulationEditor extends React.Component<Props> {
-    static defaultProps: PhetSimulationDefaultWidgetOptions =
+    static defaultProps: PerseusPhetSimulationWidgetOptions =
         phetSimulationLogic.defaultWidgetOptions;
 
     static widgetName = "phet-simulation" as const;

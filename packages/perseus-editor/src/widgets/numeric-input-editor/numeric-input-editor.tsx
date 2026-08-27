@@ -1,10 +1,5 @@
 import {KhanMath} from "@khanacademy/kmath";
-import {
-    components,
-    Changeable,
-    EditorJsonify,
-    Util,
-} from "@khanacademy/perseus";
+import {components, Util} from "@khanacademy/perseus";
 import {
     numericInputLogic,
     type PerseusNumericInputWidgetOptions,
@@ -25,12 +20,13 @@ import {
 } from "../../components/segmented-control";
 import {TypedSingleSelect} from "../../components/typed-single-select";
 import Editor from "../../editor";
+import {deprecatedChangeableChange} from "../../mixins/changeable";
+import EditorJsonify from "../../mixins/editor-jsonify";
 
 import styles from "./numeric-input-editor.module.css";
 
+import type {ChangeFn} from "../../mixins/changeable";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
-
-type ChangeFn = typeof Changeable.change;
 
 const {NumberInput, TextInput} = components;
 const {firstNumericalParse} = Util;
@@ -97,7 +93,7 @@ class NumericInputEditor extends React.Component<Props, State> {
     }
 
     change: ChangeFn = (...args) => {
-        return Changeable.change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     onToggleAnswers = (answerIndex: number) => {

@@ -9,7 +9,7 @@ import QuestionRendererForStories from "../../__testutils__/question-renderer-fo
 
 import type {APIOptions} from "../../../types";
 import type {
-    ExplanationDefaultWidgetOptions,
+    PerseusExplanationWidgetOptions,
     PerseusWidgetsMap,
 } from "@khanacademy/perseus-core";
 import type {Decorator} from "@storybook/react-vite";
@@ -20,7 +20,7 @@ export const explanationRendererDecorator: Decorator = (
         args,
         parameters,
     }: {
-        args: Partial<ExplanationDefaultWidgetOptions>;
+        args: Partial<PerseusExplanationWidgetOptions>;
         parameters?: {
             apiOptions?: APIOptions;
             content?: string;

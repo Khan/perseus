@@ -105,7 +105,6 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 categories: ["Fruits", "Vegetables"],
                 values: [0, 1, 0, 1],
                 randomizeItems: false,
-                static: false,
             },
         },
         "interactive-graph 1": generateInteractiveGraphWidget({
@@ -147,7 +146,6 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 numDivisions: 5,
                 snapDivisions: 2,
                 labelTicks: true,
-                static: false,
             },
         },
         "matrix 1": {
@@ -305,7 +303,6 @@ export const comprehensiveQuestion: PerseusRenderer = {
             static: false,
             type: "label-image",
             options: {
-                static: false,
                 choices: ["Label 1", "Label 2"],
                 imageUrl:
                     "https://cdn.kastatic.org/ka-content-images/227d402cb09ebc1b67f197467212fa4ab3ced5b3.jpg",
@@ -405,9 +402,6 @@ export const comprehensiveQuestion: PerseusRenderer = {
                                 }),
                             }),
                         },
-                        hasHint: false,
-                        widgetEnabled: true,
-                        immutableWidgets: false,
                     }),
                 ],
             },
@@ -455,7 +449,6 @@ export const comprehensiveQuestion: PerseusRenderer = {
                     tickStep: [1, 1],
                     valid: true,
                 },
-                static: false,
             },
         },
         "measurer 1": {

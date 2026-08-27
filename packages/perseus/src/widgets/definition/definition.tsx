@@ -1,10 +1,12 @@
 import Clickable from "@khanacademy/wonder-blocks-clickable";
+import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import * as React from "react";
+import {forwardRef, useImperativeHandle} from "react";
 
-import {PerseusI18nContext} from "../../components/i18n-context";
-import {withDependencies} from "../../components/with-dependencies";
+import {usePerseusI18n} from "../../components/i18n-context";
 import {DefinitionConsumer} from "../../definition-context";
+import {useDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/definition/definition-ai-utils";
 
@@ -12,96 +14,78 @@ import styles from "./definition.module.css";
 // TODO (LEMS-3815): Legacy styling - Remove this code
 import stylesLegacy from "./definition_legacy-styles";
 
-import type {
-    PerseusDependenciesV2,
-    Widget,
-    WidgetExports,
-    WidgetProps,
-} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {DefinitionPromptJSON} from "../../widget-ai-utils/definition/definition-ai-utils";
-import type {
-    PerseusDefinitionWidgetOptions,
-    PerseusRenderer,
-} from "@khanacademy/perseus-core";
+import type {PerseusDefinitionWidgetOptions} from "@khanacademy/perseus-core";
 
-type DefinitionProps = WidgetProps<PerseusDefinitionWidgetOptions> & {
-    widgets: PerseusRenderer["widgets"];
-    dependencies: PerseusDependenciesV2;
-};
+type Props = WidgetProps<PerseusDefinitionWidgetOptions>;
 
-class Definition extends React.Component<DefinitionProps> implements Widget {
-    static contextType = PerseusI18nContext;
-    declare context: React.ContextType<typeof PerseusI18nContext>;
+const Definition = forwardRef<Widget, Props>(function Definition(props, ref) {
+    const {strings} = usePerseusI18n();
+    const dependencies = useDependencies();
 
-    // this just helps with TS weak typing when a Widget
-    // doesn't implement any Widget methods
-    isWidget = true as const;
-
-    componentDidMount(): void {
-        this.props.dependencies.analytics.onAnalyticsEvent({
+    useOnMountEffect(() => {
+        dependencies.analytics.onAnalyticsEvent({
             type: "perseus:widget:rendered:ti",
             payload: {
                 widgetSubType: "null",
                 widgetType: "definition",
-                widgetId: this.props.widgetId,
+                widgetId: props.widgetId,
             },
         });
-    }
+    });
 
-    getPromptJSON(): DefinitionPromptJSON {
-        return _getPromptJSON(this.props);
-    }
+    useImperativeHandle(ref, () => ({
+        getPromptJSON(): DefinitionPromptJSON {
+            return _getPromptJSON(props);
+        },
+    }));
 
-    render(): React.ReactNode {
-        return (
-            <DefinitionConsumer>
-                {({activeDefinitionId, setActiveDefinitionId}) => (
-                    <Popover
-                        dismissEnabled
-                        content={
-                            <PopoverContentCore
-                                style={stylesLegacy.tooltipBody}
-                                // className={styles.tooltipBody} - uncomment when 'className' is supported
-                                closeButtonVisible={true}
-                            >
-                                <Renderer
-                                    apiOptions={this.props.apiOptions}
-                                    content={this.props.options.definition}
-                                    widgets={this.props.widgets}
-                                    strings={this.context.strings}
-                                />
-                            </PopoverContentCore>
-                        }
-                        opened={activeDefinitionId === this.props.widgetId}
-                        onClose={() => setActiveDefinitionId(null)}
-                        placement="top"
-                    >
-                        <Clickable
-                            onClick={() => {
-                                this.props.trackInteraction();
-                                setActiveDefinitionId(this.props.widgetId);
-                            }}
-                            aria-label={this.context.strings.definitionIdentifier(
-                                {word: this.props.options.togglePrompt},
-                            )}
+    return (
+        <DefinitionConsumer>
+            {({activeDefinitionId, setActiveDefinitionId}) => (
+                <Popover
+                    dismissEnabled
+                    content={
+                        <PopoverContentCore
+                            // TODO: replace stylesLegacy with `className={styles.tooltipBody}` once 'className' is supported
+                            style={stylesLegacy.tooltipBody}
+                            closeButtonVisible={true}
                         >
-                            {() => (
-                                <span className={styles.definition}>
-                                    {this.props.options.togglePrompt}
-                                </span>
-                            )}
-                        </Clickable>
-                    </Popover>
-                )}
-            </DefinitionConsumer>
-        );
-    }
-}
-
-const WrappedDefinition = withDependencies(Definition);
+                            <Renderer
+                                apiOptions={props.apiOptions}
+                                content={props.options.definition}
+                                strings={strings}
+                            />
+                        </PopoverContentCore>
+                    }
+                    opened={activeDefinitionId === props.widgetId}
+                    onClose={() => setActiveDefinitionId(null)}
+                    placement="top"
+                >
+                    <Clickable
+                        onClick={() => {
+                            props.trackInteraction();
+                            setActiveDefinitionId(props.widgetId);
+                        }}
+                        aria-label={strings.definitionIdentifier({
+                            word: props.options.togglePrompt,
+                        })}
+                    >
+                        {() => (
+                            <span className={styles.definition}>
+                                {props.options.togglePrompt}
+                            </span>
+                        )}
+                    </Clickable>
+                </Popover>
+            )}
+        </DefinitionConsumer>
+    );
+});
 
 export default {
     name: "definition",
     displayName: "Definition",
-    widget: WrappedDefinition,
-} satisfies WidgetExports<typeof WrappedDefinition>;
+    widget: Definition,
+} satisfies WidgetExports<typeof Definition>;

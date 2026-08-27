@@ -38,7 +38,6 @@ describe("generateTestPerseusItem", () => {
 describe("getAnswerfulItem", () => {
     it("should return an answerful item using the type given", () => {
         const answerfulItem = getAnswerfulItem("dropdown", {
-            static: false,
             placeholder: "greater/less than or equal to",
             choices: [
                 {
@@ -59,7 +58,6 @@ describe("getAnswerfulItem", () => {
                     "dropdown 1": {
                         type: "dropdown",
                         options: {
-                            static: false,
                             placeholder: "greater/less than or equal to",
                             choices: [
                                 {
@@ -92,7 +90,6 @@ describe("getAnswerfulItem", () => {
 describe("getAnswerlessItem", () => {
     it("should return an answerless item using the type given with upgraded widget options", () => {
         const answerlessItem = getAnswerlessItem("dropdown", {
-            static: false,
             placeholder: "greater/less than or equal to",
             choices: [
                 {
@@ -113,7 +110,6 @@ describe("getAnswerlessItem", () => {
                     "dropdown 1": {
                         type: "dropdown",
                         options: {
-                            static: false,
                             placeholder: "greater/less than or equal to",
                             choices: [
                                 {

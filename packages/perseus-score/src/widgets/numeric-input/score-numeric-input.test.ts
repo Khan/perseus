@@ -1,12 +1,13 @@
-import {generateNumericInputAnswer} from "@khanacademy/perseus-core";
+import {
+    generateNumericInputAnswer,
+    generateNumericInputOptions,
+} from "@khanacademy/perseus-core";
 
 import scoreNumericInput, {maybeParsePercentInput} from "./score-numeric-input";
 
-import type {PerseusNumericInputRubric} from "@khanacademy/perseus-core";
-
 describe("scoreNumericInput", () => {
     it("is invalid when input is undefined", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [
                 {
                     value: 1,
@@ -18,7 +19,7 @@ describe("scoreNumericInput", () => {
                 },
             ],
             coefficient: true,
-        };
+        });
 
         const userInput = undefined;
 
@@ -28,7 +29,7 @@ describe("scoreNumericInput", () => {
     });
 
     it("is correct when input is empty but answer is 1 and coefficient: true", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [
                 {
                     value: 1,
@@ -40,7 +41,7 @@ describe("scoreNumericInput", () => {
                 },
             ],
             coefficient: true,
-        };
+        });
 
         const userInput = {
             // Empty input being translated to "1" depends on coefficient being
@@ -54,10 +55,10 @@ describe("scoreNumericInput", () => {
     });
 
     it("scores a correct answer", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [generateNumericInputAnswer({value: 1})],
             coefficient: true,
-        };
+        });
 
         const userInput = {currentValue: "1"} as const;
 
@@ -67,10 +68,10 @@ describe("scoreNumericInput", () => {
     });
 
     it("scores an incorrect answer", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [generateNumericInputAnswer({value: 1})],
             coefficient: true,
-        };
+        });
 
         const userInput = {currentValue: "99"} as const;
 
@@ -80,7 +81,7 @@ describe("scoreNumericInput", () => {
     });
 
     it("should not consider commas as a decimal separator in the EN locale", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [
                 {
                     value: 16,
@@ -92,7 +93,7 @@ describe("scoreNumericInput", () => {
                 },
             ],
             coefficient: true,
-        };
+        });
 
         const userInput = {
             currentValue: "16,000",
@@ -104,7 +105,7 @@ describe("scoreNumericInput", () => {
     });
 
     it("should consider commas as the thousands separator in the EN locale", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [
                 {
                     value: 16500,
@@ -116,7 +117,7 @@ describe("scoreNumericInput", () => {
                 },
             ],
             coefficient: false,
-        };
+        });
 
         const userInput = {
             currentValue: "16,500.00",
@@ -130,7 +131,7 @@ describe("scoreNumericInput", () => {
     });
 
     it("should reject European decimal format if input is not a valid number in the EN locale", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [
                 {
                     value: 16.5,
@@ -142,7 +143,7 @@ describe("scoreNumericInput", () => {
                 },
             ],
             coefficient: false,
-        };
+        });
 
         const userInput = {
             currentValue: "16,5",
@@ -156,7 +157,7 @@ describe("scoreNumericInput", () => {
     });
 
     it("should consider commas as the decimal separator in the FR locale", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [
                 {
                     value: 16.5,
@@ -168,7 +169,7 @@ describe("scoreNumericInput", () => {
                 },
             ],
             coefficient: false,
-        };
+        });
 
         const userInput = {
             currentValue: "16,5",
@@ -181,7 +182,7 @@ describe("scoreNumericInput", () => {
     });
 
     it("should still accept periods as the thousands separator in FR locale", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [
                 {
                     value: 16500,
@@ -193,7 +194,7 @@ describe("scoreNumericInput", () => {
                 },
             ],
             coefficient: false,
-        };
+        });
 
         const userInput = {
             currentValue: "16.500,00",
@@ -207,7 +208,7 @@ describe("scoreNumericInput", () => {
     });
 
     it("with nonsense", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [
                 {
                     value: 1,
@@ -219,7 +220,7 @@ describe("scoreNumericInput", () => {
                 },
             ],
             coefficient: true,
-        };
+        });
 
         const userInput = {
             currentValue: "sadasdfas",
@@ -237,7 +238,7 @@ describe("scoreNumericInput", () => {
     // important to the test.
     // https://khanacademy.atlassian.net/browse/LC-691
     it("doesn't default to validating pi", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [
                 {
                     maxError: null,
@@ -249,7 +250,7 @@ describe("scoreNumericInput", () => {
                 },
             ],
             coefficient: false,
-        };
+        });
 
         const userInput = {
             // (pi / 12) * 173 = 45.291
@@ -271,7 +272,7 @@ describe("scoreNumericInput", () => {
     });
 
     it("still validates against pi if provided in answerForms", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [
                 {
                     maxError: null,
@@ -284,7 +285,7 @@ describe("scoreNumericInput", () => {
                 },
             ],
             coefficient: false,
-        };
+        });
 
         const userInput = {
             currentValue: "99 pi",
@@ -296,7 +297,7 @@ describe("scoreNumericInput", () => {
     });
 
     it("with a strict answer", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [
                 {
                     value: 1,
@@ -308,7 +309,7 @@ describe("scoreNumericInput", () => {
                 },
             ],
             coefficient: true,
-        };
+        });
 
         const userInput = {
             currentValue: "1.0",
@@ -320,7 +321,7 @@ describe("scoreNumericInput", () => {
     });
 
     it("with a strict answer and max error is outside range", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [
                 {
                     value: 1,
@@ -332,7 +333,7 @@ describe("scoreNumericInput", () => {
                 },
             ],
             coefficient: true,
-        };
+        });
 
         const userInput = {
             currentValue: "1.3",
@@ -344,7 +345,7 @@ describe("scoreNumericInput", () => {
     });
 
     it("with a strict answer and max error is inside range", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [
                 {
                     value: 1,
@@ -356,7 +357,7 @@ describe("scoreNumericInput", () => {
                 },
             ],
             coefficient: true,
-        };
+        });
 
         const userInput = {
             currentValue: "1.12",
@@ -368,7 +369,7 @@ describe("scoreNumericInput", () => {
     });
 
     it("rejects a strict improper with whole number answer", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [
                 {
                     value: 3,
@@ -381,7 +382,7 @@ describe("scoreNumericInput", () => {
                 },
             ],
             coefficient: true,
-        };
+        });
 
         const userInput = {
             currentValue: "3",
@@ -393,7 +394,7 @@ describe("scoreNumericInput", () => {
     });
 
     it("accepts a strict improper answer with tex answer", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [
                 {
                     value: 3,
@@ -406,7 +407,7 @@ describe("scoreNumericInput", () => {
                 },
             ],
             coefficient: true,
-        };
+        });
 
         const userInput = {
             currentValue: "\\frac{9}{3}",
@@ -418,7 +419,7 @@ describe("scoreNumericInput", () => {
     });
 
     it("accepts a strict improper answer with simple text answer", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [
                 {
                     value: 3,
@@ -431,7 +432,7 @@ describe("scoreNumericInput", () => {
                 },
             ],
             coefficient: true,
-        };
+        });
 
         const userInput = {
             currentValue: "9/3",
@@ -444,7 +445,7 @@ describe("scoreNumericInput", () => {
 
     it("respects the order of answer options when scoring", () => {
         // Arrange
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [
                 // "4" is a wrong answer
                 {
@@ -466,7 +467,7 @@ describe("scoreNumericInput", () => {
                 },
             ],
             coefficient: true,
-        };
+        });
 
         // Act - "wrong"
         const wrongInput = {
@@ -489,7 +490,7 @@ describe("scoreNumericInput", () => {
 
     it("defaults to 1 or -1 when user input is empty/incomplete", () => {
         // Arrange
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [
                 {
                     value: 1,
@@ -509,7 +510,7 @@ describe("scoreNumericInput", () => {
                 },
             ],
             coefficient: true,
-        };
+        });
 
         // Act - "empty"
         const emptyInput = {
@@ -535,7 +536,7 @@ describe("scoreNumericInput", () => {
         // behavior. Ideally, answers should always have a value field, but
         // some don't, so this test documents how we handle that.
         // TODO(benchristel): Fix the data so we can remove this test.
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [
                 {
                     // This answer is missing its value field.
@@ -556,7 +557,7 @@ describe("scoreNumericInput", () => {
                 },
             ],
             coefficient: true,
-        };
+        });
 
         const score = scoreNumericInput({currentValue: "50%"}, rubric);
 
@@ -568,7 +569,7 @@ describe("scoreNumericInput", () => {
         // behavior. Ideally, answers should always have a value field, but
         // some don't, so this test documents how we handle that.
         // TODO(benchristel): Fix the data so we can remove this test.
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [
                 {
                     value: null,
@@ -589,7 +590,7 @@ describe("scoreNumericInput", () => {
                 },
             ],
             coefficient: true,
-        };
+        });
 
         const score = scoreNumericInput({currentValue: "50%"}, rubric);
 
@@ -597,7 +598,7 @@ describe("scoreNumericInput", () => {
     });
 
     it("converts a percentage input value to a decimal", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [
                 {
                     value: 0.2,
@@ -609,7 +610,7 @@ describe("scoreNumericInput", () => {
                 },
             ],
             coefficient: true,
-        };
+        });
 
         const score = scoreNumericInput({currentValue: "20%"}, rubric);
 
@@ -620,7 +621,7 @@ describe("scoreNumericInput", () => {
         // NOTE(benchristel): This seems like incorrect behavior. I've added
         // this test to characterize the current behavior. Feel free to
         // delete/change it if it's in your way.
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [
                 {
                     value: 1.2,
@@ -632,7 +633,7 @@ describe("scoreNumericInput", () => {
                 },
             ],
             coefficient: true,
-        };
+        });
 
         const score = scoreNumericInput({currentValue: "120%"}, rubric);
 
@@ -643,7 +644,7 @@ describe("scoreNumericInput", () => {
         // NOTE(benchristel): This seems like incorrect behavior. I've added
         // this test to characterize the current behavior. Feel free to
         // delete/change it if it's in your way.
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [
                 {
                     value: 1.1,
@@ -655,7 +656,7 @@ describe("scoreNumericInput", () => {
                 },
             ],
             coefficient: true,
-        };
+        });
 
         const score = scoreNumericInput({currentValue: "1.1%"}, rubric);
 
@@ -663,7 +664,7 @@ describe("scoreNumericInput", () => {
     });
 
     it("rejects answers with an extra, incorrect percent sign if < 1", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [
                 {
                     value: 0.9,
@@ -675,7 +676,7 @@ describe("scoreNumericInput", () => {
                 },
             ],
             coefficient: true,
-        };
+        });
 
         const score = scoreNumericInput({currentValue: "0.9%"}, rubric);
 
@@ -729,7 +730,7 @@ describe("scoreNumericInput", () => {
             const expected = answerMatchers[unsimplifiedFractionScore];
 
             // Arrange
-            const rubric: PerseusNumericInputRubric = {
+            const rubric = generateNumericInputOptions({
                 coefficient: false,
                 answers: [
                     {
@@ -741,7 +742,7 @@ describe("scoreNumericInput", () => {
                         message: "",
                     },
                 ],
-            };
+            });
 
             // Act
             const score = scoreNumericInput({currentValue: "2/4"}, rubric);
@@ -752,7 +753,7 @@ describe("scoreNumericInput", () => {
 
         it("marks a simplified fraction correct", () => {
             // Arrange
-            const rubric: PerseusNumericInputRubric = {
+            const rubric = generateNumericInputOptions({
                 coefficient: false,
                 answers: [
                     {
@@ -764,7 +765,7 @@ describe("scoreNumericInput", () => {
                         message: "",
                     },
                 ],
-            };
+            });
 
             // Act
             const score = scoreNumericInput({currentValue: "1/2"}, rubric);
@@ -775,7 +776,7 @@ describe("scoreNumericInput", () => {
 
         it("marks an incorrect fraction incorrect", () => {
             // Arrange
-            const rubric: PerseusNumericInputRubric = {
+            const rubric = generateNumericInputOptions({
                 coefficient: false,
                 answers: [
                     {
@@ -787,7 +788,7 @@ describe("scoreNumericInput", () => {
                         message: "",
                     },
                 ],
-            };
+            });
 
             // Act
             const score = scoreNumericInput({currentValue: "2/3"}, rubric);

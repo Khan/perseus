@@ -363,20 +363,14 @@ export const overflowContentInGradedGroupSet: PerseusRenderer = {
                     {
                         ...SingleSelectOverflowContent,
                         title: "Single Select - Math",
-                        widgetEnabled: true,
-                        immutableWidgets: false,
                     },
                     {
                         ...SingleSelectOverflowImageContent,
                         title: "Single Select - Image",
-                        widgetEnabled: true,
-                        immutableWidgets: false,
                     },
                     {
                         ...multiChoiceQuestionSimpleOverflowContent,
                         title: "Multi Choice - Math",
-                        widgetEnabled: true,
-                        immutableWidgets: false,
                     },
                 ],
             },

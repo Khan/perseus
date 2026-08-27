@@ -38,7 +38,6 @@ export function generateTestCategorizerWidget(): CategorizerWidget {
             items: [],
             categories: [],
             randomizeItems: false,
-            static: false,
             values: [],
         },
     };

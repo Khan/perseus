@@ -1,7 +1,6 @@
-import {EditorJsonify} from "@khanacademy/perseus";
 import {
     dropdownLogic,
-    type DropdownDefaultWidgetOptions,
+    type PerseusDropdownWidgetOptions,
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {TextField} from "@khanacademy/wonder-blocks-form";
@@ -16,6 +15,7 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import InfoTip from "../../components/info-tip";
+import EditorJsonify from "../../mixins/editor-jsonify";
 
 type Props = any;
 
@@ -36,7 +36,7 @@ class DropdownEditor extends React.Component<Props> {
 
     static widgetName = "dropdown" as const;
 
-    static defaultProps: DropdownDefaultWidgetOptions =
+    static defaultProps: PerseusDropdownWidgetOptions =
         dropdownLogic.defaultWidgetOptions;
 
     onVisibleLabelChange: (arg1: string) => void = (visibleLabel) => {

@@ -1,4 +1,4 @@
-import {boolean, constant, object, string} from "../general-purpose-parsers";
+import {constant, object, string} from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
@@ -17,6 +17,5 @@ export const parseExplanationWidget = parseWidget(
             (rawVal, ctx) => parseWidgetsMap(rawVal, ctx),
             () => ({}),
         ),
-        static: defaulted(boolean, () => false),
     }),
 );

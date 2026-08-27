@@ -48,6 +48,5 @@ export const parseNumberLineWidget = parseWidget(
         correctX: defaulted(nullable(number), () => null),
         initialX: optional(nullable(number)),
         showTooltips: optional(boolean),
-        static: defaulted(boolean, () => false),
     }),
 );

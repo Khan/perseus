@@ -2,32 +2,26 @@
  * This editor is for embedding Khan Academy CS programs.
  */
 
-import {
-    Changeable,
-    Dependencies,
-    EditorJsonify,
-    Log,
-} from "@khanacademy/perseus";
+import {Dependencies, Log} from "@khanacademy/perseus";
 import {Errors} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 
 import BlurInput from "../../components/blur-input";
 import InfoTip from "../../components/info-tip";
+import {deprecatedChangeableChange} from "../../mixins/changeable";
+import EditorJsonify from "../../mixins/editor-jsonify";
 
+import type {ChangeableProps, ChangeFn} from "../../mixins/changeable";
 import type {
-    CSProgramDefaultWidgetOptions,
+    PerseusCSProgramWidgetOptions,
     PerseusCSProgramSetting,
 } from "@khanacademy/perseus-core";
-
-type ChangeFn = typeof Changeable.change;
 
 const DEFAULT_WIDTH = 400;
 const DEFAULT_HEIGHT = 400;
 
-interface PairEditorProps
-    extends PerseusCSProgramSetting,
-        Changeable.ChangeableProps {}
+interface PairEditorProps extends PerseusCSProgramSetting, ChangeableProps {}
 
 /**
  * This is used for editing a name/value pair.
@@ -43,7 +37,7 @@ class PairEditor extends React.Component<PairEditorProps> {
     };
 
     change: ChangeFn = (...args) => {
-        return Changeable.change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     render(): React.ReactNode {
@@ -69,7 +63,7 @@ class PairEditor extends React.Component<PairEditorProps> {
     }
 }
 
-interface PairsEditorProps extends Changeable.ChangeableProps {
+interface PairsEditorProps extends ChangeableProps {
     pairs: PerseusCSProgramSetting[];
 }
 
@@ -82,7 +76,7 @@ interface PairsEditorProps extends Changeable.ChangeableProps {
  */
 class PairsEditor extends React.Component<PairsEditorProps> {
     change: ChangeFn = (...args) => {
-        return Changeable.change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     handlePairChange = (pairIndex, pair: any) => {
@@ -129,8 +123,8 @@ function isolateProgramID(programUrl: string) {
 }
 
 interface CSProgramEditorProps
-    extends CSProgramDefaultWidgetOptions,
-        Changeable.ChangeableProps {}
+    extends PerseusCSProgramWidgetOptions,
+        ChangeableProps {}
 
 /**
  * This is the main editor for this widget, to specify all the options.
@@ -140,7 +134,7 @@ class CSProgramEditor extends React.Component<CSProgramEditorProps> {
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
         // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
-        return Changeable.change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     _handleSettingsChange: (arg1: any) => void = (settings) => {

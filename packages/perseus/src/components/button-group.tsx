@@ -1,4 +1,4 @@
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {border, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -111,9 +111,10 @@ class ButtonGroup extends React.Component<Props> {
 
 const styles = StyleSheet.create({
     buttonStyle: {
-        backgroundColor: "white",
-        border: "1px solid #ccc",
+        backgroundColor: semanticColor.core.background.base.default,
+        border: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
         borderInlineStart: "0",
+        color: semanticColor.core.foreground.neutral.strong,
         cursor: "pointer",
         margin: "0",
         paddingBlock: "5px",
@@ -121,19 +122,19 @@ const styles = StyleSheet.create({
         position: "relative", // for hover
 
         ":first-child": {
-            borderInlineStart: "1px solid #ccc",
-            borderStartStartRadius: "3px",
-            borderEndStartRadius: "3px",
+            borderInlineStart: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
+            borderStartStartRadius: border.radius.radius_040,
+            borderEndStartRadius: border.radius.radius_040,
         },
 
         ":last-child": {
-            borderInlineEnd: "1px solid #ccc",
-            borderStartEndRadius: "3px",
-            borderEndEndRadius: "3px",
+            borderInlineEnd: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
+            borderStartEndRadius: border.radius.radius_040,
+            borderEndEndRadius: border.radius.radius_040,
         },
 
         ":hover": {
-            backgroundColor: "#ccc",
+            backgroundColor: semanticColor.core.background.instructive.subtle,
         },
 
         ":focus": {
@@ -142,7 +143,8 @@ const styles = StyleSheet.create({
     },
 
     selectedStyle: {
-        backgroundColor: "#ddd",
+        backgroundColor: semanticColor.core.background.instructive.subtle,
+        boxShadow: `inset 0 calc(-1 * ${border.width.thick}) 0 ${semanticColor.core.border.instructive.default}`,
     },
 
     disabledStyle: {

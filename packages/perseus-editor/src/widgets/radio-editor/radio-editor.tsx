@@ -16,7 +16,6 @@ import type {APIOptions} from "@khanacademy/perseus";
 import type {
     PerseusRadioWidgetOptions,
     PerseusRadioChoice,
-    RadioDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
 
 // Exported for testing
@@ -46,7 +45,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         label: "Multiple choice best practices",
     };
 
-    static defaultProps: RadioDefaultWidgetOptions =
+    static defaultProps: PerseusRadioWidgetOptions =
         radioLogic.defaultWidgetOptions;
 
     // Store refs to each choice editor for focus management

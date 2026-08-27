@@ -10,10 +10,7 @@ import InfoTip from "../../components/info-tip";
 import TextListEditor from "../../components/text-list-editor";
 
 import type {APIOptions} from "@khanacademy/perseus";
-import type {
-    PerseusPlotterWidgetOptions,
-    PlotterDefaultWidgetOptions,
-} from "@khanacademy/perseus-core";
+import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {NumberInput, RangeInput} = components;
@@ -78,7 +75,7 @@ const formatNumber = (num) => "$" + knumber.round(num, 2) + "$";
 class PlotterEditor extends React.Component<Props, State> {
     static widgetName = "plotter" as const;
 
-    static defaultProps: PlotterDefaultWidgetOptions =
+    static defaultProps: PerseusPlotterWidgetOptions =
         plotterLogic.defaultWidgetOptions;
 
     state: State = {

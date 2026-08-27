@@ -1,7 +1,7 @@
 import scoreRadio from "./score-radio";
 
 import type {
-    PerseusRadioRubric,
+    PerseusRadioWidgetOptions,
     PerseusRadioUserInput,
 } from "@khanacademy/perseus-core";
 
@@ -9,7 +9,7 @@ describe("scoreRadio", () => {
     it("is invalid when the user input is undefined", () => {
         const userInput = undefined;
 
-        const rubric: PerseusRadioRubric = {
+        const rubric: PerseusRadioWidgetOptions = {
             choices: [
                 {
                     id: "0-0-0-0-0",
@@ -44,7 +44,7 @@ describe("scoreRadio", () => {
             selectedChoiceIds: ["0-0-0-0-0"],
         };
 
-        const rubric: PerseusRadioRubric = {
+        const rubric: PerseusRadioWidgetOptions = {
             choices: [
                 {
                     id: "0-0-0-0-0",
@@ -80,7 +80,7 @@ describe("scoreRadio", () => {
             selectedChoiceIds: ["0-0-0-0-0"],
         };
 
-        const rubric: PerseusRadioRubric = {
+        const rubric: PerseusRadioWidgetOptions = {
             choices: [
                 {
                     id: "0-0-0-0-0",
@@ -116,7 +116,7 @@ describe("scoreRadio", () => {
             selectedChoiceIds: ["0-0-0-0-0", "4-4-4-4-4"],
         };
 
-        const rubric: PerseusRadioRubric = {
+        const rubric: PerseusRadioWidgetOptions = {
             choices: [
                 {
                     id: "0-0-0-0-0",
@@ -157,7 +157,7 @@ describe("scoreRadio", () => {
             selectedChoiceIds: ["0-0-0-0-0"],
         };
 
-        const rubric: PerseusRadioRubric = {
+        const rubric: PerseusRadioWidgetOptions = {
             choices: [
                 {
                     id: "0-0-0-0-0",
@@ -192,7 +192,7 @@ describe("scoreRadio", () => {
             selectedChoiceIds: ["3-3-3-3-3"],
         };
 
-        const rubric: PerseusRadioRubric = {
+        const rubric: PerseusRadioWidgetOptions = {
             choices: [
                 {
                     id: "0-0-0-0-0",
@@ -227,7 +227,7 @@ describe("scoreRadio", () => {
             selectedChoiceIds: ["0-0-0-0-0", "1-1-1-1-1"],
         };
 
-        const rubric: PerseusRadioRubric = {
+        const rubric: PerseusRadioWidgetOptions = {
             choices: [
                 {
                     id: "0-0-0-0-0",
@@ -262,7 +262,7 @@ describe("scoreRadio", () => {
             selectedChoiceIds: ["0-0-0-0-0", "3-3-3-3-3"],
         };
 
-        const rubric: PerseusRadioRubric = {
+        const rubric: PerseusRadioWidgetOptions = {
             choices: [
                 {
                     id: "0-0-0-0-0",
@@ -297,7 +297,7 @@ describe("scoreRadio", () => {
             selectedChoiceIds: ["4-4-4-4-4"],
         };
 
-        const rubric: PerseusRadioRubric = {
+        const rubric: PerseusRadioWidgetOptions = {
             choices: [
                 {
                     id: "0-0-0-0-0",
@@ -338,7 +338,7 @@ describe("scoreRadio", () => {
             selectedChoiceIds: ["4-4-4-4-4"],
         };
 
-        const rubric: PerseusRadioRubric = {
+        const rubric: PerseusRadioWidgetOptions = {
             choices: [
                 {
                     id: "0-0-0-0-0",

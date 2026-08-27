@@ -18,7 +18,7 @@ exports[`EditorPage should match snapshot for editing disabled for all widgets 1
           style="display: inline-block;"
         >
           <button
-            class="buttonStyle_zxbos0"
+            class="buttonStyle_16wwnfc"
             type="button"
           >
             <span>
@@ -39,7 +39,7 @@ exports[`EditorPage should match snapshot for editing disabled for all widgets 1
             </span>
           </button>
           <button
-            class="buttonStyle_zxbos0"
+            class="buttonStyle_16wwnfc"
             type="button"
           >
             <span>
@@ -60,7 +60,7 @@ exports[`EditorPage should match snapshot for editing disabled for all widgets 1
             </span>
           </button>
           <button
-            class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59"
+            class="buttonStyle_16wwnfc-o_O-selectedStyle_1qwmlm3"
             type="button"
           >
             <span>
@@ -1958,7 +1958,7 @@ table: [[☃ table 1]]
                               style="display: inline-block;"
                             >
                               <button
-                                class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59-o_O-answerStatusCorrect_7ab65q-o_O-disabledStyle_1spc5g0"
+                                class="buttonStyle_16wwnfc-o_O-selectedStyle_1qwmlm3-o_O-answerStatusCorrect_7ab65q-o_O-disabledStyle_1spc5g0"
                                 disabled=""
                                 title="This answer will be considered correct"
                                 type="button"
@@ -1966,7 +1966,7 @@ table: [[☃ table 1]]
                                 correct
                               </button>
                               <button
-                                class="buttonStyle_zxbos0-o_O-disabledStyle_1spc5g0"
+                                class="buttonStyle_16wwnfc-o_O-disabledStyle_1spc5g0"
                                 disabled=""
                                 title="This answer will be considered wrong"
                                 type="button"
@@ -1974,7 +1974,7 @@ table: [[☃ table 1]]
                                 wrong
                               </button>
                               <button
-                                class="buttonStyle_zxbos0-o_O-disabledStyle_1spc5g0"
+                                class="buttonStyle_16wwnfc-o_O-disabledStyle_1spc5g0"
                                 disabled=""
                                 title="This answer will be considered ungraded"
                                 type="button"
@@ -4925,19 +4925,19 @@ table: [[☃ table 1]]
                               style="display: inline-block;"
                             >
                               <button
-                                class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59"
+                                class="buttonStyle_16wwnfc-o_O-selectedStyle_1qwmlm3"
                                 type="button"
                               >
                                 Graph
                               </button>
                               <button
-                                class="buttonStyle_zxbos0"
+                                class="buttonStyle_16wwnfc"
                                 type="button"
                               >
                                 Grid
                               </button>
                               <button
-                                class="buttonStyle_zxbos0"
+                                class="buttonStyle_16wwnfc"
                                 type="button"
                               >
                                 None
@@ -5023,10 +5023,23 @@ table: [[☃ table 1]]
                             title="Linear"
                             type="button"
                           >
-                            <img
-                              alt="Linear"
-                              src="mockStaticUrl(https://ka-perseus-graphie.s3.amazonaws.com/67aaf581e6d9ef9038c10558a1f70ac21c11c9f8.png)"
-                            />
+                            <svg
+                              aria-label="Linear"
+                              focusable="false"
+                              height="50"
+                              role="img"
+                              viewBox="0 0 50 50"
+                              width="50"
+                            >
+                              <path
+                                d="M8 42L42 8"
+                                fill="none"
+                                stroke="var(--wb-semanticColor-core-foreground-instructive-default)"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="3"
+                              />
+                            </svg>
                           </button>
                           <button
                             class="buttonStyle_zxbos0"
@@ -5034,10 +5047,23 @@ table: [[☃ table 1]]
                             title="Quadratic"
                             type="button"
                           >
-                            <img
-                              alt="Quadratic"
-                              src="mockStaticUrl(https://ka-perseus-graphie.s3.amazonaws.com/e23d36e6fc29ee37174e92c9daba2a66677128ab.png)"
-                            />
+                            <svg
+                              aria-label="Quadratic"
+                              focusable="false"
+                              height="50"
+                              role="img"
+                              viewBox="0 0 50 50"
+                              width="50"
+                            >
+                              <path
+                                d="M8 8Q25 72 42 8"
+                                fill="none"
+                                stroke="var(--wb-semanticColor-core-foreground-instructive-default)"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="3"
+                              />
+                            </svg>
                           </button>
                           <button
                             class="buttonStyle_zxbos0"
@@ -5045,10 +5071,23 @@ table: [[☃ table 1]]
                             title="Sinusoid"
                             type="button"
                           >
-                            <img
-                              alt="Sinusoid"
-                              src="mockStaticUrl(https://ka-perseus-graphie.s3.amazonaws.com/3d68e7718498475f53b206c2ab285626baf8857e.png)"
-                            />
+                            <svg
+                              aria-label="Sinusoid"
+                              focusable="false"
+                              height="50"
+                              role="img"
+                              viewBox="0 0 50 50"
+                              width="50"
+                            >
+                              <path
+                                d="M8 25C11.1 13 13.4 13 16.5 25C19.6 37 21.9 37 25 25C28.1 13 30.4 13 33.5 25C36.6 37 38.9 37 42 25"
+                                fill="none"
+                                stroke="var(--wb-semanticColor-core-foreground-instructive-default)"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="3"
+                              />
+                            </svg>
                           </button>
                           <button
                             class="buttonStyle_zxbos0"
@@ -5056,10 +5095,23 @@ table: [[☃ table 1]]
                             title="Tangent"
                             type="button"
                           >
-                            <img
-                              alt="Tangent"
-                              src="mockStaticUrl(https://ka-perseus-graphie.s3.amazonaws.com/7db80d23c35214f98659fe1cf0765811c1bbfbba.png)"
-                            />
+                            <svg
+                              aria-label="Tangent"
+                              focusable="false"
+                              height="50"
+                              role="img"
+                              viewBox="0 0 50 50"
+                              width="50"
+                            >
+                              <path
+                                d="M8 42L8.2 38.6L8.5 35.2L9.1 31.8L10.4 28.4L13.7 25L16.9 21.6L18.3 18.2L18.8 14.8L19.1 11.4L19.3 8M19.3 42L19.5 38.6L19.8 35.2L20.4 31.8L21.7 28.4L25 25L28.3 21.6L29.6 18.2L30.2 14.8L30.5 11.4L30.7 8M30.7 42L30.9 38.6L31.2 35.2L31.7 31.8L33.1 28.4L36.3 25L39.6 21.6L40.9 18.2L41.5 14.8L41.8 11.4L42 8"
+                                fill="none"
+                                stroke="var(--wb-semanticColor-core-foreground-instructive-default)"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="3"
+                              />
+                            </svg>
                           </button>
                           <button
                             class="buttonStyle_zxbos0"
@@ -5067,10 +5119,23 @@ table: [[☃ table 1]]
                             title="Exponential"
                             type="button"
                           >
-                            <img
-                              alt="Exponential"
-                              src="mockStaticUrl(https://ka-perseus-graphie.s3.amazonaws.com/9cbfad55525e3ce755a31a631b074670a5dad611.png)"
-                            />
+                            <svg
+                              aria-label="Exponential"
+                              focusable="false"
+                              height="50"
+                              role="img"
+                              viewBox="0 0 50 50"
+                              width="50"
+                            >
+                              <path
+                                d="M8 42L10.6 41.8L13.2 41.5L15.8 41.1L18.5 40.5L21.1 39.8L23.7 38.7L26.3 37.3L28.9 35.4L31.5 32.7L34.2 29.1L36.8 24.1L39.4 17.3L42 8"
+                                fill="none"
+                                stroke="var(--wb-semanticColor-core-foreground-instructive-default)"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="3"
+                              />
+                            </svg>
                           </button>
                           <button
                             class="buttonStyle_zxbos0"
@@ -5078,10 +5143,23 @@ table: [[☃ table 1]]
                             title="Logarithm"
                             type="button"
                           >
-                            <img
-                              alt="Logarithm"
-                              src="mockStaticUrl(https://ka-perseus-graphie.s3.amazonaws.com/f6491e99d34af34d924bfe0231728ad912068dc3.png)"
-                            />
+                            <svg
+                              aria-label="Logarithm"
+                              focusable="false"
+                              height="50"
+                              role="img"
+                              viewBox="0 0 50 50"
+                              width="50"
+                            >
+                              <path
+                                d="M8 42L10.6 29.7L13.2 24.5L15.8 21.2L18.5 18.7L21.1 16.7L23.7 15.1L26.3 13.7L28.9 12.5L31.5 11.4L34.2 10.4L36.8 9.5L39.4 8.7L42 8"
+                                fill="none"
+                                stroke="var(--wb-semanticColor-core-foreground-instructive-default)"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="3"
+                              />
+                            </svg>
                           </button>
                           <button
                             class="buttonStyle_zxbos0"
@@ -5089,10 +5167,23 @@ table: [[☃ table 1]]
                             title="Absolute_value"
                             type="button"
                           >
-                            <img
-                              alt="Absolute_value"
-                              src="mockStaticUrl(https://ka-perseus-graphie.s3.amazonaws.com/8256a630175a0cb1d11de223d6de0266daf98721.png)"
-                            />
+                            <svg
+                              aria-label="Absolute_value"
+                              focusable="false"
+                              height="50"
+                              role="img"
+                              viewBox="0 0 50 50"
+                              width="50"
+                            >
+                              <path
+                                d="M10 8L25 42L40 8"
+                                fill="none"
+                                stroke="var(--wb-semanticColor-core-foreground-instructive-default)"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="3"
+                              />
+                            </svg>
                           </button>
                         </div>
                       </div>
@@ -8665,19 +8756,19 @@ table: [[☃ table 1]]
                                   style="display: inline-block;"
                                 >
                                   <button
-                                    class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59"
+                                    class="buttonStyle_16wwnfc-o_O-selectedStyle_1qwmlm3"
                                     type="button"
                                   >
                                     Graph
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0"
+                                    class="buttonStyle_16wwnfc"
                                     type="button"
                                   >
                                     Grid
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0"
+                                    class="buttonStyle_16wwnfc"
                                     type="button"
                                   >
                                     None
@@ -8864,25 +8955,25 @@ table: [[☃ table 1]]
                                   style="display: inline-block;"
                                 >
                                   <button
-                                    class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59"
+                                    class="buttonStyle_16wwnfc-o_O-selectedStyle_1qwmlm3"
                                     type="button"
                                   >
                                     None
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0"
+                                    class="buttonStyle_16wwnfc"
                                     type="button"
                                   >
                                     Snap
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0"
+                                    class="buttonStyle_16wwnfc"
                                     type="button"
                                   >
                                     x=
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0"
+                                    class="buttonStyle_16wwnfc"
                                     type="button"
                                   >
                                     y=
@@ -11227,14 +11318,14 @@ table: [[☃ table 1]]
                                   style="display: inline-block;"
                                 >
                                   <button
-                                    class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59-o_O-disabledStyle_1spc5g0"
+                                    class="buttonStyle_16wwnfc-o_O-selectedStyle_1qwmlm3-o_O-disabledStyle_1spc5g0"
                                     disabled=""
                                     type="button"
                                   >
                                     On Axis
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0-o_O-disabledStyle_1spc5g0"
+                                    class="buttonStyle_16wwnfc-o_O-disabledStyle_1spc5g0"
                                     disabled=""
                                     type="button"
                                   >
@@ -11720,28 +11811,28 @@ table: [[☃ table 1]]
                                   style="display: inline-block;"
                                 >
                                   <button
-                                    class="buttonStyle_zxbos0-o_O-disabledStyle_1spc5g0"
+                                    class="buttonStyle_16wwnfc-o_O-disabledStyle_1spc5g0"
                                     disabled=""
                                     type="button"
                                   >
                                     Axes
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59-o_O-disabledStyle_1spc5g0"
+                                    class="buttonStyle_16wwnfc-o_O-selectedStyle_1qwmlm3-o_O-disabledStyle_1spc5g0"
                                     disabled=""
                                     type="button"
                                   >
                                     Graph
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0-o_O-disabledStyle_1spc5g0"
+                                    class="buttonStyle_16wwnfc-o_O-disabledStyle_1spc5g0"
                                     disabled=""
                                     type="button"
                                   >
                                     Grid
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0-o_O-disabledStyle_1spc5g0"
+                                    class="buttonStyle_16wwnfc-o_O-disabledStyle_1spc5g0"
                                     disabled=""
                                     type="button"
                                   >
@@ -13424,28 +13515,28 @@ table: [[☃ table 1]]
                           style="display: inline-block;"
                         >
                           <button
-                            class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59"
+                            class="buttonStyle_16wwnfc-o_O-selectedStyle_1qwmlm3"
                             title="Decimals"
                             type="button"
                           >
                             0.75
                           </button>
                           <button
-                            class="buttonStyle_zxbos0"
+                            class="buttonStyle_16wwnfc"
                             title="Improper fractions"
                             type="button"
                           >
                             ⁷⁄₄
                           </button>
                           <button
-                            class="buttonStyle_zxbos0"
+                            class="buttonStyle_16wwnfc"
                             title="Mixed numbers"
                             type="button"
                           >
                             1¾
                           </button>
                           <button
-                            class="buttonStyle_zxbos0"
+                            class="buttonStyle_16wwnfc"
                             title="Non-reduced"
                             type="button"
                           >
@@ -15975,10 +16066,6 @@ table: [[☃ table 1]]
           class="perseus-editor-right-cell"
         />
       </div>
-    </div>
-    <div
-      class="perseus-hints-editor perseus-editor-table"
-    >
       <div
         class="perseus-editor-row"
       >

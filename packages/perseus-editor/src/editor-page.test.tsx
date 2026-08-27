@@ -51,7 +51,6 @@ describe("EditorPage", () => {
                     type: "categorizer",
                     static: false, // <= important
                     options: {
-                        static: false, // <= maybe important?
                         items: ["Zero", "One", "Uno"],
                         categories: ["Column 0", "Column 1"],
                         values: [0, 1, 1],
@@ -188,7 +187,6 @@ describe("EditorPage", () => {
                     type: "categorizer",
                     static: false, // <= important
                     options: {
-                        static: false, // <= maybe important?
                         items: ["Zero", "One", "Uno"],
                         categories: ["Column 0", "Column 1"],
                         values: [0, 1, 1],

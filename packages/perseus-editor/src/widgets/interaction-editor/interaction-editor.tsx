@@ -1,13 +1,14 @@
-import {Dependencies, EditorJsonify, Util} from "@khanacademy/perseus";
+import {Dependencies, Util} from "@khanacademy/perseus";
 import {
     interactionLogic,
     type Coords,
-    type InteractionDefaultWidgetOptions,
+    type PerseusInteractionWidgetOptions,
     type MarkingsType,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import GraphSettings from "../../components/graph-settings";
+import EditorJsonify from "../../mixins/editor-jsonify";
 
 import ElementContainer from "./element-container";
 import FunctionEditor from "./function-editor";
@@ -63,7 +64,7 @@ type State = any;
  */
 class InteractionEditor extends React.Component<Props, State> {
     static widgetName = "interaction" as const;
-    static defaultProps: InteractionDefaultWidgetOptions =
+    static defaultProps: PerseusInteractionWidgetOptions =
         interactionLogic.defaultWidgetOptions;
 
     state: State = {
