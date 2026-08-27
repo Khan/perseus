@@ -154,6 +154,59 @@ describe("sorter-editor", () => {
         });
     });
 
+    it("disables the add button once there are ten cards", () => {
+        // Arrange, Act
+        render(
+            <SorterEditor
+                onChange={() => {}}
+                {...generateSorterOptions({
+                    correct: Array.from({length: 10}, (_, i) => `Card ${i}`),
+                })}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Add a card"}),
+        ).toHaveAttribute("aria-disabled", "true");
+    });
+
+    it("does not add an eleventh card when the add button is clicked", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <SorterEditor
+                onChange={onChangeMock}
+                {...generateSorterOptions({
+                    correct: Array.from({length: 10}, (_, i) => `Card ${i}`),
+                })}
+            />,
+        );
+
+        // Act
+        await userEvent.click(screen.getByRole("button", {name: "Add a card"}));
+
+        // Assert
+        expect(onChangeMock).not.toHaveBeenCalled();
+    });
+
+    it("keeps the add button enabled below ten cards", () => {
+        // Arrange, Act
+        render(
+            <SorterEditor
+                onChange={() => {}}
+                {...generateSorterOptions({
+                    correct: Array.from({length: 9}, (_, i) => `Card ${i}`),
+                })}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Add a card"}),
+        ).toHaveAttribute("aria-disabled", "false");
+    });
+
     it("does not render an empty card until one is added", () => {
         // Arrange, Act
         render(

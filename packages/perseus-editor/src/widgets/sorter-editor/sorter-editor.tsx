@@ -15,6 +15,10 @@ import {TypedSingleSelect} from "../../components/typed-single-select";
 import CardEditor from "./card-editor";
 import styles from "./sorter-editor.module.css";
 
+// Ideally Content Creators would keep it <=7
+// but 10 is our hard limit
+const maxCards = 10;
+
 const layoutOptions = {
     horizontal: "Horizontal",
     vertical: "Vertical",
@@ -44,6 +48,9 @@ class SorterEditor extends React.Component<Props> {
     };
 
     onAddCard = () => {
+        if (this.props.correct.length >= maxCards) {
+            return;
+        }
         this.props.onChange({correct: [...this.props.correct, ""]});
     };
 
@@ -112,6 +119,7 @@ class SorterEditor extends React.Component<Props> {
                         kind="tertiary"
                         startIcon={plusCircle}
                         className={styles.addCard}
+                        disabled={this.props.correct.length >= maxCards}
                         onClick={this.onAddCard}
                     >
                         Add a card
