@@ -398,7 +398,8 @@
 
 /* TODO(LEMS-4492): remove the .wb-themed-math class once math uses WB
    tokens everywhere. In the future, the styles below should become the only
-   dark mode styles.
+   dark mode styles. We can also remove the !important from the .graphie-label
+   styles, and set the label foreground color directly in graphie.ts.
  */
 [data-wb-theme$="-dark"] .framework-perseus.wb-themed-math {
     /* TODO(benchristel): this set of file extensions is duplicated in
@@ -420,7 +421,7 @@
            to override that with `!important`.
          */
         color: var(
-            --wb-semanticColor-core-foreground-neutral-default
+            --wb-semanticColor-core-foreground-neutral-strong
         ) !important;
     }
 }
