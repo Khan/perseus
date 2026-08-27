@@ -19,7 +19,11 @@ import styles from "./sorter-editor.module.css";
 // but 10 is our hard limit
 const maxCards = 10;
 
-const defaultOptions = sorterLogic.defaultWidgetOptions;
+// Annotated because WidgetLogic types `defaultWidgetOptions` as `any`. Without
+// this, the `any` spreads: a destructured prop whose default is `any` is itself
+// `any`, which would silently untype every option below.
+const defaultOptions: PerseusSorterWidgetOptions =
+    sorterLogic.defaultWidgetOptions;
 
 const layoutOptions = {
     horizontal: "Horizontal",
