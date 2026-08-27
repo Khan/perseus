@@ -1,12 +1,19 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
-import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import arrowDown from "@phosphor-icons/core/regular/arrow-down.svg";
 import arrowUp from "@phosphor-icons/core/regular/arrow-up.svg";
 import trash from "@phosphor-icons/core/regular/trash.svg";
-import {StyleSheet} from "aphrodite";
 import * as React from "react";
+
+import styles from "./card-editor.module.css";
+
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
+
+// Passed to TextField's `style` prop, which is typed as Wonder Blocks
+// `StyleType` and does not accept a CSS-module className. Lets the text take
+// the space the controls don't need.
+const cardInputStyle: StyleType = {flexGrow: 1};
 
 type Props = {
     // Zero-based, but the cards are numbered from one in their labels so the
@@ -41,7 +48,7 @@ function CardEditor({
     const cardNumber = index + 1;
 
     return (
-        <View tag="li" style={styles.card}>
+        <View tag="li" className={styles.card}>
             {/*
              * The cards have no visible label, but screen reader users still
              * need each input to have a distinguishable name, hence the
@@ -52,7 +59,7 @@ function CardEditor({
                 aria-label={`Card ${cardNumber}`}
                 value={value}
                 onChange={onChange}
-                style={styles.cardInput}
+                style={cardInputStyle}
             />
             <IconButton
                 aria-label={`Move card ${cardNumber} up`}
@@ -83,19 +90,5 @@ function CardEditor({
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    // A card's text sits on one line with the controls that reorder and remove
-    // it, so the controls stay next to the card they act on.
-    card: {
-        flexDirection: "row",
-        alignItems: "center",
-        gap: sizing.size_040,
-    },
-    // Let the text take the space the controls don't need.
-    cardInput: {
-        flexGrow: 1,
-    },
-});
 
 export default CardEditor;

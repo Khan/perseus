@@ -6,15 +6,14 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
-import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
-import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import InfoTip from "../../components/info-tip";
 import {TypedSingleSelect} from "../../components/typed-single-select";
 
 import CardEditor from "./card-editor";
+import styles from "./sorter-editor.module.css";
 
 const layoutOptions = {
     horizontal: "Horizontal",
@@ -74,8 +73,8 @@ class SorterEditor extends React.Component<Props> {
 
     render(): React.ReactNode {
         return (
-            <View style={styles.editor}>
-                <View style={styles.section}>
+            <View className={styles.editor}>
+                <View className={styles.section}>
                     <div>
                         Correct answer{" "}
                         <InfoTip>
@@ -92,7 +91,7 @@ class SorterEditor extends React.Component<Props> {
                             </p>
                         </InfoTip>
                     </div>
-                    <View tag="ol" style={styles.cards}>
+                    <View tag="ol" className={styles.cards}>
                         {this.props.correct.map((card, i) => (
                             <CardEditor
                                 key={i}
@@ -112,7 +111,7 @@ class SorterEditor extends React.Component<Props> {
                     <Button
                         kind="tertiary"
                         startIcon={plusCircle}
-                        style={styles.addCard}
+                        className={styles.addCard}
                         onClick={this.onAddCard}
                     >
                         Add a card
@@ -157,32 +156,5 @@ class SorterEditor extends React.Component<Props> {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    // Separates the three sections (cards, layout, padding) from each other.
-    editor: {
-        gap: sizing.size_240,
-    },
-    // Separates a section's label from the control it describes. Smaller than
-    // the gap between sections so each label groups with its own control.
-    section: {
-        gap: sizing.size_080,
-    },
-    // The cards always stack in the editor, regardless of the `layout` option,
-    // which only controls how the widget renders for students.
-    cards: {
-        listStyle: "none",
-        paddingInlineStart: 0,
-        // Drop the browser's default list margins; `section` and `editor`
-        // above own the spacing around the list.
-        marginBlock: 0,
-        gap: sizing.size_120,
-    },
-    // Keep the button hugging its label rather than stretching to the width of
-    // the cards above it.
-    addCard: {
-        alignSelf: "flex-start",
-    },
-});
 
 export default SorterEditor;
