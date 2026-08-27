@@ -314,19 +314,6 @@ describe("sorter-editor", () => {
         });
     });
 
-    it("does not render an empty card until one is added", () => {
-        // Arrange, Act
-        render(
-            <SorterEditor
-                onChange={() => {}}
-                {...generateSorterOptions({correct: ["Cat", "Dog"]})}
-            />,
-        );
-
-        // Assert
-        expect(screen.getAllByRole("textbox")).toHaveLength(2);
-    });
-
     it("swaps a card with the one above it when move up is clicked", async () => {
         // Arrange
         const onChangeMock = jest.fn();

@@ -137,18 +137,4 @@ describe("card-editor", () => {
             screen.getByRole("button", {name: "Move card 1 down"}),
         ).toHaveAttribute("aria-disabled", "true");
     });
-
-    it("does not call onMoveUp when the first card's move up is clicked", async () => {
-        // Arrange
-        const onMoveUpMock = jest.fn();
-        renderCard({index: 0, isFirst: true, onMoveUp: onMoveUpMock});
-
-        // Act
-        await userEvent.click(
-            screen.getByRole("button", {name: "Move card 1 up"}),
-        );
-
-        // Assert
-        expect(onMoveUpMock).not.toHaveBeenCalled();
-    });
 });

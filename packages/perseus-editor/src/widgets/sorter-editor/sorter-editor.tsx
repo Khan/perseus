@@ -33,10 +33,7 @@ const layoutOptions = {
     vertical: "Vertical",
 } as const satisfies Record<PerseusSorterWidgetOptions["layout"], string>;
 
-// The widget options are optional because WidgetEditor renders this editor with
-// whatever options the content has, and content predating an option won't carry
-// it. The defaults below fill in the gaps.
-type Props = Partial<PerseusSorterWidgetOptions> & {
+type Props = PerseusSorterWidgetOptions & {
     onChange: (
         newOptions: Partial<PerseusSorterWidgetOptions>,
         callback?: () => void,
@@ -44,10 +41,7 @@ type Props = Partial<PerseusSorterWidgetOptions> & {
 };
 
 /**
- * What WidgetEditor can call on this editor through its ref. It serializes the
- * editor mid-edit, to fold the editor's current options into the change it's
- * about to publish, so `serialize` has to report the options this editor was
- * last rendered with.
+ * Imperative API that WidgetEditor calls
  */
 type SorterEditorHandle = {
     serialize: () => PerseusSorterWidgetOptions;
@@ -71,21 +65,21 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
         React.useImperativeHandle(
             ref,
             () => ({
-                serialize: () => ({correct, layout, padding}),
+                serialize: () => {
+                    return {correct, layout, padding};
+                },
 
-                // Adding a card puts an empty string into `correct`, and
-                // clearing a card's text leaves one behind, so an author can
-                // save cards that students would see as blank.
-                //
                 // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend
                 // uses the new linter rules for save warnings.
                 getSaveWarnings: () => {
                     const warnings: string[] = [];
+                    // don't allow too few cards
                     if (correct.length < minCards) {
                         warnings.push(
                             `Sorter requires at least ${minCards} cards.`,
                         );
                     }
+                    // don't allow blanks
                     if (correct.some((card) => card.trim() === "")) {
                         warnings.push("Sorter cards cannot be blank.");
                     }
@@ -214,8 +208,6 @@ export default Object.assign(SorterEditor, {
     widgetName: "sorter" as const,
 
     // Read directly by the editor page to seed the options of a newly inserted
-    // sorter. It's deliberately not how this component gets its own defaults —
-    // React only applies defaultProps to a component's props up to React 18,
-    // so the defaults live in the destructuring above instead.
+    // sorter.
     defaultProps: defaultOptions,
 });

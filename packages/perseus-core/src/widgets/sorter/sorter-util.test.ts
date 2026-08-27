@@ -28,8 +28,6 @@ describe("getSorterPublicWidgetOptions", () => {
         });
     });
 
-    // An author can delete every card, and a phantom `undefined` card would
-    // reach the client as an empty draggable.
     it("returns no cards when the correct answer is empty", () => {
         // Arrange
         const options: PerseusSorterWidgetOptions = {

@@ -32,9 +32,6 @@ export default Rule.makeRule({
             warnings.push(`Sorter requires at least ${minCards} cards.`);
         }
 
-        // The editor adds a card as an empty string, and clearing a card's text
-        // leaves one behind, so a blank card reaches the learner as an empty
-        // draggable.
         if (correct.some((card) => card.trim() === "")) {
             warnings.push("Sorter cards cannot be blank.");
         }

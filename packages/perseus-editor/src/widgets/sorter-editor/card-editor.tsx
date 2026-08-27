@@ -11,13 +11,10 @@ import styles from "./card-editor.module.css";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 // Passed to TextField's `style` prop, which is typed as Wonder Blocks
-// `StyleType` and does not accept a CSS-module className. Lets the text take
-// the space the controls don't need.
+// `StyleType` and does not accept a CSS-module className.
 const cardInputStyle: StyleType = {flexGrow: 1};
 
 type Props = {
-    // Zero-based, but the cards are numbered from one in their labels so the
-    // numbering matches what the author sees.
     index: number;
     value: string;
     isFirst: boolean;
@@ -29,8 +26,7 @@ type Props = {
 };
 
 /**
- * An editor for a single sorter card: its text, plus the controls that move it
- * within the answer or remove it.
+ * An editor for a single sorter card
  *
  * Renders as a list item, so it belongs inside the sorter editor's list of
  * cards.

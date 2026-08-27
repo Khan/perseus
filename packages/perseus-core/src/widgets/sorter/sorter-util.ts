@@ -52,9 +52,6 @@ export function shuffleSorter(
 }
 
 function sortAllButFirst(cards: readonly string[]): string[] {
-    // An author can delete every card, so `correct` can be empty. Destructuring
-    // a first card off an empty array would hand the client `[undefined]` — a
-    // phantom card — instead of no cards at all.
     if (cards.length === 0) {
         return [];
     }
