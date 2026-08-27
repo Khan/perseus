@@ -4,14 +4,21 @@
     margin-left: 3px;
     padding-left: 5px;
 }
+
 .framework-perseus .perseus-graded-group.answer-correct {
+    /* Foreground token used to match the icon color.
+    This border is meant to impart correctness meaning, so foreground
+    seems appropriate */
     border-left: var(--wb-border-width-thick) solid
-        var(--wb-semanticColor-core-border-success-default);
+        var(--wb-semanticColor-core-foreground-success-default);
     margin-left: 0;
 }
 .framework-perseus .perseus-graded-group.answer-incorrect {
+    /* Foreground token used to match the icon color.
+    This border is meant to impart correctness meaning, so foreground
+    seems appropriate */
     border-left: var(--wb-border-width-thick) solid
-        var(--wb-semanticColor-core-border-critical-default);
+        var(--wb-semanticColor-core-foreground-critical-default);
     margin-left: 0;
 }
 .framework-perseus .perseus-graded-group .group-icon {
