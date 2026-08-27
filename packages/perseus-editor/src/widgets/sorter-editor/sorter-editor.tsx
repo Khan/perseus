@@ -19,6 +19,9 @@ import styles from "./sorter-editor.module.css";
 // but 10 is our hard limit
 const maxCards = 10;
 
+// There's nothing to sort with fewer than two cards.
+const minCards = 2;
+
 // Annotated because WidgetLogic types `defaultWidgetOptions` as `any`. Without
 // this, the `any` spreads: a destructured prop whose default is `any` is itself
 // `any`, which would silently untype every option below.
@@ -48,6 +51,7 @@ type Props = Partial<PerseusSorterWidgetOptions> & {
  */
 type SorterEditorHandle = {
     serialize: () => PerseusSorterWidgetOptions;
+    getSaveWarnings: () => string[];
 };
 
 // JSDoc will be shown in Storybook widget editor description
@@ -68,6 +72,25 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
             ref,
             () => ({
                 serialize: () => ({correct, layout, padding}),
+
+                // Adding a card puts an empty string into `correct`, and
+                // clearing a card's text leaves one behind, so an author can
+                // save cards that students would see as blank.
+                //
+                // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend
+                // uses the new linter rules for save warnings.
+                getSaveWarnings: () => {
+                    const warnings: string[] = [];
+                    if (correct.length < minCards) {
+                        warnings.push(
+                            `Sorter requires at least ${minCards} cards.`,
+                        );
+                    }
+                    if (correct.some((card) => card.trim() === "")) {
+                        warnings.push("Sorter cards cannot be blank.");
+                    }
+                    return warnings;
+                },
             }),
             [correct, layout, padding],
         );

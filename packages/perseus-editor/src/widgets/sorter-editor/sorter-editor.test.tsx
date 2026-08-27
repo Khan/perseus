@@ -536,4 +536,94 @@ describe("sorter-editor", () => {
         expect(screen.getByDisplayValue("$y$")).toBeInTheDocument();
         expect(screen.getByDisplayValue("$z$")).toBeInTheDocument();
     });
+
+    describe("getSaveWarnings", () => {
+        function renderForWarnings(correct: string[]) {
+            const editorRef = React.createRef<SorterEditorHandle>();
+            renderControlled(
+                generateSorterOptions({correct}),
+                undefined,
+                editorRef,
+            );
+            return editorRef;
+        }
+
+        it("returns no warnings when every card has text", () => {
+            // Arrange, Act
+            const editorRef = renderForWarnings(["Cat", "Dog"]);
+
+            // Assert
+            expect(editorRef.current?.getSaveWarnings()).toEqual([]);
+        });
+
+        it("warns when a card is blank", () => {
+            // Arrange, Act
+            const editorRef = renderForWarnings(["Cat", ""]);
+
+            // Assert
+            expect(editorRef.current?.getSaveWarnings()).toEqual([
+                "Sorter cards cannot be blank.",
+            ]);
+        });
+
+        it("warns when a card holds only whitespace", () => {
+            // Arrange, Act
+            const editorRef = renderForWarnings(["Cat", "   "]);
+
+            // Assert
+            expect(editorRef.current?.getSaveWarnings()).toEqual([
+                "Sorter cards cannot be blank.",
+            ]);
+        });
+
+        it("warns when there are fewer than two cards", () => {
+            // Arrange, Act
+            const editorRef = renderForWarnings(["Cat"]);
+
+            // Assert
+            expect(editorRef.current?.getSaveWarnings()).toEqual([
+                "Sorter requires at least 2 cards.",
+            ]);
+        });
+
+        it("warns when every card has been deleted", () => {
+            // Arrange, Act
+            const editorRef = renderForWarnings([]);
+
+            // Assert
+            expect(editorRef.current?.getSaveWarnings()).toEqual([
+                "Sorter requires at least 2 cards.",
+            ]);
+        });
+
+        // The warnings have to reflect the edit in progress, the same way
+        // `serialize` does — WidgetEditor asks for both mid-edit.
+        it("warns about a card the author has just cleared", async () => {
+            // Arrange
+            const editorRef = renderForWarnings(["Cat", "Dog"]);
+
+            // Act
+            await userEvent.clear(screen.getByDisplayValue("Dog"));
+
+            // Assert
+            expect(editorRef.current?.getSaveWarnings()).toEqual([
+                "Sorter cards cannot be blank.",
+            ]);
+        });
+
+        it("warns about a newly added card before it has text", async () => {
+            // Arrange
+            const editorRef = renderForWarnings(["Cat", "Dog"]);
+
+            // Act
+            await userEvent.click(
+                screen.getByRole("button", {name: "Add a card"}),
+            );
+
+            // Assert
+            expect(editorRef.current?.getSaveWarnings()).toEqual([
+                "Sorter cards cannot be blank.",
+            ]);
+        });
+    });
 });
