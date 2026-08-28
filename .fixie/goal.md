@@ -138,5 +138,4 @@
       default) so the job re-runs on force-pushes to the Version Packages PR.
 - [ ] Verify `knip.config.ts` still lists `utils/pre-publish-check-ci.ts` as an
       entry point; no rename means no change, so just confirm.
-- [ ] Add a changeset if any published package changed (root-only changes need
-      none).
+- [ ] Add an empty changeset file (no packages changed).
