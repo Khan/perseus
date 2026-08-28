@@ -11,7 +11,7 @@ import {
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
-import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
+import {border, semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {Heading} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
@@ -29,6 +29,7 @@ import type {
     KeypadKey,
     LegacyButtonSets,
 } from "@khanacademy/perseus-core";
+import type {CSSProperties} from "aphrodite";
 
 type ButtonsVisibleType = "always" | "never" | "focused";
 
@@ -107,7 +108,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
 
     state: State = {
         focused: false,
-        keypadOpen: this.props.buttonsVisible === "always" ? true : false,
+        keypadOpen: this.props.buttonsVisible === "always",
         cursorContext: CursorContext.NONE,
     };
 
@@ -341,6 +342,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                 <div
                     style={{
                         display: "flex",
+                        alignItems: "center",
                         padding: 1,
                     }}
                     onClick={(e) => {
@@ -409,6 +411,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                 hovered={false}
                                 focused={false}
                                 active={false}
+                                pressed={false}
                             />
                         ) : (
                             <Clickable
@@ -418,6 +421,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                         : this.context.strings.openKeypad
                                 }
                                 role="button"
+                                hideDefaultFocusRing
                                 onClick={() =>
                                     this.state.keypadOpen
                                         ? this.closeKeypad()
@@ -474,22 +478,43 @@ class MathInput extends React.Component<Props, State> {
     }
 }
 
-const MathInputIcon = ({hovered, focused, active}) => {
-    let fillColor: string | undefined;
+const MathInputIcon = ({
+    hovered,
+    focused,
+    pressed,
+    active,
+}: {
+    hovered: boolean;
+    focused: boolean;
+    pressed: boolean;
+    active: boolean;
+}) => {
+    let fillColor: string;
     switch (true) {
-        case focused || active:
-            fillColor =
-                semanticColor.action.primary.progressive.default.foreground;
+        case focused || pressed || active:
+            fillColor = semanticColor.core.foreground.knockout.default;
             break;
         case hovered:
             fillColor = semanticColor.core.foreground.instructive.strong;
             break;
         default:
-            fillColor = semanticColor.core.foreground.neutral.strong;
+            fillColor = semanticColor.core.foreground.neutral.default;
             break;
     }
-    const dynamicClass =
-        active || focused ? styles.iconActive : styles.iconInactive;
+    let dynamicClass: CSSProperties;
+    switch (true) {
+        case focused || pressed:
+            dynamicClass = styles.iconActive;
+            break;
+        case active:
+            dynamicClass = styles.iconExpanded;
+            break;
+        case hovered:
+            dynamicClass = styles.iconHovered;
+            break;
+        default:
+            dynamicClass = styles.iconInactive;
+    }
     return (
         <View style={[styles.iconContainer, dynamicClass]}>
             <svg
@@ -542,9 +567,7 @@ const mapButtonSets = (buttonSets?: LegacyButtonSets) => {
 };
 
 const inputFocused = {
-    borderWidth: 2,
     borderColor: semanticColor.core.border.instructive.default,
-    margin: -1,
 };
 
 const styles = StyleSheet.create({
@@ -552,23 +575,34 @@ const styles = StyleSheet.create({
         display: "flex",
         justifyContent: "center",
         height: "100%",
-        padding: sizing.size_040,
-        borderRadius: 1,
+        padding: sizing.size_060,
+        borderRadius: border.radius.radius_040,
+        borderWidth: border.width.medium,
+        borderStyle: "solid",
     },
     iconInactive: {
-        border: "2px solid transparent",
+        borderColor: semanticColor.core.transparent,
         backgroundColor: semanticColor.core.background.neutral.subtle,
     },
     iconActive: {
-        border: `2px solid ${semanticColor.core.border.knockout.default}`,
+        borderColor: semanticColor.focus.outer,
+        boxShadow: `inset 0 0 0 ${border.width.medium} ${semanticColor.focus.inner}`,
         backgroundColor: semanticColor.core.background.neutral.default,
+    },
+    iconExpanded: {
+        borderColor: semanticColor.core.transparent,
+        backgroundColor: semanticColor.core.background.neutral.default,
+    },
+    iconHovered: {
+        borderColor: semanticColor.core.transparent,
+        backgroundColor: semanticColor.core.background.neutral.subtle,
     },
     outerWrapper: {
         display: "inline-block",
         borderStyle: "solid",
-        borderWidth: 1,
+        borderWidth: border.width.thin,
         borderColor: semanticColor.core.border.neutral.default,
-        borderRadius: 3,
+        borderRadius: border.radius.radius_040,
         background: semanticColor.core.background.base.default,
         ":hover": inputFocused,
     },

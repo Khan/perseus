@@ -1989,10 +1989,10 @@ table: [[☃ table 1]]
                                 class="perseus-widget-expression"
                               >
                                 <div
-                                  class="default_7zhre1-o_O-outerWrapper_13pjuin"
+                                  class="default_7zhre1-o_O-outerWrapper_rzav75"
                                 >
                                   <div
-                                    style="display: flex; padding: 1px;"
+                                    style="display: flex; align-items: center; padding: 1px;"
                                   >
                                     <span
                                       class="perseus-math-input mq-editable-field mq-math-mode"
@@ -2065,10 +2065,10 @@ table: [[☃ table 1]]
                                       type="button"
                                     >
                                       <div
-                                        class="default_7zhre1-o_O-iconContainer_1vtksig-o_O-iconInactive_8t5c3"
+                                        class="default_7zhre1-o_O-iconContainer_sj1r13-o_O-iconInactive_ir4i2x"
                                       >
                                         <svg
-                                          fill="var(--wb-semanticColor-core-foreground-neutral-strong)"
+                                          fill="var(--wb-semanticColor-core-foreground-neutral-default)"
                                           height="16"
                                           viewBox="0 0 256 256"
                                           width="16"
