@@ -62,8 +62,6 @@ interface State {
  * An editor for adding an expression widget that allows users to enter mathematical expressions.
  */
 class ExpressionEditor extends React.Component<Props, State> {
-    static widgetName = "expression" as const;
-
     static defaultProps = {
         ...expressionLogic.defaultWidgetOptions,
     };

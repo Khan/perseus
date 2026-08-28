@@ -24,8 +24,6 @@ interface Props extends PerseusCategorizerWidgetOptions, ChangeableProps {
  * An editor for adding a categorizer widget that allows users to sort items into categories.
  */
 class CategorizerEditor extends React.Component<Props> {
-    static widgetName = "categorizer" as const;
-
     static defaultProps: PerseusCategorizerWidgetOptions =
         categorizerLogic.defaultWidgetOptions;
 

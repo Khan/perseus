@@ -30,36 +30,44 @@ import SorterEditor from "./widgets/sorter-editor";
 import TableEditor from "./widgets/table-editor";
 import VideoEditor from "./widgets/video-editor";
 
-export default [
-    CategorizerEditor,
-    CSProgramEditor,
-    DefinitionEditor,
-    DropdownEditor,
-    ExplanationEditor,
-    ExpressionEditor,
-    FreeResponseEditor,
-    GradedGroupEditor,
-    GradedGroupSetEditor,
-    GrapherEditor,
-    GroupEditor,
-    IframeEditor,
-    ImageEditor,
-    InputNumberEditor,
-    InteractionEditor,
-    InteractiveGraphEditor,
-    LabelImageEditor,
-    MatcherEditor,
-    MatrixEditor,
-    MeasurerEditor,
-    NumberLineEditor,
-    NumericInputEditor,
-    OrdererEditor,
-    PhetSimulationEditor,
-    PlotterEditor,
-    PythonProgramEditor,
-    SorterEditor,
-    TableEditor,
-    VideoEditor,
-    RadioEditor,
-    DeprecatedStandinEditor,
-];
+/**
+ * Every widget editor, keyed by the type of widget it edits.
+ *
+ * The keys are widget types as they appear in Perseus content (eg. the
+ * `interactive-graph` in `[[☃ interactive-graph 1]]`). `Widgets.registerEditors`
+ * registers each editor under its key, and the editor page looks an editor up by
+ * the type of the widget it's rendering.
+ */
+export default {
+    categorizer: CategorizerEditor,
+    "cs-program": CSProgramEditor,
+    definition: DefinitionEditor,
+    "deprecated-standin": DeprecatedStandinEditor,
+    dropdown: DropdownEditor,
+    explanation: ExplanationEditor,
+    expression: ExpressionEditor,
+    "free-response": FreeResponseEditor,
+    "graded-group": GradedGroupEditor,
+    "graded-group-set": GradedGroupSetEditor,
+    grapher: GrapherEditor,
+    group: GroupEditor,
+    iframe: IframeEditor,
+    image: ImageEditor,
+    "input-number": InputNumberEditor,
+    interaction: InteractionEditor,
+    "interactive-graph": InteractiveGraphEditor,
+    "label-image": LabelImageEditor,
+    matcher: MatcherEditor,
+    matrix: MatrixEditor,
+    measurer: MeasurerEditor,
+    "number-line": NumberLineEditor,
+    "numeric-input": NumericInputEditor,
+    orderer: OrdererEditor,
+    "phet-simulation": PhetSimulationEditor,
+    plotter: PlotterEditor,
+    "python-program": PythonProgramEditor,
+    radio: RadioEditor,
+    sorter: SorterEditor,
+    table: TableEditor,
+    video: VideoEditor,
+};

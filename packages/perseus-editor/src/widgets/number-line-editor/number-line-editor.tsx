@@ -50,8 +50,6 @@ type Props = {
  * positions, intervals, and points on a number line.
  */
 class NumberLineEditor extends React.Component<Props> {
-    static widgetName = "number-line" as const;
-
     static defaultProps: PerseusNumberLineWidgetOptions =
         numberLineLogic.defaultWidgetOptions;
 
