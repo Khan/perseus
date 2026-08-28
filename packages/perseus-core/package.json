@@ -8,7 +8,8 @@
         "access": "public",
         "exports": {
             ".": "./dist/index.js",
-            "./init": "./dist/init.js"
+            "./init": "./dist/init.js",
+            "./widgets/*": "./dist/widgets/*/index.js"
         }
     },
     "repository": {
@@ -22,7 +23,8 @@
     "type": "module",
     "exports": {
         ".": "./src/index.ts",
-        "./init": "./src/init.ts"
+        "./init": "./src/init.ts",
+        "./widgets/*": "./src/widgets/*/index.ts"
     },
     "files": [
         "dist"
