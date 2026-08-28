@@ -114,17 +114,6 @@ class Marker extends React.Component<MarkerProps, State> {
                 opened={showDropdown}
                 onClose={this.handleCloseDropdown}
                 dismissEnabled={true}
-                // We need an explicit viewport padding here to prevent the
-                // popover from exhibiting odd behavior in specific cases.
-                //
-                // Wonder Blocks derives its default viewport padding from a CSS
-                // custom property at module-evaluation time, which resolves to
-                // NaN if the token stylesheet hasn't been applied yet. Popper
-                // then produces a NaN horizontal offset and pins the popover to
-                // the left edge of the window, away from its anchor. Passing
-                // the value explicitly (WB's documented default is 12px) keeps
-                // the popover anchored to the marker.
-                viewportPadding={12}
                 content={
                     <PopoverContentCore style={styles.dropdownBody}>
                         <Option value="" onClick={() => onRemove()}>
