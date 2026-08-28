@@ -3,7 +3,7 @@
 exports[`EditorPage should match snapshot for editing disabled for all widgets 1`] = `
 <div>
   <div
-    class="framework-perseus"
+    class="framework-perseus wb-themed-math"
     id="perseus"
   >
     <div
@@ -13,12 +13,12 @@ exports[`EditorPage should match snapshot for editing disabled for all widgets 1
         class="viewport-resizer"
       >
         Viewport:
-         
+
         <div
           style="display: inline-block;"
         >
           <button
-            class="buttonStyle_zxbos0"
+            class="buttonStyle_16wwnfc"
             type="button"
           >
             <span>
@@ -39,7 +39,7 @@ exports[`EditorPage should match snapshot for editing disabled for all widgets 1
             </span>
           </button>
           <button
-            class="buttonStyle_zxbos0"
+            class="buttonStyle_16wwnfc"
             type="button"
           >
             <span>
@@ -60,7 +60,7 @@ exports[`EditorPage should match snapshot for editing disabled for all widgets 1
             </span>
           </button>
           <button
-            class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59"
+            class="buttonStyle_16wwnfc-o_O-selectedStyle_1qwmlm3"
             type="button"
           >
             <span>
@@ -197,199 +197,199 @@ exports[`EditorPage should match snapshot for editing disabled for all widgets 1
                 <div
                   class="perseus-textarea-underlay"
                 >
-                  categorizer: 
+                  categorizer:
                   <b
                     class=""
                   >
                     [[☃ categorizer 1]]
                   </b>
-                  
 
-definition: 
+
+definition:
                   <b
                     class=""
                   >
                     [[☃ definition 1]]
                   </b>
-                  
 
-dropdown: 
+
+dropdown:
                   <b
                     class=""
                   >
                     [[☃ dropdown 1]]
                   </b>
-                  
 
-expression: 
+
+expression:
                   <b
                     class=""
                   >
                     [[☃ expression 1]]
                   </b>
-                  
 
-explanation: 
+
+explanation:
                   <b
                     class=""
                   >
                     [[☃ explanation 1]]
                   </b>
-                  
 
-free: 
+
+free:
                   <b
                     class=""
                   >
                     [[☃ free-response 1]]
                   </b>
-                  
 
-graded: 
+
+graded:
                   <b
                     class=""
                   >
                     [[☃ graded-group 1]]
                   </b>
-                  
 
-graded: 
+
+graded:
                   <b
                     class=""
                   >
                     [[☃ graded-group-set 1]]
                   </b>
-                  
 
-grapher: 
+
+grapher:
                   <b
                     class=""
                   >
                     [[☃ grapher 1]]
                   </b>
-                  
 
-group: 
+
+group:
                   <b
                     class=""
                   >
                     [[☃ group 1]]
                   </b>
-                  
 
-image: 
+
+image:
                   <b
                     class=""
                   >
                     [[☃ image 1]]
                   </b>
-                  
 
-input: 
+
+input:
                   <b
                     class=""
                   >
                     [[☃ input-number 1]]
                   </b>
-                  
 
-interaction: 
+
+interaction:
                   <b
                     class=""
                   >
                     [[☃ interaction 1]]
                   </b>
-                  
 
-interactive-graph: 
+
+interactive-graph:
                   <b
                     class=""
                   >
                     [[☃ interactive-graph 1]]
                   </b>
-                  
 
-label: 
+
+label:
                   <b
                     class=""
                   >
                     [[☃ label-image 1]]
                   </b>
-                  
 
-matcher: 
+
+matcher:
                   <b
                     class=""
                   >
                     [[☃ matcher 1]]
                   </b>
-                  
 
-matrix: 
+
+matrix:
                   <b
                     class=""
                   >
                     [[☃ matrix 1]]
                   </b>
-                  
 
-measurer: 
+
+measurer:
                   <b
                     class=""
                   >
                     [[☃ measurer 1]]
                   </b>
-                  
 
-number-line: 
+
+number-line:
                   <b
                     class=""
                   >
                     [[☃ number-line 1]]
                   </b>
-                  
 
-numeric: 
+
+numeric:
                   <b
                     class=""
                   >
                     [[☃ numeric-input 1]]
                   </b>
-                  
 
-orderer: 
+
+orderer:
                   <b
                     class=""
                   >
                     [[☃ orderer 1]]
                   </b>
-                  
 
-plotter: 
+
+plotter:
                   <b
                     class=""
                   >
                     [[☃ plotter 1]]
                   </b>
-                  
 
-radio: 
+
+radio:
                   <b
                     class=""
                   >
                     [[☃ radio 1]]
                   </b>
-                  
 
-sorter: 
+
+sorter:
                   <b
                     class=""
                   >
                     [[☃ sorter 1]]
                   </b>
-                  
 
-table: 
+
+table:
                   <b
                     class=""
                   >
@@ -1098,7 +1098,7 @@ table: [[☃ table 1]]
                       >
                         <label>
                           Word to be defined:
-                           
+
                           <input
                             aria-disabled="false"
                             aria-invalid="false"
@@ -1958,7 +1958,7 @@ table: [[☃ table 1]]
                               style="display: inline-block;"
                             >
                               <button
-                                class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59-o_O-answerStatusCorrect_7ab65q-o_O-disabledStyle_1spc5g0"
+                                class="buttonStyle_16wwnfc-o_O-selectedStyle_1qwmlm3-o_O-answerStatusCorrect_7ab65q-o_O-disabledStyle_1spc5g0"
                                 disabled=""
                                 title="This answer will be considered correct"
                                 type="button"
@@ -1966,7 +1966,7 @@ table: [[☃ table 1]]
                                 correct
                               </button>
                               <button
-                                class="buttonStyle_zxbos0-o_O-disabledStyle_1spc5g0"
+                                class="buttonStyle_16wwnfc-o_O-disabledStyle_1spc5g0"
                                 disabled=""
                                 title="This answer will be considered wrong"
                                 type="button"
@@ -1974,7 +1974,7 @@ table: [[☃ table 1]]
                                 wrong
                               </button>
                               <button
-                                class="buttonStyle_zxbos0-o_O-disabledStyle_1spc5g0"
+                                class="buttonStyle_16wwnfc-o_O-disabledStyle_1spc5g0"
                                 disabled=""
                                 title="This answer will be considered ungraded"
                                 type="button"
@@ -1989,10 +1989,10 @@ table: [[☃ table 1]]
                                 class="perseus-widget-expression"
                               >
                                 <div
-                                  class="default_7zhre1-o_O-outerWrapper_13pjuin"
+                                  class="default_7zhre1-o_O-outerWrapper_rzav75"
                                 >
                                   <div
-                                    style="display: flex; padding: 1px;"
+                                    style="display: flex; align-items: center; padding: 1px;"
                                   >
                                     <span
                                       class="perseus-math-input mq-editable-field mq-math-mode"
@@ -2065,10 +2065,10 @@ table: [[☃ table 1]]
                                       type="button"
                                     >
                                       <div
-                                        class="default_7zhre1-o_O-iconContainer_1vtksig-o_O-iconInactive_8t5c3"
+                                        class="default_7zhre1-o_O-iconContainer_sj1r13-o_O-iconInactive_ir4i2x"
                                       >
                                         <svg
-                                          fill="var(--wb-semanticColor-core-foreground-neutral-strong)"
+                                          fill="var(--wb-semanticColor-core-foreground-neutral-default)"
                                           height="16"
                                           viewBox="0 0 256 256"
                                           width="16"
@@ -2249,7 +2249,7 @@ table: [[☃ table 1]]
                       >
                         <label>
                           Prompt to show explanation:
-                           
+
                           <input
                             aria-disabled="false"
                             aria-invalid="false"
@@ -2270,7 +2270,7 @@ table: [[☃ table 1]]
                       >
                         <label>
                           Prompt to hide explanation:
-                           
+
                           <input
                             aria-disabled="false"
                             aria-invalid="false"
@@ -2745,7 +2745,7 @@ table: [[☃ table 1]]
                           class="title"
                         >
                           Title:
-                           
+
                           <input
                             aria-disabled="false"
                             aria-invalid="false"
@@ -2771,7 +2771,7 @@ table: [[☃ table 1]]
                           <div
                             class="perseus-textarea-underlay"
                           >
-                            Answer this: 
+                            Answer this:
                             <b
                               class=""
                             >
@@ -3233,7 +3233,7 @@ table: [[☃ table 1]]
                                                 <span
                                                   class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
                                                 >
-                                                  Correct answer: 10 
+                                                  Correct answer: 10
                                                 </span>
                                               </div>
                                               <span
@@ -3764,158 +3764,6 @@ table: [[☃ table 1]]
                           </span>
                         </button>
                       </div>
-                      <div
-                        class="perseus-answer-editor"
-                      >
-                        <div
-                          class="perseus-answer-options"
-                        >
-                          <div
-                            class="default_7zhre1"
-                          >
-                            <div
-                              class="default_7zhre1"
-                            >
-                              <div
-                                class="default_7zhre1-o_O-wrapper_119rz02"
-                                tabindex="-1"
-                              >
-                                <div
-                                  class="default_7zhre1-o_O-choiceWrapper_s2wtqp"
-                                >
-                                  <div
-                                    class="default_7zhre1-o_O-inputWrapper_w6nz04-o_O-inputWrapper_1k6ggkh"
-                                    data-testid="wb-checkbox-wrapper"
-                                  >
-                                    <input
-                                      aria-checked="false"
-                                      aria-invalid="false"
-                                      class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
-                                      disabled=""
-                                      id=":r1k:"
-                                      type="checkbox"
-                                    />
-                                  </div>
-                                </div>
-                                <div
-                                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
-                                >
-                                  <label
-                                    for=":r1k:"
-                                  >
-                                    <div
-                                      class="default_7zhre1-o_O-inlineStyles_qb00m9"
-                                    >
-                                      Show calculator
-                                       
-                                      <span
-                                        class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
-                                        tabindex="0"
-                                      />
-                                    </div>
-                                  </label>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div
-                            class="default_7zhre1"
-                          >
-                            <div
-                              class="default_7zhre1"
-                            >
-                              <div
-                                class="default_7zhre1-o_O-wrapper_119rz02"
-                                tabindex="-1"
-                              >
-                                <div
-                                  class="default_7zhre1-o_O-choiceWrapper_s2wtqp"
-                                >
-                                  <div
-                                    class="default_7zhre1-o_O-inputWrapper_w6nz04-o_O-inputWrapper_1k6ggkh"
-                                    data-testid="wb-checkbox-wrapper"
-                                  >
-                                    <input
-                                      aria-checked="false"
-                                      aria-invalid="false"
-                                      class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
-                                      disabled=""
-                                      id=":r1l:"
-                                      type="checkbox"
-                                    />
-                                  </div>
-                                </div>
-                                <div
-                                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
-                                >
-                                  <label
-                                    for=":r1l:"
-                                  >
-                                    <div
-                                      class="default_7zhre1-o_O-inlineStyles_qb00m9"
-                                    >
-                                      Show financial calculator
-                                       
-                                      <span
-                                        class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
-                                        tabindex="0"
-                                      />
-                                    </div>
-                                  </label>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div
-                            class="default_7zhre1"
-                          >
-                            <div
-                              class="default_7zhre1"
-                            >
-                              <div
-                                class="default_7zhre1-o_O-wrapper_119rz02"
-                                tabindex="-1"
-                              >
-                                <div
-                                  class="default_7zhre1-o_O-choiceWrapper_s2wtqp"
-                                >
-                                  <div
-                                    class="default_7zhre1-o_O-inputWrapper_w6nz04-o_O-inputWrapper_1k6ggkh"
-                                    data-testid="wb-checkbox-wrapper"
-                                  >
-                                    <input
-                                      aria-checked="false"
-                                      aria-invalid="false"
-                                      class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
-                                      disabled=""
-                                      id=":r1m:"
-                                      type="checkbox"
-                                    />
-                                  </div>
-                                </div>
-                                <div
-                                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
-                                >
-                                  <label
-                                    for=":r1m:"
-                                  >
-                                    <div
-                                      class="default_7zhre1-o_O-inlineStyles_qb00m9"
-                                    >
-                                      Show periodic table
-                                       
-                                      <span
-                                        class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
-                                        tabindex="0"
-                                      />
-                                    </div>
-                                  </label>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -3967,7 +3815,7 @@ table: [[☃ table 1]]
                             class="title"
                           >
                             Title:
-                             
+
                             <input
                               aria-disabled="false"
                               aria-invalid="false"
@@ -3993,7 +3841,7 @@ table: [[☃ table 1]]
                             <div
                               class="perseus-textarea-underlay"
                             >
-                              Solve: 
+                              Solve:
                               <b
                                 class=""
                               >
@@ -4455,7 +4303,7 @@ table: [[☃ table 1]]
                                                   <span
                                                     class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
                                                   >
-                                                    Correct answer: 15 
+                                                    Correct answer: 15
                                                   </span>
                                                 </div>
                                                 <span
@@ -4800,158 +4648,6 @@ table: [[☃ table 1]]
                             Add a hint
                           </span>
                         </button>
-                        <div
-                          class="perseus-answer-editor"
-                        >
-                          <div
-                            class="perseus-answer-options"
-                          >
-                            <div
-                              class="default_7zhre1"
-                            >
-                              <div
-                                class="default_7zhre1"
-                              >
-                                <div
-                                  class="default_7zhre1-o_O-wrapper_119rz02"
-                                  tabindex="-1"
-                                >
-                                  <div
-                                    class="default_7zhre1-o_O-choiceWrapper_s2wtqp"
-                                  >
-                                    <div
-                                      class="default_7zhre1-o_O-inputWrapper_w6nz04-o_O-inputWrapper_1k6ggkh"
-                                      data-testid="wb-checkbox-wrapper"
-                                    >
-                                      <input
-                                        aria-checked="false"
-                                        aria-invalid="false"
-                                        class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
-                                        disabled=""
-                                        id=":r20:"
-                                        type="checkbox"
-                                      />
-                                    </div>
-                                  </div>
-                                  <div
-                                    class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
-                                  >
-                                    <label
-                                      for=":r20:"
-                                    >
-                                      <div
-                                        class="default_7zhre1-o_O-inlineStyles_qb00m9"
-                                      >
-                                        Show calculator
-                                         
-                                        <span
-                                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
-                                          tabindex="0"
-                                        />
-                                      </div>
-                                    </label>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div
-                              class="default_7zhre1"
-                            >
-                              <div
-                                class="default_7zhre1"
-                              >
-                                <div
-                                  class="default_7zhre1-o_O-wrapper_119rz02"
-                                  tabindex="-1"
-                                >
-                                  <div
-                                    class="default_7zhre1-o_O-choiceWrapper_s2wtqp"
-                                  >
-                                    <div
-                                      class="default_7zhre1-o_O-inputWrapper_w6nz04-o_O-inputWrapper_1k6ggkh"
-                                      data-testid="wb-checkbox-wrapper"
-                                    >
-                                      <input
-                                        aria-checked="false"
-                                        aria-invalid="false"
-                                        class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
-                                        disabled=""
-                                        id=":r21:"
-                                        type="checkbox"
-                                      />
-                                    </div>
-                                  </div>
-                                  <div
-                                    class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
-                                  >
-                                    <label
-                                      for=":r21:"
-                                    >
-                                      <div
-                                        class="default_7zhre1-o_O-inlineStyles_qb00m9"
-                                      >
-                                        Show financial calculator
-                                         
-                                        <span
-                                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
-                                          tabindex="0"
-                                        />
-                                      </div>
-                                    </label>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div
-                              class="default_7zhre1"
-                            >
-                              <div
-                                class="default_7zhre1"
-                              >
-                                <div
-                                  class="default_7zhre1-o_O-wrapper_119rz02"
-                                  tabindex="-1"
-                                >
-                                  <div
-                                    class="default_7zhre1-o_O-choiceWrapper_s2wtqp"
-                                  >
-                                    <div
-                                      class="default_7zhre1-o_O-inputWrapper_w6nz04-o_O-inputWrapper_1k6ggkh"
-                                      data-testid="wb-checkbox-wrapper"
-                                    >
-                                      <input
-                                        aria-checked="false"
-                                        aria-invalid="false"
-                                        class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
-                                        disabled=""
-                                        id=":r22:"
-                                        type="checkbox"
-                                      />
-                                    </div>
-                                  </div>
-                                  <div
-                                    class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
-                                  >
-                                    <label
-                                      for=":r22:"
-                                    >
-                                      <div
-                                        class="default_7zhre1-o_O-inlineStyles_qb00m9"
-                                      >
-                                        Show periodic table
-                                         
-                                        <span
-                                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
-                                          tabindex="0"
-                                        />
-                                      </div>
-                                    </label>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
                       </div>
                       <button
                         disabled=""
@@ -5035,13 +4731,13 @@ table: [[☃ table 1]]
                     <div>
                       <div>
                         Correct answer
-                         
+
                         <span
                           class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
                           tabindex="0"
                         />
-                         
-                        : 
+
+                        :
                         y = 1.000x + 0.000
                       </div>
                       <div>
@@ -5223,25 +4919,25 @@ table: [[☃ table 1]]
                             class="perseus-widget-row"
                           >
                             <label>
-                              Markings: 
+                              Markings:
                             </label>
                             <div
                               style="display: inline-block;"
                             >
                               <button
-                                class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59"
+                                class="buttonStyle_16wwnfc-o_O-selectedStyle_1qwmlm3"
                                 type="button"
                               >
                                 Graph
                               </button>
                               <button
-                                class="buttonStyle_zxbos0"
+                                class="buttonStyle_16wwnfc"
                                 type="button"
                               >
                                 Grid
                               </button>
                               <button
-                                class="buttonStyle_zxbos0"
+                                class="buttonStyle_16wwnfc"
                                 type="button"
                               >
                                 None
@@ -5316,7 +5012,7 @@ table: [[☃ table 1]]
                         class="perseus-widget-row"
                       >
                         <label>
-                          Available functions: 
+                          Available functions:
                         </label>
                         <div
                           style="display: inline-block;"
@@ -5327,10 +5023,23 @@ table: [[☃ table 1]]
                             title="Linear"
                             type="button"
                           >
-                            <img
-                              alt="Linear"
-                              src="mockStaticUrl(https://ka-perseus-graphie.s3.amazonaws.com/67aaf581e6d9ef9038c10558a1f70ac21c11c9f8.png)"
-                            />
+                            <svg
+                              aria-label="Linear"
+                              focusable="false"
+                              height="50"
+                              role="img"
+                              viewBox="0 0 50 50"
+                              width="50"
+                            >
+                              <path
+                                d="M8 42L42 8"
+                                fill="none"
+                                stroke="var(--wb-semanticColor-core-foreground-instructive-default)"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="3"
+                              />
+                            </svg>
                           </button>
                           <button
                             class="buttonStyle_zxbos0"
@@ -5338,10 +5047,23 @@ table: [[☃ table 1]]
                             title="Quadratic"
                             type="button"
                           >
-                            <img
-                              alt="Quadratic"
-                              src="mockStaticUrl(https://ka-perseus-graphie.s3.amazonaws.com/e23d36e6fc29ee37174e92c9daba2a66677128ab.png)"
-                            />
+                            <svg
+                              aria-label="Quadratic"
+                              focusable="false"
+                              height="50"
+                              role="img"
+                              viewBox="0 0 50 50"
+                              width="50"
+                            >
+                              <path
+                                d="M8 8Q25 72 42 8"
+                                fill="none"
+                                stroke="var(--wb-semanticColor-core-foreground-instructive-default)"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="3"
+                              />
+                            </svg>
                           </button>
                           <button
                             class="buttonStyle_zxbos0"
@@ -5349,10 +5071,23 @@ table: [[☃ table 1]]
                             title="Sinusoid"
                             type="button"
                           >
-                            <img
-                              alt="Sinusoid"
-                              src="mockStaticUrl(https://ka-perseus-graphie.s3.amazonaws.com/3d68e7718498475f53b206c2ab285626baf8857e.png)"
-                            />
+                            <svg
+                              aria-label="Sinusoid"
+                              focusable="false"
+                              height="50"
+                              role="img"
+                              viewBox="0 0 50 50"
+                              width="50"
+                            >
+                              <path
+                                d="M8 25C11.1 13 13.4 13 16.5 25C19.6 37 21.9 37 25 25C28.1 13 30.4 13 33.5 25C36.6 37 38.9 37 42 25"
+                                fill="none"
+                                stroke="var(--wb-semanticColor-core-foreground-instructive-default)"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="3"
+                              />
+                            </svg>
                           </button>
                           <button
                             class="buttonStyle_zxbos0"
@@ -5360,10 +5095,23 @@ table: [[☃ table 1]]
                             title="Tangent"
                             type="button"
                           >
-                            <img
-                              alt="Tangent"
-                              src="mockStaticUrl(https://ka-perseus-graphie.s3.amazonaws.com/7db80d23c35214f98659fe1cf0765811c1bbfbba.png)"
-                            />
+                            <svg
+                              aria-label="Tangent"
+                              focusable="false"
+                              height="50"
+                              role="img"
+                              viewBox="0 0 50 50"
+                              width="50"
+                            >
+                              <path
+                                d="M8 42L8.2 38.6L8.5 35.2L9.1 31.8L10.4 28.4L13.7 25L16.9 21.6L18.3 18.2L18.8 14.8L19.1 11.4L19.3 8M19.3 42L19.5 38.6L19.8 35.2L20.4 31.8L21.7 28.4L25 25L28.3 21.6L29.6 18.2L30.2 14.8L30.5 11.4L30.7 8M30.7 42L30.9 38.6L31.2 35.2L31.7 31.8L33.1 28.4L36.3 25L39.6 21.6L40.9 18.2L41.5 14.8L41.8 11.4L42 8"
+                                fill="none"
+                                stroke="var(--wb-semanticColor-core-foreground-instructive-default)"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="3"
+                              />
+                            </svg>
                           </button>
                           <button
                             class="buttonStyle_zxbos0"
@@ -5371,10 +5119,23 @@ table: [[☃ table 1]]
                             title="Exponential"
                             type="button"
                           >
-                            <img
-                              alt="Exponential"
-                              src="mockStaticUrl(https://ka-perseus-graphie.s3.amazonaws.com/9cbfad55525e3ce755a31a631b074670a5dad611.png)"
-                            />
+                            <svg
+                              aria-label="Exponential"
+                              focusable="false"
+                              height="50"
+                              role="img"
+                              viewBox="0 0 50 50"
+                              width="50"
+                            >
+                              <path
+                                d="M8 42L10.6 41.8L13.2 41.5L15.8 41.1L18.5 40.5L21.1 39.8L23.7 38.7L26.3 37.3L28.9 35.4L31.5 32.7L34.2 29.1L36.8 24.1L39.4 17.3L42 8"
+                                fill="none"
+                                stroke="var(--wb-semanticColor-core-foreground-instructive-default)"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="3"
+                              />
+                            </svg>
                           </button>
                           <button
                             class="buttonStyle_zxbos0"
@@ -5382,10 +5143,23 @@ table: [[☃ table 1]]
                             title="Logarithm"
                             type="button"
                           >
-                            <img
-                              alt="Logarithm"
-                              src="mockStaticUrl(https://ka-perseus-graphie.s3.amazonaws.com/f6491e99d34af34d924bfe0231728ad912068dc3.png)"
-                            />
+                            <svg
+                              aria-label="Logarithm"
+                              focusable="false"
+                              height="50"
+                              role="img"
+                              viewBox="0 0 50 50"
+                              width="50"
+                            >
+                              <path
+                                d="M8 42L10.6 29.7L13.2 24.5L15.8 21.2L18.5 18.7L21.1 16.7L23.7 15.1L26.3 13.7L28.9 12.5L31.5 11.4L34.2 10.4L36.8 9.5L39.4 8.7L42 8"
+                                fill="none"
+                                stroke="var(--wb-semanticColor-core-foreground-instructive-default)"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="3"
+                              />
+                            </svg>
                           </button>
                           <button
                             class="buttonStyle_zxbos0"
@@ -5393,10 +5167,23 @@ table: [[☃ table 1]]
                             title="Absolute_value"
                             type="button"
                           >
-                            <img
-                              alt="Absolute_value"
-                              src="mockStaticUrl(https://ka-perseus-graphie.s3.amazonaws.com/8256a630175a0cb1d11de223d6de0266daf98721.png)"
-                            />
+                            <svg
+                              aria-label="Absolute_value"
+                              focusable="false"
+                              height="50"
+                              role="img"
+                              viewBox="0 0 50 50"
+                              width="50"
+                            >
+                              <path
+                                d="M10 8L25 42L40 8"
+                                fill="none"
+                                stroke="var(--wb-semanticColor-core-foreground-instructive-default)"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="3"
+                              />
+                            </svg>
                           </button>
                         </div>
                       </div>
@@ -6763,7 +6550,7 @@ table: [[☃ table 1]]
                           <div
                             class="perseus-textarea-underlay"
                           >
-                            Simple question: 
+                            Simple question:
                             <b
                               class=""
                             >
@@ -7225,7 +7012,7 @@ table: [[☃ table 1]]
                                                 <span
                                                   class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
                                                 >
-                                                  Correct answer: 5 
+                                                  Correct answer: 5
                                                 </span>
                                               </div>
                                               <span
@@ -7752,9 +7539,9 @@ table: [[☃ table 1]]
                       <span
                         class="text_f1191h-o_O-BodyMonospace_16899j"
                       >
-                        Natural size: 
+                        Natural size:
                         300
-                         x 
+                         x
                         200
                       </span>
                       <button
@@ -8384,7 +8171,7 @@ table: [[☃ table 1]]
                                       <span
                                         class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
                                       >
-                                        Correct answer: 1/2 
+                                        Correct answer: 1/2
                                       </span>
                                     </div>
                                     <span
@@ -8806,7 +8593,7 @@ table: [[☃ table 1]]
                                 class="perseus-widget-row"
                               >
                                 Scale (px per div):
-                                 
+
                                 <span
                                   class="mock-TeX"
                                 >
@@ -8963,25 +8750,25 @@ table: [[☃ table 1]]
                                 class="perseus-widget-row"
                               >
                                 <label>
-                                  Markings: 
+                                  Markings:
                                 </label>
                                 <div
                                   style="display: inline-block;"
                                 >
                                   <button
-                                    class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59"
+                                    class="buttonStyle_16wwnfc-o_O-selectedStyle_1qwmlm3"
                                     type="button"
                                   >
                                     Graph
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0"
+                                    class="buttonStyle_16wwnfc"
                                     type="button"
                                   >
                                     Grid
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0"
+                                    class="buttonStyle_16wwnfc"
                                     type="button"
                                   >
                                     None
@@ -9052,7 +8839,7 @@ table: [[☃ table 1]]
                           </svg>
                           <span>
                             Movable point
-                             
+
                             <span
                               class="mock-TeX"
                             >
@@ -9069,7 +8856,7 @@ table: [[☃ table 1]]
                             <div
                               class="perseus-widget-row"
                             >
-                              Start: 
+                              Start:
                               <span
                                 class="mock-TeX"
                               >
@@ -9104,7 +8891,7 @@ table: [[☃ table 1]]
                               >
                                 ,
                               </span>
-                               
+
                               <div
                                 class="default_7zhre1-o_O-outerWrapper_9icmcf"
                               >
@@ -9138,19 +8925,19 @@ table: [[☃ table 1]]
                             <div
                               class="perseus-widget-row"
                             >
-                              Update 
+                              Update
                               <span
                                 class="mock-TeX"
                               >
                                 (x_n, y_n)
                               </span>
-                               for 
+                               for
                               <span
                                 class="mock-TeX"
                               >
                                 n =
                               </span>
-                               
+
                               <input
                                 class="number-input"
                                 placeholder="0"
@@ -9163,30 +8950,30 @@ table: [[☃ table 1]]
                                 class="perseus-widget-row"
                               >
                                 Constraint:
-                                 
+
                                 <div
                                   style="display: inline-block;"
                                 >
                                   <button
-                                    class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59"
+                                    class="buttonStyle_16wwnfc-o_O-selectedStyle_1qwmlm3"
                                     type="button"
                                   >
                                     None
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0"
+                                    class="buttonStyle_16wwnfc"
                                     type="button"
                                   >
                                     Snap
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0"
+                                    class="buttonStyle_16wwnfc"
                                     type="button"
                                   >
                                     x=
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0"
+                                    class="buttonStyle_16wwnfc"
                                     type="button"
                                   >
                                     y=
@@ -9205,7 +8992,7 @@ table: [[☃ table 1]]
                                   >
                                     x \\in \\Large[
                                   </span>
-                                   
+
                                   <div
                                     class="default_7zhre1-o_O-outerWrapper_9icmcf"
                                   >
@@ -9233,9 +9020,9 @@ table: [[☃ table 1]]
                                   <span
                                     class="mock-TeX"
                                   >
-                                    , 
+                                    ,
                                   </span>
-                                   
+
                                   <div
                                     class="default_7zhre1-o_O-outerWrapper_9icmcf"
                                   >
@@ -9260,7 +9047,7 @@ table: [[☃ table 1]]
                                       />
                                     </span>
                                   </div>
-                                   
+
                                   <span
                                     class="mock-TeX"
                                   >
@@ -9279,7 +9066,7 @@ table: [[☃ table 1]]
                                   >
                                     y \\in \\Large[
                                   </span>
-                                   
+
                                   <div
                                     class="default_7zhre1-o_O-outerWrapper_9icmcf"
                                   >
@@ -9307,9 +9094,9 @@ table: [[☃ table 1]]
                                   <span
                                     class="mock-TeX"
                                   >
-                                    , 
+                                    ,
                                   </span>
-                                   
+
                                   <div
                                     class="default_7zhre1-o_O-outerWrapper_9icmcf"
                                   >
@@ -9334,7 +9121,7 @@ table: [[☃ table 1]]
                                       />
                                     </span>
                                   </div>
-                                   
+
                                   <span
                                     class="mock-TeX"
                                   >
@@ -11531,14 +11318,14 @@ table: [[☃ table 1]]
                                   style="display: inline-block;"
                                 >
                                   <button
-                                    class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59-o_O-disabledStyle_1spc5g0"
+                                    class="buttonStyle_16wwnfc-o_O-selectedStyle_1qwmlm3-o_O-disabledStyle_1spc5g0"
                                     disabled=""
                                     type="button"
                                   >
                                     On Axis
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0-o_O-disabledStyle_1spc5g0"
+                                    class="buttonStyle_16wwnfc-o_O-disabledStyle_1spc5g0"
                                     disabled=""
                                     type="button"
                                   >
@@ -12024,28 +11811,28 @@ table: [[☃ table 1]]
                                   style="display: inline-block;"
                                 >
                                   <button
-                                    class="buttonStyle_zxbos0-o_O-disabledStyle_1spc5g0"
+                                    class="buttonStyle_16wwnfc-o_O-disabledStyle_1spc5g0"
                                     disabled=""
                                     type="button"
                                   >
                                     Axes
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59-o_O-disabledStyle_1spc5g0"
+                                    class="buttonStyle_16wwnfc-o_O-selectedStyle_1qwmlm3-o_O-disabledStyle_1spc5g0"
                                     disabled=""
                                     type="button"
                                   >
                                     Graph
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0-o_O-disabledStyle_1spc5g0"
+                                    class="buttonStyle_16wwnfc-o_O-disabledStyle_1spc5g0"
                                     disabled=""
                                     type="button"
                                   >
                                     Grid
                                   </button>
                                   <button
-                                    class="buttonStyle_zxbos0-o_O-disabledStyle_1spc5g0"
+                                    class="buttonStyle_16wwnfc-o_O-disabledStyle_1spc5g0"
                                     disabled=""
                                     type="button"
                                   >
@@ -12883,27 +12670,27 @@ table: [[☃ table 1]]
                               <option
                                 value="NONE"
                               >
-                                 No Preference 
+                                 No Preference
                               </option>
                               <option
                                 value="UP"
                               >
-                                 Up 
+                                 Up
                               </option>
                               <option
                                 value="DOWN"
                               >
-                                 Down 
+                                 Down
                               </option>
                               <option
                                 value="LEFT"
                               >
-                                 Left 
+                                 Left
                               </option>
                               <option
                                 value="RIGHT"
                               >
-                                 Right 
+                                 Right
                               </option>
                             </select>
                           </li>
@@ -12951,9 +12738,9 @@ table: [[☃ table 1]]
                       class="perseus-matcher-editor"
                     >
                       <div>
-                         
+
                         Correct answer:
-                         
+
                         <span
                           class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
                           tabindex="0"
@@ -13014,9 +12801,9 @@ table: [[☃ table 1]]
                         </ul>
                       </div>
                       <span>
-                         
+
                         Labels:
-                         
+
                         <span
                           class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
                           tabindex="0"
@@ -13196,9 +12983,9 @@ table: [[☃ table 1]]
                       <div
                         class="perseus-widget-row"
                       >
-                         
+
                         Max matrix size:
-                         
+
                         <div
                           class="range-input"
                         >
@@ -13317,9 +13104,9 @@ table: [[☃ table 1]]
                       <div
                         class="perseus-widget-row"
                       >
-                         
+
                         Matrix prefix:
-                         
+
                         <div
                           class="perseus-single-editor  perseus-editor-disabled"
                           data-testid="perseus-single-editor"
@@ -13342,9 +13129,9 @@ table: [[☃ table 1]]
                       <div
                         class="perseus-widget-row"
                       >
-                         
+
                         Matrix suffix:
-                         
+
                         <div
                           class="perseus-single-editor  perseus-editor-disabled"
                           data-testid="perseus-single-editor"
@@ -13410,7 +13197,7 @@ table: [[☃ table 1]]
                       </div>
                       <div>
                         URL:
-                         
+
                         <input
                           class="perseus-widget-measurer-url"
                           type="text"
@@ -13423,7 +13210,7 @@ table: [[☃ table 1]]
                       </div>
                       <div>
                         Containing area [width, height]:
-                         
+
                         <div
                           class="range-input"
                         >
@@ -13604,7 +13391,7 @@ table: [[☃ table 1]]
                         class="perseus-widget-row"
                       >
                         Correct x
-                         
+
                         <select
                           aria-label="Select relationship"
                         >
@@ -13639,7 +13426,7 @@ table: [[☃ table 1]]
                             ≥
                           </option>
                         </select>
-                         
+
                         <input
                           class="number-input normal"
                           format="decimal"
@@ -13657,7 +13444,7 @@ table: [[☃ table 1]]
                       >
                         <label>
                           Position:
-                           
+
                           <input
                             class="number-input"
                             format="decimal"
@@ -13665,7 +13452,7 @@ table: [[☃ table 1]]
                             type="text"
                             value="2"
                           />
-                           ∈ 
+                           ∈
                         </label>
                         <div
                           class="range-input"
@@ -13695,7 +13482,7 @@ table: [[☃ table 1]]
                           class="perseus-widget-left-col"
                         >
                           Labels:
-                           
+
                           <input
                             class="number-input"
                             format="decimal"
@@ -13704,7 +13491,7 @@ table: [[☃ table 1]]
                             value="-5"
                           />
                           <span>
-                             & 
+                             &
                           </span>
                           <input
                             class="number-input"
@@ -13723,33 +13510,33 @@ table: [[☃ table 1]]
                         class="perseus-widget-row"
                       >
                         Style:
-                         
+
                         <div
                           style="display: inline-block;"
                         >
                           <button
-                            class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59"
+                            class="buttonStyle_16wwnfc-o_O-selectedStyle_1qwmlm3"
                             title="Decimals"
                             type="button"
                           >
                             0.75
                           </button>
                           <button
-                            class="buttonStyle_zxbos0"
+                            class="buttonStyle_16wwnfc"
                             title="Improper fractions"
                             type="button"
                           >
                             ⁷⁄₄
                           </button>
                           <button
-                            class="buttonStyle_zxbos0"
+                            class="buttonStyle_16wwnfc"
                             title="Mixed numbers"
                             type="button"
                           >
                             1¾
                           </button>
                           <button
-                            class="buttonStyle_zxbos0"
+                            class="buttonStyle_16wwnfc"
                             title="Non-reduced"
                             type="button"
                           >
@@ -13889,7 +13676,7 @@ table: [[☃ table 1]]
                         <span>
                           <label>
                             Num divisions:
-                             
+
                             <input
                               class="number-input"
                               format="decimal"
@@ -13898,10 +13685,10 @@ table: [[☃ table 1]]
                               value="5"
                             />
                           </label>
-                           
+
                           <label>
                             or tick step:
-                             
+
                             <input
                               class="number-input"
                               format="decimal"
@@ -13921,7 +13708,7 @@ table: [[☃ table 1]]
                       >
                         <label>
                           Snap increments per tick:
-                           
+
                           <input
                             class="number-input"
                             format="decimal"
@@ -14229,7 +14016,7 @@ table: [[☃ table 1]]
                                       <span
                                         class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
                                       >
-                                        Correct answer: 4 
+                                        Correct answer: 4
                                       </span>
                                     </div>
                                     <span
@@ -14593,9 +14380,9 @@ table: [[☃ table 1]]
                   >
                     <div>
                       <div>
-                         
+
                         Correct answer:
-                         
+
                         <span
                           class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
                           tabindex="0"
@@ -14634,9 +14421,9 @@ table: [[☃ table 1]]
                         </li>
                       </ul>
                       <div>
-                         
+
                         Other cards:
-                         
+
                         <span
                           class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
                           tabindex="0"
@@ -14655,9 +14442,9 @@ table: [[☃ table 1]]
                       </ul>
                       <div>
                         <label>
-                           
+
                           Layout:
-                           
+
                           <select>
                             <option
                               value="horizontal"
@@ -14678,9 +14465,9 @@ table: [[☃ table 1]]
                       </div>
                       <div>
                         <label>
-                           
+
                           Height:
-                           
+
                           <select>
                             <option
                               value="normal"
@@ -14778,7 +14565,7 @@ table: [[☃ table 1]]
                     >
                       <div>
                         Chart type:
-                         
+
                         <label>
                           <input
                             name="chart-type"
@@ -14818,7 +14605,7 @@ table: [[☃ table 1]]
                       </div>
                       <div>
                         Labels:
-                         
+
                         <label>
                           x:
                           <input
@@ -14837,7 +14624,7 @@ table: [[☃ table 1]]
                       <div>
                         <label>
                           Label Interval:
-                           
+
                           <input
                             class="number-input"
                             type="text"
@@ -14852,7 +14639,7 @@ table: [[☃ table 1]]
                       <div>
                         <label>
                           Picture:
-                           
+
                           <input
                             class="pic-url"
                             type="text"
@@ -14867,7 +14654,7 @@ table: [[☃ table 1]]
                       <div>
                         <label>
                           Categories:
-                           
+
                           <ul
                             class="perseus-text-list-editor perseus-clearfix layout-horizontal"
                           >
@@ -14891,7 +14678,7 @@ table: [[☃ table 1]]
                       <div>
                         <label>
                           Scale (y):
-                           
+
                           <input
                             type="text"
                             value="1"
@@ -14901,7 +14688,7 @@ table: [[☃ table 1]]
                       <div>
                         <label>
                           Max y:
-                           
+
                           <input
                             type="text"
                             value="5"
@@ -14910,7 +14697,7 @@ table: [[☃ table 1]]
                       </div>
                       <div>
                         Editing values:
-                         
+
                         <label>
                           <input
                             type="radio"
@@ -15764,80 +15551,329 @@ table: [[☃ table 1]]
                   <div
                     class="perseus-widget-editor-content enter"
                   >
-                    <div>
-                      <div>
-                         
-                        Correct answer:
-                         
-                        <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
-                          tabindex="0"
-                        />
-                      </div>
-                      <ul
-                        class="perseus-text-list-editor perseus-clearfix layout-horizontal"
+                    <div
+                      class="default_7zhre1 editor"
+                    >
+                      <div
+                        class="default_7zhre1 section"
                       >
-                        <li>
-                          <input
-                            style="width: 5px;"
-                            type="text"
-                            value="1"
+                        <div>
+                          Correct answer
+
+                          <span
+                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
+                            tabindex="0"
                           />
-                        </li>
-                        <li>
-                          <input
-                            style="width: 5px;"
-                            type="text"
-                            value="2"
-                          />
-                        </li>
-                        <li>
-                          <input
-                            style="width: 5px;"
-                            type="text"
-                            value="3"
-                          />
-                        </li>
-                        <li>
-                          <input
-                            style="width: 5px;"
-                            type="text"
-                            value="4"
-                          />
-                        </li>
-                        <li>
-                          <input
-                            style="width: 5px;"
-                            type="text"
-                            value="5"
-                          />
-                        </li>
-                        <li>
-                          <input
-                            style="width: 5px;"
-                            type="text"
-                            value=""
-                          />
-                        </li>
-                      </ul>
-                      <div>
-                        <label>
-                           
-                          Layout:
-                           
-                          <select>
-                            <option
-                              value="horizontal"
+                        </div>
+                        <ol
+                          class="default_7zhre1 cards"
+                        >
+                          <li
+                            class="default_7zhre1 card"
+                          >
+                            <input
+                              aria-disabled="false"
+                              aria-invalid="false"
+                              aria-label="Card 1"
+                              aria-required="false"
+                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_t0tx82"
+                              id=":r64:"
+                              type="text"
+                              value="1"
+                            />
+                            <button
+                              aria-disabled="true"
+                              aria-label="Move card 1 up"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1-o_O-disabled_1y1yrlc"
+                              data-kind="tertiary"
+                              type="button"
                             >
-                              Horizontal
-                            </option>
-                            <option
-                              value="vertical"
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_1w2ke9h"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Move card 1 down"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1"
+                              data-kind="tertiary"
+                              type="button"
                             >
-                              Vertical
-                            </option>
-                          </select>
-                        </label>
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_514u8y"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Delete card 1"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1ugjna4"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_q5oi6w"
+                              />
+                            </button>
+                          </li>
+                          <li
+                            class="default_7zhre1 card"
+                          >
+                            <input
+                              aria-disabled="false"
+                              aria-invalid="false"
+                              aria-label="Card 2"
+                              aria-required="false"
+                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_t0tx82"
+                              id=":r65:"
+                              type="text"
+                              value="2"
+                            />
+                            <button
+                              aria-disabled="false"
+                              aria-label="Move card 2 up"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_1w2ke9h"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Move card 2 down"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_514u8y"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Delete card 2"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1ugjna4"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_q5oi6w"
+                              />
+                            </button>
+                          </li>
+                          <li
+                            class="default_7zhre1 card"
+                          >
+                            <input
+                              aria-disabled="false"
+                              aria-invalid="false"
+                              aria-label="Card 3"
+                              aria-required="false"
+                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_t0tx82"
+                              id=":r66:"
+                              type="text"
+                              value="3"
+                            />
+                            <button
+                              aria-disabled="false"
+                              aria-label="Move card 3 up"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_1w2ke9h"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Move card 3 down"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_514u8y"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Delete card 3"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1ugjna4"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_q5oi6w"
+                              />
+                            </button>
+                          </li>
+                          <li
+                            class="default_7zhre1 card"
+                          >
+                            <input
+                              aria-disabled="false"
+                              aria-invalid="false"
+                              aria-label="Card 4"
+                              aria-required="false"
+                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_t0tx82"
+                              id=":r67:"
+                              type="text"
+                              value="4"
+                            />
+                            <button
+                              aria-disabled="false"
+                              aria-label="Move card 4 up"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_1w2ke9h"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Move card 4 down"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_514u8y"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Delete card 4"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1ugjna4"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_q5oi6w"
+                              />
+                            </button>
+                          </li>
+                          <li
+                            class="default_7zhre1 card"
+                          >
+                            <input
+                              aria-disabled="false"
+                              aria-invalid="false"
+                              aria-label="Card 5"
+                              aria-required="false"
+                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_t0tx82"
+                              id=":r68:"
+                              type="text"
+                              value="5"
+                            />
+                            <button
+                              aria-disabled="false"
+                              aria-label="Move card 5 up"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_1w2ke9h"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="true"
+                              aria-label="Move card 5 down"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1-o_O-disabled_1y1yrlc"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_514u8y"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Delete card 5"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1ugjna4"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_q5oi6w"
+                              />
+                            </button>
+                          </li>
+                        </ol>
+                        <button
+                          aria-disabled="false"
+                          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1xfocwy add-card"
+                          data-kind="tertiary"
+                          type="button"
+                        >
+                          <div
+                            class="default_7zhre1-o_O-iconWrapper_bqwm7d"
+                          >
+                            <span
+                              class="svg_1q6jc65-o_O-medium_12bui46-o_O-startIcon_1ll1fk7-o_O-tertiaryStartIcon_121powu-o_O-inlineStyles_1gy2kn5"
+                            />
+                          </div>
+                          <span
+                            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+                          >
+                            Add a card
+                          </span>
+                        </button>
+                      </div>
+                      <div
+                        class="default_7zhre1"
+                      >
+                        <div
+                          class="default_7zhre1"
+                        >
+                          <div
+                            class="default_7zhre1-o_O-labelContainer_1qlbwdv"
+                          >
+                            <label
+                              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_qt7cw0-o_O-labelWithNoDescription_i032sc"
+                              for=":r69:-labeled-field-field"
+                              id=":r69:-labeled-field-label"
+                            >
+                              Layout
+                            </label>
+                          </div>
+                          <div
+                            class="default_7zhre1-o_O-menuWrapper_1rs652y"
+                          >
+                            <button
+                              aria-controls=":r6a:"
+                              aria-describedby=""
+                              aria-expanded="false"
+                              aria-haspopup="listbox"
+                              aria-invalid="false"
+                              aria-required="false"
+                              class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_znuyo8"
+                              id=":r69:-labeled-field-field"
+                              role="combobox"
+                              type="button"
+                            >
+                              <span
+                                class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_awxjrp"
+                              >
+                                Horizontal
+                              </span>
+                              <span
+                                aria-hidden="true"
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-caret_1e21hpf-o_O-inlineStyles_efsbsa"
+                              />
+                            </button>
+                          </div>
+                          <div
+                            aria-atomic="true"
+                            aria-live="assertive"
+                            class="default_7zhre1-o_O-helperTextWithIcon_1hmzxfl"
+                            id=":r69:-labeled-field-error"
+                          />
+                        </div>
                         <span
                           class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
                           tabindex="0"
@@ -15863,7 +15899,7 @@ table: [[☃ table 1]]
                                   aria-invalid="false"
                                   checked=""
                                   class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_1ywap6u"
-                                  id=":r6a:"
+                                  id=":r6c:"
                                   type="checkbox"
                                 />
                                 <span
@@ -15875,9 +15911,9 @@ table: [[☃ table 1]]
                               class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy"
                             >
                               <label
-                                for=":r6a:"
+                                for=":r6c:"
                               >
-                                Padding:
+                                Padding
                               </label>
                             </div>
                           </div>
@@ -15931,7 +15967,7 @@ table: [[☃ table 1]]
                       >
                         <label>
                           Number of columns:
-                           
+
                           <input
                             class="number-input"
                             type="text"
@@ -15944,7 +15980,7 @@ table: [[☃ table 1]]
                       >
                         <label>
                           Number of rows:
-                           
+
                           <input
                             class="number-input"
                             type="text"
@@ -15953,9 +15989,9 @@ table: [[☃ table 1]]
                         </label>
                       </div>
                       <div>
-                         
+
                         Table of answers:
-                         
+
                         <span
                           class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
                           tabindex="0"
@@ -16150,102 +16186,6 @@ table: [[☃ table 1]]
                           aria-invalid="false"
                           class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
                           disabled=""
-                          id=":r6b:"
-                          type="checkbox"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
-                    >
-                      <label
-                        for=":r6b:"
-                      >
-                        <div
-                          class="default_7zhre1-o_O-inlineStyles_qb00m9"
-                        >
-                          Show calculator
-                           
-                          <span
-                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
-                            tabindex="0"
-                          />
-                        </div>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="default_7zhre1"
-              >
-                <div
-                  class="default_7zhre1"
-                >
-                  <div
-                    class="default_7zhre1-o_O-wrapper_119rz02"
-                    tabindex="-1"
-                  >
-                    <div
-                      class="default_7zhre1-o_O-choiceWrapper_s2wtqp"
-                    >
-                      <div
-                        class="default_7zhre1-o_O-inputWrapper_w6nz04-o_O-inputWrapper_1k6ggkh"
-                        data-testid="wb-checkbox-wrapper"
-                      >
-                        <input
-                          aria-checked="false"
-                          aria-invalid="false"
-                          class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
-                          disabled=""
-                          id=":r6c:"
-                          type="checkbox"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
-                    >
-                      <label
-                        for=":r6c:"
-                      >
-                        <div
-                          class="default_7zhre1-o_O-inlineStyles_qb00m9"
-                        >
-                          Show financial calculator
-                           
-                          <span
-                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
-                            tabindex="0"
-                          />
-                        </div>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="default_7zhre1"
-              >
-                <div
-                  class="default_7zhre1"
-                >
-                  <div
-                    class="default_7zhre1-o_O-wrapper_119rz02"
-                    tabindex="-1"
-                  >
-                    <div
-                      class="default_7zhre1-o_O-choiceWrapper_s2wtqp"
-                    >
-                      <div
-                        class="default_7zhre1-o_O-inputWrapper_w6nz04-o_O-inputWrapper_1k6ggkh"
-                        data-testid="wb-checkbox-wrapper"
-                      >
-                        <input
-                          aria-checked="false"
-                          aria-invalid="false"
-                          class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
-                          disabled=""
                           id=":r6d:"
                           type="checkbox"
                         />
@@ -16260,8 +16200,104 @@ table: [[☃ table 1]]
                         <div
                           class="default_7zhre1-o_O-inlineStyles_qb00m9"
                         >
+                          Show calculator
+
+                          <span
+                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
+                            tabindex="0"
+                          />
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="default_7zhre1"
+              >
+                <div
+                  class="default_7zhre1"
+                >
+                  <div
+                    class="default_7zhre1-o_O-wrapper_119rz02"
+                    tabindex="-1"
+                  >
+                    <div
+                      class="default_7zhre1-o_O-choiceWrapper_s2wtqp"
+                    >
+                      <div
+                        class="default_7zhre1-o_O-inputWrapper_w6nz04-o_O-inputWrapper_1k6ggkh"
+                        data-testid="wb-checkbox-wrapper"
+                      >
+                        <input
+                          aria-checked="false"
+                          aria-invalid="false"
+                          class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
+                          disabled=""
+                          id=":r6e:"
+                          type="checkbox"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
+                    >
+                      <label
+                        for=":r6e:"
+                      >
+                        <div
+                          class="default_7zhre1-o_O-inlineStyles_qb00m9"
+                        >
+                          Show financial calculator
+
+                          <span
+                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
+                            tabindex="0"
+                          />
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="default_7zhre1"
+              >
+                <div
+                  class="default_7zhre1"
+                >
+                  <div
+                    class="default_7zhre1-o_O-wrapper_119rz02"
+                    tabindex="-1"
+                  >
+                    <div
+                      class="default_7zhre1-o_O-choiceWrapper_s2wtqp"
+                    >
+                      <div
+                        class="default_7zhre1-o_O-inputWrapper_w6nz04-o_O-inputWrapper_1k6ggkh"
+                        data-testid="wb-checkbox-wrapper"
+                      >
+                        <input
+                          aria-checked="false"
+                          aria-invalid="false"
+                          class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
+                          disabled=""
+                          id=":r6f:"
+                          type="checkbox"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
+                    >
+                      <label
+                        for=":r6f:"
+                      >
+                        <div
+                          class="default_7zhre1-o_O-inlineStyles_qb00m9"
+                        >
                           Show periodic table
-                           
+
                           <span
                             class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
                             tabindex="0"
@@ -16279,10 +16315,6 @@ table: [[☃ table 1]]
           class="perseus-editor-right-cell"
         />
       </div>
-    </div>
-    <div
-      class="perseus-hints-editor perseus-editor-table"
-    >
       <div
         class="perseus-editor-row"
       >

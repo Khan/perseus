@@ -1,9 +1,8 @@
+import {generatePlotterOptions} from "@khanacademy/perseus-core";
+
 import scorePlotter from "./score-plotter";
 
-import type {
-    PerseusPlotterRubric,
-    PerseusPlotterUserInput,
-} from "@khanacademy/perseus-core";
+import type {PerseusPlotterUserInput} from "@khanacademy/perseus-core";
 
 describe("scorePlotter", () => {
     it("returns incorrect when the user input is undefined", () => {
@@ -12,10 +11,10 @@ describe("scorePlotter", () => {
         // maybe `scorePlotter` should return invalid.
 
         // Arrange
-        const rubric: PerseusPlotterRubric = {
+        const rubric = generatePlotterOptions({
             correct: [15, 25, 5, 10, 10],
             starting: [0, 0, 0, 0, 0],
-        };
+        });
 
         const userInput = undefined;
 
@@ -28,10 +27,10 @@ describe("scorePlotter", () => {
 
     it("can be answered correctly", () => {
         // Arrange
-        const rubric: PerseusPlotterRubric = {
+        const rubric = generatePlotterOptions({
             correct: [15, 25, 5, 10, 10],
             starting: [0, 0, 0, 0, 0],
-        };
+        });
 
         const userInput: PerseusPlotterUserInput = rubric.correct;
 
@@ -44,10 +43,10 @@ describe("scorePlotter", () => {
 
     it("can be answered incorrectly", () => {
         // Arrange
-        const rubric: PerseusPlotterRubric = {
+        const rubric = generatePlotterOptions({
             correct: [15, 25, 5, 10, 10],
             starting: [0, 0, 0, 0, 0],
-        };
+        });
 
         const userInput: PerseusPlotterUserInput = [8, 6, 7, 5, 3, 0, 9];
 

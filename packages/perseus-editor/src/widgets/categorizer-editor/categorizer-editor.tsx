@@ -10,12 +10,12 @@ import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
-import type {CategorizerDefaultWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const Categorizer = CategorizerWidget.widget;
 
-interface Props extends CategorizerDefaultWidgetOptions, ChangeableProps {
+interface Props extends PerseusCategorizerWidgetOptions, ChangeableProps {
     apiOptions?: APIOptionsWithDefaults;
 }
 
@@ -26,7 +26,7 @@ interface Props extends CategorizerDefaultWidgetOptions, ChangeableProps {
 class CategorizerEditor extends React.Component<Props> {
     static widgetName = "categorizer" as const;
 
-    static defaultProps: CategorizerDefaultWidgetOptions =
+    static defaultProps: PerseusCategorizerWidgetOptions =
         categorizerLogic.defaultWidgetOptions;
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {

@@ -102,7 +102,7 @@ catalogs:
         vite: 5.4.0
         "@phosphor-icons/core": 2.0.2
         "@popperjs/core": 2.10.2
-        "@khanacademy/mathjax-renderer": 3.1.4
+        "@khanacademy/mathjax-renderer": 3.2.0
         "@khanacademy/wonder-blocks-accordion": 3.1.69
         "@khanacademy/wonder-blocks-announcer": 1.1.1
         "@khanacademy/wonder-blocks-badge": 1.1.21

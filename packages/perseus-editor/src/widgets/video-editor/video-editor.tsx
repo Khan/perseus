@@ -1,6 +1,5 @@
 import {
     videoLogic,
-    type VideoDefaultWidgetOptions,
     type PerseusVideoWidgetOptions,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
@@ -17,7 +16,7 @@ export interface VideoEditorProps extends PerseusVideoWidgetOptions {
 class VideoEditor extends React.Component<VideoEditorProps> {
     static widgetName = "video" as const;
 
-    static defaultProps: VideoDefaultWidgetOptions =
+    static defaultProps: PerseusVideoWidgetOptions =
         videoLogic.defaultWidgetOptions;
 
     serialize: () => PerseusVideoWidgetOptions = () => {

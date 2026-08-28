@@ -7,10 +7,10 @@ import {
 
 import {definitionRendererDecorator} from "./definition-renderer-decorator";
 
-import type {DefinitionDefaultWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusDefinitionWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const meta: Meta<DefinitionDefaultWidgetOptions> = {
+const meta: Meta<PerseusDefinitionWidgetOptions> = {
     title: "Widgets/Definition/Visual Regression Tests/Interactions",
     tags: ["!autodocs", "!manifest"],
     parameters: {

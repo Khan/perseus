@@ -1,15 +1,14 @@
+import {generateDropdownOptions} from "@khanacademy/perseus-core";
+
 import scoreDropdown from "./score-dropdown";
 
-import type {
-    PerseusDropdownRubric,
-    PerseusDropdownUserInput,
-} from "@khanacademy/perseus-core";
+import type {PerseusDropdownUserInput} from "@khanacademy/perseus-core";
 
 describe("scoreDropdown", () => {
     it("returns a score of 'invalid' when the user input is undefined", () => {
         // Arrange
         const userInput = undefined;
-        const rubric: PerseusDropdownRubric = {choices: []};
+        const rubric = generateDropdownOptions({choices: []});
 
         // Act
         const score = scoreDropdown(userInput, rubric);
@@ -22,7 +21,7 @@ describe("scoreDropdown", () => {
         const userInput: PerseusDropdownUserInput = {
             value: 1,
         };
-        const rubric: PerseusDropdownRubric = {
+        const rubric = generateDropdownOptions({
             choices: [
                 {
                     content: "greater than or equal to",
@@ -33,7 +32,7 @@ describe("scoreDropdown", () => {
                     correct: true,
                 },
             ],
-        };
+        });
 
         // Act
         const score = scoreDropdown(userInput, rubric);
@@ -47,7 +46,7 @@ describe("scoreDropdown", () => {
         const userInput: PerseusDropdownUserInput = {
             value: 2,
         };
-        const rubric: PerseusDropdownRubric = {
+        const rubric = generateDropdownOptions({
             choices: [
                 {
                     content: "greater than or equal to",
@@ -58,7 +57,7 @@ describe("scoreDropdown", () => {
                     correct: true,
                 },
             ],
-        };
+        });
 
         // Act
         const score = scoreDropdown(userInput, rubric);

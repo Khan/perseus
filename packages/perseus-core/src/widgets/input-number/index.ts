@@ -4,9 +4,7 @@ import type {InputNumberPublicWidgetOptions} from "./input-number-util";
 import type {PerseusInputNumberWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
-export type InputNumberDefaultWidgetOptions = PerseusInputNumberWidgetOptions;
-
-const defaultWidgetOptions: InputNumberDefaultWidgetOptions = {
+const defaultWidgetOptions: PerseusInputNumberWidgetOptions = {
     textAlign: "left",
     coefficient: false,
     size: "normal",

@@ -1,7 +1,8 @@
 import {
+    mergeCards,
     ordererLogic,
+    toCard,
     type PerseusOrdererWidgetOptions,
-    type PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
@@ -18,41 +19,6 @@ type Props = PerseusOrdererWidgetOptions & {
         newOptions: Partial<PerseusOrdererWidgetOptions>,
         callback?: () => void,
     ) => void;
-};
-
-const toCard = (content: string): PerseusRenderer => ({
-    content,
-    widgets: {},
-    images: {},
-});
-
-// Cards are displayed grouped by content: numbers first, then everything
-// else, then bare variables and $tex$.
-const getCategoryScore = (content: string): number => {
-    if (/\d/.test(content)) {
-        return 0;
-    }
-    if (/^\$?[a-zA-Z]+\$?$/.test(content)) {
-        return 2;
-    }
-    return 1;
-};
-
-/**
- * The cards the student picks from: the correct answer and the distractors,
- * with duplicates and empty cards removed.
- */
-export const mergeCards = (
-    correctOptions: PerseusRenderer[],
-    otherOptions: PerseusRenderer[],
-): PerseusRenderer[] => {
-    const allCards = [...correctOptions, ...otherOptions];
-
-    return [...new Set(allCards.map((card) => card.content))]
-        .filter((content) => content !== "")
-        .sort()
-        .sort((a, b) => getCategoryScore(a) - getCategoryScore(b))
-        .map(toCard);
 };
 
 class OrdererEditor extends React.Component<Props> {

@@ -1,7 +1,7 @@
 import _ from "underscore";
 
 import type {
-    PerseusMatcherRubric,
+    PerseusMatcherWidgetOptions,
     PerseusMatcherUserInput,
     PerseusScore,
 } from "@khanacademy/perseus-core";
@@ -10,7 +10,7 @@ function scoreMatcher(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: PerseusMatcherUserInput | undefined,
-    rubric: PerseusMatcherRubric,
+    rubric: PerseusMatcherWidgetOptions,
 ): PerseusScore {
     if (userInput == null) {
         return {type: "invalid", message: null};

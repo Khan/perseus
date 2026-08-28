@@ -1895,15 +1895,19 @@ export type PerseusSorterWidgetOptions = {
      */
     correct: string[];
     /**
-     * Adds padding to the options. Padding is good for text but not needed
-     * for images
-     */
-    padding: boolean;
-    /**
      * Use the "horizontal" layout for short text and small images. The
      * "vertical" layout is best for longer text and larger images.
      */
     layout: "horizontal" | "vertical";
+    /**
+     * Adds padding to the options. Padding is good for text but not needed
+     * for images
+     *
+     * @deprecated
+     *
+     * TODO(LEMS-4538): remove padding from Sorter
+     */
+    padding: boolean;
 };
 
 /** Options for the table widget. A grid of input cells with column headers. */

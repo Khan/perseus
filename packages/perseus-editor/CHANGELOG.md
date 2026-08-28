@@ -1,5 +1,63 @@
 # @khanacademy/perseus-editor
 
+## 38.1.3
+
+### Patch Changes
+
+-   [#4143](https://github.com/Khan/perseus/pull/4143) [`09e969b`](https://github.com/Khan/perseus/commit/09e969b51ddfcaad917b9886f4e4a18827c394cf) Thanks [@benchristel](https://github.com/benchristel)! - Widen the peer dep version range for `@khanacademy/mathjax-renderer`. We support 3.1.4 as well as 3.2.0.
+
+-   Updated dependencies [[`09e969b`](https://github.com/Khan/perseus/commit/09e969b51ddfcaad917b9886f4e4a18827c394cf)]:
+    -   @khanacademy/math-input@27.0.9
+    -   @khanacademy/perseus@85.1.3
+
+## 38.1.2
+
+### Patch Changes
+
+-   [#4140](https://github.com/Khan/perseus/pull/4140) [`4670fbe`](https://github.com/Khan/perseus/commit/4670fbe5129d7903ffa7304ed14f0fa4e61c0572) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Update catalog hashes
+
+-   Updated dependencies [[`4670fbe`](https://github.com/Khan/perseus/commit/4670fbe5129d7903ffa7304ed14f0fa4e61c0572)]:
+    -   @khanacademy/math-input@27.0.8
+    -   @khanacademy/perseus@85.1.2
+
+## 38.1.1
+
+### Patch Changes
+
+-   [#4136](https://github.com/Khan/perseus/pull/4136) [`6136694`](https://github.com/Khan/perseus/commit/61366941590e0134bcf796eda4979cda83bc1f6b) Thanks [@handeyeco](https://github.com/handeyeco)! - Modernize Sorter editor and add some lint rules to make sure content is reasonable
+
+-   Updated dependencies [[`6136694`](https://github.com/Khan/perseus/commit/61366941590e0134bcf796eda4979cda83bc1f6b), [`92dbc50`](https://github.com/Khan/perseus/commit/92dbc504f89af312f00c1827600e5173bcbdd27e)]:
+    -   @khanacademy/perseus-linter@5.2.0
+    -   @khanacademy/perseus-core@38.0.1
+    -   @khanacademy/math-input@27.0.7
+    -   @khanacademy/perseus@85.1.1
+    -   @khanacademy/keypad-context@3.2.87
+    -   @khanacademy/kmath@2.4.46
+
+## 38.1.0
+
+### Minor Changes
+
+-   [#4131](https://github.com/Khan/perseus/pull/4131) [`89dc8c5`](https://github.com/Khan/perseus/commit/89dc8c5402c7a6e0649b612328e086e4ec3ffe83) Thanks [@benchristel](https://github.com/benchristel)! - Clients can now set a `wb-themed-math` CSS class on the `framework-perseus` element to opt into Wonder Blocks math styling. Clients should upgrade to `@khanacademy/mathjax-renderer` 3.2.0 at the same time, and should not use 3.2.0 without enabling `wb-themed-math`.
+
+### Patch Changes
+
+-   [#4127](https://github.com/Khan/perseus/pull/4127) [`f790d81`](https://github.com/Khan/perseus/commit/f790d8144427d00840337d1b8e96576ed293d428) Thanks [@handeyeco](https://github.com/handeyeco)! - Replace some uses of underscore with native alternatives
+
+-   [#4114](https://github.com/Khan/perseus/pull/4114) [`20d11be`](https://github.com/Khan/perseus/commit/20d11be077ad6df8053a77759b97ffab1b3d535f) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove *DefaultWidgetOptions and use Perseus*WidgetOptions instead
+
+-   [#4112](https://github.com/Khan/perseus/pull/4112) [`e6bbc57`](https://github.com/Khan/perseus/commit/e6bbc57836af1384e7d15f63024653bf9d5bf934) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Refactor the exercise editor page: the ItemEditor component now edits an entire PerseusItem, including hints.
+
+-   [#4116](https://github.com/Khan/perseus/pull/4116) [`42d1f83`](https://github.com/Khan/perseus/commit/42d1f8395736cfb0d204750a003292db1a20e76a) Thanks [@Myranae](https://github.com/Myranae)! - Update Grapher and Editor Page with tokens so certain buttons are thematic (including Grapher function type selectors).
+
+-   Updated dependencies [[`d06c9ec`](https://github.com/Khan/perseus/commit/d06c9ecce4e62079e94870d17506ae92e016f0f6), [`f790d81`](https://github.com/Khan/perseus/commit/f790d8144427d00840337d1b8e96576ed293d428), [`8de668d`](https://github.com/Khan/perseus/commit/8de668d35df6f5b59c328357c3beec8e0befe699), [`d64e137`](https://github.com/Khan/perseus/commit/d64e137fb18c39b203a05f615bd6066ce66144ca), [`20d11be`](https://github.com/Khan/perseus/commit/20d11be077ad6df8053a77759b97ffab1b3d535f), [`7658e1c`](https://github.com/Khan/perseus/commit/7658e1c26ae24692faecc164311c138d00cb42f4), [`a992f0b`](https://github.com/Khan/perseus/commit/a992f0b7b270e2ac1f9608d7458cd1b80987c396), [`88eeb3a`](https://github.com/Khan/perseus/commit/88eeb3a2146c391bccd18dfd9a5d3467d10b2556), [`38e8109`](https://github.com/Khan/perseus/commit/38e810978ab19084719b49adfad53773de6b43cc), [`89dc8c5`](https://github.com/Khan/perseus/commit/89dc8c5402c7a6e0649b612328e086e4ec3ffe83), [`769a407`](https://github.com/Khan/perseus/commit/769a407e8a08198082fb5268fb7f89d5d28dc52e), [`6f5fe5b`](https://github.com/Khan/perseus/commit/6f5fe5baaf0fc3f699b82f214dca8783ca9cbc78), [`42d1f83`](https://github.com/Khan/perseus/commit/42d1f8395736cfb0d204750a003292db1a20e76a), [`b5201ce`](https://github.com/Khan/perseus/commit/b5201ce4ec3238e07951e84df033ac71191d6580), [`5cd912a`](https://github.com/Khan/perseus/commit/5cd912a062767fc9b0567d7f2a0ea9847778b9c3)]:
+    -   @khanacademy/perseus-core@38.0.0
+    -   @khanacademy/perseus@85.1.0
+    -   @khanacademy/math-input@27.0.6
+    -   @khanacademy/keypad-context@3.2.86
+    -   @khanacademy/kmath@2.4.45
+    -   @khanacademy/perseus-linter@5.1.26
+
 ## 38.0.0
 
 ### Major Changes

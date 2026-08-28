@@ -110,7 +110,7 @@ const InteractiveUtil = {
             return [];
         }
         if (Array.isArray(funcOrArray)) {
-            return _.filter(_.flatten(funcOrArray), _.identity);
+            return _.filter(_.flatten(funcOrArray), (x) => x);
         }
         return [funcOrArray];
     },

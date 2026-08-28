@@ -10,11 +10,11 @@ import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
-import type {ExplanationDefaultWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusExplanationWidgetOptions} from "@khanacademy/perseus-core";
 
 const {TextInput} = components;
 
-interface Props extends ExplanationDefaultWidgetOptions, ChangeableProps {
+interface Props extends PerseusExplanationWidgetOptions, ChangeableProps {
     apiOptions?: APIOptionsWithDefaults;
 }
 
@@ -25,7 +25,7 @@ interface Props extends ExplanationDefaultWidgetOptions, ChangeableProps {
 class ExplanationEditor extends React.Component<Props> {
     static widgetName = "explanation" as const;
 
-    static defaultProps: ExplanationDefaultWidgetOptions =
+    static defaultProps: PerseusExplanationWidgetOptions =
         explanationLogic.defaultWidgetOptions;
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {

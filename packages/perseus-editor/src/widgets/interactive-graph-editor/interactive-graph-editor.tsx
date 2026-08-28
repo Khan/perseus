@@ -12,7 +12,6 @@ import {
     type PerseusInteractiveGraphWidgetOptions,
     type PerseusGraphType,
     type MarkingsType,
-    type InteractiveGraphDefaultWidgetOptions,
     type AxisLabelLocation,
     interactiveGraphLogic,
     type ShowAxisArrows,
@@ -177,7 +176,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
     displayName = "InteractiveGraphEditor";
     className = "perseus-widget-interactive-graph";
 
-    static defaultProps: InteractiveGraphDefaultWidgetOptions & {
+    static defaultProps: PerseusInteractiveGraphWidgetOptions & {
         valid: true | string;
     } = {
         ...interactiveGraphLogic.defaultWidgetOptions,

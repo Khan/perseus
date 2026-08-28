@@ -3,7 +3,7 @@ import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {
     absoluteValueQuestion,
-    multipleAvailableTypesQuestion,
+    allAvailableTypesQuestion,
     exponentialQuestion,
     linearQuestion,
     logarithmQuestion,
@@ -72,7 +72,7 @@ export const SinusoidQuestion: Story = {
 export const ComplexQuestion: Story = {
     args: {
         item: generateTestPerseusItem({
-            question: multipleAvailableTypesQuestion,
+            question: allAvailableTypesQuestion,
         }),
     },
 };

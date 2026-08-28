@@ -14,7 +14,8 @@ const meta: Meta = {
     },
     decorators: [
         (Story) => (
-            <div className={"framework-perseus orderer"}>
+            // TODO(LEMS-4492): remove wb-themed-math
+            <div className={"framework-perseus wb-themed-math orderer"}>
                 <Story />
             </div>
         ),

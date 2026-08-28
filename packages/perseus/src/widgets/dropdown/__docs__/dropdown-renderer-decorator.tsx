@@ -8,7 +8,7 @@ import * as React from "react";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
 
 import type {APIOptions} from "../../../types";
-import type {DropdownDefaultWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusDropdownWidgetOptions} from "@khanacademy/perseus-core";
 import type {Decorator} from "@storybook/react-vite";
 
 export const dropdownRendererDecorator: Decorator = (
@@ -17,7 +17,7 @@ export const dropdownRendererDecorator: Decorator = (
         args,
         parameters,
     }: {
-        args: Partial<DropdownDefaultWidgetOptions>;
+        args: Partial<PerseusDropdownWidgetOptions>;
         parameters?: {
             apiOptions?: APIOptions;
             content?: string;
