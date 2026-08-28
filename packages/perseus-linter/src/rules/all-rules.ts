@@ -37,6 +37,7 @@ import NumericInputWidgetError from "./numeric-input-widget-error";
 import PhetSimulationWidgetError from "./phet-simulation-widget-error";
 import PythonProgramWidgetError from "./python-program-widget-error";
 import RadioWidgetError from "./radio-widget-error";
+import SorterWidgetError from "./sorter-widget-error";
 import StaticWidgetInQuestionStem from "./static-widget-in-question-stem";
 import TableMissingCells from "./table-missing-cells";
 import UnbalancedCodeDelimiters from "./unbalanced-code-delimiters";
@@ -88,4 +89,5 @@ export default [
     PythonProgramWidgetError,
     LabelImageWidgetError,
     InteractiveGraphWidgetError,
+    SorterWidgetError,
 ];

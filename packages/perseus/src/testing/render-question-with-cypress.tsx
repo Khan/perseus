@@ -49,7 +49,7 @@ const renderQuestion = (
     // they are fully rendered (like KaTeX, for example).
     // onRender is also used to signal that rendering has completed.
     mount(
-        <div className="framework-perseus">
+        <div className="framework-perseus wb-themed-math">
             <AssetContext.Provider value={{assetStatuses, setAssetStatus}}>
                 <RenderStateRoot>
                     <DependenciesContext.Provider value={cypressDependenciesV2}>

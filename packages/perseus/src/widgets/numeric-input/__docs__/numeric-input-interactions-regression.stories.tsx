@@ -276,7 +276,8 @@ function MobileKeypadItemRenderer({question}: {question: PerseusRenderer}) {
 export const MobilePhoneBasicKeypadOpen: Story = {
     render: () => (
         <div
-            className="framework-perseus perseus-mobile"
+            // TODO(LEMS-4492): remove wb-themed-math
+            className="framework-perseus wb-themed-math perseus-mobile"
             style={{
                 transform: "translateZ(0)",
                 position: "relative",
@@ -304,7 +305,8 @@ export const MobilePhoneBasicKeypadOpen: Story = {
 export const MobileTabletExpandedKeypadOpen: Story = {
     render: () => (
         <div
-            className="framework-perseus perseus-mobile"
+            // TODO(LEMS-4492): remove wb-themed-math
+            className="framework-perseus wb-themed-math perseus-mobile"
             style={{
                 transform: "translateZ(0)",
                 position: "relative",

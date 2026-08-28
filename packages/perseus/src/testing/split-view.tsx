@@ -23,7 +23,7 @@ const SplitView = ({
 }: Props): React.ReactElement => {
     return (
         <View style={styles.sideBySide}>
-            <View className="framework-perseus">
+            <View className="framework-perseus wb-themed-math">
                 <Heading size="large">{rendererTitle}</Heading>
                 {renderer}
             </View>

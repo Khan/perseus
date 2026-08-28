@@ -27,6 +27,21 @@ describe("getSorterPublicWidgetOptions", () => {
             padding: true,
         });
     });
+
+    it("returns no cards when the correct answer is empty", () => {
+        // Arrange
+        const options: PerseusSorterWidgetOptions = {
+            correct: [],
+            layout: "horizontal",
+            padding: true,
+        };
+
+        // Act
+        const publicWidgetOptions = getSorterPublicWidgetOptions(options);
+
+        // Assert
+        expect(publicWidgetOptions.correct).toEqual([]);
+    });
 });
 
 describe("shuffleSorter", () => {

@@ -3,7 +3,7 @@
 exports[`EditorPage should match snapshot for editing disabled for all widgets 1`] = `
 <div>
   <div
-    class="framework-perseus"
+    class="framework-perseus wb-themed-math"
     id="perseus"
   >
     <div
@@ -1989,10 +1989,10 @@ table: [[☃ table 1]]
                                 class="perseus-widget-expression"
                               >
                                 <div
-                                  class="default_7zhre1-o_O-outerWrapper_13pjuin"
+                                  class="default_7zhre1-o_O-outerWrapper_rzav75"
                                 >
                                   <div
-                                    style="display: flex; padding: 1px;"
+                                    style="display: flex; align-items: center; padding: 1px;"
                                   >
                                     <span
                                       class="perseus-math-input mq-editable-field mq-math-mode"
@@ -2065,10 +2065,10 @@ table: [[☃ table 1]]
                                       type="button"
                                     >
                                       <div
-                                        class="default_7zhre1-o_O-iconContainer_1vtksig-o_O-iconInactive_8t5c3"
+                                        class="default_7zhre1-o_O-iconContainer_sj1r13-o_O-iconInactive_ir4i2x"
                                       >
                                         <svg
-                                          fill="var(--wb-semanticColor-core-foreground-neutral-strong)"
+                                          fill="var(--wb-semanticColor-core-foreground-neutral-default)"
                                           height="16"
                                           viewBox="0 0 256 256"
                                           width="16"
@@ -15551,80 +15551,329 @@ table: [[☃ table 1]]
                   <div
                     class="perseus-widget-editor-content enter"
                   >
-                    <div>
-                      <div>
-                         
-                        Correct answer:
-                         
-                        <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
-                          tabindex="0"
-                        />
-                      </div>
-                      <ul
-                        class="perseus-text-list-editor perseus-clearfix layout-horizontal"
+                    <div
+                      class="default_7zhre1 editor"
+                    >
+                      <div
+                        class="default_7zhre1 section"
                       >
-                        <li>
-                          <input
-                            style="width: 5px;"
-                            type="text"
-                            value="1"
-                          />
-                        </li>
-                        <li>
-                          <input
-                            style="width: 5px;"
-                            type="text"
-                            value="2"
-                          />
-                        </li>
-                        <li>
-                          <input
-                            style="width: 5px;"
-                            type="text"
-                            value="3"
-                          />
-                        </li>
-                        <li>
-                          <input
-                            style="width: 5px;"
-                            type="text"
-                            value="4"
-                          />
-                        </li>
-                        <li>
-                          <input
-                            style="width: 5px;"
-                            type="text"
-                            value="5"
-                          />
-                        </li>
-                        <li>
-                          <input
-                            style="width: 5px;"
-                            type="text"
-                            value=""
-                          />
-                        </li>
-                      </ul>
-                      <div>
-                        <label>
+                        <div>
+                          Correct answer
                            
-                          Layout:
-                           
-                          <select>
-                            <option
-                              value="horizontal"
+                          <span
+                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
+                            tabindex="0"
+                          />
+                        </div>
+                        <ol
+                          class="default_7zhre1 cards"
+                        >
+                          <li
+                            class="default_7zhre1 card"
+                          >
+                            <input
+                              aria-disabled="false"
+                              aria-invalid="false"
+                              aria-label="Card 1"
+                              aria-required="false"
+                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_t0tx82"
+                              id=":r64:"
+                              type="text"
+                              value="1"
+                            />
+                            <button
+                              aria-disabled="true"
+                              aria-label="Move card 1 up"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1-o_O-disabled_1y1yrlc"
+                              data-kind="tertiary"
+                              type="button"
                             >
-                              Horizontal
-                            </option>
-                            <option
-                              value="vertical"
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_1w2ke9h"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Move card 1 down"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1"
+                              data-kind="tertiary"
+                              type="button"
                             >
-                              Vertical
-                            </option>
-                          </select>
-                        </label>
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_514u8y"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Delete card 1"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1ugjna4"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_q5oi6w"
+                              />
+                            </button>
+                          </li>
+                          <li
+                            class="default_7zhre1 card"
+                          >
+                            <input
+                              aria-disabled="false"
+                              aria-invalid="false"
+                              aria-label="Card 2"
+                              aria-required="false"
+                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_t0tx82"
+                              id=":r65:"
+                              type="text"
+                              value="2"
+                            />
+                            <button
+                              aria-disabled="false"
+                              aria-label="Move card 2 up"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_1w2ke9h"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Move card 2 down"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_514u8y"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Delete card 2"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1ugjna4"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_q5oi6w"
+                              />
+                            </button>
+                          </li>
+                          <li
+                            class="default_7zhre1 card"
+                          >
+                            <input
+                              aria-disabled="false"
+                              aria-invalid="false"
+                              aria-label="Card 3"
+                              aria-required="false"
+                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_t0tx82"
+                              id=":r66:"
+                              type="text"
+                              value="3"
+                            />
+                            <button
+                              aria-disabled="false"
+                              aria-label="Move card 3 up"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_1w2ke9h"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Move card 3 down"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_514u8y"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Delete card 3"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1ugjna4"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_q5oi6w"
+                              />
+                            </button>
+                          </li>
+                          <li
+                            class="default_7zhre1 card"
+                          >
+                            <input
+                              aria-disabled="false"
+                              aria-invalid="false"
+                              aria-label="Card 4"
+                              aria-required="false"
+                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_t0tx82"
+                              id=":r67:"
+                              type="text"
+                              value="4"
+                            />
+                            <button
+                              aria-disabled="false"
+                              aria-label="Move card 4 up"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_1w2ke9h"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Move card 4 down"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_514u8y"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Delete card 4"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1ugjna4"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_q5oi6w"
+                              />
+                            </button>
+                          </li>
+                          <li
+                            class="default_7zhre1 card"
+                          >
+                            <input
+                              aria-disabled="false"
+                              aria-invalid="false"
+                              aria-label="Card 5"
+                              aria-required="false"
+                              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_t0tx82"
+                              id=":r68:"
+                              type="text"
+                              value="5"
+                            />
+                            <button
+                              aria-disabled="false"
+                              aria-label="Move card 5 up"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_1w2ke9h"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="true"
+                              aria-label="Move card 5 down"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1lwuax1-o_O-disabled_1y1yrlc"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_514u8y"
+                              />
+                            </button>
+                            <button
+                              aria-disabled="false"
+                              aria-label="Delete card 5"
+                              class="button_vr44p2-o_O-shared_3mvh93-o_O-default_1ugjna4"
+                              data-kind="tertiary"
+                              type="button"
+                            >
+                              <span
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_q5oi6w"
+                              />
+                            </button>
+                          </li>
+                        </ol>
+                        <button
+                          aria-disabled="false"
+                          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1xfocwy add-card"
+                          data-kind="tertiary"
+                          type="button"
+                        >
+                          <div
+                            class="default_7zhre1-o_O-iconWrapper_bqwm7d"
+                          >
+                            <span
+                              class="svg_1q6jc65-o_O-medium_12bui46-o_O-startIcon_1ll1fk7-o_O-tertiaryStartIcon_121powu-o_O-inlineStyles_1gy2kn5"
+                            />
+                          </div>
+                          <span
+                            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+                          >
+                            Add a card
+                          </span>
+                        </button>
+                      </div>
+                      <div
+                        class="default_7zhre1"
+                      >
+                        <div
+                          class="default_7zhre1"
+                        >
+                          <div
+                            class="default_7zhre1-o_O-labelContainer_1qlbwdv"
+                          >
+                            <label
+                              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_qt7cw0-o_O-labelWithNoDescription_i032sc"
+                              for=":r69:-labeled-field-field"
+                              id=":r69:-labeled-field-label"
+                            >
+                              Layout
+                            </label>
+                          </div>
+                          <div
+                            class="default_7zhre1-o_O-menuWrapper_1rs652y"
+                          >
+                            <button
+                              aria-controls=":r6a:"
+                              aria-describedby=""
+                              aria-expanded="false"
+                              aria-haspopup="listbox"
+                              aria-invalid="false"
+                              aria-required="false"
+                              class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_znuyo8"
+                              id=":r69:-labeled-field-field"
+                              role="combobox"
+                              type="button"
+                            >
+                              <span
+                                class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_awxjrp"
+                              >
+                                Horizontal
+                              </span>
+                              <span
+                                aria-hidden="true"
+                                class="svg_1q6jc65-o_O-small_6q1hy-o_O-caret_1e21hpf-o_O-inlineStyles_efsbsa"
+                              />
+                            </button>
+                          </div>
+                          <div
+                            aria-atomic="true"
+                            aria-live="assertive"
+                            class="default_7zhre1-o_O-helperTextWithIcon_1hmzxfl"
+                            id=":r69:-labeled-field-error"
+                          />
+                        </div>
                         <span
                           class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
                           tabindex="0"
@@ -15650,7 +15899,7 @@ table: [[☃ table 1]]
                                   aria-invalid="false"
                                   checked=""
                                   class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_1ywap6u"
-                                  id=":r64:"
+                                  id=":r6c:"
                                   type="checkbox"
                                 />
                                 <span
@@ -15662,9 +15911,9 @@ table: [[☃ table 1]]
                               class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy"
                             >
                               <label
-                                for=":r64:"
+                                for=":r6c:"
                               >
-                                Padding:
+                                Padding
                               </label>
                             </div>
                           </div>
@@ -15937,7 +16186,7 @@ table: [[☃ table 1]]
                           aria-invalid="false"
                           class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
                           disabled=""
-                          id=":r65:"
+                          id=":r6d:"
                           type="checkbox"
                         />
                       </div>
@@ -15946,7 +16195,7 @@ table: [[☃ table 1]]
                       class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
                     >
                       <label
-                        for=":r65:"
+                        for=":r6d:"
                       >
                         <div
                           class="default_7zhre1-o_O-inlineStyles_qb00m9"
@@ -15985,7 +16234,7 @@ table: [[☃ table 1]]
                           aria-invalid="false"
                           class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
                           disabled=""
-                          id=":r66:"
+                          id=":r6e:"
                           type="checkbox"
                         />
                       </div>
@@ -15994,7 +16243,7 @@ table: [[☃ table 1]]
                       class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
                     >
                       <label
-                        for=":r66:"
+                        for=":r6e:"
                       >
                         <div
                           class="default_7zhre1-o_O-inlineStyles_qb00m9"
@@ -16033,7 +16282,7 @@ table: [[☃ table 1]]
                           aria-invalid="false"
                           class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
                           disabled=""
-                          id=":r67:"
+                          id=":r6f:"
                           type="checkbox"
                         />
                       </div>
@@ -16042,7 +16291,7 @@ table: [[☃ table 1]]
                       class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
                     >
                       <label
-                        for=":r67:"
+                        for=":r6f:"
                       >
                         <div
                           class="default_7zhre1-o_O-inlineStyles_qb00m9"

@@ -146,7 +146,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
         </div>
         <div
           aria-labelledby="Numbers-tab"
-          class="tabPanel_ivfmus-o_O-inlineStyles_1hoepsr"
+          class="tabPanel_ivfmus-o_O-inlineStyles_7g55pw"
           id="Numbers-panel"
           role="tabpanel"
         >
@@ -1179,7 +1179,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
         </div>
         <div
           aria-labelledby="Numbers-tab"
-          class="tabPanel_ivfmus-o_O-inlineStyles_1hoepsr"
+          class="tabPanel_ivfmus-o_O-inlineStyles_7g55pw"
           id="Numbers-panel"
           role="tabpanel"
         >

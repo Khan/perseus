@@ -309,10 +309,10 @@ const styles = StyleSheet.create({
     },
 
     indicatorDotActive: {
-        // The active pip is filled in — background and border both in the fill
-        // color — so it shows up as a solid circle the same size as the ring pips.
+        // The active pip is a disc of one solid color. We make the border
+        // transparent so the background color shows through.
         backgroundColor: semanticColor.core.foreground.instructive.default,
-        borderColor: semanticColor.core.foreground.instructive.default,
+        borderColor: semanticColor.core.transparent,
     },
 
     container: {

@@ -289,13 +289,6 @@ export class GradedGroup
                             userInput={userInput}
                             handleUserInput={handleUserInput}
                             problemNum={0}
-                            // userInput={this.props.userInput}
-                            // handleUserInput={(widgetId, userInput) => {
-                            //     this.props.handleUserInput({
-                            //         ...this.props.userInput,
-                            //         [widgetId]: userInput,
-                            //     });
-                            // }}
                             ref={this.rendererRef}
                             keypadElement={this.props.keypadElement}
                             apiOptions={{...apiOptions, readOnly}}

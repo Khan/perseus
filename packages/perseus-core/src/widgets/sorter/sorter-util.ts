@@ -51,7 +51,11 @@ export function shuffleSorter(
     return shuffleDisplacingFirst(correct, rng);
 }
 
-function sortAllButFirst([first, ...rest]: readonly string[]): string[] {
+function sortAllButFirst(cards: readonly string[]): string[] {
+    if (cards.length === 0) {
+        return [];
+    }
+    const [first, ...rest] = cards;
     return [first, ...rest.sort()];
 }
 
