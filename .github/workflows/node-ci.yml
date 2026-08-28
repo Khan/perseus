@@ -165,10 +165,6 @@ jobs:
 
     pre_publish_check:
         name: Pre-publish check
-        # Only the "Version Packages" PR is about to become a release, so that's
-        # the only PR where a bad package.json is worth blocking on. Running it
-        # everywhere would tempt people to update catalog hashes without adding
-        # the matching changesets.
         if: github.head_ref == 'changeset-release/main'
         runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && 'ubuntu-latest' || 'ephemeral-runner' }}
         steps:
