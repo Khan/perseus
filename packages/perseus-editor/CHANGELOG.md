@@ -1,5 +1,15 @@
 # @khanacademy/perseus-editor
 
+## 38.1.3
+
+### Patch Changes
+
+-   [#4143](https://github.com/Khan/perseus/pull/4143) [`09e969b`](https://github.com/Khan/perseus/commit/09e969b51ddfcaad917b9886f4e4a18827c394cf) Thanks [@benchristel](https://github.com/benchristel)! - Widen the peer dep version range for `@khanacademy/mathjax-renderer`. We support 3.1.4 as well as 3.2.0.
+
+-   Updated dependencies [[`09e969b`](https://github.com/Khan/perseus/commit/09e969b51ddfcaad917b9886f4e4a18827c394cf)]:
+    -   @khanacademy/math-input@27.0.9
+    -   @khanacademy/perseus@85.1.3
+
 ## 38.1.2
 
 ### Patch Changes
