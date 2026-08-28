@@ -107,12 +107,20 @@
   at the PR that introduces it instead of at release time. The TODO asks only for
   the release PR. Recommendation: run on all PRs, which also sidesteps the
   head-branch gating and the "skipped job can't be required" problem below.
+  - Answer: No, only Version Packages PRs. If it runs on every PR, there is a
+    greater risk that devs will update the catalog hashes but forget to add
+    changesets for the affected packages. That is because our CI only checks
+    for the existence of a changeset file; it doesn't actually check that all
+    changed packages are listed in the changeset.
 - If it is gated to `changeset-release/main`, a `if:`-skipped job reports
   "skipped", which GitHub treats as passing but which can't be a meaningful
   required check. Do we want it in the branch protection required set?
+  - Answer: The behavior of `if:` is fine.
 - Should the CI job also assert a clean working tree (the extra check
   `publish-snapshot.sh` does)? On a PR there is nothing to dirty the tree unless
   a step writes files, so probably not.
+  - Answer: No need to check for a clean working tree.
 - New job in `node-ci.yml` versus a new workflow file? A job in `node-ci.yml`
   reuses the shared node cache and the existing concurrency group; a separate
   workflow would let `paths:` narrow the triggers.
+  - Answer: add it to node-ci.yml
