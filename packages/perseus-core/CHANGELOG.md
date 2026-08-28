@@ -1,5 +1,17 @@
 # @khanacademy/perseus-core
 
+## 38.0.0
+
+### Major Changes
+
+-   [#4118](https://github.com/Khan/perseus/pull/4118) [`d06c9ec`](https://github.com/Khan/perseus/commit/d06c9ecce4e62079e94870d17506ae92e016f0f6) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove Perseus*Rubric and Perseus*ValidationData types in favor of Perseus*WidgetOptions and *PublicWidgetOptions
+
+-   [#4114](https://github.com/Khan/perseus/pull/4114) [`20d11be`](https://github.com/Khan/perseus/commit/20d11be077ad6df8053a77759b97ffab1b3d535f) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove *DefaultWidgetOptions and use Perseus*WidgetOptions instead
+
+### Patch Changes
+
+-   [#4134](https://github.com/Khan/perseus/pull/4134) [`88eeb3a`](https://github.com/Khan/perseus/commit/88eeb3a2146c391bccd18dfd9a5d3467d10b2556) Thanks [@handeyeco](https://github.com/handeyeco)! - Mark Sorter's `padding` as deprecated
+
 ## 37.0.0
 
 ### Major Changes
