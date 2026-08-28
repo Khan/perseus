@@ -124,3 +124,19 @@
   reuses the shared node cache and the existing concurrency group; a separate
   workflow would let `paths:` narrow the triggers.
   - Answer: add it to node-ci.yml
+
+## Checklist
+
+- [ ] Add a `pre-publish-check` script to the root `package.json` that runs
+      `utils/pre-publish-check-ci.ts`.
+- [ ] Reuse the new script in `publish:ci` so publish-time behavior is unchanged.
+- [ ] Add a `pre_publish_check` job to `.github/workflows/node-ci.yml`, gated on
+      `github.head_ref == 'changeset-release/main'`, following the `lint` job's
+      checkout / secure-network / shared-node-cache preamble and running
+      `pnpm pre-publish-check`.
+- [ ] Confirm `node-ci.yml`'s `pull_request` trigger includes `synchronize` (the
+      default) so the job re-runs on force-pushes to the Version Packages PR.
+- [ ] Verify `knip.config.ts` still lists `utils/pre-publish-check-ci.ts` as an
+      entry point; no rename means no change, so just confirm.
+- [ ] Add a changeset if any published package changed (root-only changes need
+      none).
