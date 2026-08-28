@@ -1,5 +1,19 @@
 # @khanacademy/perseus
 
+## 85.1.1
+
+### Patch Changes
+
+-   [#4130](https://github.com/Khan/perseus/pull/4130) [`92dbc50`](https://github.com/Khan/perseus/commit/92dbc504f89af312f00c1827600e5173bcbdd27e) Thanks [@Myranae](https://github.com/Myranae)! - Align Expression and Keypad with design (updates styles to tokens and updates interactions)
+
+-   Updated dependencies [[`6136694`](https://github.com/Khan/perseus/commit/61366941590e0134bcf796eda4979cda83bc1f6b), [`92dbc50`](https://github.com/Khan/perseus/commit/92dbc504f89af312f00c1827600e5173bcbdd27e)]:
+    -   @khanacademy/perseus-linter@5.2.0
+    -   @khanacademy/perseus-core@38.0.1
+    -   @khanacademy/math-input@27.0.7
+    -   @khanacademy/keypad-context@3.2.87
+    -   @khanacademy/kmath@2.4.46
+    -   @khanacademy/perseus-score@8.12.19
+
 ## 85.1.0
 
 ### Minor Changes

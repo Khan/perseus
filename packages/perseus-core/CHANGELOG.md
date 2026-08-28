@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 38.0.1
+
+### Patch Changes
+
+-   [#4136](https://github.com/Khan/perseus/pull/4136) [`6136694`](https://github.com/Khan/perseus/commit/61366941590e0134bcf796eda4979cda83bc1f6b) Thanks [@handeyeco](https://github.com/handeyeco)! - Modernize Sorter editor and add some lint rules to make sure content is reasonable
+
 ## 38.0.0
 
 ### Major Changes
