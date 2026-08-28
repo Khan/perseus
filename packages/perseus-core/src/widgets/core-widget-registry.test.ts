@@ -5,6 +5,7 @@ import {
     isWidgetRegistered,
     registerLogics,
     registerWidget,
+    replaceLogic,
     traverseChildWidgets,
 } from "./core-widget-registry";
 
@@ -54,6 +55,41 @@ describe("core-widget-registry", () => {
                 major: 7,
                 minor: 0,
             });
+        });
+    });
+
+    describe("replaceLogic", () => {
+        it("points the replaced type at the replacement's logic", () => {
+            registerLogics([
+                {
+                    name: "_standin_",
+                    version: {major: 9, minor: 1},
+                    defaultWidgetOptions: {},
+                },
+                {
+                    name: "_gone_",
+                    version: {major: 2, minor: 0},
+                    defaultWidgetOptions: {},
+                },
+            ]);
+
+            replaceLogic("_gone_", "_standin_");
+
+            expect(getCurrentVersion("_gone_")).toEqual({major: 9, minor: 1});
+        });
+
+        it("throws when the replacement is not registered", () => {
+            registerLogics([
+                {
+                    name: "_present_",
+                    version: {major: 1, minor: 0},
+                    defaultWidgetOptions: {},
+                },
+            ]);
+
+            expect(() =>
+                replaceLogic("_present_", "_never-registered_"),
+            ).toThrow("Failed to replace _present_ with _never-registered_");
         });
     });
 
