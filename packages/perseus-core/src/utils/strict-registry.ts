@@ -3,12 +3,13 @@ import type Registry from "./registry";
 /**
  * Whether a lookup for an unregistered key is an error.
  *
- * Production keeps the historical forgiving behavior so that content naming a
- * widget this build doesn't know about still renders. Everywhere else a miss
- * means someone forgot to register, and we'd rather say so than quietly hand
- * back a default.
+ * Off everywhere until the registration migration is far enough along that a
+ * miss reliably means someone forgot to register rather than that the caller
+ * hasn't been migrated yet; callers opt in with `setStrictRegistration` in the
+ * meantime. Production must never enable it — content naming a widget this
+ * build doesn't know about has to keep rendering.
  */
-let strict = process.env.NODE_ENV !== "production";
+let strict = false;
 
 export function isStrictRegistration(): boolean {
     return strict;

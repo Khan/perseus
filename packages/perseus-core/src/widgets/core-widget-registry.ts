@@ -3,6 +3,7 @@
 import {Errors} from "../error/errors";
 import {PerseusError} from "../error/perseus-error";
 import Registry from "../utils/registry";
+import {strictGet} from "../utils/strict-registry";
 
 import type {
     PublicWidgetOptionsFunction,
@@ -79,13 +80,29 @@ export function replaceDeprecatedLogics() {
     );
 }
 
+/**
+ * Look up a logic for one of the accessors that would otherwise default.
+ *
+ * Defaulting on a miss hides a forgotten registration behind a plausible-
+ * looking answer (version 0.0, no options, not accessible), so outside
+ * production we say so instead.
+ */
+function getLogicStrictly(type: string) {
+    return strictGet(
+        widgets,
+        type,
+        `registerLogics([...]) with the logic from ` +
+            `@khanacademy/perseus-core/widgets/${type}`,
+    );
+}
+
 export function isWidgetRegistered(type: string) {
     const widgetLogic = widgets.get(type);
     return Boolean(widgetLogic);
 }
 
 export function getCurrentVersion(type: string) {
-    const widgetLogic = widgets.get(type);
+    const widgetLogic = getLogicStrictly(type);
     return widgetLogic?.version || {major: 0, minor: 0};
 }
 
@@ -94,11 +111,11 @@ export function getCurrentVersion(type: string) {
 export const getPublicWidgetOptionsFunction = (
     type: string,
 ): PublicWidgetOptionsFunction => {
-    return widgets.get(type)?.getPublicWidgetOptions ?? ((i: any) => i);
+    return getLogicStrictly(type)?.getPublicWidgetOptions ?? ((i: any) => i);
 };
 
 export function getDefaultWidgetOptions(type: string) {
-    const widgetLogic = widgets.get(type);
+    const widgetLogic = getLogicStrictly(type);
     return widgetLogic?.defaultWidgetOptions || {};
 }
 
@@ -106,7 +123,7 @@ export function isAccessible(
     type: string,
     widgetOptions: PerseusWidgetOptions,
 ): boolean {
-    const accessible = widgets.get(type)?.accessible;
+    const accessible = getLogicStrictly(type)?.accessible;
     return typeof accessible === "function"
         ? accessible(widgetOptions)
         : !!accessible;
@@ -157,7 +174,7 @@ export const traverseChildWidgets = (
 export const getSupportedAlignments = (
     type: string,
 ): ReadonlyArray<Alignment> => {
-    const widgetLogic = widgets.get(type);
+    const widgetLogic = getLogicStrictly(type);
     if (!widgetLogic?.supportedAlignments?.[0]) {
         // default alignments
         return ["default"];
@@ -175,7 +192,7 @@ export const getSupportedAlignments = (
  * the exports of a widget's module.
  */
 export const getDefaultAlignment = (type: string): Alignment => {
-    const widgetLogic = widgets.get(type);
+    const widgetLogic = getLogicStrictly(type);
     if (!widgetLogic?.defaultAlignment) {
         return "block";
     }
