@@ -29,6 +29,7 @@ import type {
     KeypadKey,
     LegacyButtonSets,
 } from "@khanacademy/perseus-core";
+import type {CSSProperties} from "aphrodite";
 
 type ButtonsVisibleType = "always" | "never" | "focused";
 
@@ -500,14 +501,20 @@ const MathInputIcon = ({
             fillColor = semanticColor.core.foreground.neutral.default;
             break;
     }
-    const dynamicClass =
-        focused || pressed
-            ? styles.iconActive
-            : active
-              ? styles.iconExpanded
-              : hovered
-                ? styles.iconHovered
-                : styles.iconInactive;
+    let dynamicClass: CSSProperties;
+    switch (true) {
+        case focused || pressed:
+            dynamicClass = styles.iconActive;
+            break;
+        case active:
+            dynamicClass = styles.iconExpanded;
+            break;
+        case hovered:
+            dynamicClass = styles.iconHovered;
+            break;
+        default:
+            dynamicClass = styles.iconInactive;
+    }
     return (
         <View style={[styles.iconContainer, dynamicClass]}>
             <svg
