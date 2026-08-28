@@ -86,7 +86,7 @@ export const Default: Story = {
 };
 
 /**
- * This Image widget editor does not have any options set.
+ * This Label Image widget editor does not have any options set.
  */
 export const Empty: Story = {
     name: "Empty (Within Editor Page)",
@@ -95,7 +95,7 @@ export const Empty: Story = {
 };
 
 /**
- * This Image widget editor has all options set.
+ * This Label Image widget editor has some populated options.
  */
 export const Populated: Story = {
     name: "Populated (Within Editor Page)",
