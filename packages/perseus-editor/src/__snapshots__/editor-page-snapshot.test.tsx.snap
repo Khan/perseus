@@ -13,7 +13,7 @@ exports[`EditorPage should match snapshot for editing disabled for all widgets 1
         class="viewport-resizer"
       >
         Viewport:
-
+         
         <div
           style="display: inline-block;"
         >
@@ -197,199 +197,199 @@ exports[`EditorPage should match snapshot for editing disabled for all widgets 1
                 <div
                   class="perseus-textarea-underlay"
                 >
-                  categorizer:
+                  categorizer: 
                   <b
                     class=""
                   >
                     [[☃ categorizer 1]]
                   </b>
+                  
 
-
-definition:
+definition: 
                   <b
                     class=""
                   >
                     [[☃ definition 1]]
                   </b>
+                  
 
-
-dropdown:
+dropdown: 
                   <b
                     class=""
                   >
                     [[☃ dropdown 1]]
                   </b>
+                  
 
-
-expression:
+expression: 
                   <b
                     class=""
                   >
                     [[☃ expression 1]]
                   </b>
+                  
 
-
-explanation:
+explanation: 
                   <b
                     class=""
                   >
                     [[☃ explanation 1]]
                   </b>
+                  
 
-
-free:
+free: 
                   <b
                     class=""
                   >
                     [[☃ free-response 1]]
                   </b>
+                  
 
-
-graded:
+graded: 
                   <b
                     class=""
                   >
                     [[☃ graded-group 1]]
                   </b>
+                  
 
-
-graded:
+graded: 
                   <b
                     class=""
                   >
                     [[☃ graded-group-set 1]]
                   </b>
+                  
 
-
-grapher:
+grapher: 
                   <b
                     class=""
                   >
                     [[☃ grapher 1]]
                   </b>
+                  
 
-
-group:
+group: 
                   <b
                     class=""
                   >
                     [[☃ group 1]]
                   </b>
+                  
 
-
-image:
+image: 
                   <b
                     class=""
                   >
                     [[☃ image 1]]
                   </b>
+                  
 
-
-input:
+input: 
                   <b
                     class=""
                   >
                     [[☃ input-number 1]]
                   </b>
+                  
 
-
-interaction:
+interaction: 
                   <b
                     class=""
                   >
                     [[☃ interaction 1]]
                   </b>
+                  
 
-
-interactive-graph:
+interactive-graph: 
                   <b
                     class=""
                   >
                     [[☃ interactive-graph 1]]
                   </b>
+                  
 
-
-label:
+label: 
                   <b
                     class=""
                   >
                     [[☃ label-image 1]]
                   </b>
+                  
 
-
-matcher:
+matcher: 
                   <b
                     class=""
                   >
                     [[☃ matcher 1]]
                   </b>
+                  
 
-
-matrix:
+matrix: 
                   <b
                     class=""
                   >
                     [[☃ matrix 1]]
                   </b>
+                  
 
-
-measurer:
+measurer: 
                   <b
                     class=""
                   >
                     [[☃ measurer 1]]
                   </b>
+                  
 
-
-number-line:
+number-line: 
                   <b
                     class=""
                   >
                     [[☃ number-line 1]]
                   </b>
+                  
 
-
-numeric:
+numeric: 
                   <b
                     class=""
                   >
                     [[☃ numeric-input 1]]
                   </b>
+                  
 
-
-orderer:
+orderer: 
                   <b
                     class=""
                   >
                     [[☃ orderer 1]]
                   </b>
+                  
 
-
-plotter:
+plotter: 
                   <b
                     class=""
                   >
                     [[☃ plotter 1]]
                   </b>
+                  
 
-
-radio:
+radio: 
                   <b
                     class=""
                   >
                     [[☃ radio 1]]
                   </b>
+                  
 
-
-sorter:
+sorter: 
                   <b
                     class=""
                   >
                     [[☃ sorter 1]]
                   </b>
+                  
 
-
-table:
+table: 
                   <b
                     class=""
                   >
@@ -1098,7 +1098,7 @@ table: [[☃ table 1]]
                       >
                         <label>
                           Word to be defined:
-
+                           
                           <input
                             aria-disabled="false"
                             aria-invalid="false"
@@ -2249,7 +2249,7 @@ table: [[☃ table 1]]
                       >
                         <label>
                           Prompt to show explanation:
-
+                           
                           <input
                             aria-disabled="false"
                             aria-invalid="false"
@@ -2270,7 +2270,7 @@ table: [[☃ table 1]]
                       >
                         <label>
                           Prompt to hide explanation:
-
+                           
                           <input
                             aria-disabled="false"
                             aria-invalid="false"
@@ -2745,7 +2745,7 @@ table: [[☃ table 1]]
                           class="title"
                         >
                           Title:
-
+                           
                           <input
                             aria-disabled="false"
                             aria-invalid="false"
@@ -2771,7 +2771,7 @@ table: [[☃ table 1]]
                           <div
                             class="perseus-textarea-underlay"
                           >
-                            Answer this:
+                            Answer this: 
                             <b
                               class=""
                             >
@@ -3233,7 +3233,7 @@ table: [[☃ table 1]]
                                                 <span
                                                   class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
                                                 >
-                                                  Correct answer: 10
+                                                  Correct answer: 10 
                                                 </span>
                                               </div>
                                               <span
@@ -3764,6 +3764,158 @@ table: [[☃ table 1]]
                           </span>
                         </button>
                       </div>
+                      <div
+                        class="perseus-answer-editor"
+                      >
+                        <div
+                          class="perseus-answer-options"
+                        >
+                          <div
+                            class="default_7zhre1"
+                          >
+                            <div
+                              class="default_7zhre1"
+                            >
+                              <div
+                                class="default_7zhre1-o_O-wrapper_119rz02"
+                                tabindex="-1"
+                              >
+                                <div
+                                  class="default_7zhre1-o_O-choiceWrapper_s2wtqp"
+                                >
+                                  <div
+                                    class="default_7zhre1-o_O-inputWrapper_w6nz04-o_O-inputWrapper_1k6ggkh"
+                                    data-testid="wb-checkbox-wrapper"
+                                  >
+                                    <input
+                                      aria-checked="false"
+                                      aria-invalid="false"
+                                      class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
+                                      disabled=""
+                                      id=":r1k:"
+                                      type="checkbox"
+                                    />
+                                  </div>
+                                </div>
+                                <div
+                                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
+                                >
+                                  <label
+                                    for=":r1k:"
+                                  >
+                                    <div
+                                      class="default_7zhre1-o_O-inlineStyles_qb00m9"
+                                    >
+                                      Show calculator
+                                       
+                                      <span
+                                        class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
+                                        tabindex="0"
+                                      />
+                                    </div>
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="default_7zhre1"
+                          >
+                            <div
+                              class="default_7zhre1"
+                            >
+                              <div
+                                class="default_7zhre1-o_O-wrapper_119rz02"
+                                tabindex="-1"
+                              >
+                                <div
+                                  class="default_7zhre1-o_O-choiceWrapper_s2wtqp"
+                                >
+                                  <div
+                                    class="default_7zhre1-o_O-inputWrapper_w6nz04-o_O-inputWrapper_1k6ggkh"
+                                    data-testid="wb-checkbox-wrapper"
+                                  >
+                                    <input
+                                      aria-checked="false"
+                                      aria-invalid="false"
+                                      class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
+                                      disabled=""
+                                      id=":r1l:"
+                                      type="checkbox"
+                                    />
+                                  </div>
+                                </div>
+                                <div
+                                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
+                                >
+                                  <label
+                                    for=":r1l:"
+                                  >
+                                    <div
+                                      class="default_7zhre1-o_O-inlineStyles_qb00m9"
+                                    >
+                                      Show financial calculator
+                                       
+                                      <span
+                                        class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
+                                        tabindex="0"
+                                      />
+                                    </div>
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="default_7zhre1"
+                          >
+                            <div
+                              class="default_7zhre1"
+                            >
+                              <div
+                                class="default_7zhre1-o_O-wrapper_119rz02"
+                                tabindex="-1"
+                              >
+                                <div
+                                  class="default_7zhre1-o_O-choiceWrapper_s2wtqp"
+                                >
+                                  <div
+                                    class="default_7zhre1-o_O-inputWrapper_w6nz04-o_O-inputWrapper_1k6ggkh"
+                                    data-testid="wb-checkbox-wrapper"
+                                  >
+                                    <input
+                                      aria-checked="false"
+                                      aria-invalid="false"
+                                      class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
+                                      disabled=""
+                                      id=":r1m:"
+                                      type="checkbox"
+                                    />
+                                  </div>
+                                </div>
+                                <div
+                                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
+                                >
+                                  <label
+                                    for=":r1m:"
+                                  >
+                                    <div
+                                      class="default_7zhre1-o_O-inlineStyles_qb00m9"
+                                    >
+                                      Show periodic table
+                                       
+                                      <span
+                                        class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
+                                        tabindex="0"
+                                      />
+                                    </div>
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -3815,7 +3967,7 @@ table: [[☃ table 1]]
                             class="title"
                           >
                             Title:
-
+                             
                             <input
                               aria-disabled="false"
                               aria-invalid="false"
@@ -3841,7 +3993,7 @@ table: [[☃ table 1]]
                             <div
                               class="perseus-textarea-underlay"
                             >
-                              Solve:
+                              Solve: 
                               <b
                                 class=""
                               >
@@ -4303,7 +4455,7 @@ table: [[☃ table 1]]
                                                   <span
                                                     class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
                                                   >
-                                                    Correct answer: 15
+                                                    Correct answer: 15 
                                                   </span>
                                                 </div>
                                                 <span
@@ -4648,6 +4800,158 @@ table: [[☃ table 1]]
                             Add a hint
                           </span>
                         </button>
+                        <div
+                          class="perseus-answer-editor"
+                        >
+                          <div
+                            class="perseus-answer-options"
+                          >
+                            <div
+                              class="default_7zhre1"
+                            >
+                              <div
+                                class="default_7zhre1"
+                              >
+                                <div
+                                  class="default_7zhre1-o_O-wrapper_119rz02"
+                                  tabindex="-1"
+                                >
+                                  <div
+                                    class="default_7zhre1-o_O-choiceWrapper_s2wtqp"
+                                  >
+                                    <div
+                                      class="default_7zhre1-o_O-inputWrapper_w6nz04-o_O-inputWrapper_1k6ggkh"
+                                      data-testid="wb-checkbox-wrapper"
+                                    >
+                                      <input
+                                        aria-checked="false"
+                                        aria-invalid="false"
+                                        class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
+                                        disabled=""
+                                        id=":r20:"
+                                        type="checkbox"
+                                      />
+                                    </div>
+                                  </div>
+                                  <div
+                                    class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
+                                  >
+                                    <label
+                                      for=":r20:"
+                                    >
+                                      <div
+                                        class="default_7zhre1-o_O-inlineStyles_qb00m9"
+                                      >
+                                        Show calculator
+                                         
+                                        <span
+                                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
+                                          tabindex="0"
+                                        />
+                                      </div>
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="default_7zhre1"
+                            >
+                              <div
+                                class="default_7zhre1"
+                              >
+                                <div
+                                  class="default_7zhre1-o_O-wrapper_119rz02"
+                                  tabindex="-1"
+                                >
+                                  <div
+                                    class="default_7zhre1-o_O-choiceWrapper_s2wtqp"
+                                  >
+                                    <div
+                                      class="default_7zhre1-o_O-inputWrapper_w6nz04-o_O-inputWrapper_1k6ggkh"
+                                      data-testid="wb-checkbox-wrapper"
+                                    >
+                                      <input
+                                        aria-checked="false"
+                                        aria-invalid="false"
+                                        class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
+                                        disabled=""
+                                        id=":r21:"
+                                        type="checkbox"
+                                      />
+                                    </div>
+                                  </div>
+                                  <div
+                                    class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
+                                  >
+                                    <label
+                                      for=":r21:"
+                                    >
+                                      <div
+                                        class="default_7zhre1-o_O-inlineStyles_qb00m9"
+                                      >
+                                        Show financial calculator
+                                         
+                                        <span
+                                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
+                                          tabindex="0"
+                                        />
+                                      </div>
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="default_7zhre1"
+                            >
+                              <div
+                                class="default_7zhre1"
+                              >
+                                <div
+                                  class="default_7zhre1-o_O-wrapper_119rz02"
+                                  tabindex="-1"
+                                >
+                                  <div
+                                    class="default_7zhre1-o_O-choiceWrapper_s2wtqp"
+                                  >
+                                    <div
+                                      class="default_7zhre1-o_O-inputWrapper_w6nz04-o_O-inputWrapper_1k6ggkh"
+                                      data-testid="wb-checkbox-wrapper"
+                                    >
+                                      <input
+                                        aria-checked="false"
+                                        aria-invalid="false"
+                                        class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
+                                        disabled=""
+                                        id=":r22:"
+                                        type="checkbox"
+                                      />
+                                    </div>
+                                  </div>
+                                  <div
+                                    class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
+                                  >
+                                    <label
+                                      for=":r22:"
+                                    >
+                                      <div
+                                        class="default_7zhre1-o_O-inlineStyles_qb00m9"
+                                      >
+                                        Show periodic table
+                                         
+                                        <span
+                                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
+                                          tabindex="0"
+                                        />
+                                      </div>
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                       <button
                         disabled=""
@@ -4731,13 +5035,13 @@ table: [[☃ table 1]]
                     <div>
                       <div>
                         Correct answer
-
+                         
                         <span
                           class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
                           tabindex="0"
                         />
-
-                        :
+                         
+                        : 
                         y = 1.000x + 0.000
                       </div>
                       <div>
@@ -4919,7 +5223,7 @@ table: [[☃ table 1]]
                             class="perseus-widget-row"
                           >
                             <label>
-                              Markings:
+                              Markings: 
                             </label>
                             <div
                               style="display: inline-block;"
@@ -5012,7 +5316,7 @@ table: [[☃ table 1]]
                         class="perseus-widget-row"
                       >
                         <label>
-                          Available functions:
+                          Available functions: 
                         </label>
                         <div
                           style="display: inline-block;"
@@ -6550,7 +6854,7 @@ table: [[☃ table 1]]
                           <div
                             class="perseus-textarea-underlay"
                           >
-                            Simple question:
+                            Simple question: 
                             <b
                               class=""
                             >
@@ -7012,7 +7316,7 @@ table: [[☃ table 1]]
                                                 <span
                                                   class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
                                                 >
-                                                  Correct answer: 5
+                                                  Correct answer: 5 
                                                 </span>
                                               </div>
                                               <span
@@ -7539,9 +7843,9 @@ table: [[☃ table 1]]
                       <span
                         class="text_f1191h-o_O-BodyMonospace_16899j"
                       >
-                        Natural size:
+                        Natural size: 
                         300
-                         x
+                         x 
                         200
                       </span>
                       <button
@@ -8171,7 +8475,7 @@ table: [[☃ table 1]]
                                       <span
                                         class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
                                       >
-                                        Correct answer: 1/2
+                                        Correct answer: 1/2 
                                       </span>
                                     </div>
                                     <span
@@ -8593,7 +8897,7 @@ table: [[☃ table 1]]
                                 class="perseus-widget-row"
                               >
                                 Scale (px per div):
-
+                                 
                                 <span
                                   class="mock-TeX"
                                 >
@@ -8750,7 +9054,7 @@ table: [[☃ table 1]]
                                 class="perseus-widget-row"
                               >
                                 <label>
-                                  Markings:
+                                  Markings: 
                                 </label>
                                 <div
                                   style="display: inline-block;"
@@ -8839,7 +9143,7 @@ table: [[☃ table 1]]
                           </svg>
                           <span>
                             Movable point
-
+                             
                             <span
                               class="mock-TeX"
                             >
@@ -8856,7 +9160,7 @@ table: [[☃ table 1]]
                             <div
                               class="perseus-widget-row"
                             >
-                              Start:
+                              Start: 
                               <span
                                 class="mock-TeX"
                               >
@@ -8891,7 +9195,7 @@ table: [[☃ table 1]]
                               >
                                 ,
                               </span>
-
+                               
                               <div
                                 class="default_7zhre1-o_O-outerWrapper_9icmcf"
                               >
@@ -8925,19 +9229,19 @@ table: [[☃ table 1]]
                             <div
                               class="perseus-widget-row"
                             >
-                              Update
+                              Update 
                               <span
                                 class="mock-TeX"
                               >
                                 (x_n, y_n)
                               </span>
-                               for
+                               for 
                               <span
                                 class="mock-TeX"
                               >
                                 n =
                               </span>
-
+                               
                               <input
                                 class="number-input"
                                 placeholder="0"
@@ -8950,7 +9254,7 @@ table: [[☃ table 1]]
                                 class="perseus-widget-row"
                               >
                                 Constraint:
-
+                                 
                                 <div
                                   style="display: inline-block;"
                                 >
@@ -8992,7 +9296,7 @@ table: [[☃ table 1]]
                                   >
                                     x \\in \\Large[
                                   </span>
-
+                                   
                                   <div
                                     class="default_7zhre1-o_O-outerWrapper_9icmcf"
                                   >
@@ -9020,9 +9324,9 @@ table: [[☃ table 1]]
                                   <span
                                     class="mock-TeX"
                                   >
-                                    ,
+                                    , 
                                   </span>
-
+                                   
                                   <div
                                     class="default_7zhre1-o_O-outerWrapper_9icmcf"
                                   >
@@ -9047,7 +9351,7 @@ table: [[☃ table 1]]
                                       />
                                     </span>
                                   </div>
-
+                                   
                                   <span
                                     class="mock-TeX"
                                   >
@@ -9066,7 +9370,7 @@ table: [[☃ table 1]]
                                   >
                                     y \\in \\Large[
                                   </span>
-
+                                   
                                   <div
                                     class="default_7zhre1-o_O-outerWrapper_9icmcf"
                                   >
@@ -9094,9 +9398,9 @@ table: [[☃ table 1]]
                                   <span
                                     class="mock-TeX"
                                   >
-                                    ,
+                                    , 
                                   </span>
-
+                                   
                                   <div
                                     class="default_7zhre1-o_O-outerWrapper_9icmcf"
                                   >
@@ -9121,7 +9425,7 @@ table: [[☃ table 1]]
                                       />
                                     </span>
                                   </div>
-
+                                   
                                   <span
                                     class="mock-TeX"
                                   >
@@ -12670,27 +12974,27 @@ table: [[☃ table 1]]
                               <option
                                 value="NONE"
                               >
-                                 No Preference
+                                 No Preference 
                               </option>
                               <option
                                 value="UP"
                               >
-                                 Up
+                                 Up 
                               </option>
                               <option
                                 value="DOWN"
                               >
-                                 Down
+                                 Down 
                               </option>
                               <option
                                 value="LEFT"
                               >
-                                 Left
+                                 Left 
                               </option>
                               <option
                                 value="RIGHT"
                               >
-                                 Right
+                                 Right 
                               </option>
                             </select>
                           </li>
@@ -12738,9 +13042,9 @@ table: [[☃ table 1]]
                       class="perseus-matcher-editor"
                     >
                       <div>
-
+                         
                         Correct answer:
-
+                         
                         <span
                           class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
                           tabindex="0"
@@ -12801,9 +13105,9 @@ table: [[☃ table 1]]
                         </ul>
                       </div>
                       <span>
-
+                         
                         Labels:
-
+                         
                         <span
                           class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
                           tabindex="0"
@@ -12983,9 +13287,9 @@ table: [[☃ table 1]]
                       <div
                         class="perseus-widget-row"
                       >
-
+                         
                         Max matrix size:
-
+                         
                         <div
                           class="range-input"
                         >
@@ -13104,9 +13408,9 @@ table: [[☃ table 1]]
                       <div
                         class="perseus-widget-row"
                       >
-
+                         
                         Matrix prefix:
-
+                         
                         <div
                           class="perseus-single-editor  perseus-editor-disabled"
                           data-testid="perseus-single-editor"
@@ -13129,9 +13433,9 @@ table: [[☃ table 1]]
                       <div
                         class="perseus-widget-row"
                       >
-
+                         
                         Matrix suffix:
-
+                         
                         <div
                           class="perseus-single-editor  perseus-editor-disabled"
                           data-testid="perseus-single-editor"
@@ -13197,7 +13501,7 @@ table: [[☃ table 1]]
                       </div>
                       <div>
                         URL:
-
+                         
                         <input
                           class="perseus-widget-measurer-url"
                           type="text"
@@ -13210,7 +13514,7 @@ table: [[☃ table 1]]
                       </div>
                       <div>
                         Containing area [width, height]:
-
+                         
                         <div
                           class="range-input"
                         >
@@ -13391,7 +13695,7 @@ table: [[☃ table 1]]
                         class="perseus-widget-row"
                       >
                         Correct x
-
+                         
                         <select
                           aria-label="Select relationship"
                         >
@@ -13426,7 +13730,7 @@ table: [[☃ table 1]]
                             ≥
                           </option>
                         </select>
-
+                         
                         <input
                           class="number-input normal"
                           format="decimal"
@@ -13444,7 +13748,7 @@ table: [[☃ table 1]]
                       >
                         <label>
                           Position:
-
+                           
                           <input
                             class="number-input"
                             format="decimal"
@@ -13452,7 +13756,7 @@ table: [[☃ table 1]]
                             type="text"
                             value="2"
                           />
-                           ∈
+                           ∈ 
                         </label>
                         <div
                           class="range-input"
@@ -13482,7 +13786,7 @@ table: [[☃ table 1]]
                           class="perseus-widget-left-col"
                         >
                           Labels:
-
+                           
                           <input
                             class="number-input"
                             format="decimal"
@@ -13491,7 +13795,7 @@ table: [[☃ table 1]]
                             value="-5"
                           />
                           <span>
-                             &
+                             & 
                           </span>
                           <input
                             class="number-input"
@@ -13510,7 +13814,7 @@ table: [[☃ table 1]]
                         class="perseus-widget-row"
                       >
                         Style:
-
+                         
                         <div
                           style="display: inline-block;"
                         >
@@ -13676,7 +13980,7 @@ table: [[☃ table 1]]
                         <span>
                           <label>
                             Num divisions:
-
+                             
                             <input
                               class="number-input"
                               format="decimal"
@@ -13685,10 +13989,10 @@ table: [[☃ table 1]]
                               value="5"
                             />
                           </label>
-
+                           
                           <label>
                             or tick step:
-
+                             
                             <input
                               class="number-input"
                               format="decimal"
@@ -13708,7 +14012,7 @@ table: [[☃ table 1]]
                       >
                         <label>
                           Snap increments per tick:
-
+                           
                           <input
                             class="number-input"
                             format="decimal"
@@ -14016,7 +14320,7 @@ table: [[☃ table 1]]
                                       <span
                                         class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
                                       >
-                                        Correct answer: 4
+                                        Correct answer: 4 
                                       </span>
                                     </div>
                                     <span
@@ -14380,9 +14684,9 @@ table: [[☃ table 1]]
                   >
                     <div>
                       <div>
-
+                         
                         Correct answer:
-
+                         
                         <span
                           class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
                           tabindex="0"
@@ -14421,9 +14725,9 @@ table: [[☃ table 1]]
                         </li>
                       </ul>
                       <div>
-
+                         
                         Other cards:
-
+                         
                         <span
                           class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
                           tabindex="0"
@@ -14442,9 +14746,9 @@ table: [[☃ table 1]]
                       </ul>
                       <div>
                         <label>
-
+                           
                           Layout:
-
+                           
                           <select>
                             <option
                               value="horizontal"
@@ -14465,9 +14769,9 @@ table: [[☃ table 1]]
                       </div>
                       <div>
                         <label>
-
+                           
                           Height:
-
+                           
                           <select>
                             <option
                               value="normal"
@@ -14565,7 +14869,7 @@ table: [[☃ table 1]]
                     >
                       <div>
                         Chart type:
-
+                         
                         <label>
                           <input
                             name="chart-type"
@@ -14605,7 +14909,7 @@ table: [[☃ table 1]]
                       </div>
                       <div>
                         Labels:
-
+                         
                         <label>
                           x:
                           <input
@@ -14624,7 +14928,7 @@ table: [[☃ table 1]]
                       <div>
                         <label>
                           Label Interval:
-
+                           
                           <input
                             class="number-input"
                             type="text"
@@ -14639,7 +14943,7 @@ table: [[☃ table 1]]
                       <div>
                         <label>
                           Picture:
-
+                           
                           <input
                             class="pic-url"
                             type="text"
@@ -14654,7 +14958,7 @@ table: [[☃ table 1]]
                       <div>
                         <label>
                           Categories:
-
+                           
                           <ul
                             class="perseus-text-list-editor perseus-clearfix layout-horizontal"
                           >
@@ -14678,7 +14982,7 @@ table: [[☃ table 1]]
                       <div>
                         <label>
                           Scale (y):
-
+                           
                           <input
                             type="text"
                             value="1"
@@ -14688,7 +14992,7 @@ table: [[☃ table 1]]
                       <div>
                         <label>
                           Max y:
-
+                           
                           <input
                             type="text"
                             value="5"
@@ -14697,7 +15001,7 @@ table: [[☃ table 1]]
                       </div>
                       <div>
                         Editing values:
-
+                         
                         <label>
                           <input
                             type="radio"
@@ -15559,7 +15863,7 @@ table: [[☃ table 1]]
                       >
                         <div>
                           Correct answer
-
+                           
                           <span
                             class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
                             tabindex="0"
@@ -15577,7 +15881,7 @@ table: [[☃ table 1]]
                               aria-label="Card 1"
                               aria-required="false"
                               class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_t0tx82"
-                              id=":r64:"
+                              id=":r6a:"
                               type="text"
                               value="1"
                             />
@@ -15624,7 +15928,7 @@ table: [[☃ table 1]]
                               aria-label="Card 2"
                               aria-required="false"
                               class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_t0tx82"
-                              id=":r65:"
+                              id=":r6b:"
                               type="text"
                               value="2"
                             />
@@ -15671,7 +15975,7 @@ table: [[☃ table 1]]
                               aria-label="Card 3"
                               aria-required="false"
                               class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_t0tx82"
-                              id=":r66:"
+                              id=":r6c:"
                               type="text"
                               value="3"
                             />
@@ -15718,7 +16022,7 @@ table: [[☃ table 1]]
                               aria-label="Card 4"
                               aria-required="false"
                               class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_t0tx82"
-                              id=":r67:"
+                              id=":r6d:"
                               type="text"
                               value="4"
                             />
@@ -15765,7 +16069,7 @@ table: [[☃ table 1]]
                               aria-label="Card 5"
                               aria-required="false"
                               class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_t0tx82"
-                              id=":r68:"
+                              id=":r6e:"
                               type="text"
                               value="5"
                             />
@@ -15835,8 +16139,8 @@ table: [[☃ table 1]]
                           >
                             <label
                               class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_qt7cw0-o_O-labelWithNoDescription_i032sc"
-                              for=":r69:-labeled-field-field"
-                              id=":r69:-labeled-field-label"
+                              for=":r6f:-labeled-field-field"
+                              id=":r6f:-labeled-field-label"
                             >
                               Layout
                             </label>
@@ -15845,14 +16149,14 @@ table: [[☃ table 1]]
                             class="default_7zhre1-o_O-menuWrapper_1rs652y"
                           >
                             <button
-                              aria-controls=":r6a:"
+                              aria-controls=":r6g:"
                               aria-describedby=""
                               aria-expanded="false"
                               aria-haspopup="listbox"
                               aria-invalid="false"
                               aria-required="false"
                               class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_znuyo8"
-                              id=":r69:-labeled-field-field"
+                              id=":r6f:-labeled-field-field"
                               role="combobox"
                               type="button"
                             >
@@ -15871,7 +16175,7 @@ table: [[☃ table 1]]
                             aria-atomic="true"
                             aria-live="assertive"
                             class="default_7zhre1-o_O-helperTextWithIcon_1hmzxfl"
-                            id=":r69:-labeled-field-error"
+                            id=":r6f:-labeled-field-error"
                           />
                         </div>
                         <span
@@ -15899,7 +16203,7 @@ table: [[☃ table 1]]
                                   aria-invalid="false"
                                   checked=""
                                   class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_1ywap6u"
-                                  id=":r6c:"
+                                  id=":r6i:"
                                   type="checkbox"
                                 />
                                 <span
@@ -15911,7 +16215,7 @@ table: [[☃ table 1]]
                               class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy"
                             >
                               <label
-                                for=":r6c:"
+                                for=":r6i:"
                               >
                                 Padding
                               </label>
@@ -15967,7 +16271,7 @@ table: [[☃ table 1]]
                       >
                         <label>
                           Number of columns:
-
+                           
                           <input
                             class="number-input"
                             type="text"
@@ -15980,7 +16284,7 @@ table: [[☃ table 1]]
                       >
                         <label>
                           Number of rows:
-
+                           
                           <input
                             class="number-input"
                             type="text"
@@ -15989,9 +16293,9 @@ table: [[☃ table 1]]
                         </label>
                       </div>
                       <div>
-
+                         
                         Table of answers:
-
+                         
                         <span
                           class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
                           tabindex="0"
@@ -16186,7 +16490,7 @@ table: [[☃ table 1]]
                           aria-invalid="false"
                           class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
                           disabled=""
-                          id=":r6d:"
+                          id=":r6j:"
                           type="checkbox"
                         />
                       </div>
@@ -16195,13 +16499,13 @@ table: [[☃ table 1]]
                       class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
                     >
                       <label
-                        for=":r6d:"
+                        for=":r6j:"
                       >
                         <div
                           class="default_7zhre1-o_O-inlineStyles_qb00m9"
                         >
                           Show calculator
-
+                           
                           <span
                             class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
                             tabindex="0"
@@ -16234,7 +16538,7 @@ table: [[☃ table 1]]
                           aria-invalid="false"
                           class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
                           disabled=""
-                          id=":r6e:"
+                          id=":r6k:"
                           type="checkbox"
                         />
                       </div>
@@ -16243,13 +16547,13 @@ table: [[☃ table 1]]
                       class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
                     >
                       <label
-                        for=":r6e:"
+                        for=":r6k:"
                       >
                         <div
                           class="default_7zhre1-o_O-inlineStyles_qb00m9"
                         >
                           Show financial calculator
-
+                           
                           <span
                             class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
                             tabindex="0"
@@ -16282,7 +16586,7 @@ table: [[☃ table 1]]
                           aria-invalid="false"
                           class="inputReset_1wxa7bn-o_O-default_xseuv1-o_O-default_vfcxos"
                           disabled=""
-                          id=":r6f:"
+                          id=":r6l:"
                           type="checkbox"
                         />
                       </div>
@@ -16291,13 +16595,13 @@ table: [[☃ table 1]]
                       class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_18akocy-o_O-disabledLabel_1d65n8m"
                     >
                       <label
-                        for=":r6f:"
+                        for=":r6l:"
                       >
                         <div
                           class="default_7zhre1-o_O-inlineStyles_qb00m9"
                         >
                           Show periodic table
-
+                           
                           <span
                             class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
                             tabindex="0"

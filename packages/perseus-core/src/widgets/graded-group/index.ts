@@ -1,12 +1,7 @@
 import type {PerseusGradedGroupWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
-export type GradedGroupDefaultWidgetOptions = Pick<
-    PerseusGradedGroupWidgetOptions,
-    "title" | "content" | "widgets" | "images" | "hint" | "answerArea"
->;
-
-const defaultWidgetOptions: GradedGroupDefaultWidgetOptions = {
+const defaultWidgetOptions: PerseusGradedGroupWidgetOptions = {
     title: "",
     content: "",
     widgets: {},
