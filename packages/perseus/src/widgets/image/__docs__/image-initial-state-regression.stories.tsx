@@ -503,7 +503,8 @@ export const MarkdownTableWithMarkdownImages: Story = {
 export const AllAlignmentsInSameArticle: Story = {
     render: function Render() {
         return (
-            <div className="framework-perseus perseus-article">
+            // TODO(LEMS-4492): remove wb-themed-math
+            <div className="framework-perseus wb-themed-math perseus-article">
                 <QuestionRendererForStories
                     question={generateTestPerseusRenderer({
                         content: `${bioContent1}\n\n[[☃ image 1]]\n\n${bioContent2}\n\n[[☃ image 2]]\n\n${bioContent3}\n\nBlock image\n\n[[☃ image 3]]\n\nFull-width image\n\n[[☃ image 4]]`,
@@ -555,7 +556,8 @@ export const AllAlignmentsInSameArticle: Story = {
 export const AllAlignmentsInSameArticleMobile: Story = {
     render: function Render() {
         return (
-            <div className="framework-perseus perseus-mobile perseus-article">
+            // TODO(LEMS-4492): remove wb-themed-math
+            <div className="framework-perseus wb-themed-math perseus-mobile perseus-article">
                 <QuestionRendererForStories
                     question={generateTestPerseusRenderer({
                         content: `${bioContent1}\n\n[[☃ image 1]]\n\n${bioContent2}\n\n[[☃ image 2]]\n\n${bioContent3}\n\nBlock image\n\n[[☃ image 3]]\n\nFull-width image\n\n[[☃ image 4]]`,
