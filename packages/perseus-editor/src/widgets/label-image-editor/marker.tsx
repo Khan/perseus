@@ -171,10 +171,6 @@ class Marker extends React.Component<MarkerProps, State> {
                             // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: authored LTR image coordinates; content doesn't flip with page direction, so converting to logical insets would misplace/misalign the marker in RTL
                             top: `${y}%`,
                         }}
-                        title={
-                            "Click to select marker answers or to delete marker. " +
-                            "Repositioning marker is not implemented."
-                        }
                     />
                 )}
             </Popover>
