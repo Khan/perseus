@@ -418,6 +418,19 @@ module.exports = {
                         from: "./packages/perseus-core/src",
                         except: ["./parse-perseus-json"],
                     },
+                    {
+                        // The registry's storage and accessors must not import
+                        // widget logic: doing so couples every consumer of an
+                        // accessor to every widget, which is exactly what the
+                        // retest and TurboSnap graphs key off. Logic belongs
+                        // behind the `./widgets/*` subpaths.
+                        target: "./packages/perseus-core/src/widgets/core-widget-registry.ts",
+                        from: "./packages/perseus-core/src/widgets",
+                        except: [
+                            "./core-widget-registry.ts",
+                            "./logic-export.types.ts",
+                        ],
+                    },
                 ],
             },
         ],

@@ -1,3 +1,8 @@
+// The perseus-core barrel. Don't add widget-logic imports: each one couples
+// every barrel consumer to that widget. Logic lives behind
+// `@khanacademy/perseus-core/widgets/*`, the all-widgets aggregate behind
+// `@khanacademy/perseus-core/init`. The `xLogic` re-exports below predate
+// those subpaths and are on their way out.
 export type {PerseusAnalyticsEvent, AnalyticsEventHandlerFn} from "./analytics";
 /** @hidden */
 export type {
