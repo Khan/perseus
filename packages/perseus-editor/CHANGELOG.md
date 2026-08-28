@@ -1,5 +1,15 @@
 # @khanacademy/perseus-editor
 
+## 38.1.2
+
+### Patch Changes
+
+-   [#4140](https://github.com/Khan/perseus/pull/4140) [`4670fbe`](https://github.com/Khan/perseus/commit/4670fbe5129d7903ffa7304ed14f0fa4e61c0572) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Update catalog hashes
+
+-   Updated dependencies [[`4670fbe`](https://github.com/Khan/perseus/commit/4670fbe5129d7903ffa7304ed14f0fa4e61c0572)]:
+    -   @khanacademy/math-input@27.0.8
+    -   @khanacademy/perseus@85.1.2
+
 ## 38.1.1
 
 ### Patch Changes

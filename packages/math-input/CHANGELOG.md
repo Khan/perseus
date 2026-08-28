@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 27.0.8
+
+### Patch Changes
+
+-   [#4140](https://github.com/Khan/perseus/pull/4140) [`4670fbe`](https://github.com/Khan/perseus/commit/4670fbe5129d7903ffa7304ed14f0fa4e61c0572) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Update catalog hashes
+
 ## 27.0.7
 
 ### Patch Changes
