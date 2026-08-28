@@ -1,5 +1,15 @@
 # @khanacademy/math-input
 
+## 27.0.6
+
+### Patch Changes
+
+-   [#4121](https://github.com/Khan/perseus/pull/4121) [`6f5fe5b`](https://github.com/Khan/perseus/commit/6f5fe5baaf0fc3f699b82f214dca8783ca9cbc78) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Color] Fix colors in keypad for dark mode - adjust button focus ring and correct color contrast for jump in/out icon blue
+
+-   Updated dependencies [[`d06c9ec`](https://github.com/Khan/perseus/commit/d06c9ecce4e62079e94870d17506ae92e016f0f6), [`20d11be`](https://github.com/Khan/perseus/commit/20d11be077ad6df8053a77759b97ffab1b3d535f), [`88eeb3a`](https://github.com/Khan/perseus/commit/88eeb3a2146c391bccd18dfd9a5d3467d10b2556)]:
+    -   @khanacademy/perseus-core@38.0.0
+    -   @khanacademy/keypad-context@3.2.86
+
 ## 27.0.5
 
 ### Patch Changes

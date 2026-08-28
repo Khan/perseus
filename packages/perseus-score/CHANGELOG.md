@@ -1,5 +1,17 @@
 # @khanacademy/perseus-score
 
+## 8.12.18
+
+### Patch Changes
+
+-   [#4118](https://github.com/Khan/perseus/pull/4118) [`d06c9ec`](https://github.com/Khan/perseus/commit/d06c9ecce4e62079e94870d17506ae92e016f0f6) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove Perseus*Rubric and Perseus*ValidationData types in favor of Perseus*WidgetOptions and *PublicWidgetOptions
+
+-   [#4127](https://github.com/Khan/perseus/pull/4127) [`f790d81`](https://github.com/Khan/perseus/commit/f790d8144427d00840337d1b8e96576ed293d428) Thanks [@handeyeco](https://github.com/handeyeco)! - Replace some uses of underscore with native alternatives
+
+-   Updated dependencies [[`d06c9ec`](https://github.com/Khan/perseus/commit/d06c9ecce4e62079e94870d17506ae92e016f0f6), [`20d11be`](https://github.com/Khan/perseus/commit/20d11be077ad6df8053a77759b97ffab1b3d535f), [`88eeb3a`](https://github.com/Khan/perseus/commit/88eeb3a2146c391bccd18dfd9a5d3467d10b2556)]:
+    -   @khanacademy/perseus-core@38.0.0
+    -   @khanacademy/kmath@2.4.45
+
 ## 8.12.17
 
 ### Patch Changes
