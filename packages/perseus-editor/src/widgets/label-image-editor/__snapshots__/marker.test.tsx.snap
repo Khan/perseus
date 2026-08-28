@@ -6,10 +6,10 @@ exports[`Marker component rendering renders an empty marker 1`] = `
     <button
       aria-controls=":r0:"
       aria-expanded="true"
+      aria-label="Edit marker: Marker 1"
       class="marker_1rydra6-o_O-markerSelected_1bmpetx"
       id=":r0:-anchor"
       style="left: 50%; top: 50%;"
-      title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
       type="button"
     />
   </div>
@@ -125,10 +125,10 @@ exports[`Marker component rendering renders with answers and choices 1`] = `
     <button
       aria-controls=":r1:"
       aria-expanded="true"
+      aria-label="Edit marker: Marker 1"
       class="marker_1rydra6-o_O-markerWithAnswers_hvf8qy-o_O-markerSelected_1bmpetx"
       id=":r1:-anchor"
       style="left: 50%; top: 50%;"
-      title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
       type="button"
     />
   </div>

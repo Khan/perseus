@@ -44,9 +44,7 @@ describe("Marker", () => {
 
             // Open marker dropdown.
             await userEvent.click(
-                screen.getByTitle(
-                    "Click to select marker answers or to delete marker. Repositioning marker is not implemented.",
-                ),
+                screen.getByRole("button", {name: "Edit marker: Marker 1"}),
             );
 
             // Assert
@@ -77,9 +75,7 @@ describe("Marker", () => {
 
             // Open marker dropdown.
             await userEvent.click(
-                screen.getByTitle(
-                    "Click to select marker answers or to delete marker. Repositioning marker is not implemented.",
-                ),
+                screen.getByRole("button", {name: "Edit marker: Marker 1"}),
             );
 
             // Assert

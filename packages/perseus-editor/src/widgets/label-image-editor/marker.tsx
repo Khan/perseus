@@ -159,6 +159,11 @@ class Marker extends React.Component<MarkerProps, State> {
                 {() => (
                     <button
                         type="button"
+                        aria-label={
+                            label
+                                ? `Edit marker: ${label}`
+                                : "Edit unlabeled marker"
+                        }
                         className={css(
                             styles.marker,
                             answers.length > 0 && styles.markerWithAnswers,

@@ -77,19 +77,19 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
         <button
           aria-controls=":rc:"
           aria-expanded="false"
+          aria-label="Edit marker: First marker"
           class="marker_1rydra6-o_O-markerWithAnswers_hvf8qy"
           id=":rc:-anchor"
           style="left: 25%; top: 25%;"
-          title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
           type="button"
         />
         <button
           aria-controls=":rd:"
           aria-expanded="false"
+          aria-label="Edit marker: Second marker"
           class="marker_1rydra6-o_O-markerWithAnswers_hvf8qy"
           id=":rd:-anchor"
           style="left: 50%; top: 50%;"
-          title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
           type="button"
         />
       </div>
@@ -418,19 +418,19 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
         <button
           aria-controls=":re:"
           aria-expanded="false"
+          aria-label="Edit marker: First marker"
           class="marker_1rydra6-o_O-markerWithAnswers_hvf8qy"
           id=":re:-anchor"
           style="left: 25%; top: 25%;"
-          title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
           type="button"
         />
         <button
           aria-controls=":rf:"
           aria-expanded="false"
+          aria-label="Edit marker: Second marker"
           class="marker_1rydra6-o_O-markerWithAnswers_hvf8qy"
           id=":rf:-anchor"
           style="left: 50%; top: 50%;"
-          title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
           type="button"
         />
       </div>
@@ -759,19 +759,19 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
         <button
           aria-controls=":ri:"
           aria-expanded="false"
+          aria-label="Edit marker: First marker"
           class="marker_1rydra6-o_O-markerWithAnswers_hvf8qy"
           id=":ri:-anchor"
           style="left: 25%; top: 25%;"
-          title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
           type="button"
         />
         <button
           aria-controls=":rj:"
           aria-expanded="false"
+          aria-label="Edit marker: Second marker"
           class="marker_1rydra6-o_O-markerWithAnswers_hvf8qy"
           id=":rj:-anchor"
           style="left: 50%; top: 50%;"
-          title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
           type="button"
         />
       </div>
@@ -1100,19 +1100,19 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
         <button
           aria-controls=":rg:"
           aria-expanded="false"
+          aria-label="Edit marker: First marker"
           class="marker_1rydra6-o_O-markerWithAnswers_hvf8qy"
           id=":rg:-anchor"
           style="left: 25%; top: 25%;"
-          title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
           type="button"
         />
         <button
           aria-controls=":rh:"
           aria-expanded="false"
+          aria-label="Edit marker: Second marker"
           class="marker_1rydra6-o_O-markerWithAnswers_hvf8qy"
           id=":rh:-anchor"
           style="left: 50%; top: 50%;"
-          title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
           type="button"
         />
       </div>
@@ -1441,19 +1441,19 @@ exports[`label-image-editor popover direction snapshots should render with UP po
         <button
           aria-controls=":ra:"
           aria-expanded="false"
+          aria-label="Edit marker: First marker"
           class="marker_1rydra6-o_O-markerWithAnswers_hvf8qy"
           id=":ra:-anchor"
           style="left: 25%; top: 25%;"
-          title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
           type="button"
         />
         <button
           aria-controls=":rb:"
           aria-expanded="false"
+          aria-label="Edit marker: Second marker"
           class="marker_1rydra6-o_O-markerWithAnswers_hvf8qy"
           id=":rb:-anchor"
           style="left: 50%; top: 50%;"
-          title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
           type="button"
         />
       </div>
