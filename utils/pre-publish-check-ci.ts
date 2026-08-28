@@ -14,6 +14,10 @@ import {
 } from "./internal/pre-publish-utils";
 import {verifyCatalogHashes} from "./internal/verify-catalog-hashes";
 
+// TODO-NEXT: run this script in CI on every Version Packages (changesets release) PR.
+//  We want to verify that the release will go smoothly *before* actually
+//  cutting the release.
+
 fg(path.join(__dirname, "..", "packages", "*", "package.json")).then(
     (pkgPaths) => {
         let allPassed = true;
