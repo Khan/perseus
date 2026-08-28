@@ -259,7 +259,12 @@ export {
 /** @hidden */
 export type {MatcherPublicWidgetOptions} from "./widgets/matcher/matcher-util";
 /** @hidden */
-export {shuffle, seededRNG, random} from "./utils/random-util";
+export {
+    shuffle,
+    seededRNG,
+    random,
+    hashStringToSeed,
+} from "./utils/random-util";
 export {default as PerseusFeatureFlags} from "./feature-flags";
 /** @hidden */
 export {isFeatureOn} from "./feature-flags";

@@ -4,6 +4,7 @@ import {
     choiceTransform,
     enforceOrdering,
     getChoiceLetter,
+    getShuffleSeed,
     moveNoneOfTheAboveToEnd,
 } from "./util";
 
@@ -215,6 +216,94 @@ describe("enforceOrdering", () => {
 
         expect(rv[0].content).toBe("Hello");
         expect(rv[1].content).toBe("World");
+    });
+});
+
+describe("getShuffleSeed", () => {
+    function generateChoices(contents: string[]): PerseusRadioChoice[] {
+        return contents.map((content, i) => ({
+            content,
+            id: `radio-choice-${i}`,
+        }));
+    }
+
+    // A change here silently reorders every randomized radio question shipped.
+    it("returns a stable seed for a known widget, choices, and position", () => {
+        const choices = generateChoices(["Paris", "London", "Rome", "Madrid"]);
+
+        expect(getShuffleSeed("radio 1", choices, 0)).toBe(3883733930);
+    });
+
+    it("returns different seeds for different widget ids", () => {
+        const choices = generateChoices(["Choice 1", "Choice 2"]);
+
+        expect(getShuffleSeed("radio 1", choices, 0)).not.toEqual(
+            getShuffleSeed("radio 2", choices, 0),
+        );
+    });
+
+    // `problemNum` varies across a session, so re-encountered items reshuffle.
+    it("returns different seeds for the same question at different positions", () => {
+        const choices = generateChoices(["Choice 1", "Choice 2", "Choice 3"]);
+
+        expect(getShuffleSeed("radio 1", choices, 0)).not.toEqual(
+            getShuffleSeed("radio 1", choices, 1),
+        );
+    });
+
+    // These two collide under `${id}:${content}` joined on `|` — Markdown
+    // content contains both characters.
+    it("returns different seeds for choice sets that differ only in delimiter placement", () => {
+        const oneChoice: PerseusRadioChoice[] = [
+            {id: "radio-choice-0", content: "Yes|radio-choice-1:No"},
+        ];
+        const twoChoices: PerseusRadioChoice[] = [
+            {id: "radio-choice-0", content: "Yes"},
+            {id: "radio-choice-1", content: "No"},
+        ];
+
+        expect(getShuffleSeed("radio 1", oneChoice, 0)).not.toEqual(
+            getShuffleSeed("radio 1", twoChoices, 0),
+        );
+    });
+
+    it("spreads the correct answer across all positions when questions share a position seed", () => {
+        const questionCount = 200;
+        const choiceCount = 4;
+
+        const correctPositions = Array.from(
+            {length: questionCount},
+            (_, questionIndex) => {
+                const choices: PerseusRadioChoice[] = Array.from(
+                    {length: choiceCount},
+                    (_, choiceIndex) => ({
+                        id: `radio-choice-${choiceIndex}`,
+                        content: `Question ${questionIndex} choice ${choiceIndex}`,
+                        // Correct answer first — the shape that caused the bug.
+                        correct: choiceIndex === 0,
+                    }),
+                );
+                const shuffled = choiceTransform(
+                    choices,
+                    true,
+                    mockStrings,
+                    getShuffleSeed("radio 1", choices, 0),
+                );
+                return shuffled.findIndex((choice) => choice.correct);
+            },
+        );
+
+        const counts = Array.from(
+            {length: choiceCount},
+            (_, position) =>
+                correctPositions.filter((p) => p === position).length,
+        );
+
+        // Even spread is 25% each; these bounds catch a collapsed or skewed seed.
+        counts.forEach((count) => {
+            expect(count).toBeGreaterThan(questionCount * 0.1);
+            expect(count).toBeLessThan(questionCount * 0.4);
+        });
     });
 });
 

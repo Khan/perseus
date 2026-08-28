@@ -17,30 +17,33 @@ const expectedSerializedRadio = {
     alignment: "default",
     numCorrect: 1,
     hasNoneOfTheAbove: false,
+    // The shuffle `getShuffleSeed` produces from the choice ids and content
+    // below at position seed 0 (what `renderQuestion` gives us). Editing that
+    // content changes the order and this fixture with it.
     choices: [
         {
-            id: "5-5-5-5-5",
-            content: "Content 4",
-            correct: false,
-            originalIndex: 3, // <= note we stash original index
-        },
-        {
-            id: "3-3-3-3-3",
+            id: "radio-choice-1",
             content: "Content 2",
             correct: false,
-            originalIndex: 1,
+            originalIndex: 1, // <= note we stash original index
         },
         {
-            id: "0-0-0-0-0",
-            content: "Content 1",
-            correct: true,
-            originalIndex: 0,
+            id: "radio-choice-3",
+            content: "Content 4",
+            correct: false,
+            originalIndex: 3,
         },
         {
-            id: "4-4-4-4-4",
+            id: "radio-choice-2",
             content: "Content 3",
             correct: false,
             originalIndex: 2,
+        },
+        {
+            id: "radio-choice-0",
+            content: "Content 1",
+            correct: true,
+            originalIndex: 0,
         },
     ],
     choiceStates: [
@@ -111,22 +114,22 @@ describe("Radio widget serialization", () => {
                         randomize: true, // <= important
                         choices: [
                             {
-                                id: "0-0-0-0-0",
+                                id: "radio-choice-0",
                                 content: "Content 1",
                                 correct: true,
                             },
                             {
-                                id: "3-3-3-3-3",
+                                id: "radio-choice-1",
                                 content: "Content 2",
                                 correct: false,
                             },
                             {
-                                id: "4-4-4-4-4",
+                                id: "radio-choice-2",
                                 content: "Content 3",
                                 correct: false,
                             },
                             {
-                                id: "5-5-5-5-5",
+                                id: "radio-choice-3",
                                 content: "Content 4",
                                 correct: false,
                             },

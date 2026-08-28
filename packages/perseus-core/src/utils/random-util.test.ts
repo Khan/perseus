@@ -2,11 +2,36 @@ import {describe, it, expect} from "@jest/globals";
 
 import {
     constrainedShuffle,
+    hashStringToSeed,
     randomIntInRange,
     seededRNG,
     shuffle,
 } from "./random-util";
 import {range} from "./range";
+
+describe("hashStringToSeed", () => {
+    it.each([
+        ["", 2166136261],
+        ["a", 3826002220],
+        ["foobar", 3214735720],
+    ])("returns the published FNV-1a hash of %p", (input, expected) => {
+        expect(hashStringToSeed(input)).toBe(expected);
+    });
+
+    it("returns different seeds for strings that differ only in order", () => {
+        expect(hashStringToSeed("ab")).not.toEqual(hashStringToSeed("ba"));
+    });
+
+    it("returns a non-negative 32-bit integer", () => {
+        const seeds = range(0, 200).map((i) => hashStringToSeed(`choice-${i}`));
+
+        seeds.forEach((seed) => {
+            expect(Number.isInteger(seed)).toBe(true);
+            expect(seed).toBeGreaterThanOrEqual(0);
+            expect(seed).toBeLessThanOrEqual(0xffffffff);
+        });
+    });
+});
 
 describe("shuffle", () => {
     it("does nothing to an empty array", () => {

@@ -10,7 +10,7 @@ import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
 import RadioComponent from "./radio-component";
-import {choiceTransform} from "./util";
+import {choiceTransform, getShuffleSeed} from "./util";
 import {getChoiceStates} from "./utils/general-utils";
 
 import type {WidgetProps, ChoiceState, Widget} from "../../types";
@@ -94,17 +94,23 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
         const {strings} = usePerseusI18n();
         const {analytics} = useDependencies();
 
-        const randomSeed = (props.problemNum ?? 0) + (props.widgetIndex ?? 0);
+        const positionSeed = (props.problemNum ?? 0) + (props.widgetIndex ?? 0);
         const choices = useMemo(() => {
             return [
                 ...choiceTransform(
                     options.choices,
                     options.randomize,
                     strings,
-                    randomSeed,
+                    getShuffleSeed(widgetId, options.choices, positionSeed),
                 ),
             ];
-        }, [options.choices, options.randomize, strings, randomSeed]);
+        }, [
+            options.choices,
+            options.randomize,
+            strings,
+            widgetId,
+            positionSeed,
+        ]);
 
         useOnMountEffect(() => {
             analytics.onAnalyticsEvent({

@@ -27,6 +27,30 @@ export const seededRNG: (seed: number) => RNG = function (seed: number): RNG {
 };
 
 /**
+ * Hash a string into a 32-bit unsigned integer, for seeding
+ * `seededRNG`/`shuffle` from content rather than from a position.
+ *
+ * FNV-1a: fast and well-spread for short strings, but not cryptographic.
+ */
+export function hashStringToSeed(str: string): number {
+    let hash = 0x811c9dc5; // FNV offset basis
+    for (let i = 0; i < str.length; i++) {
+        hash ^= str.charCodeAt(i);
+        // Multiply by the FNV prime (16777619) via shifts. `hash * 16777619`
+        // would exceed exact float integer range and lose the low bits.
+        hash =
+            (hash +
+                ((hash << 1) +
+                    (hash << 4) +
+                    (hash << 7) +
+                    (hash << 8) +
+                    (hash << 24))) >>>
+            0;
+    }
+    return hash;
+}
+
+/**
  * Shuffle an array using a given random seed or function.
  * If `ensurePermuted` is true, the input and output are guaranteed to be
  * distinct permutations.

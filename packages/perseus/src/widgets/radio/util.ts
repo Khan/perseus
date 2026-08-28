@@ -1,4 +1,5 @@
 import {
+    hashStringToSeed,
     shuffle,
     type PerseusRadioUserInput,
     type PerseusRadioWidgetOptions,
@@ -107,6 +108,38 @@ export function enforceOrdering(
         return [choices[1], choices[0]];
     }
     return choices;
+}
+
+/**
+ * Derive the seed used to shuffle a radio widget's choices, mixing the widget's
+ * position (`problemNum + widgetIndex`) with its id and choice content.
+ *
+ * Both inputs are needed. Position alone collapses to 0 in articles and in every
+ * nested renderer (graded-group, group, explanation), which pinned the correct
+ * answer to the same letter — the bug this fixes. Content alone collapses for
+ * questions that share option text ("Increases"/"Decreases"/"Stays the same"),
+ * since choice ids are positional and carry no entropy. Position also keeps an
+ * item reshuffling when a learner re-encounters it, as `problemNum` varies.
+ *
+ * Only *public* options may be used: `getRadioPublicWidgetOptions` strips
+ * `rationale` and `correct`, so seeding on those would shuffle a question
+ * differently before and after scoring. Content is translated, so orders differ
+ * per locale — fine, since order need only be stable within one.
+ */
+export function getShuffleSeed(
+    widgetId: string,
+    choices: PerseusRadioWidgetOptions["choices"],
+    positionSeed: number,
+): number {
+    // JSON rather than a delimiter: Markdown content contains `|` and `:`, so
+    // different choice sets could serialize to the same string.
+    const identity = JSON.stringify([
+        positionSeed,
+        widgetId,
+        choices.map((choice) => [choice.id, choice.content]),
+    ]);
+
+    return hashStringToSeed(identity);
 }
 
 // Transforms the choices for display.
