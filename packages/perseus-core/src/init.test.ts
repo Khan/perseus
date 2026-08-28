@@ -54,3 +54,14 @@ describe("the ./init subpath", () => {
         );
     });
 });
+
+describe("the ./widgets/* subpath", () => {
+    it.each(widgetDirectoryNames())("resolves %s", (name) => {
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
+        const {default: logic} = require(
+            `@khanacademy/perseus-core/widgets/${name}`,
+        );
+
+        expect(logic.name).toBe(name);
+    });
+});
