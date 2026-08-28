@@ -1,0 +1,29 @@
+/* TODO(LEMS-3686): Remove the !important once Wonder Blocks is in the shared layer. */
+
+/* Separates the three sections (cards, layout, padding) from each other. */
+.editor {
+    gap: var(--wb-sizing-size_240) !important;
+}
+
+/* Separates a section's label from the control it describes. Smaller than the
+   gap between sections so each label groups with its own control. */
+.section {
+    gap: var(--wb-sizing-size_080) !important;
+}
+
+/* The cards always stack in the editor, regardless of the `layout` option,
+   which only controls how the widget renders for students. */
+.cards {
+    list-style: none !important;
+    padding-inline-start: 0 !important;
+    /* Drop the browser's default list margins; `section` and `editor` above
+       own the spacing around the list. */
+    margin-block: 0 !important;
+    gap: var(--wb-sizing-size_120) !important;
+}
+
+/* Keep the button hugging its label rather than stretching to the width of the
+   cards above it. */
+.add-card {
+    align-self: flex-start !important;
+}
