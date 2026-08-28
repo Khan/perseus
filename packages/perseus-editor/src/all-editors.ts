@@ -34,7 +34,7 @@ import VideoEditor from "./widgets/video-editor";
  * Every widget editor, keyed by the type of widget it edits.
  *
  * The keys are widget types as they appear in Perseus content (eg. the
- * `interactive-graph` in `[[☃ interactive-graph 1]]`). `Widgets.registerEditors`
+ * `interactive-graph` in the widget's `type`. `Widgets.registerEditors`
  * registers each editor under its key, and the editor page looks an editor up by
  * the type of the widget it's rendering.
  */
