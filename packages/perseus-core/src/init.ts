@@ -1,6 +1,9 @@
 import blankWidgetLogic from "./widgets/blank";
 import categorizerWidgetLogic from "./widgets/categorizer";
-import {registerLogics} from "./widgets/core-widget-registry";
+import {
+    registerLogics,
+    replaceDeprecatedLogics,
+} from "./widgets/core-widget-registry";
 import csProgramWidgetLogic from "./widgets/cs-program";
 import definitionWidgetLogic from "./widgets/definition";
 import deprecatedStandinWidgetLogic from "./widgets/deprecated-standin";
@@ -72,8 +75,10 @@ const allWidgetLogics: ReadonlyArray<AnyWidgetLogic> = [
 ];
 
 /**
- * Registers every widget logic Perseus ships.
+ * Registers every widget logic Perseus ships, including the standin that
+ * deprecated widget types resolve to.
  */
 export function initPerseusCore(): void {
     registerLogics(allWidgetLogics);
+    replaceDeprecatedLogics();
 }

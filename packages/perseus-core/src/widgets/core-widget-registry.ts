@@ -37,6 +37,48 @@ export function registerWidget(type: string, logic: WidgetLogic<any, any>) {
     widgets.set(type, logic);
 }
 
+/**
+ * Replace `type`'s logic with the logic already registered for
+ * `replacementType`.
+ *
+ * Fails if the `replacementType` is not already registered.
+ */
+export function replaceLogic(type: string, replacementType: string) {
+    const substitute = widgets.get(replacementType);
+    if (!substitute) {
+        throw new PerseusError(
+            `Failed to replace ${type} with ${replacementType}. ` +
+                `Nothing registered for ${replacementType}.`,
+            Errors.Internal,
+        );
+    }
+    widgets.replace(type, substitute);
+}
+
+/** Widget types Perseus no longer implements; content may still name them. */
+const deprecatedWidgetTypes = [
+    "transformer",
+    "lights-puzzle",
+    "reaction-diagram",
+    "sequence",
+    "simulator",
+    "unit-input",
+    "passage",
+    "passage-ref",
+    "passage-ref-target",
+    "molecule-renderer",
+];
+
+/**
+ * Map every deprecated widget type onto the `deprecated-standin` logic, which
+ * must already be registered.
+ */
+export function replaceDeprecatedLogics() {
+    deprecatedWidgetTypes.forEach((type) =>
+        replaceLogic(type, "deprecated-standin"),
+    );
+}
+
 export function isWidgetRegistered(type: string) {
     const widgetLogic = widgets.get(type);
     return Boolean(widgetLogic);

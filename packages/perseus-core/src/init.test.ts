@@ -30,6 +30,12 @@ describe("initPerseusCore", () => {
 
         expect(isWidgetRegistered("free-response")).toBe(true);
     });
+
+    it("resolves deprecated widget types to the standin logic", () => {
+        initPerseusCore();
+
+        expect(isWidgetRegistered("transformer")).toBe(true);
+    });
 });
 
 describe("the ./init subpath", () => {
