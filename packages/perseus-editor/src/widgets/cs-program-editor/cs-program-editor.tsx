@@ -130,8 +130,6 @@ interface CSProgramEditorProps
  * This is the main editor for this widget, to specify all the options.
  */
 class CSProgramEditor extends React.Component<CSProgramEditorProps> {
-    static widgetName = "cs-program" as const;
-
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
         // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return deprecatedChangeableChange.apply(this, args);
