@@ -47,9 +47,9 @@ const Marker = React.forwardRef<MarkerHandle, MarkerProps>(function Marker(
         [],
     );
 
-    const updateAnswers = (answers: string[]) => {
+    function updateAnswers(answers: string[]) {
         onChange({answers, label, x, y});
-    };
+    }
 
     // Answer choices can be renamed or deleted at any time, which would leave
     // this marker pointing at a choice that no longer exists. Prune those so we
@@ -67,17 +67,17 @@ const Marker = React.forwardRef<MarkerHandle, MarkerProps>(function Marker(
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [answers, choices]);
 
-    const handleSelectAnswer = (toggleAnswer: string) => {
+    function handleSelectAnswer(toggleAnswer: string) {
         updateAnswers(
             answers.includes(toggleAnswer)
                 ? answers.filter((answer) => answer !== toggleAnswer)
                 : [...answers, toggleAnswer],
         );
-    };
+    }
 
-    const handleLabelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    function handleLabelChange(e: React.ChangeEvent<HTMLInputElement>) {
         onChange({answers, label: e.target.value, x, y});
-    };
+    }
 
     return (
         <Popover
