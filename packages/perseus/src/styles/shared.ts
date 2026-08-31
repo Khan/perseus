@@ -54,7 +54,7 @@ export default StyleSheet.create({
         backgroundColor: semanticColor.core.background.base.default,
         // This border matches the input's background: it's a spacer between
         // the fill and the outer box-shadow ring, not a visible border.
-        border: `2px solid ${semanticColor.core.background.base.default}`,
+        border: `${border.width.medium} solid ${semanticColor.core.background.base.default}`,
         boxShadow: `0 0px 0px ${border.width.medium} ${semanticColor.core.border.neutral.subtle}`,
         outline: "none",
 
@@ -103,7 +103,7 @@ export default StyleSheet.create({
 
     responsiveRadioInputActive: {
         backgroundColor: semanticColor.core.background.base.default,
-        border: `2px solid ${semanticColor.core.background.base.default}`,
+        border: `${border.width.medium} solid ${semanticColor.core.background.base.default}`,
         borderRadius: "50%",
         boxShadow: `0 0px 0px 2px ${semanticColor.core.border.neutral.strong}`,
 

@@ -582,7 +582,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                     role="button"
                                   >
                                     <input
-                                      class="responsiveInput_oajcmy-o_O-responsiveRadioInput_ltxk2u"
+                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
                                       name="perseus_radio_9_0"
                                       type="radio"
                                     />
@@ -596,7 +596,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                     role="button"
                                   >
                                     <input
-                                      class="responsiveInput_oajcmy-o_O-responsiveRadioInput_ltxk2u"
+                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
                                       name="perseus_radio_9_0"
                                       type="radio"
                                     />
@@ -628,7 +628,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                     role="button"
                                   >
                                     <input
-                                      class="responsiveInput_oajcmy-o_O-responsiveRadioInput_ltxk2u"
+                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
                                       name="perseus_radio_9_1"
                                       type="radio"
                                     />
@@ -642,7 +642,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                     role="button"
                                   >
                                     <input
-                                      class="responsiveInput_oajcmy-o_O-responsiveRadioInput_ltxk2u"
+                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
                                       name="perseus_radio_9_1"
                                       type="radio"
                                     />
@@ -674,7 +674,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                     role="button"
                                   >
                                     <input
-                                      class="responsiveInput_oajcmy-o_O-responsiveRadioInput_ltxk2u"
+                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
                                       name="perseus_radio_9_2"
                                       type="radio"
                                     />
@@ -688,7 +688,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                     role="button"
                                   >
                                     <input
-                                      class="responsiveInput_oajcmy-o_O-responsiveRadioInput_ltxk2u"
+                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
                                       name="perseus_radio_9_2"
                                       type="radio"
                                     />
@@ -720,7 +720,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                     role="button"
                                   >
                                     <input
-                                      class="responsiveInput_oajcmy-o_O-responsiveRadioInput_ltxk2u"
+                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
                                       name="perseus_radio_9_3"
                                       type="radio"
                                     />
@@ -734,7 +734,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                     role="button"
                                   >
                                     <input
-                                      class="responsiveInput_oajcmy-o_O-responsiveRadioInput_ltxk2u"
+                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
                                       name="perseus_radio_9_3"
                                       type="radio"
                                     />
