@@ -25,8 +25,6 @@ class TableEditor extends React.Component<Props> {
         answers: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
     };
 
-    static widgetName = "table" as const;
-
     static defaultProps: PerseusTableWidgetOptions =
         tableLogic.defaultWidgetOptions;
 

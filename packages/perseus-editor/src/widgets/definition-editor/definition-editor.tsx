@@ -25,8 +25,6 @@ interface Props extends PerseusDefinitionWidgetOptions, ChangeableProps {
  * editors to embed clickable terms with expandable explanations within content.
  */
 class DefinitionEditor extends React.Component<Props> {
-    static widgetName = "definition" as const;
-
     static defaultProps: PerseusDefinitionWidgetOptions =
         definitionLogic.defaultWidgetOptions;
 

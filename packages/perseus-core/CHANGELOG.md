@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 38.1.0
+
+### Minor Changes
+
+-   [#4094](https://github.com/Khan/perseus/pull/4094) [`68e3230`](https://github.com/Khan/perseus/commit/68e32306819a52d9d2ade1f11a3b5f9f4167c9e3) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Renames item extras editor to item editor; adds extras editor to graded group
+
 ## 38.0.1
 
 ### Patch Changes
