@@ -126,15 +126,18 @@ interface RGB {
     b: number;
 }
 
-// TODO-NEXT: write Storybook stories in packages/perseus/src/docs testing this
-//  function for a few colors (e.g. "white", "black", "red").
-export function hexForColorName(name: string): RGB {
+// Tested via Storybook, since JSDOM doesn't implement the canvas API.
+/**
+ * Resolves a CSS color into its red, green, and blue components.
+ * @param color - can be hex, a name like `"black"`, or e.g. `rgb(0, 0, 0)`.
+ */
+export function resolveColor(color: string): RGB {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
     if (!ctx) {
         return {r: 0, g: 0, b: 0};
     }
-    ctx.fillStyle = name;
+    ctx.fillStyle = color;
     ctx.fillRect(0, 0, 1, 1);
     const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
     return {r, g, b};
