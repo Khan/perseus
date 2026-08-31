@@ -1632,6 +1632,7 @@ class Renderer
             [ApiClassNames.RENDERER]: true,
             [ApiClassNames.RESPONSIVE_RENDERER]: true,
             [ApiClassNames.TWO_COLUMN_RENDERER]: this._isTwoColumn,
+            ["renderer-new-ff"]: apiOptions.flags?.["perseus-renderer-upgrade"],
         });
 
         return (
