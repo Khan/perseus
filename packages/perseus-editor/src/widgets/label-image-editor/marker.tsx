@@ -38,7 +38,6 @@ const Marker = React.forwardRef<MarkerHandle, MarkerProps>(function Marker(
 ) {
     const [showDropdown, setShowDropdown] = React.useState(false);
 
-    // Automatically open the dropdown when double-clicking to add a marker.
     React.useImperativeHandle(
         ref,
         () => ({
