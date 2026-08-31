@@ -5,12 +5,13 @@
  * the dropdown component.
  */
 
+import Button from "@khanacademy/wonder-blocks-button";
+import {Listbox, OptionItem} from "@khanacademy/wonder-blocks-dropdown";
+import {TextField} from "@khanacademy/wonder-blocks-form";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import Option, {OptionGroup} from "../../components/dropdown-option";
-import FormWrappedTextField from "../../components/form-wrapped-text-field";
 import {gray85} from "../../styles/global-colors";
 
 import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
@@ -64,16 +65,12 @@ const Marker = React.forwardRef<MarkerHandle, MarkerProps>(function Marker(
         }
     });
 
-    function handleToggleAnswer(toggleAnswer: string) {
-        updateAnswers(
-            answers.includes(toggleAnswer)
-                ? answers.filter((answer) => answer !== toggleAnswer)
-                : [...answers, toggleAnswer],
-        );
+    function handleToggleAnswer(selectedValues: string[]) {
+        updateAnswers(selectedValues);
     }
 
-    function handleLabelChange(e: React.ChangeEvent<HTMLInputElement>) {
-        onChange({answers, label: e.target.value, x, y});
+    function handleLabelChange(value: string) {
+        onChange({answers, label: value, x, y});
     }
 
     return (
@@ -83,29 +80,34 @@ const Marker = React.forwardRef<MarkerHandle, MarkerProps>(function Marker(
             dismissEnabled={true}
             content={
                 <PopoverContentCore style={styles.dropdownBody}>
-                    <Option value="" onClick={() => onRemove()}>
+                    <Button
+                        kind="tertiary"
+                        actionType="destructive"
+                        onClick={onRemove}
+                    >
                         Delete marker
-                    </Option>
-
+                    </Button>
                     <hr className={css(styles.dividerHorizontal)} />
-
-                    <OptionGroup
-                        onSelected={handleToggleAnswer}
-                        selectedValues={answers}
+                    <Listbox
+                        aria-label="Answer choices"
+                        onChange={handleToggleAnswer}
+                        selectionType="multiple"
+                        value={answers}
                     >
                         {choices.map((choice) => (
-                            <Option key={choice} value={choice}>
-                                {choice}
-                            </Option>
+                            <OptionItem
+                                key={choice}
+                                value={choice}
+                                label={choice}
+                            />
                         ))}
-                    </OptionGroup>
-
+                    </Listbox>
+                    <hr className={css(styles.dividerHorizontal)} />
                     <div className={css(styles.labelContainer)}>
-                        <FormWrappedTextField
+                        <TextField
                             placeholder="ARIA label (for screen readers)"
                             onChange={handleLabelChange}
                             value={label}
-                            width="100%"
                         />
                     </div>
                 </PopoverContentCore>
@@ -208,7 +210,7 @@ const styles = StyleSheet.create({
     },
 
     labelContainer: {
-        padding: 4,
+        padding: 6,
     },
 
     dividerHorizontal: {
