@@ -12,6 +12,7 @@ const DEFAULT_FEATURE_FLAGS: Record<
     // Real production flags.
     "perseus-renderer-upgrade": false,
     "desmos-calculator": false,
+    "article-extras": false,
     // ...add new flags here
 };
 

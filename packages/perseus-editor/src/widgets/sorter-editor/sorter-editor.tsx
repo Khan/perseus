@@ -203,10 +203,6 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
 );
 
 export default Object.assign(SorterEditor, {
-    // Widgets.registerEditors registers the editor under this name, and throws
-    // without it.
-    widgetName: "sorter" as const,
-
     // Read directly by the editor page to seed the options of a newly inserted
     // sorter.
     defaultProps: defaultOptions,

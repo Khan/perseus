@@ -60,15 +60,15 @@ export const replaceDeprecatedWidgets = () => {
     replaceWidget("molecule-renderer", "deprecated-standin");
 };
 
-export const registerEditors = (editorsToRegister: ReadonlyArray<Editor>) => {
-    editorsToRegister.forEach((editor) => {
-        if (!editor.widgetName) {
-            throw new PerseusError(
-                `Editor ${editor.displayName} doesn't have a widgetName property`,
-                Errors.Internal,
-            );
-        }
-        editors.set(editor.widgetName, editor);
+/**
+ * Register widget editors, keyed by the type of widget each one edits.
+ *
+ * The keys are widget types as they appear in Perseus content (eg. `radio`),
+ * which is what `getEditor` looks up when the editor page renders a widget.
+ */
+export const registerEditors = (editorsToRegister: Record<string, Editor>) => {
+    Object.entries(editorsToRegister).forEach(([widgetType, editor]) => {
+        editors.set(widgetType, editor);
     });
 };
 

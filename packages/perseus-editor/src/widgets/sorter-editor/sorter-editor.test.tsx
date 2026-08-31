@@ -497,15 +497,9 @@ describe("sorter-editor", () => {
         });
     });
 
-    // The editor is registered by its widget name (Widgets.registerEditors
-    // throws without one) and the editor page reads its default options to seed
-    // a newly inserted sorter. Both are read off the component itself, so
-    // they're part of its public surface, not implementation detail.
-    it("exposes the widget name it is registered under", () => {
-        // Arrange, Act, Assert
-        expect(SorterEditor.widgetName).toBe("sorter");
-    });
-
+    // The editor page reads the default options off the component itself to
+    // seed a newly inserted sorter, so they're part of its public surface, not
+    // implementation detail.
     it("exposes the default widget options a new sorter starts with", () => {
         // Arrange, Act, Assert
         expect(SorterEditor.defaultProps).toEqual(

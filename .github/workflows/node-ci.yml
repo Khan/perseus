@@ -163,6 +163,26 @@ jobs:
                         limited-trigger: ${{ steps.js-files.outputs.filtered }}
                         limited: pnpm jest --passWithNoTests --findRelatedTests {}
 
+    pre_publish_check:
+        name: Pre-publish check
+        if: github.head_ref == 'changeset-release/main'
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && 'ubuntu-latest' || 'ephemeral-runner' }}
+        steps:
+            - name: Checking out latest commit
+              uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+            - name: Secure Network
+              uses: Khan/actions@secure-network-v1
+              timeout-minutes: 5
+              with:
+                  conf-files: .github/npm-extra-domains.conf
+
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
+
+            - name: Pre-publish check
+              run: pnpm pre-publish-check
+
     cypress:
         name: Cypress
         runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && 'ubuntu-latest' || 'ephemeral-runner' }}

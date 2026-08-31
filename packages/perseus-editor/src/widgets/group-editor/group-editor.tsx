@@ -22,8 +22,6 @@ class GroupEditor extends React.Component<Props> {
         apiOptions: ApiOptions.propTypes,
     };
 
-    static widgetName = "group" as const;
-
     static defaultProps: PerseusGroupWidgetOptions =
         groupLogic.defaultWidgetOptions;
 
