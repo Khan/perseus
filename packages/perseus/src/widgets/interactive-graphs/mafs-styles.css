@@ -141,7 +141,9 @@
 .MafsView .movable-point-halo {
     r: var(--movable-point-halo-radius);
     fill: var(--movable-point-color);
-    opacity: 0.25;
+    /* fill-opacity (not opacity) so the drop shadow below renders at the
+     * token's full strength instead of being multiplied down to ~4%. */
+    fill-opacity: 0.25;
     filter: drop-shadow(
         0 5px 5px var(--wb-semanticColor-core-shadow-transparent-low)
     );
@@ -355,7 +357,9 @@
 }
 
 .MafsView .movable-pill-handle-halo {
-    opacity: 0.25;
+    /* fill-opacity (not opacity) so the drop shadow below renders at the
+     * token's full strength instead of being multiplied down to ~4%. */
+    fill-opacity: 0.25;
     filter: drop-shadow(
         0 5px 5px var(--wb-semanticColor-core-shadow-transparent-low)
     );
