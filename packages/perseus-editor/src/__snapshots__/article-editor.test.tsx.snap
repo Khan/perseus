@@ -4902,7 +4902,7 @@ table: [[☃ table 1]]
                           style="display: inline-block;"
                         >
                           <button
-                            class="buttonStyle_zxbos0-o_O-selectedStyle_1ewmj59"
+                            class="buttonStyle_16wwnfc-o_O-selectedStyle_1qwmlm3"
                             id="0"
                             title="Linear"
                             type="button"
@@ -4926,7 +4926,7 @@ table: [[☃ table 1]]
                             </svg>
                           </button>
                           <button
-                            class="buttonStyle_zxbos0"
+                            class="buttonStyle_16wwnfc"
                             id="1"
                             title="Quadratic"
                             type="button"
@@ -4950,7 +4950,7 @@ table: [[☃ table 1]]
                             </svg>
                           </button>
                           <button
-                            class="buttonStyle_zxbos0"
+                            class="buttonStyle_16wwnfc"
                             id="2"
                             title="Sinusoid"
                             type="button"
@@ -4974,7 +4974,7 @@ table: [[☃ table 1]]
                             </svg>
                           </button>
                           <button
-                            class="buttonStyle_zxbos0"
+                            class="buttonStyle_16wwnfc"
                             id="3"
                             title="Tangent"
                             type="button"
@@ -4998,7 +4998,7 @@ table: [[☃ table 1]]
                             </svg>
                           </button>
                           <button
-                            class="buttonStyle_zxbos0"
+                            class="buttonStyle_16wwnfc"
                             id="4"
                             title="Exponential"
                             type="button"
@@ -5022,7 +5022,7 @@ table: [[☃ table 1]]
                             </svg>
                           </button>
                           <button
-                            class="buttonStyle_zxbos0"
+                            class="buttonStyle_16wwnfc"
                             id="5"
                             title="Logarithm"
                             type="button"
@@ -5046,7 +5046,7 @@ table: [[☃ table 1]]
                             </svg>
                           </button>
                           <button
-                            class="buttonStyle_zxbos0"
+                            class="buttonStyle_16wwnfc"
                             id="6"
                             title="Absolute_value"
                             type="button"
