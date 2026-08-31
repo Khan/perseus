@@ -4,7 +4,7 @@ import MultiButtonGroup from "../multi-button-group";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta<typeof MultiButtonGroup> = {
-    title: "Components/Multi-Button Group/Visual Regression Tests",
+    title: "Components/Multi-Button Group/Visual Regression Tests/Initial State",
     component: MultiButtonGroup,
     tags: ["!autodocs", "!manifest"],
     parameters: {
