@@ -3,7 +3,7 @@
 exports[`EditorPage should match snapshot for editing disabled for all widgets 1`] = `
 <div>
   <div
-    class="framework-perseus wb-themed-math"
+    class="framework-perseus"
     id="perseus"
   >
     <div

@@ -282,8 +282,7 @@ class EditorPage extends React.Component<Props, State> {
     };
 
     render(): React.ReactNode {
-        // TODO(LEMS-4492): remove wb-themed-math
-        let className = "framework-perseus wb-themed-math";
+        let className = "framework-perseus";
         const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
 
         const touch =

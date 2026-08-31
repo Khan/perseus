@@ -195,8 +195,6 @@ class ArticleRenderer
         const classes = classNames({
             "framework-perseus": true,
             "perseus-article": true,
-            // TODO(LEMS-4492): remove wb-themed-math
-            "wb-themed-math": true,
             // NOTE(charlie): For exercises, this is applied outside of Perseus
             // (in khan/frontend).
             [ApiClassNames.MOBILE]: apiOptions.isMobile,

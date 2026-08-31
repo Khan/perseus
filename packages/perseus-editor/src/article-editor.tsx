@@ -486,8 +486,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
             <Dependencies.DependenciesContext.Provider
                 value={this.props.dependencies}
             >
-                {/* TODO(LEMS-4492): remove wb-themed-math*/}
-                <div className="framework-perseus wb-themed-math perseus-article-editor">
+                <div className="framework-perseus perseus-article-editor">
                     {this.props.mode === "edit" && this._renderEditor()}
 
                     {this.props.mode === "preview" && this._renderPreviewMode()}

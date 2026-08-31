@@ -23,8 +23,7 @@ type Story = StoryObj<typeof meta>;
 export const AllAlignmentsInSameArticle: Story = {
     render: function Render() {
         return (
-            // TODO(LEMS-4492): remove wb-themed-math
-            <div className="framework-perseus wb-themed-math perseus-article">
+            <div className="framework-perseus perseus-article">
                 <QuestionRendererForStories
                     question={generateTestPerseusRenderer({
                         content: `Block video\n\n[[☃ video 1]]\n\nFull-width video\n\n[[☃ video 2]]`,
@@ -57,8 +56,7 @@ export const AllAlignmentsInSameArticle: Story = {
 export const AllAlignmentsInSameArticleMobile: Story = {
     render: function Render() {
         return (
-            // TODO(LEMS-4492): remove wb-themed-math
-            <div className="framework-perseus wb-themed-math perseus-mobile perseus-article">
+            <div className="framework-perseus perseus-mobile perseus-article">
                 <QuestionRendererForStories
                     question={generateTestPerseusRenderer({
                         content: `Block video\n\n[[☃ video 1]]\n\nFull-width video\n\n[[☃ video 2]]`,

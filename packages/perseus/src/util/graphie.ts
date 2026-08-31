@@ -26,6 +26,7 @@ import type {MouseHandler} from "./interactive";
 import type {Interval} from "./interval";
 import type {Coord} from "../interactive2/types";
 import type {GraphieLabelElement} from "../types";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 
 const {processMath} = Tex;
 
