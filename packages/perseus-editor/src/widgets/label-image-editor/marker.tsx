@@ -26,9 +26,10 @@ type MarkerProps = PerseusLabelImageWidgetOptions["markers"][number] & {
     onRemove: () => void;
 };
 
-// The imperative API that `QuestionMarkers` drives via a ref, so that markers
-// added by double-clicking the image open their dropdown right away.
+// The imperative API that consumers drive via a ref.
 export type MarkerHandle = {
+    // Imperative way to open the dropdown externally.
+    // TODO: Replace with declarative API.
     openDropdown: () => void;
 };
 
