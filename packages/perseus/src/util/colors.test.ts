@@ -1,4 +1,4 @@
-import {getBackgroundColor} from "./colors";
+import {diffColors, getBackgroundColor} from "./colors";
 
 describe("Color Utilities", () => {
     describe("getBackgroundColor", () => {
@@ -59,6 +59,57 @@ describe("Color Utilities", () => {
             parentElement.appendChild(testElement);
             const result = getBackgroundColor(testElement);
             expect(result).toBe("green");
+        });
+    });
+
+    describe("diffColors", () => {
+        it("says white is the same as itself", () => {
+            const white = {r: 255, g: 255, b: 255};
+            expect(diffColors(white, white)).toBe(0);
+        });
+
+        it("says black is the same as itself", () => {
+            const black = {r: 0, g: 0, b: 0};
+            expect(diffColors(black, black)).toBe(0);
+        });
+
+        it("says red is the same as itself", () => {
+            const red = {r: 255, g: 0, b: 0};
+            expect(diffColors(red, red)).toBe(0);
+        });
+
+        it("says green is the same as itself", () => {
+            const green = {r: 0, g: 255, b: 0};
+            expect(diffColors(green, green)).toBe(0);
+        });
+
+        it("says blue is the same as itself", () => {
+            const blue = {r: 0, g: 0, b: 255};
+            expect(diffColors(blue, blue)).toBe(0);
+        });
+
+        it("says orange is closer to red than gray", () => {
+            const orange = {r: 255, g: 127, b: 0};
+            const red = {r: 255, g: 0, b: 0};
+            const gray = {r: 127, g: 127, b: 127};
+            expect(diffColors(orange, red)).toBeLessThan(
+                diffColors(orange, gray),
+            );
+        });
+
+        it("says very dark red is closer to black than red", () => {
+            const darkRed = {r: 10, g: 0, b: 0};
+            const red = {r: 255, g: 0, b: 0};
+            const black = {r: 0, g: 0, b: 0};
+            expect(diffColors(darkRed, black)).toBeLessThan(
+                diffColors(darkRed, red),
+            );
+        });
+
+        it("is commutative", () => {
+            const a = {r: 111, g: 222, b: 55};
+            const b = {r: 255, g: 30, b: 100};
+            expect(diffColors(a, b)).toBe(diffColors(b, a));
         });
     });
 });

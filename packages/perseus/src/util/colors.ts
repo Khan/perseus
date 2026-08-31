@@ -143,4 +143,21 @@ export function resolveColor(color: string): RGB {
     return {r, g, b};
 }
 
+/**
+ * Uses a variant of the "redmean" algorithm to determine how similar two
+ * colors are. In contrast to redmean, we skip taking the square root of the
+ * result, which means this function gives you a relative difference, not an
+ * absolute difference.
+ */
+export function diffColors(a: RGB, b: RGB): number {
+    const redMean = (a.r + b.r) / 2;
+    const redWeight = 2 + redMean / 256;
+    const blueWeight = 2 + (255 - redMean) / 256;
+    const greenWeight = 4;
+    const dr = a.r - b.r;
+    const dg = a.g - b.g;
+    const db = a.b - b.b;
+    return redWeight * dr * dr + greenWeight * dg * dg + blueWeight * db * db;
+}
+
 export default KhanColors;
