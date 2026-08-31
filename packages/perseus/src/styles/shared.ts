@@ -11,8 +11,7 @@ const {circleSize, radioMarginWidth} = constants;
 // eslint-disable-next-line no-restricted-syntax
 export default StyleSheet.create({
     blankBackground: {
-        // TODO(emily): Use WB colors?
-        backgroundColor: "#FDFDFD",
+        backgroundColor: semanticColor.core.background.base.default,
     },
 
     perseusSrOnly: {
@@ -52,8 +51,10 @@ export default StyleSheet.create({
             display: "none",
         },
 
-        backgroundColor: "#fff",
-        border: "2px solid #fff",
+        backgroundColor: semanticColor.input.default.background,
+        // This border matches the input's background: it's a spacer between
+        // the fill and the outer box-shadow ring, not a visible border.
+        border: `2px solid ${semanticColor.input.default.background}`,
         boxShadow: `0 0px 0px ${border.width.medium} ${semanticColor.core.border.neutral.subtle}`,
         outline: "none",
 
@@ -75,8 +76,10 @@ export default StyleSheet.create({
             backgroundColor: semanticColor.core.foreground.instructive.default,
             border: "none",
             borderRadius: "50%",
+            // The inset shadow is the radio's inner ring — the gap between
+            // the dot and the rim — so it matches the input background.
             boxShadow:
-                `inset 0px 0px 0px 2px white, ` +
+                `inset 0px 0px 0px 2px ${semanticColor.input.default.background}, ` +
                 `0 0px 0px 2px ${semanticColor.core.foreground.instructive.default}`,
 
             marginBlockStart: radioMarginWidth,
@@ -93,14 +96,14 @@ export default StyleSheet.create({
         ":checked": {
             backgroundColor: semanticColor.core.foreground.disabled.strong,
             boxShadow:
-                `inset 0px 0px 0px 2px white, ` +
+                `inset 0px 0px 0px 2px ${semanticColor.input.default.background}, ` +
                 `0 0px 0px 2px ${semanticColor.core.foreground.disabled.strong}`,
         },
     },
 
     responsiveRadioInputActive: {
-        backgroundColor: "#fff",
-        border: "2px solid #fff",
+        backgroundColor: semanticColor.input.default.background,
+        border: `2px solid ${semanticColor.input.default.background}`,
         borderRadius: "50%",
         boxShadow: `0 0px 0px 2px ${semanticColor.core.border.neutral.strong}`,
 
@@ -113,7 +116,7 @@ export default StyleSheet.create({
         width: circleSize - 2 * radioMarginWidth,
 
         ":checked": {
-            backgroundColor: "#fff",
+            backgroundColor: semanticColor.input.default.background,
         },
     },
 
