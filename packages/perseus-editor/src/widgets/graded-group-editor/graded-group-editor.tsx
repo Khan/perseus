@@ -25,8 +25,6 @@ interface Props extends PerseusGradedGroupWidgetOptions, ChangeableProps {
 }
 
 class GradedGroupEditor extends React.Component<Props> {
-    static widgetName = "graded-group" as const;
-
     static defaultProps: PerseusGradedGroupWidgetOptions =
         gradedGroupLogic.defaultWidgetOptions;
 

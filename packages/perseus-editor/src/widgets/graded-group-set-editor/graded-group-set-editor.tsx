@@ -16,8 +16,6 @@ class GradedGroupSetEditor extends React.Component<Props> {
     // @ts-expect-error - TS2564 - Property '_editors' has no initializer and is not definitely assigned in the constructor.
     _editors: Array<any>;
 
-    static widgetName = "graded-group-set" as const;
-
     static defaultProps: PerseusGradedGroupSetWidgetOptions =
         gradedGroupSetLogic.defaultWidgetOptions;
 
