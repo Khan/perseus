@@ -141,11 +141,12 @@
 .MafsView .movable-point-halo {
     r: var(--movable-point-halo-radius);
     fill: var(--movable-point-color);
-    /* fill-opacity (not opacity) so the drop shadow below renders at the
-     * token's full strength instead of being multiplied down to ~4%. */
-    fill-opacity: 0.25;
+    opacity: 0.25;
+    /* The 0.25 element opacity multiplies the drop shadow too, so the 16%
+     * shadow tokens render invisibly (~4% effective). The overlay token's
+     * 50% alpha reproduces the original #0008 shadow (~13% effective). */
     filter: drop-shadow(
-        0 5px 5px var(--wb-semanticColor-core-shadow-transparent-low)
+        0 5px 5px var(--wb-semanticColor-core-background-overlay-default)
     );
 }
 
@@ -357,11 +358,12 @@
 }
 
 .MafsView .movable-pill-handle-halo {
-    /* fill-opacity (not opacity) so the drop shadow below renders at the
-     * token's full strength instead of being multiplied down to ~4%. */
-    fill-opacity: 0.25;
+    opacity: 0.25;
+    /* The 0.25 element opacity multiplies the drop shadow too, so the 16%
+     * shadow tokens render invisibly (~4% effective). The overlay token's
+     * 50% alpha reproduces the original #0008 shadow (~13% effective). */
     filter: drop-shadow(
-        0 5px 5px var(--wb-semanticColor-core-shadow-transparent-low)
+        0 5px 5px var(--wb-semanticColor-core-background-overlay-default)
     );
 }
 
