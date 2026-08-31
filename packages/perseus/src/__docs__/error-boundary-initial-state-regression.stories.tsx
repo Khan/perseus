@@ -12,7 +12,6 @@ const ThrowingChild = (): React.ReactNode => {
 const meta: Meta<typeof ErrorBoundary> = {
     title: "Components/ErrorBoundary/Visual Regression Tests/Initial State",
     tags: ["!autodocs", "!manifest"],
-    render: (args) => <ErrorBoundary {...args} />,
     parameters: {
         docs: {
             description: {
@@ -30,10 +29,11 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const ErrorState: Story = {
-    args: {
-        // Errors thrown during render are expected here; keep the console
-        // and error reporting quiet in the story.
-        onError: () => {},
-        children: <ThrowingChild />,
-    },
+    render: () => (
+        // The error thrown during render is expected here; the empty
+        // onError keeps it out of error reporting.
+        <ErrorBoundary onError={() => {}}>
+            <ThrowingChild />
+        </ErrorBoundary>
+    ),
 };
