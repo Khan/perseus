@@ -62,12 +62,9 @@ const Marker = React.forwardRef<MarkerHandle, MarkerProps>(function Marker(
         if (JSON.stringify(answers) !== JSON.stringify(filteredAnswers)) {
             updateAnswers(filteredAnswers);
         }
-        // `answers` and `choices` are the only inputs that should re-trigger
-        // reconciliation.
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [answers, choices]);
+    });
 
-    function handleSelectAnswer(toggleAnswer: string) {
+    function handleToggleAnswer(toggleAnswer: string) {
         updateAnswers(
             answers.includes(toggleAnswer)
                 ? answers.filter((answer) => answer !== toggleAnswer)
@@ -93,7 +90,7 @@ const Marker = React.forwardRef<MarkerHandle, MarkerProps>(function Marker(
                     <hr className={css(styles.dividerHorizontal)} />
 
                     <OptionGroup
-                        onSelected={handleSelectAnswer}
+                        onSelected={handleToggleAnswer}
                         selectedValues={answers}
                     >
                         {choices.map((choice) => (
