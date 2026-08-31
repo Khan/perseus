@@ -15,6 +15,14 @@ import * as React from "react";
 import {gray85} from "../../styles/global-colors";
 
 import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+
+// Wonder Blocks Listbox's onChange allows a single value, nullish entries,
+// and an array. The type isn't exported from the package, so we need
+// to derive it here.)
+type ListboxSelection = Parameters<
+    NonNullable<PropsFor<typeof Listbox>["onChange"]>
+>[0];
 
 type MarkerProps = PerseusLabelImageWidgetOptions["markers"][number] & {
     // The list of possible answer choices.
@@ -65,8 +73,14 @@ const Marker = React.forwardRef<MarkerHandle, MarkerProps>(function Marker(
         }
     });
 
-    function handleToggleAnswer(selectedValues: string[]) {
-        updateAnswers(selectedValues);
+    function handleToggleAnswer(selectedValues: ListboxSelection) {
+        // Listbox allows for single, array, or nullish selections, but we only
+        // ever use an array for the "multiple" type listbox here.
+        const values = Array.isArray(selectedValues)
+            ? selectedValues
+            : [selectedValues];
+
+        updateAnswers(values.filter((value) => value != null));
     }
 
     function handleLabelChange(value: string) {
