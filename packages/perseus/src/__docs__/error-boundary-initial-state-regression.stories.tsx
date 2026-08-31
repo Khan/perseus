@@ -10,16 +10,16 @@ const ThrowingChild = (): React.ReactNode => {
 };
 
 const meta: Meta<typeof ErrorBoundary> = {
-    title: "Perseus/Visual Regression Tests/ErrorBoundary",
-    component: ErrorBoundary,
+    title: "Components/ErrorBoundary/Visual Regression Tests/Initial State",
     tags: ["!autodocs", "!manifest"],
+    render: (args) => <ErrorBoundary {...args} />,
     parameters: {
         docs: {
             description: {
                 component:
-                    "Regression test for the error icon ErrorBoundary " +
-                    "renders when a child throws, which will be used with " +
-                    "Chromatic.",
+                    "Regression tests for the ErrorBoundary that do NOT " +
+                    "need any interactions to test, which will be used " +
+                    "with Chromatic.",
             },
         },
         chromatic: {disableSnapshot: false, modes: themeModes},
