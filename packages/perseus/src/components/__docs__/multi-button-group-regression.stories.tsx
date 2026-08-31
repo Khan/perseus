@@ -11,9 +11,7 @@ const meta: Meta<typeof MultiButtonGroup> = {
         docs: {
             description: {
                 component:
-                    "Regression tests for MultiButtonGroup's visual states. " +
-                    "The hover background uses the same token as the selected " +
-                    "background, so the selected story also pins the hover color.",
+                    "Regression tests for MultiButtonGroup's visual states.",
             },
         },
         chromatic: {disableSnapshot: false, modes: themeModes},
