@@ -9,7 +9,7 @@ import {
     generateTestPerseusRenderer,
     type PerseusArticle,
 } from "@khanacademy/perseus-core";
-import {act, screen} from "@testing-library/react";
+import {act, fireEvent, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderArticle} from "../../__tests__/article-renderer.test";
@@ -91,6 +91,52 @@ describe("graded-group", () => {
     });
 
     describe("on desktop", () => {
+        it("checks the answer when Ctrl+Enter is pressed", async () => {
+            // Arrange
+            renderQuestion(question1);
+
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "True"})[0],
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "False"})[1],
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "True"})[2],
+            );
+            const lastChoice = screen.getAllByRole("button", {name: "True"})[3];
+            await userEvent.click(lastChoice);
+
+            // Act
+            fireEvent.keyDown(lastChoice, {ctrlKey: true, key: "Enter"});
+
+            // Assert
+            expect(screen.getByRole("alert", {name: "Correct"})).toBeVisible();
+        });
+
+        it("checks the answer when Cmd+Enter is pressed", async () => {
+            // Arrange
+            renderQuestion(question1);
+
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "True"})[0],
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "False"})[1],
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "True"})[2],
+            );
+            const lastChoice = screen.getAllByRole("button", {name: "True"})[3];
+            await userEvent.click(lastChoice);
+
+            // Act
+            fireEvent.keyDown(lastChoice, {key: "Enter", metaKey: true});
+
+            // Assert
+            expect(screen.getByRole("alert", {name: "Correct"})).toBeVisible();
+        });
+
         it("should be able to be answered correctly", async () => {
             // Arrange
             renderQuestion(question1);
