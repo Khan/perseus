@@ -8,6 +8,7 @@ import * as React from "react";
 import Renderer from "../../../renderer";
 import a11yStyles from "../../../styles/a11y.module.css";
 import {usePerseusI18n} from "../../i18n-context";
+import {cssVariable} from "../css-variable";
 import {DndActionMenu} from "../dnd-action-menu";
 import {tileDragId} from "../drag-ids";
 
@@ -154,10 +155,10 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
             )}
             style={
                 imageHeight != null
-                    ? // eslint-disable-next-line no-restricted-syntax -- CSSProperties has no keys for CSS custom properties.
-                      ({
-                          "--answer-tile-image-height": `${imageHeight}px`,
-                      } as React.CSSProperties)
+                    ? cssVariable(
+                          "--answer-tile-image-height",
+                          `${imageHeight}px`,
+                      )
                     : undefined
             }
             ref={dragRef}
