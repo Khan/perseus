@@ -1,4 +1,4 @@
-import {tileDragId} from "./drag-ids";
+import {readTileDragData, tileDragId} from "./drag-ids";
 
 describe("tileDragId", () => {
     it("gives a tile in the bank and the same tile in a blank different ids", () => {
@@ -23,5 +23,34 @@ describe("tileDragId", () => {
         const second = tileDragId({tileId: "tile-2", fromBlankId: "blank 1"});
 
         expect(first).not.toEqual(second);
+    });
+});
+
+describe("readTileDragData", () => {
+    it("reads a bank tile's payload", () => {
+        // Arrange, Act
+        const data = readTileDragData({tileId: "tile-1"});
+
+        expect(data).toEqual({tileId: "tile-1"});
+    });
+
+    it("reads a placed tile's payload with its blank", () => {
+        // Arrange, Act
+        const data = readTileDragData({
+            tileId: "tile-1",
+            fromBlankId: "blank 1",
+        });
+
+        expect(data).toEqual({tileId: "tile-1", fromBlankId: "blank 1"});
+    });
+
+    it("returns null for a drag that carries no payload", () => {
+        // Arrange, Act, Assert
+        expect(readTileDragData(undefined)).toBeNull();
+    });
+
+    it("returns null for a payload from another component", () => {
+        // Arrange, Act, Assert
+        expect(readTileDragData({somethingElse: 1})).toBeNull();
     });
 });
