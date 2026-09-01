@@ -9,6 +9,15 @@ code {
     padding: 4px 10px;
     border-radius: 3px 3px 0 0;
 }
+/* Pin the "Question", "Question extras", and "Hint" titles to the top of their
+ * left cell, which is the scroll container. */
+.perseus-editor-left-cell > .pod-title,
+.perseus-editor-left-cell > .perseus-hint-editor > .pod-title {
+    position: sticky;
+    inset-block-start: 0;
+    /* Draw above the editor content that scrolls underneath. */
+    z-index: 1;
+}
 .pod-title.closed {
     border-radius: 3px;
 }
@@ -345,18 +354,18 @@ code {
 .perseus-article-editor .perseus-editor-left-cell {
     min-width: 360px;
 }
-/* Pin the issues panel to the top of the section's scroll area so it stays
- * visible while the author scrolls through that section's content. The left
- * cell is the scroll container, and the panel is one of its direct children,
- * so `inset-block-start: 0` sticks it to the top of that scrollport. */
-.perseus-article-editor .perseus-editor-left-cell > .perseus-issues-panel {
+/* Pin the issues panel and section title to the top of the section's scroll
+ * area so they stay visible while the author scrolls through that section's
+ * content. */
+.perseus-article-editor
+    .perseus-editor-left-cell
+    > .perseus-editor-sticky-header {
     position: sticky;
     inset-block-start: 0;
-    /* Draw above the section content that scrolls underneath it. Nothing else
-     * inside the left cell sets a z-index, so 1 is enough. */
+    /* Draw above the section content that scrolls underneath it. */
     z-index: 1;
-    /* Sticky elements don't get a background for free; without one the section
-     * content would show through the panel as it scrolls past. */
+    /* Make the sticky element background opaque so text doesn't overlap
+     * while scrolling. */
     background-color: var(--wb-semanticColor-core-background-base-default);
     /* A flex item won't shrink below its content by default, but it also
      * shouldn't stretch to fill the cell when the section is short. */
@@ -365,8 +374,7 @@ code {
 /* An expanded panel with many issues could otherwise cover the whole scroll
  * area, leaving nothing to scroll. Cap it and let the list scroll instead. */
 .perseus-article-editor
-    .perseus-editor-left-cell
-    > .perseus-issues-panel
+    .perseus-editor-sticky-header
     .perseus-widget-editor-panel {
     max-height: 40vh;
     overflow-y: auto;
@@ -432,8 +440,11 @@ code {
 .perseus-article-editor .framework-perseus.perseus-article * {
     box-sizing: inherit;
 }
-.perseus-article-editor .perseus-editor-left-cell > .pod-title {
+.perseus-article-editor .perseus-editor-sticky-header > .pod-title {
     padding: 4px 9px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 .perseus-widget-dropdown input[type="text"] {
     border: 1px solid #ccc;

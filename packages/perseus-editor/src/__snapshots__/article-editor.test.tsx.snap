@@ -15,42 +15,42 @@ exports[`ArticleEditor should match snapshot for editing disabled for all widget
           class="perseus-editor-left-cell"
         >
           <div
-            class="perseus-widget-editor perseus-issues-panel"
+            class="perseus-editor-sticky-header"
           >
             <div
-              class="perseus-widget-editor-title"
+              class="perseus-widget-editor perseus-issues-panel"
             >
               <div
-                class="perseus-widget-editor-title-id"
+                class="perseus-widget-editor-title"
               >
                 <div
-                  class="default_7zhre1-o_O-inlineStyles_d7xzml"
+                  class="perseus-widget-editor-title-id"
                 >
-                  <span
-                    class="svg_1q6jc65-o_O-small_6q1hy-o_O-collapsed_zgg88f-o_O-inlineStyles_u4fgyh"
-                  />
-                  <span>
-                    Issues
-                  </span>
+                  <div
+                    class="default_7zhre1-o_O-inlineStyles_d7xzml"
+                  >
+                    <span
+                      class="svg_1q6jc65-o_O-small_6q1hy-o_O-collapsed_zgg88f-o_O-inlineStyles_u4fgyh"
+                    />
+                    <span>
+                      Issues
+                    </span>
+                  </div>
                 </div>
+                <span
+                  class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1bholod"
+                  data-testid="issues-icon-warning-octagon-fill.svg"
+                />
+                16 issues
               </div>
-              <span
-                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1bholod"
-                data-testid="issues-icon-warning-octagon-fill.svg"
-              />
-              16 issues
             </div>
-          </div>
-          <fieldset
-            disabled=""
-          >
             <div
               class="pod-title"
             >
               Section 
               1
-              <div
-                style="display: inline-block; float: inline-end;"
+              <fieldset
+                disabled=""
               >
                 <span />
                 <button
@@ -75,8 +75,12 @@ exports[`ArticleEditor should match snapshot for editing disabled for all widget
                     class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_13u9hv4"
                   />
                 </button>
-              </div>
+              </fieldset>
             </div>
+          </div>
+          <fieldset
+            disabled=""
+          >
             <div
               class="perseus-single-editor  perseus-editor-disabled"
               data-testid="perseus-single-editor"
