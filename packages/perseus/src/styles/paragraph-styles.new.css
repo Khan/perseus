@@ -1,41 +1,35 @@
+/* TODO: This is a temporary base font & color setting to override the <p> styling from frontend.
+   This rule should be removed as part of the styling refactoring.  */
+.framework-perseus.perseus-article:not(.perseus-mobile)
+.perseus-renderer.renderer-new-ff
+p {
+    color: var(--wb-semanticColor-core-foreground-neutral-strong);
+    font-size: 20px;
+    line-height: 30px;
+}
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer.renderer-new-ff
     > p {
     color: var(--wb-semanticColor-core-foreground-neutral-strong);
     font-size: 20px;
     line-height: 30px;
-    margin: 0 auto;
+    margin-inline: auto;
+    margin-block: 0 var(--wb-sizing-size_320);
     max-width: 688px;
-}
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-renderer
-    > .paragraph
-    .paragraph {
-    color: var(--wb-semanticColor-core-foreground-neutral-strong);
-    font-size: 20px;
-    line-height: 30px;
-    margin-bottom: var(--wb-sizing-size_320);
-    margin-top: 0;
 }
 /* Reset the Renderer margins for the image widget.
     The image widget title and caption shouldn't have margins,
     so we need to override the above styles. */
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-image-widget
-    .perseus-renderer
-    .paragraph {
-    margin-bottom: 0;
+    .perseus-renderer.renderer-new-ff
+    p {
+    margin-block-end: 0;
 }
+/* TODO: UL tags should inherit color and fonts - remove */
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-renderer
-    > .paragraph
-    mjx-container {
-    font-size: 100%;
-}
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-renderer
-    > .paragraph
-    ul:not([data-widget="radio"]) {
+    .perseus-renderer.renderer-new-ff
+    > ul:not([data-widget="radio"]) {
     color: var(--wb-semanticColor-core-foreground-neutral-strong);
     font-size: 20px;
     line-height: 30px;
