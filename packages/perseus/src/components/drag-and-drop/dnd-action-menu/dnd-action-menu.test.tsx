@@ -22,7 +22,7 @@ describe("DndActionMenu", () => {
         render(
             <DndActionMenu
                 {...generateActionMenuProps({
-                    label: "Bongo",
+                    tileLabel: "Bongo",
                     moveTargets: generateTestBlanks(3),
                 })}
             />,
@@ -36,7 +36,7 @@ describe("DndActionMenu", () => {
         render(
             <DndActionMenu
                 {...generateActionMenuProps({
-                    label: "Bongo",
+                    tileLabel: "Bongo",
                     moveTargets: generateTestBlanks(3),
                 })}
             />,
@@ -52,7 +52,7 @@ describe("DndActionMenu", () => {
         render(
             <DndActionMenu
                 {...generateActionMenuProps({
-                    label: "Bongo",
+                    tileLabel: "Bongo",
                     moveTargets: generateTestBlanks(3),
                     remainingUses: 5,
                 })}
@@ -69,7 +69,7 @@ describe("DndActionMenu", () => {
         render(
             <DndActionMenu
                 {...generateActionMenuProps({
-                    label: "Bongo",
+                    tileLabel: "Bongo",
                     moveTargets: generateTestBlanks(3),
                 })}
             />,
@@ -87,7 +87,7 @@ describe("DndActionMenu", () => {
         render(
             <DndActionMenu
                 {...generateActionMenuProps({
-                    label: "Bongo",
+                    tileLabel: "Bongo",
                     moveTargets: generateTestBlanks(3),
                 })}
             />,
@@ -105,7 +105,7 @@ describe("DndActionMenu", () => {
         render(
             <DndActionMenu
                 {...generateActionMenuProps({
-                    label: "Bongo",
+                    tileLabel: "Bongo",
                     moveTargets: generateTestBlanks(3),
                 })}
             />,
@@ -128,7 +128,7 @@ describe("DndActionMenu", () => {
         render(
             <DndActionMenu
                 {...generateActionMenuProps({
-                    label: "Bongo",
+                    tileLabel: "Bongo",
                     moveTargets: generateTestBlanks(3),
                 })}
             />,
@@ -155,7 +155,7 @@ describe("DndActionMenu", () => {
         render(
             <DndActionMenu
                 {...generateActionMenuProps({
-                    label: "Bongo",
+                    tileLabel: "Bongo",
                     moveTargets: generateTestBlanks(3),
                 })}
             />,
@@ -176,9 +176,10 @@ describe("DndActionMenu", () => {
         render(
             <DndActionMenu
                 {...generateActionMenuProps({
-                    label: "Bongo",
+                    tileLabel: "Bongo",
                     moveTargets: generateTestBlanks(3),
-                    clearAction: {fromLabel: "Blank 1", onClear: jest.fn()},
+                    clearFromLabel: "Blank 1",
+                    onClear: jest.fn(),
                 })}
             />,
         );
@@ -199,7 +200,7 @@ describe("DndActionMenu", () => {
         render(
             <DndActionMenu
                 {...generateActionMenuProps({
-                    label: "Bongo",
+                    tileLabel: "Bongo",
                     moveTargets: generateTestBlanks(3),
                     onMove,
                 })}
@@ -222,9 +223,10 @@ describe("DndActionMenu", () => {
         render(
             <DndActionMenu
                 {...generateActionMenuProps({
-                    label: "Bongo",
+                    tileLabel: "Bongo",
                     moveTargets: generateTestBlanks(3),
-                    clearAction: {fromLabel: "Blank 1", onClear},
+                    clearFromLabel: "Blank 1",
+                    onClear,
                 })}
             />,
         );
@@ -244,9 +246,10 @@ describe("DndActionMenu", () => {
         render(
             <DndActionMenu
                 {...generateActionMenuProps({
-                    label: "Bongo",
+                    tileLabel: "Bongo",
                     moveTargets: [],
-                    clearAction: {fromLabel: "Blank 1", onClear: jest.fn()},
+                    clearFromLabel: "Blank 1",
+                    onClear: jest.fn(),
                 })}
             />,
         );
@@ -271,7 +274,7 @@ describe("DndActionMenu", () => {
         render(
             <DndActionMenu
                 {...generateActionMenuProps({
-                    label: "Bongo",
+                    tileLabel: "Bongo",
                     moveTargets: generateTestBlanks(3),
                     onMove,
                 })}
@@ -286,34 +289,14 @@ describe("DndActionMenu", () => {
         expect(onMove).not.toHaveBeenCalled();
     });
 
-    it("disables menu interaction when disabled is true", async () => {
-        // Arrange
-        render(
-            <DndActionMenu
-                {...generateActionMenuProps({
-                    label: "Bongo",
-                    moveTargets: generateTestBlanks(3),
-                })}
-                disabled={true}
-            />,
-        );
-        const opener = screen.getByRole("button", {name: "Bongo"});
-
-        // Act
-        await user.click(opener);
-
-        // Assert — still focusable (aria-disabled), but the menu won't open.
-        expect(opener).toHaveAttribute("aria-disabled", "true");
-        expect(screen.queryByRole("menuitem")).not.toBeInTheDocument();
-    });
-
     it("disables the opener when there are no move targets and no clear action", async () => {
         // Arrange — nothing to move to and nothing to clear would open an
-        // empty menu, so the opener must disable itself.
+        // empty menu, so the opener must disable itself. The opener stays
+        // focusable (aria-disabled), so its position stays discoverable.
         render(
             <DndActionMenu
                 {...generateActionMenuProps({
-                    label: "Bongo",
+                    tileLabel: "Bongo",
                     moveTargets: [],
                 })}
             />,
@@ -334,7 +317,7 @@ describe("DndActionMenu", () => {
         render(
             <DndActionMenu
                 {...generateActionMenuProps({
-                    label: "Bongo",
+                    tileLabel: "Bongo",
                     moveTargets: generateTestBlanks(3),
                 })}
             />,
@@ -359,7 +342,7 @@ describe("DndActionMenu", () => {
         render(
             <DndActionMenu
                 {...generateActionMenuProps({
-                    label: "Bongo",
+                    tileLabel: "Bongo",
                     moveTargets: generateTestBlanks(3),
                 })}
                 ref={ref}

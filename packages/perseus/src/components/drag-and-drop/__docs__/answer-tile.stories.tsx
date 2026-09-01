@@ -10,8 +10,8 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
  * `AnswerTile` is the card that a learner moves into a blank. It is part
  * of the Drag-and-Drop widget family. The tile shows authored markdown
  * content: text, TeX, or an image. It puts the `DndActionMenu` at its
- * leading edge. The parent widget sets showCorrectness and disabled
- * after scoring.
+ * leading edge. The parent widget sets `scoring` once the question is
+ * scored.
  *
  * Turn on Thunderblocks to match the provided designs.
  */
@@ -73,23 +73,24 @@ export const Empty: Story = {
 
 export const Correct: Story = {
     args: {
-        showCorrectness: "correct",
+        scoring: "correct",
     },
 };
 
 export const Incorrect: Story = {
     args: {
-        showCorrectness: "incorrect",
+        scoring: "incorrect",
     },
 };
 
-export const Disabled: Story = {
+/** A tile the learner left in the bank when the question was scored. */
+export const Unused: Story = {
     args: {
-        disabled: true,
+        scoring: "unused",
     },
 };
 
-/** A scored bank: correct tiles next to disabled (unused) tiles. */
+/** A scored bank: correct tiles next to unused ones. */
 export const ScoredComposition: Story = {
     render: () => (
         <div style={{maxInlineSize: 480}}>
@@ -100,25 +101,25 @@ export const ScoredComposition: Story = {
                         tileId: "tile-1",
                         content: "2Mg",
                         label: "2Mg",
-                        showCorrectness: "correct",
+                        scoring: "correct",
                     }),
                     generateAnswerTileProps({
                         tileId: "tile-2",
                         content: "$O_2$",
                         label: "O 2",
-                        showCorrectness: "correct",
+                        scoring: "correct",
                     }),
                     generateAnswerTileProps({
                         tileId: "tile-3",
                         content: "acoustic",
                         label: "acoustic",
-                        disabled: true,
+                        scoring: "unused",
                     }),
                     generateAnswerTileProps({
                         tileId: "tile-4",
                         content: "steel",
                         label: "steel",
-                        disabled: true,
+                        scoring: "unused",
                     }),
                 ]}
             />

@@ -101,11 +101,12 @@ describe("AnswerTile", () => {
         expect(screen.getByRole("button", {name: "Bongo"})).toBeInTheDocument();
     });
 
-    // The tile's one piece of logic: scored and disabled tiles have no menu.
+    // The tile's one piece of logic: a scored tile has no menu, whichever
+    // result it shows.
     it.each([
-        {showCorrectness: "correct"},
-        {showCorrectness: "incorrect"},
-        {disabled: true},
+        {scoring: "correct"},
+        {scoring: "incorrect"},
+        {scoring: "unused"},
     ] as const)("does not render the action menu for a %o tile", (props) => {
         // Arrange, Act
         render(<AnswerTile {...generateAnswerTileProps(props)} />);
@@ -157,22 +158,13 @@ describe("AnswerTile", () => {
         expect(draggable.disabled).toBe(false);
     });
 
-    it("disables dragging for a scored tile", () => {
+    it.each([
+        {scoring: "correct"},
+        {scoring: "incorrect"},
+        {scoring: "unused"},
+    ] as const)("disables dragging for a %o tile", (props) => {
         // Arrange, Act
-        render(
-            <AnswerTile
-                {...generateAnswerTileProps({showCorrectness: "correct"})}
-            />,
-            {wrapper: DndProbeWrapper},
-        );
-
-        const [draggable] = capturedManager!.registry.draggables.value;
-        expect(draggable.disabled).toBe(true);
-    });
-
-    it("disables dragging for a disabled tile", () => {
-        // Arrange, Act
-        render(<AnswerTile {...generateAnswerTileProps({disabled: true})} />, {
+        render(<AnswerTile {...generateAnswerTileProps(props)} />, {
             wrapper: DndProbeWrapper,
         });
 

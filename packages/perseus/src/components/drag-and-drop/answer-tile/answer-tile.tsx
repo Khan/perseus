@@ -16,6 +16,9 @@ import styles from "./answer-tile.module.css";
 
 import type {MoveTarget} from "../dnd-action-menu";
 
+/** What a scored tile shows. Each value names a CSS class in the module. */
+export type TileScoring = "correct" | "incorrect" | "unused";
+
 export interface AnswerTileProps {
     /** The tile that moves, named as the widget's placements name it. */
     tileId: string;
@@ -36,18 +39,14 @@ export interface AnswerTileProps {
      */
     label: string;
     /**
-     * Used to provide visible feedback regarding whether the user
-     * answered the question correctly or incorrectly.
+     * The result the tile shows once the question is scored. A placed tile
+     * is "correct" or "incorrect"; a tile the learner left in the choice
+     * bank is "unused", which dims it. Omit it before scoring.
      *
-     * Never pass this together with `disabled`: a scored tile is either
-     * placed (showCorrectness) or unused (disabled).
+     * A scored tile has no menu and cannot be dragged, whichever result
+     * it shows.
      */
-    showCorrectness?: "correct" | "incorrect";
-    /**
-     * Dims the tile and removes its menu and shadow. The widgets use
-     * this for unused choice-bank tiles after scoring.
-     */
-    disabled?: boolean;
+    scoring?: TileScoring;
     /**
      * Blanks the tile can move to, which populate the menu.
      * An empty array is valid: a placed tile in a one-blank exercise
@@ -71,10 +70,11 @@ export interface AnswerTileProps {
      */
     menuRef?: React.Ref<HTMLButtonElement>;
     /**
-     * Set true for a tile placed in an inline blank. The tile hides its
-     * menu until hover or focus.
+     * Set true for a tile whose menu stays hidden until hover or focus.
+     * Fill in the Blank uses this for a tile in an inline blank, to keep
+     * the line of text short at rest.
      */
-    inBlank?: boolean;
+    hidesMenuAtRest?: boolean;
     /**
      * Set true for a placed tile that stretches to fill its blank, with
      * the content at the start. The menu stays visible. The Sorter uses
@@ -96,15 +96,14 @@ export interface AnswerTileProps {
  * AnswerTile is the card that a learner moves into a blank. It is part of
  * the Drag-and-Drop widget family. The tile shows authored markdown
  * content: text, TeX, or an image. It puts the DndActionMenu at its
- * leading edge. The parent widget sets showCorrectness and disabled
- * after scoring.
+ * leading edge. The parent widget sets `scoring` once the question is
+ * scored.
  */
 export function AnswerTile(props: AnswerTileProps): React.ReactElement {
     const {
         content,
         label,
-        showCorrectness,
-        disabled,
+        scoring,
         moveTargets,
         onMove,
         clearFromLabel,
@@ -113,7 +112,7 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
         menuRef,
         tileId,
         fromBlankId,
-        inBlank,
+        hidesMenuAtRest,
         fillsBlank,
         onContentRender,
         imageHeight,
@@ -121,9 +120,9 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
     } = props;
     const {strings} = usePerseusI18n();
 
-    // Scored and unused tiles lose their drag function (per the
-    // Drag-and-Drop Overview spec).
-    const isDraggable = disabled !== true && showCorrectness == null;
+    // A scored tile loses its drag function (per the Drag-and-Drop
+    // Overview spec).
+    const isDraggable = scoring == null;
     const dragData = {tileId, fromBlankId};
     const {ref: dragRef, isDragging} = useDraggable({
         id: tileDragId(dragData),
@@ -136,17 +135,17 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
 
     const tileClasses = classNames(
         styles.tile,
-        showCorrectness != null && styles[showCorrectness],
-        disabled && styles.disabled,
+        scoring != null && styles[scoring],
         isDraggable && styles.draggable,
         isDragging && styles.dragging,
-        inBlank && styles.inBlank,
+        hidesMenuAtRest && styles.hidesMenuAtRest,
         fillsBlank && styles.fillsBlank,
         compact && styles.compact,
     );
 
     // The tile starts with the actions menu or, when scored, an icon.
-    // The two never show together: a scored tile has no menu.
+    // The two never show together: a scored tile has no menu. An unused
+    // tile shows neither, because it names no result to report.
     // A semantics-free root: the tile renders inside a ChoiceBank list
     // item, inside a blank, or standalone, so any landmark or list
     // semantics belong to those containers, not the tile.
@@ -163,31 +162,24 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
             }
             ref={dragRef}
         >
-            {!disabled && (
+            {scoring !== "unused" && (
                 <div className={styles.startContainer}>
-                    {showCorrectness == null ? (
+                    {scoring == null ? (
                         <DndActionMenu
                             ref={menuRef}
-                            label={label}
+                            tileLabel={label}
                             moveTargets={moveTargets}
                             onMove={onMove}
-                            clearAction={
-                                clearFromLabel != null && onClear != null
-                                    ? {fromLabel: clearFromLabel, onClear}
-                                    : undefined
-                            }
+                            clearFromLabel={clearFromLabel}
+                            onClear={onClear}
                             remainingUses={remainingUses}
-                            // Always false: scored tiles remove the menu
-                            // instead of disabling it, so a rendered menu
-                            // is never disabled.
-                            disabled={false}
                         />
                     ) : (
                         // The icon is decoration: the widget announces the
                         // result to screen readers, not the tile.
                         <PhosphorIcon
                             aria-hidden="true"
-                            icon={scoredIcons[showCorrectness]}
+                            icon={scoredIcons[scoring]}
                             size="medium"
                         />
                     )}

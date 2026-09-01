@@ -30,12 +30,12 @@ const meta: Meta<typeof DndActionMenu> = {
         <StoryPadding>
             <AnswerTile
                 tileId="tile-1"
-                content={args.label}
-                label={args.label}
+                content={args.tileLabel}
+                label={args.tileLabel}
                 moveTargets={args.moveTargets}
                 onMove={args.onMove}
-                clearFromLabel={args.clearAction?.fromLabel}
-                onClear={args.clearAction?.onClear}
+                clearFromLabel={args.clearFromLabel}
+                onClear={args.onClear}
                 remainingUses={args.remainingUses}
             />
         </StoryPadding>
@@ -57,23 +57,19 @@ export const Default: Story = {};
 export const PlacedInBlank: Story = {
     args: {
         moveTargets: generateTestBlanks(4).slice(1),
-        clearAction: {fromLabel: "Blank 1", onClear: () => {}},
+        clearFromLabel: "Blank 1",
+        onClear: () => {},
     },
 };
 
 /**
- * The menu disabled but still focusable, so its position stays
- * discoverable. This story shows the menu without a tile: AnswerTile
- * never disables its menu, because scored tiles remove it instead.
+ * A tile with nowhere to move and nothing to clear. The opener disables
+ * itself rather than open an empty menu, and stays focusable so its
+ * position stays discoverable.
  */
-export const Disabled: Story = {
-    render: (args) => (
-        <StoryPadding>
-            <DndActionMenu {...args} />
-        </StoryPadding>
-    ),
+export const NoAvailableActions: Story = {
     args: {
-        disabled: true,
+        moveTargets: [],
     },
 };
 
@@ -83,15 +79,13 @@ export const Disabled: Story = {
  */
 export const LongCategoryLabels: Story = {
     args: {
-        label: "Iron",
+        tileLabel: "Iron",
         moveTargets: [
             {id: "col-1", label: "Physical changes to matter"},
             {id: "col-2", label: "Chemical changes to matter"},
         ],
-        clearAction: {
-            fromLabel: "Physical changes to matter",
-            onClear: () => {},
-        },
+        clearFromLabel: "Physical changes to matter",
+        onClear: () => {},
     },
 };
 
@@ -101,7 +95,7 @@ export const LongCategoryLabels: Story = {
  */
 export const MultiUse: Story = {
     args: {
-        label: "Penny",
+        tileLabel: "Penny",
         remainingUses: 5,
     },
 };
@@ -109,7 +103,7 @@ export const MultiUse: Story = {
 /** Right-to-left */
 export const RightToLeft: Story = {
     args: {
-        label: "بونغو",
+        tileLabel: "بونغو",
         moveTargets: [
             {id: "blank-1", label: "الفراغ 1"},
             {id: "blank-2", label: "الفراغ 2"},
