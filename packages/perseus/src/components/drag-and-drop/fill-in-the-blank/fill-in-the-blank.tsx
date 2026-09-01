@@ -1,3 +1,4 @@
+import {getWidgetIdsFromContentByType} from "@khanacademy/perseus-core";
 import classNames from "classnames";
 import * as React from "react";
 
@@ -5,7 +6,6 @@ import Renderer from "../../../renderer";
 import {usePerseusI18n} from "../../i18n-context";
 import {AnswerTile} from "../answer-tile";
 import {ChoiceBank} from "../choice-bank";
-import {bankDragId, placedDragId} from "../drag-ids";
 import {PerseusDndProvider} from "../perseus-dnd-provider";
 import {tempDndStrings as strings} from "../temp-strings";
 import {isTileInBank, remainingUses} from "../tile-placements";
@@ -55,20 +55,6 @@ export interface FillInTheBlankProps {
 }
 
 const BANK_DROP_ID = "fitb-choice-bank";
-const BLANK_MARKER = /\[\[☃ ([a-z-]+ [0-9]+)\]\]/g;
-
-/** Blank ids in document order, limited to blanks in the widgets map. */
-function parseBlankIds(content: string, widgets: PerseusWidgetsMap): string[] {
-    const ids: string[] = [];
-    for (const match of content.matchAll(BLANK_MARKER)) {
-        const id = match[1];
-        if (widgets[id]?.type === "blank" && !ids.includes(id)) {
-            ids.push(id);
-        }
-    }
-    return ids;
-}
-
 /**
  * FillInTheBlank is the render side of the upcoming Fill in the Blank
  * widget: an answer zone (content with inline blanks) above a choice
@@ -92,7 +78,13 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
     const {strings: i18nStrings} = usePerseusI18n();
 
     const blankIds = React.useMemo(
-        () => parseBlankIds(content, widgets),
+        // The Set removes repeats: one blank can appear twice in
+        // authored content.
+        () => [
+            ...new Set(
+                getWidgetIdsFromContentByType("blank", content, widgets),
+            ),
+        ],
         [content, widgets],
     );
     const blankLabels = React.useMemo(() => {
@@ -138,7 +130,7 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
                 maxUsesPerTile,
             );
             return {
-                tileId: bankDragId(tile.id),
+                tileId: tile.id,
                 content: tile.content,
                 label: tile.label,
                 imageHeight: tile.imageHeight,
@@ -169,11 +161,11 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
                 widestTileWidth: maxWidth,
             };
         }
-        const dragId = placedDragId(blankId, tile.id);
         return {
             placedTile: (
                 <AnswerTile
-                    tileId={dragId}
+                    tileId={tile.id}
+                    fromBlankId={blankId}
                     content={tile.content}
                     label={tile.label}
                     imageHeight={tile.imageHeight}
@@ -194,7 +186,7 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
                     menuRef={placedMenuRef(blankId)}
                 />
             ),
-            placedTileId: dragId,
+            placedTileId: tile.id,
             widestTileWidth: maxWidth,
         };
     };
@@ -211,10 +203,13 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
 
     // The hidden copy keeps every tile measurable. `inert` keeps its
     // controls out of the tab order and assistive tech.
-    const setMeasurementRef = (element: HTMLElement | null) => {
-        element?.setAttribute("inert", "");
-        containerRef(element);
-    };
+    const setMeasurementRef = React.useCallback(
+        (element: HTMLElement | null) => {
+            element?.setAttribute("inert", "");
+            containerRef(element);
+        },
+        [containerRef],
+    );
 
     return (
         <div className={styles.fillInTheBlank}>

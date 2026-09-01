@@ -4,7 +4,6 @@ import * as React from "react";
 import {AnswerTile} from "../answer-tile";
 import {BlankComponent} from "../blank";
 import {ChoiceBank} from "../choice-bank";
-import {bankDragId, placedDragId} from "../drag-ids";
 import {PerseusDndProvider} from "../perseus-dnd-provider";
 import {tempDndStrings as strings} from "../temp-strings";
 import {isTileInBank} from "../tile-placements";
@@ -155,7 +154,7 @@ export function Sorter(props: SorterProps): React.ReactElement {
     const bankTiles = tiles
         .filter((tile) => isTileInBank(placements, tile.id, "single"))
         .map((tile, index) => ({
-            tileId: bankDragId(tile.id),
+            tileId: tile.id,
             content: tile.content,
             label: tile.label,
             moveTargets: blankIds.map((blankId) => ({
@@ -170,21 +169,20 @@ export function Sorter(props: SorterProps): React.ReactElement {
     const renderSlot = (blankId: string) => {
         const tileId = placements[blankId];
         const tile = tileId != null ? tilesById.get(tileId) : undefined;
-        const dragId =
-            tile != null ? placedDragId(blankId, tile.id) : undefined;
         return (
             <BlankComponent
                 blankId={blankId}
                 displayType="normal"
-                placedTileId={dragId}
+                placedTileId={tile?.id}
                 minWidth={
                     variant === "scale" && !isVertical ? maxWidth : undefined
                 }
                 className={styles.slot}
             >
-                {tile != null && dragId != null && (
+                {tile != null && (
                     <AnswerTile
-                        tileId={dragId}
+                        tileId={tile.id}
+                        fromBlankId={blankId}
                         content={tile.content}
                         label={tile.label}
                         fillsBlank={true}
@@ -361,10 +359,13 @@ export function Sorter(props: SorterProps): React.ReactElement {
 
     // The hidden copy keeps every tile measurable. `inert` keeps its
     // controls out of the tab order and assistive tech.
-    const setMeasurementRef = (element: HTMLElement | null) => {
-        element?.setAttribute("inert", "");
-        containerRef(element);
-    };
+    const setMeasurementRef = React.useCallback(
+        (element: HTMLElement | null) => {
+            element?.setAttribute("inert", "");
+            containerRef(element);
+        },
+        [containerRef],
+    );
 
     return (
         <div className={styles.sorter} ref={rootRef}>
