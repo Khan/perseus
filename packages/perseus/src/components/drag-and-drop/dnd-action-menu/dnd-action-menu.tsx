@@ -143,12 +143,14 @@ export const DndActionMenu = React.forwardRef<
                 // a custom opener with a button instead.
                 menuText={label}
                 disabled={isDisabled}
+                // The spec places the menu above a bank tile and below a
+                // placed tile; "auto" deviates deliberately, flipping on
+                // available space so the menu never opens off-screen.
                 alignment="auto-start"
-                // A minimum (not fixed) width, in rem so it scales with the
-                // user's font size. Short labels get breathing room; long
-                // labels can still widen the menu. No sizing token reaches
-                // this scale.
-                dropdownStyle={{minInlineSize: "16rem"}}
+                // The design's 160px minimum width, in rem so it scales
+                // with the user's font size. Long labels still widen the
+                // menu. No sizing token reaches this scale.
+                dropdownStyle={{minInlineSize: "10rem"}}
                 opener={() => (
                     <MergedRefOpener
                         openerRef={ref}
