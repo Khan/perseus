@@ -6,8 +6,9 @@
  * khan-exercises submodule, as graphie-to-png still relies on the palette
  * provided on KhanUtil.
  */
-// eslint-disable-next-line no-restricted-imports -- Replace with semanticColor
-import {color, semanticColor, tokenValue} from "@khanacademy/wonder-blocks-tokens";
+
+// eslint-disable-next-line no-restricted-imports -- Replace color with semanticColor
+import {color, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 
 // TODO(WB-2160): Update these to use the new semanticColor tokens, and use the
 // new tokenValue() function to get the raw value of the token. This is
@@ -157,7 +158,7 @@ const lightModeHexForMathColor = {
     [semanticColor.learning.math.foreground.purpleD]: "#8351E8",
     [semanticColor.learning.math.foreground.pink]: "#B25071",
     [semanticColor.learning.math.foreground.red]: "#D92916",
-}
+};
 
 export function toClosestMathColor(target: string): string {
     const targetRGB = resolveColor(target);
@@ -165,7 +166,9 @@ export function toClosestMathColor(target: string): string {
     let closestCSSVar = semanticColor.core.foreground.neutral.strong;
     for (const [cssVar, hex] of Object.entries(lightModeHexForMathColor)) {
         const candidate = resolveColor(hex);
-        if (diffColors(targetRGB, candidate) < diffColors(targetRGB, closestRGB)) {
+        if (
+            diffColors(targetRGB, candidate) < diffColors(targetRGB, closestRGB)
+        ) {
             closestRGB = candidate;
             closestCSSVar = cssVar;
         }
@@ -176,24 +179,28 @@ export function toClosestMathColor(target: string): string {
 export function parseHexColor(hex: string): RGB {
     // This case also parses four-digit hex like #1234, but discards the alpha
     // channel.
-    const threeDigitMatch = hex.match(/^#([0-9A-Fa-f])([0-9A-Fa-f])([0-9A-Fa-f])([0-9A-Fa-f])?$/);
+    const threeDigitMatch = hex.match(
+        /^#([0-9A-Fa-f])([0-9A-Fa-f])([0-9A-Fa-f])([0-9A-Fa-f])?$/,
+    );
     if (threeDigitMatch) {
         return {
             r: parseInt(threeDigitMatch[1], 16) * 17,
             g: parseInt(threeDigitMatch[2], 16) * 17,
             b: parseInt(threeDigitMatch[3], 16) * 17,
-        }
+        };
     }
 
     // This case also parses eight-digit hex like #11223344, but discards the
     // alpha channel.
-    const sixDigitMatch = hex.match(/^#([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})?$/);
+    const sixDigitMatch = hex.match(
+        /^#([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})?$/,
+    );
     if (sixDigitMatch) {
         return {
             r: parseInt(sixDigitMatch[1], 16),
             g: parseInt(sixDigitMatch[2], 16),
             b: parseInt(sixDigitMatch[3], 16),
-        }
+        };
     }
     return {r: 0, g: 0, b: 0};
 }

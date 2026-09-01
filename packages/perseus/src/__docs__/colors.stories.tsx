@@ -1,9 +1,9 @@
 import * as React from "react";
 
+import {themeModes} from "../../../../.storybook/modes";
 import {resolveColor} from "../util/colors";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
-import {themeModes} from "../../../../.storybook/modes";
 
 type Story = StoryObj;
 

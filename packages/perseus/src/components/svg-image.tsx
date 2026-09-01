@@ -5,6 +5,7 @@ import _ from "underscore";
 
 import {getDependencies} from "../dependencies";
 import Util from "../util";
+import {toClosestMathColor} from "../util/colors";
 import {loadGraphie} from "../util/graphie-utils";
 
 import FixedToResponsive from "./fixed-to-responsive";
@@ -19,7 +20,6 @@ import type {Coord} from "../interactive2/types";
 import type {APIOptions} from "../types";
 import type {Alignment, Size} from "@khanacademy/perseus-core";
 import type {ParsedFrame} from "gifuct-js";
-import {toClosestMathColor} from "../util/colors";
 
 function isImageProbablyPhotograph(imageUrl) {
     return /\.(jpg|jpeg)$/i.test(imageUrl);
@@ -378,7 +378,10 @@ class SvgImage extends React.Component<Props, State> {
                 // labels follow the dark mode / light mode theme and remain
                 // readable.
                 if (labelData.style.color) {
-                    label.css("color", toClosestMathColor(labelData.style.color));
+                    label.css(
+                        "color",
+                        toClosestMathColor(labelData.style.color),
+                    );
                 }
             }
             newLabelsRendered[labelData.content] = true;

@@ -1,4 +1,9 @@
-import {diffColors, getBackgroundColor, parseHexColor, toClosestMathColor} from "./colors";
+import {
+    diffColors,
+    getBackgroundColor,
+    parseHexColor,
+    toClosestMathColor,
+} from "./colors";
 
 describe("Color Utilities", () => {
     describe("getBackgroundColor", () => {
@@ -115,38 +120,48 @@ describe("Color Utilities", () => {
 
     describe("toClosestMathColor", () => {
         it("says pure red is closest to learning.math.foreground.red", () => {
-            expect(toClosestMathColor("#ff0000")).toBe("var(--wb-semanticColor-learning-math-foreground-red)");
+            expect(toClosestMathColor("#ff0000")).toBe(
+                "var(--wb-semanticColor-learning-math-foreground-red)",
+            );
         });
 
         it("says bright orange is closest to learning.math.foreground.gold", () => {
-            expect(toClosestMathColor("#ee7700")).toBe("var(--wb-semanticColor-learning-math-foreground-gold)");
+            expect(toClosestMathColor("#ee7700")).toBe(
+                "var(--wb-semanticColor-learning-math-foreground-gold)",
+            );
         });
 
         it("says teal is closest to learning.math.foreground.blue", () => {
-            expect(toClosestMathColor("#007777")).toBe("var(--wb-semanticColor-learning-math-foreground-blue)");
+            expect(toClosestMathColor("#007777")).toBe(
+                "var(--wb-semanticColor-learning-math-foreground-blue)",
+            );
         });
 
         it("says gray is closest to learning.math.foreground.gray", () => {
-            expect(toClosestMathColor("#777777")).toBe("var(--wb-semanticColor-learning-math-foreground-gray)");
+            expect(toClosestMathColor("#777777")).toBe(
+                "var(--wb-semanticColor-learning-math-foreground-gray)",
+            );
         });
 
         it("says black is closest to core.foreground.neutral.strong", () => {
-            expect(toClosestMathColor("#000000")).toBe("var(--wb-semanticColor-core-foreground-neutral-strong)");
+            expect(toClosestMathColor("#000000")).toBe(
+                "var(--wb-semanticColor-core-foreground-neutral-strong)",
+            );
         });
-    })
+    });
 
     describe("parseHexColor", () => {
         it("parses #f00 as red", () => {
             expect(parseHexColor("#f00")).toEqual({r: 255, g: 0, b: 0});
-        })
+        });
 
         it("parses #0f0 as green", () => {
             expect(parseHexColor("#0f0")).toEqual({r: 0, g: 255, b: 0});
-        })
+        });
 
         it("parses #00f as blue", () => {
             expect(parseHexColor("#00f")).toEqual({r: 0, g: 0, b: 255});
-        })
+        });
 
         it("parses #f009 as red, discarding the alpha channel", () => {
             expect(parseHexColor("#f009")).toEqual({r: 255, g: 0, b: 0});
@@ -154,18 +169,18 @@ describe("Color Utilities", () => {
 
         it("parses #ff0000 as red", () => {
             expect(parseHexColor("#ff0000")).toEqual({r: 255, g: 0, b: 0});
-        })
+        });
 
         it("parses #00ff00 as green", () => {
             expect(parseHexColor("#00ff00")).toEqual({r: 0, g: 255, b: 0});
-        })
+        });
 
         it("parses #0000ff as blue", () => {
             expect(parseHexColor("#0000ff")).toEqual({r: 0, g: 0, b: 255});
-        })
+        });
 
         it("parses #ff000099 as red, discarding the alpha channel", () => {
             expect(parseHexColor("#ff000099")).toEqual({r: 255, g: 0, b: 0});
-        })
-    })
+        });
+    });
 });
