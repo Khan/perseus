@@ -26,10 +26,11 @@
     line-height: var(--wb-font-body-lineHeight-large);
 }
 
-/* Lines that hold a blank get a 48px rhythm: the blank centers with
- * the text, and the line height stays constant as tiles move. */
-.answerZone.answerZone
-    :global(div.paragraph):has(:global([data-testid="blank-widget"])) {
+/* A line that holds a blank is as tall as the blank (48px), while
+ * plain text lines are 22px. Without a shared rhythm the blank crowds
+ * the lines around it, so a paragraph that holds a blank takes the
+ * taller line height. */
+.answerZone.answerZone :global(div.paragraph):has(:global([data-blank])) {
     line-height: var(--wb-sizing-size_480);
 }
 
