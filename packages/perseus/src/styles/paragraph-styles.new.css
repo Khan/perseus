@@ -36,18 +36,15 @@ p {
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-image-caption
-    .perseus-renderer
-    .paragraph
-    .paragraph,
+    .perseus-renderer.renderer-new-ff
+    p,
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-image-caption
-    .perseus-renderer
-    .paragraph
+    .perseus-renderer.renderer-new-ff
     ol,
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-image-caption
-    .perseus-renderer
-    .paragraph
+    .perseus-renderer.renderer-new-ff
     ul {
     color: var(--wb-semanticColor-core-foreground-neutral-subtle);
     font-size: var(--wb-font-body-size-small);
