@@ -1,5 +1,5 @@
 import {
-    ItemExtras,
+    ItemExtras as ContentExtras,
     getDefaultAnswerArea,
     isFeatureOn,
 } from "@khanacademy/perseus-core";
@@ -43,7 +43,7 @@ type Props = PerseusAnswerArea & {
     editingDisabled: boolean;
 };
 
-class ItemExtrasEditor extends React.Component<Props> {
+class ExtrasEditor extends React.Component<Props> {
     static defaultProps: PerseusAnswerArea = getDefaultAnswerArea();
 
     shouldShowCalculatorVariants() {
@@ -70,8 +70,8 @@ class ItemExtrasEditor extends React.Component<Props> {
     };
 
     serialize(): PerseusAnswerArea {
-        const data = {...ItemExtrasEditor.defaultProps};
-        for (const key of ItemExtras) {
+        const data = {...ExtrasEditor.defaultProps};
+        for (const key of ContentExtras) {
             data[key] = !!this.props[key];
         }
         data.calculatorVariant = this.props.calculatorVariant;
@@ -83,7 +83,7 @@ class ItemExtrasEditor extends React.Component<Props> {
         return (
             <div className="perseus-answer-editor">
                 <div className="perseus-answer-options">
-                    <ItemExtraCheckbox
+                    <ExtraCheckbox
                         label="Show calculator"
                         disabled={editingDisabled}
                         infoTip="Use the calculator when completing difficult calculations is NOT the intent of the question. DON’T use the calculator when testing the student’s ability to complete different types of computations."
@@ -118,7 +118,7 @@ class ItemExtrasEditor extends React.Component<Props> {
                             </RadioGroup>
                         )}
 
-                    <ItemExtraCheckbox
+                    <ExtraCheckbox
                         label="Show financial calculator"
                         disabled={editingDisabled}
                         infoTip="This provides the student with the ability to view a financial calculator, e.g., for answering financial questions. Once checked, requires at least one of the three options below to be checked."
@@ -139,7 +139,7 @@ class ItemExtrasEditor extends React.Component<Props> {
 
                     {this.shouldShowFinancialCalculatorOptions() && (
                         <>
-                            <ItemExtraCheckbox
+                            <ExtraCheckbox
                                 label="Include monthly payment"
                                 disabled={editingDisabled}
                                 infoTip="This provides the student with the ability to view a monthly payment calculator; e.g., given a loan amount, interest rate, and term, what is the monthly payment?"
@@ -154,7 +154,7 @@ class ItemExtrasEditor extends React.Component<Props> {
                                 }}
                                 indent
                             />
-                            <ItemExtraCheckbox
+                            <ExtraCheckbox
                                 label="Include total amount"
                                 disabled={editingDisabled}
                                 infoTip="This provides the student with the ability to view a total amount calculator; e.g., given a monthly payment, interest rate, and term, what is the total amount to be paid?"
@@ -169,7 +169,7 @@ class ItemExtrasEditor extends React.Component<Props> {
                                 }}
                                 indent
                             />
-                            <ItemExtraCheckbox
+                            <ExtraCheckbox
                                 label="Include time-to-pay-off"
                                 disabled={editingDisabled}
                                 infoTip="This provides the student with the ability to view a time to pay off calculator; e.g., given a loan amount, interest rate, and monthly payment, how long will it take to pay off the loan?"
@@ -187,7 +187,7 @@ class ItemExtrasEditor extends React.Component<Props> {
                         </>
                     )}
 
-                    <ItemExtraCheckbox
+                    <ExtraCheckbox
                         label="Show periodic table"
                         disabled={editingDisabled}
                         infoTip="This provides the student with the ability to view a periodic table of the elements, e.g., for answering chemistry questions."
@@ -204,7 +204,7 @@ class ItemExtrasEditor extends React.Component<Props> {
                     />
 
                     {this.props.periodicTable && (
-                        <ItemExtraCheckbox
+                        <ExtraCheckbox
                             label="Include key/legend with periodic table"
                             disabled={editingDisabled}
                             infoTip="Include a key for HS courses; omit for AP chemistry."
@@ -223,7 +223,7 @@ class ItemExtrasEditor extends React.Component<Props> {
     }
 }
 
-const ItemExtraCheckbox = (props: {
+const ExtraCheckbox = (props: {
     label: string;
     infoTip: string;
     checked: boolean;
@@ -254,4 +254,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ItemExtrasEditor;
+export default ExtrasEditor;

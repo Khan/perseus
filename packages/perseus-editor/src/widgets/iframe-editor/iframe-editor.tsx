@@ -100,8 +100,6 @@ interface IframeEditorProps
  * This is the main editor for this widget, to specify all the options.
  */
 class IframeEditor extends React.Component<IframeEditorProps> {
-    static widgetName = "iframe" as const;
-
     static defaultProps: PerseusIFrameWidgetOptions =
         iframeLogic.defaultWidgetOptions;
 

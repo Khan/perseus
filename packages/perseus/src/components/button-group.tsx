@@ -82,11 +82,12 @@ class ButtonGroup extends React.Component<Props> {
                     key={"" + i}
                     disabled={this.props.disabled}
                     className={css(
-                        styles.buttonStyle,
-                        button.value === value && styles.selectedStyle,
+                        buttonGroupStyles.buttonStyle,
+                        button.value === value &&
+                            buttonGroupStyles.selectedStyle,
                         button.value === value &&
                             this.props.selectedButtonStyle,
-                        this.props.disabled && styles.disabledStyle,
+                        this.props.disabled && buttonGroupStyles.disabledStyle,
                     )}
                     onClick={() => this.toggleSelect(button.value)}
                 >
@@ -109,7 +110,9 @@ class ButtonGroup extends React.Component<Props> {
     }
 }
 
-const styles = StyleSheet.create({
+// Shared with multi-button-group.tsx, which renders the same visual design
+// with multi-select behavior, so the two components' styles can't drift apart.
+export const buttonGroupStyles = StyleSheet.create({
     buttonStyle: {
         backgroundColor: semanticColor.core.background.base.default,
         border: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,

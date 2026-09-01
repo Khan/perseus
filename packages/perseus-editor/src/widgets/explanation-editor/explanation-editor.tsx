@@ -23,8 +23,6 @@ interface Props extends PerseusExplanationWidgetOptions, ChangeableProps {
  * An editor for adding an explanation widget that provides supplementary information to users.
  */
 class ExplanationEditor extends React.Component<Props> {
-    static widgetName = "explanation" as const;
-
     static defaultProps: PerseusExplanationWidgetOptions =
         explanationLogic.defaultWidgetOptions;
 

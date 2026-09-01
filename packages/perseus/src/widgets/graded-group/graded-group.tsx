@@ -111,10 +111,6 @@ export class GradedGroup
         });
     }
 
-    shouldComponentUpdate(nextProps: Props, nextState: State): boolean {
-        return nextProps !== this.props || nextState !== this.state;
-    }
-
     _handleUserInput(_userInput: UserInputMap, widgetsEmpty: boolean): void {
         // Reset grading display when user changes answer
         this.setState({
@@ -323,6 +319,12 @@ export class GradedGroup
                                 strings={this.context.strings}
                             />
                         </div>
+
+                        {this.props.options.answerArea &&
+                            apiOptions.renderExtras?.(
+                                this.props.options.answerArea,
+                                this.props.widgetId,
+                            )}
 
                         <Button
                             kind="secondary"

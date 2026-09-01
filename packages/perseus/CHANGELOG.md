@@ -1,5 +1,23 @@
 # @khanacademy/perseus
 
+## 85.2.0
+
+### Minor Changes
+
+-   [#4094](https://github.com/Khan/perseus/pull/4094) [`68e3230`](https://github.com/Khan/perseus/commit/68e32306819a52d9d2ade1f11a3b5f9f4167c9e3) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Renames item extras editor to item editor; adds extras editor to graded group
+
+### Patch Changes
+
+-   [#4145](https://github.com/Khan/perseus/pull/4145) [`f72a2d9`](https://github.com/Khan/perseus/commit/f72a2d970e0c53e63b9bf85384e7952bcd751149) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove `widgetName` from editors and refactor how we register widget editors so it doesn't depend on `widgetName`
+
+-   Updated dependencies [[`68e3230`](https://github.com/Khan/perseus/commit/68e32306819a52d9d2ade1f11a3b5f9f4167c9e3)]:
+    -   @khanacademy/perseus-core@38.1.0
+    -   @khanacademy/keypad-context@3.2.88
+    -   @khanacademy/kmath@2.4.47
+    -   @khanacademy/math-input@27.0.10
+    -   @khanacademy/perseus-linter@5.2.1
+    -   @khanacademy/perseus-score@8.12.20
+
 ## 85.1.3
 
 ### Patch Changes
