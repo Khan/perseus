@@ -108,10 +108,11 @@ export function BlankComponent(props: BlankComponentProps): React.ReactElement {
                 className,
             )}
             style={minWidthStyle}
-            // A build-stable styling hook: the compiled CSS-module class
-            // names carry no trace of "super-sub", so outside rules key
-            // on this attribute instead of the class.
-            data-display-type={displayType}
+            // A styling hook for the surrounding layout. A widget that
+            // holds blanks cannot select them by class: CSS Modules
+            // compile class names to hashes, and the markup between the
+            // widget and the blank belongs to the renderer.
+            data-blank="true"
             data-testid={testId}
         >
             {children}
