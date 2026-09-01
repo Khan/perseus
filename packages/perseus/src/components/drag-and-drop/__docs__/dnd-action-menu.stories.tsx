@@ -61,10 +61,6 @@ type Story = StoryObj<typeof DndActionMenu>;
  */
 export const Default: Story = {};
 
-/** Parent tile is in the choice bank, which should list the available blanks, with no "Clear" option */
-// No overrides — the shared args on `meta` model this state already.
-export const InChoiceBank: Story = {};
-
 /** A tile placed in Blank 1, which should list the other blanks, and a "Clear" option. */
 export const PlacedInBlank: Story = {
     args: {
@@ -74,10 +70,7 @@ export const PlacedInBlank: Story = {
     },
 };
 
-/** Example of the menu being disabled, but still focusable.
- *  While the designs show the menu disappearing when the tile
- *  is disabled, it seemed good to have this logic anyway.
- */
+/** The menu disabled but still focusable, so its position stays discoverable. */
 export const Disabled: Story = {
     args: {
         disabled: true,
