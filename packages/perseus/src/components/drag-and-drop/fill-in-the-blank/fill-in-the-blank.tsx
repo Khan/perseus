@@ -148,6 +148,8 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
             };
         });
 
+    const isFixed = filledBlankStyle === "fixed";
+
     const getBlankRenderInfo = (
         blankId: string,
         displayType: "normal" | "superscript" | "subscript",
@@ -158,6 +160,7 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
             return {
                 placedTile: null,
                 placedTileId: null,
+                keepsWidthWhenFilled: isFixed,
                 widestTileWidth: maxWidth,
             };
         }
@@ -171,6 +174,7 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
                     imageHeight={tile.imageHeight}
                     inBlank={true}
                     compact={displayType !== "normal"}
+                    fillsBlank={isFixed && displayType === "normal"}
                     moveTargets={blankIds
                         .filter((id) => id !== blankId)
                         .map((id) => ({id, label: blankLabels[id]}))}
@@ -187,6 +191,7 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
                 />
             ),
             placedTileId: tile.id,
+            keepsWidthWhenFilled: isFixed,
             widestTileWidth: maxWidth,
         };
     };
@@ -218,11 +223,9 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
                     <div
                         className={classNames(
                             styles.answerZone,
-                            smallValues && styles.noReflow,
+                            (smallValues || filledBlankStyle === "fixed") &&
+                                styles.noReflow,
                         )}
-                        data-filled-blank-style={
-                            filledBlankStyle === "fixed" ? "fixed" : undefined
-                        }
                         style={
                             blankSizing === "gate" && !isMeasured
                                 ? {visibility: "hidden"}

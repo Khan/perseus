@@ -7,6 +7,11 @@ export type BlankRenderInfo = {
     /** Drag id of the placed tile instance. Null when the blank is empty. */
     placedTileId: string | null;
     /**
+     * Keeps the blank at its empty width when a tile is placed. The
+     * "fixed" treatment sets it; "hug" does not.
+     */
+    keepsWidthWhenFilled: boolean;
+    /**
      * Width of the widest answer tile, in pixels. Empty normal blanks
      * use it as their minimum width, so the slot does not reveal the
      * answer. Undefined until measured.

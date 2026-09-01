@@ -32,7 +32,7 @@
     }
 }
 
-.container.superSub {
+.container.super-sub {
     min-width: 26px;
     min-height: 28px;
     margin-inline: 0;
@@ -52,8 +52,8 @@
  * position while its tile is hovered or focused, so the restored
  * full-size tile fits the 48px line. Empty slots keep their
  * position. */
-.container.superSub.filled:hover,
-.container.superSub.filled:focus-within {
+.container.super-sub.filled:hover,
+.container.super-sub.filled:focus-within {
     vertical-align: middle;
 }
 
@@ -75,7 +75,7 @@
 
 /* Drag-enter highlight. An outline adds no layout size, so the line
  * does not jump while a tile drags over. */
-.container.dropTarget {
+.container.drop-target {
     border-color: transparent;
     outline: var(--wb-border-width-medium) dashed
         var(--wb-semanticColor-core-border-instructive-default);
@@ -87,10 +87,8 @@
 /* Narrow mode: the blank fills the line. The named container only
    exists inside FITB's answer zone, so other widgets are unaffected. */
 @container fitb-answer-zone (width < 504px) {
-    .container:not(.superSub) {
+    .container:not(.super-sub) {
         display: flex;
-        /* Sized against the answer zone, not the renderer's
-         * shrink-to-fit widget wrapper, which would collapse it. */
         inline-size: 100cqi;
         justify-content: flex-start;
         margin-inline: 0;

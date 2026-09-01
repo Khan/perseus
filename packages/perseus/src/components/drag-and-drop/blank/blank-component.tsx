@@ -6,9 +6,6 @@ import {readTileDragData} from "../drag-ids";
 
 import styles from "./blank-component.module.css";
 
-/** How a blank renders: full size, or smaller for exponents/indices. */
-export type BlankDisplayType = "normal" | "superscript" | "subscript";
-
 export interface BlankComponentProps {
     /**
      * Unique identifier of this blank. It doubles as the dnd-kit droppable
@@ -18,9 +15,17 @@ export interface BlankComponentProps {
      * that use this component directly supply their own ids.
      */
     blankId: string;
-    displayType: BlankDisplayType;
+    /** Rendering variant: full size, or smaller for exponents/indices. */
+    displayType: "normal" | "superscript" | "subscript";
     /** The placed answer tile, when one sits in this blank. */
     children?: React.ReactNode;
+    /**
+     * The tile that sits in this blank. The blank uses it to notice
+     * that its own tile is mid-drag and show the empty slot underneath,
+     * so the slot looks like it was there all along. Pass it whenever
+     * children are passed.
+     */
+    placedTileId?: string;
     /**
      * Minimum width of the empty slot. The FITB spec sizes an empty blank
      * to the widest answer tile so the slot's size does not reveal the
@@ -28,14 +33,14 @@ export interface BlankComponentProps {
      * to the design's 65px minimum. A placed tile still grows the blank
      * beyond this.
      */
-    minWidth?: number;
+    minWidth?: React.CSSProperties["minWidth"];
+    /** Extra class for the slot element, for widget-level layout. */
+    className?: string;
     /**
      * Keeps the empty-slot width when a tile is placed, so the line
      * does not reflow. Without it a filled blank hugs its tile.
      */
     keepsWidthWhenFilled?: boolean;
-    /** Extra class for the slot element, for widget-level layout. */
-    className?: string;
     // TODO(LEMS-4448): Remove once there is a better way to identify a blank.
     testId?: string;
 }
@@ -53,9 +58,10 @@ export function BlankComponent(props: BlankComponentProps): React.ReactElement {
         blankId,
         displayType,
         children,
+        placedTileId,
         minWidth,
-        keepsWidthWhenFilled,
         className,
+        keepsWidthWhenFilled,
         testId,
     } = props;
 
@@ -70,55 +76,45 @@ export function BlankComponent(props: BlankComponentProps): React.ReactElement {
     // While this blank's own tile is mid-drag it still occupies layout
     // space (dnd-kit moves it with a transform), so showing the empty
     // chrome again puts the dashed slot underneath the departing tile.
-    // A blank holds one tile, and placements only change when a drag
-    // ends, so a drag that reports this blank started from this tile.
     const dragged = readTileDragData(source?.data);
-    const isTileDraggingOut = isFilled && dragged?.fromBlankId === blankId;
+    const isTileDraggingOut =
+        placedTileId != null &&
+        dragged?.tileId === placedTileId &&
+        dragged?.fromBlankId === blankId;
 
-    // The slot chrome hides behind a placed tile, but comes back while
-    // that tile drags away.
-    const showsPlacedTile = isFilled && !isTileDraggingOut;
-
-    // The width is a CSS variable, set filled or not: the rules choose
-    // when to consume it. A filled blank in "hug" mode does not, and
-    // narrow-mode rules override it.
-    const minWidthStyle: React.CSSProperties | undefined =
+    // The width is a CSS variable, set filled or not: rules choose when
+    // to consume it (a filled blank in "hug" mode does not, and
+    // narrow-mode rules can override it).
+    const minWidthStyle =
         minWidth != null
-            ? {
-                  // @ts-expect-error TS2353: CSSProperties has no keys
-                  // for CSS custom properties.
-                  "--blank-min-inline-size": `${minWidth}px`,
-              }
+            ? // eslint-disable-next-line no-restricted-syntax -- CSSProperties has no keys for CSS custom properties.
+              ({
+                  "--blank-min-inline-size":
+                      typeof minWidth === "number" ? `${minWidth}px` : minWidth,
+              } as React.CSSProperties)
             : undefined;
-
-    const slotClasses = classNames(
-        styles.container,
-        DISPLAY_TYPE_CLASSES[displayType],
-        showsPlacedTile && styles.filled,
-        keepsWidthWhenFilled && styles.keepsWidth,
-        isDropTarget && styles.dropTarget,
-        className,
-    );
 
     return (
         <div
             ref={ref}
-            className={slotClasses}
+            className={classNames(
+                styles.container,
+                displayType !== "normal" && styles["super-sub"],
+                displayType === "superscript" && styles.superscript,
+                displayType === "subscript" && styles.subscript,
+                isFilled && !isTileDraggingOut && styles.filled,
+                keepsWidthWhenFilled && styles.keepsWidth,
+                isDropTarget && styles["drop-target"],
+                className,
+            )}
             style={minWidthStyle}
-            // A styling hook for the surrounding layout. A widget that
-            // holds blanks cannot select them by class: CSS Modules
-            // compile class names to hashes, and the markup between the
-            // widget and the blank belongs to the renderer.
-            data-blank="true"
+            // A build-stable styling hook: the compiled CSS-module class
+            // names carry no trace of "super-sub", so outside rules key
+            // on this attribute instead of the class.
+            data-display-type={displayType}
             data-testid={testId}
         >
             {children}
         </div>
     );
 }
-
-const DISPLAY_TYPE_CLASSES: Record<BlankDisplayType, string | undefined> = {
-    normal: undefined,
-    superscript: classNames(styles.superSub, styles.superscript),
-    subscript: classNames(styles.superSub, styles.subscript),
-};

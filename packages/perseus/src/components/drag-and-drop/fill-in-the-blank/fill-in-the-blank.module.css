@@ -33,30 +33,11 @@
     line-height: var(--wb-sizing-size_480);
 }
 
-/* Small-value exception: without the container name, the narrow
- * rules never match. */
+/* Without the container name the narrow rules never match. The
+ * small-value exception and the fixed-width variant both use it to
+ * keep the inline layout at every width. */
 .answerZone.noReflow {
     container-name: none;
-}
-
-/* Fixed-width mode keeps the inline layout and blank sizes at every
- * width, as a comparison against the reflow treatment. */
-.answerZone[data-filled-blank-style="fixed"] {
-    container-name: none;
-}
-
-/* Narrow mode: the Renderer's inline-block widget wrapper would
- * collapse the blank's 100% width, so the wrapper fills the line.
- * TODO(LEMS-4448): keyed on the blank's testid until blanks have a
- * better hook. */
-@container fitb-answer-zone (width < 504px) {
-    .answerZone
-        :global(.perseus-widget-container):has(
-            > [data-testid="blank-widget"][data-display-type="normal"]
-        ) {
-        display: block;
-        inline-size: 100%;
-    }
 }
 
 /* Hidden copy of every tile, kept only for width measurement. */
