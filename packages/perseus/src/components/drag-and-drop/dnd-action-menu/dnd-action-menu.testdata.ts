@@ -10,7 +10,7 @@ export function generateTestBlanks(
     }));
 }
 
-/** Generates a complete, valid set of props for a tile in the choice bank. */
+/** Generates a complete, valid set of props for a bank tile's menu. */
 export function generateActionMenuProps(
     overrides?: Partial<DndActionMenuProps>,
 ): DndActionMenuProps {
