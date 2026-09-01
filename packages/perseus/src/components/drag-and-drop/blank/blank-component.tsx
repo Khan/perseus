@@ -18,10 +18,11 @@ export interface BlankComponentProps {
     /** The placed answer tile, when one sits in this blank. */
     children?: React.ReactNode;
     /**
-     * The tileId of the placed tile, when one sits in this blank. The
-     * blank uses it to notice that its own tile is mid-drag and show the
-     * empty slot underneath, so the slot looks like it was there all
-     * along. Pass it whenever children are passed.
+     * The drag-instance id of the placed tile — the same value passed
+     * to the tile's AnswerTile.tileId — when one sits in this blank.
+     * The blank uses it to notice that its own tile is mid-drag and
+     * show the empty slot underneath, so the slot looks like it was
+     * there all along. Pass it whenever children are passed.
      */
     placedTileId?: string;
     /**
