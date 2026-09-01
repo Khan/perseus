@@ -67,10 +67,9 @@
     background: transparent;
 }
 
-/* Fixed-width mode: a filled blank keeps the empty-slot width, so the
- * line does not reflow on fill or hover. Sub/superscript chips keep
- * their compact behavior. */
-[data-filled-blank-style="fixed"] .container.filled:not(.super-sub) {
+/* A filled blank that keeps its empty width, so the line does not
+ * reflow on fill or hover. */
+.container.filled.keepsWidth {
     min-width: var(--blank-min-inline-size, 65px);
 }
 
@@ -90,7 +89,7 @@
 @container fitb-answer-zone (width < 504px) {
     .container:not(.super-sub) {
         display: flex;
-        inline-size: 100%;
+        inline-size: 100cqi;
         justify-content: flex-start;
         margin-inline: 0;
     }

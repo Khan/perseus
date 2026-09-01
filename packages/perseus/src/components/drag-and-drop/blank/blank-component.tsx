@@ -36,6 +36,11 @@ export interface BlankComponentProps {
     minWidth?: React.CSSProperties["minWidth"];
     /** Extra class for the slot element, for widget-level layout. */
     className?: string;
+    /**
+     * Keeps the empty-slot width when a tile is placed, so the line
+     * does not reflow. Without it a filled blank hugs its tile.
+     */
+    keepsWidthWhenFilled?: boolean;
     // TODO(LEMS-4448): Remove once there is a better way to identify a blank.
     testId?: string;
 }
@@ -56,6 +61,7 @@ export function BlankComponent(props: BlankComponentProps): React.ReactElement {
         placedTileId,
         minWidth,
         className,
+        keepsWidthWhenFilled,
         testId,
     } = props;
 
@@ -97,6 +103,7 @@ export function BlankComponent(props: BlankComponentProps): React.ReactElement {
                 displayType === "superscript" && styles.superscript,
                 displayType === "subscript" && styles.subscript,
                 isFilled && !isTileDraggingOut && styles.filled,
+                keepsWidthWhenFilled && styles.keepsWidth,
                 isDropTarget && styles["drop-target"],
                 className,
             )}

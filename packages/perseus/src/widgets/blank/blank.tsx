@@ -46,6 +46,10 @@ const BlankWidget = forwardRef<Widget, BlankProps>(
                 blankId={props.widgetId}
                 displayType={displayType}
                 placedTileId={renderInfo?.placedTileId ?? undefined}
+                keepsWidthWhenFilled={
+                    displayType === "normal" &&
+                    renderInfo?.keepsWidthWhenFilled === true
+                }
                 minWidth={minWidth}
                 // TODO(LEMS-4448): Remove testid once we have a better way
                 // to identify a blank-widget
