@@ -58,9 +58,7 @@ class ArticleDiff extends React.Component<Props, ArticleDiffState> {
             <Dependencies.DependenciesContext.Provider
                 value={this.props.dependencies}
             >
-                <div className="framework-perseus">
-                    {sections}
-                </div>
+                <div className="framework-perseus">{sections}</div>
             </Dependencies.DependenciesContext.Provider>
         );
     }
