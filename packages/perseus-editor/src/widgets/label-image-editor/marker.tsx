@@ -9,10 +9,9 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {Listbox, OptionItem} from "@khanacademy/wonder-blocks-dropdown";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
+import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
-
-import {gray85} from "../../styles/global-colors";
 
 import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -176,62 +175,58 @@ const styles = StyleSheet.create({
 
         boxSizing: "content-box",
 
-        width: 16,
-        height: 16,
-        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y centering on an authored LTR image coordinate; content doesn't flip with page direction, so a logical margin would misplace/misalign the marker in RTL
-        marginLeft: -8,
-        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y centering on an authored LTR image coordinate; content doesn't flip with page direction, so a logical margin would misplace/misalign the marker in RTL
-        marginTop: -8,
+        width: sizing.size_160,
+        height: sizing.size_160,
+        marginInlineStart: `calc(-1 * ${sizing.size_080})`,
+        marginBlockStart: `calc(-1 * ${sizing.size_080})`,
 
         cursor: "pointer",
 
         background:
             "linear-gradient(to bottom, rgba(33, 36, 44, 0.2), rgba(33, 36, 44, 0.5))",
 
-        border: "solid 2px #ffffff",
-        borderRadius: 16,
+        border: `solid 2px ${semanticColor.core.background.base.default}`,
+        borderRadius: sizing.size_160,
 
         boxShadow: "0 2px 10px 0 rgba(33, 36, 44, 0.1)",
     },
 
     markerSelected: {
-        width: 28,
-        height: 28,
-        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y centering on an authored LTR image coordinate; content doesn't flip with page direction, so a logical margin would misplace/misalign the marker in RTL
-        marginLeft: -12,
-        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y centering on an authored LTR image coordinate; content doesn't flip with page direction, so a logical margin would misplace/misalign the marker in RTL
-        marginTop: -12,
+        width: sizing.size_280,
+        height: sizing.size_280,
+        marginInlineStart: `calc(-1 * ${sizing.size_120})`,
+        marginBlockStart: `calc(-1 * ${sizing.size_120})`,
 
         border: "none",
-        borderRadius: 28,
+        borderRadius: sizing.size_280,
 
         // Render selected marker border as inset.
         "::before": {
             content: "''",
             display: "block",
 
-            width: 20,
-            height: 20,
-            marginInlineStart: 2,
+            width: sizing.size_200,
+            height: sizing.size_200,
+            marginInlineStart: sizing.size_020,
 
-            border: "solid 2px #ffffff",
-            borderRadius: 20,
+            border: `solid 2px ${semanticColor.core.background.base.default}`,
+            borderRadius: sizing.size_200,
         },
     },
 
     markerWithAnswers: {
-        background: "#1865f2",
+        background: semanticColor.core.background.instructive.default,
     },
 
     labelContainer: {
-        padding: 6,
+        padding: sizing.size_060,
     },
 
     dividerHorizontal: {
         height: 0,
         margin: 0,
 
-        border: `solid ${gray85}`,
+        border: `solid ${semanticColor.core.border.neutral.default}`,
         borderWidth: "0 0 1px",
 
         boxShadow: "none",
@@ -240,8 +235,6 @@ const styles = StyleSheet.create({
     dropdownBody: {
         // Reset the default padding from WB Popover.
         padding: 0,
-
-        overflowY: "auto",
     },
 });
 
