@@ -48,7 +48,10 @@ export interface DndActionMenuProps {
      * is also present (i.e. the tile is placed).
      */
     onClear?: () => void;
-    /** Scored/unused tiles. */
+    /**
+     * Disables the opener button. The button stays focusable and exposes
+     * aria-disabled, so its position stays discoverable.
+     */
     disabled: boolean;
 }
 
@@ -83,30 +86,43 @@ export const DndActionMenu = React.forwardRef<
 
     const showClearAction = onClear != null && clearFromLabel != null;
 
-    const menuItems = [
-        // ActionMenu has no header slot, so the visual-only "Move to" header
-        // rides along as an extra child. ActionMenu clones every child with
-        // an injected role="menuitem" and onClick, so the span must be
-        // aria-hidden (keeps it out of the accessibility tree — the spoken
-        // phrasing lives in each item's aria-label instead) and the CSS sets
-        // pointer-events: none (defuses the injected click handler).
-        <span key="header" aria-hidden="true" className={styles.menuHeader}>
-            {strings.moveTo}
-        </span>,
-        ...moveTargets.map((target) => (
-            <ActionItem
-                key={target.id}
-                label={target.label}
-                aria-label={strings.moveToTarget({target: target.label})}
-                onClick={() => onMove(target.id)}
-                style={menuItemStyle}
-            />
-        )),
-    ];
+    const menuItems: React.ReactElement[] = [];
+
+    if (moveTargets.length > 0) {
+        menuItems.push(
+            // ActionMenu has no header slot, so the visual-only "Move to"
+            // header rides along as an extra child. ActionMenu clones every
+            // child with an injected role="menuitem" and onClick, so the span
+            // must be aria-hidden (keeps it out of the accessibility tree —
+            // the spoken phrasing lives in each item's aria-label instead).
+            // The CSS sets pointer-events: none, and the inner span stops
+            // bubbling clicks, so the injected handler never fires — it
+            // would throw inside the dropdown.
+            <span key="header" aria-hidden="true" className={styles.menuHeader}>
+                <span
+                    aria-hidden="true"
+                    onClick={(event) => event.stopPropagation()}
+                >
+                    {strings.moveTo}
+                </span>
+            </span>,
+            ...moveTargets.map((target) => (
+                <ActionItem
+                    key={target.id}
+                    label={target.label}
+                    aria-label={strings.moveToTarget({target: target.label})}
+                    onClick={() => onMove(target.id)}
+                    style={menuItemStyle}
+                />
+            )),
+        );
+    }
 
     if (showClearAction) {
+        if (menuItems.length > 0) {
+            menuItems.push(<SeparatorItem key="separator" />);
+        }
         menuItems.push(
-            <SeparatorItem key="separator" />,
             <ActionItem
                 key="clear"
                 label={strings.clear}
@@ -117,9 +133,8 @@ export const DndActionMenu = React.forwardRef<
         );
     }
 
-    // With nothing to move to and nothing to clear, the menu would
-    // contain only the decorative header. While an unlikely situation,
-    // this simply ensures that the button is disabled in such an instance.
+    // With nothing to move to and nothing to clear, the button is
+    // disabled instead of opening an empty menu.
     const hasActions = moveTargets.length > 0 || showClearAction;
     const isDisabled = disabled || !hasActions;
 

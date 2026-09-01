@@ -124,8 +124,6 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
     });
 
     // Whitespace-only content would render an invisible, unlabeled tile.
-    // This protection might not be needed, depending on how we implement
-    // the Content Editor experience, but it seemed wise to add this for now.
     const isEmpty = content.trim() === "";
 
     // The tile starts with the actions menu or, when scored, an icon.
@@ -156,7 +154,7 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
             ref={dragRef}
         >
             {!disabled && (
-                <span className={styles.startContainer}>
+                <div className={styles.startContainer}>
                     {showCorrectness == null ? (
                         <DndActionMenu
                             ref={menuRef}
@@ -172,15 +170,15 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
                             disabled={false}
                         />
                     ) : (
-                        // An unlabeled PhosphorIcon is aria-hidden by
-                        // default. The widget announces the result to
-                        // screen readers, not the tile.
+                        // The icon is decoration: the widget announces the
+                        // result to screen readers, not the tile.
                         <PhosphorIcon
+                            aria-hidden="true"
                             icon={scoredIcons[showCorrectness]}
                             size="medium"
                         />
                     )}
-                </span>
+                </div>
             )}
             <div className={styles.content}>
                 {isEmpty ? (
