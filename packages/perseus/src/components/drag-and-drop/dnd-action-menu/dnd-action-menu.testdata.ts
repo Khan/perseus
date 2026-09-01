@@ -15,10 +15,9 @@ export function generateActionMenuProps(
     overrides?: Partial<DndActionMenuProps>,
 ): DndActionMenuProps {
     return {
-        label: "Bongo",
+        tileLabel: "Bongo",
         moveTargets: generateTestBlanks(),
         onMove: () => {},
-        disabled: false,
         ...overrides,
     };
 }

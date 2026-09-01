@@ -108,19 +108,12 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
                     {showCorrectness == null ? (
                         <DndActionMenu
                             ref={menuRef}
-                            label={label}
+                            tileLabel={label}
                             moveTargets={moveTargets}
                             onMove={onMove}
-                            clearAction={
-                                clearFromLabel != null && onClear != null
-                                    ? {fromLabel: clearFromLabel, onClear}
-                                    : undefined
-                            }
+                            clearFromLabel={clearFromLabel}
+                            onClear={onClear}
                             remainingUses={remainingUses}
-                            // Always false: scored tiles remove the menu
-                            // instead of disabling it, so a rendered menu
-                            // is never disabled.
-                            disabled={false}
                         />
                     ) : (
                         // The icon is decoration: the widget announces the
