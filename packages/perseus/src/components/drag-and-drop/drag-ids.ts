@@ -20,3 +20,19 @@ export function tileDragId(data: TileDragData): string {
         ? `placed__${data.fromBlankId}__${data.tileId}`
         : `bank__${data.tileId}`;
 }
+
+/**
+ * Reads the payload from a dnd-kit drag. dnd-kit types its data field
+ * as an open record, so this is where the shape is checked. Returns
+ * null for a drag that another component started.
+ */
+export function readTileDragData(
+    data: Record<string, any> | undefined,
+): TileDragData | null {
+    const tileId = data?.tileId;
+    if (typeof tileId !== "string") {
+        return null;
+    }
+    const fromBlankId = data?.fromBlankId;
+    return typeof fromBlankId === "string" ? {tileId, fromBlankId} : {tileId};
+}
