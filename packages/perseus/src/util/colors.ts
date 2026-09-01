@@ -127,12 +127,18 @@ interface RGB {
     b: number;
 }
 
+const resolveColorCache = new Map<string, RGB | undefined>();
+
 // Tested via Storybook, since JSDOM doesn't implement the canvas API.
 /**
  * Resolves a CSS color into its red, green, and blue components.
  * @param color - can be hex, a name like `"black"`, or e.g. `rgb(0, 0, 0)`.
  */
 export function resolveColor(color: string): RGB {
+    const cached = resolveColorCache.get(color);
+    if (cached != null) {
+        return cached;
+    }
     if (color[0] === "#") {
         return parseHexColor(color);
     }
@@ -144,7 +150,9 @@ export function resolveColor(color: string): RGB {
     ctx.fillStyle = color;
     ctx.fillRect(0, 0, 1, 1);
     const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
-    return {r, g, b};
+    const resolved = {r, g, b};
+    resolveColorCache.set(color, resolved);
+    return resolved;
 }
 
 const lightModeHexForMathColor = {
