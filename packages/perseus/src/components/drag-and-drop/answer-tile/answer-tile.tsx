@@ -16,8 +16,10 @@ import type {MoveTarget} from "../dnd-action-menu";
 
 export interface AnswerTileProps {
     /**
-     * The unique identifier of an Answer Tile, which is used
-     * for both scoring and dragging.
+     * The tile's drag-instance id, unique within the surrounding
+     * PerseusDndProvider. The widgets encode the tile's location into
+     * it (see drag-ids.ts), so one tile registers a different id in
+     * the bank and in each blank.
      */
     tileId: string;
     /**

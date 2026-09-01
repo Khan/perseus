@@ -76,6 +76,16 @@ export function useTileMoveActions(options: {
         targetBlankId: string,
         viaMenu: boolean,
     ) => {
+        // A stale request must not fire on a later placements change.
+        focusAfterUpdate.current = null;
+        // A multi-use tile's bank copy dropped on a blank that already
+        // holds that tile changes nothing: no update, no announcement.
+        if (
+            move.fromBlankId == null &&
+            placements[targetBlankId] === move.tileId
+        ) {
+            return;
+        }
         const evictedTileId = placements[targetBlankId];
         onPlacementsChange(
             placeTile(placements, move, targetBlankId, tileUsage),
@@ -97,6 +107,8 @@ export function useTileMoveActions(options: {
     };
 
     const handleClear = (blankId: string, viaMenu: boolean) => {
+        // A stale request must not fire on a later placements change.
+        focusAfterUpdate.current = null;
         const tileId = placements[blankId];
         if (tileId == null) {
             return;
