@@ -177,8 +177,9 @@ const styles = StyleSheet.create({
 
         width: sizing.size_160,
         height: sizing.size_160,
-        marginInlineStart: `calc(-1 * ${sizing.size_080})`,
-        marginBlockStart: `calc(-1 * ${sizing.size_080})`,
+
+        // Keep the marker centered on its specified coordinate.
+        transform: "translate(-50%, -50%)",
 
         cursor: "pointer",
 
@@ -194,8 +195,6 @@ const styles = StyleSheet.create({
     markerSelected: {
         width: sizing.size_280,
         height: sizing.size_280,
-        marginInlineStart: `calc(-1 * ${sizing.size_120})`,
-        marginBlockStart: `calc(-1 * ${sizing.size_120})`,
 
         border: "none",
         borderRadius: sizing.size_280,
