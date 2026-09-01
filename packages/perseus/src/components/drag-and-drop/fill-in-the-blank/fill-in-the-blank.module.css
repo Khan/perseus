@@ -1,0 +1,67 @@
+.fillInTheBlank {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_640);
+}
+
+/* The answer zone is the reflow container. Blank and tile narrow-mode
+ * rules query the "fitb-answer-zone" name. */
+.answerZone {
+    container-type: inline-size;
+    container-name: fitb-answer-zone;
+}
+
+/* Answer-zone text is 16px/24px medium in the token sans font. The
+ * doubled class outweighs the global paragraph rule. */
+.answerZone.answerZone :global(div.paragraph) {
+    font-family: var(--wb-font-family-sans);
+    font-size: var(--wb-font-body-size-medium);
+    font-weight: var(--wb-font-weight-medium);
+    line-height: var(--wb-font-body-lineHeight-large);
+}
+
+/* Lines that hold a blank get a 48px rhythm: the blank centers with
+ * the text, and the line height stays constant as tiles move. */
+.answerZone.answerZone
+    :global(div.paragraph):has(:global([data-testid="blank-widget"])) {
+    line-height: var(--wb-sizing-size_480);
+}
+
+/* Small-value exception: without the container name, the narrow
+ * rules never match. */
+.answerZone.noReflow {
+    container-name: none;
+}
+
+/* Fixed-width mode keeps the inline layout and blank sizes at every
+ * width, as a comparison against the reflow treatment. */
+.answerZone[data-filled-blank-style="fixed"] {
+    container-name: none;
+}
+
+/* Narrow mode: the Renderer's inline-block widget wrapper would
+ * collapse the blank's 100% width, so the wrapper fills the line.
+ * TODO(LEMS-4448): keyed on the blank's testid until blanks have a
+ * better hook. */
+@container fitb-answer-zone (width < 504px) {
+    .answerZone
+        :global(.perseus-widget-container):has(
+            > [data-testid="blank-widget"]:not([class*="super-sub"])
+        ) {
+        display: block;
+        inline-size: 100%;
+    }
+}
+
+/* Hidden copy of every tile, kept only for width measurement. */
+.measurement {
+    position: absolute;
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    pointer-events: none;
+}
