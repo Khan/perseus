@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import {AnswerTile} from "../answer-tile";
 import {generateAnswerTileProps} from "../answer-tile/answer-tile.testdata";
 import {ChoiceBank} from "../choice-bank";
 
@@ -31,27 +32,33 @@ const SAMPLE_TILES = [
     "The mitochondria is the powerhouse of the cell",
 ];
 
-const sampleTiles = SAMPLE_TILES.map((value, index) =>
-    generateAnswerTileProps({
-        tileId: `tile-${index}`,
-        content: value,
-        label: value,
-    }),
-);
+const sampleTiles = SAMPLE_TILES.map((value, index) => (
+    <AnswerTile
+        key={value}
+        {...generateAnswerTileProps({
+            tileId: `tile-${index}`,
+            content: value,
+            label: value,
+        })}
+    />
+));
 
-const manyTiles = Array.from({length: 24}, (_, i) =>
-    generateAnswerTileProps({
-        tileId: `tile-${i}`,
-        content: `Tile ${i + 1}`,
-        label: `Tile ${i + 1}`,
-    }),
-);
+const manyTiles = Array.from({length: 24}, (_, i) => (
+    <AnswerTile
+        key={i}
+        {...generateAnswerTileProps({
+            tileId: `tile-${i}`,
+            content: `Tile ${i + 1}`,
+            label: `Tile ${i + 1}`,
+        })}
+    />
+));
 
 /** The default bank: a handful of tiles of varying widths. */
 export const Default: Story = {
     args: {
         label: "Choices",
-        answerTiles: sampleTiles,
+        children: sampleTiles,
     },
 };
 
@@ -68,7 +75,7 @@ export const Reflow: Story = {
                 border: "1px dashed #ccc",
             }}
         >
-            <ChoiceBank label="Choices" answerTiles={sampleTiles} />
+            <ChoiceBank label="Choices">{sampleTiles}</ChoiceBank>
         </div>
     ),
 };
@@ -77,7 +84,7 @@ export const Reflow: Story = {
 export const ManyTiles: Story = {
     args: {
         label: "Choices",
-        answerTiles: manyTiles,
+        children: manyTiles,
     },
 };
 
@@ -85,7 +92,6 @@ export const ManyTiles: Story = {
 export const Empty: Story = {
     args: {
         label: "Choices",
-        answerTiles: [],
     },
 };
 
@@ -93,7 +99,7 @@ export const Empty: Story = {
 export const RightToLeft: Story = {
     render: () => (
         <div dir="rtl">
-            <ChoiceBank label="الخيارات" answerTiles={sampleTiles} />
+            <ChoiceBank label="الخيارات">{sampleTiles}</ChoiceBank>
         </div>
     ),
 };

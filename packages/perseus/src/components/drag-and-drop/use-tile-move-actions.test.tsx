@@ -1,6 +1,7 @@
 import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
 import {act, renderHook} from "@testing-library/react";
 
+import {CHOICE_BANK_DROP_ID} from "./choice-bank";
 import {useTileMoveActions} from "./use-tile-move-actions";
 
 import type {TilePlacements, TileUsage} from "./tile-placements";
@@ -11,7 +12,6 @@ jest.mock("@khanacademy/wonder-blocks-announcer", () => ({
 }));
 
 const BLANK_IDS = ["blank 1", "blank 2"];
-const BANK_DROP_ID = "test-bank";
 
 /** Renders the hook around mutable controlled placements. */
 function setupHook(
@@ -30,7 +30,6 @@ function setupHook(
             getTileLabel: (tileId) => `tile ${tileId}`,
             getBlankLabel: (blankId) => `Blank ${blankId.slice(-1)}`,
             blankIds: BLANK_IDS,
-            bankDropId: BANK_DROP_ID,
         }),
     );
     return {...rendered, onPlacementsChange};
@@ -94,7 +93,7 @@ describe("useTileMoveActions", () => {
                 result.current.handleDragEnd(
                     generateDragEnd(
                         {tileId: "x", fromBlankId: "blank 1"},
-                        BANK_DROP_ID,
+                        CHOICE_BANK_DROP_ID,
                     ),
                 );
             });
@@ -220,7 +219,6 @@ describe("useTileMoveActions", () => {
                     getTileLabel: (tileId) => tileId,
                     getBlankLabel: (blankId) => blankId,
                     blankIds: BLANK_IDS,
-                    bankDropId: BANK_DROP_ID,
                 }),
             );
             const bankButton = document.createElement("button");
