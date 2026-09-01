@@ -1,31 +1,22 @@
 /**
- * Drag-instance ids for the Drag-and-Drop widgets. A tile registers a
- * different id per location, so dnd-kit tells a bank tile from the
- * same tile placed in a blank.
+ * The payload a dragged tile carries. dnd-kit returns it at drag end as
+ * `operation.source.data`, so widgets read the move directly instead of
+ * decoding the drag id.
  */
+export type TileDragData = {
+    /** The tile that moves. */
+    tileId: string;
+    /** The blank the tile starts in. Absent for a tile in the bank. */
+    fromBlankId?: string;
+};
 
-export const bankDragId = (tileId: string): string => `bank__${tileId}`;
-
-export const placedDragId = (blankId: string, tileId: string): string =>
-    `placed__${blankId}__${tileId}`;
-
-export function parseDragId(
-    id: string,
-): {tileId: string; fromBlankId?: string} | null {
-    if (id.startsWith("bank__")) {
-        return {tileId: id.slice("bank__".length)};
-    }
-    if (id.startsWith("placed__")) {
-        const rest = id.slice("placed__".length);
-        // Blank ids ("blank 1") contain no "__"; tile ids can.
-        const separator = rest.indexOf("__");
-        if (separator === -1) {
-            return null;
-        }
-        return {
-            fromBlankId: rest.slice(0, separator),
-            tileId: rest.slice(separator + 2),
-        };
-    }
-    return null;
+/**
+ * Builds the drag id for a tile. dnd-kit needs one unique id per
+ * draggable, and one tile can show in the bank and in a blank at the
+ * same time, so the id includes the location.
+ */
+export function tileDragId(data: TileDragData): string {
+    return data.fromBlankId != null
+        ? `placed__${data.fromBlankId}__${data.tileId}`
+        : `bank__${data.tileId}`;
 }

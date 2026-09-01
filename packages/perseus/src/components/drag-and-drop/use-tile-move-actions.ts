@@ -1,14 +1,12 @@
 import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
 import * as React from "react";
 
-import {parseDragId} from "./drag-ids";
 import {tempDndStrings as strings} from "./temp-strings";
 import {clearBlank, placeTile} from "./tile-placements";
 
+import type {TileDragData} from "./drag-ids";
 import type {TilePlacements, TileUsage} from "./tile-placements";
 import type {DragEndEvent} from "@dnd-kit/react";
-
-export type TileMove = {tileId: string; fromBlankId?: string};
 
 /**
  * Move, clear, and drag-end handling shared by the widgets that place
@@ -31,7 +29,7 @@ export function useTileMoveActions(options: {
     bankDropId: string;
 }): {
     handleMove: (
-        move: TileMove,
+        move: TileDragData,
         targetBlankId: string,
         viaMenu: boolean,
     ) => void;
@@ -72,7 +70,7 @@ export function useTileMoveActions(options: {
     }, [placements]);
 
     const handleMove = (
-        move: TileMove,
+        move: TileDragData,
         targetBlankId: string,
         viaMenu: boolean,
     ) => {
@@ -131,7 +129,7 @@ export function useTileMoveActions(options: {
         if (canceled || !source || !target) {
             return;
         }
-        const move = parseDragId(String(source.id));
+        const move = source.data as TileDragData | undefined;
         if (move == null) {
             return;
         }
