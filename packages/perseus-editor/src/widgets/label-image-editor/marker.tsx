@@ -94,13 +94,13 @@ const Marker = React.forwardRef<MarkerHandle, MarkerProps>(function Marker(
             dismissEnabled={true}
             content={
                 <PopoverContentCore style={styles.dropdownBody}>
-                    <Button
-                        kind="tertiary"
-                        actionType="destructive"
-                        onClick={onRemove}
-                    >
-                        Delete marker
-                    </Button>
+                    <div className={css(styles.labelContainer)}>
+                        <TextField
+                            placeholder="ARIA label (for screen readers)"
+                            onChange={handleLabelChange}
+                            value={label}
+                        />
+                    </div>
                     <hr className={css(styles.dividerHorizontal)} />
                     <Listbox
                         aria-label="Answer choices"
@@ -117,13 +117,13 @@ const Marker = React.forwardRef<MarkerHandle, MarkerProps>(function Marker(
                         ))}
                     </Listbox>
                     <hr className={css(styles.dividerHorizontal)} />
-                    <div className={css(styles.labelContainer)}>
-                        <TextField
-                            placeholder="ARIA label (for screen readers)"
-                            onChange={handleLabelChange}
-                            value={label}
-                        />
-                    </div>
+                    <Button
+                        kind="tertiary"
+                        actionType="destructive"
+                        onClick={onRemove}
+                    >
+                        Delete marker
+                    </Button>
                 </PopoverContentCore>
             }
         >
