@@ -57,6 +57,7 @@ import _ from "underscore";
 
 import InlineIcon from "../components/inline-icon";
 import {iconTrash} from "../icon-paths";
+import {INVISIBLE_HIT_TARGET_FILL} from "../util/invisible-hit-target";
 import reactRender from "../util/react-render";
 import Tex from "../util/tex";
 
@@ -227,7 +228,10 @@ export class MovablePoint {
                     radii,
                     options,
                 );
-                state.mouseTarget.attr({fill: "#000", opacity: 0.0});
+                state.mouseTarget.attr({
+                    fill: INVISIBLE_HIT_TARGET_FILL,
+                    opacity: 0.0,
+                });
             }
         }
 

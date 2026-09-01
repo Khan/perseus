@@ -92,28 +92,15 @@ class CursorHandle extends React.Component<Props> {
                         x="4"
                         y="0"
                     >
-                        <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                        <feColorMatrix
-                            in="SourceAlpha"
-                            type="matrix"
-                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                        />
-                        <feOffset dy="4" />
-                        <feGaussianBlur stdDeviation="4" />
-                        <feColorMatrix
-                            type="matrix"
-                            values="0 0 0 0 0.129412 0 0 0 0 0.141176 0 0 0 0 0.172549 0 0 0 0.08 0"
-                        />
-                        <feBlend
-                            in2="BackgroundImageFix"
-                            mode="normal"
-                            result="effect1_dropShadow"
-                        />
-                        <feBlend
-                            in="SourceGraphic"
-                            in2="effect1_dropShadow"
-                            mode="normal"
-                            result="shape"
+                        {/* The shadow token carries its own alpha, so no
+                            floodOpacity is needed. */}
+                        <feDropShadow
+                            dx="0"
+                            dy="4"
+                            stdDeviation="4"
+                            floodColor={
+                                semanticColor.core.shadow.transparent.low
+                            }
                         />
                     </filter>
                     <g filter="url(#math-input_cursor)">
