@@ -45,7 +45,6 @@ const BlankWidget = forwardRef<Widget, BlankProps>(
             <BlankComponent
                 blankId={props.widgetId}
                 displayType={displayType}
-                placedTileId={renderInfo?.placedTileId ?? undefined}
                 keepsWidthWhenFilled={
                     displayType === "normal" &&
                     renderInfo?.keepsWidthWhenFilled === true

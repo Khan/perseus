@@ -54,7 +54,6 @@ export interface FillInTheBlankProps {
     filledBlankStyle?: "hug" | "fixed";
 }
 
-const BANK_DROP_ID = "fitb-choice-bank";
 /**
  * FillInTheBlank is the render side of the upcoming Fill in the Blank
  * widget: an answer zone (content with inline blanks) above a choice
@@ -115,7 +114,6 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
         getTileLabel: (tileId) => tilesById.get(tileId)?.label ?? "",
         getBlankLabel: (blankId) => blankLabels[blankId],
         blankIds,
-        bankDropId: BANK_DROP_ID,
     });
 
     const bankTiles = tiles
@@ -129,23 +127,28 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
                 tileUsage,
                 maxUsesPerTile,
             );
-            return {
-                tileId: tile.id,
-                content: tile.content,
-                label: tile.label,
-                imageHeight: tile.imageHeight,
-                moveTargets: blankIds.map((blankId) => ({
-                    id: blankId,
-                    label: blankLabels[blankId],
-                })),
-                onMove: (targetId: string) =>
-                    handleMove({tileId: tile.id}, targetId, true),
-                remainingUses:
-                    tileUsage === "multi" && remaining != null
-                        ? remaining
-                        : undefined,
-                menuRef: index === 0 ? firstBankMenuRef : undefined,
-            };
+            return (
+                <AnswerTile
+                    key={tile.id}
+                    tileId={tile.id}
+                    content={tile.content}
+                    label={tile.label}
+                    imageHeight={tile.imageHeight}
+                    moveTargets={blankIds.map((blankId) => ({
+                        id: blankId,
+                        label: blankLabels[blankId],
+                    }))}
+                    onMove={(targetId) =>
+                        handleMove({tileId: tile.id}, targetId, true)
+                    }
+                    remainingUses={
+                        tileUsage === "multi" && remaining != null
+                            ? remaining
+                            : undefined
+                    }
+                    menuRef={index === 0 ? firstBankMenuRef : undefined}
+                />
+            );
         });
 
     const isFixed = filledBlankStyle === "fixed";
@@ -159,7 +162,6 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
         if (tile == null) {
             return {
                 placedTile: null,
-                placedTileId: null,
                 keepsWidthWhenFilled: isFixed,
                 widestTileWidth: maxWidth,
             };
@@ -172,7 +174,7 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
                     content={tile.content}
                     label={tile.label}
                     imageHeight={tile.imageHeight}
-                    inBlank={true}
+                    hidesMenuAtRest={true}
                     compact={displayType !== "normal"}
                     fillsBlank={isFixed && displayType === "normal"}
                     moveTargets={blankIds
@@ -190,7 +192,6 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
                     menuRef={placedMenuRef(blankId)}
                 />
             ),
-            placedTileId: tile.id,
             keepsWidthWhenFilled: isFixed,
             widestTileWidth: maxWidth,
         };
@@ -239,11 +240,7 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
                         />
                     </div>
                 </FillInTheBlankContext.Provider>
-                <ChoiceBank
-                    label={strings.choices}
-                    answerTiles={bankTiles}
-                    bankId={BANK_DROP_ID}
-                />
+                <ChoiceBank label={strings.choices}>{bankTiles}</ChoiceBank>
             </PerseusDndProvider>
             <PerseusDndProvider>
                 <div
