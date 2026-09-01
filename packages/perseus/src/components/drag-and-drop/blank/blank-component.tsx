@@ -97,17 +97,19 @@ export function BlankComponent(props: BlankComponentProps): React.ReactElement {
             ? cssVariable("--blank-min-inline-size", `${minWidth}px`)
             : undefined;
 
+    const slotClasses = classNames(
+        styles.container,
+        DISPLAY_TYPE_CLASSES[displayType],
+        showsPlacedTile && styles.filled,
+        keepsWidthWhenFilled && styles.keepsWidth,
+        isDropTarget && styles.dropTarget,
+        className,
+    );
+
     return (
         <div
             ref={ref}
-            className={classNames(
-                styles.container,
-                DISPLAY_TYPE_CLASSES[displayType],
-                showsPlacedTile && styles.filled,
-                keepsWidthWhenFilled && styles.keepsWidth,
-                isDropTarget && styles.dropTarget,
-                className,
-            )}
+            className={slotClasses}
             style={minWidthStyle}
             // A styling hook for the surrounding layout. A widget that
             // holds blanks cannot select them by class: CSS Modules
