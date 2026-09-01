@@ -58,7 +58,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M7.2727272727272725,400L7.2727272727272725,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -66,7 +66,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M21.818181818181817,400L21.818181818181817,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -74,7 +74,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M36.36363636363636,400L36.36363636363636,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -82,7 +82,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M50.90909090909091,400L50.90909090909091,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -90,7 +90,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M65.45454545454545,400L65.45454545454545,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -98,7 +98,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M80,400L80,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -106,7 +106,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M94.54545454545455,400L94.54545454545455,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -114,7 +114,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M109.0909090909091,400L109.0909090909091,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -122,7 +122,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M123.63636363636363,400L123.63636363636363,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -130,7 +130,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M138.1818181818182,400L138.1818181818182,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -138,7 +138,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M152.72727272727272,400L152.72727272727272,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -146,7 +146,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M167.27272727272728,400L167.27272727272728,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -154,7 +154,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M181.8181818181818,400L181.8181818181818,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -162,7 +162,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M196.36363636363635,400L196.36363636363635,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -170,7 +170,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M210.9090909090909,400L210.9090909090909,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -178,7 +178,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M225.45454545454544,400L225.45454545454544,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -186,7 +186,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M240,400L240,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -194,7 +194,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M254.54545454545453,400L254.54545454545453,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -202,7 +202,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M269.09090909090907,400L269.09090909090907,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -210,7 +210,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M283.6363636363636,400L283.6363636363636,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -218,7 +218,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M298.1818181818182,400L298.1818181818182,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -226,7 +226,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M312.7272727272727,400L312.7272727272727,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -234,7 +234,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M327.27272727272725,400L327.27272727272725,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -242,7 +242,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M341.8181818181818,400L341.8181818181818,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -250,7 +250,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M356.3636363636364,400L356.3636363636364,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -258,7 +258,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M370.9090909090909,400L370.9090909090909,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -266,7 +266,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M385.45454545454544,400L385.45454545454544,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -274,7 +274,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M400,400L400,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -282,7 +282,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,392.7272727272727L400,392.7272727272727"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -290,7 +290,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,378.1818181818182L400,378.1818181818182"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -298,7 +298,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,363.6363636363636L400,363.6363636363636"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -306,7 +306,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,349.09090909090907L400,349.09090909090907"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -314,7 +314,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,334.54545454545456L400,334.54545454545456"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -322,7 +322,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,320L400,320"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -330,7 +330,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,305.45454545454544L400,305.45454545454544"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -338,7 +338,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,290.9090909090909L400,290.9090909090909"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -346,7 +346,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,276.3636363636364L400,276.3636363636364"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -354,7 +354,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,261.8181818181818L400,261.8181818181818"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -362,7 +362,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,247.27272727272725L400,247.27272727272725"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -370,7 +370,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,232.72727272727272L400,232.72727272727272"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -378,7 +378,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,218.1818181818182L400,218.1818181818182"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -386,7 +386,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,203.63636363636363L400,203.63636363636363"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -394,7 +394,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,189.0909090909091L400,189.0909090909091"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -402,7 +402,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,174.54545454545453L400,174.54545454545453"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -410,7 +410,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,160L400,160"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -418,7 +418,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,145.45454545454544L400,145.45454545454544"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -426,7 +426,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,130.9090909090909L400,130.9090909090909"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -434,7 +434,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,116.36363636363636L400,116.36363636363636"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -442,7 +442,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,101.81818181818181L400,101.81818181818181"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -450,7 +450,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,87.27272727272727L400,87.27272727272727"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -458,7 +458,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,72.72727272727272L400,72.72727272727272"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -466,7 +466,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,58.18181818181818L400,58.18181818181818"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -474,7 +474,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,43.63636363636363L400,43.63636363636363"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -482,7 +482,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,29.09090909090909L400,29.09090909090909"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -490,7 +490,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,14.545454545454545L400,14.545454545454545"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -498,7 +498,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M0,0L400,0"
                   fill="none"
                   opacity="0.1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 0.1;"
                 />
@@ -506,7 +506,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M-3.450000000000003,369.23636363636365C-3.1000000000000028,367.1363636363636,0.7499999999999973,363.98636363636365,1.7999999999999972,363.6363636363636C0.7499999999999971,363.2863636363636,-3.100000000000003,360.1363636363636,-3.450000000000003,358.0363636363636"
                   fill="none"
                   opacity="1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   stroke-width="2"
@@ -517,7 +517,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M36.36363636363636,363.6363636363636C36.36363636363636,363.6363636363636,36.36363636363636,363.6363636363636,1.0499999999999972,363.6363636363636"
                   fill="none"
                   opacity="1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 1;"
                 />
@@ -525,7 +525,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M394.45,369.23636363636365C394.8,367.1363636363636,398.65,363.98636363636365,399.7,363.6363636363636C398.65,363.2863636363636,394.8,360.1363636363636,394.45,358.0363636363636"
                   fill="none"
                   opacity="1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   stroke-width="2"
@@ -536,7 +536,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M36.36363636363636,363.6363636363636C36.36363636363636,363.6363636363636,36.36363636363636,363.6363636363636,398.95,363.6363636363636"
                   fill="none"
                   opacity="1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 1;"
                 />
@@ -544,7 +544,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M31.86363636363636,404.55C32.21363636363636,402.45,36.06363636363636,399.3,37.11363636363636,398.95C36.06363636363636,398.59999999999997,32.21363636363636,395.45,31.86363636363636,393.34999999999997"
                   fill="none"
                   opacity="1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   stroke-width="2"
@@ -555,7 +555,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M36.36363636363636,363.6363636363636C36.36363636363636,363.6363636363636,36.36363636363636,363.6363636363636,36.36363636363636,398.95"
                   fill="none"
                   opacity="1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 1;"
                 />
@@ -563,7 +563,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M31.86363636363636,6.650000000000011C32.21363636363636,4.550000000000011,36.06363636363636,1.400000000000011,37.11363636363636,1.0500000000000114C36.06363636363636,0.7000000000000114,32.21363636363636,-2.4499999999999886,31.86363636363636,-4.549999999999988"
                   fill="none"
                   opacity="1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   stroke-width="2"
@@ -574,7 +574,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M36.36363636363636,363.6363636363636C36.36363636363636,363.6363636363636,36.36363636363636,363.6363636363636,36.36363636363636,1.0500000000000114"
                   fill="none"
                   opacity="1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="2"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 2; opacity: 1;"
                 />
@@ -582,7 +582,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M109.0909090909091,368.6363636363636L109.0909090909091,358.6363636363636"
                   fill="none"
                   opacity="1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="1"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
                 />
@@ -590,7 +590,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M181.8181818181818,368.6363636363636L181.8181818181818,358.6363636363636"
                   fill="none"
                   opacity="1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="1"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
                 />
@@ -598,7 +598,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M254.54545454545453,368.6363636363636L254.54545454545453,358.6363636363636"
                   fill="none"
                   opacity="1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="1"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
                 />
@@ -606,7 +606,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M327.27272727272725,368.6363636363636L327.27272727272725,358.6363636363636"
                   fill="none"
                   opacity="1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="1"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
                 />
@@ -614,7 +614,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M31.363636363636363,290.9090909090909L41.36363636363636,290.9090909090909"
                   fill="none"
                   opacity="1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="1"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
                 />
@@ -622,7 +622,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M31.363636363636363,218.1818181818182L41.36363636363636,218.1818181818182"
                   fill="none"
                   opacity="1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="1"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
                 />
@@ -630,7 +630,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M31.363636363636363,145.45454545454544L41.36363636363636,145.45454545454544"
                   fill="none"
                   opacity="1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="1"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
                 />
@@ -638,7 +638,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                   d="M31.363636363636363,72.72727272727272L41.36363636363636,72.72727272727272"
                   fill="none"
                   opacity="1"
-                  stroke="#000000"
+                  stroke="none"
                   stroke-width="1"
                   style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1; opacity: 1;"
                 />
@@ -716,7 +716,7 @@ exports[`interaction widget renders movable point elements with blank constraint
               <span
                 class="graphie-label"
                 data-math-formula="\\small{10}"
-                style="position: absolute; padding: 7px; color: black; left: 109.0909090909091px; top: 363.6363636363636px; fill: none; stroke: #000000; opacity: 1;"
+                style="position: absolute; padding: 7px; color: black; left: 109.0909090909091px; top: 363.6363636363636px; fill: none; opacity: 1;"
               >
                 <span
                   class="tex-holder"
@@ -725,7 +725,7 @@ exports[`interaction widget renders movable point elements with blank constraint
               <span
                 class="graphie-label"
                 data-math-formula="\\small{20}"
-                style="position: absolute; padding: 7px; color: black; left: 181.8181818181818px; top: 363.6363636363636px; fill: none; stroke: #000000; opacity: 1;"
+                style="position: absolute; padding: 7px; color: black; left: 181.8181818181818px; top: 363.6363636363636px; fill: none; opacity: 1;"
               >
                 <span
                   class="tex-holder"
@@ -734,7 +734,7 @@ exports[`interaction widget renders movable point elements with blank constraint
               <span
                 class="graphie-label"
                 data-math-formula="\\small{30}"
-                style="position: absolute; padding: 7px; color: black; left: 254.54545454545453px; top: 363.6363636363636px; fill: none; stroke: #000000; opacity: 1;"
+                style="position: absolute; padding: 7px; color: black; left: 254.54545454545453px; top: 363.6363636363636px; fill: none; opacity: 1;"
               >
                 <span
                   class="tex-holder"
@@ -743,7 +743,7 @@ exports[`interaction widget renders movable point elements with blank constraint
               <span
                 class="graphie-label"
                 data-math-formula="\\small{40}"
-                style="position: absolute; padding: 7px; color: black; left: 327.27272727272725px; top: 363.6363636363636px; fill: none; stroke: #000000; opacity: 1;"
+                style="position: absolute; padding: 7px; color: black; left: 327.27272727272725px; top: 363.6363636363636px; fill: none; opacity: 1;"
               >
                 <span
                   class="tex-holder"
@@ -752,7 +752,7 @@ exports[`interaction widget renders movable point elements with blank constraint
               <span
                 class="graphie-label"
                 data-math-formula="\\small{10}"
-                style="position: absolute; padding: 7px; color: black; left: 36.36363636363636px; top: 290.9090909090909px; fill: none; stroke: #000000; opacity: 1;"
+                style="position: absolute; padding: 7px; color: black; left: 36.36363636363636px; top: 290.9090909090909px; fill: none; opacity: 1;"
               >
                 <span
                   class="tex-holder"
@@ -761,7 +761,7 @@ exports[`interaction widget renders movable point elements with blank constraint
               <span
                 class="graphie-label"
                 data-math-formula="\\small{20}"
-                style="position: absolute; padding: 7px; color: black; left: 36.36363636363636px; top: 218.1818181818182px; fill: none; stroke: #000000; opacity: 1;"
+                style="position: absolute; padding: 7px; color: black; left: 36.36363636363636px; top: 218.1818181818182px; fill: none; opacity: 1;"
               >
                 <span
                   class="tex-holder"
@@ -770,7 +770,7 @@ exports[`interaction widget renders movable point elements with blank constraint
               <span
                 class="graphie-label"
                 data-math-formula="\\small{30}"
-                style="position: absolute; padding: 7px; color: black; left: 36.36363636363636px; top: 145.45454545454544px; fill: none; stroke: #000000; opacity: 1;"
+                style="position: absolute; padding: 7px; color: black; left: 36.36363636363636px; top: 145.45454545454544px; fill: none; opacity: 1;"
               >
                 <span
                   class="tex-holder"
@@ -779,7 +779,7 @@ exports[`interaction widget renders movable point elements with blank constraint
               <span
                 class="graphie-label"
                 data-math-formula="\\small{40}"
-                style="position: absolute; padding: 7px; color: black; left: 36.36363636363636px; top: 72.72727272727272px; fill: none; stroke: #000000; opacity: 1;"
+                style="position: absolute; padding: 7px; color: black; left: 36.36363636363636px; top: 72.72727272727272px; fill: none; opacity: 1;"
               >
                 <span
                   class="tex-holder"

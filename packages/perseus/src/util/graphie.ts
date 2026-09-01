@@ -6,6 +6,7 @@ import {
     KhanMath,
 } from "@khanacademy/kmath";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import {semanticColor, tokenValue} from "@khanacademy/wonder-blocks-tokens";
 import {entries} from "@khanacademy/wonder-stuff-core";
 import $ from "jquery";
 import Raphael from "raphael";
@@ -16,7 +17,6 @@ import Raphael from "raphael";
 
 import {Log} from "../logging/log";
 
-import KhanColors from "./colors";
 import {DrawingTransform} from "./drawing-transform";
 import {GraphBounds} from "./graph-bounds";
 import Tex from "./tex";
@@ -304,10 +304,23 @@ export class Graphie {
             isMobile: options.isMobile,
         });
 
+        // tokenValue resolves the semantic tokens to raw hex; graphie only
+        // accepts raw CSS colors, not CSS variables.
+        const gridStroke = tokenValue(
+            options.isMobile
+                ? semanticColor.core.border.neutral.subtle
+                : semanticColor.core.foreground.neutral.strong,
+        );
+        const axisStroke = tokenValue(
+            options.isMobile
+                ? semanticColor.core.foreground.neutral.default
+                : semanticColor.core.foreground.neutral.strong,
+        );
+
         // draw grid
         if (grid) {
             this.grid(gridRange[0], gridRange[1], {
-                stroke: options.isMobile ? KhanColors.GRAY_C : "#000000",
+                stroke: gridStroke,
                 opacity: options.isMobile ? 1 : gridOpacity,
                 step: gridStep,
                 strokeWidth: options.isMobile ? 1 : 2,
@@ -321,9 +334,7 @@ export class Graphie {
                 const thisGraphie = this;
                 this.style(
                     {
-                        stroke: options.isMobile
-                            ? KhanColors.GRAY_G
-                            : "#000000",
+                        stroke: axisStroke,
                         opacity: options.isMobile ? 1 : axisOpacity,
                         strokeWidth: options.isMobile ? 1 : 2,
                         arrows: "->",
@@ -358,7 +369,11 @@ export class Graphie {
                 const thisGraphie = this;
                 this.style(
                     {
-                        stroke: "#000000",
+                        // Unlike the other axis styles, this one does not
+                        // lighten on mobile.
+                        stroke: tokenValue(
+                            semanticColor.core.foreground.neutral.strong,
+                        ),
                         opacity: axisOpacity,
                         strokeWidth: 2,
                         arrows: axisArrows,
@@ -397,7 +412,7 @@ export class Graphie {
             const thisGraphie = this;
             this.style(
                 {
-                    stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
+                    stroke: axisStroke,
                     opacity: options.isMobile ? 1 : tickOpacity,
                     strokeWidth: 1,
                 },
@@ -503,7 +518,7 @@ export class Graphie {
             const thisGraphie = this;
             this.style(
                 {
-                    stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
+                    stroke: axisStroke,
                     opacity: options.isMobile ? 1 : labelOpacity,
                 },
                 function () {
