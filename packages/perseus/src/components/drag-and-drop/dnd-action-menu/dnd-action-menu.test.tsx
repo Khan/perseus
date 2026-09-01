@@ -54,8 +54,8 @@ describe("DndActionMenu", () => {
                 {...generateActionMenuProps({
                     label: "Bongo",
                     moveTargets: generateTestBlanks(3),
+                    remainingUses: 5,
                 })}
-                remainingUses={5}
             />,
         );
 
@@ -178,9 +178,8 @@ describe("DndActionMenu", () => {
                 {...generateActionMenuProps({
                     label: "Bongo",
                     moveTargets: generateTestBlanks(3),
+                    clearAction: {fromLabel: "Blank 1", onClear: jest.fn()},
                 })}
-                clearFromLabel="Blank 1"
-                onClear={jest.fn()}
             />,
         );
 
@@ -202,8 +201,8 @@ describe("DndActionMenu", () => {
                 {...generateActionMenuProps({
                     label: "Bongo",
                     moveTargets: generateTestBlanks(3),
+                    onMove,
                 })}
-                onMove={onMove}
             />,
         );
         await user.click(screen.getByRole("button", {name: "Bongo"}));
@@ -225,9 +224,8 @@ describe("DndActionMenu", () => {
                 {...generateActionMenuProps({
                     label: "Bongo",
                     moveTargets: generateTestBlanks(3),
+                    clearAction: {fromLabel: "Blank 1", onClear},
                 })}
-                clearFromLabel="Blank 1"
-                onClear={onClear}
             />,
         );
         await user.click(screen.getByRole("button", {name: "Bongo"}));
@@ -247,11 +245,9 @@ describe("DndActionMenu", () => {
             <DndActionMenu
                 {...generateActionMenuProps({
                     label: "Bongo",
-                    moveTargets: generateTestBlanks(3),
+                    moveTargets: [],
+                    clearAction: {fromLabel: "Blank 1", onClear: jest.fn()},
                 })}
-                moveTargets={[]}
-                clearFromLabel="Blank 1"
-                onClear={jest.fn()}
             />,
         );
 
@@ -277,8 +273,8 @@ describe("DndActionMenu", () => {
                 {...generateActionMenuProps({
                     label: "Bongo",
                     moveTargets: generateTestBlanks(3),
+                    onMove,
                 })}
-                onMove={onMove}
             />,
         );
         await user.click(screen.getByRole("button", {name: "Bongo"}));
@@ -318,9 +314,8 @@ describe("DndActionMenu", () => {
             <DndActionMenu
                 {...generateActionMenuProps({
                     label: "Bongo",
-                    moveTargets: generateTestBlanks(3),
+                    moveTargets: [],
                 })}
-                moveTargets={[]}
             />,
         );
         const opener = screen.getByRole("button", {name: "Bongo"});
