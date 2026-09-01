@@ -19,7 +19,7 @@ export type BlankRenderInfo = {
     widestTileWidth: number | undefined;
 };
 
-export type FillInTheBlankContextValue = {
+type FillInTheBlankContextValue = {
     getBlankRenderInfo: (
         blankId: string,
         displayType: "normal" | "superscript" | "subscript",
