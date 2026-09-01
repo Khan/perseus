@@ -306,8 +306,7 @@ export class MovablePoint {
                                 svgElem.getElementsByClassName(
                                     "tooltip-content",
                                 )[0];
-                            const filter =
-                                "drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5))";
+                            const filter = wrappedEllipseShadow;
 
                             content.style.filter = filter;
                         }
