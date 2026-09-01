@@ -16,8 +16,10 @@ import type {MoveTarget} from "../dnd-action-menu";
 
 export interface AnswerTileProps {
     /**
-     * The unique identifier of an Answer Tile, which is used
-     * for both scoring and dragging.
+     * The tile's drag-instance id, unique within the surrounding
+     * PerseusDndProvider. The widgets encode the tile's location into
+     * it (see drag-ids.ts), so one tile registers a different id in
+     * the bank and in each blank.
      */
     tileId: string;
     /**
@@ -124,8 +126,6 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
     });
 
     // Whitespace-only content would render an invisible, unlabeled tile.
-    // This protection might not be needed, depending on how we implement
-    // the Content Editor experience, but it seemed wise to add this for now.
     const isEmpty = content.trim() === "";
 
     // The tile starts with the actions menu or, when scored, an icon.
@@ -156,7 +156,7 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
             ref={dragRef}
         >
             {!disabled && (
-                <span className={styles.startContainer}>
+                <div className={styles.startContainer}>
                     {showCorrectness == null ? (
                         <DndActionMenu
                             ref={menuRef}
@@ -172,15 +172,15 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
                             disabled={false}
                         />
                     ) : (
-                        // An unlabeled PhosphorIcon is aria-hidden by
-                        // default. The widget announces the result to
-                        // screen readers, not the tile.
+                        // The icon is decoration: the widget announces the
+                        // result to screen readers, not the tile.
                         <PhosphorIcon
+                            aria-hidden="true"
                             icon={scoredIcons[showCorrectness]}
                             size="medium"
                         />
                     )}
-                </span>
+                </div>
             )}
             <div className={styles.content}>
                 {isEmpty ? (

@@ -19,14 +19,28 @@ describe("DndActionMenu", () => {
 
     it("renders a menu button labeled by the tile value", () => {
         // Arrange, Act
-        render(<DndActionMenu {...generateActionMenuProps()} />);
+        render(
+            <DndActionMenu
+                {...generateActionMenuProps({
+                    label: "Bongo",
+                    moveTargets: generateTestBlanks(3),
+                })}
+            />,
+        );
 
         expect(screen.getByRole("button", {name: "Bongo"})).toBeInTheDocument();
     });
 
     it("describes the button with the actions-menu text", () => {
         // Arrange, Act
-        render(<DndActionMenu {...generateActionMenuProps()} />);
+        render(
+            <DndActionMenu
+                {...generateActionMenuProps({
+                    label: "Bongo",
+                    moveTargets: generateTestBlanks(3),
+                })}
+            />,
+        );
 
         expect(
             screen.getByRole("button", {name: "Bongo"}),
@@ -36,7 +50,13 @@ describe("DndActionMenu", () => {
     it("describes the button with the remaining-count text for multi-use tiles", () => {
         // Arrange, Act
         render(
-            <DndActionMenu {...generateActionMenuProps()} remainingUses={5} />,
+            <DndActionMenu
+                {...generateActionMenuProps({
+                    label: "Bongo",
+                    moveTargets: generateTestBlanks(3),
+                })}
+                remainingUses={5}
+            />,
         );
 
         expect(
@@ -46,7 +66,14 @@ describe("DndActionMenu", () => {
 
     it("opens the menu on click", async () => {
         // Arrange
-        render(<DndActionMenu {...generateActionMenuProps()} />);
+        render(
+            <DndActionMenu
+                {...generateActionMenuProps({
+                    label: "Bongo",
+                    moveTargets: generateTestBlanks(3),
+                })}
+            />,
+        );
 
         // Act
         await user.click(screen.getByRole("button", {name: "Bongo"}));
@@ -57,7 +84,14 @@ describe("DndActionMenu", () => {
 
     it("renders the header text visibly", async () => {
         // Arrange
-        render(<DndActionMenu {...generateActionMenuProps()} />);
+        render(
+            <DndActionMenu
+                {...generateActionMenuProps({
+                    label: "Bongo",
+                    moveTargets: generateTestBlanks(3),
+                })}
+            />,
+        );
 
         // Act
         await user.click(screen.getByRole("button", {name: "Bongo"}));
@@ -68,7 +102,14 @@ describe("DndActionMenu", () => {
 
     it("hides the header from assistive technology", async () => {
         // Arrange
-        render(<DndActionMenu {...generateActionMenuProps()} />);
+        render(
+            <DndActionMenu
+                {...generateActionMenuProps({
+                    label: "Bongo",
+                    moveTargets: generateTestBlanks(3),
+                })}
+            />,
+        );
 
         // Act
         await user.click(screen.getByRole("button", {name: "Bongo"}));
@@ -84,7 +125,14 @@ describe("DndActionMenu", () => {
 
     it("renders a move action per target, with visible and spoken labels", async () => {
         // Arrange
-        render(<DndActionMenu {...generateActionMenuProps()} />);
+        render(
+            <DndActionMenu
+                {...generateActionMenuProps({
+                    label: "Bongo",
+                    moveTargets: generateTestBlanks(3),
+                })}
+            />,
+        );
 
         // Act
         await user.click(screen.getByRole("button", {name: "Bongo"}));
@@ -104,7 +152,14 @@ describe("DndActionMenu", () => {
 
     it("omits the clear action when the tile is not placed in a blank", async () => {
         // Arrange
-        render(<DndActionMenu {...generateActionMenuProps()} />);
+        render(
+            <DndActionMenu
+                {...generateActionMenuProps({
+                    label: "Bongo",
+                    moveTargets: generateTestBlanks(3),
+                })}
+            />,
+        );
 
         // Act
         await user.click(screen.getByRole("button", {name: "Bongo"}));
@@ -120,7 +175,10 @@ describe("DndActionMenu", () => {
         // Arrange
         render(
             <DndActionMenu
-                {...generateActionMenuProps()}
+                {...generateActionMenuProps({
+                    label: "Bongo",
+                    moveTargets: generateTestBlanks(3),
+                })}
                 clearFromLabel="Blank 1"
                 onClear={jest.fn()}
             />,
@@ -140,7 +198,13 @@ describe("DndActionMenu", () => {
         // Arrange
         const onMove = jest.fn();
         render(
-            <DndActionMenu {...generateActionMenuProps()} onMove={onMove} />,
+            <DndActionMenu
+                {...generateActionMenuProps({
+                    label: "Bongo",
+                    moveTargets: generateTestBlanks(3),
+                })}
+                onMove={onMove}
+            />,
         );
         await user.click(screen.getByRole("button", {name: "Bongo"}));
 
@@ -158,7 +222,10 @@ describe("DndActionMenu", () => {
         const onClear = jest.fn();
         render(
             <DndActionMenu
-                {...generateActionMenuProps()}
+                {...generateActionMenuProps({
+                    label: "Bongo",
+                    moveTargets: generateTestBlanks(3),
+                })}
                 clearFromLabel="Blank 1"
                 onClear={onClear}
             />,
@@ -178,7 +245,10 @@ describe("DndActionMenu", () => {
         // Arrange
         render(
             <DndActionMenu
-                {...generateActionMenuProps()}
+                {...generateActionMenuProps({
+                    label: "Bongo",
+                    moveTargets: generateTestBlanks(3),
+                })}
                 moveTargets={[]}
                 clearFromLabel="Blank 1"
                 onClear={jest.fn()}
@@ -188,17 +258,48 @@ describe("DndActionMenu", () => {
         // Act
         await user.click(screen.getByRole("button", {name: "Bongo"}));
 
-        // Assert — only the clear action remains.
+        // Assert — only the clear action remains, with no "Move to"
+        // header over an empty section.
         expect(await screen.findAllByRole("menuitem")).toHaveLength(1);
         expect(
             screen.getByRole("menuitem", {name: "Clear from Blank 1"}),
         ).toBeInTheDocument();
+        expect(screen.queryByText("Move to")).not.toBeInTheDocument();
+    });
+
+    it("does nothing when the decorative header is clicked", async () => {
+        // Arrange — the dropdown injects a click handler onto every child
+        // it clones, and that handler throws for a non-item child. The
+        // header must swallow the click.
+        const onMove = jest.fn();
+        render(
+            <DndActionMenu
+                {...generateActionMenuProps({
+                    label: "Bongo",
+                    moveTargets: generateTestBlanks(3),
+                })}
+                onMove={onMove}
+            />,
+        );
+        await user.click(screen.getByRole("button", {name: "Bongo"}));
+
+        // Act
+        await user.click(await screen.findByText("Move to"));
+
+        // Assert
+        expect(onMove).not.toHaveBeenCalled();
     });
 
     it("disables menu interaction when disabled is true", async () => {
         // Arrange
         render(
-            <DndActionMenu {...generateActionMenuProps()} disabled={true} />,
+            <DndActionMenu
+                {...generateActionMenuProps({
+                    label: "Bongo",
+                    moveTargets: generateTestBlanks(3),
+                })}
+                disabled={true}
+            />,
         );
         const opener = screen.getByRole("button", {name: "Bongo"});
 
@@ -214,7 +315,13 @@ describe("DndActionMenu", () => {
         // Arrange — nothing to move to and nothing to clear would open an
         // empty menu, so the opener must disable itself.
         render(
-            <DndActionMenu {...generateActionMenuProps()} moveTargets={[]} />,
+            <DndActionMenu
+                {...generateActionMenuProps({
+                    label: "Bongo",
+                    moveTargets: generateTestBlanks(3),
+                })}
+                moveTargets={[]}
+            />,
         );
         const opener = screen.getByRole("button", {name: "Bongo"});
 
@@ -229,7 +336,14 @@ describe("DndActionMenu", () => {
     it("returns focus to the opener after a move action is selected", async () => {
         // Arrange — guards the MergedRefOpener wiring: ActionMenu can only
         // restore focus on close if its injected ref reached the button.
-        render(<DndActionMenu {...generateActionMenuProps()} />);
+        render(
+            <DndActionMenu
+                {...generateActionMenuProps({
+                    label: "Bongo",
+                    moveTargets: generateTestBlanks(3),
+                })}
+            />,
+        );
         const opener = screen.getByRole("button", {name: "Bongo"});
         await user.click(opener);
 
@@ -247,7 +361,15 @@ describe("DndActionMenu", () => {
         const ref = React.createRef<HTMLButtonElement>();
 
         // Act
-        render(<DndActionMenu {...generateActionMenuProps()} ref={ref} />);
+        render(
+            <DndActionMenu
+                {...generateActionMenuProps({
+                    label: "Bongo",
+                    moveTargets: generateTestBlanks(3),
+                })}
+                ref={ref}
+            />,
+        );
 
         // Assert — the parent uses this ref for post-move focus return.
         expect(ref.current).toBe(screen.getByRole("button", {name: "Bongo"}));
