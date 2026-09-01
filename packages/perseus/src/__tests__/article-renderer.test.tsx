@@ -60,6 +60,7 @@ function KeypadWithContext() {
 export const renderArticle = (
     json: PerseusArticle = articleSectionWithExpression,
     apiOptions: APIOptions = Object.freeze({}),
+    seed = 0,
 ): {
     container: HTMLElement;
     renderer: ArticleRenderer;
@@ -76,6 +77,7 @@ export const renderArticle = (
                                 setRenderer(node);
                             }}
                             json={json}
+                            seed={seed}
                             dependencies={testDependenciesV2}
                             apiOptions={{...apiOptions}}
                             keypadElement={keypadElement}
@@ -248,11 +250,13 @@ describe("article renderer", () => {
          * shuffled the same way.
          */
         const getRenderedChoiceOrders = (): string[][] =>
-            screen.getAllByRole("group").map((radioWidget) =>
-                within(radioWidget)
-                    .getAllByRole("listitem")
-                    .map((choice) => choice.textContent ?? ""),
-            );
+            screen
+                .getAllByRole("list", {name: "Choose 1 answer:"})
+                .map((choiceList) =>
+                    within(choiceList)
+                        .getAllByRole("listitem")
+                        .map((choice) => choice.textContent ?? ""),
+                );
 
         it("shuffles the same radio widget differently in each article section", () => {
             // Arrange

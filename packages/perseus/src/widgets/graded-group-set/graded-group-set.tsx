@@ -171,6 +171,7 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
                             <GradedGroup
                                 key={i}
                                 {...this.props}
+                                problemNum={(this.props.problemNum ?? 0) + i}
                                 options={gradedGroup}
                                 inGradedGroupSet={false}
                                 linterContext={this.props.linterContext}
@@ -216,6 +217,9 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
                     ref={(comp) => (this._childGroup = comp)}
                     // We should pass in the set of props explicitly
                     {...this.props}
+                    problemNum={
+                        (this.props.problemNum ?? 0) + this.state.currentGroup
+                    }
                     options={{
                         ...currentGroup,
                         // The set renders the group's title itself, above the

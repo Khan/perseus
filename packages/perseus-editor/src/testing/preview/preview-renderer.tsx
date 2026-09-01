@@ -205,6 +205,7 @@ export function PreviewRenderer({content, isMobile, hasLintGutter}: Props) {
                 {({keypadElement, isMobile}) => (
                     <ArticleRenderer
                         json={article}
+                        seed={0}
                         apiOptions={{...apiOptions, isMobile}}
                         keypadElement={keypadElement}
                         legacyPerseusLint={legacyPerseusLint}
@@ -230,6 +231,7 @@ export function PreviewRenderer({content, isMobile, hasLintGutter}: Props) {
                 {({keypadElement, isMobile}) => (
                     <ArticleRenderer
                         json={[...article]}
+                        seed={0}
                         apiOptions={{...apiOptions, isMobile}}
                         keypadElement={keypadElement}
                         dependencies={storybookDependenciesV2}
