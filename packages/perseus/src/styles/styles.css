@@ -365,43 +365,7 @@
 /*****************************
  * GLOBAL DARK MODE SETTINGS *
  *****************************/
-[data-wb-theme$="-dark"] .framework-perseus:not(.wb-themed-math) {
-    /* TODO(benchristel): this set of file extensions is duplicated in
-     * image.css and dark-mode-toggle.tsx. Replace these selectors with a
-     * class that gets added to images that should be inverted, so the set of
-     * extensions can have a single representation in TypeScript code.
-     */
-    img[src$=".png"],
-    img[src$=".svg"],
-    .graphie:not(.perseus-widget-plotter),
-    .mathjax-wrapper:not(.graphie:not(.perseus-widget-plotter) *) {
-        /* This filter is applied to PNG/SVG images, Graphie (excluding the
-           Plotter, which is themed), and MathJax. MathJax inside inverted
-           Graphies is excluded so it doesn't get double-inverted. JPEGs & GIFs
-           are untouched.
-         */
-        filter: invert(1) hue-rotate(180deg) brightness(1.5);
-    }
-
-    .mathjax-wrapper > mjx-container {
-        /* Since we invert all MathJax colors (above), we need to force the
-           default foreground color to dark so it will be light when inverted.
-           If we don't do this, then math will inherit the theme's foreground
-           color and invert it, resulting in dark-on-dark text.
-
-           The precise color used here is unimportant; off-black colors get
-           washed out by the brightness filter, so they end up as #fff anyway.
-         */
-        color: black;
-    }
-}
-
-/* TODO(LEMS-4492): remove the .wb-themed-math class once math uses WB
-   tokens everywhere. In the future, the styles below should become the only
-   dark mode styles. We can also remove the !important from the .graphie-label
-   styles, and set the label foreground color directly in graphie.ts.
- */
-[data-wb-theme$="-dark"] .framework-perseus.wb-themed-math {
+[data-wb-theme$="-dark"] .framework-perseus {
     /* TODO(benchristel): this set of file extensions is duplicated in
      * image.css and dark-mode-toggle.tsx. Replace these selectors with a
      * class that gets added to images that should be inverted, so the set of

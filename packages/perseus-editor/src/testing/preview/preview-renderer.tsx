@@ -91,8 +91,7 @@ function PreviewKeypadConnection({
 
     return (
         <View
-            // TODO(LEMS-4492): remove wb-themed-math
-            className={`framework-perseus wb-themed-math ${className}`}
+            className={`framework-perseus ${className}`}
             style={containerStyle}
         >
             {children({...keypadCtx, isMobile})}

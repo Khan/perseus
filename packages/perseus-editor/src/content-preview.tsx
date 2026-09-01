@@ -69,8 +69,7 @@ function ContentPreview({
 
     return (
         <View
-            // TODO(LEMS-4492): remove wb-themed-math
-            className={`framework-perseus wb-themed-math ${className}`}
+            className={`framework-perseus ${className}`}
             style={[styles.container, !seamless ? styles.gutter : undefined]}
         >
             <StatefulKeypadContextProvider>

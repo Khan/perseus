@@ -4,21 +4,21 @@ import type {Decorator} from "@storybook/react-vite";
 
 export const mobileDecorator: Decorator = (Story) => (
     // TODO(LEMS-4492): remove wb-themed-math
-    <div className="framework-perseus wb-themed-math perseus-mobile">
+    <div className="framework-perseus perseus-mobile">
         <Story />
     </div>
 );
 
 export const articleDecorator: Decorator = (Story) => (
     // TODO(LEMS-4492): remove wb-themed-math
-    <div className="framework-perseus wb-themed-math perseus-article">
+    <div className="framework-perseus perseus-article">
         <Story />
     </div>
 );
 
 export const mobileArticleDecorator: Decorator = (Story) => (
     // TODO(LEMS-4492): remove wb-themed-math
-    <div className="framework-perseus wb-themed-math perseus-mobile perseus-article">
+    <div className="framework-perseus perseus-mobile perseus-article">
         <Story />
     </div>
 );
@@ -60,8 +60,7 @@ const articleContent3 =
     "The nucleolus (a structure inside the nucleus where ribosomes are made) disappears during prophase. The mitotic spindle begins to form during prophase, starting at regions called centrosomes. These regions contain the material needed for building the spindle, and also function to regulate the spindle throughout mitosis.";
 
 export const mobileArticleFloatLeftDecorator: Decorator = (Story) => (
-    // TODO(LEMS-4492): remove wb-themed-math
-    <div className="framework-perseus wb-themed-math perseus-mobile perseus-article">
+    <div className="framework-perseus perseus-mobile perseus-article">
         <div className="paragraph">
             <div className="perseus-widget-container widget-nohighlight widget-wrap-left">
                 <Story />
@@ -74,8 +73,7 @@ export const mobileArticleFloatLeftDecorator: Decorator = (Story) => (
 );
 
 export const mobileArticleFloatRightDecorator: Decorator = (Story) => (
-    // TODO(LEMS-4492): remove wb-themed-math
-    <div className="framework-perseus wb-themed-math perseus-mobile perseus-article">
+    <div className="framework-perseus perseus-mobile perseus-article">
         <div className="paragraph">
             <div className="perseus-widget-container widget-nohighlight widget-wrap-right">
                 <Story />
@@ -88,8 +86,7 @@ export const mobileArticleFloatRightDecorator: Decorator = (Story) => (
 );
 
 export const articleFloatLeftDecorator: Decorator = (Story) => (
-    // TODO(LEMS-4492): remove wb-themed-math
-    <div className="framework-perseus wb-themed-math perseus-article">
+    <div className="framework-perseus perseus-article">
         <div className="paragraph">
             <div className="perseus-widget-container widget-nohighlight widget-wrap-left">
                 <Story />
@@ -102,8 +99,7 @@ export const articleFloatLeftDecorator: Decorator = (Story) => (
 );
 
 export const articleFloatRightDecorator: Decorator = (Story) => (
-    // TODO(LEMS-4492): remove wb-themed-math
-    <div className="framework-perseus wb-themed-math perseus-article">
+    <div className="framework-perseus perseus-article">
         <div className="paragraph">
             <div className="perseus-widget-container widget-nohighlight widget-wrap-right">
                 <Story />

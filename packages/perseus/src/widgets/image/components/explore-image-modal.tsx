@@ -56,8 +56,7 @@ export const ExploreImageModal = (props: CommonImageProps) => {
             // We need to manually add the `framework-perseus` class so that
             // the modal can have the correct styling, even when the portal
             // makes it render outside the normal `framework-perseus` container.
-            // TODO(LEMS-4492): remove wb-themed-math
-            className={`framework-perseus wb-themed-math ${styles.modalContainer}`}
+            className={`framework-perseus ${styles.modalContainer}`}
         >
             <FlexibleDialog
                 title={title}
