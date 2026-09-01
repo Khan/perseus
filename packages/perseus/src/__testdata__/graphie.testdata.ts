@@ -1,5 +1,7 @@
 import {
     generateImageOptions,
+    generateImageWidget,
+    generateTestPerseusItem,
     getDefaultAnswerArea,
     type PerseusItem,
 } from "@khanacademy/perseus-core";
@@ -40,3 +42,19 @@ export const itemWithPieChart: PerseusItem = {
         },
     },
 };
+
+export const itemWithLabeledAngle: PerseusItem = generateTestPerseusItem({
+    question: {
+        content: "[[☃ image 1]]",
+        images: {},
+        widgets: {
+            "image 1": generateImageWidget({
+                options: generateImageOptions({
+                    backgroundImage: {
+                        url: "web+graphie://ka-perseus-graphie.s3.amazonaws.com/cc939c7b30d59b952f579a17e410c8e86055e84a",
+                    },
+                }),
+            }),
+        },
+    },
+});
