@@ -187,10 +187,13 @@ export default class ArticleEditor extends React.Component<Props, State> {
                     return [
                         <div className="perseus-editor-row" key={i}>
                             <div className="perseus-editor-left-cell">
+                                {/* The issues panel lives outside the
+                                 * fieldset so that it stays usable when
+                                 * editing is disabled, and so that its
+                                 * containing block is the scrolling left
+                                 * cell (which is what lets it stick). */}
+                                <IssuesPanel issues={this.state.issues[i]} />
                                 <fieldset disabled={editingDisabled}>
-                                    <IssuesPanel
-                                        issues={this.state.issues[i]}
-                                    />
                                     <div className="pod-title">
                                         Section {i + 1}
                                         <div

@@ -193,8 +193,6 @@ class ItemEditor extends React.Component<Props> {
                             {...this.props.answerArea}
                         />
                     </div>
-
-                    <div className="perseus-editor-right-cell" />
                 </div>
 
                 <CombinedHintsEditor

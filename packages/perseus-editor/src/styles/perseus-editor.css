@@ -266,6 +266,7 @@ code {
 .perseus-editor-row {
     display: flex;
     flex-direction: row;
+    margin-block-end: 32px;
 }
 .perseus-editor-left-cell {
     display: flex;
@@ -284,6 +285,10 @@ code {
     /* Keep the left cell scroll area within the viewport. (244px to account
      * for the header.) */
     max-height: calc(95vh - 244px);
+
+    /* Border and gutter to make it more obvious how big the left cell is. */
+    border: 1px solid var(--wb-semanticColor-core-border-neutral-default);
+    margin-inline-end: 32px;
 }
 .perseus-editor-right-cell {
     box-sizing: border-box;
@@ -300,6 +305,8 @@ code {
     /* Don't shrink below the preview's intrinsic width. We need this to
      * preserve the Tablet and Desktop preview widths. */
     flex-shrink: 0;
+    /* Border to make it more obvious how big the left cell is. */
+    border: 1px solid var(--wb-semanticColor-core-border-neutral-default);
 }
 .perseus-hint-editor {
     padding-bottom: 20px;
@@ -338,6 +345,32 @@ code {
 .perseus-article-editor .perseus-editor-left-cell {
     min-width: 360px;
 }
+/* Pin the issues panel to the top of the section's scroll area so it stays
+ * visible while the author scrolls through that section's content. The left
+ * cell is the scroll container, and the panel is one of its direct children,
+ * so `inset-block-start: 0` sticks it to the top of that scrollport. */
+.perseus-article-editor .perseus-editor-left-cell > .perseus-issues-panel {
+    position: sticky;
+    inset-block-start: 0;
+    /* Draw above the section content that scrolls underneath it. Nothing else
+     * inside the left cell sets a z-index, so 1 is enough. */
+    z-index: 1;
+    /* Sticky elements don't get a background for free; without one the section
+     * content would show through the panel as it scrolls past. */
+    background-color: var(--wb-semanticColor-core-background-base-default);
+    /* A flex item won't shrink below its content by default, but it also
+     * shouldn't stretch to fill the cell when the section is short. */
+    flex-shrink: 0;
+}
+/* An expanded panel with many issues could otherwise cover the whole scroll
+ * area, leaving nothing to scroll. Cap it and let the list scroll instead. */
+.perseus-article-editor
+    .perseus-editor-left-cell
+    > .perseus-issues-panel
+    .perseus-widget-editor-panel {
+    max-height: 40vh;
+    overflow-y: auto;
+}
 .perseus-article-editor .mobile-preview,
 .perseus-article-editor .desktop-preview,
 .perseus-article-editor .editor-preview,
@@ -353,6 +386,9 @@ code {
 .perseus-article-editor .desktop-preview {
     border: 1px solid transparent;
     padding: 32px 20px;
+}
+.perseus-article-editor .editor-preview {
+    border: 1px solid var(--wb-semanticColor-core-border-neutral-default);
 }
 .perseus-article-editor .editor-preview {
     /* Make the preview scrollable. */

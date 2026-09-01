@@ -141,7 +141,7 @@ exports[`EditorPage should match snapshot for editing disabled for all widgets 1
           class="perseus-editor-left-cell"
         >
           <div
-            class="perseus-widget-editor"
+            class="perseus-widget-editor perseus-issues-panel"
           >
             <div
               class="perseus-widget-editor-title"
@@ -16615,9 +16615,6 @@ table: [[☃ table 1]]
             </div>
           </div>
         </div>
-        <div
-          class="perseus-editor-right-cell"
-        />
       </div>
       <div
         class="perseus-editor-row"
