@@ -3,8 +3,25 @@ import {
     KeypadContext,
 } from "@khanacademy/keypad-context";
 import {MobileKeypad} from "@khanacademy/math-input";
+import {
+    generateGradedGroupOptions,
+    generateGradedGroupSetWidget,
+    generateGradedGroupWidget,
+    generateRadioChoice,
+    generateRadioOptions,
+    generateRadioWidget,
+    generateTestPerseusRenderer,
+} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {screen, render, fireEvent, waitFor, act} from "@testing-library/react";
+import {
+    screen,
+    render,
+    fireEvent,
+    waitFor,
+    act,
+    within,
+} from "@testing-library/react";
+import {userEvent} from "@testing-library/user-event";
 import * as React from "react";
 
 import {articleSectionWithExpression} from "../__testdata__/article-renderer.testdata";
@@ -17,7 +34,11 @@ import {
 } from "../testing/test-dependencies";
 
 import type {APIOptions} from "../types";
-import type {PerseusArticle} from "@khanacademy/perseus-core";
+import type {
+    PerseusGradedGroupWidgetOptions,
+    PerseusArticle,
+    RadioWidget,
+} from "@khanacademy/perseus-core";
 
 function KeypadWithContext() {
     return (
@@ -184,6 +205,116 @@ describe("article renderer", () => {
         // We also need to wait for the onFocusChange callback to be called
         await waitFor(() => {
             expect(answerableCallback).toHaveBeenCalled();
+        });
+    });
+
+    describe("Randomization", () => {
+        const choiceContents = [
+            "Choice A",
+            "Choice B",
+            "Choice C",
+            "Choice D",
+            "Choice E",
+        ];
+
+        // Every copy of this widget is identical (ids included), so any
+        // difference in the rendered choice order has to come from Perseus
+        // giving each copy a different shuffle.
+        const randomizedRadioWidget = (): RadioWidget =>
+            generateRadioWidget({
+                options: generateRadioOptions({
+                    randomize: true,
+                    choices: choiceContents.map((content, index) =>
+                        generateRadioChoice(content, {
+                            id: `choice-${index}`,
+                            correct: index === 0,
+                        }),
+                    ),
+                }),
+            });
+
+        const gradedGroupWithRandomizedRadio = (
+            title: string,
+        ): PerseusGradedGroupWidgetOptions =>
+            generateGradedGroupOptions({
+                title,
+                content: "[[☃ radio 1]]",
+                widgets: {"radio 1": randomizedRadioWidget()},
+            });
+
+        /**
+         * The rendered choice order of every radio widget on the page, in DOM
+         * order. Two entries that are equal mean those two radio widgets were
+         * shuffled the same way.
+         */
+        const getRenderedChoiceOrders = (): string[][] =>
+            screen.getAllByRole("group").map((radioWidget) =>
+                within(radioWidget)
+                    .getAllByRole("listitem")
+                    .map((choice) => choice.textContent ?? ""),
+            );
+
+        it("shuffles the same radio widget differently in each article section", () => {
+            // Arrange
+            const section = () =>
+                generateTestPerseusRenderer({
+                    content: "[[☃ graded-group 1]]",
+                    widgets: {
+                        "graded-group 1": generateGradedGroupWidget({
+                            options: gradedGroupWithRandomizedRadio("Group"),
+                        }),
+                    },
+                });
+
+            // Act
+            renderArticle([section(), section()], {
+                ...ApiOptions.defaults,
+                isMobile: false,
+                customKeypad: false,
+            });
+
+            // Assert
+            const [firstSectionOrder, secondSectionOrder] =
+                getRenderedChoiceOrders();
+            expect(firstSectionOrder).not.toEqual(secondSectionOrder);
+        });
+
+        it("shuffles the same radio widget differently in each group of a graded group set", async () => {
+            // Arrange
+            const user = userEvent.setup({
+                advanceTimers: jest.advanceTimersByTime,
+            });
+            renderArticle(
+                generateTestPerseusRenderer({
+                    content: "[[☃ graded-group-set 1]]",
+                    widgets: {
+                        "graded-group-set 1": generateGradedGroupSetWidget({
+                            options: {
+                                gradedGroups: [
+                                    gradedGroupWithRandomizedRadio("Group 1"),
+                                    gradedGroupWithRandomizedRadio("Group 2"),
+                                ],
+                            },
+                        }),
+                    },
+                }),
+                {
+                    ...ApiOptions.defaults,
+                    isMobile: false,
+                    customKeypad: false,
+                },
+            );
+
+            // A graded group set only renders the current group, so we have to
+            // read the first group's order before switching to the second.
+            const [firstGroupOrder] = getRenderedChoiceOrders();
+
+            // Act
+            await user.click(screen.getByRole("button", {name: "Group 2"}));
+
+            // Assert
+            const [secondGroupOrder] = getRenderedChoiceOrders();
+            expect(firstGroupOrder).not.toEqual(secondGroupOrder);
         });
     });
 });
