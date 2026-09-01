@@ -7,6 +7,9 @@ import {readTileDragData} from "../drag-ids";
 
 import styles from "./blank-component.module.css";
 
+/** How a blank renders: full size, or smaller for exponents/indices. */
+export type BlankDisplayType = "normal" | "superscript" | "subscript";
+
 export interface BlankComponentProps {
     /**
      * Unique identifier of this blank. It doubles as the dnd-kit droppable
@@ -16,8 +19,7 @@ export interface BlankComponentProps {
      * that use this component directly supply their own ids.
      */
     blankId: string;
-    /** Rendering variant: full size, or smaller for exponents/indices. */
-    displayType: "normal" | "superscript" | "subscript";
+    displayType: BlankDisplayType;
     /** The placed answer tile, when one sits in this blank. */
     children?: React.ReactNode;
     /**
@@ -35,13 +37,13 @@ export interface BlankComponentProps {
      * beyond this.
      */
     minWidth?: number;
-    /** Extra class for the slot element, for widget-level layout. */
-    className?: string;
     /**
      * Keeps the empty-slot width when a tile is placed, so the line
      * does not reflow. Without it a filled blank hugs its tile.
      */
     keepsWidthWhenFilled?: boolean;
+    /** Extra class for the slot element, for widget-level layout. */
+    className?: string;
     // TODO(LEMS-4448): Remove once there is a better way to identify a blank.
     testId?: string;
 }
@@ -61,8 +63,8 @@ export function BlankComponent(props: BlankComponentProps): React.ReactElement {
         children,
         placedTileId,
         minWidth,
-        className,
         keepsWidthWhenFilled,
+        className,
         testId,
     } = props;
 
@@ -83,6 +85,10 @@ export function BlankComponent(props: BlankComponentProps): React.ReactElement {
         dragged?.tileId === placedTileId &&
         dragged?.fromBlankId === blankId;
 
+    // The slot chrome hides behind a placed tile, but comes back while
+    // that tile drags away.
+    const showsPlacedTile = isFilled && !isTileDraggingOut;
+
     // The width is a CSS variable, set filled or not: the rules choose
     // when to consume it. A filled blank in "hug" mode does not, and
     // narrow-mode rules override it.
@@ -96,12 +102,10 @@ export function BlankComponent(props: BlankComponentProps): React.ReactElement {
             ref={ref}
             className={classNames(
                 styles.container,
-                displayType !== "normal" && styles["super-sub"],
-                displayType === "superscript" && styles.superscript,
-                displayType === "subscript" && styles.subscript,
-                isFilled && !isTileDraggingOut && styles.filled,
+                DISPLAY_TYPE_CLASSES[displayType],
+                showsPlacedTile && styles.filled,
                 keepsWidthWhenFilled && styles.keepsWidth,
-                isDropTarget && styles["drop-target"],
+                isDropTarget && styles.dropTarget,
                 className,
             )}
             style={minWidthStyle}
@@ -116,3 +120,9 @@ export function BlankComponent(props: BlankComponentProps): React.ReactElement {
         </div>
     );
 }
+
+const DISPLAY_TYPE_CLASSES: Record<BlankDisplayType, string | undefined> = {
+    normal: undefined,
+    superscript: classNames(styles.superSub, styles.superscript),
+    subscript: classNames(styles.superSub, styles.subscript),
+};
