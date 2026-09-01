@@ -23,13 +23,6 @@ export interface BlankComponentProps {
     /** The placed answer tile, when one sits in this blank. */
     children?: React.ReactNode;
     /**
-     * The tile that sits in this blank. The blank uses it to notice
-     * that its own tile is mid-drag and show the empty slot underneath,
-     * so the slot looks like it was there all along. Pass it whenever
-     * children are passed.
-     */
-    placedTileId?: string;
-    /**
      * Minimum width of the empty slot. The FITB spec sizes an empty blank
      * to the widest answer tile so the slot's size does not reveal the
      * answer; the widget computes that width and passes it here. Defaults
@@ -61,7 +54,6 @@ export function BlankComponent(props: BlankComponentProps): React.ReactElement {
         blankId,
         displayType,
         children,
-        placedTileId,
         minWidth,
         keepsWidthWhenFilled,
         className,
@@ -79,11 +71,10 @@ export function BlankComponent(props: BlankComponentProps): React.ReactElement {
     // While this blank's own tile is mid-drag it still occupies layout
     // space (dnd-kit moves it with a transform), so showing the empty
     // chrome again puts the dashed slot underneath the departing tile.
+    // A blank holds one tile, and placements only change when a drag
+    // ends, so a drag that reports this blank started from this tile.
     const dragged = readTileDragData(source?.data);
-    const isTileDraggingOut =
-        placedTileId != null &&
-        dragged?.tileId === placedTileId &&
-        dragged?.fromBlankId === blankId;
+    const isTileDraggingOut = isFilled && dragged?.fromBlankId === blankId;
 
     // The slot chrome hides behind a placed tile, but comes back while
     // that tile drags away.

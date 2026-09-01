@@ -2,24 +2,24 @@ import {useDroppable} from "@dnd-kit/react";
 import * as React from "react";
 import {useId} from "react";
 
-import {AnswerTile, type AnswerTileProps} from "./answer-tile";
 import styles from "./choice-bank.module.css";
+
+/**
+ * The bank's droppable id: a tile dropped here returns to the bank.
+ * Every widget mounts its own PerseusDndProvider, which scopes drag ids,
+ * so one shared value stays unique for two widgets on one page.
+ */
+export const CHOICE_BANK_DROP_ID = "choice-bank";
 
 interface ChoiceBankProps {
     /**
-     * The answer tiles to lay out. Each renders as its own `<li>`. Pass an
-     * empty array for an empty bank (e.g. once every tile has been placed).
+     * The answer tiles to lay out. Each child renders as its own `<li>`,
+     * so pass the tiles as siblings and not inside a fragment. Pass
+     * nothing for an empty bank (e.g. once every tile has been placed).
      */
-    answerTiles: ReadonlyArray<AnswerTileProps>;
+    children?: React.ReactNode;
     /** Visible label; also names the tile list for assistive tech. */
     label: string;
-    /**
-     * Identifies the bank's drop target in drag events: a tile dropped
-     * here returns to the bank. Pass a stable id when the widget needs to
-     * recognize the bank in its drag-end handling; defaults to a generated
-     * unique id.
-     */
-    bankId?: string;
 }
 
 /**
@@ -27,13 +27,11 @@ interface ChoiceBankProps {
  * label on top, with tiles wrapping onto new rows below.
  */
 export function ChoiceBank({
-    answerTiles,
+    children,
     label,
-    bankId,
 }: ChoiceBankProps): React.ReactElement {
     const labelId = useId();
-    const generatedBankId = useId();
-    const {ref} = useDroppable({id: bankId ?? generatedBankId});
+    const {ref} = useDroppable({id: CHOICE_BANK_DROP_ID});
 
     // The whole card is the drop target, so a tile can land anywhere in
     // the dashed area — the list alone has no height once the bank is
@@ -45,10 +43,8 @@ export function ChoiceBank({
                 {label}
             </span>
             <ul className={styles.list} aria-labelledby={labelId}>
-                {answerTiles.map((answerTile) => (
-                    <li key={answerTile.tileId} className={styles.item}>
-                        <AnswerTile {...answerTile} />
-                    </li>
+                {React.Children.map(children, (tile) => (
+                    <li className={styles.item}>{tile}</li>
                 ))}
             </ul>
         </div>

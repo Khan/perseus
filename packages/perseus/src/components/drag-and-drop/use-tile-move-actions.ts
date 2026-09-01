@@ -1,6 +1,7 @@
 import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
 import * as React from "react";
 
+import {CHOICE_BANK_DROP_ID} from "./choice-bank";
 import {readTileDragData} from "./drag-ids";
 import {tempDndStrings as strings} from "./temp-strings";
 import {clearBlank, placeTile} from "./tile-placements";
@@ -26,8 +27,6 @@ export function useTileMoveActions(options: {
     getTileLabel: (tileId: string) => string;
     getBlankLabel: (blankId: string) => string;
     blankIds: ReadonlyArray<string>;
-    /** The bank's droppable id: a drop here clears the dragged tile. */
-    bankDropId: string;
 }): {
     handleMove: (
         move: TileDragData,
@@ -48,7 +47,6 @@ export function useTileMoveActions(options: {
         getTileLabel,
         getBlankLabel,
         blankIds,
-        bankDropId,
     } = options;
 
     const bankMenuRef = React.useRef<HTMLButtonElement | null>(null);
@@ -140,7 +138,7 @@ export function useTileMoveActions(options: {
         if (targetId === move.fromBlankId) {
             return;
         }
-        if (targetId === bankDropId) {
+        if (targetId === CHOICE_BANK_DROP_ID) {
             if (move.fromBlankId != null) {
                 handleClear(move.fromBlankId, false);
             }

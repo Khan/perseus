@@ -94,35 +94,40 @@ export const Unused: Story = {
 export const ScoredComposition: Story = {
     render: () => (
         <div style={{maxInlineSize: 480}}>
-            <ChoiceBank
-                label="Choices"
-                answerTiles={[
-                    generateAnswerTileProps({
+            <ChoiceBank label="Choices">
+                <AnswerTile
+                    {...generateAnswerTileProps({
                         tileId: "tile-1",
                         content: "2Mg",
                         label: "2Mg",
                         scoring: "correct",
-                    }),
-                    generateAnswerTileProps({
+                    })}
+                />
+                <AnswerTile
+                    {...generateAnswerTileProps({
                         tileId: "tile-2",
                         content: "$O_2$",
                         label: "O 2",
                         scoring: "correct",
-                    }),
-                    generateAnswerTileProps({
+                    })}
+                />
+                <AnswerTile
+                    {...generateAnswerTileProps({
                         tileId: "tile-3",
                         content: "acoustic",
                         label: "acoustic",
                         scoring: "unused",
-                    }),
-                    generateAnswerTileProps({
+                    })}
+                />
+                <AnswerTile
+                    {...generateAnswerTileProps({
                         tileId: "tile-4",
                         content: "steel",
                         label: "steel",
                         scoring: "unused",
-                    }),
-                ]}
-            />
+                    })}
+                />
+            </ChoiceBank>
         </div>
     ),
 };
