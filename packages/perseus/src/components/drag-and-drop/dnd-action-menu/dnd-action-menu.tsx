@@ -24,7 +24,7 @@ export type MoveTarget = {
 
 export interface DndActionMenuProps {
     /** The tile's value — labels the button via aria-label. */
-    label: string;
+    tileLabel: string;
     /**
      * Remaining uses for a multi-use tile. When provided, it is spoken as
      * part of the opener's description ("5 remaining. Actions menu").
@@ -37,19 +37,13 @@ export interface DndActionMenuProps {
     /** Called with the target blank's id when a move action is selected. */
     onMove: (targetId: string) => void;
     /**
-     * The clear action, for a tile that sits in a blank. Omit for a tile
-     * in the choice bank. `fromLabel` is the blank's visible label, e.g.
-     * "Blank 1", spoken as "Clear from Blank 1".
+     * The blank's visible label, e.g. "Blank 1", spoken as "Clear from
+     * Blank 1". Pass it with onClear for a tile that sits in a blank;
+     * omit both for a tile in the choice bank.
      */
-    clearAction?: {
-        fromLabel: string;
-        onClear: () => void;
-    };
-    /**
-     * Disables the opener button. The button stays focusable and exposes
-     * aria-disabled, so its position stays discoverable.
-     */
-    disabled: boolean;
+    clearFromLabel?: string;
+    /** Called when the Clear action is selected. */
+    onClear?: () => void;
 }
 
 /**
@@ -64,8 +58,14 @@ export const DndActionMenu = React.forwardRef<
     HTMLButtonElement,
     DndActionMenuProps
 >(function DndActionMenu(props, ref): React.ReactElement {
-    const {label, remainingUses, moveTargets, onMove, clearAction, disabled} =
-        props;
+    const {
+        tileLabel,
+        remainingUses,
+        moveTargets,
+        onMove,
+        clearFromLabel,
+        onClear,
+    } = props;
 
     const descriptionId = useId();
 
@@ -106,7 +106,7 @@ export const DndActionMenu = React.forwardRef<
         );
     }
 
-    if (clearAction != null) {
+    if (clearFromLabel != null && onClear != null) {
         if (menuItems.length > 0) {
             menuItems.push(<SeparatorItem key="separator" />);
         }
@@ -114,10 +114,8 @@ export const DndActionMenu = React.forwardRef<
             <ActionItem
                 key="clear"
                 label={strings.clear}
-                aria-label={strings.clearTarget({
-                    target: clearAction.fromLabel,
-                })}
-                onClick={clearAction.onClear}
+                aria-label={strings.clearTarget({target: clearFromLabel})}
+                onClick={onClear}
                 style={menuItemStyle}
             />,
         );
@@ -125,7 +123,7 @@ export const DndActionMenu = React.forwardRef<
 
     // With nothing to move to and nothing to clear, the button is
     // disabled instead of opening an empty menu.
-    const isDisabled = disabled || menuItems.length === 0;
+    const isDisabled = menuItems.length === 0;
 
     return (
         <>
@@ -145,7 +143,7 @@ export const DndActionMenu = React.forwardRef<
             <ActionMenu
                 // menuText here is required but unused, as we are using
                 // a custom opener with a button instead.
-                menuText={label}
+                menuText={tileLabel}
                 disabled={isDisabled}
                 // The spec places the menu above a bank tile and below a
                 // placed tile; "auto" deviates deliberately, flipping on
@@ -161,7 +159,7 @@ export const DndActionMenu = React.forwardRef<
                     <MergedRefOpener
                         openerRef={ref}
                         disabled={isDisabled}
-                        aria-label={label}
+                        aria-label={tileLabel}
                         aria-describedby={descriptionId}
                         className={styles.opener}
                     >

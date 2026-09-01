@@ -43,7 +43,7 @@ const meta: Meta<typeof DndActionMenu> = {
     render: (args) => (
         <PlaceholderTile>
             <DndActionMenu {...args} />
-            {args.label}
+            {args.tileLabel}
         </PlaceholderTile>
     ),
     args: generateActionMenuProps({moveTargets: generateTestBlanks(4)}),
@@ -63,14 +63,19 @@ export const Default: Story = {};
 export const PlacedInBlank: Story = {
     args: {
         moveTargets: generateTestBlanks(4).slice(1),
-        clearAction: {fromLabel: "Blank 1", onClear: () => {}},
+        clearFromLabel: "Blank 1",
+        onClear: () => {},
     },
 };
 
-/** The menu disabled but still focusable, so its position stays discoverable. */
-export const Disabled: Story = {
+/**
+ * A tile with nowhere to move and nothing to clear. The opener disables
+ * itself rather than open an empty menu, and stays focusable so its
+ * position stays discoverable.
+ */
+export const NoAvailableActions: Story = {
     args: {
-        disabled: true,
+        moveTargets: [],
     },
 };
 
@@ -80,15 +85,13 @@ export const Disabled: Story = {
  */
 export const LongCategoryLabels: Story = {
     args: {
-        label: "Iron",
+        tileLabel: "Iron",
         moveTargets: [
             {id: "col-1", label: "Physical changes to matter"},
             {id: "col-2", label: "Chemical changes to matter"},
         ],
-        clearAction: {
-            fromLabel: "Physical changes to matter",
-            onClear: () => {},
-        },
+        clearFromLabel: "Physical changes to matter",
+        onClear: () => {},
     },
 };
 
@@ -98,7 +101,7 @@ export const LongCategoryLabels: Story = {
  */
 export const MultiUse: Story = {
     args: {
-        label: "Penny",
+        tileLabel: "Penny",
         remainingUses: 5,
     },
 };
@@ -106,7 +109,7 @@ export const MultiUse: Story = {
 /** Right-to-left */
 export const RightToLeft: Story = {
     args: {
-        label: "بونغو",
+        tileLabel: "بونغو",
         moveTargets: [
             {id: "blank-1", label: "الفراغ 1"},
             {id: "blank-2", label: "الفراغ 2"},
