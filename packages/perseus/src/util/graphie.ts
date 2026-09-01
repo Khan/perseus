@@ -28,7 +28,7 @@ import type {GraphieLabelElement} from "../types";
 
 const {processMath} = Tex;
 
-export function polar(r: number | Coord, th: number): Coord {
+function polar(r: number | Coord, th: number): Coord {
     if (typeof r === "number") {
         r = [r, r];
     }
