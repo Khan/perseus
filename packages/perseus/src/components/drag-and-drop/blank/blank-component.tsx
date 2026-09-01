@@ -2,6 +2,7 @@ import {useDragOperation, useDroppable} from "@dnd-kit/react";
 import classNames from "classnames";
 import * as React from "react";
 
+import {cssVariable} from "../css-variable";
 import {readTileDragData} from "../drag-ids";
 
 import styles from "./blank-component.module.css";
@@ -33,7 +34,7 @@ export interface BlankComponentProps {
      * to the design's 65px minimum. A placed tile still grows the blank
      * beyond this.
      */
-    minWidth?: React.CSSProperties["minWidth"];
+    minWidth?: number;
     /** Extra class for the slot element, for widget-level layout. */
     className?: string;
     // TODO(LEMS-4448): Remove once there is a better way to identify a blank.
@@ -76,16 +77,12 @@ export function BlankComponent(props: BlankComponentProps): React.ReactElement {
         dragged?.tileId === placedTileId &&
         dragged?.fromBlankId === blankId;
 
-    // The width is a CSS variable, set filled or not: rules choose when
-    // to consume it (a filled blank in "hug" mode does not, and
-    // narrow-mode rules can override it).
+    // The width is a CSS variable, set filled or not: the rules choose
+    // when to consume it. A filled blank in "hug" mode does not, and
+    // narrow-mode rules override it.
     const minWidthStyle =
         minWidth != null
-            ? // eslint-disable-next-line no-restricted-syntax -- CSSProperties has no keys for CSS custom properties.
-              ({
-                  "--blank-min-inline-size":
-                      typeof minWidth === "number" ? `${minWidth}px` : minWidth,
-              } as React.CSSProperties)
+            ? cssVariable("--blank-min-inline-size", `${minWidth}px`)
             : undefined;
 
     return (
