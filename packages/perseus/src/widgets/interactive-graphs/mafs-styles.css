@@ -112,10 +112,17 @@
     outline: none;
     /* Disable iOS grey highlight rectangle as it creates a weird visual artifact when dragging points */
     -webkit-tap-highlight-color: transparent;
+    /* The drop shadow lives on the group, not the halo: the halo's 0.25
+     * opacity would fade the shadow token below visibility. */
+    filter: drop-shadow(
+        0 5px 5px var(--wb-semanticColor-core-shadow-transparent-color-strong)
+    );
 }
 
 .MafsView .movable-point.movable-point--dragging {
     cursor: grabbing;
+    /* Match the halo, which hides while dragging. */
+    filter: none;
 }
 
 .MafsView .movable-point.movable-point--dragging .movable-point-halo {
@@ -142,11 +149,6 @@
     r: var(--movable-point-halo-radius);
     fill: var(--movable-point-color);
     opacity: 0.25;
-    /* Not a shadow token: the halo's 0.25 opacity also fades the drop
-     * shadow, so only this token's higher alpha keeps it visible. */
-    filter: drop-shadow(
-        0 5px 5px var(--wb-semanticColor-core-background-overlay-default)
-    );
 }
 
 .MafsView .movable-point-ring {
@@ -356,13 +358,16 @@
     stroke-width: 2px;
 }
 
+/* As with .movable-point, the shadow lives on the group so the halo's
+ * 0.25 opacity doesn't fade it below visibility. */
+.MafsView .movable-pill-handle-group {
+    filter: drop-shadow(
+        0 5px 5px var(--wb-semanticColor-core-shadow-transparent-color-strong)
+    );
+}
+
 .MafsView .movable-pill-handle-halo {
     opacity: 0.25;
-    /* Not a shadow token: the halo's 0.25 opacity also fades the drop
-     * shadow, so only this token's higher alpha keeps it visible. */
-    filter: drop-shadow(
-        0 5px 5px var(--wb-semanticColor-core-background-overlay-default)
-    );
 }
 
 .MafsView .movable-pill-handle-ring {
