@@ -210,6 +210,7 @@ export function parseHexColor(hex: string): RGB {
  * colors are. In contrast to redmean, we skip taking the square root of the
  * result, which means this function gives you a relative difference, not an
  * absolute difference.
+ * See: https://en.wikipedia.org/wiki/Color_difference
  */
 export function diffColors(a: RGB, b: RGB): number {
     const redMean = (a.r + b.r) / 2;
