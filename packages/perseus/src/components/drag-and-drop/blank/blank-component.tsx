@@ -4,6 +4,8 @@ import * as React from "react";
 
 import styles from "./blank-component.module.css";
 
+import type {TileDragData} from "../drag-ids";
+
 export interface BlankComponentProps {
     /**
      * Unique identifier of this blank. It doubles as the dnd-kit droppable
@@ -18,11 +20,10 @@ export interface BlankComponentProps {
     /** The placed answer tile, when one sits in this blank. */
     children?: React.ReactNode;
     /**
-     * The drag-instance id of the placed tile — the same value passed
-     * to the tile's AnswerTile.tileId — when one sits in this blank.
-     * The blank uses it to notice that its own tile is mid-drag and
-     * show the empty slot underneath, so the slot looks like it was
-     * there all along. Pass it whenever children are passed.
+     * The tile that sits in this blank. The blank uses it to notice
+     * that its own tile is mid-drag and show the empty slot underneath,
+     * so the slot looks like it was there all along. Pass it whenever
+     * children are passed.
      */
     placedTileId?: string;
     /**
@@ -69,8 +70,11 @@ export function BlankComponent(props: BlankComponentProps): React.ReactElement {
     // While this blank's own tile is mid-drag it still occupies layout
     // space (dnd-kit moves it with a transform), so showing the empty
     // chrome again puts the dashed slot underneath the departing tile.
+    const dragged = source?.data as TileDragData | undefined;
     const isTileDraggingOut =
-        placedTileId != null && source?.id === placedTileId;
+        placedTileId != null &&
+        dragged?.tileId === placedTileId &&
+        dragged?.fromBlankId === blankId;
 
     // The width is a CSS variable, set filled or not: rules choose when
     // to consume it (a filled blank in "hug" mode does not, and
