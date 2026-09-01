@@ -415,13 +415,4 @@
          */
         filter: invert(1) hue-rotate(180deg) brightness(1.5);
     }
-
-    .graphie-label {
-        /* Graphie hardcodes `color: black` on its label elements, so we have
-           to override that with `!important`.
-         */
-        color: var(
-            --wb-semanticColor-core-foreground-neutral-strong
-        ) !important;
-    }
 }
