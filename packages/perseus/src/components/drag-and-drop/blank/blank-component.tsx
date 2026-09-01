@@ -96,6 +96,10 @@ export function BlankComponent(props: BlankComponentProps): React.ReactElement {
                 className,
             )}
             style={minWidthStyle}
+            // A build-stable styling hook: the compiled CSS-module class
+            // names carry no trace of "super-sub", so outside rules key
+            // on this attribute instead of the class.
+            data-display-type={displayType}
             data-testid={testId}
         >
             {children}
