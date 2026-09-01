@@ -1,19 +1,34 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Marker component rendering renders an empty marker 1`] = `
-<div>
-  <div
-    class="marker_zifd0r-o_O-markerSelected_1iknig6"
-    style="left: 50%; top: 50%;"
-    title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
-  >
-    <div>
+<body>
+  <div>
+    <button
+      aria-controls=":r0:"
+      aria-expanded="true"
+      aria-label="Edit marker: Marker 1"
+      class="marker_1rydra6-o_O-markerSelected_1bmpetx"
+      id=":r0:-anchor"
+      style="left: 50%; top: 50%;"
+      type="button"
+    />
+  </div>
+  <div>
+    <div
+      aria-describedby=":r0:-content"
+      aria-labelledby=":r0:-title"
+      class="default_7zhre1-o_O-hide_16igwdi-o_O-content-top_1jtvojh-o_O-inlineStyles_i5mxc2"
+      data-placement="top"
+      id=":r0:"
+      role="dialog"
+    >
       <div
-        class="dropdownBody_82esa5-o_O-dropdownPositionWithArrow_qdx4yy"
+        class="default_7zhre1-o_O-content_11mqw8v-o_O-dropdownBody_13pdgsk"
       >
         <button
           class="notAButton_15oq5w2"
           role="menuitemradio"
+          tabindex="0"
           value=""
         >
           <span
@@ -38,30 +53,101 @@ exports[`Marker component rendering renders an empty marker 1`] = `
             <input
               class="inputBase_ca6tue"
               placeholder="ARIA label (for screen readers)"
+              tabindex="0"
               value="Marker 1"
             />
           </form>
         </div>
       </div>
+      <div
+        class="default_7zhre1-o_O-tailContainer_m1n018-o_O-inlineStyles_17q6yl"
+        data-placement="top"
+      >
+        <svg
+          aria-hidden="true"
+          class="arrow_oo4scr"
+          height="12"
+          style="margin-left: 8px; margin-right: 8px; padding-bottom: 8px;"
+          width="24"
+        >
+          <filter
+            height="200%"
+            id="tooltip-dropshadow-top-2"
+            width="200%"
+            x="-50%"
+            y="-50%"
+          >
+            <fegaussianblur
+              in="SourceAlpha"
+              stdDeviation="3"
+            />
+            <fecomponenttransfer>
+              <fefunca
+                slope="0.3"
+                type="linear"
+              />
+            </fecomponenttransfer>
+          </filter>
+          <g
+            transform="translate(0,5.5)"
+          >
+            <polyline
+              fill="var(--wb-semanticColor-core-shadow-transparent-mid)"
+              filter="url(#tooltip-dropshadow-top-2)"
+              points="0,0 12,12 24,0"
+              stroke="var(--wb-semanticColor-core-shadow-transparent-mid)"
+            />
+          </g>
+          <polyline
+            fill="var(--wb-semanticColor-core-background-base-default)"
+            points="0,0 12,12 24,0"
+            stroke="var(--wb-semanticColor-core-background-base-default)"
+          />
+          <polyline
+            fill="var(--wb-semanticColor-core-background-base-default)"
+            points="0,0 12,12 24,0"
+            stroke="var(--wb-semanticColor-core-border-neutral-subtle)"
+          />
+          <polyline
+            points="0,-0.5 24,-0.5"
+            stroke="var(--wb-semanticColor-core-background-base-default)"
+          />
+        </svg>
+      </div>
     </div>
   </div>
-</div>
+</body>
 `;
 
 exports[`Marker component rendering renders with answers and choices 1`] = `
-<div>
-  <div
-    class="marker_zifd0r-o_O-markerWithAnswers_hvf8qy-o_O-markerSelected_1iknig6"
-    style="left: 50%; top: 50%;"
-    title="Click to select marker answers or to delete marker. Repositioning marker is not implemented."
-  >
-    <div>
+<body>
+  <div>
+    <button
+      aria-controls=":r1:"
+      aria-expanded="true"
+      aria-label="Edit marker: Marker 1"
+      class="marker_1rydra6-o_O-markerWithAnswers_hvf8qy-o_O-markerSelected_1bmpetx"
+      id=":r1:-anchor"
+      style="left: 50%; top: 50%;"
+      type="button"
+    />
+  </div>
+  <div>
+    <div
+      aria-describedby=":r1:-content"
+      aria-labelledby=":r1:-title"
+      class="default_7zhre1-o_O-hide_16igwdi-o_O-content-top_1jtvojh-o_O-inlineStyles_i5mxc2"
+      data-placement="top"
+      id=":r1:"
+      role="dialog"
+    >
       <div
-        class="dropdownBody_82esa5-o_O-dropdownPositionWithArrow_qdx4yy"
+        class="default_7zhre1-o_O-content_11mqw8v-o_O-dropdownBody_13pdgsk"
       >
         <button
           class="notAButton_15oq5w2"
           role="menuitemradio"
+          tabindex="0"
           value=""
         >
           <span
@@ -80,6 +166,7 @@ exports[`Marker component rendering renders with answers and choices 1`] = `
             aria-checked="false"
             class="notAButton_15oq5w2"
             role="menuitemradio"
+            tabindex="0"
             value="Choice 1"
           >
             <span
@@ -92,6 +179,7 @@ exports[`Marker component rendering renders with answers and choices 1`] = `
             aria-checked="false"
             class="notAButton_15oq5w2"
             role="menuitemradio"
+            tabindex="0"
             value="Choice 2"
           >
             <span
@@ -111,12 +199,68 @@ exports[`Marker component rendering renders with answers and choices 1`] = `
             <input
               class="inputBase_ca6tue"
               placeholder="ARIA label (for screen readers)"
+              tabindex="0"
               value="Marker 1"
             />
           </form>
         </div>
       </div>
+      <div
+        class="default_7zhre1-o_O-tailContainer_m1n018-o_O-inlineStyles_17q6yl"
+        data-placement="top"
+      >
+        <svg
+          aria-hidden="true"
+          class="arrow_oo4scr"
+          height="12"
+          style="margin-left: 8px; margin-right: 8px; padding-bottom: 8px;"
+          width="24"
+        >
+          <filter
+            height="200%"
+            id="tooltip-dropshadow-top-5"
+            width="200%"
+            x="-50%"
+            y="-50%"
+          >
+            <fegaussianblur
+              in="SourceAlpha"
+              stdDeviation="3"
+            />
+            <fecomponenttransfer>
+              <fefunca
+                slope="0.3"
+                type="linear"
+              />
+            </fecomponenttransfer>
+          </filter>
+          <g
+            transform="translate(0,5.5)"
+          >
+            <polyline
+              fill="var(--wb-semanticColor-core-shadow-transparent-mid)"
+              filter="url(#tooltip-dropshadow-top-5)"
+              points="0,0 12,12 24,0"
+              stroke="var(--wb-semanticColor-core-shadow-transparent-mid)"
+            />
+          </g>
+          <polyline
+            fill="var(--wb-semanticColor-core-background-base-default)"
+            points="0,0 12,12 24,0"
+            stroke="var(--wb-semanticColor-core-background-base-default)"
+          />
+          <polyline
+            fill="var(--wb-semanticColor-core-background-base-default)"
+            points="0,0 12,12 24,0"
+            stroke="var(--wb-semanticColor-core-border-neutral-subtle)"
+          />
+          <polyline
+            points="0,-0.5 24,-0.5"
+            stroke="var(--wb-semanticColor-core-background-base-default)"
+          />
+        </svg>
+      </div>
     </div>
   </div>
-</div>
+</body>
 `;

@@ -1,5 +1,4 @@
 // TODO: use WB colors
-export const gray98 = "#FAFAFA";
 export const gray95 = "#F0F1F2";
 export const gray85 = "#D6D8DA";
 export const gray76 = "#BABEC2";
