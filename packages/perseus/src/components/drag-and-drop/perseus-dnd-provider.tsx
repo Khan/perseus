@@ -1,6 +1,8 @@
+import {Accessibility, PointerActivationConstraints} from "@dnd-kit/dom";
 import {DragDropProvider, PointerSensor} from "@dnd-kit/react";
 import * as React from "react";
 
+import type {Draggable} from "@dnd-kit/dom";
 import type {DragEndEvent} from "@dnd-kit/react";
 
 /**
@@ -18,21 +20,49 @@ import type {DragEndEvent} from "@dnd-kit/react";
  *   job, through the Wonder Blocks Announcer, for the drag path and the
  *   menu path alike — one owner per event.
  */
-const SENSORS = [PointerSensor];
+/**
+ * Sets when a press becomes a drag. A mouse press on the menu button
+ * becomes a drag only after 5px of movement, so a still click opens
+ * the menu. Touch starts a drag on long-press. Other presses drag on
+ * move or hold.
+ */
+function activationConstraints(event: PointerEvent, source: Draggable) {
+    const {pointerType, target} = event;
+    if (pointerType === "touch") {
+        return [
+            new PointerActivationConstraints.Delay({value: 250, tolerance: 5}),
+        ];
+    }
+    if (
+        pointerType === "mouse" &&
+        target instanceof Element &&
+        target.closest("button") != null
+    ) {
+        return [new PointerActivationConstraints.Distance({value: 5})];
+    }
+    return [
+        new PointerActivationConstraints.Delay({value: 200, tolerance: 10}),
+        new PointerActivationConstraints.Distance({value: 5}),
+    ];
+}
+
+const SENSORS = [
+    PointerSensor.configure({
+        activationConstraints,
+        // dnd-kit blocks presses on buttons by default; the menu button
+        // must be able to start a drag.
+        preventActivation: () => false,
+    }),
+];
 
 /**
  * Drops the Accessibility plugin from dnd-kit's defaults, which are
- * always bare plugin classes. The class is matched by name because only
- * `@dnd-kit/react` is a declared dependency, and it does not re-export
- * the plugin classes from `@dnd-kit/dom`. A dnd-kit upgrade that changes
- * the default plugin roster (including renaming this class) is caught by
- * the exact-set assertion in perseus-dnd-provider.test.tsx.
+ * always bare plugin classes. A dnd-kit upgrade that changes the
+ * default plugin roster is caught by the exact-set assertion in
+ * perseus-dnd-provider.test.tsx.
  */
 function withoutAccessibilityPlugin<T>(defaultPlugins: T[]): T[] {
-    return defaultPlugins.filter(
-        (plugin) =>
-            !(typeof plugin === "function" && plugin.name === "Accessibility"),
-    );
+    return defaultPlugins.filter((plugin: unknown) => plugin !== Accessibility);
 }
 
 type Props = {

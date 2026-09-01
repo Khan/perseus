@@ -40,6 +40,8 @@
         "prepublishOnly": "../../utils/package-pre-publish-check.sh"
     },
     "dependencies": {
+        "@dnd-kit/dom": "^0.5.0",
+        "@dnd-kit/react": "^0.5.0",
         "@khanacademy/kas": "workspace:*",
         "@khanacademy/keypad-context": "workspace:*",
         "@khanacademy/kmath": "workspace:*",
@@ -50,13 +52,12 @@
         "@khanacademy/perseus-utils": "workspace:*",
         "@khanacademy/pure-markdown": "workspace:*",
         "@khanacademy/simple-markdown": "workspace:*",
-        "@dnd-kit/react": "^0.5.0",
         "@use-gesture/react": "^10.2.27",
         "gifuct-js": "^2.1.2",
+        "jquery": "catalog:prodDeps",
         "mafs": "0.19.0",
         "tiny-invariant": "catalog:prodDeps",
-        "uuid": "^10.0.0",
-        "jquery": "catalog:prodDeps"
+        "uuid": "^10.0.0"
     },
     "devDependencies": {
         "@khanacademy/wonder-blocks-announcer": "catalog:devDeps",

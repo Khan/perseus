@@ -9,6 +9,7 @@ import {
     testDependencies,
     testDependenciesV2,
 } from "../../../testing/test-dependencies";
+import {PerseusDndProvider} from "../perseus-dnd-provider";
 
 import {AnswerTile} from "./answer-tile";
 import {generateAnswerTileProps} from "./answer-tile.testdata";
@@ -135,19 +136,23 @@ describe("AnswerTile", () => {
 
     // onClear is optional on the tile and the menu, so dropping the tile's
     // forwarding would compile and fail silently. This also covers the
-    // Clear-only menu of a placed tile in a one-blank exercise.
+    // Clear-only menu of a placed tile in a one-blank exercise. The
+    // PerseusDndProvider supplies the activation constraints that keep
+    // a still click on the opener a click instead of a drag.
     it("calls onClear when the clear action is selected", async () => {
         // Arrange
         const onClear = jest.fn();
         render(
-            <AnswerTile
-                {...generateAnswerTileProps({
-                    label: "Bongo",
-                    moveTargets: [],
-                    clearFromLabel: "Blank 1",
-                    onClear,
-                })}
-            />,
+            <PerseusDndProvider>
+                <AnswerTile
+                    {...generateAnswerTileProps({
+                        label: "Bongo",
+                        moveTargets: [],
+                        clearFromLabel: "Blank 1",
+                        onClear,
+                    })}
+                />
+            </PerseusDndProvider>,
         );
 
         // Act

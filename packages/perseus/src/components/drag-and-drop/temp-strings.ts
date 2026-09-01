@@ -16,4 +16,10 @@ export const tempDndStrings = {
     clearTarget: ({target}: {target: string}) => `Clear from ${target}`,
     actionsMenu: "Actions menu",
     menuRemaining: ({num}: {num: number}) => `${num} remaining.`,
+    choices: "Choices",
+    blankLabel: ({num}: {num: number}) => `Blank ${num}`,
+    movedToTarget: ({tile, target}: {tile: string; target: string}) =>
+        `${tile} moved to ${target}.`,
+    returnedToChoices: ({tile}: {tile: string}) =>
+        `${tile} returned to Choices.`,
 };

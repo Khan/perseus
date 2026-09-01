@@ -65,6 +65,26 @@ export interface AnswerTileProps {
      * move focus after a tile moves.
      */
     menuRef?: React.Ref<HTMLButtonElement>;
+    /**
+     * Set true for a tile placed in an inline blank. The tile hides its
+     * menu until hover or focus.
+     */
+    inBlank?: boolean;
+    /**
+     * Set true for a placed tile that stretches to fill its blank, with
+     * the content at the start. The menu stays visible. The Sorter uses
+     * this for placed tiles.
+     */
+    fillsBlank?: boolean;
+    /** Called when the tile's content renders (TeX ready, image update). */
+    onContentRender?: () => void;
+    /**
+     * Set true for a tile placed in a sub/superscript blank. The tile
+     * rests as a small value chip until hover or focus.
+     */
+    compact?: boolean;
+    /** Display height in pixels for an image tile's image. */
+    imageHeight?: number;
 }
 
 /**
@@ -73,8 +93,6 @@ export interface AnswerTileProps {
  * content: text, TeX, or an image. It puts the DndActionMenu at its
  * leading edge. The parent widget sets showCorrectness and disabled
  * after scoring.
- *
- * The tile is only visual for now. A later ticket adds the drag wiring.
  */
 export function AnswerTile(props: AnswerTileProps): React.ReactElement {
     const {
@@ -89,14 +107,20 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
         remainingUses,
         menuRef,
         tileId,
+        inBlank,
+        fillsBlank,
+        onContentRender,
+        imageHeight,
+        compact,
     } = props;
     const {strings} = usePerseusI18n();
 
-    const {ref: dragRef} = useDraggable({
+    // Scored and unused tiles lose their drag function (per the
+    // Drag-and-Drop Overview spec).
+    const isDraggable = disabled !== true && showCorrectness == null;
+    const {ref: dragRef, isDragging} = useDraggable({
         id: tileId,
-        // Scored and unused tiles lose their drag function (per the
-        // Drag-and-Drop Overview spec).
-        disabled: disabled === true || showCorrectness != null,
+        disabled: !isDraggable,
     });
 
     // Whitespace-only content would render an invisible, unlabeled tile.
@@ -115,7 +139,20 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
                 styles.tile,
                 showCorrectness != null && styles[showCorrectness],
                 disabled && styles.disabled,
+                isDraggable && styles.draggable,
+                isDragging && styles.dragging,
+                inBlank && styles.inBlank,
+                fillsBlank && styles.fillsBlank,
+                compact && styles.compact,
             )}
+            style={
+                imageHeight != null
+                    ? // eslint-disable-next-line no-restricted-syntax -- CSSProperties has no keys for CSS custom properties.
+                      ({
+                          "--answer-tile-image-height": `${imageHeight}px`,
+                      } as React.CSSProperties)
+                    : undefined
+            }
             ref={dragRef}
         >
             {!disabled && (
@@ -150,7 +187,11 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
                     // An empty tile must have a spoken value.
                     <span className={a11yStyles.srOnly}>{label}</span>
                 ) : (
-                    <Renderer content={content} strings={strings} />
+                    <Renderer
+                        content={content}
+                        strings={strings}
+                        onRender={onContentRender}
+                    />
                 )}
             </div>
         </div>
