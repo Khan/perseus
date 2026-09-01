@@ -5,7 +5,7 @@ import Renderer from "../../../renderer";
 import {usePerseusI18n} from "../../i18n-context";
 import {AnswerTile} from "../answer-tile";
 import {ChoiceBank} from "../choice-bank";
-import {bankDragId, parseDragId, placedDragId} from "../drag-ids";
+import {bankDragId, placedDragId} from "../drag-ids";
 import {PerseusDndProvider} from "../perseus-dnd-provider";
 import {tempDndStrings as strings} from "../temp-strings";
 import {isTileInBank, remainingUses} from "../tile-placements";
@@ -17,7 +17,6 @@ import styles from "./fill-in-the-blank.module.css";
 
 import type {BlankRenderInfo} from "./fill-in-the-blank-context";
 import type {TilePlacements, TileUsage} from "../tile-placements";
-import type {DragEndEvent} from "@dnd-kit/react";
 import type {PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
 export type FillInTheBlankTile = {
@@ -111,34 +110,21 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
     const {containerRef, remeasure, maxWidth, isMeasured} =
         useWidestTileWidth();
 
-    const {handleMove, handleClear, firstBankMenuRef} = useTileMoveActions({
+    const {
+        handleMove,
+        handleClear,
+        handleDragEnd,
+        firstBankMenuRef,
+        placedMenuRef,
+    } = useTileMoveActions({
         placements,
         onPlacementsChange,
         tileUsage,
         getTileLabel: (tileId) => tilesById.get(tileId)?.label ?? "",
         getBlankLabel: (blankId) => blankLabels[blankId],
+        blankIds,
+        bankDropId: BANK_DROP_ID,
     });
-
-    const handleDragEnd = ({operation, canceled}: DragEndEvent) => {
-        const {source, target} = operation;
-        // A cancelled drag (Escape) still reports its last target, so it
-        // must not count as a drop.
-        if (canceled || !source || !target) {
-            return;
-        }
-        const move = parseDragId(String(source.id));
-        if (move == null) {
-            return;
-        }
-        const targetId = String(target.id);
-        if (targetId === BANK_DROP_ID) {
-            if (move.fromBlankId != null) {
-                handleClear(move.fromBlankId, false);
-            }
-        } else if (blankIds.includes(targetId)) {
-            handleMove(move, targetId, false);
-        }
-    };
 
     const bankTiles = tiles
         .filter((tile) =>
@@ -205,6 +191,7 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
                     }
                     clearFromLabel={blankLabels[blankId]}
                     onClear={() => handleClear(blankId, true)}
+                    menuRef={placedMenuRef(blankId)}
                 />
             ),
             placedTileId: dragId,
