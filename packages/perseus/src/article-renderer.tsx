@@ -29,6 +29,7 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> &
         legacyPerseusLint?: ReadonlyArray<string>;
         keypadElement?: KeypadAPI | null | undefined;
         dependencies: PerseusDependenciesV2;
+        // the seed for deterministic shuffling
         seed: number;
     };
 

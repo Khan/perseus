@@ -96,6 +96,12 @@ export const renderArticle = (
     return {container, renderer};
 };
 
+const apiOptions = {
+    ...ApiOptions.defaults,
+    isMobile: false,
+    customKeypad: false,
+};
+
 describe("article renderer", () => {
     beforeEach(() => {
         // Mock ResizeObserver used by the mobile keypad
@@ -120,11 +126,7 @@ describe("article renderer", () => {
 
     it("should render the content for a section", () => {
         // Arrange and Act
-        renderArticle(articleSectionWithExpression, {
-            ...ApiOptions.defaults,
-            isMobile: false,
-            customKeypad: false,
-        });
+        renderArticle(articleSectionWithExpression, apiOptions);
 
         // Assert
         expect(screen.getByRole("textbox")).toBeInTheDocument();
@@ -132,11 +134,7 @@ describe("article renderer", () => {
 
     it("should render the content for a section as list", () => {
         // Arrange and Act
-        renderArticle([articleSectionWithExpression], {
-            ...ApiOptions.defaults,
-            isMobile: false,
-            customKeypad: false,
-        });
+        renderArticle([articleSectionWithExpression], apiOptions);
 
         // Assert
         expect(screen.getByRole("textbox")).toBeInTheDocument();
@@ -152,11 +150,7 @@ describe("article renderer", () => {
         });
 
         // Act
-        renderArticle(articleSectionWithExpression, {
-            ...ApiOptions.defaults,
-            isMobile: false,
-            customKeypad: false,
-        });
+        renderArticle(articleSectionWithExpression, apiOptions);
 
         // Assert
         expect(screen.getByRole("textbox")).toBeInTheDocument();
@@ -172,11 +166,7 @@ describe("article renderer", () => {
         });
 
         // Act
-        renderArticle([articleSectionWithExpression], {
-            ...ApiOptions.defaults,
-            isMobile: false,
-            customKeypad: false,
-        });
+        renderArticle([articleSectionWithExpression], apiOptions);
 
         // Assert
         expect(screen.getByRole("textbox")).toBeInTheDocument();
@@ -223,8 +213,8 @@ describe("article renderer", () => {
         // Every copy of this widget is identical (ids included), so any
         // difference in the rendered choice order has to come from Perseus
         // giving each copy a different shuffle.
-        const randomizedRadioWidget = (): RadioWidget =>
-            generateRadioWidget({
+        function randomizedRadioWidget(): RadioWidget {
+            return generateRadioWidget({
                 options: generateRadioOptions({
                     randomize: true,
                     choices: choiceContents.map((content, index) =>
@@ -235,18 +225,20 @@ describe("article renderer", () => {
                     ),
                 }),
             });
+        }
 
-        const gradedGroupWithRandomizedRadio = (
+        function gradedGroupWithRandomizedRadio(
             title: string,
-        ): PerseusGradedGroupWidgetOptions =>
-            generateGradedGroupOptions({
+        ): PerseusGradedGroupWidgetOptions {
+            return generateGradedGroupOptions({
                 title,
                 content: "[[☃ radio 1]]",
                 widgets: {"radio 1": randomizedRadioWidget()},
             });
+        }
 
-        const sectionWithRandomizedRadio = (): PerseusRenderer =>
-            generateTestPerseusRenderer({
+        function sectionWithRandomizedRadio(): PerseusRenderer {
+            return generateTestPerseusRenderer({
                 content: "[[☃ graded-group 1]]",
                 widgets: {
                     "graded-group 1": generateGradedGroupWidget({
@@ -254,26 +246,22 @@ describe("article renderer", () => {
                     }),
                 },
             });
-
-        const apiOptions = {
-            ...ApiOptions.defaults,
-            isMobile: false,
-            customKeypad: false,
-        };
+        }
 
         /**
          * The rendered choice order of every radio widget on the page, in DOM
          * order. Two entries that are equal mean those two radio widgets were
          * shuffled the same way.
          */
-        const getRenderedChoiceOrders = (): string[][] =>
-            screen
+        function getRenderedChoiceOrders(): string[][] {
+            return screen
                 .getAllByRole("list", {name: "Choose 1 answer:"})
                 .map((choiceList) =>
                     within(choiceList)
                         .getAllByRole("listitem")
                         .map((choice) => choice.textContent ?? ""),
                 );
+        }
 
         it("shuffles the same radio widget differently in each article section", () => {
             // Arrange, Act
