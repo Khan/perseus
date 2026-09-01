@@ -18,10 +18,7 @@ export type TilePlacements = Readonly<Record<string, string>>;
 export type TileUsage = "single" | "multi";
 
 /** Counts the blanks that hold this tile. */
-export function countPlacements(
-    placements: TilePlacements,
-    tileId: string,
-): number {
+function countPlacements(placements: TilePlacements, tileId: string): number {
     return Object.values(placements).filter((placed) => placed === tileId)
         .length;
 }

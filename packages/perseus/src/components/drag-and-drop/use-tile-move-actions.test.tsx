@@ -38,14 +38,17 @@ function setupHook(
 
 /** Builds the drag-end event shape the hook consumes. */
 function generateDragEnd(
-    sourceId: string,
+    source: {tileId: string; fromBlankId?: string} | null,
     targetId: string,
     canceled = false,
 ): DragEndEvent {
     // eslint-disable-next-line no-restricted-syntax -- The hook reads only these fields; a full dnd-kit event needs a live drag manager.
     return {
         canceled,
-        operation: {source: {id: sourceId}, target: {id: targetId}},
+        operation: {
+            source: {id: "drag-id", data: source ?? undefined},
+            target: {id: targetId},
+        },
     } as unknown as DragEndEvent;
 }
 
@@ -60,7 +63,7 @@ describe("useTileMoveActions", () => {
 
             act(() => {
                 result.current.handleDragEnd(
-                    generateDragEnd("bank__x", "blank 1"),
+                    generateDragEnd({tileId: "x"}, "blank 1"),
                 );
             });
 
@@ -75,7 +78,7 @@ describe("useTileMoveActions", () => {
 
             act(() => {
                 result.current.handleDragEnd(
-                    generateDragEnd("bank__x", "blank 1"),
+                    generateDragEnd({tileId: "x"}, "blank 1"),
                 );
             });
 
@@ -89,7 +92,10 @@ describe("useTileMoveActions", () => {
 
             act(() => {
                 result.current.handleDragEnd(
-                    generateDragEnd("placed__blank 1__x", BANK_DROP_ID),
+                    generateDragEnd(
+                        {tileId: "x", fromBlankId: "blank 1"},
+                        BANK_DROP_ID,
+                    ),
                 );
             });
 
@@ -104,7 +110,7 @@ describe("useTileMoveActions", () => {
 
             act(() => {
                 result.current.handleDragEnd(
-                    generateDragEnd("bank__x", "blank 1", true),
+                    generateDragEnd({tileId: "x"}, "blank 1", true),
                 );
             });
 
@@ -117,7 +123,10 @@ describe("useTileMoveActions", () => {
 
             act(() => {
                 result.current.handleDragEnd(
-                    generateDragEnd("placed__blank 1__x", "blank 1"),
+                    generateDragEnd(
+                        {tileId: "x", fromBlankId: "blank 1"},
+                        "blank 1",
+                    ),
                 );
             });
 
@@ -133,7 +142,7 @@ describe("useTileMoveActions", () => {
 
             act(() => {
                 result.current.handleDragEnd(
-                    generateDragEnd("bank__x", "blank 1"),
+                    generateDragEnd({tileId: "x"}, "blank 1"),
                 );
             });
 
@@ -141,11 +150,11 @@ describe("useTileMoveActions", () => {
             expect(announceMessage).not.toHaveBeenCalled();
         });
 
-        it("ignores a source id without a location prefix", () => {
+        it("ignores a drag that carries no tile payload", () => {
             const {result, onPlacementsChange} = setupHook();
 
             act(() => {
-                result.current.handleDragEnd(generateDragEnd("x", "blank 1"));
+                result.current.handleDragEnd(generateDragEnd(null, "blank 1"));
             });
 
             expect(onPlacementsChange).not.toHaveBeenCalled();
@@ -156,7 +165,7 @@ describe("useTileMoveActions", () => {
 
             act(() => {
                 result.current.handleDragEnd(
-                    generateDragEnd("bank__x", "elsewhere"),
+                    generateDragEnd({tileId: "x"}, "elsewhere"),
                 );
             });
 

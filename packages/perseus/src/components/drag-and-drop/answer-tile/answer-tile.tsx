@@ -9,19 +9,21 @@ import Renderer from "../../../renderer";
 import a11yStyles from "../../../styles/a11y.module.css";
 import {usePerseusI18n} from "../../i18n-context";
 import {DndActionMenu} from "../dnd-action-menu";
+import {tileDragId} from "../drag-ids";
 
 import styles from "./answer-tile.module.css";
 
 import type {MoveTarget} from "../dnd-action-menu";
 
 export interface AnswerTileProps {
-    /**
-     * The tile's drag-instance id, unique within the surrounding
-     * PerseusDndProvider. The widgets encode the tile's location into
-     * it (see drag-ids.ts), so one tile registers a different id in
-     * the bank and in each blank.
-     */
+    /** The tile that moves, named as the widget's placements name it. */
     tileId: string;
+    /**
+     * The blank this tile sits in. Omit for a tile in the choice bank.
+     * The tile reports both ids to dnd-kit, so a drop knows what moved
+     * and where it came from.
+     */
+    fromBlankId?: string;
     /**
      * Perseus markdown for the tile face: text, TeX, or an image.
      * Use "" for an empty tile.
@@ -109,6 +111,7 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
         remainingUses,
         menuRef,
         tileId,
+        fromBlankId,
         inBlank,
         fillsBlank,
         onContentRender,
@@ -120,8 +123,10 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
     // Scored and unused tiles lose their drag function (per the
     // Drag-and-Drop Overview spec).
     const isDraggable = disabled !== true && showCorrectness == null;
+    const dragData = {tileId, fromBlankId};
     const {ref: dragRef, isDragging} = useDraggable({
-        id: tileId,
+        id: tileDragId(dragData),
+        data: dragData,
         disabled: !isDraggable,
     });
 
@@ -163,8 +168,11 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
                             label={label}
                             moveTargets={moveTargets}
                             onMove={onMove}
-                            clearFromLabel={clearFromLabel}
-                            onClear={onClear}
+                            clearAction={
+                                clearFromLabel != null && onClear != null
+                                    ? {fromLabel: clearFromLabel, onClear}
+                                    : undefined
+                            }
                             remainingUses={remainingUses}
                             // Always false: scored tiles remove the menu
                             // instead of disabling it, so a rendered menu
