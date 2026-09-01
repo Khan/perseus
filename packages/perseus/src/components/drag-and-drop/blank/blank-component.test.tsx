@@ -27,7 +27,7 @@ describe("BlankComponent", () => {
             />,
         );
 
-        expect(screen.getByTestId("blank").className).toContain("super-sub");
+        expect(screen.getByTestId("blank").className).toContain("superSub");
     });
 
     it("renders the placed tile", () => {

@@ -109,18 +109,6 @@
     justify-content: flex-start;
 }
 
-/* Fixed-width mode: the tile fills its blank and the text sits at the
- * start. The blank pins the width, so the menu reveal does not resize
- * the tile. Sub/superscript chips keep their compact behavior. */
-[data-filled-blank-style="fixed"] .inBlank:not(.compact) {
-    flex-grow: 1;
-    inline-size: 100%;
-}
-
-[data-filled-blank-style="fixed"] .inBlank:not(.compact) .content {
-    justify-content: flex-start;
-}
-
 /* A tile in a sub/superscript blank rests as a small value chip.
  * Hover or focus restores the full size, which makes room for the
  * menu. These rules must come after the .inBlank rules. */
