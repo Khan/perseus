@@ -5,12 +5,13 @@
  * the dropdown component.
  */
 
+import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import Option, {OptionGroup} from "../../components/dropdown-option";
 import FormWrappedTextField from "../../components/form-wrapped-text-field";
-import {gray17, gray85, gray98} from "../../styles/global-colors";
+import {gray85} from "../../styles/global-colors";
 
 import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
@@ -25,176 +26,137 @@ type MarkerProps = PerseusLabelImageWidgetOptions["markers"][number] & {
     onRemove: () => void;
 };
 
-type State = {
-    // Whether answer choices dropdown is shown, controlled by the user clicking
-    // on the marker icon.
-    showDropdown: boolean;
+// The imperative API that consumers drive via a ref.
+export type MarkerHandle = {
+    // Imperative way to open the dropdown externally.
+    // TODO: Replace with declarative API.
+    openDropdown: () => void;
 };
 
-class Marker extends React.Component<MarkerProps, State> {
-    _marker: HTMLElement | null | undefined;
-    state: State = {showDropdown: false};
+const Marker = React.forwardRef<MarkerHandle, MarkerProps>(function Marker(
+    {answers, choices, label, onChange, onRemove, x, y},
+    ref,
+) {
+    const [showDropdown, setShowDropdown] = React.useState(false);
 
-    componentDidMount() {
-        document.addEventListener("click", this.handleClick, true);
+    React.useImperativeHandle(
+        ref,
+        () => ({
+            openDropdown: () => setShowDropdown(true),
+        }),
+        [],
+    );
+
+    function updateAnswers(answers: string[]) {
+        onChange({answers, label, x, y});
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps: MarkerProps) {
-        const {answers} = this.props;
-
-        // Exclude those answers that are no longer present in choices.
+    // Answer choices can be renamed or deleted at any time, which would leave
+    // this marker pointing at a choice that no longer exists. Prune those so we
+    // never serialize an answer that can't be matched.
+    React.useEffect(() => {
         const filteredAnswers = answers.filter((answer) =>
-            nextProps.choices.includes(answer),
+            choices.includes(answer),
         );
 
         if (JSON.stringify(answers) !== JSON.stringify(filteredAnswers)) {
-            // Update marker on the next frame when these props take affect.
-            // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
-            setTimeout(() => this.updateAnswers(filteredAnswers));
+            updateAnswers(filteredAnswers);
         }
-    }
+    });
 
-    componentWillUnmount() {
-        document.removeEventListener("click", this.handleClick, true);
-    }
-
-    openDropdown() {
-        this.setState({showDropdown: true});
-    }
-
-    updateAnswers(answers: string[]) {
-        const {label, onChange, x, y} = this.props;
-
-        onChange({
-            answers,
-            label,
-            x,
-            y,
-        });
-    }
-
-    updateLabel(label: string) {
-        const {answers, onChange, x, y} = this.props;
-
-        onChange({
-            answers,
-            label,
-            x,
-            y,
-        });
-    }
-
-    handleClick: (e: MouseEvent) => void = (e: MouseEvent) => {
-        const {showDropdown} = this.state;
-
-        if (this._marker === e.target) {
-            this.setState({showDropdown: !showDropdown});
-        } else if (showDropdown) {
-            // Close dropdown if click event was registered anywhere outside it.
-            if (
-                this._marker &&
-                e.target instanceof Node &&
-                !this._marker.contains(e.target)
-            ) {
-                // Ensure other listeners are not triggered on click event that
-                // closes the dropdown. A specific case this addresses is when
-                // user clicks on question image to close dropdown, a new marker
-                // will be created, this is bad for usability.
-                e.stopPropagation();
-
-                this.setState({showDropdown: false});
-            }
-        }
-    };
-
-    handleLabelChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (
-        e,
-    ) => {
-        this.updateLabel(e.target.value);
-    };
-
-    handleSelectAnswer: (toggleAnswer: string) => void = (
-        toggleAnswer: string,
-    ) => {
-        let {answers} = this.props;
-
-        if (answers.includes(toggleAnswer)) {
-            answers = answers.filter((answer) => answer !== toggleAnswer);
-        } else {
-            answers = [...answers, toggleAnswer];
-        }
-
-        this.updateAnswers(answers);
-    };
-
-    render(): React.ReactNode {
-        const {answers, choices, label, onRemove, x, y} = this.props;
-
-        const {showDropdown} = this.state;
-
-        return (
-            <div
-                className={css(
-                    styles.marker,
-                    answers.length > 0 && styles.markerWithAnswers,
-                    showDropdown && styles.markerSelected,
-                )}
-                ref={(node) => (this._marker = node)}
-                style={{
-                    // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: authored LTR image coordinates; content doesn't flip with page direction, so converting to logical insets would misplace/misalign the marker in RTL
-                    left: `${x}%`,
-                    // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: authored LTR image coordinates; content doesn't flip with page direction, so converting to logical insets would misplace/misalign the marker in RTL
-                    top: `${y}%`,
-                }}
-                title={
-                    "Click to select marker answers or to delete marker. " +
-                    "Repositioning marker is not implemented."
-                }
-            >
-                {showDropdown && (
-                    <div>
-                        <div
-                            className={css(
-                                styles.dropdownBody,
-                                styles.dropdownPositionWithArrow,
-                            )}
-                        >
-                            <Option value="" onClick={() => onRemove()}>
-                                Delete marker
-                            </Option>
-
-                            <hr className={css(styles.dividerHorizontal)} />
-
-                            <OptionGroup
-                                onSelected={this.handleSelectAnswer}
-                                selectedValues={answers}
-                            >
-                                {choices.map((choice) => (
-                                    <Option key={choice} value={choice}>
-                                        {choice}
-                                    </Option>
-                                ))}
-                            </OptionGroup>
-
-                            <div className={css(styles.labelContainer)}>
-                                <FormWrappedTextField
-                                    placeholder="ARIA label (for screen readers)"
-                                    onChange={this.handleLabelChange}
-                                    value={label}
-                                    width="100%"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                )}
-            </div>
+    function handleToggleAnswer(toggleAnswer: string) {
+        updateAnswers(
+            answers.includes(toggleAnswer)
+                ? answers.filter((answer) => answer !== toggleAnswer)
+                : [...answers, toggleAnswer],
         );
     }
-}
+
+    function handleLabelChange(e: React.ChangeEvent<HTMLInputElement>) {
+        onChange({answers, label: e.target.value, x, y});
+    }
+
+    return (
+        <Popover
+            opened={showDropdown}
+            onClose={() => setShowDropdown(false)}
+            dismissEnabled={true}
+            content={
+                <PopoverContentCore style={styles.dropdownBody}>
+                    <Option value="" onClick={() => onRemove()}>
+                        Delete marker
+                    </Option>
+
+                    <hr className={css(styles.dividerHorizontal)} />
+
+                    <OptionGroup
+                        onSelected={handleToggleAnswer}
+                        selectedValues={answers}
+                    >
+                        {choices.map((choice) => (
+                            <Option key={choice} value={choice}>
+                                {choice}
+                            </Option>
+                        ))}
+                    </OptionGroup>
+
+                    <div className={css(styles.labelContainer)}>
+                        <FormWrappedTextField
+                            placeholder="ARIA label (for screen readers)"
+                            onChange={handleLabelChange}
+                            value={label}
+                            width="100%"
+                        />
+                    </div>
+                </PopoverContentCore>
+            }
+        >
+            {/*
+             * Child-as-function is needed here to allow click-outside dismissal.
+             *
+             * If we use a plain element instead, Popover wraps the child's
+             * onClick in stopPropagation, so the opening click never reaches
+             * the window listener that implements click-outside dismissal.
+             *
+             * That listener discards the first click it sees, expecting it
+             * to be the opening one, so it ends up eating the first real
+             * outside click instead of closing. The function form leaves
+             * our handler untouched.
+             */}
+            {() => (
+                <button
+                    type="button"
+                    aria-label={
+                        label
+                            ? `Edit marker: ${label}`
+                            : "Edit unlabeled marker"
+                    }
+                    className={css(
+                        styles.marker,
+                        answers.length > 0 && styles.markerWithAnswers,
+                        showDropdown && styles.markerSelected,
+                    )}
+                    onClick={() => setShowDropdown((opened) => !opened)}
+                    style={{
+                        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: authored LTR image coordinates; content doesn't flip with page direction, so converting to logical insets would misplace/misalign the marker in RTL
+                        left: `${x}%`,
+                        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: authored LTR image coordinates; content doesn't flip with page direction, so converting to logical insets would misplace/misalign the marker in RTL
+                        top: `${y}%`,
+                    }}
+                />
+            )}
+        </Popover>
+    );
+});
 
 const styles = StyleSheet.create({
     marker: {
         position: "absolute",
+
+        // The marker is a <button>, so reset the user agent styles that would
+        // otherwise fight the dot styling below.
+        appearance: "none",
+        padding: 0,
 
         boxSizing: "content-box",
 
@@ -235,7 +197,6 @@ const styles = StyleSheet.create({
             width: 20,
             height: 20,
             marginInlineStart: 2,
-            marginBlockStart: 2,
 
             border: "solid 2px #ffffff",
             borderRadius: 20,
@@ -244,32 +205,6 @@ const styles = StyleSheet.create({
 
     markerWithAnswers: {
         background: "#1865f2",
-    },
-
-    dropdownPositionWithArrow: {
-        // Position dropdown to the top right of the marker.
-        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: offset from a marker in authored LTR image space; content doesn't flip with page direction, so converting to logical insets would misplace/misalign it in RTL
-        left: 46,
-        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: offset from a marker in authored LTR image space; content doesn't flip with page direction, so converting to logical insets would misplace/misalign it in RTL
-        bottom: -12,
-
-        // With an arrow pointing left towards the marker.
-        "::before": {
-            content: "''",
-            display: "block",
-            position: "absolute",
-
-            width: 0,
-            height: 0,
-            // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: offset from a marker in authored LTR image space; content doesn't flip with page direction, so converting to logical insets would misplace/misalign it in RTL
-            left: -16,
-            // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y: offset from a marker in authored LTR image space; content doesn't flip with page direction, so converting to logical insets would misplace/misalign it in RTL
-            bottom: 8,
-
-            borderInlineEnd: `solid 16px ${gray98}`,
-            borderBlockStart: "solid 16px transparent",
-            borderBlockEnd: "solid 16px transparent",
-        },
     },
 
     labelContainer: {
@@ -287,14 +222,10 @@ const styles = StyleSheet.create({
     },
 
     dropdownBody: {
-        position: "absolute",
-        border: "solid 1px rgba(0, 0, 0, 0.1)",
-        zIndex: 1000,
-        color: gray17,
-        backgroundColor: gray98,
-        borderRadius: 4,
-        maxBlockSize: 320,
-        cursor: "pointer",
+        // Reset the default padding from WB Popover.
+        padding: 0,
+
+        overflowY: "auto",
     },
 });
 

@@ -22,7 +22,6 @@ export interface Props extends PerseusImageWidgetOptions {
  */
 class ImageEditor extends React.Component<Props> {
     static displayName = "ImageEditor";
-    static widgetName = "image";
 
     static defaultProps: PerseusImageWidgetOptions =
         imageLogic.defaultWidgetOptions;

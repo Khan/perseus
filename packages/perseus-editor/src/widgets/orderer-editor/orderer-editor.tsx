@@ -22,8 +22,6 @@ type Props = PerseusOrdererWidgetOptions & {
 };
 
 class OrdererEditor extends React.Component<Props> {
-    static widgetName = "orderer" as const;
-
     static defaultProps: PerseusOrdererWidgetOptions =
         ordererLogic.defaultWidgetOptions;
 

@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "38.1.3",
+    "version": "39.0.0",
     "publishConfig": {
         "access": "public"
     },
@@ -63,6 +63,7 @@
         "@khanacademy/wonder-blocks-layout": "catalog:devDeps",
         "@khanacademy/wonder-blocks-link": "catalog:devDeps",
         "@khanacademy/wonder-blocks-pill": "catalog:devDeps",
+        "@khanacademy/wonder-blocks-popover": "catalog:devDeps",
         "@khanacademy/wonder-blocks-switch": "catalog:devDeps",
         "@khanacademy/wonder-blocks-timing": "catalog:devDeps",
         "@khanacademy/wonder-blocks-tokens": "catalog:devDeps",
@@ -95,6 +96,7 @@
         "@khanacademy/wonder-blocks-layout": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-link": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-pill": "catalog:peerDeps",
+        "@khanacademy/wonder-blocks-popover": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-switch": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-timing": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-tokens": "catalog:peerDeps",
@@ -111,6 +113,6 @@
     },
     "keywords": [],
     "khan": {
-        "catalogHash": "7f07796630cee0b3"
+        "catalogHash": "13ae9a40665627de"
     }
 }
