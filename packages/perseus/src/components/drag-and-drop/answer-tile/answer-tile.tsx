@@ -111,8 +111,11 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
                             label={label}
                             moveTargets={moveTargets}
                             onMove={onMove}
-                            clearFromLabel={clearFromLabel}
-                            onClear={onClear}
+                            clearAction={
+                                clearFromLabel != null && onClear != null
+                                    ? {fromLabel: clearFromLabel, onClear}
+                                    : undefined
+                            }
                             remainingUses={remainingUses}
                             // Always false: scored tiles remove the menu
                             // instead of disabling it, so a rendered menu
