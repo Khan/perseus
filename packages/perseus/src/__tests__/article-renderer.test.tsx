@@ -37,6 +37,7 @@ import type {APIOptions} from "../types";
 import type {
     PerseusGradedGroupWidgetOptions,
     PerseusArticle,
+    PerseusRenderer,
     RadioWidget,
 } from "@khanacademy/perseus-core";
 
@@ -244,6 +245,22 @@ describe("article renderer", () => {
                 widgets: {"radio 1": randomizedRadioWidget()},
             });
 
+        const sectionWithRandomizedRadio = (): PerseusRenderer =>
+            generateTestPerseusRenderer({
+                content: "[[☃ graded-group 1]]",
+                widgets: {
+                    "graded-group 1": generateGradedGroupWidget({
+                        options: gradedGroupWithRandomizedRadio("Group"),
+                    }),
+                },
+            });
+
+        const apiOptions = {
+            ...ApiOptions.defaults,
+            isMobile: false,
+            customKeypad: false,
+        };
+
         /**
          * The rendered choice order of every radio widget on the page, in DOM
          * order. Two entries that are equal mean those two radio widgets were
@@ -259,28 +276,26 @@ describe("article renderer", () => {
                 );
 
         it("shuffles the same radio widget differently in each article section", () => {
-            // Arrange
-            const section = () =>
-                generateTestPerseusRenderer({
-                    content: "[[☃ graded-group 1]]",
-                    widgets: {
-                        "graded-group 1": generateGradedGroupWidget({
-                            options: gradedGroupWithRandomizedRadio("Group"),
-                        }),
-                    },
-                });
-
-            // Act
-            renderArticle([section(), section()], {
-                ...ApiOptions.defaults,
-                isMobile: false,
-                customKeypad: false,
-            });
+            // Arrange, Act
+            renderArticle(
+                [sectionWithRandomizedRadio(), sectionWithRandomizedRadio()],
+                apiOptions,
+            );
 
             // Assert
             const [firstSectionOrder, secondSectionOrder] =
                 getRenderedChoiceOrders();
             expect(firstSectionOrder).not.toEqual(secondSectionOrder);
+        });
+
+        it("shuffles the same article differently for different seeds", () => {
+            // Arrange, Act
+            renderArticle(sectionWithRandomizedRadio(), apiOptions, 0);
+            renderArticle(sectionWithRandomizedRadio(), apiOptions, 1);
+
+            // Assert
+            const [firstSeedOrder, secondSeedOrder] = getRenderedChoiceOrders();
+            expect(firstSeedOrder).not.toEqual(secondSeedOrder);
         });
 
         it("shuffles the same radio widget differently in each group of a graded group set", async () => {
@@ -302,11 +317,7 @@ describe("article renderer", () => {
                         }),
                     },
                 }),
-                {
-                    ...ApiOptions.defaults,
-                    isMobile: false,
-                    customKeypad: false,
-                },
+                apiOptions,
             );
 
             // A graded group set only renders the current group, so we have to
