@@ -1,4 +1,5 @@
 import {screen} from "@testing-library/react";
+import {userEvent} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
 import {
@@ -55,6 +56,27 @@ describe("grapher widget", () => {
         // (visible in the snapshot). The correct hex resolves in a real
         // browser (Chromatic).
         expect(container).toMatchSnapshot("initial render");
+    });
+
+    it("keeps the type selected when the selected type button is clicked again", async () => {
+        // Arrange
+        const user = userEvent.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+        const {renderer} = renderQuestion(multipleAvailableTypesQuestion);
+        await waitForInitialGraphieRender();
+
+        const linearButton = screen.getByRole("button", {name: "Linear"});
+        await user.click(linearButton);
+
+        // Act - re-clicking the selected type used to emit a null type and
+        // crash in defaultPlotProps (LEMS-4552)
+        await user.click(linearButton);
+
+        // Assert
+        expect(renderer.getUserInputMap()).toMatchObject({
+            "grapher 1": {type: "linear"},
+        });
     });
 
     it("should send analytics event when widget is rendered", () => {
