@@ -47,7 +47,7 @@
 @container fitb-answer-zone (width < 504px) {
     .answerZone
         :global(.perseus-widget-container):has(
-            > [data-testid="blank-widget"]:not([class*="super-sub"])
+            > [data-testid="blank-widget"][data-display-type="normal"]
         ) {
         display: block;
         inline-size: 100%;

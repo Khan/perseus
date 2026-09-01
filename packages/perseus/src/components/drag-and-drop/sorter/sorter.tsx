@@ -4,7 +4,7 @@ import * as React from "react";
 import {AnswerTile} from "../answer-tile";
 import {BlankComponent} from "../blank";
 import {ChoiceBank} from "../choice-bank";
-import {bankDragId, parseDragId, placedDragId} from "../drag-ids";
+import {bankDragId, placedDragId} from "../drag-ids";
 import {PerseusDndProvider} from "../perseus-dnd-provider";
 import {tempDndStrings as strings} from "../temp-strings";
 import {isTileInBank} from "../tile-placements";
@@ -14,7 +14,6 @@ import {useWidestTileWidth} from "../use-widest-tile-width";
 import styles from "./sorter.module.css";
 
 import type {TilePlacements} from "../tile-placements";
-import type {DragEndEvent} from "@dnd-kit/react";
 
 export type SorterTile = {
     id: string;
@@ -101,34 +100,21 @@ export function Sorter(props: SorterProps): React.ReactElement {
 
     const {containerRef, remeasure, maxWidth} = useWidestTileWidth();
 
-    const {handleMove, handleClear, firstBankMenuRef} = useTileMoveActions({
+    const {
+        handleMove,
+        handleClear,
+        handleDragEnd,
+        firstBankMenuRef,
+        placedMenuRef,
+    } = useTileMoveActions({
         placements,
         onPlacementsChange,
         tileUsage: "single",
         getTileLabel: (tileId) => tilesById.get(tileId)?.label ?? "",
         getBlankLabel: (blankId) => blankLabels[blankId],
+        blankIds,
+        bankDropId: BANK_DROP_ID,
     });
-
-    const handleDragEnd = ({operation, canceled}: DragEndEvent) => {
-        const {source, target} = operation;
-        // A cancelled drag (Escape) still reports its last target, so it
-        // must not count as a drop.
-        if (canceled || !source || !target) {
-            return;
-        }
-        const move = parseDragId(String(source.id));
-        if (move == null) {
-            return;
-        }
-        const targetId = String(target.id);
-        if (targetId === BANK_DROP_ID) {
-            if (move.fromBlankId != null) {
-                handleClear(move.fromBlankId, false);
-            }
-        } else if (blankIds.includes(targetId)) {
-            handleMove(move, targetId, false);
-        }
-    };
 
     // Fall back to vertical when the horizontal row cannot house every
     // slot at its minimum width.
@@ -211,6 +197,7 @@ export function Sorter(props: SorterProps): React.ReactElement {
                         }
                         clearFromLabel={blankLabels[blankId]}
                         onClear={() => handleClear(blankId, true)}
+                        menuRef={placedMenuRef(blankId)}
                     />
                 )}
             </BlankComponent>

@@ -50,7 +50,9 @@
 
 .staggerGrid {
     grid-auto-rows: 1fr;
-    row-gap: 0;
+    /* No grid gaps: a column gap would widen every 2-column slot span.
+     * The item padding below provides the spacing instead. */
+    gap: 0;
 }
 
 .staggerItemAbove,
