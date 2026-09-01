@@ -61,6 +61,26 @@ describe("BlankComponent", () => {
         expect(screen.getByTestId("blank").className).toContain("filled");
     });
 
+    it("keeps the min-width variable when a tile is placed", () => {
+        // Arrange, Act — fixed-width mode reads the variable on filled
+        // blanks, so it must stay set.
+        render(
+            <BlankComponent
+                blankId="blank-1"
+                displayType="normal"
+                placedTileId="tile-1"
+                minWidth={120}
+                testId="blank"
+            >
+                <span>Bongo</span>
+            </BlankComponent>,
+        );
+
+        expect(screen.getByTestId("blank").style.cssText).toContain(
+            "--blank-min-inline-size: 120px",
+        );
+    });
+
     it("keeps the slot chrome when the blank is empty", () => {
         // Arrange, Act — a conditional render leaves `false` behind, which
         // must not count as a placed tile.

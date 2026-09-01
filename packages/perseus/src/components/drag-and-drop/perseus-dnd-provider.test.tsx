@@ -50,10 +50,10 @@ describe("PerseusDndProvider", () => {
         },
     );
 
-    // The exact set matters, not just Accessibility's absence: the filter
-    // matches that plugin by class name, so a dnd-kit upgrade that renames
-    // it (or changes the default roster in any way) must fail HERE, on the
-    // upgrade PR — the provider itself deliberately never throws over it.
+    // The exact set matters, not just Accessibility's absence: a dnd-kit
+    // upgrade that changes the default roster in any way must fail HERE,
+    // on the upgrade PR — the provider itself deliberately never throws
+    // over it.
     it("registers exactly the expected plugins, without Accessibility", () => {
         // Arrange, Act
         renderProvider();

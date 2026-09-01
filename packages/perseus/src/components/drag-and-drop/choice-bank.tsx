@@ -35,12 +35,16 @@ export function ChoiceBank({
     const generatedBankId = useId();
     const {ref} = useDroppable({id: bankId ?? generatedBankId});
 
+    // The whole card is the drop target, so a tile can land anywhere in
+    // the dashed area — the list alone has no height once the bank is
+    // empty. Dropped tiles still render as list items; the ref only
+    // sets where a drop counts.
     return (
-        <div className={styles.choiceBank}>
+        <div ref={ref} className={styles.choiceBank}>
             <span id={labelId} className={styles.label}>
                 {label}
             </span>
-            <ul ref={ref} className={styles.list} aria-labelledby={labelId}>
+            <ul className={styles.list} aria-labelledby={labelId}>
                 {answerTiles.map((answerTile) => (
                     <li key={answerTile.tileId} className={styles.item}>
                         <AnswerTile {...answerTile} />

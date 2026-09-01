@@ -32,6 +32,8 @@ export interface BlankComponentProps {
      * beyond this.
      */
     minWidth?: React.CSSProperties["minWidth"];
+    /** Extra class for the slot element, for widget-level layout. */
+    className?: string;
     // TODO(LEMS-4448): Remove once there is a better way to identify a blank.
     testId?: string;
 }
@@ -45,8 +47,15 @@ export interface BlankComponentProps {
  * Perseus widget plumbing; other widgets can render it directly.
  */
 export function BlankComponent(props: BlankComponentProps): React.ReactElement {
-    const {blankId, displayType, children, placedTileId, minWidth, testId} =
-        props;
+    const {
+        blankId,
+        displayType,
+        children,
+        placedTileId,
+        minWidth,
+        className,
+        testId,
+    } = props;
 
     const {ref, isDropTarget} = useDroppable({id: blankId});
     const {source} = useDragOperation();
@@ -62,16 +71,31 @@ export function BlankComponent(props: BlankComponentProps): React.ReactElement {
     const isTileDraggingOut =
         placedTileId != null && source?.id === placedTileId;
 
+    // The width is a CSS variable, set filled or not: rules choose when
+    // to consume it (a filled blank in "hug" mode does not, and
+    // narrow-mode rules can override it).
+    const minWidthStyle =
+        minWidth != null
+            ? // eslint-disable-next-line no-restricted-syntax -- CSSProperties has no keys for CSS custom properties.
+              ({
+                  "--blank-min-inline-size":
+                      typeof minWidth === "number" ? `${minWidth}px` : minWidth,
+              } as React.CSSProperties)
+            : undefined;
+
     return (
         <div
             ref={ref}
             className={classNames(
                 styles.container,
                 displayType !== "normal" && styles["super-sub"],
+                displayType === "superscript" && styles.superscript,
+                displayType === "subscript" && styles.subscript,
                 isFilled && !isTileDraggingOut && styles.filled,
                 isDropTarget && styles["drop-target"],
+                className,
             )}
-            style={!isFilled && minWidth != null ? {minWidth} : undefined}
+            style={minWidthStyle}
             data-testid={testId}
         >
             {children}
