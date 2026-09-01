@@ -7,7 +7,7 @@
  * provided on KhanUtil.
  */
 // eslint-disable-next-line no-restricted-imports -- Replace with semanticColor
-import {color} from "@khanacademy/wonder-blocks-tokens";
+import {color, semanticColor, tokenValue} from "@khanacademy/wonder-blocks-tokens";
 
 // TODO(WB-2160): Update these to use the new semanticColor tokens, and use the
 // new tokenValue() function to get the raw value of the token. This is
@@ -132,6 +132,9 @@ interface RGB {
  * @param color - can be hex, a name like `"black"`, or e.g. `rgb(0, 0, 0)`.
  */
 export function resolveColor(color: string): RGB {
+    if (color[0] === "#") {
+        return parseHexColor(color);
+    }
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
     if (!ctx) {
@@ -141,6 +144,58 @@ export function resolveColor(color: string): RGB {
     ctx.fillRect(0, 0, 1, 1);
     const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
     return {r, g, b};
+}
+
+const lightModeHexForMathColor = {
+    [semanticColor.learning.math.foreground.blue]: "#3D7586",
+    [semanticColor.learning.math.foreground.gold]: "#946700",
+    [semanticColor.learning.math.foreground.green]: "#447A53",
+    [semanticColor.learning.math.foreground.gray]: "#5D5F66",
+    [semanticColor.learning.math.foreground.grayH]: "#3B3D45",
+    [semanticColor.learning.math.foreground.grayI]: "#21242C",
+    [semanticColor.learning.math.foreground.purple]: "#594094",
+    [semanticColor.learning.math.foreground.purpleD]: "#8351E8",
+    [semanticColor.learning.math.foreground.pink]: "#B25071",
+    [semanticColor.learning.math.foreground.red]: "#D92916",
+}
+
+export function toClosestMathColor(target: string): string {
+    const targetRGB = resolveColor(target);
+    let closestRGB = {r: 0, g: 0, b: 0};
+    let closestCSSVar = semanticColor.core.foreground.neutral.strong;
+    for (const [cssVar, hex] of Object.entries(lightModeHexForMathColor)) {
+        const candidate = resolveColor(hex);
+        if (diffColors(targetRGB, candidate) < diffColors(targetRGB, closestRGB)) {
+            closestRGB = candidate;
+            closestCSSVar = cssVar;
+        }
+    }
+    return closestCSSVar;
+}
+
+export function parseHexColor(hex: string): RGB {
+    // This case also parses four-digit hex like #1234, but discards the alpha
+    // channel.
+    const threeDigitMatch = hex.match(/^#([0-9A-Fa-f])([0-9A-Fa-f])([0-9A-Fa-f])([0-9A-Fa-f])?$/);
+    if (threeDigitMatch) {
+        return {
+            r: parseInt(threeDigitMatch[1], 16) * 17,
+            g: parseInt(threeDigitMatch[2], 16) * 17,
+            b: parseInt(threeDigitMatch[3], 16) * 17,
+        }
+    }
+
+    // This case also parses eight-digit hex like #11223344, but discards the
+    // alpha channel.
+    const sixDigitMatch = hex.match(/^#([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})?$/);
+    if (sixDigitMatch) {
+        return {
+            r: parseInt(sixDigitMatch[1], 16),
+            g: parseInt(sixDigitMatch[2], 16),
+            b: parseInt(sixDigitMatch[3], 16),
+        }
+    }
+    return {r: 0, g: 0, b: 0};
 }
 
 /**

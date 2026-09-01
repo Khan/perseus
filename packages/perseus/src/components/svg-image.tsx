@@ -19,6 +19,7 @@ import type {Coord} from "../interactive2/types";
 import type {APIOptions} from "../types";
 import type {Alignment, Size} from "@khanacademy/perseus-core";
 import type {ParsedFrame} from "gifuct-js";
+import {toClosestMathColor} from "../util/colors";
 
 function isImageProbablyPhotograph(imageUrl) {
     return /\.(jpg|jpeg)$/i.test(imageUrl);
@@ -371,6 +372,14 @@ class SvgImage extends React.Component<Props, State> {
                 _.each(labelData.style, (styleValue, styleName) => {
                     label.css(styleName, styleValue);
                 });
+
+                // Override the color authored in `style` with the perceptually
+                // closest semantic color from Wonder Blocks. This ensures that
+                // labels follow the dark mode / light mode theme and remain
+                // readable.
+                if (labelData.style.color) {
+                    label.css("color", toClosestMathColor(labelData.style.color));
+                }
             }
             newLabelsRendered[labelData.content] = true;
         });

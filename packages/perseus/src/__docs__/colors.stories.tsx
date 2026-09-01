@@ -3,6 +3,7 @@ import * as React from "react";
 import {resolveColor} from "../util/colors";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
+import {themeModes} from "../../../../.storybook/modes";
 
 type Story = StoryObj;
 
@@ -18,6 +19,7 @@ const meta: Meta = {
                     "components as numbers from 0 to 255.",
             },
         },
+        chromatic: {disableSnapshot: false, modes: themeModes},
     },
 };
 export default meta;
