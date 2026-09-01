@@ -134,6 +134,17 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
     // Whitespace-only content would render an invisible, unlabeled tile.
     const isEmpty = content.trim() === "";
 
+    const tileClasses = classNames(
+        styles.tile,
+        showCorrectness != null && styles[showCorrectness],
+        disabled && styles.disabled,
+        isDraggable && styles.draggable,
+        isDragging && styles.dragging,
+        inBlank && styles.inBlank,
+        fillsBlank && styles.fillsBlank,
+        compact && styles.compact,
+    );
+
     // The tile starts with the actions menu or, when scored, an icon.
     // The two never show together: a scored tile has no menu.
     // A semantics-free root: the tile renders inside a ChoiceBank list
@@ -141,16 +152,7 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
     // semantics belong to those containers, not the tile.
     return (
         <div
-            className={classNames(
-                styles.tile,
-                showCorrectness != null && styles[showCorrectness],
-                disabled && styles.disabled,
-                isDraggable && styles.draggable,
-                isDragging && styles.dragging,
-                inBlank && styles.inBlank,
-                fillsBlank && styles.fillsBlank,
-                compact && styles.compact,
-            )}
+            className={tileClasses}
             style={
                 imageHeight != null
                     ? cssVariable(
