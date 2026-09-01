@@ -2,9 +2,9 @@ import {useDragOperation, useDroppable} from "@dnd-kit/react";
 import classNames from "classnames";
 import * as React from "react";
 
-import styles from "./blank-component.module.css";
+import {readTileDragData} from "../drag-ids";
 
-import type {TileDragData} from "../drag-ids";
+import styles from "./blank-component.module.css";
 
 export interface BlankComponentProps {
     /**
@@ -70,7 +70,7 @@ export function BlankComponent(props: BlankComponentProps): React.ReactElement {
     // While this blank's own tile is mid-drag it still occupies layout
     // space (dnd-kit moves it with a transform), so showing the empty
     // chrome again puts the dashed slot underneath the departing tile.
-    const dragged = source?.data as TileDragData | undefined;
+    const dragged = readTileDragData(source?.data);
     const isTileDraggingOut =
         placedTileId != null &&
         dragged?.tileId === placedTileId &&

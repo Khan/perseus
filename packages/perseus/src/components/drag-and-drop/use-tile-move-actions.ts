@@ -1,6 +1,7 @@
 import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
 import * as React from "react";
 
+import {readTileDragData} from "./drag-ids";
 import {tempDndStrings as strings} from "./temp-strings";
 import {clearBlank, placeTile} from "./tile-placements";
 
@@ -129,7 +130,7 @@ export function useTileMoveActions(options: {
         if (canceled || !source || !target) {
             return;
         }
-        const move = source.data as TileDragData | undefined;
+        const move = readTileDragData(source.data);
         if (move == null) {
             return;
         }
