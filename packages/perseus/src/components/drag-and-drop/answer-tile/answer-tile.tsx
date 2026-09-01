@@ -13,6 +13,9 @@ import styles from "./answer-tile.module.css";
 
 import type {MoveTarget} from "../dnd-action-menu";
 
+/** What a scored tile shows. Each value names a CSS class in the module. */
+export type TileScoring = "correct" | "incorrect" | "unused";
+
 export interface AnswerTileProps {
     /**
      * The unique identifier of an Answer Tile, which is used
@@ -30,18 +33,14 @@ export interface AnswerTileProps {
      */
     label: string;
     /**
-     * Used to provide visible feedback regarding whether the user
-     * answered the question correctly or incorrectly.
+     * The result the tile shows once the question is scored. A placed tile
+     * is "correct" or "incorrect"; a tile the learner left in the choice
+     * bank is "unused", which dims it. Omit it before scoring.
      *
-     * Never pass this together with `disabled`: a scored tile is either
-     * placed (showCorrectness) or unused (disabled).
+     * A scored tile has no menu and cannot be dragged, whichever result
+     * it shows.
      */
-    showCorrectness?: "correct" | "incorrect";
-    /**
-     * Dims the tile and removes its menu and shadow. The widgets use
-     * this for unused choice-bank tiles after scoring.
-     */
-    disabled?: boolean;
+    scoring?: TileScoring;
     /**
      * Blanks the tile can move to, which populate the menu.
      * An empty array is valid: a placed tile in a one-blank exercise
@@ -70,8 +69,7 @@ export interface AnswerTileProps {
  * AnswerTile is the card that a learner moves into a blank. It is part of
  * the Drag-and-Drop widget family. The tile shows authored markdown
  * content: text, TeX, or an image. It puts the DndActionMenu at its
- * leading edge. The parent widget sets showCorrectness and disabled
- * after scoring.
+ * leading edge. The parent widget sets `scoring` after scoring.
  *
  * The tile is only visual for now. A later ticket adds the drag wiring.
  */
@@ -79,8 +77,7 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
     const {
         content,
         label,
-        showCorrectness,
-        disabled,
+        scoring,
         moveTargets,
         onMove,
         clearFromLabel,
@@ -93,19 +90,19 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
     // Whitespace-only content would render an invisible, unlabeled tile.
     const isEmpty = content.trim() === "";
 
+    const tileClasses = classNames(
+        styles.tile,
+        scoring != null && styles[scoring],
+    );
+
     // The tile starts with the actions menu or, when scored, an icon.
-    // The two never show together: a scored tile has no menu.
+    // The two never show together: a scored tile has no menu. An unused
+    // tile shows neither, because it names no result to report.
     return (
-        <div
-            className={classNames(
-                styles.tile,
-                showCorrectness != null && styles[showCorrectness],
-                disabled && styles.disabled,
-            )}
-        >
-            {!disabled && (
+        <div className={tileClasses}>
+            {scoring !== "unused" && (
                 <div className={styles.startContainer}>
-                    {showCorrectness == null ? (
+                    {scoring == null ? (
                         <DndActionMenu
                             ref={menuRef}
                             label={label}
@@ -124,7 +121,7 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
                         // result to screen readers, not the tile.
                         <PhosphorIcon
                             aria-hidden="true"
-                            icon={scoredIcons[showCorrectness]}
+                            icon={scoredIcons[scoring]}
                             size="medium"
                         />
                     )}

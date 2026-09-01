@@ -60,7 +60,8 @@
     box-shadow: none;
 }
 
-.disabled {
+/* A tile the learner left in the bank when the question was scored. */
+.unused {
     color: var(--wb-semanticColor-core-foreground-disabled-strong);
     box-shadow: none;
 }
@@ -86,7 +87,7 @@
      * past this limit. Content never scrolls. */
     max-inline-size: 200px;
     padding-inline-end: var(--wb-sizing-size_060);
-    /* The rendered markdown inherits the scored or disabled text color. */
+    /* The rendered markdown inherits the scored text color. */
     color: inherit;
 }
 
