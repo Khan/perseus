@@ -33,7 +33,9 @@ export type SorterLegend = {
     /**
      * Side of the blanks the legend renders on, in the block direction.
      * The default is "end" (below a horizontal row). A staggered
-     * timeline (5+ blanks) ignores it: the axis runs through the middle.
+     * timeline (5+ blanks) ignores it — the axis runs through the
+     * middle — and the vertical layout ignores it: the legend always
+     * runs down the start side.
      */
     position?: "start" | "end";
 };
@@ -138,9 +140,10 @@ export function Sorter(props: SorterProps): React.ReactElement {
     let requiredWidth: number | undefined;
     if (minSlotWidth != null) {
         requiredWidth = isStaggered
-            ? // Staggered slots span 2 of the grid's count+1 columns, so
-              // each column must be half the minimum slot width.
-              (minSlotWidth / 2) * (count + 1) + SLOT_GAP * count
+            ? // Staggered slots span 2 of the grid's count+1 gapless
+              // columns and pad half a gap on each side, so each column
+              // must be half of (slot + gap).
+              ((minSlotWidth + SLOT_GAP) / 2) * (count + 1)
             : minSlotWidth * count + SLOT_GAP * (count - 1);
     }
     const isVertical =

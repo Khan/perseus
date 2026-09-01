@@ -199,9 +199,10 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
         };
     };
 
-    // Tiles whose visible value is three characters or fewer keep the
-    // inline layout at all widths. The value is judged on the content
-    // with TeX delimiters stripped — not the label, which is
+    // Tiles with small values keep the inline layout at all widths.
+    // The size is judged on the TeX source with the delimiters
+    // stripped, so a long command ($\infty$) counts as long even
+    // though it renders one glyph. The label is not used: it is
     // screen-reader text and can be longer than what shows on the tile
     // (an empty tile shows "" but is labeled "empty").
     const smallValues = tiles.every(

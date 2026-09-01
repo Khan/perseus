@@ -12,7 +12,12 @@
     container-name: fitb-answer-zone;
 }
 
-/* Answer-zone text is 16px/24px medium in the token sans font. The
+/* TODO(LEMS-4304): the rules below key on div.paragraph, which only
+ * the old renderer emits. The new renderer wraps plain paragraphs in
+ * nothing, so under the perseus-renderer-upgrade flag the typography
+ * and the 48px line rhythm are lost and need a new hook.
+ *
+ * Answer-zone text is 16px/24px medium in the token sans font. The
  * doubled class outweighs the global paragraph rule. */
 .answerZone.answerZone :global(div.paragraph) {
     font-family: var(--wb-font-family-sans);

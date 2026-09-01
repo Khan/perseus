@@ -9,27 +9,20 @@ import {
 } from "../../../testing/test-dependencies";
 
 import {Sorter} from "./sorter";
+import {generateSorterProps} from "./sorter.testdata";
 
-import type {SorterProps} from "./sorter";
+import type {SorterProps, SorterTile} from "./sorter";
 import type {TilePlacements} from "../tile-placements";
 import type {UserEvent} from "@testing-library/user-event";
 
-const baseProps: Omit<SorterProps, "placements" | "onPlacementsChange"> = {
-    variant: "scale",
-    legend: {
-        startLabel: "Lowest",
-        endLabel: "Highest",
-        srLabel: "Interest rate, from lowest to highest",
-        startStyle: "arrow",
-        endStyle: "arrow",
-    },
-    tiles: [
-        {id: "car", content: "car loan", label: "car loan"},
-        {id: "credit", content: "credit card", label: "credit card"},
-        {id: "student", content: "student loan", label: "student loan"},
-    ],
-    orientation: "horizontal",
-};
+// The values the tests assert on, passed explicitly per test so the
+// assertions do not depend on the shared generator defaults.
+const loanTiles: SorterTile[] = [
+    {id: "car", content: "car loan", label: "car loan"},
+    {id: "credit", content: "credit card", label: "credit card"},
+    {id: "student", content: "student loan", label: "student loan"},
+];
+const srLabel = "Interest rate, from lowest to highest";
 
 /** Renders Sorter with live controlled placements. */
 function renderSorter(props: Partial<SorterProps> = {}): {
@@ -43,8 +36,7 @@ function renderSorter(props: Partial<SorterProps> = {}): {
         currentPlacements = placements;
         return (
             <Sorter
-                {...baseProps}
-                {...props}
+                {...generateSorterProps(props)}
                 placements={placements}
                 onPlacementsChange={setPlacements}
             />
@@ -70,24 +62,31 @@ describe("Sorter", () => {
 
     it("renders one blank per tile in a list labeled by the legend", () => {
         // Arrange, Act
-        renderSorter();
-
-        const slots = screen.getByRole("list", {
-            name: "Interest rate, from lowest to highest",
+        renderSorter({
+            tiles: loanTiles,
+            legend: {
+                ...generateSorterProps().legend,
+                srLabel,
+            },
         });
+
+        const slots = screen.getByRole("list", {name: srLabel});
         expect(within(slots).getAllByRole("listitem")).toHaveLength(3);
     });
 
     it("renders every unplaced tile in the choice bank", () => {
         // Arrange, Act
-        renderSorter({placements: {"blank 1": "car"}});
+        renderSorter({
+            tiles: loanTiles,
+            placements: {"blank 1": "car"},
+        });
 
         const bank = screen.getByRole("list", {name: "Choices"});
         expect(within(bank).getAllByRole("listitem")).toHaveLength(2);
     });
 
     it("places a tile into a blank through the actions menu", async () => {
-        const {getPlacements} = renderSorter();
+        const {getPlacements} = renderSorter({tiles: loanTiles});
 
         await user.click(screen.getByRole("button", {name: "car loan"}));
         await user.click(
@@ -99,6 +98,7 @@ describe("Sorter", () => {
 
     it("returns the occupant to the bank when a tile takes its blank", async () => {
         const {getPlacements} = renderSorter({
+            tiles: loanTiles,
             placements: {"blank 1": "car"},
         });
 
@@ -116,12 +116,15 @@ describe("Sorter", () => {
 
     it("clears a placed tile through its actions menu", async () => {
         const {getPlacements} = renderSorter({
+            tiles: loanTiles,
+            legend: {
+                ...generateSorterProps().legend,
+                srLabel,
+            },
             placements: {"blank 1": "car"},
         });
 
-        const slots = screen.getByRole("list", {
-            name: "Interest rate, from lowest to highest",
-        });
+        const slots = screen.getByRole("list", {name: srLabel});
         await user.click(within(slots).getByRole("button", {name: "car loan"}));
         await user.click(
             await screen.findByRole("menuitem", {name: "Clear from Blank 1"}),
