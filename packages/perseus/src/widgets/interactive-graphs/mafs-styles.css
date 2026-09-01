@@ -112,8 +112,8 @@
     outline: none;
     /* Disable iOS grey highlight rectangle as it creates a weird visual artifact when dragging points */
     -webkit-tap-highlight-color: transparent;
-    /* The drop shadow lives on the group, not the halo: the halo's 0.25
-     * opacity would fade the shadow token below visibility. */
+    /* The drop shadow is applied to the group, not the halo: the halo's
+     * 0.25 opacity would fade the shadow token below visibility. */
     filter: drop-shadow(
         0 5px 5px var(--wb-semanticColor-core-shadow-transparent-color-strong)
     );
@@ -358,8 +358,8 @@
     stroke-width: 2px;
 }
 
-/* As with .movable-point, the shadow lives on the group so the halo's
- * 0.25 opacity doesn't fade it below visibility. */
+/* The drop shadow is applied to the group, not the halo: the halo's
+ * 0.25 opacity would fade the shadow token below visibility. */
 .MafsView .movable-pill-handle-group {
     filter: drop-shadow(
         0 5px 5px var(--wb-semanticColor-core-shadow-transparent-color-strong)

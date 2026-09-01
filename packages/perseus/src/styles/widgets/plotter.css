@@ -6,7 +6,8 @@
     transform: rotate(-90deg);
 }
 .set-from-scale-box {
-    border: 2px solid var(--wb-semanticColor-core-border-neutral-subtle);
+    border: var(--wb-border-width-medium) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
     border-radius: 3px;
     padding: 3px;
 }

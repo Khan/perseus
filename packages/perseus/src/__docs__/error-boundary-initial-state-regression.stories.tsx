@@ -17,8 +17,7 @@ const meta: Meta<typeof ErrorBoundary> = {
             description: {
                 component:
                     "Regression tests for the ErrorBoundary that do NOT " +
-                    "need any interactions to test, which will be used " +
-                    "with Chromatic.",
+                    "need any interactions to test.",
             },
         },
         chromatic: {disableSnapshot: false, modes: themeModes},
