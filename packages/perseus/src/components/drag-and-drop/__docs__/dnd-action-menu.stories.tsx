@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import {rtlDecorator} from "../../../widgets/__testutils__/story-decorators";
 import {DndActionMenu} from "../dnd-action-menu";
 import {
     generateActionMenuProps,
@@ -45,10 +46,7 @@ const meta: Meta<typeof DndActionMenu> = {
             {args.label}
         </PlaceholderTile>
     ),
-    args: {
-        ...generateActionMenuProps(),
-        moveTargets: generateTestBlanks(4),
-    },
+    args: generateActionMenuProps({moveTargets: generateTestBlanks(4)}),
 };
 
 export default meta;
@@ -65,8 +63,7 @@ export const Default: Story = {};
 export const PlacedInBlank: Story = {
     args: {
         moveTargets: generateTestBlanks(4).slice(1),
-        clearFromLabel: "Blank 1",
-        onClear: () => {},
+        clearAction: {fromLabel: "Blank 1", onClear: () => {}},
     },
 };
 
@@ -88,8 +85,10 @@ export const LongCategoryLabels: Story = {
             {id: "col-1", label: "Physical changes to matter"},
             {id: "col-2", label: "Chemical changes to matter"},
         ],
-        clearFromLabel: "Physical changes to matter",
-        onClear: () => {},
+        clearAction: {
+            fromLabel: "Physical changes to matter",
+            onClear: () => {},
+        },
     },
 };
 
@@ -115,25 +114,10 @@ export const RightToLeft: Story = {
     },
     parameters: {
         // Render in a separate iframe on the docs page so the document-level
-        // dir below doesn't flip the surrounding stories.
+        // dir doesn't flip the surrounding stories.
         docs: {story: {inline: false, height: "620px"}},
     },
-    decorators: [
-        // The open menu renders in a portal to document.body, so a dir="rtl"
-        // wrapper around the story doesn't work here. Set dir on the document
-        // element instead, as a real RTL page does.
-        (StoryComponent) => {
-            React.useEffect(() => {
-                const previous = document.documentElement.dir;
-                document.documentElement.dir = "rtl";
-                return () => {
-                    document.documentElement.dir = previous;
-                };
-            }, []);
-            // Note: the fixed copy ("Move to", "Clear") renders in English
-            // here — the temporary strings module isn't swappable per story.
-            // Full RTL copy returns when the strings move into PerseusStrings.
-            return <StoryComponent />;
-        },
-    ],
+    // Note: the fixed copy ("Move to", "Clear") renders in English here —
+    // the temporary strings module isn't swappable per story.
+    decorators: [rtlDecorator],
 };

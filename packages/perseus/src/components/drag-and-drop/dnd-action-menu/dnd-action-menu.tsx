@@ -37,17 +37,14 @@ export interface DndActionMenuProps {
     /** Called with the target blank's id when a move action is selected. */
     onMove: (targetId: string) => void;
     /**
-     * Visible label (not the id) of the blank/column the tile currently
-     * sits in, e.g. "Blank 1" — named for where it's spoken: the clear
-     * action's "Clear from Blank 1". Omit for a tile in the choice bank.
+     * The clear action, for a tile that sits in a blank. Omit for a tile
+     * in the choice bank. `fromLabel` is the blank's visible label, e.g.
+     * "Blank 1", spoken as "Clear from Blank 1".
      */
-    clearFromLabel?: string;
-    /**
-     * Callback for removing the tile from its blank. May be passed
-     * unconditionally; the clear action only renders when clearFromLabel
-     * is also present (i.e. the tile is placed).
-     */
-    onClear?: () => void;
+    clearAction?: {
+        fromLabel: string;
+        onClear: () => void;
+    };
     /**
      * Disables the opener button. The button stays focusable and exposes
      * aria-disabled, so its position stays discoverable.
@@ -67,15 +64,8 @@ export const DndActionMenu = React.forwardRef<
     HTMLButtonElement,
     DndActionMenuProps
 >(function DndActionMenu(props, ref): React.ReactElement {
-    const {
-        label,
-        remainingUses,
-        moveTargets,
-        onMove,
-        clearFromLabel,
-        onClear,
-        disabled,
-    } = props;
+    const {label, remainingUses, moveTargets, onMove, clearAction, disabled} =
+        props;
 
     const descriptionId = useId();
 
@@ -83,8 +73,6 @@ export const DndActionMenu = React.forwardRef<
         remainingUses != null
             ? `${strings.menuRemaining({num: remainingUses})} ${strings.actionsMenu}`
             : strings.actionsMenu;
-
-    const showClearAction = onClear != null && clearFromLabel != null;
 
     const menuItems: React.ReactElement[] = [];
 
@@ -118,7 +106,7 @@ export const DndActionMenu = React.forwardRef<
         );
     }
 
-    if (showClearAction) {
+    if (clearAction != null) {
         if (menuItems.length > 0) {
             menuItems.push(<SeparatorItem key="separator" />);
         }
@@ -126,8 +114,10 @@ export const DndActionMenu = React.forwardRef<
             <ActionItem
                 key="clear"
                 label={strings.clear}
-                aria-label={strings.clearTarget({target: clearFromLabel})}
-                onClick={onClear}
+                aria-label={strings.clearTarget({
+                    target: clearAction.fromLabel,
+                })}
+                onClick={clearAction.onClear}
                 style={menuItemStyle}
             />,
         );
@@ -135,8 +125,7 @@ export const DndActionMenu = React.forwardRef<
 
     // With nothing to move to and nothing to clear, the button is
     // disabled instead of opening an empty menu.
-    const hasActions = moveTargets.length > 0 || showClearAction;
-    const isDisabled = disabled || !hasActions;
+    const isDisabled = disabled || menuItems.length === 0;
 
     return (
         <>
@@ -162,10 +151,12 @@ export const DndActionMenu = React.forwardRef<
                 // placed tile; "auto" deviates deliberately, flipping on
                 // available space so the menu never opens off-screen.
                 alignment="auto-start"
-                // The design's 160px minimum width, in rem so it scales
-                // with the user's font size. Long labels still widen the
-                // menu. No sizing token reaches this scale.
-                dropdownStyle={{minInlineSize: "10rem"}}
+                // The design's 160px minimum width. The unit is rem so
+                // the menu scales with the user's font size; the root
+                // font size is 10px here, as the Wonder Blocks sizing
+                // tokens also assume. Long labels still widen the menu.
+                // No sizing token reaches this scale.
+                dropdownStyle={{minInlineSize: "16rem"}}
                 opener={() => (
                     <MergedRefOpener
                         openerRef={ref}
