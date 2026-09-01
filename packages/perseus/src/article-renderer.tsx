@@ -59,10 +59,6 @@ class ArticleRenderer
         this._currentFocus = null;
     }
 
-    shouldComponentUpdate(nextProps: Props): boolean {
-        return nextProps !== this.props;
-    }
-
     _handleFocusChange: (arg1: any, arg2: any) => void = (
         newFocusPath,
         oldFocusPath,

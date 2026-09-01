@@ -119,10 +119,6 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
         });
     }
 
-    shouldComponentUpdate(nextProps: Props, nextState: State): boolean {
-        return nextProps !== this.props || nextState !== this.state;
-    }
-
     // Mobile API
     getInputPaths: () => ReadonlyArray<FocusPath> = () => {
         return this._childGroup.getInputPaths();
