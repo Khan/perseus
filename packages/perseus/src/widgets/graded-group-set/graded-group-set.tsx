@@ -1,23 +1,18 @@
 import Clickable from "@khanacademy/wonder-blocks-clickable";
-import {View} from "@khanacademy/wonder-blocks-core";
+import {useOnMountEffect, View} from "@khanacademy/wonder-blocks-core";
 import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
+import {forwardRef, useImperativeHandle, useRef, useState} from "react";
+import invariant from "tiny-invariant";
 
-import {withDependencies} from "../../components/with-dependencies";
-import {getDependencies} from "../../dependencies";
+import {getDependencies, useDependencies} from "../../dependencies";
 import {phoneMargin, negativePhoneMargin} from "../../styles/constants";
 import {getPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
 import {GradedGroup} from "../graded-group/graded-group";
 
-import type {
-    FocusPath,
-    PerseusDependenciesV2,
-    Widget,
-    WidgetExports,
-    WidgetProps,
-} from "../../types";
+import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {GradedGroupSetPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
 import type {
     PerseusGradedGroupSetWidgetOptions,
@@ -83,71 +78,66 @@ function Indicators(props: IndicatorsProps) {
 
 type Props = WidgetProps<PerseusGradedGroupSetWidgetOptions> & {
     trackInteraction: () => void;
-    dependencies: PerseusDependenciesV2;
 };
 
-type State = {
-    currentGroup: number;
-};
+const GradedGroupSet = forwardRef<Widget, Props>(
+    function GradedGroupSet(props, ref) {
+        const dependencies = useDependencies();
+        const childGroup = useRef<GradedGroup>();
 
-class GradedGroupSet extends React.Component<Props, State> implements Widget {
-    // @ts-expect-error - TS2564 - Property '_childGroup' has no initializer and is not definitely assigned in the constructor.
-    _childGroup: GradedGroup;
+        const [currentGroupIndex, setCurrentGroupIndex] = useState(0);
 
-    state: State = {
-        currentGroup: 0,
-    };
-
-    componentDidMount(): void {
-        this.props.dependencies.analytics.onAnalyticsEvent({
-            type: "perseus:widget:rendered:ti",
-            payload: {
-                widgetType: "graded-group-set",
-                widgetSubType: "null",
-                widgetId: this.props.widgetId,
-            },
+        useOnMountEffect(() => {
+            dependencies.analytics.onAnalyticsEvent({
+                type: "perseus:widget:rendered:ti",
+                payload: {
+                    widgetType: "graded-group-set",
+                    widgetSubType: "null",
+                    widgetId: props.widgetId,
+                },
+            });
         });
-    }
 
-    // Mobile API
-    getInputPaths: () => ReadonlyArray<FocusPath> = () => {
-        return this._childGroup.getInputPaths();
-    };
+        useImperativeHandle(ref, () => ({
+            getInputPaths(): ReadonlyArray<FocusPath> {
+                return childGroup.current?.getInputPaths() ?? [];
+            },
 
-    getPromptJSON(): GradedGroupSetPromptJSON {
-        const activeGroupPromptJSON = this._childGroup.getPromptJSON();
+            getPromptJSON(): GradedGroupSetPromptJSON {
+                invariant(
+                    childGroup.current,
+                    "GradedGroupSet must have at least one group",
+                );
+                return getPromptJSON(props, childGroup.current.getPromptJSON());
+            },
 
-        return getPromptJSON(this.props, activeGroupPromptJSON);
-    }
+            focus(): boolean {
+                return childGroup.current?.focus() ?? false;
+            },
 
-    focus: () => boolean = () => {
-        return this._childGroup.focus();
-    };
+            focusInputPath(path: FocusPath) {
+                childGroup.current?.focusInputPath(path);
+            },
 
-    focusInputPath: (arg1: FocusPath) => void = (path) => {
-        this._childGroup.focusInputPath(path);
-    };
+            blurInputPath(path: FocusPath) {
+                childGroup.current?.blurInputPath(path);
+            },
+        }));
 
-    blurInputPath: (arg1: FocusPath) => void = (path) => {
-        this._childGroup.blurInputPath(path);
-    };
+        function handleNextQuestion() {
+            const numGroups = props.options.gradedGroups.length;
 
-    handleNextQuestion: () => void = () => {
-        const {currentGroup} = this.state;
-        const numGroups = this.props.options.gradedGroups.length;
-
-        if (currentGroup < numGroups - 1) {
-            this.setState({currentGroup: currentGroup + 1});
+            if (currentGroupIndex < numGroups - 1) {
+                setCurrentGroupIndex(currentGroupIndex + 1);
+            }
         }
-    };
 
-    render(): React.ReactNode {
         // When used in the context of TranslationEditor, render the
         // GradedGroup widget one below another instead of using an indicator
         // to click and switch between different graded groups. Translators
         // prefer to see all strings/labels on all GradedGroups readily visible
         // together instead of clicking on indicators to switch between them.
-        const {gradedGroups} = this.props.options;
+        const {gradedGroups} = props.options;
         const {JIPT} = getDependencies();
         if (JIPT.useJIPT && gradedGroups.length > 1) {
             return (
@@ -156,11 +146,12 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
                         return (
                             <GradedGroup
                                 key={i}
-                                {...this.props}
-                                problemNum={(this.props.problemNum ?? 0) + i}
+                                {...props}
+                                problemNum={(props.problemNum ?? 0) + i}
                                 options={gradedGroup}
                                 inGradedGroupSet={false}
-                                linterContext={this.props.linterContext}
+                                linterContext={props.linterContext}
+                                dependencies={dependencies}
                             />
                         );
                     })}
@@ -168,18 +159,13 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
             );
         }
 
-        const currentGroup = gradedGroups[this.state.currentGroup];
+        const currentGroup = gradedGroups[currentGroupIndex];
 
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (!currentGroup) {
+        if (currentGroup == null) {
             return <span>No current group...</span>;
         }
 
         const numGroups = gradedGroups.length;
-        const handleNextQuestion =
-            this.state.currentGroup < numGroups - 1
-                ? this.handleNextQuestion
-                : undefined;
 
         return (
             <div className={css(styles.container)}>
@@ -189,21 +175,21 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
                     </div>
                     <div className={css(styles.spacer)} />
                     <Indicators
-                        currentGroup={this.state.currentGroup}
+                        currentGroup={currentGroupIndex}
                         gradedGroups={gradedGroups}
-                        onChangeCurrentGroup={(currentGroup) =>
-                            this.setState({currentGroup})
+                        onChangeCurrentGroup={(currentGroupIndex) =>
+                            setCurrentGroupIndex(currentGroupIndex)
                         }
                     />
                 </div>
                 <GradedGroup
-                    key={this.state.currentGroup}
-                    ref={(comp) => (this._childGroup = comp)}
+                    key={currentGroupIndex}
+                    // @ts-expect-error - TS2322 - Type 'GradedGroup | null' is not assignable to type 'GradedGroup'.
+                    //  Type 'null' is not assignable to type 'GradedGroup'.
+                    ref={childGroup}
                     // We should pass in the set of props explicitly
-                    {...this.props}
-                    problemNum={
-                        (this.props.problemNum ?? 0) + this.state.currentGroup
-                    }
+                    {...props}
+                    problemNum={(props.problemNum ?? 0) + currentGroupIndex}
                     options={{
                         ...currentGroup,
                         // The set renders the group's title itself, above the
@@ -211,24 +197,27 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
                         title: "",
                     }}
                     inGradedGroupSet={true}
-                    onNextQuestion={handleNextQuestion}
-                    linterContext={this.props.linterContext}
+                    onNextQuestion={
+                        currentGroupIndex < numGroups - 1
+                            ? handleNextQuestion
+                            : undefined
+                    }
+                    linterContext={props.linterContext}
+                    dependencies={dependencies}
                 />
             </div>
         );
-    }
-}
-
-const WrappedGradedGroupSet = withDependencies(GradedGroupSet);
+    },
+);
 
 export default {
     name: "graded-group-set",
     displayName: "Graded group set (articles only)",
-    widget: WrappedGradedGroupSet,
+    widget: GradedGroupSet,
     hidden: false,
     tracking: "all",
     isLintable: true,
-} satisfies WidgetExports<typeof WrappedGradedGroupSet>;
+} satisfies WidgetExports<typeof GradedGroupSet>;
 
 const styles = StyleSheet.create({
     top: {
