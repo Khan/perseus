@@ -113,6 +113,8 @@ code {
 .perseus-widget-editor {
     border: 1px solid #ddd;
     border-radius: 3px;
+}
+.perseus-widget-editor:not(:first-child) {
     margin-top: 10px;
 }
 .perseus-widget-editor .perseus-widget-editor-title {
