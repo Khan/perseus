@@ -1028,9 +1028,7 @@ _.extend(GraphUtils.Graphie.prototype, {
         // tokenValue resolves the semantic tokens to raw hex; graphie only
         // accepts raw CSS colors, not CSS variables.
         const normalColor = tokenValue(
-            lineSegment.fixed
-                ? semanticColor.core.foreground.disabled.strong
-                : semanticColor.core.foreground.instructive.default,
+            semanticColor.core.foreground.instructive.default,
         );
         lineSegment.normalStyle = {
             "stroke-width": 2,
