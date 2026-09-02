@@ -97,8 +97,8 @@ export const GradedGroup2 = forwardRef<Widget, Props>(
         const [answerBarState, setAnswerBarState] =
             useState<ANSWER_BAR_STATES>("INACTIVE");
 
-        const rendererRef = useRef<Renderer | null>();
-        const hintRendererRef = useRef<Renderer | null>();
+        const rendererRef = useRef<Renderer | null>(null);
+        const hintRendererRef = useRef<Renderer | null>(null);
 
         useOnMountEffect(() => {
             dependencies.analytics.onAnalyticsEvent({
