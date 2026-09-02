@@ -74,10 +74,6 @@ const Table = forwardRef<Widget, Props>(function Table(props, ref) {
             return true;
         },
 
-        focusInputPath(path: FocusPath): void {
-            getCellForPath(path)?.focus();
-        },
-
         blurInputPath(path: FocusPath): void {
             getCellForPath(path)?.blur();
         },

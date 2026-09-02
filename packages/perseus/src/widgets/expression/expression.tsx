@@ -252,10 +252,6 @@ export const Expression = forwardRef<Widget, Props>(
                 return document.activeElement === targetAfter;
             },
 
-            focusInputPath: (path: FocusPath) => {
-                inputRef.current?.focus?.(setKeypadActive);
-            },
-
             blurInputPath: (path: FocusPath) => {
                 if (typeof inputRef.current?.blur === "function") {
                     inputRef.current?.blur();

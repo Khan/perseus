@@ -134,14 +134,10 @@ class Matrix extends React.Component<Props, State> implements Widget {
     };
 
     focus: () => boolean = () => {
-        this.focusInputPath(getDefaultPath());
-        return true;
-    };
-
-    focusInputPath: (arg1: any) => void = (path) => {
-        const inputID = getRefForPath(path);
+        const inputID = getRefForPath(getDefaultPath());
         // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
         this.refs[inputID].focus();
+        return true;
     };
 
     blurInputPath: (arg1: any) => void = (path) => {

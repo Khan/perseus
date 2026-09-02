@@ -77,7 +77,6 @@ export interface Widget {
     getSerializedState?: () => SerializedState; // SUSPECT,
 
     blurInputPath?: (path: FocusPath) => void;
-    focusInputPath?: (path: FocusPath) => void;
     getInputPaths?: () => ReadonlyArray<FocusPath>;
 
     getPromptJSON?: () => WidgetPromptJSON;

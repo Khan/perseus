@@ -184,10 +184,6 @@ export class GradedGroup
         return !!this.rendererRef.current?.focus();
     };
 
-    focusInputPath: (arg1: any) => void = (path) => {
-        this.rendererRef.current?.focusPath(path);
-    };
-
     blurInputPath: (arg1: any) => void = (path) => {
         this.rendererRef.current?.blurPath(path);
     };

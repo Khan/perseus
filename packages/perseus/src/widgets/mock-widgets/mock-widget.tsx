@@ -38,7 +38,7 @@ class MockWidgetComponent extends React.Component<Props> implements Widget {
         return true;
     };
 
-    focusInputPath: () => void = () => {
+    handleFocus: () => void = () => {
         this.props.onFocus([]);
         this.inputRef?.focus();
     };
@@ -87,7 +87,7 @@ class MockWidgetComponent extends React.Component<Props> implements Widget {
                     value={this.props.userInput.currentValue}
                     onChange={this.handleChange}
                     id={this.props.widgetId}
-                    onFocus={this.focusInputPath}
+                    onFocus={this.handleFocus}
                     onBlur={this.blurInputPath}
                 />
             </View>

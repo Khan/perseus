@@ -228,19 +228,6 @@ describe("graded group set widget", () => {
         expect(screen.getByRole("textbox")).toHaveFocus();
     });
 
-    it("should be able to focus a specific input path", () => {
-        // Arrange
-        const {renderer} = renderQuestion(article1);
-
-        // Act
-        act(() =>
-            renderer.focusPath(["graded-group-set 1", "numeric-input 1"]),
-        );
-
-        // Assert
-        expect(screen.getByRole("textbox")).toHaveFocus();
-    });
-
     it("should be able to blur a specific input path", async () => {
         // Arrange
         const {renderer} = renderQuestion(article1);
