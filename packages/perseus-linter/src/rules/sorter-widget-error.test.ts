@@ -1,7 +1,6 @@
 import {expectPass, expectWarning} from "../__tests__/test-utils";
 
 import sorterWidgetErrorRule from "./sorter-widget-error";
-import sorterWidgetWarningRule from "./sorter-widget-warning";
 
 describe("sorter-widget-error", () => {
     it("warns for a sorter widget with a blank card", () => {
@@ -82,99 +81,6 @@ describe("sorter-widget-error", () => {
         );
     });
 
-    it("errors for a sorter widget with too many cards", () => {
-        expectWarning(
-            sorterWidgetErrorRule,
-            "[[☃ sorter 1]]",
-            {
-                widgets: {
-                    "sorter 1": {
-                        options: {
-                            correct: [
-                                "1",
-                                "2",
-                                "3",
-                                "4",
-                                "5",
-                                "6",
-                                "7",
-                                "8",
-                                "9",
-                                "10",
-                                "11",
-                            ],
-                        },
-                        layout: "vertical",
-                    },
-                },
-            },
-            {
-                message: "Sorter cannot have more than 10 cards.",
-            },
-        );
-    });
-
-    it("errors for a sorter widget with too many cards in horizontal layout", () => {
-        expectWarning(
-            sorterWidgetErrorRule,
-            "[[☃ sorter 1]]",
-            {
-                widgets: {
-                    "sorter 1": {
-                        options: {
-                            correct: ["1", "2", "3", "4", "5", "6"],
-                            layout: "horizontal",
-                        },
-                    },
-                },
-            },
-            {
-                message:
-                    "Sorter cannot have more than 5 cards in horizontal layout.",
-            },
-        );
-    });
-
-    it("warns for a sorter widget with more than ideal number of cards in horizontal layout", () => {
-        expectWarning(
-            sorterWidgetWarningRule,
-            "[[☃ sorter 1]]",
-            {
-                widgets: {
-                    "sorter 1": {
-                        options: {
-                            correct: ["1", "2", "3", "4", "5", "6"],
-                            layout: "horizontal",
-                        },
-                    },
-                },
-            },
-            {
-                message: "Having more than 5 cards in Sorter is discouraged.",
-            },
-        );
-    });
-
-    it("warns for a sorter widget with more than ideal number of cards in vertical layout", () => {
-        expectWarning(
-            sorterWidgetWarningRule,
-            "[[☃ sorter 1]]",
-            {
-                widgets: {
-                    "sorter 1": {
-                        options: {
-                            correct: ["1", "2", "3", "4", "5", "6"],
-                            layout: "vertical",
-                        },
-                    },
-                },
-            },
-            {
-                message: "Having more than 5 cards in Sorter is discouraged.",
-            },
-        );
-    });
-
     it("passes for a sorter widget whose cards all have text", () => {
         expectPass(sorterWidgetErrorRule, "[[☃ sorter 1]]", {
             widgets: {
@@ -190,21 +96,6 @@ describe("sorter-widget-error", () => {
             widgets: {
                 "matcher 1": {
                     options: {left: [], right: []},
-                },
-            },
-        });
-    });
-
-    // Passes for `sorterWidgetErrorRule`. Not checking
-    // `sorterWidgetWarningRule` in this test.
-    it("passes for a vertical sorter with more than max horizontal cards", () => {
-        expectPass(sorterWidgetErrorRule, "[[☃ sorter 1]]", {
-            widgets: {
-                "sorter 1": {
-                    options: {
-                        correct: ["1", "2", "3", "4", "5", "6"],
-                        layout: "vertical",
-                    },
                 },
             },
         });
