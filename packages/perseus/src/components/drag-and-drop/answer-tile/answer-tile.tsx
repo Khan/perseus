@@ -143,47 +143,50 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
         compact && styles.compact,
     );
 
-    // The tile starts with the actions menu or, when scored, an icon.
-    // The two never show together: a scored tile has no menu. An unused
-    // tile shows neither, because it names no result to report.
+    // What the tile leads with, one branch per scoring state.
+    const renderTileStart = () => {
+        // An unused tile leads with nothing: it has no action to offer
+        // and no result to report.
+        if (scoring === "unused") {
+            return null;
+        }
+        if (scoring == null) {
+            return (
+                <DndActionMenu
+                    ref={menuRef}
+                    tileLabel={label}
+                    moveTargets={moveTargets}
+                    onMove={onMove}
+                    clearFromLabel={clearFromLabel}
+                    onClear={onClear}
+                    remainingUses={remainingUses}
+                />
+            );
+        }
+        // The icon is decoration: the widget announces the result to
+        // screen readers, not the tile.
+        return (
+            <PhosphorIcon
+                aria-hidden="true"
+                icon={scoredIcons[scoring]}
+                size="medium"
+            />
+        );
+    };
+    const tileStart = renderTileStart();
+
+    const imageHeightStyle =
+        imageHeight != null
+            ? cssVariable("--answer-tile-image-height", `${imageHeight}px`)
+            : undefined;
+
     // A semantics-free root: the tile renders inside a ChoiceBank list
     // item, inside a blank, or standalone, so any landmark or list
     // semantics belong to those containers, not the tile.
     return (
-        <div
-            className={tileClasses}
-            style={
-                imageHeight != null
-                    ? cssVariable(
-                          "--answer-tile-image-height",
-                          `${imageHeight}px`,
-                      )
-                    : undefined
-            }
-            ref={dragRef}
-        >
-            {scoring !== "unused" && (
-                <div className={styles.startContainer}>
-                    {scoring == null ? (
-                        <DndActionMenu
-                            ref={menuRef}
-                            tileLabel={label}
-                            moveTargets={moveTargets}
-                            onMove={onMove}
-                            clearFromLabel={clearFromLabel}
-                            onClear={onClear}
-                            remainingUses={remainingUses}
-                        />
-                    ) : (
-                        // The icon is decoration: the widget announces the
-                        // result to screen readers, not the tile.
-                        <PhosphorIcon
-                            aria-hidden="true"
-                            icon={scoredIcons[scoring]}
-                            size="medium"
-                        />
-                    )}
-                </div>
+        <div className={tileClasses} style={imageHeightStyle} ref={dragRef}>
+            {tileStart != null && (
+                <div className={styles.startContainer}>{tileStart}</div>
             )}
             <div className={styles.content}>
                 {isEmpty ? (
