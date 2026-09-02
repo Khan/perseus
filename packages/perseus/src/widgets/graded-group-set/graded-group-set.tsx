@@ -20,15 +20,15 @@ import type {
 } from "@khanacademy/perseus-core";
 
 type IndicatorsProps = {
-    currentGroup: number;
+    currentGroupIndex: number;
     gradedGroups: ReadonlyArray<PerseusGradedGroupWidgetOptions>;
-    onChangeCurrentGroup: (groupNumber: number) => void;
+    onChangeGroupIndex: (groupNumber: number) => void;
 };
 
 function Indicators(props: IndicatorsProps) {
     function handleKeyDown(e: React.KeyboardEvent, i: number) {
         if (e.key === "Enter" || e.key === " ") {
-            props.onChangeCurrentGroup(i);
+            props.onChangeGroupIndex(i);
         }
     }
 
@@ -44,7 +44,7 @@ function Indicators(props: IndicatorsProps) {
             )}
         >
             {props.gradedGroups.map(({title}, i) => {
-                const isCurrent = i === props.currentGroup;
+                const isCurrent = i === props.currentGroupIndex;
                 return (
                     // Note: Use index as key — titles are user-authored and
                     // not guaranteed unique. Groups are never reordered at
@@ -55,7 +55,7 @@ function Indicators(props: IndicatorsProps) {
                             aria-label={title}
                             aria-current={isCurrent}
                             style={styles.indicatorButton}
-                            onClick={() => props.onChangeCurrentGroup(i)}
+                            onClick={() => props.onChangeGroupIndex(i)}
                             onKeyDown={(e) => handleKeyDown(e, i)}
                         >
                             {({hovered, focused, pressed}) => (
@@ -175,11 +175,9 @@ const GradedGroupSet = forwardRef<Widget, Props>(
                     </div>
                     <div className={css(styles.spacer)} />
                     <Indicators
-                        currentGroup={currentGroupIndex}
+                        currentGroupIndex={currentGroupIndex}
                         gradedGroups={gradedGroups}
-                        onChangeCurrentGroup={(currentGroupIndex) =>
-                            setCurrentGroupIndex(currentGroupIndex)
-                        }
+                        onChangeGroupIndex={setCurrentGroupIndex}
                     />
                 </div>
                 <GradedGroup
