@@ -69,8 +69,7 @@ describe("grapher widget", () => {
         const linearButton = screen.getByRole("button", {name: "Linear"});
         await user.click(linearButton);
 
-        // Act - re-clicking the selected type used to emit a null type and
-        // crash in defaultPlotProps (LEMS-4552)
+        // Act
         await user.click(linearButton);
 
         // Assert
