@@ -346,7 +346,13 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                     }}
                 >
                     {image}
-                    <Graphie {...this.props.graph}>
+                    <Graphie
+                        {...this.props.graph}
+                        // Excludes this graphie from the dark-mode invert
+                        // filter in styles.css; its colors are semantic
+                        // tokens, so it is themed directly.
+                        className="perseus-widget-grapher"
+                    >
                         {this.props.model && this.renderPlot()}
                         {this.props.model && this.renderAsymptote()}
                         {this.props.model && points}
@@ -427,8 +433,26 @@ class Grapher extends React.Component<Props> implements Widget {
     _setupGraphie: (arg1: any, arg2: any) => void = (graphie, options) => {
         const isMobile = this.props.apiOptions.isMobile;
 
+        // This graphie is excluded from the dark-mode invert filter (see
+        // the className on <Graphie>), so it draws with semantic tokens,
+        // resolved to raw values because graphie/Raphael sets SVG
+        // attributes, where var() references don't resolve. The token
+        // choices mirror the Mafs graphs (mafs-styles.css).
+        const gridStroke = tokenValue(
+            isMobile
+                ? semanticColor.core.border.neutral.subtle
+                : semanticColor.core.foreground.neutral.strong,
+        );
+        const axisStroke = tokenValue(
+            isMobile
+                ? semanticColor.core.foreground.neutral.default
+                : semanticColor.core.foreground.neutral.strong,
+        );
+
         if (options.markings === "graph") {
             graphie.graphInit({
+                gridStroke,
+                axisStroke,
                 range: options.range,
                 scale: options.gridConfig.map((e) => e.scale),
                 axisArrows: "<->",
@@ -460,6 +484,8 @@ class Grapher extends React.Component<Props> implements Widget {
             );
         } else if (options.markings === "grid") {
             graphie.graphInit({
+                gridStroke,
+                axisStroke,
                 range: options.range,
                 scale: options.gridConfig.map((e) => e.scale),
                 gridStep: options.gridStep,

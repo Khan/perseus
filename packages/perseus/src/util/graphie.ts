@@ -6,7 +6,7 @@ import {
     KhanMath,
 } from "@khanacademy/kmath";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
-import {semanticColor, tokenValue} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {entries} from "@khanacademy/wonder-stuff-core";
 import $ from "jquery";
 import Raphael from "raphael";
@@ -17,6 +17,7 @@ import Raphael from "raphael";
 
 import {Log} from "../logging/log";
 
+import KhanColors from "./colors";
 import {DrawingTransform} from "./drawing-transform";
 import {GraphBounds} from "./graph-bounds";
 import Tex from "./tex";
@@ -211,6 +212,10 @@ export class Graphie {
         xLabelFormat?: (x: number) => string;
         unityLabels?: boolean | [boolean, boolean];
         isMobile?: boolean;
+        // Raw CSS colors for the grid and axis/tick/label strokes. See the
+        // note above the defaults in the function body.
+        gridStroke?: string;
+        axisStroke?: string;
     }) {
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         options = options || {};
@@ -304,18 +309,19 @@ export class Graphie {
             isMobile: options.isMobile,
         });
 
-        // tokenValue resolves the semantic tokens to raw hex; graphie only
-        // accepts raw CSS colors, not CSS variables.
-        const gridStroke = tokenValue(
-            options.isMobile
-                ? semanticColor.core.border.neutral.subtle
-                : semanticColor.core.foreground.neutral.strong,
-        );
-        const axisStroke = tokenValue(
-            options.isMobile
-                ? semanticColor.core.foreground.neutral.default
-                : semanticColor.core.foreground.neutral.strong,
-        );
+        // The default strokes are raw light-theme colors, not semantic
+        // tokens, because in dark themes graphie SVGs are recolored by the
+        // invert filter in styles.css ("GLOBAL DARK MODE SETTINGS"); a token
+        // would resolve to the dark theme's value at draw time and get
+        // double-inverted (LEMS-4547). Callers whose graphie is excluded
+        // from that filter should pass gridStroke/axisStroke themselves,
+        // resolved from semantic tokens via tokenValue().
+        const gridStroke =
+            options.gridStroke ??
+            (options.isMobile ? KhanColors.GRAY_C : "#000000");
+        const axisStroke =
+            options.axisStroke ??
+            (options.isMobile ? KhanColors.GRAY_G : "#000000");
 
         // draw grid
         if (grid) {
@@ -369,11 +375,7 @@ export class Graphie {
                 const thisGraphie = this;
                 this.style(
                     {
-                        // Unlike the other axis styles, this one does not
-                        // lighten on mobile.
-                        stroke: tokenValue(
-                            semanticColor.core.foreground.neutral.strong,
-                        ),
+                        stroke: options.axisStroke ?? "#000000",
                         opacity: axisOpacity,
                         strokeWidth: 2,
                         arrows: axisArrows,

@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Updates the grid, axis, tick, and label colors of legacy graphie graphs and the colors of draggable line segments (used by the plotter widget) to Wonder Blocks semantic color tokens, so these graphs pick up the correct colors in every theme and match the modern interactive graphs.
+Updates the grid and axis colors of grapher graphs and the colors of the draggable line segments used by the plotter widget to Wonder Blocks semantic color tokens. Grapher and number-line graphs are now themed directly in dark mode instead of having their colors approximated by a filter, which also fixes slightly-off line colors in dark-mode number lines.

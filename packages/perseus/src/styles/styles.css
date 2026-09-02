@@ -373,9 +373,14 @@
      */
     img[src$=".png"],
     img[src$=".svg"],
-    .graphie:not(.perseus-widget-plotter) > svg {
-        /* Invert the colors of PNG/SVG images and Graphie SVGs (excluding the
-           Plotter, which is themed).
+    .graphie:not(.perseus-widget-plotter):not(.perseus-widget-grapher):not(
+            .perseus-widget-number-line
+        )
+        > svg {
+        /* Invert the colors of PNG/SVG images and Graphie SVGs, excluding
+           widgets that draw with semantic tokens and are themed directly
+           (the :not() list). A themed graphie must be excluded, or its
+           dark-theme colors get inverted a second time by this filter.
          */
         filter: invert(1) hue-rotate(180deg) brightness(1.5);
     }
