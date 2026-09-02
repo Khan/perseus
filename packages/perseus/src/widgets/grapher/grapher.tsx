@@ -348,9 +348,6 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                     {image}
                     <Graphie
                         {...this.props.graph}
-                        // Excludes this graphie from the dark-mode invert
-                        // filter in styles.css; its colors are semantic
-                        // tokens, so it is themed directly.
                         className="perseus-widget-grapher"
                     >
                         {this.props.model && this.renderPlot()}

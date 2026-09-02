@@ -579,9 +579,6 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
         return (
             <Graphie
                 ref={graphieRef}
-                // Excludes this graphie from the dark-mode invert filter in
-                // styles.css; its colors are semantic tokens, so it is
-                // themed directly.
                 className="perseus-widget-number-line"
                 // HACK(emily): We key this graphie on the label style because
                 // when the label style changes we want to resize the graphie,
