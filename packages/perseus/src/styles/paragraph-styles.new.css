@@ -76,8 +76,8 @@ p {
     margin: 0 auto;
 }
 .framework-perseus.perseus-mobile
-    .perseus-renderer
-    > .paragraph:not(:first-child) {
+    .perseus-renderer.renderer-new-ff
+    > p:not(:first-child) {
     margin-top: var(--wb-sizing-size_240);
     margin-bottom: var(--wb-sizing-size_240);
 }
