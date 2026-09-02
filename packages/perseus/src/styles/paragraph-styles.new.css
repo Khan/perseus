@@ -66,32 +66,6 @@ p {
     margin: 0;
     max-width: none;
 }
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-renderer
-    > .paragraph
-    .perseus-formats-tooltip {
-    padding: var(--wb-sizing-size_080) var(--wb-sizing-size_120);
-}
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-renderer
-    > .paragraph
-    .perseus-formats-tooltip
-    .paragraph {
-    margin-bottom: 0;
-}
-/* TODO(benchristel): .perseus-formats-tooltip doesn't seem to be used.
- *  Perhaps this rule can be removed.
- */
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-renderer
-    > .paragraph
-    .perseus-formats-tooltip
-    .paragraph
-    ul:not([data-widget="radio"]) {
-    font-size: 15px;
-    line-height: 1.5;
-    margin: 0;
-}
 .framework-perseus.perseus-mobile
     .perseus-article
     .perseus-renderer
@@ -312,27 +286,4 @@ p {
     > .paragraph {
     margin: 0;
     max-width: none;
-}
-.framework-perseus.perseus-mobile
-    .perseus-renderer
-    > .paragraph
-    .perseus-formats-tooltip {
-    padding: var(--wb-sizing-size_080) var(--wb-sizing-size_120);
-}
-.framework-perseus.perseus-mobile
-    .perseus-renderer
-    > .paragraph
-    .perseus-formats-tooltip
-    .paragraph {
-    margin-bottom: 0;
-}
-.framework-perseus.perseus-mobile
-    .perseus-renderer
-    > .paragraph
-    .perseus-formats-tooltip
-    .paragraph
-    ul:not([data-widget="radio"]) {
-    font-size: 15px;
-    line-height: 1.5;
-    margin: 0;
 }
