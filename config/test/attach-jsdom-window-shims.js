@@ -94,7 +94,9 @@ const attachShims = (targetWindow) => {
     // only needs to exist for that check; user-event's synthesized pointer
     // events are MouseEvents, so the check stays false and no drag starts
     // (which is what tests want — pointer drags aren't simulated in JSDOM).
-    if (!targetWindow.PointerEvent) {
+    // Suites in the node test environment have no MouseEvent to extend and
+    // no DOM to dispatch events into, so they need no shim.
+    if (targetWindow.MouseEvent && !targetWindow.PointerEvent) {
         targetWindow.PointerEvent = class PointerEvent extends (
             targetWindow.MouseEvent
         ) {};
