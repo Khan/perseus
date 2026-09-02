@@ -1,5 +1,31 @@
 # @khanacademy/perseus-editor
 
+## 40.0.0
+
+### Major Changes
+
+-   [#4164](https://github.com/Khan/perseus/pull/4164) [`c0345f1`](https://github.com/Khan/perseus/commit/c0345f1f9f151914110d47fdf5b1f811d4cbbff3) Thanks [@benchristel](https://github.com/benchristel)! - The temporary `wb-themed-math` class has been removed. Clients must now use `@khanacademy/mathjax-renderer` 3.2.0 or later with Perseus.
+
+### Patch Changes
+
+-   [#4150](https://github.com/Khan/perseus/pull/4150) [`e08f3e6`](https://github.com/Khan/perseus/commit/e08f3e64688915ba06922d7d7fde02f63756579a) Thanks [@nishasy](https://github.com/nishasy)! - [Label Image] Update the marker editor to be a functional component
+
+-   [#4160](https://github.com/Khan/perseus/pull/4160) [`4b788df`](https://github.com/Khan/perseus/commit/4b788df8184272875a0a13ac8a5446bac42c75e3) Thanks [@nishasy](https://github.com/nishasy)! - [Label Image] Use Wonder Blocks Listbox and semantic tokens in marker editor
+
+-   [#4158](https://github.com/Khan/perseus/pull/4158) [`1f6424a`](https://github.com/Khan/perseus/commit/1f6424a4a34123a1e9609ae8499ac6e8138c589d) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Adding new dnd-widget-fitb flag
+
+-   [#4138](https://github.com/Khan/perseus/pull/4138) [`42a2d4c`](https://github.com/Khan/perseus/commit/42a2d4cac4f87ad841454cd485a0ab88991ae1fe) Thanks [@nishasy](https://github.com/nishasy)! - [Label Image] Use WB Popover in label image marker editor
+
+-   [#4165](https://github.com/Khan/perseus/pull/4165) [`771abcc`](https://github.com/Khan/perseus/commit/771abcc097cd95ce83ea0e478f87836f9227312c) Thanks [@handeyeco](https://github.com/handeyeco)! - Add a required `seed` prop to ArticleRenderer to make sure things shuffle correctly.
+
+-   Updated dependencies [[`d8a833c`](https://github.com/Khan/perseus/commit/d8a833cf55776966ca63c6cd8d78d4949abf7f83), [`bc99235`](https://github.com/Khan/perseus/commit/bc99235dae2e89da7bc8dd04704fcf89e468c073), [`1f6424a`](https://github.com/Khan/perseus/commit/1f6424a4a34123a1e9609ae8499ac6e8138c589d), [`53a77dd`](https://github.com/Khan/perseus/commit/53a77ddca87eea74e6fd544e44f7b8c8a24fed4e), [`c0345f1`](https://github.com/Khan/perseus/commit/c0345f1f9f151914110d47fdf5b1f811d4cbbff3), [`a732531`](https://github.com/Khan/perseus/commit/a732531a3a653f7fdc668c61ee1a699e789aa168), [`afcc17c`](https://github.com/Khan/perseus/commit/afcc17c844f0f08f9704042a79eb3d458ea01224), [`771abcc`](https://github.com/Khan/perseus/commit/771abcc097cd95ce83ea0e478f87836f9227312c), [`510351d`](https://github.com/Khan/perseus/commit/510351ddd9e3637b4191656a81c6bc599b89c1b4)]:
+    -   @khanacademy/perseus@86.0.0
+    -   @khanacademy/perseus-core@38.1.1
+    -   @khanacademy/keypad-context@3.2.89
+    -   @khanacademy/kmath@2.4.48
+    -   @khanacademy/math-input@27.0.11
+    -   @khanacademy/perseus-linter@5.2.2
+
 ## 39.0.0
 
 ### Major Changes
