@@ -14,6 +14,7 @@ import {
     multipleAvailableTypesQuestion,
 } from "./grapher.testdata";
 
+import type {Coord} from "../../interactive2/types";
 import type {PerseusDependenciesV2} from "../../types";
 
 describe("grapher widget", () => {
@@ -63,7 +64,7 @@ describe("grapher widget", () => {
         const user = userEvent.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-        const movedCoords = [
+        const movedCoords: [Coord, Coord] = [
             [-3, 2],
             [4, 7],
         ];
