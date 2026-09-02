@@ -2,4 +2,4 @@
 "@khanacademy/perseus": major
 ---
 
-ButtonGroup no longer supports deselection: the `allowEmpty` prop is removed, and clicking the already-selected button no longer calls `onChange`. This also fixes an error thrown when re-clicking the selected function type in the Grapher widget.
+Fixes a console error that appeared when re-clicking the already-selected function type in the Grapher widget. Clicking the option that is already selected in a button group (such as the Grapher's "Choose your type" row) is now simply ignored — nothing on screen changes, same as before, but no error is logged. For developers using the exported `ButtonGroup` component directly: its `allowEmpty` prop is removed, and `onChange` no longer fires when the selected button is clicked again (the reason for the major version bump).

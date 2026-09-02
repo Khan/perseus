@@ -2,4 +2,4 @@
 "@khanacademy/perseus-editor": patch
 ---
 
-Remove `allowEmpty={false}` from ButtonGroup usages; it is now the component's only behavior.
+No user-facing changes: updates internal button group usage to match the latest `@khanacademy/perseus` ButtonGroup API.
