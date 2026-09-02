@@ -14,11 +14,11 @@ exports[`ArticleEditor should match snapshot for editing disabled for all widget
         <div
           class="perseus-editor-left-cell"
         >
-          <fieldset
-            disabled=""
+          <div
+            class="perseus-editor-sticky-header"
           >
             <div
-              class="perseus-widget-editor"
+              class="perseus-widget-editor perseus-issues-panel"
             >
               <div
                 class="perseus-widget-editor-title"
@@ -49,8 +49,8 @@ exports[`ArticleEditor should match snapshot for editing disabled for all widget
             >
               Section 
               1
-              <div
-                style="display: inline-block; float: inline-end;"
+              <fieldset
+                disabled=""
               >
                 <span />
                 <button
@@ -75,8 +75,12 @@ exports[`ArticleEditor should match snapshot for editing disabled for all widget
                     class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_13u9hv4"
                   />
                 </button>
-              </div>
+              </fieldset>
             </div>
+          </div>
+          <fieldset
+            disabled=""
+          >
             <div
               class="perseus-single-editor  perseus-editor-disabled"
               data-testid="perseus-single-editor"

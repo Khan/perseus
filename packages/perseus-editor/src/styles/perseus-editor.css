@@ -9,6 +9,15 @@ code {
     padding: 4px 10px;
     border-radius: 3px 3px 0 0;
 }
+/* Pin the "Question", "Question extras", and "Hint" titles to the top of their
+ * left cell, which is the scroll container. */
+.perseus-editor-left-cell > .pod-title,
+.perseus-editor-left-cell > .perseus-hint-editor > .pod-title {
+    position: sticky;
+    inset-block-start: 0;
+    /* Draw above the editor content that scrolls underneath. */
+    z-index: 1;
+}
 .pod-title.closed {
     border-radius: 3px;
 }
@@ -104,6 +113,8 @@ code {
 .perseus-widget-editor {
     border: 1px solid #ddd;
     border-radius: 3px;
+}
+.perseus-widget-editor:not(:first-child) {
     margin-top: 10px;
 }
 .perseus-widget-editor .perseus-widget-editor-title {
@@ -266,6 +277,7 @@ code {
 .perseus-editor-row {
     display: flex;
     flex-direction: row;
+    margin-block-end: 32px;
 }
 .perseus-editor-left-cell {
     display: flex;
@@ -284,6 +296,10 @@ code {
     /* Keep the left cell scroll area within the viewport. (244px to account
      * for the header.) */
     max-height: calc(95vh - 244px);
+
+    /* Border and gutter to make it more obvious how big the left cell is. */
+    border: 1px solid var(--wb-semanticColor-core-border-neutral-default);
+    margin-inline-end: 32px;
 }
 .perseus-editor-right-cell {
     box-sizing: border-box;
@@ -300,16 +316,11 @@ code {
     /* Don't shrink below the preview's intrinsic width. We need this to
      * preserve the Tablet and Desktop preview widths. */
     flex-shrink: 0;
-}
-.perseus-hint-editor {
-    padding-bottom: 20px;
+    /* Border to make it more obvious how big the left cell is. */
+    border: 1px solid var(--wb-semanticColor-core-border-neutral-default);
 }
 .perseus-hint-editor .perseus-single-editor {
     margin-bottom: 5px;
-}
-.perseus-hint-editor .reorder-hints {
-    display: flex;
-    align-items: center;
 }
 .perseus-hint-editor .remove-hint {
     float: right;
@@ -322,12 +333,13 @@ code {
 .perseus-hint-editor + div .perseus-hint-renderer div.paragraph {
     margin: 0px 0px 22px 0px;
 }
+.perseus-hint-editor-actions {
+    margin: 8px;
+    margin-block-start: 0;
+}
 .perseus-article-editor {
     margin-bottom: 20px;
     margin-top: 20px;
-}
-.perseus-article-editor .perseus-single-editor {
-    margin-bottom: 10px;
 }
 .perseus-article-editor .section-control-button,
 .perseus-article-editor .step-control-button {
@@ -337,6 +349,31 @@ code {
 }
 .perseus-article-editor .perseus-editor-left-cell {
     min-width: 360px;
+}
+/* Pin the issues panel and section title to the top of the section's scroll
+ * area so they stay visible while the author scrolls through that section's
+ * content. */
+.perseus-article-editor
+    .perseus-editor-left-cell
+    > .perseus-editor-sticky-header {
+    position: sticky;
+    inset-block-start: 0;
+    /* Draw above the section content that scrolls underneath it. */
+    z-index: 1;
+    /* Make the sticky element background opaque so text doesn't overlap
+     * while scrolling. */
+    background-color: var(--wb-semanticColor-core-background-base-default);
+    /* A flex item won't shrink below its content by default, but it also
+     * shouldn't stretch to fill the cell when the section is short. */
+    flex-shrink: 0;
+}
+/* An expanded panel with many issues could otherwise cover the whole scroll
+ * area, leaving nothing to scroll. Cap it and let the list scroll instead. */
+.perseus-article-editor
+    .perseus-editor-sticky-header
+    .perseus-widget-editor-panel {
+    max-height: 40vh;
+    overflow-y: auto;
 }
 .perseus-article-editor .mobile-preview,
 .perseus-article-editor .desktop-preview,
@@ -353,6 +390,9 @@ code {
 .perseus-article-editor .desktop-preview {
     border: 1px solid transparent;
     padding: 32px 20px;
+}
+.perseus-article-editor .editor-preview {
+    border: 1px solid var(--wb-semanticColor-core-border-neutral-default);
 }
 .perseus-article-editor .editor-preview {
     /* Make the preview scrollable. */
@@ -396,8 +436,11 @@ code {
 .perseus-article-editor .framework-perseus.perseus-article * {
     box-sizing: inherit;
 }
-.perseus-article-editor .perseus-editor-left-cell > .pod-title {
+.perseus-article-editor .perseus-editor-sticky-header > .pod-title {
     padding: 4px 9px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 .perseus-widget-dropdown input[type="text"] {
     border: 1px solid #ccc;
