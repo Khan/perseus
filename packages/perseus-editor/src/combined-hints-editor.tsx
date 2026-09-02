@@ -7,6 +7,7 @@ import {ApiOptions} from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import arrowCircleDownIcon from "@phosphor-icons/core/bold/arrow-circle-down-bold.svg";
 import arrowCircleUpIcon from "@phosphor-icons/core/bold/arrow-circle-up-bold.svg";
@@ -127,61 +128,64 @@ class HintEditor extends React.Component<HintEditorProps> {
                     widgetIsOpen={this.props.widgetIsOpen}
                 />
 
-                {this.props.isLast && (
-                    <BodyText size="xsmall">
-                        The last hint is automatically bolded.
-                    </BodyText>
-                )}
-
-                {/* Row that includes movement buttons and the "Replace previous hint" checkbox */}
-                <div
-                    style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                    }}
-                >
-                    {this.props.showMoveButtons && (
-                        <div className="reorder-hints">
-                            <IconButton
-                                icon={arrowCircleDownIcon}
-                                size="small"
-                                kind="tertiary"
-                                onClick={_.partial(this.props.onMove, 1)}
-                                disabled={this.props.isLast}
-                            />
-                            <IconButton
-                                icon={arrowCircleUpIcon}
-                                size="small"
-                                kind="tertiary"
-                                onClick={_.partial(this.props.onMove, -1)}
-                                disabled={this.props.isFirst}
-                            />
-                        </div>
+                {/* All buttons under the editor */}
+                <div className="perseus-hint-editor-actions">
+                    {this.props.isLast && (
+                        <BodyText size="xsmall">
+                            The last hint is automatically bolded.
+                        </BodyText>
                     )}
-                    <Checkbox
-                        checked={this.props.replace}
-                        onChange={(newCheckedState) => {
-                            this.props.onChange({replace: newCheckedState});
-                        }}
-                        label="Replace previous hint"
-                        style={{display: "inline-block"}}
-                    />
-                </div>
 
-                {this.props.showRemoveButton && (
-                    <Button
-                        startIcon={trashIcon}
-                        size="small"
-                        kind="tertiary"
-                        disabled={this.props.apiOptions?.editingDisabled}
-                        onClick={this.props.onRemove}
-                        // Have the "Remove" button align to the right.
-                        style={{marginInlineStart: "auto", display: "flex"}}
+                    {/* Row that includes movement buttons and the "Replace previous hint" checkbox */}
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                        }}
                     >
-                        Remove this hint
-                    </Button>
-                )}
+                        {this.props.showMoveButtons && (
+                            <>
+                                <IconButton
+                                    icon={arrowCircleDownIcon}
+                                    size="small"
+                                    kind="tertiary"
+                                    onClick={_.partial(this.props.onMove, 1)}
+                                    disabled={this.props.isLast}
+                                />
+                                <IconButton
+                                    icon={arrowCircleUpIcon}
+                                    size="small"
+                                    kind="tertiary"
+                                    onClick={_.partial(this.props.onMove, -1)}
+                                    disabled={this.props.isFirst}
+                                />
+                            </>
+                        )}
+                        <Checkbox
+                            checked={this.props.replace}
+                            onChange={(newCheckedState) => {
+                                this.props.onChange({replace: newCheckedState});
+                            }}
+                            label="Replace previous hint"
+                            style={{display: "inline-block"}}
+                        />
+                    </div>
+
+                    {this.props.showRemoveButton && (
+                        <Button
+                            startIcon={trashIcon}
+                            size="small"
+                            kind="tertiary"
+                            disabled={this.props.apiOptions?.editingDisabled}
+                            onClick={this.props.onRemove}
+                            // Have the "Remove" button align to the right.
+                            style={{marginInlineStart: "auto", display: "flex"}}
+                        >
+                            Remove this hint
+                        </Button>
+                    )}
+                </div>
             </div>
         );
     }

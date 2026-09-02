@@ -319,15 +319,8 @@ code {
     /* Border to make it more obvious how big the left cell is. */
     border: 1px solid var(--wb-semanticColor-core-border-neutral-default);
 }
-.perseus-hint-editor {
-    padding-bottom: 20px;
-}
 .perseus-hint-editor .perseus-single-editor {
     margin-bottom: 5px;
-}
-.perseus-hint-editor .reorder-hints {
-    display: flex;
-    align-items: center;
 }
 .perseus-hint-editor .remove-hint {
     float: right;
@@ -339,6 +332,10 @@ code {
 }
 .perseus-hint-editor + div .perseus-hint-renderer div.paragraph {
     margin: 0px 0px 22px 0px;
+}
+.perseus-hint-editor-actions {
+    margin: 8px;
+    margin-block-start: 0;
 }
 .perseus-article-editor {
     margin-bottom: 20px;
