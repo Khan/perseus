@@ -82,16 +82,14 @@ p {
     margin-bottom: var(--wb-sizing-size_240);
 }
 .framework-perseus.perseus-mobile
-    .perseus-renderer
-    > .paragraph
-    ul:not([data-widget="radio"], .indicatorContainer) {
+    .perseus-renderer.renderer-new-ff
+    > ul:not([data-widget="radio"], .indicatorContainer) {
     margin: 0 0 0 1em;
     padding: 0;
 }
 .framework-perseus.perseus-mobile
-    .perseus-renderer
-    > .paragraph
-    ul:not([data-widget="radio"], .indicatorContainer)
+    .perseus-renderer.renderer-new-ff
+    > ul:not([data-widget="radio"], .indicatorContainer)
     > li {
     padding-left: var(--wb-sizing-size_100);
     margin-bottom: var(--wb-sizing-size_240);
