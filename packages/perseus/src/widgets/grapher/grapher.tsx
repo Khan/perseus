@@ -576,12 +576,10 @@ class Grapher extends React.Component<Props> implements Widget {
             <div style={typeSelectorStyle}>
                 <ButtonGroup
                     value={type}
-                    // NOTE: if this is ever switched to allowEmpty={false},
-                    // a redundant click will re-emit the current type
-                    // instead of null, and handleActiveTypeChange would
-                    // rebuild the plot for it — silently resetting the
-                    // user's coords. Guard against the unchanged type there
-                    // before making that change.
+                    // NOTE: allowEmpty={false} would re-emit the current
+                    // type on a redundant click, and rebuilding the plot
+                    // for it silently resets the user's coords — guard
+                    // handleActiveTypeChange first if changing this.
                     allowEmpty={true}
                     buttons={availableTypes.map(typeToButton)}
                     onChange={this.handleActiveTypeChange}
