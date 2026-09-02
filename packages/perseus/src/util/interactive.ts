@@ -24,7 +24,7 @@ import WrappedLine from "../interactive2/wrapped-line";
 
 import KhanColors from "./colors";
 import GraphUtils from "./graphie";
-import {INVISIBLE_HIT_TARGET_FILL} from "./invisible-hit-target";
+import {invisibleHitTargetFill} from "./invisible-hit-target";
 
 import type {Coord} from "../interactive2/types";
 
@@ -805,7 +805,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                     options,
                 );
                 movablePoint.mouseTarget.attr({
-                    fill: INVISIBLE_HIT_TARGET_FILL,
+                    fill: invisibleHitTargetFill(),
                     opacity: 0.0,
                 });
             }
@@ -1103,7 +1103,7 @@ _.extend(GraphUtils.Graphie.prototype, {
                 options,
             );
             lineSegment.mouseTarget.attr({
-                fill: INVISIBLE_HIT_TARGET_FILL,
+                fill: invisibleHitTargetFill(),
                 opacity: 0.0,
             });
         }
@@ -2089,9 +2089,9 @@ function Ruler(graphie: any, options: any) {
         ]),
     );
     mouseTarget.attr({
-        fill: INVISIBLE_HIT_TARGET_FILL,
+        fill: invisibleHitTargetFill(),
         opacity: 0,
-        stroke: INVISIBLE_HIT_TARGET_FILL,
+        stroke: invisibleHitTargetFill(),
         "stroke-width": 2,
     });
     set.push(mouseTarget);

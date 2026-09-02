@@ -19,7 +19,7 @@ import {withDependencies} from "../../components/with-dependencies";
 import Interactive2 from "../../interactive2";
 import WrappedLine from "../../interactive2/wrapped-line";
 import GraphUtils from "../../util/graph-utils";
-import {INVISIBLE_HIT_TARGET_FILL} from "../../util/invisible-hit-target";
+import {invisibleHitTargetFill} from "../../util/invisible-hit-target";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/plotter/plotter-ai-utils";
 
 import type {
@@ -974,7 +974,7 @@ class Plotter extends React.Component<Props, State> implements Widget {
             );
             $(mouseRect[0])
                 .css({
-                    fill: INVISIBLE_HIT_TARGET_FILL,
+                    fill: invisibleHitTargetFill(),
                     opacity: 0.0,
                     cursor: "pointer",
                 })
