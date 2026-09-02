@@ -57,8 +57,20 @@ export interface FillInTheBlankProps {
 const BANK_DROP_ID = "fitb-choice-bank";
 const BLANK_MARKER = /\[\[☃ ([a-z-]+ [0-9]+)\]\]/g;
 
-/** Blank ids in document order, limited to blanks in the widgets map. */
-function parseBlankIds(content: string, widgets: PerseusWidgetsMap): string[] {
+/**
+ * Blank ids in document order, limited to blanks in the widgets map.
+ *
+ * Exported because the Fill in the Blank *editor* has to number blanks exactly
+ * as the learner meets them ("Blank 1", "Blank 2"…). Sharing this function
+ * keeps the two numberings from ever disagreeing.
+ *
+ * TODO(LEMS-4371): Keep it shared when this component moves to
+ * `widgets/fill-in-the-blank/` — the editor must not grow its own copy.
+ */
+export function parseBlankIds(
+    content: string,
+    widgets: PerseusWidgetsMap,
+): string[] {
     const ids: string[] = [];
     for (const match of content.matchAll(BLANK_MARKER)) {
         const id = match[1];

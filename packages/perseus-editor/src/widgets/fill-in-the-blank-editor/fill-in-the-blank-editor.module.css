@@ -1,0 +1,46 @@
+/* Separates the three stacked regions: settings, answer zone, choices. */
+.editor {
+    gap: var(--wb-sizing-size_120) !important;
+}
+
+/* The widget's configuration: a label beside its control, matching the image
+   widget's "Alignment" row. `.perseus-widget-editor-content` is padded
+   `0 size_100 size_100`, so without a top pad of our own this row would sit
+   against the panel header's border. */
+.settings {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--wb-sizing-size_080);
+    padding-block-start: var(--wb-sizing-size_100);
+}
+
+/* Separates a section's heading from its content. Smaller than the gap between
+   regions, so each heading groups with what it names. */
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_080);
+}
+
+/* The choices always stack in the editor, regardless of how the choice bank
+   wraps them for the learner. */
+.tiles {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding-inline-start: 0;
+    /* Drop the browser's default list margins; `section` above owns the
+       spacing around the list. */
+    margin-block: 0;
+    gap: var(--wb-sizing-size_120);
+}
+
+/* Matches the radio editor's `.add-choice-container`, so the two widgets' add
+   buttons sit the same way. */
+.add-tile {
+    display: flex;
+    flex-direction: row;
+    text-align: start;
+}

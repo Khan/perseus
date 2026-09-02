@@ -1,0 +1,49 @@
+/* One choice, as a card. Values mirror the radio editor's per-choice tile
+   (`radio-editor.module.css`) so the two widgets' choice lists read the same. */
+.tile {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_080);
+    background-color: var(
+        --wb-semanticColor-core-background-instructive-subtle
+    );
+    border: 1px solid var(--wb-semanticColor-core-border-neutral-subtle);
+    border-radius: var(--wb-sizing-size_120);
+    padding-inline: var(--wb-sizing-size_120);
+    padding-block: var(--wb-sizing-size_080);
+}
+
+/* Remove and the move carets sit along the bottom of the card. Matches the
+   radio editor's `.radio-option-actions-container`. */
+.actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-block-start: var(--wb-sizing-size_080);
+}
+
+/* A label beside the control it names, matching the image widget's
+   "Alignment" row (`components/alignment-select.tsx`). */
+.field {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--wb-sizing-size_080);
+}
+
+/* A field's label with its info tip beside it, above the field itself —
+   the radio editor's labelled-field shape, plus the tip. */
+.field-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--wb-sizing-size_040);
+}
+
+/* Hug the label rather than stretching across the card, matching the radio
+   editor's own "Add image" button (`alignSelf: "flex-start"`).
+   TODO(LEMS-3686): Remove the !important once Wonder Blocks is in the shared
+   layer. */
+.add-image {
+    align-self: flex-start !important;
+}

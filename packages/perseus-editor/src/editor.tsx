@@ -125,6 +125,19 @@ type Props = Readonly<{
     warnNoWidgets: boolean;
     widgetIsOpen?: boolean;
     imageUploader?: ImageUploader;
+    /**
+     * Replaces the row of widget/template dropdowns that sits between the
+     * textarea and the widget editor panels.
+     *
+     * Use it when a parent editor allows only certain widgets inline and
+     * offers its own control for adding them, rather than the general
+     * "Add a widget…" dropdown — which lists every public widget, including
+     * ones the parent cannot render. Added for the Fill in the Blank editor
+     * and its "Insert blank" button (LEMS-4371).
+     *
+     * Requires `widgetEnabled`; omit it to keep the default dropdowns.
+     */
+    widgetToolbar?: React.ReactNode;
     onChange: (changes: Partial<PerseusRenderer>) => void;
 }>;
 
@@ -942,11 +955,17 @@ class Editor extends React.Component<Props, State> {
             const widgetNodes = Object.values(widgets) as React.ReactNode;
             widgetsAndTemplates = (
                 <div className="perseus-editor-widgets">
-                    <div className="perseus-editor-widgets-selectors">
-                        <WidgetSelect onChange={this._addWidget} />
-                        {templatesDropDown}
-                        {wordCountDisplay}
-                    </div>
+                    {/* A custom toolbar renders bare. The selectors' own
+                        container carries a grey background and border meant to
+                        frame the dropdowns; a single button in it reads as a
+                        stray panel. */}
+                    {this.props.widgetToolbar ?? (
+                        <div className="perseus-editor-widgets-selectors">
+                            <WidgetSelect onChange={this._addWidget} />
+                            {templatesDropDown}
+                            {wordCountDisplay}
+                        </div>
+                    )}
                     {widgetNodes}
                 </div>
             );

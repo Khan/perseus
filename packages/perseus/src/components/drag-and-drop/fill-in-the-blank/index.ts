@@ -1,4 +1,4 @@
-export {FillInTheBlank} from "./fill-in-the-blank";
+export {FillInTheBlank, parseBlankIds} from "./fill-in-the-blank";
 export type {
     FillInTheBlankProps,
     FillInTheBlankTile,
