@@ -1,8 +1,10 @@
 import {render, screen} from "@testing-library/react";
-import {userEvent} from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import ButtonGroup from "./button-group";
+
+import type {UserEvent} from "@testing-library/user-event";
 
 const buttons = [
     {value: "linear", content: "Linear"},
@@ -10,11 +12,15 @@ const buttons = [
 ];
 
 describe("ButtonGroup", () => {
-    it("calls onChange with the clicked button's value", async () => {
-        // Arrange
-        const user = userEvent.setup({
+    let userEvent: UserEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
+    });
+
+    it("calls onChange with the clicked button's value", async () => {
+        // Arrange
         const onChange = jest.fn();
         render(
             <ButtonGroup
@@ -25,7 +31,7 @@ describe("ButtonGroup", () => {
         );
 
         // Act
-        await user.click(screen.getByRole("button", {name: "Quadratic"}));
+        await userEvent.click(screen.getByRole("button", {name: "Quadratic"}));
 
         // Assert
         expect(onChange).toHaveBeenCalledWith("quadratic");
@@ -33,9 +39,6 @@ describe("ButtonGroup", () => {
 
     it("does not call onChange when the selected button is clicked", async () => {
         // Arrange
-        const user = userEvent.setup({
-            advanceTimers: jest.advanceTimersByTime,
-        });
         const onChange = jest.fn();
         render(
             <ButtonGroup
@@ -46,7 +49,7 @@ describe("ButtonGroup", () => {
         );
 
         // Act
-        await user.click(screen.getByRole("button", {name: "Linear"}));
+        await userEvent.click(screen.getByRole("button", {name: "Linear"}));
 
         // Assert
         expect(onChange).not.toHaveBeenCalled();

@@ -1,5 +1,5 @@
 import {screen} from "@testing-library/react";
-import {userEvent} from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
 import {
@@ -15,9 +15,15 @@ import {
 } from "./grapher.testdata";
 
 import type {PerseusDependenciesV2} from "../../types";
+import type {UserEvent} from "@testing-library/user-event";
 
 describe("grapher widget", () => {
+    let userEvent: UserEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -60,9 +66,6 @@ describe("grapher widget", () => {
 
     it("does not log an error when the selected type button is clicked again", async () => {
         // Arrange
-        const user = userEvent.setup({
-            advanceTimers: jest.advanceTimersByTime,
-        });
         const consoleErrorSpy = jest
             .spyOn(console, "error")
             .mockImplementation(() => {});
@@ -70,10 +73,10 @@ describe("grapher widget", () => {
         await waitForInitialGraphieRender();
 
         const linearButton = screen.getByRole("button", {name: "Linear"});
-        await user.click(linearButton);
+        await userEvent.click(linearButton);
 
         // Act
-        await user.click(linearButton);
+        await userEvent.click(linearButton);
 
         // Assert
         expect(consoleErrorSpy).not.toHaveBeenCalled();
