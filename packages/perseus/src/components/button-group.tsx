@@ -6,6 +6,7 @@ import type {CSSProperties} from "aphrodite";
 
 interface Props {
     // the initial value of the button selected, defaults to null
+    // TODO(Myranae): use a type parameter instead of `any`
     value: any;
     buttons: ReadonlyArray<{
         // the value returned when the button is selected
@@ -42,6 +43,8 @@ class ButtonGroup extends React.Component<Props> {
     container: HTMLDivElement | null | undefined;
 
     static defaultProps: DefaultProps = {
+        // TODO(Myranae): null may not be a valid value; there is no
+        // empty/deselected state anymore
         value: null,
     };
 
