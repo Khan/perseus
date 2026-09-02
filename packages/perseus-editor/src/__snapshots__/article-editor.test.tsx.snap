@@ -41,7 +41,7 @@ exports[`ArticleEditor should match snapshot for editing disabled for all widget
                   class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1bholod"
                   data-testid="issues-icon-warning-octagon-fill.svg"
                 />
-                16 issues
+                17 issues
               </div>
             </div>
             <div
@@ -87,7 +87,9 @@ exports[`ArticleEditor should match snapshot for editing disabled for all widget
                 <div
                   class="perseus-textarea-underlay"
                 >
-                  categorizer: 
+                  ![earth and moon](https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg)
+
+categorizer: 
                   <b
                     class=""
                   >
@@ -291,7 +293,9 @@ table:
                   aria-label="Markdown content"
                   placeholder="Type your section text here..."
                 >
-                  categorizer: [[☃ categorizer 1]]
+                  ![earth and moon](https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg)
+
+categorizer: [[☃ categorizer 1]]
 
 definition: [[☃ definition 1]]
 
