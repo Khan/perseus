@@ -14,6 +14,7 @@ import {GradedGroup} from "../graded-group/graded-group";
 
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {GradedGroupSetPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
+import type {GradedGroupHandle} from "../graded-group/graded-group";
 import type {
     PerseusGradedGroupSetWidgetOptions,
     PerseusGradedGroupWidgetOptions,
@@ -83,7 +84,7 @@ type Props = WidgetProps<PerseusGradedGroupSetWidgetOptions> & {
 const GradedGroupSet = forwardRef<Widget, Props>(
     function GradedGroupSet(props, ref) {
         const dependencies = useDependencies();
-        const childGroup = useRef<GradedGroup | null>(null);
+        const childGroup = useRef<GradedGroupHandle | null>(null);
 
         const [currentGroupIndex, setCurrentGroupIndex] = useState(0);
 
@@ -100,7 +101,7 @@ const GradedGroupSet = forwardRef<Widget, Props>(
 
         useImperativeHandle(ref, () => ({
             getInputPaths(): ReadonlyArray<FocusPath> {
-                return childGroup.current?.getInputPaths() ?? [];
+                return childGroup.current?.getInputPaths?.() ?? [];
             },
 
             getPromptJSON(): GradedGroupSetPromptJSON {
@@ -143,7 +144,6 @@ const GradedGroupSet = forwardRef<Widget, Props>(
                                 options={gradedGroup}
                                 inGradedGroupSet={false}
                                 linterContext={props.linterContext}
-                                dependencies={dependencies}
                             />
                         );
                     })}
@@ -191,7 +191,6 @@ const GradedGroupSet = forwardRef<Widget, Props>(
                     inGradedGroupSet={true}
                     onNextQuestion={handleNextQuestion}
                     linterContext={props.linterContext}
-                    dependencies={dependencies}
                 />
             </div>
         );

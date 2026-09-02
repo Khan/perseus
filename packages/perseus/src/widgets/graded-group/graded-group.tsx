@@ -26,7 +26,6 @@ import type {ANSWER_BAR_STATES} from "./graded-group-answer-bar";
 import type {
     FocusPath,
     TrackingGradedGroupExtraArguments,
-    Widget,
     WidgetExports,
     WidgetProps,
 } from "../../types";
@@ -72,11 +71,22 @@ type Props = WidgetProps<
     onNextQuestion?: () => unknown; // Set by graded-group-set.jsx
 };
 
+/**
+ * Provides a more specific interface than Widget for GradedGroupSet to use.
+ */
+export interface GradedGroupHandle {
+    getInputPaths(): ReadonlyArray<FocusPath>;
+    getPromptJSON(): GradedGroupPromptJSON;
+    focus(): boolean;
+    focusInputPath(path: FocusPath): void;
+    blurInputPath(path: FocusPath): void;
+}
+
 // A Graded Group is more or less a Group widget that displays a check
 // answer button below the rendered content. When clicked, the widget grades
 // the stuff inside and displays feedback about whether the inputted answer was
 // correct or not.
-export const GradedGroup = forwardRef<Widget, Props>(
+export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
     function GradedGroup(props, ref) {
         const {strings} = usePerseusI18n();
         const dependencies = useDependencies();
@@ -128,11 +138,11 @@ export const GradedGroup = forwardRef<Widget, Props>(
                 return !!rendererRef.current?.focus();
             },
 
-            focusInputPath(path: any): void {
+            focusInputPath(path: FocusPath): void {
                 rendererRef.current?.focusPath(path);
             },
 
-            blurInputPath(path: any): void {
+            blurInputPath(path: FocusPath): void {
                 rendererRef.current?.blurPath(path);
             },
         }));
