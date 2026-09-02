@@ -83,7 +83,7 @@ type Props = WidgetProps<PerseusGradedGroupSetWidgetOptions> & {
 const GradedGroupSet = forwardRef<Widget, Props>(
     function GradedGroupSet(props, ref) {
         const dependencies = useDependencies();
-        const childGroup = useRef<GradedGroup>();
+        const childGroup = useRef<GradedGroup | null>(null);
 
         const [currentGroupIndex, setCurrentGroupIndex] = useState(0);
 
@@ -182,8 +182,6 @@ const GradedGroupSet = forwardRef<Widget, Props>(
                 </div>
                 <GradedGroup
                     key={currentGroupIndex}
-                    // @ts-expect-error - TS2322 - Type 'GradedGroup | null' is not assignable to type 'GradedGroup'.
-                    //  Type 'null' is not assignable to type 'GradedGroup'.
                     ref={childGroup}
                     // We should pass in the set of props explicitly
                     {...props}
