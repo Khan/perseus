@@ -180,7 +180,7 @@ describe("useTileMoveActions", () => {
             result.current.firstBankMenuRef(bankButton);
 
             act(() => {
-                result.current.handleMove({tileId: "x"}, "blank 1", true);
+                result.current.handleMove({tileId: "x"}, "blank 1");
             });
             rerender();
 
@@ -194,7 +194,7 @@ describe("useTileMoveActions", () => {
             result.current.placedMenuRef("blank 1")(placedButton);
 
             act(() => {
-                result.current.handleMove({tileId: "x"}, "blank 1", true);
+                result.current.handleMove({tileId: "x"}, "blank 1");
             });
             rerender();
 
@@ -225,14 +225,16 @@ describe("useTileMoveActions", () => {
             const focus = jest.spyOn(bankButton, "focus");
             result.current.firstBankMenuRef(bankButton);
             act(() => {
-                result.current.handleMove({tileId: "x"}, "blank 1", true);
+                result.current.handleMove({tileId: "x"}, "blank 1");
             });
             rerender();
 
             // Act — a later drag move applies and re-renders.
             accept = true;
             act(() => {
-                result.current.handleMove({tileId: "y"}, "blank 2", false);
+                result.current.handleDragEnd(
+                    generateDragEnd({tileId: "y"}, "blank 2"),
+                );
             });
             rerender();
 
