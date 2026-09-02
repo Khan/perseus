@@ -139,7 +139,7 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
                         label: blankLabels[blankId],
                     }))}
                     onMove={(targetId) =>
-                        handleMove({tileId: tile.id}, targetId, true)
+                        handleMove({tileId: tile.id}, targetId)
                     }
                     remainingUses={
                         tileUsage === "multi" && remaining != null
@@ -184,11 +184,10 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
                         handleMove(
                             {tileId: tile.id, fromBlankId: blankId},
                             targetId,
-                            true,
                         )
                     }
                     clearFromLabel={blankLabels[blankId]}
-                    onClear={() => handleClear(blankId, true)}
+                    onClear={() => handleClear(blankId)}
                     menuRef={placedMenuRef(blankId)}
                 />
             ),

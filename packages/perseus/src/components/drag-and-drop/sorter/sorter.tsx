@@ -161,9 +161,7 @@ export function Sorter(props: SorterProps): React.ReactElement {
                     id: blankId,
                     label: blankLabels[blankId],
                 }))}
-                onMove={(targetId) =>
-                    handleMove({tileId: tile.id}, targetId, true)
-                }
+                onMove={(targetId) => handleMove({tileId: tile.id}, targetId)}
                 menuRef={index === 0 ? firstBankMenuRef : undefined}
             />
         ));
@@ -194,11 +192,10 @@ export function Sorter(props: SorterProps): React.ReactElement {
                             handleMove(
                                 {tileId: tile.id, fromBlankId: blankId},
                                 targetId,
-                                true,
                             )
                         }
                         clearFromLabel={blankLabels[blankId]}
-                        onClear={() => handleClear(blankId, true)}
+                        onClear={() => handleClear(blankId)}
                         menuRef={placedMenuRef(blankId)}
                     />
                 )}
