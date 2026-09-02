@@ -1,4 +1,3 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
