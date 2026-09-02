@@ -54,7 +54,7 @@ const withPerseusDecorator: Decorator = (Story) => {
                     Include box-sizing-border-box-reset to reflect the global styles
                     from prod.
                 */}
-                <div className="framework-perseus wb-themed-math box-sizing-border-box-reset">
+                <div className="framework-perseus box-sizing-border-box-reset">
                     <Story />
                 </div>
             </DependenciesContext.Provider>

@@ -5,6 +5,7 @@ import _ from "underscore";
 
 import {getDependencies} from "../dependencies";
 import Util from "../util";
+import {toClosestMathColor} from "../util/colors";
 import {loadGraphie} from "../util/graphie-utils";
 
 import FixedToResponsive from "./fixed-to-responsive";
@@ -371,6 +372,17 @@ class SvgImage extends React.Component<Props, State> {
                 _.each(labelData.style, (styleValue, styleName) => {
                     label.css(styleName, styleValue);
                 });
+
+                // Override the color authored in `style` with the perceptually
+                // closest semantic color from Wonder Blocks. This ensures that
+                // labels follow the dark mode / light mode theme and remain
+                // readable.
+                if (labelData.style?.color) {
+                    label.css(
+                        "color",
+                        toClosestMathColor(labelData.style.color),
+                    );
+                }
             }
             newLabelsRendered[labelData.content] = true;
         });

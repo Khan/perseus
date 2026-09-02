@@ -7,7 +7,7 @@ exports[`Marker component rendering renders an empty marker 1`] = `
       aria-controls=":r0:"
       aria-expanded="true"
       aria-label="Edit marker: Marker 1"
-      class="marker_1rydra6-o_O-markerSelected_1bmpetx"
+      class="marker_cvqkp3-o_O-markerSelected_y0aq99"
       id=":r0:-anchor"
       style="left: 50%; top: 50%;"
       type="button"
@@ -23,41 +23,50 @@ exports[`Marker component rendering renders an empty marker 1`] = `
       role="dialog"
     >
       <div
-        class="default_7zhre1-o_O-content_11mqw8v-o_O-dropdownBody_13pdgsk"
+        class="default_7zhre1-o_O-content_11mqw8v-o_O-dropdownBody_1gyjybc"
       >
-        <button
-          class="notAButton_15oq5w2"
-          role="menuitemradio"
+        <div
+          class="labelContainer_veipjp"
+        >
+          <input
+            aria-disabled="false"
+            aria-invalid="false"
+            aria-required="false"
+            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
+            id=":r1:"
+            placeholder="ARIA label (for screen readers)"
+            tabindex="0"
+            type="text"
+            value="Marker 1"
+          />
+        </div>
+        <hr
+          class="dividerHorizontal_10sn35t"
+        />
+        <div
+          aria-label="Answer choices"
+          aria-multiselectable="true"
+          class="default_7zhre1-o_O-listbox_1413512"
+          id=":r2:"
+          role="listbox"
           tabindex="0"
-          value=""
+        />
+        <hr
+          class="dividerHorizontal_10sn35t"
+        />
+        <button
+          aria-disabled="false"
+          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_ojsq95"
+          data-kind="tertiary"
+          tabindex="0"
+          type="button"
         >
           <span
-            class="option_ehjbkx"
+            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
           >
             Delete marker
           </span>
         </button>
-        <hr
-          class="dividerHorizontal_1035dhn"
-        />
-        <div
-          class="optionGroup_1lwi6b"
-        />
-        <div
-          class="labelContainer_cyxkvw"
-        >
-          <form
-            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-            style="width: 100%;"
-          >
-            <input
-              class="inputBase_ca6tue"
-              placeholder="ARIA label (for screen readers)"
-              tabindex="0"
-              value="Marker 1"
-            />
-          </form>
-        </div>
       </div>
       <div
         class="default_7zhre1-o_O-tailContainer_m1n018-o_O-inlineStyles_17q6yl"
@@ -123,87 +132,122 @@ exports[`Marker component rendering renders with answers and choices 1`] = `
 <body>
   <div>
     <button
-      aria-controls=":r1:"
+      aria-controls=":r3:"
       aria-expanded="true"
       aria-label="Edit marker: Marker 1"
-      class="marker_1rydra6-o_O-markerWithAnswers_hvf8qy-o_O-markerSelected_1bmpetx"
-      id=":r1:-anchor"
+      class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8-o_O-markerSelected_y0aq99"
+      id=":r3:-anchor"
       style="left: 50%; top: 50%;"
       type="button"
     />
   </div>
   <div>
     <div
-      aria-describedby=":r1:-content"
-      aria-labelledby=":r1:-title"
+      aria-describedby=":r3:-content"
+      aria-labelledby=":r3:-title"
       class="default_7zhre1-o_O-hide_16igwdi-o_O-content-top_1jtvojh-o_O-inlineStyles_i5mxc2"
       data-placement="top"
-      id=":r1:"
+      id=":r3:"
       role="dialog"
     >
       <div
-        class="default_7zhre1-o_O-content_11mqw8v-o_O-dropdownBody_13pdgsk"
+        class="default_7zhre1-o_O-content_11mqw8v-o_O-dropdownBody_1gyjybc"
       >
-        <button
-          class="notAButton_15oq5w2"
-          role="menuitemradio"
+        <div
+          class="labelContainer_veipjp"
+        >
+          <input
+            aria-disabled="false"
+            aria-invalid="false"
+            aria-required="false"
+            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
+            id=":r4:"
+            placeholder="ARIA label (for screen readers)"
+            tabindex="0"
+            type="text"
+            value="Marker 1"
+          />
+        </div>
+        <hr
+          class="dividerHorizontal_10sn35t"
+        />
+        <div
+          aria-label="Answer choices"
+          aria-multiselectable="true"
+          class="default_7zhre1-o_O-listbox_1413512"
+          id=":r5:"
+          role="listbox"
           tabindex="0"
-          value=""
+        >
+          <button
+            aria-disabled="false"
+            aria-selected="false"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-wrapper_su0a8m-o_O-innerWrapper_mnq6zz-o_O-clickable_1krawm8-o_O-optionItem_yre2rc-o_O-listboxOptionItem_1si2p3p-o_O-inlineStyles_3hmsj"
+            id=":r5:-option-0"
+            role="option"
+            tabindex="-1"
+            type="button"
+          >
+            <div
+              class="default_7zhre1-o_O-accessory_9jq3ey-o_O-accessoryLeft_ddq71i-o_O-inlineStyles_3hmsj"
+            >
+              <div
+                class="default_7zhre1-o_O-checkbox_tyfhob checkbox"
+              />
+            </div>
+            <div
+              class="default_7zhre1-o_O-content_1j3eb01-o_O-inlineStyles_iqfeo"
+            >
+              <div
+                class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-label_1oxsvo1"
+              >
+                Choice 1
+              </div>
+            </div>
+          </button>
+          <button
+            aria-disabled="false"
+            aria-selected="false"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-wrapper_su0a8m-o_O-innerWrapper_mnq6zz-o_O-clickable_1krawm8-o_O-optionItem_yre2rc-o_O-listboxOptionItem_1si2p3p-o_O-inlineStyles_3hmsj"
+            id=":r5:-option-1"
+            role="option"
+            tabindex="-1"
+            type="button"
+          >
+            <div
+              class="default_7zhre1-o_O-accessory_9jq3ey-o_O-accessoryLeft_ddq71i-o_O-inlineStyles_3hmsj"
+            >
+              <div
+                class="default_7zhre1-o_O-checkbox_tyfhob checkbox"
+              />
+            </div>
+            <div
+              class="default_7zhre1-o_O-content_1j3eb01-o_O-inlineStyles_iqfeo"
+            >
+              <div
+                class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-label_1oxsvo1"
+              >
+                Choice 2
+              </div>
+            </div>
+          </button>
+        </div>
+        <hr
+          class="dividerHorizontal_10sn35t"
+        />
+        <button
+          aria-disabled="false"
+          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_ojsq95"
+          data-kind="tertiary"
+          tabindex="0"
+          type="button"
         >
           <span
-            class="option_ehjbkx"
+            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
           >
             Delete marker
           </span>
         </button>
-        <hr
-          class="dividerHorizontal_1035dhn"
-        />
-        <div
-          class="optionGroup_1lwi6b"
-        >
-          <button
-            aria-checked="false"
-            class="notAButton_15oq5w2"
-            role="menuitemradio"
-            tabindex="0"
-            value="Choice 1"
-          >
-            <span
-              class="option_ehjbkx"
-            >
-              Choice 1
-            </span>
-          </button>
-          <button
-            aria-checked="false"
-            class="notAButton_15oq5w2"
-            role="menuitemradio"
-            tabindex="0"
-            value="Choice 2"
-          >
-            <span
-              class="option_ehjbkx"
-            >
-              Choice 2
-            </span>
-          </button>
-        </div>
-        <div
-          class="labelContainer_cyxkvw"
-        >
-          <form
-            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-            style="width: 100%;"
-          >
-            <input
-              class="inputBase_ca6tue"
-              placeholder="ARIA label (for screen readers)"
-              tabindex="0"
-              value="Marker 1"
-            />
-          </form>
-        </div>
       </div>
       <div
         class="default_7zhre1-o_O-tailContainer_m1n018-o_O-inlineStyles_17q6yl"

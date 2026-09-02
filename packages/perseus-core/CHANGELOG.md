@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 38.1.1
+
+### Patch Changes
+
+-   [#4158](https://github.com/Khan/perseus/pull/4158) [`1f6424a`](https://github.com/Khan/perseus/commit/1f6424a4a34123a1e9609ae8499ac6e8138c589d) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Adding new dnd-widget-fitb flag
+
 ## 38.1.0
 
 ### Minor Changes

@@ -5,15 +5,23 @@
  * the dropdown component.
  */
 
+import Button from "@khanacademy/wonder-blocks-button";
+import {Listbox, OptionItem} from "@khanacademy/wonder-blocks-dropdown";
+import {TextField} from "@khanacademy/wonder-blocks-form";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
+import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import Option, {OptionGroup} from "../../components/dropdown-option";
-import FormWrappedTextField from "../../components/form-wrapped-text-field";
-import {gray85} from "../../styles/global-colors";
-
 import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+
+// Wonder Blocks Listbox's onChange allows a single value, nullish entries,
+// and an array. The type isn't exported from the package, so we need
+// to derive it here.)
+type ListboxSelection = Parameters<
+    NonNullable<PropsFor<typeof Listbox>["onChange"]>
+>[0];
 
 type MarkerProps = PerseusLabelImageWidgetOptions["markers"][number] & {
     // The list of possible answer choices.
@@ -64,16 +72,18 @@ const Marker = React.forwardRef<MarkerHandle, MarkerProps>(function Marker(
         }
     });
 
-    function handleToggleAnswer(toggleAnswer: string) {
-        updateAnswers(
-            answers.includes(toggleAnswer)
-                ? answers.filter((answer) => answer !== toggleAnswer)
-                : [...answers, toggleAnswer],
-        );
+    function handleToggleAnswer(selectedValues: ListboxSelection) {
+        // Listbox allows for single, array, or nullish selections, but we only
+        // ever use an array for the "multiple" type listbox here.
+        const values = Array.isArray(selectedValues)
+            ? selectedValues
+            : [selectedValues];
+
+        updateAnswers(values.filter((value) => value != null));
     }
 
-    function handleLabelChange(e: React.ChangeEvent<HTMLInputElement>) {
-        onChange({answers, label: e.target.value, x, y});
+    function handleLabelChange(value: string) {
+        onChange({answers, label: value, x, y});
     }
 
     return (
@@ -83,31 +93,36 @@ const Marker = React.forwardRef<MarkerHandle, MarkerProps>(function Marker(
             dismissEnabled={true}
             content={
                 <PopoverContentCore style={styles.dropdownBody}>
-                    <Option value="" onClick={() => onRemove()}>
-                        Delete marker
-                    </Option>
-
-                    <hr className={css(styles.dividerHorizontal)} />
-
-                    <OptionGroup
-                        onSelected={handleToggleAnswer}
-                        selectedValues={answers}
-                    >
-                        {choices.map((choice) => (
-                            <Option key={choice} value={choice}>
-                                {choice}
-                            </Option>
-                        ))}
-                    </OptionGroup>
-
                     <div className={css(styles.labelContainer)}>
-                        <FormWrappedTextField
+                        <TextField
                             placeholder="ARIA label (for screen readers)"
                             onChange={handleLabelChange}
                             value={label}
-                            width="100%"
                         />
                     </div>
+                    <hr className={css(styles.dividerHorizontal)} />
+                    <Listbox
+                        aria-label="Answer choices"
+                        onChange={handleToggleAnswer}
+                        selectionType="multiple"
+                        value={answers}
+                    >
+                        {choices.map((choice) => (
+                            <OptionItem
+                                key={choice}
+                                value={choice}
+                                label={choice}
+                            />
+                        ))}
+                    </Listbox>
+                    <hr className={css(styles.dividerHorizontal)} />
+                    <Button
+                        kind="tertiary"
+                        actionType="destructive"
+                        onClick={onRemove}
+                    >
+                        Delete marker
+                    </Button>
                 </PopoverContentCore>
             }
         >
@@ -160,62 +175,57 @@ const styles = StyleSheet.create({
 
         boxSizing: "content-box",
 
-        width: 16,
-        height: 16,
-        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y centering on an authored LTR image coordinate; content doesn't flip with page direction, so a logical margin would misplace/misalign the marker in RTL
-        marginLeft: -8,
-        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y centering on an authored LTR image coordinate; content doesn't flip with page direction, so a logical margin would misplace/misalign the marker in RTL
-        marginTop: -8,
+        width: sizing.size_160,
+        height: sizing.size_160,
+
+        // Keep the marker centered on its specified coordinate.
+        transform: "translate(-50%, -50%)",
 
         cursor: "pointer",
 
         background:
             "linear-gradient(to bottom, rgba(33, 36, 44, 0.2), rgba(33, 36, 44, 0.5))",
 
-        border: "solid 2px #ffffff",
-        borderRadius: 16,
+        border: `solid 2px ${semanticColor.core.background.base.default}`,
+        borderRadius: sizing.size_160,
 
         boxShadow: "0 2px 10px 0 rgba(33, 36, 44, 0.1)",
     },
 
     markerSelected: {
-        width: 28,
-        height: 28,
-        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y centering on an authored LTR image coordinate; content doesn't flip with page direction, so a logical margin would misplace/misalign the marker in RTL
-        marginLeft: -12,
-        // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- physical X/Y centering on an authored LTR image coordinate; content doesn't flip with page direction, so a logical margin would misplace/misalign the marker in RTL
-        marginTop: -12,
+        width: sizing.size_280,
+        height: sizing.size_280,
 
         border: "none",
-        borderRadius: 28,
+        borderRadius: sizing.size_280,
 
         // Render selected marker border as inset.
         "::before": {
             content: "''",
             display: "block",
 
-            width: 20,
-            height: 20,
-            marginInlineStart: 2,
+            width: sizing.size_200,
+            height: sizing.size_200,
+            marginInlineStart: sizing.size_020,
 
-            border: "solid 2px #ffffff",
-            borderRadius: 20,
+            border: `solid 2px ${semanticColor.core.background.base.default}`,
+            borderRadius: sizing.size_200,
         },
     },
 
     markerWithAnswers: {
-        background: "#1865f2",
+        background: semanticColor.core.background.instructive.default,
     },
 
     labelContainer: {
-        padding: 4,
+        padding: sizing.size_060,
     },
 
     dividerHorizontal: {
         height: 0,
         margin: 0,
 
-        border: `solid ${gray85}`,
+        border: `solid ${semanticColor.core.border.neutral.default}`,
         borderWidth: "0 0 1px",
 
         boxShadow: "none",
@@ -224,8 +234,6 @@ const styles = StyleSheet.create({
     dropdownBody: {
         // Reset the default padding from WB Popover.
         padding: 0,
-
-        overflowY: "auto",
     },
 });
 
