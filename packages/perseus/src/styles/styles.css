@@ -365,7 +365,8 @@
 /*****************************
  * GLOBAL DARK MODE SETTINGS *
  *****************************/
-[data-wb-theme$="-dark"] .framework-perseus {
+[data-wb-theme$="-dark"] .framework-perseus,
+.perseus-image-preview-container[data-wb-theme$="-dark"] {
     /* TODO(benchristel): this set of file extensions is duplicated in
      * image.css and dark-mode-toggle.tsx. Replace these selectors with a
      * class that gets added to images that should be inverted, so the set of

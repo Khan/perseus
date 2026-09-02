@@ -377,7 +377,7 @@ class SvgImage extends React.Component<Props, State> {
                 // closest semantic color from Wonder Blocks. This ensures that
                 // labels follow the dark mode / light mode theme and remain
                 // readable.
-                if (labelData.style.color) {
+                if (labelData.style?.color) {
                     label.css(
                         "color",
                         toClosestMathColor(labelData.style.color),
