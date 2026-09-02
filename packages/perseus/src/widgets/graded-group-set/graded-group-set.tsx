@@ -5,7 +5,6 @@ import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
 
-import {PerseusI18nContext} from "../../components/i18n-context";
 import {withDependencies} from "../../components/with-dependencies";
 import {getDependencies} from "../../dependencies";
 import {phoneMargin, negativePhoneMargin} from "../../styles/constants";
@@ -31,63 +30,55 @@ type IndicatorsProps = {
     onChangeCurrentGroup: (groupNumber: number) => void;
 };
 
-class Indicators extends React.Component<IndicatorsProps> {
-    static contextType = PerseusI18nContext;
-    declare context: React.ContextType<typeof PerseusI18nContext>;
-
-    handleKeyDown = (e: React.KeyboardEvent, i: number) => {
+function Indicators(props: IndicatorsProps) {
+    function handleKeyDown(e: React.KeyboardEvent, i: number) {
         if (e.key === "Enter" || e.key === " ") {
-            this.props.onChangeCurrentGroup(i);
+            props.onChangeCurrentGroup(i);
         }
-    };
-
-    render(): React.ReactNode {
-        return (
-            // eslint-disable-next-line jsx-a11y/no-redundant-roles -- role="list" is intentional: Safari+VoiceOver strips list semantics from <ul> with list-style:none, so explicit role restores them
-            <ul
-                // reduntantly add class name for use in .css files--
-                //   the styles object key gets hashed
-                role="list"
-                className={classNames(
-                    css(styles.indicatorContainer),
-                    "indicatorContainer",
-                )}
-            >
-                {this.props.gradedGroups.map(({title}, i) => {
-                    const isCurrent = i === this.props.currentGroup;
-                    return (
-                        // Note: Use index as key — titles are user-authored and
-                        // not guaranteed unique. Groups are never reordered at
-                        // runtime, so index keys are stable.
-                        <li className={css(styles.indicator)} key={i}>
-                            <Clickable
-                                role="button"
-                                aria-label={title}
-                                aria-current={isCurrent}
-                                style={styles.indicatorButton}
-                                onClick={() =>
-                                    this.props.onChangeCurrentGroup(i)
-                                }
-                                onKeyDown={(e) => this.handleKeyDown(e, i)}
-                            >
-                                {({hovered, focused, pressed}) => (
-                                    <View
-                                        style={[
-                                            styles.indicatorDot,
-                                            isCurrent &&
-                                                styles.indicatorDotActive,
-                                            (hovered || focused || pressed) &&
-                                                styles.indicatorDotFocused,
-                                        ]}
-                                    />
-                                )}
-                            </Clickable>
-                        </li>
-                    );
-                })}
-            </ul>
-        );
     }
+
+    return (
+        // eslint-disable-next-line jsx-a11y/no-redundant-roles -- role="list" is intentional: Safari+VoiceOver strips list semantics from <ul> with list-style:none, so explicit role restores them
+        <ul
+            // reduntantly add class name for use in .css files--
+            //   the styles object key gets hashed
+            role="list"
+            className={classNames(
+                css(styles.indicatorContainer),
+                "indicatorContainer",
+            )}
+        >
+            {props.gradedGroups.map(({title}, i) => {
+                const isCurrent = i === props.currentGroup;
+                return (
+                    // Note: Use index as key — titles are user-authored and
+                    // not guaranteed unique. Groups are never reordered at
+                    // runtime, so index keys are stable.
+                    <li className={css(styles.indicator)} key={i}>
+                        <Clickable
+                            role="button"
+                            aria-label={title}
+                            aria-current={isCurrent}
+                            style={styles.indicatorButton}
+                            onClick={() => props.onChangeCurrentGroup(i)}
+                            onKeyDown={(e) => handleKeyDown(e, i)}
+                        >
+                            {({hovered, focused, pressed}) => (
+                                <View
+                                    style={[
+                                        styles.indicatorDot,
+                                        isCurrent && styles.indicatorDotActive,
+                                        (hovered || focused || pressed) &&
+                                            styles.indicatorDotFocused,
+                                    ]}
+                                />
+                            )}
+                        </Clickable>
+                    </li>
+                );
+            })}
+        </ul>
+    );
 }
 
 type Props = WidgetProps<PerseusGradedGroupSetWidgetOptions> & {
