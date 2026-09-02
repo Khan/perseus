@@ -2,4 +2,4 @@
 "@khanacademy/perseus-editor": patch
 ---
 
-No user-facing changes: updates internal button group usage to match the latest `@khanacademy/perseus` ButtonGroup API.
+No user-facing changes: removes `allowEmpty` from ButtonGroup usages, since the prop no longer exists.
