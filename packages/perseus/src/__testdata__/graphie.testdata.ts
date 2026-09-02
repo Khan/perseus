@@ -58,3 +58,47 @@ export const itemWithLabeledAngle: PerseusItem = generateTestPerseusItem({
         },
     },
 });
+
+export const itemWithImageLabelWithNoStyle: PerseusItem =
+    generateTestPerseusItem({
+        question: {
+            content: "[[☃ image 1]]",
+            images: {},
+            widgets: {
+                "image 1": {
+                    type: "image",
+                    static: false,
+                    graded: true,
+                    alignment: "block",
+                    options: generateImageOptions({
+                        backgroundImage: {
+                            url: "https://ka-perseus-images.s3.amazonaws.com/0ba867e121eb4a2dfc2a854e22f571469a8d8793.svg",
+                            width: 264,
+                            height: 203,
+                        },
+                        labels: [
+                            {
+                                content: "7\\text{ cm}",
+                                alignment: "left",
+                                coordinates: [3.5, 3.5],
+                            },
+                            {
+                                content: "\\text{width}",
+                                alignment: "center",
+                                coordinates: [6.9, 9],
+                            },
+                        ],
+                        range: [
+                            [0, 10],
+                            [0, 10],
+                        ],
+                        box: [264, 203],
+                    }),
+                    version: {
+                        major: 0,
+                        minor: 0,
+                    },
+                },
+            },
+        },
+    });
