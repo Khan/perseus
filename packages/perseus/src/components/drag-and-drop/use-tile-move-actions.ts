@@ -11,14 +11,26 @@ import type {TilePlacements, TileUsage} from "./tile-placements";
 import type {DragEndEvent} from "@dnd-kit/react";
 
 /**
+ * A focus request that waits for the placements update to render. The
+ * moved tile's menu button does not exist until then, so focus cannot
+ * move in the handler itself.
+ *
+ * The first bank menu receives focus. When the bank is empty, focus
+ * falls back to the menu of the tile in `fallbackBlankId`. A clear has
+ * no fallback: the cleared tile refills the bank.
+ */
+type MenuFocusRequest = {fallbackBlankId: string | null};
+
+/**
  * Move, clear, and drag-end handling shared by the widgets that place
  * tiles into blanks. Each action updates the controlled placements and
  * announces the result.
  *
- * After a menu action, focus moves to the first bank tile's menu. When
- * the bank is empty, focus moves to the placed tile's menu instead:
- * pass `firstBankMenuRef` to the bank's first menu button and
- * `placedMenuRef(blankId)` to each placed tile's menu button.
+ * handleMove and handleClear are for the tiles' menus, and also move
+ * focus back to a menu afterwards: pass `firstBankMenuRef` to the
+ * bank's first menu button and `placedMenuRef(blankId)` to each placed
+ * tile's menu button. handleDragEnd is for the PerseusDndProvider, and
+ * leaves focus alone: a drag is a pointer interaction.
  */
 export function useTileMoveActions(options: {
     placements: TilePlacements;
@@ -28,12 +40,8 @@ export function useTileMoveActions(options: {
     getBlankLabel: (blankId: string) => string;
     blankIds: ReadonlyArray<string>;
 }): {
-    handleMove: (
-        move: TileDragData,
-        targetBlankId: string,
-        viaMenu: boolean,
-    ) => void;
-    handleClear: (blankId: string, viaMenu: boolean) => void;
+    handleMove: (move: TileDragData, targetBlankId: string) => void;
+    handleClear: (blankId: string) => void;
     handleDragEnd: (event: DragEndEvent) => void;
     firstBankMenuRef: (button: HTMLButtonElement | null) => void;
     placedMenuRef: (
@@ -51,37 +59,31 @@ export function useTileMoveActions(options: {
 
     const bankMenuRef = React.useRef<HTMLButtonElement | null>(null);
     const placedMenuRefs = React.useRef(new Map<string, HTMLButtonElement>());
-    // The blank to fall back to when the bank has no menu to focus.
-    const focusAfterUpdate = React.useRef<{targetBlankId?: string} | null>(
-        null,
-    );
+    const pendingMenuFocus = React.useRef<MenuFocusRequest | null>(null);
     React.useEffect(() => {
-        const pending = focusAfterUpdate.current;
+        const pending = pendingMenuFocus.current;
         if (pending == null) {
             return;
         }
-        focusAfterUpdate.current = null;
+        pendingMenuFocus.current = null;
         const fallback =
-            pending.targetBlankId != null
-                ? placedMenuRefs.current.get(pending.targetBlankId)
+            pending.fallbackBlankId != null
+                ? placedMenuRefs.current.get(pending.fallbackBlankId)
                 : undefined;
         (bankMenuRef.current ?? fallback)?.focus();
     }, [placements]);
 
-    const handleMove = (
-        move: TileDragData,
-        targetBlankId: string,
-        viaMenu: boolean,
-    ) => {
-        // A stale request must not fire on a later placements change.
-        focusAfterUpdate.current = null;
+    /** Applies a move and announces it. Returns false for a no-op. */
+    const applyMove = (move: TileDragData, targetBlankId: string): boolean => {
+        // A stale focus request must not fire on this placements change.
+        pendingMenuFocus.current = null;
         // A multi-use tile's bank copy dropped on a blank that already
         // holds that tile changes nothing: no update, no announcement.
         if (
             move.fromBlankId == null &&
             placements[targetBlankId] === move.tileId
         ) {
-            return;
+            return false;
         }
         const evictedTileId = placements[targetBlankId];
         onPlacementsChange(
@@ -98,26 +100,35 @@ export function useTileMoveActions(options: {
             })}`;
         }
         announceMessage({message});
-        if (viaMenu) {
-            focusAfterUpdate.current = {targetBlankId};
-        }
+        return true;
     };
 
-    const handleClear = (blankId: string, viaMenu: boolean) => {
-        // A stale request must not fire on a later placements change.
-        focusAfterUpdate.current = null;
+    /** Applies a clear and announces it. Returns false for a no-op. */
+    const applyClear = (blankId: string): boolean => {
+        // A stale focus request must not fire on this placements change.
+        pendingMenuFocus.current = null;
         const tileId = placements[blankId];
         if (tileId == null) {
-            return;
+            return false;
         }
         onPlacementsChange(clearBlank(placements, blankId));
         announceMessage({
             message: strings.returnedToChoices({tile: getTileLabel(tileId)}),
         });
-        if (viaMenu) {
-            // The cleared tile returns to the bank, so the bank menu is
-            // the only target this action needs.
-            focusAfterUpdate.current = {};
+        return true;
+    };
+
+    const handleMove = (move: TileDragData, targetBlankId: string) => {
+        if (applyMove(move, targetBlankId)) {
+            // The moved tile now sits in the target blank, so its menu
+            // is the fallback when the bank has emptied.
+            pendingMenuFocus.current = {fallbackBlankId: targetBlankId};
+        }
+    };
+
+    const handleClear = (blankId: string) => {
+        if (applyClear(blankId)) {
+            pendingMenuFocus.current = {fallbackBlankId: null};
         }
     };
 
@@ -140,26 +151,45 @@ export function useTileMoveActions(options: {
         }
         if (targetId === CHOICE_BANK_DROP_ID) {
             if (move.fromBlankId != null) {
-                handleClear(move.fromBlankId, false);
+                applyClear(move.fromBlankId);
             }
         } else if (blankIds.includes(targetId)) {
-            handleMove(move, targetId, false);
+            applyMove(move, targetId);
         }
+    };
+
+    const firstBankMenuRef = React.useCallback(
+        (button: HTMLButtonElement | null) => {
+            bankMenuRef.current = button;
+        },
+        [],
+    );
+
+    // One stable callback per blank: a new identity each render would
+    // make React detach and reattach the ref on every render.
+    const placedMenuRefCallbacks = React.useRef(
+        new Map<string, (button: HTMLButtonElement | null) => void>(),
+    );
+    const placedMenuRef = (blankId: string) => {
+        let callback = placedMenuRefCallbacks.current.get(blankId);
+        if (callback == null) {
+            callback = (button) => {
+                if (button == null) {
+                    placedMenuRefs.current.delete(blankId);
+                } else {
+                    placedMenuRefs.current.set(blankId, button);
+                }
+            };
+            placedMenuRefCallbacks.current.set(blankId, callback);
+        }
+        return callback;
     };
 
     return {
         handleMove,
         handleClear,
         handleDragEnd,
-        firstBankMenuRef: (button) => {
-            bankMenuRef.current = button;
-        },
-        placedMenuRef: (blankId) => (button) => {
-            if (button == null) {
-                placedMenuRefs.current.delete(blankId);
-            } else {
-                placedMenuRefs.current.set(blankId, button);
-            }
-        },
+        firstBankMenuRef,
+        placedMenuRef,
     };
 }
