@@ -7,7 +7,6 @@ import {ApiOptions} from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
-import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import arrowCircleDownIcon from "@phosphor-icons/core/bold/arrow-circle-down-bold.svg";
 import arrowCircleUpIcon from "@phosphor-icons/core/bold/arrow-circle-up-bold.svg";
