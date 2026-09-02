@@ -95,37 +95,42 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
         scoring != null && styles[scoring],
     );
 
-    // The tile starts with the actions menu or, when scored, an icon.
-    // The two never show together: a scored tile has no menu. An unused
-    // tile shows neither, because it names no result to report.
+    // What the tile leads with, one branch per scoring state.
+    const renderTileStart = () => {
+        // An unused tile leads with nothing: it has no action to offer
+        // and no result to report.
+        if (scoring === "unused") {
+            return null;
+        }
+        if (scoring == null) {
+            return (
+                <DndActionMenu
+                    ref={menuRef}
+                    tileLabel={label}
+                    moveTargets={moveTargets}
+                    onMove={onMove}
+                    clearFromLabel={clearFromLabel}
+                    onClear={onClear}
+                    remainingUses={remainingUses}
+                />
+            );
+        }
+        // The icon is decoration: the widget announces the result to
+        // screen readers, not the tile.
+        return (
+            <PhosphorIcon
+                aria-hidden="true"
+                icon={scoredIcons[scoring]}
+                size="medium"
+            />
+        );
+    };
+    const tileStart = renderTileStart();
+
     return (
         <div className={tileClasses}>
-            {scoring !== "unused" && (
-                <div className={styles.startContainer}>
-                    {scoring == null ? (
-                        <DndActionMenu
-                            ref={menuRef}
-                            label={label}
-                            moveTargets={moveTargets}
-                            onMove={onMove}
-                            clearFromLabel={clearFromLabel}
-                            onClear={onClear}
-                            remainingUses={remainingUses}
-                            // Always false: scored tiles remove the menu
-                            // instead of disabling it, so a rendered menu
-                            // is never disabled.
-                            disabled={false}
-                        />
-                    ) : (
-                        // The icon is decoration: the widget announces the
-                        // result to screen readers, not the tile.
-                        <PhosphorIcon
-                            aria-hidden="true"
-                            icon={scoredIcons[scoring]}
-                            size="medium"
-                        />
-                    )}
-                </div>
+            {tileStart != null && (
+                <div className={styles.startContainer}>{tileStart}</div>
             )}
             <div className={styles.content}>
                 {isEmpty ? (
