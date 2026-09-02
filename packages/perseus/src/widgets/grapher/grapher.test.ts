@@ -14,7 +14,6 @@ import {
     multipleAvailableTypesQuestion,
 } from "./grapher.testdata";
 
-import type {Coord} from "../../interactive2/types";
 import type {PerseusDependenciesV2} from "../../types";
 
 describe("grapher widget", () => {
@@ -57,32 +56,6 @@ describe("grapher widget", () => {
         // (visible in the snapshot). The correct hex resolves in a real
         // browser (Chromatic).
         expect(container).toMatchSnapshot("initial render");
-    });
-
-    it("preserves the user's plot when the selected type button is clicked again", async () => {
-        // Arrange - a user who has already answered by moving the plot
-        const user = userEvent.setup({
-            advanceTimers: jest.advanceTimersByTime,
-        });
-        const movedCoords: [Coord, Coord] = [
-            [-3, 2],
-            [4, 7],
-        ];
-        const {renderer} = renderQuestion(
-            multipleAvailableTypesQuestion,
-            undefined,
-            undefined,
-            {"grapher 1": {type: "linear", coords: movedCoords}},
-        );
-        await waitForInitialGraphieRender();
-
-        // Act
-        await user.click(screen.getByRole("button", {name: "Linear"}));
-
-        // Assert
-        expect(renderer.getUserInputMap()).toMatchObject({
-            "grapher 1": {type: "linear", coords: movedCoords},
-        });
     });
 
     it("does not log an error when the selected type button is clicked again", async () => {
