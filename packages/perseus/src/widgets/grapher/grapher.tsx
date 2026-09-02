@@ -384,11 +384,11 @@ class Grapher extends React.Component<Props> implements Widget {
     };
 
     handleActiveTypeChange: (arg1: any) => any = (newType) => {
-        // Re-clicking the already-selected type button emits null (the
-        // ButtonGroup's allowEmpty "deselect" signal), but a plot always
-        // has a type, so ignore it. The same-type check is a second layer
-        // of protection: rebuilding the plot for the current type would
-        // reset coords to null, silently discarding the user's answer.
+        // Re-clicking the selected type button calls this handler with
+        // null (the ButtonGroup's "deselect" signal). A plot must always
+        // have a type, so ignore that. Also ignore an unchanged type:
+        // rebuilding the plot for the type the user already has would
+        // reset coords to null, silently discarding their answer.
         if (newType == null || newType === this.props.userInput.type) {
             return;
         }
