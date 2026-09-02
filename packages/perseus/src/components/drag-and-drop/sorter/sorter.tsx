@@ -54,7 +54,6 @@ export interface SorterProps {
     onPlacementsChange: (next: TilePlacements) => void;
 }
 
-const BANK_DROP_ID = "sorter-choice-bank";
 /** Space between slots, matched by --sorter-gap in the CSS. */
 const SLOT_GAP = 16;
 /**
@@ -114,7 +113,6 @@ export function Sorter(props: SorterProps): React.ReactElement {
         getTileLabel: (tileId) => tilesById.get(tileId)?.label ?? "",
         getBlankLabel: (blankId) => blankLabels[blankId],
         blankIds,
-        bankDropId: BANK_DROP_ID,
     });
 
     // Fall back to vertical when the horizontal row cannot house every
@@ -153,18 +151,20 @@ export function Sorter(props: SorterProps): React.ReactElement {
 
     const bankTiles = tiles
         .filter((tile) => isTileInBank(placements, tile.id, "single"))
-        .map((tile, index) => ({
-            tileId: tile.id,
-            content: tile.content,
-            label: tile.label,
-            moveTargets: blankIds.map((blankId) => ({
-                id: blankId,
-                label: blankLabels[blankId],
-            })),
-            onMove: (targetId: string) =>
-                handleMove({tileId: tile.id}, targetId, true),
-            menuRef: index === 0 ? firstBankMenuRef : undefined,
-        }));
+        .map((tile, index) => (
+            <AnswerTile
+                key={tile.id}
+                tileId={tile.id}
+                content={tile.content}
+                label={tile.label}
+                moveTargets={blankIds.map((blankId) => ({
+                    id: blankId,
+                    label: blankLabels[blankId],
+                }))}
+                onMove={(targetId) => handleMove({tileId: tile.id}, targetId)}
+                menuRef={index === 0 ? firstBankMenuRef : undefined}
+            />
+        ));
 
     const renderSlot = (blankId: string) => {
         const tileId = placements[blankId];
@@ -173,7 +173,6 @@ export function Sorter(props: SorterProps): React.ReactElement {
             <BlankComponent
                 blankId={blankId}
                 displayType="normal"
-                placedTileId={tile?.id}
                 minWidth={
                     variant === "scale" && !isVertical ? maxWidth : undefined
                 }
@@ -193,11 +192,10 @@ export function Sorter(props: SorterProps): React.ReactElement {
                             handleMove(
                                 {tileId: tile.id, fromBlankId: blankId},
                                 targetId,
-                                true,
                             )
                         }
                         clearFromLabel={blankLabels[blankId]}
-                        onClear={() => handleClear(blankId, true)}
+                        onClear={() => handleClear(blankId)}
                         menuRef={placedMenuRef(blankId)}
                     />
                 )}
@@ -371,11 +369,7 @@ export function Sorter(props: SorterProps): React.ReactElement {
         <div className={styles.sorter} ref={rootRef}>
             <PerseusDndProvider onDragEnd={handleDragEnd}>
                 {slotArea}
-                <ChoiceBank
-                    label={strings.choices}
-                    answerTiles={bankTiles}
-                    bankId={BANK_DROP_ID}
-                />
+                <ChoiceBank label={strings.choices}>{bankTiles}</ChoiceBank>
             </PerseusDndProvider>
             <PerseusDndProvider>
                 <div
