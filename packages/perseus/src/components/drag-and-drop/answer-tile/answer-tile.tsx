@@ -8,7 +8,6 @@ import * as React from "react";
 import Renderer from "../../../renderer";
 import a11yStyles from "../../../styles/a11y.module.css";
 import {usePerseusI18n} from "../../i18n-context";
-import {cssVariable} from "../css-variable";
 import {DndActionMenu} from "../dnd-action-menu";
 import {tileDragId} from "../drag-ids";
 
@@ -175,9 +174,13 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
     };
     const tileStart = renderTileStart();
 
-    const imageHeightStyle =
+    const imageHeightStyle: React.CSSProperties | undefined =
         imageHeight != null
-            ? cssVariable("--answer-tile-image-height", `${imageHeight}px`)
+            ? {
+                  // @ts-expect-error TS2353: CSSProperties has no keys
+                  // for CSS custom properties.
+                  "--answer-tile-image-height": `${imageHeight}px`,
+              }
             : undefined;
 
     // A semantics-free root: the tile renders inside a ChoiceBank list
