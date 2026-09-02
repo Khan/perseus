@@ -33,20 +33,21 @@ export function placeTile(
     targetBlankId: string,
     tileUsage: TileUsage,
 ): TilePlacements {
-    const next: Record<string, string> = {};
-    for (const [blankId, placedTileId] of Object.entries(placements)) {
-        if (blankId === targetBlankId) {
-            continue;
-        }
-        if (blankId === move.fromBlankId) {
-            continue;
-        }
-        // A single-use tile can only be in one blank.
-        if (tileUsage === "single" && placedTileId === move.tileId) {
-            continue;
-        }
-        next[blankId] = placedTileId;
+    const next: Record<string, string> = {...placements};
+    // The tile leaves the blank it moves out of.
+    if (move.fromBlankId != null) {
+        delete next[move.fromBlankId];
     }
+    // A single-use tile can only be in one blank.
+    if (tileUsage === "single") {
+        for (const [blankId, placedTileId] of Object.entries(next)) {
+            if (placedTileId === move.tileId) {
+                delete next[blankId];
+            }
+        }
+    }
+    // The target's occupant, if any, is overwritten: it returns to
+    // the bank.
     next[targetBlankId] = move.tileId;
     return next;
 }
