@@ -336,7 +336,6 @@ class NumberLineEditor extends React.Component<Props> {
                 <div className="perseus-widget-row">
                     Style:{" "}
                     <ButtonGroup
-                        allowEmpty={false}
                         value={this.props.labelStyle}
                         buttons={labelStyleEditorButtons}
                         onChange={this.onLabelStyleChange}

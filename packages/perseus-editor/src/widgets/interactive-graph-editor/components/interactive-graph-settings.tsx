@@ -550,7 +550,6 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                 <LabeledRow label="Label Location">
                                     <ButtonGroup
                                         value={this.props.labelLocation}
-                                        allowEmpty={false}
                                         buttons={[
                                             {
                                                 value: "onAxis",
@@ -706,7 +705,6 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                 <LabeledRow label="Markings">
                                     <ButtonGroup
                                         value={this.props.markings}
-                                        allowEmpty={false}
                                         buttons={[
                                             {value: "axes", content: "Axes"},
                                             {value: "graph", content: "Graph"},

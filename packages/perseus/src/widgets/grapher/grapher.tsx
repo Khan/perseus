@@ -384,12 +384,6 @@ class Grapher extends React.Component<Props> implements Widget {
     };
 
     handleActiveTypeChange: (arg1: any) => any = (newType) => {
-        // Re-clicking the selected type button calls this handler with
-        // null (the ButtonGroup's "deselect" signal). A plot must always
-        // have a type, so ignore it.
-        if (newType == null) {
-            return;
-        }
         const {graph} = this.props.options;
         const plot = {
             ...this.props.userInput,
@@ -576,11 +570,6 @@ class Grapher extends React.Component<Props> implements Widget {
             <div style={typeSelectorStyle}>
                 <ButtonGroup
                     value={type}
-                    // NOTE: allowEmpty={false} would re-emit the current
-                    // type on a redundant click, and rebuilding the plot
-                    // for it silently resets the user's coords — guard
-                    // handleActiveTypeChange first if changing this.
-                    allowEmpty={true}
                     buttons={availableTypes.map(typeToButton)}
                     onChange={this.handleActiveTypeChange}
                 />

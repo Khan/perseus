@@ -76,8 +76,16 @@ describe("number-line-editor", () => {
     Object.entries(styles).forEach(([key, title]) => {
         it(`should be possible to update style: ${title}`, async () => {
             const onChangeMock = jest.fn();
+            // Start from a style other than the one being clicked;
+            // clicking the already-selected style is a no-op.
+            const initialStyle = key === "decimal" ? "improper" : "decimal";
 
-            render(<NumberLineEditor onChange={onChangeMock} />);
+            render(
+                <NumberLineEditor
+                    labelStyle={initialStyle}
+                    onChange={onChangeMock}
+                />,
+            );
 
             await userEvent.click(screen.getByTitle(title));
 

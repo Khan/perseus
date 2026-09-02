@@ -19,9 +19,6 @@ interface Props {
     // a function that is provided with the updated value (which it then is
     // responsible for updating)
     onChange: (value?: any) => unknown;
-    // if false, exactly one button _must_ be selected;
-    // defaults to true and _at most_ one button (0 or 1) may be selected.
-    allowEmpty: boolean;
 
     /**
      * Customizes the selected button's styling.
@@ -35,7 +32,6 @@ interface Props {
 }
 
 interface DefaultProps {
-    allowEmpty: Props["allowEmpty"];
     value: Props["value"];
 }
 
@@ -47,7 +43,6 @@ class ButtonGroup extends React.Component<Props> {
 
     static defaultProps: DefaultProps = {
         value: null,
-        allowEmpty: true,
     };
 
     componentWillUnmount() {
@@ -62,12 +57,11 @@ class ButtonGroup extends React.Component<Props> {
     }
 
     toggleSelect(newValue: any) {
-        const value = this.props.value;
-
-        if (this.props.allowEmpty) {
-            // Select the new button or unselect if it's already selected
-            this.props.onChange(value !== newValue ? newValue : null);
-        } else {
+        // Clicking the already-selected button is a no-op: exactly one
+        // button is always selected, so there is no deselected state to
+        // move to, and re-emitting the current value would make callers
+        // rebuild state the user already has.
+        if (this.props.value !== newValue) {
             this.props.onChange(newValue);
         }
     }
