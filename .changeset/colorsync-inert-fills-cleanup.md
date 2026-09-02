@@ -3,4 +3,4 @@
 "@khanacademy/math-input": patch
 ---
 
-Internal color cleanup: removes leftover invisible SVG fill colors, expresses the mobile cursor handle's drop shadow with a design-system shadow token (it may appear very slightly darker), and consolidates the fill used by invisible touch targets behind one named constant. No behavior changes.
+Internal color cleanup. The only visible change is that the shadow under the mobile keypad's cursor handle may appear very slightly darker.
