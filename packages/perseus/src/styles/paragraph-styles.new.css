@@ -51,8 +51,9 @@ p {
     line-height: var(--wb-font-body-lineHeight-small);
     text-align: left;
 }
+/* TODO: Verify that full-width is working as expected, once image styling is fixed */
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .paragraph.perseus-paragraph-full-width {
+    .renderer-new-ff .widget-full-width {
     margin-bottom: var(--wb-sizing-size_320);
     margin-left: 0;
     margin-right: 0;
