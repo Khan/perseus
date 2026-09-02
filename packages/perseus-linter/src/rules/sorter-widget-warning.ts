@@ -1,14 +1,11 @@
 import Rule from "../rule";
 
-// There's nothing to sort with fewer than two cards.
-const minCards = 2;
-const maxCards = 10;
-const maxHorizontalCards = 5;
+const maxIdealCards = 5;
 
 // eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
-    name: "sorter-widget-error",
-    severity: Rule.Severity.ERROR,
+    name: "sorter-widget-warning",
+    severity: Rule.Severity.WARNING,
     selector: "widget",
     lint: function (state, content, nodes, match, context) {
         // This rule only looks at sorter widgets
@@ -29,24 +26,11 @@ export default Rule.makeRule({
 
         const warnings: string[] = [];
         const correct: string[] = widget.options.correct ?? [];
-        const layout: "horizontal" | "vertical" = widget.options.layout;
 
-        if (correct.length < minCards) {
-            warnings.push(`Sorter requires at least ${minCards} cards.`);
-        }
-
-        if (correct.length > maxCards) {
-            warnings.push(`Sorter cannot have more than ${maxCards} cards.`);
-        }
-
-        if (layout === "horizontal" && correct.length > maxHorizontalCards) {
+        if (correct.length > maxIdealCards) {
             warnings.push(
-                `Sorter cannot have more than ${maxHorizontalCards} cards in horizontal layout.`,
+                `Having more than ${maxIdealCards} cards in Sorter is discouraged.`,
             );
-        }
-
-        if (correct.some((card) => card.trim() === "")) {
-            warnings.push("Sorter cards cannot be blank.");
         }
 
         return warnings.join("\n\n");
