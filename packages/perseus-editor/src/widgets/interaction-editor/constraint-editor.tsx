@@ -57,7 +57,6 @@ class ConstraintEditor extends React.Component<Props> {
                     Constraint:{" "}
                     <ButtonGroup
                         value={this.props.constraint}
-                        allowEmpty={false}
                         buttons={[
                             {value: "none", content: "None"},
                             {value: "snap", content: "Snap"},
