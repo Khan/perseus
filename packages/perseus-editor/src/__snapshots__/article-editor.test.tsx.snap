@@ -3,7 +3,7 @@
 exports[`ArticleEditor should match snapshot for editing disabled for all widgets 1`] = `
 <div>
   <div
-    class="framework-perseus wb-themed-math perseus-article-editor"
+    class="framework-perseus perseus-article-editor"
   >
     <div
       class="perseus-editor-table"

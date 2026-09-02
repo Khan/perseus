@@ -1005,8 +1005,7 @@ export class Graphie {
                 .css({
                     position: "absolute",
                     padding: (pad != null ? pad : 7) + "px",
-                    // Note: Theme aware as is; breaks if converted to a token
-                    color: "black",
+                    color: semanticColor.core.foreground.neutral.strong,
                 })
                 .data("labelDirection", direction)
                 .appendTo(this.el);

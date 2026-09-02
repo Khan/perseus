@@ -23,8 +23,7 @@ const SplitView = ({
 }: Props): React.ReactElement => {
     return (
         <View style={styles.sideBySide}>
-            {/* TODO(LEMS-4492): remove wb-themed-math */}
-            <View className="framework-perseus wb-themed-math">
+            <View className="framework-perseus">
                 <Heading size="large">{rendererTitle}</Heading>
                 {renderer}
             </View>

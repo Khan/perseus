@@ -13,6 +13,7 @@ export const articleRendererDecorator: Decorator = (
     return (
         <ArticleRenderer
             json={parameters.question!}
+            seed={0}
             dependencies={storybookDependenciesV2}
         />
     );
