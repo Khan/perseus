@@ -29,6 +29,8 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> &
         legacyPerseusLint?: ReadonlyArray<string>;
         keypadElement?: KeypadAPI | null | undefined;
         dependencies: PerseusDependenciesV2;
+        // the seed for deterministic shuffling (randomization)
+        seed: number;
     };
 
 type DefaultProps = {
@@ -204,9 +206,14 @@ class ArticleRenderer
         // identifier for each section. This should be fine as we never remove
         // or reorder sections.
         const sections = this._sections().map((section, sectionIndex) => {
+            const sectionSeed = this.props.seed + sectionIndex;
+
             return (
                 <div key={sectionIndex} className="clearfix">
-                    <UserInputManager widgets={section.widgets} problemNum={0}>
+                    <UserInputManager
+                        widgets={section.widgets}
+                        problemNum={sectionSeed}
+                    >
                         {({
                             userInput,
                             handleUserInput,
@@ -214,6 +221,7 @@ class ArticleRenderer
                         }) => (
                             <Renderer
                                 {...section}
+                                problemNum={sectionSeed}
                                 userInput={userInput}
                                 handleUserInput={handleUserInput}
                                 initializeUserInput={initializeUserInput}

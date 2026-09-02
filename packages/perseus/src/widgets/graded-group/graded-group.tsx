@@ -275,7 +275,7 @@ export class GradedGroup
                         userInput: UserInputMap,
                         widgetsEmpty: boolean,
                     ) => this._handleUserInput(userInput, widgetsEmpty)}
-                    problemNum={0}
+                    problemNum={this.props.problemNum ?? 0}
                 >
                     {({userInput, handleUserInput}) => (
                         <Renderer
@@ -284,7 +284,7 @@ export class GradedGroup
                             images={this.props.options.images}
                             userInput={userInput}
                             handleUserInput={handleUserInput}
-                            problemNum={0}
+                            problemNum={this.props.problemNum ?? 0}
                             ref={this.rendererRef}
                             keypadElement={this.props.keypadElement}
                             apiOptions={{...apiOptions, readOnly}}
@@ -367,7 +367,7 @@ export class GradedGroup
 
                             <UserInputManager
                                 widgets={this.props.options.hint.widgets}
-                                problemNum={0}
+                                problemNum={this.props.problemNum ?? 0}
                             >
                                 {({
                                     userInput,
