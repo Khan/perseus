@@ -1,3 +1,4 @@
+import {getWidgetIdsFromContentByType} from "@khanacademy/perseus-core";
 import classNames from "classnames";
 import * as React from "react";
 
@@ -5,7 +6,6 @@ import Renderer from "../../../renderer";
 import {usePerseusI18n} from "../../i18n-context";
 import {AnswerTile} from "../answer-tile";
 import {ChoiceBank} from "../choice-bank";
-import {bankDragId, placedDragId} from "../drag-ids";
 import {PerseusDndProvider} from "../perseus-dnd-provider";
 import {tempDndStrings as strings} from "../temp-strings";
 import {isTileInBank, remainingUses} from "../tile-placements";
@@ -54,33 +54,6 @@ export interface FillInTheBlankProps {
     filledBlankStyle?: "hug" | "fixed";
 }
 
-const BANK_DROP_ID = "fitb-choice-bank";
-const BLANK_MARKER = /\[\[☃ ([a-z-]+ [0-9]+)\]\]/g;
-
-/**
- * Blank ids in document order, limited to blanks in the widgets map.
- *
- * Exported because the Fill in the Blank *editor* has to number blanks exactly
- * as the learner meets them ("Blank 1", "Blank 2"…). Sharing this function
- * keeps the two numberings from ever disagreeing.
- *
- * TODO(LEMS-4371): Keep it shared when this component moves to
- * `widgets/fill-in-the-blank/` — the editor must not grow its own copy.
- */
-export function parseBlankIds(
-    content: string,
-    widgets: PerseusWidgetsMap,
-): string[] {
-    const ids: string[] = [];
-    for (const match of content.matchAll(BLANK_MARKER)) {
-        const id = match[1];
-        if (widgets[id]?.type === "blank" && !ids.includes(id)) {
-            ids.push(id);
-        }
-    }
-    return ids;
-}
-
 /**
  * FillInTheBlank is the render side of the upcoming Fill in the Blank
  * widget: an answer zone (content with inline blanks) above a choice
@@ -104,7 +77,13 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
     const {strings: i18nStrings} = usePerseusI18n();
 
     const blankIds = React.useMemo(
-        () => parseBlankIds(content, widgets),
+        // The Set removes repeats: one blank can appear twice in
+        // authored content.
+        () => [
+            ...new Set(
+                getWidgetIdsFromContentByType("blank", content, widgets),
+            ),
+        ],
         [content, widgets],
     );
     const blankLabels = React.useMemo(() => {
@@ -135,7 +114,6 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
         getTileLabel: (tileId) => tilesById.get(tileId)?.label ?? "",
         getBlankLabel: (blankId) => blankLabels[blankId],
         blankIds,
-        bankDropId: BANK_DROP_ID,
     });
 
     const bankTiles = tiles
@@ -149,24 +127,31 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
                 tileUsage,
                 maxUsesPerTile,
             );
-            return {
-                tileId: bankDragId(tile.id),
-                content: tile.content,
-                label: tile.label,
-                imageHeight: tile.imageHeight,
-                moveTargets: blankIds.map((blankId) => ({
-                    id: blankId,
-                    label: blankLabels[blankId],
-                })),
-                onMove: (targetId: string) =>
-                    handleMove({tileId: tile.id}, targetId, true),
-                remainingUses:
-                    tileUsage === "multi" && remaining != null
-                        ? remaining
-                        : undefined,
-                menuRef: index === 0 ? firstBankMenuRef : undefined,
-            };
+            return (
+                <AnswerTile
+                    key={tile.id}
+                    tileId={tile.id}
+                    content={tile.content}
+                    label={tile.label}
+                    imageHeight={tile.imageHeight}
+                    moveTargets={blankIds.map((blankId) => ({
+                        id: blankId,
+                        label: blankLabels[blankId],
+                    }))}
+                    onMove={(targetId) =>
+                        handleMove({tileId: tile.id}, targetId)
+                    }
+                    remainingUses={
+                        tileUsage === "multi" && remaining != null
+                            ? remaining
+                            : undefined
+                    }
+                    menuRef={index === 0 ? firstBankMenuRef : undefined}
+                />
+            );
         });
+
+    const isFixed = filledBlankStyle === "fixed";
 
     const getBlankRenderInfo = (
         blankId: string,
@@ -177,20 +162,21 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
         if (tile == null) {
             return {
                 placedTile: null,
-                placedTileId: null,
+                keepsWidthWhenFilled: isFixed,
                 widestTileWidth: maxWidth,
             };
         }
-        const dragId = placedDragId(blankId, tile.id);
         return {
             placedTile: (
                 <AnswerTile
-                    tileId={dragId}
+                    tileId={tile.id}
+                    fromBlankId={blankId}
                     content={tile.content}
                     label={tile.label}
                     imageHeight={tile.imageHeight}
-                    inBlank={true}
+                    hidesMenuAtRest={true}
                     compact={displayType !== "normal"}
+                    fillsBlank={isFixed && displayType === "normal"}
                     moveTargets={blankIds
                         .filter((id) => id !== blankId)
                         .map((id) => ({id, label: blankLabels[id]}))}
@@ -198,22 +184,22 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
                         handleMove(
                             {tileId: tile.id, fromBlankId: blankId},
                             targetId,
-                            true,
                         )
                     }
                     clearFromLabel={blankLabels[blankId]}
-                    onClear={() => handleClear(blankId, true)}
+                    onClear={() => handleClear(blankId)}
                     menuRef={placedMenuRef(blankId)}
                 />
             ),
-            placedTileId: dragId,
+            keepsWidthWhenFilled: isFixed,
             widestTileWidth: maxWidth,
         };
     };
 
-    // Tiles whose visible value is three characters or fewer keep the
-    // inline layout at all widths. The value is judged on the content
-    // with TeX delimiters stripped — not the label, which is
+    // Tiles with small values keep the inline layout at all widths.
+    // The size is judged on the TeX source with the delimiters
+    // stripped, so a long command ($\infty$) counts as long even
+    // though it renders one glyph. The label is not used: it is
     // screen-reader text and can be longer than what shows on the tile
     // (an empty tile shows "" but is labeled "empty").
     const smallValues = tiles.every(
@@ -222,10 +208,13 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
 
     // The hidden copy keeps every tile measurable. `inert` keeps its
     // controls out of the tab order and assistive tech.
-    const setMeasurementRef = (element: HTMLElement | null) => {
-        element?.setAttribute("inert", "");
-        containerRef(element);
-    };
+    const setMeasurementRef = React.useCallback(
+        (element: HTMLElement | null) => {
+            element?.setAttribute("inert", "");
+            containerRef(element);
+        },
+        [containerRef],
+    );
 
     return (
         <div className={styles.fillInTheBlank}>
@@ -234,11 +223,9 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
                     <div
                         className={classNames(
                             styles.answerZone,
-                            smallValues && styles.noReflow,
+                            (smallValues || filledBlankStyle === "fixed") &&
+                                styles.noReflow,
                         )}
-                        data-filled-blank-style={
-                            filledBlankStyle === "fixed" ? "fixed" : undefined
-                        }
                         style={
                             blankSizing === "gate" && !isMeasured
                                 ? {visibility: "hidden"}
@@ -252,11 +239,7 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
                         />
                     </div>
                 </FillInTheBlankContext.Provider>
-                <ChoiceBank
-                    label={strings.choices}
-                    answerTiles={bankTiles}
-                    bankId={BANK_DROP_ID}
-                />
+                <ChoiceBank label={strings.choices}>{bankTiles}</ChoiceBank>
             </PerseusDndProvider>
             <PerseusDndProvider>
                 <div

@@ -182,23 +182,26 @@ describe("FillInTheBlank", () => {
         ).not.toBeInTheDocument();
     });
 
-    it("marks the answer zone when filledBlankStyle is fixed", () => {
+    it("keeps a filled blank at its measured width when fixed", () => {
         // Arrange, Act
-        renderFillInTheBlank({filledBlankStyle: "fixed"});
+        renderFillInTheBlank({
+            tiles: drumTiles,
+            placements: {"blank 1": "djembe"},
+            filledBlankStyle: "fixed",
+        });
 
         const blank = screen.getAllByTestId("blank-widget")[0];
-        // eslint-disable-next-line testing-library/no-node-access -- The attribute is presentation plumbing on an element with no role.
-        const zone = blank.closest('[data-filled-blank-style="fixed"]');
-
-        expect(zone).not.toBeNull();
+        expect(blank.className).toContain("keepsWidth");
     });
 
-    it("does not mark the answer zone by default", () => {
+    it("lets a filled blank hug its tile by default", () => {
         // Arrange, Act
-        renderFillInTheBlank();
+        renderFillInTheBlank({
+            tiles: drumTiles,
+            placements: {"blank 1": "djembe"},
+        });
 
         const blank = screen.getAllByTestId("blank-widget")[0];
-        // eslint-disable-next-line testing-library/no-node-access -- The attribute is presentation plumbing on an element with no role.
-        expect(blank.closest("[data-filled-blank-style]")).toBeNull();
+        expect(blank.className).not.toContain("keepsWidth");
     });
 });

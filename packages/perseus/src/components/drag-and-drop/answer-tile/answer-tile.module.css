@@ -60,7 +60,8 @@
     box-shadow: none;
 }
 
-.disabled {
+/* A tile the learner left in the bank when the question was scored. */
+.unused {
     color: var(--wb-semanticColor-core-foreground-disabled-strong);
     box-shadow: none;
 }
@@ -81,11 +82,11 @@
 
 /* A placed tile hugs its value and hides its menu. Hover or focus
  * shows the menu, and the tile grows. */
-.inBlank:not(:hover):not(:focus-within) {
+.hidesMenuAtRest:not(:hover):not(:focus-within) {
     min-inline-size: 0;
 }
 
-.inBlank:not(:hover):not(:focus-within) .startContainer {
+.hidesMenuAtRest:not(:hover):not(:focus-within) .startContainer {
     min-inline-size: 0;
     inline-size: 0;
     margin-inline-end: 0;
@@ -93,12 +94,12 @@
     opacity: 0;
 }
 
-.inBlank:not(:hover):not(:focus-within) .content {
+.hidesMenuAtRest:not(:hover):not(:focus-within) .content {
     padding-inline-end: 0;
 }
 
 /* A tile that fills its blank, content at the start. The menu stays
- * visible (there is no .inBlank collapse). */
+ * visible (there is no .hidesMenuAtRest collapse). */
 .fillsBlank {
     flex-grow: 1;
     inline-size: 100%;
@@ -109,21 +110,9 @@
     justify-content: flex-start;
 }
 
-/* Fixed-width mode: the tile fills its blank and the text sits at the
- * start. The blank pins the width, so the menu reveal does not resize
- * the tile. Sub/superscript chips keep their compact behavior. */
-[data-filled-blank-style="fixed"] .inBlank:not(.compact) {
-    flex-grow: 1;
-    inline-size: 100%;
-}
-
-[data-filled-blank-style="fixed"] .inBlank:not(.compact) .content {
-    justify-content: flex-start;
-}
-
 /* A tile in a sub/superscript blank rests as a small value chip.
  * Hover or focus restores the full size, which makes room for the
- * menu. These rules must come after the .inBlank rules. */
+ * menu. These rules must come after the .hidesMenuAtRest rules. */
 .compact:not(:hover):not(:focus-within) {
     min-block-size: 28px;
     min-inline-size: 26px;
@@ -158,7 +147,7 @@
      * past this limit. Content never scrolls. */
     max-inline-size: 200px;
     padding-inline-end: var(--wb-sizing-size_060);
-    /* The rendered markdown inherits the scored or disabled text color. */
+    /* The rendered markdown inherits the scored text color. */
     color: inherit;
 }
 
@@ -170,20 +159,24 @@
 
 /* Narrow mode: a placed tile fills its blank, content at the start. */
 @container fitb-answer-zone (width < 504px) {
-    .inBlank {
+    .hidesMenuAtRest {
         flex-grow: 1;
     }
 
-    .inBlank .content {
+    .hidesMenuAtRest .content {
         justify-content: flex-start;
     }
 }
 
-/* The renderer puts content in .paragraph divs. Perseus gives those
- * divs global page styles: Lato 18px and 22px vertical margins. The
- * tile owns its own typography, so we remove those styles here. The
- * .tile prefix makes this selector win against the global one. */
+/* The renderer puts content in .paragraph divs, and Perseus gives
+ * those divs global page styles (article paragraphs set their own font
+ * and color). The tile owns its typography, so we remove those styles
+ * here. The global sheets sit in the perseus-legacy cascade layer, so
+ * this rule wins wherever it is loaded. Color needs an explicit
+ * declaration: a scored tile sets its color on the tile, and an
+ * inherited value loses to any rule that names the paragraph. */
 .tile .content :global(div.paragraph) {
     margin: 0;
     font: inherit;
+    color: inherit;
 }

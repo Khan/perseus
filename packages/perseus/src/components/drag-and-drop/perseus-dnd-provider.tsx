@@ -6,25 +6,10 @@ import type {Draggable} from "@dnd-kit/dom";
 import type {DragEndEvent} from "@dnd-kit/react";
 
 /**
- * Dragging is a pointer-device interaction (mouse and touch): keyboard and
- * screen-reader users move tiles through each tile's DndActionMenu, which
- * is the single-pointer, non-dragging alternative WCAG 2.5.7 requires.
- * Two dnd-kit defaults are therefore overridden:
- *
- * - Sensors: only the PointerSensor. dnd-kit's KeyboardSensor would add a
- *   second, competing keyboard path.
- * - Plugins: dnd-kit's Accessibility plugin is removed. It would make
- *   every tile a focusable `role="button"` (an invalid nested control
- *   around the menu's real button) and speak keyboard-drag instructions
- *   for a mode that is off. Move announcements are instead the widget's
- *   job, through the Wonder Blocks Announcer, for the drag path and the
- *   menu path alike — one owner per event.
- */
-/**
- * Sets when a press becomes a drag. A mouse press on the menu button
- * becomes a drag only after 5px of movement, so a still click opens
- * the menu. Touch starts a drag on long-press. Other presses drag on
- * move or hold.
+ * Sets when a press becomes a drag. A mouse or pen press on the menu
+ * button becomes a drag only after 5px of movement, so a still press
+ * opens the menu. Touch starts a drag on long-press. Other presses
+ * drag on move or hold.
  */
 function activationConstraints(event: PointerEvent, source: Draggable) {
     const {pointerType, target} = event;
@@ -33,11 +18,7 @@ function activationConstraints(event: PointerEvent, source: Draggable) {
             new PointerActivationConstraints.Delay({value: 250, tolerance: 5}),
         ];
     }
-    if (
-        pointerType === "mouse" &&
-        target instanceof Element &&
-        target.closest("button") != null
-    ) {
+    if (target instanceof Element && target.closest("button") != null) {
         return [new PointerActivationConstraints.Distance({value: 5})];
     }
     return [
@@ -46,12 +27,31 @@ function activationConstraints(event: PointerEvent, source: Draggable) {
     ];
 }
 
+/**
+ * Sets which presses can never become a drag. dnd-kit's default blocks
+ * every interactive element, but the menu button must be able to start
+ * a drag. Other interactive content keeps the guard: tile content is
+ * rendered markdown and can hold a link, and a press there must stay
+ * a click.
+ */
+function preventActivation(event: PointerEvent) {
+    const {target} = event;
+    if (!(target instanceof Element)) {
+        return false;
+    }
+    if (target.closest("button") != null) {
+        return false;
+    }
+    return (
+        target.closest("a, input, textarea, select, [contenteditable=true]") !=
+        null
+    );
+}
+
 const SENSORS = [
     PointerSensor.configure({
         activationConstraints,
-        // dnd-kit blocks presses on buttons by default; the menu button
-        // must be able to start a drag.
-        preventActivation: () => false,
+        preventActivation,
     }),
 ];
 
@@ -81,6 +81,20 @@ type Props = {
  * widget family renders around its draggables and droppables. Each widget
  * instance mounts its own provider, so drag state never leaks between two
  * widgets on one page.
+ *
+ * Dragging is a pointer-device interaction (mouse and touch): keyboard and
+ * screen-reader users move tiles through each tile's DndActionMenu, which
+ * is the single-pointer, non-dragging alternative WCAG 2.5.7 requires.
+ * Two dnd-kit defaults are therefore overridden:
+ *
+ * - Sensors: only the PointerSensor. dnd-kit's KeyboardSensor would add a
+ *   second, competing keyboard path.
+ * - Plugins: dnd-kit's Accessibility plugin is removed. It would make
+ *   every tile a focusable `role="button"` (an invalid nested control
+ *   around the menu's real button) and speak keyboard-drag instructions
+ *   for a mode that is off. Move announcements are instead the widget's
+ *   job, through the Wonder Blocks Announcer, for the drag path and the
+ *   menu path alike — one owner per event.
  */
 export const PerseusDndProvider = (props: Props) => {
     return (

@@ -7,6 +7,7 @@ import {
     testDependenciesV2,
 } from "../../testing/test-dependencies";
 
+import {AnswerTile} from "./answer-tile";
 import {generateAnswerTileProps} from "./answer-tile/answer-tile.testdata";
 import {ChoiceBank} from "./choice-bank";
 
@@ -23,10 +24,9 @@ describe("ChoiceBank", () => {
     it("names the tile list with the label", () => {
         // Arrange, Act
         render(
-            <ChoiceBank
-                label="Options"
-                answerTiles={[generateAnswerTileProps()]}
-            />,
+            <ChoiceBank label="Options">
+                <AnswerTile {...generateAnswerTileProps()} />
+            </ChoiceBank>,
         );
 
         expect(screen.getByRole("list", {name: "Options"})).toBeInTheDocument();
@@ -34,16 +34,23 @@ describe("ChoiceBank", () => {
 
     it("renders each tile as its own list item", () => {
         // Arrange
-        const answerTiles = ["one", "two", "three"].map((value, index) =>
-            generateAnswerTileProps({
-                tileId: `tile-${index}`,
-                content: value,
-                label: value,
-            }),
-        );
+        const values = ["one", "two", "three"];
 
         // Act
-        render(<ChoiceBank label="Choices" answerTiles={answerTiles} />);
+        render(
+            <ChoiceBank label="Choices">
+                {values.map((value, index) => (
+                    <AnswerTile
+                        key={value}
+                        {...generateAnswerTileProps({
+                            tileId: `tile-${index}`,
+                            content: value,
+                            label: value,
+                        })}
+                    />
+                ))}
+            </ChoiceBank>,
+        );
 
         expect(screen.getAllByRole("listitem")).toHaveLength(3);
     });
@@ -51,15 +58,14 @@ describe("ChoiceBank", () => {
     it("renders the tiles' content", () => {
         // Arrange, Act
         render(
-            <ChoiceBank
-                label="Choices"
-                answerTiles={[
-                    generateAnswerTileProps({
+            <ChoiceBank label="Choices">
+                <AnswerTile
+                    {...generateAnswerTileProps({
                         content: "Numerator",
                         label: "Numerator",
-                    }),
-                ]}
-            />,
+                    })}
+                />
+            </ChoiceBank>,
         );
 
         expect(screen.getByText("Numerator")).toBeInTheDocument();
@@ -69,7 +75,7 @@ describe("ChoiceBank", () => {
     // Guards that it still renders as a named list without crashing.
     it("renders an empty bank once all tiles are placed", () => {
         // Arrange, Act
-        render(<ChoiceBank label="Choices" answerTiles={[]} />);
+        render(<ChoiceBank label="Choices" />);
 
         expect(screen.getByRole("list", {name: "Choices"})).toBeInTheDocument();
         expect(screen.queryAllByRole("listitem")).toHaveLength(0);

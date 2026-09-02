@@ -20,7 +20,7 @@ describe("Blank Widget", function () {
         renderQuestion(superscriptQuestion);
 
         expect(screen.getByTestId("blank-widget").className).toContain(
-            "super-sub",
+            "superSub",
         );
     });
 
@@ -29,7 +29,7 @@ describe("Blank Widget", function () {
         renderQuestion(basicBlankQuestion);
 
         expect(screen.getByTestId("blank-widget").className).not.toContain(
-            "super-sub",
+            "superSub",
         );
     });
 });

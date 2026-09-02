@@ -27,17 +27,13 @@ describe("BlankComponent", () => {
             />,
         );
 
-        expect(screen.getByTestId("blank").className).toContain("super-sub");
+        expect(screen.getByTestId("blank").className).toContain("superSub");
     });
 
     it("renders the placed tile", () => {
         // Arrange, Act
         render(
-            <BlankComponent
-                blankId="blank-1"
-                displayType="normal"
-                placedTileId="tile-1"
-            >
+            <BlankComponent blankId="blank-1" displayType="normal">
                 <span>Bongo</span>
             </BlankComponent>,
         );
@@ -51,7 +47,6 @@ describe("BlankComponent", () => {
             <BlankComponent
                 blankId="blank-1"
                 displayType="normal"
-                placedTileId="tile-1"
                 testId="blank"
             >
                 <span>Bongo</span>
@@ -68,7 +63,6 @@ describe("BlankComponent", () => {
             <BlankComponent
                 blankId="blank-1"
                 displayType="normal"
-                placedTileId="tile-1"
                 minWidth={120}
                 testId="blank"
             >

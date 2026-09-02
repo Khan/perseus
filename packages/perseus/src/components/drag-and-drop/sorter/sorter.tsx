@@ -4,7 +4,6 @@ import * as React from "react";
 import {AnswerTile} from "../answer-tile";
 import {BlankComponent} from "../blank";
 import {ChoiceBank} from "../choice-bank";
-import {bankDragId, placedDragId} from "../drag-ids";
 import {PerseusDndProvider} from "../perseus-dnd-provider";
 import {tempDndStrings as strings} from "../temp-strings";
 import {isTileInBank} from "../tile-placements";
@@ -33,7 +32,9 @@ export type SorterLegend = {
     /**
      * Side of the blanks the legend renders on, in the block direction.
      * The default is "end" (below a horizontal row). A staggered
-     * timeline (5+ blanks) ignores it: the axis runs through the middle.
+     * timeline (5+ blanks) ignores it — the axis runs through the
+     * middle — and the vertical layout ignores it: the legend always
+     * runs down the start side.
      */
     position?: "start" | "end";
 };
@@ -53,7 +54,6 @@ export interface SorterProps {
     onPlacementsChange: (next: TilePlacements) => void;
 }
 
-const BANK_DROP_ID = "sorter-choice-bank";
 /** Space between slots, matched by --sorter-gap in the CSS. */
 const SLOT_GAP = 16;
 /**
@@ -113,7 +113,6 @@ export function Sorter(props: SorterProps): React.ReactElement {
         getTileLabel: (tileId) => tilesById.get(tileId)?.label ?? "",
         getBlankLabel: (blankId) => blankLabels[blankId],
         blankIds,
-        bankDropId: BANK_DROP_ID,
     });
 
     // Fall back to vertical when the horizontal row cannot house every
@@ -138,9 +137,10 @@ export function Sorter(props: SorterProps): React.ReactElement {
     let requiredWidth: number | undefined;
     if (minSlotWidth != null) {
         requiredWidth = isStaggered
-            ? // Staggered slots span 2 of the grid's count+1 columns, so
-              // each column must be half the minimum slot width.
-              (minSlotWidth / 2) * (count + 1) + SLOT_GAP * count
+            ? // Staggered slots span 2 of the grid's count+1 gapless
+              // columns and pad half a gap on each side, so each column
+              // must be half of (slot + gap).
+              ((minSlotWidth + SLOT_GAP) / 2) * (count + 1)
             : minSlotWidth * count + SLOT_GAP * (count - 1);
     }
     const isVertical =
@@ -151,37 +151,37 @@ export function Sorter(props: SorterProps): React.ReactElement {
 
     const bankTiles = tiles
         .filter((tile) => isTileInBank(placements, tile.id, "single"))
-        .map((tile, index) => ({
-            tileId: bankDragId(tile.id),
-            content: tile.content,
-            label: tile.label,
-            moveTargets: blankIds.map((blankId) => ({
-                id: blankId,
-                label: blankLabels[blankId],
-            })),
-            onMove: (targetId: string) =>
-                handleMove({tileId: tile.id}, targetId, true),
-            menuRef: index === 0 ? firstBankMenuRef : undefined,
-        }));
+        .map((tile, index) => (
+            <AnswerTile
+                key={tile.id}
+                tileId={tile.id}
+                content={tile.content}
+                label={tile.label}
+                moveTargets={blankIds.map((blankId) => ({
+                    id: blankId,
+                    label: blankLabels[blankId],
+                }))}
+                onMove={(targetId) => handleMove({tileId: tile.id}, targetId)}
+                menuRef={index === 0 ? firstBankMenuRef : undefined}
+            />
+        ));
 
     const renderSlot = (blankId: string) => {
         const tileId = placements[blankId];
         const tile = tileId != null ? tilesById.get(tileId) : undefined;
-        const dragId =
-            tile != null ? placedDragId(blankId, tile.id) : undefined;
         return (
             <BlankComponent
                 blankId={blankId}
                 displayType="normal"
-                placedTileId={dragId}
                 minWidth={
                     variant === "scale" && !isVertical ? maxWidth : undefined
                 }
                 className={styles.slot}
             >
-                {tile != null && dragId != null && (
+                {tile != null && (
                     <AnswerTile
-                        tileId={dragId}
+                        tileId={tile.id}
+                        fromBlankId={blankId}
                         content={tile.content}
                         label={tile.label}
                         fillsBlank={true}
@@ -192,11 +192,10 @@ export function Sorter(props: SorterProps): React.ReactElement {
                             handleMove(
                                 {tileId: tile.id, fromBlankId: blankId},
                                 targetId,
-                                true,
                             )
                         }
                         clearFromLabel={blankLabels[blankId]}
-                        onClear={() => handleClear(blankId, true)}
+                        onClear={() => handleClear(blankId)}
                         menuRef={placedMenuRef(blankId)}
                     />
                 )}
@@ -358,20 +357,19 @@ export function Sorter(props: SorterProps): React.ReactElement {
 
     // The hidden copy keeps every tile measurable. `inert` keeps its
     // controls out of the tab order and assistive tech.
-    const setMeasurementRef = (element: HTMLElement | null) => {
-        element?.setAttribute("inert", "");
-        containerRef(element);
-    };
+    const setMeasurementRef = React.useCallback(
+        (element: HTMLElement | null) => {
+            element?.setAttribute("inert", "");
+            containerRef(element);
+        },
+        [containerRef],
+    );
 
     return (
         <div className={styles.sorter} ref={rootRef}>
             <PerseusDndProvider onDragEnd={handleDragEnd}>
                 {slotArea}
-                <ChoiceBank
-                    label={strings.choices}
-                    answerTiles={bankTiles}
-                    bankId={BANK_DROP_ID}
-                />
+                <ChoiceBank label={strings.choices}>{bankTiles}</ChoiceBank>
             </PerseusDndProvider>
             <PerseusDndProvider>
                 <div

@@ -24,7 +24,7 @@ export type MoveTarget = {
 
 export interface DndActionMenuProps {
     /** The tile's value — labels the button via aria-label. */
-    label: string;
+    tileLabel: string;
     /**
      * Remaining uses for a multi-use tile. When provided, it is spoken as
      * part of the opener's description ("5 remaining. Actions menu").
@@ -37,19 +37,13 @@ export interface DndActionMenuProps {
     /** Called with the target blank's id when a move action is selected. */
     onMove: (targetId: string) => void;
     /**
-     * Visible label (not the id) of the blank/column the tile currently
-     * sits in, e.g. "Blank 1" — named for where it's spoken: the clear
-     * action's "Clear from Blank 1". Omit for a tile in the choice bank.
+     * The blank's visible label, e.g. "Blank 1", spoken as "Clear from
+     * Blank 1". Pass it with onClear for a tile that sits in a blank;
+     * omit both for a tile in the choice bank.
      */
     clearFromLabel?: string;
-    /**
-     * Callback for removing the tile from its blank. May be passed
-     * unconditionally; the clear action only renders when clearFromLabel
-     * is also present (i.e. the tile is placed).
-     */
+    /** Called when the Clear action is selected. */
     onClear?: () => void;
-    /** Scored/unused tiles. */
-    disabled: boolean;
 }
 
 /**
@@ -65,13 +59,12 @@ export const DndActionMenu = React.forwardRef<
     DndActionMenuProps
 >(function DndActionMenu(props, ref): React.ReactElement {
     const {
-        label,
+        tileLabel,
         remainingUses,
         moveTargets,
         onMove,
         clearFromLabel,
         onClear,
-        disabled,
     } = props;
 
     const descriptionId = useId();
@@ -81,32 +74,43 @@ export const DndActionMenu = React.forwardRef<
             ? `${strings.menuRemaining({num: remainingUses})} ${strings.actionsMenu}`
             : strings.actionsMenu;
 
-    const showClearAction = onClear != null && clearFromLabel != null;
+    const menuItems: React.ReactElement[] = [];
 
-    const menuItems = [
-        // ActionMenu has no header slot, so the visual-only "Move to" header
-        // rides along as an extra child. ActionMenu clones every child with
-        // an injected role="menuitem" and onClick, so the span must be
-        // aria-hidden (keeps it out of the accessibility tree — the spoken
-        // phrasing lives in each item's aria-label instead) and the CSS sets
-        // pointer-events: none (defuses the injected click handler).
-        <span key="header" aria-hidden="true" className={styles.menuHeader}>
-            {strings.moveTo}
-        </span>,
-        ...moveTargets.map((target) => (
-            <ActionItem
-                key={target.id}
-                label={target.label}
-                aria-label={strings.moveToTarget({target: target.label})}
-                onClick={() => onMove(target.id)}
-                style={menuItemStyle}
-            />
-        )),
-    ];
-
-    if (showClearAction) {
+    if (moveTargets.length > 0) {
         menuItems.push(
-            <SeparatorItem key="separator" />,
+            // ActionMenu has no header slot, so the visual-only "Move to"
+            // header rides along as an extra child. ActionMenu clones every
+            // child with an injected role="menuitem" and onClick, so the span
+            // must be aria-hidden (keeps it out of the accessibility tree —
+            // the spoken phrasing lives in each item's aria-label instead).
+            // The CSS sets pointer-events: none, and the inner span stops
+            // bubbling clicks, so the injected handler never fires — it
+            // would throw inside the dropdown.
+            <span key="header" aria-hidden="true" className={styles.menuHeader}>
+                <span
+                    aria-hidden="true"
+                    onClick={(event) => event.stopPropagation()}
+                >
+                    {strings.moveTo}
+                </span>
+            </span>,
+            ...moveTargets.map((target) => (
+                <ActionItem
+                    key={target.id}
+                    label={target.label}
+                    aria-label={strings.moveToTarget({target: target.label})}
+                    onClick={() => onMove(target.id)}
+                    style={menuItemStyle}
+                />
+            )),
+        );
+    }
+
+    if (clearFromLabel != null && onClear != null) {
+        if (menuItems.length > 0) {
+            menuItems.push(<SeparatorItem key="separator" />);
+        }
+        menuItems.push(
             <ActionItem
                 key="clear"
                 label={strings.clear}
@@ -117,11 +121,9 @@ export const DndActionMenu = React.forwardRef<
         );
     }
 
-    // With nothing to move to and nothing to clear, the menu would
-    // contain only the decorative header. While an unlikely situation,
-    // this simply ensures that the button is disabled in such an instance.
-    const hasActions = moveTargets.length > 0 || showClearAction;
-    const isDisabled = disabled || !hasActions;
+    // With nothing to move to and nothing to clear, the button is
+    // disabled instead of opening an empty menu.
+    const isDisabled = menuItems.length === 0;
 
     return (
         <>
@@ -141,21 +143,23 @@ export const DndActionMenu = React.forwardRef<
             <ActionMenu
                 // menuText here is required but unused, as we are using
                 // a custom opener with a button instead.
-                menuText={label}
+                menuText={tileLabel}
                 disabled={isDisabled}
                 // The spec places the menu above a bank tile and below a
                 // placed tile; "auto" deviates deliberately, flipping on
                 // available space so the menu never opens off-screen.
                 alignment="auto-start"
-                // The design's 160px minimum width, in rem so it scales
-                // with the user's font size. Long labels still widen the
-                // menu. No sizing token reaches this scale.
-                dropdownStyle={{minInlineSize: "10rem"}}
+                // The design's 160px minimum width. The unit is rem so
+                // the menu scales with the user's font size; the root
+                // font size is 10px here, as the Wonder Blocks sizing
+                // tokens also assume. Long labels still widen the menu.
+                // No sizing token reaches this scale.
+                dropdownStyle={{minInlineSize: "16rem"}}
                 opener={() => (
                     <MergedRefOpener
                         openerRef={ref}
                         disabled={isDisabled}
-                        aria-label={label}
+                        aria-label={tileLabel}
                         aria-describedby={descriptionId}
                         className={styles.opener}
                     >

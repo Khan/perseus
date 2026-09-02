@@ -4,8 +4,11 @@ import * as React from "react";
 export type BlankRenderInfo = {
     /** The placed AnswerTile, or null when the blank is empty. */
     placedTile: React.ReactNode;
-    /** Drag id of the placed tile instance. Null when the blank is empty. */
-    placedTileId: string | null;
+    /**
+     * Keeps the blank at its empty width when a tile is placed. The
+     * "fixed" treatment sets it; "hug" does not.
+     */
+    keepsWidthWhenFilled: boolean;
     /**
      * Width of the widest answer tile, in pixels. Empty normal blanks
      * use it as their minimum width, so the slot does not reveal the
@@ -14,7 +17,7 @@ export type BlankRenderInfo = {
     widestTileWidth: number | undefined;
 };
 
-export type FillInTheBlankContextValue = {
+type FillInTheBlankContextValue = {
     getBlankRenderInfo: (
         blankId: string,
         displayType: "normal" | "superscript" | "subscript",

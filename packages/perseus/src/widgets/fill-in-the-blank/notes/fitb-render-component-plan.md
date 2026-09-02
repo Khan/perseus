@@ -13,8 +13,7 @@
 > (FITB spec summary). Behavior source of truth:
 > [Overview](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4711973105/Overview) +
 > [Fill in the Blank](https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4711972976/Fill+in+the+Blank)
-> in Confluence, and the
-> the internal Drag-and-Drop Widgets Figma file.
+> in Confluence, and the internal Drag-and-Drop Widgets Figma file.
 >
 > Scope note: this plan considers **FITB and Sorter** only. Categorizer /
 > Composer are out of scope for now; revisit the placement transitions when
