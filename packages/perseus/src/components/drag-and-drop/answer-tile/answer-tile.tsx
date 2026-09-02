@@ -151,28 +151,46 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
         }
         if (scoring == null) {
             return (
-                <DndActionMenu
-                    ref={menuRef}
-                    tileLabel={label}
-                    moveTargets={moveTargets}
-                    onMove={onMove}
-                    clearFromLabel={clearFromLabel}
-                    onClear={onClear}
-                    remainingUses={remainingUses}
-                />
+                <div className={styles.startContainer}>
+                    <DndActionMenu
+                        ref={menuRef}
+                        tileLabel={label}
+                        moveTargets={moveTargets}
+                        onMove={onMove}
+                        clearFromLabel={clearFromLabel}
+                        onClear={onClear}
+                        remainingUses={remainingUses}
+                    />
+                </div>
             );
         }
         // The icon is decoration: the widget announces the result to
         // screen readers, not the tile.
         return (
-            <PhosphorIcon
-                aria-hidden="true"
-                icon={scoredIcons[scoring]}
-                size="medium"
+            <div className={styles.startContainer}>
+                <PhosphorIcon
+                    aria-hidden="true"
+                    icon={scoredIcons[scoring]}
+                    size="medium"
+                />
+            </div>
+        );
+    };
+
+    // The tile face: the authored markdown or, for an empty tile, a
+    // spoken value alone.
+    const renderTileContent = () => {
+        if (isEmpty) {
+            return <span className={a11yStyles.srOnly}>{label}</span>;
+        }
+        return (
+            <Renderer
+                content={content}
+                strings={strings}
+                onRender={onContentRender}
             />
         );
     };
-    const tileStart = renderTileStart();
 
     const imageHeightStyle: React.CSSProperties | undefined =
         imageHeight != null
@@ -188,21 +206,8 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
     // semantics belong to those containers, not the tile.
     return (
         <div className={tileClasses} style={imageHeightStyle} ref={dragRef}>
-            {tileStart != null && (
-                <div className={styles.startContainer}>{tileStart}</div>
-            )}
-            <div className={styles.content}>
-                {isEmpty ? (
-                    // An empty tile must have a spoken value.
-                    <span className={a11yStyles.srOnly}>{label}</span>
-                ) : (
-                    <Renderer
-                        content={content}
-                        strings={strings}
-                        onRender={onContentRender}
-                    />
-                )}
-            </div>
+            {renderTileStart()}
+            <div className={styles.content}>{renderTileContent()}</div>
         </div>
     );
 }
