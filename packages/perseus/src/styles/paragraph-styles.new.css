@@ -59,9 +59,10 @@ p {
     margin-right: 0;
     max-width: none;
 }
+/* TODO: Verify with image widget folks whether caption paragraphs should be full width */
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .paragraph.perseus-paragraph-full-width
-    > .paragraph {
+    .renderer-new-ff .widget-full-width
+    p {
     margin: 0;
     max-width: none;
 }
