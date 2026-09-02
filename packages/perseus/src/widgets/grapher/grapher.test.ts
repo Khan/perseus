@@ -78,6 +78,27 @@ describe("grapher widget", () => {
         });
     });
 
+    it("does not log an error when the selected type button is clicked again", async () => {
+        // Arrange
+        const user = userEvent.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+        const consoleErrorSpy = jest
+            .spyOn(console, "error")
+            .mockImplementation(() => {});
+        renderQuestion(multipleAvailableTypesQuestion);
+        await waitForInitialGraphieRender();
+
+        const linearButton = screen.getByRole("button", {name: "Linear"});
+        await user.click(linearButton);
+
+        // Act
+        await user.click(linearButton);
+
+        // Assert
+        expect(consoleErrorSpy).not.toHaveBeenCalled();
+    });
+
     it("should send analytics event when widget is rendered", () => {
         // Arrange
         const onAnalyticsEventSpy = jest.fn();
