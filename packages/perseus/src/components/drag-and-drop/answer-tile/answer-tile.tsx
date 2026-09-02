@@ -95,36 +95,36 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
         scoring != null && styles[scoring],
     );
 
-    // What the tile leads with, one branch per scoring state.
+    // What the tile leads with. The menu is the normal state; scoring
+    // replaces it with a result icon, or with nothing for an unused
+    // tile, which has no action to offer and no result to report.
     const renderTileStart = () => {
-        // An unused tile leads with nothing: it has no action to offer
-        // and no result to report.
         if (scoring === "unused") {
             return null;
         }
-        if (scoring == null) {
+        if (scoring != null) {
+            // The icon is decoration: the widget announces the result
+            // to screen readers, not the tile.
             return (
                 <div className={styles.startContainer}>
-                    <DndActionMenu
-                        ref={menuRef}
-                        tileLabel={label}
-                        moveTargets={moveTargets}
-                        onMove={onMove}
-                        clearFromLabel={clearFromLabel}
-                        onClear={onClear}
-                        remainingUses={remainingUses}
+                    <PhosphorIcon
+                        aria-hidden="true"
+                        icon={scoredIcons[scoring]}
+                        size="medium"
                     />
                 </div>
             );
         }
-        // The icon is decoration: the widget announces the result to
-        // screen readers, not the tile.
         return (
             <div className={styles.startContainer}>
-                <PhosphorIcon
-                    aria-hidden="true"
-                    icon={scoredIcons[scoring]}
-                    size="medium"
+                <DndActionMenu
+                    ref={menuRef}
+                    tileLabel={label}
+                    moveTargets={moveTargets}
+                    onMove={onMove}
+                    clearFromLabel={clearFromLabel}
+                    onClear={onClear}
+                    remainingUses={remainingUses}
                 />
             </div>
         );
