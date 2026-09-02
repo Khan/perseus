@@ -57,10 +57,6 @@ class ButtonGroup extends React.Component<Props> {
     }
 
     toggleSelect(newValue: any) {
-        // Clicking the already-selected button is a no-op: exactly one
-        // button is always selected, so there is no deselected state to
-        // move to, and re-emitting the current value would make callers
-        // rebuild state the user already has.
         if (this.props.value !== newValue) {
             this.props.onChange(newValue);
         }

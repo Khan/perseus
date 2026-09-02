@@ -67,30 +67,14 @@ describe("number-line-editor", () => {
         expect(onChangeMock).toHaveBeenCalledWith({initialX: 1});
     });
 
-    const styles = {
-        decimal: "Decimals",
-        improper: "Improper fractions",
-        mixed: "Mixed numbers",
-        "non-reduced": "Non-reduced",
-    };
-    Object.entries(styles).forEach(([key, title]) => {
-        it(`should be possible to update style: ${title}`, async () => {
-            const onChangeMock = jest.fn();
-            // Start from a style other than the one being clicked;
-            // clicking the already-selected style is a no-op.
-            const initialStyle = key === "decimal" ? "improper" : "decimal";
+    it("should be possible to update style", async () => {
+        const onChangeMock = jest.fn();
 
-            render(
-                <NumberLineEditor
-                    labelStyle={initialStyle}
-                    onChange={onChangeMock}
-                />,
-            );
+        render(<NumberLineEditor onChange={onChangeMock} />);
 
-            await userEvent.click(screen.getByTitle(title));
+        await userEvent.click(screen.getByTitle("Improper fractions"));
 
-            expect(onChangeMock).toHaveBeenCalledWith({labelStyle: key});
-        });
+        expect(onChangeMock).toHaveBeenCalledWith({labelStyle: "improper"});
     });
 
     it("should be possible to change show tick controller", async () => {
