@@ -1,5 +1,37 @@
 # @khanacademy/perseus
 
+## 86.0.0
+
+### Major Changes
+
+-   [#4164](https://github.com/Khan/perseus/pull/4164) [`c0345f1`](https://github.com/Khan/perseus/commit/c0345f1f9f151914110d47fdf5b1f811d4cbbff3) Thanks [@benchristel](https://github.com/benchristel)! - The temporary `wb-themed-math` class has been removed. Clients must now use `@khanacademy/mathjax-renderer` 3.2.0 or later with Perseus.
+
+-   [#4165](https://github.com/Khan/perseus/pull/4165) [`771abcc`](https://github.com/Khan/perseus/commit/771abcc097cd95ce83ea0e478f87836f9227312c) Thanks [@handeyeco](https://github.com/handeyeco)! - Add a required `seed` prop to ArticleRenderer to make sure things shuffle correctly.
+
+### Patch Changes
+
+-   [#4154](https://github.com/Khan/perseus/pull/4154) [`d8a833c`](https://github.com/Khan/perseus/commit/d8a833cf55776966ca63c6cd8d78d4949abf7f83) Thanks [@Myranae](https://github.com/Myranae)! - Removes unused color constants and unused interactive graph code. No visible changes to exercises or articles; if your code imports rarely-used entries from Perseus's `KhanColors`, some are no longer available.
+
+-   [#4146](https://github.com/Khan/perseus/pull/4146) [`bc99235`](https://github.com/Khan/perseus/commit/bc99235dae2e89da7bc8dd04704fcf89e468c073) Thanks [@benchristel](https://github.com/benchristel)! - Internal: remove `shouldComponentUpdate` methods that just check shallow equality of props and state
+
+-   [#4158](https://github.com/Khan/perseus/pull/4158) [`1f6424a`](https://github.com/Khan/perseus/commit/1f6424a4a34123a1e9609ae8499ac6e8138c589d) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Adding new dnd-widget-fitb flag
+
+-   [#4153](https://github.com/Khan/perseus/pull/4153) [`53a77dd`](https://github.com/Khan/perseus/commit/53a77ddca87eea74e6fd544e44f7b8c8a24fed4e) Thanks [@Myranae](https://github.com/Myranae)! - Interactive graph shadows and a few remaining colors now follow the Khan Academy theme, including dark mode
+
+-   [#4156](https://github.com/Khan/perseus/pull/4156) [`a732531`](https://github.com/Khan/perseus/commit/a732531a3a653f7fdc668c61ee1a699e789aa168) Thanks [@Myranae](https://github.com/Myranae)! - Converts the last hardcoded white/off-white colors in the shared responsive input and radio styles to theme-aware semantic color tokens. No visible changes to exercises or articles.
+
+-   [#4157](https://github.com/Khan/perseus/pull/4157) [`afcc17c`](https://github.com/Khan/perseus/commit/afcc17c844f0f08f9704042a79eb3d458ea01224) Thanks [@Myranae](https://github.com/Myranae)! - The multi-select button group (used when authoring Grapher widgets with multiple function types) now shares the single-select button group's theme-aware colors.
+
+-   [#4161](https://github.com/Khan/perseus/pull/4161) [`510351d`](https://github.com/Khan/perseus/commit/510351ddd9e3637b4191656a81c6bc599b89c1b4) Thanks [@benchristel](https://github.com/benchristel)! - Graphie labels now render in colors from the Wonder Blocks theme. We use the WB learning.math.foreground color that best matches the authored color.
+
+-   Updated dependencies [[`1f6424a`](https://github.com/Khan/perseus/commit/1f6424a4a34123a1e9609ae8499ac6e8138c589d)]:
+    -   @khanacademy/perseus-core@38.1.1
+    -   @khanacademy/keypad-context@3.2.89
+    -   @khanacademy/kmath@2.4.48
+    -   @khanacademy/math-input@27.0.11
+    -   @khanacademy/perseus-linter@5.2.2
+    -   @khanacademy/perseus-score@8.12.21
+
 ## 85.2.0
 
 ### Minor Changes
