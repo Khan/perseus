@@ -1,5 +1,13 @@
 # @khanacademy/perseus
 
+## 86.0.1
+
+### Patch Changes
+
+-   [#4169](https://github.com/Khan/perseus/pull/4169) [`44ca8c9`](https://github.com/Khan/perseus/commit/44ca8c92e03609e3d665cbb7bee3d86086ad7553) Thanks [@benchristel](https://github.com/benchristel)! - The editor preview for the Image widget now displays the correct colors for Graphie labels when the dark mode preview is toggled on.
+
+-   [#4169](https://github.com/Khan/perseus/pull/4169) [`44ca8c9`](https://github.com/Khan/perseus/commit/44ca8c92e03609e3d665cbb7bee3d86086ad7553) Thanks [@benchristel](https://github.com/benchristel)! - Bugfix: Graphie labels with no `style` property no longer crash the Renderer.
+
 ## 86.0.0
 
 ### Major Changes
