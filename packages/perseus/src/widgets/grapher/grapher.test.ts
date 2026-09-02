@@ -58,23 +58,29 @@ describe("grapher widget", () => {
         expect(container).toMatchSnapshot("initial render");
     });
 
-    it("keeps the type selected when the selected type button is clicked again", async () => {
-        // Arrange
+    it("preserves the user's plot when the selected type button is clicked again", async () => {
+        // Arrange - a user who has already answered by moving the plot
         const user = userEvent.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-        const {renderer} = renderQuestion(multipleAvailableTypesQuestion);
+        const movedCoords = [
+            [-3, 2],
+            [4, 7],
+        ];
+        const {renderer} = renderQuestion(
+            multipleAvailableTypesQuestion,
+            undefined,
+            undefined,
+            {"grapher 1": {type: "linear", coords: movedCoords}},
+        );
         await waitForInitialGraphieRender();
 
-        const linearButton = screen.getByRole("button", {name: "Linear"});
-        await user.click(linearButton);
-
         // Act
-        await user.click(linearButton);
+        await user.click(screen.getByRole("button", {name: "Linear"}));
 
         // Assert
         expect(renderer.getUserInputMap()).toMatchObject({
-            "grapher 1": {type: "linear"},
+            "grapher 1": {type: "linear", coords: movedCoords},
         });
     });
 
