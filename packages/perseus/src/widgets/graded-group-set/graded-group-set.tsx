@@ -124,14 +124,6 @@ const GradedGroupSet = forwardRef<Widget, Props>(
             },
         }));
 
-        function handleNextQuestion() {
-            const numGroups = props.options.gradedGroups.length;
-
-            if (currentGroupIndex < numGroups - 1) {
-                setCurrentGroupIndex(currentGroupIndex + 1);
-            }
-        }
-
         // When used in the context of TranslationEditor, render the
         // GradedGroup widget one below another instead of using an indicator
         // to click and switch between different graded groups. Translators
@@ -166,6 +158,10 @@ const GradedGroupSet = forwardRef<Widget, Props>(
         }
 
         const numGroups = gradedGroups.length;
+        const atEnd = currentGroupIndex >= numGroups - 1;
+        const handleNextQuestion = atEnd
+            ? undefined
+            : () => setCurrentGroupIndex(currentGroupIndex + 1);
 
         return (
             <div className={css(styles.container)}>
@@ -193,11 +189,7 @@ const GradedGroupSet = forwardRef<Widget, Props>(
                         title: "",
                     }}
                     inGradedGroupSet={true}
-                    onNextQuestion={
-                        currentGroupIndex < numGroups - 1
-                            ? handleNextQuestion
-                            : undefined
-                    }
+                    onNextQuestion={handleNextQuestion}
                     linterContext={props.linterContext}
                     dependencies={dependencies}
                 />
