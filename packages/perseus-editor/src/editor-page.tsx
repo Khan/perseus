@@ -307,6 +307,7 @@ class EditorPage extends React.Component<Props, State> {
                     value={{
                         question: this.props.question,
                         onEditorChange: this.handleEditorChange,
+                        editingDisabled: this.props.apiOptions?.editingDisabled,
                     }}
                 >
                     <div id="perseus" className={className}>
