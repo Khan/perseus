@@ -68,10 +68,11 @@ p {
 /*************
     Mobile
 **************/
-.framework-perseus.perseus-mobile :not(blockquote) > div.paragraph {
+.framework-perseus.perseus-mobile .renderer-new-ff:not(blockquote) > p,
+.framework-perseus.perseus-mobile .renderer-new-ff :not(blockquote) > p {
     margin: 0;
 }
-.framework-perseus.perseus-mobile .perseus-renderer > .paragraph {
+.framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff > p {
     margin: 0 auto;
 }
 .framework-perseus.perseus-mobile
@@ -79,9 +80,6 @@ p {
     > .paragraph:not(:first-child) {
     margin-top: var(--wb-sizing-size_240);
     margin-bottom: var(--wb-sizing-size_240);
-}
-.framework-perseus.perseus-mobile .perseus-renderer > .paragraph > .paragraph {
-    margin: 0;
 }
 .framework-perseus.perseus-mobile
     .perseus-renderer
@@ -125,7 +123,7 @@ p {
     padding-top: var(--wb-sizing-size_240);
 }
 @media (max-width: 767px) {
-    .framework-perseus.perseus-mobile .perseus-renderer > .paragraph {
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff > p {
         max-width: none;
     }
     .framework-perseus.perseus-mobile .perseus-renderer > .paragraph {
@@ -169,7 +167,7 @@ p {
     }
 }
 @media (min-width: 767px) and (max-width: 1199px) {
-    .framework-perseus.perseus-mobile .perseus-renderer > .paragraph {
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff > p {
         max-width: 512px;
     }
     .framework-perseus.perseus-mobile .perseus-renderer > .paragraph {
@@ -213,7 +211,7 @@ p {
     }
 }
 @media (min-width: 1200px) {
-    .framework-perseus.perseus-mobile .perseus-renderer > .paragraph {
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff > p {
         max-width: 688px;
     }
     .framework-perseus.perseus-mobile .perseus-renderer > .paragraph {
