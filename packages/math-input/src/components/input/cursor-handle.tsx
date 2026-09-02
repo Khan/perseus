@@ -92,8 +92,6 @@ class CursorHandle extends React.Component<Props> {
                         x="4"
                         y="0"
                     >
-                        {/* The shadow token carries its own alpha, so no
-                            floodOpacity is needed. */}
                         <feDropShadow
                             dx="0"
                             dy="4"
