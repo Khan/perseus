@@ -153,7 +153,7 @@ exports[`EditorPage should match snapshot for editing disabled for all widgets 1
                   class="default_7zhre1-o_O-inlineStyles_d7xzml"
                 >
                   <span
-                    class="svg_1q6jc65-o_O-small_6q1hy-o_O-collapsed_zgg88f-o_O-inlineStyles_u4fgyh"
+                    class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-collapsed_zgg88f-o_O-inlineStyles_u4fgyh"
                   />
                   <span>
                     Issues
@@ -630,7 +630,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           categorizer 1
@@ -1065,7 +1065,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           definition 1
@@ -1160,7 +1160,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           dropdown 1
@@ -1449,7 +1449,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           expression 1
@@ -2223,7 +2223,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           explanation 1
@@ -2487,7 +2487,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           free-response 1
@@ -2717,7 +2717,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           graded-group 1
@@ -2958,7 +2958,7 @@ table: [[☃ table 1]]
                                   class="default_7zhre1-o_O-inlineStyles_d7xzml"
                                 >
                                   <span
-                                    class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                                    class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                                   />
                                   <span>
                                     numeric-input 3
@@ -3033,7 +3033,7 @@ table: [[☃ table 1]]
                                       General Settings
                                     </span>
                                     <span
-                                      class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                                      class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                                     />
                                   </div>
                                 </button>
@@ -3200,7 +3200,7 @@ table: [[☃ table 1]]
                                       Answers
                                     </span>
                                     <span
-                                      class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                                      class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                                     />
                                   </div>
                                 </button>
@@ -3936,7 +3936,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           graded-group-set 1
@@ -4180,7 +4180,7 @@ table: [[☃ table 1]]
                                     class="default_7zhre1-o_O-inlineStyles_d7xzml"
                                   >
                                     <span
-                                      class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                                      class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                                     />
                                     <span>
                                       numeric-input 4
@@ -4255,7 +4255,7 @@ table: [[☃ table 1]]
                                         General Settings
                                       </span>
                                       <span
-                                        class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                                        class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                                       />
                                     </div>
                                   </button>
@@ -4422,7 +4422,7 @@ table: [[☃ table 1]]
                                         Answers
                                       </span>
                                       <span
-                                        class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                                        class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                                       />
                                     </div>
                                   </button>
@@ -4978,7 +4978,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           grapher 1
@@ -6823,7 +6823,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           group 1
@@ -7041,7 +7041,7 @@ table: [[☃ table 1]]
                                   class="default_7zhre1-o_O-inlineStyles_d7xzml"
                                 >
                                   <span
-                                    class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                                    class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                                   />
                                   <span>
                                     numeric-input 2
@@ -7116,7 +7116,7 @@ table: [[☃ table 1]]
                                       General Settings
                                     </span>
                                     <span
-                                      class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                                      class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                                     />
                                   </div>
                                 </button>
@@ -7283,7 +7283,7 @@ table: [[☃ table 1]]
                                       Answers
                                     </span>
                                     <span
-                                      class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                                      class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                                     />
                                   </div>
                                 </button>
@@ -7662,7 +7662,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           image 1
@@ -8200,7 +8200,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           input-number 1
@@ -8275,7 +8275,7 @@ table: [[☃ table 1]]
                             General Settings
                           </span>
                           <span
-                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                           />
                         </div>
                       </button>
@@ -8442,7 +8442,7 @@ table: [[☃ table 1]]
                             Answers
                           </span>
                           <span
-                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                           />
                         </div>
                       </button>
@@ -8818,7 +8818,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           interaction 1
@@ -9533,7 +9533,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           interactive-graph 1
@@ -9691,7 +9691,7 @@ table: [[☃ table 1]]
                             Description
                           </span>
                           <span
-                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                           />
                         </div>
                       </button>
@@ -11154,7 +11154,7 @@ table: [[☃ table 1]]
                               Start coordinates
                             </span>
                             <span
-                              class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                              class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                             />
                           </div>
                         </button>
@@ -11342,7 +11342,7 @@ table: [[☃ table 1]]
                             Screen reader tree
                           </span>
                           <span
-                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                           />
                         </div>
                       </button>
@@ -11598,7 +11598,7 @@ table: [[☃ table 1]]
                             Common Graph Settings
                           </span>
                           <span
-                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                           />
                         </div>
                       </button>
@@ -12270,7 +12270,7 @@ table: [[☃ table 1]]
                             Locked Figures
                           </span>
                           <span
-                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                           />
                         </div>
                       </button>
@@ -12657,7 +12657,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           label-image 1
@@ -13020,7 +13020,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           matcher 1
@@ -13227,7 +13227,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           matrix 1
@@ -13475,7 +13475,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           measurer 1
@@ -13634,7 +13634,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           number-line 1
@@ -14045,7 +14045,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           numeric-input 1
@@ -14120,7 +14120,7 @@ table: [[☃ table 1]]
                             General Settings
                           </span>
                           <span
-                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                           />
                         </div>
                       </button>
@@ -14287,7 +14287,7 @@ table: [[☃ table 1]]
                             Answers
                           </span>
                           <span
-                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                           />
                         </div>
                       </button>
@@ -14664,7 +14664,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           orderer 1
@@ -14810,7 +14810,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           plotter 1
@@ -15293,7 +15293,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           radio 1
@@ -15837,7 +15837,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           sorter 1
@@ -16247,7 +16247,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           table 1

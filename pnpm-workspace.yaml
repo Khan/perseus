@@ -73,7 +73,7 @@ catalogs:
         "@khanacademy/wonder-blocks-dropdown": ^10.12.0
         "@khanacademy/wonder-blocks-form": ^7.6.10
         "@khanacademy/wonder-blocks-icon-button": ^11.4.5
-        "@khanacademy/wonder-blocks-icon": ^5.3.23
+        "@khanacademy/wonder-blocks-icon": ^6.0.0
         "@khanacademy/wonder-blocks-labeled-field": ^4.1.9
         "@khanacademy/wonder-blocks-layout": ^3.1.60
         "@khanacademy/wonder-blocks-link": ^10.3.9
@@ -114,7 +114,7 @@ catalogs:
         "@khanacademy/wonder-blocks-dropdown": 10.12.0
         "@khanacademy/wonder-blocks-form": 7.6.10
         "@khanacademy/wonder-blocks-icon-button": 11.4.5
-        "@khanacademy/wonder-blocks-icon": 5.3.23
+        "@khanacademy/wonder-blocks-icon": 6.0.0
         "@khanacademy/wonder-blocks-labeled-field": 4.1.9
         "@khanacademy/wonder-blocks-layout": 3.1.60
         "@khanacademy/wonder-blocks-link": 10.3.9
