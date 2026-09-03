@@ -4,7 +4,7 @@ import _ from "underscore";
 import KhanAnswerTypes from "../../util/answer-types";
 
 import type {
-    PerseusMatrixRubric,
+    PerseusMatrixWidgetOptions,
     PerseusMatrixUserInput,
     PerseusScore,
 } from "@khanacademy/perseus-core";
@@ -13,7 +13,7 @@ function scoreMatrix(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: PerseusMatrixUserInput | undefined,
-    rubric: PerseusMatrixRubric,
+    rubric: PerseusMatrixWidgetOptions,
 ): PerseusScore {
     if (userInput == null) {
         return {type: "invalid", message: null};

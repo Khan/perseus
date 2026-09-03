@@ -5,7 +5,7 @@ import {parseTex} from "../../util/tex-wrangler";
 
 import type {Score} from "../../util/answer-types";
 import type {
-    PerseusNumericInputRubric,
+    PerseusNumericInputWidgetOptions,
     PerseusNumericInputUserInput,
     PerseusScore,
     MathFormat,
@@ -69,7 +69,7 @@ function scoreNumericInput(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: PerseusNumericInputUserInput | undefined,
-    rubric: PerseusNumericInputRubric,
+    rubric: PerseusNumericInputWidgetOptions,
     locale?: string,
 ): PerseusScore {
     if (userInput == null) {

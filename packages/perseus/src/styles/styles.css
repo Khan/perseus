@@ -365,28 +365,19 @@
 /*****************************
  * GLOBAL DARK MODE SETTINGS *
  *****************************/
-[data-wb-theme$="-dark"] .framework-perseus {
+[data-wb-theme$="-dark"] .framework-perseus,
+.perseus-image-preview-container[data-wb-theme$="-dark"] {
+    /* TODO(benchristel): this set of file extensions is duplicated in
+     * dark-mode-toggle.tsx. Replace these selectors with a class that gets
+     * added to images that should be inverted, so the set of extensions can
+     * have a single representation in TypeScript code.
+     */
     img[src$=".png"],
     img[src$=".svg"],
-    .graphie:not(.perseus-widget-plotter),
-    .mathjax-wrapper:not(.graphie:not(.perseus-widget-plotter) *) {
-        /* This filter is applied to PNG/SVG images, Graphie (excluding the
-           Plotter, which is themed), and MathJax. MathJax inside inverted
-           Graphies is excluded so it doesn't get double-inverted. JPEGs & GIFs
-           are untouched.
+    .graphie:not(.perseus-widget-plotter) > svg {
+        /* Invert the colors of PNG/SVG images and Graphie SVGs (excluding the
+           Plotter, which is themed).
          */
         filter: invert(1) hue-rotate(180deg) brightness(1.5);
-    }
-
-    .mathjax-wrapper > mjx-container {
-        /* Since we invert all MathJax colors (above), we need to force the
-           default foreground color to dark so it will be light when inverted.
-           If we don't do this, then math will inherit the theme's foreground
-           color and invert it, resulting in dark-on-dark text.
-
-           The precise color used here is unimportant; off-black colors get
-           washed out by the brightness filter, so they end up as #fff anyway.
-         */
-        color: black;
     }
 }

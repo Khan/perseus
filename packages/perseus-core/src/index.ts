@@ -85,27 +85,15 @@ export {default as blankLogic} from "./widgets/blank";
 /** @hidden */
 export {default as categorizerLogic} from "./widgets/categorizer";
 /** @hidden */
-export type {CategorizerDefaultWidgetOptions} from "./widgets/categorizer";
-/** @hidden */
 export {default as csProgramLogic} from "./widgets/cs-program";
-/** @hidden */
-export type {CSProgramDefaultWidgetOptions} from "./widgets/cs-program";
 /** @hidden */
 export {default as definitionLogic} from "./widgets/definition";
 /** @hidden */
-export type {DefinitionDefaultWidgetOptions} from "./widgets/definition";
-/** @hidden */
 export {default as dropdownLogic} from "./widgets/dropdown";
-/** @hidden */
-export type {DropdownDefaultWidgetOptions} from "./widgets/dropdown";
 /** @hidden */
 export {default as explanationLogic} from "./widgets/explanation";
 /** @hidden */
-export type {ExplanationDefaultWidgetOptions} from "./widgets/explanation";
-/** @hidden */
 export {default as expressionLogic} from "./widgets/expression";
-/** @hidden */
-export type {ExpressionDefaultWidgetOptions} from "./widgets/expression";
 /** @hidden */
 export {default as deriveExtraKeys} from "./widgets/expression/derive-extra-keys";
 /** @hidden */
@@ -113,99 +101,51 @@ export {default as gradedGroupLogic} from "./widgets/graded-group";
 /** @hidden */
 export {default as freeResponseLogic} from "./widgets/free-response";
 /** @hidden */
-export type {FreeResponseDefaultWidgetOptions} from "./widgets/free-response";
-/** @hidden */
-export type {GradedGroupDefaultWidgetOptions} from "./widgets/graded-group";
-/** @hidden */
 export {default as gradedGroupSetLogic} from "./widgets/graded-group-set";
-/** @hidden */
-export type {GradedGroupSetDefaultWidgetOptions} from "./widgets/graded-group-set";
 /** @hidden */
 export {default as grapherLogic} from "./widgets/grapher";
 /** @hidden */
-export type {GrapherDefaultWidgetOptions} from "./widgets/grapher";
-/** @hidden */
 export {default as groupLogic} from "./widgets/group";
-/** @hidden */
-export type {GroupDefaultWidgetOptions} from "./widgets/group";
 /** @hidden */
 export {default as iframeLogic} from "./widgets/iframe";
 /** @hidden */
-export type {IFrameDefaultWidgetOptions} from "./widgets/iframe";
-/** @hidden */
 export {default as imageLogic} from "./widgets/image";
-/** @hidden */
-export type {ImageDefaultWidgetOptions} from "./widgets/image";
 /** @hidden */
 export {default as inputNumberLogic} from "./widgets/input-number";
 /** @hidden */
-export type {InputNumberDefaultWidgetOptions} from "./widgets/input-number";
-/** @hidden */
 export {default as interactionLogic} from "./widgets/interaction";
-/** @hidden */
-export type {InteractionDefaultWidgetOptions} from "./widgets/interaction";
 /** @hidden */
 export {default as interactiveGraphLogic} from "./widgets/interactive-graph";
 /** @hidden */
-export type {InteractiveGraphDefaultWidgetOptions} from "./widgets/interactive-graph";
-/** @hidden */
 export {default as labelImageLogic} from "./widgets/label-image";
-/** @hidden */
-export type {LabelImageDefaultWidgetOptions} from "./widgets/label-image";
 /** @hidden */
 export {default as matcherLogic} from "./widgets/matcher";
 /** @hidden */
-export type {MatcherDefaultWidgetOptions} from "./widgets/matcher";
-/** @hidden */
 export {default as matrixLogic} from "./widgets/matrix";
-/** @hidden */
-export type {MatrixDefaultWidgetOptions} from "./widgets/matrix";
 /** @hidden */
 export {default as measurerLogic} from "./widgets/measurer";
 /** @hidden */
-export type {MeasurerDefaultWidgetOptions} from "./widgets/measurer";
-/** @hidden */
 export {default as numberLineLogic} from "./widgets/number-line";
-/** @hidden */
-export type {NumberLineDefaultWidgetOptions} from "./widgets/number-line";
 /** @hidden */
 export {default as numericInputLogic} from "./widgets/numeric-input";
 /** @hidden */
-export type {NumericInputDefaultWidgetOptions} from "./widgets/numeric-input";
-/** @hidden */
 export {default as ordererLogic} from "./widgets/orderer";
-/** @hidden */
-export type {OrdererDefaultWidgetOptions} from "./widgets/orderer";
 /** @hidden */
 export {default as phetSimulationLogic} from "./widgets/phet-simulation";
 /** @hidden */
-export type {PhetSimulationDefaultWidgetOptions} from "./widgets/phet-simulation";
-/** @hidden */
 export {default as plotterLogic} from "./widgets/plotter";
-/** @hidden */
-export type {PlotterDefaultWidgetOptions} from "./widgets/plotter";
 /** @hidden */
 export {default as pythonProgramLogic} from "./widgets/python-program";
 /** @hidden */
-export type {PythonProgramDefaultWidgetOptions} from "./widgets/python-program";
-/** @hidden */
 export {default as radioLogic} from "./widgets/radio";
-/** @hidden */
-export type {RadioDefaultWidgetOptions} from "./widgets/radio";
 /** @hidden */
 export {usesNumCorrect} from "./widgets/radio/radio-util";
 /** @hidden */
 export {default as sorterLogic} from "./widgets/sorter";
 /** @hidden */
-export type {SorterDefaultWidgetOptions} from "./widgets/sorter";
-/** @hidden */
 export {default as tableLogic} from "./widgets/table";
 /** @hidden */
-export type {TableDefaultWidgetOptions} from "./widgets/table";
-/** @hidden */
 export {default as videoLogic} from "./widgets/video";
-/** @hidden */
-export type {VideoDefaultWidgetOptions} from "./widgets/video";
 
 /** @hidden */
 export {
@@ -236,7 +176,11 @@ export type * from "./widgets/logic-export.types";
 export * as CoreWidgetRegistry from "./widgets/core-widget-registry";
 
 /** @hidden */
-export {getOrdererPublicWidgetOptions} from "./widgets/orderer/orderer-util";
+export {
+    getOrdererPublicWidgetOptions,
+    mergeCards,
+    toCard,
+} from "./widgets/orderer/orderer-util";
 /** @hidden */
 export type {OrdererPublicWidgetOptions} from "./widgets/orderer/orderer-util";
 /** @hidden */
@@ -257,6 +201,8 @@ export {getGrapherPublicWidgetOptions} from "./widgets/grapher/grapher-util";
 export type {GrapherPublicWidgetOptions} from "./widgets/grapher/grapher-util";
 /** @hidden */
 export {getGroupPublicWidgetOptions} from "./widgets/group/group-util";
+/** @hidden */
+export type {GroupPublicWidgetOptions} from "./widgets/group/group-util";
 /** @hidden */
 export {
     getInteractiveGraphPublicWidgetOptions,
@@ -480,6 +426,10 @@ export {
     generateSorterWidget,
     generateSorterOptions,
 } from "./utils/generators/sorter-widget-generator";
+/** @hidden */
+export {generateTableOptions} from "./utils/generators/table-widget-generator";
+/** @hidden */
+export {generateGrapherWidgetOptions} from "./utils/generators/grapher-widget-generator";
 
 export {
     getAnswersFromWidgets,
@@ -487,6 +437,9 @@ export {
 } from "./utils/extract-perseus-ai-data";
 /** @hidden */
 export {getPerseusAIData} from "./utils/extract-perseus-ai-data";
+
+/** @hidden */
+export {excludeDenylistKeys} from "./utils/widget-prop-denylist";
 
 import {registerCoreWidgets} from "./widgets/core-widget-registry";
 

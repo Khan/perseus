@@ -165,6 +165,10 @@ export type APIOptions = Readonly<{
         focusedElement?: HTMLElement,
     ) => unknown;
     showAlignmentOptions?: boolean;
+    renderExtras?: (
+        answerArea: PerseusAnswerArea,
+        widgetId: string,
+    ) => React.ReactNode;
     /**
      * A boolean that indicates whether the associated problem has been
      * answered correctly and should no longer be interactive.
@@ -496,17 +500,6 @@ export type WidgetProps<
     linterContext: LinterContextProps;
     containerSizeClass: SizeClass;
 };
-
-// Used to type the `change` method on all widgets.
-export type ChangeFn = (
-    newPropsOrSinglePropName:
-        | string
-        | {
-              [key: string]: any;
-          },
-    propValue?: any,
-    callback?: () => unknown,
-) => any;
 
 export type SharedRendererProps = {
     apiOptions: APIOptions;

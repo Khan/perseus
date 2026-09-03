@@ -11,7 +11,6 @@ import {A11yContext, createA11yContextValue} from "./components/a11y-context";
 import IssuesPanel from "./components/issues-panel";
 import JsonEditor from "./components/json-editor";
 import ViewportResizer from "./components/viewport-resizer";
-import CombinedHintsEditor from "./hint-editor";
 import ItemEditor from "./item-editor";
 import {createDeviceApiOptionsDeriver} from "./util/derive-device-api-options";
 import {gatherLinterIssues} from "./util/gather-linter-issues";
@@ -107,7 +106,6 @@ type State = {
 
 class EditorPage extends React.Component<Props, State> {
     itemEditor = React.createRef<ItemEditor>();
-    hintsEditor = React.createRef<CombinedHintsEditor>();
 
     // Derives the preview's device-adjusted apiOptions with a stable reference
     // across renders (see createDeviceApiOptionsDeriver for why that matters).
@@ -145,12 +143,9 @@ class EditorPage extends React.Component<Props, State> {
         });
     }
 
-    getSnapshotBeforeUpdate(prevProps: Props, prevState: State) {
+    getSnapshotBeforeUpdate(prevProps: Props) {
         if (!prevProps.jsonMode && this.props.jsonMode) {
-            return {
-                ...(this.itemEditor.current?.serialize() ?? {}),
-                hints: this.hintsEditor.current?.serialize(),
-            };
+            return this.itemEditor.current?.serialize() ?? {};
         }
         return null;
     }
@@ -248,9 +243,7 @@ class EditorPage extends React.Component<Props, State> {
     };
 
     getSaveWarnings(): any {
-        const issues1 = this.itemEditor.current?.getSaveWarnings();
-        const issues2 = this.hintsEditor.current?.getSaveWarnings();
-        return issues1.concat(issues2);
+        return this.itemEditor.current?.getSaveWarnings();
     }
 
     /**
@@ -266,14 +259,7 @@ class EditorPage extends React.Component<Props, State> {
             this.itemEditor.current,
             "cannot serialize EditorPage without ItemEditor",
         );
-        invariant(
-            this.hintsEditor.current,
-            "cannot serialize EditorPage without HintsEditor",
-        );
-        return {
-            ...this.itemEditor.current.serialize(),
-            hints: this.hintsEditor.current.serialize(),
-        };
+        return this.itemEditor.current.serialize();
     }
 
     handleChange = (toChange: OnChangeParams) => {
@@ -321,6 +307,7 @@ class EditorPage extends React.Component<Props, State> {
                     value={{
                         question: this.props.question,
                         onEditorChange: this.handleEditorChange,
+                        editingDisabled: this.props.apiOptions?.editingDisabled,
                     }}
                 >
                     <div id="perseus" className={className}>
@@ -407,6 +394,7 @@ class EditorPage extends React.Component<Props, State> {
                                     ref={this.itemEditor}
                                     itemId={this.props.itemId}
                                     question={this.props.question}
+                                    hints={this.props.hints}
                                     answerArea={this.props.answerArea}
                                     imageUploader={this.props.imageUploader}
                                     onChange={this.handleChange}
@@ -422,21 +410,6 @@ class EditorPage extends React.Component<Props, State> {
                                 />
                             )}
                         </A11yContext.Provider>
-
-                        {showEditor && (
-                            <CombinedHintsEditor
-                                ref={this.hintsEditor}
-                                itemId={this.props.itemId}
-                                hints={this.props.hints}
-                                imageUploader={this.props.imageUploader}
-                                onChange={this.handleChange}
-                                deviceType={this.props.previewDevice}
-                                apiOptions={deviceBasedApiOptions}
-                                previewURL={this.props.previewURL}
-                                highlightLint={this.state.highlightLint}
-                                widgetIsOpen={this.state.widgetsAreOpen}
-                            />
-                        )}
                     </div>
                 </ItemEditorContext.Provider>
             </Dependencies.DependenciesContext.Provider>

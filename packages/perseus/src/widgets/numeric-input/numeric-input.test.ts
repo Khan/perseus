@@ -32,11 +32,7 @@ import {
 } from "./numeric-input.testdata";
 import {findCommonFractions, findPrecision} from "./utils";
 
-import type {
-    PerseusItem,
-    PerseusNumericInputRubric,
-    PerseusRenderer,
-} from "@khanacademy/perseus-core";
+import type {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("numeric-input widget", () => {
@@ -167,13 +163,19 @@ describe("numeric-input widget", () => {
 
         // Assert
         expect(
-            screen.getByText(/a simplified proper fraction, like 3\/5, or/),
+            screen.getByText(
+                /a simplified proper fraction \(like 1\/2 or 3\/4\)/,
+            ),
         ).toBeInTheDocument();
         expect(
-            screen.getByText(/a simplified improper fraction, like 7\/4, or/),
+            screen.getByText(
+                /a simplified improper fraction \(like 5\/4 or 9\/8\)/,
+            ),
         ).toBeInTheDocument();
         expect(
-            screen.getByText(/a mixed number, like 1 and 3\/4/),
+            screen.getByText(
+                /a mixed number \(like 1 and 3\/4 or 2 and 5\/6\)/,
+            ),
         ).toBeInTheDocument();
     });
 
@@ -283,10 +285,9 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
             (widgetOptions && widgetOptions.answers) || [];
 
         const singleAnswer =
-            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.({
-                answers,
-                coefficient: false,
-            });
+            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.(
+                generateNumericInputOptions({answers, coefficient: false}),
+            );
         expect(singleAnswer).toBe("12.2");
     });
 
@@ -298,25 +299,23 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
             // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             (widgetOptions && widgetOptions.answers) || [];
         const singleAnswer =
-            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.({
-                answers,
-                coefficient: false,
-            });
+            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.(
+                generateNumericInputOptions({answers, coefficient: false}),
+            );
         expect(singleAnswer).toBe("1252");
     });
 
     it("can not get a correct answer from scoring data with no answer", () => {
         const answers: Array<never> = [];
         const singleAnswer =
-            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.({
-                answers,
-                coefficient: false,
-            });
+            NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.(
+                generateNumericInputOptions({answers, coefficient: false}),
+            );
         expect(singleAnswer).toBeUndefined();
     });
 
     it("supports error bars", () => {
-        const rubric: PerseusNumericInputRubric = {
+        const rubric = generateNumericInputOptions({
             answers: [
                 {
                     status: "correct",
@@ -329,7 +328,7 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
                 },
             ],
             coefficient: true,
-        };
+        });
         const singleAnswer =
             NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.(rubric);
         expect(singleAnswer).toBe("1 ± 0.2");
@@ -616,15 +615,19 @@ describe("interactive: full vs answerless", () => {
 
             // Assert
             expect(
-                screen.getByText(/a simplified proper fraction, like 3\/5, or/),
-            ).toBeInTheDocument();
-            expect(
                 screen.getByText(
-                    /a simplified improper fraction, like 7\/4, or/,
+                    /a simplified proper fraction \(like 1\/2 or 3\/4\)/,
                 ),
             ).toBeInTheDocument();
             expect(
-                screen.getByText(/a mixed number, like 1 and 3\/4/),
+                screen.getByText(
+                    /a simplified improper fraction \(like 5\/4 or 9\/8\)/,
+                ),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByText(
+                    /a mixed number \(like 1 and 3\/4 or 2 and 5\/6\)/,
+                ),
             ).toBeInTheDocument();
 
             await userEvent.type(

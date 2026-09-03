@@ -40,7 +40,6 @@ describe("IFrame serialization", () => {
                         height: "410",
                         width: "410",
                         allowFullScreen: true,
-                        static: false,
                     },
                 },
             },

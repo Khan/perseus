@@ -11,17 +11,12 @@ import React, {
 } from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
-import {withDependencies} from "../../components/with-dependencies";
+import {useDependencies} from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 
-import type {
-    PerseusDependenciesV2,
-    Widget,
-    WidgetExports,
-    WidgetProps,
-} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {DropdownPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 import type {
     PerseusDropdownUserInput,
@@ -31,9 +26,7 @@ import type {
 type Props = WidgetProps<
     PerseusDropdownWidgetOptions,
     PerseusDropdownUserInput
-> & {
-    dependencies: PerseusDependenciesV2;
-};
+>;
 
 const Dropdown = forwardRef<Widget, Props>(function Dropdown(props, ref) {
     const {strings} = usePerseusI18n();
@@ -48,12 +41,12 @@ const Dropdown = forwardRef<Widget, Props>(function Dropdown(props, ref) {
     const {
         apiOptions = ApiOptions.defaults,
         userInput = {value: 0},
-        static: isStatic = false,
-        dependencies,
         widgetId,
         trackInteraction,
         handleUserInput,
     } = props;
+    const isStatic = props.static ?? false;
+    const dependencies = useDependencies();
 
     // Fire analytics event on mount
     // We intentionally use an empty dependency array here because this analytics
@@ -233,13 +226,11 @@ function getCorrectUserInput(
     return {value: options.choices.findIndex((c) => c.correct) + 1};
 }
 
-const WrappedDropdown = withDependencies(Dropdown);
-
 export default {
     name: "dropdown",
     displayName: "Drop down",
-    widget: WrappedDropdown,
+    widget: Dropdown,
     getStartUserInput,
     getCorrectUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof WrappedDropdown>;
+} satisfies WidgetExports<typeof Dropdown>;

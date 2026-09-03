@@ -1,17 +1,16 @@
-import {
-    components,
-    Changeable,
-    Dependencies,
-    KhanColors,
-} from "@khanacademy/perseus";
+import {components, Dependencies, KhanColors} from "@khanacademy/perseus";
 import * as React from "react";
+
+import {deprecatedChangeableChange} from "../../mixins/changeable";
 
 import ColorPicker from "./color-picker";
 import MathquillInput from "./mathquill-input";
 
+import type {ChangeableProps} from "../../mixins/changeable";
+
 const {TextInput} = components;
 
-type Props = Changeable.ChangeableProps & {
+type Props = ChangeableProps & {
     color: string;
     coordX: string;
     coordY: string;
@@ -35,7 +34,7 @@ class LabelEditor extends React.Component<Props> {
     };
 
     change: (arg1: any, arg2?: any, arg3?: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     render(): React.ReactNode {

@@ -1174,7 +1174,7 @@ describe("image editor", () => {
             ).toHaveAttribute("aria-disabled", "true");
         });
 
-        it("tooltip shows note about image format for non-PNG images", async () => {
+        it("tooltip shows note about supported image formats", async () => {
             // Arrange
             render(
                 <ImageEditorWithDependencies
@@ -1197,10 +1197,9 @@ describe("image editor", () => {
             // Assert
             const tooltip = screen.getByRole("tooltip");
             expect(
-                within(tooltip).getByText(
-                    "This option is only available for PNG images!",
-                    {exact: false},
-                ),
+                within(tooltip).getByText("This option is only available for", {
+                    exact: false,
+                }),
             ).toBeInTheDocument();
         });
 

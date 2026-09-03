@@ -462,7 +462,6 @@ describe("graded-group", () => {
                                                 },
                                             ],
                                             placeholder: "Choose an answer",
-                                            static: false,
                                         }),
                                     }),
                                 },

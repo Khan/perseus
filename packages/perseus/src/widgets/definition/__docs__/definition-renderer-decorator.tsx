@@ -8,7 +8,7 @@ import * as React from "react";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
 
 import type {APIOptions} from "../../../types";
-import type {DefinitionDefaultWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusDefinitionWidgetOptions} from "@khanacademy/perseus-core";
 import type {Decorator} from "@storybook/react-vite";
 
 export const definitionRendererDecorator: Decorator = (
@@ -17,7 +17,7 @@ export const definitionRendererDecorator: Decorator = (
         args,
         parameters,
     }: {
-        args: Partial<DefinitionDefaultWidgetOptions>;
+        args: Partial<PerseusDefinitionWidgetOptions>;
         parameters?: {
             content?: string;
             apiOptions?: APIOptions;

@@ -2,10 +2,11 @@ import * as React from "react";
 import invariant from "tiny-invariant";
 import _ from "underscore";
 
+import CombinedHintsEditor from "./combined-hints-editor";
 import {A11yContext} from "./components/a11y-context";
 import DeviceFramer from "./components/device-framer";
 import Editor from "./editor";
-import ItemExtrasEditor from "./item-extras-editor";
+import ExtrasEditor from "./extras-editor";
 import PreviewWithIframe from "./preview-with-iframe";
 import {createPreviewContentDeriver} from "./util/derive-question-preview-content";
 
@@ -20,6 +21,7 @@ import type {
     PerseusAnswerArea,
     PerseusRenderer,
     PerseusItem,
+    Hint,
 } from "@khanacademy/perseus-core";
 
 type Props = {
@@ -32,6 +34,7 @@ type Props = {
     widgetIsOpen?: boolean;
     imageUploader?: ImageUploader;
     question?: PerseusRenderer;
+    hints: Hint[];
     answerArea?: PerseusAnswerArea | null;
     /** URL of the route to show on initial load of the preview frames. */
     previewURL: string;
@@ -47,8 +50,6 @@ type Props = {
     problemNum?: number;
 };
 
-// NOTE: ItemEditor does not actually produce an entire PerseusItem. Hints are
-// edited separately.
 class ItemEditor extends React.Component<Props> {
     static contextType = A11yContext;
     declare context: React.ContextType<typeof A11yContext>;
@@ -63,7 +64,8 @@ class ItemEditor extends React.Component<Props> {
         answerArea: {},
     };
     questionEditor = React.createRef<Editor>();
-    itemExtrasEditor = React.createRef<ItemExtrasEditor>();
+    extrasEditor = React.createRef<ExtrasEditor>();
+    hintsEditor = React.createRef<CombinedHintsEditor>();
     derivePreviewContent = createPreviewContentDeriver();
 
     // Notify the parent that the question or answer area has been updated.
@@ -78,34 +80,40 @@ class ItemEditor extends React.Component<Props> {
         this.updateProps({question});
     };
 
-    handleItemExtrasChange = (newProps: Partial<PerseusAnswerArea>) => {
+    handleExtrasChange = (newProps: Partial<PerseusAnswerArea>) => {
         const answerArea = _.extend({}, this.props.answerArea, newProps);
         this.updateProps({answerArea});
     };
 
+    // TODO(benchristel): Correctly type all getSaveWarnings methods.
     getSaveWarnings: () => any = () => {
-        return this.questionEditor.current?.getSaveWarnings();
+        return [
+            ...(this.questionEditor.current?.getSaveWarnings() ?? []),
+            ...(this.hintsEditor.current?.getSaveWarnings() ?? []),
+        ];
     };
 
     handleA11yReport = (report: A11yReport | null) => {
         this.context?.onA11yReport(report);
     };
 
-    serialize(): {
-        answerArea: PerseusAnswerArea;
-        question: PerseusRenderer;
-    } {
+    serialize(): PerseusItem {
         invariant(
             this.questionEditor.current,
             "cannot serialize ItemEditor without Editor",
         );
         invariant(
-            this.itemExtrasEditor.current,
-            "cannot serialize ItemEditor without ItemExtrasEditor",
+            this.extrasEditor.current,
+            "cannot serialize ItemEditor without ExtrasEditor",
+        );
+        invariant(
+            this.hintsEditor.current,
+            "cannot serialize ItemEditor without CombinedHintsEditor",
         );
         return {
             question: this.questionEditor.current.serialize(),
-            answerArea: this.itemExtrasEditor.current.serialize(),
+            answerArea: this.extrasEditor.current.serialize(),
+            hints: this.hintsEditor.current.serialize(),
         };
     }
 
@@ -177,17 +185,28 @@ class ItemEditor extends React.Component<Props> {
                 <div className="perseus-editor-row perseus-answer-container">
                     <div className="perseus-editor-left-cell">
                         <div className="pod-title">Question extras</div>
-                        <ItemExtrasEditor
-                            ref={this.itemExtrasEditor}
+                        <ExtrasEditor
+                            ref={this.extrasEditor}
                             apiOptions={this.props.apiOptions}
-                            onChange={this.handleItemExtrasChange}
+                            onChange={this.handleExtrasChange}
                             editingDisabled={editingDisabled}
                             {...this.props.answerArea}
                         />
                     </div>
-
-                    <div className="perseus-editor-right-cell" />
                 </div>
+
+                <CombinedHintsEditor
+                    ref={this.hintsEditor}
+                    itemId={this.props.itemId}
+                    hints={this.props.hints}
+                    imageUploader={this.props.imageUploader}
+                    onChange={this.props.onChange}
+                    deviceType={this.props.deviceType}
+                    apiOptions={this.props.apiOptions}
+                    previewURL={this.props.previewURL}
+                    highlightLint={this.props.highlightLint}
+                    widgetIsOpen={this.props.widgetIsOpen}
+                />
             </div>
         );
     }

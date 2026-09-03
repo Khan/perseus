@@ -6,13 +6,11 @@ import {act} from "@testing-library/react";
 
 import {renderQuestion} from "../../__tests__/test-utils";
 import * as Dependencies from "../../dependencies";
-import {
-    testDependencies,
-    testDependenciesV2,
-} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import {deriveUserInputFromSerializedState} from "../../user-input-manager";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
+import type {SorterHandle} from "./sorter";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 
 /**
@@ -78,7 +76,8 @@ describe("Sorter serialization", () => {
         ).not.toEqual(renderer.getUserInput()["sorter 1"].options);
 
         // Put the options in the correct order
-        const sorter = renderer.questionRenderer.findWidgets("sorter 1")[0];
+        const sorter: SorterHandle =
+            renderer.questionRenderer.findWidgets("sorter 1")[0];
         ["First", "Second", "Third"].forEach((option, index) => {
             act(() => sorter.moveOptionToIndex(option, index));
         });
@@ -97,7 +96,6 @@ describe("Sorter serialization", () => {
                     changed: true,
                     layout: "horizontal",
                     padding: true,
-                    dependencies: testDependenciesV2,
                 },
             },
             hints: [],
@@ -108,7 +106,8 @@ describe("Sorter serialization", () => {
         // Arrange
         const item = generateBasicSorter();
         const {renderer} = renderQuestion(item);
-        const sorter = renderer.questionRenderer.findWidgets("sorter 1")[0];
+        const sorter: SorterHandle =
+            renderer.questionRenderer.findWidgets("sorter 1")[0];
         ["First", "Second", "Third"].forEach((option, index) => {
             act(() => sorter.moveOptionToIndex(option, index));
         });

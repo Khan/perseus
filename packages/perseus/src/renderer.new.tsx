@@ -11,6 +11,7 @@
 import {
     applyDefaultsToWidgets,
     Errors,
+    excludeDenylistKeys,
     getDefaultAnswerArea,
     mapObject,
     PerseusError,
@@ -39,7 +40,6 @@ import ErrorBoundary from "./error-boundary";
 import InteractionTracker from "./interaction-tracker";
 import JiptParagraphs from "./jipt-paragraphs";
 import {Log} from "./logging/log";
-import {excludeDenylistKeys} from "./mixins/widget-prop-denylist";
 import {ApiOptions, ClassNames as ApiClassNames} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown.new";
 import QuestionParagraph from "./question-paragraph.new";
@@ -1417,30 +1417,6 @@ class Renderer
         if (this._currentFocus) {
             this.blurPath(this._currentFocus);
         }
-    };
-
-    /**
-     * Serializes widget state. Seems to be used only by editors though.
-     *
-     * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState
-     */
-    serialize: () => Record<any, any> = () => {
-        const state: Record<string, any> = {};
-        _.each(
-            this.state.widgetInfo,
-            function (info, id) {
-                // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                // eslint-disable-next-line @typescript-eslint/no-invalid-this
-                const widget = this.getWidgetInstance(id);
-                const s = widget.serialize();
-                if (!_.isEmpty(s)) {
-                    state[id] = s;
-                }
-            },
-            this,
-        );
-        return state;
     };
 
     /**

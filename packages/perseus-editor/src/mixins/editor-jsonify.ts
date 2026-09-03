@@ -1,4 +1,4 @@
-import {excludeDenylistKeys} from "./widget-prop-denylist";
+import {excludeDenylistKeys} from "@khanacademy/perseus-core";
 
 /**
  * @deprecated do not use EditorJsonify

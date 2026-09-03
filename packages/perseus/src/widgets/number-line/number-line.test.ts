@@ -212,7 +212,6 @@ describe("number-line widget", () => {
 
         function getInequalityOptions(): PerseusNumberLineWidgetOptions {
             return {
-                static: false, // <= important
                 isInequality: true, // <= important
                 correctRel: "le",
                 correctX: -1,
@@ -276,6 +275,29 @@ describe("number-line widget", () => {
             expect(postUserInput["number-line 1"].rel).toBe("gt");
         });
 
+        test("removes the point's drop shadow when the circle is made open on mobile", async () => {
+            // Arrange
+            const item = getAnswerfulItem(
+                "number-line",
+                getInequalityOptions(),
+            );
+            const {container} = renderQuestion(item.question, {isMobile: true});
+            // The shadow lives in an inline `filter` style on the point's
+            // wrapper; there's no accessible handle for it.
+            const shadowed = () =>
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                container.querySelectorAll('[style*="drop-shadow"]');
+            expect(shadowed()).toHaveLength(1);
+
+            // Act
+            await userEvent.click(
+                screen.getByRole("button", {name: "Make circle open"}),
+            );
+
+            // Assert
+            expect(shadowed()).toHaveLength(0);
+        });
+
         // Regression (LEMS-3530)
         test("can have its divisions edited", async () => {
             renderQuestion(tickCtrl);
@@ -334,7 +356,6 @@ describe("number-line widget", () => {
         isInequality: false,
         snapDivisions: 2,
         range: [-4, 4],
-        static: false,
         correctRel: "eq",
         numDivisions: null,
         divisionRange: [1, 10],

@@ -1,6 +1,6 @@
 import type {
     PerseusLabelImageUserInput,
-    PerseusLabelImageRubric,
+    PerseusLabelImageWidgetOptions,
     PerseusScore,
 } from "@khanacademy/perseus-core";
 
@@ -14,7 +14,7 @@ export type InteractiveMarkerScore = {
 
 export function scoreLabelImageMarker(
     userInput: PerseusLabelImageUserInput["markers"][number]["selected"],
-    rubric: PerseusLabelImageRubric["markers"][number]["answers"],
+    rubric: PerseusLabelImageWidgetOptions["markers"][number]["answers"],
 ): InteractiveMarkerScore {
     const score = {
         hasAnswers: false,
@@ -44,7 +44,7 @@ function scoreLabelImage(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: PerseusLabelImageUserInput | undefined,
-    rubric: PerseusLabelImageRubric,
+    rubric: PerseusLabelImageWidgetOptions,
 ): PerseusScore {
     if (userInput == null) {
         return {type: "invalid", message: null};

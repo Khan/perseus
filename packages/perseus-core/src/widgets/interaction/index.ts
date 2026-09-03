@@ -1,12 +1,7 @@
 import type {PerseusInteractionWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
-export type InteractionDefaultWidgetOptions = Pick<
-    PerseusInteractionWidgetOptions,
-    "graph" | "elements"
->;
-
-const defaultWidgetOptions: InteractionDefaultWidgetOptions = {
+const defaultWidgetOptions: PerseusInteractionWidgetOptions = {
     graph: {
         box: [400, 400],
         labels: ["x", "y"],

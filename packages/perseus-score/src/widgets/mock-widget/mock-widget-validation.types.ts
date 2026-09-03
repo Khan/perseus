@@ -1,4 +1,4 @@
-export type PerseusMockWidgetRubric = {
+export type PerseusMockWidgetOptions = {
     value: string;
 };
 

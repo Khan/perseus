@@ -1,19 +1,7 @@
 import type {PerseusMeasurerWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
-export type MeasurerDefaultWidgetOptions = Pick<
-    PerseusMeasurerWidgetOptions,
-    | "box"
-    | "image"
-    | "showProtractor"
-    | "showRuler"
-    | "rulerLabel"
-    | "rulerTicks"
-    | "rulerPixels"
-    | "rulerLength"
->;
-
-const defaultWidgetOptions: MeasurerDefaultWidgetOptions = {
+const defaultWidgetOptions: PerseusMeasurerWidgetOptions = {
     box: [480, 480],
     image: {},
     showProtractor: true,

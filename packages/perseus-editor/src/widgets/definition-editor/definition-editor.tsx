@@ -1,20 +1,21 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
+import {components} from "@khanacademy/perseus";
 import {definitionLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../../editor";
+import {deprecatedChangeableChange} from "../../mixins/changeable";
+import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {InitializeWidgetOptionsParams} from "../../editor";
+import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
-import type {DefinitionDefaultWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusDefinitionWidgetOptions} from "@khanacademy/perseus-core";
 
 const {TextInput} = components;
 
-interface Props
-    extends DefinitionDefaultWidgetOptions,
-        Changeable.ChangeableProps {
+interface Props extends PerseusDefinitionWidgetOptions, ChangeableProps {
     apiOptions?: APIOptionsWithDefaults;
 }
 
@@ -24,14 +25,12 @@ interface Props
  * editors to embed clickable terms with expandable explanations within content.
  */
 class DefinitionEditor extends React.Component<Props> {
-    static widgetName = "definition" as const;
-
-    static defaultProps: DefinitionDefaultWidgetOptions =
+    static defaultProps: PerseusDefinitionWidgetOptions =
         definitionLogic.defaultWidgetOptions;
 
     static initializeWidgetOptions(
         params: InitializeWidgetOptionsParams,
-    ): DefinitionDefaultWidgetOptions {
+    ): PerseusDefinitionWidgetOptions {
         const defaultWidgetOptions = {
             ...definitionLogic.defaultWidgetOptions,
         };
@@ -44,7 +43,7 @@ class DefinitionEditor extends React.Component<Props> {
     }
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     serialize: () => any = () => {

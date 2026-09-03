@@ -1,4 +1,4 @@
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {border, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -6,6 +6,7 @@ import type {CSSProperties} from "aphrodite";
 
 interface Props {
     // the initial value of the button selected, defaults to null
+    // TODO(tamara): use a type parameter instead of `any`
     value: any;
     buttons: ReadonlyArray<{
         // the value returned when the button is selected
@@ -19,9 +20,6 @@ interface Props {
     // a function that is provided with the updated value (which it then is
     // responsible for updating)
     onChange: (value?: any) => unknown;
-    // if false, exactly one button _must_ be selected;
-    // defaults to true and _at most_ one button (0 or 1) may be selected.
-    allowEmpty: boolean;
 
     /**
      * Customizes the selected button's styling.
@@ -35,7 +33,6 @@ interface Props {
 }
 
 interface DefaultProps {
-    allowEmpty: Props["allowEmpty"];
     value: Props["value"];
 }
 
@@ -46,8 +43,9 @@ class ButtonGroup extends React.Component<Props> {
     container: HTMLDivElement | null | undefined;
 
     static defaultProps: DefaultProps = {
+        // TODO(tamara): null may not be a valid value; there is no
+        // empty/deselected state anymore
         value: null,
-        allowEmpty: true,
     };
 
     componentWillUnmount() {
@@ -62,12 +60,7 @@ class ButtonGroup extends React.Component<Props> {
     }
 
     toggleSelect(newValue: any) {
-        const value = this.props.value;
-
-        if (this.props.allowEmpty) {
-            // Select the new button or unselect if it's already selected
-            this.props.onChange(value !== newValue ? newValue : null);
-        } else {
+        if (this.props.value !== newValue) {
             this.props.onChange(newValue);
         }
     }
@@ -82,11 +75,12 @@ class ButtonGroup extends React.Component<Props> {
                     key={"" + i}
                     disabled={this.props.disabled}
                     className={css(
-                        styles.buttonStyle,
-                        button.value === value && styles.selectedStyle,
+                        buttonGroupStyles.buttonStyle,
+                        button.value === value &&
+                            buttonGroupStyles.selectedStyle,
                         button.value === value &&
                             this.props.selectedButtonStyle,
-                        this.props.disabled && styles.disabledStyle,
+                        this.props.disabled && buttonGroupStyles.disabledStyle,
                     )}
                     onClick={() => this.toggleSelect(button.value)}
                 >
@@ -109,11 +103,14 @@ class ButtonGroup extends React.Component<Props> {
     }
 }
 
-const styles = StyleSheet.create({
+// Shared with multi-button-group.tsx, which renders the same visual design
+// with multi-select behavior, so the two components' styles can't drift apart.
+export const buttonGroupStyles = StyleSheet.create({
     buttonStyle: {
-        backgroundColor: "white",
-        border: "1px solid #ccc",
+        backgroundColor: semanticColor.core.background.base.default,
+        border: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
         borderInlineStart: "0",
+        color: semanticColor.core.foreground.neutral.strong,
         cursor: "pointer",
         margin: "0",
         paddingBlock: "5px",
@@ -121,19 +118,19 @@ const styles = StyleSheet.create({
         position: "relative", // for hover
 
         ":first-child": {
-            borderInlineStart: "1px solid #ccc",
-            borderStartStartRadius: "3px",
-            borderEndStartRadius: "3px",
+            borderInlineStart: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
+            borderStartStartRadius: border.radius.radius_040,
+            borderEndStartRadius: border.radius.radius_040,
         },
 
         ":last-child": {
-            borderInlineEnd: "1px solid #ccc",
-            borderStartEndRadius: "3px",
-            borderEndEndRadius: "3px",
+            borderInlineEnd: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
+            borderStartEndRadius: border.radius.radius_040,
+            borderEndEndRadius: border.radius.radius_040,
         },
 
         ":hover": {
-            backgroundColor: "#ccc",
+            backgroundColor: semanticColor.core.background.instructive.subtle,
         },
 
         ":focus": {
@@ -142,7 +139,8 @@ const styles = StyleSheet.create({
     },
 
     selectedStyle: {
-        backgroundColor: "#ddd",
+        backgroundColor: semanticColor.core.background.instructive.subtle,
+        boxShadow: `inset 0 calc(-1 * ${border.width.thick}) 0 ${semanticColor.core.border.instructive.default}`,
     },
 
     disabledStyle: {

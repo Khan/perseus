@@ -11,9 +11,7 @@
     font-weight: var(--wb-font-weight-bold);
     height: var(--perseus-multiple-choice-indicator-size);
     line-height: var(--wb-font-heading-lineHeight-small);
-    outline: var(--wb-border-width-none) solid
-        var(--wb-semanticColor-core-background-instructive-default);
-    outline-offset: 0;
+    outline: none;
     padding: 0;
     /* Along with the `transform` property applied to the <fieldset> ancestor,
            the following `position` property will enable the indicator to stay in a fixed place while scrolling.
@@ -24,11 +22,23 @@
 
 @media (prefers-reduced-motion: no-preference) {
     .base {
-        transition:
-            all 0.125s,
-            outline-width 0s,
-            outline-offset 0s;
+        transition: all 0.125s;
     }
+}
+
+/* Focus/Hover outline */
+.base:before {
+    --perseus-multiple-choice-focus-offset: calc(
+        0px - (2 * var(--wb-border-width-medium))
+    );
+    border: var(--wb-border-width-medium) solid transparent;
+    content: "";
+    height: var(--perseus-multiple-choice-indicator-size);
+    inset-block-start: var(--perseus-multiple-choice-focus-offset);
+    inset-inline-start: var(--perseus-multiple-choice-focus-offset);
+    outline: var(--wb-border-width-medium) solid transparent;
+    position: absolute;
+    width: var(--perseus-multiple-choice-indicator-size);
 }
 
 /* Show outline on hover, focus, and when the choice container is hovered.
@@ -41,20 +51,22 @@
        - Android doesn't show the outline during tap-dragging gestures, only when user taps the choice.
        - iOS shows the outline during tap-dragging gestures.
  */
-.base:hover,
-.base:focus,
-:has(> .base):hover .base:not(:where(.is-correct, .is-wrong)) {
-    outline-offset: var(--wb-border-width-medium);
-    outline-width: var(--wb-border-width-medium);
+.base:hover:before,
+.base:focus:before,
+:has(> .base):hover .base:not(:where(.is-correct, .is-wrong)):before {
+    border-color: var(--wb-semanticColor-focus-inner);
+    outline-color: var(--wb-semanticColor-focus-outer);
 }
 
 /* button is checked */
 .base[aria-pressed="true"] {
     background-color: var(
-        --wb-semanticColor-core-background-instructive-default
+        --wb-semanticColor-action-primary-progressive-default-background
     );
-    border-width: var(--wb-border-width-none);
-    color: var(--wb-semanticColor-core-foreground-knockout-default);
+    border-color: transparent;
+    color: var(
+        --wb-semanticColor-action-primary-progressive-default-foreground
+    );
 }
 
 /* Icon inside the button when showing correctness */
@@ -88,6 +100,10 @@
 .is-correct[aria-pressed="true"] {
     background-color: var(--wb-semanticColor-core-background-success-strong);
     color: var(--wb-semanticColor-core-foreground-knockout-default);
+}
+
+.is-correct[aria-pressed="true"],
+.is-correct[aria-pressed="true"]:before {
     width: var(--perseus-multiple-choice-indicator-correct-size);
 }
 
@@ -97,7 +113,8 @@
     color: var(--wb-semanticColor-core-foreground-neutral-subtle);
 }
 
-.circle-shape {
+.circle-shape,
+.circle-shape:before {
     /* Why set border-radius to 100vh?
        Extremely large border radii cause an overlap situation,
            resulting in a recalculation to the smallest radius that doesn't cause overlap,
@@ -114,4 +131,10 @@
 
 .square-shape {
     border-radius: var(--wb-sizing-size_040);
+}
+
+.square-shape:before {
+    border-radius: calc(
+        var(--wb-sizing-size_040) + var(--wb-border-width-medium)
+    );
 }

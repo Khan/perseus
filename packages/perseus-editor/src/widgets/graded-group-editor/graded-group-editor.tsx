@@ -1,40 +1,42 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {components, Changeable} from "@khanacademy/perseus";
-import {gradedGroupLogic} from "@khanacademy/perseus-core";
+import {components} from "@khanacademy/perseus";
+import {
+    gradedGroupLogic,
+    getDefaultAnswerArea,
+} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
 
 import Editor from "../../editor";
+import ExtrasEditor from "../../extras-editor";
+import {deprecatedChangeableChange} from "../../mixins/changeable";
 
 import styles from "./graded-group-editor.module.css";
 
+import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
-    GradedGroupDefaultWidgetOptions,
+    PerseusGradedGroupWidgetOptions,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
 const {TextInput} = components;
 
-interface Props
-    extends GradedGroupDefaultWidgetOptions,
-        Changeable.ChangeableProps {
+interface Props extends PerseusGradedGroupWidgetOptions, ChangeableProps {
     apiOptions?: APIOptionsWithDefaults;
 }
 
 class GradedGroupEditor extends React.Component<Props> {
-    static widgetName = "graded-group" as const;
-
-    static defaultProps: GradedGroupDefaultWidgetOptions =
+    static defaultProps: PerseusGradedGroupWidgetOptions =
         gradedGroupLogic.defaultWidgetOptions;
 
     editor = React.createRef<Editor>();
     hintEditor = React.createRef<Editor>();
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     handleAddHint: () => void = () => {
@@ -60,6 +62,9 @@ class GradedGroupEditor extends React.Component<Props> {
             title: this.props.title,
             ...this.editor.current?.serialize(),
             hint: this.hintEditor.current?.serialize(),
+            ...(this.props.answerArea
+                ? {answerArea: this.props.answerArea}
+                : {}),
         };
     };
 
@@ -133,6 +138,20 @@ class GradedGroupEditor extends React.Component<Props> {
                         </Button>
                     </div>
                 )}
+                <ExtrasEditor
+                    {...(this.props.answerArea ?? getDefaultAnswerArea())}
+                    apiOptions={this.props.apiOptions}
+                    editingDisabled={editingDisabled}
+                    onChange={(changes) => {
+                        this.props.onChange({
+                            answerArea: {
+                                ...getDefaultAnswerArea(),
+                                ...this.props.answerArea,
+                                ...changes,
+                            },
+                        });
+                    }}
+                />
             </div>
         );
     }

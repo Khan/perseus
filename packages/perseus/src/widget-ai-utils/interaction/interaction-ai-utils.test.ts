@@ -252,7 +252,6 @@ const question1: PerseusRenderer = {
                     tickStep: [0.5, 1],
                     valid: "Step is too large, there must be at least 3 ticks.",
                 },
-                static: false,
             },
             static: false,
             type: "interaction",
