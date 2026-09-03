@@ -51,15 +51,16 @@ export const TeX: Story = {
 };
 
 /**
- * The image shows at its natural size, up to the tile's content width.
- * The authored height presets come later. The widget will supply them
- * through the Renderer's `images` size mapping.
+ * The image renders at the authored height (the editor offers 24-96 in
+ * steps of 12). Without one, it shows at its natural size, up to the
+ * tile's content width.
  */
 export const Image: Story = {
     args: {
         content:
             "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
         label: "2 micron diameter cell",
+        imageHeight: 48,
     },
 };
 

@@ -93,6 +93,7 @@
 
 /* Images keep their set height. They must not overflow the tile. */
 .content img {
+    block-size: var(--answer-tile-image-height, auto);
     max-inline-size: 100%;
 }
 

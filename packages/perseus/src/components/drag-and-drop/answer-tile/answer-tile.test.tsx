@@ -60,6 +60,26 @@ describe("AnswerTile", () => {
         unmockImageLoading();
     });
 
+    it("sizes an image tile's image through the authored height", () => {
+        // Arrange, Act
+        const {container} = render(
+            <AnswerTile
+                {...generateAnswerTileProps({
+                    content: "![a bongo drum](http://localhost/bongo.png)",
+                    label: "a bongo drum",
+                    imageHeight: 48,
+                })}
+            />,
+        );
+
+        // Assert — the CSS reads the variable on the tile root, which
+        // is a semantics-free div with no query-friendly handle.
+        // eslint-disable-next-line testing-library/no-node-access, testing-library/no-container
+        expect(container.firstElementChild?.getAttribute("style")).toContain(
+            "--answer-tile-image-height: 48px",
+        );
+    });
+
     it.each(["", "  "])(
         "renders the label for screen readers when content is %j",
         (content) => {

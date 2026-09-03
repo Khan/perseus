@@ -63,6 +63,12 @@ export interface AnswerTileProps {
      * move focus after a tile moves.
      */
     menuRef?: React.Ref<HTMLButtonElement>;
+    /**
+     * Display height in pixels for an image tile's image. The schema
+     * types this as a plain number; the editor offers 24-96 in steps
+     * of 12.
+     */
+    imageHeight?: number;
 }
 
 /**
@@ -84,6 +90,7 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
         onClear,
         remainingUses,
         menuRef,
+        imageHeight,
     } = props;
     const {strings} = usePerseusI18n();
 
@@ -139,8 +146,17 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
         return <Renderer content={content} strings={strings} />;
     };
 
+    const imageHeightStyle: React.CSSProperties | undefined =
+        imageHeight != null
+            ? {
+                  // @ts-expect-error TS2353: CSSProperties has no keys
+                  // for CSS custom properties.
+                  "--answer-tile-image-height": `${imageHeight}px`,
+              }
+            : undefined;
+
     return (
-        <div className={tileClasses}>
+        <div className={tileClasses} style={imageHeightStyle}>
             {renderTileStart()}
             <div className={styles.content}>{renderTileContent()}</div>
         </div>
