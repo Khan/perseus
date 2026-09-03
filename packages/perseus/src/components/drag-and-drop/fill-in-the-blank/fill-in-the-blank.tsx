@@ -25,8 +25,11 @@ export type FillInTheBlankTile = {
     content: string;
     /** Plain-text value for screen readers. */
     label: string;
-    /** Display height in pixels for an image tile. */
-    imageHeight?: 24 | 36 | 48 | 60 | 72 | 84 | 96;
+    /**
+     * Display height in pixels for an image tile. The schema types this
+     * as a plain number; the editor offers 24-96 in steps of 12.
+     */
+    imageHeight?: number;
 };
 
 export interface FillInTheBlankProps {
