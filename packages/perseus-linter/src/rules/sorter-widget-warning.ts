@@ -1,11 +1,12 @@
 import Rule from "../rule";
 
+import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
+
 // Exported for tests
 export const sorterMaxCards = 10;
 export const sorterMaxIdealCards = 5;
 export const sorterMaxHorizontalCards = 5;
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "sorter-widget-warning",
     severity: Rule.Severity.WARNING,
@@ -28,8 +29,8 @@ export default Rule.makeRule({
         }
 
         const warnings: string[] = [];
-        const correct: string[] = widget.options.correct ?? [];
-        const layout: "horizontal" | "vertical" = widget.options.layout;
+        const options: PerseusSorterWidgetOptions = widget.options;
+        const {layout, correct = []} = options;
 
         if (correct.length > sorterMaxCards) {
             warnings.push(
@@ -54,4 +55,4 @@ export default Rule.makeRule({
 
         return warnings.join("\n\n");
     },
-}) as Rule;
+});
