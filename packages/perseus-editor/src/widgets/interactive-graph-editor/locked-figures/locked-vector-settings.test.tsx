@@ -566,7 +566,7 @@ describe("zero-length vector edits", () => {
         await userEvent.type(tipX, "-0");
 
         // Assert: the label shifted by the midpoint offset and stayed
-        // finite. (Pre-fix, mafs's midpoint made this [NaN, NaN].)
+        // finite despite the points coinciding.
         expect(onChangeProps).toHaveBeenLastCalledWith(
             expect.objectContaining({
                 labels: [expect.objectContaining({coord: [-1, 1]})],

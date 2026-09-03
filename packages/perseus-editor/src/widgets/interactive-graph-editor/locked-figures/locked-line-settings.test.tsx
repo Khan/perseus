@@ -873,7 +873,7 @@ describe("zero-length line edits", () => {
         await userEvent.type(point2X, "-0");
 
         // Assert: the label shifted by the midpoint offset and stayed
-        // finite. (Pre-fix, mafs's midpoint made this [NaN, NaN].)
+        // finite despite the points coinciding.
         expect(onChangeProps).toHaveBeenLastCalledWith(
             expect.objectContaining({
                 labels: [expect.objectContaining({coord: [0, 0.5]})],
