@@ -36,7 +36,7 @@ const StartCoordsCircle = (props: StartCoordsCircleProps) => {
         setRadiusState(startCoords.radius.toString());
     }, [startCoords.radius]);
 
-    function handleRadiuschange(newValue: string) {
+    function handleRadiusChange(newValue: string) {
         // Update the local state to update the input field.
         setRadiusState(newValue);
 
@@ -82,7 +82,7 @@ const StartCoordsCircle = (props: StartCoordsCircleProps) => {
                 <Strut size={spacing.small_12} />
                 <ScrolllessNumberTextField
                     value={radiusState}
-                    onChange={handleRadiuschange}
+                    onChange={handleRadiusChange}
                     style={styles.textField}
                 />
             </BodyText>
