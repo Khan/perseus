@@ -41,26 +41,7 @@ const CoordinatePairInput = (props: Props) => {
     const xLabel = labels ? labels[0] : "x coord";
     const yLabel = labels ? labels[1] : "y coord";
 
-    // Keep track of the coordinates via state as the user is editing them,
-    // before they are updated in the props as a valid number.
-    const [coordState, setCoordState] = React.useState([
-        // Using strings to make it easier to work with the text fields.
-        coord[0].toString(),
-        coord[1].toString(),
-    ]);
-
-    // Update the local state when the props change. (Such as when the graph
-    // type is changed, and the coordinates are reset.)
-    React.useEffect(() => {
-        setCoordState([coord[0].toString(), coord[1].toString()]);
-    }, [coord]);
-
-    function handleCoordChange(newValue, coordIndex) {
-        // Update the local state (update the input field value).
-        const newCoordState = [...coordState];
-        newCoordState[coordIndex] = newValue;
-        setCoordState(newCoordState);
-
+    function handleCoordChange(newValue: string, coordIndex: number) {
         // If the new value is not a number, don't update the props.
         // If it's empty, keep the props the same value instead of setting to 0.
         if (isNaN(+newValue) || newValue === "") {
@@ -68,7 +49,7 @@ const CoordinatePairInput = (props: Props) => {
         }
 
         // Update the props (update the graph).
-        const newCoords = [...coord] satisfies [number, number];
+        const newCoords: Coord = [...coord];
         newCoords[coordIndex] = +newValue;
         onChange(newCoords);
     }
@@ -79,7 +60,7 @@ const CoordinatePairInput = (props: Props) => {
                 <span className={labelClassName}>{xLabel}</span>
 
                 <ScrolllessNumberTextField
-                    value={coordState[0]}
+                    value={String(coord[0])}
                     disabled={disabled}
                     onChange={(newValue) => handleCoordChange(newValue, 0)}
                     style={[
@@ -93,7 +74,7 @@ const CoordinatePairInput = (props: Props) => {
                 <span className={labelClassName}>{yLabel}</span>
 
                 <ScrolllessNumberTextField
-                    value={coordState[1]}
+                    value={String(coord[1])}
                     disabled={disabled}
                     onChange={(newValue) => handleCoordChange(newValue, 1)}
                     style={[
