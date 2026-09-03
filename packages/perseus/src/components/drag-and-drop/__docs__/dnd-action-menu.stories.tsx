@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import {rtlDecorator} from "../../../widgets/__testutils__/story-decorators";
+import {AnswerTile} from "../answer-tile";
 import {DndActionMenu} from "../dnd-action-menu";
 import {
     generateActionMenuProps,
@@ -9,42 +10,35 @@ import {
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-/** TODO(LEMS-4363): Placeholder answer tile until we create the real one */
-function PlaceholderTile({children}: {children: React.ReactNode}) {
+/** Give the menu room to open in the story canvas. */
+function StoryPadding({children}: {children: React.ReactNode}) {
     return (
-        <div
-            style={{
-                display: "inline-flex",
-                alignItems: "center",
-                minBlockSize: 48,
-                paddingBlock: 8,
-                paddingInline: 8,
-                borderRadius: 8,
-                border: "1px solid var(--wb-semanticColor-core-border-neutral-default)",
-                background:
-                    "var(--wb-semanticColor-core-background-base-default)",
-                // Leave the menu room to open in the story canvas.
-                marginBlock: 240,
-                marginInline: 32,
-            }}
-        >
+        <div style={{display: "flex", marginBlock: 240, marginInline: 32}}>
             {children}
         </div>
     );
 }
 
 /**
- * TODO(LEMS-4363): The tile below is a throwaway placeholder standing in for
- * the real `AnswerTile`, which will be created next after this PR.
+ * `AnswerTile` contains the `DndActionMenu`. These stories show the menu
+ * inside the tile, because that is how widgets use it.
  */
 const meta: Meta<typeof DndActionMenu> = {
     title: "Components/Drag and Drop/Action Menu",
     component: DndActionMenu,
     render: (args) => (
-        <PlaceholderTile>
-            <DndActionMenu {...args} />
-            {args.tileLabel}
-        </PlaceholderTile>
+        <StoryPadding>
+            <AnswerTile
+                tileId="tile-1"
+                content={args.tileLabel}
+                label={args.tileLabel}
+                moveTargets={args.moveTargets}
+                onMove={args.onMove}
+                clearFromLabel={args.clearFromLabel}
+                onClear={args.onClear}
+                remainingUses={args.remainingUses}
+            />
+        </StoryPadding>
     ),
     args: generateActionMenuProps({moveTargets: generateTestBlanks(4)}),
 };
