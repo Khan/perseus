@@ -1,8 +1,12 @@
 import {expectWarning} from "../__tests__/test-utils";
 
-import sorterWidgetWarningRule from "./sorter-widget-warning";
+import sorterWidgetWarningRule, {
+    sorterMaxCards,
+    sorterMaxIdealCards,
+    sorterMaxHorizontalCards,
+} from "./sorter-widget-warning";
 
-describe("sorter-widget-error", () => {
+describe("sorter-widget-warning", () => {
     it("warns for a sorter widget with over max cards in vertical layout", () => {
         expectWarning(
             sorterWidgetWarningRule,
@@ -11,19 +15,10 @@ describe("sorter-widget-error", () => {
                 widgets: {
                     "sorter 1": {
                         options: {
-                            correct: [
-                                "1",
-                                "2",
-                                "3",
-                                "4",
-                                "5",
-                                "6",
-                                "7",
-                                "8",
-                                "9",
-                                "10",
-                                "11",
-                            ],
+                            correct: Array.from(
+                                {length: sorterMaxCards + 1},
+                                (_, i) => i,
+                            ),
                             layout: "vertical",
                         },
                     },
@@ -44,19 +39,10 @@ describe("sorter-widget-error", () => {
                 widgets: {
                     "sorter 1": {
                         options: {
-                            correct: [
-                                "1",
-                                "2",
-                                "3",
-                                "4",
-                                "5",
-                                "6",
-                                "7",
-                                "8",
-                                "9",
-                                "10",
-                                "11",
-                            ],
+                            correct: Array.from(
+                                {length: sorterMaxCards + 1},
+                                (_, i) => i,
+                            ),
                             layout: "horizontal",
                         },
                     },
@@ -77,7 +63,10 @@ describe("sorter-widget-error", () => {
                 widgets: {
                     "sorter 1": {
                         options: {
-                            correct: ["1", "2", "3", "4", "5", "6"],
+                            correct: Array.from(
+                                {length: sorterMaxHorizontalCards + 1},
+                                (_, i) => i,
+                            ),
                             layout: "horizontal",
                         },
                     },
@@ -98,7 +87,10 @@ describe("sorter-widget-error", () => {
                 widgets: {
                     "sorter 1": {
                         options: {
-                            correct: ["1", "2", "3", "4", "5", "6"],
+                            correct: Array.from(
+                                {length: sorterMaxIdealCards + 1},
+                                (_, i) => i,
+                            ),
                             layout: "horizontal",
                         },
                     },
@@ -119,7 +111,10 @@ describe("sorter-widget-error", () => {
                 widgets: {
                     "sorter 1": {
                         options: {
-                            correct: ["1", "2", "3", "4", "5", "6"],
+                            correct: Array.from(
+                                {length: sorterMaxIdealCards + 1},
+                                (_, i) => i,
+                            ),
                             layout: "vertical",
                         },
                     },

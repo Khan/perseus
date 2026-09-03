@@ -1,8 +1,9 @@
 import Rule from "../rule";
 
-const maxIdealCards = 5;
-const maxCards = 10;
-const maxHorizontalCards = 5;
+// Exported for tests
+export const sorterMaxCards = 10;
+export const sorterMaxIdealCards = 5;
+export const sorterMaxHorizontalCards = 5;
 
 // eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
@@ -30,19 +31,24 @@ export default Rule.makeRule({
         const correct: string[] = widget.options.correct ?? [];
         const layout: "horizontal" | "vertical" = widget.options.layout;
 
-        if (correct.length > maxCards) {
-            warnings.push(`Sorter cannot have more than ${maxCards} cards.`);
-        }
-
-        if (layout === "horizontal" && correct.length > maxHorizontalCards) {
+        if (correct.length > sorterMaxCards) {
             warnings.push(
-                `Sorter cannot have more than ${maxHorizontalCards} cards in horizontal layout.`,
+                `Sorter cannot have more than ${sorterMaxCards} cards.`,
             );
         }
 
-        if (correct.length > maxIdealCards) {
+        if (
+            layout === "horizontal" &&
+            correct.length > sorterMaxHorizontalCards
+        ) {
             warnings.push(
-                `Having more than ${maxIdealCards} cards in Sorter is discouraged.`,
+                `Sorter cannot have more than ${sorterMaxHorizontalCards} cards in horizontal layout.`,
+            );
+        }
+
+        if (correct.length > sorterMaxIdealCards) {
+            warnings.push(
+                `Having more than ${sorterMaxIdealCards} cards in Sorter is discouraged.`,
             );
         }
 
