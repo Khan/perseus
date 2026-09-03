@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import {rtlDecorator} from "../../../widgets/__testutils__/story-decorators";
 import {AnswerTile} from "../answer-tile";
 import {DndActionMenu} from "../dnd-action-menu";
 import {
@@ -29,8 +30,8 @@ const meta: Meta<typeof DndActionMenu> = {
         <StoryPadding>
             <AnswerTile
                 tileId="tile-1"
-                content={args.label}
-                label={args.label}
+                content={args.tileLabel}
+                label={args.tileLabel}
                 moveTargets={args.moveTargets}
                 onMove={args.onMove}
                 clearFromLabel={args.clearFromLabel}
@@ -39,10 +40,7 @@ const meta: Meta<typeof DndActionMenu> = {
             />
         </StoryPadding>
     ),
-    args: {
-        ...generateActionMenuProps(),
-        moveTargets: generateTestBlanks(4),
-    },
+    args: generateActionMenuProps({moveTargets: generateTestBlanks(4)}),
 };
 
 export default meta;
@@ -55,33 +53,23 @@ type Story = StoryObj<typeof DndActionMenu>;
  */
 export const Default: Story = {};
 
-/** Parent tile is in the choice bank, which should list the available blanks, with no "Clear" option */
-// No overrides — the shared args on `meta` model this state already.
-export const InChoiceBank: Story = {};
-
 /** A tile placed in Blank 1, which should list the other blanks, and a "Clear" option. */
 export const PlacedInBlank: Story = {
     args: {
         moveTargets: generateTestBlanks(4).slice(1),
-        targetLabel: "Blank 1",
+        clearFromLabel: "Blank 1",
         onClear: () => {},
     },
 };
 
-/** Example of the menu being disabled, but still focusable.
- *  While the designs show the menu disappearing when the tile
- *  is disabled, it seemed good to have this logic anyway.
- *  This story shows the menu without a tile. AnswerTile never disables
- *  its menu, because scored tiles remove the menu instead.
+/**
+ * A tile with nowhere to move and nothing to clear. The opener disables
+ * itself rather than open an empty menu, and stays focusable so its
+ * position stays discoverable.
  */
-export const Disabled: Story = {
-    render: (args) => (
-        <StoryPadding>
-            <DndActionMenu {...args} />
-        </StoryPadding>
-    ),
+export const NoAvailableActions: Story = {
     args: {
-        disabled: true,
+        moveTargets: [],
     },
 };
 
@@ -91,12 +79,12 @@ export const Disabled: Story = {
  */
 export const LongCategoryLabels: Story = {
     args: {
-        label: "Iron",
+        tileLabel: "Iron",
         moveTargets: [
             {id: "col-1", label: "Physical changes to matter"},
             {id: "col-2", label: "Chemical changes to matter"},
         ],
-        targetLabel: "Physical changes to matter",
+        clearFromLabel: "Physical changes to matter",
         onClear: () => {},
     },
 };
@@ -107,7 +95,7 @@ export const LongCategoryLabels: Story = {
  */
 export const MultiUse: Story = {
     args: {
-        label: "Penny",
+        tileLabel: "Penny",
         remainingUses: 5,
     },
 };
@@ -115,7 +103,7 @@ export const MultiUse: Story = {
 /** Right-to-left */
 export const RightToLeft: Story = {
     args: {
-        label: "بونغو",
+        tileLabel: "بونغو",
         moveTargets: [
             {id: "blank-1", label: "الفراغ 1"},
             {id: "blank-2", label: "الفراغ 2"},
@@ -123,25 +111,10 @@ export const RightToLeft: Story = {
     },
     parameters: {
         // Render in a separate iframe on the docs page so the document-level
-        // dir below doesn't flip the surrounding stories.
+        // dir doesn't flip the surrounding stories.
         docs: {story: {inline: false, height: "620px"}},
     },
-    decorators: [
-        // The open menu renders in a portal to document.body, so a dir="rtl"
-        // wrapper around the story doesn't work here. Set dir on the document
-        // element instead, as a real RTL page does.
-        (StoryComponent) => {
-            React.useEffect(() => {
-                const previous = document.documentElement.dir;
-                document.documentElement.dir = "rtl";
-                return () => {
-                    document.documentElement.dir = previous;
-                };
-            }, []);
-            // Note: the fixed copy ("Move to", "Clear") renders in English
-            // here — the temporary strings module isn't swappable per story.
-            // Full RTL copy returns when the strings move into PerseusStrings.
-            return <StoryComponent />;
-        },
-    ],
+    // Note: the fixed copy ("Move to", "Clear") renders in English here —
+    // the temporary strings module isn't swappable per story.
+    decorators: [rtlDecorator],
 };
