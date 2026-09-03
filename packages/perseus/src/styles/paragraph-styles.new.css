@@ -8,14 +8,18 @@ p {
     line-height: 30px;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
+.perseus-renderer.renderer-new-ff
+> * {
+    margin-inline: auto;
+    max-width: 688px;
+}
+.framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer.renderer-new-ff
     > p {
     color: var(--wb-semanticColor-core-foreground-neutral-strong);
     font-size: 20px;
     line-height: 30px;
-    margin-inline: auto;
     margin-block: 0 var(--wb-sizing-size_320);
-    max-width: 688px;
 }
 /* Reset the Renderer margins for the image widget.
     The image widget title and caption shouldn't have margins,
@@ -121,7 +125,7 @@ p {
     padding-top: var(--wb-sizing-size_240);
 }
 @media (max-width: 767px) {
-    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff > p {
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff > * {
         max-width: none;
     }
     .framework-perseus.perseus-mobile .perseus-renderer > .paragraph {
@@ -165,7 +169,7 @@ p {
     }
 }
 @media (min-width: 767px) and (max-width: 1199px) {
-    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff > p {
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff > * {
         max-width: 512px;
     }
     .framework-perseus.perseus-mobile .perseus-renderer > .paragraph {
@@ -209,7 +213,7 @@ p {
     }
 }
 @media (min-width: 1200px) {
-    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff > p {
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff > * {
         max-width: 688px;
     }
     .framework-perseus.perseus-mobile .perseus-renderer > .paragraph {
