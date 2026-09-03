@@ -147,10 +147,9 @@ const LockedLineSettings = (props: Props) => {
             ...newPointProps,
         };
 
-        // Update labels to be centered between the two points,
-        // retaining existing offset.
-        // kmath's midpoint averages the points, so unlike mafs's lerp-based
-        // vec.midpoint it stays finite when the points coincide (LEMS-4564).
+        // Update labels to be centered between the two points, retaining
+        // existing offset. Use kmath's midpoint, not mafs's vec.midpoint:
+        // mafs returns [NaN, NaN] when the two points are identical.
         const oldMidpoint = kline.midpoint([points[0].coord, points[1].coord]);
         const newMidpoint = kline.midpoint([
             newPoints[0].coord,
@@ -160,8 +159,8 @@ const LockedLineSettings = (props: Props) => {
             newMidpoint[0] - oldMidpoint[0],
             newMidpoint[1] - oldMidpoint[1],
         ];
-        // A non-finite label coordinate (corrupted item data) can't be
-        // shifted; snap it to the new midpoint to repair it instead.
+        // A corrupted (non-finite) label coordinate can't be shifted;
+        // snap it to the new midpoint to repair it instead.
         const newLabels = labels.map((label) => ({
             ...label,
             coord: [

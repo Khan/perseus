@@ -575,8 +575,7 @@ describe("zero-length vector edits (LEMS-4564)", () => {
     });
 
     it("repairs a corrupted label coordinate on the next point edit", async () => {
-        // Arrange: the label's x coord is NaN, as items corrupted by
-        // LEMS-4564 carry after a JSON round-trip and re-parse.
+        // Arrange: the label's x coord is NaN, as in corrupted items.
         const onChangeProps = jest.fn();
         render(
             <LockedVectorSettings

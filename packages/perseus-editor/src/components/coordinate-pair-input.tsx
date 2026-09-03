@@ -27,10 +27,9 @@ const errorFieldStyle: StyleType = {
     backgroundColor: semanticColor.core.background.critical.subtle,
 };
 
-// Item data that skipped validation can carry null or non-finite coordinate
-// values (LEMS-4564), so render those as an empty field instead of crashing.
-// The parameter type is wider than `Coord` promises because that corrupted
-// data defeats the type system.
+// Corrupted item data can contain null or non-finite coordinates despite
+// what the types promise, so render those as an empty field instead of
+// crashing on toString.
 function coordValueToString(value: number | null | undefined): string {
     return Number.isFinite(value) ? String(value) : "";
 }
@@ -72,17 +71,15 @@ const CoordinatePairInput = (props: Props) => {
         newCoordState[coordIndex] = newValue;
         setCoordState(newCoordState);
 
-        // If the new value is not a finite number, don't update the props.
-        // If it's empty, keep the props the same value instead of setting
-        // to 0. Infinity is excluded because JSON.stringify turns it into
-        // null, corrupting the item data (LEMS-4564).
+        // Only commit finite numbers; an empty field keeps the previous
+        // value. Infinity passes isNaN but becomes null when the item is
+        // serialized to JSON, so it must be rejected here too.
         if (!Number.isFinite(+newValue) || newValue === "") {
             return;
         }
 
-        // Update the props (update the graph). If the coordinate NOT being
-        // edited is corrupted (null/non-finite), repair it to 0 instead of
-        // writing the bad value back into the item data.
+        // Update the props (update the graph). If the other coordinate is
+        // corrupted, repair it to 0 rather than writing it back.
         const siblingIndex = coordIndex === 0 ? 1 : 0;
         const newCoords = [...coord] satisfies [number, number];
         newCoords[coordIndex] = +newValue;
@@ -92,8 +89,6 @@ const CoordinatePairInput = (props: Props) => {
         onChange(newCoords);
     }
 
-    // Highlight corrupted incoming values so a blank field reads as a
-    // problem to fix, not an empty input.
     const hasInvalidCoord = !coord.every(Number.isFinite);
     const showError = error || hasInvalidCoord;
 

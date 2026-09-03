@@ -45,8 +45,7 @@ describe("CoordinatePairInput", () => {
     });
 
     it("renders an empty field instead of crashing when a coordinate is null", () => {
-        // Item data that skipped validation can carry null coordinate
-        // values (LEMS-4564).
+        // Corrupted saved item data can carry null coordinate values.
         // eslint-disable-next-line no-restricted-syntax
         const corruptedCoord = [null, 0.8] as unknown as Coord;
 
@@ -63,8 +62,7 @@ describe("CoordinatePairInput", () => {
     });
 
     it("repairs a corrupted sibling coordinate when the other field is edited", async () => {
-        // Arrange: x is corrupted (null), as items affected by LEMS-4564
-        // carry after a JSON round-trip.
+        // Arrange: x is corrupted (null), as in corrupted saved items.
         const onChange = jest.fn();
         // eslint-disable-next-line no-restricted-syntax
         const corruptedCoord = [null, 0.8] as unknown as Coord;

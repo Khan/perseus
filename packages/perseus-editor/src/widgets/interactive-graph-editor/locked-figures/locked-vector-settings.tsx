@@ -116,18 +116,17 @@ const LockedVectorSettings = (props: Props) => {
             const newPoints = [...points] satisfies [tail: Coord, tip: Coord];
             newPoints[index] = [...newCoord];
 
-            // Update labels to match the new points
-            // kmath's midpoint averages the points, so unlike mafs's
-            // lerp-based vec.midpoint it stays finite when the points
-            // coincide (LEMS-4564).
+            // Update labels to match the new points. Use kmath's midpoint,
+            // not mafs's vec.midpoint: mafs returns [NaN, NaN] when the two
+            // points are identical.
             const oldMidpoint = kline.midpoint([tail, tip]);
             const newMidpoint = kline.midpoint([newPoints[0], newPoints[1]]);
             const offset: Coord = [
                 newMidpoint[0] - oldMidpoint[0],
                 newMidpoint[1] - oldMidpoint[1],
             ];
-            // A non-finite label coordinate (corrupted item data) can't be
-            // shifted; snap it to the new midpoint to repair it instead.
+            // A corrupted (non-finite) label coordinate can't be shifted;
+            // snap it to the new midpoint to repair it instead.
             const newLabels = labels.map((label) => ({
                 ...label,
                 coord: [
