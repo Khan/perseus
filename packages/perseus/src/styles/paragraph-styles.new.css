@@ -98,28 +98,25 @@ p {
     padding-left: var(--wb-sizing-size_100);
     margin-bottom: var(--wb-sizing-size_240);
 }
-.framework-perseus.perseus-mobile .perseus-renderer > .paragraph ol {
+.framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff ol {
     margin: 0;
     padding-left: var(--wb-sizing-size_320);
 }
-.framework-perseus.perseus-mobile .perseus-renderer > .paragraph ol > li {
+.framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff ol > li {
     list-style-type: decimal;
     margin-bottom: var(--wb-sizing-size_240);
 }
-.framework-perseus.perseus-mobile .perseus-renderer > .paragraph ol ol,
+.framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff ol ol,
 .framework-perseus.perseus-mobile
-    .perseus-renderer
-    > .paragraph
+    .perseus-renderer.renderer-new-ff
     ul:not([data-widget="radio"])
     ol,
 .framework-perseus.perseus-mobile
-    .perseus-renderer
-    > .paragraph
+    .perseus-renderer.renderer-new-ff
     ol
     ul:not([data-widget="radio"]),
 .framework-perseus.perseus-mobile
-    .perseus-renderer
-    > .paragraph
+    .perseus-renderer.renderer-new-ff
     ul:not([data-widget="radio"])
     ul:not([data-widget="radio"]) {
     padding-top: var(--wb-sizing-size_240);
