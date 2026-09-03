@@ -1,4 +1,7 @@
 import {shuffleSorter} from "@khanacademy/perseus-core";
+import sorterLogic from "@khanacademy/perseus-core/widgets/sorter";
+
+import {defineWidgetRegistration} from "../../widget-registration";
 
 import Sorter from "./sorter";
 
@@ -33,7 +36,7 @@ function getUserInputFromSerializedState(
     };
 }
 
-export default {
+const sorterWidget = {
     name: "sorter",
     displayName: "Sorter",
     widget: Sorter,
@@ -41,3 +44,10 @@ export default {
     getStartUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<"sorter", typeof Sorter>;
+
+export const sorterRegistration = defineWidgetRegistration({
+    widget: sorterWidget,
+    logic: sorterLogic,
+});
+
+export default sorterWidget;

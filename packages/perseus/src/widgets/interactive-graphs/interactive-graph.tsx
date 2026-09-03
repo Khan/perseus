@@ -1,7 +1,9 @@
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import interactiveGraphLogic from "@khanacademy/perseus-core/widgets/interactive-graph";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
+import {defineWidgetRegistration} from "../../widget-registration";
 import Util from "../../util";
 import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
 import {getPromptJSON} from "../../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
@@ -146,7 +148,7 @@ function getCorrectUserInput(
     return options.correct;
 }
 
-export default {
+const interactiveGraphWidget = {
     name: "interactive-graph",
     displayName: "Interactive graph",
     widget: InteractiveGraph,
@@ -155,3 +157,10 @@ export default {
     getUserInputFromSerializedState,
     supportsUngraded: true,
 } satisfies WidgetExports<"interactive-graph", typeof InteractiveGraph>;
+
+export const interactiveGraphRegistration = defineWidgetRegistration({
+    widget: interactiveGraphWidget,
+    logic: interactiveGraphLogic,
+});
+
+export default interactiveGraphWidget;

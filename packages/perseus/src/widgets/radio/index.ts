@@ -1,3 +1,7 @@
+import radioLogic from "@khanacademy/perseus-core/widgets/radio";
+
+import {defineWidgetRegistration} from "../../widget-registration";
+
 import Radio from "./radio-widget";
 import {getUserInputFromSerializedState} from "./util";
 
@@ -10,7 +14,7 @@ function getStartUserInput(): PerseusRadioUserInput {
     };
 }
 
-export default {
+const radioWidget = {
     name: "radio",
     displayName: "Radio / Multiple choice",
     widget: Radio,
@@ -25,3 +29,10 @@ export default {
         return getUserInputFromSerializedState(serializedState);
     },
 } satisfies WidgetExports<"radio", typeof Radio>;
+
+export const radioRegistration = defineWidgetRegistration({
+    widget: radioWidget,
+    logic: radioLogic,
+});
+
+export default radioWidget;
