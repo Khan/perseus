@@ -1,0 +1,401 @@
+.framework-perseus code {
+    font-family: Courier, monospace;
+}
+.framework-perseus pre {
+    background-color: var(--wb-semanticColor-core-background-base-subtle);
+    border-radius: var(--wb-border-radius-radius_040);
+    color: var(--wb-semanticColor-core-foreground-neutral-strong);
+    font-size: 18px;
+    padding: 16px;
+    white-space: pre;
+    overflow: auto;
+}
+.framework-perseus.perseus-article:not(.perseus-mobile) table {
+    font-size: 20px;
+    line-height: 30px;
+    margin-bottom: var(--wb-sizing-size_320);
+}
+.framework-perseus.perseus-article:not(.perseus-mobile) h2 {
+    font-family: inherit;
+    font-size: 30px;
+    font-weight: var(--wb-font-weight-bold);
+    line-height: 1.1;
+    margin-bottom: var(--wb-sizing-size_160);
+    margin-top: var(--wb-sizing-size_480);
+}
+.framework-perseus.perseus-article:not(.perseus-mobile) h3 {
+    font-family: inherit;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: var(--wb-sizing-size_160);
+    margin-top: var(--wb-sizing-size_320);
+}
+.framework-perseus.perseus-article:not(.perseus-mobile) h4,
+.framework-perseus.perseus-article:not(.perseus-mobile) h5,
+.framework-perseus.perseus-article:not(.perseus-mobile) h6 {
+    font-family: inherit;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 25px;
+    margin-bottom: var(--wb-sizing-size_160);
+    margin-top: var(--wb-sizing-size_320);
+}
+.framework-perseus.perseus-article:not(.perseus-mobile) blockquote {
+    padding: 0 var(--wb-sizing-size_320);
+}
+.framework-perseus.perseus-article:not(.perseus-mobile) .MathJax .math {
+    color: inherit;
+}
+.framework-perseus.perseus-article:not(.perseus-mobile) .unresponsive-svg-image,
+.framework-perseus.perseus-article:not(.perseus-mobile) .svg-image {
+    font-size: 14px;
+    line-height: 19.6px;
+}
+.framework-perseus.perseus-article:not(.perseus-mobile) .perseus-block-math {
+    margin-bottom: var(--wb-sizing-size_320);
+    position: relative;
+}
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-block-math:before {
+    bottom: 0;
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: var(--wb-sizing-size_320);
+}
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-block-math-inner {
+    overflow-x: auto;
+    padding-bottom: var(--wb-sizing-size_080);
+    padding-right: var(--wb-sizing-size_200);
+    padding-top: var(--wb-sizing-size_080);
+}
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    > .clearfix:first-child
+    > .renderer-new-ff.perseus-renderer:first-child
+    > :is(h1, h2, h3, h4, h5, h6):first-child {
+    margin-top: 0;
+}
+.framework-perseus.perseus-article:not(.perseus-mobile) pre {
+    margin: 0 calc(-1 * var(--wb-sizing-size_160)) var(--wb-sizing-size_320)
+        calc(-1 * var(--wb-sizing-size_160));
+}
+.framework-perseus.perseus-mobile .clearfix > .perseus-renderer {
+    margin-bottom: var(--wb-sizing-size_320);
+}
+.framework-perseus.perseus-mobile .perseus-block-math {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-touch-callout: none;
+}
+@media (max-width: 767px) {
+    .framework-perseus.perseus-mobile h1 {
+        font-weight: var(--wb-font-weight-bold);
+        padding-top: 0px;
+        font-family: inherit;
+        font-size: 24px;
+        line-height: 1.2;
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
+    }
+    .framework-perseus.perseus-mobile h2 {
+        font-weight: var(--wb-font-weight-bold);
+        padding-top: var(--wb-sizing-size_160);
+        font-family: inherit;
+        font-size: 24px;
+        line-height: 1.2;
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
+    }
+    .framework-perseus.perseus-mobile h3,
+    .framework-perseus.perseus-mobile h4 {
+        font-weight: var(--wb-font-weight-bold);
+        padding-top: 0px;
+        font-family: inherit;
+        font-size: 22px;
+        line-height: 1.1;
+        color: var(--wb-semanticColor-core-foreground-neutral-default);
+    }
+    .framework-perseus.perseus-mobile .default-body-text {
+        font-family: inherit;
+        font-size: 18px;
+        line-height: 1.4;
+        color: var(--wb-semanticColor-core-foreground-neutral-default);
+    }
+    .framework-perseus.perseus-mobile blockquote {
+        font-family: inherit;
+        font-size: 18px;
+        line-height: 1.4;
+        color: var(--wb-semanticColor-core-foreground-neutral-subtle);
+    }
+    .framework-perseus.perseus-mobile table {
+        font-family: inherit;
+        font-size: 18px;
+        line-height: 1.4;
+        color: var(--wb-semanticColor-core-foreground-neutral-default);
+    }
+    .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
+        font-size: 21px;
+        line-height: 1.2;
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
+    }
+    .framework-perseus.perseus-mobile .perseus-block-math mjx-container {
+        font-size: 21px;
+        line-height: 1.5;
+    }
+    .framework-perseus.perseus-mobile .graphie-label mjx-container {
+        font-size: 1.21em;
+        line-height: 1.2;
+    }
+    .framework-perseus.perseus-mobile code {
+        font-family: Courier, monospace;
+    }
+    .framework-perseus.perseus-mobile pre {
+        background-color: var(--wb-semanticColor-core-background-base-subtle);
+        border-radius: var(--wb-border-radius-radius_040);
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
+        font-size: 18px;
+        line-height: 1.6;
+        padding: var(--wb-sizing-size_160);
+        white-space: pre;
+        overflow: auto;
+    }
+    .framework-perseus.perseus-mobile blockquote {
+        padding: 0 0 0 18px;
+        border-left: var(--wb-border-width-thick) solid
+            var(--wb-semanticColor-core-border-neutral-subtle);
+    }
+}
+@media (min-width: 767px) and (max-width: 1199px) {
+    .framework-perseus.perseus-mobile h1 {
+        font-weight: var(--wb-font-weight-bold);
+        padding-top: 0px;
+        font-family: inherit;
+        font-size: 30px;
+        line-height: 1.1;
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
+    }
+    .framework-perseus.perseus-mobile h2 {
+        font-weight: var(--wb-font-weight-bold);
+        padding-top: var(--wb-sizing-size_320);
+        font-family: inherit;
+        font-size: 30px;
+        line-height: 1.1;
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
+    }
+    .framework-perseus.perseus-mobile h3,
+    .framework-perseus.perseus-mobile h4 {
+        font-weight: var(--wb-font-weight-bold);
+        padding-top: var(--wb-sizing-size_160);
+        font-family: inherit;
+        font-size: 28px;
+        line-height: 1.1;
+        color: var(--wb-semanticColor-core-foreground-neutral-default);
+    }
+    .framework-perseus.perseus-mobile .default-body-text {
+        font-family: inherit;
+        font-size: 20px;
+        line-height: 1.5;
+        color: var(--wb-semanticColor-core-foreground-neutral-default);
+    }
+    .framework-perseus.perseus-mobile blockquote {
+        font-family: inherit;
+        font-size: 20px;
+        line-height: 1.5;
+        color: var(--wb-semanticColor-core-foreground-neutral-subtle);
+    }
+    .framework-perseus.perseus-mobile table {
+        font-family: inherit;
+        font-size: 20px;
+        line-height: 1.5;
+        color: var(--wb-semanticColor-core-foreground-neutral-default);
+    }
+    .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
+        font-size: 23px;
+        line-height: 1.3;
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
+    }
+    .framework-perseus.perseus-mobile .perseus-block-math mjx-container {
+        font-size: 30px;
+        line-height: 1.3;
+    }
+    .framework-perseus.perseus-mobile .graphie-label mjx-container {
+        font-size: 1.21em;
+        line-height: 1.2;
+    }
+    .framework-perseus.perseus-mobile code {
+        font-family: Courier, monospace;
+    }
+    .framework-perseus.perseus-mobile pre {
+        background-color: var(--wb-semanticColor-core-background-base-subtle);
+        border-radius: var(--wb-border-radius-radius_040);
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
+        font-size: 18px;
+        line-height: 1.6;
+        padding: var(--wb-sizing-size_160);
+        white-space: pre;
+        overflow: auto;
+    }
+    .framework-perseus.perseus-mobile blockquote {
+        padding: 0 0 0 var(--wb-sizing-size_200);
+        border-left: var(--wb-border-width-thick) solid
+            var(--wb-semanticColor-core-border-neutral-subtle);
+    }
+}
+@media (min-width: 1200px) {
+    .framework-perseus.perseus-mobile h1 {
+        font-weight: var(--wb-font-weight-bold);
+        padding-top: 0px;
+        font-family: inherit;
+        font-size: 35px;
+        line-height: 1.1;
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
+    }
+    .framework-perseus.perseus-mobile h2 {
+        font-weight: var(--wb-font-weight-bold);
+        padding-top: var(--wb-sizing-size_320);
+        font-family: inherit;
+        font-size: 35px;
+        line-height: 1.1;
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
+    }
+    .framework-perseus.perseus-mobile h3,
+    .framework-perseus.perseus-mobile h4 {
+        font-weight: var(--wb-font-weight-bold);
+        padding-top: var(--wb-sizing-size_160);
+        font-family: inherit;
+        font-size: 30px;
+        line-height: 1.1;
+        color: var(--wb-semanticColor-core-foreground-neutral-default);
+    }
+    .framework-perseus.perseus-mobile .default-body-text {
+        font-family: inherit;
+        font-size: 22px;
+        line-height: 1.4;
+        color: var(--wb-semanticColor-core-foreground-neutral-default);
+    }
+    .framework-perseus.perseus-mobile blockquote {
+        font-family: inherit;
+        font-size: 22px;
+        line-height: 1.4;
+        color: var(--wb-semanticColor-core-foreground-neutral-subtle);
+    }
+    .framework-perseus.perseus-mobile table {
+        font-family: inherit;
+        font-size: 22px;
+        line-height: 1.4;
+        color: var(--wb-semanticColor-core-foreground-neutral-default);
+    }
+    .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
+        font-size: 25px;
+        line-height: 1.2;
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
+    }
+    .framework-perseus.perseus-mobile .perseus-block-math mjx-container {
+        font-size: 30px;
+        line-height: 1.3;
+    }
+    .framework-perseus.perseus-mobile .graphie-label mjx-container {
+        font-size: 1.21em;
+        line-height: 1.2;
+    }
+    .framework-perseus.perseus-mobile code {
+        font-family: Courier, monospace;
+    }
+    .framework-perseus.perseus-mobile pre {
+        background-color: var(--wb-semanticColor-core-background-base-subtle);
+        border-radius: var(--wb-border-radius-radius_040);
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
+        font-size: 18px;
+        line-height: 1.6;
+        padding: var(--wb-sizing-size_160);
+        white-space: pre;
+        overflow: auto;
+    }
+    .framework-perseus.perseus-mobile blockquote {
+        padding: 0 0 0 var(--wb-sizing-size_200);
+        border-left: var(--wb-border-width-thick) solid
+            var(--wb-semanticColor-core-border-neutral-subtle);
+    }
+}
+.framework-perseus.perseus-mobile .MathJax .math {
+    color: inherit;
+}
+.framework-perseus.perseus-mobile .perseus-image-widget {
+    text-align: center;
+}
+.framework-perseus.perseus-mobile .perseus-block-math {
+    padding-top: var(--wb-sizing-size_160);
+    padding-bottom: var(--wb-sizing-size_160);
+}
+.framework-perseus.perseus-mobile .unresponsive-svg-image,
+.framework-perseus.perseus-mobile .svg-image {
+    font-size: 14px;
+    line-height: 19.6px;
+}
+.perseus-widget-editor-content .perseus-editor-accordion h2 {
+    padding-top: 0;
+}
+
+/*****************************
+ * GLOBAL DARK MODE SETTINGS *
+ *****************************/
+[data-wb-theme$="-dark"] .framework-perseus:not(.wb-themed-math) {
+    /* TODO(benchristel): this set of file extensions is duplicated in
+     * image.css and dark-mode-toggle.tsx. Replace these selectors with a
+     * class that gets added to images that should be inverted, so the set of
+     * extensions can have a single representation in TypeScript code.
+     */
+    img[src$=".png"],
+    img[src$=".svg"],
+    .graphie:not(.perseus-widget-plotter),
+    .mathjax-wrapper:not(.graphie:not(.perseus-widget-plotter) *) {
+        /* This filter is applied to PNG/SVG images, Graphie (excluding the
+           Plotter, which is themed), and MathJax. MathJax inside inverted
+           Graphies is excluded so it doesn't get double-inverted. JPEGs & GIFs
+           are untouched.
+         */
+        filter: invert(1) hue-rotate(180deg) brightness(1.5);
+    }
+
+    .mathjax-wrapper > mjx-container {
+        /* Since we invert all MathJax colors (above), we need to force the
+           default foreground color to dark so it will be light when inverted.
+           If we don't do this, then math will inherit the theme's foreground
+           color and invert it, resulting in dark-on-dark text.
+
+           The precise color used here is unimportant; off-black colors get
+           washed out by the brightness filter, so they end up as #fff anyway.
+         */
+        color: black;
+    }
+}
+
+/* TODO(LEMS-4492): remove the .wb-themed-math class once math uses WB
+   tokens everywhere. In the future, the styles below should become the only
+   dark mode styles. We can also remove the !important from the .graphie-label
+   styles, and set the label foreground color directly in graphie.ts.
+ */
+[data-wb-theme$="-dark"] .framework-perseus.wb-themed-math {
+    /* TODO(benchristel): this set of file extensions is duplicated in
+     * image.css and dark-mode-toggle.tsx. Replace these selectors with a
+     * class that gets added to images that should be inverted, so the set of
+     * extensions can have a single representation in TypeScript code.
+     */
+    img[src$=".png"],
+    img[src$=".svg"],
+    .graphie:not(.perseus-widget-plotter) > svg {
+        /* Invert the colors of PNG/SVG images and Graphie SVGs (excluding the
+           Plotter, which is themed).
+         */
+        filter: invert(1) hue-rotate(180deg) brightness(1.5);
+    }
+
+    .graphie-label {
+        /* Graphie hardcodes `color: black` on its label elements, so we have
+           to override that with `!important`.
+         */
+        color: var(
+            --wb-semanticColor-core-foreground-neutral-strong
+        ) !important;
+    }
+}

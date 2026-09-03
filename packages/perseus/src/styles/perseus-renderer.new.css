@@ -1,7 +1,7 @@
 @layer libraries, perseus-legacy;
 
 @import "./util.css" layer(perseus-legacy);
-@import "./styles.css"; /* These styles are needed in the shared layer to override element selectors that are provided in the shared layer by frontend apps */
+@import "./styles.new.css"; /* These styles are needed in the shared layer to override element selectors that are provided in the shared layer by frontend apps */
 @import "./paragraph-styles.new.css";
 @import "./perseus-renderer-part-1.css" layer(perseus-legacy);
 @import "widgets/categorizer.css" layer(perseus-legacy);
