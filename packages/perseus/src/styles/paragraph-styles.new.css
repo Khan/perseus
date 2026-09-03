@@ -125,40 +125,15 @@ p {
     .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff > * {
         max-width: none;
     }
-    .framework-perseus.perseus-mobile .perseus-renderer > .paragraph {
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff > * {
         font-family: inherit;
         font-size: 18px;
         line-height: 1.4;
         color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile
-        .perseus-renderer
-        > .paragraph
-        .paragraph {
-        font-family: inherit;
-        font-size: 18px;
-        line-height: 1.4;
-        color: var(--wb-semanticColor-core-foreground-neutral-default);
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-renderer
-        > .paragraph
-        ul:not([data-widget="radio"]) {
-        font-family: inherit;
-        font-size: 18px;
-        line-height: 1.4;
-        color: var(--wb-semanticColor-core-foreground-neutral-default);
-    }
-    .framework-perseus.perseus-mobile .perseus-renderer > .paragraph ol {
-        font-family: inherit;
-        font-size: 18px;
-        line-height: 1.4;
-        color: var(--wb-semanticColor-core-foreground-neutral-default);
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-image-caption
-        .paragraph
-        .paragraph {
+        .renderer-new-ff .perseus-image-caption
+        p {
         color: var(--wb-semanticColor-core-foreground-neutral-subtle);
         font-size: 14px;
         line-height: 1.3;
