@@ -1,5 +1,22 @@
 # @khanacademy/perseus
 
+## 87.0.0
+
+### Major Changes
+
+-   [#4166](https://github.com/Khan/perseus/pull/4166) [`d81fe78`](https://github.com/Khan/perseus/commit/d81fe78cd5d9e34fafe9e3b07f4e9f45fd0c4860) Thanks [@Myranae](https://github.com/Myranae)! - Fixes a console error that appeared when re-clicking the already-selected function type in the Grapher widget by removing ButtonGroup's `allowEmpty` prop — clicking the selected button no longer calls `onChange`.
+
+### Patch Changes
+
+-   [#4175](https://github.com/Khan/perseus/pull/4175) [`5b6df58`](https://github.com/Khan/perseus/commit/5b6df580cba775fe3321262f4c8513e5160baccb) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the Graded Group Set widget is now a functional component.
+
+-   [#4173](https://github.com/Khan/perseus/pull/4173) [`3a503f8`](https://github.com/Khan/perseus/commit/3a503f815f766924dfcdfaa37f7d74a26e3c8da1) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the Graded Group widget is now a functional component
+
+-   [#4104](https://github.com/Khan/perseus/pull/4104) [`147d2f6`](https://github.com/Khan/perseus/commit/147d2f6c48eec7dc3eee8fbc93edc420a5a976fc) Thanks [@maddy531](https://github.com/maddy531)! - Pass LTR-facing directional icons and let PhosphorIcon mirror them in RTL, opting the graph-editor's absolute-axis arrows out.
+
+-   Updated dependencies [[`8fe153e`](https://github.com/Khan/perseus/commit/8fe153ebde6a97f8500e21cf1410e6cf9cabae7d), [`b9df1a4`](https://github.com/Khan/perseus/commit/b9df1a4bb9ef2d0b2cc1ac2a3e648396bce4fb05)]:
+    -   @khanacademy/perseus-linter@5.3.0
+
 ## 86.0.1
 
 ### Patch Changes
