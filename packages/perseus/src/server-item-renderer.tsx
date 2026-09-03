@@ -9,6 +9,7 @@ import {StyleSheet, css} from "aphrodite";
  * This component is compatible with server-rendering of a perseus exercise.
  */
 import * as React from "react";
+import invariant from "tiny-invariant";
 import _ from "underscore";
 
 import AssetContext from "./asset-context";
@@ -69,7 +70,7 @@ type SerializedState = {
     hints: any;
 };
 
-export class ServerItemRenderer
+class ServerItemRenderer
     extends React.Component<Props>
     implements
         RendererInterface,
@@ -272,10 +273,6 @@ export class ServerItemRenderer
         }
     }
 
-    getNumHints(): number {
-        return this.props.item.hints.length;
-    }
-
     getPromptJSON(): RendererPromptJSON {
         return this.questionRenderer.getPromptJSON();
     }
@@ -424,17 +421,80 @@ const styles = StyleSheet.create({
     },
 });
 
+// By wrapping ServerItemRenderer in a
+// functional component with a handle, it allows
+// us to scope our external API to only the functionality
+// that we want consumers to be using
+export interface ServerItemRendererHandle
+    extends RendererInterface,
+        KeypadContextRendererInterface,
+        GetPromptJSONInterface {
+    getUserInput(): UserInputMap;
+    getWidgetIds(): ReadonlyArray<string>;
+
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState
+     */
+    getSerializedState(): SerializedState;
+
+    /**
+     * @deprecated do not reach into inner
+     * class component properties
+     */
+    readonly questionRenderer: Renderer;
+}
+
 export default React.forwardRef<
-    ServerItemRenderer,
+    ServerItemRendererHandle,
     Omit<PropsFor<typeof ServerItemRenderer>, "onRendered">
 >(function ServerItemRendererWithRef(props, ref) {
+    const innerRef = React.useRef<ServerItemRenderer>(null);
+
+    // external imperative API for ServerItemRenderer.
+    //
+    // The handle is built exactly once and stored in a ref so that its identity
+    // never changes for the lifetime of this component. That stability matters:
+    // React appends `ref` to the dependency list it uses internally for
+    // `useImperativeHandle`, so a caller passing an inline callback ref (whose
+    // identity changes every render) makes the create function re-run on every
+    // render. If that produced a new handle each time, callers that store the
+    // handle in state would loop forever ("Maximum update depth exceeded").
+    // Every method reads through `innerRef`, so nothing here needs to change
+    // across renders.
+    const handleRef = React.useRef<ServerItemRendererHandle | null>(null);
+    if (handleRef.current === null) {
+        const instance = (): ServerItemRenderer => {
+            const current = innerRef.current;
+            invariant(
+                current,
+                "ServerItemRenderer: ref was used before mount or after unmount",
+            );
+            return current;
+        };
+
+        handleRef.current = {
+            focus: () => instance().focus(),
+            blur: () => instance().blur(),
+            getPromptJSON: () => instance().getPromptJSON(),
+            getUserInput: () => instance().getUserInput(),
+            getWidgetIds: () => instance().getWidgetIds(),
+            getSerializedState: () => instance().getSerializedState(),
+            get questionRenderer() {
+                return instance().questionRenderer;
+            },
+        };
+    }
+
+    React.useImperativeHandle(ref, () => handleRef.current!, []);
+
     return (
         <LoadingContext.Consumer>
             {({onRendered}) => (
                 <ServerItemRenderer
                     {...props}
                     onRendered={onRendered}
-                    ref={ref}
+                    ref={innerRef}
                 />
             )}
         </LoadingContext.Consumer>
