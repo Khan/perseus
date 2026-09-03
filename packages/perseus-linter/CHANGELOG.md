@@ -1,5 +1,15 @@
 # @khanacademy/perseus-linter
 
+## 5.3.0
+
+### Minor Changes
+
+-   [#4171](https://github.com/Khan/perseus/pull/4171) [`b9df1a4`](https://github.com/Khan/perseus/commit/b9df1a4bb9ef2d0b2cc1ac2a3e648396bce4fb05) Thanks [@nishasy](https://github.com/nishasy)! - [Sorter] Add more lint rules for Sorter widget
+
+### Patch Changes
+
+-   [#4172](https://github.com/Khan/perseus/pull/4172) [`8fe153e`](https://github.com/Khan/perseus/commit/8fe153ebde6a97f8500e21cf1410e6cf9cabae7d) Thanks [@nishasy](https://github.com/nishasy)! - Disable issues panel CTA buttons when editing is disabled
+
 ## 5.2.2
 
 ### Patch Changes
