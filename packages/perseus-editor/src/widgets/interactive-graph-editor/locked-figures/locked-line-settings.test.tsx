@@ -841,7 +841,7 @@ describe("LockedLineSettings", () => {
     });
 });
 
-describe("zero-length line edits (LEMS-4564)", () => {
+describe("zero-length line edits", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({

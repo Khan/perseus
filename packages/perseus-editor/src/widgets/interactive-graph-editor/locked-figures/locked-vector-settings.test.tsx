@@ -535,7 +535,7 @@ describe("Locked Vector Settings", () => {
     });
 });
 
-describe("zero-length vector edits (LEMS-4564)", () => {
+describe("zero-length vector edits", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
