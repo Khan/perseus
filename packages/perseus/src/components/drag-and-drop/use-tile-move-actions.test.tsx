@@ -172,7 +172,72 @@ describe("useTileMoveActions", () => {
         });
     });
 
+    describe("handleMove", () => {
+        // Only multi-use tiles can reach this state: the same tile sits
+        // in two blanks, and one copy moves onto the other. The source
+        // blank empties — the copies collapse — so it is a real move,
+        // not a no-op like a bank copy dropped on its own tile.
+        it("empties the source blank when a copy moves onto a blank already holding the tile", () => {
+            const {result, onPlacementsChange} = setupHook(
+                {"blank 1": "x", "blank 2": "x"},
+                "multi",
+            );
+
+            act(() => {
+                result.current.handleMove(
+                    {tileId: "x", fromBlankId: "blank 1"},
+                    "blank 2",
+                );
+            });
+
+            expect(onPlacementsChange).toHaveBeenCalledWith({"blank 2": "x"});
+            expect(announceMessage).toHaveBeenCalledWith({
+                message: "tile x moved to Blank 2.",
+            });
+        });
+    });
+
+    describe("handleClear", () => {
+        it("clears the blank and announces the tile's return", () => {
+            const {result, onPlacementsChange} = setupHook({"blank 1": "x"});
+
+            act(() => {
+                result.current.handleClear("blank 1");
+            });
+
+            expect(onPlacementsChange).toHaveBeenCalledWith({});
+            expect(announceMessage).toHaveBeenCalledWith({
+                message: "tile x returned to Choices.",
+            });
+        });
+
+        it("does nothing when the blank is already empty", () => {
+            const {result, onPlacementsChange} = setupHook();
+
+            act(() => {
+                result.current.handleClear("blank 1");
+            });
+
+            expect(onPlacementsChange).not.toHaveBeenCalled();
+            expect(announceMessage).not.toHaveBeenCalled();
+        });
+    });
+
     describe("menu focus", () => {
+        it("focuses the first bank menu after a menu clear", () => {
+            const {result, rerender} = setupHook({"blank 1": "x"});
+            const bankButton = document.createElement("button");
+            const focus = jest.spyOn(bankButton, "focus");
+            result.current.firstBankMenuRef(bankButton);
+
+            act(() => {
+                result.current.handleClear("blank 1");
+            });
+            rerender();
+
+            expect(focus).toHaveBeenCalled();
+        });
+
         it("focuses the first bank menu after a menu move", () => {
             const {result, rerender} = setupHook();
             const bankButton = document.createElement("button");
