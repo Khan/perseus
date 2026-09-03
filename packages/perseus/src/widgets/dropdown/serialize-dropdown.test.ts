@@ -7,10 +7,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../__tests__/test-utils";
 import * as Dependencies from "../../dependencies";
-import {
-    testDependencies,
-    testDependenciesV2,
-} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
@@ -93,7 +90,6 @@ describe("Dropdown serialization", () => {
                     alignment: "default",
                     static: false,
                     choices: ["Correct", "Incorrect"],
-                    dependencies: testDependenciesV2,
                     placeholder: "Choose",
                     // selected is added to Dropdown props and
                     // represents user input
