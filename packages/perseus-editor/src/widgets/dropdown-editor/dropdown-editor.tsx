@@ -1,7 +1,4 @@
-import {
-    dropdownLogic,
-    type PerseusDropdownWidgetOptions,
-} from "@khanacademy/perseus-core";
+import dropdownLogic from "@khanacademy/perseus-core/widgets/dropdown";
 import Button from "@khanacademy/wonder-blocks-button";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
@@ -17,6 +14,7 @@ import InfoTip from "../../components/info-tip";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {APIOptions} from "@khanacademy/perseus";
+import type {PerseusDropdownWidgetOptions} from "@khanacademy/perseus-core";
 
 interface Props extends PerseusDropdownWidgetOptions {
     onChange: (options: PerseusDropdownWidgetOptions) => void;

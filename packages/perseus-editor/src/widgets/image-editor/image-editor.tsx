@@ -1,7 +1,4 @@
-import {
-    imageLogic,
-    type PerseusImageWidgetOptions,
-} from "@khanacademy/perseus-core";
+import imageLogic from "@khanacademy/perseus-core/widgets/image";
 import * as React from "react";
 
 import EditorJsonify from "../../mixins/editor-jsonify";
@@ -10,6 +7,7 @@ import ImageSettings from "./components/image-settings";
 import ImageUrlInput from "./components/image-url-input";
 
 import type {APIOptions} from "@khanacademy/perseus";
+import type {PerseusImageWidgetOptions} from "@khanacademy/perseus-core";
 
 interface Props extends PerseusImageWidgetOptions {
     apiOptions: APIOptions;

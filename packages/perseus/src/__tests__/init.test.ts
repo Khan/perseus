@@ -1,6 +1,6 @@
 import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 
-import init, {initPerseus} from "@khanacademy/perseus/init";
+import init, {initPerseus} from "../init";
 import {getEditor, getWidgetExport} from "../widgets";
 
 const productionWidgetNames = [
@@ -12,6 +12,7 @@ const productionWidgetNames = [
     "dropdown",
     "explanation",
     "expression",
+    "fill-in-the-blank",
     "free-response",
     "graded-group",
     "graded-group-set",

@@ -1,6 +1,7 @@
 import {number as knumber} from "@khanacademy/kmath";
 import {components, PlotterWidget, Util} from "@khanacademy/perseus";
-import {plotterLogic, plotterPlotTypes} from "@khanacademy/perseus-core";
+import {plotterPlotTypes} from "@khanacademy/perseus-core";
+import plotterLogic from "@khanacademy/perseus-core/widgets/plotter";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";

@@ -3,10 +3,10 @@ import interactiveGraphLogic from "@khanacademy/perseus-core/widgets/interactive
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
-import {defineWidgetRegistration} from "../../widget-registration";
 import Util from "../../util";
 import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
 import {getPromptJSON} from "../../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
+import {defineWidgetRegistration} from "../../widget-registration";
 
 import {getEquationString} from "./get-equation-string";
 

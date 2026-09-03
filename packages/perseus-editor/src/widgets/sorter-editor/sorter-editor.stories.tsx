@@ -3,8 +3,8 @@ import {
     generateSorterOptions,
     generateSorterWidget,
     generateTestPerseusRenderer,
-    sorterLogic,
 } from "@khanacademy/perseus-core";
+import sorterLogic from "@khanacademy/perseus-core/widgets/sorter";
 import * as React from "react";
 import {action} from "storybook/actions";
 

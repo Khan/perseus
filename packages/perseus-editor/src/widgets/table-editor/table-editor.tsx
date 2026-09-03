@@ -1,8 +1,5 @@
 import {components, TableWidget, Util} from "@khanacademy/perseus";
-import {
-    tableLogic,
-    type PerseusTableWidgetOptions,
-} from "@khanacademy/perseus-core";
+import tableLogic from "@khanacademy/perseus-core/widgets/table";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
@@ -10,6 +7,7 @@ import _ from "underscore";
 import InfoTip from "../../components/info-tip";
 import Editor from "../../editor";
 
+import type {PerseusTableWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {NumberInput} = components;

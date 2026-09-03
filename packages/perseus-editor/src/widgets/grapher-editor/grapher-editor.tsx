@@ -5,10 +5,8 @@ import {
     containerSizeClass,
     getInteractiveBoxFromSizeClass,
 } from "@khanacademy/perseus";
-import {
-    GrapherUtil as CoreGrapherUtil,
-    grapherLogic,
-} from "@khanacademy/perseus-core";
+import {GrapherUtil as CoreGrapherUtil} from "@khanacademy/perseus-core";
+import grapherLogic from "@khanacademy/perseus-core/widgets/grapher";
 import * as React from "react";
 import invariant from "tiny-invariant";
 import _ from "underscore";

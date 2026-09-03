@@ -1,6 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {components} from "@khanacademy/perseus";
-import {measurerLogic} from "@khanacademy/perseus-core";
+import measurerLogic from "@khanacademy/perseus-core/widgets/measurer";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";

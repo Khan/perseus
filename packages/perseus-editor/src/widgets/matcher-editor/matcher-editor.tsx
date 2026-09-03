@@ -1,12 +1,11 @@
-import {
-    matcherLogic,
-    type PerseusMatcherWidgetOptions,
-} from "@khanacademy/perseus-core";
+import matcherLogic from "@khanacademy/perseus-core/widgets/matcher";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 
 import InfoTip from "../../components/info-tip";
 import TextListEditor from "../../components/text-list-editor";
+
+import type {PerseusMatcherWidgetOptions} from "@khanacademy/perseus-core";
 
 type Props = PerseusMatcherWidgetOptions & {
     onChange: (

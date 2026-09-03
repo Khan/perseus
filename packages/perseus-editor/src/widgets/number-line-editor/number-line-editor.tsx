@@ -1,10 +1,7 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {number as knumber} from "@khanacademy/kmath";
 import {components} from "@khanacademy/perseus";
-import {
-    numberLineLogic,
-    type PerseusNumberLineWidgetOptions,
-} from "@khanacademy/perseus-core";
+import numberLineLogic from "@khanacademy/perseus-core/widgets/number-line";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";
@@ -13,6 +10,7 @@ import InfoTip from "../../components/info-tip";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {ChangeableProps} from "../../mixins/changeable";
+import type {PerseusNumberLineWidgetOptions} from "@khanacademy/perseus-core";
 
 const {ButtonGroup, NumberInput, RangeInput} = components;
 

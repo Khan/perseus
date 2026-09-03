@@ -1,9 +1,9 @@
 import {Dependencies} from "@khanacademy/perseus";
 import {
     generateSorterOptions,
-    sorterLogic,
     SORTER_MAX_HORIZONTAL_CARDS,
 } from "@khanacademy/perseus-core";
+import sorterLogic from "@khanacademy/perseus-core/widgets/sorter";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";

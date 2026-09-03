@@ -1,9 +1,6 @@
 import {KhanMath} from "@khanacademy/kmath";
 import {components, Util} from "@khanacademy/perseus";
-import {
-    numericInputLogic,
-    type PerseusNumericInputWidgetOptions,
-} from "@khanacademy/perseus-core";
+import numericInputLogic from "@khanacademy/perseus-core/widgets/numeric-input";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
@@ -27,6 +24,7 @@ import styles from "./numeric-input-editor.module.css";
 
 import type {ChangeFn} from "../../mixins/changeable";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
+import type {PerseusNumericInputWidgetOptions} from "@khanacademy/perseus-core";
 
 const {NumberInput, TextInput} = components;
 const {firstNumericalParse} = Util;

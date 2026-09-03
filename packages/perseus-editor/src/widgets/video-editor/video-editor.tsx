@@ -1,10 +1,9 @@
-import {
-    videoLogic,
-    type PerseusVideoWidgetOptions,
-} from "@khanacademy/perseus-core";
+import videoLogic from "@khanacademy/perseus-core/widgets/video";
 import * as React from "react";
 
 import VideoSettings from "./video-settings";
+
+import type {PerseusVideoWidgetOptions} from "@khanacademy/perseus-core";
 
 export interface VideoEditorProps extends PerseusVideoWidgetOptions {
     onChange: (options: PerseusVideoWidgetOptions) => void;

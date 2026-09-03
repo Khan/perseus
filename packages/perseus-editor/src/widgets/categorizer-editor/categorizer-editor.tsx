@@ -1,5 +1,5 @@
 import {Categorizer as CategorizerWidget} from "@khanacademy/perseus";
-import {categorizerLogic} from "@khanacademy/perseus-core";
+import categorizerLogic from "@khanacademy/perseus-core/widgets/categorizer";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";

@@ -1,4 +1,4 @@
-import {gradedGroupSetLogic} from "@khanacademy/perseus-core";
+import gradedGroupSetLogic from "@khanacademy/perseus-core/widgets/graded-group-set";
 import * as React from "react";
 
 import GradedGroupEditor from "../graded-group-editor";

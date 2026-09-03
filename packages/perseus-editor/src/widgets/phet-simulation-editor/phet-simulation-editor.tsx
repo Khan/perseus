@@ -1,11 +1,10 @@
 import {makeSafeUrl} from "@khanacademy/perseus-core";
-import {
-    phetSimulationLogic,
-    type PerseusPhetSimulationWidgetOptions,
-} from "@khanacademy/perseus-core";
+import phetSimulationLogic from "@khanacademy/perseus-core/widgets/phet-simulation";
 import {LabeledTextField} from "@khanacademy/wonder-blocks-form";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
+
+import type {PerseusPhetSimulationWidgetOptions} from "@khanacademy/perseus-core";
 
 type Props = PerseusPhetSimulationWidgetOptions & {
     onChange: (arg1: {

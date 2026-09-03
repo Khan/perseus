@@ -1,5 +1,5 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
-import {grapherLogic} from "@khanacademy/perseus-core";
+import grapherLogic from "@khanacademy/perseus-core/widgets/grapher";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";

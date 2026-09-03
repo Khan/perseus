@@ -14,9 +14,7 @@ describe("registerAllWidgetsForTesting", () => {
         for (const {logic} of allWidgetRegistrations) {
             expect(registerLogic).toHaveBeenCalledWith(logic);
         }
-        expect(getWidgetExport("transformer")?.name).toBe(
-            "deprecated-standin",
-        );
+        expect(getWidgetExport("transformer")?.name).toBe("deprecated-standin");
         expect(CoreWidgetRegistry.isWidgetRegistered("transformer")).toBe(true);
     });
 });

@@ -1,5 +1,5 @@
 import {Util} from "@khanacademy/perseus";
-import {freeResponseLogic} from "@khanacademy/perseus-core";
+import freeResponseLogic from "@khanacademy/perseus-core/widgets/free-response";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox, TextArea, TextField} from "@khanacademy/wonder-blocks-form";

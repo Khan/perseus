@@ -1,4 +1,4 @@
-import {groupLogic} from "@khanacademy/perseus-core";
+import groupLogic from "@khanacademy/perseus-core/widgets/group";
 import * as React from "react";
 import invariant from "tiny-invariant";
 

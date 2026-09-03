@@ -1,13 +1,12 @@
-import {
-    iframeLogic,
-    type PerseusIFrameWidgetOptions,
-} from "@khanacademy/perseus-core";
+import iframeLogic from "@khanacademy/perseus-core/widgets/iframe";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 
 import BlurInput from "../../components/blur-input";
 import {PairsEditor} from "../../components/pairs-editor";
 import EditorJsonify from "../../mixins/editor-jsonify";
+
+import type {PerseusIFrameWidgetOptions} from "@khanacademy/perseus-core";
 
 interface IframeEditorProps extends PerseusIFrameWidgetOptions {
     onChange: (options: PerseusIFrameWidgetOptions) => void;

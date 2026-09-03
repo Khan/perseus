@@ -1,9 +1,9 @@
 import {
-    sorterLogic,
     SORTER_MAX_HORIZONTAL_CARDS,
     SORTER_MAX_CARDS,
     type PerseusSorterWidgetOptions,
 } from "@khanacademy/perseus-core";
+import sorterLogic from "@khanacademy/perseus-core/widgets/sorter";
 import Banner from "@khanacademy/wonder-blocks-banner";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";

@@ -1,5 +1,5 @@
 import {Util} from "@khanacademy/perseus";
-import {labelImageLogic} from "@khanacademy/perseus-core";
+import labelImageLogic from "@khanacademy/perseus-core/widgets/label-image";
 import * as React from "react";
 
 import FormWrappedTextField from "../../components/form-wrapped-text-field";

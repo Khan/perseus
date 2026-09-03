@@ -1,8 +1,6 @@
 import {components} from "@khanacademy/perseus";
-import {
-    gradedGroupLogic,
-    getDefaultAnswerArea,
-} from "@khanacademy/perseus-core";
+import {getDefaultAnswerArea} from "@khanacademy/perseus-core";
+import gradedGroupLogic from "@khanacademy/perseus-core/widgets/graded-group";
 import Button from "@khanacademy/wonder-blocks-button";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";

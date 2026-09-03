@@ -1,10 +1,5 @@
 import {Dependencies, Util} from "@khanacademy/perseus";
-import {
-    interactionLogic,
-    type Coords,
-    type PerseusInteractionWidgetOptions,
-    type MarkingsType,
-} from "@khanacademy/perseus-core";
+import interactionLogic from "@khanacademy/perseus-core/widgets/interaction";
 import * as React from "react";
 
 import GraphSettings from "../../components/graph-settings";
@@ -19,6 +14,12 @@ import MovablePointEditor from "./movable-point-editor";
 import ParametricEditor from "./parametric-editor";
 import PointEditor from "./point-editor";
 import RectangleEditor from "./rectangle-editor";
+
+import type {
+    Coords,
+    PerseusInteractionWidgetOptions,
+    MarkingsType,
+} from "@khanacademy/perseus-core";
 
 const {unescapeMathMode} = Util;
 

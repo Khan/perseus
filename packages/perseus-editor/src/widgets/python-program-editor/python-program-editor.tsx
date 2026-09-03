@@ -1,5 +1,5 @@
 import {components} from "@khanacademy/perseus";
-import {pythonProgramLogic} from "@khanacademy/perseus-core";
+import pythonProgramLogic from "@khanacademy/perseus-core/widgets/python-program";
 import * as React from "react";
 
 import {deprecatedChangeableChange} from "../../mixins/changeable";

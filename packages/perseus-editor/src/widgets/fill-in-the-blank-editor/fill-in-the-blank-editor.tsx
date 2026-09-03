@@ -1,4 +1,5 @@
-import {fillInTheBlankLogic, isFeatureOn} from "@khanacademy/perseus-core";
+import {isFeatureOn} from "@khanacademy/perseus-core";
+import fillInTheBlankLogic from "@khanacademy/perseus-core/widgets/fill-in-the-blank";
 import * as React from "react";
 
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";

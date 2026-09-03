@@ -1,4 +1,5 @@
-import {radioLogic, deriveNumCorrect} from "@khanacademy/perseus-core";
+import {deriveNumCorrect} from "@khanacademy/perseus-core";
+import radioLogic from "@khanacademy/perseus-core/widgets/radio";
 import Button from "@khanacademy/wonder-blocks-button";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";

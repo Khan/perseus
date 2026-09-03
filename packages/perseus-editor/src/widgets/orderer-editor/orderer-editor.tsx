@@ -1,9 +1,9 @@
 import {
     mergeCards,
-    ordererLogic,
     toCard,
     type PerseusOrdererWidgetOptions,
 } from "@khanacademy/perseus-core";
+import ordererLogic from "@khanacademy/perseus-core/widgets/orderer";
 import * as React from "react";
 
 import InfoTip from "../../components/info-tip";

@@ -17,8 +17,8 @@ import {
 import {deprecatedStandinRegistration} from "./widgets/deprecated-standin";
 import {MockWidget} from "./widgets/mock-widgets";
 
-import type {WidgetRegistration} from "./widget-registration";
 import type {WidgetExports} from "./types";
+import type {WidgetRegistration} from "./widget-registration";
 
 const fakeWidget = {
     name: "_test-widget_",
@@ -53,11 +53,7 @@ describe("strict registration", () => {
     const defaultingAccessors: ReadonlyArray<
         [string, (type: string) => unknown, unknown]
     > = [
-        [
-            "getWidget",
-            getWidget,
-            deprecatedStandinRegistration.widget.widget,
-        ],
+        ["getWidget", getWidget, deprecatedStandinRegistration.widget.widget],
         [
             "getWidgetExport",
             getWidgetExport,

@@ -1,5 +1,6 @@
 import {components, MatrixWidget} from "@khanacademy/perseus";
-import {getMatrixSize, matrixLogic} from "@khanacademy/perseus-core";
+import {getMatrixSize} from "@khanacademy/perseus-core";
+import matrixLogic from "@khanacademy/perseus-core/widgets/matrix";
 import * as React from "react";
 import _ from "underscore";
 

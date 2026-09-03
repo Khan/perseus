@@ -6,7 +6,7 @@ import {
     interactiveSizes,
     Util,
 } from "@khanacademy/perseus";
-import {interactiveGraphLogic} from "@khanacademy/perseus-core";
+import interactiveGraphLogic from "@khanacademy/perseus-core/widgets/interactive-graph";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";

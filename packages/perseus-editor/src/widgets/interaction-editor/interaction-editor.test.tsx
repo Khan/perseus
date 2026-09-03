@@ -1,5 +1,5 @@
 import {Dependencies} from "@khanacademy/perseus";
-import {interactionLogic} from "@khanacademy/perseus-core";
+import interactionLogic from "@khanacademy/perseus-core/widgets/interaction";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";

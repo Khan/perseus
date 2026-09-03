@@ -3,8 +3,8 @@ import {components, Expression} from "@khanacademy/perseus";
 import {
     PerseusExpressionAnswerFormConsidered,
     deriveExtraKeys,
-    expressionLogic,
 } from "@khanacademy/perseus-core";
+import expressionLogic from "@khanacademy/perseus-core/widgets/expression";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox, LabeledTextField} from "@khanacademy/wonder-blocks-form";

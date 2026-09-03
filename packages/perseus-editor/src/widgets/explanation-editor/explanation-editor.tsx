@@ -1,5 +1,5 @@
 import {components} from "@khanacademy/perseus";
-import {explanationLogic} from "@khanacademy/perseus-core";
+import explanationLogic from "@khanacademy/perseus-core/widgets/explanation";
 import * as React from "react";
 import _ from "underscore";
 
