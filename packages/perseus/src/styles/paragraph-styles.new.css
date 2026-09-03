@@ -177,14 +177,13 @@ p {
         text-align: left;
     }
 }
-.framework-perseus.perseus-mobile .paragraph.perseus-paragraph-full-width {
-    margin-left: 0;
-    margin-right: 0;
+.framework-perseus.perseus-mobile .renderer-new-ff .widget-full-width {
+    margin-inline: 0;
     max-width: none;
 }
 .framework-perseus.perseus-mobile
-    .paragraph.perseus-paragraph-full-width
-    > .paragraph {
+    .renderer-new-ff .widget-full-width
+    p {
     margin: 0;
     max-width: none;
 }
