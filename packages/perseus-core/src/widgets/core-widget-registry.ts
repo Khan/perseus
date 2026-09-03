@@ -10,6 +10,7 @@ import deprecatedStandinWidgetLogic from "./deprecated-standin";
 import dropdownWidgetLogic from "./dropdown";
 import explanationWidgetLogic from "./explanation";
 import expressionWidgetLogic from "./expression";
+import fillInTheBlankWidgetLogic from "./fill-in-the-blank";
 import gradedGroupWidgetLogic from "./graded-group";
 import gradedGroupSetWidgetLogic from "./graded-group-set";
 import grapherWidgetLogic from "./grapher";
@@ -200,6 +201,7 @@ export function registerCoreWidgets() {
         dropdownWidgetLogic,
         explanationWidgetLogic,
         expressionWidgetLogic,
+        fillInTheBlankWidgetLogic,
         gradedGroupWidgetLogic,
         gradedGroupSetWidgetLogic,
         grapherWidgetLogic,

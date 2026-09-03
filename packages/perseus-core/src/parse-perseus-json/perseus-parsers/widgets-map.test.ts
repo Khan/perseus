@@ -7,6 +7,9 @@ import {
 // Tests are fine to import, main files aren't
 // eslint-disable-next-line import/no-restricted-paths
 import {generateVideoWidget} from "../../utils/generators/video-widget-generator";
+// Tests are fine to import, main files aren't
+// eslint-disable-next-line import/no-restricted-paths
+import fillInTheBlankWidgetLogic from "../../widgets/fill-in-the-blank";
 import {anyFailure} from "../general-purpose-parsers/test-helpers";
 import {parse} from "../parse";
 import {failure, success} from "../result";
@@ -103,6 +106,110 @@ describe("parseWidgetsMap", () => {
         const result = parse(widgetsMap, parseWidgetsMap);
 
         expect(result).toEqual(success(widgetsMap));
+    });
+
+    it("accepts a fill-in-the-blank widget", () => {
+        const widgetsMap: unknown = {
+            "fill-in-the-blank 1": {
+                type: "fill-in-the-blank",
+                version: {major: 0, minor: 0},
+                options: {
+                    content: "The [[☃ blank 1]] drum is a tall drum.",
+                    widgets: {
+                        "blank 1": {
+                            type: "blank",
+                            version: {major: 0, minor: 0},
+                            options: {
+                                displayType: "normal",
+                                correctId: "tile-1",
+                            },
+                        },
+                    },
+                    tiles: [
+                        {id: "tile-1", content: "djembe", label: "djembe"},
+                        {id: "tile-2", content: "bongo", label: "bongo"},
+                    ],
+                    tileUsage: "single",
+                    randomize: false,
+                },
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
+    it("defaults the fill-in-the-blank fields that older content lacks", () => {
+        const widgetsMap: unknown = {
+            "fill-in-the-blank 1": {
+                type: "fill-in-the-blank",
+                version: {major: 0, minor: 0},
+                options: {content: "Nothing to fill in yet."},
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(
+            success({
+                "fill-in-the-blank 1": {
+                    type: "fill-in-the-blank",
+                    version: {major: 0, minor: 0},
+                    options: {
+                        content: "Nothing to fill in yet.",
+                        widgets: {},
+                        tiles: [],
+                        tileUsage: "single",
+                        randomize: false,
+                    },
+                },
+            }),
+        );
+    });
+
+    it("parses empty fill-in-the-blank options to the widget's own defaults", () => {
+        // Pins the parser's `defaulted` fallbacks to defaultWidgetOptions.
+        // They are two independent copies of the same values, and nothing
+        // else would fail if one of them changed.
+        const widgetsMap: unknown = {
+            "fill-in-the-blank 1": {
+                type: "fill-in-the-blank",
+                version: {major: 0, minor: 0},
+                options: {},
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(
+            success({
+                "fill-in-the-blank 1": {
+                    type: "fill-in-the-blank",
+                    version: {major: 0, minor: 0},
+                    options: fillInTheBlankWidgetLogic.defaultWidgetOptions,
+                },
+            }),
+        );
+    });
+
+    it("rejects a fill-in-the-blank tile with no label", () => {
+        // Proves the widget reaches its own parser rather than the fallback
+        // that accepts any options for an unrecognized widget type.
+        const widgetsMap: unknown = {
+            "fill-in-the-blank 1": {
+                type: "fill-in-the-blank",
+                version: {major: 0, minor: 0},
+                options: {
+                    content: "",
+                    tiles: [{id: "tile-1", content: "djembe"}],
+                },
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(anyFailure);
     });
 
     it("accepts a categorizer widget", () => {
