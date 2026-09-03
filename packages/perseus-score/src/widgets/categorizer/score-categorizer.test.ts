@@ -1,13 +1,13 @@
-import scoreCategorizer from "./score-categorizer";
+import {generateCategorizerOptions} from "@khanacademy/perseus-core";
 
-import type {PerseusCategorizerRubric} from "@khanacademy/perseus-core";
+import scoreCategorizer from "./score-categorizer";
 
 describe("scoreCategorizer", () => {
     it("returns a score of 'invalid' when the user input is undefined", () => {
-        const rubric: PerseusCategorizerRubric = {
+        const rubric = generateCategorizerOptions({
             values: [1, 3],
             items: ["apples", "oranges"],
-        };
+        });
 
         const userInput = undefined;
 
@@ -17,10 +17,10 @@ describe("scoreCategorizer", () => {
     });
 
     it("gives points when the answer is correct", () => {
-        const rubric: PerseusCategorizerRubric = {
+        const rubric = generateCategorizerOptions({
             values: [1, 3],
             items: ["apples", "oranges"],
-        };
+        });
 
         const userInput = {
             values: [1, 3],
@@ -31,10 +31,10 @@ describe("scoreCategorizer", () => {
     });
 
     it("does not give points when incorrectly answered", () => {
-        const rubric: PerseusCategorizerRubric = {
+        const rubric = generateCategorizerOptions({
             values: [1, 3],
             items: ["apples", "oranges"],
-        };
+        });
 
         const userInput = {
             values: [2, 3],

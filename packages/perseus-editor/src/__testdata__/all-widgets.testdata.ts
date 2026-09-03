@@ -39,7 +39,7 @@ import {
  * the full range of Perseus widgets.
  */
 export const comprehensiveQuestion: PerseusRenderer = {
-    content: `categorizer: [[\u2603 categorizer 1]]\n\ndefinition: [[\u2603 definition 1]]\n\ndropdown: [[\u2603 dropdown 1]]\n\nexpression: [[\u2603 expression 1]]\n\nexplanation: [[\u2603 explanation 1]]\n\nfree: [[\u2603 free-response 1]]\n\ngraded: [[\u2603 graded-group 1]]\n\ngraded: [[\u2603 graded-group-set 1]]\n\ngrapher: [[\u2603 grapher 1]]\n\ngroup: [[\u2603 group 1]]\n\nimage: [[\u2603 image 1]]\n\ninput: [[\u2603 input-number 1]]\n\ninteraction: [[\u2603 interaction 1]]\n\ninteractive-graph: [[\u2603 interactive-graph 1]]\n\nlabel: [[\u2603 label-image 1]]\n\nmatcher: [[\u2603 matcher 1]]\n\nmatrix: [[\u2603 matrix 1]]\n\nmeasurer: [[\u2603 measurer 1]]\n\nnumber-line: [[\u2603 number-line 1]]\n\nnumeric: [[\u2603 numeric-input 1]]\n\norderer: [[\u2603 orderer 1]]\n\nplotter: [[\u2603 plotter 1]]\n\nradio: [[\u2603 radio 1]]\n\nsorter: [[\u2603 sorter 1]]\n\ntable: [[\u2603 table 1]]`,
+    content: `![earth and moon](https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg)\n\ncategorizer: [[\u2603 categorizer 1]]\n\ndefinition: [[\u2603 definition 1]]\n\ndropdown: [[\u2603 dropdown 1]]\n\nexpression: [[\u2603 expression 1]]\n\nexplanation: [[\u2603 explanation 1]]\n\nfree: [[\u2603 free-response 1]]\n\ngraded: [[\u2603 graded-group 1]]\n\ngraded: [[\u2603 graded-group-set 1]]\n\ngrapher: [[\u2603 grapher 1]]\n\ngroup: [[\u2603 group 1]]\n\nimage: [[\u2603 image 1]]\n\ninput: [[\u2603 input-number 1]]\n\ninteraction: [[\u2603 interaction 1]]\n\ninteractive-graph: [[\u2603 interactive-graph 1]]\n\nlabel: [[\u2603 label-image 1]]\n\nmatcher: [[\u2603 matcher 1]]\n\nmatrix: [[\u2603 matrix 1]]\n\nmeasurer: [[\u2603 measurer 1]]\n\nnumber-line: [[\u2603 number-line 1]]\n\nnumeric: [[\u2603 numeric-input 1]]\n\norderer: [[\u2603 orderer 1]]\n\nplotter: [[\u2603 plotter 1]]\n\nradio: [[\u2603 radio 1]]\n\nsorter: [[\u2603 sorter 1]]\n\ntable: [[\u2603 table 1]]`,
     images: {
         "https://ka-perseus-images.s3.amazonaws.com/sample-diagram.png": {
             width: 300,
@@ -105,7 +105,6 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 categories: ["Fruits", "Vegetables"],
                 values: [0, 1, 0, 1],
                 randomizeItems: false,
-                static: false,
             },
         },
         "interactive-graph 1": generateInteractiveGraphWidget({
@@ -147,7 +146,6 @@ export const comprehensiveQuestion: PerseusRenderer = {
                 numDivisions: 5,
                 snapDivisions: 2,
                 labelTicks: true,
-                static: false,
             },
         },
         "matrix 1": {
@@ -305,7 +303,6 @@ export const comprehensiveQuestion: PerseusRenderer = {
             static: false,
             type: "label-image",
             options: {
-                static: false,
                 choices: ["Label 1", "Label 2"],
                 imageUrl:
                     "https://cdn.kastatic.org/ka-content-images/227d402cb09ebc1b67f197467212fa4ab3ced5b3.jpg",
@@ -405,9 +402,6 @@ export const comprehensiveQuestion: PerseusRenderer = {
                                 }),
                             }),
                         },
-                        hasHint: false,
-                        widgetEnabled: true,
-                        immutableWidgets: false,
                     }),
                 ],
             },
@@ -455,7 +449,6 @@ export const comprehensiveQuestion: PerseusRenderer = {
                     tickStep: [1, 1],
                     valid: true,
                 },
-                static: false,
             },
         },
         "measurer 1": {

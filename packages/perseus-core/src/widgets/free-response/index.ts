@@ -4,16 +4,7 @@ import type {FreeResponsePublicWidgetOptions} from "./free-response-util";
 import type {PerseusFreeResponseWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
-export type FreeResponseDefaultWidgetOptions = Pick<
-    PerseusFreeResponseWidgetOptions,
-    | "allowUnlimitedCharacters"
-    | "characterLimit"
-    | "placeholder"
-    | "question"
-    | "scoringCriteria"
->;
-
-const defaultWidgetOptions: FreeResponseDefaultWidgetOptions = {
+const defaultWidgetOptions: PerseusFreeResponseWidgetOptions = {
     allowUnlimitedCharacters: false,
     characterLimit: 500,
     placeholder: "Please provide response here",

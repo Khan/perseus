@@ -241,7 +241,6 @@ describe("Dropdown widget", () => {
                     "dropdown 1": {
                         type: "dropdown",
                         options: {
-                            static: false,
                             placeholder: "Choose an answer",
                             choices: [
                                 {

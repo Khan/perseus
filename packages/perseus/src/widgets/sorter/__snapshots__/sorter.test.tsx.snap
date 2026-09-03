@@ -16,7 +16,7 @@ exports[`sorter widget snapshot should snapshot on mobile: first mobile render 1
           class="perseus-widget-container widget-block"
         >
           <div
-            class="perseus-widget-sorter perseus-clearfix"
+            class="perseus-clearfix"
           >
             <div
               class="default_7zhre1-o_O-spinnerContainer_agrn11"
@@ -67,7 +67,7 @@ exports[`sorter widget snapshot should snapshot: first render 1`] = `
           class="perseus-widget-container widget-block"
         >
           <div
-            class="perseus-widget-sorter perseus-clearfix"
+            class="perseus-clearfix"
           >
             <div
               class="default_7zhre1-o_O-spinnerContainer_agrn11"

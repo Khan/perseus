@@ -13,7 +13,7 @@ import {testDependenciesV2} from "../../../testing/test-dependencies";
 import type {APIOptions} from "../../../types";
 import type {
     PerseusImageDetail,
-    RadioDefaultWidgetOptions,
+    PerseusRadioWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {Decorator} from "@storybook/react-vite";
 
@@ -23,7 +23,7 @@ export const radioRendererDecorator: Decorator = (
         args,
         parameters,
     }: {
-        args: Partial<RadioDefaultWidgetOptions>;
+        args: Partial<PerseusRadioWidgetOptions>;
         parameters?: {
             apiOptions?: APIOptions;
             showSolutions?: "all" | "none" | "selected";
@@ -61,7 +61,7 @@ export const radioRendererDecoratorWithDebugUI: Decorator = (
         args,
         parameters,
     }: {
-        args: Partial<RadioDefaultWidgetOptions>;
+        args: Partial<PerseusRadioWidgetOptions>;
         parameters?: {
             apiOptions?: APIOptions;
             showSolutions?: "all" | "none" | "selected";

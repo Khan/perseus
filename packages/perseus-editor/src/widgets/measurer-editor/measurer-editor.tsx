@@ -1,13 +1,16 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
+import {components} from "@khanacademy/perseus";
 import {measurerLogic} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";
 
 import InfoTip from "../../components/info-tip";
+import {deprecatedChangeableChange} from "../../mixins/changeable";
+import EditorJsonify from "../../mixins/editor-jsonify";
 
-import type {MeasurerDefaultWidgetOptions} from "@khanacademy/perseus-core";
+import type {ChangeableProps} from "../../mixins/changeable";
+import type {PerseusMeasurerWidgetOptions} from "@khanacademy/perseus-core";
 
 const {NumberInput, RangeInput} = components;
 
@@ -17,20 +20,16 @@ const defaultImage = {
     left: 0,
 } as const;
 
-interface Props
-    extends MeasurerDefaultWidgetOptions,
-        Changeable.ChangeableProps {}
+interface Props extends PerseusMeasurerWidgetOptions, ChangeableProps {}
 
 class MeasurerEditor extends React.Component<Props> {
-    static widgetName = "measurer" as const;
-
-    static defaultProps: MeasurerDefaultWidgetOptions =
+    static defaultProps: PerseusMeasurerWidgetOptions =
         measurerLogic.defaultWidgetOptions;
 
     className = "perseus-widget-measurer";
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     _changeUrl: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (e) => {

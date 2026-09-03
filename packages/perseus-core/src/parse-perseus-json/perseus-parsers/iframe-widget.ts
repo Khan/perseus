@@ -21,6 +21,5 @@ export const parseIframeWidget = parseWidget(
         height: union(number).or(string).parser,
         allowFullScreen: defaulted(boolean, () => false),
         allowTopNavigation: optional(boolean),
-        static: defaulted(boolean, () => false),
     }),
 );

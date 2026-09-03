@@ -9,7 +9,6 @@ describe("getCategorizerPublicWidgetOptions", () => {
             items: ["apples", "oranges"],
             categories: ["citrus", "non-citrus"],
             randomizeItems: true,
-            static: false,
         };
 
         const publicWidgetOptions = getCategorizerPublicWidgetOptions(
@@ -20,7 +19,6 @@ describe("getCategorizerPublicWidgetOptions", () => {
             items: ["apples", "oranges"],
             categories: ["citrus", "non-citrus"],
             randomizeItems: true,
-            static: false,
         });
     });
 });

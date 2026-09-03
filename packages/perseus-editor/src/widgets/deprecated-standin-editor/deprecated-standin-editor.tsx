@@ -1,5 +1,6 @@
-import {EditorJsonify} from "@khanacademy/perseus";
 import * as React from "react";
+
+import EditorJsonify from "../../mixins/editor-jsonify";
 
 type Props = {
     // Callback for when a widget prop is changed.
@@ -7,8 +8,6 @@ type Props = {
 };
 
 class DeprecatedStandinEditor extends React.Component<Props> {
-    static widgetName = "deprecated-standin" as const;
-
     serialize(): any {
         return EditorJsonify.serialize.call(this);
     }

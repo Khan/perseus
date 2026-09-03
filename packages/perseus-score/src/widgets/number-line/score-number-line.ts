@@ -1,7 +1,7 @@
 import {number as knumber} from "@khanacademy/kmath";
 
 import type {
-    PerseusNumberLineRubric,
+    PerseusNumberLineWidgetOptions,
     PerseusNumberLineUserInput,
     PerseusScore,
 } from "@khanacademy/perseus-core";
@@ -10,7 +10,7 @@ function scoreNumberLine(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: PerseusNumberLineUserInput | undefined,
-    rubric: PerseusNumberLineRubric,
+    rubric: PerseusNumberLineWidgetOptions,
 ): PerseusScore {
     if (userInput == null) {
         return {type: "invalid", message: null};
@@ -34,7 +34,7 @@ function scoreNumberLine(
     const correctRel = rubric.correctRel || "eq";
     const correctPos = knumber.equal(
         userInput.numLinePosition,
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+
         rubric.correctX || 0,
     );
 

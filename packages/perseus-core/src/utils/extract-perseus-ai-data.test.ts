@@ -393,7 +393,6 @@ describe("injectWidgets", () => {
                     imageWidth: 100,
                     hideChoicesFromInstructions: false,
                     multipleAnswers: false,
-                    static: false,
                 },
             },
         } as const;
@@ -656,7 +655,6 @@ describe("injectWidgets", () => {
                 static: true,
                 graded: true,
                 options: {
-                    static: false,
                     items: ["AAA", "BBB", "CCC", "DDD"],
                     categories: ["True", "False"],
                     values: [0, 1, 0, 0],
@@ -780,7 +778,6 @@ describe("injectWidgets", () => {
                     numDivisions: null,
                     range: [-1.5, 1.5],
                     snapDivisions: 2,
-                    static: false,
                     tickStep: 0.5,
                     isTickCtrl: false,
                 },
@@ -905,7 +902,6 @@ describe("getAnswersFromWidgets", () => {
         const widget: CategorizerWidget = {
             type: "categorizer",
             options: {
-                static: false,
                 items: ["Item #1", "Item #2", "Item #3", "Item #4"],
                 categories: ["True", "False"],
                 values: [0, 1, 0, 0],
@@ -1229,7 +1225,6 @@ describe("getAnswersFromWidgets", () => {
                 imageWidth: 100,
                 hideChoicesFromInstructions: false,
                 multipleAnswers: false,
-                static: false,
             },
         };
 
@@ -1255,7 +1250,6 @@ describe("getAnswersFromWidgets", () => {
                 numDivisions: null,
                 range: [-1.5, 1.5],
                 snapDivisions: 2,
-                static: false,
                 tickStep: 0.5,
                 isTickCtrl: false,
             },

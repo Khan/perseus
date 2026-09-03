@@ -36,8 +36,9 @@ const MovablePoint: any = GraphieClasses.createClass({
                 ...commonStyle,
                 "stroke-width": 0,
                 scale: 0.75,
+                ...(this.props.mobileStyleOverride || {}),
             },
-            shadow: true,
+            shadow: this.props.shadow ?? true,
             tooltip: this.props.showTooltips,
             pointSize: 7,
         });
@@ -148,8 +149,8 @@ const Line: any = GraphieClasses.createClass({
 
     modify: function () {
         const props = this.props;
-        const path = this.graphie.svgPath([props.start, props.end]);
-        this.line.attr(_.extend({}, props.style, {path: path}));
+        this.line.remove();
+        this.line = this.graphie.line(props.start, props.end, props.style);
     },
 
     remove: function () {

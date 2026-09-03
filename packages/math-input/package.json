@@ -3,7 +3,7 @@
     "description": "Khan Academy's new expression editor for the mobile web.",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "27.0.4",
+    "version": "27.0.11",
     "publishConfig": {
         "access": "public"
     },
@@ -82,6 +82,6 @@
     },
     "keywords": [],
     "khan": {
-        "catalogHash": "b6ee32d91be9a77e"
+        "catalogHash": "215c607999dd55e7"
     }
 }

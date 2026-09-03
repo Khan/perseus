@@ -1,12 +1,7 @@
 /**
  * Used in the editor for the InteractiveGraph widget.
  */
-import {
-    components,
-    interactiveSizes,
-    Changeable,
-    Util,
-} from "@khanacademy/perseus";
+import {components, interactiveSizes, Util} from "@khanacademy/perseus";
 import Banner from "@khanacademy/wonder-blocks-banner";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -16,12 +11,14 @@ import _ from "underscore";
 
 import Heading from "../../../components/heading";
 import InfoTip from "../../../components/info-tip";
+import {deprecatedChangeableChange} from "../../../mixins/changeable";
 import LabeledRow from "../locked-figures/labeled-row";
 
 import AxisArrowSwitches from "./axis-arrow-switches";
 import AxisTickSwitches from "./axis-tick-switches";
 import styles from "./interactive-graph-settings.module.css";
 
+import type {ChangeFn} from "../../../mixins/changeable";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
     AxisLabelLocation,
@@ -30,8 +27,6 @@ import type {
     MarkingsType,
     PerseusImageBackground,
 } from "@khanacademy/perseus-core";
-
-type ChangeFn = typeof Changeable.change;
 
 const {ButtonGroup, RangeInput} = components;
 
@@ -218,7 +213,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
     }
 
     change: ChangeFn = (...args) => {
-        return Changeable.change.apply(this, args);
+        return deprecatedChangeableChange.apply(this, args);
     };
 
     changeBackgroundUrl = (e) => {
@@ -555,7 +550,6 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                 <LabeledRow label="Label Location">
                                     <ButtonGroup
                                         value={this.props.labelLocation}
-                                        allowEmpty={false}
                                         buttons={[
                                             {
                                                 value: "onAxis",
@@ -711,7 +705,6 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                 <LabeledRow label="Markings">
                                     <ButtonGroup
                                         value={this.props.markings}
-                                        allowEmpty={false}
                                         buttons={[
                                             {value: "axes", content: "Axes"},
                                             {value: "graph", content: "Graph"},
