@@ -10,14 +10,15 @@ const defaultWidgetOptions: PerseusSorterWidgetOptions = {
     padding: true,
 };
 
-const sorterWidgetLogic: WidgetLogic<
-    PerseusSorterWidgetOptions,
-    SorterPublicWidgetOptions
-> = {
+const sorterWidgetLogic = {
     name: "sorter",
     defaultWidgetOptions,
     getPublicWidgetOptions: getSorterPublicWidgetOptions,
     accessible: false,
-};
+} satisfies WidgetLogic<
+    "sorter",
+    PerseusSorterWidgetOptions,
+    SorterPublicWidgetOptions
+>;
 
 export default sorterWidgetLogic;

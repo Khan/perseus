@@ -84,4 +84,4 @@ export default {
     name: "python-program",
     displayName: "Python Program",
     widget: PythonProgram,
-} satisfies WidgetExports<typeof PythonProgram>;
+} satisfies WidgetExports<"python-program", typeof PythonProgram>;

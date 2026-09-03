@@ -742,4 +742,4 @@ export default {
     isLintable: true,
     getStartUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof WrappedOrderer>;
+} satisfies WidgetExports<"orderer", typeof WrappedOrderer>;

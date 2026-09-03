@@ -1,3 +1,4 @@
+import {ApiOptions} from "@khanacademy/perseus";
 import * as React from "react";
 import {action} from "storybook/actions";
 
@@ -74,7 +75,13 @@ const WithState = () => {
         setState({...state, ...options});
     };
 
-    return <FreeResponseEditor {...state} onChange={onChange} />;
+    return (
+        <FreeResponseEditor
+            {...state}
+            apiOptions={ApiOptions.defaults}
+            onChange={onChange}
+        />
+    );
 };
 
 export const Editable = (args: StoryArgs): React.ReactElement => {

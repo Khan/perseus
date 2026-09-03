@@ -217,4 +217,4 @@ export default {
     hidden: true,
     getStartUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof CSProgram>;
+} satisfies WidgetExports<"cs-program", typeof CSProgram>;

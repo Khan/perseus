@@ -130,4 +130,4 @@ export default {
     displayName: "Explanation",
     widget: Explanation,
     isLintable: true,
-} satisfies WidgetExports<typeof Explanation>;
+} satisfies WidgetExports<"explanation", typeof Explanation>;

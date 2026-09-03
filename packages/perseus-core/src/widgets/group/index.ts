@@ -14,15 +14,16 @@ const traverseChildWidgets = function (props: any, traverseRenderer: any): any {
     return {...props, ...traverseRenderer(props)};
 };
 
-const groupWidgetLogic: WidgetLogic<
-    PerseusGroupWidgetOptions,
-    GroupPublicWidgetOptions
-> = {
+const groupWidgetLogic = {
     name: "group",
     defaultWidgetOptions,
     accessible: false,
     traverseChildWidgets: traverseChildWidgets,
     getPublicWidgetOptions: getGroupPublicWidgetOptions,
-};
+} satisfies WidgetLogic<
+    "group",
+    PerseusGroupWidgetOptions,
+    GroupPublicWidgetOptions
+>;
 
 export default groupWidgetLogic;

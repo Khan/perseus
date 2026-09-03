@@ -202,7 +202,7 @@ export default {
     hidden: false,
     tracking: "all",
     isLintable: true,
-} satisfies WidgetExports<typeof GradedGroupSet>;
+} satisfies WidgetExports<"graded-group-set", typeof GradedGroupSet>;
 
 const styles = StyleSheet.create({
     top: {

@@ -836,7 +836,7 @@ export default {
     getStartUserInput,
     getCorrectUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof LabelImageWithDependencies>;
+} satisfies WidgetExports<"label-image", typeof LabelImageWithDependencies>;
 
 const styles = StyleSheet.create({
     instructions: {

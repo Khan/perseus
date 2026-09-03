@@ -23,14 +23,15 @@ const defaultWidgetOptions: PerseusPlotterWidgetOptions = {
     picUrl: null,
 };
 
-const plotterWidgetLogic: WidgetLogic<
-    PerseusPlotterWidgetOptions,
-    PlotterPublicWidgetOptions
-> = {
+const plotterWidgetLogic = {
     name: "plotter",
     defaultWidgetOptions,
     getPublicWidgetOptions: getPlotterPublicWidgetOptions,
     accessible: false,
-};
+} satisfies WidgetLogic<
+    "plotter",
+    PerseusPlotterWidgetOptions,
+    PlotterPublicWidgetOptions
+>;
 
 export default plotterWidgetLogic;

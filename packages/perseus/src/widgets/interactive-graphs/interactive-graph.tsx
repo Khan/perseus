@@ -154,4 +154,4 @@ export default {
     getCorrectUserInput,
     getUserInputFromSerializedState,
     supportsUngraded: true,
-} satisfies WidgetExports<typeof InteractiveGraph>;
+} satisfies WidgetExports<"interactive-graph", typeof InteractiveGraph>;

@@ -13,16 +13,17 @@ const defaultWidgetOptions: PerseusExpressionWidgetOptions = {
     functions: ["f", "g", "h"],
 };
 
-const expressionWidgetLogic: WidgetLogic<
-    PerseusExpressionWidgetOptions,
-    ExpressionPublicWidgetOptions
-> = {
+const expressionWidgetLogic = {
     name: "expression",
     version: currentVersion,
     defaultWidgetOptions: defaultWidgetOptions,
     defaultAlignment: "inline-block",
     getPublicWidgetOptions: getExpressionPublicWidgetOptions,
     accessible: true,
-};
+} satisfies WidgetLogic<
+    "expression",
+    PerseusExpressionWidgetOptions,
+    ExpressionPublicWidgetOptions
+>;
 
 export default expressionWidgetLogic;

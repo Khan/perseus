@@ -770,4 +770,4 @@ export default {
     getCorrectUserInput,
     getStartUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof NumberLine>;
+} satisfies WidgetExports<"number-line", typeof NumberLine>;

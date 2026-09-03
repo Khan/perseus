@@ -88,4 +88,4 @@ export default {
     name: "definition",
     displayName: "Definition",
     widget: Definition,
-} satisfies WidgetExports<typeof Definition>;
+} satisfies WidgetExports<"definition", typeof Definition>;

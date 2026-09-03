@@ -498,4 +498,4 @@ export default {
     getStartUserInput,
     getCorrectUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof WrappedMatrix>;
+} satisfies WidgetExports<"matrix", typeof WrappedMatrix>;

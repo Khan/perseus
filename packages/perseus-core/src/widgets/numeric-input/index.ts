@@ -22,16 +22,17 @@ const defaultWidgetOptions: PerseusNumericInputWidgetOptions = {
     textAlign: "left",
 };
 
-const numericInputWidgetLogic: WidgetLogic<
-    PerseusNumericInputWidgetOptions,
-    NumericInputPublicWidgetOptions
-> = {
+const numericInputWidgetLogic = {
     name: "numeric-input",
     version: {major: 1, minor: 0},
     defaultWidgetOptions,
     defaultAlignment: "inline-block",
     getPublicWidgetOptions: getNumericInputPublicWidgetOptions,
     accessible: true,
-};
+} satisfies WidgetLogic<
+    "numeric-input",
+    PerseusNumericInputWidgetOptions,
+    NumericInputPublicWidgetOptions
+>;
 
 export default numericInputWidgetLogic;

@@ -210,4 +210,4 @@ export default {
     displayName: "Image",
     widget: ImageWidget,
     isLintable: true,
-} satisfies WidgetExports<typeof ImageWidget>;
+} satisfies WidgetExports<"image", typeof ImageWidget>;

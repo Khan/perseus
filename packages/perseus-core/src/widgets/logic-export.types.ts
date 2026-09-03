@@ -55,11 +55,19 @@ export type PublicWidgetOptionsFunction =
     | typeof getSorterPublicWidgetOptions
     | typeof getTablePublicWidgetOptions;
 
+/**
+ * The scoring/traversal/version logic for one widget type.
+ *
+ * `TName` is the widget's type name. Declarations use `satisfies` so `name`
+ * stays a literal type rather than widening to `string`, which lets a consumer
+ * tell one widget's logic from another's at the type level.
+ */
 export type WidgetLogic<
+    TName extends string = string,
     TWidgetOptions = never,
     TPublicWidgetOptions = never,
 > = {
-    name: string;
+    name: TName;
     /**
      * The widget version. Any time the _major_ version changes, the widget
      * should provide a new entry in the widget parser to migrate from the

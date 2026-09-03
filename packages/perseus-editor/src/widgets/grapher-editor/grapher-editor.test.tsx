@@ -38,7 +38,7 @@ describe("grapher-editor", () => {
 
     it("preserves existing graph properties when GraphSettings onChange is called", async () => {
         const onChangeMock = jest.fn();
-        const graph = {
+        const graph: typeof grapherLogic.defaultWidgetOptions.graph = {
             ...grapherLogic.defaultWidgetOptions.graph,
             box: [400, 400],
             gridStep: [1, 1],

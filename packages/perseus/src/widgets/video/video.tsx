@@ -131,4 +131,4 @@ export default {
     name: "video",
     displayName: "Video",
     widget: WrappedVideo,
-} satisfies WidgetExports<typeof WrappedVideo>;
+} satisfies WidgetExports<"video", typeof WrappedVideo>;

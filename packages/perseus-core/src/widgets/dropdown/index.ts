@@ -14,15 +14,16 @@ const defaultWidgetOptions: PerseusDropdownWidgetOptions = {
     ],
 };
 
-const dropdownWidgetLogic: WidgetLogic<
-    PerseusDropdownWidgetOptions,
-    DropdownPublicWidgetOptions
-> = {
+const dropdownWidgetLogic = {
     name: "dropdown",
     defaultWidgetOptions,
     defaultAlignment: "inline-block",
     getPublicWidgetOptions: getDropdownPublicWidgetOptions,
     accessible: true,
-};
+} satisfies WidgetLogic<
+    "dropdown",
+    PerseusDropdownWidgetOptions,
+    DropdownPublicWidgetOptions
+>;
 
 export default dropdownWidgetLogic;

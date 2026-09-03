@@ -41,4 +41,4 @@ export default {
     widget: BlankWidget,
     isLintable: true,
     hidden: true,
-} satisfies WidgetExports<typeof BlankWidget>;
+} satisfies WidgetExports<"blank", typeof BlankWidget>;

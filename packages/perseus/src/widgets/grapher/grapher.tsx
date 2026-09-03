@@ -699,4 +699,4 @@ export default {
     getUserInputFromSerializedState,
     getStartUserInput,
     getCorrectUserInput,
-} satisfies WidgetExports<typeof WrappedGrapher>;
+} satisfies WidgetExports<"grapher", typeof WrappedGrapher>;

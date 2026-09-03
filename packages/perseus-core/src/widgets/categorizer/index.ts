@@ -11,14 +11,15 @@ const defaultWidgetOptions: PerseusCategorizerWidgetOptions = {
     randomizeItems: false,
 };
 
-const categorizerWidgetLogic: WidgetLogic<
-    PerseusCategorizerWidgetOptions,
-    CategorizerPublicWidgetOptions
-> = {
+const categorizerWidgetLogic = {
     name: "categorizer",
     defaultWidgetOptions,
     getPublicWidgetOptions: getCategorizerPublicWidgetOptions,
     accessible: false,
-};
+} satisfies WidgetLogic<
+    "categorizer",
+    PerseusCategorizerWidgetOptions,
+    CategorizerPublicWidgetOptions
+>;
 
 export default categorizerWidgetLogic;

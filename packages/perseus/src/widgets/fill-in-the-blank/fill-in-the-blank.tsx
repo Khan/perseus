@@ -33,4 +33,4 @@ export default {
     widget: FillInTheBlankWidget,
     isLintable: false,
     hidden: true,
-} satisfies WidgetExports<typeof FillInTheBlankWidget>;
+} satisfies WidgetExports<"fill-in-the-blank", typeof FillInTheBlankWidget>;

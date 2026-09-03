@@ -11,7 +11,6 @@ export function generateNumericInputOptions(
 ): PerseusNumericInputWidgetOptions {
     return {
         ...numericInputWidgetLogic.defaultWidgetOptions,
-        static: false,
         ...options,
     };
 }

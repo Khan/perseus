@@ -36,7 +36,7 @@ const MockWidgetComponent = ({
     return <div>{text}</div>;
 };
 
-const MockWidget: WidgetExports<typeof MockWidgetComponent> = {
+const MockWidget: WidgetExports<"mock-widget", typeof MockWidgetComponent> = {
     name: "mock-widget",
     displayName: "Mock Widget",
     widget: MockWidgetComponent,

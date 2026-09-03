@@ -5,12 +5,12 @@ const defaultWidgetOptions: PerseusVideoWidgetOptions = {
     location: "",
 };
 
-const videoWidgetLogic: WidgetLogic = {
+const videoWidgetLogic = {
     name: "video",
     defaultWidgetOptions,
     supportedAlignments: ["block", "full-width"],
     defaultAlignment: "block",
     accessible: true,
-};
+} satisfies WidgetLogic<"video">;
 
 export default videoWidgetLogic;

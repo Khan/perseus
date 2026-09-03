@@ -239,4 +239,4 @@ export default {
     isLintable: true,
     getStartUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof Table>;
+} satisfies WidgetExports<"table", typeof Table>;

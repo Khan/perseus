@@ -180,4 +180,4 @@ export default {
     hidden: true,
     getStartUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof Iframe>;
+} satisfies WidgetExports<"iframe", typeof Iframe>;

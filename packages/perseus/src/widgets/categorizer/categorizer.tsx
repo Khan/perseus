@@ -305,4 +305,8 @@ export default {
     getCorrectUserInput,
     getStartUserInput,
     isLintable: true,
-} satisfies WidgetExports<typeof Categorizer, PerseusCategorizerUserInput>;
+} satisfies WidgetExports<
+    "categorizer",
+    typeof Categorizer,
+    PerseusCategorizerUserInput
+>;

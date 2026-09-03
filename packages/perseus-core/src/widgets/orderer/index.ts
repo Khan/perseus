@@ -21,14 +21,15 @@ const defaultWidgetOptions: PerseusOrdererWidgetOptions = {
     layout: "horizontal",
 };
 
-const ordererWidgetLogic: WidgetLogic<
-    PerseusOrdererWidgetOptions,
-    OrdererPublicWidgetOptions
-> = {
+const ordererWidgetLogic = {
     name: "orderer",
     defaultWidgetOptions,
     getPublicWidgetOptions: getOrdererPublicWidgetOptions,
     accessible: false,
-};
+} satisfies WidgetLogic<
+    "orderer",
+    PerseusOrdererWidgetOptions,
+    OrdererPublicWidgetOptions
+>;
 
 export default ordererWidgetLogic;

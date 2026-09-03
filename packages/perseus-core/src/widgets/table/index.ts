@@ -20,14 +20,15 @@ const defaultWidgetOptions: PerseusTableWidgetOptions = {
     answers: answers,
 };
 
-const tableWidgetLogic: WidgetLogic<
-    PerseusTableWidgetOptions,
-    TablePublicWidgetOptions
-> = {
+const tableWidgetLogic = {
     name: "table",
     defaultWidgetOptions,
     getPublicWidgetOptions: getTablePublicWidgetOptions,
     accessible: true,
-};
+} satisfies WidgetLogic<
+    "table",
+    PerseusTableWidgetOptions,
+    TablePublicWidgetOptions
+>;
 
 export default tableWidgetLogic;

@@ -18,16 +18,17 @@ const defaultWidgetOptions: PerseusLabelImageWidgetOptions = {
     hideChoicesFromInstructions: false,
 };
 
-const labelImageWidgetLogic: WidgetLogic<
-    PerseusLabelImageWidgetOptions,
-    LabelImagePublicWidgetOptions
-> = {
+const labelImageWidgetLogic = {
     name: "label-image",
     defaultWidgetOptions,
     getPublicWidgetOptions: getLabelImagePublicWidgetOptions,
     // Function determining if a label image is accessible.
     // Label Images is inaccessible if it does not have alt text for the image.
     accessible: isLabelImageAccessible,
-};
+} satisfies WidgetLogic<
+    "label-image",
+    PerseusLabelImageWidgetOptions,
+    LabelImagePublicWidgetOptions
+>;
 
 export default labelImageWidgetLogic;

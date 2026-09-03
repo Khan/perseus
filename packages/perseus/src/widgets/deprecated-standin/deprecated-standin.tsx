@@ -39,4 +39,4 @@ export default {
     displayName: "Deprecated Standin",
     widget: DeprecatedStandin,
     hidden: true,
-} satisfies WidgetExports<typeof DeprecatedStandin>;
+} satisfies WidgetExports<"deprecated-standin", typeof DeprecatedStandin>;

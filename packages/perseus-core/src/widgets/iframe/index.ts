@@ -12,14 +12,15 @@ const defaultWidgetOptions: PerseusIFrameWidgetOptions = {
     allowTopNavigation: false,
 };
 
-const iframeWidgetLogic: WidgetLogic<
-    PerseusIFrameWidgetOptions,
-    PerseusIFrameWidgetOptions
-> = {
+const iframeWidgetLogic = {
     name: "iframe",
     defaultWidgetOptions,
     getPublicWidgetOptions: getIFramePublicWidgetOptions,
     accessible: false,
-};
+} satisfies WidgetLogic<
+    "iframe",
+    PerseusIFrameWidgetOptions,
+    PerseusIFrameWidgetOptions
+>;
 
 export default iframeWidgetLogic;

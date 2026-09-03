@@ -233,4 +233,4 @@ export default {
     getStartUserInput,
     getCorrectUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof Dropdown>;
+} satisfies WidgetExports<"dropdown", typeof Dropdown>;

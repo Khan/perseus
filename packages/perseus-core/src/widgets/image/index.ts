@@ -24,7 +24,7 @@ const defaultWidgetOptions: PerseusImageWidgetOptions = {
     decorative: false,
 };
 
-const imageWidgetLogic: WidgetLogic<PerseusImageWidgetOptions> = {
+const imageWidgetLogic = {
     name: "image",
     defaultWidgetOptions,
     // The float alignments will be set to inline-block floated left or right.
@@ -46,6 +46,6 @@ const imageWidgetLogic: WidgetLogic<PerseusImageWidgetOptions> = {
 
         return hasBackgroundImage && (hasAltText || isDecorative);
     },
-};
+} satisfies WidgetLogic<"image", PerseusImageWidgetOptions>;
 
 export default imageWidgetLogic;

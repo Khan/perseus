@@ -406,11 +406,19 @@ type TrackingSequenceExtraArguments = {
 
 type WidgetOptions = any;
 
+/**
+ * The React-side declaration of one widget type.
+ *
+ * `TName` is the widget's type name. Declarations pass it explicitly so `name`
+ * stays a literal type rather than widening to `string`, which lets widget
+ * registration match a React export to its core logic at the type level.
+ */
 export type WidgetExports<
+    TName extends string = string,
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
     TUserInput = Empty,
 > = Readonly<{
-    name: string;
+    name: TName;
     displayName: string;
 
     // Widgets should provide _one_ of these two properties only!

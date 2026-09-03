@@ -18,14 +18,16 @@ import type {
 /**
  * A widget logic of any concrete widget's shape, as the registry stores them.
  */
-export type AnyWidgetLogic = WidgetLogic<never, any>;
+export type AnyWidgetLogic = WidgetLogic<string, never, any>;
 
-const widgets = new Registry<WidgetLogic<any, any>>("Core widget registry");
+const widgets = new Registry<WidgetLogic<string, any, any>>(
+    "Core widget registry",
+);
 
 /** Register one widget logic under its own `name`. */
 export function registerLogic(logic: AnyWidgetLogic) {
     // eslint-disable-next-line no-restricted-syntax
-    widgets.set(logic.name, logic as WidgetLogic<any, any>);
+    widgets.set(logic.name, logic as WidgetLogic<string, any, any>);
 }
 
 /** Register several widget logics, each under its own `name`. */
@@ -34,7 +36,10 @@ export function registerLogics(logics: ReadonlyArray<AnyWidgetLogic>) {
 }
 
 /** @deprecated Use `registerLogic`, which reads the type from `logic.name`. */
-export function registerWidget(type: string, logic: WidgetLogic<any, any>) {
+export function registerWidget(
+    type: string,
+    logic: WidgetLogic<string, any, any>,
+) {
     widgets.set(type, logic);
 }
 

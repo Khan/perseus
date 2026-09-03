@@ -410,4 +410,4 @@ export default {
     getStartUserInput,
     getCorrectUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof Expression>;
+} satisfies WidgetExports<"expression", typeof Expression>;

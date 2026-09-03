@@ -414,4 +414,4 @@ export default {
     displayName: "PhET Simulation",
     widget: PhetSimulation,
     isLintable: true,
-} satisfies WidgetExports<typeof PhetSimulation>;
+} satisfies WidgetExports<"phet-simulation", typeof PhetSimulation>;

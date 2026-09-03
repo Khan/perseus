@@ -18,13 +18,14 @@ const defaultWidgetOptions: PerseusFreeResponseWidgetOptions = {
     ],
 };
 
-const freeResponseWidgetLogic: WidgetLogic<
-    PerseusFreeResponseWidgetOptions,
-    FreeResponsePublicWidgetOptions
-> = {
+const freeResponseWidgetLogic = {
     name: "free-response",
     defaultWidgetOptions,
     getPublicWidgetOptions: getFreeResponsePublicWidgetOptions,
-};
+} satisfies WidgetLogic<
+    "free-response",
+    PerseusFreeResponseWidgetOptions,
+    FreeResponsePublicWidgetOptions
+>;
 
 export default freeResponseWidgetLogic;

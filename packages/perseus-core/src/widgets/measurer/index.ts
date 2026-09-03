@@ -12,11 +12,11 @@ const defaultWidgetOptions: PerseusMeasurerWidgetOptions = {
     rulerLength: 10,
 };
 
-const measurerWidgetLogic: WidgetLogic = {
+const measurerWidgetLogic = {
     name: "measurer",
     version: {major: 1, minor: 0},
     defaultWidgetOptions: defaultWidgetOptions,
     accessible: false,
-};
+} satisfies WidgetLogic<"measurer">;
 
 export default measurerWidgetLogic;

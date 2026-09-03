@@ -20,15 +20,16 @@ const defaultWidgetOptions: PerseusRadioWidgetOptions = {
     deselectEnabled: false,
 };
 
-const radioWidgetLogic: WidgetLogic<
-    PerseusRadioWidgetOptions,
-    RadioPublicWidgetOptions
-> = {
+const radioWidgetLogic = {
     name: "radio",
     version: currentVersion,
     defaultWidgetOptions: defaultWidgetOptions,
     getPublicWidgetOptions: getRadioPublicWidgetOptions,
     accessible: true,
-};
+} satisfies WidgetLogic<
+    "radio",
+    PerseusRadioWidgetOptions,
+    RadioPublicWidgetOptions
+>;
 
 export default radioWidgetLogic;

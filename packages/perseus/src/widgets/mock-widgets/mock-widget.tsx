@@ -126,4 +126,4 @@ export default {
     isLintable: true,
     getStartUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof MockWidgetComponent>;
+} satisfies WidgetExports<"mock-widget", typeof MockWidgetComponent>;

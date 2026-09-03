@@ -35,14 +35,15 @@ const defaultWidgetOptions: PerseusInteractiveGraphWidgetOptions = {
     },
 };
 
-const interactiveGraphWidgetLogic: WidgetLogic<
-    PerseusInteractiveGraphWidgetOptions,
-    InteractiveGraphPublicWidgetOptions
-> = {
+const interactiveGraphWidgetLogic = {
     name: "interactive-graph",
     defaultWidgetOptions,
     getPublicWidgetOptions: getInteractiveGraphPublicWidgetOptions,
     accessible,
-};
+} satisfies WidgetLogic<
+    "interactive-graph",
+    PerseusInteractiveGraphWidgetOptions,
+    InteractiveGraphPublicWidgetOptions
+>;
 
 export default interactiveGraphWidgetLogic;

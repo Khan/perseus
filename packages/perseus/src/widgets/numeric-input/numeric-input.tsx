@@ -202,4 +202,4 @@ export default {
     getOneCorrectAnswerFromRubric,
     getStartUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof NumericInput>;
+} satisfies WidgetExports<"numeric-input", typeof NumericInput>;

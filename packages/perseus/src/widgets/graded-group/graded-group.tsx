@@ -480,4 +480,4 @@ export default {
     hidden: false,
     tracking: "all",
     isLintable: true,
-} satisfies WidgetExports<typeof GradedGroup>;
+} satisfies WidgetExports<"graded-group", typeof GradedGroup>;

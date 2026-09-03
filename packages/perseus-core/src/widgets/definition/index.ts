@@ -6,11 +6,11 @@ const defaultWidgetOptions: PerseusDefinitionWidgetOptions = {
     definition: "",
 };
 
-const definitionWidgetLogic: WidgetLogic = {
+const definitionWidgetLogic = {
     name: "definition",
     defaultWidgetOptions,
     defaultAlignment: "inline",
     accessible: true,
-};
+} satisfies WidgetLogic<"definition">;
 
 export default definitionWidgetLogic;

@@ -14,15 +14,16 @@ const defaultWidgetOptions: PerseusCSProgramWidgetOptions = {
     height: DEFAULT_HEIGHT,
 };
 
-const csProgramWidgetLogic: WidgetLogic<
-    PerseusCSProgramWidgetOptions,
-    PerseusCSProgramWidgetOptions
-> = {
+const csProgramWidgetLogic = {
     name: "cs-program",
     defaultWidgetOptions,
     supportedAlignments: ["block", "full-width"],
     getPublicWidgetOptions: getCSProgramPublicWidgetOptions,
     accessible: false,
-};
+} satisfies WidgetLogic<
+    "cs-program",
+    PerseusCSProgramWidgetOptions,
+    PerseusCSProgramWidgetOptions
+>;
 
 export default csProgramWidgetLogic;

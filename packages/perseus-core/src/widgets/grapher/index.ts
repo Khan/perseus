@@ -28,10 +28,7 @@ const defaultWidgetOptions: PerseusGrapherWidgetOptions = {
     availableTypes: ["linear"],
 };
 
-const grapherWidgetLogic: WidgetLogic<
-    PerseusGrapherWidgetOptions,
-    GrapherPublicWidgetOptions
-> = {
+const grapherWidgetLogic = {
     name: "grapher",
     defaultWidgetOptions,
     getPublicWidgetOptions: getGrapherPublicWidgetOptions,
@@ -39,6 +36,10 @@ const grapherWidgetLogic: WidgetLogic<
         !options.graph.backgroundImage.url &&
         options.availableTypes.length === 1 &&
         options.availableTypes[0] !== "quadratic",
-};
+} satisfies WidgetLogic<
+    "grapher",
+    PerseusGrapherWidgetOptions,
+    GrapherPublicWidgetOptions
+>;
 
 export default grapherWidgetLogic;

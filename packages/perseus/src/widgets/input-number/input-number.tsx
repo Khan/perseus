@@ -27,4 +27,4 @@ export default {
     getStartUserInput: numericInput.getStartUserInput,
     getCorrectUserInput: numericInput.getCorrectUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof numericInput.widget>;
+} satisfies WidgetExports<"input-number", typeof numericInput.widget>;

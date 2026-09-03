@@ -21,16 +21,17 @@ const defaultWidgetOptions: PerseusInputNumberWidgetOptions = {
     ],
 };
 
-const inputNumberWidgetLogic: WidgetLogic<
-    PerseusInputNumberWidgetOptions,
-    InputNumberPublicWidgetOptions
-> = {
+const inputNumberWidgetLogic = {
     name: "input-number",
     version: {major: 1, minor: 0},
     defaultWidgetOptions,
     defaultAlignment: "inline-block",
     accessible: true,
     getPublicWidgetOptions: getInputNumberPublicWidgetOptions,
-};
+} satisfies WidgetLogic<
+    "input-number",
+    PerseusInputNumberWidgetOptions,
+    InputNumberPublicWidgetOptions
+>;
 
 export default inputNumberWidgetLogic;

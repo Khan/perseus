@@ -13,11 +13,11 @@ const traverseChildWidgets = function (props: any, traverseRenderer: any): any {
     return {...props, ...traverseRenderer(props)};
 };
 
-const gradedGroupWidgetLogic: WidgetLogic = {
+const gradedGroupWidgetLogic = {
     name: "graded-group",
     defaultWidgetOptions,
     accessible: true,
     traverseChildWidgets: traverseChildWidgets,
-};
+} satisfies WidgetLogic<"graded-group">;
 
 export default gradedGroupWidgetLogic;

@@ -42,7 +42,9 @@ type Graph = {
     tickStep: [number, number];
     gridStep: [number, number];
     markings: MarkingsType;
-    valid?: boolean;
+    // `true`, or a message explaining why the graph settings are invalid,
+    // which is shown to the author.
+    valid?: boolean | string;
 };
 
 type Props = {

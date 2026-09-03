@@ -133,7 +133,6 @@ function getStartUserInput(): PerseusFreeResponseUserInput {
 // eslint-disable-next-line no-restricted-syntax
 export default {
     name: "free-response",
-    accessible: true,
     displayName: "Free Response (Assessments only)",
     widget: FreeResponse,
     hidden: false,
@@ -142,7 +141,7 @@ export default {
     // (which we likely never should/will for FreeResponse)
     getUserInputFromSerializedState: getStartUserInput,
     getStartUserInput,
-} as WidgetExports<typeof FreeResponse>;
+} satisfies WidgetExports<"free-response", typeof FreeResponse>;
 
 const styles = StyleSheet.create({
     container: {

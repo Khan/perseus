@@ -657,4 +657,4 @@ export default {
     displayName: "Interaction",
     widget: Interaction,
     hidden: true,
-} satisfies WidgetExports<typeof Interaction>;
+} satisfies WidgetExports<"interaction", typeof Interaction>;

@@ -16,10 +16,10 @@ const defaultWidgetOptions: PerseusInteractionWidgetOptions = {
     elements: [],
 };
 
-const interactionWidgetLogic: WidgetLogic = {
+const interactionWidgetLogic = {
     name: "interaction",
     defaultWidgetOptions,
     accessible: false,
-};
+} satisfies WidgetLogic<"interaction">;
 
 export default interactionWidgetLogic;

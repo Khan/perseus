@@ -148,4 +148,4 @@ export default {
     isLintable: true,
     getStartUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof Group>;
+} satisfies WidgetExports<"group", typeof Group>;

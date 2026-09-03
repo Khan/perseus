@@ -12,10 +12,7 @@ const defaultWidgetOptions: PerseusFillInTheBlankWidgetOptions = {
     randomize: false,
 };
 
-const fillInTheBlankWidgetLogic: WidgetLogic<
-    PerseusFillInTheBlankWidgetOptions,
-    FillInTheBlankPublicWidgetOptions
-> = {
+const fillInTheBlankWidgetLogic = {
     name: "fill-in-the-blank",
     version: {major: 0, minor: 0},
     defaultAlignment: "block",
@@ -26,6 +23,10 @@ const fillInTheBlankWidgetLogic: WidgetLogic<
         ...props,
         ...traverseRenderer(props),
     }),
-};
+} satisfies WidgetLogic<
+    "fill-in-the-blank",
+    PerseusFillInTheBlankWidgetOptions,
+    FillInTheBlankPublicWidgetOptions
+>;
 
 export default fillInTheBlankWidgetLogic;

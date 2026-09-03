@@ -43,7 +43,7 @@ export default {
     displayName: "Widget Display Name",
     widget: WidgetComponent,
     isLintable: true, // For use by the editor
-} satisfies WidgetExports<typeof WidgetComponent>;
+} satisfies WidgetExports<"widget-name", typeof WidgetComponent>;
 ```
 
 ## Common Issues & Solutions

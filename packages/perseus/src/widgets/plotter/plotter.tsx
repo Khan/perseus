@@ -1175,4 +1175,4 @@ export default {
     getCorrectUserInput,
     getStartUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof WrappedPlotter>;
+} satisfies WidgetExports<"plotter", typeof WrappedPlotter>;

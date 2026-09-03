@@ -141,4 +141,4 @@ export default {
     displayName: "Measurer",
     hidden: true,
     widget: Measurer,
-} satisfies WidgetExports<typeof Measurer>;
+} satisfies WidgetExports<"measurer", typeof Measurer>;

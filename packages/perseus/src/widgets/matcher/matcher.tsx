@@ -218,7 +218,7 @@ export default {
     isLintable: true,
     getStartUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof Matcher>;
+} satisfies WidgetExports<"matcher", typeof Matcher>;
 
 const padding = 5;
 const border = `var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-strong)`;

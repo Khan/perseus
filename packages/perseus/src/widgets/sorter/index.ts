@@ -40,4 +40,4 @@ export default {
     isLintable: true,
     getStartUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof Sorter>;
+} satisfies WidgetExports<"sorter", typeof Sorter>;

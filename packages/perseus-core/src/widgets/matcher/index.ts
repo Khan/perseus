@@ -12,14 +12,15 @@ const defaultWidgetOptions: PerseusMatcherWidgetOptions = {
     padding: true,
 };
 
-const matcherWidgetLogic: WidgetLogic<
-    PerseusMatcherWidgetOptions,
-    MatcherPublicWidgetOptions
-> = {
+const matcherWidgetLogic = {
     name: "matcher",
     defaultWidgetOptions,
     getPublicWidgetOptions: getMatcherPublicWidgetOptions,
     accessible: false,
-};
+} satisfies WidgetLogic<
+    "matcher",
+    PerseusMatcherWidgetOptions,
+    MatcherPublicWidgetOptions
+>;
 
 export default matcherWidgetLogic;

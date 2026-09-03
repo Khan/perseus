@@ -29,14 +29,15 @@ const defaultWidgetOptions: PerseusNumberLineWidgetOptions = {
     showTooltips: false,
 };
 
-const numberLineWidgetLogic: WidgetLogic<
-    PerseusNumberLineWidgetOptions,
-    NumberLinePublicWidgetOptions
-> = {
+const numberLineWidgetLogic = {
     name: "number-line",
     defaultWidgetOptions,
     getPublicWidgetOptions: getNumberLinePublicWidgetOptions,
     accessible: false,
-};
+} satisfies WidgetLogic<
+    "number-line",
+    PerseusNumberLineWidgetOptions,
+    NumberLinePublicWidgetOptions
+>;
 
 export default numberLineWidgetLogic;

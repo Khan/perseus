@@ -11,14 +11,15 @@ const defaultWidgetOptions: PerseusMatrixWidgetOptions = {
     suffix: "",
 };
 
-const matrixWidgetLogic: WidgetLogic<
-    PerseusMatrixWidgetOptions,
-    MatrixPublicWidgetOptions
-> = {
+const matrixWidgetLogic = {
     name: "matrix",
     defaultWidgetOptions,
     getPublicWidgetOptions: getMatrixPublicWidgetOptions,
     accessible: false,
-};
+} satisfies WidgetLogic<
+    "matrix",
+    PerseusMatrixWidgetOptions,
+    MatrixPublicWidgetOptions
+>;
 
 export default matrixWidgetLogic;
