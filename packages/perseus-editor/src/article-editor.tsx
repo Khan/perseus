@@ -187,18 +187,16 @@ export default class ArticleEditor extends React.Component<Props, State> {
                     return [
                         <div className="perseus-editor-row" key={i}>
                             <div className="perseus-editor-left-cell">
-                                <fieldset disabled={editingDisabled}>
+                                {/* The issues panel and section title are
+                                 * pinned to the top of the left cell as a
+                                 * single sticky unit. */}
+                                <div className="perseus-editor-sticky-header">
                                     <IssuesPanel
                                         issues={this.state.issues[i]}
                                     />
                                     <div className="pod-title">
                                         Section {i + 1}
-                                        <div
-                                            style={{
-                                                display: "inline-block",
-                                                float: "inline-end",
-                                            }}
-                                        >
+                                        <fieldset disabled={editingDisabled}>
                                             {sectionImageUploadGenerator(i)}
                                             <SectionControlButton
                                                 icon={plusIcon}
@@ -253,8 +251,10 @@ export default class ArticleEditor extends React.Component<Props, State> {
                                                 }}
                                                 title="Delete this section"
                                             />
-                                        </div>
+                                        </fieldset>
                                     </div>
+                                </div>
+                                <fieldset disabled={editingDisabled}>
                                     <Editor
                                         {...section}
                                         apiOptions={apiOptions}

@@ -5,24 +5,7 @@ import type {InteractiveGraphPublicWidgetOptions} from "./interactive-graph-util
 import type {PerseusInteractiveGraphWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
-export type InteractiveGraphDefaultWidgetOptions = Pick<
-    PerseusInteractiveGraphWidgetOptions,
-    | "labels"
-    | "labelLocation"
-    | "lockedFigures"
-    | "range"
-    | "step"
-    | "backgroundImage"
-    | "markings"
-    | "showAxisArrows"
-    | "showAxisTicks"
-    | "showTooltips"
-    | "showProtractor"
-    | "graph"
-    | "correct"
->;
-
-const defaultWidgetOptions: InteractiveGraphDefaultWidgetOptions = {
+const defaultWidgetOptions: PerseusInteractiveGraphWidgetOptions = {
     labels: ["$x$", "$y$"],
     labelLocation: "onAxis",
     lockedFigures: [],

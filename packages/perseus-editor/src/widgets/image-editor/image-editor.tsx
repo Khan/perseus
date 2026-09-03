@@ -1,10 +1,10 @@
-import {EditorJsonify} from "@khanacademy/perseus";
 import {
     imageLogic,
-    type ImageDefaultWidgetOptions,
     type PerseusImageWidgetOptions,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
+
+import EditorJsonify from "../../mixins/editor-jsonify";
 
 import ImageSettings from "./components/image-settings";
 import ImageUrlInput from "./components/image-url-input";
@@ -22,9 +22,8 @@ export interface Props extends PerseusImageWidgetOptions {
  */
 class ImageEditor extends React.Component<Props> {
     static displayName = "ImageEditor";
-    static widgetName = "image";
 
-    static defaultProps: ImageDefaultWidgetOptions =
+    static defaultProps: PerseusImageWidgetOptions =
         imageLogic.defaultWidgetOptions;
 
     serialize() {

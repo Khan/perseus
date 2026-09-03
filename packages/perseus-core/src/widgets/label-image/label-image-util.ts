@@ -17,7 +17,6 @@ export type LabelImagePublicWidgetOptions = {
     markers: ReadonlyArray<LabelImageMarkerPublicData>;
     hideChoicesFromInstructions: PerseusLabelImageWidgetOptions["hideChoicesFromInstructions"];
     multipleAnswers: PerseusLabelImageWidgetOptions["multipleAnswers"];
-    static: PerseusLabelImageWidgetOptions["static"];
 };
 
 export type LabelImageMarkerPublicData = Pick<

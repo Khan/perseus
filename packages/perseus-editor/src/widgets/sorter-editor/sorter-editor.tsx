@@ -2,14 +2,36 @@ import {
     sorterLogic,
     type PerseusSorterWidgetOptions,
 } from "@khanacademy/perseus-core";
+import Button from "@khanacademy/wonder-blocks-button";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
+import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
+import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import * as React from "react";
 
 import InfoTip from "../../components/info-tip";
-import TextListEditor from "../../components/text-list-editor";
+import {TypedSingleSelect} from "../../components/typed-single-select";
 
-const HORIZONTAL = "horizontal";
-const VERTICAL = "vertical";
+import CardEditor from "./card-editor";
+import styles from "./sorter-editor.module.css";
+
+// Ideally Content Creators would keep it <=7
+// but 10 is our hard limit
+const maxCards = 10;
+
+// There's nothing to sort with fewer than two cards.
+const minCards = 2;
+
+// Annotated because WidgetLogic types `defaultWidgetOptions` as `any`. Without
+// this, the `any` spreads: a destructured prop whose default is `any` is itself
+// `any`, which would silently untype every option below.
+const defaultOptions: PerseusSorterWidgetOptions =
+    sorterLogic.defaultWidgetOptions;
+
+const layoutOptions = {
+    horizontal: "Horizontal",
+    vertical: "Vertical",
+} as const satisfies Record<PerseusSorterWidgetOptions["layout"], string>;
 
 type Props = PerseusSorterWidgetOptions & {
     onChange: (
@@ -18,70 +40,141 @@ type Props = PerseusSorterWidgetOptions & {
     ) => void;
 };
 
+/**
+ * Imperative API that WidgetEditor calls
+ */
+type SorterEditorHandle = {
+    serialize: () => PerseusSorterWidgetOptions;
+    getSaveWarnings: () => string[];
+};
+
 // JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for adding a sorter widget that allows users to arrange items in a specific order.
  */
-class SorterEditor extends React.Component<Props> {
-    static widgetName = "sorter" as const;
+const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
+    function SorterEditor(
+        {
+            correct = defaultOptions.correct,
+            layout = defaultOptions.layout,
+            padding = defaultOptions.padding,
+            onChange,
+        },
+        ref,
+    ) {
+        React.useImperativeHandle(
+            ref,
+            () => ({
+                serialize: () => {
+                    return {correct, layout, padding};
+                },
 
-    static defaultProps: PerseusSorterWidgetOptions =
-        sorterLogic.defaultWidgetOptions;
+                // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend
+                // uses the new linter rules for save warnings.
+                getSaveWarnings: () => {
+                    const warnings: string[] = [];
+                    // don't allow too few cards
+                    if (correct.length < minCards) {
+                        warnings.push(
+                            `Sorter requires at least ${minCards} cards.`,
+                        );
+                    }
+                    // don't allow blanks
+                    if (correct.some((card) => card.trim() === "")) {
+                        warnings.push("Sorter cards cannot be blank.");
+                    }
+                    return warnings;
+                },
+            }),
+            [correct, layout, padding],
+        );
 
-    onLayoutChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const layout = e.target.value;
-        switch (layout) {
-            case HORIZONTAL:
-            case VERTICAL:
-                this.props.onChange({layout});
-                break;
-            default:
-                throw new Error(`${layout} is not an available layout option`);
-        }
-    };
-
-    serialize = (): PerseusSorterWidgetOptions => {
-        return {
-            correct: this.props.correct,
-            layout: this.props.layout,
-            padding: this.props.padding,
+        const onCardChange = (index: number, value: string) => {
+            const newCorrect = [...correct];
+            newCorrect[index] = value;
+            onChange({correct: newCorrect});
         };
-    };
 
-    render(): React.ReactNode {
+        const onAddCard = () => {
+            if (correct.length >= maxCards) {
+                return;
+            }
+            onChange({correct: [...correct, ""]});
+        };
+
+        const onMoveCard = (index: number, offset: -1 | 1) => {
+            const newCorrect = [...correct];
+            const newIndex = index + offset;
+            [newCorrect[index], newCorrect[newIndex]] = [
+                newCorrect[newIndex],
+                newCorrect[index],
+            ];
+            onChange({correct: newCorrect});
+        };
+
+        const onDeleteCard = (index: number) => {
+            onChange({
+                correct: correct.filter((card, i) => i !== index),
+            });
+        };
+
         return (
-            <div>
-                <div>
-                    {" "}
-                    Correct answer:{" "}
-                    <InfoTip>
-                        <p>
-                            Enter the correct answer (in the correct order)
-                            here. The preview on the right will have the cards
-                            in a randomized order, which is how the student will
-                            see them.
-                        </p>
-                    </InfoTip>
-                </div>
-                <TextListEditor
-                    options={this.props.correct}
-                    onChange={(options) => {
-                        this.props.onChange({correct: options});
-                    }}
-                    layout={this.props.layout}
-                />
-                <div>
-                    <label>
-                        {" "}
-                        Layout:{" "}
-                        <select
-                            value={this.props.layout}
-                            onChange={this.onLayoutChange}
-                        >
-                            <option value={HORIZONTAL}>Horizontal</option>
-                            <option value={VERTICAL}>Vertical</option>
-                        </select>
-                    </label>
+            <View className={styles.editor}>
+                <View className={styles.section}>
+                    <div>
+                        Correct answer{" "}
+                        <InfoTip>
+                            <p>
+                                Enter the correct answer (in the correct order)
+                                here. The preview on the right will have the
+                                cards in a randomized order, which is how the
+                                student will see them.
+                            </p>
+                            <p>
+                                For horizontal orientation, the top input
+                                represents the leftmost card and the bottom
+                                input represents the rightmost card.
+                            </p>
+                        </InfoTip>
+                    </div>
+                    <View tag="ol" className={styles.cards}>
+                        {correct.map((card, i) => (
+                            <CardEditor
+                                key={i}
+                                index={i}
+                                value={card}
+                                isFirst={i === 0}
+                                isLast={i === correct.length - 1}
+                                onChange={(value) => onCardChange(i, value)}
+                                onMoveUp={() => onMoveCard(i, -1)}
+                                onMoveDown={() => onMoveCard(i, 1)}
+                                onDelete={() => onDeleteCard(i)}
+                            />
+                        ))}
+                    </View>
+                    <Button
+                        kind="tertiary"
+                        startIcon={plusCircle}
+                        className={styles.addCard}
+                        disabled={correct.length >= maxCards}
+                        onClick={onAddCard}
+                    >
+                        Add a card
+                    </Button>
+                </View>
+                <View>
+                    <LabeledField
+                        label="Layout"
+                        field={
+                            <TypedSingleSelect
+                                options={layoutOptions}
+                                selectedValue={layout}
+                                onChange={(newLayout) =>
+                                    onChange({layout: newLayout})
+                                }
+                            />
+                        }
+                    />
                     <InfoTip>
                         <p>
                             Use the horizontal layout for short text and small
@@ -89,13 +182,13 @@ class SorterEditor extends React.Component<Props> {
                             and larger images.
                         </p>
                     </InfoTip>
-                </div>
+                </View>
                 <div>
                     <Checkbox
-                        label="Padding:"
-                        checked={this.props.padding}
+                        label="Padding"
+                        checked={padding}
                         onChange={(value) => {
-                            this.props.onChange({padding: value});
+                            onChange({padding: value});
                         }}
                     />
                     <InfoTip>
@@ -104,9 +197,13 @@ class SorterEditor extends React.Component<Props> {
                         </p>
                     </InfoTip>
                 </div>
-            </div>
+            </View>
         );
-    }
-}
+    },
+);
 
-export default SorterEditor;
+export default Object.assign(SorterEditor, {
+    // Read directly by the editor page to seed the options of a newly inserted
+    // sorter.
+    defaultProps: defaultOptions,
+});

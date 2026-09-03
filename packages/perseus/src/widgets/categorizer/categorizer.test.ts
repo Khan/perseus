@@ -207,7 +207,6 @@ describe("categorizer widget", () => {
         });
 
         const options: PerseusCategorizerWidgetOptions = {
-            static: false,
             items: ["Circle", "Purple", "Square"],
             categories: ["Shape", "Color"],
             randomizeItems: false,

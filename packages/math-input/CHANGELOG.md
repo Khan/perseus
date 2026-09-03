@@ -1,5 +1,61 @@
 # @khanacademy/math-input
 
+## 27.0.11
+
+### Patch Changes
+
+-   Updated dependencies [[`1f6424a`](https://github.com/Khan/perseus/commit/1f6424a4a34123a1e9609ae8499ac6e8138c589d)]:
+    -   @khanacademy/perseus-core@38.1.1
+    -   @khanacademy/keypad-context@3.2.89
+
+## 27.0.10
+
+### Patch Changes
+
+-   Updated dependencies [[`68e3230`](https://github.com/Khan/perseus/commit/68e32306819a52d9d2ade1f11a3b5f9f4167c9e3)]:
+    -   @khanacademy/perseus-core@38.1.0
+    -   @khanacademy/keypad-context@3.2.88
+
+## 27.0.9
+
+### Patch Changes
+
+-   [#4143](https://github.com/Khan/perseus/pull/4143) [`09e969b`](https://github.com/Khan/perseus/commit/09e969b51ddfcaad917b9886f4e4a18827c394cf) Thanks [@benchristel](https://github.com/benchristel)! - Widen the peer dep version range for `@khanacademy/mathjax-renderer`. We support 3.1.4 as well as 3.2.0.
+
+## 27.0.8
+
+### Patch Changes
+
+-   [#4140](https://github.com/Khan/perseus/pull/4140) [`4670fbe`](https://github.com/Khan/perseus/commit/4670fbe5129d7903ffa7304ed14f0fa4e61c0572) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Update catalog hashes
+
+## 27.0.7
+
+### Patch Changes
+
+-   [#4130](https://github.com/Khan/perseus/pull/4130) [`92dbc50`](https://github.com/Khan/perseus/commit/92dbc504f89af312f00c1827600e5173bcbdd27e) Thanks [@Myranae](https://github.com/Myranae)! - Align Expression and Keypad with design (updates styles to tokens and updates interactions)
+
+-   Updated dependencies [[`6136694`](https://github.com/Khan/perseus/commit/61366941590e0134bcf796eda4979cda83bc1f6b)]:
+    -   @khanacademy/perseus-core@38.0.1
+    -   @khanacademy/keypad-context@3.2.87
+
+## 27.0.6
+
+### Patch Changes
+
+-   [#4121](https://github.com/Khan/perseus/pull/4121) [`6f5fe5b`](https://github.com/Khan/perseus/commit/6f5fe5baaf0fc3f699b82f214dca8783ca9cbc78) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Color] Fix colors in keypad for dark mode - adjust button focus ring and correct color contrast for jump in/out icon blue
+
+-   Updated dependencies [[`d06c9ec`](https://github.com/Khan/perseus/commit/d06c9ecce4e62079e94870d17506ae92e016f0f6), [`20d11be`](https://github.com/Khan/perseus/commit/20d11be077ad6df8053a77759b97ffab1b3d535f), [`88eeb3a`](https://github.com/Khan/perseus/commit/88eeb3a2146c391bccd18dfd9a5d3467d10b2556)]:
+    -   @khanacademy/perseus-core@38.0.0
+    -   @khanacademy/keypad-context@3.2.86
+
+## 27.0.5
+
+### Patch Changes
+
+-   Updated dependencies [[`fe85d50`](https://github.com/Khan/perseus/commit/fe85d503ec26f124dd62447428bc5aad5dd414dd), [`0767712`](https://github.com/Khan/perseus/commit/07677120b27fa61507e31d13bdc3eb45fbd0206e), [`77f6c96`](https://github.com/Khan/perseus/commit/77f6c962b11298f662de5258081d9b41649f40c1)]:
+    -   @khanacademy/perseus-core@37.0.0
+    -   @khanacademy/keypad-context@3.2.85
+
 ## 27.0.4
 
 ### Patch Changes

@@ -1,5 +1,10 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
-import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
+import {
+    CoreWidgetRegistry,
+    generateDefinitionOptions,
+    generateImageWidget,
+    generateRadioWidget,
+} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -8,8 +13,10 @@ import {testDependencies} from "../../testing/test-dependencies";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import WidgetEditor, {_upgradeWidgetInfo} from "../widget-editor";
 
-import type {WidgetEditorProps} from "../widget-editor";
-import type {PerseusDefinitionWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusDefinitionWidgetOptions,
+    PerseusWidget,
+} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("WidgetEditor", () => {
@@ -41,12 +48,7 @@ describe("WidgetEditor", () => {
             render(
                 <WidgetEditor
                     id="radio 1"
-                    type="radio"
-                    alignment="default"
-                    static={false}
-                    graded={true}
-                    options={{}}
-                    version={{major: 0, minor: 0}}
+                    widgetInfo={generateRadioWidget()}
                     onChange={() => {}}
                     onRemove={() => {}}
                     apiOptions={{
@@ -75,12 +77,7 @@ describe("WidgetEditor", () => {
             render(
                 <WidgetEditor
                     id="image 1"
-                    type="image"
-                    alignment="block"
-                    static={false}
-                    graded={true}
-                    options={{}}
-                    version={{major: 0, minor: 0}}
+                    widgetInfo={generateImageWidget()}
                     onChange={() => {}}
                     onRemove={() => {}}
                     apiOptions={{
@@ -108,12 +105,7 @@ describe("WidgetEditor", () => {
             render(
                 <WidgetEditor
                     id="radio 1"
-                    type="radio"
-                    alignment="default"
-                    static={false}
-                    graded={true}
-                    options={{}}
-                    version={{major: 0, minor: 0}}
+                    widgetInfo={generateRadioWidget()}
                     onChange={() => {}}
                     onRemove={() => {}}
                     apiOptions={{
@@ -140,12 +132,7 @@ describe("WidgetEditor", () => {
             render(
                 <WidgetEditor
                     id="image 1"
-                    type="image"
-                    alignment="block"
-                    static={false}
-                    graded={true}
-                    options={{}}
-                    version={{major: 0, minor: 0}}
+                    widgetInfo={generateImageWidget()}
                     onChange={onChangeMock}
                     onRemove={() => {}}
                     apiOptions={{
@@ -181,12 +168,7 @@ describe("WidgetEditor", () => {
             render(
                 <WidgetEditor
                     id="image 1"
-                    type="image"
-                    alignment="block"
-                    static={false}
-                    graded={true}
-                    options={{}}
-                    version={{major: 0, minor: 0}}
+                    widgetInfo={generateImageWidget()}
                     onChange={() => {}}
                     onRemove={() => {}}
                     apiOptions={{
@@ -210,23 +192,18 @@ describe("WidgetEditor", () => {
             const options: PerseusDefinitionWidgetOptions = {
                 togglePrompt: "Neat prompt",
                 definition: "Cool definition",
-                static: false,
             };
 
-            const props: WidgetEditorProps = {
-                id: "definition 1",
-                onChange: () => {},
-                onRemove: () => {},
-                apiOptions: {},
+            const widgetInfo: PerseusWidget = {
                 type: "definition",
                 options,
             };
 
             // problemNum is in the denylist,
             // so we want to make sure it's removed
-            const dirtyProps = {...props, problemNum: 42};
+            const dirtyInfo: any = {...widgetInfo, problemNum: 42};
 
-            const output = _upgradeWidgetInfo(dirtyProps);
+            const output = _upgradeWidgetInfo(dirtyInfo);
 
             // make sure we filter as expected
             // eslint-disable-next-line no-restricted-syntax
@@ -244,23 +221,13 @@ describe("WidgetEditor", () => {
         });
 
         it("passes graded through", () => {
-            const options: PerseusDefinitionWidgetOptions = {
-                togglePrompt: "Neat prompt",
-                definition: "Cool definition",
-                static: false,
-            };
-
-            const props: WidgetEditorProps = {
-                id: "definition 1",
-                onChange: () => {},
-                onRemove: () => {},
-                apiOptions: {},
+            const widgetInfo: PerseusWidget = {
                 type: "definition",
-                options,
                 graded: true,
+                options: generateDefinitionOptions(),
             };
 
-            const output = _upgradeWidgetInfo(props);
+            const output = _upgradeWidgetInfo(widgetInfo);
 
             expect(output.graded).toBe(true);
         });

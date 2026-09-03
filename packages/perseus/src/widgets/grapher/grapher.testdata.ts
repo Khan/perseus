@@ -369,6 +369,27 @@ export const multipleAvailableTypesQuestion: PerseusRenderer = {
     },
 };
 
+export const allAvailableTypesQuestion: PerseusRenderer = {
+    ...multipleAvailableTypesQuestion,
+    widgets: {
+        "grapher 1": {
+            ...multipleAvailableTypesQuestion.widgets["grapher 1"],
+            options: {
+                ...multipleAvailableTypesQuestion.widgets["grapher 1"].options,
+                availableTypes: [
+                    "linear",
+                    "absolute_value",
+                    "quadratic",
+                    "sinusoid",
+                    "tangent",
+                    "exponential",
+                    "logarithm",
+                ],
+            },
+        },
+    },
+};
+
 export const staticExponentialQuestion: PerseusRenderer = {
     ...multipleAvailableTypesQuestion,
     widgets: {

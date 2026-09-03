@@ -172,17 +172,6 @@ export type {
 export {extractWidgetIds} from "./util/extract-widget-ids";
 
 /**
- * Mixins
- */
-
-/** @hidden */
-export * as Changeable from "./mixins/changeable";
-/** @hidden */
-export {default as EditorJsonify} from "./mixins/editor-jsonify";
-/** @hidden */
-export {excludeDenylistKeys} from "./mixins/widget-prop-denylist";
-
-/**
  * Types
  */
 export type {ILogger, LogErrorOptions} from "./logging/log";

@@ -27,7 +27,6 @@ export const question1: PerseusRenderer = {
                 height: "410",
                 width: "410",
                 allowFullScreen: true,
-                static: false,
             },
             alignment: "default",
         },

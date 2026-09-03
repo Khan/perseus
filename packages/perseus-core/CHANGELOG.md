@@ -1,5 +1,47 @@
 # @khanacademy/perseus-core
 
+## 38.1.1
+
+### Patch Changes
+
+-   [#4158](https://github.com/Khan/perseus/pull/4158) [`1f6424a`](https://github.com/Khan/perseus/commit/1f6424a4a34123a1e9609ae8499ac6e8138c589d) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Adding new dnd-widget-fitb flag
+
+## 38.1.0
+
+### Minor Changes
+
+-   [#4094](https://github.com/Khan/perseus/pull/4094) [`68e3230`](https://github.com/Khan/perseus/commit/68e32306819a52d9d2ade1f11a3b5f9f4167c9e3) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Renames item extras editor to item editor; adds extras editor to graded group
+
+## 38.0.1
+
+### Patch Changes
+
+-   [#4136](https://github.com/Khan/perseus/pull/4136) [`6136694`](https://github.com/Khan/perseus/commit/61366941590e0134bcf796eda4979cda83bc1f6b) Thanks [@handeyeco](https://github.com/handeyeco)! - Modernize Sorter editor and add some lint rules to make sure content is reasonable
+
+## 38.0.0
+
+### Major Changes
+
+-   [#4118](https://github.com/Khan/perseus/pull/4118) [`d06c9ec`](https://github.com/Khan/perseus/commit/d06c9ecce4e62079e94870d17506ae92e016f0f6) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove Perseus*Rubric and Perseus*ValidationData types in favor of Perseus*WidgetOptions and *PublicWidgetOptions
+
+-   [#4114](https://github.com/Khan/perseus/pull/4114) [`20d11be`](https://github.com/Khan/perseus/commit/20d11be077ad6df8053a77759b97ffab1b3d535f) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove *DefaultWidgetOptions and use Perseus*WidgetOptions instead
+
+### Patch Changes
+
+-   [#4134](https://github.com/Khan/perseus/pull/4134) [`88eeb3a`](https://github.com/Khan/perseus/commit/88eeb3a2146c391bccd18dfd9a5d3467d10b2556) Thanks [@handeyeco](https://github.com/handeyeco)! - Mark Sorter's `padding` as deprecated
+
+## 37.0.0
+
+### Major Changes
+
+-   [#4072](https://github.com/Khan/perseus/pull/4072) [`fe85d50`](https://github.com/Khan/perseus/commit/fe85d503ec26f124dd62447428bc5aad5dd414dd) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove `static` from `Perseus*WidgetOptions` since it was shadowed by `static` in `WidgetOptions` (the higher-level type). This has some large implications: types in `perseus-core` have changed and serialization in `perseus-editor` and `perseus` are also likely to change.
+
+-   [#4032](https://github.com/Khan/perseus/pull/4032) [`77f6c96`](https://github.com/Khan/perseus/commit/77f6c962b11298f662de5258081d9b41649f40c1) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove `hasHint`, `widgetEnabled`, and `immutableWidgets` from `PerseusGradedGroupWidgetOptions` as they were marked as unused.
+
+### Minor Changes
+
+-   [#4110](https://github.com/Khan/perseus/pull/4110) [`0767712`](https://github.com/Khan/perseus/commit/07677120b27fa61507e31d13bdc3eb45fbd0206e) Thanks [@handeyeco](https://github.com/handeyeco)! - Move editor-specific mixins from Perseus to PerseusEditor
+
 ## 36.1.0
 
 ### Minor Changes

@@ -37,7 +37,6 @@ describe("LabelImage serialization", () => {
                 "label-image 1": {
                     type: "label-image",
                     options: {
-                        static: false,
                         choices: ["One", "Two", "Three"],
                         imageAlt: "Alt text",
                         imageUrl:

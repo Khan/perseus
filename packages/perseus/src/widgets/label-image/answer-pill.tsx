@@ -94,5 +94,7 @@ const styles = StyleSheet.create({
         // Reset the Pill's default height in order to account
         // for multi-line pills.
         height: "auto",
+        color: semanticColor.core.foreground.knockout.default,
+        backgroundColor: semanticColor.core.background.instructive.strong,
     },
 });

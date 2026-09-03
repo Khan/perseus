@@ -33,7 +33,6 @@ function generateNumberLineMap(): PerseusWidgetsMap {
                 labelTicks: true,
                 snapDivisions: 2,
                 range: [-4, 4],
-                static: false,
                 correctRel: "eq",
                 numDivisions: null,
                 divisionRange: [1, 10],
@@ -279,7 +278,6 @@ describe("UserInputManager", () => {
                 graded: true,
                 options: {
                     placeholder: "Select an option",
-                    static: true,
                     choices: [
                         {content: "Incorrect", correct: false},
                         {content: "Correct", correct: true},
