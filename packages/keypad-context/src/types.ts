@@ -6,15 +6,13 @@ export type KeypadContextType = {
     setKeypadElement: (keypadElement?: any) => void;
     keypadElement: any;
     /**
-     * Attaches the renderer the keypad should act on. Safe to call from a ref
-     * callback: it writes to a ref, so it never triggers a render.
+     * Attaches the renderer the keypad should act on
      */
     setRenderer: (
         renderer?: KeypadContextRendererInterface | null | undefined,
     ) => void;
     /**
-     * Blurs the currently attached renderer, if there is one. Stable across
-     * renders, so it's safe to use in dependency arrays.
+     * Blurs the currently attached renderer, if there is one
      */
     blurRenderer: () => void;
     setScrollableElement: (

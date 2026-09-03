@@ -37,6 +37,7 @@ export function StatefulKeypadContextProvider(props: Props) {
 
     const rendererRef = useRef<KeypadContextRendererInterface | null>(null);
 
+    // useCallback is to keep useMemo stable
     const setRenderer = useCallback<KeypadContextType["setRenderer"]>(
         (renderer) => {
             rendererRef.current = renderer ?? null;
@@ -44,12 +45,14 @@ export function StatefulKeypadContextProvider(props: Props) {
         [],
     );
 
-    // Exposed instead of the renderer itself so consumers can't reach past
-    // blurring into the renderer's internals.
+    // useCallback is to keep useMemo stable
     const blurRenderer = useCallback(() => {
         rendererRef.current?.blur();
     }, []);
 
+    // the context is wrapped around most of Khan Academy frontend code
+    // without memoization, we were rerendering the entire application
+    // which affected redirects negatively.
     const memoizedValue = useMemo(
         () => ({
             keypadActive,
@@ -63,13 +66,10 @@ export function StatefulKeypadContextProvider(props: Props) {
         }),
         [
             keypadActive,
-            setKeypadActive,
             keypadElement,
-            setKeypadElement,
             setRenderer,
             blurRenderer,
             scrollableElement,
-            setScrollableElement,
         ],
     );
 
