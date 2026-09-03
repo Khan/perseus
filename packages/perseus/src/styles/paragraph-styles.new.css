@@ -58,9 +58,8 @@ p {
 /* TODO: Verify that full-width is working as expected, once image styling is fixed */
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .renderer-new-ff .widget-full-width {
-    margin-bottom: var(--wb-sizing-size_320);
-    margin-left: 0;
-    margin-right: 0;
+    margin-block-end: var(--wb-sizing-size_320);
+    margin-inline: 0;
     max-width: none;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
@@ -76,35 +75,35 @@ p {
 .framework-perseus.perseus-mobile .renderer-new-ff :not(blockquote) > p {
     margin: 0;
 }
-.framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff > p {
+.framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff > * {
     margin: 0 auto;
 }
 .framework-perseus.perseus-mobile
     .perseus-renderer.renderer-new-ff
     > p:not(:first-child) {
-    margin-top: var(--wb-sizing-size_240);
-    margin-bottom: var(--wb-sizing-size_240);
+    margin-block-start: var(--wb-sizing-size_240);
+    margin-block-end: var(--wb-sizing-size_240);
 }
 .framework-perseus.perseus-mobile
     .perseus-renderer.renderer-new-ff
     > ul:not([data-widget="radio"], .indicatorContainer) {
-    margin: 0 0 0 1em;
     padding: 0;
+    padding-inline-start: 1em;
 }
 .framework-perseus.perseus-mobile
     .perseus-renderer.renderer-new-ff
     > ul:not([data-widget="radio"], .indicatorContainer)
     > li {
-    padding-left: var(--wb-sizing-size_100);
-    margin-bottom: var(--wb-sizing-size_240);
+    padding-inline-start: var(--wb-sizing-size_100);
+    margin-block-end: var(--wb-sizing-size_240);
 }
 .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff ol {
     margin: 0;
-    padding-left: var(--wb-sizing-size_320);
+    padding-inline-start: var(--wb-sizing-size_320);
 }
 .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff ol > li {
     list-style-type: decimal;
-    margin-bottom: var(--wb-sizing-size_240);
+    margin-block-end: var(--wb-sizing-size_240);
 }
 .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff ol ol,
 .framework-perseus.perseus-mobile
@@ -119,7 +118,7 @@ p {
     .perseus-renderer.renderer-new-ff
     ul:not([data-widget="radio"])
     ul:not([data-widget="radio"]) {
-    padding-top: var(--wb-sizing-size_240);
+    padding-block-start: var(--wb-sizing-size_240);
 }
 @media (max-width: 767px) {
     .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff > * {
@@ -144,40 +143,15 @@ p {
     .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff > * {
         max-width: 512px;
     }
-    .framework-perseus.perseus-mobile .perseus-renderer > .paragraph {
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff > * {
         font-family: inherit;
         font-size: 20px;
         line-height: 1.5;
         color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile
-        .perseus-renderer
-        > .paragraph
-        .paragraph {
-        font-family: inherit;
-        font-size: 20px;
-        line-height: 1.5;
-        color: var(--wb-semanticColor-core-foreground-neutral-default);
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-renderer
-        > .paragraph
-        ul:not([data-widget="radio"]) {
-        font-family: inherit;
-        font-size: 20px;
-        line-height: 1.5;
-        color: var(--wb-semanticColor-core-foreground-neutral-default);
-    }
-    .framework-perseus.perseus-mobile .perseus-renderer > .paragraph ol {
-        font-family: inherit;
-        font-size: 20px;
-        line-height: 1.5;
-        color: var(--wb-semanticColor-core-foreground-neutral-default);
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-image-caption
-        .paragraph
-        .paragraph {
+        .renderer-new-ff .perseus-image-caption
+        p {
         color: var(--wb-semanticColor-core-foreground-neutral-subtle);
         font-size: 17px;
         line-height: 1.4;
