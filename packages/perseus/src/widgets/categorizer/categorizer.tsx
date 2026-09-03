@@ -64,9 +64,6 @@ const Categorizer = forwardRef<Widget, Props>(function Categorizer(props, ref) {
             return {
                 ...options,
                 ...rest,
-                // `dependencies` probably shouldn't be included here, but this
-                // is for legacy compatibility.
-                dependencies,
                 values: userInput.values,
             };
         },

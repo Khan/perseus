@@ -121,9 +121,6 @@ const Dropdown = forwardRef<Widget, Props>(function Dropdown(props, ref) {
             return {
                 ...otherOptions,
                 ...otherProps,
-                // `dependencies` probably shouldn't be included here, but this
-                // is for legacy compatibility.
-                dependencies,
                 choices: choices.map((choice) => choice.content),
                 selected: userInput.value,
             };
