@@ -579,6 +579,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
         return (
             <Graphie
                 ref={graphieRef}
+                className="perseus-widget-number-line"
                 // HACK(emily): We key this graphie on the label style because
                 // when the label style changes we want to resize the graphie,
                 // which isn't doable without throwing away the graphie and

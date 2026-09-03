@@ -212,6 +212,10 @@ export class Graphie {
         xLabelFormat?: (x: number) => string;
         unityLabels?: boolean | [boolean, boolean];
         isMobile?: boolean;
+        // Raw CSS colors for the grid and axis/tick/label strokes. See the
+        // note above the defaults in the function body.
+        gridStroke?: string;
+        axisStroke?: string;
     }) {
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         options = options || {};
@@ -305,10 +309,24 @@ export class Graphie {
             isMobile: options.isMobile,
         });
 
+        // The default strokes are raw light-theme colors, not semantic
+        // tokens, because in dark themes graphie SVGs are recolored by the
+        // invert filter in styles.css ("GLOBAL DARK MODE SETTINGS"); a token
+        // would resolve to the dark theme's value at draw time and get
+        // double-inverted (LEMS-4547). Callers whose graphie is excluded
+        // from that filter should pass gridStroke/axisStroke themselves,
+        // resolved from semantic tokens via tokenValue().
+        const gridStroke =
+            options.gridStroke ??
+            (options.isMobile ? KhanColors.GRAY_C : "#000000");
+        const axisStroke =
+            options.axisStroke ??
+            (options.isMobile ? KhanColors.GRAY_G : "#000000");
+
         // draw grid
         if (grid) {
             this.grid(gridRange[0], gridRange[1], {
-                stroke: options.isMobile ? KhanColors.GRAY_C : "#000000",
+                stroke: gridStroke,
                 opacity: options.isMobile ? 1 : gridOpacity,
                 step: gridStep,
                 strokeWidth: options.isMobile ? 1 : 2,
@@ -322,9 +340,7 @@ export class Graphie {
                 const thisGraphie = this;
                 this.style(
                     {
-                        stroke: options.isMobile
-                            ? KhanColors.GRAY_G
-                            : "#000000",
+                        stroke: axisStroke,
                         opacity: options.isMobile ? 1 : axisOpacity,
                         strokeWidth: options.isMobile ? 1 : 2,
                         arrows: "->",
@@ -359,7 +375,7 @@ export class Graphie {
                 const thisGraphie = this;
                 this.style(
                     {
-                        stroke: "#000000",
+                        stroke: options.axisStroke ?? "#000000",
                         opacity: axisOpacity,
                         strokeWidth: 2,
                         arrows: axisArrows,
@@ -398,7 +414,7 @@ export class Graphie {
             const thisGraphie = this;
             this.style(
                 {
-                    stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
+                    stroke: axisStroke,
                     opacity: options.isMobile ? 1 : tickOpacity,
                     strokeWidth: 1,
                 },
@@ -504,7 +520,7 @@ export class Graphie {
             const thisGraphie = this;
             this.style(
                 {
-                    stroke: options.isMobile ? KhanColors.GRAY_G : "#000000",
+                    stroke: axisStroke,
                     opacity: options.isMobile ? 1 : labelOpacity,
                 },
                 function () {

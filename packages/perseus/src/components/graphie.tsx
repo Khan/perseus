@@ -22,6 +22,9 @@ const {assert} = InteractiveUtil;
 
 type Props = {
     addMouseLayer?: boolean;
+    // Extra class for the .graphie div. Used to exclude themed widgets'
+    // graphies from the dark-mode invert filter in styles.css.
+    className?: string;
     box: Size;
     range: [Coord, Coord];
     ranges?: [Range, Range];
@@ -387,7 +390,14 @@ class Graphie extends React.Component<Props> {
     render(): React.ReactNode {
         return (
             <div className="graphie-container">
-                <div className="graphie" ref={this.graphieDivRef} />
+                <div
+                    className={
+                        this.props.className
+                            ? `graphie ${this.props.className}`
+                            : "graphie"
+                    }
+                    ref={this.graphieDivRef}
+                />
             </div>
         );
     }

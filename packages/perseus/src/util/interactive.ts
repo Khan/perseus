@@ -999,8 +999,12 @@ _.extend(GraphUtils.Graphie.prototype, {
                     "stroke-width": 6,
                 },
                 labelStyle: {
-                    stroke: KhanColors.INTERACTIVE,
-                    color: KhanColors.INTERACTIVE,
+                    stroke: tokenValue(
+                        semanticColor.core.foreground.instructive.default,
+                    ),
+                    color: tokenValue(
+                        semanticColor.core.foreground.instructive.default,
+                    ),
                 },
                 highlight: false,
                 dragging: false,
@@ -1021,9 +1025,11 @@ _.extend(GraphUtils.Graphie.prototype, {
             options,
         );
 
-        const normalColor = lineSegment.fixed
-            ? KhanColors.DYNAMIC
-            : KhanColors.INTERACTIVE;
+        // tokenValue resolves the semantic tokens to raw hex; graphie only
+        // accepts raw CSS colors, not CSS variables.
+        const normalColor = tokenValue(
+            semanticColor.core.foreground.instructive.default,
+        );
         lineSegment.normalStyle = {
             "stroke-width": 2,
             stroke: normalColor,
