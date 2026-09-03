@@ -58,7 +58,7 @@ const rewriteProps = function (props: any, childrenArray: any) {
     // childrenArray is always an array here because this is only called
     // from createClass, which initializes childrenArray as _.rest(arguments)
     return _.extend({}, props, {
-        children: _.filter(_.flatten(childrenArray), _.identity),
+        children: _.filter(_.flatten(childrenArray), (c) => c),
     });
 };
 

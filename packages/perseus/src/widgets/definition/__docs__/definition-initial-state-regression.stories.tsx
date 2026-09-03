@@ -13,14 +13,14 @@ import {
 
 import {definitionRendererDecorator} from "./definition-renderer-decorator";
 
-import type {DefinitionDefaultWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusDefinitionWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 /**
  * This is a visual regression story for the definition widget.
  */
 
-const meta: Meta<DefinitionDefaultWidgetOptions> = {
+const meta: Meta<PerseusDefinitionWidgetOptions> = {
     title: "Widgets/Definition/Visual Regression Tests/Initial State",
     tags: ["!autodocs", "!manifest"],
     parameters: {
@@ -65,6 +65,7 @@ export const Article = (): React.ReactNode => {
     return (
         <ArticleRenderer
             json={article}
+            seed={0}
             dependencies={storybookDependenciesV2}
             apiOptions={apiOptions}
         />

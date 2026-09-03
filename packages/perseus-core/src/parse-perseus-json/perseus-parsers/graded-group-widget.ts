@@ -1,7 +1,5 @@
 import {
-    boolean,
     constant,
-    nullable,
     number,
     object,
     optional,
@@ -13,6 +11,7 @@ import {
 import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 
+import {parsePerseusAnswerArea} from "./perseus-answer-area";
 import {parsePerseusRenderer} from "./perseus-renderer";
 import {parseWidget} from "./widget";
 import {parseWidgetsMap} from "./widgets-map";
@@ -22,7 +21,6 @@ const falseToNull = pipeParsers(constant(false)).then(
 ).parser;
 export const parseGradedGroupWidgetOptions = object({
     title: defaulted(string, () => ""),
-    hasHint: optional(nullable(boolean)),
     // This module has an import cycle with parsePerseusRenderer.
     // The anonymous function below ensures that we don't try to access
     // parsePerseusRenderer before it's defined.
@@ -35,8 +33,6 @@ export const parseGradedGroupWidgetOptions = object({
     // The anonymous function below ensures that we don't try to access
     // parseWidgetsMap before it's defined.
     widgets: (rawVal, ctx) => parseWidgetsMap(rawVal, ctx),
-    widgetEnabled: optional(nullable(boolean)),
-    immutableWidgets: optional(nullable(boolean)),
     images: record(
         string,
         object({
@@ -44,6 +40,7 @@ export const parseGradedGroupWidgetOptions = object({
             height: number,
         }),
     ),
+    answerArea: optional(parsePerseusAnswerArea),
 });
 
 export const parseGradedGroupWidget = parseWidget(

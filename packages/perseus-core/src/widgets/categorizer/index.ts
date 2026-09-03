@@ -4,12 +4,7 @@ import type {CategorizerPublicWidgetOptions} from "./categorizer-util";
 import type {PerseusCategorizerWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
-export type CategorizerDefaultWidgetOptions = Pick<
-    PerseusCategorizerWidgetOptions,
-    "items" | "categories" | "values" | "randomizeItems"
->;
-
-const defaultWidgetOptions: CategorizerDefaultWidgetOptions = {
+const defaultWidgetOptions: PerseusCategorizerWidgetOptions = {
     items: [],
     categories: [],
     values: [],

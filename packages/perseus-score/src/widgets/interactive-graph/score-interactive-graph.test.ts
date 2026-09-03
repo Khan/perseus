@@ -1,21 +1,19 @@
+import {generateInteractiveGraphOptions} from "@khanacademy/perseus-core";
 import invariant from "tiny-invariant";
 import _ from "underscore";
 
 import scoreInteractiveGraph from "./score-interactive-graph";
 
-import type {
-    PerseusGraphType,
-    PerseusInteractiveGraphRubric,
-} from "@khanacademy/perseus-core";
+import type {PerseusGraphType} from "@khanacademy/perseus-core";
 
 describe("InteractiveGraph scoring on a 'none' question", () => {
     it("returns 0 earned / 0 total (ungraded) when both graphs are 'none'", () => {
         // Arrange
         const guess: PerseusGraphType = {type: "none"};
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "none"},
             correct: {type: "none"},
-        };
+        });
 
         // Act
         const result = scoreInteractiveGraph(guess, rubric);
@@ -33,7 +31,7 @@ describe("InteractiveGraph scoring on a 'none' question", () => {
 describe("InteractiveGraph scoring on a segment question", () => {
     it("marks the answer invalid if guess is undefined", () => {
         const guess = undefined;
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {
                 type: "segment",
             },
@@ -46,7 +44,7 @@ describe("InteractiveGraph scoring on a segment question", () => {
                     ],
                 ],
             },
-        };
+        });
 
         const result = scoreInteractiveGraph(guess, rubric);
 
@@ -55,7 +53,7 @@ describe("InteractiveGraph scoring on a segment question", () => {
 
     it("marks the answer invalid if guess.coords is missing", () => {
         const guess: PerseusGraphType = {type: "segment"};
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {
                 type: "segment",
             },
@@ -68,7 +66,7 @@ describe("InteractiveGraph scoring on a segment question", () => {
                     ],
                 ],
             },
-        };
+        });
 
         const result = scoreInteractiveGraph(guess, rubric);
 
@@ -86,7 +84,7 @@ describe("InteractiveGraph scoring on a segment question", () => {
             ],
         };
 
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "segment"},
             correct: {
                 type: "segment",
@@ -97,7 +95,7 @@ describe("InteractiveGraph scoring on a segment question", () => {
                     ],
                 ],
             },
-        };
+        });
 
         const result = scoreInteractiveGraph(guess, rubric);
 
@@ -115,7 +113,7 @@ describe("InteractiveGraph scoring on a segment question", () => {
             ],
         };
 
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "segment"},
             correct: {
                 type: "segment",
@@ -126,7 +124,7 @@ describe("InteractiveGraph scoring on a segment question", () => {
                     ],
                 ],
             },
-        };
+        });
 
         const result = scoreInteractiveGraph(guess, rubric);
 
@@ -143,7 +141,7 @@ describe("InteractiveGraph scoring on a segment question", () => {
                 ],
             ],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "segment"},
             correct: {
                 type: "segment",
@@ -154,7 +152,7 @@ describe("InteractiveGraph scoring on a segment question", () => {
                     ],
                 ],
             },
-        };
+        });
 
         const result = scoreInteractiveGraph(guess, rubric);
 
@@ -172,7 +170,7 @@ describe("InteractiveGraph scoring on a segment question", () => {
             ],
         };
 
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "segment"},
             correct: {
                 type: "segment",
@@ -183,7 +181,7 @@ describe("InteractiveGraph scoring on a segment question", () => {
                     ],
                 ],
             },
-        };
+        });
 
         scoreInteractiveGraph(guess, rubric);
 
@@ -205,7 +203,7 @@ describe("InteractiveGraph scoring on a segment question", () => {
                 ],
             ],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "segment"},
             correct: {
                 type: "segment",
@@ -216,7 +214,7 @@ describe("InteractiveGraph scoring on a segment question", () => {
                     ],
                 ],
             },
-        };
+        });
 
         scoreInteractiveGraph(guess, rubric);
 
@@ -235,7 +233,7 @@ describe("InteractiveGraph scoring on a segment question", () => {
 describe("InteractiveGraph scoring on an angle question", () => {
     it("marks the answer invalid if guess.coords is missing", () => {
         const guess: PerseusGraphType = {type: "angle"};
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "angle"},
             correct: {
                 type: "angle",
@@ -247,7 +245,7 @@ describe("InteractiveGraph scoring on an angle question", () => {
                 allowReflexAngles: false,
                 match: "congruent",
             },
-        };
+        });
 
         const result = scoreInteractiveGraph(guess, rubric);
 
@@ -258,13 +256,13 @@ describe("InteractiveGraph scoring on an angle question", () => {
 describe("InteractiveGraph scoring on a point question", () => {
     it("marks the answer invalid if guess.coords is missing", () => {
         const guess: PerseusGraphType = {type: "point"};
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "point"},
             correct: {
                 type: "point",
                 coords: [[0, 0]],
             },
-        };
+        });
 
         const result = scoreInteractiveGraph(guess, rubric);
 
@@ -279,15 +277,14 @@ describe("InteractiveGraph scoring on a point question", () => {
             coords: [[0, 0]],
         };
 
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {
                 type: "point",
             },
-            // @ts-expect-error: Testing exception for invalid rubric
             correct: {
                 type: "point",
             },
-        };
+        });
 
         expect(() => scoreInteractiveGraph(guess, rubric)).toThrow();
     });
@@ -297,13 +294,13 @@ describe("InteractiveGraph scoring on a point question", () => {
             type: "point",
             coords: [[9, 9]],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "point"},
             correct: {
                 type: "point",
                 coords: [[0, 0]],
             },
-        };
+        });
 
         const result = scoreInteractiveGraph(guess, rubric);
 
@@ -315,13 +312,13 @@ describe("InteractiveGraph scoring on a point question", () => {
             type: "point",
             coords: [[7, 8]],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "point"},
             correct: {
                 type: "point",
                 coords: [[7, 8]],
             },
-        };
+        });
 
         const result = scoreInteractiveGraph(guess, rubric);
 
@@ -336,7 +333,7 @@ describe("InteractiveGraph scoring on a point question", () => {
                 [5, 6],
             ],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "point"},
             correct: {
                 type: "point",
@@ -345,7 +342,7 @@ describe("InteractiveGraph scoring on a point question", () => {
                     [7, 8],
                 ],
             },
-        };
+        });
 
         const result = scoreInteractiveGraph(guess, rubric);
 
@@ -360,7 +357,7 @@ describe("InteractiveGraph scoring on a point question", () => {
                 [5, 6],
             ],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "point"},
             correct: {
                 type: "point",
@@ -369,7 +366,7 @@ describe("InteractiveGraph scoring on a point question", () => {
                     [7, 8],
                 ],
             },
-        };
+        });
 
         const guessClone = _.clone(guess);
 
@@ -386,7 +383,7 @@ describe("InteractiveGraph scoring on a point question", () => {
                 [5, 6],
             ],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "point"},
             correct: {
                 type: "point",
@@ -395,7 +392,7 @@ describe("InteractiveGraph scoring on a point question", () => {
                     [7, 8],
                 ],
             },
-        };
+        });
 
         const rubricClone = _.clone(rubric);
 
@@ -409,7 +406,7 @@ describe("InteractiveGraph scoring on an angle question", () => {
     it("marks the answer invalid if guess.coords is missing", () => {
         // Arrange
         const guess: PerseusGraphType = {type: "angle"};
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {
                 type: "angle",
             },
@@ -422,7 +419,7 @@ describe("InteractiveGraph scoring on an angle question", () => {
                     [5, 5],
                 ],
             },
-        };
+        });
 
         // Act
         const result = scoreInteractiveGraph(guess, rubric);
@@ -441,7 +438,7 @@ describe("InteractiveGraph scoring on an angle question", () => {
                 [5, 5],
             ],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {
                 type: "angle",
             },
@@ -454,7 +451,7 @@ describe("InteractiveGraph scoring on an angle question", () => {
                     [-5, 0],
                 ],
             },
-        };
+        });
 
         // Act
         const result = scoreInteractiveGraph(guess, rubric);
@@ -473,7 +470,7 @@ describe("InteractiveGraph scoring on an angle question", () => {
                 [5, 5],
             ],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {
                 type: "angle",
             },
@@ -486,7 +483,7 @@ describe("InteractiveGraph scoring on an angle question", () => {
                     [5, 5],
                 ],
             },
-        };
+        });
 
         // Act
         const result = scoreInteractiveGraph(guess, rubric);
@@ -505,7 +502,7 @@ describe("InteractiveGraph scoring on an angle question", () => {
                 [-5, -5],
             ],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {
                 type: "angle",
                 coords: [
@@ -523,7 +520,7 @@ describe("InteractiveGraph scoring on an angle question", () => {
                     [-5, -5],
                 ],
             },
-        };
+        });
 
         // Act
         const result = scoreInteractiveGraph(guess, rubric);
@@ -544,7 +541,7 @@ describe("InteractiveGraph scoring on an angle question: defensive null-coords g
             center: [0, 0],
             radius: 5,
         } as unknown as PerseusGraphType;
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "angle"},
             correct: {
                 type: "angle",
@@ -555,7 +552,7 @@ describe("InteractiveGraph scoring on an angle question: defensive null-coords g
                     [0, 1],
                 ],
             },
-        };
+        });
 
         // Act
         const result = scoreInteractiveGraph(guess, rubric);
@@ -577,15 +574,14 @@ describe("InteractiveGraph scoring on an angle question: defensive null-coords g
                 [0, 1],
             ],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "angle"},
-            // @ts-expect-error: testing the defensive guard for missing correct.coords
             correct: {
                 type: "angle",
                 match: "congruent",
                 allowReflexAngles: false,
             },
-        };
+        });
 
         // Act
         const result = scoreInteractiveGraph(guess, rubric);
@@ -596,7 +592,7 @@ describe("InteractiveGraph scoring on an angle question: defensive null-coords g
 });
 
 // Test data: f(x) = 2·4^x + 3  →  f(0)=5, f(1)=11, asymptote y=3
-const exponentialRubric: PerseusInteractiveGraphRubric = {
+const exponentialRubric = generateInteractiveGraphOptions({
     graph: {type: "exponential"},
     correct: {
         type: "exponential",
@@ -606,7 +602,7 @@ const exponentialRubric: PerseusInteractiveGraphRubric = {
         ],
         asymptote: 3,
     },
-};
+});
 
 describe("InteractiveGraph scoring on an exponential question", () => {
     it("marks the answer invalid if guess is undefined", () => {
@@ -701,7 +697,7 @@ describe("InteractiveGraph scoring on an exponential question", () => {
     });
 });
 
-const logarithmRubric: PerseusInteractiveGraphRubric = {
+const logarithmRubric = generateInteractiveGraphOptions({
     graph: {type: "logarithm"},
     correct: {
         type: "logarithm",
@@ -711,7 +707,7 @@ const logarithmRubric: PerseusInteractiveGraphRubric = {
         ],
         asymptote: -6,
     },
-};
+});
 
 describe("InteractiveGraph scoring on a logarithm question", () => {
     it("marks the answer invalid if guess is undefined", () => {
@@ -789,7 +785,7 @@ describe("InteractiveGraph scoring on a logarithm question", () => {
 
     it("marks equivalent curves with different control points as correct", () => {
         // Arrange — y = ln(x): both sets of points produce a=1, b=1, c=0
-        const lnRubric: PerseusInteractiveGraphRubric = {
+        const lnRubric = generateInteractiveGraphOptions({
             graph: {type: "logarithm"},
             correct: {
                 type: "logarithm",
@@ -799,7 +795,7 @@ describe("InteractiveGraph scoring on a logarithm question", () => {
                 ],
                 asymptote: 0,
             },
-        };
+        });
         const guess: PerseusGraphType = {
             type: "logarithm",
             coords: [
@@ -821,7 +817,7 @@ describe("InteractiveGraph scoring on an absolute-value question", () => {
     it("marks the answer invalid if guess is undefined", () => {
         // Arrange
         const guess = undefined;
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "absolute-value"},
             correct: {
                 type: "absolute-value",
@@ -830,7 +826,7 @@ describe("InteractiveGraph scoring on an absolute-value question", () => {
                     [1, 1],
                 ],
             },
-        };
+        });
 
         // Act
         const result = scoreInteractiveGraph(guess, rubric);
@@ -842,7 +838,7 @@ describe("InteractiveGraph scoring on an absolute-value question", () => {
     it("marks the answer invalid if guess.coords is missing", () => {
         // Arrange
         const guess: PerseusGraphType = {type: "absolute-value"};
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "absolute-value"},
             correct: {
                 type: "absolute-value",
@@ -851,7 +847,7 @@ describe("InteractiveGraph scoring on an absolute-value question", () => {
                     [1, 1],
                 ],
             },
-        };
+        });
 
         // Act
         const result = scoreInteractiveGraph(guess, rubric);
@@ -869,7 +865,7 @@ describe("InteractiveGraph scoring on an absolute-value question", () => {
                 [1, 2],
             ],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "absolute-value"},
             correct: {
                 type: "absolute-value",
@@ -878,7 +874,7 @@ describe("InteractiveGraph scoring on an absolute-value question", () => {
                     [1, 1],
                 ],
             },
-        };
+        });
 
         // Act
         const result = scoreInteractiveGraph(guess, rubric);
@@ -896,7 +892,7 @@ describe("InteractiveGraph scoring on an absolute-value question", () => {
                 [1, 1],
             ],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "absolute-value"},
             correct: {
                 type: "absolute-value",
@@ -905,7 +901,7 @@ describe("InteractiveGraph scoring on an absolute-value question", () => {
                     [1, 1],
                 ],
             },
-        };
+        });
 
         // Act
         const result = scoreInteractiveGraph(guess, rubric);
@@ -923,7 +919,7 @@ describe("InteractiveGraph scoring on an absolute-value question", () => {
                 [-1, 1],
             ],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "absolute-value"},
             correct: {
                 type: "absolute-value",
@@ -932,7 +928,7 @@ describe("InteractiveGraph scoring on an absolute-value question", () => {
                     [1, 1],
                 ],
             },
-        };
+        });
 
         // Act
         const result = scoreInteractiveGraph(guess, rubric);
@@ -950,7 +946,7 @@ describe("InteractiveGraph scoring on an absolute-value question", () => {
                 [1, -1],
             ],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "absolute-value"},
             correct: {
                 type: "absolute-value",
@@ -959,7 +955,7 @@ describe("InteractiveGraph scoring on an absolute-value question", () => {
                     [1, 1],
                 ],
             },
-        };
+        });
 
         // Act
         const result = scoreInteractiveGraph(guess, rubric);
@@ -977,7 +973,7 @@ describe("InteractiveGraph scoring on an absolute-value question", () => {
                 [0, 2], // same x as vertex → infinite slope
             ],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "absolute-value"},
             correct: {
                 type: "absolute-value",
@@ -986,7 +982,7 @@ describe("InteractiveGraph scoring on an absolute-value question", () => {
                     [1, 1],
                 ],
             },
-        };
+        });
 
         // Act
         const result = scoreInteractiveGraph(guess, rubric);
@@ -999,7 +995,7 @@ describe("InteractiveGraph scoring on an absolute-value question", () => {
 describe("InteractiveGraph scoring on a tangent question", () => {
     it("marks the answer invalid if guess is undefined", () => {
         const guess = undefined;
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "tangent"},
             correct: {
                 type: "tangent",
@@ -1008,7 +1004,7 @@ describe("InteractiveGraph scoring on a tangent question", () => {
                     [0.75, 0.75],
                 ],
             },
-        };
+        });
 
         const result = scoreInteractiveGraph(guess, rubric);
 
@@ -1017,7 +1013,7 @@ describe("InteractiveGraph scoring on a tangent question", () => {
 
     it("marks the answer invalid if guess has no coords", () => {
         const guess: PerseusGraphType = {type: "tangent"};
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "tangent"},
             correct: {
                 type: "tangent",
@@ -1026,7 +1022,7 @@ describe("InteractiveGraph scoring on a tangent question", () => {
                     [0.75, 0.75],
                 ],
             },
-        };
+        });
 
         const result = scoreInteractiveGraph(guess, rubric);
 
@@ -1041,7 +1037,7 @@ describe("InteractiveGraph scoring on a tangent question", () => {
                 [0.75, 0.75],
             ],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "tangent"},
             correct: {
                 type: "tangent",
@@ -1050,7 +1046,7 @@ describe("InteractiveGraph scoring on a tangent question", () => {
                     [0.75, 0.75],
                 ],
             },
-        };
+        });
 
         const result = scoreInteractiveGraph(guess, rubric);
 
@@ -1065,7 +1061,7 @@ describe("InteractiveGraph scoring on a tangent question", () => {
                 [2, 3],
             ],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "tangent"},
             correct: {
                 type: "tangent",
@@ -1074,7 +1070,7 @@ describe("InteractiveGraph scoring on a tangent question", () => {
                     [0.75, 0.75],
                 ],
             },
-        };
+        });
 
         const result = scoreInteractiveGraph(guess, rubric);
 
@@ -1091,7 +1087,7 @@ describe("InteractiveGraph scoring on a tangent question", () => {
                 [5, 1],
             ],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "tangent"},
             correct: {
                 type: "tangent",
@@ -1100,7 +1096,7 @@ describe("InteractiveGraph scoring on a tangent question", () => {
                     [1, 1],
                 ],
             },
-        };
+        });
 
         const result = scoreInteractiveGraph(guess, rubric);
 
@@ -1116,7 +1112,7 @@ describe("InteractiveGraph scoring on a tangent question", () => {
                 [1, -2],
             ],
         };
-        const rubric: PerseusInteractiveGraphRubric = {
+        const rubric = generateInteractiveGraphOptions({
             graph: {type: "tangent"},
             correct: {
                 type: "tangent",
@@ -1125,7 +1121,7 @@ describe("InteractiveGraph scoring on a tangent question", () => {
                     [1, -2],
                 ],
             },
-        };
+        });
 
         const result = scoreInteractiveGraph(guess, rubric);
 
@@ -1133,7 +1129,7 @@ describe("InteractiveGraph scoring on a tangent question", () => {
     });
 });
 
-const vectorRubric: PerseusInteractiveGraphRubric = {
+const vectorRubric = generateInteractiveGraphOptions({
     graph: {type: "vector"},
     correct: {
         type: "vector",
@@ -1142,7 +1138,7 @@ const vectorRubric: PerseusInteractiveGraphRubric = {
             [3, 4],
         ],
     },
-};
+});
 
 describe("InteractiveGraph scoring on a vector question", () => {
     it("marks the answer invalid if guess is undefined", () => {
@@ -1234,7 +1230,7 @@ describe("InteractiveGraph scoring on a vector question", () => {
     });
 });
 
-const vectorCongruentRubric: PerseusInteractiveGraphRubric = {
+const vectorCongruentRubric = generateInteractiveGraphOptions({
     graph: {type: "vector"},
     correct: {
         type: "vector",
@@ -1244,7 +1240,7 @@ const vectorCongruentRubric: PerseusInteractiveGraphRubric = {
         ],
         match: "congruent",
     },
-};
+});
 
 describe("InteractiveGraph scoring on a vector question with congruent matching", () => {
     it("marks a translated vector as correct when match is congruent", () => {

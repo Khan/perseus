@@ -1,7 +1,7 @@
 import {components, TableWidget, Util} from "@khanacademy/perseus";
 import {
     tableLogic,
-    type TableDefaultWidgetOptions,
+    type PerseusTableWidgetOptions,
 } from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -25,9 +25,7 @@ class TableEditor extends React.Component<Props> {
         answers: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
     };
 
-    static widgetName = "table" as const;
-
-    static defaultProps: TableDefaultWidgetOptions =
+    static defaultProps: PerseusTableWidgetOptions =
         tableLogic.defaultWidgetOptions;
 
     numberOfColumns = React.createRef<components.NumberInput>();

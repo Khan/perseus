@@ -1,7 +1,8 @@
-import {Widgets, excludeDenylistKeys} from "@khanacademy/perseus";
+import {Widgets} from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
     applyDefaultsToWidget,
+    excludeDenylistKeys,
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
@@ -11,12 +12,10 @@ import SectionControlButton from "./section-control-button";
 import ToggleableCaret from "./toggleable-caret";
 import WidgetEditorSettings from "./widget-editor-settings";
 
-import type Editor from "../editor";
 import type {APIOptions} from "@khanacademy/perseus";
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
 
-// exported for tests
-export type WidgetEditorProps = {
+type Props = {
     // Unserialized props
     id: string;
     onChange: (
@@ -27,52 +26,54 @@ export type WidgetEditorProps = {
     onRemove: () => unknown;
     apiOptions: APIOptions;
     widgetIsOpen?: boolean;
-} & Omit<PerseusWidget, "key">;
+    widgetInfo: PerseusWidget;
+};
 
-type WidgetEditorState = {
+type State = {
     showWidget: boolean;
     widgetInfo: PerseusWidget;
 };
 
 // exported for tests
-export const _upgradeWidgetInfo = (props: WidgetEditorProps): PerseusWidget => {
+export function _upgradeWidgetInfo(widgetInfo: PerseusWidget): PerseusWidget {
     // We can't call serialize here because this.refs.widget
     // doesn't exist before this component is mounted.
-    const filteredProps = excludeDenylistKeys(props);
+    // eslint-disable-next-line no-restricted-syntax
+    const filteredWidget: PerseusWidget = excludeDenylistKeys(
+        widgetInfo,
+    ) as any;
 
     // This is circumventing an issue with excludeDenylistKeys;
     // it removes `graded` from WidgetOptions.options (good)
     // but it's also recursive so it removes `graded`
     // from the higher-up WidgetOptions (bad)
     // See: LEMS-4108 and https://khanacademy.slack.com/archives/C01AZ9H8TTQ/p1778089642003609
-    // eslint-disable-next-line no-restricted-syntax
-    (filteredProps as any).graded = props.graded;
+    filteredWidget.graded = widgetInfo.graded;
 
-    // eslint-disable-next-line no-restricted-syntax
-    return applyDefaultsToWidget(filteredProps as PerseusWidget);
-};
+    return applyDefaultsToWidget(filteredWidget);
+}
 
 // This component handles upgading widget editor props via prop
 // upgrade transforms. Widget editors will always be rendered
 // with all available transforms applied, but the results of those
 // transforms will not be propogated upwards until serialization.
-class WidgetEditor extends React.Component<
-    WidgetEditorProps,
-    WidgetEditorState
-> {
-    widget: React.RefObject<Editor>;
+class WidgetEditor extends React.Component<Props, State> {
+    widgetSpecificEditor: React.RefObject<{
+        serialize(): unknown;
+        getSaveWarnings?: () => unknown;
+    }>;
 
-    constructor(props: WidgetEditorProps) {
+    constructor(props: Props) {
         super(props);
         this.state = {
             showWidget: props.widgetIsOpen ?? true,
-            widgetInfo: _upgradeWidgetInfo(props),
+            widgetInfo: _upgradeWidgetInfo(props.widgetInfo),
         };
-        this.widget = React.createRef();
+        this.widgetSpecificEditor = React.createRef();
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps: WidgetEditorProps) {
-        this.setState({widgetInfo: _upgradeWidgetInfo(nextProps)});
+    UNSAFE_componentWillReceiveProps(nextProps: Props) {
+        this.setState({widgetInfo: _upgradeWidgetInfo(nextProps.widgetInfo)});
         // user can update internal state while the widget is handled globally
         if (
             nextProps.widgetIsOpen != null &&
@@ -88,7 +89,7 @@ class WidgetEditor extends React.Component<
     };
 
     _handleWidgetChange = (
-        newProps: WidgetEditorProps,
+        newOptions: PerseusWidget["options"],
         cb: () => unknown,
         silent: boolean,
     ) => {
@@ -97,8 +98,8 @@ class WidgetEditor extends React.Component<
             ...this.state.widgetInfo,
             options: {
                 ...this.state.widgetInfo.options,
-                ...(this.widget.current?.serialize() ?? {}),
-                ...newProps,
+                ...(this.widgetSpecificEditor.current?.serialize() ?? {}),
+                ...newOptions,
             },
         } as PerseusWidget;
         this.props.onChange(newWidgetInfo, cb, silent);
@@ -136,7 +137,7 @@ class WidgetEditor extends React.Component<
     };
 
     getSaveWarnings = () => {
-        const issuesFunc = this.widget.current?.getSaveWarnings;
+        const issuesFunc = this.widgetSpecificEditor.current?.getSaveWarnings;
         return issuesFunc ? issuesFunc() : [];
     };
 
@@ -153,7 +154,9 @@ class WidgetEditor extends React.Component<
             // `{Ed && ...}` guard in render()). In that case fall back to the
             // last-known options rather than dereferencing a null ref, which
             // previously crashed the editor when toggling JSON mode.
-            options: this.widget.current?.serialize() ?? widgetInfo.options,
+            options:
+                this.widgetSpecificEditor.current?.serialize() ??
+                widgetInfo.options,
             version: widgetInfo.version,
         };
     };
@@ -235,7 +238,7 @@ class WidgetEditor extends React.Component<
                 >
                     {Ed && (
                         <Ed
-                            ref={this.widget}
+                            ref={this.widgetSpecificEditor}
                             onChange={this._handleWidgetChange}
                             static={widgetInfo.static}
                             graded={widgetInfo.graded}

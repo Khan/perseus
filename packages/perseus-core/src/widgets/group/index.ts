@@ -4,12 +4,7 @@ import type {GroupPublicWidgetOptions} from "./group-util";
 import type {PerseusGroupWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
-export type GroupDefaultWidgetOptions = Pick<
-    PerseusGroupWidgetOptions,
-    "content" | "widgets" | "images"
->;
-
-const defaultWidgetOptions: GroupDefaultWidgetOptions = {
+const defaultWidgetOptions: PerseusGroupWidgetOptions = {
     content: "",
     widgets: {},
     images: {},

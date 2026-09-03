@@ -4,8 +4,9 @@ import * as React from "react";
 import _ from "underscore";
 
 import Graphie from "../../components/graphie";
-import {getDependencies} from "../../dependencies";
 import Util from "../../util";
+
+import FunctionTypeIcon from "./function-type-icon";
 
 import type {Coord} from "../../interactive2/types";
 import type {
@@ -172,16 +173,10 @@ export const DEFAULT_GRAPHER_PROPS: any = {
 
 export const typeToButton = (type: FunctionTypeMappingKeys): any => {
     const capitalized = type.charAt(0).toUpperCase() + type.substring(1);
-    const staticUrl = getDependencies().staticUrl;
 
     return {
         value: type,
         title: capitalized,
-        content: (
-            <img
-                src={staticUrl(GrapherUtil.functionForType(type).url)}
-                alt={capitalized}
-            />
-        ),
+        content: <FunctionTypeIcon type={type} label={capitalized} />,
     };
 };

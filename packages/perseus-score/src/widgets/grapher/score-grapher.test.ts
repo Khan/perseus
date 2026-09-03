@@ -1,10 +1,8 @@
+import {generateGrapherWidgetOptions} from "@khanacademy/perseus-core";
+
 import scoreGrapher from "./score-grapher";
 
-import type {
-    PerseusGrapherRubric,
-    PerseusGrapherUserInput,
-    Coord,
-} from "@khanacademy/perseus-core";
+import type {PerseusGrapherUserInput, Coord} from "@khanacademy/perseus-core";
 
 describe("scoreGrapher", () => {
     it("is invalid when user input is undefined", () => {
@@ -18,13 +16,13 @@ describe("scoreGrapher", () => {
             [-10, -10],
             [10, 10],
         ];
-        const rubric: PerseusGrapherRubric = {
+        const rubric = generateGrapherWidgetOptions({
             correct: {
                 type: "logarithm",
                 asymptote,
                 coords,
             },
-        };
+        });
 
         // Act
         const result = scoreGrapher(userInput, rubric);
@@ -50,13 +48,13 @@ describe("scoreGrapher", () => {
             coords,
         };
 
-        const rubric: PerseusGrapherRubric = {
+        const rubric = generateGrapherWidgetOptions({
             correct: {
                 type: "logarithm",
                 asymptote,
                 coords,
             },
-        };
+        });
 
         // Act
         const result = scoreGrapher(userInput, rubric);
@@ -82,13 +80,13 @@ describe("scoreGrapher", () => {
             coords: null,
         };
 
-        const rubric: PerseusGrapherRubric = {
+        const rubric = generateGrapherWidgetOptions({
             correct: {
                 type: "exponential",
                 asymptote,
                 coords,
             },
-        };
+        });
 
         // Act
         const result = scoreGrapher(userInput, rubric);
@@ -112,12 +110,12 @@ describe("scoreGrapher", () => {
             coords,
         };
 
-        const rubric: PerseusGrapherRubric = {
+        const rubric = generateGrapherWidgetOptions({
             correct: {
                 type: "linear",
                 coords,
             },
-        };
+        });
 
         // Act
         const result = scoreGrapher(userInput, rubric);
@@ -143,12 +141,12 @@ describe("scoreGrapher", () => {
             ],
         };
 
-        const rubric: PerseusGrapherRubric = {
+        const rubric = generateGrapherWidgetOptions({
             correct: {
                 type: "linear",
                 coords: null,
             },
-        };
+        });
 
         // Act
         const result = scoreGrapher(userInput, rubric);
@@ -169,12 +167,12 @@ describe("scoreGrapher", () => {
             coords,
         };
 
-        const rubric: PerseusGrapherRubric = {
+        const rubric = generateGrapherWidgetOptions({
             correct: {
                 type: "linear",
                 coords,
             },
-        };
+        });
 
         // Act
         const result = scoreGrapher(userInput, rubric);
@@ -195,12 +193,12 @@ describe("scoreGrapher", () => {
             coords,
         };
 
-        const rubric: PerseusGrapherRubric = {
+        const rubric = generateGrapherWidgetOptions({
             correct: {
                 type: "tangent",
                 coords,
             },
-        };
+        });
 
         // Act
         const result = scoreGrapher(userInput, rubric);
@@ -224,12 +222,12 @@ describe("scoreGrapher", () => {
             coords,
         };
 
-        const rubric: PerseusGrapherRubric = {
+        const rubric = generateGrapherWidgetOptions({
             correct: {
                 type: "tangent",
                 coords,
             },
-        };
+        });
 
         // Act
         const result = scoreGrapher(userInput, rubric);
@@ -248,7 +246,7 @@ describe("scoreGrapher", () => {
             ],
         };
 
-        const rubric: PerseusGrapherRubric = {
+        const rubric = generateGrapherWidgetOptions({
             correct: {
                 type: "tangent",
                 coords: [
@@ -256,7 +254,7 @@ describe("scoreGrapher", () => {
                     [3, 3],
                 ],
             },
-        };
+        });
 
         // Act
         const result = scoreGrapher(userInput, rubric);
@@ -275,7 +273,7 @@ describe("scoreGrapher", () => {
             ],
         };
 
-        const rubric: PerseusGrapherRubric = {
+        const rubric = generateGrapherWidgetOptions({
             correct: {
                 type: "linear",
                 coords: [
@@ -283,7 +281,7 @@ describe("scoreGrapher", () => {
                     [10, 10],
                 ],
             },
-        };
+        });
 
         // Act
         const result = scoreGrapher(userInput, rubric);

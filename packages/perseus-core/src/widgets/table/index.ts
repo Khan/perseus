@@ -4,11 +4,6 @@ import type {TablePublicWidgetOptions} from "./table-util";
 import type {PerseusTableWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
-export type TableDefaultWidgetOptions = Pick<
-    PerseusTableWidgetOptions,
-    "headers" | "rows" | "columns" | "answers"
->;
-
 const defaultRows = 4;
 const defaultColumns = 1;
 
@@ -18,7 +13,7 @@ const answers = new Array(defaultRows)
     .fill(0)
     .map(() => new Array(defaultColumns).fill(""));
 
-const defaultWidgetOptions: TableDefaultWidgetOptions = {
+const defaultWidgetOptions: PerseusTableWidgetOptions = {
     headers: [""],
     rows: defaultRows,
     columns: defaultColumns,

@@ -4,24 +4,7 @@ import type {PlotterPublicWidgetOptions} from "./plotter-util";
 import type {PerseusPlotterWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
-export type PlotterDefaultWidgetOptions = Pick<
-    PerseusPlotterWidgetOptions,
-    | "scaleY"
-    | "maxY"
-    | "snapsPerLine"
-    | "correct"
-    | "starting"
-    | "type"
-    | "labels"
-    | "categories"
-    | "picSize"
-    | "picBoxHeight"
-    | "plotDimensions"
-    | "labelInterval"
-    | "picUrl"
->;
-
-const defaultWidgetOptions: PlotterDefaultWidgetOptions = {
+const defaultWidgetOptions: PerseusPlotterWidgetOptions = {
     scaleY: 1,
     maxY: 10,
     snapsPerLine: 2,

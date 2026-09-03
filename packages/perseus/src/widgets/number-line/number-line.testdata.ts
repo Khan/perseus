@@ -19,7 +19,6 @@ export const question1: PerseusRenderer = {
                 isInequality: false,
                 snapDivisions: 2,
                 range: [-4, 4],
-                static: false,
                 correctRel: "eq",
                 numDivisions: null,
                 divisionRange: [1, 10],
@@ -41,7 +40,6 @@ export const tickCtrl: PerseusRenderer = {
             static: false,
             graded: true,
             options: {
-                static: false,
                 range: [0, 10],
                 labelRange: [null, null],
                 labelStyle: "improper",
@@ -80,7 +78,6 @@ export const inequality: PerseusRenderer = {
                 range: [-5, 5],
                 showTooltips: false,
                 snapDivisions: 1,
-                static: false,
                 tickStep: 1,
                 isTickCtrl: false,
             },

@@ -3,19 +3,9 @@ import {getCSProgramPublicWidgetOptions} from "./cs-program-util";
 import type {PerseusCSProgramWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
-export type CSProgramDefaultWidgetOptions = Pick<
-    PerseusCSProgramWidgetOptions,
-    | "programID"
-    | "programType"
-    | "settings"
-    | "showEditor"
-    | "showButtons"
-    | "height"
->;
-
 const DEFAULT_HEIGHT = 400;
 
-const defaultWidgetOptions: CSProgramDefaultWidgetOptions = {
+const defaultWidgetOptions: PerseusCSProgramWidgetOptions = {
     programID: "",
     programType: null,
     settings: [{name: "", value: ""}],

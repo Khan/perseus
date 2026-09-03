@@ -1,160 +1,98 @@
-import {shuffleSorter} from "@khanacademy/perseus-core";
-import {linterContextDefault} from "@khanacademy/perseus-linter";
+import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
+import {forwardRef, useImperativeHandle, useRef} from "react";
 
 import Sortable from "../../components/sortable";
-import {withDependencies} from "../../components/with-dependencies";
+import {useDependencies} from "../../dependencies";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 
 import type {SortableOption} from "../../components/sortable";
-import type {
-    PerseusDependenciesV2,
-    Widget,
-    WidgetExports,
-    WidgetProps,
-} from "../../types";
+import type {Widget, WidgetProps} from "../../types";
 import type {SorterPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 import type {
     PerseusSorterWidgetOptions,
     PerseusSorterUserInput,
-    SorterPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-type Props = WidgetProps<PerseusSorterWidgetOptions, PerseusSorterUserInput> & {
-    dependencies: PerseusDependenciesV2;
-};
+type Props = WidgetProps<PerseusSorterWidgetOptions, PerseusSorterUserInput>;
 
-type DefaultProps = {
-    problemNum: Props["problemNum"];
-    linterContext: Props["linterContext"];
-};
+export interface SorterHandle extends Widget {
+    /**
+     * Programatic API for moving options. This is used by testing.
+     *
+     * @deprecated prefer user interaction testing over backdoor
+     * state manipulation
+     */
+    moveOptionToIndex: (option: SortableOption, index: number) => void;
+}
 
-class Sorter extends React.Component<Props> implements Widget {
-    _isMounted: boolean = false;
+const Sorter = forwardRef<SorterHandle, Props>(function Sorter(props, ref) {
+    const dependencies = useDependencies();
+    const sortable = useRef<Sortable>(null);
 
-    static defaultProps: DefaultProps = {
-        problemNum: 0,
-        linterContext: linterContextDefault,
-    };
+    const {options, userInput, widgetId, linterContext, apiOptions} = props;
+    const {layout, padding} = options;
 
-    componentDidMount() {
-        this._isMounted = true;
-        this.props.dependencies.analytics.onAnalyticsEvent({
+    useOnMountEffect(() => {
+        dependencies.analytics.onAnalyticsEvent({
             type: "perseus:widget:rendered:ti",
             payload: {
                 widgetSubType: "null",
                 widgetType: "sorter",
-                widgetId: this.props.widgetId,
+                widgetId: widgetId,
             },
         });
-    }
+    });
 
-    componentWillUnmount() {
-        this._isMounted = false;
-    }
+    useImperativeHandle(ref, () => ({
+        moveOptionToIndex: (option, index) => {
+            sortable.current?.moveOptionToIndex(option, index);
+        },
 
-    handleChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
-        if (!this._isMounted) {
-            return;
-        }
+        getPromptJSON: (): SorterPromptJSON => _getPromptJSON(props.userInput),
 
-        this.props.handleUserInput({
-            options: this._getOptionsFromSortable(),
+        /**
+         * @deprecated and likely very broken API
+         * [LEMS-3185] do not trust serializedState
+         */
+        getSerializedState: (): any => {
+            const {userInput, options, ...rest} = props;
+            return {
+                ...rest,
+                ...options,
+                changed: userInput.changed,
+                options: userInput.options,
+            };
+        },
+    }));
+
+    function handleChange() {
+        props.handleUserInput({
+            /**
+             * This is kind of a problem. Sortable maintains an internal state
+             * but we also want the user input state to include the same state.
+             * This is to help keep the two in sync for now.
+             */
+            options: sortable.current?.getOptions() ?? [],
             changed: true,
         });
 
-        this.props.trackInteraction();
-    };
-
-    /**
-     * This is kind of a problem. Sortable maintains an internal state
-     * but we also want the user input state to include the same state.
-     * This is to help keep the two in sync for now.
-     */
-    _getOptionsFromSortable(): string[] {
-        // @ts-expect-error - TS2339 - Property 'getOptions' does not exist on type 'ReactInstance'.
-        const options = this.refs.sortable.getOptions();
-        return options;
+        props.trackInteraction();
     }
 
-    getPromptJSON(): SorterPromptJSON {
-        return _getPromptJSON(this.props.userInput);
-    }
+    return (
+        <div className="perseus-clearfix">
+            <Sortable
+                options={userInput.options}
+                layout={layout}
+                margin={apiOptions.isMobile ? 8 : 5}
+                padding={padding}
+                onChange={handleChange}
+                linterContext={linterContext}
+                ref={sortable}
+            />
+        </div>
+    );
+});
 
-    moveOptionToIndex: (option: SortableOption, index: number) => void = (
-        option,
-        index,
-    ) => {
-        // @ts-expect-error - TS2339 - Property 'moveOptionToIndex' does not exist on type 'ReactInstance'.
-        this.refs.sortable.moveOptionToIndex(option, index);
-    };
-
-    /**
-     * @deprecated and likely very broken API
-     * [LEMS-3185] do not trust serializedState
-     */
-    getSerializedState(): any {
-        const {userInput, options, ...rest} = this.props;
-        return {
-            ...rest,
-            ...options,
-            changed: userInput.changed,
-            options: userInput.options,
-        };
-    }
-
-    render(): React.ReactNode {
-        const {apiOptions, userInput} = this.props;
-        const marginPx = apiOptions.isMobile ? 8 : 5;
-
-        return (
-            <div className="perseus-widget-sorter perseus-clearfix">
-                <Sortable
-                    options={userInput.options}
-                    layout={this.props.options.layout}
-                    margin={marginPx}
-                    padding={this.props.options.padding}
-                    onChange={this.handleChange}
-                    linterContext={this.props.linterContext}
-                    ref="sortable"
-                />
-            </div>
-        );
-    }
-}
-
-function getStartUserInput(
-    options: SorterPublicWidgetOptions,
-    problemNum: number,
-): PerseusSorterUserInput {
-    const shuffled = shuffleSorter(options, problemNum);
-
-    return {
-        options: shuffled,
-        changed: false,
-    };
-}
-
-/**
- * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState
- */
-function getUserInputFromSerializedState(
-    serializedState: any,
-): PerseusSorterUserInput {
-    return {
-        changed: serializedState.changed,
-        options: serializedState.options,
-    };
-}
-
-const WrappedSorter = withDependencies(Sorter);
-
-export default {
-    name: "sorter",
-    displayName: "Sorter",
-    widget: WrappedSorter,
-    isLintable: true,
-    getStartUserInput,
-    getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof WrappedSorter>;
+export default Sorter;

@@ -66,7 +66,6 @@ describe("itemHasRationales", () => {
                             imageAlt: "Test image",
                             imageHeight: 400,
                             imageWidth: 600,
-                            static: false,
                             hideChoicesFromInstructions: false,
                             multipleAnswers: true,
                         },

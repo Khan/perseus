@@ -62,8 +62,6 @@ interface State {
  * An editor for adding an expression widget that allows users to enter mathematical expressions.
  */
 class ExpressionEditor extends React.Component<Props, State> {
-    static widgetName = "expression" as const;
-
     static defaultProps = {
         ...expressionLogic.defaultWidgetOptions,
     };
@@ -570,7 +568,6 @@ class AnswerOption extends React.Component<
             <div className={styles.answerOption}>
                 <ButtonGroup
                     onChange={this.toggleConsidered}
-                    allowEmpty={false}
                     disabled={editingDisabled}
                     value={this.props.considered}
                     selectedButtonStyle={

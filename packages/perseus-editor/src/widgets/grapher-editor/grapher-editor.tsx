@@ -18,7 +18,6 @@ import InfoTip from "../../components/info-tip";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
     GrapherAnswerTypes,
-    GrapherDefaultWidgetOptions,
     PerseusGrapherWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -37,9 +36,7 @@ type Props = {
 };
 
 class GrapherEditor extends React.Component<Props> {
-    static widgetName = "grapher" as const;
-
-    static defaultProps: GrapherDefaultWidgetOptions =
+    static defaultProps: PerseusGrapherWidgetOptions =
         grapherLogic.defaultWidgetOptions;
 
     handleAvailableTypesChange = (newAvailableTypes: Array<any>) => {

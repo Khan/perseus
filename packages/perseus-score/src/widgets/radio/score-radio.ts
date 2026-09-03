@@ -1,7 +1,7 @@
 import {ErrorCodes} from "@khanacademy/perseus-core";
 
 import type {
-    PerseusRadioRubric,
+    PerseusRadioWidgetOptions,
     PerseusRadioUserInput,
     PerseusScore,
     RecursiveReadonly,
@@ -11,7 +11,7 @@ function scoreRadio(
     // NOTE(benchristel): userInput can be undefined if the widget has never
     // been interacted with.
     userInput: RecursiveReadonly<PerseusRadioUserInput> | undefined,
-    rubric: RecursiveReadonly<PerseusRadioRubric>,
+    rubric: RecursiveReadonly<PerseusRadioWidgetOptions>,
 ): PerseusScore {
     if (userInput == null) {
         return {type: "invalid", message: null};

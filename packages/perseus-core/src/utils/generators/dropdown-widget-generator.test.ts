@@ -77,7 +77,6 @@ describe("generateDropdownWidget", () => {
                 placeholder: "test-placeholder",
                 visibleLabel: "test-visible-label",
                 ariaLabel: "test-aria-label",
-                static: false,
             },
         });
 
@@ -93,7 +92,6 @@ describe("generateDropdownWidget", () => {
             placeholder: "test-placeholder",
             visibleLabel: "test-visible-label",
             ariaLabel: "test-aria-label",
-            static: false,
         });
     });
 

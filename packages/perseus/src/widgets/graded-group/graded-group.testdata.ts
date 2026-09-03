@@ -23,7 +23,6 @@ export const question1: PerseusRenderer = {
                         static: false,
                         graded: true,
                         options: {
-                            static: false,
                             items: [
                                 "Some bacteria conduct photosynthesis and produce oxygen, much like plants.",
                                 "Bacteria are always autotrophic but they may get energy from either light or chemical sources.",
@@ -48,7 +47,6 @@ export const question1: PerseusRenderer = {
                             static: true,
                             graded: true,
                             options: {
-                                static: false,
                                 items: [
                                     "Some bacteria conduct photosynthesis and produce oxygen, much like plants.",
                                     "Bacteria are always autotrophic but they may get energy from either light or chemical sources.",
@@ -98,6 +96,51 @@ export const groupedRadioRationaleQuestion: PerseusRenderer =
                                     generateRadioChoice("Incorrect", {
                                         rationale:
                                             "This is not the correct answer.",
+                                    }),
+                                ],
+                            },
+                        }),
+                    },
+                    hint: {
+                        content: "This is an example hint.",
+                        images: {},
+                        widgets: {},
+                    },
+                }),
+            }),
+        },
+    });
+
+export const groupedMultipleSelectRationaleQuestion: PerseusRenderer =
+    generateTestPerseusRenderer({
+        content:
+            "---\n\n##Check your understanding!\n\n[[☃ graded-group 1]]\n\n",
+        widgets: {
+            "graded-group 1": generateGradedGroupWidget({
+                options: generateGradedGroupOptions({
+                    title: "Holograms and simulations",
+                    content:
+                        "Which of the following provide sufficient data to compile a holographic simulation?\n\n[[\u2603 radio 1]]\n\n",
+                    widgets: {
+                        "radio 1": generateRadioWidget({
+                            options: {
+                                multipleSelect: true,
+                                choices: [
+                                    generateRadioChoice("Correct", {
+                                        correct: true,
+                                        rationale: "This is a correct answer.",
+                                    }),
+                                    generateRadioChoice("Incorrect", {
+                                        rationale:
+                                            "This is NOT a correct answer.",
+                                    }),
+                                    generateRadioChoice("Correct", {
+                                        correct: true,
+                                        rationale: "This is a correct answer.",
+                                    }),
+                                    generateRadioChoice("Incorrect", {
+                                        rationale:
+                                            "This is NOT a correct answer.",
                                     }),
                                 ],
                             },

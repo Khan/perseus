@@ -19,7 +19,6 @@ export const textQuestion: PerseusRenderer = {
             static: false,
             graded: true,
             options: {
-                static: false,
                 choices: ["Trucks", "Vans", "Cars", "SUVs"],
                 imageAlt:
                     "A bar graph with four bar lines that shows the horizontal axis labeled Number in the parking lot and the vertical axis labeled Vehicle Type. The horizontal axis is labeled, from left to right: 0, 10, 20, 30, 40, and 50. The vertical axis has, from the bottom to the top, four unlabeled bar lines as follows: the first unlabeled bar line extends to the middle of 0 and 10, the second unlabeled bar line extends to 40, the third unlabeled bar line extends to the middle of 20 and 30, and fourth unlabeled bar line extends to 10.",
@@ -81,7 +80,6 @@ export const shortTextQuestion: PerseusRenderer = {
             static: false,
             graded: true,
             options: {
-                static: false,
                 choices: ["Trucks", "Vans", "Cars", "SUVs"],
                 imageAlt:
                     "A bar graph with four bar lines that shows the horizontal axis labeled Number in the parking lot and the vertical axis labeled Vehicle Type. The horizontal axis is labeled, from left to right: 0, 10, 20, 30, 40, and 50. The vertical axis has, from the bottom to the top, four unlabeled bar lines as follows: the first unlabeled bar line extends to the middle of 0 and 10, the second unlabeled bar line extends to 40, the third unlabeled bar line extends to the middle of 20 and 30, and fourth unlabeled bar line extends to 10.",
@@ -125,7 +123,6 @@ export const mathQuestion: PerseusRenderer = {
             static: false,
             graded: true,
             options: {
-                static: false,
                 choices: [
                     "$\\dfrac{1}{2}$",
                     "$\\dfrac{3}{4}$",
@@ -186,7 +183,6 @@ export const numberline: PerseusRenderer = {
             static: false,
             graded: true,
             options: {
-                static: false,
                 choices: ["$-\\dfrac{7}{3}$", "$-2\\dfrac{5}{8}$", "$-2.9$"],
                 imageAlt:
                     "A number line from negative 6 halves to negative 3 halves, labeled in increments of 1 half. There are three points on the line, labeled from left to right with a, b, and c.",
@@ -283,7 +279,6 @@ export const longTextFromArticle: PerseusRenderer = {
             static: false,
             graded: true,
             options: {
-                static: false,
                 choices: [
                     "long wavelength & low frequency",
                     "short wavelength & high frequency",
@@ -362,7 +357,6 @@ export const mixedContentQuestion: PerseusRenderer = {
             static: false,
             graded: true,
             options: {
-                static: false,
                 choices: [
                     "lift $(F_\\text{L})$",
                     "buoyant force $(F_\\text{B})$",
