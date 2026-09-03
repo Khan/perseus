@@ -28,6 +28,7 @@ import {
     generateLockedFigureAppearanceDescription,
     generateSpokenMathDetails,
     joinLabelsAsSpokenMath,
+    midpoint,
 } from "./util";
 
 import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
@@ -117,8 +118,8 @@ const LockedVectorSettings = (props: Props) => {
             newPoints[index] = [...newCoord];
 
             // Update labels to match the new points
-            const oldMidpoint = vec.midpoint(tail, tip);
-            const newMidpoint = vec.midpoint(newPoints[0], newPoints[1]);
+            const oldMidpoint = midpoint(tail, tip);
+            const newMidpoint = midpoint(newPoints[0], newPoints[1]);
             const offset = vec.sub(newMidpoint, oldMidpoint);
             const newLabels = labels.map((label) => ({
                 ...label,
@@ -292,7 +293,7 @@ const LockedVectorSettings = (props: Props) => {
                     const offsetPerLabel: vec.Vector2 = [0, -1];
                     const labelLocation = vec.add(
                         vec.scale(offsetPerLabel, labels.length),
-                        vec.midpoint(tail, tip),
+                        midpoint(tail, tip),
                     );
 
                     const newLabel = {

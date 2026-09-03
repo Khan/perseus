@@ -534,3 +534,43 @@ describe("Locked Vector Settings", () => {
         });
     });
 });
+
+describe("zero-length vector edits (LEMS-4564)", () => {
+    let userEvent: UserEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+
+    it("keeps label coordinates finite when an edit makes tip equal tail", async () => {
+        // Arrange: tail at the origin, tip elsewhere, with one visible label.
+        const onChangeProps = jest.fn();
+        render(
+            <LockedVectorSettings
+                {...defaultProps}
+                points={[
+                    [0, 0],
+                    [-1.57, 0],
+                ]}
+                labels={[{...defaultLabel, coord: [-1.7, 0.8]}]}
+                onChangeProps={onChangeProps}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act: clear the tip x field and type -0, committing a vector
+        // whose tip equals its tail.
+        const tipX = screen.getAllByRole("spinbutton")[2];
+        await userEvent.clear(tipX);
+        await userEvent.type(tipX, "-0");
+
+        // Assert: every emitted label coordinate is a finite number.
+        for (const [newProps] of onChangeProps.mock.calls) {
+            for (const label of newProps.labels ?? []) {
+                expect(label.coord.every(Number.isFinite)).toBe(true);
+            }
+        }
+        expect(onChangeProps).toHaveBeenCalled();
+    });
+});

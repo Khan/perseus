@@ -27,6 +27,12 @@ const errorFieldStyle: StyleType = {
     backgroundColor: semanticColor.core.background.critical.subtle,
 };
 
+// Item data that skipped validation can carry null or non-finite coordinate
+// values (LEMS-4564), so render those as an empty field instead of crashing.
+function coordValueToString(value: number): string {
+    return Number.isFinite(value) ? value.toString() : "";
+}
+
 const CoordinatePairInput = (props: Props) => {
     const {
         coord,
@@ -45,14 +51,17 @@ const CoordinatePairInput = (props: Props) => {
     // before they are updated in the props as a valid number.
     const [coordState, setCoordState] = React.useState([
         // Using strings to make it easier to work with the text fields.
-        coord[0].toString(),
-        coord[1].toString(),
+        coordValueToString(coord[0]),
+        coordValueToString(coord[1]),
     ]);
 
     // Update the local state when the props change. (Such as when the graph
     // type is changed, and the coordinates are reset.)
     React.useEffect(() => {
-        setCoordState([coord[0].toString(), coord[1].toString()]);
+        setCoordState([
+            coordValueToString(coord[0]),
+            coordValueToString(coord[1]),
+        ]);
     }, [coord]);
 
     function handleCoordChange(newValue, coordIndex) {
@@ -61,9 +70,11 @@ const CoordinatePairInput = (props: Props) => {
         newCoordState[coordIndex] = newValue;
         setCoordState(newCoordState);
 
-        // If the new value is not a number, don't update the props.
-        // If it's empty, keep the props the same value instead of setting to 0.
-        if (isNaN(+newValue) || newValue === "") {
+        // If the new value is not a finite number, don't update the props.
+        // If it's empty, keep the props the same value instead of setting
+        // to 0. Infinity is excluded because JSON.stringify turns it into
+        // null, corrupting the item data (LEMS-4564).
+        if (!Number.isFinite(+newValue) || newValue === "") {
             return;
         }
 
