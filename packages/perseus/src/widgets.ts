@@ -1,8 +1,14 @@
-import {Errors, PerseusError, Registry} from "@khanacademy/perseus-core";
+import {
+    CoreWidgetRegistry,
+    Errors,
+    PerseusError,
+    Registry,
+} from "@khanacademy/perseus-core";
 
 import {Log} from "./logging/log";
 
 import type {Tracking, WidgetExports} from "./types";
+import type {WidgetRegistration} from "./widget-registration";
 import type * as React from "react";
 
 const DEFAULT_TRACKING = "";
@@ -19,11 +25,26 @@ export const registerWidget = (type: string, widget: WidgetExports) => {
     widgets.set(type, widget);
 };
 
-export const registerWidgets = (widgetArr: ReadonlyArray<WidgetExports>) => {
-    widgetArr.forEach((widget) => {
-        registerWidget(widget.name, widget);
+export function registerWidgets(
+    registrations: ReadonlyArray<WidgetRegistration>,
+): void;
+/**
+ * @deprecated Pass `WidgetRegistration` descriptors instead, so that each
+ * widget's core logic is registered alongside its React implementation.
+ */
+export function registerWidgets(widgetArr: ReadonlyArray<WidgetExports>): void;
+export function registerWidgets(
+    widgetArr: ReadonlyArray<WidgetRegistration | WidgetExports>,
+): void {
+    widgetArr.forEach((entry) => {
+        if ("logic" in entry) {
+            CoreWidgetRegistry.registerLogic(entry.logic);
+            registerWidget(entry.widget.name, entry.widget);
+        } else {
+            registerWidget(entry.name, entry);
+        }
     });
-};
+}
 
 /**
  *
@@ -47,6 +68,10 @@ export const replaceWidget = (type: string, replacementType: string) => {
     widgets.replace(type, substituteWidget);
 };
 
+/**
+ * Map every deprecated widget type onto the `deprecated-standin` in both the
+ * React and core registries.
+ */
 export const replaceDeprecatedWidgets = () => {
     replaceWidget("transformer", "deprecated-standin");
     replaceWidget("lights-puzzle", "deprecated-standin");
@@ -58,6 +83,7 @@ export const replaceDeprecatedWidgets = () => {
     replaceWidget("passage-ref", "deprecated-standin");
     replaceWidget("passage-ref-target", "deprecated-standin");
     replaceWidget("molecule-renderer", "deprecated-standin");
+    CoreWidgetRegistry.replaceDeprecatedLogics();
 };
 
 /**

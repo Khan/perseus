@@ -76,8 +76,9 @@ const deprecatedWidgetTypes = [
 ];
 
 /**
- * Map every deprecated widget type onto the `deprecated-standin` logic, which
- * must already be registered.
+ * Map every deprecated widget type onto the `deprecated-standin` logic.
+ *
+ * Fails if the `deprecated-standin` logic is not registered.
  */
 export function replaceDeprecatedLogics() {
     deprecatedWidgetTypes.forEach((type) =>

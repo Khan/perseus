@@ -170,6 +170,43 @@ describe("core-widget-registry", () => {
         });
     });
 
+    describe("replaceDeprecatedLogics", () => {
+        it("throws when no deprecated-standin logic is registered", () => {
+            expect(() => CoreWidgetRegistry.replaceDeprecatedLogics()).toThrow(
+                "Failed to replace transformer with deprecated-standin",
+            );
+        });
+
+        it("points deprecated types at the standin's logic", () => {
+            registerLogics([
+                {
+                    name: "deprecated-standin",
+                    version: {major: 4, minor: 2},
+                },
+            ]);
+
+            CoreWidgetRegistry.replaceDeprecatedLogics();
+
+            for (const type of [
+                "transformer",
+                "lights-puzzle",
+                "reaction-diagram",
+                "sequence",
+                "simulator",
+                "unit-input",
+                "passage",
+                "passage-ref",
+                "passage-ref-target",
+                "molecule-renderer",
+            ]) {
+                expect(getCurrentVersion(type)).toEqual({
+                    major: 4,
+                    minor: 2,
+                });
+            }
+        });
+    });
+
     describe("traverseChildWidgets", () => {
         const realTraverseChildWidgets = (options, traverseRenderer) => {
             return {
