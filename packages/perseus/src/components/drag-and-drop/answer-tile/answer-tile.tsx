@@ -87,7 +87,11 @@ export interface AnswerTileProps {
      * rests as a small value chip until hover or focus.
      */
     compact?: boolean;
-    /** Display height in pixels for an image tile's image. */
+    /**
+     * Display height in pixels for an image tile's image. The schema
+     * types this as a plain number; the editor offers 24-96 in steps
+     * of 12.
+     */
     imageHeight?: number;
 }
 
