@@ -29,8 +29,10 @@ const errorFieldStyle: StyleType = {
 
 // Item data that skipped validation can carry null or non-finite coordinate
 // values (LEMS-4564), so render those as an empty field instead of crashing.
-function coordValueToString(value: number): string {
-    return Number.isFinite(value) ? value.toString() : "";
+// The parameter type is wider than `Coord` promises because that corrupted
+// data defeats the type system.
+function coordValueToString(value: number | null | undefined): string {
+    return Number.isFinite(value) ? String(value) : "";
 }
 
 const CoordinatePairInput = (props: Props) => {
@@ -78,11 +80,22 @@ const CoordinatePairInput = (props: Props) => {
             return;
         }
 
-        // Update the props (update the graph).
+        // Update the props (update the graph). If the coordinate NOT being
+        // edited is corrupted (null/non-finite), repair it to 0 instead of
+        // writing the bad value back into the item data.
+        const siblingIndex = coordIndex === 0 ? 1 : 0;
         const newCoords = [...coord] satisfies [number, number];
         newCoords[coordIndex] = +newValue;
+        if (!Number.isFinite(newCoords[siblingIndex])) {
+            newCoords[siblingIndex] = 0;
+        }
         onChange(newCoords);
     }
+
+    // Highlight corrupted incoming values so a blank field reads as a
+    // problem to fix, not an empty input.
+    const hasInvalidCoord = !coord.every(Number.isFinite);
+    const showError = error || hasInvalidCoord;
 
     return (
         <View className={styles.container} style={style}>
@@ -95,7 +108,7 @@ const CoordinatePairInput = (props: Props) => {
                     onChange={(newValue) => handleCoordChange(newValue, 0)}
                     style={[
                         textFieldStyle,
-                        error ? errorFieldStyle : undefined,
+                        showError ? errorFieldStyle : undefined,
                     ]}
                 />
             </BodyText>
@@ -109,7 +122,7 @@ const CoordinatePairInput = (props: Props) => {
                     onChange={(newValue) => handleCoordChange(newValue, 1)}
                     style={[
                         textFieldStyle,
-                        error ? errorFieldStyle : undefined,
+                        showError ? errorFieldStyle : undefined,
                     ]}
                 />
             </BodyText>

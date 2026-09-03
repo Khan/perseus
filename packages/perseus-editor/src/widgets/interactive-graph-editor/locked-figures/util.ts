@@ -1,7 +1,6 @@
 import {SpeechRuleEngine} from "@khanacademy/mathjax-renderer";
 import {mathOnlyParser} from "@khanacademy/perseus";
 import {
-    type Coord,
     type LockedFigureColor,
     type LockedFigureFillType,
     type LockedFigureStrokeStyle,
@@ -111,11 +110,4 @@ export function mockedJoinLabelsAsSpokenMathForTests(
 
 export function mockedGenerateSpokenMathDetailsForTests(mathString: string) {
     return Promise.resolve(`spoken ${mathString}`);
-}
-
-// Mafs's vec.midpoint normalizes the difference vector, which divides by
-// zero and returns [NaN, NaN] when the two points are identical (LEMS-4564).
-// This averaging version is defined for every pair of points.
-export function midpoint(a: Coord, b: Coord): Coord {
-    return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
 }

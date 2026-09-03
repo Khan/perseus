@@ -551,9 +551,9 @@ describe("zero-length vector edits (LEMS-4564)", () => {
                 {...defaultProps}
                 points={[
                     [0, 0],
-                    [-1.57, 0],
+                    [-2, 0],
                 ]}
-                labels={[{...defaultLabel, coord: [-1.7, 0.8]}]}
+                labels={[{...defaultLabel, coord: [-2, 1]}]}
                 onChangeProps={onChangeProps}
             />,
             {wrapper: RenderStateRoot},
@@ -565,12 +565,43 @@ describe("zero-length vector edits (LEMS-4564)", () => {
         await userEvent.clear(tipX);
         await userEvent.type(tipX, "-0");
 
-        // Assert: every emitted label coordinate is a finite number.
-        for (const [newProps] of onChangeProps.mock.calls) {
-            for (const label of newProps.labels ?? []) {
-                expect(label.coord.every(Number.isFinite)).toBe(true);
-            }
-        }
-        expect(onChangeProps).toHaveBeenCalled();
+        // Assert: the label shifted by the midpoint offset and stayed
+        // finite. (Pre-fix, mafs's midpoint made this [NaN, NaN].)
+        expect(onChangeProps).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                labels: [expect.objectContaining({coord: [-1, 1]})],
+            }),
+        );
+    });
+
+    it("repairs a corrupted label coordinate on the next point edit", async () => {
+        // Arrange: the label's x coord is NaN, as items corrupted by
+        // LEMS-4564 carry after a JSON round-trip and re-parse.
+        const onChangeProps = jest.fn();
+        render(
+            <LockedVectorSettings
+                {...defaultProps}
+                points={[
+                    [0, 0],
+                    [2, 0],
+                ]}
+                labels={[{...defaultLabel, coord: [NaN, 0.8]}]}
+                onChangeProps={onChangeProps}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act: edit the tip x coord.
+        const tipX = screen.getAllByRole("spinbutton")[2];
+        await userEvent.clear(tipX);
+        await userEvent.type(tipX, "3");
+
+        // Assert: the corrupted x snaps to the new midpoint; the intact y
+        // keeps its offset.
+        expect(onChangeProps).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                labels: [expect.objectContaining({coord: [1.5, 0.8]})],
+            }),
+        );
     });
 });

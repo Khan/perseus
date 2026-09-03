@@ -4,7 +4,6 @@ import {
     generateLockedFigureAppearanceDescription,
     generateSpokenMathDetails,
     joinLabelsAsSpokenMath,
-    midpoint,
 } from "./util";
 
 import type {
@@ -328,19 +327,5 @@ describe("joinLabelsAsSpokenText", () => {
         const actualOutput = await joinLabelsAsSpokenMath(lockedLabels);
 
         expect(actualOutput).toBe(expectedOutput);
-    });
-});
-
-describe("midpoint", () => {
-    it("returns the point between two distinct points", () => {
-        expect(midpoint([0, 0], [-1.57, 0])).toEqual([-0.785, 0]);
-    });
-
-    it("returns the point itself when both points are identical", () => {
-        // mafs's vec.midpoint returns [NaN, NaN] for identical points
-        // (division by zero magnitude), which corrupted locked figure
-        // label coordinates (LEMS-4564).
-        expect(midpoint([0, 0], [0, 0])).toEqual([0, 0]);
-        expect(midpoint([2, -3], [2, -3])).toEqual([2, -3]);
     });
 });

@@ -61,4 +61,25 @@ describe("CoordinatePairInput", () => {
         expect(x).toHaveValue(null);
         expect(y).toHaveValue(0.8);
     });
+
+    it("repairs a corrupted sibling coordinate when the other field is edited", async () => {
+        // Arrange: x is corrupted (null), as items affected by LEMS-4564
+        // carry after a JSON round-trip.
+        const onChange = jest.fn();
+        // eslint-disable-next-line no-restricted-syntax
+        const corruptedCoord = [null, 0.8] as unknown as Coord;
+        render(
+            <CoordinatePairInput coord={corruptedCoord} onChange={onChange} />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act: edit only the y field.
+        const [, y] = screen.getAllByRole("spinbutton");
+        await userEvent.clear(y);
+        await userEvent.type(y, "3");
+
+        // Assert: the corrupted x is repaired to 0 instead of being
+        // written back as null.
+        expect(onChange).toHaveBeenLastCalledWith([0, 3]);
+    });
 });
