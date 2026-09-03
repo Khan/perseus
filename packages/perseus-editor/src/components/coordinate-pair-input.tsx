@@ -44,7 +44,7 @@ const CoordinatePairInput = (props: Props) => {
     function handleCoordChange(newValue: number, coordIndex: number) {
         // Update the props (update the graph).
         const newCoords: Coord = [...coord];
-        newCoords[coordIndex] = +newValue;
+        newCoords[coordIndex] = newValue;
         onChange(newCoords);
     }
 
