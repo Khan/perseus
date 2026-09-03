@@ -6,7 +6,7 @@ import {pluck} from "@khanacademy/perseus-core";
 import {semanticColor, tokenValue} from "@khanacademy/wonder-blocks-tokens";
 import _ from "underscore";
 
-import {invisibleHitTargetFill} from "../util/invisible-hit-target";
+import {INVISIBLE_HIT_TARGET_FILL} from "../util/invisible-hit-target";
 
 import InteractiveUtil from "./interactive-util";
 import MovableLineOptions from "./movable-line-options";
@@ -155,7 +155,7 @@ _.extend(MovableLine.prototype, {
                     options,
                 );
                 state.mouseTarget.attr({
-                    fill: invisibleHitTargetFill(),
+                    fill: INVISIBLE_HIT_TARGET_FILL,
                     opacity: 0.0,
                 });
             }
