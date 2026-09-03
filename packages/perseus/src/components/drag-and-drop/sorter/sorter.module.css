@@ -1,0 +1,283 @@
+/*
+ * Sorter — blanks along a labeled legend, above a choice bank.
+ * --sorter-gap must match SLOT_GAP in sorter.tsx.
+ */
+.sorter {
+    --sorter-gap: 16px;
+    --sorter-line: var(--wb-semanticColor-core-border-neutral-default);
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_640);
+}
+
+/* The blank fills its list item, and a placed tile fills the blank. */
+.slot {
+    display: flex;
+    inline-size: 100%;
+    block-size: 100%;
+}
+
+.horizontalLayout {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_080);
+}
+
+/* --- Slot lists ------------------------------------------------- */
+
+.rowSlots,
+.staggerGrid,
+.columnSlots {
+    display: grid;
+    gap: var(--sorter-gap);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.rowSlots {
+    column-gap: var(--sorter-gap);
+}
+
+.rowItem {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-inline-size: 0;
+}
+
+.staggerGrid {
+    grid-auto-rows: 1fr;
+    /* No grid gaps: a column gap would widen every 2-column slot span.
+     * The item padding below provides the spacing instead. */
+    gap: 0;
+}
+
+.staggerItemAbove,
+.staggerItemBelow {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-inline-size: 0;
+    /* Half the gap on each side keeps stagger neighbors apart without
+     * a column gap, which would widen the 2-column slot spans. */
+    padding-inline: calc(var(--sorter-gap) / 2);
+}
+
+.staggerItemAbove .slot,
+.staggerItemBelow .slot {
+    flex-grow: 1;
+}
+
+.columnSlots {
+    flex-grow: 1;
+    row-gap: var(--sorter-gap);
+}
+
+.columnItem {
+    display: flex;
+    align-items: stretch;
+    min-inline-size: 0;
+}
+
+/* --- Connector stems --------------------------------------------- */
+
+.stemV {
+    align-self: center;
+    inline-size: var(--wb-border-width-medium);
+    block-size: var(--wb-sizing-size_240);
+    background: var(--sorter-line);
+}
+
+.stemH {
+    align-self: center;
+    inline-size: var(--wb-sizing-size_240);
+    block-size: var(--wb-border-width-medium);
+    background: var(--sorter-line);
+}
+
+/* --- Legend ------------------------------------------------------- */
+
+.legendH {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_080);
+}
+
+/* A leading legend puts its labels above the axis. */
+.legendHStart {
+    flex-direction: column-reverse;
+}
+
+.legendLabels {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--wb-font-family-sans);
+    font-size: var(--wb-font-body-size-medium);
+    font-weight: var(--wb-font-weight-semi);
+    color: var(--wb-semanticColor-core-foreground-neutral-strong);
+}
+
+.legendV {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--wb-sizing-size_080);
+    font-family: var(--wb-font-family-sans);
+    font-size: var(--wb-font-body-size-medium);
+    font-weight: var(--wb-font-weight-semi);
+    color: var(--wb-semanticColor-core-foreground-neutral-strong);
+}
+
+.verticalLayout {
+    display: flex;
+    align-items: stretch;
+    gap: var(--wb-sizing-size_160);
+}
+
+/* --- Axis lines and end styles ------------------------------------ */
+
+.axisH {
+    position: relative;
+    block-size: var(--wb-border-width-medium);
+    background: var(--sorter-line);
+    /* Keeps arrow and bar ends inside the layout box. */
+    margin-block: var(--wb-sizing-size_060);
+}
+
+.axisV {
+    position: relative;
+    inline-size: var(--wb-border-width-medium);
+    flex-grow: 1;
+    background: var(--sorter-line);
+    margin-inline: var(--wb-sizing-size_060);
+}
+
+.axisH.start-arrow::before,
+.axisH.end-arrow::after,
+.axisH.start-bar::before,
+.axisH.end-bar::after,
+.axisV.start-arrow::before,
+.axisV.end-arrow::after,
+.axisV.start-bar::before,
+.axisV.end-bar::after {
+    content: "";
+    position: absolute;
+}
+
+.axisH.start-arrow::before {
+    inset-inline-start: 0;
+    inset-block-start: 50%;
+    transform: translateY(-50%);
+    border-block: 5px solid transparent;
+    border-inline-end: 8px solid var(--sorter-line);
+}
+
+.axisH.end-arrow::after {
+    inset-inline-end: 0;
+    inset-block-start: 50%;
+    transform: translateY(-50%);
+    border-block: 5px solid transparent;
+    border-inline-start: 8px solid var(--sorter-line);
+}
+
+.axisH.start-bar::before,
+.axisH.end-bar::after {
+    inset-block-start: 50%;
+    transform: translateY(-50%);
+    inline-size: var(--wb-border-width-medium);
+    block-size: var(--wb-sizing-size_160);
+    background: var(--sorter-line);
+}
+
+.axisH.start-bar::before {
+    inset-inline-start: 0;
+}
+
+.axisH.end-bar::after {
+    inset-inline-end: 0;
+}
+
+.axisV.start-arrow::before {
+    inset-block-start: 0;
+    inset-inline-start: 50%;
+    transform: translateX(-50%);
+    border-inline: 5px solid transparent;
+    border-block-end: 8px solid var(--sorter-line);
+}
+
+.axisV.end-arrow::after {
+    inset-block-end: 0;
+    inset-inline-start: 50%;
+    transform: translateX(-50%);
+    border-inline: 5px solid transparent;
+    border-block-start: 8px solid var(--sorter-line);
+}
+
+.axisV.start-bar::before,
+.axisV.end-bar::after {
+    inset-inline-start: 50%;
+    transform: translateX(-50%);
+    block-size: var(--wb-border-width-medium);
+    inline-size: var(--wb-sizing-size_160);
+    background: var(--sorter-line);
+}
+
+.axisV.start-bar::before {
+    inset-block-start: 0;
+}
+
+.axisV.end-bar::after {
+    inset-block-end: 0;
+}
+
+/* --- Staggered timeline (5+ blanks) -------------------------------- */
+
+.staggerLayout {
+    position: relative;
+}
+
+/* The axis runs through the middle of the two equal rows. */
+.staggerAxisArea {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-start: 50%;
+    transform: translateY(-50%);
+}
+
+.staggerStartLabel,
+.staggerEndLabel {
+    position: absolute;
+    inset-block-start: calc(50% + var(--wb-sizing-size_120));
+    font-family: var(--wb-font-family-sans);
+    font-size: var(--wb-font-body-size-medium);
+    font-weight: var(--wb-font-weight-semi);
+    color: var(--wb-semanticColor-core-foreground-neutral-strong);
+}
+
+.staggerStartLabel {
+    inset-inline-start: 0;
+}
+
+.staggerEndLabel {
+    inset-inline-end: 0;
+}
+
+.staggerEndLabelAbove {
+    inset-block-start: auto;
+    inset-block-end: calc(50% + var(--wb-sizing-size_120));
+}
+
+/* Hidden copy of every tile, kept only for width measurement. */
+.measurement {
+    position: absolute;
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    pointer-events: none;
+}
