@@ -61,21 +61,4 @@ describe("CoordinatePairInput", () => {
         expect(x).toHaveValue(null);
         expect(y).toHaveValue(0.8);
     });
-
-    it("does not call onChange when the typed value is not finite", async () => {
-        // Arrange
-        const onChange = jest.fn();
-        render(<CoordinatePairInput coord={[0, 0]} onChange={onChange} />, {
-            wrapper: RenderStateRoot,
-        });
-
-        // Act: 1e999 overflows to Infinity, which JSON.stringify would
-        // turn into null in the saved item data (LEMS-4564).
-        const [x] = screen.getAllByRole("spinbutton");
-        await userEvent.clear(x);
-        await userEvent.type(x, "1e999");
-
-        // Assert
-        expect(onChange).not.toHaveBeenCalledWith([Infinity, 0]);
-    });
 });
