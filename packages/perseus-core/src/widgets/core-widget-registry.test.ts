@@ -7,8 +7,8 @@ import * as CoreWidgetRegistry from "./core-widget-registry";
 import {
     getCurrentVersion,
     isWidgetRegistered,
+    registerLogic,
     registerLogics,
-    registerWidget,
     replaceLogic,
     traverseChildWidgets,
 } from "./core-widget-registry";
@@ -28,7 +28,7 @@ const mockWidgetType = "_test-mock-widget_";
 
 describe("core-widget-registry", () => {
     test.each(registryFnNames)(
-        "%s throws when called before registerWidget",
+        "%s throws when called before registration",
         (fnName) => {
             // eslint-disable-next-line no-restricted-syntax
             const fn = (CoreWidgetRegistry as any)[fnName];
@@ -235,7 +235,7 @@ describe("core-widget-registry", () => {
         } as unknown as PerseusWidget;
 
         beforeEach(() => {
-            registerWidget(mockWidgetType, {
+            registerLogic({
                 name: mockWidgetType,
                 traverseChildWidgets: realTraverseChildWidgets,
             });
