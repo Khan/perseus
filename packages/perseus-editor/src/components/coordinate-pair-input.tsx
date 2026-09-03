@@ -41,13 +41,7 @@ const CoordinatePairInput = (props: Props) => {
     const xLabel = labels ? labels[0] : "x coord";
     const yLabel = labels ? labels[1] : "y coord";
 
-    function handleCoordChange(newValue: string, coordIndex: number) {
-        // If the new value is not a number, don't update the props.
-        // If it's empty, keep the props the same value instead of setting to 0.
-        if (isNaN(+newValue) || newValue === "") {
-            return;
-        }
-
+    function handleCoordChange(newValue: number, coordIndex: number) {
         // Update the props (update the graph).
         const newCoords: Coord = [...coord];
         newCoords[coordIndex] = +newValue;
@@ -60,7 +54,7 @@ const CoordinatePairInput = (props: Props) => {
                 <span className={labelClassName}>{xLabel}</span>
 
                 <ScrolllessNumberTextField
-                    value={String(coord[0])}
+                    value={coord[0]}
                     disabled={disabled}
                     onChange={(newValue) => handleCoordChange(newValue, 0)}
                     style={[
@@ -74,7 +68,7 @@ const CoordinatePairInput = (props: Props) => {
                 <span className={labelClassName}>{yLabel}</span>
 
                 <ScrolllessNumberTextField
-                    value={String(coord[1])}
+                    value={coord[1]}
                     disabled={disabled}
                     onChange={(newValue) => handleCoordChange(newValue, 1)}
                     style={[

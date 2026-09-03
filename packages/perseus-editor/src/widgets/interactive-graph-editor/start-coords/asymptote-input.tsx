@@ -15,13 +15,8 @@ interface AsymptoteInputProps {
 const AsymptoteInput = (props: AsymptoteInputProps) => {
     const {axis, value, onChange} = props;
 
-    function handleChange(newValue: string) {
-        // Assume the user is still typing. Don't propagate until a valid number.
-        if (isNaN(+newValue) || newValue === "") {
-            return;
-        }
-
-        onChange(+newValue);
+    function handleChange(newValue: number) {
+        onChange(newValue);
     }
 
     return (
@@ -29,7 +24,7 @@ const AsymptoteInput = (props: AsymptoteInputProps) => {
             {`Asymptote ${axis} =`}
             <View className={styles["text-field-wrapper"]}>
                 <ScrolllessNumberTextField
-                    value={String(value)}
+                    value={value}
                     onChange={handleChange}
                 />
             </View>

@@ -26,17 +26,17 @@ interface StartCoordsCircleProps {
 const StartCoordsCircle = (props: StartCoordsCircleProps) => {
     const {startCoords, onChange, pointLabels, onChangePointLabels} = props;
 
-    function handleRadiusChange(newValue: string) {
+    function handleRadiusChange(newValue: number) {
         // Assume the user is in the middle of typing. Don't update
         // the props until they've finished typing a valid number.
-        if (isNaN(+newValue) || newValue === "" || +newValue === 0) {
+        if (newValue === 0) {
             return;
         }
 
         // Update the props (update the graph).
         onChange({
             center: startCoords.center,
-            radius: parseFloat(newValue),
+            radius: newValue,
         });
     }
 
@@ -68,7 +68,7 @@ const StartCoordsCircle = (props: StartCoordsCircleProps) => {
                 Radius:
                 <Strut size={spacing.small_12} />
                 <ScrolllessNumberTextField
-                    value={String(startCoords.radius)}
+                    value={startCoords.radius}
                     onChange={handleRadiusChange}
                     style={styles.textField}
                 />
