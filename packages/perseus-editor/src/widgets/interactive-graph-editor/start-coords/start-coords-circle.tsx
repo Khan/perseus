@@ -26,20 +26,7 @@ interface StartCoordsCircleProps {
 const StartCoordsCircle = (props: StartCoordsCircleProps) => {
     const {startCoords, onChange, pointLabels, onChangePointLabels} = props;
 
-    const [radiusState, setRadiusState] = React.useState(
-        startCoords.radius.toString(),
-    );
-
-    // Update the local state when the props change. (Specifically, when
-    // the radius is reset from the "Use default start coordinates" button.)
-    React.useEffect(() => {
-        setRadiusState(startCoords.radius.toString());
-    }, [startCoords.radius]);
-
     function handleRadiusChange(newValue: string) {
-        // Update the local state to update the input field.
-        setRadiusState(newValue);
-
         // Assume the user is in the middle of typing. Don't update
         // the props until they've finished typing a valid number.
         if (isNaN(+newValue) || newValue === "" || +newValue === 0) {
@@ -81,7 +68,7 @@ const StartCoordsCircle = (props: StartCoordsCircleProps) => {
                 Radius:
                 <Strut size={spacing.small_12} />
                 <ScrolllessNumberTextField
-                    value={radiusState}
+                    value={String(startCoords.radius)}
                     onChange={handleRadiusChange}
                     style={styles.textField}
                 />
