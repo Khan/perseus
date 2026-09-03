@@ -142,15 +142,28 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
         compact && styles.compact,
     );
 
-    // What the tile leads with, one branch per scoring state.
+    // What the tile leads with. The menu is the normal state; scoring
+    // replaces it with a result icon, or with nothing for an unused
+    // tile, which has no action to offer and no result to report.
     const renderTileStart = () => {
-        // An unused tile leads with nothing: it has no action to offer
-        // and no result to report.
         if (scoring === "unused") {
             return null;
         }
-        if (scoring == null) {
+        if (scoring != null) {
+            // The icon is decoration: the widget announces the result
+            // to screen readers, not the tile.
             return (
+                <div className={styles.startContainer}>
+                    <PhosphorIcon
+                        aria-hidden="true"
+                        icon={scoredIcons[scoring]}
+                        size="medium"
+                    />
+                </div>
+            );
+        }
+        return (
+            <div className={styles.startContainer}>
                 <DndActionMenu
                     ref={menuRef}
                     tileLabel={label}
@@ -160,19 +173,24 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
                     onClear={onClear}
                     remainingUses={remainingUses}
                 />
-            );
+            </div>
+        );
+    };
+
+    // The tile face: the authored markdown or, for an empty tile, a
+    // spoken value alone.
+    const renderTileContent = () => {
+        if (isEmpty) {
+            return <span className={a11yStyles.srOnly}>{label}</span>;
         }
-        // The icon is decoration: the widget announces the result to
-        // screen readers, not the tile.
         return (
-            <PhosphorIcon
-                aria-hidden="true"
-                icon={scoredIcons[scoring]}
-                size="medium"
+            <Renderer
+                content={content}
+                strings={strings}
+                onRender={onContentRender}
             />
         );
     };
-    const tileStart = renderTileStart();
 
     const imageHeightStyle: React.CSSProperties | undefined =
         imageHeight != null
@@ -188,21 +206,8 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
     // semantics belong to those containers, not the tile.
     return (
         <div className={tileClasses} style={imageHeightStyle} ref={dragRef}>
-            {tileStart != null && (
-                <div className={styles.startContainer}>{tileStart}</div>
-            )}
-            <div className={styles.content}>
-                {isEmpty ? (
-                    // An empty tile must have a spoken value.
-                    <span className={a11yStyles.srOnly}>{label}</span>
-                ) : (
-                    <Renderer
-                        content={content}
-                        strings={strings}
-                        onRender={onContentRender}
-                    />
-                )}
-            </div>
+            {renderTileStart()}
+            <div className={styles.content}>{renderTileContent()}</div>
         </div>
     );
 }
