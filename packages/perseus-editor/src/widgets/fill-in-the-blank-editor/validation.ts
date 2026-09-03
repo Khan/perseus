@@ -1,4 +1,4 @@
-import {parseBlankIds} from "@khanacademy/perseus";
+import {getWidgetIdsFromContentByType} from "@khanacademy/perseus-core";
 
 import type {FillInTheBlankEditorOptions, TileContentKind} from "./types";
 import type {FillInTheBlankTile} from "@khanacademy/perseus";
@@ -90,7 +90,7 @@ export function getFillInTheBlankSaveWarnings(
     const {content, widgets, tiles, tileUsage, maxUsesPerTile} = options;
     const warnings: string[] = [];
 
-    const blankIds = parseBlankIds(content, widgets);
+    const blankIds = getWidgetIdsFromContentByType("blank", content, widgets);
     const tileIds = new Set(tiles.map((tile) => tile?.id));
 
     // --- Structural ------------------------------------------------------

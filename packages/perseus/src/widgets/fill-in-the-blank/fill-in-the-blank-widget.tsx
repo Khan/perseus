@@ -1,9 +1,9 @@
 import * as React from "react";
 import {forwardRef, useImperativeHandle} from "react";
 
-import {FillInTheBlank} from "../../components/drag-and-drop/fill-in-the-blank";
+import {FillInTheBlank} from "../../components/drag-and-drop/fill-in-the-blank/fill-in-the-blank";
 
-import type {FillInTheBlankTile} from "../../components/drag-and-drop/fill-in-the-blank";
+import type {FillInTheBlankTile} from "../../components/drag-and-drop/fill-in-the-blank/fill-in-the-blank";
 import type {
     TilePlacements,
     TileUsage,

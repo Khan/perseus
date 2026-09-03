@@ -68,7 +68,7 @@ Choices                                 the radio editor's per-choice card
 | 5 | Insert-blank **does not use `Editor._addWidget`**. | So a new blank can start with `correctId: ""`, which the save warning looks for, rather than the generator's placeholder id. It sets `Editor`'s `lastUserValue` and `_pendingCursorPos` to keep the edit in the browser's undo stack and restore the cursor — the same contract `_addWidget` uses. |
 | 6 | Choice ids are `tile-N`, **one past the highest in use**, so deleting the last choice frees its number. | Safe *only* because deleting a choice clears every `correctId` naming it. The two must not be separated; a test pins the pairing. |
 | 7 | The choices list follows the **radio editor's per-choice card**, including its add-image flow. | Two widgets whose editors both present a list of authored choices should not look like different products. |
-| 8 | Blank numbering comes from the render component's **`parseBlankIds`**. | The editor must number blanks exactly as the learner meets them; one function means the two can never disagree. Note the labels are positional while widget keys are not — delete a marker mid-paragraph and "Blank 3" becomes "Blank 2" while the key stays `blank 3`. |
+| 8 | Blank numbering comes from **`getWidgetIdsFromContentByType`** in `perseus-core` — the same helper the render component uses. | The editor must number blanks exactly as the learner meets them; one shared helper means the two cannot disagree. Note the labels are positional while widget keys are not — delete a marker mid-paragraph and "Blank 3" becomes "Blank 2" while the key stays `blank 3`. |
 
 ## Image choices
 
@@ -242,14 +242,19 @@ for exactly that), not as questions blocking work:
 
 | File | Owner | Overlap |
 | --- | --- | --- |
-| `components/drag-and-drop/fill-in-the-blank/fill-in-the-blank.tsx` | render POC | Its private `parseBlankIds` was exported for the editor. Keep it shared — the editor must not grow a copy. |
-| `components/drag-and-drop/fill-in-the-blank/index.ts` | render POC | Re-exports; trivial but certain conflicts. |
 | `perseus/src/index.ts` | shared | A POC export block exists only because `perseus-editor` cannot deep-import (the package exposes `.` and `./strings` only). Delete it once both sides live here. |
+
 | `widgets/blank/blank.tsx` | render POC | They wired it to `FillInTheBlankContext`; we add its *editor*. No file overlap, but both must agree on what `correctId` means. |
 | `widgets/fill-in-the-blank/fill-in-the-blank-widget.tsx` + `index.ts` | **ours** | Already in its final folder. Becomes `fill-in-the-blank.tsx` when the render component migrates in. |
 | `perseus-linter/src/rules/all-rules.ts` | shared | One added import and one added entry for `fill-in-the-blank-widget-error`. |
 | `perseus-editor/src/components/segmented-control.tsx` | shared | Gained an `aria-labelledby` prop; it declared only `aria-label` and silently dropped anything else. |
 | `perseus-editor/src/editor.tsx` | shared | Gained the optional `widgetToolbar` prop (PR D). |
+
+The editor no longer touches any render-side file. It used to export a private
+`parseBlankIds` from the component; the render work has since moved to
+`getWidgetIdsFromContentByType` in `perseus-core`, which the editor calls
+directly — so the two sides share a helper rather than a symbol, and there is
+nothing left to conflict over.
 
 ## Corrections to the sibling notes
 

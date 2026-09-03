@@ -257,10 +257,7 @@ export type {UnsupportedWidgetPromptJSON} from "./widget-ai-utils/unsupported-wi
 // `perseus-editor` cannot deep-import from this package (only "." and
 // "./strings" are exported), so the Fill in the Blank editor POC and its
 // Storybook demo have no other way to reach the render component.
-export {
-    FillInTheBlank,
-    parseBlankIds,
-} from "./components/drag-and-drop/fill-in-the-blank";
+export {FillInTheBlank} from "./components/drag-and-drop/fill-in-the-blank/fill-in-the-blank";
 export {
     default as FillInTheBlankWidget,
     pocFillInTheBlankWidgetLogic,
@@ -272,7 +269,7 @@ export type {
 export type {
     FillInTheBlankProps,
     FillInTheBlankTile,
-} from "./components/drag-and-drop/fill-in-the-blank";
+} from "./components/drag-and-drop/fill-in-the-blank/fill-in-the-blank";
 export type {
     TilePlacements,
     TileUsage,
