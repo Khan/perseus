@@ -8,6 +8,7 @@
         "access": "public",
         "exports": {
             ".": "./dist/index.js",
+            "./init": "./dist/init.js",
             "./strings": "./dist/strings.js",
             "./styles.css": "./dist/index.css",
             "./testing": "./dist/testing.js"
@@ -24,6 +25,7 @@
     "type": "module",
     "exports": {
         ".": "./src/index.ts",
+        "./init": "./src/init.ts",
         "./strings": "./src/strings.ts",
         "./testing": "./src/testing.ts"
     },

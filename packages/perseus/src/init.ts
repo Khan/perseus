@@ -1,16 +1,11 @@
-import basicWidgets from "./basic-widgets";
-import extraWidgets from "./extra-widgets";
+import allWidgetRegistrations from "./all-widget-registrations";
 import * as Widgets from "./widgets";
 
-/**
- * This should be called by all clients, specifying whether extra widgets are
- * needed via `loadExtraWidgets`. It is idempotent, so it's not a problem to
- * call it multiple times.
- */
-const init = function () {
-    Widgets.registerWidgets(basicWidgets);
-    Widgets.registerWidgets(extraWidgets);
+/** Registers every production widget and its core logic. */
+export const initPerseus = () => {
+    Widgets.registerWidgets(allWidgetRegistrations);
     Widgets.replaceDeprecatedWidgets();
 };
 
-export default init;
+/** @deprecated Alias for initPerseus. */
+export default initPerseus;

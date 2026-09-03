@@ -79,6 +79,8 @@ export {libVersion} from "./version";
 
 export {Errors} from "./error/errors";
 export {PerseusError} from "./error/perseus-error";
+/** @hidden */
+export {setStrictRegistration, strictGet} from "./utils/strict-registry";
 
 export * from "./data-schema";
 

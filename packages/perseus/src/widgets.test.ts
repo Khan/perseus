@@ -1,10 +1,18 @@
-import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
+import {
+    CoreWidgetRegistry,
+    setStrictRegistration,
+} from "@khanacademy/perseus-core";
 
 import {
+    getTracking,
+    getWidget,
     getWidgetExport,
+    isLintable,
     registerWidget,
     registerWidgets,
     replaceDeprecatedWidgets,
+    supportsStaticMode,
+    supportsUngraded,
 } from "./widgets";
 import {deprecatedStandinRegistration} from "./widgets/deprecated-standin";
 import {MockWidget} from "./widgets/mock-widgets";
@@ -39,6 +47,55 @@ describe("registerWidgets", () => {
 
         expect(getWidgetExport("_test-widget_")).toBe(fakeWidget);
     });
+});
+
+describe("strict registration", () => {
+    const defaultingAccessors: ReadonlyArray<
+        [string, (type: string) => unknown, unknown]
+    > = [
+        [
+            "getWidget",
+            getWidget,
+            deprecatedStandinRegistration.widget.widget,
+        ],
+        [
+            "getWidgetExport",
+            getWidgetExport,
+            deprecatedStandinRegistration.widget,
+        ],
+        ["getTracking", getTracking, ""],
+        ["isLintable", isLintable, false],
+        ["supportsStaticMode", supportsStaticMode, false],
+        ["supportsUngraded", supportsUngraded, false],
+    ];
+
+    beforeEach(() => {
+        registerWidgets([fakeRegistration]);
+        setStrictRegistration(true);
+    });
+
+    afterEach(() => {
+        setStrictRegistration(false);
+    });
+
+    test.each(defaultingAccessors)(
+        "%s throws for a registered-but-missing type",
+        (_name, accessor) => {
+            expect(() => accessor("_missing_")).toThrow(
+                'Widget "_missing_" is not registered',
+            );
+        },
+    );
+
+    test.each(defaultingAccessors)(
+        "%s resolves a deprecated type mapped to the standin",
+        (_name, accessor, expected) => {
+            registerWidgets([deprecatedStandinRegistration]);
+            replaceDeprecatedWidgets();
+
+            expect(accessor("transformer")).toBe(expected);
+        },
+    );
 });
 
 describe("replaceDeprecatedWidgets", () => {

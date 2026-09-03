@@ -1,10 +1,58 @@
-import init from "../init";
-import {getWidget} from "../widgets";
+import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 
-describe("init", () => {
-    it("should correctly replace the transformer widget", async () => {
-        await init();
+import init, {initPerseus} from "@khanacademy/perseus/init";
+import {getEditor, getWidgetExport} from "../widgets";
 
-        expect(getWidget("transformer")).not.toBeNull();
+const productionWidgetNames = [
+    "blank",
+    "categorizer",
+    "cs-program",
+    "definition",
+    "deprecated-standin",
+    "dropdown",
+    "explanation",
+    "expression",
+    "free-response",
+    "graded-group",
+    "graded-group-set",
+    "grapher",
+    "group",
+    "iframe",
+    "image",
+    "input-number",
+    "interaction",
+    "interactive-graph",
+    "label-image",
+    "matcher",
+    "matrix",
+    "measurer",
+    "number-line",
+    "numeric-input",
+    "orderer",
+    "phet-simulation",
+    "plotter",
+    "python-program",
+    "radio",
+    "sorter",
+    "table",
+    "video",
+];
+
+describe("initPerseus", () => {
+    it("registers every production widget and its logic without editors", () => {
+        initPerseus();
+
+        for (const name of productionWidgetNames) {
+            expect(getWidgetExport(name)?.name).toBe(name);
+            expect(CoreWidgetRegistry.isWidgetRegistered(name)).toBe(true);
+            expect(() => getEditor(name)).toThrow(
+                "Perseus widget editor registry accessed before initialization!",
+            );
+        }
+        expect(getWidgetExport("transformer")?.name).toBe("deprecated-standin");
+    });
+
+    it("keeps init as an alias", () => {
+        expect(init).toBe(initPerseus);
     });
 });

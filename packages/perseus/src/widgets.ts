@@ -3,6 +3,7 @@ import {
     Errors,
     PerseusError,
     Registry,
+    strictGet,
 } from "@khanacademy/perseus-core";
 
 import {Log} from "./logging/log";
@@ -132,10 +133,18 @@ export const replaceDeprecatedEditors = () => {
     replaceEditor("molecule-renderer", "deprecated-standin");
 };
 
+function getWidgetStrictly(type: string): WidgetExports | undefined {
+    return strictGet(
+        widgets,
+        type,
+        `registerWidgets([...]) with the registration from the ${type} widget module`,
+    );
+}
+
 export const getWidget = (
     type: string,
 ): React.ComponentType<any> | null | undefined => {
-    const widget = widgets.get(type);
+    const widget = getWidgetStrictly(type);
 
     if (widget == null) {
         return null;
@@ -150,7 +159,7 @@ export const getWidget = (
 };
 
 export const getWidgetExport = (type: string): WidgetExports | null => {
-    return widgets.get(type) ?? null;
+    return getWidgetStrictly(type) ?? null;
 };
 
 export const getEditor = (type: string): Editor | null => {
@@ -186,7 +195,7 @@ export const getAllWidgetTypes = (): ReadonlyArray<string> => {
  * getCorrectUserInput function.
  */
 export const supportsStaticMode = (type: string): boolean | undefined => {
-    const widgetInfo = widgets.get(type);
+    const widgetInfo = getWidgetStrictly(type);
     return widgetInfo && widgetInfo.getCorrectUserInput != null;
 };
 
@@ -195,7 +204,7 @@ export const supportsStaticMode = (type: string): boolean | undefined => {
  * A widget opts in by setting supportsUngraded: true in its export object.
  */
 export const supportsUngraded = (type: string): boolean => {
-    const widgetInfo = widgets.get(type);
+    const widgetInfo = getWidgetStrictly(type);
     return widgetInfo?.supportsUngraded === true;
 };
 
@@ -205,7 +214,7 @@ export const supportsUngraded = (type: string): boolean => {
  * option is "all" which means to track all interactions.
  */
 export const getTracking = (type: string): Tracking => {
-    const widgetExport = widgets.get(type);
+    const widgetExport = getWidgetStrictly(type);
     return (widgetExport && widgetExport.tracking) || DEFAULT_TRACKING;
 };
 
@@ -214,6 +223,6 @@ export const getTracking = (type: string): Tracking => {
  * and supports a highlightLint prop, or false otherwise.
  */
 export const isLintable = (type: string): boolean => {
-    const widgetExports = widgets.get(type);
+    const widgetExports = getWidgetStrictly(type);
     return (widgetExports && widgetExports.isLintable) || DEFAULT_LINTABLE;
 };
