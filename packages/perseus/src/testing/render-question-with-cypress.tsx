@@ -50,7 +50,7 @@ const renderQuestion = (
     // onRender is also used to signal that rendering has completed.
     mount(
         <div className="framework-perseus">
-            <AssetContext.Provider value={{assetStatuses, setAssetStatus}}>
+            <AssetContext.Provider value={{setAssetStatus}}>
                 <RenderStateRoot>
                     <DependenciesContext.Provider value={cypressDependenciesV2}>
                         <MathInputI18nContextProvider
