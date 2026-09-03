@@ -2,4 +2,4 @@
 "@khanacademy/perseus-editor": patch
 ---
 
-Fix an interactive graph editor crash when editing a locked vector or line so that its two points momentarily coincide. Label positions no longer become invalid, coordinate fields render invalid saved values as empty highlighted fields instead of crashing the editor, and previously corrupted coordinates are repaired on the next edit.
+Fix an interactive graph editor crash when a locked vector or line is edited so that its two points momentarily overlap. Invalid label coordinates now display safely and are repaired on the next edit.
