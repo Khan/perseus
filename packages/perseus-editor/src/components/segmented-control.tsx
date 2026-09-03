@@ -61,6 +61,12 @@ interface SegmentedControlProps {
     onChange: (value: string) => void;
     disabled?: boolean;
     "aria-label"?: string;
+    /**
+     * Names the group from a visible label elsewhere on the page. Prefer this
+     * over `aria-label` when such a label exists, so the accessible name is
+     * the text the author actually reads rather than a copy that can drift.
+     */
+    "aria-labelledby"?: string;
 }
 
 /**
@@ -74,9 +80,15 @@ export function SegmentedControl({
     onChange,
     disabled = false,
     "aria-label": ariaLabel,
+    "aria-labelledby": ariaLabelledBy,
 }: SegmentedControlProps): React.ReactElement {
     return (
-        <View role="radiogroup" aria-label={ariaLabel} className={styles.group}>
+        <View
+            role="radiogroup"
+            aria-label={ariaLabel}
+            aria-labelledby={ariaLabelledBy}
+            className={styles.group}
+        >
             {options.map((option) => (
                 <ToggleButton
                     key={option.value}

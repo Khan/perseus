@@ -21,6 +21,15 @@ type Props = {
     apiOptions?: APIOptions;
     question?: PerseusRenderer;
     hints?: Hint[];
+    /**
+     * The Storybook story the preview iframe loads. Defaults to the shared
+     * one. Override it when the question uses a widget that story does not
+     * register — see `usePreviewUrl`.
+     *
+     * TODO(LEMS-4371): Added for the Fill in the Blank editor POC; drop it
+     * once that widget is registered globally.
+     */
+    previewStoryId?: string;
 };
 
 const testDependenciesV2: PerseusDependenciesV2 = {
@@ -61,7 +70,7 @@ function EditorPageWithStorybookPreview(props: Props) {
         isMobile: false,
     };
 
-    const storybookPreviewUrl = usePreviewUrl();
+    const storybookPreviewUrl = usePreviewUrl(props.previewStoryId);
 
     return (
         <View>

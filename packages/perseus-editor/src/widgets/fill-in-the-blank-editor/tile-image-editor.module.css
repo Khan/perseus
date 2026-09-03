@@ -1,0 +1,32 @@
+/* The image fields, stacked. Sits inside the choice card's image accordion,
+   whose own panel supplies the padding. */
+.image-editor {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_040);
+}
+
+.missing {
+    color: var(--wb-semanticColor-core-foreground-critical-default);
+}
+
+/* Height is a label beside its control, matching the image widget's
+   "Alignment" row. */
+.height-field {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--wb-sizing-size_080);
+    margin-block-start: var(--wb-sizing-size_080);
+}
+
+/* The spec's shape rules are guidance, not errors: the exercise still renders,
+   it just may scroll or read oddly. Warning rather than critical. */
+.shape-warning {
+    color: var(--wb-semanticColor-core-foreground-warning-default);
+}
+
+.delete-button {
+    align-self: flex-start !important;
+    margin-block-start: var(--wb-sizing-size_080);
+}

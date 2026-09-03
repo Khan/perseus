@@ -240,3 +240,26 @@ export type {OrdererPromptJSON} from "./widget-ai-utils/orderer/orderer-ai-utils
 export type {RadioPromptJSON} from "./widget-ai-utils/radio/radio-ai-utils";
 export type {SorterPromptJSON} from "./widget-ai-utils/sorter/sorter-ai-utils";
 export type {UnsupportedWidgetPromptJSON} from "./widget-ai-utils/unsupported-widget";
+
+// TODO(LEMS-4371): Delete this block once both the render component and the
+// widget live in `widgets/fill-in-the-blank/`. It exists only because
+// `perseus-editor` cannot deep-import from this package (only "." and
+// "./strings" are exported), so the Fill in the Blank editor POC and its
+// Storybook demo have no other way to reach the render component.
+export {FillInTheBlank} from "./components/drag-and-drop/fill-in-the-blank/fill-in-the-blank";
+export {
+    default as FillInTheBlankWidget,
+    pocFillInTheBlankWidgetLogic,
+} from "./widgets/fill-in-the-blank";
+export type {
+    PocFillInTheBlankWidgetOptions,
+    PocFillInTheBlankUserInput,
+} from "./widgets/fill-in-the-blank";
+export type {
+    FillInTheBlankProps,
+    FillInTheBlankTile,
+} from "./components/drag-and-drop/fill-in-the-blank/fill-in-the-blank";
+export type {
+    TilePlacements,
+    TileUsage,
+} from "./components/drag-and-drop/tile-placements";

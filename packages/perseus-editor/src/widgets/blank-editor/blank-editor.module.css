@@ -1,0 +1,23 @@
+/* The blank's settings sit on one line — display beside correct answer —
+   wrapping to two when the editor panel is narrow. Mirrors the radio editor's
+   `.status-row`. */
+.settings {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--wb-sizing-size_120);
+    /* `.perseus-widget-editor-content` is padded `0 size_100 size_100`, so the
+       panel has no top padding of its own and this row would otherwise sit
+       against the header's border. Matching the container's other three sides
+       insets the panel evenly. */
+    padding-block-start: var(--wb-sizing-size_100);
+}
+
+/* A label and the control it names, kept together as the row wraps. */
+.field {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--wb-sizing-size_080);
+}
