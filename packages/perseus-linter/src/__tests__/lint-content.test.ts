@@ -1,7 +1,9 @@
 import {
+    CoreWidgetRegistry,
     generateTestPerseusItem,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
+import radioLogic from "@khanacademy/perseus-core/widgets/radio";
 
 import {
     lintPerseusArticle,
@@ -93,6 +95,12 @@ describe("lintPerseusItem", () => {
 });
 
 describe("widget warnings", () => {
+    // Lint rules read the core widget registry, so the caller registers the
+    // logic it lints.
+    beforeEach(() => {
+        CoreWidgetRegistry.registerLogics([radioLogic]);
+    });
+
     it("returns radio-widget-error when no radio choice is marked correct", () => {
         const renderer = generateTestPerseusRenderer({
             content: "Pick one: [[☃ radio 1]]",
