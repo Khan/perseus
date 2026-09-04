@@ -1,7 +1,7 @@
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 
-import type {StyleType} from "@khanacademy/wonder-blocks-core/dist/util/types";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 interface Props {
     value: number;
