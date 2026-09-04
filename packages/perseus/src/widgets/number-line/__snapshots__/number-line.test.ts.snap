@@ -85,7 +85,7 @@ exports[`number-line widget snapshots can handle fractions: show fractions 1`] =
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   />
                   <rect
-                    fill="#000000"
+                    fill="none"
                     height="80"
                     opacity="0"
                     r="0"
@@ -265,7 +265,7 @@ exports[`number-line widget snapshots can handle fractions: show fractions 1`] =
                       <ellipse
                         cx="24"
                         cy="24"
-                        fill="#000000"
+                        fill="none"
                         opacity="0"
                         rx="24"
                         ry="24"
@@ -442,7 +442,7 @@ exports[`number-line widget snapshots default: first render 1`] = `
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   />
                   <rect
-                    fill="#000000"
+                    fill="none"
                     height="80"
                     opacity="0"
                     r="0"
@@ -629,7 +629,7 @@ exports[`number-line widget snapshots default: first render 1`] = `
                       <ellipse
                         cx="24"
                         cy="24"
-                        fill="#000000"
+                        fill="none"
                         opacity="0"
                         rx="24"
                         ry="24"
@@ -815,7 +815,7 @@ exports[`number-line widget snapshots endpoints are highlighted when labels are 
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   />
                   <rect
-                    fill="#000000"
+                    fill="none"
                     height="80"
                     opacity="0"
                     r="0"
@@ -1086,7 +1086,7 @@ exports[`number-line widget snapshots endpoints are highlighted when labels are 
                       <ellipse
                         cx="24"
                         cy="24"
-                        fill="#000000"
+                        fill="none"
                         opacity="0"
                         rx="24"
                         ry="24"
@@ -1380,7 +1380,7 @@ exports[`number-line widget snapshots endpoints are highlighted when labels are 
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   />
                   <rect
-                    fill="#000000"
+                    fill="none"
                     height="80"
                     opacity="0"
                     r="0"
@@ -1651,7 +1651,7 @@ exports[`number-line widget snapshots endpoints are highlighted when labels are 
                       <ellipse
                         cx="24"
                         cy="24"
-                        fill="#000000"
+                        fill="none"
                         opacity="0"
                         rx="24"
                         ry="24"
@@ -1945,7 +1945,7 @@ exports[`number-line widget snapshots labels are highlighted when part of the ti
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   />
                   <rect
-                    fill="#000000"
+                    fill="none"
                     height="80"
                     opacity="0"
                     r="0"
@@ -2146,7 +2146,7 @@ exports[`number-line widget snapshots labels are highlighted when part of the ti
                       <ellipse
                         cx="24"
                         cy="24"
-                        fill="#000000"
+                        fill="none"
                         opacity="0"
                         rx="24"
                         ry="24"
@@ -2350,7 +2350,7 @@ exports[`number-line widget snapshots labels are inserted when NOT part of the t
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   />
                   <rect
-                    fill="#000000"
+                    fill="none"
                     height="80"
                     opacity="0"
                     r="0"
@@ -2565,7 +2565,7 @@ exports[`number-line widget snapshots labels are inserted when NOT part of the t
                       <ellipse
                         cx="24"
                         cy="24"
-                        fill="#000000"
+                        fill="none"
                         opacity="0"
                         rx="24"
                         ry="24"
@@ -2792,7 +2792,7 @@ exports[`number-line widget snapshots mobile: first mobile render 1`] = `
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   />
                   <rect
-                    fill="#000000"
+                    fill="none"
                     height="80"
                     opacity="0"
                     r="0"
@@ -2979,7 +2979,7 @@ exports[`number-line widget snapshots mobile: first mobile render 1`] = `
                       <ellipse
                         cx="24"
                         cy="24"
-                        fill="#000000"
+                        fill="none"
                         opacity="0"
                         rx="24"
                         ry="24"
@@ -3165,7 +3165,7 @@ exports[`number-line widget snapshots only endpoints/labels show when "Show labe
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   />
                   <rect
-                    fill="#000000"
+                    fill="none"
                     height="80"
                     opacity="0"
                     r="0"
@@ -3436,7 +3436,7 @@ exports[`number-line widget snapshots only endpoints/labels show when "Show labe
                       <ellipse
                         cx="24"
                         cy="24"
-                        fill="#000000"
+                        fill="none"
                         opacity="0"
                         rx="24"
                         ry="24"
@@ -3559,7 +3559,7 @@ exports[`number-line widget snapshots only endpoints/labels show when "Show labe
                     style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                   />
                   <rect
-                    fill="#000000"
+                    fill="none"
                     height="80"
                     opacity="0"
                     r="0"
@@ -3830,7 +3830,7 @@ exports[`number-line widget snapshots only endpoints/labels show when "Show labe
                       <ellipse
                         cx="24"
                         cy="24"
-                        fill="#000000"
+                        fill="none"
                         opacity="0"
                         rx="24"
                         ry="24"

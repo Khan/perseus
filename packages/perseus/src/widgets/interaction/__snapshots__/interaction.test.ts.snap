@@ -703,7 +703,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                     <ellipse
                       cx="24"
                       cy="24"
-                      fill="#000000"
+                      fill="none"
                       opacity="0"
                       rx="24"
                       ry="24"
@@ -1027,7 +1027,7 @@ exports[`interaction widget should render 1`] = `
                     <ellipse
                       cx="24"
                       cy="24"
-                      fill="#000000"
+                      fill="none"
                       opacity="0"
                       rx="24"
                       ry="24"

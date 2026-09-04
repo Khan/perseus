@@ -290,7 +290,6 @@ export default function ButtonAsset({id}: Props): React.ReactNode {
                     <defs>
                         <clipPath id="clip0_874_41555">
                             <path
-                                fill="#fff"
                                 transform="translate(18.5 18.5)"
                                 d="M0 0h3v3H0z"
                             />
@@ -1659,7 +1658,6 @@ export default function ButtonAsset({id}: Props): React.ReactNode {
                     <defs>
                         <clipPath id="clip0_874_41680">
                             <path
-                                fill="#fff"
                                 transform="translate(20 19)"
                                 d="M0 0h12v2H0z"
                             />
@@ -1699,7 +1697,6 @@ export default function ButtonAsset({id}: Props): React.ReactNode {
                     <defs>
                         <clipPath id="clip0_874_41686">
                             <path
-                                fill="#fff"
                                 transform="translate(10 19)"
                                 d="M0 0h12v2H0z"
                             />
@@ -1746,7 +1743,6 @@ export default function ButtonAsset({id}: Props): React.ReactNode {
                     <defs>
                         <clipPath id="clip0_874_41692">
                             <path
-                                fill="#fff"
                                 transform="translate(8 19)"
                                 d="M0 0h12v2H0z"
                             />
