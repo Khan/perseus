@@ -20,15 +20,16 @@ export type {PreviewContent} from "./preview/message-types";
 
 import "./styles/perseus-editor.css";
 
-import {Widgets, widgets} from "@khanacademy/perseus";
+import {widgets} from "@khanacademy/perseus";
 import {initPerseus} from "@khanacademy/perseus/init";
 
 import AllEditors from "./all-editors";
+import {registerEditors, replaceDeprecatedEditors} from "./editor-registry";
 
 // Registers every widget's core logic and React component, plus the
 // deprecated-widget replacements.
 initPerseus();
-Widgets.registerEditors(AllEditors);
-Widgets.replaceDeprecatedEditors();
+registerEditors(AllEditors);
+replaceDeprecatedEditors();
 
 export {AllEditors, widgets};

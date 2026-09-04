@@ -68,6 +68,14 @@ export const getEditor = (type: string): Editor | null => {
 };
 
 /**
+ * Whether `type` has an editor, tolerating a miss even under strict
+ * registration. Content can name widget types this build doesn't know.
+ */
+export const isEditorRegistered = (type: string): boolean => {
+    return editors.has(type);
+};
+
+/**
  * Empty the editor registry.
  *
  * Package-internal: tests and Storybook use it to isolate registrations.

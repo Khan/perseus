@@ -18,6 +18,7 @@ import _ from "underscore";
 import DragTarget from "./components/drag-target";
 import WidgetEditor from "./components/widget-editor";
 import WidgetSelect from "./components/widget-select";
+import {getEditor, isEditorRegistered} from "./editor-registry";
 import {
     getPerseusClipboardData,
     setPerseusClipboardData,
@@ -263,7 +264,7 @@ class Editor extends React.Component<Props, State> {
         id: string,
         type: PerseusWidget["type"],
     ): undefined | React.ReactNode {
-        if (!Widgets.getEditor(type)) {
+        if (!isEditorRegistered(type)) {
             return;
         }
         return (
@@ -658,7 +659,7 @@ class Editor extends React.Component<Props, State> {
         const newContent = newPrelude + widgetContent + newPostlude;
 
         const newWidgets = {...this.props.widgets};
-        const widgetEditor = Widgets.getEditor(widgetType);
+        const widgetEditor = getEditor(widgetType);
         const initializeWidgetOptionsParams: InitializeWidgetOptionsParams = {
             selectedText,
         };

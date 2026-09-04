@@ -2,6 +2,7 @@ import {setStrictRegistration} from "@khanacademy/perseus-core";
 
 import {
     getEditor,
+    isEditorRegistered,
     registerEditors,
     replaceDeprecatedEditors,
     replaceEditor,
@@ -55,6 +56,16 @@ describe("editor registry", () => {
         ).toThrowErrorMatchingInlineSnapshot(
             `"Failed to replace editor transformer with deprecated-standin"`,
         );
+    });
+
+    it("reports an unregistered type as unregistered under strict registration", () => {
+        // Arrange
+        registerEditors({radio: radioEditor});
+        setStrictRegistration(true);
+
+        // Act, Assert
+        expect(isEditorRegistered("plotter")).toBe(false);
+        expect(isEditorRegistered("radio")).toBe(true);
     });
 
     it("throws on a read after reset, as before any registration", () => {
