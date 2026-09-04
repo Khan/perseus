@@ -190,7 +190,6 @@ describe("generateNumericInputWidget", () => {
             coefficient: false,
             labelText: "",
             textAlign: "left",
-            static: false,
         });
     });
 
