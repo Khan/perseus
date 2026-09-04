@@ -17,6 +17,7 @@ import * as React from "react";
 
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
 import {TypedSingleSelect} from "../../../components/typed-single-select";
+import {midpoint} from "../../../util/midpoint";
 
 import ColorSelect from "./color-select";
 import LineStrokeSelect, {lineStrokeStyleOptions} from "./line-stroke-select";
@@ -149,11 +150,8 @@ const LockedLineSettings = (props: Props) => {
 
         // Update labels to be centered between the two points,
         // retaining existing offset.
-        const oldMidpoint = vec.midpoint(points[0].coord, points[1].coord);
-        const newMidpoint = vec.midpoint(
-            newPoints[0].coord,
-            newPoints[1].coord,
-        );
+        const oldMidpoint = midpoint(points[0].coord, points[1].coord);
+        const newMidpoint = midpoint(newPoints[0].coord, newPoints[1].coord);
         const offset: Coord = [
             newMidpoint[0] - oldMidpoint[0],
             newMidpoint[1] - oldMidpoint[1],
@@ -351,7 +349,7 @@ const LockedLineSettings = (props: Props) => {
                     const offsetPerLabel: vec.Vector2 = [0, -1];
                     const labelLocation = vec.add(
                         vec.scale(offsetPerLabel, labels.length),
-                        vec.midpoint(points[0].coord, points[1].coord),
+                        midpoint(points[0].coord, points[1].coord),
                     );
 
                     const newLabel = {
