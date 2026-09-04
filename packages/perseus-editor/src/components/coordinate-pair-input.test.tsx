@@ -5,7 +5,6 @@ import * as React from "react";
 
 import CoordinatePairInput from "./coordinate-pair-input";
 
-import type {Coord} from "@khanacademy/perseus";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("CoordinatePairInput", () => {
@@ -42,42 +41,5 @@ describe("CoordinatePairInput", () => {
 
         // Assert
         expect(onChange).toHaveBeenLastCalledWith([3, 0]);
-    });
-
-    it("renders an empty field instead of crashing when a coordinate is null", () => {
-        // Corrupted saved item data can carry null coordinate values.
-        // eslint-disable-next-line no-restricted-syntax
-        const corruptedCoord = [null, 0.8] as unknown as Coord;
-
-        // Arrange, Act
-        render(
-            <CoordinatePairInput coord={corruptedCoord} onChange={() => {}} />,
-            {wrapper: RenderStateRoot},
-        );
-
-        // Assert
-        const [x, y] = screen.getAllByRole("spinbutton");
-        expect(x).toHaveValue(null);
-        expect(y).toHaveValue(0.8);
-    });
-
-    it("repairs a corrupted sibling coordinate when the other field is edited", async () => {
-        // Arrange: x is corrupted (null), as in corrupted saved items.
-        const onChange = jest.fn();
-        // eslint-disable-next-line no-restricted-syntax
-        const corruptedCoord = [null, 0.8] as unknown as Coord;
-        render(
-            <CoordinatePairInput coord={corruptedCoord} onChange={onChange} />,
-            {wrapper: RenderStateRoot},
-        );
-
-        // Act: edit only the y field.
-        const [, y] = screen.getAllByRole("spinbutton");
-        await userEvent.clear(y);
-        await userEvent.type(y, "3");
-
-        // Assert: the corrupted x is repaired to 0 instead of being
-        // written back as null.
-        expect(onChange).toHaveBeenLastCalledWith([0, 3]);
     });
 });

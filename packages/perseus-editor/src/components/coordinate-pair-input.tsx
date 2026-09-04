@@ -27,13 +27,6 @@ const errorFieldStyle: StyleType = {
     backgroundColor: semanticColor.core.background.critical.subtle,
 };
 
-// Corrupted item data can contain null or non-finite coordinates despite
-// what the types promise, so render those as an empty field instead of
-// crashing on toString.
-function coordValueToString(value: number | null | undefined): string {
-    return Number.isFinite(value) ? String(value) : "";
-}
-
 const CoordinatePairInput = (props: Props) => {
     const {
         coord,
@@ -52,17 +45,14 @@ const CoordinatePairInput = (props: Props) => {
     // before they are updated in the props as a valid number.
     const [coordState, setCoordState] = React.useState([
         // Using strings to make it easier to work with the text fields.
-        coordValueToString(coord[0]),
-        coordValueToString(coord[1]),
+        coord[0].toString(),
+        coord[1].toString(),
     ]);
 
     // Update the local state when the props change. (Such as when the graph
     // type is changed, and the coordinates are reset.)
     React.useEffect(() => {
-        setCoordState([
-            coordValueToString(coord[0]),
-            coordValueToString(coord[1]),
-        ]);
+        setCoordState([coord[0].toString(), coord[1].toString()]);
     }, [coord]);
 
     function handleCoordChange(newValue, coordIndex) {
@@ -71,26 +61,17 @@ const CoordinatePairInput = (props: Props) => {
         newCoordState[coordIndex] = newValue;
         setCoordState(newCoordState);
 
-        // Only commit finite numbers; an empty field keeps the previous
-        // value. Infinity passes isNaN but becomes null when the item is
-        // serialized to JSON, so it must be rejected here too.
-        if (!Number.isFinite(+newValue) || newValue === "") {
+        // If the new value is not a number, don't update the props.
+        // If it's empty, keep the props the same value instead of setting to 0.
+        if (isNaN(+newValue) || newValue === "") {
             return;
         }
 
-        // Update the props (update the graph). If the other coordinate is
-        // corrupted, repair it to 0 rather than writing it back.
-        const siblingIndex = coordIndex === 0 ? 1 : 0;
+        // Update the props (update the graph).
         const newCoords = [...coord] satisfies [number, number];
         newCoords[coordIndex] = +newValue;
-        if (!Number.isFinite(newCoords[siblingIndex])) {
-            newCoords[siblingIndex] = 0;
-        }
         onChange(newCoords);
     }
-
-    const hasInvalidCoord = !coord.every(Number.isFinite);
-    const showError = error || hasInvalidCoord;
 
     return (
         <View className={styles.container} style={style}>
@@ -103,7 +84,7 @@ const CoordinatePairInput = (props: Props) => {
                     onChange={(newValue) => handleCoordChange(newValue, 0)}
                     style={[
                         textFieldStyle,
-                        showError ? errorFieldStyle : undefined,
+                        error ? errorFieldStyle : undefined,
                     ]}
                 />
             </BodyText>
@@ -117,7 +98,7 @@ const CoordinatePairInput = (props: Props) => {
                     onChange={(newValue) => handleCoordChange(newValue, 1)}
                     style={[
                         textFieldStyle,
-                        showError ? errorFieldStyle : undefined,
+                        error ? errorFieldStyle : undefined,
                     ]}
                 />
             </BodyText>
