@@ -1,10 +1,16 @@
 import {applyDefaultsToWidgets} from "../widgets/apply-defaults";
 import {registerCoreWidgets} from "../widgets/core-widget-registry";
 
+import {generateBlankWidget} from "./generators/blank-widget-generator";
 import {
     generateExplanationOptions,
     generateExplanationWidget,
 } from "./generators/explanation-widget-generator";
+import {
+    generateAnswerTile,
+    generateFillInTheBlankOptions,
+    generateFillInTheBlankWidget,
+} from "./generators/fill-in-the-blank-widget-generator";
 import splitPerseusRenderer from "./split-perseus-renderer";
 
 import type {PerseusRenderer, RadioWidget} from "../data-schema";
@@ -357,6 +363,51 @@ describe("splitPerseusRenderer", () => {
 
         // Assert
         expect(rv).toEqual(expected);
+    });
+
+    it("strips the blanks nested in a FillInTheBlank widget", () => {
+        // Fill in the Blank keeps its answers one level down, on the blanks
+        // embedded in its content. splitPerseusRenderer does not recurse on
+        // its own, so this only passes while the widget registers a
+        // getPublicWidgetOptions of its own.
+        // Arrange
+        const question: PerseusRenderer = {
+            content: "[[\u2603 fill-in-the-blank 1]]",
+            images: {},
+            widgets: {
+                "fill-in-the-blank 1": generateFillInTheBlankWidget({
+                    options: generateFillInTheBlankOptions({
+                        content: "The [[\u2603 blank 1]] drum is a tall drum.",
+                        widgets: {
+                            "blank 1": generateBlankWidget({
+                                options: {
+                                    displayType: "normal",
+                                    correctId: "tile-1",
+                                },
+                            }),
+                        },
+                        tiles: [
+                            generateAnswerTile({
+                                id: "tile-1",
+                                content: "djembe",
+                                label: "djembe",
+                            }),
+                        ],
+                    }),
+                }),
+            },
+        };
+
+        // Act
+        const rv = splitPerseusRenderer(question);
+
+        // Assert
+        const blank =
+            rv.widgets["fill-in-the-blank 1"].options.widgets["blank 1"];
+        expect(blank.options).toEqual({displayType: "normal"});
+        expect(rv.widgets["fill-in-the-blank 1"].options.tiles).toEqual([
+            {id: "tile-1", content: "djembe", label: "djembe"},
+        ]);
     });
 
     it("handles multiple widgets", () => {
