@@ -1,4 +1,4 @@
-import {ApiOptions, Dependencies, Widgets} from "@khanacademy/perseus";
+import {ApiOptions, Dependencies} from "@khanacademy/perseus";
 import {
     generateAnswerTile,
     generateFillInTheBlankOptions,
@@ -6,6 +6,7 @@ import {
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
+import {getEditor} from "../../editor-registry";
 import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {testDependencies} from "../../testing/test-dependencies";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
@@ -83,7 +84,7 @@ describe("fill-in-the-blank-editor", () => {
 
     it("is registered as the editor for the fill-in-the-blank widget", () => {
         // Arrange, Act
-        const editor = Widgets.getEditor("fill-in-the-blank");
+        const editor = getEditor("fill-in-the-blank");
 
         expect(editor).not.toBeNull();
     });

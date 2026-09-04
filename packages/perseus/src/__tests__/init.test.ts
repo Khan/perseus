@@ -1,7 +1,7 @@
 import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 
 import {initPerseus} from "../init";
-import {getEditor, getWidgetExport} from "../widgets";
+import {getWidgetExport} from "../widgets";
 
 const productionWidgetNames = [
     "blank",
@@ -40,15 +40,12 @@ const productionWidgetNames = [
 ];
 
 describe("initPerseus", () => {
-    it("registers every production widget and its logic without editors", () => {
+    it("registers every production widget and its logic", () => {
         initPerseus();
 
         for (const name of productionWidgetNames) {
             expect(getWidgetExport(name)?.name).toBe(name);
             expect(CoreWidgetRegistry.isWidgetRegistered(name)).toBe(true);
-            expect(() => getEditor(name)).toThrow(
-                "Perseus widget editor registry accessed before initialization!",
-            );
         }
         expect(getWidgetExport("transformer")?.name).toBe("deprecated-standin");
     });

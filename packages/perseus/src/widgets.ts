@@ -6,8 +6,6 @@ import {
     strictGet,
 } from "@khanacademy/perseus-core";
 
-import {Log} from "./logging/log";
-
 import type {Tracking, WidgetExports} from "./types";
 import type {WidgetRegistration} from "./widget-registration";
 import type * as React from "react";
@@ -15,10 +13,7 @@ import type * as React from "react";
 const DEFAULT_TRACKING = "";
 const DEFAULT_LINTABLE = false;
 
-type Editor = any;
-
 const widgets = new Registry<WidgetExports>("Perseus widget registry");
-const editors = new Registry<any>("Perseus widget editor registry");
 
 // Widgets must be registered to avoid circular dependencies with the
 // core Editor and Renderer components.
@@ -87,52 +82,6 @@ export const replaceDeprecatedWidgets = () => {
     CoreWidgetRegistry.replaceDeprecatedLogics();
 };
 
-/**
- * Register widget editors, keyed by the type of widget each one edits.
- *
- * The keys are widget types as they appear in Perseus content (eg. `radio`),
- * which is what `getEditor` looks up when the editor page renders a widget.
- */
-export const registerEditors = (editorsToRegister: Record<string, Editor>) => {
-    Object.entries(editorsToRegister).forEach(([widgetType, editor]) => {
-        editors.set(widgetType, editor);
-    });
-};
-
-/**
- *
- * @param type - the widget that you are trying to replace
- * @param replacementType - the type of the widget that takes its place
- *
- * e.g. replaceEditor("transformer", "deprecated-standin") will make it so the
- * transformer widget is replaced by the deprecated stand-in widget
- */
-export const replaceEditor = (type: string, replacementType: string) => {
-    const substituteEditor = editors.get(replacementType);
-
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (!substituteEditor && Log) {
-        const errorMsg = `Failed to replace editor ${type} with ${replacementType}`;
-        Log.error(errorMsg, Errors.Internal);
-        return;
-    }
-
-    editors.replace(type, substituteEditor);
-};
-
-export const replaceDeprecatedEditors = () => {
-    replaceEditor("transformer", "deprecated-standin");
-    replaceEditor("lights-puzzle", "deprecated-standin");
-    replaceEditor("reaction-diagram", "deprecated-standin");
-    replaceEditor("sequence", "deprecated-standin");
-    replaceEditor("simulator", "deprecated-standin");
-    replaceEditor("unit-input", "deprecated-standin");
-    replaceEditor("passage", "deprecated-standin");
-    replaceEditor("passage-ref", "deprecated-standin");
-    replaceEditor("passage-ref-target", "deprecated-standin");
-    replaceEditor("molecule-renderer", "deprecated-standin");
-};
-
 function getWidgetStrictly(type: string): WidgetExports | undefined {
     return strictGet(
         widgets,
@@ -160,10 +109,6 @@ export const getWidget = (
 
 export const getWidgetExport = (type: string): WidgetExports | null => {
     return getWidgetStrictly(type) ?? null;
-};
-
-export const getEditor = (type: string): Editor | null => {
-    return editors.get(type) ?? null;
 };
 
 export const getPublicWidgets = (): Record<string, WidgetExports> => {

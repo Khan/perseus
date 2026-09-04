@@ -1,7 +1,6 @@
 import {
     SORTER_MAX_HORIZONTAL_CARDS,
     SORTER_MAX_CARDS,
-    type PerseusSorterWidgetOptions,
 } from "@khanacademy/perseus-core";
 import sorterLogic from "@khanacademy/perseus-core/widgets/sorter";
 import Banner from "@khanacademy/wonder-blocks-banner";
@@ -17,6 +16,8 @@ import {TypedSingleSelect} from "../../components/typed-single-select";
 
 import CardEditor from "./card-editor";
 import styles from "./sorter-editor.module.css";
+
+import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
 
 // There's nothing to sort with fewer than two cards.
 const minCards = 2;
