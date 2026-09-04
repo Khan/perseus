@@ -1,0 +1,98 @@
+/* The sizes are minimums, not fixed: an empty blank shows a 65x48 slot,
+   and a filled blank grows to hug the placed tile (per the FITB spec).
+   The tile keeps its natural one-line width this way — text must not
+   wrap and TeX cannot, so the blank stretches instead of overflowing. */
+.container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    /* Center the slot on the text line; inline-flex defaults to
+     * baseline. */
+    vertical-align: middle;
+    min-width: var(--blank-min-inline-size, 65px);
+    min-height: 48px;
+    padding: var(--wb-sizing-size_0);
+    /* Breathing room between the slot and the surrounding text, per
+     * the reference frames. Sub/superscript slots use the authored TeX
+     * spacing instead. */
+    margin-inline: var(--wb-sizing-size_040);
+
+    border-radius: var(--wb-border-radius-radius_040);
+    border: var(--wb-border-width-thin) dashed
+        var(--wb-semanticColor-core-border-neutral-default);
+    background: var(--wb-semanticColor-core-background-base-subtle);
+
+    transition: min-width 150ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .container {
+        transition: none;
+    }
+}
+
+.container.superSub {
+    min-width: 26px;
+    min-height: 28px;
+    margin-inline: 0;
+}
+
+/* Offsets place the slot clearly above or below the baseline. The
+ * sub and super keywords only move it ~0.2em. */
+.container.superscript {
+    vertical-align: 0.5em;
+}
+
+.container.subscript {
+    vertical-align: -0.7em;
+}
+
+/* A filled sub/superscript blank returns to the normal inline
+ * position while its tile is hovered or focused, so the restored
+ * full-size tile fits the 48px line. Empty slots keep their
+ * position. */
+.container.superSub.filled:hover,
+.container.superSub.filled:focus-within {
+    vertical-align: middle;
+}
+
+/* A filled blank shows only its tile: no slot chrome, no minimum size
+   (the Figma Answer Blank component has only a Rest variant, and placed
+   tiles render bare in the reference frames). */
+.container.filled {
+    min-width: 0;
+    min-height: 0;
+    border: none;
+    background: transparent;
+}
+
+/* A filled blank that keeps its empty width, so the line does not
+ * reflow on fill or hover. */
+.container.filled.keepsWidth {
+    min-width: var(--blank-min-inline-size, 65px);
+}
+
+/* Drag-enter highlight. An outline adds no layout size, so the line
+ * does not jump while a tile drags over. */
+.container.dropTarget {
+    border-color: transparent;
+    outline: var(--wb-border-width-medium) dashed
+        var(--wb-semanticColor-core-border-instructive-default);
+    outline-offset: calc(-1 * var(--wb-border-width-medium));
+    border-radius: var(--wb-border-radius-radius_080);
+    background: var(--wb-semanticColor-core-background-instructive-subtle);
+}
+
+/* Narrow mode: the blank fills the line. The named container only
+   exists inside FITB's answer zone, so other widgets are unaffected. */
+@container fitb-answer-zone (width < 504px) {
+    .container:not(.superSub) {
+        display: flex;
+        /* Sized against the answer zone, not the renderer's
+         * shrink-to-fit widget wrapper, which would collapse it. */
+        inline-size: 100cqi;
+        justify-content: flex-start;
+        margin-inline: 0;
+    }
+}

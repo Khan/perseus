@@ -66,6 +66,66 @@
     box-shadow: none;
 }
 
+.draggable {
+    cursor: grab;
+}
+
+.draggable:hover,
+.dragging {
+    box-shadow: 0 4px 8px var(--wb-semanticColor-core-shadow-transparent-low);
+}
+
+.dragging {
+    border-radius: var(--wb-border-radius-radius_120);
+    cursor: grabbing;
+}
+
+/* A placed tile hugs its value and hides its menu. Hover or focus
+ * shows the menu, and the tile grows. */
+.hidesMenuAtRest:not(:hover):not(:focus-within) {
+    min-inline-size: 0;
+}
+
+.hidesMenuAtRest:not(:hover):not(:focus-within) .startContainer {
+    min-inline-size: 0;
+    inline-size: 0;
+    margin-inline-end: 0;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.hidesMenuAtRest:not(:hover):not(:focus-within) .content {
+    padding-inline-end: 0;
+}
+
+/* A tile that fills its blank, content at the start. The menu stays
+ * visible (there is no .hidesMenuAtRest collapse). */
+.fillsBlank {
+    flex-grow: 1;
+    inline-size: 100%;
+    block-size: 100%;
+}
+
+.fillsBlank .content {
+    justify-content: flex-start;
+}
+
+/* A tile in a sub/superscript blank rests as a small value chip.
+ * Hover or focus restores the full size, which makes room for the
+ * menu. These rules must come after the .hidesMenuAtRest rules. */
+.compact:not(:hover):not(:focus-within) {
+    min-block-size: 28px;
+    min-inline-size: 26px;
+    padding-block: var(--wb-sizing-size_020);
+    padding-inline: var(--wb-sizing-size_040);
+    font-size: 12px;
+    line-height: var(--wb-sizing-size_160);
+}
+
+.compact:not(:hover):not(:focus-within) .content {
+    padding-inline-end: var(--wb-sizing-size_020);
+}
+
 /* The box at the start of the tile. It holds the actions menu or the
  * scored icon, and it owns the 6px gap before the content. */
 .startContainer {
@@ -95,6 +155,17 @@
 .content img {
     block-size: var(--answer-tile-image-height, auto);
     max-inline-size: 100%;
+}
+
+/* Narrow mode: a placed tile fills its blank, content at the start. */
+@container fitb-answer-zone (width < 504px) {
+    .hidesMenuAtRest {
+        flex-grow: 1;
+    }
+
+    .hidesMenuAtRest .content {
+        justify-content: flex-start;
+    }
 }
 
 /* The renderer puts content in .paragraph divs, and Perseus gives
