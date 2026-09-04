@@ -2,8 +2,6 @@
  * Main entry point
  */
 
-export {default as init} from "./init";
-
 export {ApiOptions} from "./perseus-api";
 /** @hidden */
 export {ClassNames} from "./perseus-api";

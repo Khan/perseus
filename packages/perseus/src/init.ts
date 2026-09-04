@@ -6,6 +6,3 @@ export const initPerseus = () => {
     Widgets.registerWidgets(allWidgetRegistrations);
     Widgets.replaceDeprecatedWidgets();
 };
-
-/** @deprecated Alias for initPerseus. */
-export default initPerseus;

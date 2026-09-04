@@ -1,4 +1,5 @@
 import * as Perseus from "../../index";
+import {initPerseus} from "../../init";
 import renderQuestionWithCypress from "../../testing/render-question-with-cypress";
 import {cypressTestDependencies} from "../../testing/test-dependencies";
 import {scorePerseusItemTesting} from "../../util/test-utils";
@@ -89,7 +90,7 @@ function dragCardBelowTheNextOne(index: number): void {
 
 describe("Sorter widget", () => {
     beforeEach(() => {
-        Perseus.init();
+        initPerseus();
         Perseus.Dependencies.setDependencies(cypressTestDependencies);
     });
 

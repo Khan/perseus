@@ -1,5 +1,5 @@
 import * as Dependencies from "../../dependencies";
-import * as Perseus from "../../index";
+import {initPerseus} from "../../init";
 import renderQuestion from "../../testing/render-question-with-cypress";
 import {cypressTestDependencies} from "../../testing/test-dependencies";
 
@@ -16,7 +16,7 @@ describe("Explanation Widget", () => {
 
     beforeEach(() => {
         Dependencies.setDependencies(cypressTestDependencies);
-        Perseus.init();
+        initPerseus();
     });
 
     it("prevents interacting with actionable items within content when COLLAPSED (initial state)", () => {

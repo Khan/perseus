@@ -1,6 +1,6 @@
 import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 
-import init, {initPerseus} from "../init";
+import {initPerseus} from "../init";
 import {getEditor, getWidgetExport} from "../widgets";
 
 const productionWidgetNames = [
@@ -51,9 +51,5 @@ describe("initPerseus", () => {
             );
         }
         expect(getWidgetExport("transformer")?.name).toBe("deprecated-standin");
-    });
-
-    it("keeps init as an alias", () => {
-        expect(init).toBe(initPerseus);
     });
 });
