@@ -54,8 +54,40 @@ describe("ScrolllessNumberTextField", () => {
         expect(onChange).not.toHaveBeenCalled();
     });
 
-    // TODO-NEXT: add tests showing that the displayed input value is empty
-    //  ("") when `value={NaN}` or `value={Infinity}`.
+    test("Should not call the onChange callback when the field is cleared", async () => {
+        // Arrange
+        const onChange = jest.fn();
+        render(<ScrolllessNumberTextField value={42} onChange={onChange} />);
+        const input = screen.getByRole("spinbutton");
+
+        // Act
+        await userEvent.clear(input);
+
+        // Assert
+        expect(onChange).not.toHaveBeenCalled();
+    });
+
+    test("displays an empty input value when value is NaN", () => {
+        // Arrange, Act
+        render(<ScrolllessNumberTextField value={NaN} onChange={() => {}} />);
+
+        const input = screen.getByRole("spinbutton");
+
+        // Assert
+        expect(input).toHaveValue(null);
+    });
+
+    test("displays an empty input value when value is Infinity", () => {
+        // Arrange, Act
+        render(
+            <ScrolllessNumberTextField value={Infinity} onChange={() => {}} />,
+        );
+
+        const input = screen.getByRole("spinbutton");
+
+        // Assert
+        expect(input).toHaveValue(null);
+    });
 
     test("calls onFocus on focus", async () => {
         // Arrange
