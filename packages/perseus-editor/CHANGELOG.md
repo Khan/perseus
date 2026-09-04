@@ -1,5 +1,14 @@
 # @khanacademy/perseus-editor
 
+## 40.0.4
+
+### Patch Changes
+
+-   [#4182](https://github.com/Khan/perseus/pull/4182) [`a662363`](https://github.com/Khan/perseus/commit/a662363657d468018de72ea8881720d34474276e) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Refactor editor components to remove unnecessary state and de-duplicate validation.
+
+-   Updated dependencies [[`a662363`](https://github.com/Khan/perseus/commit/a662363657d468018de72ea8881720d34474276e)]:
+    -   @khanacademy/perseus@87.1.1
+
 ## 40.0.3
 
 ### Patch Changes
