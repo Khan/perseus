@@ -54,6 +54,9 @@ describe("ScrolllessNumberTextField", () => {
         expect(onChange).not.toHaveBeenCalled();
     });
 
+    // TODO-NEXT: add tests showing that the displayed input value is empty
+    //  ("") when `value={NaN}` or `value={Infinity}`.
+
     test("calls onFocus on focus", async () => {
         // Arrange
         const onFocus = jest.fn();
