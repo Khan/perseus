@@ -1,20 +1,13 @@
+import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import Tooltip, {TooltipContent} from "@khanacademy/wonder-blocks-tooltip";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
+import dotOutlineIcon from "@phosphor-icons/core/fill/dot-outline-fill.svg";
+import warningCircleIcon from "@phosphor-icons/core/fill/warning-circle-fill.svg";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import * as constants from "../styles/constants";
-
-import InlineIcon from "./inline-icon";
-
 import type {CSSProperties} from "aphrodite";
-
-const exclamationIcon = {
-    path: "M6 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm0-9a1 1 0 0 1 1 1v4a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1z",
-    height: 12,
-    width: 12,
-} as const;
 
 enum Severity {
     Error = 1,
@@ -81,19 +74,15 @@ function Lint({
     // tooltip that describes the lint. We pass different styles for the
     // inline and block cases.
     const renderLink = (style: CSSProperties): React.ReactElement => {
-        let indicatorSeverityStyle;
         let severityLabel;
         let severityLabelStyle;
         if (severity === Severity.Error) {
-            indicatorSeverityStyle = styles.indicatorError;
             severityLabel = "Error";
             severityLabelStyle = styles.publishBlockingError;
         } else if (severity === Severity.Warning) {
-            indicatorSeverityStyle = styles.indicatorWarning;
             severityLabel = "Warning";
             severityLabelStyle = styles.warning;
         } else {
-            indicatorSeverityStyle = styles.indicatorGuideline;
             severityLabel = "Recommendation";
             severityLabelStyle = styles.warning;
         }
@@ -120,23 +109,19 @@ function Lint({
                     </TooltipContent>
                 }
             >
-                <a
-                    href={`https://khanacademy.org/r/linter-rules#${ruleName}`}
-                    target="lint-help-window"
+                <IconButton
+                    size="small"
+                    kind="tertiary"
+                    actionType="destructive"
                     aria-label={`${severityLabel}: ${ruleName}`}
-                    className={css(style)}
-                >
-                    <span
-                        className={css(
-                            styles.indicator,
-                            indicatorSeverityStyle,
-                        )}
-                    >
-                        {severity === Severity.Error && (
-                            <InlineIcon {...exclamationIcon} />
-                        )}
-                    </span>
-                </a>
+                    href={`https://khanacademy.org/r/linter-rules#${ruleName}`}
+                    icon={
+                        severity === Severity.Error
+                            ? warningCircleIcon
+                            : dotOutlineIcon
+                    }
+                    style={style}
+                />
             </Tooltip>
         );
     };
@@ -175,6 +160,40 @@ function Lint({
     );
 }
 
+const highlightBlockContent: CSSProperties = {
+    // The linty content is in a <div> sibling that follows the
+    // hover target. This style highlights it on hover. We do an outline
+    // rather than a border so we don't affect the layout. We could also
+    // set the background color, but we don't because we can't reliably
+    // set the text color of this block element. We could use
+    // filter: invert(100%) if we want more visual change on hover here.
+    ":hover ~ div": {
+        outline: `1px solid ${semanticColor.status.warning.foreground}`,
+    },
+
+    // If the div sibling is a table, then we may be displaying
+    // lint warnings about errors inside that table. In that case
+    // we want to highlight any linty descendants of the table
+    ":hover ~ div div[data-lint-inside-table]": {
+        outline: `1px solid ${semanticColor.status.warning.foreground}`,
+    },
+    ":hover ~ div span[data-lint-inside-table]": {
+        backgroundColor: semanticColor.status.warning.background,
+        color: semanticColor.status.warning.foreground,
+    },
+};
+
+const highlightInlineContent: CSSProperties = {
+    // The linty content is in a <span> sibling that follows the
+    // hover target. This style highlights it on hover. In this case
+    // we can just set the foreground and background color to really
+    // draw attention to the linty content.
+    ":hover ~ span": {
+        backgroundColor: semanticColor.status.warning.background,
+        color: semanticColor.status.warning.foreground,
+    },
+};
+
 const styles = StyleSheet.create({
     // This is the class of the outermost element.
     // We use relative positioning so that the lint indicator can be
@@ -194,8 +213,6 @@ const styles = StyleSheet.create({
     hoverTarget: {
         // Absolute positioning relative to the lintContainer element
         position: "absolute",
-        // Top of the hover target is aligned with the top of the linty block
-        insetBlockStart: 0,
 
         // We want the hover target in the right margin. It is 24px wide, but
         // we have to offset it another 16px because of margins in the
@@ -204,40 +221,9 @@ const styles = StyleSheet.create({
         // This is the part of the CSS that doesn't work right when
         // applied to things like blockquotes that have different right
         // margins.
-        insetInlineEnd: -40,
+        insetInlineEnd: -60,
 
-        // The hover target is a 24x24 block element.
-        display: "block",
-        width: 24,
-        height: 24,
-
-        // The indicator is in a span inside the hover target.
-        // This style changes its color on hover
-        ":hover > span": {
-            backgroundColor: constants.warningColorHover,
-        },
-
-        // The linty content is in a <div> sibling that follows the
-        // hover target. This style highlights it on hover. We do an outline
-        // rather than a border so we don't affect the layout. We could also
-        // set the background color, but we don't because we can't reliably
-        // set the text color of this block element. We could use
-        // filter: invert(100%) if we want more visual change on hover here.
-        ":hover ~ div": {
-            outline: "1px solid " + constants.warningColor,
-        },
-
-        // If the div sibling is a table, then we may be displaying
-        // lint warnings about errors inside that table. In that case
-        // we want to highlight any linty descendants of the table
-        ":hover ~ div div[data-lint-inside-table]": {
-            outline: "1px solid " + constants.warningColor,
-        },
-
-        ":hover ~ div span[data-lint-inside-table]": {
-            backgroundColor: constants.warningColor,
-            color: constants.white,
-        },
+        ...highlightBlockContent,
     },
 
     // This is how we position the hover target for inline lint.
@@ -253,28 +239,9 @@ const styles = StyleSheet.create({
         position: "relative",
 
         // See the comment above about the extra 16px of offset needed here.
-        marginInlineEnd: -40,
+        marginInlineEnd: -60,
 
-        // The hover target is a 24x24 block. Same as the block case
-        display: "block",
-        width: 24,
-        height: 24,
-
-        // The indicator is in a span inside the hover target.
-        // This style changes its color on hover.
-        // This is the same as the block case.
-        ":hover > span": {
-            backgroundColor: constants.warningColorHover,
-        },
-
-        // The linty content is in a <span> sibling that follows the
-        // hover target. This style highlights it on hover. In this case
-        // we can just set the foreground and background color to really
-        // draw attention to the linty content.
-        ":hover ~ span": {
-            backgroundColor: constants.warningColor,
-            color: constants.white,
-        },
+        ...highlightInlineContent,
     },
 
     radioWidgetHoverTarget: {
@@ -283,53 +250,7 @@ const styles = StyleSheet.create({
         // overflow rule. We position these icons to the left of the block
         // where there is some room.
         position: "absolute",
-        insetInlineStart: -40,
-
-        // The hover target is a 24x24 block. Same as the block case
-        display: "block",
-        width: 24,
-        height: 24,
-
-        // The indicator is in a span inside the hover target.
-        // This style changes its color on hover.
-        // This is the same as the block case.
-        ":hover > span": {
-            backgroundColor: constants.warningColorHover,
-        },
-
-        // The linty content is in a <span> sibling that follows the
-        // hover target. This style highlights it on hover. In this case
-        // we can just set the foreground and background color to really
-        // draw attention to the linty content.
-        ":hover ~ span": {
-            backgroundColor: constants.warningColor,
-            color: constants.white,
-        },
-    },
-
-    // This is the class for the lint indicator in the margin.
-    indicator: {
-        alignItems: "center",
-        borderRadius: 4,
-        color: "white",
-        display: "flex",
-        fontSize: 12,
-        height: 8,
-        justifyContent: "center",
-        margin: 8,
-        width: 8,
-    },
-    indicatorError: {
-        backgroundColor: semanticColor.core.foreground.critical.default,
-        borderRadius: 8,
-        height: 16,
-        width: 16,
-    },
-    indicatorWarning: {
-        backgroundColor: semanticColor.core.foreground.warning.strong,
-    },
-    indicatorGuideline: {
-        backgroundColor: semanticColor.core.foreground.warning.default,
+        insetInlineStart: -60,
     },
 
     // A lint message can contain several paragraphs. Wonder Blocks resets the
