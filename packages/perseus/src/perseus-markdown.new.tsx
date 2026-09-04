@@ -283,7 +283,7 @@ const rules = {
                 // Some widgets can appear inline with text, but
                 // shouldn't be contained by a <p> element, so just render the
                 // content and let the parent handle layout, etc.
-                return output(node.content, state);
+                return <div>{output(node.content, state)}</div>;
             } else {
                 return <p>{output(node.content, state)}</p>;
             }
