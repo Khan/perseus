@@ -534,3 +534,73 @@ describe("Locked Vector Settings", () => {
         });
     });
 });
+
+describe("zero-length vector edits", () => {
+    let userEvent: UserEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+
+    it("keeps label coordinates finite when an edit makes tip equal tail", async () => {
+        // Arrange: tail at the origin, tip elsewhere, with one visible label.
+        const onChangeProps = jest.fn();
+        render(
+            <LockedVectorSettings
+                {...defaultProps}
+                points={[
+                    [0, 0],
+                    [-2, 0],
+                ]}
+                labels={[{...defaultLabel, coord: [-2, 1]}]}
+                onChangeProps={onChangeProps}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act: clear the tip x field and type -0, committing a vector
+        // whose tip equals its tail.
+        const tipX = screen.getAllByRole("spinbutton")[2];
+        await userEvent.clear(tipX);
+        await userEvent.type(tipX, "-0");
+
+        // Assert: the label shifted by the midpoint offset and stayed
+        // finite despite the points coinciding.
+        expect(onChangeProps).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                labels: [expect.objectContaining({coord: [-1, 1]})],
+            }),
+        );
+    });
+
+    it("repairs a corrupted label coordinate on the next point edit", async () => {
+        // Arrange: the label's x coord is NaN, as in corrupted items.
+        const onChangeProps = jest.fn();
+        render(
+            <LockedVectorSettings
+                {...defaultProps}
+                points={[
+                    [0, 0],
+                    [2, 0],
+                ]}
+                labels={[{...defaultLabel, coord: [NaN, 0.8]}]}
+                onChangeProps={onChangeProps}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act: edit the tip x coord.
+        const tipX = screen.getAllByRole("spinbutton")[2];
+        await userEvent.clear(tipX);
+        await userEvent.type(tipX, "3");
+
+        // Assert: the corrupted x snaps to the new midpoint; the intact y
+        // keeps its offset.
+        expect(onChangeProps).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                labels: [expect.objectContaining({coord: [1.5, 0.8]})],
+            }),
+        );
+    });
+});

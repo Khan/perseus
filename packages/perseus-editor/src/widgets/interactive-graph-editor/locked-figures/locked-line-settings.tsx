@@ -4,7 +4,7 @@
  *
  * Used in the interactive graph editor's locked figures section.
  */
-import {vector as kvector} from "@khanacademy/kmath";
+import {line as kline, vector as kvector} from "@khanacademy/kmath";
 import {getDefaultFigureForType} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -147,22 +147,29 @@ const LockedLineSettings = (props: Props) => {
             ...newPointProps,
         };
 
-        // Update labels to be centered between the two points,
-        // retaining existing offset.
-        const oldMidpoint = vec.midpoint(points[0].coord, points[1].coord);
-        const newMidpoint = vec.midpoint(
+        // Update labels to be centered between the two points, retaining
+        // existing offset. Use kmath's midpoint, not mafs's vec.midpoint:
+        // mafs returns [NaN, NaN] when the two points are identical.
+        const oldMidpoint = kline.midpoint([points[0].coord, points[1].coord]);
+        const newMidpoint = kline.midpoint([
             newPoints[0].coord,
             newPoints[1].coord,
-        );
+        ]);
         const offset: Coord = [
             newMidpoint[0] - oldMidpoint[0],
             newMidpoint[1] - oldMidpoint[1],
         ];
-        const newLabels = labels.map((label, labelIndex) => ({
+        // A corrupted (non-finite) label coordinate can't be shifted;
+        // snap it to the new midpoint to repair it instead.
+        const newLabels = labels.map((label) => ({
             ...label,
             coord: [
-                label.coord[0] + offset[0],
-                label.coord[1] + offset[1],
+                Number.isFinite(label.coord[0])
+                    ? label.coord[0] + offset[0]
+                    : newMidpoint[0],
+                Number.isFinite(label.coord[1])
+                    ? label.coord[1] + offset[1]
+                    : newMidpoint[1],
             ] satisfies Coord,
         }));
 
@@ -349,9 +356,13 @@ const LockedLineSettings = (props: Props) => {
                     // Additional vertical offset for each label so
                     // they don't overlap.
                     const offsetPerLabel: vec.Vector2 = [0, -1];
+                    const midpoint = kline.midpoint([
+                        points[0].coord,
+                        points[1].coord,
+                    ]);
                     const labelLocation = vec.add(
                         vec.scale(offsetPerLabel, labels.length),
-                        vec.midpoint(points[0].coord, points[1].coord),
+                        [midpoint[0], midpoint[1]],
                     );
 
                     const newLabel = {

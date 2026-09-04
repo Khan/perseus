@@ -840,3 +840,44 @@ describe("LockedLineSettings", () => {
         });
     });
 });
+
+describe("zero-length line edits", () => {
+    let userEvent: UserEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+
+    it("keeps label coordinates finite when an edit makes the points coincide", async () => {
+        // Arrange: point 1 at the origin, point 2 elsewhere, one label.
+        const onChangeProps = jest.fn();
+        const point = getDefaultFigureForType("point");
+        render(
+            <LockedLineSettings
+                {...defaultProps}
+                points={[
+                    {...point, coord: [0, 0]},
+                    {...point, coord: [2, 0]},
+                ]}
+                labels={[{...defaultLabel, coord: [1, 0.5]}]}
+                onChangeProps={onChangeProps}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act: set point 2's x to 0, making the points coincide.
+        // Inputs are ordered [point1 x, point1 y, point2 x, point2 y].
+        const point2X = screen.getAllByRole("spinbutton")[2];
+        await userEvent.clear(point2X);
+        await userEvent.type(point2X, "-0");
+
+        // Assert: the label shifted by the midpoint offset and stayed
+        // finite despite the points coinciding.
+        expect(onChangeProps).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                labels: [expect.objectContaining({coord: [0, 0.5]})],
+            }),
+        );
+    });
+});
