@@ -1,20 +1,11 @@
-import IconButton from "@khanacademy/wonder-blocks-icon-button";
-import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
-import Tooltip, {TooltipContent} from "@khanacademy/wonder-blocks-tooltip";
-import {BodyText} from "@khanacademy/wonder-blocks-typography";
-import dotOutlineIcon from "@phosphor-icons/core/fill/dot-outline-fill.svg";
-import warningCircleIcon from "@phosphor-icons/core/fill/warning-circle-fill.svg";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import type {CSSProperties} from "aphrodite";
+import LinterLink from "./linter-link";
 
-enum Severity {
-    Error = 1,
-    Warning = 2,
-    Recommendation = 3,
-    OfflineReportingOnly = 4,
-}
+import type {Severity} from "./linter-link";
+import type {CSSProperties} from "aphrodite";
 
 type Props = {
     /** The children are the linty content we're highlighting */
@@ -44,22 +35,19 @@ type Props = {
  * are inserted into the tree by the Perseus linter (see
  * perseus-linter/src/index).
  *
- * This component serves multiple purposes
+ * 1) This component renders a small circle IconButton in the right margin
+ * to indicate that there is lint on (or near) that line.
  *
- * 1) It renders a small circle in the right margin to indicate that there
- * is lint on (or near) that line.
+ * 2) When the mouse moves over the circle IconButton, the linty content
+ * is highlighted and a tooltip is displayed that explains what the problem is.
  *
- * 2) The area around the circle is hoverable: when the mouse moves over it
- * the linty content is highlighted and a Wonder Blocks tooltip is displayed
- * that explains what the problem is.
- *
- * 3) The hoverable area is also an HTML <a> tag. Clicking on it opens
- * a new tab and links to additional details about the specific lint rule.
+ * 3) Clicking on the IconButton opens a new tab and links to additional
+ * details about the specific lint rule.
  *
  * The CSS required to position the circles in the right margin is tricky
  * and it does not always work perfectly. When lint occurs on a block element
  * that has a right margin (like anything blockquoted) the circle will appear
- * to the left of where it belongs.  And if there is more
+ * to the left of where it belongs.
  **/
 function Lint({
     children,
@@ -70,62 +58,7 @@ function Lint({
     blockHighlight,
     severity,
 }: Props): React.ReactElement {
-    // Render the <a> element that holds the indicator icon, wrapped in the
-    // tooltip that describes the lint. We pass different styles for the
-    // inline and block cases.
-    const renderLink = (style: CSSProperties): React.ReactElement => {
-        let severityLabel;
-        let severityLabelStyle;
-        if (severity === Severity.Error) {
-            severityLabel = "Error";
-            severityLabelStyle = styles.publishBlockingError;
-        } else if (severity === Severity.Warning) {
-            severityLabel = "Warning";
-            severityLabelStyle = styles.warning;
-        } else {
-            severityLabel = "Recommendation";
-            severityLabelStyle = styles.warning;
-        }
-
-        return (
-            <Tooltip
-                // The anchor is an <a href>, which is already keyboard
-                // focusable, so the tooltip doesn't need to add a tabindex.
-                forceAnchorFocusivity={false}
-                variant="strong"
-                content={
-                    <TooltipContent
-                        title={
-                            <BodyText weight="bold" style={severityLabelStyle}>
-                                {severityLabel}
-                            </BodyText>
-                        }
-                    >
-                        {message.split("\n\n").map((paragraph, i) => (
-                            <BodyText key={i} style={styles.tooltipParagraph}>
-                                {paragraph}
-                            </BodyText>
-                        ))}
-                    </TooltipContent>
-                }
-            >
-                <IconButton
-                    size="small"
-                    kind="tertiary"
-                    actionType="destructive"
-                    aria-label={`${severityLabel}: ${ruleName}`}
-                    href={`https://khanacademy.org/r/linter-rules#${ruleName}`}
-                    icon={
-                        severity === Severity.Error
-                            ? warningCircleIcon
-                            : dotOutlineIcon
-                    }
-                    style={style}
-                />
-            </Tooltip>
-        );
-    };
-
+    const linterLinkProps = {message, ruleName, severity} as const;
     if (insideTable) {
         // If we're inside a table, then linty nodes just get
         // a simple wrapper that allows them to be highlighted
@@ -139,7 +72,10 @@ function Lint({
             <span
                 className={css(styles.lintContainer, styles.lintContainerBlock)}
             >
-                {renderLink(styles.radioWidgetHoverTarget)}
+                <LinterLink
+                    {...linterLinkProps}
+                    style={styles.radioWidgetHoverTarget}
+                />
                 <span>{children}</span>
             </span>
         );
@@ -147,14 +83,17 @@ function Lint({
     if (inline) {
         return (
             <span className={css(styles.lintContainer)}>
-                {renderLink(styles.inlineHoverTarget)}
+                <LinterLink
+                    {...linterLinkProps}
+                    style={styles.inlineHoverTarget}
+                />
                 <span>{children}</span>
             </span>
         );
     }
     return (
         <div className={css(styles.lintContainer)}>
-            {renderLink(styles.hoverTarget)}
+            <LinterLink {...linterLinkProps} style={styles.hoverTarget} />
             <div>{children}</div>
         </div>
     );
@@ -251,24 +190,6 @@ const styles = StyleSheet.create({
         // where there is some room.
         position: "absolute",
         insetInlineStart: -60,
-    },
-
-    // A lint message can contain several paragraphs. Wonder Blocks resets the
-    // margins on BodyText, so we space them out ourselves.
-    tooltipParagraph: {
-        ":not(:first-child)": {
-            marginBlockStart: sizing.size_080,
-        },
-    },
-
-    // The text "Warning" or "Recommendation" in the tooltip title
-    warning: {
-        color: semanticColor.status.warning.foreground,
-    },
-
-    // The text "Error" in the tooltip title, for publish-blocking lint
-    publishBlockingError: {
-        color: semanticColor.status.critical.foreground,
     },
 });
 
