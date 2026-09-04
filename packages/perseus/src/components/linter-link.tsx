@@ -13,12 +13,13 @@ import type {CSSProperties} from "aphrodite";
  * How important a lint message is for the editor. These values
  * mirror `Rule.Severity` in perseus-linter, which is where the severities
  * on lint nodes originate.
+ *
+ * perseus-linter Severity also includes Recommendation = 3 and
+ * OfflineReportingOnly = 4, but those are not used here.
  */
 export enum Severity {
     Error = 1,
     Warning = 2,
-    Recommendation = 3,
-    OfflineReportingOnly = 4,
 }
 
 type Props = {
