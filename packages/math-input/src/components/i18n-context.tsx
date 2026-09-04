@@ -4,7 +4,7 @@
  *
  */
 import * as React from "react";
-import {useContext} from "react";
+import {useContext, useMemo} from "react";
 
 import {mockStrings} from "../strings";
 
@@ -36,8 +36,12 @@ export function MathInputI18nContextProvider({
     strings,
     locale,
 }: Props) {
+    // Memoize so consumers don't re-render every time this provider's parent
+    // renders; a fresh object literal would be a new context value each time.
+    const value = useMemo(() => ({strings, locale}), [strings, locale]);
+
     return (
-        <MathInputI18nContext.Provider value={{strings, locale}}>
+        <MathInputI18nContext.Provider value={value}>
             {children}
         </MathInputI18nContext.Provider>
     );
