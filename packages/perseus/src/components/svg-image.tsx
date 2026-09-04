@@ -224,11 +224,18 @@ class SvgImage extends React.Component<Props, State> {
         const wasLoaded = this.isLoadedInState(prevState);
         const isLoaded = this.isLoadedInState(this.state);
 
-        // Only call loadResources if we're not already loading,
-        // This prevents infinite loops when async loading triggers re-renders
+        // Only (re)load the label data when it is actually missing: the src
+        // changed (UNSAFE_componentWillReceiveProps reset dataLoaded), or a
+        // previous attempt never produced data. Do NOT key this off
+        // `isLoaded`: once the data is in state but the <img> is still
+        // loading, every update would re-run loadResources, and loadGraphie
+        // answers synchronously from its cache, so we would call setState
+        // inside React's commit phase on every render. That nested update
+        // is what tripped React's "Maximum update depth exceeded" limit in
+        // production.
         if (
             Util.isLabeledSVG(this.props.src) &&
-            !isLoaded &&
+            !this.state.dataLoaded &&
             !this._isLoadingGraphie
         ) {
             this.loadResources();
