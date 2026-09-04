@@ -67,6 +67,34 @@ describe("ScrolllessNumberTextField", () => {
         expect(onChange).not.toHaveBeenCalled();
     });
 
+    test("Should parse exponential notation", async () => {
+        // Arrange
+        const onChange = jest.fn();
+        render(<ScrolllessNumberTextField value={42} onChange={onChange} />);
+        const input = screen.getByRole("spinbutton");
+
+        // Act
+        await userEvent.clear(input);
+        await userEvent.paste("1e42");
+
+        // Assert
+        expect(onChange).toHaveBeenLastCalledWith(1e42);
+    });
+
+    test("Should not call the onChange callback when the number is outside the representable range", async () => {
+        // Arrange
+        const onChange = jest.fn();
+        render(<ScrolllessNumberTextField value={42} onChange={onChange} />);
+        const input = screen.getByRole("spinbutton");
+
+        // Act
+        await userEvent.clear(input);
+        await userEvent.paste("1e999");
+
+        // Assert
+        expect(onChange).not.toHaveBeenCalled();
+    });
+
     test("displays an empty input value when value is NaN", () => {
         // Arrange, Act
         render(<ScrolllessNumberTextField value={NaN} onChange={() => {}} />);
