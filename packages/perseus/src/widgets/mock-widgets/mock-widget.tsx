@@ -4,10 +4,12 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
+import {defineWidgetRegistration} from "../../widget-registration";
 
 import type {MockWidgetOptions} from "./mock-widget-types";
 import type {WidgetProps, Widget, WidgetExports} from "../../types";
 import type {MockWidgetPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
+import type {WidgetLogic} from "@khanacademy/perseus-core";
 import type {PerseusMockWidgetUserInput} from "@khanacademy/perseus-score";
 
 type ExternalProps = WidgetProps<MockWidgetOptions, PerseusMockWidgetUserInput>;
@@ -24,7 +26,8 @@ type Props = ExternalProps;
  * This allows us to more easily update our widget schemas and behaviour without needing to
  * update many different irrelevant tests across our codebases.
  *
- * You can register this widget for your tests by calling `registerWidget("mock-widget", MockWidget);`
+ * You can register this widget for your tests by calling
+ * `registerWidgets([mockWidgetRegistration]);`
  */
 class MockWidgetComponent extends React.Component<Props> implements Widget {
     inputRef: HTMLElement | null = null;
@@ -119,7 +122,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default {
+const mockWidget = {
     name: "mock-widget",
     displayName: "Mock Widget",
     widget: MockWidgetComponent,
@@ -127,3 +130,18 @@ export default {
     getStartUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<"mock-widget", typeof MockWidgetComponent>;
+
+/**
+ * The mock has no behavior of its own to describe in core, but rendering it
+ * still asks core for its version and alignment, so it needs an entry there.
+ */
+const mockWidgetLogic = {
+    name: "mock-widget",
+} satisfies WidgetLogic<"mock-widget">;
+
+export const mockWidgetRegistration = defineWidgetRegistration({
+    widget: mockWidget,
+    logic: mockWidgetLogic,
+});
+
+export default mockWidget;

@@ -28,10 +28,10 @@ import {testWidgetIdExtraction} from "../testing/extract-widget-ids-contract-tes
 import {mockImageLoading} from "../testing/image-loader-utils";
 import {clone} from "../testing/object-utils";
 import {testDependencies} from "../testing/test-dependencies";
-import {registerWidget} from "../widgets";
+import {registerWidgets} from "../widgets";
 import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
 import {simpleGroupQuestion} from "../widgets/group/group.testdata";
-import MockWidgetExport from "../widgets/mock-widgets/mock-widget";
+import {mockWidgetRegistration} from "../widgets/mock-widgets/mock-widget";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
@@ -55,7 +55,7 @@ jest.mock("../translation-linter", () => {
 
 describe("renderer", () => {
     beforeAll(() => {
-        registerWidget("mock-widget", MockWidgetExport);
+        registerWidgets([mockWidgetRegistration]);
     });
 
     let userEvent: UserEvent;

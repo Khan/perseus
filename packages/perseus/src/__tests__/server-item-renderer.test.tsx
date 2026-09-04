@@ -27,11 +27,12 @@ import {
     testDependencies,
     testDependenciesV2,
 } from "../testing/test-dependencies";
-import {registerWidget} from "../widgets";
-import {MockWidget} from "../widgets/mock-widgets";
-import MockAssetLoadingWidgetExport, {
+import {registerWidgets} from "../widgets";
+import {
+    mockAssetLoadingWidgetRegistration,
     mockedAssetItem,
 } from "../widgets/mock-widgets/mock-asset-loading-widget";
+import {mockWidgetRegistration} from "../widgets/mock-widgets/mock-widget";
 
 import {renderQuestion} from "./test-utils";
 
@@ -42,7 +43,7 @@ import type {UserEvent} from "@testing-library/user-event";
 
 describe("server item renderer", () => {
     beforeAll(() => {
-        registerWidget("mock-widget", MockWidget);
+        registerWidgets([mockWidgetRegistration]);
     });
 
     let userEvent: UserEvent;
@@ -169,10 +170,7 @@ describe("server item renderer", () => {
         // everything is loaded.
 
         // Arrange
-        registerWidget(
-            "mock-asset-loading-widget",
-            MockAssetLoadingWidgetExport,
-        );
+        registerWidgets([mockAssetLoadingWidgetRegistration]);
 
         const onRendered = jest.fn();
         let renderer: ServerItemRendererHandle | null | undefined;

@@ -40,5 +40,16 @@ CoreWidgetRegistry.registerLogics([radioLogic]);
 Apps rendering Perseus content get this for free: `initPerseus()` (from
 `@khanacademy/perseus/init`) registers every widget's core logic too.
 
+Outside production, asking the registry about a widget nobody registered throws
+and names the call you meant to make. In production the same lookup falls back
+to defaults, so content naming a widget the build doesn't know about still
+renders. A test that means to exercise an unknown type opts out:
+
+```ts
+import {withStrictRegistration} from "@khanacademy/perseus-core";
+
+withStrictRegistration(false, () => render(<WidgetContainer type="unknown" />));
+```
+
 Nothing is registered as a side effect of importing the package: the barrel used
 to register everything, which coupled every consumer to every widget.

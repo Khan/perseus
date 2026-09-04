@@ -2,9 +2,10 @@ import {getDefaultAnswerArea} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import AssetContext from "../../asset-context";
+import {defineWidgetRegistration} from "../../widget-registration";
 
 import type {WidgetExports} from "../../types";
-import type {PerseusItem} from "@khanacademy/perseus-core";
+import type {PerseusItem, WidgetLogic} from "@khanacademy/perseus-core";
 
 export const mockedAssetItem: PerseusItem = {
     question: {
@@ -44,8 +45,26 @@ export class MockAssetLoadingWidget extends React.Component<Record<any, any>> {
     }
 }
 
-export default {
-    name: "mocked-asset-widget",
+const mockAssetLoadingWidget = {
+    name: "mock-asset-loading-widget",
     displayName: "Mocked Asset Widget",
     widget: MockAssetLoadingWidget,
-} satisfies WidgetExports<"mocked-asset-widget", typeof MockAssetLoadingWidget>;
+} satisfies WidgetExports<
+    "mock-asset-loading-widget",
+    typeof MockAssetLoadingWidget
+>;
+
+/**
+ * The mock has no behavior of its own to describe in core, but rendering it
+ * still asks core for its version and alignment, so it needs an entry there.
+ */
+const mockAssetLoadingWidgetLogic = {
+    name: "mock-asset-loading-widget",
+} satisfies WidgetLogic<"mock-asset-loading-widget">;
+
+export const mockAssetLoadingWidgetRegistration = defineWidgetRegistration({
+    widget: mockAssetLoadingWidget,
+    logic: mockAssetLoadingWidgetLogic,
+});
+
+export default mockAssetLoadingWidget;

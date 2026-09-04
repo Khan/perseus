@@ -3,13 +3,11 @@ import type Registry from "./registry";
 /**
  * Whether a lookup for an unregistered key is an error.
  *
- * Off everywhere until the registration migration is far enough along that a
- * miss reliably means someone forgot to register rather than that the caller
- * hasn't been migrated yet; callers opt in with `setStrictRegistration` in the
- * meantime. Production must never enable it — content naming a widget this
- * build doesn't know about has to keep rendering.
+ * On outside production, where a miss means someone forgot to register the
+ * widget and we want to say so loudly. Production stays lenient: content
+ * naming a widget this build doesn't know about has to keep rendering.
  */
-let strict = false;
+let strict = process.env.NODE_ENV !== "production";
 
 export function isStrictRegistration(): boolean {
     return strict;

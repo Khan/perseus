@@ -8,9 +8,9 @@ import {ClassNames} from "../perseus-api";
 import Renderer from "../renderer";
 import {mockStrings} from "../strings";
 import {testDependencies} from "../testing/test-dependencies";
-import {registerWidget} from "../widgets";
+import {registerWidgets} from "../widgets";
 import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
-import {MockWidget} from "../widgets/mock-widgets";
+import {mockWidgetRegistration} from "../widgets/mock-widgets/mock-widget";
 
 import imageItem from "./test-items/image-item";
 import mockWidget1Item from "./test-items/mock-widget-1-item";
@@ -32,7 +32,7 @@ describe("Perseus API", function () {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
-        registerWidget("mock-widget", MockWidget);
+        registerWidgets([mockWidgetRegistration]);
     });
 
     describe("getInputPaths", function () {

@@ -1,9 +1,9 @@
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {registerWidget} from "../../widgets";
+import {registerWidgets} from "../../widgets";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
-import MockWidgetExport from "../../widgets/mock-widgets/mock-widget";
+import {mockWidgetRegistration} from "../../widgets/mock-widgets/mock-widget";
 
 import type {MockWidget} from "../../widgets/mock-widgets/mock-widget-types";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
@@ -33,7 +33,7 @@ const question: PerseusRenderer = {
 describe("mock-widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
-        registerWidget("mock-widget", MockWidgetExport);
+        registerWidgets([mockWidgetRegistration]);
 
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,

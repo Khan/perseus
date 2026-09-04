@@ -60,6 +60,31 @@ describe("strictGet", () => {
     });
 });
 
+describe("the default setting", () => {
+    async function freshIsStrictRegistration(
+        nodeEnv: string,
+    ): Promise<boolean> {
+        jest.replaceProperty(process.env, "NODE_ENV", nodeEnv);
+        jest.resetModules();
+        const module = await import("./strict-registry");
+        return module.isStrictRegistration();
+    }
+
+    it("is off in production", async () => {
+        // Arrange, Act
+        const strict = await freshIsStrictRegistration("production");
+
+        expect(strict).toBe(false);
+    });
+
+    it("is on outside production", async () => {
+        // Arrange, Act
+        const strict = await freshIsStrictRegistration("development");
+
+        expect(strict).toBe(true);
+    });
+});
+
 describe("withStrictRegistration", () => {
     afterEach(() => {
         setStrictRegistration(false);

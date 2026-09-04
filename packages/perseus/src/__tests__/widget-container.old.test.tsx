@@ -6,6 +6,7 @@
 // TODO(LEMS-4304): feature flag cleanup - remove this file
 // This file is the original widget-container test file that is being replaced by the new test file.
 
+import {withStrictRegistration} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
@@ -18,10 +19,11 @@ import {
 } from "../testing/test-dependencies";
 import {containerSizeClass} from "../util/sizing-utils";
 import WidgetContainer from "../widget-container.old";
-import {registerWidget} from "../widgets";
+import {registerWidget, registerWidgets} from "../widgets";
 import Explanation from "../widgets/explanation";
 
 import type {PerseusDependenciesV2, WidgetExports, WidgetProps} from "../types";
+import type {WidgetRegistration} from "../widget-registration";
 
 const MockWidgetComponent = ({
     options: {text, fail = false},
@@ -40,6 +42,11 @@ const MockWidget: WidgetExports<"mock-widget", typeof MockWidgetComponent> = {
     displayName: "Mock Widget",
     widget: MockWidgetComponent,
 };
+
+const mockWidgetRegistration = {
+    widget: MockWidget,
+    logic: {name: "mock-widget"},
+} satisfies WidgetRegistration<"mock-widget">;
 
 const getBaseProps = (
     // TODO(benchristel): Pass real type arguments here. Maybe getBaseProps can
@@ -70,13 +77,16 @@ describe("widget-container", () => {
         // Arrange
         const warnMock = jest.spyOn(console, "warn").mockImplementation();
 
-        // Act
-        render(
-            <WidgetContainer
-                type="invalid-widget"
-                id="invalid-widget 1"
-                widgetProps={getBaseProps()}
-            />,
+        // Act — this is the production graceful-skip path, so strict
+        // registration has to be off for the duration of the render.
+        withStrictRegistration(false, () =>
+            render(
+                <WidgetContainer
+                    type="invalid-widget"
+                    id="invalid-widget 1"
+                    widgetProps={getBaseProps()}
+                />,
+            ),
         );
 
         // Assert
@@ -133,7 +143,7 @@ describe("widget-container", () => {
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
         };
 
-        registerWidget("mock-widget", MockWidget);
+        registerWidgets([mockWidgetRegistration]);
 
         // Act
         render(
