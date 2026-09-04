@@ -1,5 +1,28 @@
 # @khanacademy/perseus
 
+## 87.1.0
+
+### Minor Changes
+
+-   [#4099](https://github.com/Khan/perseus/pull/4099) [`ab04653`](https://github.com/Khan/perseus/commit/ab046532548311a90897ff9669357cf2757956b8) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Add AnswerTile component for the Drag-and-Drop widget family
+
+-   [#4128](https://github.com/Khan/perseus/pull/4128) [`1fd9c1b`](https://github.com/Khan/perseus/commit/1fd9c1b9c9ff07b47d11a12bf05e360ace63c3a3) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Hook the shared Drag-and-Drop components up to dnd-kit and add the layer the widgets build on: the placement model, the move and clear actions with their announcements and focus handling, and the widest-tile measurement.
+
+-   [#4091](https://github.com/Khan/perseus/pull/4091) [`09afc4e`](https://github.com/Khan/perseus/commit/09afc4edc3c2bc20f81496841707fdce6b4d52b7) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Add DndActionMenu component for the Drag-and-Drop widget family
+
+### Patch Changes
+
+-   [#4186](https://github.com/Khan/perseus/pull/4186) [`e7948d2`](https://github.com/Khan/perseus/commit/e7948d21dac9d38cac27d67b139d34a71152b59c) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Sync dependencies with Frontend
+
+-   [#4184](https://github.com/Khan/perseus/pull/4184) [`8b12a98`](https://github.com/Khan/perseus/commit/8b12a985e0be7b30af0d18e80107d54fb306a4cc) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Memoize the i18n context provider values so consumers no longer re-render whenever the provider's parent renders
+
+-   [#4148](https://github.com/Khan/perseus/pull/4148) [`a2e65fc`](https://github.com/Khan/perseus/commit/a2e65fce39b054b27bee12f31cacf0abe75f0e08) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Swap `withDependencies` HOC for `useDependencies` hook in several widgets.
+
+-   [#4185](https://github.com/Khan/perseus/pull/4185) [`8b20d02`](https://github.com/Khan/perseus/commit/8b20d021e0a0ca7c97da148658a6aad25ca34ecf) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Fix `SvgImage` re-running `loadResources` (and calling `setState` during React's commit phase) on every update while a labeled SVG's image was still loading, which could trip React's "Maximum update depth exceeded" limit
+
+-   Updated dependencies [[`e7948d2`](https://github.com/Khan/perseus/commit/e7948d21dac9d38cac27d67b139d34a71152b59c), [`8b12a98`](https://github.com/Khan/perseus/commit/8b12a985e0be7b30af0d18e80107d54fb306a4cc)]:
+    -   @khanacademy/math-input@27.0.12
+
 ## 87.0.0
 
 ### Major Changes

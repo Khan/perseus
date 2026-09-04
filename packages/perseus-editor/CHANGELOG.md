@@ -1,5 +1,15 @@
 # @khanacademy/perseus-editor
 
+## 40.0.3
+
+### Patch Changes
+
+-   [#4186](https://github.com/Khan/perseus/pull/4186) [`e7948d2`](https://github.com/Khan/perseus/commit/e7948d21dac9d38cac27d67b139d34a71152b59c) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Sync dependencies with Frontend
+
+-   Updated dependencies [[`ab04653`](https://github.com/Khan/perseus/commit/ab046532548311a90897ff9669357cf2757956b8), [`1fd9c1b`](https://github.com/Khan/perseus/commit/1fd9c1b9c9ff07b47d11a12bf05e360ace63c3a3), [`e7948d2`](https://github.com/Khan/perseus/commit/e7948d21dac9d38cac27d67b139d34a71152b59c), [`8b12a98`](https://github.com/Khan/perseus/commit/8b12a985e0be7b30af0d18e80107d54fb306a4cc), [`09afc4e`](https://github.com/Khan/perseus/commit/09afc4edc3c2bc20f81496841707fdce6b4d52b7), [`a2e65fc`](https://github.com/Khan/perseus/commit/a2e65fce39b054b27bee12f31cacf0abe75f0e08), [`8b20d02`](https://github.com/Khan/perseus/commit/8b20d021e0a0ca7c97da148658a6aad25ca34ecf)]:
+    -   @khanacademy/perseus@87.1.0
+    -   @khanacademy/math-input@27.0.12
+
 ## 40.0.2
 
 ### Patch Changes
