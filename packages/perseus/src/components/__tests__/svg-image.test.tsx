@@ -150,6 +150,100 @@ describe("SvgImage", () => {
         ).toEqual("https://www.khanacademy.org/my-test-img.png");
     });
 
+    describe("componentDidUpdate", () => {
+        // Stand-in for loadGraphie answering synchronously from its cache.
+        const mockCachedLoadGraphie = () =>
+            jest
+                .spyOn(GraphieUtils, "loadGraphie")
+                .mockImplementation((url, onDataLoaded) => {
+                    onDataLoaded(
+                        {
+                            labels: [],
+                            range: [
+                                [-10, 10],
+                                [-10, 10],
+                            ],
+                        },
+                        false,
+                    );
+                });
+
+        beforeEach(() => {
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+            // The <img> never finishes loading, so imageLoaded stays false
+            // for the whole test while the label data is already loaded.
+            unmockImageLoading();
+            jest.spyOn(globalThis, "Image").mockImplementation(
+                // eslint-disable-next-line no-restricted-syntax
+                () => ({}) as HTMLImageElement,
+            );
+        });
+
+        it("should not reload label data on re-render while the image is still loading", () => {
+            // Arrange
+            const loadGraphie = mockCachedLoadGraphie();
+            const {rerender} = render(
+                <SvgImage
+                    src={graphieImage.url}
+                    alt="svg image"
+                    allowZoom={false}
+                    width={graphieImage.width}
+                    height={graphieImage.height}
+                />,
+            );
+            loadGraphie.mockClear();
+
+            // Act
+            rerender(
+                <SvgImage
+                    src={graphieImage.url}
+                    alt="a different alt"
+                    allowZoom={false}
+                    width={graphieImage.width}
+                    height={graphieImage.height}
+                />,
+            );
+
+            // Assert
+            expect(loadGraphie).not.toHaveBeenCalled();
+        });
+
+        it("should reload label data when the src changes", () => {
+            // Arrange
+            const loadGraphie = mockCachedLoadGraphie();
+            const {rerender} = render(
+                <SvgImage
+                    src={graphieImage.url}
+                    alt="svg image"
+                    allowZoom={false}
+                    width={graphieImage.width}
+                    height={graphieImage.height}
+                />,
+            );
+            loadGraphie.mockClear();
+
+            // Act
+            rerender(
+                <SvgImage
+                    src={typicalCase.url}
+                    alt="svg image"
+                    allowZoom={false}
+                    width={graphieImage.width}
+                    height={graphieImage.height}
+                />,
+            );
+
+            // Assert
+            expect(loadGraphie).toHaveBeenCalledTimes(1);
+            expect(loadGraphie).toHaveBeenCalledWith(
+                typicalCase.url,
+                expect.any(Function),
+            );
+        });
+    });
+
     describe("Graphie label scaling", () => {
         const mockLabels = [
             {
