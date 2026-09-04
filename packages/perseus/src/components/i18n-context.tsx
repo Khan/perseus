@@ -4,7 +4,7 @@
  *
  */
 import * as React from "react";
-import {useContext} from "react";
+import {useContext, useMemo} from "react";
 
 import {mockStrings} from "../strings";
 
@@ -34,8 +34,12 @@ export const PerseusI18nContext: React.Context<I18nContextType> =
 type Props = React.PropsWithChildren<I18nContextType>;
 
 export function PerseusI18nContextProvider({children, strings, locale}: Props) {
+    // Memoize so consumers don't re-render every time this provider's parent
+    // renders; a fresh object literal would be a new context value each time.
+    const value = useMemo(() => ({strings, locale}), [strings, locale]);
+
     return (
-        <PerseusI18nContext.Provider value={{strings, locale}}>
+        <PerseusI18nContext.Provider value={value}>
             {children}
         </PerseusI18nContext.Provider>
     );
