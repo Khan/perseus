@@ -3,7 +3,7 @@
 @import "./util.css" layer(perseus-legacy);
 @import "./styles.new.css"; /* These styles are needed in the shared layer to override element selectors that are provided in the shared layer by frontend apps */
 @import "./paragraph-styles.new.css";
-@import "./perseus-renderer-part-1.css" layer(perseus-legacy);
+@import "./perseus-renderer-part-1.new.css" layer(perseus-legacy);
 @import "widgets/categorizer.css" layer(perseus-legacy);
 @import "widgets/dropdown.css" layer(perseus-legacy);
 @import "widgets/expression.css" layer(perseus-legacy);
