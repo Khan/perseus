@@ -119,6 +119,11 @@ export {default as splitPerseusItem} from "./utils/split-perseus-item";
 export {splitPerseusItemJSON} from "./utils/split-perseus-item";
 /** @hidden */
 export {default as Registry} from "./utils/registry";
+/**
+ * Test/story isolation only; production code must never empty a registry.
+ * @hidden
+ */
+export {resetRegistry} from "./utils/registry";
 
 export type * from "./widgets/logic-export.types";
 
