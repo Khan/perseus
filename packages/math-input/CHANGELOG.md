@@ -1,5 +1,13 @@
 # @khanacademy/math-input
 
+## 27.0.12
+
+### Patch Changes
+
+-   [#4186](https://github.com/Khan/perseus/pull/4186) [`e7948d2`](https://github.com/Khan/perseus/commit/e7948d21dac9d38cac27d67b139d34a71152b59c) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Sync dependencies with Frontend
+
+-   [#4184](https://github.com/Khan/perseus/pull/4184) [`8b12a98`](https://github.com/Khan/perseus/commit/8b12a985e0be7b30af0d18e80107d54fb306a4cc) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Memoize the i18n context provider values so consumers no longer re-render whenever the provider's parent renders
+
 ## 27.0.11
 
 ### Patch Changes
