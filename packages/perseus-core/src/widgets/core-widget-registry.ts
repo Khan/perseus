@@ -35,14 +35,6 @@ export function registerLogics(logics: ReadonlyArray<AnyWidgetLogic>) {
     logics.forEach(registerLogic);
 }
 
-/** @deprecated Use `registerLogic`, which reads the type from `logic.name`. */
-export function registerWidget(
-    type: string,
-    logic: WidgetLogic<string, any, any>,
-) {
-    widgets.set(type, logic);
-}
-
 /**
  * Replace `type`'s logic with the logic already registered for
  * `replacementType`.

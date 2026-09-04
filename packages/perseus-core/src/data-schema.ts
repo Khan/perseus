@@ -104,7 +104,7 @@ export type MakeWidgetMap<TRegistry> = {
  * There should be one key/value pair for each supported widget. If you create
  * a new widget, an entry should be added to this interface. Note that this
  * only registers the widget options type, you'll also need to register the
- * widget so that it's available at runtime using `registerWidget` in this
+ * widget so that it's available at runtime using `registerLogic` in this
  * library  (as well as equivalent `registerWidget` functions in
  * `@khanacademy/perseus` (for UI support) and `@khanacademy/perseus-score`
  * (for scoring support)).
