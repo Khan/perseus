@@ -61,7 +61,7 @@ export type KeypadContextType = {
     setRenderer: (
         renderer?: KeypadContextRendererInterface | null | undefined,
     ) => void;
-    renderer: KeypadContextRendererInterface | null | undefined;
+    blurRenderer: () => void;
     setScrollableElement: (
         scrollableElement?: HTMLElement | null | undefined,
     ) => void;
