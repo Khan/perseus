@@ -10,6 +10,12 @@ import {
 
 import type {PerseusWidget, PerseusWidgetsMap} from "../data-schema";
 
+/**
+ * Fill in a widget's unset fields with their defaults.
+ *
+ * @remarks Reads the core widget registry; register the widget's logic first
+ * (see the perseus-core README).
+ */
 export const applyDefaultsToWidget = (
     oldWidgetInfo: PerseusWidget,
 ): PerseusWidget => {
@@ -55,6 +61,12 @@ export const applyDefaultsToWidget = (
     };
 };
 
+/**
+ * Apply {@link applyDefaultsToWidget} to every widget in a map.
+ *
+ * @remarks Reads the core widget registry; register the widgets' logic first
+ * (see the perseus-core README).
+ */
 export function applyDefaultsToWidgets(
     oldWidgetOptions: PerseusWidgetsMap,
 ): PerseusWidgetsMap {

@@ -8,6 +8,8 @@ import type {PerseusRenderer, PerseusWidgetsMap} from "../data-schema";
 /**
  * Return a copy of a PerseusRenderer with rubric data removed (ie answers)
  *
+ * @remarks Reads the core widget registry; register the widgets' logic first
+ * (see the perseus-core README).
  * @param original - the original, full PerseusRenderer (which includes the rubric - aka answer data)
  */
 export default function splitPerseusRenderer(

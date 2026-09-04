@@ -9,6 +9,8 @@ import type {PerseusItem} from "../data-schema";
 /**
  * Return a copy of a PerseusItem with rubric data removed (ie answers)
  *
+ * @remarks Reads the core widget registry; register the widgets' logic first
+ * (see the perseus-core README).
  * @param original - the original, full PerseusItem (which includes the rubric - aka answer data)
  */
 export default function splitPerseusItem(original: PerseusItem): PerseusItem {
@@ -40,6 +42,8 @@ export default function splitPerseusItem(original: PerseusItem): PerseusItem {
  * Returns a JSON copy of a PerseusItem with rubric data (i.e. answers and
  * hints) removed. Idempotent and deterministic.
  *
+ * @remarks Reads the core widget registry; register the widgets' logic first
+ * (see the perseus-core README).
  * @param data a {@linkcode PerseusItem}, either as JSON or as an object.
  * @returns {string} the answerless data formatted as JSON
  * @throws {SyntaxError} given malformed JSON or data that can't be parsed as
