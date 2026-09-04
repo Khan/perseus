@@ -19,7 +19,7 @@ describe("ScrolllessNumberTextField", () => {
         const onChange = jest.fn();
 
         // Act
-        render(<ScrolllessNumberTextField value="42" onChange={onChange} />);
+        render(<ScrolllessNumberTextField value={42} onChange={onChange} />);
 
         const input = screen.getByRole("spinbutton");
 
@@ -31,20 +31,20 @@ describe("ScrolllessNumberTextField", () => {
     test("Should call the onChange callback when the value changes", async () => {
         // Arrange
         const onChange = jest.fn();
-        render(<ScrolllessNumberTextField value="" onChange={onChange} />);
+        render(<ScrolllessNumberTextField value={0} onChange={onChange} />);
         const input = screen.getByRole("spinbutton");
 
         // Act
         await userEvent.type(input, "2");
 
         // Assert
-        expect(onChange).toHaveBeenLastCalledWith("2");
+        expect(onChange).toHaveBeenLastCalledWith(2);
     });
 
     test("Should not call the onChange callback when the value is not a number", async () => {
         // Arrange
         const onChange = jest.fn();
-        render(<ScrolllessNumberTextField value="42" onChange={onChange} />);
+        render(<ScrolllessNumberTextField value={42} onChange={onChange} />);
         const input = screen.getByRole("spinbutton");
 
         // Act
@@ -54,12 +54,75 @@ describe("ScrolllessNumberTextField", () => {
         expect(onChange).not.toHaveBeenCalled();
     });
 
+    test("Should not call the onChange callback when the field is cleared", async () => {
+        // Arrange
+        const onChange = jest.fn();
+        render(<ScrolllessNumberTextField value={42} onChange={onChange} />);
+        const input = screen.getByRole("spinbutton");
+
+        // Act
+        await userEvent.clear(input);
+
+        // Assert
+        expect(onChange).not.toHaveBeenCalled();
+    });
+
+    test("Should parse exponential notation", async () => {
+        // Arrange
+        const onChange = jest.fn();
+        render(<ScrolllessNumberTextField value={42} onChange={onChange} />);
+        const input = screen.getByRole("spinbutton");
+
+        // Act
+        await userEvent.clear(input);
+        await userEvent.paste("1e42");
+
+        // Assert
+        expect(onChange).toHaveBeenLastCalledWith(1e42);
+    });
+
+    test("Should not call the onChange callback when the number is outside the representable range", async () => {
+        // Arrange
+        const onChange = jest.fn();
+        render(<ScrolllessNumberTextField value={42} onChange={onChange} />);
+        const input = screen.getByRole("spinbutton");
+
+        // Act
+        await userEvent.clear(input);
+        await userEvent.paste("1e999");
+
+        // Assert
+        expect(onChange).not.toHaveBeenCalled();
+    });
+
+    test("displays an empty input value when value is NaN", () => {
+        // Arrange, Act
+        render(<ScrolllessNumberTextField value={NaN} onChange={() => {}} />);
+
+        const input = screen.getByRole("spinbutton");
+
+        // Assert
+        expect(input).toHaveValue(null);
+    });
+
+    test("displays an empty input value when value is Infinity", () => {
+        // Arrange, Act
+        render(
+            <ScrolllessNumberTextField value={Infinity} onChange={() => {}} />,
+        );
+
+        const input = screen.getByRole("spinbutton");
+
+        // Assert
+        expect(input).toHaveValue(null);
+    });
+
     test("calls onFocus on focus", async () => {
         // Arrange
         const onFocus = jest.fn();
         render(
             <ScrolllessNumberTextField
-                value="42"
+                value={42}
                 onChange={() => {}}
                 onFocus={onFocus}
             />,
@@ -78,7 +141,7 @@ describe("ScrolllessNumberTextField", () => {
         const onBlur = jest.fn();
         render(
             <ScrolllessNumberTextField
-                value="42"
+                value={42}
                 onChange={() => {}}
                 onBlur={onBlur}
             />,

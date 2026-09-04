@@ -17,20 +17,7 @@ type Props = {
 const AngleInput = (props: Props) => {
     const {angle, onChange} = props;
 
-    const [angleInput, setAngleInput] = React.useState(
-        convertRadiansToDegrees(angle).toString(),
-    );
-
-    function handleAngleChange(newValue) {
-        // Update the local state (update the input field value).
-        setAngleInput(newValue);
-
-        // If the new value is not a number, don't update the props.
-        // If it's empty, keep the props the same value instead of setting to 0.
-        if (isNaN(+newValue) || newValue === "") {
-            return;
-        }
-
+    function handleAngleChange(newValue: number) {
         // Update the graph.
         onChange(convertDegreesToRadians(newValue));
     }
@@ -40,7 +27,7 @@ const AngleInput = (props: Props) => {
             angle (degrees)
             <Strut size={spacing.xxSmall_6} />
             <ScrolllessNumberTextField
-                value={angleInput}
+                value={convertRadiansToDegrees(angle)}
                 onChange={handleAngleChange}
                 style={styles.textField}
             />

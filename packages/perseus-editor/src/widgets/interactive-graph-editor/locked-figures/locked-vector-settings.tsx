@@ -16,6 +16,7 @@ import * as React from "react";
 
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
+import {midpoint} from "../../../util/midpoint";
 
 import ColorSelect from "./color-select";
 import LineSwatch from "./line-swatch";
@@ -117,8 +118,8 @@ const LockedVectorSettings = (props: Props) => {
             newPoints[index] = [...newCoord];
 
             // Update labels to match the new points
-            const oldMidpoint = vec.midpoint(tail, tip);
-            const newMidpoint = vec.midpoint(newPoints[0], newPoints[1]);
+            const oldMidpoint = midpoint(tail, tip);
+            const newMidpoint = midpoint(newPoints[0], newPoints[1]);
             const offset = vec.sub(newMidpoint, oldMidpoint);
             const newLabels = labels.map((label) => ({
                 ...label,
@@ -292,7 +293,7 @@ const LockedVectorSettings = (props: Props) => {
                     const offsetPerLabel: vec.Vector2 = [0, -1];
                     const labelLocation = vec.add(
                         vec.scale(offsetPerLabel, labels.length),
-                        vec.midpoint(tail, tip),
+                        midpoint(tail, tip),
                     );
 
                     const newLabel = {
