@@ -1,3 +1,4 @@
+import {registerWidgets} from "@khanacademy/perseus/widgets/registry";
 import {
     Errors,
     PerseusError,
@@ -6,6 +7,8 @@ import {
     strictGet,
 } from "@khanacademy/perseus-core";
 
+import type {EditorRegistration} from "./editor-registration";
+
 // Editors are plain React components; there is no shared interface to type
 // them against yet.
 type Editor = any;
@@ -13,17 +16,35 @@ type Editor = any;
 const editors = new Registry<Editor>("Perseus widget editor registry");
 
 /**
- * Register widget editors, keyed by the widget type each one edits.
+ * Register widget editors.
  *
- * The keys are widget types as they appear in Perseus content (e.g. `radio`),
- * which is what `getEditor` looks up. The type is the caller's to supply — an
- * editor component carries no record of which widget it edits.
+ * Descriptor registrations make both the widget and its editor available.
+ * Raw editor records remain supported for editors without a widget
+ * registration.
  */
-export const registerEditors = (editorsToRegister: Record<string, Editor>) => {
+export function registerEditors(
+    registrations: ReadonlyArray<EditorRegistration>,
+): void;
+export function registerEditors(
+    editorsToRegister: Record<string, Editor>,
+): void;
+export function registerEditors(
+    editorsToRegister:
+        | ReadonlyArray<EditorRegistration>
+        | Record<string, Editor>,
+): void {
+    if (Array.isArray(editorsToRegister)) {
+        editorsToRegister.forEach(({widgetRegistration, editor}) => {
+            registerWidgets([widgetRegistration]);
+            editors.set(widgetRegistration.widget.name, editor);
+        });
+        return;
+    }
+
     Object.entries(editorsToRegister).forEach(([widgetType, editor]) => {
         editors.set(widgetType, editor);
     });
-};
+}
 
 /**
  * Point the `type` editor at the editor registered for `replacementType`.

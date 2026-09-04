@@ -1,4 +1,9 @@
-import {setStrictRegistration} from "@khanacademy/perseus-core";
+import {Widgets} from "@khanacademy/perseus";
+import {
+    CoreWidgetRegistry,
+    Registry,
+    setStrictRegistration,
+} from "@khanacademy/perseus-core";
 
 import {
     getEditor,
@@ -9,8 +14,23 @@ import {
     resetEditorRegistry,
 } from "./editor-registry";
 
+import type {EditorRegistration} from "./editor-registration";
+import type {WidgetRegistration} from "@khanacademy/perseus";
+
 const standinEditor = {displayName: "Deprecated standin"};
 const radioEditor = {displayName: "Radio"};
+const radioWidgetRegistration = {
+    widget: {
+        name: "radio",
+        displayName: "Radio",
+        widget: () => null,
+    },
+    logic: {name: "radio", version: {major: 1, minor: 0}},
+} satisfies WidgetRegistration<"radio">;
+const radioEditorRegistration = {
+    widgetRegistration: radioWidgetRegistration,
+    editor: radioEditor,
+} satisfies EditorRegistration<"radio">;
 
 describe("editor registry", () => {
     afterEach(() => {
@@ -23,6 +43,36 @@ describe("editor registry", () => {
         registerEditors({radio: radioEditor});
 
         expect(getEditor("radio")).toBe(radioEditor);
+    });
+
+    it("registers an editor descriptor's widget before its editor", () => {
+        const set = jest.spyOn(Registry.prototype, "set");
+
+        registerEditors([radioEditorRegistration]);
+
+        const widgetSet = set.mock.results.find(
+            (_, index) =>
+                set.mock.calls[index][1] === radioWidgetRegistration.widget,
+        );
+        const editorSet = set.mock.results.find(
+            (_, index) => set.mock.calls[index][1] === radioEditor,
+        );
+
+        expect(getEditor("radio")).toBe(radioEditor);
+        expect(Widgets.getWidgetExport("radio")).toBe(
+            radioWidgetRegistration.widget,
+        );
+        expect(CoreWidgetRegistry.getCurrentVersion("radio")).toEqual({
+            major: 1,
+            minor: 0,
+        });
+        expect(widgetSet).toBeDefined();
+        expect(editorSet).toBeDefined();
+        expect(
+            set.mock.invocationCallOrder[set.mock.results.indexOf(widgetSet!)],
+        ).toBeLessThan(
+            set.mock.invocationCallOrder[set.mock.results.indexOf(editorSet!)],
+        );
     });
 
     it("throws under strict registration for an unregistered type", () => {

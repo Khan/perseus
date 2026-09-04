@@ -27,7 +27,8 @@
         ".": "./src/index.ts",
         "./init": "./src/init.ts",
         "./strings": "./src/strings.ts",
-        "./testing": "./src/testing.ts"
+        "./testing": "./src/testing.ts",
+        "./widgets/registry": "./src/widgets.ts"
     },
     "files": [
         "dist"

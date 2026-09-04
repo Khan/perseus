@@ -24,6 +24,8 @@ export {default as Renderer} from "./renderer";
  * Widgets
  */
 export * as Widgets from "./widgets";
+export {defineWidgetRegistration} from "./widget-registration";
+export type {WidgetRegistration} from "./widget-registration";
 /** @hidden */
 export {default as widgets} from "./all-widgets";
 export {Expression} from "./widgets/expression";
