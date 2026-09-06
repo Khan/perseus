@@ -46,6 +46,54 @@ function banImportExtension(extension) {
     ];
 }
 
+/**
+ * Import restrictions shared by the base config and the per-package
+ * overrides below. An override *replaces* `no-restricted-imports` rather
+ * than merging with it, so anything adding restrictions must carry these.
+ */
+const restrictedImportPaths = [
+    /** Wonder Blocks Restricted Imports */
+    {
+        name: "@khanacademy/wonder-blocks-tokens",
+        importNames: ["color"],
+        message:
+            "Please use semanticColor instead. See https://khanacademy.atlassian.net/wiki/spaces/WB/pages/4049666283/Core or https://khan.github.io/wonder-blocks/?path=/docs/foundations-using-color--docs&globals=theme:thunderblocks",
+    },
+    {
+        name: "@khanacademy/wonder-blocks-tabs",
+        importNames: ["NavigationTabs", "Tabs"],
+        message:
+            "Use WB ResponsiveNavigationTabs or ResponsiveTabs for responsive behaviour. They render NavigationTabs or Tabs by default and switch to a dropdown when space is limited - test both layouts. See https://khan.github.io/wonder-blocks/?path=/docs/packages-tabs-overview--docs. \n\nIf responsiveness isn't needed, ignore this rule for that import.",
+    },
+    {
+        name: "@khanacademy/wonder-blocks-typography",
+        importNames: [
+            "Title",
+            "HeadingLarge",
+            "HeadingMedium",
+            "HeadingSmall",
+            "HeadingXSmall",
+            "Tagline",
+        ],
+        message:
+            "Please use the WB Heading component instead. See https://khan.github.io/wonder-blocks/?path=/docs/packages-typography-heading-new--docs",
+    },
+    {
+        name: "@khanacademy/wonder-blocks-typography",
+        importNames: [
+            "Body",
+            "LabelLarge",
+            "LabelMedium",
+            "LabelSmall",
+            "LabelXSmall",
+            "Caption",
+            "Footnote",
+        ],
+        message:
+            "Please use the WB BodyText component instead. See https://khan.github.io/wonder-blocks/?path=/docs/packages-typography-bodytext-new--docs",
+    },
+];
+
 module.exports = {
     extends: [
         "@khanacademy",
@@ -384,48 +432,7 @@ module.exports = {
         "no-restricted-imports": [
             "error",
             {
-                paths: [
-                    /** Wonder Blocks Restricted Imports */
-                    {
-                        name: "@khanacademy/wonder-blocks-tokens",
-                        importNames: ["color"],
-                        message:
-                            "Please use semanticColor instead. See https://khanacademy.atlassian.net/wiki/spaces/WB/pages/4049666283/Core or https://khan.github.io/wonder-blocks/?path=/docs/foundations-using-color--docs&globals=theme:thunderblocks",
-                    },
-                    {
-                        name: "@khanacademy/wonder-blocks-tabs",
-                        importNames: ["NavigationTabs", "Tabs"],
-                        message:
-                            "Use WB ResponsiveNavigationTabs or ResponsiveTabs for responsive behaviour. They render NavigationTabs or Tabs by default and switch to a dropdown when space is limited - test both layouts. See https://khan.github.io/wonder-blocks/?path=/docs/packages-tabs-overview--docs. \n\nIf responsiveness isn't needed, ignore this rule for that import.",
-                    },
-                    {
-                        name: "@khanacademy/wonder-blocks-typography",
-                        importNames: [
-                            "Title",
-                            "HeadingLarge",
-                            "HeadingMedium",
-                            "HeadingSmall",
-                            "HeadingXSmall",
-                            "Tagline",
-                        ],
-                        message:
-                            "Please use the WB Heading component instead. See https://khan.github.io/wonder-blocks/?path=/docs/packages-typography-heading-new--docs",
-                    },
-                    {
-                        name: "@khanacademy/wonder-blocks-typography",
-                        importNames: [
-                            "Body",
-                            "LabelLarge",
-                            "LabelMedium",
-                            "LabelSmall",
-                            "LabelXSmall",
-                            "Caption",
-                            "Footnote",
-                        ],
-                        message:
-                            "Please use the WB BodyText component instead. See https://khan.github.io/wonder-blocks/?path=/docs/packages-typography-bodytext-new--docs",
-                    },
-                ],
+                paths: restrictedImportPaths,
             },
         ],
 
