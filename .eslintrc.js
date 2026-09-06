@@ -96,6 +96,36 @@ const restrictedImportPaths = [
     },
 ];
 
+/**
+ * Forbid a package from importing itself by name.
+ *
+ * A self-import resolves through the package's own `exports` map, so Rollup
+ * treats it as a second entry into the package and inlines another copy of
+ * whatever it pulls in. Nothing errors, so the duplication is invisible — and
+ * for a module holding state (a registry, a singleton) the two copies diverge.
+ */
+const noSelfPackageImports = pkgNames.map((pkgName) => ({
+    files: [`packages/${pkgName}/**`],
+    rules: {
+        "no-restricted-imports": [
+            "error",
+            {
+                paths: restrictedImportPaths,
+                patterns: [
+                    {
+                        group: [
+                            `@khanacademy/${pkgName}`,
+                            `@khanacademy/${pkgName}/*`,
+                        ],
+                        message:
+                            "Reach this package's own modules by relative path.",
+                    },
+                ],
+            },
+        ],
+    },
+}));
+
 module.exports = {
     extends: [
         "@khanacademy",
@@ -176,6 +206,7 @@ module.exports = {
         SpreadType: false,
     },
     overrides: [
+        ...noSelfPackageImports,
         {
             files: [
                 "*.cypress.tsx",
