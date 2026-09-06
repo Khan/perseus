@@ -11,7 +11,16 @@
         "**/*.stories.*",
         "**/__stories__/**",
         "**/__docs__/**",
-        "**/*.cypress.*"
+        "**/*.cypress.*",
+        // perseus-core's item-splitting entry point exists only for the
+        // `check_item_splitting` job in
+        // .github/workflows/pr-comparison-checks.yml, which esbuilds it from
+        // source and diffs the bundle between the base branch and the PR to
+        // flag unintended changes. It is not a published entry point, so a
+        // declaration for it would ship a file nothing can import. It stays
+        // type-checked via the root tsconfig.json, which `pnpm typecheck`
+        // uses; only the build configs that extend this file skip it.
+        "**/index.item-splitting.ts"
     ],
     "extends": "../tsconfig-common.json",
     "compilerOptions": {
