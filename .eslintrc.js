@@ -3,9 +3,11 @@
 const fs = require("fs");
 const path = require("path");
 
-const pkgNames = fs
-    .readdirSync(path.join(__dirname, "packages"))
-    .filter((name) => name !== ".DS_Store");
+const fg = require("fast-glob");
+
+const pkgNames = fg
+    .globSync(path.join(__dirname, "packages/*/package.json"))
+    .map((pkgJsonPath) => path.basename(path.dirname(pkgJsonPath)));
 
 const pkgAliases = pkgNames.map((pkgName) => {
     return [`@khanacademy/${pkgName}`, `./packages/${pkgName}/src/index.js`];
