@@ -87,6 +87,7 @@ module.exports = {
         "<rootDir>/config/test/test-setup.ts",
         "<rootDir>/config/test/custom-matchers.ts",
         "<rootDir>/config/test/crypto-polyfill.js",
+        "<rootDir>/config/test/aphrodite-snapshot-serializer.js",
     ],
     moduleNameMapper: {
         ...pkgMap,
