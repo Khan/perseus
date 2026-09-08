@@ -30,7 +30,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                   style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
                 >
                   <div
-                    class="default_7zhre1-o_O-spinnerContainer_agrn11"
+                    style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; justify-content: center;"
                   >
                     <svg
                       height="48"
@@ -39,16 +39,18 @@ exports[`group widget should snapshot: initial render 1`] = `
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        class="loadingSpinner_1dvgeb3-o_O-inlineStyles_1uct99t"
                         d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                        data-keyframes-animation-name="0% { transform: rotate(0deg); } 50% { transform: rotate(180deg); } 100% { transform: rotate(360deg); }"
                         fill-rule="nonzero"
+                        style="transform-origin: 50% 50%; animation-duration: 1.1s; animation-iteration-count: infinite; animation-timing-function: linear; fill: var(--wb-semanticColor-core-foreground-neutral-subtle);"
                       />
                     </svg>
                   </div>
                 </span>
                 <button
                   aria-label="Make image bigger."
-                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
+                  data-style-moz-focus-inner="border: 0px;"
+                  style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: hidden; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: zoom-in; position: absolute; height: 100%;"
                   type="button"
                 />
               </div>
@@ -438,9 +440,14 @@ exports[`group widget should snapshot: initial render 1`] = `
                             autocapitalize="off"
                             autocomplete="off"
                             autocorrect="off"
-                            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
+                            class="perseus-input input-with-examples"
+                            data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                            data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                            data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                            data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                             data-testid="input-with-examples"
                             id=":ra:"
+                            style="width: 8rem; height: 3.2rem; border-radius: 0.3rem; box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 0px; display: inline-block; font-family: Symbola, "Times New Roman", serif; font-size: 1.8rem; font-weight: var(--wb-font-weight-medium); line-height: 1.8rem; background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); border-width: var(--wb-border-width-thin); direction: ltr; padding: 0.4rem 0.5rem; text-align: left;"
                             tabindex="0"
                             type="text"
                             value=""
@@ -495,9 +502,14 @@ exports[`group widget should snapshot: initial render 1`] = `
                             autocapitalize="off"
                             autocomplete="off"
                             autocorrect="off"
-                            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
+                            class="perseus-input input-with-examples"
+                            data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                            data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                            data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                            data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                             data-testid="input-with-examples"
                             id=":rd:"
+                            style="width: 8rem; height: 3.2rem; border-radius: 0.3rem; box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 0px; display: inline-block; font-family: Symbola, "Times New Roman", serif; font-size: 1.8rem; font-weight: var(--wb-font-weight-medium); line-height: 1.8rem; background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); border-width: var(--wb-border-width-thin); direction: ltr; padding: 0.4rem 0.5rem; text-align: left;"
                             tabindex="0"
                             type="text"
                             value=""
@@ -532,7 +544,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
                               >
                                 <div
-                                  class="default_7zhre1-o_O-spinnerContainer_agrn11"
+                                  style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; justify-content: center;"
                                 >
                                   <svg
                                     height="48"
@@ -541,16 +553,18 @@ exports[`group widget should snapshot: initial render 1`] = `
                                     xmlns="http://www.w3.org/2000/svg"
                                   >
                                     <path
-                                      class="loadingSpinner_1dvgeb3-o_O-inlineStyles_1uct99t"
                                       d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                                      data-keyframes-animation-name="0% { transform: rotate(0deg); } 50% { transform: rotate(180deg); } 100% { transform: rotate(360deg); }"
                                       fill-rule="nonzero"
+                                      style="transform-origin: 50% 50%; animation-duration: 1.1s; animation-iteration-count: infinite; animation-timing-function: linear; fill: var(--wb-semanticColor-core-foreground-neutral-subtle);"
                                     />
                                   </svg>
                                 </div>
                               </span>
                               <button
                                 aria-label="Make image bigger."
-                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
+                                data-style-moz-focus-inner="border: 0px;"
+                                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: hidden; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: zoom-in; position: absolute; height: 100%;"
                                 type="button"
                               />
                             </div>

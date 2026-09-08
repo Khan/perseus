@@ -346,16 +346,17 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
           class="perseus-widget-container widget-inline-block"
         >
           <div
-            class="default_7zhre1"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
           >
             <label
-              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
               for=":r3:"
+              style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
             >
               Test visible label
             </label>
             <div
-              class="default_7zhre1-o_O-menuWrapper_1rs652y perseus-dropdown"
+              class="perseus-dropdown"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: fit-content; max-inline-size: 100%;"
             >
               <button
                 aria-controls=":r4:"
@@ -364,13 +365,17 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                 aria-invalid="false"
                 aria-label="Test ARIA label"
                 aria-required="false"
-                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_znuyo8"
+                data-style-active="box-shadow: 0 0 0 var(--wb-border-width-thin) var(--wb-semanticColor-input-default-border);"
+                data-style-focus="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                data-style-focus-active="box-shadow: 0 0 0 var(--wb-border-width-thin) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                data-style-moz-focus-inner="border: 0px;"
                 id=":r3:"
                 role="combobox"
+                style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: space-between; color: var(--wb-semanticColor-input-default-foreground); height: 40px; padding-inline-start: var(--wb-c-dropdown-opener-layout-padding-inlineStart); padding-inline-end: var(--wb-c-dropdown-opener-layout-padding-inlineEnd); border-width: 0px; border-radius: var(--wb-c-dropdown-opener-border-radius-rest); border-style: solid; outline: none; text-decoration: none; box-sizing: border-box; white-space: nowrap; touch-action: manipulation; background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); cursor: pointer;"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_awxjrp"
+                  style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); margin-inline-end: var(--wb-sizing-size_080); white-space: nowrap; user-select: none; overflow: hidden; text-overflow: ellipsis;"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
@@ -389,7 +394,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-caret_1e21hpf-o_O-inlineStyles_efsbsa"
+                  style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); min-inline-size: var(--wb-sizing-size_160); background-color: var(--wb-semanticColor-core-foreground-neutral-default); mask-image: url(caret-down-bold.svg);"
                 />
               </button>
             </div>
@@ -431,16 +436,17 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
           class="perseus-widget-container widget-inline-block"
         >
           <div
-            class="default_7zhre1"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
           >
             <label
-              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
               for=":r6:"
+              style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
             >
               Test visible label
             </label>
             <div
-              class="default_7zhre1-o_O-menuWrapper_1rs652y perseus-dropdown"
+              class="perseus-dropdown"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: fit-content; max-inline-size: 100%;"
             >
               <button
                 aria-controls=":r7:"
@@ -449,13 +455,17 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                 aria-invalid="false"
                 aria-label="Test ARIA label"
                 aria-required="false"
-                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_znuyo8"
+                data-style-active="box-shadow: 0 0 0 var(--wb-border-width-thin) var(--wb-semanticColor-input-default-border);"
+                data-style-focus="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                data-style-focus-active="box-shadow: 0 0 0 var(--wb-border-width-thin) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                data-style-moz-focus-inner="border: 0px;"
                 id=":r6:"
                 role="combobox"
+                style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: space-between; color: var(--wb-semanticColor-input-default-foreground); height: 40px; padding-inline-start: var(--wb-c-dropdown-opener-layout-padding-inlineStart); padding-inline-end: var(--wb-c-dropdown-opener-layout-padding-inlineEnd); border-width: 0px; border-radius: var(--wb-c-dropdown-opener-border-radius-rest); border-style: solid; outline: none; text-decoration: none; box-sizing: border-box; white-space: nowrap; touch-action: manipulation; background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); cursor: pointer;"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_awxjrp"
+                  style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); margin-inline-end: var(--wb-sizing-size_080); white-space: nowrap; user-select: none; overflow: hidden; text-overflow: ellipsis;"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
@@ -474,7 +484,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-caret_1e21hpf-o_O-inlineStyles_efsbsa"
+                  style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); min-inline-size: var(--wb-sizing-size_160); background-color: var(--wb-semanticColor-core-foreground-neutral-default); mask-image: url(caret-down-bold.svg);"
                 />
               </button>
             </div>
@@ -516,16 +526,17 @@ exports[`renderer snapshots initial render: initial render 1`] = `
           class="perseus-widget-container widget-inline-block"
         >
           <div
-            class="default_7zhre1"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
           >
             <label
-              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
               for=":r0:"
+              style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
             >
               Test visible label
             </label>
             <div
-              class="default_7zhre1-o_O-menuWrapper_1rs652y perseus-dropdown"
+              class="perseus-dropdown"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: fit-content; max-inline-size: 100%;"
             >
               <button
                 aria-controls=":r1:"
@@ -534,13 +545,17 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                 aria-invalid="false"
                 aria-label="Test ARIA label"
                 aria-required="false"
-                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_znuyo8"
+                data-style-active="box-shadow: 0 0 0 var(--wb-border-width-thin) var(--wb-semanticColor-input-default-border);"
+                data-style-focus="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                data-style-focus-active="box-shadow: 0 0 0 var(--wb-border-width-thin) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                data-style-moz-focus-inner="border: 0px;"
                 id=":r0:"
                 role="combobox"
+                style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: space-between; color: var(--wb-semanticColor-input-default-foreground); height: 40px; padding-inline-start: var(--wb-c-dropdown-opener-layout-padding-inlineStart); padding-inline-end: var(--wb-c-dropdown-opener-layout-padding-inlineEnd); border-width: 0px; border-radius: var(--wb-c-dropdown-opener-border-radius-rest); border-style: solid; outline: none; text-decoration: none; box-sizing: border-box; white-space: nowrap; touch-action: manipulation; background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); cursor: pointer;"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_awxjrp"
+                  style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); margin-inline-end: var(--wb-sizing-size_080); white-space: nowrap; user-select: none; overflow: hidden; text-overflow: ellipsis;"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
@@ -559,7 +574,7 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-caret_1e21hpf-o_O-inlineStyles_efsbsa"
+                  style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); min-inline-size: var(--wb-sizing-size_160); background-color: var(--wb-semanticColor-core-foreground-neutral-default); mask-image: url(caret-down-bold.svg);"
                 />
               </button>
             </div>
@@ -603,26 +618,26 @@ exports[`renderer snapshots renders a placeholder for a deprecated widget: depre
             style="padding-block-start: 8px; padding-block-end: 8px;"
           >
             <div
-              class="default_7zhre1-o_O-containerOuter_1fa127e-o_O-infoBanner_rdpfpm"
               role="status"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: var(--wb-sizing-size_160); position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; border-inline-start-width: var(--wb-c-banner-root-border-width-inlineStart); border-inline-end-width: var(--wb-c-banner-root-border-width-inlineEnd); border-block-start-width: var(--wb-c-banner-root-border-width-blockStart); border-block-end-width: var(--wb-c-banner-root-border-width-blockEnd); width: 100%; border-radius: var(--wb-c-banner-root-border-radius); overflow: hidden; padding-inline-start: var(--wb-c-banner-root-layout-paddingInlineStart); background-color: var(--wb-semanticColor-feedback-info-subtle-background); border-color: var(--wb-c-banner-root-color-border-info); color: var(--wb-semanticColor-feedback-info-subtle-text);"
             >
               <div
-                class="default_7zhre1-o_O-containerInner_1lza62o"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; gap: var(--wb-c-banner-root-layout-gap);"
               >
                 <span
                   aria-label="info"
-                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-icon_18itqqa-o_O-infoIcon_cju5w7-o_O-inlineStyles_iads8r"
                   data-testid="banner-kind-icon"
                   role="img"
+                  style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-c-banner-icon-sizing-width); height: var(--wb-c-banner-icon-sizing-height); align-self: flex-start; color: var(--wb-c-banner-icon-color-info); background-color: currentColor; mask-image: url(info-bold.svg);"
                 />
                 <div
-                  class="default_7zhre1-o_O-labelAndButtonsContainer_1dntbm4"
+                  style="align-items: center; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; flex: 1; align-content: center; flex-wrap: wrap; justify-content: space-between; gap: var(--wb-c-banner-root-layout-gap);"
                 >
                   <div
-                    class="default_7zhre1-o_O-labelContainer_14mmd26"
+                    style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; flex-shrink: 1; text-align: start; overflow-wrap: break-word;"
                   >
                     <div
-                      class="labelTypography_1y1267m"
+                      style="font-size: var(--wb-c-banner-label-font-size); font-weight: var(--wb-font-weight-semi); line-height: var(--wb-font-body-lineHeight-small); font-family: var(--wb-font-family-sans);"
                     >
                       Sorry, this part of the question is no longer available. 😅 Don't worry, you won't be graded on this part. Keep going!
                     </div>

@@ -7,9 +7,9 @@ exports[`Marker component rendering renders an empty marker 1`] = `
       aria-controls=":r0:"
       aria-expanded="true"
       aria-label="Edit marker: Marker 1"
-      class="marker_cvqkp3-o_O-markerSelected_y0aq99"
+      data-style-before="content: ''; display: block; width: var(--wb-sizing-size_200); height: var(--wb-sizing-size_200); margin-inline-start: var(--wb-sizing-size_020); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_200);"
       id=":r0:-anchor"
-      style="left: 50%; top: 50%;"
+      style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_280); height: var(--wb-sizing-size_280); transform: translate(-50%, -50%); cursor: pointer; background: linear-gradient(to bottom, rgba(33, 36, 44, 0.2), rgba(33, 36, 44, 0.5)); border: none; border-radius: var(--wb-sizing-size_280); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 50%; top: 50%;"
       type="button"
     />
   </div>
@@ -17,66 +17,74 @@ exports[`Marker component rendering renders an empty marker 1`] = `
     <div
       aria-describedby=":r0:-content"
       aria-labelledby=":r0:-title"
-      class="default_7zhre1-o_O-hide_16igwdi-o_O-content-top_1jtvojh-o_O-inlineStyles_i5mxc2"
       data-placement="top"
       id=":r0:"
       role="dialog"
+      style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: fixed; z-index: 0; min-block-size: 0px; min-inline-size: 0px; pointer-events: none; opacity: 0; background-color: var(--wb-semanticColor-core-transparent); color: var(--wb-semanticColor-core-transparent); top: auto; left: 0; bottom: 0; right: auto; transform: translate(0px, 0px); visibility: hidden;"
     >
       <div
-        class="default_7zhre1-o_O-content_11mqw8v-o_O-dropdownBody_1gyjybc"
+        style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; border-radius: var(--wb-border-radius-radius_040); border: solid 1px var(--wb-semanticColor-core-border-neutral-subtle); background-color: var(--wb-semanticColor-core-background-base-default); box-shadow: var(--wb-boxShadow-mid); max-inline-size: calc(var(--wb-sizing-size_160) * 18); overflow: hidden; justify-content: center;"
       >
         <div
-          class="labelContainer_veipjp"
+          style="padding: var(--wb-sizing-size_060);"
         >
           <input
             aria-disabled="false"
             aria-invalid="false"
             aria-required="false"
-            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
+            data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+            data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+            data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+            data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
             id=":r1:"
             placeholder="ARIA label (for screen readers)"
+            style="width: 100%; height: var(--wb-c-form-field-sizing-height); border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 0px; display: block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground);"
             tabindex="0"
             type="text"
             value="Marker 1"
           />
         </div>
         <hr
-          class="dividerHorizontal_10sn35t"
+          style="height: 0px; margin: 0px; border: solid var(--wb-semanticColor-core-border-neutral-default); border-width: 0 0 1px; box-shadow: none;"
         />
         <div
           aria-label="Answer choices"
           aria-multiselectable="true"
-          class="default_7zhre1-o_O-listbox_1413512"
           id=":r2:"
           role="listbox"
+          style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; background-color: var(--wb-semanticColor-core-background-base-default); outline: none; padding-block: var(--wb-c-dropdown-listbox-layout-padding-block); padding-inline: var(--wb-c-dropdown-listbox-layout-padding-inline);"
           tabindex="0"
         />
         <hr
-          class="dividerHorizontal_10sn35t"
+          style="height: 0px; margin: 0px; border: solid var(--wb-semanticColor-core-border-neutral-default); border-width: 0 0 1px; box-shadow: none;"
         />
         <button
           aria-disabled="false"
-          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_ojsq95"
           data-kind="tertiary"
+          data-style-active="background: var(--wb-semanticColor-action-tertiary-destructive-press-background); border-radius: var(--wb-c-button-root-border-radius-press); color: var(--wb-semanticColor-action-tertiary-destructive-press-foreground); border-color: var(--wb-semanticColor-action-tertiary-destructive-press-border); box-shadow: inset 0 0 0 var(--wb-c-button-root-border-width-tertiary-press) var(--wb-semanticColor-action-tertiary-destructive-press-border); text-underline-offset: var(--wb-c-button-root-font-offset-default); text-decoration: var(--wb-c-button-root-font-decoration-press) var(--wb-c-button-root-sizing-underline-press);"
+          data-style-focus="-webkit-tap-highlight-color: rgba(0,0,0,0);"
+          data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+          data-style-media-hover-hover-hover="background: var(--wb-semanticColor-action-tertiary-destructive-hover-background); border-radius: var(--wb-c-button-root-border-radius-hover); color: var(--wb-semanticColor-action-tertiary-destructive-hover-foreground); border-color: var(--wb-semanticColor-action-tertiary-destructive-hover-border); box-shadow: inset 0 0 0 var(--wb-c-button-root-border-width-tertiary-hover) var(--wb-semanticColor-action-tertiary-destructive-hover-border); text-underline-offset: var(--wb-c-button-root-font-offset-default); text-decoration: var(--wb-c-button-root-font-decoration-hover) var(--wb-c-button-root-sizing-underline-hover);"
+          data-style-moz-focus-inner="border: 0px;"
+          style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: center; padding: 0px; border: none; cursor: pointer; outline: none; text-decoration: none; box-sizing: border-box; touch-action: manipulation; user-select: none; height: var(--wb-c-button-root-sizing-height-medium); padding-block: 0px; border-radius: var(--wb-c-button-root-border-radius-default); padding-inline: var(--wb-c-button-root-layout-padding-inline-tertiary-medium); border-style: solid; border-width: var(--wb-c-button-root-border-width-tertiary-default); border-color: var(--wb-semanticColor-action-tertiary-destructive-default-border); background: var(--wb-semanticColor-action-tertiary-destructive-default-background); color: var(--wb-semanticColor-action-tertiary-destructive-default-foreground); transition: border-radius 0.1s ease-in-out;"
           tabindex="0"
           type="button"
         >
           <span
-            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+            style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: inline-block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-c-button-root-font-weight-default); line-height: var(--wb-c-button-root-font-lineHeight-default); align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;"
           >
             Delete marker
           </span>
         </button>
       </div>
       <div
-        class="default_7zhre1-o_O-tailContainer_m1n018-o_O-inlineStyles_17q6yl"
         data-placement="top"
+        style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; pointer-events: none; top: -1px; left: 0; transform: translate(0px, 0px); width: 40px; height: 20px;"
       >
         <svg
           aria-hidden="true"
-          class="arrow_oo4scr"
           height="12"
-          style="margin-left: 8px; margin-right: 8px; padding-bottom: 8px;"
+          style="overflow: visible; margin-left: 8px; margin-right: 8px; padding-bottom: 8px;"
           width="24"
         >
           <filter
@@ -135,9 +143,9 @@ exports[`Marker component rendering renders with answers and choices 1`] = `
       aria-controls=":r3:"
       aria-expanded="true"
       aria-label="Edit marker: Marker 1"
-      class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8-o_O-markerSelected_y0aq99"
+      data-style-before="content: ''; display: block; width: var(--wb-sizing-size_200); height: var(--wb-sizing-size_200); margin-inline-start: var(--wb-sizing-size_020); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_200);"
       id=":r3:-anchor"
-      style="left: 50%; top: 50%;"
+      style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_280); height: var(--wb-sizing-size_280); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: none; border-radius: var(--wb-sizing-size_280); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 50%; top: 50%;"
       type="button"
     />
   </div>
@@ -145,61 +153,75 @@ exports[`Marker component rendering renders with answers and choices 1`] = `
     <div
       aria-describedby=":r3:-content"
       aria-labelledby=":r3:-title"
-      class="default_7zhre1-o_O-hide_16igwdi-o_O-content-top_1jtvojh-o_O-inlineStyles_i5mxc2"
       data-placement="top"
       id=":r3:"
       role="dialog"
+      style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: fixed; z-index: 0; min-block-size: 0px; min-inline-size: 0px; pointer-events: none; opacity: 0; background-color: var(--wb-semanticColor-core-transparent); color: var(--wb-semanticColor-core-transparent); top: auto; left: 0; bottom: 0; right: auto; transform: translate(0px, 0px); visibility: hidden;"
     >
       <div
-        class="default_7zhre1-o_O-content_11mqw8v-o_O-dropdownBody_1gyjybc"
+        style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; border-radius: var(--wb-border-radius-radius_040); border: solid 1px var(--wb-semanticColor-core-border-neutral-subtle); background-color: var(--wb-semanticColor-core-background-base-default); box-shadow: var(--wb-boxShadow-mid); max-inline-size: calc(var(--wb-sizing-size_160) * 18); overflow: hidden; justify-content: center;"
       >
         <div
-          class="labelContainer_veipjp"
+          style="padding: var(--wb-sizing-size_060);"
         >
           <input
             aria-disabled="false"
             aria-invalid="false"
             aria-required="false"
-            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
+            data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+            data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+            data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+            data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
             id=":r4:"
             placeholder="ARIA label (for screen readers)"
+            style="width: 100%; height: var(--wb-c-form-field-sizing-height); border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 0px; display: block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground);"
             tabindex="0"
             type="text"
             value="Marker 1"
           />
         </div>
         <hr
-          class="dividerHorizontal_10sn35t"
+          style="height: 0px; margin: 0px; border: solid var(--wb-semanticColor-core-border-neutral-default); border-width: 0 0 1px; box-shadow: none;"
         />
         <div
           aria-label="Answer choices"
           aria-multiselectable="true"
-          class="default_7zhre1-o_O-listbox_1413512"
           id=":r5:"
           role="listbox"
+          style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; background-color: var(--wb-semanticColor-core-background-base-default); outline: none; padding-block: var(--wb-c-dropdown-listbox-layout-padding-block); padding-inline: var(--wb-c-dropdown-listbox-layout-padding-inline);"
           tabindex="0"
         >
           <button
             aria-disabled="false"
             aria-selected="false"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-wrapper_su0a8m-o_O-innerWrapper_mnq6zz-o_O-clickable_1krawm8-o_O-optionItem_yre2rc-o_O-listboxOptionItem_1si2p3p-o_O-inlineStyles_3hmsj"
+            data-style-active="background: var(--wb-semanticColor-core-background-instructive-subtle); border-radius: var(--wb-c-dropdown-item-border-radius-press);"
+            data-style-active-aria-disabled-false-not-aria-current-true="position: relative;"
+            data-style-active-aria-disabled-false-not-aria-current-true-before="content: ''; position: absolute; inset-block-start: 0px; inset-inline-start: 0px; inset-block-end: 0px; width: var(--wb-c-cell-root-border-width-default); background-color: var(--wb-c-cell-root-color-press-border);"
+            data-style-focus-visible="border-radius: var(--wb-c-cell-root-border-radius-focus); outline: none; outline-offset: calc(var(--wb-c-cell-root-border-width-default) * -1); box-shadow: none; overflow: hidden; position: relative;"
+            data-style-focus-visible-active="border-radius: var(--wb-c-cell-root-border-radius-focusPress);"
+            data-style-focus-visible-after="content: unset;"
+            data-style-hover="background: var(--wb-semanticColor-core-background-instructive-subtle);"
+            data-style-is-aria-disabled-true-focus="outline: none; box-shadow: none;"
+            data-style-moz-focus-inner="border: 0px;"
             id=":r5:-option-0"
             role="option"
+            style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: hidden; background: var(--wb-semanticColor-core-background-base-default); text-decoration: none; color: var(--wb-semanticColor-core-foreground-neutral-strong); font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; border-radius: var(--wb-c-cell-root-border-radius-default); min-block-size: var(--wb-sizing-size_400); text-align: start; display: flex; flex: 1; flex-direction: row; gap: var(--wb-c-cell-root-layout-gap-default); padding-block: var(--wb-c-dropdown-item-layout-padding-block); padding-inline: var(--wb-c-cell-root-layout-padding-inline-detail); padding-inline-start: var(--wb-c-dropdown-item-layout-padding-inlineStart); padding-inline-end: var(--wb-c-dropdown-item-layout-padding-inlineEnd); white-space: nowrap;"
             tabindex="-1"
             type="button"
           >
             <div
-              class="default_7zhre1-o_O-accessory_9jq3ey-o_O-accessoryLeft_ddq71i-o_O-inlineStyles_3hmsj"
+              style="align-items: center; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: auto; align-self: center; color: var(--wb-c-cell-accessoryLeft-color-default-foreground);"
             >
               <div
-                class="default_7zhre1-o_O-checkbox_tyfhob checkbox"
+                class="checkbox"
+                style="align-items: stretch; border-width: var(--wb-border-width-thin); border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: var(--wb-sizing-size_160); min-inline-size: var(--wb-sizing-size_160); align-self: center; height: var(--wb-sizing-size_160); background: var(--wb-semanticColor-input-default-background); border-radius: 3px; border-color: var(--wb-semanticColor-input-default-border);"
               />
             </div>
             <div
-              class="default_7zhre1-o_O-content_1j3eb01-o_O-inlineStyles_iqfeo"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; align-self: center; flex: 1; overflow-wrap: break-word; gap: var(--wb-c-cell-root-layout-gap-detail);"
             >
               <div
-                class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-label_1oxsvo1"
+                style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-c-dropdown-item-font-weight); line-height: var(--wb-sizing-size_200); white-space: nowrap; user-select: none; overflow: hidden; text-overflow: ellipsis;"
               >
                 Choice 1
               </div>
@@ -208,24 +230,34 @@ exports[`Marker component rendering renders with answers and choices 1`] = `
           <button
             aria-disabled="false"
             aria-selected="false"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-wrapper_su0a8m-o_O-innerWrapper_mnq6zz-o_O-clickable_1krawm8-o_O-optionItem_yre2rc-o_O-listboxOptionItem_1si2p3p-o_O-inlineStyles_3hmsj"
+            data-style-active="background: var(--wb-semanticColor-core-background-instructive-subtle); border-radius: var(--wb-c-dropdown-item-border-radius-press);"
+            data-style-active-aria-disabled-false-not-aria-current-true="position: relative;"
+            data-style-active-aria-disabled-false-not-aria-current-true-before="content: ''; position: absolute; inset-block-start: 0px; inset-inline-start: 0px; inset-block-end: 0px; width: var(--wb-c-cell-root-border-width-default); background-color: var(--wb-c-cell-root-color-press-border);"
+            data-style-focus-visible="border-radius: var(--wb-c-cell-root-border-radius-focus); outline: none; outline-offset: calc(var(--wb-c-cell-root-border-width-default) * -1); box-shadow: none; overflow: hidden; position: relative;"
+            data-style-focus-visible-active="border-radius: var(--wb-c-cell-root-border-radius-focusPress);"
+            data-style-focus-visible-after="content: unset;"
+            data-style-hover="background: var(--wb-semanticColor-core-background-instructive-subtle);"
+            data-style-is-aria-disabled-true-focus="outline: none; box-shadow: none;"
+            data-style-moz-focus-inner="border: 0px;"
             id=":r5:-option-1"
             role="option"
+            style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: hidden; background: var(--wb-semanticColor-core-background-base-default); text-decoration: none; color: var(--wb-semanticColor-core-foreground-neutral-strong); font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; border-radius: var(--wb-c-cell-root-border-radius-default); min-block-size: var(--wb-sizing-size_400); text-align: start; display: flex; flex: 1; flex-direction: row; gap: var(--wb-c-cell-root-layout-gap-default); padding-block: var(--wb-c-dropdown-item-layout-padding-block); padding-inline: var(--wb-c-cell-root-layout-padding-inline-detail); padding-inline-start: var(--wb-c-dropdown-item-layout-padding-inlineStart); padding-inline-end: var(--wb-c-dropdown-item-layout-padding-inlineEnd); white-space: nowrap;"
             tabindex="-1"
             type="button"
           >
             <div
-              class="default_7zhre1-o_O-accessory_9jq3ey-o_O-accessoryLeft_ddq71i-o_O-inlineStyles_3hmsj"
+              style="align-items: center; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: auto; align-self: center; color: var(--wb-c-cell-accessoryLeft-color-default-foreground);"
             >
               <div
-                class="default_7zhre1-o_O-checkbox_tyfhob checkbox"
+                class="checkbox"
+                style="align-items: stretch; border-width: var(--wb-border-width-thin); border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: var(--wb-sizing-size_160); min-inline-size: var(--wb-sizing-size_160); align-self: center; height: var(--wb-sizing-size_160); background: var(--wb-semanticColor-input-default-background); border-radius: 3px; border-color: var(--wb-semanticColor-input-default-border);"
               />
             </div>
             <div
-              class="default_7zhre1-o_O-content_1j3eb01-o_O-inlineStyles_iqfeo"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; align-self: center; flex: 1; overflow-wrap: break-word; gap: var(--wb-c-cell-root-layout-gap-detail);"
             >
               <div
-                class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-label_1oxsvo1"
+                style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-c-dropdown-item-font-weight); line-height: var(--wb-sizing-size_200); white-space: nowrap; user-select: none; overflow: hidden; text-overflow: ellipsis;"
               >
                 Choice 2
               </div>
@@ -233,31 +265,35 @@ exports[`Marker component rendering renders with answers and choices 1`] = `
           </button>
         </div>
         <hr
-          class="dividerHorizontal_10sn35t"
+          style="height: 0px; margin: 0px; border: solid var(--wb-semanticColor-core-border-neutral-default); border-width: 0 0 1px; box-shadow: none;"
         />
         <button
           aria-disabled="false"
-          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_ojsq95"
           data-kind="tertiary"
+          data-style-active="background: var(--wb-semanticColor-action-tertiary-destructive-press-background); border-radius: var(--wb-c-button-root-border-radius-press); color: var(--wb-semanticColor-action-tertiary-destructive-press-foreground); border-color: var(--wb-semanticColor-action-tertiary-destructive-press-border); box-shadow: inset 0 0 0 var(--wb-c-button-root-border-width-tertiary-press) var(--wb-semanticColor-action-tertiary-destructive-press-border); text-underline-offset: var(--wb-c-button-root-font-offset-default); text-decoration: var(--wb-c-button-root-font-decoration-press) var(--wb-c-button-root-sizing-underline-press);"
+          data-style-focus="-webkit-tap-highlight-color: rgba(0,0,0,0);"
+          data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+          data-style-media-hover-hover-hover="background: var(--wb-semanticColor-action-tertiary-destructive-hover-background); border-radius: var(--wb-c-button-root-border-radius-hover); color: var(--wb-semanticColor-action-tertiary-destructive-hover-foreground); border-color: var(--wb-semanticColor-action-tertiary-destructive-hover-border); box-shadow: inset 0 0 0 var(--wb-c-button-root-border-width-tertiary-hover) var(--wb-semanticColor-action-tertiary-destructive-hover-border); text-underline-offset: var(--wb-c-button-root-font-offset-default); text-decoration: var(--wb-c-button-root-font-decoration-hover) var(--wb-c-button-root-sizing-underline-hover);"
+          data-style-moz-focus-inner="border: 0px;"
+          style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: center; padding: 0px; border: none; cursor: pointer; outline: none; text-decoration: none; box-sizing: border-box; touch-action: manipulation; user-select: none; height: var(--wb-c-button-root-sizing-height-medium); padding-block: 0px; border-radius: var(--wb-c-button-root-border-radius-default); padding-inline: var(--wb-c-button-root-layout-padding-inline-tertiary-medium); border-style: solid; border-width: var(--wb-c-button-root-border-width-tertiary-default); border-color: var(--wb-semanticColor-action-tertiary-destructive-default-border); background: var(--wb-semanticColor-action-tertiary-destructive-default-background); color: var(--wb-semanticColor-action-tertiary-destructive-default-foreground); transition: border-radius 0.1s ease-in-out;"
           tabindex="0"
           type="button"
         >
           <span
-            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+            style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: inline-block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-c-button-root-font-weight-default); line-height: var(--wb-c-button-root-font-lineHeight-default); align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;"
           >
             Delete marker
           </span>
         </button>
       </div>
       <div
-        class="default_7zhre1-o_O-tailContainer_m1n018-o_O-inlineStyles_17q6yl"
         data-placement="top"
+        style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; pointer-events: none; top: -1px; left: 0; transform: translate(0px, 0px); width: 40px; height: 20px;"
       >
         <svg
           aria-hidden="true"
-          class="arrow_oo4scr"
           height="12"
-          style="margin-left: 8px; margin-right: 8px; padding-bottom: 8px;"
+          style="overflow: visible; margin-left: 8px; margin-right: 8px; padding-bottom: 8px;"
           width="24"
         >
           <filter

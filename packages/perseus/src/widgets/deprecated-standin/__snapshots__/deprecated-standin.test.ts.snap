@@ -30,26 +30,26 @@ exports[`Deprecated Standin widget should have a default snapshot: first render 
             style="padding-block-start: 8px; padding-block-end: 8px;"
           >
             <div
-              class="default_7zhre1-o_O-containerOuter_1fa127e-o_O-infoBanner_rdpfpm"
               role="status"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: var(--wb-sizing-size_160); position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; border-inline-start-width: var(--wb-c-banner-root-border-width-inlineStart); border-inline-end-width: var(--wb-c-banner-root-border-width-inlineEnd); border-block-start-width: var(--wb-c-banner-root-border-width-blockStart); border-block-end-width: var(--wb-c-banner-root-border-width-blockEnd); width: 100%; border-radius: var(--wb-c-banner-root-border-radius); overflow: hidden; padding-inline-start: var(--wb-c-banner-root-layout-paddingInlineStart); background-color: var(--wb-semanticColor-feedback-info-subtle-background); border-color: var(--wb-c-banner-root-color-border-info); color: var(--wb-semanticColor-feedback-info-subtle-text);"
             >
               <div
-                class="default_7zhre1-o_O-containerInner_1lza62o"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; gap: var(--wb-c-banner-root-layout-gap);"
               >
                 <span
                   aria-label="info"
-                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-icon_18itqqa-o_O-infoIcon_cju5w7-o_O-inlineStyles_iads8r"
                   data-testid="banner-kind-icon"
                   role="img"
+                  style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-c-banner-icon-sizing-width); height: var(--wb-c-banner-icon-sizing-height); align-self: flex-start; color: var(--wb-c-banner-icon-color-info); background-color: currentColor; mask-image: url(info-bold.svg);"
                 />
                 <div
-                  class="default_7zhre1-o_O-labelAndButtonsContainer_1dntbm4"
+                  style="align-items: center; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; flex: 1; align-content: center; flex-wrap: wrap; justify-content: space-between; gap: var(--wb-c-banner-root-layout-gap);"
                 >
                   <div
-                    class="default_7zhre1-o_O-labelContainer_14mmd26"
+                    style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; flex-shrink: 1; text-align: start; overflow-wrap: break-word;"
                   >
                     <div
-                      class="labelTypography_1y1267m"
+                      style="font-size: var(--wb-c-banner-label-font-size); font-weight: var(--wb-font-weight-semi); line-height: var(--wb-font-body-lineHeight-small); font-family: var(--wb-font-family-sans);"
                     >
                       Sorry, this part of the question is no longer available. 😅 Don't worry, you won't be graded on this part. Keep going!
                     </div>

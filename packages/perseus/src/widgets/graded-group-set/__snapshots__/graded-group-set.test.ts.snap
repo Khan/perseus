@@ -24,65 +24,72 @@ exports[`graded group set widget should snapshot 1`] = `
           class="perseus-widget-container widget-block"
         >
           <div
-            class="container_mg08ap"
+            style="border-block-start: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-block-end: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); background-color: var(--wb-semanticColor-core-background-base-subtle); margin-inline-start: -16px; margin-inline-end: -16px; padding-block-end: 16px; padding-inline-start: 16px; padding-inline-end: 16px; padding-block-start: 10px; width: auto;"
           >
             <div
-              class="top_cjo0m2"
+              style="display: flex; flex-direction: row;"
             >
               <div
-                class="title_15to8kx"
+                style="font-size: var(--wb-font-heading-size-small); color: var(--wb-semanticColor-core-foreground-neutral-default); text-transform: uppercase; margin-block-end: 11px; letter-spacing: 0.8px;"
               >
                 Problem 1a
               </div>
               <div
-                class="spacer_bc4egv"
+                style="flex: 1;"
               />
               <ul
-                class="indicatorContainer_16w94bw indicatorContainer"
+                class="indicatorContainer"
                 role="list"
+                style="display: flex; flex-direction: row; list-style-type: none; margin: unset; padding-inline-start: unset; flex-wrap: wrap;"
               >
                 <li
-                  class="indicator_7k5kza"
+                  style="width: 24px; height: 24px;"
                 >
                   <button
                     aria-current="true"
                     aria-label="Problem 1a"
-                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-indicatorButton_8uaklu"
+                    data-style-focus="outline: none;"
+                    data-style-moz-focus-inner="border: 0px;"
                     role="button"
+                    style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%; display: flex; flex-wrap: wrap; place-content: center;"
                     type="button"
                   >
                     <div
-                      class="default_7zhre1-o_O-indicatorDot_1n6vz9j-o_O-indicatorDotActive_1j2b6ep"
+                      style="align-items: stretch; border-width: var(--wb-border-width-medium); border-style: solid; box-sizing: content-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 10px; height: 10px; border-radius: var(--wb-border-radius-radius_full); border-color: var(--wb-semanticColor-core-transparent); background-color: var(--wb-semanticColor-core-foreground-instructive-default);"
                     />
                   </button>
                 </li>
                 <li
-                  class="indicator_7k5kza"
+                  style="width: 24px; height: 24px;"
                 >
                   <button
                     aria-current="false"
                     aria-label="Problem 1b"
-                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-indicatorButton_8uaklu"
+                    data-style-focus="outline: none;"
+                    data-style-moz-focus-inner="border: 0px;"
                     role="button"
+                    style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%; display: flex; flex-wrap: wrap; place-content: center;"
                     type="button"
                   >
                     <div
-                      class="default_7zhre1-o_O-indicatorDot_1n6vz9j"
+                      style="align-items: stretch; border-width: var(--wb-border-width-medium); border-style: solid; box-sizing: content-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 10px; height: 10px; border-radius: var(--wb-border-radius-radius_full); border-color: var(--wb-semanticColor-core-border-instructive-default);"
                     />
                   </button>
                 </li>
                 <li
-                  class="indicator_7k5kza"
+                  style="width: 24px; height: 24px;"
                 >
                   <button
                     aria-current="false"
                     aria-label="Problem 1c"
-                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-indicatorButton_8uaklu"
+                    data-style-focus="outline: none;"
+                    data-style-moz-focus-inner="border: 0px;"
                     role="button"
+                    style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%; display: flex; flex-wrap: wrap; place-content: center;"
                     type="button"
                   >
                     <div
-                      class="default_7zhre1-o_O-indicatorDot_1n6vz9j"
+                      style="align-items: stretch; border-width: var(--wb-border-width-medium); border-style: solid; box-sizing: content-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 10px; height: 10px; border-radius: var(--wb-border-radius-radius_full); border-color: var(--wb-semanticColor-core-border-instructive-default);"
                     />
                   </button>
                 </li>
@@ -124,9 +131,14 @@ exports[`graded group set widget should snapshot 1`] = `
                         autocapitalize="off"
                         autocomplete="off"
                         autocorrect="off"
-                        class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
+                        class="perseus-input input-with-examples"
+                        data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                        data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                        data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                        data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                         data-testid="input-with-examples"
                         id=":r0:"
+                        style="width: 8rem; height: 3.2rem; border-radius: 0.3rem; box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 0px; display: inline-block; font-family: Symbola, "Times New Roman", serif; font-size: 1.8rem; font-weight: var(--wb-font-weight-medium); line-height: 1.8rem; background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); border-width: var(--wb-border-width-thin); direction: ltr; padding: 0.4rem 0.5rem; text-align: left;"
                         tabindex="0"
                         type="text"
                         value=""
@@ -157,18 +169,25 @@ exports[`graded group set widget should snapshot 1`] = `
               </div>
               <button
                 aria-disabled="false"
-                class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_u9mtba"
                 data-kind="secondary"
+                data-style-active="background: var(--wb-semanticColor-action-secondary-progressive-press-background); border-radius: var(--wb-c-button-root-border-radius-press); color: var(--wb-semanticColor-action-secondary-progressive-press-foreground); border-color: var(--wb-semanticColor-action-secondary-progressive-press-border); box-shadow: inset 0 0 0 var(--wb-c-button-root-border-width-secondary-press) var(--wb-semanticColor-action-secondary-progressive-press-border);"
+                data-style-focus="-webkit-tap-highlight-color: rgba(0,0,0,0);"
+                data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                data-style-focus-visible-active="box-shadow: inset 0 0 0 var(--wb-c-button-root-border-width-secondary-press) var(--wb-semanticColor-action-secondary-progressive-press-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                data-style-focus-visible-hover="box-shadow: inset 0 0 0 var(--wb-c-button-root-border-width-secondary-hover) var(--wb-semanticColor-action-secondary-progressive-hover-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                data-style-media-hover-hover-hover="background: var(--wb-semanticColor-action-secondary-progressive-hover-background); border-radius: var(--wb-c-button-root-border-radius-hover); color: var(--wb-semanticColor-action-secondary-progressive-hover-foreground); border-color: var(--wb-semanticColor-action-secondary-progressive-hover-border); box-shadow: inset 0 0 0 var(--wb-c-button-root-border-width-secondary-hover) var(--wb-semanticColor-action-secondary-progressive-hover-border);"
+                data-style-moz-focus-inner="border: 0px;"
+                style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: center; padding: 0px; border: none; cursor: pointer; outline: none; text-decoration: none; box-sizing: border-box; touch-action: manipulation; user-select: none; height: var(--wb-c-button-root-sizing-height-medium); padding-block: 0px; border-radius: var(--wb-c-button-root-border-radius-default); padding-inline: var(--wb-c-button-root-layout-padding-inline-secondary-medium); border-style: solid; border-width: var(--wb-c-button-root-border-width-secondary-default); border-color: var(--wb-semanticColor-action-secondary-progressive-default-border); background: var(--wb-semanticColor-action-secondary-progressive-default-background); color: var(--wb-semanticColor-action-secondary-progressive-default-foreground); transition: border-radius 0.1s ease-in-out;"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+                  style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: inline-block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-c-button-root-font-weight-default); line-height: var(--wb-c-button-root-font-lineHeight-default); align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;"
                 >
                   Check
                 </span>
               </button>
               <button
-                class="showHintLink_1rvdp1e"
+                style="background-color: unset; font-size: var(--wb-font-body-size-small); padding: 0px; border: none; margin-block-start: 20px; color: var(--wb-semanticColor-core-foreground-instructive-default); cursor: pointer; display: block; clear: both;"
                 tabindex="0"
               >
                 Explain

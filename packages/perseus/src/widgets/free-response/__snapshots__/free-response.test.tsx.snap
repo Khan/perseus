@@ -16,21 +16,23 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
           class="perseus-widget-container widget-block"
         >
           <div
-            class="default_7zhre1-o_O-container_lci7r free-response"
+            class="free-response"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; gap: 8px;"
           >
             <div
-              class="default_7zhre1"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
             >
               <div
-                class="default_7zhre1-o_O-labelContainer_1qlbwdv"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; justify-content: space-between; gap: var(--wb-c-labeled-field-root-layout-spacingBetweenHelperText);"
               >
                 <label
-                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_qt7cw0-o_O-labelWithNoDescription_i032sc"
                   for=":r2:-labeled-field-field"
                   id=":r2:-labeled-field-label"
+                  style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-semi); line-height: var(--wb-font-body-lineHeight-medium); color: var(--wb-semanticColor-core-foreground-neutral-strong); overflow-wrap: break-word; min-inline-size: var(--wb-sizing-size_0); padding-block-end: var(--wb-c-labeled-field-root-layout-paddingBlockEnd-labelWithNoDescription);"
                 >
                   <div
-                    class="default_7zhre1 free-response-question"
+                    class="free-response-question"
+                    style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
                   >
                     <div
                       class="perseus-renderer perseus-renderer-responsive"
@@ -50,23 +52,27 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
                 </label>
               </div>
               <div
-                class="default_7zhre1-o_O-inlineStyles_zdxht7"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 100%;"
               >
                 <textarea
                   aria-describedby=":r2:-labeled-field-additional-helper-message"
                   aria-invalid="false"
                   aria-required="false"
-                  class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-textarea_1x0fg6n-o_O-inlineStyles_1jc4iz4"
+                  data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                  data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                  data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                  data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                   id=":r2:-labeled-field-field"
                   placeholder="test-placeholder"
+                  style="border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); padding: 16px; min-block-size: calc((2 * var(--wb-font-body-lineHeight-medium)) + (2 * var(--wb-c-form-field-layout-paddingBlock)) + (2 * var(--wb-border-width-thin)));"
                 />
               </div>
               <div
-                class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-helperText_p81a7m-o_O-spacingAboveHelperText_gnlkey"
                 id=":r2:-labeled-field-additional-helper-message"
+                style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-c-labeled-field-helperText-font-size); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-c-labeled-field-helperText-font-lineHeight); color: var(--wb-c-labeled-field-helperText-color-default-foreground); min-inline-size: var(--wb-sizing-size_0); overflow-wrap: break-word; padding-block-start: var(--wb-c-labeled-field-root-layout-spacingBetweenHelperText);"
               >
                 <p
-                  class="characterCountText_10dqadd"
+                  style="color: var(--wb-semanticColor-core-foreground-neutral-default); font-size: var(--wb-font-body-size-small); margin: 0px;"
                 >
                   0 / 500 Characters
                 </p>
@@ -74,8 +80,8 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
               <div
                 aria-atomic="true"
                 aria-live="assertive"
-                class="default_7zhre1-o_O-helperTextWithIcon_1hmzxfl"
                 id=":r2:-labeled-field-error"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; gap: var(--wb-c-labeled-field-helperText-layout-gap);"
               />
             </div>
           </div>
@@ -102,21 +108,23 @@ exports[`free-response widget should snapshot: first render 1`] = `
           class="perseus-widget-container widget-block"
         >
           <div
-            class="default_7zhre1-o_O-container_lci7r free-response"
+            class="free-response"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; gap: 8px;"
           >
             <div
-              class="default_7zhre1"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
             >
               <div
-                class="default_7zhre1-o_O-labelContainer_1qlbwdv"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; justify-content: space-between; gap: var(--wb-c-labeled-field-root-layout-spacingBetweenHelperText);"
               >
                 <label
-                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_qt7cw0-o_O-labelWithNoDescription_i032sc"
                   for=":r0:-labeled-field-field"
                   id=":r0:-labeled-field-label"
+                  style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-semi); line-height: var(--wb-font-body-lineHeight-medium); color: var(--wb-semanticColor-core-foreground-neutral-strong); overflow-wrap: break-word; min-inline-size: var(--wb-sizing-size_0); padding-block-end: var(--wb-c-labeled-field-root-layout-paddingBlockEnd-labelWithNoDescription);"
                 >
                   <div
-                    class="default_7zhre1 free-response-question"
+                    class="free-response-question"
+                    style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
                   >
                     <div
                       class="perseus-renderer perseus-renderer-responsive"
@@ -136,23 +144,27 @@ exports[`free-response widget should snapshot: first render 1`] = `
                 </label>
               </div>
               <div
-                class="default_7zhre1-o_O-inlineStyles_zdxht7"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 100%;"
               >
                 <textarea
                   aria-describedby=":r0:-labeled-field-additional-helper-message"
                   aria-invalid="false"
                   aria-required="false"
-                  class="textarea_8jhb0l-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-textarea_1x0fg6n-o_O-inlineStyles_1jc4iz4"
+                  data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                  data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                  data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                  data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                   id=":r0:-labeled-field-field"
                   placeholder="test-placeholder"
+                  style="border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); padding: 16px; min-block-size: calc((2 * var(--wb-font-body-lineHeight-medium)) + (2 * var(--wb-c-form-field-layout-paddingBlock)) + (2 * var(--wb-border-width-thin)));"
                 />
               </div>
               <div
-                class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-helperText_p81a7m-o_O-spacingAboveHelperText_gnlkey"
                 id=":r0:-labeled-field-additional-helper-message"
+                style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-c-labeled-field-helperText-font-size); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-c-labeled-field-helperText-font-lineHeight); color: var(--wb-c-labeled-field-helperText-color-default-foreground); min-inline-size: var(--wb-sizing-size_0); overflow-wrap: break-word; padding-block-start: var(--wb-c-labeled-field-root-layout-spacingBetweenHelperText);"
               >
                 <p
-                  class="characterCountText_10dqadd"
+                  style="color: var(--wb-semanticColor-core-foreground-neutral-default); font-size: var(--wb-font-body-size-small); margin: 0px;"
                 >
                   0 / 500 Characters
                 </p>
@@ -160,8 +172,8 @@ exports[`free-response widget should snapshot: first render 1`] = `
               <div
                 aria-atomic="true"
                 aria-live="assertive"
-                class="default_7zhre1-o_O-helperTextWithIcon_1hmzxfl"
                 id=":r0:-labeled-field-error"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; gap: var(--wb-c-labeled-field-helperText-layout-gap);"
               />
             </div>
           </div>
