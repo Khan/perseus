@@ -81,19 +81,19 @@ div.graphie {
     font-style: italic;
 }
 .framework-perseus
-    .perseus-renderer
-    > .paragraph
+    .perseus-renderer.renderer-new-ff
     > ul:not([data-widget="radio"]),
-.framework-perseus .perseus-renderer > .paragraph > ol {
-    margin: 0px 0px var(--wb-sizing-size_220) 0px;
+.framework-perseus .perseus-renderer.renderer-new-ff > ol {
+    margin: 0;
+    margin-block-end: var(--wb-sizing-size_220);
 }
 .framework-perseus
-    .paragraph
+    .renderer-new-ff
     ul:not([data-widget="radio"], .indicatorContainer) {
     padding-left: var(--wb-sizing-size_360);
     list-style-type: disc;
 }
-.framework-perseus .paragraph ol {
+.framework-perseus .renderer-new-ff ol {
     list-style: decimal;
     padding-left: 2em;
 }
