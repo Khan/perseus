@@ -1,5 +1,18 @@
 # @khanacademy/perseus-editor
 
+## 41.0.0
+
+### Major Changes
+
+-   [#4178](https://github.com/Khan/perseus/pull/4178) [`1498885`](https://github.com/Khan/perseus/commit/1498885916f1721fb08404305863a35cf3a29141) Thanks [@benchristel](https://github.com/benchristel)! - The `IframeContentRenderer` component has been removed. Clients should not need to create previews of Perseus content, because the editors have built-in previews.
+
+### Patch Changes
+
+-   [#4182](https://github.com/Khan/perseus/pull/4182) [`a662363`](https://github.com/Khan/perseus/commit/a662363657d468018de72ea8881720d34474276e) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Refactor editor components to remove unnecessary state and de-duplicate validation.
+
+-   Updated dependencies [[`a662363`](https://github.com/Khan/perseus/commit/a662363657d468018de72ea8881720d34474276e)]:
+    -   @khanacademy/perseus@87.1.1
+
 ## 40.0.3
 
 ### Patch Changes
