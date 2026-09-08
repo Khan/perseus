@@ -1,8 +1,12 @@
 // This file is used by the tsconfig-build.json files in each package.
 /* Visit https://aka.ms/tsconfig to read more about this file */
 {
+    // Paths in this file resolve relative to THIS file, not to any file that
+    // extends it, so a bare "dist" would mean `packages/dist` and match
+    // nothing. Every pattern in this list needs the `**/` prefix to reach each
+    // package's own directory.
     "exclude": [
-        "dist",
+        "**/dist",
         "**/*.test.*",
         "**/__tests__/**",
         "**/*.testdata.*",
