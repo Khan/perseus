@@ -323,6 +323,62 @@ describe("EditorPage", () => {
         expect(onChangeMock).toHaveBeenCalledWith({jsonMode: true});
     });
 
+    it("calls onJsonModeChange when JSON mode is toggled on", async () => {
+        const onJsonModeChange = jest.fn();
+
+        // Arrange: EditorPage with jsonMode={false}
+        render(
+            <EditorPage
+                dependencies={testDependenciesV2}
+                question={{content: "", widgets: {}, images: {}}}
+                onJsonModeChange={onJsonModeChange}
+                onPreviewDeviceChange={() => {}}
+                previewDevice="desktop"
+                previewURL=""
+                itemId="itemId"
+                developerMode={true}
+                jsonMode={false}
+            />,
+        );
+
+        // Act
+        await userEvent.click(
+            screen.getByRole("checkbox", {name: /Developer JSON Mode/i}),
+        );
+
+        // Assert
+        expect(onJsonModeChange).toHaveBeenLastCalledWith(true);
+        expect(onJsonModeChange).toHaveBeenCalledTimes(1);
+    });
+
+    it("calls onJsonModeChange when JSON mode is toggled off", async () => {
+        const onJsonModeChange = jest.fn();
+
+        // Arrange: EditorPage with jsonMode={true}
+        render(
+            <EditorPage
+                dependencies={testDependenciesV2}
+                question={{content: "", widgets: {}, images: {}}}
+                onJsonModeChange={onJsonModeChange}
+                onPreviewDeviceChange={() => {}}
+                previewDevice="desktop"
+                previewURL=""
+                itemId="itemId"
+                developerMode={true}
+                jsonMode={true}
+            />,
+        );
+
+        // Act
+        await userEvent.click(
+            screen.getByRole("checkbox", {name: /Developer JSON Mode/i}),
+        );
+
+        // Assert
+        expect(onJsonModeChange).toHaveBeenLastCalledWith(false);
+        expect(onJsonModeChange).toHaveBeenCalledTimes(1);
+    });
+
     it("should call initializeWidgetOptions if available", async () => {
         const onChangeMock = jest.fn();
 

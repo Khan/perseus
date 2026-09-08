@@ -34,6 +34,7 @@ import type {
 const {HUD} = components;
 
 type OnChangeParams = {
+    /** @deprecated - use the `onJsonModeChange` prop instead */
     jsonMode?: boolean;
     question?: PerseusRenderer;
     hints?: Hint[];
@@ -66,6 +67,7 @@ type Props = {
     jsonMode: boolean;
     /** A function which is called with the new JSON blob of content. */
     onChange: (changed: OnChangeParams) => void;
+    onJsonModeChange?: (jsonMode: boolean) => void;
     /** A function which is called when the preview device changes. */
     onPreviewDeviceChange: (arg1: DeviceType) => unknown;
     previewDevice: DeviceType;
@@ -235,9 +237,11 @@ class EditorPage extends React.Component<Props, State> {
                 json: this.serialize(),
             },
             () => {
+                const newJsonMode = !this.props.jsonMode;
                 this.props.onChange({
-                    jsonMode: !this.props.jsonMode,
+                    jsonMode: newJsonMode,
                 });
+                this.props.onJsonModeChange?.(newJsonMode);
             },
         );
     };
