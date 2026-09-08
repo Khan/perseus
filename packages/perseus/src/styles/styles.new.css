@@ -404,3 +404,13 @@
 .bibliotron-exercise .perseus-hint-renderer .renderer-new-ff p {
     margin-block: 0 var(--wb-sizing-size_160);
 }
+
+/* Specific for perseus-image-widget caption styling within floated widgets */
+.framework-perseus.perseus-article:not(.perseus-mobile) .renderer-new-ff
+.perseus-widget-container:is(.widget-wrap-left, .widget-wrap-right)
+.perseus-image-caption :is(> *, p),
+.framework-perseus.perseus-mobile .renderer-new-ff
+.perseus-widget-container:is(.widget-wrap-left, .widget-wrap-right)
+.perseus-image-caption :is(> *, p) {
+    margin-bottom: 0;
+}
