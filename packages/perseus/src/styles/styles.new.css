@@ -399,3 +399,8 @@
         ) !important;
     }
 }
+
+.bibliotron-exercise .perseus-hint-renderer .renderer-new-ff > *,
+.bibliotron-exercise .perseus-hint-renderer .renderer-new-ff p {
+    margin-block: 0 var(--wb-sizing-size_160);
+}

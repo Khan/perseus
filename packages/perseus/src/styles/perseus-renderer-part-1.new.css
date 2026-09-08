@@ -65,7 +65,8 @@ div.graphie {
 .framework-perseus.perseus-mobile .perseus-input-center-align .keypad-input {
     text-align: center;
 }
-.framework-perseus .perseus-renderer.renderer-new-ff {
+.framework-perseus .perseus-renderer.renderer-new-ff > *,
+.framework-perseus .perseus-renderer.renderer-new-ff p {
     font-family: "Lato", sans-serif;
     font-weight: var(--wb-font-weight-regular);
     font-size: 18px;
