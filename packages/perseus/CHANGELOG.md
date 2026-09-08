@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 87.1.1
+
+### Patch Changes
+
+-   [#4182](https://github.com/Khan/perseus/pull/4182) [`a662363`](https://github.com/Khan/perseus/commit/a662363657d468018de72ea8881720d34474276e) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Temporarily replace Mafs' `vec.midpoint()` with our own `line.midpoint()` to guard against a bug. Mafs' implementation of `midpoint()` returns `[NaN, NaN]` given two equal points.
+
 ## 87.1.0
 
 ### Minor Changes
