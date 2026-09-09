@@ -66,7 +66,7 @@ exports[`number-line widget snapshots can handle fractions: show fractions 1`] =
             >
               <div
                 aria-hidden="true"
-                class="graphie"
+                class="graphie perseus-widget-number-line"
                 style="position: relative; width: 459.99999999999994px; height: 100px;"
               >
                 <svg
@@ -423,7 +423,7 @@ exports[`number-line widget snapshots default: first render 1`] = `
             >
               <div
                 aria-hidden="true"
-                class="graphie"
+                class="graphie perseus-widget-number-line"
                 style="position: relative; width: 459.99999999999994px; height: 80px;"
               >
                 <svg
@@ -796,7 +796,7 @@ exports[`number-line widget snapshots endpoints are highlighted when labels are 
             >
               <div
                 aria-hidden="true"
-                class="graphie"
+                class="graphie perseus-widget-number-line"
                 style="position: relative; width: 460px; height: 80px;"
               >
                 <svg
@@ -1361,7 +1361,7 @@ exports[`number-line widget snapshots endpoints are highlighted when labels are 
             >
               <div
                 aria-hidden="true"
-                class="graphie"
+                class="graphie perseus-widget-number-line"
                 style="position: relative; width: 460px; height: 80px;"
               >
                 <svg
@@ -1926,7 +1926,7 @@ exports[`number-line widget snapshots labels are highlighted when part of the ti
             >
               <div
                 aria-hidden="true"
-                class="graphie"
+                class="graphie perseus-widget-number-line"
                 style="position: relative; width: 460px; height: 80px;"
               >
                 <svg
@@ -2331,7 +2331,7 @@ exports[`number-line widget snapshots labels are inserted when NOT part of the t
             >
               <div
                 aria-hidden="true"
-                class="graphie"
+                class="graphie perseus-widget-number-line"
                 style="position: relative; width: 460px; height: 80px;"
               >
                 <svg
@@ -2773,7 +2773,7 @@ exports[`number-line widget snapshots mobile: first mobile render 1`] = `
             >
               <div
                 aria-hidden="true"
-                class="graphie"
+                class="graphie perseus-widget-number-line"
                 style="position: relative; width: 288px; height: 80px;"
               >
                 <svg
@@ -3146,7 +3146,7 @@ exports[`number-line widget snapshots only endpoints/labels show when "Show labe
             >
               <div
                 aria-hidden="true"
-                class="graphie"
+                class="graphie perseus-widget-number-line"
                 style="position: relative; width: 460px; height: 80px;"
               >
                 <svg
@@ -3540,7 +3540,7 @@ exports[`number-line widget snapshots only endpoints/labels show when "Show labe
             >
               <div
                 aria-hidden="true"
-                class="graphie"
+                class="graphie perseus-widget-number-line"
                 style="position: relative; width: 460px; height: 80px;"
               >
                 <svg
