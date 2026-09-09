@@ -316,12 +316,6 @@ code {
     font-size: 13px;
     padding: 0 10px;
 }
-.perseus-hint-editor + div .perseus-hint-renderer {
-    width: 100%;
-}
-.perseus-hint-editor + div .perseus-hint-renderer div.paragraph {
-    margin: 0px 0px 22px 0px;
-}
 .perseus-article-editor {
     margin-bottom: 20px;
     margin-top: 20px;
