@@ -112,6 +112,7 @@ const Categorizer = forwardRef<Widget, Props>(function Categorizer(props, ref) {
                                     content={category}
                                     linterContext={linterContext}
                                     strings={strings}
+                                    apiOptions={apiOptions}
                                 />
                             </th>
                         );
