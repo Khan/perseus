@@ -740,10 +740,6 @@ class Editor extends React.Component<Props, State> {
                 "7 & \\text{if }x=1 \\\\\n" +
                 "f(x-1)+5 & \\text{if }x > 1\n" +
                 "\\end{cases}$";
-        } else if (templateType === "allWidgets") {
-            template = Widgets.getAllWidgetTypes()
-                .map((type) => `[[${Util.snowman} ${type} 1]]`)
-                .join("\n\n");
         } else if (templateType in this.props.additionalTemplates) {
             template = this.props.additionalTemplates[templateType];
         } else {
@@ -931,10 +927,6 @@ class Editor extends React.Component<Props, State> {
                             </option>
                         ),
                     )}
-                    <option disabled>--</option>
-                    <option value="allWidgets">
-                        All widgets (for testing)
-                    </option>
                 </select>
             );
 
