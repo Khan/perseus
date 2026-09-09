@@ -273,53 +273,6 @@ class EditorPage extends React.Component<Props, State> {
             className += " " + ClassNames.MOBILE;
         }
 
-        const editorUI = this.props.jsonMode ? (
-            <div>
-                <JsonEditor
-                    multiLine={true}
-                    value={this.state.json}
-                    parser={parseAndMigratePerseusItem}
-                    onChange={this.changeJSON}
-                    editingDisabled={editingDisabled}
-                />
-            </div>
-        ) : (
-            <A11yContext.Provider
-                value={createA11yContextValue({
-                    setIssueHighlight: this.setIssueHighlight,
-                    a11yScanningEnabled: this.state.a11yScanningEnabled,
-                    setA11yScanningEnabled: this.setA11yScanningEnabled,
-                    highlightInstanceIds: this.state.highlightInstanceIds,
-                    onA11yReport: this.handleA11yReport,
-                    axeCoreIssues: this.state.axeCoreIssues,
-                })}
-            >
-                <div className="perseus-editor-table">
-                    <div className="perseus-editor-row">
-                        <div className="perseus-editor-left-cell">
-                            <IssuesPanel issues={this.state.issues} />
-                        </div>
-                    </div>
-                </div>
-                <ItemEditor
-                    ref={this.itemEditor}
-                    itemId={this.props.itemId}
-                    question={this.props.question}
-                    hints={this.props.hints}
-                    answerArea={this.props.answerArea}
-                    imageUploader={this.props.imageUploader}
-                    onChange={this.handleChange}
-                    deviceType={this.props.previewDevice}
-                    widgetIsOpen={this.state.widgetsAreOpen}
-                    apiOptions={deviceBasedApiOptions}
-                    previewURL={this.props.previewURL}
-                    additionalTemplates={this.props.additionalTemplates}
-                    highlightLint={this.state.highlightLint}
-                    problemNum={this.props.problemNum}
-                />
-            </A11yContext.Provider>
-        );
-
         return (
             <Dependencies.DependenciesContext.Provider
                 value={this.props.dependencies}
@@ -346,7 +299,59 @@ class EditorPage extends React.Component<Props, State> {
                                 />
                             )}
                         </div>
-                        {editorUI}
+                        {this.props.jsonMode ? (
+                            <div>
+                                <JsonEditor
+                                    multiLine={true}
+                                    value={this.state.json}
+                                    parser={parseAndMigratePerseusItem}
+                                    onChange={this.changeJSON}
+                                    editingDisabled={editingDisabled}
+                                />
+                            </div>
+                        ) : (
+                            <A11yContext.Provider
+                                value={createA11yContextValue({
+                                    setIssueHighlight: this.setIssueHighlight,
+                                    a11yScanningEnabled:
+                                        this.state.a11yScanningEnabled,
+                                    setA11yScanningEnabled:
+                                        this.setA11yScanningEnabled,
+                                    highlightInstanceIds:
+                                        this.state.highlightInstanceIds,
+                                    onA11yReport: this.handleA11yReport,
+                                    axeCoreIssues: this.state.axeCoreIssues,
+                                })}
+                            >
+                                <div className="perseus-editor-table">
+                                    <div className="perseus-editor-row">
+                                        <div className="perseus-editor-left-cell">
+                                            <IssuesPanel
+                                                issues={this.state.issues}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <ItemEditor
+                                    ref={this.itemEditor}
+                                    itemId={this.props.itemId}
+                                    question={this.props.question}
+                                    hints={this.props.hints}
+                                    answerArea={this.props.answerArea}
+                                    imageUploader={this.props.imageUploader}
+                                    onChange={this.handleChange}
+                                    deviceType={this.props.previewDevice}
+                                    widgetIsOpen={this.state.widgetsAreOpen}
+                                    apiOptions={deviceBasedApiOptions}
+                                    previewURL={this.props.previewURL}
+                                    additionalTemplates={
+                                        this.props.additionalTemplates
+                                    }
+                                    highlightLint={this.state.highlightLint}
+                                    problemNum={this.props.problemNum}
+                                />
+                            </A11yContext.Provider>
+                        )}
                     </div>
                 </ItemEditorContext.Provider>
             </Dependencies.DependenciesContext.Provider>
