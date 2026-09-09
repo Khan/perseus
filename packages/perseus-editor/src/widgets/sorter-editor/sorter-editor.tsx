@@ -165,31 +165,29 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                         Add a card
                     </Button>
                 </View>
-                <div className={styles.row}>
-                    <LabeledField
-                        label={
-                            <div className={styles.row}>
-                                <BodyText>Layout</BodyText>
-                                <InfoTip>
-                                    <p>
-                                        Use the horizontal layout for short text
-                                        and small images. The vertical layout is
-                                        best for longer text and larger images.
-                                    </p>
-                                </InfoTip>
-                            </div>
-                        }
-                        field={
-                            <TypedSingleSelect
-                                options={layoutOptions}
-                                selectedValue={layout}
-                                onChange={(newLayout) =>
-                                    onChange({layout: newLayout})
-                                }
-                            />
-                        }
-                    />
-                </div>
+                <LabeledField
+                    label={
+                        <div className={styles.row}>
+                            <BodyText>Layout</BodyText>
+                            <InfoTip>
+                                <p>
+                                    Use the horizontal layout for short text and
+                                    small images. The vertical layout is best
+                                    for longer text and larger images.
+                                </p>
+                            </InfoTip>
+                        </div>
+                    }
+                    field={
+                        <TypedSingleSelect
+                            options={layoutOptions}
+                            selectedValue={layout}
+                            onChange={(newLayout) =>
+                                onChange({layout: newLayout})
+                            }
+                        />
+                    }
+                />
                 {layout === "horizontal" &&
                     correct.length > SORTER_MAX_HORIZONTAL_OPTIONS && (
                         <Banner
