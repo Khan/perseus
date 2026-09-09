@@ -71,4 +71,46 @@ describe("getEntryPoints", () => {
 
         expect(entryPoints).toEqual({});
     });
+
+    it("names each entry after its published file", () => {
+        // Arrange, Act
+        const entryPoints = getEntryPoints({
+            exports: {"./widgets": "./src/widgets/index.ts"},
+            publishConfig: {
+                exports: {"./widgets": "./dist/widgets/index.js"},
+            },
+        });
+
+        expect(entryPoints).toEqual({
+            "widgets/index": "./src/widgets/index.ts",
+        });
+    });
+
+    it("returns one entry per source file matching a wildcard sub-path", () => {
+        // Arrange
+        const glob = jest
+            .fn()
+            .mockReturnValue([
+                "src/widgets/radio/index.ts",
+                "src/widgets/matcher/index.ts",
+            ]);
+
+        // Act
+        const entryPoints = getEntryPoints(
+            {
+                exports: {"./widgets/*": "./src/widgets/*/index.ts"},
+                publishConfig: {
+                    exports: {"./widgets/*": "./dist/widgets/*/index.js"},
+                },
+            },
+            glob,
+        );
+
+        // Assert
+        expect(glob).toHaveBeenCalledWith("./src/widgets/*/index.ts");
+        expect(entryPoints).toEqual({
+            "widgets/radio/index": "./src/widgets/radio/index.ts",
+            "widgets/matcher/index": "./src/widgets/matcher/index.ts",
+        });
+    });
 });

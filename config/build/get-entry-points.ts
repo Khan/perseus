@@ -1,5 +1,10 @@
 import {parseRecord, parseStringRecord} from "./package-json";
 
+/** "./dist/widgets/index.js" -> "widgets/index" */
+function toEntryName(publishedFile: string): string {
+    return publishedFile.replace(/^\.\/dist\//, "").replace(/\.js$/, "");
+}
+
 /**
  * Find the entry points that we _build_ for a package.
  *
@@ -15,12 +20,21 @@ import {parseRecord, parseStringRecord} from "./package-json";
  * defined in the plugin's configuration - and that output file must appear in
  * the package's `.publishConfig.exports`
  *
- * @returns a map of the sub-path exports names to their package-relative
- * source files.
+ * Each entry is named after its published file (minus `./dist/` and `.js`) so
+ * that the build writes it exactly where the published `exports` map points.
+ * Wildcard sub-paths (e.g. `./widgets/*`) are expanded into one entry point
+ * per source file that matches, because the build needs concrete inputs.
+ *
+ * @param glob lists the package-relative files matching a package-relative
+ * glob pattern. Only needed when `exports` contains wildcard sub-paths.
+ * @returns a map of the entry names to their package-relative source files.
  *
  * See: https://nodejs.org/api/packages.html#subpath-exports
  */
-export function getEntryPoints(pkgJson: unknown): Record<string, string> {
+export function getEntryPoints(
+    pkgJson: unknown,
+    glob: (pattern: string) => ReadonlyArray<string> = () => [],
+): Record<string, string> {
     const packageJson = parseRecord(pkgJson, "package.json");
     const sourceExports = parseStringRecord(
         packageJson.exports,
@@ -45,8 +59,24 @@ export function getEntryPoints(pkgJson: unknown): Record<string, string> {
             continue;
         }
 
-        const name = subPath === "." ? "index" : subPath.replace(/^\.\//, "");
-        entryPoints[name] = sourceFile;
+        if (subPath.includes("*")) {
+            const [prefix, suffix] = sourceFile.split("*");
+            for (const match of glob(sourceFile)) {
+                const matchedFile = `./${match.replace(/^\.\//, "")}`;
+                // The path segment the `*` matched, e.g. "radio".
+                const wildcardValue = matchedFile.slice(
+                    prefix.length,
+                    matchedFile.length - suffix.length,
+                );
+                const name = toEntryName(
+                    publishedFile.replace("*", wildcardValue),
+                );
+                entryPoints[name] = matchedFile;
+            }
+            continue;
+        }
+
+        entryPoints[toEntryName(publishedFile)] = sourceFile;
     }
 
     return entryPoints;
