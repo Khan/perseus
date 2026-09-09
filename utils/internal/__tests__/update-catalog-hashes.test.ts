@@ -408,4 +408,87 @@ describe("updateCatalogHashes", () => {
             );
         });
     });
+
+    describe("return value", () => {
+        const getMockPackageJsonNamed = (name: string) =>
+            JSON.stringify({
+                name,
+                version: "1.0.0",
+                dependencies: {
+                    "tiny-invariant": "catalog:prodDeps",
+                },
+                khan: {
+                    catalogHash: "old-hash-123",
+                },
+            });
+
+        it("returns the names of the packages whose hash changed", () => {
+            // Arrange
+            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
+                getMockPnpmWorkspace(),
+            );
+            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
+                [
+                    "/mock/perseus/root/packages/package1/package.json",
+                    "/mock/perseus/root/packages/package2/package.json",
+                    "/mock/perseus/root/packages/package3/package.json",
+                ],
+            );
+            jest.spyOn(fs, "readFileSync")
+                .mockReturnValueOnce(
+                    getMockPackageJsonNamed("@khanacademy/package1"),
+                )
+                .mockReturnValueOnce(
+                    getMockPackageJsonNamed("@khanacademy/package2"),
+                )
+                .mockReturnValueOnce(
+                    getMockPackageJsonNamed("@khanacademy/package3"),
+                );
+            jest.spyOn(
+                GetCatalogDepsHash,
+                "getCatalogDepsHash",
+            ).mockReturnValue("new-hash-456");
+            jest.spyOn(CheckForCatalogHashUpdate, "checkForCatalogHashUpdate")
+                .mockReturnValueOnce(true)
+                .mockReturnValueOnce(false)
+                .mockReturnValueOnce(true);
+            jest.spyOn(fs, "writeFileSync").mockImplementation(() => {});
+
+            // Act
+            const result = updateCatalogHashes(false);
+
+            // Assert - only the packages that changed are returned
+            expect(result).toEqual([
+                "@khanacademy/package1",
+                "@khanacademy/package3",
+            ]);
+        });
+
+        it("returns an empty array when no packages changed", () => {
+            // Arrange
+            jest.spyOn(CatalogHashUtils, "loadPnpmWorkspace").mockReturnValue(
+                getMockPnpmWorkspace(),
+            );
+            jest.spyOn(CatalogHashUtils, "findAllPackageJsons").mockReturnValue(
+                ["/mock/perseus/root/packages/package1/package.json"],
+            );
+            jest.spyOn(fs, "readFileSync").mockReturnValue(
+                getMockPackageJson(),
+            );
+            jest.spyOn(
+                GetCatalogDepsHash,
+                "getCatalogDepsHash",
+            ).mockReturnValue("new-hash-456");
+            jest.spyOn(
+                CheckForCatalogHashUpdate,
+                "checkForCatalogHashUpdate",
+            ).mockReturnValue(false);
+
+            // Act
+            const result = updateCatalogHashes(false);
+
+            // Assert
+            expect(result).toEqual([]);
+        });
+    });
 });
