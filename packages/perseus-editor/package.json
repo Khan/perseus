@@ -8,6 +8,7 @@
         "access": "public",
         "exports": {
             ".": "./dist/index.js",
+            "./init": "./dist/init.js",
             "./styles.css": "./dist/index.css"
         }
     },
@@ -21,7 +22,8 @@
     },
     "type": "module",
     "exports": {
-        ".": "./src/index.ts"
+        ".": "./src/index.ts",
+        "./init": "./src/init.ts"
     },
     "files": [
         "dist"
