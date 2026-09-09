@@ -5,9 +5,7 @@ import {
     generateTestPerseusRenderer,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {act, screen} from "@testing-library/react";
-// @ts-expect-error - TS2305 - Module '"aphrodite"' has no exported member 'StyleSheetTestUtils'.
-import {StyleSheetTestUtils} from "aphrodite";
+import {act} from "@testing-library/react";
 import * as React from "react";
 
 import * as Dependencies from "../../dependencies";
@@ -23,7 +21,37 @@ import {SORTER_MAX_HORIZONTAL_OPTIONS} from "./sorter";
 import {basicQuestion} from "./sorter.testdata";
 
 import type {SorterHandle} from "./sorter";
+import type Sortable from "../../components/sortable";
 import type {APIOptions} from "../../types";
+
+type SortableProps = React.ComponentProps<typeof Sortable>;
+
+/**
+ * Sorter delegates all of its rendering and dragging to Sortable, so the props
+ * it hands down are its real output. Wrapping Sortable in a spy lets us read
+ * those props directly instead of inferring them from the rendered cards.
+ */
+const mockSortableSpy = jest.fn<void, [SortableProps]>();
+
+jest.mock("../../components/sortable", () => {
+    const actual = jest.requireActual("../../components/sortable");
+    const react = jest.requireActual("react");
+
+    return {
+        __esModule: true,
+        ...actual,
+        default: react.forwardRef((props, ref) => {
+            mockSortableSpy(props);
+            return react.createElement(actual.default, {...props, ref});
+        }),
+    };
+});
+
+/** The props Sorter most recently passed down to Sortable. */
+function lastSortableProps(): SortableProps {
+    expect(mockSortableSpy).toHaveBeenCalled();
+    return mockSortableSpy.mock.lastCall![0];
+}
 
 /*
  * Sortable settles its cards from a requestAnimationFrame callback, which can
@@ -231,19 +259,6 @@ describe("sorter widget", () => {
     });
 
     describe("layout", () => {
-        // A card advertises the direction it can be dragged through its
-        // cursor, so the cursor is also a readout of how it was laid out.
-        const DRAG_CURSOR = {
-            horizontal: "ew-resize",
-            vertical: "ns-resize",
-        } as const;
-
-        function getCardDragCursors(): string[] {
-            return screen
-                .getAllByRole("listitem")
-                .map((card) => getComputedStyle(card).cursor);
-        }
-
         function sorterQuestionWith(
             cardCount: number,
             layout: "horizontal" | "vertical",
@@ -264,21 +279,7 @@ describe("sorter widget", () => {
             });
         }
 
-        beforeEach(() => {
-            jest.useRealTimers();
-            // Sortable styles its cards with Aphrodite, and the shared test
-            // setup suppresses Aphrodite's style injection (see
-            // config/test/test-setup.ts). Turn it back on for this block so
-            // that the cards' layout can be read off their computed styles.
-            StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
-            mockTexThatFinishesLoading();
-        });
-
-        afterEach(() => {
-            StyleSheetTestUtils.suppressStyleInjection();
-        });
-
-        it("lays out the cards horizontally when the layout is horizontal", async () => {
+        it("lays out the cards horizontally when the layout is horizontal", () => {
             // Arrange, Act
             renderQuestion(
                 sorterQuestionWith(
@@ -286,17 +287,12 @@ describe("sorter widget", () => {
                     "horizontal",
                 ),
             );
-            await wait();
 
             // Assert
-            expect(getCardDragCursors()).toEqual(
-                Array(SORTER_MAX_HORIZONTAL_OPTIONS - 1).fill(
-                    DRAG_CURSOR.horizontal,
-                ),
-            );
+            expect(lastSortableProps().layout).toBe("horizontal");
         });
 
-        it("lays out the cards vertically when the layout is vertical", async () => {
+        it("lays out the cards vertically when the layout is vertical", () => {
             // Arrange, Act
             renderQuestion(
                 sorterQuestionWith(
@@ -304,32 +300,22 @@ describe("sorter widget", () => {
                     "vertical",
                 ),
             );
-            await wait();
 
             // Assert
-            expect(getCardDragCursors()).toEqual(
-                Array(SORTER_MAX_HORIZONTAL_OPTIONS - 1).fill(
-                    DRAG_CURSOR.vertical,
-                ),
-            );
+            expect(lastSortableProps().layout).toBe("vertical");
         });
 
-        it("keeps a horizontal sorter horizontal at exactly the maximum number of cards", async () => {
+        it("keeps a horizontal sorter horizontal at exactly the maximum number of cards", () => {
             // Arrange, Act
             renderQuestion(
                 sorterQuestionWith(SORTER_MAX_HORIZONTAL_OPTIONS, "horizontal"),
             );
-            await wait();
 
             // Assert
-            expect(getCardDragCursors()).toEqual(
-                Array(SORTER_MAX_HORIZONTAL_OPTIONS).fill(
-                    DRAG_CURSOR.horizontal,
-                ),
-            );
+            expect(lastSortableProps().layout).toBe("horizontal");
         });
 
-        it("lays out a horizontal sorter vertically when it has more cards than the maximum", async () => {
+        it("lays out a horizontal sorter vertically when it has more cards than the maximum", () => {
             // Arrange, Act
             renderQuestion(
                 sorterQuestionWith(
@@ -337,14 +323,9 @@ describe("sorter widget", () => {
                     "horizontal",
                 ),
             );
-            await wait();
 
             // Assert
-            expect(getCardDragCursors()).toEqual(
-                Array(SORTER_MAX_HORIZONTAL_OPTIONS + 1).fill(
-                    DRAG_CURSOR.vertical,
-                ),
-            );
+            expect(lastSortableProps().layout).toBe("vertical");
         });
     });
 
