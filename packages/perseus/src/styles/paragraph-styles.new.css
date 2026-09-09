@@ -8,8 +8,8 @@ p {
     line-height: 30px;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
-.perseus-renderer.renderer-new-ff
-> * {
+    .perseus-renderer.renderer-new-ff
+    > * {
     margin-inline: auto;
     max-width: 688px;
 }

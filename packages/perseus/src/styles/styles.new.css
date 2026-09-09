@@ -400,8 +400,7 @@
     }
 }
 
-.bibliotron-exercise .perseus-hint-renderer .renderer-new-ff > *,
-.bibliotron-exercise .perseus-hint-renderer .renderer-new-ff p {
+.bibliotron-exercise .perseus-hint-renderer .renderer-new-ff :is(> *, p){
     margin-block: 0 var(--wb-sizing-size_160);
 }
 
@@ -412,5 +411,5 @@
 .framework-perseus.perseus-mobile .renderer-new-ff
 .perseus-widget-container:is(.widget-wrap-left, .widget-wrap-right)
 .perseus-image-caption :is(> *, p) {
-    margin-bottom: 0;
+    margin-block-end: 0;
 }
