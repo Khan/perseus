@@ -112,48 +112,42 @@ describe("sorter-editor", () => {
         }
 
         it("warns when a horizontal sorter has more cards than the maximum", () => {
-            // Arrange, Act
-            render(
-                <SorterEditor
-                    onChange={() => {}}
-                    {...generateSorterOptions({
-                        correct: cards(SORTER_MAX_HORIZONTAL_OPTIONS + 1),
-                        layout: "horizontal",
-                    })}
-                />,
-            );
+            // Arrange
+            const options = generateSorterOptions({
+                correct: cards(SORTER_MAX_HORIZONTAL_OPTIONS + 1),
+                layout: "horizontal",
+            });
+
+            // Act
+            render(<SorterEditor onChange={() => {}} {...options} />);
 
             // Assert
             expect(screen.getByRole("alert")).toHaveTextContent(warningText);
         });
 
         it("does not warn when a horizontal sorter has exactly the maximum number of cards", () => {
-            // Arrange, Act
-            render(
-                <SorterEditor
-                    onChange={() => {}}
-                    {...generateSorterOptions({
-                        correct: cards(SORTER_MAX_HORIZONTAL_OPTIONS),
-                        layout: "horizontal",
-                    })}
-                />,
-            );
+            // Arrange
+            const options = generateSorterOptions({
+                correct: cards(SORTER_MAX_HORIZONTAL_OPTIONS),
+                layout: "horizontal",
+            });
+
+            // Act
+            render(<SorterEditor onChange={() => {}} {...options} />);
 
             // Assert
             expect(screen.queryByRole("alert")).not.toBeInTheDocument();
         });
 
         it("does not warn when the layout is already vertical", () => {
-            // Arrange, Act
-            render(
-                <SorterEditor
-                    onChange={() => {}}
-                    {...generateSorterOptions({
-                        correct: cards(SORTER_MAX_HORIZONTAL_OPTIONS + 1),
-                        layout: "vertical",
-                    })}
-                />,
-            );
+            // Arrange
+            const options = generateSorterOptions({
+                correct: cards(SORTER_MAX_HORIZONTAL_OPTIONS + 1),
+                layout: "vertical",
+            });
+
+            // Act
+            render(<SorterEditor onChange={() => {}} {...options} />);
 
             // Assert
             expect(screen.queryByRole("alert")).not.toBeInTheDocument();
