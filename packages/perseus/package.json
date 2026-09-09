@@ -28,7 +28,8 @@
         "./init": "./src/init.ts",
         "./strings": "./src/strings.ts",
         "./testing": "./src/testing.ts",
-        "./widgets/registry": "./src/widgets.ts"
+        "./widgets/registry": "./src/widgets.ts",
+        "./widgets/*": "./src/widgets/*/index.ts"
     },
     "files": [
         "dist"
