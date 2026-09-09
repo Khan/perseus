@@ -5,7 +5,9 @@ import {
     generateTestPerseusRenderer,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {act} from "@testing-library/react";
+import {act, screen} from "@testing-library/react";
+// @ts-expect-error - TS2305 - Module '"aphrodite"' has no exported member 'StyleSheetTestUtils'.
+import {StyleSheetTestUtils} from "aphrodite";
 import * as React from "react";
 
 import * as Dependencies from "../../dependencies";
@@ -17,6 +19,7 @@ import {wait} from "../../testing/wait";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
+import {SORTER_MAX_HORIZONTAL_OPTIONS} from "./sorter";
 import {basicQuestion} from "./sorter.testdata";
 
 import type {SorterHandle} from "./sorter";
@@ -30,6 +33,30 @@ import type {APIOptions} from "../../types";
  * would also swallow genuine React errors and let a regression pass silently.
  */
 const EXPECTED_CONSOLE_ERROR = /not wrapped in act\(/;
+
+/**
+ * Sortable keeps its cards behind a spinner until the math typesetter reports
+ * that it has loaded, which it learns from a dummy TeX component's `onRender`.
+ * The default test TeX never calls `onRender`, so any test that needs to see
+ * the cards themselves has to supply one that does.
+ */
+function mockTexThatFinishesLoading() {
+    jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+        ...testDependencies,
+        TeX: ({
+            children,
+            onRender: onLoad,
+        }: {
+            children: React.ReactNode;
+            onRender?: () => unknown;
+        }) => {
+            React.useLayoutEffect(() => {
+                onLoad?.();
+            }, [onLoad]);
+            return <span className="tex-mock">{children}</span>;
+        },
+    });
+}
 
 describe("sorter widget", () => {
     describe("snapshot", () => {
@@ -89,21 +116,7 @@ describe("sorter widget", () => {
                 }
             });
 
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
-                ...testDependencies,
-                TeX: ({
-                    children,
-                    onRender: onLoad,
-                }: {
-                    children: React.ReactNode;
-                    onRender?: () => unknown;
-                }) => {
-                    React.useLayoutEffect(() => {
-                        onLoad?.();
-                    }, [onLoad]);
-                    return <span className="tex-mock">{children}</span>;
-                },
-            });
+            mockTexThatFinishesLoading();
         });
 
         afterEach(() => {
@@ -213,6 +226,124 @@ describe("sorter widget", () => {
                     type: "sorter",
                     userInput: {values: sortedOrder, changed: true},
                 },
+            );
+        });
+    });
+
+    describe("layout", () => {
+        // A card advertises the direction it can be dragged through its
+        // cursor, so the cursor is also a readout of how it was laid out.
+        const DRAG_CURSOR = {
+            horizontal: "ew-resize",
+            vertical: "ns-resize",
+        } as const;
+
+        function getCardDragCursors(): string[] {
+            return screen
+                .getAllByRole("listitem")
+                .map((card) => getComputedStyle(card).cursor);
+        }
+
+        function sorterQuestionWith(
+            cardCount: number,
+            layout: "horizontal" | "vertical",
+        ) {
+            return generateTestPerseusRenderer({
+                content: "[[☃ sorter 1]]",
+                widgets: {
+                    "sorter 1": generateSorterWidget({
+                        options: generateSorterOptions({
+                            correct: Array.from(
+                                {length: cardCount},
+                                (_, i) => `Card ${i + 1}`,
+                            ),
+                            layout,
+                        }),
+                    }),
+                },
+            });
+        }
+
+        beforeEach(() => {
+            jest.useRealTimers();
+            // Sortable styles its cards with Aphrodite, and the shared test
+            // setup suppresses Aphrodite's style injection (see
+            // config/test/test-setup.ts). Turn it back on for this block so
+            // that the cards' layout can be read off their computed styles.
+            StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+            mockTexThatFinishesLoading();
+        });
+
+        afterEach(() => {
+            StyleSheetTestUtils.suppressStyleInjection();
+        });
+
+        it("lays out the cards horizontally when the layout is horizontal", async () => {
+            // Arrange, Act
+            renderQuestion(
+                sorterQuestionWith(
+                    SORTER_MAX_HORIZONTAL_OPTIONS - 1,
+                    "horizontal",
+                ),
+            );
+            await wait();
+
+            // Assert
+            expect(getCardDragCursors()).toEqual(
+                Array(SORTER_MAX_HORIZONTAL_OPTIONS - 1).fill(
+                    DRAG_CURSOR.horizontal,
+                ),
+            );
+        });
+
+        it("lays out the cards vertically when the layout is vertical", async () => {
+            // Arrange, Act
+            renderQuestion(
+                sorterQuestionWith(
+                    SORTER_MAX_HORIZONTAL_OPTIONS - 1,
+                    "vertical",
+                ),
+            );
+            await wait();
+
+            // Assert
+            expect(getCardDragCursors()).toEqual(
+                Array(SORTER_MAX_HORIZONTAL_OPTIONS - 1).fill(
+                    DRAG_CURSOR.vertical,
+                ),
+            );
+        });
+
+        it("keeps a horizontal sorter horizontal at exactly the maximum number of cards", async () => {
+            // Arrange, Act
+            renderQuestion(
+                sorterQuestionWith(SORTER_MAX_HORIZONTAL_OPTIONS, "horizontal"),
+            );
+            await wait();
+
+            // Assert
+            expect(getCardDragCursors()).toEqual(
+                Array(SORTER_MAX_HORIZONTAL_OPTIONS).fill(
+                    DRAG_CURSOR.horizontal,
+                ),
+            );
+        });
+
+        it("lays out a horizontal sorter vertically when it has more cards than the maximum", async () => {
+            // Arrange, Act
+            renderQuestion(
+                sorterQuestionWith(
+                    SORTER_MAX_HORIZONTAL_OPTIONS + 1,
+                    "horizontal",
+                ),
+            );
+            await wait();
+
+            // Assert
+            expect(getCardDragCursors()).toEqual(
+                Array(SORTER_MAX_HORIZONTAL_OPTIONS + 1).fill(
+                    DRAG_CURSOR.vertical,
+                ),
             );
         });
     });

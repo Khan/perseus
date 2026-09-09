@@ -16139,7 +16139,7 @@ table: [[☃ table 1]]
                         </button>
                       </div>
                       <div
-                        class="default_7zhre1"
+                        class="row"
                       >
                         <div
                           class="default_7zhre1"
@@ -16152,7 +16152,19 @@ table: [[☃ table 1]]
                               for=":r6f:-labeled-field-field"
                               id=":r6f:-labeled-field-label"
                             >
-                              Layout
+                              <div
+                                class="row"
+                              >
+                                <p
+                                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr"
+                                >
+                                  Layout
+                                </p>
+                                <span
+                                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
+                                  tabindex="0"
+                                />
+                              </div>
                             </label>
                           </div>
                           <div
@@ -16188,12 +16200,10 @@ table: [[☃ table 1]]
                             id=":r6f:-labeled-field-error"
                           />
                         </div>
-                        <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-spacingLeft_wn7g7u-o_O-inlineStyles_zmizzn"
-                          tabindex="0"
-                        />
                       </div>
-                      <div>
+                      <div
+                        class="row"
+                      >
                         <div
                           class="default_7zhre1"
                         >
