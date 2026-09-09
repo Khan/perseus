@@ -10,8 +10,6 @@ export function generateAnswerTile(
     tile?: Partial<PerseusAnswerTile>,
 ): PerseusAnswerTile {
     const defaultAnswerTile: PerseusAnswerTile = {
-        // Matches generateBlankOptions' default correctId, so composing the
-        // two generators yields a blank that points at a tile that exists.
         id: "answer-tile-1",
         content: "answer",
         label: "answer",
@@ -44,8 +42,8 @@ export function generateFillInTheBlankWidget(
         static: false,
         alignment: "default",
         ...fillInTheBlankWidgetProperties,
-        options: generateFillInTheBlankOptions({
-            ...fillInTheBlankWidgetProperties?.options,
-        }),
+        options: generateFillInTheBlankOptions(
+            fillInTheBlankWidgetProperties?.options,
+        ),
     };
 }

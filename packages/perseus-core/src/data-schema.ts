@@ -558,13 +558,6 @@ export type PerseusBlankWidgetOptions = {
 };
 
 /**
- * How many times each tile in a choice bank may be used. "single" removes a
- * tile from the bank once placed; "multi" leaves it, capped by
- * `maxUsesPerTile`. Applies to the whole bank — the two cannot be mixed.
- */
-export type PerseusAnswerTileUsage = "single" | "multi";
-
-/**
  * A draggable tile in a "Drag And Drop" widget's choice bank, shared across
  * the widget family.
  *
@@ -573,7 +566,11 @@ export type PerseusAnswerTileUsage = "single" | "multi";
  * Any field added here must be optional.
  */
 export type PerseusAnswerTile = {
-    /** Identifies the tile. */
+    /**
+     * Identifies the tile within its own widget's choice bank: a blank's
+     * `correctId` and the learner's placements both name a tile this way.
+     * Uniqueness is scoped to the one widget.
+     */
     id: string;
     /**
      * Translatable Markdown; what this tile displays. Blank renders an empty
@@ -582,8 +579,7 @@ export type PerseusAnswerTile = {
     content: string;
     /** Translatable text; the tile's value as plain text, for screen readers */
     label: string;
-    /** Display height in px for an image tile. The editor offers 24, 36,
-     *  48, 60, 72, 84 and 96 */
+    /** Display height in px for an image tile. */
     imageHeight?: number;
 };
 
@@ -593,18 +589,16 @@ export type PerseusAnswerTile = {
  */
 export type PerseusFillInTheBlankWidgetOptions = {
     /** Translatable Markdown; the content. Translators may move the
-     *  `[[☃ blank n]]` markers within it */
+     *  `[[☃ blank n]]` widget placeholders within it */
     content: string;
-    /** The widgets embedded in `content`, keyed by marker id. Blanks today */
+    /** The widgets embedded in `content`, keyed by widget id. */
     widgets: PerseusWidgetsMap;
-    // No `images` map, unlike group and graded-group: tile images are
-    // markdown sized by `imageHeight`, not by the renderer's image map.
     /** The choice bank the learner draws answer tiles from */
     tiles: PerseusAnswerTile[];
-    /** See PerseusAnswerTileUsage */
-    tileUsage: PerseusAnswerTileUsage;
-    /** Caps uses of each tile when multi-use; omitted means unlimited */
-    maxUsesPerTile?: number;
+    /**
+     * How many times each tile may be placed, for the whole choice bank.
+     */
+    maxUsesPerTile: number | "unlimited";
     /**
      * Randomize the order of the answer tiles or keep them as defined.
      */

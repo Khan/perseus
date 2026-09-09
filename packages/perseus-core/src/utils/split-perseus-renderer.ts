@@ -18,9 +18,6 @@ export default function splitPerseusRenderer(
 
 /**
  * Return a copy of a widgets map with rubric data removed (ie answers).
- *
- * Does not recurse: a widget whose options nest more widgets has to call this
- * from its own getPublicWidgetOptions.
  */
 export function splitWidgetsMap(widgets: PerseusWidgetsMap): PerseusWidgetsMap {
     const upgradedWidgets = applyDefaultsToWidgets(deepClone(widgets ?? {}));

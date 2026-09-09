@@ -84,7 +84,7 @@ describe("getFillInTheBlankPublicWidgetOptions", () => {
         expect(publicOptions.content).toBe(
             "The [[☃ blank 1]] drum is played with your [[☃ blank 2]].",
         );
-        expect(publicOptions.tileUsage).toBe("single");
+        expect(publicOptions.maxUsesPerTile).toBe(1);
     });
 
     it("does not mutate the options it was given", () => {

@@ -366,10 +366,6 @@ describe("splitPerseusRenderer", () => {
     });
 
     it("strips the blanks nested in a FillInTheBlank widget", () => {
-        // Fill in the Blank keeps its answers one level down, on the blanks
-        // embedded in its content. splitPerseusRenderer does not recurse on
-        // its own, so this only passes while the widget registers a
-        // getPublicWidgetOptions of its own.
         // Arrange
         const question: PerseusRenderer = {
             content: "[[\u2603 fill-in-the-blank 1]]",

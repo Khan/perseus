@@ -55,7 +55,7 @@ describe("generateFillInTheBlankOptions", () => {
             content: "",
             widgets: {},
             tiles: [],
-            tileUsage: "single",
+            maxUsesPerTile: 1,
             randomize: false,
         });
     });
@@ -66,7 +66,6 @@ describe("generateFillInTheBlankOptions", () => {
             content: "The [[☃ blank 1]] drum is a tall drum.",
             widgets: {"blank 1": generateBlankWidget()},
             tiles: [generateAnswerTile({id: "tile-1", content: "djembe"})],
-            tileUsage: "multi",
             maxUsesPerTile: 3,
             randomize: true,
         });
@@ -75,7 +74,6 @@ describe("generateFillInTheBlankOptions", () => {
         expect(options.content).toBe("The [[☃ blank 1]] drum is a tall drum.");
         expect(options.widgets).toHaveProperty("blank 1");
         expect(options.tiles).toHaveLength(1);
-        expect(options.tileUsage).toBe("multi");
         expect(options.maxUsesPerTile).toBe(3);
         expect(options.randomize).toBe(true);
     });
@@ -96,7 +94,7 @@ describe("generateFillInTheBlankWidget", () => {
             content: "",
             widgets: {},
             tiles: [],
-            tileUsage: "single",
+            maxUsesPerTile: 1,
             randomize: false,
         });
     });
@@ -116,7 +114,7 @@ describe("generateFillInTheBlankWidget", () => {
                         label: "djembe",
                     }),
                 ],
-                tileUsage: "multi",
+                maxUsesPerTile: "unlimited",
             }),
         });
 
@@ -129,6 +127,6 @@ describe("generateFillInTheBlankWidget", () => {
         expect(widget.options.tiles).toEqual([
             {id: "tile-1", content: "djembe", label: "djembe"},
         ]);
-        expect(widget.options.tileUsage).toBe("multi");
+        expect(widget.options.maxUsesPerTile).toBe("unlimited");
     });
 });
