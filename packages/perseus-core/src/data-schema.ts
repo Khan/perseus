@@ -171,7 +171,7 @@ export interface PerseusWidgetTypes {
     "python-program": PythonProgramWidget;
     plotter: PlotterWidget;
     radio: RadioWidget;
-    sorter: SorterWidget;
+    sorter: SorterWidget | DeprecatedStandinWidget;
     table: TableWidget;
     video: VideoWidget;
 

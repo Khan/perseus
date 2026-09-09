@@ -225,10 +225,8 @@ describe("sorter widget", () => {
 
         test("safety check: the answerless data does not contain the correct answer", () => {
             expect(
-                answerlessItem.question.widgets["sorter 1"].options.correct,
-            ).not.toEqual(
-                answerfulItem.question.widgets["sorter 1"].options.correct,
-            );
+                answerlessItem.question.widgets["sorter 1"].options,
+            ).not.toEqual(answerfulItem.question.widgets["sorter 1"].options);
         });
 
         describe.each([

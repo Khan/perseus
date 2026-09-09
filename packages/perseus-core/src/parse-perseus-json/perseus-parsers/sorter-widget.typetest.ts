@@ -4,13 +4,13 @@ import {ctx} from "../general-purpose-parsers/test-helpers";
 
 import {parseSorterWidget} from "./sorter-widget";
 
-import type {SorterWidget} from "../../data-schema";
+import type {DeprecatedStandinWidget, SorterWidget} from "../../data-schema";
 import type {ParseResult} from "../parser-types";
 
 describe("the SorterWidget parser", () => {
     it("should return the widget type defined in data-schema.ts", () => {
         expect(parseSorterWidget({}, ctx())).type.toBe<
-            ParseResult<SorterWidget>
+            ParseResult<SorterWidget | DeprecatedStandinWidget>
         >();
     });
 });

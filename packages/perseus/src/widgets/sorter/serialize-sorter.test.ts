@@ -30,6 +30,8 @@ import type {PerseusItem} from "@khanacademy/perseus-core";
  * This API needs to be removed and these tests need to be removed with it.
  */
 describe("Sorter serialization", () => {
+    const correctOrder = ["First", "Second", "Third"];
+
     function generateBasicSorter(): PerseusItem {
         const question = generateTestPerseusRenderer({
             content: "[[☃ sorter 1]]",
@@ -39,7 +41,7 @@ describe("Sorter serialization", () => {
                     options: {
                         padding: true,
                         layout: "horizontal",
-                        correct: ["First", "Second", "Third"],
+                        correct: correctOrder,
                     },
                 },
             },
@@ -71,9 +73,9 @@ describe("Sorter serialization", () => {
         const {renderer} = renderQuestion(generateBasicSorter());
 
         // Just making sure we're shuffling before answering
-        expect(
-            generateBasicSorter().question.widgets["sorter 1"].options.correct,
-        ).not.toEqual(renderer.getUserInput()["sorter 1"].options);
+        expect(correctOrder).not.toEqual(
+            renderer.getUserInput()["sorter 1"].options,
+        );
 
         // Put the options in the correct order
         const sorter: SorterHandle =

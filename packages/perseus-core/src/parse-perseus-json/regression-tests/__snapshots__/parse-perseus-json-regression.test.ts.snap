@@ -21943,6 +21943,66 @@ exports[`parseAndMigratePerseusItem given simulator-widget.ts returns the same r
 }
 `;
 
+exports[`parseAndMigratePerseusItem given sorter-with-more-than-ten-cards.ts returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "**Sort the numbers from smallest to largest.**
+
+[[☃ sorter 1]]",
+    "images": {},
+    "widgets": {
+      "sorter 1": {
+        "graded": true,
+        "options": {},
+        "type": "deprecated-standin",
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given sorter-with-more-than-ten-cards.ts returns the same result as before with answer information removed 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "**Sort the numbers from smallest to largest.**
+
+[[☃ sorter 1]]",
+    "images": {},
+    "widgets": {
+      "sorter 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {},
+        "static": false,
+        "type": "deprecated-standin",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given transformer-widget.ts returns the same result as before 1`] = `
 {
   "answerArea": {
