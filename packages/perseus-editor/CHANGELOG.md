@@ -1,5 +1,23 @@
 # @khanacademy/perseus-editor
 
+## 42.0.0
+
+### Major Changes
+
+-   [#4195](https://github.com/Khan/perseus/pull/4195) [`0ab9d9a`](https://github.com/Khan/perseus/commit/0ab9d9ac3abaf908fd7e077ae436c23707560df4) Thanks [@benchristel](https://github.com/benchristel)! - The `developerMode` and `onPreviewDeviceChange` props to `EditorPage` no longer have any effect. The type of `EditorPage`'s `onChange` callback has been updated to remove the unused `jsonMode` property.
+
+### Patch Changes
+
+-   [#4183](https://github.com/Khan/perseus/pull/4183) [`724a9cc`](https://github.com/Khan/perseus/commit/724a9ccf02d007a0667ea0cc4feb7782c45773f3) Thanks [@nishasy](https://github.com/nishasy)! - Editor tooltip and spacing improvements
+
+-   Updated dependencies [[`724a9cc`](https://github.com/Khan/perseus/commit/724a9ccf02d007a0667ea0cc4feb7782c45773f3), [`cf56830`](https://github.com/Khan/perseus/commit/cf568308a7ac5601af0afbc386832000c7f8cae5)]:
+    -   @khanacademy/perseus@87.1.2
+    -   @khanacademy/perseus-core@39.0.0
+    -   @khanacademy/keypad-context@3.2.90
+    -   @khanacademy/kmath@2.4.49
+    -   @khanacademy/math-input@27.0.13
+    -   @khanacademy/perseus-linter@5.3.1
+
 ## 41.0.0
 
 ### Major Changes

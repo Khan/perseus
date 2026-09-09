@@ -1,5 +1,19 @@
 # @khanacademy/perseus
 
+## 87.1.2
+
+### Patch Changes
+
+-   [#4183](https://github.com/Khan/perseus/pull/4183) [`724a9cc`](https://github.com/Khan/perseus/commit/724a9ccf02d007a0667ea0cc4feb7782c45773f3) Thanks [@nishasy](https://github.com/nishasy)! - Editor tooltip and spacing improvements
+
+-   Updated dependencies [[`cf56830`](https://github.com/Khan/perseus/commit/cf568308a7ac5601af0afbc386832000c7f8cae5)]:
+    -   @khanacademy/perseus-core@39.0.0
+    -   @khanacademy/keypad-context@3.2.90
+    -   @khanacademy/kmath@2.4.49
+    -   @khanacademy/math-input@27.0.13
+    -   @khanacademy/perseus-linter@5.3.1
+    -   @khanacademy/perseus-score@8.12.22
+
 ## 87.1.1
 
 ### Patch Changes

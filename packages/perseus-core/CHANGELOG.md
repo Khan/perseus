@@ -1,5 +1,17 @@
 # @khanacademy/perseus-core
 
+## 39.0.0
+
+### Major Changes
+
+-   [#4194](https://github.com/Khan/perseus/pull/4194) [`cf56830`](https://github.com/Khan/perseus/commit/cf568308a7ac5601af0afbc386832000c7f8cae5) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove the `@khanacademy/perseus-core/item-splitting` entry point.
+
+    This entry point (`/item-splitting`) was incorrectly added to support a CI
+    check that detects important item splitting changes. It doesn't need to be an
+    export to do this though, so this change removes it.
+
+    Import `splitPerseusItem` from `@khanacademy/perseus-core` instead.
+
 ## 38.1.1
 
 ### Patch Changes
