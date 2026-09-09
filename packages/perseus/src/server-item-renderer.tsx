@@ -102,7 +102,7 @@ export class ServerItemRenderer
         // eslint-disable-next-line no-restricted-syntax
         apiOptions: {} as any, // a deep default is done in `this.update()`
         linterContext: PerseusLinter.linterContextDefault,
-        onRendered: (isRendered: boolean) => {},
+        onRendered: () => {},
     };
 
     constructor(props: Props) {
@@ -327,7 +327,6 @@ export class ServerItemRenderer
         } as const;
 
         const contextValue = {
-            assetStatuses: this._assetStatuses,
             setAssetStatus: this.setAssetStatus,
         } as const;
 
