@@ -154,7 +154,7 @@ class WidgetContainer extends React.Component<Props, State> {
         // after toggling static mode.
         return (
             <Container>
-                {/* TODO: This extra container (above) should be refactored (preferably removed) along with CSS refactoring */}
+                {/* TODO (LEMS-4452): This extra container (above) should be refactored (preferably removed) along with CSS refactoring */}
                 <Container
                     className={className}
                     style={isStatic ? staticContainerStyles : {}}

@@ -186,7 +186,7 @@
  **************/
 
 /* Content has been created with this rule in place since the dawn of time, so we need to keep it */
-.choice :global(.paragraph), /* TODO: fix what this applies to - most likely it should target the .perseus-renderer.renderer-new-ff  */
+.choice :global(.paragraph), /* TODO (LEMS-4452): fix what this applies to - most likely it should target the .perseus-renderer.renderer-new-ff  */
 .choice
     :global(.paragraph)
     div:not(
