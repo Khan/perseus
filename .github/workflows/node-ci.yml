@@ -131,6 +131,10 @@ jobs:
 
                   - name: Eslint
                     uses: Khan/actions@8b8506a789a5c2a4a90bd8da8b6801db6931ee2d # full-or-limited-v0
+                    env:
+                        # We've seen some OOMs in Github Actions on this
+                        # workflow, so this is an attempt to address that.
+                        NODE_OPTIONS: --max-old-space-size=8192
                     with:
                         full-trigger: ${{ steps.eslint-reset.outputs.filtered }}
                         full: pnpm lint packages
