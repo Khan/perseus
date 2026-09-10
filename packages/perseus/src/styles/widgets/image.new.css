@@ -23,22 +23,20 @@
     padding-left: 16px;
     position: relative;
 }
-/* Use type selectors (figcaption, div) to raise specificity above the
-   hint-renderer's `.bibliotron-exercise .perseus-hint-renderer div.paragraph`
-   rule, which would otherwise re-apply a 16px margin-block-end inside hints. */
+/* Use type selectors (figcaption) to raise specificity. */
 .perseus-image-widget figcaption.perseus-image-caption .renderer-new-ff > * {
     font-size: var(--wb-font-body-size-small);
     line-height: var(--wb-font-body-lineHeight-small);
     padding-right: 12px;
     margin-block: 0;
 }
-.perseus-image-modal-title .paragraph .paragraph {
+.perseus-image-modal-title .perseus-renderer.renderer-new-ff p {
     font-size: var(--wb-font-heading-size-medium);
     line-height: var(--wb-font-heading-lineHeight-medium);
 }
-.perseus-image-modal-description .perseus-renderer .paragraph {
+.framework-perseus .perseus-image-modal-description .perseus-renderer.renderer-new-ff > * {
     /* Reset default Renderer margins for the description and caption. */
-    margin: 0px 0px;
+    margin: 0;
 }
 
 /* Referencing this WB background color is needed to aid in Dark Mode preview */
