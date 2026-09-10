@@ -1,5 +1,23 @@
 # @khanacademy/perseus
 
+## 87.1.3
+
+### Patch Changes
+
+-   [#4206](https://github.com/Khan/perseus/pull/4206) [`c2a9d3e`](https://github.com/Khan/perseus/commit/c2a9d3ea577927464c53b0e027d707d41c06f78e) Thanks [@jandrade](https://github.com/jandrade)! - Updates the DnD component to use a valid WB lineHeight token
+
+-   [#4200](https://github.com/Khan/perseus/pull/4200) [`22dc543`](https://github.com/Khan/perseus/commit/22dc5433c41fa04ebe4a718804aaec1ee7201e6a) Thanks [@nishasy](https://github.com/nishasy)! - Fix tooltips getting cut off in the editor preview
+
+-   [#4206](https://github.com/Khan/perseus/pull/4206) [`c2a9d3e`](https://github.com/Khan/perseus/commit/c2a9d3ea577927464c53b0e027d707d41c06f78e) Thanks [@jandrade](https://github.com/jandrade)! - Updates WB peer deps
+
+-   Updated dependencies [[`c2a9d3e`](https://github.com/Khan/perseus/commit/c2a9d3ea577927464c53b0e027d707d41c06f78e), [`dc12384`](https://github.com/Khan/perseus/commit/dc123845614fae331d8517a524212fc1dbbe110f)]:
+    -   @khanacademy/math-input@27.0.14
+    -   @khanacademy/perseus-linter@5.4.0
+    -   @khanacademy/perseus-core@39.1.0
+    -   @khanacademy/keypad-context@3.2.91
+    -   @khanacademy/kmath@2.4.50
+    -   @khanacademy/perseus-score@8.12.23
+
 ## 87.1.2
 
 ### Patch Changes

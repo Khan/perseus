@@ -1,5 +1,27 @@
 # @khanacademy/perseus-editor
 
+## 42.1.0
+
+### Minor Changes
+
+-   [#4198](https://github.com/Khan/perseus/pull/4198) [`0bd3bf8`](https://github.com/Khan/perseus/commit/0bd3bf8ce16d94b42e4c4dde84a760bcde395b05) Thanks [@benchristel](https://github.com/benchristel)! - The "All Widgets" template has been removed from the Perseus editor. It was broken, and crashed the editor if selected.
+
+-   [#4204](https://github.com/Khan/perseus/pull/4204) [`dc12384`](https://github.com/Khan/perseus/commit/dc123845614fae331d8517a524212fc1dbbe110f) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Makes max sorter card count a const in perseus core and consumes it
+
+### Patch Changes
+
+-   [#4199](https://github.com/Khan/perseus/pull/4199) [`6143f20`](https://github.com/Khan/perseus/commit/6143f202b67f1d3486eeef581b47461136840461) Thanks [@nishasy](https://github.com/nishasy)! - [Image] Clear stale image URLs after markdown image conversion
+
+-   [#4206](https://github.com/Khan/perseus/pull/4206) [`c2a9d3e`](https://github.com/Khan/perseus/commit/c2a9d3ea577927464c53b0e027d707d41c06f78e) Thanks [@jandrade](https://github.com/jandrade)! - Updates WB peer deps
+
+-   Updated dependencies [[`c2a9d3e`](https://github.com/Khan/perseus/commit/c2a9d3ea577927464c53b0e027d707d41c06f78e), [`22dc543`](https://github.com/Khan/perseus/commit/22dc5433c41fa04ebe4a718804aaec1ee7201e6a), [`c2a9d3e`](https://github.com/Khan/perseus/commit/c2a9d3ea577927464c53b0e027d707d41c06f78e), [`dc12384`](https://github.com/Khan/perseus/commit/dc123845614fae331d8517a524212fc1dbbe110f)]:
+    -   @khanacademy/perseus@87.1.3
+    -   @khanacademy/math-input@27.0.14
+    -   @khanacademy/perseus-linter@5.4.0
+    -   @khanacademy/perseus-core@39.1.0
+    -   @khanacademy/keypad-context@3.2.91
+    -   @khanacademy/kmath@2.4.50
+
 ## 42.0.0
 
 ### Major Changes
