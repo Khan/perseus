@@ -1,4 +1,4 @@
-import {sorterMaxCards} from "@khanacademy/perseus-core";
+import {SORTER_MAX_CARDS} from "@khanacademy/perseus-core";
 
 import {expectWarning} from "../__tests__/test-utils";
 
@@ -17,7 +17,7 @@ describe("sorter-widget-warning", () => {
                     "sorter 1": {
                         options: {
                             correct: Array.from(
-                                {length: sorterMaxCards + 1},
+                                {length: SORTER_MAX_CARDS + 1},
                                 (_, i) => i,
                             ),
                             layout: "vertical",
@@ -41,7 +41,7 @@ describe("sorter-widget-warning", () => {
                     "sorter 1": {
                         options: {
                             correct: Array.from(
-                                {length: sorterMaxCards + 1},
+                                {length: SORTER_MAX_CARDS + 1},
                                 (_, i) => i,
                             ),
                             layout: "horizontal",

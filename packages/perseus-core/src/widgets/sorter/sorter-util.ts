@@ -2,7 +2,7 @@ import {constrainedShuffle, type RNG, seededRNG} from "../../utils/random-util";
 
 import type {PerseusSorterWidgetOptions} from "../../data-schema";
 
-export const sorterMaxCards = 10;
+export const SORTER_MAX_CARDS = 10;
 
 /**
  * For details on the individual options, see the

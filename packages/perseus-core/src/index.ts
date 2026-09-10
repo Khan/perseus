@@ -214,7 +214,7 @@ export {getLabelImagePublicWidgetOptions} from "./widgets/label-image/label-imag
 export {
     getSorterPublicWidgetOptions,
     shuffleSorter,
-    sorterMaxCards,
+    SORTER_MAX_CARDS,
 } from "./widgets/sorter/sorter-util";
 /** @hidden */
 export type {BlankPublicWidgetOptions} from "./widgets/blank/blank-util";

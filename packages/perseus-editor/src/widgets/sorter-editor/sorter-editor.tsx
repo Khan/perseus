@@ -1,6 +1,6 @@
 import {
     sorterLogic,
-    sorterMaxCards,
+    SORTER_MAX_CARDS,
     type PerseusSorterWidgetOptions,
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
@@ -93,7 +93,7 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
         };
 
         const onAddCard = () => {
-            if (correct.length >= sorterMaxCards) {
+            if (correct.length >= SORTER_MAX_CARDS) {
                 return;
             }
             onChange({correct: [...correct, ""]});
@@ -153,7 +153,7 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                         kind="tertiary"
                         startIcon={plusCircle}
                         className={styles.addCard}
-                        disabled={correct.length >= sorterMaxCards}
+                        disabled={correct.length >= SORTER_MAX_CARDS}
                         onClick={onAddCard}
                     >
                         Add a card
