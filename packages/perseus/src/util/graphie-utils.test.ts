@@ -10,6 +10,18 @@ import {
 } from "./graphie-utils";
 import {typicalCase, edgeCases} from "./graphie-utils.testdata";
 
+// Test helper to wait for loadGraphie callback
+async function waitForLoadGraphie(url: string) {
+    return new Promise<{
+        data: unknown;
+        localized: boolean;
+    }>((resolve) => {
+        loadGraphie(url, (data, localized) => {
+            resolve({data, localized});
+        });
+    });
+}
+
 describe("graphie utils", () => {
     const errorCallback = jest.fn((error) => {
         // Do nothing
@@ -108,14 +120,7 @@ describe("graphie utils", () => {
         );
 
         // Act
-        const loadedData = await new Promise<{
-            data: unknown;
-            localized: boolean;
-        }>((resolve) => {
-            loadGraphie(typicalCase.url, (data, localized) => {
-                resolve({data, localized});
-            });
-        });
+        const loadedData = await waitForLoadGraphie(typicalCase.url);
 
         // Assert
         expect(loadedData).toEqual({
@@ -153,14 +158,7 @@ describe("graphie utils", () => {
         }) as jest.Mock;
 
         // Act
-        const loadedData = await new Promise<{
-            data: unknown;
-            localized: boolean;
-        }>((resolve) => {
-            loadGraphie(typicalCase.url, (data, localized) => {
-                resolve({data, localized});
-            });
-        });
+        const loadedData = await waitForLoadGraphie(typicalCase.url);
 
         // Assert
         expect(loadedData).toEqual({
