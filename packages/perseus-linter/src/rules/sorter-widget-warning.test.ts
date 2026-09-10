@@ -1,7 +1,8 @@
+import {sorterMaxCards} from "@khanacademy/perseus-core";
+
 import {expectWarning} from "../__tests__/test-utils";
 
 import sorterWidgetWarningRule, {
-    sorterMaxCards,
     sorterMaxIdealCards,
     sorterMaxHorizontalCards,
 } from "./sorter-widget-warning";

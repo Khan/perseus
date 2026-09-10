@@ -1,9 +1,10 @@
+import {sorterMaxCards} from "@khanacademy/perseus-core";
+
 import Rule from "../rule";
 
 import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
 
 // Exported for tests
-export const sorterMaxCards = 10;
 export const sorterMaxIdealCards = 5;
 export const sorterMaxHorizontalCards = 5;
 
