@@ -1,12 +1,15 @@
 /**
  * Prints the CSS behind Aphrodite's generated class names in DOM snapshots.
  *
- * Without this, every styled element in a snapshot reads
- * `class="button_vr44p2-o_O-shared_1hhaz1q"`. The hash changes whenever the
+ * Without this, every styled element in a snapshot reads:
+ *
+ *     `class="button_vr44p2-o_O-shared_1hhaz1q"`
+ *
+ * The hash changes whenever the
  * style changes, so a diff tells a reviewer that *something* changed but never
  * *what*. With it, the same element reads:
  *
- *     style="display: inline-flex; align-items: center; height: 40px; ..."
+ *     `style="display: inline-flex; align-items: center; height: 40px; ..."`
  *
  * Wonder Blocks solves the same problem with a `SNAPSHOT_INLINE_APHRODITE`
  * global that makes `processStyleList` hand React a `style` prop instead of a
