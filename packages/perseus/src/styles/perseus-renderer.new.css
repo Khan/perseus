@@ -11,7 +11,7 @@
 @import "widgets/grapher.css" layer(perseus-legacy);
 @import "widgets/graded-group.css" layer(perseus-legacy);
 @import "widgets/group.css" layer(perseus-legacy);
-@import "widgets/image.css" layer(perseus-legacy);
+@import "widgets/image.new.css";
 @import "widgets/interactive-graph.css" layer(perseus-legacy);
 @import "widgets/label-image.css" layer(perseus-legacy);
 @import "widgets/matcher.css" layer(perseus-legacy);

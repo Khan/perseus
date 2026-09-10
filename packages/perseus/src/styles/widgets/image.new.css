@@ -1,0 +1,74 @@
+/******************* Image widget styles *******************/
+
+.perseus-image-widget {
+    margin-inline: auto;
+}
+/* Stop large images from overflowing out of their container. */
+.perseus-image-widget .image-loader-img {
+    max-width: 100%;
+    height: auto;
+}
+.perseus-image-widget .perseus-image-title {
+    text-align: center;
+}
+/* Reset default paragraph margins. Use a type selector (div) to raise
+   specificity above the hint-renderer's `.bibliotron-exercise
+   .perseus-hint-renderer div.paragraph` rule, which would otherwise re-apply
+   a 16px margin-block-end inside hints. */
+.perseus-image-widget div.perseus-image-title .renderer-new-ff > * {
+    margin-block: 0;
+}
+.perseus-image-widget .perseus-image-caption {
+    color: var(--wb-semanticColor-core-foreground-neutral-subtle);
+    padding-left: 16px;
+    position: relative;
+}
+/* Use type selectors (figcaption, div) to raise specificity above the
+   hint-renderer's `.bibliotron-exercise .perseus-hint-renderer div.paragraph`
+   rule, which would otherwise re-apply a 16px margin-block-end inside hints. */
+.perseus-image-widget figcaption.perseus-image-caption .renderer-new-ff > * {
+    font-size: var(--wb-font-body-size-small);
+    line-height: var(--wb-font-body-lineHeight-small);
+    padding-right: 12px;
+    margin-block: 0;
+}
+.perseus-image-modal-title .paragraph .paragraph {
+    font-size: var(--wb-font-heading-size-medium);
+    line-height: var(--wb-font-heading-lineHeight-medium);
+}
+.perseus-image-modal-description .perseus-renderer .paragraph {
+    /* Reset default Renderer margins for the description and caption. */
+    margin: 0px 0px;
+}
+
+/* Referencing this WB background color is needed to aid in Dark Mode preview */
+.perseus-image-preview-container {
+    background-color: var(--wb-semanticColor-core-background-base-default);
+}
+
+.perseus-image-preview-container[data-wb-theme$="-dark"] {
+    img[src$=".png"],
+    img[src$=".svg"],
+    .graphie,
+    .perseus-block-math .mathjax-wrapper {
+        filter: invert(1) hue-rotate(180deg) brightness(1.5);
+    }
+}
+
+/* This prevents the image from overflowing its container in editor previews */
+.perseus-image-preview-container .image-loader-img {
+    overflow: hidden;
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/******************* Perseus hint renderer styles *******************/
+/* Note: all alignment styling are defined in widget-container.css */
+
+.perseus-hint-renderer .perseus-image-widget {
+    margin-inline-start: 0;
+}
+.perseus-hint-renderer .svg-image {
+    margin-inline-start: 0;
+}
