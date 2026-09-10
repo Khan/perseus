@@ -113,7 +113,6 @@ const ImageWidget = forwardRef<Widget, ImageWidgetProps>(
                             labels: labels,
                         }}
                         trackInteraction={trackInteraction}
-                        zoomToFullSizeOnMobile={apiOptions.isMobile}
                         constrainHeight={apiOptions.isMobile}
                         allowFullBleed={apiOptions.isMobile}
                         // Only allow zooming if the image is not decorative and not a GIF.
