@@ -120,6 +120,8 @@ export default function LinterLink({
  * the gutter the indicator sits in, the tooltip tail, and the 12px of
  * viewport padding Popper keeps.
  */
+// TODO: When we are able to remove the need for an iframe preview
+// (ie. we use container queries), remove this calculated sizing.
 const tooltipMaxWidth = "min(320px, calc(100vw - 120px))";
 
 const styles = StyleSheet.create({
