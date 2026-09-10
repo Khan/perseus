@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 39.1.0
+
+### Minor Changes
+
+-   [#4204](https://github.com/Khan/perseus/pull/4204) [`dc12384`](https://github.com/Khan/perseus/commit/dc123845614fae331d8517a524212fc1dbbe110f) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Makes max sorter card count a const in perseus core and consumes it
+
 ## 39.0.0
 
 ### Major Changes
