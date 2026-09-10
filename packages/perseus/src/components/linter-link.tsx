@@ -101,11 +101,7 @@ export default function LinterLink({
                         : dotOutlineIcon
                 }
                 style={style}
-                // Open the rule docs in a dedicated, reused window rather
-                // than attempting to open within the iframe.
-                // eslint-disable-next-line @khanacademy/ts-no-error-suppressions
-                // @ts-expect-error - TS2322 - Type '"lint-help-window"' is not assignable to type '"_blank"'.
-                target="lint-help-window"
+                target="_blank"
             />
         </Tooltip>
     );
