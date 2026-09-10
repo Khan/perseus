@@ -66,6 +66,9 @@ export default function LinterLink({
 
     return (
         <Tooltip
+            // Place the tooltip left of the lint dot so that it can be
+            // seen within the iframe without being cut off by the edge.
+            placement="left"
             // The anchor is an <a href>, which is already keyboard
             // focusable, so the tooltip doesn't need to add a tabindex.
             forceAnchorFocusivity={false}
@@ -98,6 +101,11 @@ export default function LinterLink({
                         : dotOutlineIcon
                 }
                 style={style}
+                // Open the rule docs in a dedicated, reused window rather
+                // than attempting to open within the iframe.
+                // eslint-disable-next-line @khanacademy/ts-no-error-suppressions
+                // @ts-expect-error - TS2322 - Type '"lint-help-window"' is not assignable to type '"_blank"'.
+                target="lint-help-window"
             />
         </Tooltip>
     );
