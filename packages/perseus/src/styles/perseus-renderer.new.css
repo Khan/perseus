@@ -7,7 +7,7 @@
 @import "widgets/categorizer.new.css";
 @import "widgets/dropdown.css" layer(perseus-legacy);
 @import "widgets/expression.css" layer(perseus-legacy);
-@import "widgets/free-response.css" layer(perseus-legacy);
+@import "widgets/free-response.new.css";
 @import "widgets/grapher.css" layer(perseus-legacy);
 @import "widgets/graded-group.css" layer(perseus-legacy);
 @import "widgets/group.css" layer(perseus-legacy);
