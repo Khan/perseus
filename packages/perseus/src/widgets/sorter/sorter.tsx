@@ -14,7 +14,7 @@ import type {
     PerseusSorterUserInput,
 } from "@khanacademy/perseus-core";
 
-export const SORTER_MAX_HORIZONTAL_OPTIONS = 5;
+export const SORTER_MAX_HORIZONTAL_CARDS = 5;
 
 type Props = WidgetProps<PerseusSorterWidgetOptions, PerseusSorterUserInput>;
 
@@ -38,7 +38,7 @@ const Sorter = forwardRef<SorterHandle, Props>(function Sorter(props, ref) {
     // If there are more than the max limit of horizontal cards, force
     // the layout direction to be vertical.
     const layout =
-        options.correct.length > SORTER_MAX_HORIZONTAL_OPTIONS
+        options.correct.length > SORTER_MAX_HORIZONTAL_CARDS
             ? "vertical"
             : options.layout;
 

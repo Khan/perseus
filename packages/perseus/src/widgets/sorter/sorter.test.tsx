@@ -18,7 +18,7 @@ import {wait} from "../../testing/wait";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import {SORTER_MAX_HORIZONTAL_OPTIONS} from "./sorter";
+import {SORTER_MAX_HORIZONTAL_CARDS} from "./sorter";
 import {basicQuestion} from "./sorter.testdata";
 
 import type {SorterHandle} from "./sorter";
@@ -261,7 +261,7 @@ describe("sorter widget", () => {
             // Arrange, Act
             const {container} = renderQuestion(
                 sorterQuestionWith(
-                    SORTER_MAX_HORIZONTAL_OPTIONS - 1,
+                    SORTER_MAX_HORIZONTAL_CARDS - 1,
                     "horizontal",
                 ),
             );
@@ -273,10 +273,7 @@ describe("sorter widget", () => {
         it("lays out the cards vertically when the layout is vertical", () => {
             // Arrange, Act
             const {container} = renderQuestion(
-                sorterQuestionWith(
-                    SORTER_MAX_HORIZONTAL_OPTIONS - 1,
-                    "vertical",
-                ),
+                sorterQuestionWith(SORTER_MAX_HORIZONTAL_CARDS - 1, "vertical"),
             );
 
             // Assert
@@ -286,7 +283,7 @@ describe("sorter widget", () => {
         it("keeps a horizontal sorter horizontal at exactly the maximum number of cards", () => {
             // Arrange, Act
             const {container} = renderQuestion(
-                sorterQuestionWith(SORTER_MAX_HORIZONTAL_OPTIONS, "horizontal"),
+                sorterQuestionWith(SORTER_MAX_HORIZONTAL_CARDS, "horizontal"),
             );
 
             // Assert
@@ -297,7 +294,7 @@ describe("sorter widget", () => {
             // Arrange, Act
             const {container} = renderQuestion(
                 sorterQuestionWith(
-                    SORTER_MAX_HORIZONTAL_OPTIONS + 1,
+                    SORTER_MAX_HORIZONTAL_CARDS + 1,
                     "horizontal",
                 ),
             );

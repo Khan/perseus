@@ -1,4 +1,4 @@
-import {SORTER_MAX_HORIZONTAL_OPTIONS} from "@khanacademy/perseus";
+import {SORTER_MAX_HORIZONTAL_CARDS} from "@khanacademy/perseus";
 import {
     sorterLogic,
     type PerseusSorterWidgetOptions,
@@ -189,10 +189,10 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                     }
                 />
                 {layout === "horizontal" &&
-                    correct.length > SORTER_MAX_HORIZONTAL_OPTIONS && (
+                    correct.length > SORTER_MAX_HORIZONTAL_CARDS && (
                         <Banner
                             kind="warning"
-                            text={`Sorter widget with more than ${SORTER_MAX_HORIZONTAL_OPTIONS} options will display vertically, even if the layout is set to horizontal.`}
+                            text={`Sorter widget with more than ${SORTER_MAX_HORIZONTAL_CARDS} options will display vertically, even if the layout is set to horizontal.`}
                         />
                     )}
                 <div className={styles.row}>

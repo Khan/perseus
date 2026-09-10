@@ -1,7 +1,4 @@
-import {
-    Dependencies,
-    SORTER_MAX_HORIZONTAL_OPTIONS,
-} from "@khanacademy/perseus";
+import {Dependencies, SORTER_MAX_HORIZONTAL_CARDS} from "@khanacademy/perseus";
 import {generateSorterOptions, sorterLogic} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -105,7 +102,7 @@ describe("sorter-editor", () => {
     });
 
     describe("layout warning", () => {
-        const warningText = `Sorter widget with more than ${SORTER_MAX_HORIZONTAL_OPTIONS} options will display vertically, even if the layout is set to horizontal.`;
+        const warningText = `Sorter widget with more than ${SORTER_MAX_HORIZONTAL_CARDS} options will display vertically, even if the layout is set to horizontal.`;
 
         function cards(count: number): string[] {
             return Array.from({length: count}, (_, i) => `Card ${i + 1}`);
@@ -114,7 +111,7 @@ describe("sorter-editor", () => {
         it("warns when a horizontal sorter has more cards than the maximum", () => {
             // Arrange
             const options = generateSorterOptions({
-                correct: cards(SORTER_MAX_HORIZONTAL_OPTIONS + 1),
+                correct: cards(SORTER_MAX_HORIZONTAL_CARDS + 1),
                 layout: "horizontal",
             });
 
@@ -128,7 +125,7 @@ describe("sorter-editor", () => {
         it("does not warn when a horizontal sorter has exactly the maximum number of cards", () => {
             // Arrange
             const options = generateSorterOptions({
-                correct: cards(SORTER_MAX_HORIZONTAL_OPTIONS),
+                correct: cards(SORTER_MAX_HORIZONTAL_CARDS),
                 layout: "horizontal",
             });
 
@@ -142,7 +139,7 @@ describe("sorter-editor", () => {
         it("does not warn when the layout is already vertical", () => {
             // Arrange
             const options = generateSorterOptions({
-                correct: cards(SORTER_MAX_HORIZONTAL_OPTIONS + 1),
+                correct: cards(SORTER_MAX_HORIZONTAL_CARDS + 1),
                 layout: "vertical",
             });
 
