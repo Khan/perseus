@@ -720,7 +720,13 @@ exports[`interaction widget renders movable point elements with blank constraint
               >
                 <span
                   class="tex-holder"
-                />
+                >
+                  <span
+                    class="mock-TeX"
+                  >
+                    \\small{10}
+                  </span>
+                </span>
               </span>
               <span
                 class="graphie-label"
@@ -729,7 +735,13 @@ exports[`interaction widget renders movable point elements with blank constraint
               >
                 <span
                   class="tex-holder"
-                />
+                >
+                  <span
+                    class="mock-TeX"
+                  >
+                    \\small{20}
+                  </span>
+                </span>
               </span>
               <span
                 class="graphie-label"
@@ -738,7 +750,13 @@ exports[`interaction widget renders movable point elements with blank constraint
               >
                 <span
                   class="tex-holder"
-                />
+                >
+                  <span
+                    class="mock-TeX"
+                  >
+                    \\small{30}
+                  </span>
+                </span>
               </span>
               <span
                 class="graphie-label"
@@ -747,7 +765,13 @@ exports[`interaction widget renders movable point elements with blank constraint
               >
                 <span
                   class="tex-holder"
-                />
+                >
+                  <span
+                    class="mock-TeX"
+                  >
+                    \\small{40}
+                  </span>
+                </span>
               </span>
               <span
                 class="graphie-label"
@@ -756,7 +780,13 @@ exports[`interaction widget renders movable point elements with blank constraint
               >
                 <span
                   class="tex-holder"
-                />
+                >
+                  <span
+                    class="mock-TeX"
+                  >
+                    \\small{10}
+                  </span>
+                </span>
               </span>
               <span
                 class="graphie-label"
@@ -765,7 +795,13 @@ exports[`interaction widget renders movable point elements with blank constraint
               >
                 <span
                   class="tex-holder"
-                />
+                >
+                  <span
+                    class="mock-TeX"
+                  >
+                    \\small{20}
+                  </span>
+                </span>
               </span>
               <span
                 class="graphie-label"
@@ -774,7 +810,13 @@ exports[`interaction widget renders movable point elements with blank constraint
               >
                 <span
                   class="tex-holder"
-                />
+                >
+                  <span
+                    class="mock-TeX"
+                  >
+                    \\small{30}
+                  </span>
+                </span>
               </span>
               <span
                 class="graphie-label"
@@ -783,7 +825,13 @@ exports[`interaction widget renders movable point elements with blank constraint
               >
                 <span
                   class="tex-holder"
-                />
+                >
+                  <span
+                    class="mock-TeX"
+                  >
+                    \\small{40}
+                  </span>
+                </span>
               </span>
               <span
                 class="graphie-label"
@@ -792,7 +840,13 @@ exports[`interaction widget renders movable point elements with blank constraint
               >
                 <span
                   class="tex-holder"
-                />
+                >
+                  <span
+                    class="mock-TeX"
+                  >
+                    y
+                  </span>
+                </span>
               </span>
               <span
                 class="graphie-label"
@@ -801,7 +855,13 @@ exports[`interaction widget renders movable point elements with blank constraint
               >
                 <span
                   class="tex-holder"
-                />
+                >
+                  <span
+                    class="mock-TeX"
+                  >
+                    x
+                  </span>
+                </span>
               </span>
             </div>
           </div>
@@ -1044,7 +1104,13 @@ exports[`interaction widget should render 1`] = `
               >
                 <span
                   class="tex-holder"
-                />
+                >
+                  <span
+                    class="mock-TeX"
+                  >
+                    \\Huge 2
+                  </span>
+                </span>
               </span>
               <span
                 class="graphie-label"
@@ -1053,7 +1119,13 @@ exports[`interaction widget should render 1`] = `
               >
                 <span
                   class="tex-holder"
-                />
+                >
+                  <span
+                    class="mock-TeX"
+                  >
+                    \\Huge 5
+                  </span>
+                </span>
               </span>
               <span
                 class="graphie-label"
@@ -1062,7 +1134,13 @@ exports[`interaction widget should render 1`] = `
               >
                 <span
                   class="tex-holder"
-                />
+                >
+                  <span
+                    class="mock-TeX"
+                  >
+                    \\Huge 9
+                  </span>
+                </span>
               </span>
               <span
                 class="graphie-label"
@@ -1071,7 +1149,13 @@ exports[`interaction widget should render 1`] = `
               >
                 <span
                   class="tex-holder"
-                />
+                >
+                  <span
+                    class="mock-TeX"
+                  >
+                    \\small 259
+                  </span>
+                </span>
               </span>
               <span
                 class="graphie-label"
@@ -1080,7 +1164,13 @@ exports[`interaction widget should render 1`] = `
               >
                 <span
                   class="tex-holder"
-                />
+                >
+                  <span
+                    class="mock-TeX"
+                  >
+                    \\small 259 \\times 10
+                  </span>
+                </span>
               </span>
             </div>
           </div>
