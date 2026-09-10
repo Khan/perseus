@@ -5,6 +5,7 @@ import {
     generateTestPerseusRenderer,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
+import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import {act} from "@testing-library/react";
 import * as React from "react";
 
@@ -21,37 +22,7 @@ import {SORTER_MAX_HORIZONTAL_OPTIONS} from "./sorter";
 import {basicQuestion} from "./sorter.testdata";
 
 import type {SorterHandle} from "./sorter";
-import type Sortable from "../../components/sortable";
 import type {APIOptions} from "../../types";
-
-type SortableProps = React.ComponentProps<typeof Sortable>;
-
-/**
- * Sorter delegates all of its rendering and dragging to Sortable, so the props
- * it hands down are its real output. Wrapping Sortable in a spy lets us read
- * those props directly instead of inferring them from the rendered cards.
- */
-const mockSortableSpy = jest.fn<void, [SortableProps]>();
-
-jest.mock("../../components/sortable", () => {
-    const actual = jest.requireActual("../../components/sortable");
-    const react = jest.requireActual("react");
-
-    return {
-        __esModule: true,
-        ...actual,
-        default: react.forwardRef((props, ref) => {
-            mockSortableSpy(props);
-            return react.createElement(actual.default, {...props, ref});
-        }),
-    };
-});
-
-/** The props Sorter most recently passed down to Sortable. */
-function lastSortableProps(): SortableProps {
-    expect(mockSortableSpy).toHaveBeenCalled();
-    return mockSortableSpy.mock.lastCall![0];
-}
 
 /*
  * Sortable settles its cards from a requestAnimationFrame callback, which can
@@ -63,26 +34,33 @@ function lastSortableProps(): SortableProps {
 const EXPECTED_CONSOLE_ERROR = /not wrapped in act\(/;
 
 /**
- * Sortable keeps its cards behind a spinner until the math typesetter reports
- * that it has loaded, which it learns from a dummy TeX component's `onRender`.
- * The default test TeX never calls `onRender`, so any test that needs to see
- * the cards themselves has to supply one that does.
+ * Sortable hides its cards behind a spinner until the TeX renderer tells it
+ * that math is on screen, which it learns from the `onRender` callback of a
+ * hidden dummy TeX node. The default test TeX dependency never calls
+ * `onRender`, so a sorter rendered with it stays a spinner forever and any
+ * snapshot of it captures the spinner instead of the cards. This stand-in
+ * reports itself as rendered on mount so the cards — and the layout we're
+ * actually asserting on — reach the DOM.
  */
-function mockTexThatFinishesLoading() {
-    jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
-        ...testDependencies,
-        TeX: ({
-            children,
-            onRender: onLoad,
-        }: {
-            children: React.ReactNode;
-            onRender?: () => unknown;
-        }) => {
-            React.useLayoutEffect(() => {
-                onLoad?.();
-            }, [onLoad]);
-            return <span className="tex-mock">{children}</span>;
-        },
+function useLoadedTexRenderer() {
+    function LoadedTeX({
+        children,
+        onRender,
+    }: {
+        children: React.ReactNode;
+        onRender?: () => unknown;
+    }) {
+        useOnMountEffect(() => {
+            onRender?.();
+        });
+        return <span className="mock-TeX">{children}</span>;
+    }
+
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+            ...testDependencies,
+            TeX: LoadedTeX,
+        });
     });
 }
 
@@ -143,8 +121,6 @@ describe("sorter widget", () => {
                     unexpectedConsoleErrors.push(message);
                 }
             });
-
-            mockTexThatFinishesLoading();
         });
 
         afterEach(() => {
@@ -259,6 +235,8 @@ describe("sorter widget", () => {
     });
 
     describe("layout", () => {
+        useLoadedTexRenderer();
+
         function sorterQuestionWith(
             cardCount: number,
             layout: "horizontal" | "vertical",
@@ -281,7 +259,7 @@ describe("sorter widget", () => {
 
         it("lays out the cards horizontally when the layout is horizontal", () => {
             // Arrange, Act
-            renderQuestion(
+            const {container} = renderQuestion(
                 sorterQuestionWith(
                     SORTER_MAX_HORIZONTAL_OPTIONS - 1,
                     "horizontal",
@@ -289,12 +267,12 @@ describe("sorter widget", () => {
             );
 
             // Assert
-            expect(lastSortableProps().layout).toBe("horizontal");
+            expect(container).toMatchSnapshot();
         });
 
         it("lays out the cards vertically when the layout is vertical", () => {
             // Arrange, Act
-            renderQuestion(
+            const {container} = renderQuestion(
                 sorterQuestionWith(
                     SORTER_MAX_HORIZONTAL_OPTIONS - 1,
                     "vertical",
@@ -302,22 +280,22 @@ describe("sorter widget", () => {
             );
 
             // Assert
-            expect(lastSortableProps().layout).toBe("vertical");
+            expect(container).toMatchSnapshot();
         });
 
         it("keeps a horizontal sorter horizontal at exactly the maximum number of cards", () => {
             // Arrange, Act
-            renderQuestion(
+            const {container} = renderQuestion(
                 sorterQuestionWith(SORTER_MAX_HORIZONTAL_OPTIONS, "horizontal"),
             );
 
             // Assert
-            expect(lastSortableProps().layout).toBe("horizontal");
+            expect(container).toMatchSnapshot();
         });
 
         it("lays out a horizontal sorter vertically when it has more cards than the maximum", () => {
             // Arrange, Act
-            renderQuestion(
+            const {container} = renderQuestion(
                 sorterQuestionWith(
                     SORTER_MAX_HORIZONTAL_OPTIONS + 1,
                     "horizontal",
@@ -325,7 +303,7 @@ describe("sorter widget", () => {
             );
 
             // Assert
-            expect(lastSortableProps().layout).toBe("vertical");
+            expect(container).toMatchSnapshot();
         });
     });
 
