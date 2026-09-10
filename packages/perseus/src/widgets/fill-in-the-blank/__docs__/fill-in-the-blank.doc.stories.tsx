@@ -3,6 +3,7 @@ import * as React from "react";
 import {ApiOptions} from "../../../perseus-api";
 import Renderer from "../../../renderer";
 import {mockStrings} from "../../../strings";
+import {useStorybookApiOptions} from "../../../testing/use-storybook-api-options";
 import UserInputManager from "../../../user-input-manager";
 import {basicFillInTheBlankQuestion} from "../fill-in-the-blank.testdata";
 
@@ -13,6 +14,8 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 const meta = {
     title: "Widgets/Fill in the Blank",
     tags: ["!dev"],
+    // TODO(LEMS-4396): clean up feature flag
+    globals: {featureFlags: ["dnd-widget-fitb"]},
     component: FillInTheBlankDemo,
     parameters: {
         docs: {
@@ -152,6 +155,8 @@ function FillInTheBlankDemo({
 }: {
     question: PerseusRenderer;
 }): React.ReactElement {
+    const apiOptions = useStorybookApiOptions(ApiOptions.defaults);
+
     return (
         <UserInputManager widgets={question.widgets} problemNum={0}>
             {({userInput, handleUserInput, initializeUserInput}) => (
@@ -163,7 +168,7 @@ function FillInTheBlankDemo({
                     content={question.content}
                     widgets={question.widgets}
                     images={question.images}
-                    apiOptions={{...ApiOptions.defaults}}
+                    apiOptions={apiOptions}
                 />
             )}
         </UserInputManager>

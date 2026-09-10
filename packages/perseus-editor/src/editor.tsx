@@ -935,7 +935,12 @@ class Editor extends React.Component<Props, State> {
             widgetsAndTemplates = (
                 <div className="perseus-editor-widgets">
                     <div className="perseus-editor-widgets-selectors">
-                        <WidgetSelect onChange={this._addWidget} />
+                        {/* TODO(LEMS-4396): clean up feature flag — `flags`
+                            goes away with the last flag-gated widget. */}
+                        <WidgetSelect
+                            flags={this.props.apiOptions.flags}
+                            onChange={this._addWidget}
+                        />
                         {templatesDropDown}
                         {wordCountDisplay}
                     </div>
