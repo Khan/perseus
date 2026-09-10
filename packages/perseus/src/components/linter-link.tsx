@@ -110,11 +110,6 @@ export default function LinterLink({
 /**
  * How wide the tooltip bubble is allowed to get so it doesn't get cut off
  * by the edge of the preview iframe.
- *
- * `100vw` resolves against the preview iframe's own viewport (the tooltip is
- * portaled into that same document), and the subtracted slack leaves room for
- * the gutter the indicator sits in, the tooltip tail, and the 12px of
- * viewport padding Popper keeps.
  */
 // TODO: When we are able to remove the need for an iframe preview
 // (ie. we use container queries), remove this calculated sizing.
