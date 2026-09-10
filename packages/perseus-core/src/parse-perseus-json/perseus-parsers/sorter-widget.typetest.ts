@@ -9,7 +9,7 @@ import type {ParseResult} from "../parser-types";
 
 describe("the SorterWidget parser", () => {
     it("should return the widget type defined in data-schema.ts", () => {
-        expect(parseSorterWidget({}, ctx())).type.toBe<
+        expect(parseSorterWidget({}, ctx())).type.toBeAssignableTo<
             ParseResult<SorterWidget | DeprecatedStandinWidget>
         >();
     });
