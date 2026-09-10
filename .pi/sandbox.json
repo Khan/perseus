@@ -23,8 +23,7 @@
             "~/.local/state/mise",
             "~/.cache/node/corepack",
             "~/Library/pnpm",
-            "~/Library/Caches/pnpm",
-            "~/Desktop/Plans"
+            "~/Library/Caches/pnpm"
         ],
         "denyRead": [],
         "denyWrite": []
