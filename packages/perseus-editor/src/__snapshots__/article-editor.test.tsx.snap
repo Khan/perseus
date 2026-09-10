@@ -493,16 +493,6 @@ table: [[☃ table 1]]
                     >
                       Piecewise function
                     </option>
-                    <option
-                      disabled=""
-                    >
-                      --
-                    </option>
-                    <option
-                      value="allWidgets"
-                    >
-                      All widgets (for testing)
-                    </option>
                   </select>
                 </div>
                 <div
@@ -2344,16 +2334,6 @@ table: [[☃ table 1]]
                                 >
                                   Piecewise function
                                 </option>
-                                <option
-                                  disabled=""
-                                >
-                                  --
-                                </option>
-                                <option
-                                  value="allWidgets"
-                                >
-                                  All widgets (for testing)
-                                </option>
                               </select>
                             </div>
                           </div>
@@ -2820,16 +2800,6 @@ table: [[☃ table 1]]
                                 value="piecewise"
                               >
                                 Piecewise function
-                              </option>
-                              <option
-                                disabled=""
-                              >
-                                --
-                              </option>
-                              <option
-                                value="allWidgets"
-                              >
-                                All widgets (for testing)
                               </option>
                             </select>
                           </div>
@@ -3623,16 +3593,6 @@ table: [[☃ table 1]]
                                 >
                                   Piecewise function
                                 </option>
-                                <option
-                                  disabled=""
-                                >
-                                  --
-                                </option>
-                                <option
-                                  value="allWidgets"
-                                >
-                                  All widgets (for testing)
-                                </option>
                               </select>
                             </div>
                           </div>
@@ -4043,16 +4003,6 @@ table: [[☃ table 1]]
                                   value="piecewise"
                                 >
                                   Piecewise function
-                                </option>
-                                <option
-                                  disabled=""
-                                >
-                                  --
-                                </option>
-                                <option
-                                  value="allWidgets"
-                                >
-                                  All widgets (for testing)
                                 </option>
                               </select>
                             </div>
@@ -6905,16 +6855,6 @@ table: [[☃ table 1]]
                                 value="piecewise"
                               >
                                 Piecewise function
-                              </option>
-                              <option
-                                disabled=""
-                              >
-                                --
-                              </option>
-                              <option
-                                value="allWidgets"
-                              >
-                                All widgets (for testing)
                               </option>
                             </select>
                           </div>

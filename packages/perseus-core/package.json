@@ -3,7 +3,7 @@
     "description": "Shared Perseus infrastructure",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "38.1.1",
+    "version": "39.0.0",
     "publishConfig": {
         "access": "public"
     },
@@ -24,12 +24,6 @@
             "source": "./src/index.ts",
             "import": "./dist/es/index.js",
             "require": "./dist/index.js"
-        },
-        "./item-splitting": {
-            "types": "./dist/index.item-splitting.d.ts",
-            "source": "./src/index.item-splitting.ts",
-            "import": "./dist/es/index.item-splitting.js",
-            "require": "./dist/index.item-splitting.js"
         }
     },
     "files": [
