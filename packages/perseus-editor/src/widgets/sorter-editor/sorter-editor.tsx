@@ -8,7 +8,6 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
-import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import * as React from "react";
 
@@ -166,18 +165,7 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                     </Button>
                 </View>
                 <LabeledField
-                    label={
-                        <div className={styles.row}>
-                            <BodyText>Layout</BodyText>
-                            <InfoTip>
-                                <p>
-                                    Use the horizontal layout for short text and
-                                    small images. The vertical layout is best
-                                    for longer text and larger images.
-                                </p>
-                            </InfoTip>
-                        </div>
-                    }
+                    label="Layout"
                     field={
                         <TypedSingleSelect
                             options={layoutOptions}
@@ -187,6 +175,20 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                             }
                         />
                     }
+                    contextLabel={
+                        <InfoTip>
+                            <p>
+                                Use the horizontal layout for short text and
+                                small images. The vertical layout is best for
+                                longer text and larger images.
+                            </p>
+                        </InfoTip>
+                    }
+                    styles={{
+                        contextLabel: {
+                            marginInlineEnd: "auto",
+                        },
+                    }}
                 />
                 {layout === "horizontal" &&
                     correct.length > SORTER_MAX_HORIZONTAL_CARDS && (
