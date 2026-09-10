@@ -1,3 +1,4 @@
+import {SORTER_MAX_HORIZONTAL_CARDS} from "@khanacademy/perseus-core";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {forwardRef, useImperativeHandle, useRef} from "react";
@@ -13,8 +14,6 @@ import type {
     PerseusSorterWidgetOptions,
     PerseusSorterUserInput,
 } from "@khanacademy/perseus-core";
-
-export const SORTER_MAX_HORIZONTAL_CARDS = 5;
 
 type Props = WidgetProps<PerseusSorterWidgetOptions, PerseusSorterUserInput>;
 

@@ -157,8 +157,6 @@ export {
     deriveUserInputFromSerializedState,
 } from "./user-input-manager";
 
-export {SORTER_MAX_HORIZONTAL_CARDS} from "./widgets/sorter/sorter";
-
 // These exports are to support shared functionality between Perseus and Graphie2000
 /** @hidden */
 export {parseDataFromJSONP} from "./util/graphie-utils";

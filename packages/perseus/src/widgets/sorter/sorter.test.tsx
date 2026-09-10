@@ -3,6 +3,7 @@ import {
     generateSorterWidget,
     generateTestPerseusItem,
     generateTestPerseusRenderer,
+    SORTER_MAX_HORIZONTAL_CARDS,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
@@ -18,7 +19,6 @@ import {wait} from "../../testing/wait";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import {SORTER_MAX_HORIZONTAL_CARDS} from "./sorter";
 import {basicQuestion} from "./sorter.testdata";
 
 import type {SorterHandle} from "./sorter";
