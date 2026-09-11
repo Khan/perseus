@@ -40,7 +40,11 @@ class WidgetSelect extends React.Component<WidgetSelectProps> {
 
         // TODO(LEMS-4396): clean up feature flag
         for (const [widgetType, flag] of Object.entries(WIDGETS_BEHIND_FLAGS)) {
-            const widgetExport = Widgets.getWidgetExport(widgetType);
+            // Hosts register only the widgets they use, so a flagged widget
+            // may be absent; look it up only if it's registered.
+            const widgetExport = Widgets.isWidgetRegistered(widgetType)
+                ? Widgets.getWidgetExport(widgetType)
+                : null;
             if (this.props.flags?.[flag] && widgetExport) {
                 widgets[widgetType] = widgetExport;
             } else {

@@ -18,6 +18,10 @@ class Registry<T> {
         }
     }
 
+    isInitialized(): boolean {
+        return this.anythingRegistered;
+    }
+
     has(key: string): boolean {
         this.throwIfUnregistered();
         return this.contents.has(key);

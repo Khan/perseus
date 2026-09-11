@@ -3,6 +3,20 @@ import Registry, {resetRegistry} from "./registry";
 describe("Registry", () => {
     const defaultMessage = "Registry accessed before initialization!";
 
+    it("reports whether any value has been registered", () => {
+        const registry = new Registry<string>();
+
+        expect(registry.isInitialized()).toBe(false);
+
+        registry.set("radio", "hello");
+
+        expect(registry.isInitialized()).toBe(true);
+
+        resetRegistry(registry);
+
+        expect(registry.isInitialized()).toBe(false);
+    });
+
     it("throws when calling get before setting anything", () => {
         const registry: any = new Registry();
         expect(() => registry.get("radio")).toThrow(defaultMessage);

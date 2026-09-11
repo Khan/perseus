@@ -95,6 +95,33 @@ describe("widget-container", () => {
         );
     });
 
+    it("renders a notice in Storybook for an unregistered widget", () => {
+        const storybook = process.env.STORYBOOK;
+        process.env.STORYBOOK = "true";
+
+        try {
+            withStrictRegistration(true, () =>
+                render(
+                    <WidgetContainer
+                        type="invalid-widget"
+                        id="invalid-widget 1"
+                        widgetProps={getBaseProps()}
+                    />,
+                ),
+            );
+
+            expect(screen.getByRole("alert")).toHaveTextContent(
+                "Widget invalid-widget is not registered. Add it to this story's decorator.",
+            );
+        } finally {
+            if (storybook === undefined) {
+                delete process.env.STORYBOOK;
+            } else {
+                process.env.STORYBOOK = storybook;
+            }
+        }
+    });
+
     it("should render the requested widget", () => {
         // Arrange
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(

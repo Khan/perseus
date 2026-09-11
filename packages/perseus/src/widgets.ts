@@ -91,6 +91,9 @@ function getWidgetStrictly(type: string): WidgetExports | undefined {
     );
 }
 
+export const isWidgetRegistered = (type: string): boolean =>
+    widgets.isInitialized() && widgets.has(type);
+
 export const getWidget = (
     type: string,
 ): React.ComponentType<any> | null | undefined => {

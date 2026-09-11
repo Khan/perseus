@@ -6,13 +6,17 @@
 // TODO(LEMS-4304): feature flag cleanup - rename this file to widget-container.tsx.
 // This file is the new widget container that will replace the old container.
 
-import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
+import {
+    CoreWidgetRegistry,
+    isStrictRegistration,
+} from "@khanacademy/perseus-core";
 import classNames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
 import {DependenciesContext} from "./dependencies";
 import ErrorBoundary from "./error-boundary";
+import {UnregisteredWidgetNotice} from "./unregistered-widget-notice";
 import {containerSizeClass, getClassFromWidth} from "./util/sizing-utils";
 import {getWidgetSubType} from "./widget-type-utils";
 import * as Widgets from "./widgets";
@@ -79,6 +83,14 @@ class WidgetContainer extends React.Component<Props, State> {
 
         const type = this.props.type;
         const userAgent = navigator.userAgent;
+
+        if (
+            process.env.STORYBOOK &&
+            isStrictRegistration() &&
+            !Widgets.isWidgetRegistered(type)
+        ) {
+            return <UnregisteredWidgetNotice type={type} />;
+        }
 
         const WidgetType = Widgets.getWidget(type);
         if (WidgetType == null) {
