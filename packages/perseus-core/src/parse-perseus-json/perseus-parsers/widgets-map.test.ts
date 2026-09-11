@@ -147,6 +147,9 @@ describe("parseWidgetsMap", () => {
     it("accepts a definition widget", () => {
         const widgetsMap: PerseusWidgetsMap = {
             "definition 1": generateDefinitionWidget({
+                // Definitions take no user input, so the parser drops
+                // `static`. See widget.test.ts.
+                static: undefined,
                 options: generateDefinitionOptions({
                     togglePrompt: "",
                     definition: "",
@@ -829,7 +832,9 @@ describe("parseWidgetsMap", () => {
 
     it("accepts a video widget", () => {
         const widgetsMap: unknown = {
-            "video 1": generateVideoWidget(),
+            // Videos take no user input, so the parser drops `static`.
+            // See widget.test.ts.
+            "video 1": generateVideoWidget({static: undefined}),
         };
 
         const result = parse(widgetsMap, parseWidgetsMap);
