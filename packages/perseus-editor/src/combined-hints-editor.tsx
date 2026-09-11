@@ -147,6 +147,7 @@ class HintEditor extends React.Component<HintEditorProps> {
                             <>
                                 <IconButton
                                     icon={arrowCircleDownIcon}
+                                    aria-label="Move hint down"
                                     size="small"
                                     kind="tertiary"
                                     onClick={_.partial(this.props.onMove, 1)}
@@ -154,6 +155,7 @@ class HintEditor extends React.Component<HintEditorProps> {
                                 />
                                 <IconButton
                                     icon={arrowCircleUpIcon}
+                                    aria-label="Move hint up"
                                     size="small"
                                     kind="tertiary"
                                     onClick={_.partial(this.props.onMove, -1)}

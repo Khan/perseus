@@ -48,7 +48,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                 </span>
                 <button
                   aria-label="Make image bigger."
-                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
+                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_18ceig1"
                   type="button"
                 />
               </div>
@@ -550,7 +550,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                               </span>
                               <button
                                 aria-label="Make image bigger."
-                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_1l8d9fz"
+                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_18ceig1"
                                 type="button"
                               />
                             </div>

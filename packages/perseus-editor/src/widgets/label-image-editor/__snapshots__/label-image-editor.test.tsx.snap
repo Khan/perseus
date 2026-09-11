@@ -109,7 +109,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_13d9y1m remove-button"
             type="button"
           >
             <span
@@ -137,7 +137,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_13d9y1m remove-button"
             type="button"
           >
             <span
@@ -165,7 +165,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_13d9y1m remove-button"
             type="button"
           >
             <span
@@ -190,7 +190,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
       </ul>
       <button
         aria-disabled="false"
-        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 add-answer"
+        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_13d9y1m add-answer"
         type="button"
       >
         <span
@@ -450,7 +450,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_13d9y1m remove-button"
             type="button"
           >
             <span
@@ -478,7 +478,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_13d9y1m remove-button"
             type="button"
           >
             <span
@@ -506,7 +506,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_13d9y1m remove-button"
             type="button"
           >
             <span
@@ -531,7 +531,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
       </ul>
       <button
         aria-disabled="false"
-        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 add-answer"
+        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_13d9y1m add-answer"
         type="button"
       >
         <span
@@ -791,7 +791,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_13d9y1m remove-button"
             type="button"
           >
             <span
@@ -819,7 +819,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_13d9y1m remove-button"
             type="button"
           >
             <span
@@ -847,7 +847,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_13d9y1m remove-button"
             type="button"
           >
             <span
@@ -872,7 +872,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
       </ul>
       <button
         aria-disabled="false"
-        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 add-answer"
+        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_13d9y1m add-answer"
         type="button"
       >
         <span
@@ -1132,7 +1132,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_13d9y1m remove-button"
             type="button"
           >
             <span
@@ -1160,7 +1160,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_13d9y1m remove-button"
             type="button"
           >
             <span
@@ -1188,7 +1188,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_13d9y1m remove-button"
             type="button"
           >
             <span
@@ -1213,7 +1213,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
       </ul>
       <button
         aria-disabled="false"
-        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 add-answer"
+        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_13d9y1m add-answer"
         type="button"
       >
         <span
@@ -1473,7 +1473,7 @@ exports[`label-image-editor popover direction snapshots should render with UP po
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_13d9y1m remove-button"
             type="button"
           >
             <span
@@ -1501,7 +1501,7 @@ exports[`label-image-editor popover direction snapshots should render with UP po
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_13d9y1m remove-button"
             type="button"
           >
             <span
@@ -1529,7 +1529,7 @@ exports[`label-image-editor popover direction snapshots should render with UP po
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_13d9y1m remove-button"
             type="button"
           >
             <span
@@ -1554,7 +1554,7 @@ exports[`label-image-editor popover direction snapshots should render with UP po
       </ul>
       <button
         aria-disabled="false"
-        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 add-answer"
+        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_13d9y1m add-answer"
         type="button"
       >
         <span
