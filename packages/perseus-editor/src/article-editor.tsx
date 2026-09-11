@@ -419,6 +419,9 @@ export default class ArticleEditor extends React.Component<Props, State> {
         // To enable this, we preserve the widgets
         // object for the new section, but wipe out
         // the content.
+        // TODO(benchristel): I don't think this "magic" is needed anymore. We
+        //  now use the clipboard API to support copy-paste of widgets between
+        //  editors.
         const newSection = {
             content: "",
             images: {},

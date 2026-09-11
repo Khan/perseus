@@ -259,10 +259,6 @@ class Editor extends React.Component<Props, State> {
         }
         return (
             <WidgetEditor
-                // The order of props matters here. We need to spread the
-                // widget data before specifying the `key` prop, to ensure the
-                // key overrides any `key` field on the widget (which might not
-                // be unique.
                 widgetInfo={this.props.widgets[id]}
                 ref={id}
                 id={id}
@@ -801,15 +797,6 @@ class Editor extends React.Component<Props, State> {
         const textarea = this.textarea.current;
         if (textarea) {
             textarea.focus();
-        }
-    };
-
-    focusAndMoveToEnd: () => void = () => {
-        this.focus();
-        const textarea = this.textarea.current;
-        if (textarea) {
-            textarea.selectionStart = textarea.value.length;
-            textarea.selectionEnd = textarea.value.length;
         }
     };
 
