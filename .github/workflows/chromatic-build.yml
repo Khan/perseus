@@ -15,12 +15,23 @@ on:
 jobs:
     chromatic:
         runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && 'ubuntu-latest' || 'ephemeral-runner' }}
+        # On pull_request, GitHub checks out an ephemeral merge commit that is
+        # absent from any branch, so Chromatic records a SHA it can't place in
+        # history and picks the wrong baseline (or loses it). Name the real
+        # branch and commit instead; the fallbacks cover push events.
+        # https://www.chromatic.com/docs/github-actions/#recommended-configuration-for-build-events
+        env:
+            CHROMATIC_BRANCH: ${{ github.event.pull_request.head.ref || github.ref_name }}
+            CHROMATIC_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+            CHROMATIC_SLUG: ${{ github.repository }}
         steps:
             - name: Checking out latest commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
               with:
                   # Chromatic needs the full history to select the correct baseline.
                   fetch-depth: 0
+                  # The branch tip rather than the merge commit. Blank on push.
+                  ref: ${{ github.event.pull_request.head.ref }}
 
             - name: Secure Network
               uses: Khan/actions@secure-network-v1
