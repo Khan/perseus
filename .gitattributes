@@ -6,3 +6,6 @@
 .pi/** linguist-generated=true
 .github/workflows/validate-workflows.yml linguist-generated=true
 # END agent-settings generated files
+
+.github/workflows/*.lock.yml linguist-generated=true
+.github/workflows/agentics-maintenance.yml linguist-generated=true merge=ours
