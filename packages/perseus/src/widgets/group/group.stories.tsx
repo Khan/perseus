@@ -1,14 +1,16 @@
-import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+import QuestionRendererForStories from "../__testutils__/question-renderer-for-stories";
 
-import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
-
-import {getFullGroupTestItem, question1} from "./group.testdata";
+import {
+    getFullGroupTestItem,
+    getSplitGroupTestItem,
+    question1,
+} from "./group.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
     title: "Widgets/Group",
-    component: ServerItemRendererWithDebugUI,
+    component: QuestionRendererForStories,
     tags: ["!dev"],
     parameters: {
         docs: {
@@ -22,22 +24,16 @@ const meta: Meta = {
 };
 export default meta;
 
-type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
+type Story = StoryObj<typeof QuestionRendererForStories>;
 
 export const Question1: Story = {
-    args: {
-        item: generateTestPerseusItem({question: question1}),
-    },
+    args: {question: question1},
 };
 
 export const Answerful: Story = {
-    args: {
-        item: getFullGroupTestItem(),
-    },
+    args: {question: getFullGroupTestItem().question},
 };
 
 export const Answerless: Story = {
-    args: {
-        item: getFullGroupTestItem(),
-    },
+    args: {question: getSplitGroupTestItem().question},
 };
