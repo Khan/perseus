@@ -133,6 +133,12 @@ const highlightInlineContent: CSSProperties = {
     },
 };
 
+// How far each lint indicator is pulled out into the margin, away from its
+// content. Must not exceed the 36px gutter the preview frame reserves, or the
+// indicators land outside the frame, where they get clipped and can
+// no longer be hovered.
+const hoverTargetOffset = -36;
+
 const styles = StyleSheet.create({
     // This is the class of the outermost element.
     // We use relative positioning so that the lint indicator can be
@@ -153,14 +159,10 @@ const styles = StyleSheet.create({
         // Absolute positioning relative to the lintContainer element
         position: "absolute",
 
-        // We want the hover target in the right margin. It is 24px wide, but
-        // we have to offset it another 16px because of margins in the
-        // Perseus content. I'm not sure where the 16px margin is set
-        // so if that changes, this number will also have to be changed.
         // This is the part of the CSS that doesn't work right when
         // applied to things like blockquotes that have different right
         // margins.
-        insetInlineEnd: -60,
+        insetInlineEnd: hoverTargetOffset,
 
         ...highlightBlockContent,
     },
@@ -177,8 +179,7 @@ const styles = StyleSheet.create({
         // tooltip can be positioned relative to it.
         position: "relative",
 
-        // See the comment above about the extra 16px of offset needed here.
-        marginInlineEnd: -60,
+        marginInlineEnd: hoverTargetOffset,
 
         ...highlightInlineContent,
     },
@@ -189,7 +190,7 @@ const styles = StyleSheet.create({
         // overflow rule. We position these icons to the left of the block
         // where there is some room.
         position: "absolute",
-        insetInlineStart: -60,
+        insetInlineStart: hoverTargetOffset,
     },
 });
 
