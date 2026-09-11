@@ -67,8 +67,11 @@ jobs:
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   projectToken: ${{ secrets.projectToken }}
-                  # Report success without capturing snapshots so required
-                  # checks pass.
+                  # Release PRs only bump versions and changelogs, so there is
+                  # nothing visual to review. Reporting success without
+                  # capturing anything saves the snapshot quota and leaves a
+                  # green Chromatic status rather than a conspicuously absent
+                  # one. No branch protection depends on this.
                   skip: true
 
             - name: Publish and accept snapshots on main
