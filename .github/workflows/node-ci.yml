@@ -131,6 +131,11 @@ jobs:
 
                   - name: Eslint
                     uses: Khan/actions@8b8506a789a5c2a4a90bd8da8b6801db6931ee2d # full-or-limited-v0
+                    env:
+                        # We've seen some OOMs in Github Actions on this
+                        # workflow, so we limit Node's memory space to _less_
+                        # than the smallest Github Action's runner memory size
+                        NODE_OPTIONS: --max-old-space-size=4096
                     with:
                         full-trigger: ${{ steps.eslint-reset.outputs.filtered }}
                         full: pnpm lint packages
