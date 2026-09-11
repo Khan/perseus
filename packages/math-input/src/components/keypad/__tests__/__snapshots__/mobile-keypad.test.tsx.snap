@@ -52,7 +52,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             >
               <button
                 aria-label="1"
-                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_13d9y1m"
                 type="button"
               >
                 <div
@@ -83,7 +83,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             >
               <button
                 aria-label="2"
-                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_13d9y1m"
                 type="button"
               >
                 <div
@@ -114,7 +114,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             >
               <button
                 aria-label="3"
-                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_13d9y1m"
                 type="button"
               >
                 <div
@@ -145,7 +145,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             >
               <button
                 aria-label="4"
-                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_13d9y1m"
                 type="button"
               >
                 <div
@@ -176,7 +176,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             >
               <button
                 aria-label="5"
-                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_13d9y1m"
                 type="button"
               >
                 <div
@@ -207,7 +207,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             >
               <button
                 aria-label="6"
-                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_13d9y1m"
                 type="button"
               >
                 <div
@@ -238,7 +238,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             >
               <button
                 aria-label="7"
-                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_13d9y1m"
                 type="button"
               >
                 <div
@@ -269,7 +269,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             >
               <button
                 aria-label="8"
-                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_13d9y1m"
                 type="button"
               >
                 <div
@@ -300,7 +300,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             >
               <button
                 aria-label="9"
-                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_13d9y1m"
                 type="button"
               >
                 <div
@@ -331,7 +331,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             >
               <button
                 aria-label="0"
-                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_13d9y1m"
                 type="button"
               >
                 <div
@@ -362,7 +362,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             >
               <button
                 aria-label="Decimal"
-                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_13d9y1m"
                 type="button"
               >
                 <div
@@ -394,7 +394,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             >
               <button
                 aria-label="Negative"
-                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_13d9y1m"
                 type="button"
               >
                 <div
@@ -427,7 +427,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             >
               <button
                 aria-label="Percent"
-                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_13d9y1m"
                 type="button"
               >
                 <div
@@ -460,7 +460,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             >
               <button
                 aria-label="Pi"
-                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_13d9y1m"
                 type="button"
               >
                 <div
@@ -491,7 +491,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             >
               <button
                 aria-label="Fraction, excluding the current expression"
-                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_13d9y1m"
                 type="button"
               >
                 <div
@@ -524,7 +524,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
             >
               <button
                 aria-label="Delete"
-                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_13d9y1m"
                 type="button"
               >
                 <div
