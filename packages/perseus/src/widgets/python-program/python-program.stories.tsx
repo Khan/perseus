@@ -1,6 +1,4 @@
-import {generateTestPerseusItem} from "@khanacademy/perseus-core";
-
-import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
+import QuestionRendererForStories from "../__testutils__/question-renderer-for-stories";
 
 import {question1} from "./python-program.testdata";
 
@@ -8,7 +6,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
     title: "Widgets/Python Program",
-    component: ServerItemRendererWithDebugUI,
+    component: QuestionRendererForStories,
     tags: ["!dev"],
     parameters: {
         docs: {
@@ -22,10 +20,8 @@ const meta: Meta = {
 };
 export default meta;
 
-type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
+type Story = StoryObj<typeof QuestionRendererForStories>;
 
 export const Question1: Story = {
-    args: {
-        item: generateTestPerseusItem({question: question1}),
-    },
+    args: {question: question1},
 };
