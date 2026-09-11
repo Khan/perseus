@@ -83,6 +83,7 @@ const Sorter = forwardRef<SorterHandle, Props>(function Sorter(props, ref) {
     return (
         <div className="perseus-clearfix">
             <Sortable
+                apiOptions={apiOptions}
                 options={userInput.options}
                 layout={layout}
                 margin={apiOptions.isMobile ? 8 : 5}
