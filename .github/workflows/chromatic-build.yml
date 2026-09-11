@@ -30,8 +30,12 @@ jobs:
               with:
                   # Chromatic needs the full history to select the correct baseline.
                   fetch-depth: 0
-                  # The branch tip rather than the merge commit. Blank on push.
-                  ref: ${{ github.event.pull_request.head.ref }}
+                  # The head SHA, not head.ref: a push landing while this run
+                  # queues would snapshot the new tip while CHROMATIC_SHA still
+                  # names the old commit, so accepting it would baseline pixels
+                  # that SHA never contained -- a silent false negative. The
+                  # fallback keeps push runs on the pushed commit.
+                  ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
             - name: Secure Network
               uses: Khan/actions@secure-network-v1
