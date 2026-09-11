@@ -1,9 +1,9 @@
 import {
     generateTestPerseusItem,
-    type PerseusItem,
+    splitPerseusItem,
 } from "@khanacademy/perseus-core";
 
-import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
+import QuestionRendererForStories from "../__testutils__/question-renderer-for-stories";
 
 import {generateTableRenderer} from "./test-util";
 
@@ -11,7 +11,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
     title: "Widgets/Table",
-    component: ServerItemRendererWithDebugUI,
+    component: QuestionRendererForStories,
     tags: ["!dev"],
     parameters: {
         docs: {
@@ -24,20 +24,18 @@ const meta: Meta = {
 };
 export default meta;
 
-type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
+type Story = StoryObj<typeof QuestionRendererForStories>;
 
-const tableItem: PerseusItem = generateTestPerseusItem({
-    question: generateTableRenderer(),
-});
+const tableQuestion = generateTableRenderer();
 
 export const AnswerfulTable: Story = {
-    args: {
-        item: tableItem,
-    },
+    args: {question: tableQuestion},
 };
 
 export const AnswerlessTable: Story = {
     args: {
-        item: tableItem,
+        question: splitPerseusItem(
+            generateTestPerseusItem({question: tableQuestion}),
+        ).question,
     },
 };

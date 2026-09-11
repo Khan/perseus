@@ -1,12 +1,11 @@
 import {
     type PerseusRenderer,
     type PerseusInputNumberWidgetOptions,
-    generateTestPerseusItem,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
 import {getAnswerfulItem, getAnswerlessItem} from "../../util/test-utils";
+import QuestionRendererForStories from "../__testutils__/question-renderer-for-stories";
 
 import {question1, question2, question3} from "./input-number.testdata";
 
@@ -14,7 +13,7 @@ import type {Meta} from "@storybook/react-vite";
 
 const meta: Meta = {
     title: "Widgets/Input Number",
-    component: ServerItemRendererWithDebugUI,
+    component: QuestionRendererForStories,
     tags: ["!dev"],
     parameters: {
         docs: {
@@ -95,11 +94,7 @@ export const Rational = (
     args: PerseusInputNumberWidgetOptions,
 ): React.ReactElement => {
     const question = updateWidgetOptions(question1, "input-number 1", args);
-    return (
-        <ServerItemRendererWithDebugUI
-            item={generateTestPerseusItem({question})}
-        />
-    );
+    return <QuestionRendererForStories question={question} />;
 };
 Rational.args = question1.widgets["input-number 1"].options;
 
@@ -107,11 +102,7 @@ export const PiSimplify = (
     args: PerseusInputNumberWidgetOptions,
 ): React.ReactElement => {
     const question = updateWidgetOptions(question2, "input-number 1", args);
-    return (
-        <ServerItemRendererWithDebugUI
-            item={generateTestPerseusItem({question})}
-        />
-    );
+    return <QuestionRendererForStories question={question} />;
 };
 PiSimplify.args = question2.widgets["input-number 1"].options;
 
@@ -119,11 +110,7 @@ export const Percent = (
     args: PerseusInputNumberWidgetOptions,
 ): React.ReactElement => {
     const question = updateWidgetOptions(question3, "input-number 1", args);
-    return (
-        <ServerItemRendererWithDebugUI
-            item={generateTestPerseusItem({question})}
-        />
-    );
+    return <QuestionRendererForStories question={question} />;
 };
 Percent.args = question3.widgets["input-number 1"].options;
 
@@ -144,7 +131,7 @@ export const Answerful = (): React.ReactElement => {
         ],
     });
     item.question.content = `The answer is 42\n${item.question.content}`;
-    return <ServerItemRendererWithDebugUI item={item} />;
+    return <QuestionRendererForStories question={item.question} />;
 };
 
 export const Answerless = (): React.ReactElement => {
@@ -164,5 +151,5 @@ export const Answerless = (): React.ReactElement => {
         ],
     });
     item.question.content = `The answer is 42\n${item.question.content}`;
-    return <ServerItemRendererWithDebugUI item={item} />;
+    return <QuestionRendererForStories question={item.question} />;
 };
