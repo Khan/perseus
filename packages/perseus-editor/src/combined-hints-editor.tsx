@@ -49,6 +49,7 @@ type HintEditorProps = {
     isFirst: boolean;
     onMove: (direction: number) => unknown;
     onRemove: () => unknown;
+    // TODO(LEMS-3245): stop using ChangeHandler; give this a proper type.
     onChange: ChangeHandler;
     __type?: "hint";
     widgetIsOpen?: boolean;
@@ -364,10 +365,6 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
             .value();
     };
 
-    serialize(): Hint[] {
-        return this.props.hints.map((_, i) => this.serializeHint(i));
-    }
-
     serializeHint(index: number): Hint {
         // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
         return this.refs["hintEditor" + index].serialize();
@@ -387,6 +384,7 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
                         hint={hint}
                         pos={i}
                         imageUploader={this.props.imageUploader}
+                        // TODO(benchristel): remove .bind() and @ts-expect-error.
                         // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
                         onChange={this.handleHintChange.bind(this, i)}
                         onRemove={this.handleHintRemove.bind(this, i)}
