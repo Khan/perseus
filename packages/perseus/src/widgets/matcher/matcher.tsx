@@ -143,6 +143,7 @@ const Matcher = forwardRef<MatcherHandle, Props>(function Matcher(props, ref) {
                                 content={labels[0] || "..."}
                                 linterContext={props.linterContext}
                                 strings={strings}
+                                apiOptions={props.apiOptions}
                             />
                         </th>
                         <th
@@ -156,6 +157,7 @@ const Matcher = forwardRef<MatcherHandle, Props>(function Matcher(props, ref) {
                                 content={labels[1] || "..."}
                                 linterContext={props.linterContext}
                                 strings={strings}
+                                apiOptions={props.apiOptions}
                             />
                         </th>
                     </tr>
