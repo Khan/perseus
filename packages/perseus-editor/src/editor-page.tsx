@@ -4,7 +4,6 @@ import {
     parseAndMigratePerseusItem,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
-import invariant from "tiny-invariant";
 import _ from "underscore";
 
 import {A11yContext, createA11yContextValue} from "./components/a11y-context";
@@ -40,9 +39,6 @@ type Props = {
     apiOptions?: APIOptions;
     answerArea: PerseusAnswerArea; // related to the question,
     dependencies: PerseusDependenciesV2;
-    // TODO(benchristel): remove developerMode after October 1, 2026
-    /** @deprecated - has no effect */
-    developerMode?: boolean;
     hints: Hint[]; // related to the question,
     /** A function which takes a file object (guaranteed to be an image) and
      * a callback, then calls the callback with the url where the image
@@ -56,9 +52,6 @@ type Props = {
     jsonMode: boolean;
     /** A function which is called with the new JSON blob of content. */
     onChange: (changed: PerseusItem) => void;
-    // TODO(benchristel): remove onPreviewDeviceChange after October 1, 2026
-    /** @deprecated - has no effect, and is never called */
-    onPreviewDeviceChange?: (arg1: DeviceType) => unknown;
     previewDevice: DeviceType;
     /** A global control to expand/collapse all widget editors on a page. */
     widgetsAreOpen?: boolean;
@@ -130,13 +123,6 @@ class EditorPage extends React.Component<Props, State> {
                 this.props.issues,
             ),
         });
-    }
-
-    getSnapshotBeforeUpdate(prevProps: Props) {
-        if (!prevProps.jsonMode && this.props.jsonMode) {
-            return this.itemEditor.current?.serialize() ?? {};
-        }
-        return null;
     }
 
     componentDidUpdate(previousProps: Props, prevState: State, snapshot: any) {
@@ -220,22 +206,6 @@ class EditorPage extends React.Component<Props, State> {
 
     getSaveWarnings(): any {
         return this.itemEditor.current?.getSaveWarnings();
-    }
-
-    /**
-     * Returns the current version of the edited {@link PerseusItem}.
-     *
-     * @deprecated Use the {@link Props.onChange} prop instead.
-     */
-    serialize(): PerseusItem {
-        if (this.props.jsonMode) {
-            return this.state.json;
-        }
-        invariant(
-            this.itemEditor.current,
-            "cannot serialize EditorPage without ItemEditor",
-        );
-        return this.itemEditor.current.serialize();
     }
 
     handleChange = (toChange: Partial<PerseusItem>) => {
