@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 27.0.15
+
+### Patch Changes
+
+-   [#4219](https://github.com/Khan/perseus/pull/4219) [`43887dc`](https://github.com/Khan/perseus/commit/43887dc4b4ca3133b00e78db16810249c70ce66c) Thanks [@jandrade](https://github.com/jandrade)! - Bumps Wonder Blocks dependencies: IconButton now requires aria-label (major), Accordion, Clickable and Link improvments
+
 ## 27.0.14
 
 ### Patch Changes
