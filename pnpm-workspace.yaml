@@ -51,6 +51,9 @@ overrides:
     # - window.getComputedStyle() returns bizarre results for background
     #   color, e.g. `rgb(255, 0, 0)` instead of `green`. (21.1.0)
     jest-environment-jsdom>jsdom: 20.0.3
+    # browserslist <= 4.28.6 is vulnerable to GHSA-73wf-gq98-2v4g (DoS /
+    # prototype pollution via a poisoned browserslist-stats.json).
+    browserslist: ">=4.28.7"
 catalogs:
     peerDeps:
         react: ^18.2.0
