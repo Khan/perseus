@@ -32,8 +32,8 @@ that enforces it (see .github/workflows/node-ci.yml and friends).
   Chromatic diff. DO flag behavioral or a11y consequences of styling changes
   (contrast, focus visibility), which Chromatic doesn't judge.
 - **Unused exports/files/deps** — `pnpm knip` (node-ci). Don't flag dead exports.
-- **STOPSHIP markers** — `./utils/stopship-check.sh` (node-ci) fails on `STOPSHIP`
-  comments. Don't re-flag them.
+- **Ship-blocker markers** — `./utils/stopship-check.sh` (node-ci) fails on the
+  STOP-SHIP marker (spelled as one word in code). Don't re-flag them.
 - **Workflow hygiene autofix** — `validate-workflows.yml` normalizes
   checkout/setup ordering in workflow files automatically.
 - **Type build** — `pnpm build:types` and `pnpm pre-publish-check` verify the
