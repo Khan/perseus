@@ -109,6 +109,8 @@ export {
     getInteractiveBoxFromSizeClass,
 } from "./util/sizing-utils";
 /** @hidden */
+export type {SizeClass} from "./util/sizing-utils";
+/** @hidden */
 export {mathOnlyParser} from "./widgets/interactive-graphs/utils";
 export {
     isWrongAnswerSupported,
@@ -192,6 +194,8 @@ export type {
     /** @hidden */
     EditorMode,
     /** @hidden */
+    FindWidgetsFunction,
+    /** @hidden */
     FocusPath,
     GenerateUrlArgs,
     /** @hidden */
@@ -214,6 +218,12 @@ export type {
     WidgetExports,
     /** @hidden */
     SharedRendererProps,
+    /** @hidden */
+    Tracking,
+    /** @hidden */
+    TrackingGradedGroupExtraArguments,
+    /** @hidden */
+    TrackingSequenceExtraArguments,
 } from "./types";
 /** @hidden */
 export type {ParsedValue} from "./util";

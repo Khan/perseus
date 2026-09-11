@@ -400,7 +400,7 @@ export type TrackingGradedGroupExtraArguments = {
 };
 
 // See sequence widget
-type TrackingSequenceExtraArguments = {
+export type TrackingSequenceExtraArguments = {
     visible: number;
 };
 
