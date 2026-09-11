@@ -2,7 +2,10 @@ name: Chromatic - Pull Request
 
 on:
     pull_request:
-        types: [edited, opened, synchronize, reopened]
+        # The defaults, spelled out. Draft PRs already run, so there is nothing
+        # to catch on ready_for_review; `edited` would only rebuild Storybook
+        # every time someone reworded a title or description.
+        types: [opened, synchronize, reopened]
 
 concurrency:
     group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
