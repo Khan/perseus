@@ -9,7 +9,10 @@ import type {Widget, WidgetExports} from "../../types";
 // deprecated widget
 type Props = object;
 
-class DeprecatedStandin extends React.Component<Props> implements Widget {
+export class DeprecatedStandin
+    extends React.Component<Props>
+    implements Widget
+{
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
