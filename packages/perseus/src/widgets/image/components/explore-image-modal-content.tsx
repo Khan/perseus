@@ -130,7 +130,6 @@ export default function ExploreImageModalContent({
                                 range: range,
                                 labels: labels ?? [],
                             }}
-                            zoomToFullSizeOnMobile={apiOptions.isMobile}
                             constrainHeight={apiOptions.isMobile}
                             allowFullBleed={apiOptions.isMobile}
                             setAssetStatus={setAssetStatus}
