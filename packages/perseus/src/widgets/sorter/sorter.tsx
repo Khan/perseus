@@ -32,12 +32,12 @@ const Sorter = forwardRef<SorterHandle, Props>(function Sorter(props, ref) {
     const sortable = useRef<Sortable>(null);
 
     const {options, userInput, widgetId, linterContext, apiOptions} = props;
-    const {padding} = options;
+    const {correct, padding} = options;
 
     // If there are more than the max limit of horizontal cards, force
     // the layout direction to be vertical.
     const layout =
-        options.correct.length > SORTER_MAX_HORIZONTAL_CARDS
+        correct.length > SORTER_MAX_HORIZONTAL_CARDS
             ? "vertical"
             : options.layout;
 
