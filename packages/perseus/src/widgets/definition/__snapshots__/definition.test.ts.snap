@@ -30,8 +30,9 @@ exports[`Definition widget should have a default snapshot: first render 1`] = `
             aria-controls=":r0:"
             aria-expanded="false"
             aria-label="Definition of: the Pequots"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4"
+            data-style-moz-focus-inner="border: 0px;"
             id=":r0:-anchor"
+            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
             type="button"
           >
             <span
@@ -78,8 +79,9 @@ exports[`Definition widget should have an open state snapshot: open state 1`] = 
             aria-controls=":r2:"
             aria-expanded="true"
             aria-label="Definition of: the Pequots"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4"
+            data-style-moz-focus-inner="border: 0px;"
             id=":r2:-anchor"
+            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
             type="button"
           >
             <span

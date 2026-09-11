@@ -153,12 +153,19 @@ exports[`ItemDiff renders a diff view 1`] = `
             >
               <button
                 aria-disabled="false"
-                class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1qlmkty-o_O-small_tjsyec"
                 data-kind="secondary"
+                data-style-active="background: var(--wb-semanticColor-action-secondary-neutral-press-background); border-radius: var(--wb-c-button-root-border-radius-press); color: var(--wb-semanticColor-action-secondary-neutral-press-foreground); border-color: var(--wb-semanticColor-action-secondary-neutral-press-border); box-shadow: inset 0 0 0 var(--wb-c-button-root-border-width-secondary-press) var(--wb-semanticColor-action-secondary-neutral-press-border);"
+                data-style-focus="-webkit-tap-highlight-color: rgba(0,0,0,0);"
+                data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                data-style-focus-visible-active="box-shadow: inset 0 0 0 var(--wb-c-button-root-border-width-secondary-press) var(--wb-semanticColor-action-secondary-neutral-press-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                data-style-focus-visible-hover="box-shadow: inset 0 0 0 var(--wb-c-button-root-border-width-secondary-hover) var(--wb-semanticColor-action-secondary-neutral-hover-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                data-style-media-hover-hover-hover="background: var(--wb-semanticColor-action-secondary-neutral-hover-background); border-radius: var(--wb-c-button-root-border-radius-hover); color: var(--wb-semanticColor-action-secondary-neutral-hover-foreground); border-color: var(--wb-semanticColor-action-secondary-neutral-hover-border); box-shadow: inset 0 0 0 var(--wb-c-button-root-border-width-secondary-hover) var(--wb-semanticColor-action-secondary-neutral-hover-border);"
+                data-style-moz-focus-inner="border: 0px;"
+                style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: center; padding: 0px; border: none; cursor: pointer; outline: none; text-decoration: none; box-sizing: border-box; touch-action: manipulation; user-select: none; height: var(--wb-c-button-root-sizing-height-small); padding-block: 0px; border-radius: var(--wb-c-button-root-border-radius-default); padding-inline: var(--wb-c-button-root-layout-padding-inline-secondary-small); border-style: solid; border-width: var(--wb-c-button-root-border-width-secondary-default); border-color: var(--wb-semanticColor-action-secondary-neutral-default-border); background: var(--wb-semanticColor-action-secondary-neutral-default-background); color: var(--wb-semanticColor-action-secondary-neutral-default-foreground); transition: border-radius 0.1s ease-in-out;"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-text_1kowsup-o_O-smallText_v9nlfb"
+                  style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: inline-block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-small); font-weight: var(--wb-c-button-root-font-weight-default); line-height: var(--wb-c-button-root-font-lineHeight-small); align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;"
                 >
                   show unmodified
                 </span>
@@ -173,12 +180,19 @@ exports[`ItemDiff renders a diff view 1`] = `
             >
               <button
                 aria-disabled="false"
-                class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1qlmkty-o_O-small_tjsyec"
                 data-kind="secondary"
+                data-style-active="background: var(--wb-semanticColor-action-secondary-neutral-press-background); border-radius: var(--wb-c-button-root-border-radius-press); color: var(--wb-semanticColor-action-secondary-neutral-press-foreground); border-color: var(--wb-semanticColor-action-secondary-neutral-press-border); box-shadow: inset 0 0 0 var(--wb-c-button-root-border-width-secondary-press) var(--wb-semanticColor-action-secondary-neutral-press-border);"
+                data-style-focus="-webkit-tap-highlight-color: rgba(0,0,0,0);"
+                data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                data-style-focus-visible-active="box-shadow: inset 0 0 0 var(--wb-c-button-root-border-width-secondary-press) var(--wb-semanticColor-action-secondary-neutral-press-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                data-style-focus-visible-hover="box-shadow: inset 0 0 0 var(--wb-c-button-root-border-width-secondary-hover) var(--wb-semanticColor-action-secondary-neutral-hover-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                data-style-media-hover-hover-hover="background: var(--wb-semanticColor-action-secondary-neutral-hover-background); border-radius: var(--wb-c-button-root-border-radius-hover); color: var(--wb-semanticColor-action-secondary-neutral-hover-foreground); border-color: var(--wb-semanticColor-action-secondary-neutral-hover-border); box-shadow: inset 0 0 0 var(--wb-c-button-root-border-width-secondary-hover) var(--wb-semanticColor-action-secondary-neutral-hover-border);"
+                data-style-moz-focus-inner="border: 0px;"
+                style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: center; padding: 0px; border: none; cursor: pointer; outline: none; text-decoration: none; box-sizing: border-box; touch-action: manipulation; user-select: none; height: var(--wb-c-button-root-sizing-height-small); padding-block: 0px; border-radius: var(--wb-c-button-root-border-radius-default); padding-inline: var(--wb-c-button-root-layout-padding-inline-secondary-small); border-style: solid; border-width: var(--wb-c-button-root-border-width-secondary-default); border-color: var(--wb-semanticColor-action-secondary-neutral-default-border); background: var(--wb-semanticColor-action-secondary-neutral-default-background); color: var(--wb-semanticColor-action-secondary-neutral-default-foreground); transition: border-radius 0.1s ease-in-out;"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-text_1kowsup-o_O-smallText_v9nlfb"
+                  style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: inline-block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-small); font-weight: var(--wb-c-button-root-font-weight-default); line-height: var(--wb-c-button-root-font-lineHeight-small); align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;"
                 >
                   show unmodified
                 </span>

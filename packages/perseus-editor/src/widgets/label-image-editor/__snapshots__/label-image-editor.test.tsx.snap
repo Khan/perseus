@@ -7,7 +7,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
   >
     <div>
       <span
-        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+        style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
       >
         Image
       </span>
@@ -15,24 +15,29 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
         class="image-row"
       >
         <form
-          class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-          style="flex-grow: 1;"
+          style="height: 40px; border-radius: 4px; box-sizing: border-box; padding-block: 8px; padding-inline: 10px; display: inline-flex; align-items: center; margin-block-end: 0px; background-color: var(--wb-semanticColor-core-background-base-default); flex-grow: 1;"
         >
           <input
-            class="inputBase_ca6tue"
+            data-style-placeholder="color: #626569;"
             placeholder="URL"
+            style="background: inherit; border: none; font-family: inherit; font-size: 15px; line-height: 22px; outline: none; width: 100%; color: inherit; margin-block-end: 0px; padding-inline-start: 0px; box-shadow: none; padding: 0px; margin: 0px;"
             value="https://example.com/test-image.png"
           />
         </form>
         <button
           aria-disabled="false"
           aria-label=""
-          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_2swtdi"
           data-kind="primary"
+          data-style-active="background: var(--wb-semanticColor-action-primary-progressive-press-background); border-radius: var(--wb-c-button-root-border-radius-press); color: var(--wb-semanticColor-action-primary-progressive-press-foreground); outline: var(--wb-c-button-root-border-width-primary-press) solid var(--wb-semanticColor-action-primary-progressive-press-border); outline-offset: var(--wb-c-button-root-border-offset-primary);"
+          data-style-focus="-webkit-tap-highlight-color: rgba(0,0,0,0);"
+          data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+          data-style-media-hover-hover-hover="background: var(--wb-semanticColor-action-primary-progressive-hover-background); border-radius: var(--wb-c-button-root-border-radius-hover); color: var(--wb-semanticColor-action-primary-progressive-hover-foreground); outline: var(--wb-c-button-root-border-width-primary-hover) solid var(--wb-semanticColor-action-primary-progressive-hover-border); outline-offset: var(--wb-c-button-root-border-offset-primary);"
+          data-style-moz-focus-inner="border: 0px;"
+          style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: center; padding: 0px; border: none; cursor: pointer; outline: none; text-decoration: none; box-sizing: border-box; touch-action: manipulation; user-select: none; height: var(--wb-c-button-root-sizing-height-medium); padding-block: 0px; border-radius: var(--wb-c-button-root-border-radius-default); padding-inline: var(--wb-c-button-root-layout-padding-inline-primary-medium); border-style: solid; border-width: var(--wb-c-button-root-border-width-primary-default); border-color: var(--wb-semanticColor-action-primary-progressive-default-border); background: var(--wb-semanticColor-action-primary-progressive-default-background); color: var(--wb-semanticColor-action-primary-progressive-default-foreground); transition: border-radius 0.1s ease-in-out; min-inline-size: 90px;"
           type="button"
         >
           <span
-            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+            style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: inline-block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-c-button-root-font-weight-default); line-height: var(--wb-c-button-root-font-lineHeight-default); align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;"
           >
             Remove
           </span>
@@ -40,23 +45,23 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
       </div>
     </div>
     <form
-      class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-      style="width: 100%;"
+      style="height: 40px; border-radius: 4px; box-sizing: border-box; padding-block: 8px; padding-inline: 10px; display: inline-flex; align-items: center; margin-block-end: 0px; background-color: var(--wb-semanticColor-core-background-base-default); width: 100%;"
     >
       <input
-        class="inputBase_ca6tue"
+        data-style-placeholder="color: #626569;"
         placeholder="Alt text (for screen readers)"
+        style="background: inherit; border: none; font-family: inherit; font-size: 15px; line-height: 22px; outline: none; width: 100%; color: inherit; margin-block-end: 0px; padding-inline-start: 0px; box-shadow: none; padding: 0px; margin: 0px;"
         value="Test image alt text"
       />
     </form>
     <div>
       <span
-        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+        style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
       >
         Markers
       </span>
       <div
-        class="subtitle_1xez27u"
+        style="font-family: inherit; font-size: 12px; line-height: 14px; margin-block-start: 8px; margin-block-end: 12px; color: #888D93;"
       >
         <span>
           Double-click on the image to add a marker.
@@ -66,37 +71,34 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
         </span>
       </div>
       <div
-        class="markersCanvas_kfnsd"
-        style="max-inline-size: 400px; max-block-size: 300px;"
+        style="position: relative; border: solid 1px rgba(33, 36, 44, 0.16); max-inline-size: 400px; max-block-size: 300px;"
       >
         <img
           alt=""
-          class="image_1jsfej4"
           src="mockStaticUrl(https://example.com/test-image.png)"
+          style="display: block; max-inline-size: 100%;"
         />
         <button
           aria-controls=":rc:"
           aria-expanded="false"
           aria-label="Edit marker: First marker"
-          class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
           id=":rc:-anchor"
-          style="left: 25%; top: 25%;"
+          style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 25%; top: 25%;"
           type="button"
         />
         <button
           aria-controls=":rd:"
           aria-expanded="false"
           aria-label="Edit marker: Second marker"
-          class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
           id=":rd:-anchor"
-          style="left: 50%; top: 50%;"
+          style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 50%; top: 50%;"
           type="button"
         />
       </div>
     </div>
     <div>
       <span
-        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+        style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
       >
         Answer Choices
       </span>
@@ -109,7 +111,9 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="remove-button"
+            data-style-moz-focus-inner="border: 0px;"
+            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
             type="button"
           >
             <span
@@ -117,16 +121,16 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
             >
               <span
                 aria-hidden="true"
-                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
+                style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_240); height: var(--wb-sizing-size_240); background-color: currentColor; mask-image: url(minus-circle.svg);"
               />
             </span>
           </button>
           <form
-            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-            style="flex-grow: 1;"
+            style="height: 40px; border-radius: 4px; box-sizing: border-box; padding-block: 8px; padding-inline: 10px; display: inline-flex; align-items: center; margin-block-end: 0px; background-color: var(--wb-semanticColor-core-background-base-default); flex-grow: 1;"
           >
             <input
-              class="inputBase_ca6tue"
+              data-style-placeholder="color: #626569;"
+              style="background: inherit; border: none; font-family: inherit; font-size: 15px; line-height: 22px; outline: none; width: 100%; color: inherit; margin-block-end: 0px; padding-inline-start: 0px; box-shadow: none; padding: 0px; margin: 0px;"
               value="Choice 1"
             />
           </form>
@@ -137,7 +141,9 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="remove-button"
+            data-style-moz-focus-inner="border: 0px;"
+            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
             type="button"
           >
             <span
@@ -145,16 +151,16 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
             >
               <span
                 aria-hidden="true"
-                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
+                style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_240); height: var(--wb-sizing-size_240); background-color: currentColor; mask-image: url(minus-circle.svg);"
               />
             </span>
           </button>
           <form
-            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-            style="flex-grow: 1;"
+            style="height: 40px; border-radius: 4px; box-sizing: border-box; padding-block: 8px; padding-inline: 10px; display: inline-flex; align-items: center; margin-block-end: 0px; background-color: var(--wb-semanticColor-core-background-base-default); flex-grow: 1;"
           >
             <input
-              class="inputBase_ca6tue"
+              data-style-placeholder="color: #626569;"
+              style="background: inherit; border: none; font-family: inherit; font-size: 15px; line-height: 22px; outline: none; width: 100%; color: inherit; margin-block-end: 0px; padding-inline-start: 0px; box-shadow: none; padding: 0px; margin: 0px;"
               value="Choice 2"
             />
           </form>
@@ -165,7 +171,9 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="remove-button"
+            data-style-moz-focus-inner="border: 0px;"
+            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
             type="button"
           >
             <span
@@ -173,16 +181,16 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
             >
               <span
                 aria-hidden="true"
-                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
+                style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_240); height: var(--wb-sizing-size_240); background-color: currentColor; mask-image: url(minus-circle.svg);"
               />
             </span>
           </button>
           <form
-            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-            style="flex-grow: 1;"
+            style="height: 40px; border-radius: 4px; box-sizing: border-box; padding-block: 8px; padding-inline: 10px; display: inline-flex; align-items: center; margin-block-end: 0px; background-color: var(--wb-semanticColor-core-background-base-default); flex-grow: 1;"
           >
             <input
-              class="inputBase_ca6tue"
+              data-style-placeholder="color: #626569;"
+              style="background: inherit; border: none; font-family: inherit; font-size: 15px; line-height: 22px; outline: none; width: 100%; color: inherit; margin-block-end: 0px; padding-inline-start: 0px; box-shadow: none; padding: 0px; margin: 0px;"
               value="Choice 3"
             />
           </form>
@@ -190,7 +198,9 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
       </ul>
       <button
         aria-disabled="false"
-        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 add-answer"
+        class="add-answer"
+        data-style-moz-focus-inner="border: 0px;"
+        style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
         type="button"
       >
         <span
@@ -198,10 +208,10 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
         >
           <span
             aria-hidden="true"
-            class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_131cuns"
+            style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_240); height: var(--wb-sizing-size_240); background-color: currentColor; mask-image: url(plus-circle.svg);"
           />
           <span
-            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+            style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
           >
             Add an answer choice
           </span>
@@ -210,7 +220,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
     </div>
     <div>
       <span
-        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+        style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
       >
         Behavior
       </span>
@@ -221,12 +231,12 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
           class="option"
         >
           <div
-            class="container_1y8zoyl"
             data-checked="false"
+            style="position: relative; display: inline-block; vertical-align: middle; line-height: 0; border-radius: 4px; width: 17px; height: 17px; flex-shrink: 0;"
           >
             <svg
-              class="svg_qna5vb"
               height="17"
+              style="position: absolute; inset-inline-start: 0px; inset-block-start: 0px;"
               viewBox="-0.5 -0.5
                          17 17"
               width="17"
@@ -248,7 +258,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
               </g>
             </svg>
             <input
-              class="checkbox_1v079b5"
+              style="appearance: none; opacity: 0; position: absolute; inset-block-start: 0.5px; width: 16px; height: 16px; margin: 0px; outline: none; cursor: pointer;"
               type="checkbox"
             />
           </div>
@@ -262,12 +272,12 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
           class="option"
         >
           <div
-            class="container_1y8zoyl"
             data-checked="false"
+            style="position: relative; display: inline-block; vertical-align: middle; line-height: 0; border-radius: 4px; width: 17px; height: 17px; flex-shrink: 0;"
           >
             <svg
-              class="svg_qna5vb"
               height="17"
+              style="position: absolute; inset-inline-start: 0px; inset-block-start: 0px;"
               viewBox="-0.5 -0.5
                          17 17"
               width="17"
@@ -289,7 +299,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
               </g>
             </svg>
             <input
-              class="checkbox_1v079b5"
+              style="appearance: none; opacity: 0; position: absolute; inset-block-start: 0.5px; width: 16px; height: 16px; margin: 0px; outline: none; cursor: pointer;"
               type="checkbox"
             />
           </div>
@@ -348,7 +358,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
   >
     <div>
       <span
-        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+        style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
       >
         Image
       </span>
@@ -356,24 +366,29 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
         class="image-row"
       >
         <form
-          class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-          style="flex-grow: 1;"
+          style="height: 40px; border-radius: 4px; box-sizing: border-box; padding-block: 8px; padding-inline: 10px; display: inline-flex; align-items: center; margin-block-end: 0px; background-color: var(--wb-semanticColor-core-background-base-default); flex-grow: 1;"
         >
           <input
-            class="inputBase_ca6tue"
+            data-style-placeholder="color: #626569;"
             placeholder="URL"
+            style="background: inherit; border: none; font-family: inherit; font-size: 15px; line-height: 22px; outline: none; width: 100%; color: inherit; margin-block-end: 0px; padding-inline-start: 0px; box-shadow: none; padding: 0px; margin: 0px;"
             value="https://example.com/test-image.png"
           />
         </form>
         <button
           aria-disabled="false"
           aria-label=""
-          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_2swtdi"
           data-kind="primary"
+          data-style-active="background: var(--wb-semanticColor-action-primary-progressive-press-background); border-radius: var(--wb-c-button-root-border-radius-press); color: var(--wb-semanticColor-action-primary-progressive-press-foreground); outline: var(--wb-c-button-root-border-width-primary-press) solid var(--wb-semanticColor-action-primary-progressive-press-border); outline-offset: var(--wb-c-button-root-border-offset-primary);"
+          data-style-focus="-webkit-tap-highlight-color: rgba(0,0,0,0);"
+          data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+          data-style-media-hover-hover-hover="background: var(--wb-semanticColor-action-primary-progressive-hover-background); border-radius: var(--wb-c-button-root-border-radius-hover); color: var(--wb-semanticColor-action-primary-progressive-hover-foreground); outline: var(--wb-c-button-root-border-width-primary-hover) solid var(--wb-semanticColor-action-primary-progressive-hover-border); outline-offset: var(--wb-c-button-root-border-offset-primary);"
+          data-style-moz-focus-inner="border: 0px;"
+          style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: center; padding: 0px; border: none; cursor: pointer; outline: none; text-decoration: none; box-sizing: border-box; touch-action: manipulation; user-select: none; height: var(--wb-c-button-root-sizing-height-medium); padding-block: 0px; border-radius: var(--wb-c-button-root-border-radius-default); padding-inline: var(--wb-c-button-root-layout-padding-inline-primary-medium); border-style: solid; border-width: var(--wb-c-button-root-border-width-primary-default); border-color: var(--wb-semanticColor-action-primary-progressive-default-border); background: var(--wb-semanticColor-action-primary-progressive-default-background); color: var(--wb-semanticColor-action-primary-progressive-default-foreground); transition: border-radius 0.1s ease-in-out; min-inline-size: 90px;"
           type="button"
         >
           <span
-            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+            style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: inline-block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-c-button-root-font-weight-default); line-height: var(--wb-c-button-root-font-lineHeight-default); align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;"
           >
             Remove
           </span>
@@ -381,23 +396,23 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
       </div>
     </div>
     <form
-      class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-      style="width: 100%;"
+      style="height: 40px; border-radius: 4px; box-sizing: border-box; padding-block: 8px; padding-inline: 10px; display: inline-flex; align-items: center; margin-block-end: 0px; background-color: var(--wb-semanticColor-core-background-base-default); width: 100%;"
     >
       <input
-        class="inputBase_ca6tue"
+        data-style-placeholder="color: #626569;"
         placeholder="Alt text (for screen readers)"
+        style="background: inherit; border: none; font-family: inherit; font-size: 15px; line-height: 22px; outline: none; width: 100%; color: inherit; margin-block-end: 0px; padding-inline-start: 0px; box-shadow: none; padding: 0px; margin: 0px;"
         value="Test image alt text"
       />
     </form>
     <div>
       <span
-        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+        style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
       >
         Markers
       </span>
       <div
-        class="subtitle_1xez27u"
+        style="font-family: inherit; font-size: 12px; line-height: 14px; margin-block-start: 8px; margin-block-end: 12px; color: #888D93;"
       >
         <span>
           Double-click on the image to add a marker.
@@ -407,37 +422,34 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
         </span>
       </div>
       <div
-        class="markersCanvas_kfnsd"
-        style="max-inline-size: 400px; max-block-size: 300px;"
+        style="position: relative; border: solid 1px rgba(33, 36, 44, 0.16); max-inline-size: 400px; max-block-size: 300px;"
       >
         <img
           alt=""
-          class="image_1jsfej4"
           src="mockStaticUrl(https://example.com/test-image.png)"
+          style="display: block; max-inline-size: 100%;"
         />
         <button
           aria-controls=":re:"
           aria-expanded="false"
           aria-label="Edit marker: First marker"
-          class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
           id=":re:-anchor"
-          style="left: 25%; top: 25%;"
+          style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 25%; top: 25%;"
           type="button"
         />
         <button
           aria-controls=":rf:"
           aria-expanded="false"
           aria-label="Edit marker: Second marker"
-          class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
           id=":rf:-anchor"
-          style="left: 50%; top: 50%;"
+          style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 50%; top: 50%;"
           type="button"
         />
       </div>
     </div>
     <div>
       <span
-        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+        style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
       >
         Answer Choices
       </span>
@@ -450,7 +462,9 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="remove-button"
+            data-style-moz-focus-inner="border: 0px;"
+            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
             type="button"
           >
             <span
@@ -458,16 +472,16 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
             >
               <span
                 aria-hidden="true"
-                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
+                style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_240); height: var(--wb-sizing-size_240); background-color: currentColor; mask-image: url(minus-circle.svg);"
               />
             </span>
           </button>
           <form
-            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-            style="flex-grow: 1;"
+            style="height: 40px; border-radius: 4px; box-sizing: border-box; padding-block: 8px; padding-inline: 10px; display: inline-flex; align-items: center; margin-block-end: 0px; background-color: var(--wb-semanticColor-core-background-base-default); flex-grow: 1;"
           >
             <input
-              class="inputBase_ca6tue"
+              data-style-placeholder="color: #626569;"
+              style="background: inherit; border: none; font-family: inherit; font-size: 15px; line-height: 22px; outline: none; width: 100%; color: inherit; margin-block-end: 0px; padding-inline-start: 0px; box-shadow: none; padding: 0px; margin: 0px;"
               value="Choice 1"
             />
           </form>
@@ -478,7 +492,9 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="remove-button"
+            data-style-moz-focus-inner="border: 0px;"
+            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
             type="button"
           >
             <span
@@ -486,16 +502,16 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
             >
               <span
                 aria-hidden="true"
-                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
+                style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_240); height: var(--wb-sizing-size_240); background-color: currentColor; mask-image: url(minus-circle.svg);"
               />
             </span>
           </button>
           <form
-            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-            style="flex-grow: 1;"
+            style="height: 40px; border-radius: 4px; box-sizing: border-box; padding-block: 8px; padding-inline: 10px; display: inline-flex; align-items: center; margin-block-end: 0px; background-color: var(--wb-semanticColor-core-background-base-default); flex-grow: 1;"
           >
             <input
-              class="inputBase_ca6tue"
+              data-style-placeholder="color: #626569;"
+              style="background: inherit; border: none; font-family: inherit; font-size: 15px; line-height: 22px; outline: none; width: 100%; color: inherit; margin-block-end: 0px; padding-inline-start: 0px; box-shadow: none; padding: 0px; margin: 0px;"
               value="Choice 2"
             />
           </form>
@@ -506,7 +522,9 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="remove-button"
+            data-style-moz-focus-inner="border: 0px;"
+            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
             type="button"
           >
             <span
@@ -514,16 +532,16 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
             >
               <span
                 aria-hidden="true"
-                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
+                style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_240); height: var(--wb-sizing-size_240); background-color: currentColor; mask-image: url(minus-circle.svg);"
               />
             </span>
           </button>
           <form
-            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-            style="flex-grow: 1;"
+            style="height: 40px; border-radius: 4px; box-sizing: border-box; padding-block: 8px; padding-inline: 10px; display: inline-flex; align-items: center; margin-block-end: 0px; background-color: var(--wb-semanticColor-core-background-base-default); flex-grow: 1;"
           >
             <input
-              class="inputBase_ca6tue"
+              data-style-placeholder="color: #626569;"
+              style="background: inherit; border: none; font-family: inherit; font-size: 15px; line-height: 22px; outline: none; width: 100%; color: inherit; margin-block-end: 0px; padding-inline-start: 0px; box-shadow: none; padding: 0px; margin: 0px;"
               value="Choice 3"
             />
           </form>
@@ -531,7 +549,9 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
       </ul>
       <button
         aria-disabled="false"
-        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 add-answer"
+        class="add-answer"
+        data-style-moz-focus-inner="border: 0px;"
+        style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
         type="button"
       >
         <span
@@ -539,10 +559,10 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
         >
           <span
             aria-hidden="true"
-            class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_131cuns"
+            style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_240); height: var(--wb-sizing-size_240); background-color: currentColor; mask-image: url(plus-circle.svg);"
           />
           <span
-            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+            style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
           >
             Add an answer choice
           </span>
@@ -551,7 +571,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
     </div>
     <div>
       <span
-        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+        style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
       >
         Behavior
       </span>
@@ -562,12 +582,12 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
           class="option"
         >
           <div
-            class="container_1y8zoyl"
             data-checked="false"
+            style="position: relative; display: inline-block; vertical-align: middle; line-height: 0; border-radius: 4px; width: 17px; height: 17px; flex-shrink: 0;"
           >
             <svg
-              class="svg_qna5vb"
               height="17"
+              style="position: absolute; inset-inline-start: 0px; inset-block-start: 0px;"
               viewBox="-0.5 -0.5
                          17 17"
               width="17"
@@ -589,7 +609,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
               </g>
             </svg>
             <input
-              class="checkbox_1v079b5"
+              style="appearance: none; opacity: 0; position: absolute; inset-block-start: 0.5px; width: 16px; height: 16px; margin: 0px; outline: none; cursor: pointer;"
               type="checkbox"
             />
           </div>
@@ -603,12 +623,12 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
           class="option"
         >
           <div
-            class="container_1y8zoyl"
             data-checked="false"
+            style="position: relative; display: inline-block; vertical-align: middle; line-height: 0; border-radius: 4px; width: 17px; height: 17px; flex-shrink: 0;"
           >
             <svg
-              class="svg_qna5vb"
               height="17"
+              style="position: absolute; inset-inline-start: 0px; inset-block-start: 0px;"
               viewBox="-0.5 -0.5
                          17 17"
               width="17"
@@ -630,7 +650,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
               </g>
             </svg>
             <input
-              class="checkbox_1v079b5"
+              style="appearance: none; opacity: 0; position: absolute; inset-block-start: 0.5px; width: 16px; height: 16px; margin: 0px; outline: none; cursor: pointer;"
               type="checkbox"
             />
           </div>
@@ -689,7 +709,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
   >
     <div>
       <span
-        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+        style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
       >
         Image
       </span>
@@ -697,24 +717,29 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
         class="image-row"
       >
         <form
-          class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-          style="flex-grow: 1;"
+          style="height: 40px; border-radius: 4px; box-sizing: border-box; padding-block: 8px; padding-inline: 10px; display: inline-flex; align-items: center; margin-block-end: 0px; background-color: var(--wb-semanticColor-core-background-base-default); flex-grow: 1;"
         >
           <input
-            class="inputBase_ca6tue"
+            data-style-placeholder="color: #626569;"
             placeholder="URL"
+            style="background: inherit; border: none; font-family: inherit; font-size: 15px; line-height: 22px; outline: none; width: 100%; color: inherit; margin-block-end: 0px; padding-inline-start: 0px; box-shadow: none; padding: 0px; margin: 0px;"
             value="https://example.com/test-image.png"
           />
         </form>
         <button
           aria-disabled="false"
           aria-label=""
-          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_2swtdi"
           data-kind="primary"
+          data-style-active="background: var(--wb-semanticColor-action-primary-progressive-press-background); border-radius: var(--wb-c-button-root-border-radius-press); color: var(--wb-semanticColor-action-primary-progressive-press-foreground); outline: var(--wb-c-button-root-border-width-primary-press) solid var(--wb-semanticColor-action-primary-progressive-press-border); outline-offset: var(--wb-c-button-root-border-offset-primary);"
+          data-style-focus="-webkit-tap-highlight-color: rgba(0,0,0,0);"
+          data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+          data-style-media-hover-hover-hover="background: var(--wb-semanticColor-action-primary-progressive-hover-background); border-radius: var(--wb-c-button-root-border-radius-hover); color: var(--wb-semanticColor-action-primary-progressive-hover-foreground); outline: var(--wb-c-button-root-border-width-primary-hover) solid var(--wb-semanticColor-action-primary-progressive-hover-border); outline-offset: var(--wb-c-button-root-border-offset-primary);"
+          data-style-moz-focus-inner="border: 0px;"
+          style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: center; padding: 0px; border: none; cursor: pointer; outline: none; text-decoration: none; box-sizing: border-box; touch-action: manipulation; user-select: none; height: var(--wb-c-button-root-sizing-height-medium); padding-block: 0px; border-radius: var(--wb-c-button-root-border-radius-default); padding-inline: var(--wb-c-button-root-layout-padding-inline-primary-medium); border-style: solid; border-width: var(--wb-c-button-root-border-width-primary-default); border-color: var(--wb-semanticColor-action-primary-progressive-default-border); background: var(--wb-semanticColor-action-primary-progressive-default-background); color: var(--wb-semanticColor-action-primary-progressive-default-foreground); transition: border-radius 0.1s ease-in-out; min-inline-size: 90px;"
           type="button"
         >
           <span
-            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+            style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: inline-block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-c-button-root-font-weight-default); line-height: var(--wb-c-button-root-font-lineHeight-default); align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;"
           >
             Remove
           </span>
@@ -722,23 +747,23 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
       </div>
     </div>
     <form
-      class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-      style="width: 100%;"
+      style="height: 40px; border-radius: 4px; box-sizing: border-box; padding-block: 8px; padding-inline: 10px; display: inline-flex; align-items: center; margin-block-end: 0px; background-color: var(--wb-semanticColor-core-background-base-default); width: 100%;"
     >
       <input
-        class="inputBase_ca6tue"
+        data-style-placeholder="color: #626569;"
         placeholder="Alt text (for screen readers)"
+        style="background: inherit; border: none; font-family: inherit; font-size: 15px; line-height: 22px; outline: none; width: 100%; color: inherit; margin-block-end: 0px; padding-inline-start: 0px; box-shadow: none; padding: 0px; margin: 0px;"
         value="Test image alt text"
       />
     </form>
     <div>
       <span
-        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+        style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
       >
         Markers
       </span>
       <div
-        class="subtitle_1xez27u"
+        style="font-family: inherit; font-size: 12px; line-height: 14px; margin-block-start: 8px; margin-block-end: 12px; color: #888D93;"
       >
         <span>
           Double-click on the image to add a marker.
@@ -748,37 +773,34 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
         </span>
       </div>
       <div
-        class="markersCanvas_kfnsd"
-        style="max-inline-size: 400px; max-block-size: 300px;"
+        style="position: relative; border: solid 1px rgba(33, 36, 44, 0.16); max-inline-size: 400px; max-block-size: 300px;"
       >
         <img
           alt=""
-          class="image_1jsfej4"
           src="mockStaticUrl(https://example.com/test-image.png)"
+          style="display: block; max-inline-size: 100%;"
         />
         <button
           aria-controls=":ri:"
           aria-expanded="false"
           aria-label="Edit marker: First marker"
-          class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
           id=":ri:-anchor"
-          style="left: 25%; top: 25%;"
+          style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 25%; top: 25%;"
           type="button"
         />
         <button
           aria-controls=":rj:"
           aria-expanded="false"
           aria-label="Edit marker: Second marker"
-          class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
           id=":rj:-anchor"
-          style="left: 50%; top: 50%;"
+          style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 50%; top: 50%;"
           type="button"
         />
       </div>
     </div>
     <div>
       <span
-        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+        style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
       >
         Answer Choices
       </span>
@@ -791,7 +813,9 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="remove-button"
+            data-style-moz-focus-inner="border: 0px;"
+            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
             type="button"
           >
             <span
@@ -799,16 +823,16 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
             >
               <span
                 aria-hidden="true"
-                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
+                style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_240); height: var(--wb-sizing-size_240); background-color: currentColor; mask-image: url(minus-circle.svg);"
               />
             </span>
           </button>
           <form
-            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-            style="flex-grow: 1;"
+            style="height: 40px; border-radius: 4px; box-sizing: border-box; padding-block: 8px; padding-inline: 10px; display: inline-flex; align-items: center; margin-block-end: 0px; background-color: var(--wb-semanticColor-core-background-base-default); flex-grow: 1;"
           >
             <input
-              class="inputBase_ca6tue"
+              data-style-placeholder="color: #626569;"
+              style="background: inherit; border: none; font-family: inherit; font-size: 15px; line-height: 22px; outline: none; width: 100%; color: inherit; margin-block-end: 0px; padding-inline-start: 0px; box-shadow: none; padding: 0px; margin: 0px;"
               value="Choice 1"
             />
           </form>
@@ -819,7 +843,9 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="remove-button"
+            data-style-moz-focus-inner="border: 0px;"
+            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
             type="button"
           >
             <span
@@ -827,16 +853,16 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
             >
               <span
                 aria-hidden="true"
-                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
+                style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_240); height: var(--wb-sizing-size_240); background-color: currentColor; mask-image: url(minus-circle.svg);"
               />
             </span>
           </button>
           <form
-            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-            style="flex-grow: 1;"
+            style="height: 40px; border-radius: 4px; box-sizing: border-box; padding-block: 8px; padding-inline: 10px; display: inline-flex; align-items: center; margin-block-end: 0px; background-color: var(--wb-semanticColor-core-background-base-default); flex-grow: 1;"
           >
             <input
-              class="inputBase_ca6tue"
+              data-style-placeholder="color: #626569;"
+              style="background: inherit; border: none; font-family: inherit; font-size: 15px; line-height: 22px; outline: none; width: 100%; color: inherit; margin-block-end: 0px; padding-inline-start: 0px; box-shadow: none; padding: 0px; margin: 0px;"
               value="Choice 2"
             />
           </form>
@@ -847,7 +873,9 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="remove-button"
+            data-style-moz-focus-inner="border: 0px;"
+            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
             type="button"
           >
             <span
@@ -855,16 +883,16 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
             >
               <span
                 aria-hidden="true"
-                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
+                style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_240); height: var(--wb-sizing-size_240); background-color: currentColor; mask-image: url(minus-circle.svg);"
               />
             </span>
           </button>
           <form
-            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-            style="flex-grow: 1;"
+            style="height: 40px; border-radius: 4px; box-sizing: border-box; padding-block: 8px; padding-inline: 10px; display: inline-flex; align-items: center; margin-block-end: 0px; background-color: var(--wb-semanticColor-core-background-base-default); flex-grow: 1;"
           >
             <input
-              class="inputBase_ca6tue"
+              data-style-placeholder="color: #626569;"
+              style="background: inherit; border: none; font-family: inherit; font-size: 15px; line-height: 22px; outline: none; width: 100%; color: inherit; margin-block-end: 0px; padding-inline-start: 0px; box-shadow: none; padding: 0px; margin: 0px;"
               value="Choice 3"
             />
           </form>
@@ -872,7 +900,9 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
       </ul>
       <button
         aria-disabled="false"
-        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 add-answer"
+        class="add-answer"
+        data-style-moz-focus-inner="border: 0px;"
+        style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
         type="button"
       >
         <span
@@ -880,10 +910,10 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
         >
           <span
             aria-hidden="true"
-            class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_131cuns"
+            style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_240); height: var(--wb-sizing-size_240); background-color: currentColor; mask-image: url(plus-circle.svg);"
           />
           <span
-            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+            style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
           >
             Add an answer choice
           </span>
@@ -892,7 +922,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
     </div>
     <div>
       <span
-        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+        style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
       >
         Behavior
       </span>
@@ -903,12 +933,12 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
           class="option"
         >
           <div
-            class="container_1y8zoyl"
             data-checked="false"
+            style="position: relative; display: inline-block; vertical-align: middle; line-height: 0; border-radius: 4px; width: 17px; height: 17px; flex-shrink: 0;"
           >
             <svg
-              class="svg_qna5vb"
               height="17"
+              style="position: absolute; inset-inline-start: 0px; inset-block-start: 0px;"
               viewBox="-0.5 -0.5
                          17 17"
               width="17"
@@ -930,7 +960,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
               </g>
             </svg>
             <input
-              class="checkbox_1v079b5"
+              style="appearance: none; opacity: 0; position: absolute; inset-block-start: 0.5px; width: 16px; height: 16px; margin: 0px; outline: none; cursor: pointer;"
               type="checkbox"
             />
           </div>
@@ -944,12 +974,12 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
           class="option"
         >
           <div
-            class="container_1y8zoyl"
             data-checked="false"
+            style="position: relative; display: inline-block; vertical-align: middle; line-height: 0; border-radius: 4px; width: 17px; height: 17px; flex-shrink: 0;"
           >
             <svg
-              class="svg_qna5vb"
               height="17"
+              style="position: absolute; inset-inline-start: 0px; inset-block-start: 0px;"
               viewBox="-0.5 -0.5
                          17 17"
               width="17"
@@ -971,7 +1001,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
               </g>
             </svg>
             <input
-              class="checkbox_1v079b5"
+              style="appearance: none; opacity: 0; position: absolute; inset-block-start: 0.5px; width: 16px; height: 16px; margin: 0px; outline: none; cursor: pointer;"
               type="checkbox"
             />
           </div>
@@ -1030,7 +1060,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
   >
     <div>
       <span
-        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+        style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
       >
         Image
       </span>
@@ -1038,24 +1068,29 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
         class="image-row"
       >
         <form
-          class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-          style="flex-grow: 1;"
+          style="height: 40px; border-radius: 4px; box-sizing: border-box; padding-block: 8px; padding-inline: 10px; display: inline-flex; align-items: center; margin-block-end: 0px; background-color: var(--wb-semanticColor-core-background-base-default); flex-grow: 1;"
         >
           <input
-            class="inputBase_ca6tue"
+            data-style-placeholder="color: #626569;"
             placeholder="URL"
+            style="background: inherit; border: none; font-family: inherit; font-size: 15px; line-height: 22px; outline: none; width: 100%; color: inherit; margin-block-end: 0px; padding-inline-start: 0px; box-shadow: none; padding: 0px; margin: 0px;"
             value="https://example.com/test-image.png"
           />
         </form>
         <button
           aria-disabled="false"
           aria-label=""
-          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_2swtdi"
           data-kind="primary"
+          data-style-active="background: var(--wb-semanticColor-action-primary-progressive-press-background); border-radius: var(--wb-c-button-root-border-radius-press); color: var(--wb-semanticColor-action-primary-progressive-press-foreground); outline: var(--wb-c-button-root-border-width-primary-press) solid var(--wb-semanticColor-action-primary-progressive-press-border); outline-offset: var(--wb-c-button-root-border-offset-primary);"
+          data-style-focus="-webkit-tap-highlight-color: rgba(0,0,0,0);"
+          data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+          data-style-media-hover-hover-hover="background: var(--wb-semanticColor-action-primary-progressive-hover-background); border-radius: var(--wb-c-button-root-border-radius-hover); color: var(--wb-semanticColor-action-primary-progressive-hover-foreground); outline: var(--wb-c-button-root-border-width-primary-hover) solid var(--wb-semanticColor-action-primary-progressive-hover-border); outline-offset: var(--wb-c-button-root-border-offset-primary);"
+          data-style-moz-focus-inner="border: 0px;"
+          style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: center; padding: 0px; border: none; cursor: pointer; outline: none; text-decoration: none; box-sizing: border-box; touch-action: manipulation; user-select: none; height: var(--wb-c-button-root-sizing-height-medium); padding-block: 0px; border-radius: var(--wb-c-button-root-border-radius-default); padding-inline: var(--wb-c-button-root-layout-padding-inline-primary-medium); border-style: solid; border-width: var(--wb-c-button-root-border-width-primary-default); border-color: var(--wb-semanticColor-action-primary-progressive-default-border); background: var(--wb-semanticColor-action-primary-progressive-default-background); color: var(--wb-semanticColor-action-primary-progressive-default-foreground); transition: border-radius 0.1s ease-in-out; min-inline-size: 90px;"
           type="button"
         >
           <span
-            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+            style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: inline-block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-c-button-root-font-weight-default); line-height: var(--wb-c-button-root-font-lineHeight-default); align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;"
           >
             Remove
           </span>
@@ -1063,23 +1098,23 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
       </div>
     </div>
     <form
-      class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-      style="width: 100%;"
+      style="height: 40px; border-radius: 4px; box-sizing: border-box; padding-block: 8px; padding-inline: 10px; display: inline-flex; align-items: center; margin-block-end: 0px; background-color: var(--wb-semanticColor-core-background-base-default); width: 100%;"
     >
       <input
-        class="inputBase_ca6tue"
+        data-style-placeholder="color: #626569;"
         placeholder="Alt text (for screen readers)"
+        style="background: inherit; border: none; font-family: inherit; font-size: 15px; line-height: 22px; outline: none; width: 100%; color: inherit; margin-block-end: 0px; padding-inline-start: 0px; box-shadow: none; padding: 0px; margin: 0px;"
         value="Test image alt text"
       />
     </form>
     <div>
       <span
-        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+        style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
       >
         Markers
       </span>
       <div
-        class="subtitle_1xez27u"
+        style="font-family: inherit; font-size: 12px; line-height: 14px; margin-block-start: 8px; margin-block-end: 12px; color: #888D93;"
       >
         <span>
           Double-click on the image to add a marker.
@@ -1089,37 +1124,34 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
         </span>
       </div>
       <div
-        class="markersCanvas_kfnsd"
-        style="max-inline-size: 400px; max-block-size: 300px;"
+        style="position: relative; border: solid 1px rgba(33, 36, 44, 0.16); max-inline-size: 400px; max-block-size: 300px;"
       >
         <img
           alt=""
-          class="image_1jsfej4"
           src="mockStaticUrl(https://example.com/test-image.png)"
+          style="display: block; max-inline-size: 100%;"
         />
         <button
           aria-controls=":rg:"
           aria-expanded="false"
           aria-label="Edit marker: First marker"
-          class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
           id=":rg:-anchor"
-          style="left: 25%; top: 25%;"
+          style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 25%; top: 25%;"
           type="button"
         />
         <button
           aria-controls=":rh:"
           aria-expanded="false"
           aria-label="Edit marker: Second marker"
-          class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
           id=":rh:-anchor"
-          style="left: 50%; top: 50%;"
+          style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 50%; top: 50%;"
           type="button"
         />
       </div>
     </div>
     <div>
       <span
-        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+        style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
       >
         Answer Choices
       </span>
@@ -1132,7 +1164,9 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="remove-button"
+            data-style-moz-focus-inner="border: 0px;"
+            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
             type="button"
           >
             <span
@@ -1140,16 +1174,16 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
             >
               <span
                 aria-hidden="true"
-                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
+                style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_240); height: var(--wb-sizing-size_240); background-color: currentColor; mask-image: url(minus-circle.svg);"
               />
             </span>
           </button>
           <form
-            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-            style="flex-grow: 1;"
+            style="height: 40px; border-radius: 4px; box-sizing: border-box; padding-block: 8px; padding-inline: 10px; display: inline-flex; align-items: center; margin-block-end: 0px; background-color: var(--wb-semanticColor-core-background-base-default); flex-grow: 1;"
           >
             <input
-              class="inputBase_ca6tue"
+              data-style-placeholder="color: #626569;"
+              style="background: inherit; border: none; font-family: inherit; font-size: 15px; line-height: 22px; outline: none; width: 100%; color: inherit; margin-block-end: 0px; padding-inline-start: 0px; box-shadow: none; padding: 0px; margin: 0px;"
               value="Choice 1"
             />
           </form>
@@ -1160,7 +1194,9 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="remove-button"
+            data-style-moz-focus-inner="border: 0px;"
+            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
             type="button"
           >
             <span
@@ -1168,16 +1204,16 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
             >
               <span
                 aria-hidden="true"
-                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
+                style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_240); height: var(--wb-sizing-size_240); background-color: currentColor; mask-image: url(minus-circle.svg);"
               />
             </span>
           </button>
           <form
-            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-            style="flex-grow: 1;"
+            style="height: 40px; border-radius: 4px; box-sizing: border-box; padding-block: 8px; padding-inline: 10px; display: inline-flex; align-items: center; margin-block-end: 0px; background-color: var(--wb-semanticColor-core-background-base-default); flex-grow: 1;"
           >
             <input
-              class="inputBase_ca6tue"
+              data-style-placeholder="color: #626569;"
+              style="background: inherit; border: none; font-family: inherit; font-size: 15px; line-height: 22px; outline: none; width: 100%; color: inherit; margin-block-end: 0px; padding-inline-start: 0px; box-shadow: none; padding: 0px; margin: 0px;"
               value="Choice 2"
             />
           </form>
@@ -1188,7 +1224,9 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="remove-button"
+            data-style-moz-focus-inner="border: 0px;"
+            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
             type="button"
           >
             <span
@@ -1196,16 +1234,16 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
             >
               <span
                 aria-hidden="true"
-                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
+                style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_240); height: var(--wb-sizing-size_240); background-color: currentColor; mask-image: url(minus-circle.svg);"
               />
             </span>
           </button>
           <form
-            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-            style="flex-grow: 1;"
+            style="height: 40px; border-radius: 4px; box-sizing: border-box; padding-block: 8px; padding-inline: 10px; display: inline-flex; align-items: center; margin-block-end: 0px; background-color: var(--wb-semanticColor-core-background-base-default); flex-grow: 1;"
           >
             <input
-              class="inputBase_ca6tue"
+              data-style-placeholder="color: #626569;"
+              style="background: inherit; border: none; font-family: inherit; font-size: 15px; line-height: 22px; outline: none; width: 100%; color: inherit; margin-block-end: 0px; padding-inline-start: 0px; box-shadow: none; padding: 0px; margin: 0px;"
               value="Choice 3"
             />
           </form>
@@ -1213,7 +1251,9 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
       </ul>
       <button
         aria-disabled="false"
-        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 add-answer"
+        class="add-answer"
+        data-style-moz-focus-inner="border: 0px;"
+        style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
         type="button"
       >
         <span
@@ -1221,10 +1261,10 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
         >
           <span
             aria-hidden="true"
-            class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_131cuns"
+            style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_240); height: var(--wb-sizing-size_240); background-color: currentColor; mask-image: url(plus-circle.svg);"
           />
           <span
-            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+            style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
           >
             Add an answer choice
           </span>
@@ -1233,7 +1273,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
     </div>
     <div>
       <span
-        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+        style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
       >
         Behavior
       </span>
@@ -1244,12 +1284,12 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
           class="option"
         >
           <div
-            class="container_1y8zoyl"
             data-checked="false"
+            style="position: relative; display: inline-block; vertical-align: middle; line-height: 0; border-radius: 4px; width: 17px; height: 17px; flex-shrink: 0;"
           >
             <svg
-              class="svg_qna5vb"
               height="17"
+              style="position: absolute; inset-inline-start: 0px; inset-block-start: 0px;"
               viewBox="-0.5 -0.5
                          17 17"
               width="17"
@@ -1271,7 +1311,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
               </g>
             </svg>
             <input
-              class="checkbox_1v079b5"
+              style="appearance: none; opacity: 0; position: absolute; inset-block-start: 0.5px; width: 16px; height: 16px; margin: 0px; outline: none; cursor: pointer;"
               type="checkbox"
             />
           </div>
@@ -1285,12 +1325,12 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
           class="option"
         >
           <div
-            class="container_1y8zoyl"
             data-checked="false"
+            style="position: relative; display: inline-block; vertical-align: middle; line-height: 0; border-radius: 4px; width: 17px; height: 17px; flex-shrink: 0;"
           >
             <svg
-              class="svg_qna5vb"
               height="17"
+              style="position: absolute; inset-inline-start: 0px; inset-block-start: 0px;"
               viewBox="-0.5 -0.5
                          17 17"
               width="17"
@@ -1312,7 +1352,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
               </g>
             </svg>
             <input
-              class="checkbox_1v079b5"
+              style="appearance: none; opacity: 0; position: absolute; inset-block-start: 0.5px; width: 16px; height: 16px; margin: 0px; outline: none; cursor: pointer;"
               type="checkbox"
             />
           </div>
@@ -1371,7 +1411,7 @@ exports[`label-image-editor popover direction snapshots should render with UP po
   >
     <div>
       <span
-        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+        style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
       >
         Image
       </span>
@@ -1379,24 +1419,29 @@ exports[`label-image-editor popover direction snapshots should render with UP po
         class="image-row"
       >
         <form
-          class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-          style="flex-grow: 1;"
+          style="height: 40px; border-radius: 4px; box-sizing: border-box; padding-block: 8px; padding-inline: 10px; display: inline-flex; align-items: center; margin-block-end: 0px; background-color: var(--wb-semanticColor-core-background-base-default); flex-grow: 1;"
         >
           <input
-            class="inputBase_ca6tue"
+            data-style-placeholder="color: #626569;"
             placeholder="URL"
+            style="background: inherit; border: none; font-family: inherit; font-size: 15px; line-height: 22px; outline: none; width: 100%; color: inherit; margin-block-end: 0px; padding-inline-start: 0px; box-shadow: none; padding: 0px; margin: 0px;"
             value="https://example.com/test-image.png"
           />
         </form>
         <button
           aria-disabled="false"
           aria-label=""
-          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_2swtdi"
           data-kind="primary"
+          data-style-active="background: var(--wb-semanticColor-action-primary-progressive-press-background); border-radius: var(--wb-c-button-root-border-radius-press); color: var(--wb-semanticColor-action-primary-progressive-press-foreground); outline: var(--wb-c-button-root-border-width-primary-press) solid var(--wb-semanticColor-action-primary-progressive-press-border); outline-offset: var(--wb-c-button-root-border-offset-primary);"
+          data-style-focus="-webkit-tap-highlight-color: rgba(0,0,0,0);"
+          data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+          data-style-media-hover-hover-hover="background: var(--wb-semanticColor-action-primary-progressive-hover-background); border-radius: var(--wb-c-button-root-border-radius-hover); color: var(--wb-semanticColor-action-primary-progressive-hover-foreground); outline: var(--wb-c-button-root-border-width-primary-hover) solid var(--wb-semanticColor-action-primary-progressive-hover-border); outline-offset: var(--wb-c-button-root-border-offset-primary);"
+          data-style-moz-focus-inner="border: 0px;"
+          style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: center; padding: 0px; border: none; cursor: pointer; outline: none; text-decoration: none; box-sizing: border-box; touch-action: manipulation; user-select: none; height: var(--wb-c-button-root-sizing-height-medium); padding-block: 0px; border-radius: var(--wb-c-button-root-border-radius-default); padding-inline: var(--wb-c-button-root-layout-padding-inline-primary-medium); border-style: solid; border-width: var(--wb-c-button-root-border-width-primary-default); border-color: var(--wb-semanticColor-action-primary-progressive-default-border); background: var(--wb-semanticColor-action-primary-progressive-default-background); color: var(--wb-semanticColor-action-primary-progressive-default-foreground); transition: border-radius 0.1s ease-in-out; min-inline-size: 90px;"
           type="button"
         >
           <span
-            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+            style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: inline-block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-c-button-root-font-weight-default); line-height: var(--wb-c-button-root-font-lineHeight-default); align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;"
           >
             Remove
           </span>
@@ -1404,23 +1449,23 @@ exports[`label-image-editor popover direction snapshots should render with UP po
       </div>
     </div>
     <form
-      class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-      style="width: 100%;"
+      style="height: 40px; border-radius: 4px; box-sizing: border-box; padding-block: 8px; padding-inline: 10px; display: inline-flex; align-items: center; margin-block-end: 0px; background-color: var(--wb-semanticColor-core-background-base-default); width: 100%;"
     >
       <input
-        class="inputBase_ca6tue"
+        data-style-placeholder="color: #626569;"
         placeholder="Alt text (for screen readers)"
+        style="background: inherit; border: none; font-family: inherit; font-size: 15px; line-height: 22px; outline: none; width: 100%; color: inherit; margin-block-end: 0px; padding-inline-start: 0px; box-shadow: none; padding: 0px; margin: 0px;"
         value="Test image alt text"
       />
     </form>
     <div>
       <span
-        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+        style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
       >
         Markers
       </span>
       <div
-        class="subtitle_1xez27u"
+        style="font-family: inherit; font-size: 12px; line-height: 14px; margin-block-start: 8px; margin-block-end: 12px; color: #888D93;"
       >
         <span>
           Double-click on the image to add a marker.
@@ -1430,37 +1475,34 @@ exports[`label-image-editor popover direction snapshots should render with UP po
         </span>
       </div>
       <div
-        class="markersCanvas_kfnsd"
-        style="max-inline-size: 400px; max-block-size: 300px;"
+        style="position: relative; border: solid 1px rgba(33, 36, 44, 0.16); max-inline-size: 400px; max-block-size: 300px;"
       >
         <img
           alt=""
-          class="image_1jsfej4"
           src="mockStaticUrl(https://example.com/test-image.png)"
+          style="display: block; max-inline-size: 100%;"
         />
         <button
           aria-controls=":ra:"
           aria-expanded="false"
           aria-label="Edit marker: First marker"
-          class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
           id=":ra:-anchor"
-          style="left: 25%; top: 25%;"
+          style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 25%; top: 25%;"
           type="button"
         />
         <button
           aria-controls=":rb:"
           aria-expanded="false"
           aria-label="Edit marker: Second marker"
-          class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
           id=":rb:-anchor"
-          style="left: 50%; top: 50%;"
+          style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 50%; top: 50%;"
           type="button"
         />
       </div>
     </div>
     <div>
       <span
-        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+        style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
       >
         Answer Choices
       </span>
@@ -1473,7 +1515,9 @@ exports[`label-image-editor popover direction snapshots should render with UP po
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="remove-button"
+            data-style-moz-focus-inner="border: 0px;"
+            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
             type="button"
           >
             <span
@@ -1481,16 +1525,16 @@ exports[`label-image-editor popover direction snapshots should render with UP po
             >
               <span
                 aria-hidden="true"
-                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
+                style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_240); height: var(--wb-sizing-size_240); background-color: currentColor; mask-image: url(minus-circle.svg);"
               />
             </span>
           </button>
           <form
-            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-            style="flex-grow: 1;"
+            style="height: 40px; border-radius: 4px; box-sizing: border-box; padding-block: 8px; padding-inline: 10px; display: inline-flex; align-items: center; margin-block-end: 0px; background-color: var(--wb-semanticColor-core-background-base-default); flex-grow: 1;"
           >
             <input
-              class="inputBase_ca6tue"
+              data-style-placeholder="color: #626569;"
+              style="background: inherit; border: none; font-family: inherit; font-size: 15px; line-height: 22px; outline: none; width: 100%; color: inherit; margin-block-end: 0px; padding-inline-start: 0px; box-shadow: none; padding: 0px; margin: 0px;"
               value="Choice 1"
             />
           </form>
@@ -1501,7 +1545,9 @@ exports[`label-image-editor popover direction snapshots should render with UP po
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="remove-button"
+            data-style-moz-focus-inner="border: 0px;"
+            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
             type="button"
           >
             <span
@@ -1509,16 +1555,16 @@ exports[`label-image-editor popover direction snapshots should render with UP po
             >
               <span
                 aria-hidden="true"
-                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
+                style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_240); height: var(--wb-sizing-size_240); background-color: currentColor; mask-image: url(minus-circle.svg);"
               />
             </span>
           </button>
           <form
-            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-            style="flex-grow: 1;"
+            style="height: 40px; border-radius: 4px; box-sizing: border-box; padding-block: 8px; padding-inline: 10px; display: inline-flex; align-items: center; margin-block-end: 0px; background-color: var(--wb-semanticColor-core-background-base-default); flex-grow: 1;"
           >
             <input
-              class="inputBase_ca6tue"
+              data-style-placeholder="color: #626569;"
+              style="background: inherit; border: none; font-family: inherit; font-size: 15px; line-height: 22px; outline: none; width: 100%; color: inherit; margin-block-end: 0px; padding-inline-start: 0px; box-shadow: none; padding: 0px; margin: 0px;"
               value="Choice 2"
             />
           </form>
@@ -1529,7 +1575,9 @@ exports[`label-image-editor popover direction snapshots should render with UP po
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 remove-button"
+            class="remove-button"
+            data-style-moz-focus-inner="border: 0px;"
+            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
             type="button"
           >
             <span
@@ -1537,16 +1585,16 @@ exports[`label-image-editor popover direction snapshots should render with UP po
             >
               <span
                 aria-hidden="true"
-                class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1xhyqni"
+                style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_240); height: var(--wb-sizing-size_240); background-color: currentColor; mask-image: url(minus-circle.svg);"
               />
             </span>
           </button>
           <form
-            class="input_nn7qe2-o_O-container_181i2ew-o_O-defaultBackground_vxglvu"
-            style="flex-grow: 1;"
+            style="height: 40px; border-radius: 4px; box-sizing: border-box; padding-block: 8px; padding-inline: 10px; display: inline-flex; align-items: center; margin-block-end: 0px; background-color: var(--wb-semanticColor-core-background-base-default); flex-grow: 1;"
           >
             <input
-              class="inputBase_ca6tue"
+              data-style-placeholder="color: #626569;"
+              style="background: inherit; border: none; font-family: inherit; font-size: 15px; line-height: 22px; outline: none; width: 100%; color: inherit; margin-block-end: 0px; padding-inline-start: 0px; box-shadow: none; padding: 0px; margin: 0px;"
               value="Choice 3"
             />
           </form>
@@ -1554,7 +1602,9 @@ exports[`label-image-editor popover direction snapshots should render with UP po
       </ul>
       <button
         aria-disabled="false"
-        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4 add-answer"
+        class="add-answer"
+        data-style-moz-focus-inner="border: 0px;"
+        style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
         type="button"
       >
         <span
@@ -1562,10 +1612,10 @@ exports[`label-image-editor popover direction snapshots should render with UP po
         >
           <span
             aria-hidden="true"
-            class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_131cuns"
+            style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_240); height: var(--wb-sizing-size_240); background-color: currentColor; mask-image: url(plus-circle.svg);"
           />
           <span
-            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+            style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
           >
             Add an answer choice
           </span>
@@ -1574,7 +1624,7 @@ exports[`label-image-editor popover direction snapshots should render with UP po
     </div>
     <div>
       <span
-        class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+        style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
       >
         Behavior
       </span>
@@ -1585,12 +1635,12 @@ exports[`label-image-editor popover direction snapshots should render with UP po
           class="option"
         >
           <div
-            class="container_1y8zoyl"
             data-checked="false"
+            style="position: relative; display: inline-block; vertical-align: middle; line-height: 0; border-radius: 4px; width: 17px; height: 17px; flex-shrink: 0;"
           >
             <svg
-              class="svg_qna5vb"
               height="17"
+              style="position: absolute; inset-inline-start: 0px; inset-block-start: 0px;"
               viewBox="-0.5 -0.5
                          17 17"
               width="17"
@@ -1612,7 +1662,7 @@ exports[`label-image-editor popover direction snapshots should render with UP po
               </g>
             </svg>
             <input
-              class="checkbox_1v079b5"
+              style="appearance: none; opacity: 0; position: absolute; inset-block-start: 0.5px; width: 16px; height: 16px; margin: 0px; outline: none; cursor: pointer;"
               type="checkbox"
             />
           </div>
@@ -1626,12 +1676,12 @@ exports[`label-image-editor popover direction snapshots should render with UP po
           class="option"
         >
           <div
-            class="container_1y8zoyl"
             data-checked="false"
+            style="position: relative; display: inline-block; vertical-align: middle; line-height: 0; border-radius: 4px; width: 17px; height: 17px; flex-shrink: 0;"
           >
             <svg
-              class="svg_qna5vb"
               height="17"
+              style="position: absolute; inset-inline-start: 0px; inset-block-start: 0px;"
               viewBox="-0.5 -0.5
                          17 17"
               width="17"
@@ -1653,7 +1703,7 @@ exports[`label-image-editor popover direction snapshots should render with UP po
               </g>
             </svg>
             <input
-              class="checkbox_1v079b5"
+              style="appearance: none; opacity: 0; position: absolute; inset-block-start: 0.5px; width: 16px; height: 16px; margin: 0px; outline: none; cursor: pointer;"
               type="checkbox"
             />
           </div>
