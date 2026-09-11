@@ -98,8 +98,7 @@ describe("sorter-widget-error", () => {
                 },
             },
             {
-                message:
-                    "Sorter cards cannot mix images with other content. A card with an image cannot contain anything else.",
+                message: "Sorter cards cannot mix images with other content.",
             },
         );
     });
@@ -121,8 +120,7 @@ describe("sorter-widget-error", () => {
                 },
             },
             {
-                message:
-                    "Sorter cards cannot mix images with other content. A card with an image cannot contain anything else.",
+                message: "Sorter cards cannot mix images with other content.",
             },
         );
     });
@@ -144,8 +142,7 @@ describe("sorter-widget-error", () => {
                 },
             },
             {
-                message:
-                    "Sorter cards cannot mix images with other content. A card with an image cannot contain anything else.",
+                message: "Sorter cards cannot mix images with other content.",
             },
         );
     });
