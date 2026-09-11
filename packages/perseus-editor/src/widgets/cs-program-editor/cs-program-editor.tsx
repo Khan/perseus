@@ -31,11 +31,6 @@ interface PairEditorProps extends PerseusCSProgramSetting, ChangeableProps {}
  * we should consolidate them
  */
 class PairEditor extends React.Component<PairEditorProps> {
-    static defaultProps: PerseusCSProgramSetting = {
-        name: "",
-        value: "",
-    };
-
     change: ChangeFn = (...args) => {
         return deprecatedChangeableChange.apply(this, args);
     };
@@ -79,7 +74,7 @@ class PairsEditor extends React.Component<PairsEditorProps> {
         return deprecatedChangeableChange.apply(this, args);
     };
 
-    handlePairChange = (pairIndex, pair: any) => {
+    handlePairChange = (pairIndex: any, pair: any) => {
         // If they're both non empty, add a new one
         const pairs = this.props.pairs.slice();
         pairs[pairIndex] = pair;

@@ -29,16 +29,17 @@ class PairEditor extends React.Component<PairEditorProps> {
 
     render(): React.ReactNode {
         return (
-            <fieldset>
+            <fieldset className="pair-editor">
                 <label>
-                    Name:
+                    Name:{" "}
                     <BlurInput
                         value={this.props.name}
                         onChange={this.change("name")}
                     />
                 </label>
                 <label>
-                    Value:
+                    {" "}
+                    Value:{" "}
                     <BlurInput
                         value={this.props.value}
                         onChange={this.change("value")}
