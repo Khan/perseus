@@ -694,7 +694,11 @@ export class LabelImage
                                 className={css(styles.instructionsChoice)}
                                 key={index}
                             >
-                                <Renderer content={choice} strings={strings} />
+                                <Renderer
+                                    content={choice}
+                                    strings={strings}
+                                    apiOptions={this.props.apiOptions}
+                                />
                             </div>
                         ))}
                     </div>
