@@ -88,30 +88,9 @@ configureSort({
 });
 
 const config: StorybookConfig = {
-    // TODO(ivy): Simplify code below once improvements are done
-    // stories: ["../src/**/*.stories.@(ts|tsx|mdx)"]
     stories: [
-        // This is a special story that can render arbitrary Perseus
-        // content. It is hosted by the preview iframe in stories for
-        // the editors.
-        "../packages/perseus-editor/src/testing/preview.stories.tsx",
-
-        // This will be used for the main documentation pages
-        "../__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
-
-        // Docs for Perseus editor. Widget editor stories are colocated with the
-        // editor they document; other stories still live in `__docs__`
-        // directories. This glob covers both.
-        "../packages/perseus-editor/src/**/*.@(stories.ts|stories.tsx|mdx)",
-
-        // Docs for Perseus widgets, components, and renderers
-        // Exclude notes directories (used for internal documentation (AI context), not stories)
-        "!../**/notes/**",
-        "../packages/perseus/src/**/__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
-        "../packages/perseus/src/widgets/**/**/*.@(stories.ts|stories.tsx|mdx)",
-
-        // Docs for Math Input
-        "../packages/math-input/src/**/*.stories.tsx",
+        "../packages/*/src/**/*.@(stories.ts|stories.tsx|mdx)",
+        "../__docs__/**/*.@(stories.ts|stories.tsx|mdx)"
     ],
     addons: [
         "@storybook/addon-a11y",
