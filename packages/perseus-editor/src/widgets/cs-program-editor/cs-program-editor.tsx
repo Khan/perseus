@@ -9,15 +9,12 @@ import * as React from "react";
 
 import BlurInput from "../../components/blur-input";
 import InfoTip from "../../components/info-tip";
+import {PairsEditor} from "../../components/pairs-editor";
 import {deprecatedChangeableChange} from "../../mixins/changeable";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
-import type {ChangeableProps, ChangeFn} from "../../mixins/changeable";
-import type {
-    PerseusCSProgramWidgetOptions,
-    PerseusCSProgramSetting,
-} from "@khanacademy/perseus-core";
-import {PairsEditor} from "../../components/pairs-editor";
+import type {ChangeableProps} from "../../mixins/changeable";
+import type {PerseusCSProgramWidgetOptions} from "@khanacademy/perseus-core";
 
 const DEFAULT_WIDTH = 400;
 const DEFAULT_HEIGHT = 400;

@@ -1,17 +1,16 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {
-    iframeLogic, PerseusCSProgramSetting,
+    iframeLogic,
     type PerseusIFrameWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 
 import BlurInput from "../../components/blur-input";
+import {PairsEditor} from "../../components/pairs-editor";
 import {deprecatedChangeableChange} from "../../mixins/changeable";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {ChangeableProps} from "../../mixins/changeable";
-import {PairsEditor} from "../../components/pairs-editor";
 
 interface IframeEditorProps
     extends PerseusIFrameWidgetOptions,
