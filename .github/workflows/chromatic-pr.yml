@@ -1,0 +1,29 @@
+name: Chromatic - Pull Request
+
+on:
+    pull_request:
+        # Retry when a pull request changes from draft to ready for review.
+        types: [edited, opened, synchronize, reopened]
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    chromatic_changesets:
+        if: startsWith(github.head_ref, 'changeset-release/')
+        name: Chromatic - Exempt release PR
+        uses: ./.github/workflows/chromatic-build.yml
+        with:
+            target: "skip"
+        secrets:
+            projectToken: ${{ secrets.CHROMATIC_APP_CODE }}
+
+    chromatic_review:
+        if: ${{ !startsWith(github.head_ref, 'changeset-release/') }}
+        name: Chromatic - Publish review snapshots
+        uses: ./.github/workflows/chromatic-build.yml
+        with:
+            target: "review"
+        secrets:
+            projectToken: ${{ secrets.CHROMATIC_APP_CODE }}

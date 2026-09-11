@@ -1,0 +1,16 @@
+name: Chromatic - Push
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    chromatic_main:
+        if: github.ref_name == 'main'
+        name: Chromatic - Publish and accept main snapshots
+        uses: ./.github/workflows/chromatic-build.yml
+        with:
+            target: "main"
+        secrets:
+            projectToken: ${{ secrets.CHROMATIC_APP_CODE }}
