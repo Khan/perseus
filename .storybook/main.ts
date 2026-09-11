@@ -90,7 +90,7 @@ configureSort({
 const config: StorybookConfig = {
     stories: [
         "../packages/*/src/**/*.@(stories.ts|stories.tsx|mdx)",
-        "../__docs__/**/*.@(stories.ts|stories.tsx|mdx)"
+        "../__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
     ],
     addons: [
         "@storybook/addon-a11y",
