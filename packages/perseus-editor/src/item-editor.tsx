@@ -1,5 +1,4 @@
 import * as React from "react";
-import invariant from "tiny-invariant";
 import _ from "underscore";
 
 import CombinedHintsEditor from "./combined-hints-editor";

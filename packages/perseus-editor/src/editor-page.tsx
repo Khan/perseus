@@ -4,7 +4,6 @@ import {
     parseAndMigratePerseusItem,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
-import invariant from "tiny-invariant";
 import _ from "underscore";
 
 import {A11yContext, createA11yContextValue} from "./components/a11y-context";

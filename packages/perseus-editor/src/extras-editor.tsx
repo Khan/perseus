@@ -1,8 +1,4 @@
-import {
-    ItemExtras as ContentExtras,
-    getDefaultAnswerArea,
-    isFeatureOn,
-} from "@khanacademy/perseus-core";
+import {getDefaultAnswerArea, isFeatureOn} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox, Choice, RadioGroup} from "@khanacademy/wonder-blocks-form";
 import {sizing, spacing} from "@khanacademy/wonder-blocks-tokens";
