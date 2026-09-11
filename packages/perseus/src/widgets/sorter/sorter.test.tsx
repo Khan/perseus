@@ -3,8 +3,10 @@ import {
     generateSorterWidget,
     generateTestPerseusItem,
     generateTestPerseusRenderer,
+    SORTER_MAX_HORIZONTAL_CARDS,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
+import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import {act} from "@testing-library/react";
 import * as React from "react";
 
@@ -30,6 +32,37 @@ import type {APIOptions} from "../../types";
  * would also swallow genuine React errors and let a regression pass silently.
  */
 const EXPECTED_CONSOLE_ERROR = /not wrapped in act\(/;
+
+/**
+ * Sortable hides its cards behind a spinner until the TeX renderer tells it
+ * that math is on screen, which it learns from the `onRender` callback of a
+ * hidden dummy TeX node. The default test TeX dependency never calls
+ * `onRender`, so a sorter rendered with it stays a spinner forever and any
+ * snapshot of it captures the spinner instead of the cards. This stand-in
+ * reports itself as rendered on mount so the cards — and the layout we're
+ * actually asserting on — reach the DOM.
+ */
+function useLoadedTexRenderer() {
+    function LoadedTeX({
+        children,
+        onRender,
+    }: {
+        children: React.ReactNode;
+        onRender?: () => unknown;
+    }) {
+        useOnMountEffect(() => {
+            onRender?.();
+        });
+        return <span className="mock-TeX">{children}</span>;
+    }
+
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+            ...testDependencies,
+            TeX: LoadedTeX,
+        });
+    });
+}
 
 describe("sorter widget", () => {
     describe("snapshot", () => {
@@ -87,22 +120,6 @@ describe("sorter widget", () => {
                 if (!EXPECTED_CONSOLE_ERROR.test(message)) {
                     unexpectedConsoleErrors.push(message);
                 }
-            });
-
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
-                ...testDependencies,
-                TeX: ({
-                    children,
-                    onRender: onLoad,
-                }: {
-                    children: React.ReactNode;
-                    onRender?: () => unknown;
-                }) => {
-                    React.useLayoutEffect(() => {
-                        onLoad?.();
-                    }, [onLoad]);
-                    return <span className="tex-mock">{children}</span>;
-                },
             });
         });
 
@@ -214,6 +231,76 @@ describe("sorter widget", () => {
                     userInput: {values: sortedOrder, changed: true},
                 },
             );
+        });
+    });
+
+    describe("layout", () => {
+        useLoadedTexRenderer();
+
+        function sorterQuestionWith(
+            cardCount: number,
+            layout: "horizontal" | "vertical",
+        ) {
+            return generateTestPerseusRenderer({
+                content: "[[☃ sorter 1]]",
+                widgets: {
+                    "sorter 1": generateSorterWidget({
+                        options: generateSorterOptions({
+                            correct: Array.from(
+                                {length: cardCount},
+                                (_, i) => `Card ${i + 1}`,
+                            ),
+                            layout,
+                        }),
+                    }),
+                },
+            });
+        }
+
+        it("lays out the cards horizontally when the layout is horizontal", () => {
+            // Arrange, Act
+            const {container} = renderQuestion(
+                sorterQuestionWith(
+                    SORTER_MAX_HORIZONTAL_CARDS - 1,
+                    "horizontal",
+                ),
+            );
+
+            // Assert
+            expect(container).toMatchSnapshot();
+        });
+
+        it("lays out the cards vertically when the layout is vertical", () => {
+            // Arrange, Act
+            const {container} = renderQuestion(
+                sorterQuestionWith(SORTER_MAX_HORIZONTAL_CARDS - 1, "vertical"),
+            );
+
+            // Assert
+            expect(container).toMatchSnapshot();
+        });
+
+        it("keeps a horizontal sorter horizontal at exactly the maximum number of cards", () => {
+            // Arrange, Act
+            const {container} = renderQuestion(
+                sorterQuestionWith(SORTER_MAX_HORIZONTAL_CARDS, "horizontal"),
+            );
+
+            // Assert
+            expect(container).toMatchSnapshot();
+        });
+
+        it("lays out a horizontal sorter vertically when it has more cards than the maximum", () => {
+            // Arrange, Act
+            const {container} = renderQuestion(
+                sorterQuestionWith(
+                    SORTER_MAX_HORIZONTAL_CARDS + 1,
+                    "horizontal",
+                ),
+            );
+
+            // Assert
+            expect(container).toMatchSnapshot();
         });
     });
 
