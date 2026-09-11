@@ -17,6 +17,22 @@ import type {Interval, vec} from "mafs";
 // Note that we can't use semantic font tokens here, because the semantic
 // tokens are in rems, whereas we need the font size to be in px to stay
 // consistent with our graph calculations.
+//
+// MIRRORED DOWNSTREAM. `tickLabelSize` and the offsets derived from it --
+// `YGridTick`'s `xAdjustment` and `yPositionText`, and `XGridTick`'s
+// `yAdjustment` and `xAdjustment` -- are re-implemented as Go constants in
+// Khan/webapp, at
+// services/ai-guide/perseus_generation/labelplace/figures/axis.go
+//
+// That code places labels on AI-generated diagrams. To decide where a label
+// can go it models every tick number as an obstacle the label must avoid. It
+// cannot call this renderer, so it hardcodes these offsets. When they drift,
+// those obstacles sit where the ticks are not, and a generated label lands on
+// top of the content it describes. Nothing throws -- the diagram renders, it
+// is just wrong.
+//
+// If these numbers change, it would help to mention it on the PR so the Go
+// side can be updated to match.
 const tickSize = 10;
 const tickLabelSize = 14;
 
