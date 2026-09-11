@@ -1,0 +1,93 @@
+# Build Storybook and publish or skip its Chromatic snapshots.
+name: Build Storybook for Chromatic
+
+on:
+    workflow_call:
+        inputs:
+            # Selects the Chromatic behavior: review, skip, or main.
+            target:
+                required: true
+                type: string
+        secrets:
+            projectToken:
+                required: true
+
+jobs:
+    chromatic:
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && 'ubuntu-latest' || 'ephemeral-runner' }}
+        # On pull_request, GitHub checks out an ephemeral merge commit that is
+        # absent from any branch, so Chromatic records a SHA it can't place in
+        # history and picks the wrong baseline (or loses it). Name the real
+        # branch and commit instead; the fallbacks cover push events.
+        # https://www.chromatic.com/docs/github-actions/#recommended-configuration-for-build-events
+        env:
+            CHROMATIC_BRANCH: ${{ github.event.pull_request.head.ref || github.ref_name }}
+            CHROMATIC_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+            CHROMATIC_SLUG: ${{ github.repository }}
+        steps:
+            - name: Checking out latest commit
+              uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+              with:
+                  # Chromatic needs the full history to select the correct baseline.
+                  fetch-depth: 0
+                  # The head SHA, not head.ref: a push landing while this run
+                  # queues would snapshot the new tip while CHROMATIC_SHA still
+                  # names the old commit, so accepting it would baseline pixels
+                  # that SHA never contained -- a silent false negative. The
+                  # fallback keeps push runs on the pushed commit.
+                  ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+            - name: Secure Network
+              uses: Khan/actions@secure-network-v1
+              timeout-minutes: 5
+              with:
+                  conf-files: .github/npm-extra-domains.conf
+                  # *.chromatic.com: Chromatic service for uploading and comparing Storybook snapshots
+                  # chromatic-builds.s3.us-west-2.amazonaws.com: S3 bucket for Storybook file uploads (presigned URLs returned by index.chromatic.com GraphQL API)
+                  extra-domains: index.chromatic.com notify.dev-chromatic.com notify.staging-chromatic.com notify.chromatic.com chromatic.com chromatic-builds.s3.us-west-2.amazonaws.com
+
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
+
+            - name: Build Storybook
+              if: inputs.target != 'skip'
+              run: pnpm build:storybook
+
+            - name: Publish snapshots for review
+              if: inputs.target == 'review'
+              uses: chromaui/action@f191a0224b10e1a38b2091cefb7b7a2337009116 # v16.0.0
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  projectToken: ${{ secrets.projectToken }}
+                  storybookBuildDir: storybook-static
+                  autoAcceptChanges: "main"
+                  exitOnceUploaded: true
+                  onlyStoryFiles: "**/*-regression.stories.tsx"
+                  # TurboSnap cannot run with onlyStoryFiles.
+
+            - name: Exempt snapshots
+              if: inputs.target == 'skip'
+              uses: chromaui/action@f191a0224b10e1a38b2091cefb7b7a2337009116 # v16.0.0
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  projectToken: ${{ secrets.projectToken }}
+                  # Release PRs only bump versions and changelogs, so there is
+                  # nothing visual to review. Reporting success without
+                  # capturing anything saves the snapshot quota and leaves a
+                  # green Chromatic status rather than a conspicuously absent
+                  # one. No branch protection depends on this.
+                  skip: true
+
+            - name: Publish and accept snapshots on main
+              if: inputs.target == 'main'
+              uses: chromaui/action@f191a0224b10e1a38b2091cefb7b7a2337009116 # v16.0.0
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  projectToken: ${{ secrets.projectToken }}
+                  storybookBuildDir: storybook-static
+                  autoAcceptChanges: true
+                  # Chromatic applies autoAcceptChanges server-side once
+                  # snapshots finish, so waiting here buys nothing.
+                  exitOnceUploaded: true
+                  onlyStoryFiles: "**/*-regression.stories.tsx"
+                  # TurboSnap cannot run with onlyStoryFiles.
