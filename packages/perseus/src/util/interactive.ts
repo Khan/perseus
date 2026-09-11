@@ -24,6 +24,7 @@ import WrappedLine from "../interactive2/wrapped-line";
 
 import KhanColors from "./colors";
 import GraphUtils from "./graphie";
+import {INVISIBLE_HIT_TARGET_FILL} from "./invisible-hit-target";
 
 import type {Coord} from "../interactive2/types";
 
@@ -803,7 +804,10 @@ _.extend(GraphUtils.Graphie.prototype, {
                     radii,
                     options,
                 );
-                movablePoint.mouseTarget.attr({fill: "#000", opacity: 0.0});
+                movablePoint.mouseTarget.attr({
+                    fill: INVISIBLE_HIT_TARGET_FILL,
+                    opacity: 0.0,
+                });
             }
 
             const $mouseTarget = $(movablePoint.mouseTarget.getMouseTarget());
@@ -1098,7 +1102,10 @@ _.extend(GraphUtils.Graphie.prototype, {
                 [1, 0],
                 options,
             );
-            lineSegment.mouseTarget.attr({fill: "#000", opacity: 0.0});
+            lineSegment.mouseTarget.attr({
+                fill: INVISIBLE_HIT_TARGET_FILL,
+                opacity: 0.0,
+            });
         }
 
         // Reposition the line segment. Call after changing coordA and/or
@@ -2082,9 +2089,9 @@ function Ruler(graphie: any, options: any) {
         ]),
     );
     mouseTarget.attr({
-        fill: "#000",
+        fill: INVISIBLE_HIT_TARGET_FILL,
         opacity: 0,
-        stroke: "#000",
+        stroke: INVISIBLE_HIT_TARGET_FILL,
         "stroke-width": 2,
     });
     set.push(mouseTarget);

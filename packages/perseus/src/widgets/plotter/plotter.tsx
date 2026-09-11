@@ -19,6 +19,7 @@ import {withDependencies} from "../../components/with-dependencies";
 import Interactive2 from "../../interactive2";
 import WrappedLine from "../../interactive2/wrapped-line";
 import GraphUtils from "../../util/graph-utils";
+import {INVISIBLE_HIT_TARGET_FILL} from "../../util/invisible-hit-target";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/plotter/plotter-ai-utils";
 
 import type {
@@ -972,7 +973,11 @@ class Plotter extends React.Component<Props, State> implements Widget {
                 c.picBoxHeight,
             );
             $(mouseRect[0])
-                .css({fill: "#000", opacity: 0.0, cursor: "pointer"})
+                .css({
+                    fill: INVISIBLE_HIT_TARGET_FILL,
+                    opacity: 0.0,
+                    cursor: "pointer",
+                })
                 .on("vmousedown", function (e) {
                     e.preventDefault();
                     // @ts-expect-error - TS2339 - Property 'whichPicClicked' does not exist on type 'Plotter'.
