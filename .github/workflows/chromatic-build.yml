@@ -14,7 +14,6 @@ on:
 
 jobs:
     chromatic:
-        name: Build Storybook for Chromatic
         runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && 'ubuntu-latest' || 'ephemeral-runner' }}
         steps:
             - name: Checking out latest commit
@@ -36,6 +35,7 @@ jobs:
               uses: ./.github/actions/shared-node-cache
 
             - name: Build Storybook
+              if: inputs.target != 'skip'
               run: pnpm build:storybook
 
             - name: Publish snapshots for review
@@ -56,9 +56,8 @@ jobs:
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   projectToken: ${{ secrets.projectToken }}
-                  storybookBuildDir: storybook-static
-                  exitZeroOnChanges: true
-                  # Report success without capturing snapshots so required checks pass.
+                  # Report success without capturing snapshots so required
+                  # checks pass.
                   skip: true
 
             - name: Publish and accept snapshots on main
@@ -69,5 +68,8 @@ jobs:
                   projectToken: ${{ secrets.projectToken }}
                   storybookBuildDir: storybook-static
                   autoAcceptChanges: true
+                  # Chromatic applies autoAcceptChanges server-side once
+                  # snapshots finish, so waiting here buys nothing.
+                  exitOnceUploaded: true
                   onlyStoryFiles: "**/*-regression.stories.tsx"
                   # TurboSnap cannot run with onlyStoryFiles.

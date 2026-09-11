@@ -2,7 +2,6 @@ name: Chromatic - Pull Request
 
 on:
     pull_request:
-        # Retry when a pull request changes from draft to ready for review.
         types: [edited, opened, synchronize, reopened]
 
 concurrency:

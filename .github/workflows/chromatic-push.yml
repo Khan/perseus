@@ -7,7 +7,6 @@ on:
 
 jobs:
     chromatic_main:
-        if: github.ref_name == 'main'
         name: Chromatic - Publish and accept main snapshots
         uses: ./.github/workflows/chromatic-build.yml
         with:
