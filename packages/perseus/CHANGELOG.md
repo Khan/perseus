@@ -1,5 +1,16 @@
 # @khanacademy/perseus
 
+## 87.1.4
+
+### Patch Changes
+
+-   [#4210](https://github.com/Khan/perseus/pull/4210) [`3c0fe3a`](https://github.com/Khan/perseus/commit/3c0fe3a57b4e1d2a77a894848ec3884ce444355c) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove the unused `zoomToFullSizeOnMobile` prop from `SvgImage`
+
+-   [#4219](https://github.com/Khan/perseus/pull/4219) [`43887dc`](https://github.com/Khan/perseus/commit/43887dc4b4ca3133b00e78db16810249c70ce66c) Thanks [@jandrade](https://github.com/jandrade)! - Bumps Wonder Blocks dependencies: IconButton now requires aria-label (major), Accordion, Clickable and Link improvments
+
+-   Updated dependencies [[`43887dc`](https://github.com/Khan/perseus/commit/43887dc4b4ca3133b00e78db16810249c70ce66c)]:
+    -   @khanacademy/math-input@27.0.15
+
 ## 87.1.3
 
 ### Patch Changes
