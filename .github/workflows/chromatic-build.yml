@@ -35,6 +35,10 @@ jobs:
                   # names the old commit, so accepting it would baseline pixels
                   # that SHA never contained -- a silent false negative. The
                   # fallback keeps push runs on the pushed commit.
+                  # TODO(LEMS-4466): TurboSnap needs the branch checked out to
+                  # detect changed files, so this has to go back to head.ref
+                  # when onlyChanged replaces onlyStoryFiles below. Reinstating
+                  # the race above is the price of TurboSnap.
                   ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
             - name: Secure Network
