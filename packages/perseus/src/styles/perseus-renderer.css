@@ -14,6 +14,7 @@
 @import "widgets/image.css" layer(perseus-legacy);
 @import "widgets/interactive-graph.css" layer(perseus-legacy);
 @import "widgets/label-image.css" layer(perseus-legacy);
+@import "widgets/matcher.css" layer(perseus-legacy);
 @import "widgets/matrix.css" layer(perseus-legacy);
 @import "widgets/measurer.css" layer(perseus-legacy);
 @import "widgets/numeric.css" layer(perseus-legacy);
