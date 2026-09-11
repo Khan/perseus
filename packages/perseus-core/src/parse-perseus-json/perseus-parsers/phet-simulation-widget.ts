@@ -8,4 +8,7 @@ export const parsePhetSimulationWidget = parseWidget(
         url: string,
         description: string,
     }),
+    // The embedded simulation is never scored, so `static` has no answer to
+    // reveal.
+    {supportsStatic: false},
 );

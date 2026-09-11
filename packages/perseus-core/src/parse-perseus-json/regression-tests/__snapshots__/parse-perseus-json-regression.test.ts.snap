@@ -46,7 +46,7 @@ Whether or not we have specific numbers, conceptually we can measure the opportu
           "showPrompt": "The PPF looks a bit like a budget constraint. How is it different?",
           "widgets": {},
         },
-        "static": false,
+        "static": undefined,
         "type": "explanation",
         "version": {
           "major": 0,
@@ -84,7 +84,7 @@ Whether or not we have specific numbers, conceptually we can measure the opportu
           "scale": 1,
           "title": "A Healthcare vs. Education Production Possibilities Frontier ",
         },
-        "static": false,
+        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -163,7 +163,7 @@ The particular mix of goods and services being produced—that is, the specific 
           "scale": 1,
           "title": "Productive and Allocative Efficiency ",
         },
-        "static": false,
+        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -227,7 +227,7 @@ The slope of the PPF gives the opportunity cost of producing an additional unit 
           "scale": 1,
           "title": "Production Possibility Frontier for the U.S. and Brazil ",
         },
-        "static": false,
+        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -276,7 +276,7 @@ Because of the improvement in technology, the vertical intercept of the PPF woul
           "showPrompt": "Show Solution",
           "widgets": {},
         },
-        "static": false,
+        "static": undefined,
         "type": "explanation",
         "version": {
           "major": 0,
@@ -294,7 +294,7 @@ No. Allocative efficiency requires productive efficiency, because it pertains to
           "showPrompt": "Show Solution",
           "widgets": {},
         },
-        "static": false,
+        "static": undefined,
         "type": "explanation",
         "version": {
           "major": 0,
@@ -312,7 +312,7 @@ Both the budget constraint and the PPF show the constraint that each operates un
           "showPrompt": "Show Solution",
           "widgets": {},
         },
-        "static": false,
+        "static": undefined,
         "type": "explanation",
         "version": {
           "major": 0,
@@ -350,7 +350,7 @@ Both the budget constraint and the PPF show the constraint that each operates un
           "scale": 1,
           "title": "Productive and Allocative Efficiency ",
         },
-        "static": false,
+        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -419,7 +419,7 @@ The modified article is licensed under a [CC BY-NC-SA 4.0](https://creativecommo
           "showPrompt": "Attribution",
           "widgets": {},
         },
-        "static": false,
+        "static": undefined,
         "type": "explanation",
         "version": {
           "major": 0,
@@ -1070,7 +1070,7 @@ exports[`parseAndMigratePerseusItem given definition-missing-static.ts returns t
           "definition": "",
           "togglePrompt": "",
         },
-        "static": false,
+        "static": undefined,
         "type": "definition",
         "version": {
           "major": 0,
@@ -2379,7 +2379,7 @@ more explanation",
           "showPrompt": "Show Avogadro's number",
           "widgets": {},
         },
-        "static": false,
+        "static": undefined,
         "type": "explanation",
         "version": {
           "major": 0,
@@ -2395,7 +2395,7 @@ more explanation",
           "showPrompt": "Show Avogadro's number",
           "widgets": {},
         },
-        "static": false,
+        "static": undefined,
         "type": "explanation",
         "version": {
           "major": 0,
@@ -2485,7 +2485,7 @@ more explanation",
           "scale": 1,
           "title": "",
         },
-        "static": false,
+        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -2571,7 +2571,7 @@ more explanation",
           "showPrompt": "Show Avogadro's number",
           "widgets": {},
         },
-        "static": false,
+        "static": undefined,
         "type": "explanation",
         "version": {
           "major": 0,
@@ -2587,7 +2587,7 @@ more explanation",
           "showPrompt": "Show Avogadro's number",
           "widgets": {},
         },
-        "static": false,
+        "static": undefined,
         "type": "explanation",
         "version": {
           "major": 0,
@@ -2655,7 +2655,7 @@ more explanation",
           "scale": 1,
           "title": "",
         },
-        "static": false,
+        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -2706,7 +2706,7 @@ For example, for $\\vec{v}=(a,b)$ and $\\vec{u}=(c,d)$, we have $\\vec{v}\\cdot\
             "showPrompt": "I don't know what "vector dot product" is!",
             "widgets": {},
           },
-          "static": false,
+          "static": undefined,
           "type": "explanation",
           "version": {
             "major": 0,
@@ -4243,7 +4243,7 @@ exports[`parseAndMigratePerseusItem given image-missing-defaulted-fields.ts retu
           "scale": 1,
           "title": "",
         },
-        "static": false,
+        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -4300,7 +4300,7 @@ exports[`parseAndMigratePerseusItem given image-missing-defaulted-fields.ts retu
           "scale": 1,
           "title": "",
         },
-        "static": false,
+        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -4372,7 +4372,7 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
             "scale": 1,
             "title": "",
           },
-          "static": false,
+          "static": undefined,
           "type": "image",
           "version": {
             "major": 0,
@@ -4423,7 +4423,7 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
             "scale": 1,
             "title": "",
           },
-          "static": false,
+          "static": undefined,
           "type": "image",
           "version": {
             "major": 0,
@@ -4474,7 +4474,7 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
             "scale": 1,
             "title": "",
           },
-          "static": false,
+          "static": undefined,
           "type": "image",
           "version": {
             "major": 0,
@@ -4532,7 +4532,7 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
           "scale": 1,
           "title": "",
         },
-        "static": false,
+        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -4673,7 +4673,7 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.ts returns 
           "scale": 1,
           "title": "",
         },
-        "static": false,
+        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -5547,7 +5547,7 @@ exports[`parseAndMigratePerseusItem given interaction-element-missing-constraint
             "valid": true,
           },
         },
-        "static": false,
+        "static": undefined,
         "type": "interaction",
         "version": {
           "major": 0,
@@ -6165,7 +6165,7 @@ Next, we'll look at some other representations of functions!",
             "valid": true,
           },
         },
-        "static": false,
+        "static": undefined,
         "type": "interaction",
         "version": {
           "major": 0,
@@ -6252,7 +6252,7 @@ Next, we'll look at some other representations of functions!",
             "valid": true,
           },
         },
-        "static": false,
+        "static": undefined,
         "type": "interaction",
         "version": {
           "major": 0,
@@ -6339,7 +6339,7 @@ Next, we'll look at some other representations of functions!",
             "valid": true,
           },
         },
-        "static": false,
+        "static": undefined,
         "type": "interaction",
         "version": {
           "major": 0,
@@ -6426,7 +6426,7 @@ Next, we'll look at some other representations of functions!",
             "valid": true,
           },
         },
-        "static": false,
+        "static": undefined,
         "type": "interaction",
         "version": {
           "major": 0,
@@ -6513,7 +6513,7 @@ Next, we'll look at some other representations of functions!",
             "valid": true,
           },
         },
-        "static": false,
+        "static": undefined,
         "type": "interaction",
         "version": {
           "major": 0,
@@ -9961,7 +9961,7 @@ As we can see the direction of the vertical component is downwards $(\\downarrow
             "scale": 1,
             "title": "",
           },
-          "static": false,
+          "static": undefined,
           "type": "image",
           "version": {
             "major": 0,
@@ -10030,7 +10030,7 @@ $\\begin{align}
                   "scale": 1,
                   "title": "",
                 },
-                "static": false,
+                "static": undefined,
                 "type": "image",
                 "version": {
                   "major": 0,
@@ -10094,7 +10094,7 @@ $\\begin{align}
               },
             },
           },
-          "static": false,
+          "static": undefined,
           "type": "explanation",
           "version": {
             "major": 0,
@@ -11750,7 +11750,7 @@ ___
           "definition": "A trophy awarded each year to the top college football player in the United States",
           "togglePrompt": "Heisman Trophy",
         },
-        "static": false,
+        "static": undefined,
         "type": "definition",
         "version": {
           "major": 0,
@@ -11767,7 +11767,7 @@ ___
           "showPrompt": "Attribution",
           "widgets": {},
         },
-        "static": false,
+        "static": undefined,
         "type": "explanation",
         "version": {
           "major": 0,
@@ -11810,7 +11810,7 @@ ___
           "scale": 1,
           "title": "",
         },
-        "static": false,
+        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -11912,7 +11912,7 @@ ___
           "definition": "A trophy awarded each year to the top college football player in the United States",
           "togglePrompt": "Heisman Trophy",
         },
-        "static": false,
+        "static": undefined,
         "type": "definition",
         "version": {
           "major": 0,
@@ -11929,7 +11929,7 @@ ___
           "showPrompt": "Attribution",
           "widgets": {},
         },
-        "static": false,
+        "static": undefined,
         "type": "explanation",
         "version": {
           "major": 0,
@@ -11969,7 +11969,7 @@ ___
           "scale": 1,
           "title": "",
         },
-        "static": false,
+        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -13079,7 +13079,7 @@ $x_1\\cdot\\left[\\begin{array}{c}1\\\\\\\\0\\\\\\\\0\\\\\\\\0\\end{array}\\righ
             "showPrompt": "Why is this true?",
             "widgets": {},
           },
-          "static": false,
+          "static": undefined,
           "type": "explanation",
           "version": {
             "major": 0,
@@ -13565,7 +13565,7 @@ exports[`parseAndMigratePerseusItem given measurer-missing-image.ts returns the 
           "showProtractor": true,
           "showRuler": false,
         },
-        "static": false,
+        "static": undefined,
         "type": "measurer",
         "version": {
           "major": 1,
@@ -13653,7 +13653,7 @@ exports[`parseAndMigratePerseusItem given measurer-missing-static.ts returns the
           "showProtractor": true,
           "showRuler": true,
         },
-        "static": false,
+        "static": undefined,
         "type": "measurer",
         "version": {
           "major": 1,
@@ -13876,7 +13876,7 @@ exports[`parseAndMigratePerseusItem given measurer-missing-version.ts returns th
           "showProtractor": true,
           "showRuler": false,
         },
-        "static": false,
+        "static": undefined,
         "type": "measurer",
         "version": {
           "major": 1,
@@ -16028,7 +16028,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
             "scale": 1,
             "title": "",
           },
-          "static": false,
+          "static": undefined,
           "type": "image",
           "version": {
             "major": 0,
@@ -16079,7 +16079,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
             "scale": 1,
             "title": "",
           },
-          "static": false,
+          "static": undefined,
           "type": "image",
           "version": {
             "major": 0,
@@ -16130,7 +16130,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
             "scale": 1,
             "title": "",
           },
-          "static": false,
+          "static": undefined,
           "type": "image",
           "version": {
             "major": 0,
@@ -16209,7 +16209,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
           "scale": 1,
           "title": "",
         },
-        "static": false,
+        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -16438,7 +16438,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.ts
           "scale": 1,
           "title": "",
         },
-        "static": false,
+        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -16635,7 +16635,7 @@ We are given the measure of an angle and the length of the $\\purpleC{\\text{hyp
             "scale": 1,
             "title": "",
           },
-          "static": false,
+          "static": undefined,
           "type": "image",
           "version": {
             "major": 0,
@@ -16711,7 +16711,7 @@ Stella landed $1.68$ kilometers from the skydiving center.",
           "scale": 1,
           "title": "",
         },
-        "static": false,
+        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -16856,7 +16856,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.t
           "scale": 1,
           "title": "",
         },
-        "static": false,
+        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -17314,7 +17314,7 @@ A **unit fraction** is a fraction with a numerator of $1$. [[☃ explanation 2]]
             "showPrompt": "Show me an example",
             "widgets": {},
           },
-          "static": false,
+          "static": undefined,
           "type": "explanation",
           "version": {
             "major": 0,
@@ -17330,7 +17330,7 @@ A **unit fraction** is a fraction with a numerator of $1$. [[☃ explanation 2]]
             "showPrompt": "Show me an example",
             "widgets": {},
           },
-          "static": false,
+          "static": undefined,
           "type": "explanation",
           "version": {
             "major": 0,
@@ -17373,7 +17373,7 @@ $\\dfrac59$ can be broken up into $\\dfrac19+\\dfrac19+\\dfrac19+\\dfrac19+\\dfr
             "showPrompt": "Show solution",
             "widgets": {},
           },
-          "static": false,
+          "static": undefined,
           "type": "explanation",
           "version": {
             "major": 0,
@@ -17508,7 +17508,7 @@ How can we decompose $\\dfrac38$?
             "showPrompt": "Show solution",
             "widgets": {},
           },
-          "static": false,
+          "static": undefined,
           "type": "explanation",
           "version": {
             "major": 0,
@@ -17603,7 +17603,7 @@ How can we decompose $\\dfrac64$?
             "showPrompt": "Show solution",
             "widgets": {},
           },
-          "static": false,
+          "static": undefined,
           "type": "explanation",
           "version": {
             "major": 0,
@@ -17759,7 +17759,7 @@ How can we decompose $\\dfrac64$?
             "showPrompt": "Show solution",
             "widgets": {},
           },
-          "static": false,
+          "static": undefined,
           "type": "explanation",
           "version": {
             "major": 0,
@@ -17775,7 +17775,7 @@ How can we decompose $\\dfrac64$?
             "showPrompt": "Show solution",
             "widgets": {},
           },
-          "static": false,
+          "static": undefined,
           "type": "explanation",
           "version": {
             "major": 0,
@@ -17792,7 +17792,7 @@ How can we decompose $\\dfrac64$?
             "showPrompt": "Show solution",
             "widgets": {},
           },
-          "static": false,
+          "static": undefined,
           "type": "explanation",
           "version": {
             "major": 0,
@@ -17814,7 +17814,7 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
             "showPrompt": "Show solution",
             "widgets": {},
           },
-          "static": false,
+          "static": undefined,
           "type": "explanation",
           "version": {
             "major": 0,
@@ -18522,7 +18522,7 @@ A free body diagram of the **box** is shown below.
           "scale": 1,
           "title": "",
         },
-        "static": false,
+        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -18560,7 +18560,7 @@ A free body diagram of the **box** is shown below.
           "scale": 1,
           "title": "",
         },
-        "static": false,
+        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -18726,7 +18726,7 @@ A free body diagram of the **box** is shown below.
           "scale": 1,
           "title": "",
         },
-        "static": false,
+        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -18764,7 +18764,7 @@ A free body diagram of the **box** is shown below.
           "scale": 1,
           "title": "",
         },
-        "static": false,
+        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -20728,7 +20728,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
           "definition": "Phy·si·cal (fih-sic-ull): Having to do with the body",
           "togglePrompt": "physical",
         },
-        "static": false,
+        "static": undefined,
         "type": "definition",
         "version": {
           "major": 0,
@@ -20743,7 +20743,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
           "definition": "Life·long (life-long): Lasting your whole life",
           "togglePrompt": "lifelong",
         },
-        "static": false,
+        "static": undefined,
         "type": "definition",
         "version": {
           "major": 0,
@@ -20758,7 +20758,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
           "definition": "Men·tal (men-tull): Having to do with the mind",
           "togglePrompt": "mental",
         },
-        "static": false,
+        "static": undefined,
         "type": "definition",
         "version": {
           "major": 0,
@@ -20775,7 +20775,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
           "showPrompt": "Attribution",
           "widgets": {},
         },
-        "static": false,
+        "static": undefined,
         "type": "explanation",
         "version": {
           "major": 0,
@@ -20818,7 +20818,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
           "scale": 1,
           "title": "",
         },
-        "static": false,
+        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -20943,7 +20943,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
           "definition": "Phy·si·cal (fih-sic-ull): Having to do with the body",
           "togglePrompt": "physical",
         },
-        "static": false,
+        "static": undefined,
         "type": "definition",
         "version": {
           "major": 0,
@@ -20958,7 +20958,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
           "definition": "Life·long (life-long): Lasting your whole life",
           "togglePrompt": "lifelong",
         },
-        "static": false,
+        "static": undefined,
         "type": "definition",
         "version": {
           "major": 0,
@@ -20973,7 +20973,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
           "definition": "Men·tal (men-tull): Having to do with the mind",
           "togglePrompt": "mental",
         },
-        "static": false,
+        "static": undefined,
         "type": "definition",
         "version": {
           "major": 0,
@@ -20990,7 +20990,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
           "showPrompt": "Attribution",
           "widgets": {},
         },
-        "static": false,
+        "static": undefined,
         "type": "explanation",
         "version": {
           "major": 0,
@@ -21030,7 +21030,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
           "scale": 1,
           "title": "",
         },
-        "static": false,
+        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -21113,7 +21113,7 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.ts returns the
             "showPrompt": "Explain",
             "widgets": {},
           },
-          "static": false,
+          "static": undefined,
           "type": "explanation",
           "version": {
             "major": 0,
@@ -21359,7 +21359,7 @@ ___
           "showPrompt": "Attribution",
           "widgets": {},
         },
-        "static": false,
+        "static": undefined,
         "type": "explanation",
         "version": {
           "major": 0,
@@ -21402,7 +21402,7 @@ ___
           "scale": 1,
           "title": "",
         },
-        "static": false,
+        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -21534,7 +21534,7 @@ ___
           "showPrompt": "Attribution",
           "widgets": {},
         },
-        "static": false,
+        "static": undefined,
         "type": "explanation",
         "version": {
           "major": 0,
@@ -21574,7 +21574,7 @@ ___
           "scale": 1,
           "title": "",
         },
-        "static": false,
+        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -21681,7 +21681,7 @@ exports[`parseAndMigratePerseusItem given radio-with-weird-alignment.ts returns 
           "scale": 1,
           "title": "",
         },
-        "static": false,
+        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
@@ -21779,7 +21779,7 @@ exports[`parseAndMigratePerseusItem given radio-with-weird-alignment.ts returns 
           "scale": 1,
           "title": "",
         },
-        "static": false,
+        "static": undefined,
         "type": "image",
         "version": {
           "major": 0,
