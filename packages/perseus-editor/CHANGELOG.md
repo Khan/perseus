@@ -1,5 +1,23 @@
 # @khanacademy/perseus-editor
 
+## 42.2.0
+
+### Minor Changes
+
+-   [#4208](https://github.com/Khan/perseus/pull/4208) [`9f6043b`](https://github.com/Khan/perseus/commit/9f6043b0c8230c353304c7455f70d5e4724c4659) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add a placeholder Fill in the Blank content editor behind a feature flag
+
+### Patch Changes
+
+-   [#4216](https://github.com/Khan/perseus/pull/4216) [`56ef030`](https://github.com/Khan/perseus/commit/56ef030bdc302a201268ab33d8e6b8a320f00c1e) Thanks [@benchristel](https://github.com/benchristel)! - Internal: deduplicate the `PairEditor` and `PairsEditor` components across the CS Program and Iframe widget editors.
+
+-   Updated dependencies [[`9f6043b`](https://github.com/Khan/perseus/commit/9f6043b0c8230c353304c7455f70d5e4724c4659), [`834d458`](https://github.com/Khan/perseus/commit/834d458ee5aee90ad705b81dc1323c417854d0ac), [`e114416`](https://github.com/Khan/perseus/commit/e11441600e2b4c9efe6ec008d387ee245f11470d), [`995aa68`](https://github.com/Khan/perseus/commit/995aa68d04bdc95f7b463406d797ed6a24107cad)]:
+    -   @khanacademy/perseus@87.2.0
+    -   @khanacademy/perseus-linter@5.4.1
+    -   @khanacademy/perseus-core@39.2.0
+    -   @khanacademy/keypad-context@3.2.92
+    -   @khanacademy/kmath@2.4.51
+    -   @khanacademy/math-input@27.0.16
+
 ## 42.1.1
 
 ### Patch Changes

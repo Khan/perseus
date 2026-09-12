@@ -1,5 +1,15 @@
 # @khanacademy/perseus-linter
 
+## 5.4.1
+
+### Patch Changes
+
+-   [#4209](https://github.com/Khan/perseus/pull/4209) [`e114416`](https://github.com/Khan/perseus/commit/e11441600e2b4c9efe6ec008d387ee245f11470d) Thanks [@nishasy](https://github.com/nishasy)! - [Sorter] Add linter error for cards with image and other content type
+
+-   Updated dependencies [[`995aa68`](https://github.com/Khan/perseus/commit/995aa68d04bdc95f7b463406d797ed6a24107cad)]:
+    -   @khanacademy/perseus-core@39.2.0
+    -   @khanacademy/kmath@2.4.51
+
 ## 5.4.0
 
 ### Minor Changes
