@@ -10,6 +10,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import Editor from "../editor";
+import {getFeatureFlags} from "../testing/feature-flags-util";
 import {mockImageLoading} from "../testing/image-loader-utils";
 import {
     testDependencies,
@@ -214,6 +215,90 @@ describe("Editor", () => {
             major: 3,
             minor: 0,
         });
+    });
+
+    // TODO(LEMS-4396): clean up feature flag
+    it("omits a widget from the widget dropdown when its feature flag is off", () => {
+        // Arrange, Act
+        render(
+            <Harnessed
+                apiOptions={{
+                    ...ApiOptions.defaults,
+                    flags: getFeatureFlags({"dnd-widget-fitb": false}),
+                }}
+            />,
+        );
+        act(() => jest.runOnlyPendingTimers());
+
+        expect(
+            screen.queryByRole("option", {name: "Fill in the Blank"}),
+        ).not.toBeInTheDocument();
+    });
+
+    it("lists a widget in the widget dropdown when its feature flag is on", () => {
+        // Arrange, Act
+        render(
+            <Harnessed
+                apiOptions={{
+                    ...ApiOptions.defaults,
+                    flags: getFeatureFlags({"dnd-widget-fitb": true}),
+                }}
+            />,
+        );
+        act(() => jest.runOnlyPendingTimers());
+
+        expect(
+            screen.getByRole("option", {name: "Fill in the Blank"}),
+        ).toBeInTheDocument();
+    });
+
+    it("omits a widget from the widget dropdown in Storybook when its feature flag is off", () => {
+        // Arrange: Storybook reveals every hidden widget, so the flag is the
+        // only thing keeping this one out of the dropdown there.
+        const storybookEnv = process.env.STORYBOOK;
+        process.env.STORYBOOK = "true";
+
+        // Act
+        render(
+            <Harnessed
+                apiOptions={{
+                    ...ApiOptions.defaults,
+                    flags: getFeatureFlags({"dnd-widget-fitb": false}),
+                }}
+            />,
+        );
+        act(() => jest.runOnlyPendingTimers());
+
+        expect(
+            screen.queryByRole("option", {name: "Fill in the Blank"}),
+        ).not.toBeInTheDocument();
+
+        process.env.STORYBOOK = storybookEnv;
+    });
+
+    it("inserts a widget behind a feature flag when it is chosen from the dropdown", async () => {
+        // Arrange
+        let cbData: any;
+        render(
+            <Harnessed
+                apiOptions={{
+                    ...ApiOptions.defaults,
+                    flags: getFeatureFlags({"dnd-widget-fitb": true}),
+                }}
+                onChange={(data) => {
+                    cbData = data;
+                }}
+            />,
+        );
+        act(() => jest.runOnlyPendingTimers());
+
+        // Act
+        const select = screen.getByTestId("editor__widget-select");
+        await userEvent.selectOptions(select, "Fill in the Blank");
+
+        expect(cbData?.widgets?.["fill-in-the-blank 1"]?.type).toBe(
+            "fill-in-the-blank",
+        );
     });
 
     it("remembers the configuration of widgets that are removed from the content and then restored", async () => {

@@ -19,6 +19,8 @@ export default {
     title: "Widgets/Fill in the Blank/Widget Demo",
     component: ServerItemRendererWithDebugUI,
     tags: ["!autodocs"],
+    // TODO(LEMS-4396): clean up feature flag
+    globals: {featureFlags: ["dnd-widget-fitb"]},
     parameters: {
         docs: {
             description: {

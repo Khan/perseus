@@ -1,3 +1,4 @@
+import {isFeatureOn} from "@khanacademy/perseus-core";
 import * as React from "react";
 import {forwardRef, useImperativeHandle} from "react";
 
@@ -15,6 +16,11 @@ const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
         // TODO(LEMS-4471): Write out the getPromptJSON function after checking
         useImperativeHandle(ref, () => ({}));
 
+        // TODO(LEMS-4396): clean up feature flag
+        if (!isFeatureOn(props, "dnd-widget-fitb")) {
+            return null;
+        }
+
         return (
             <div data-testid="fill-in-the-blank-widget">Fill in the Blank</div>
         );
@@ -26,7 +32,5 @@ export default {
     displayName: "Fill in the Blank",
     widget: FillInTheBlankWidget,
     isLintable: false,
-    // TODO(LEMS-4322): Gate on the `dnd-widget-fitb` feature flag instead, so
-    // the widget can be turned on for testing rather than only off.
     hidden: true,
 } satisfies WidgetExports<typeof FillInTheBlankWidget>;
