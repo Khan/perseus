@@ -182,7 +182,7 @@ describe("Tangent graph pointLabels", () => {
                 {...baseMafsGraphProps}
                 state={{
                     ...baseTangentState,
-                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
+
                     pointLabels: [42, "B"] as unknown as string[],
                 }}
             />,

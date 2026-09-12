@@ -355,7 +355,7 @@ describe("Linear System graph pointLabels", () => {
                 {...baseMafsGraphProps}
                 state={{
                     ...baseLinearSystemState,
-                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
+
                     pointLabels: [42, "B", "C", "D"] as unknown as string[],
                 }}
             />,

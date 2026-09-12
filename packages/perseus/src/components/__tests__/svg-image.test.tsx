@@ -176,7 +176,6 @@ describe("SvgImage", () => {
             // for the whole test while the label data is already loaded.
             unmockImageLoading();
             jest.spyOn(globalThis, "Image").mockImplementation(
-                // eslint-disable-next-line no-restricted-syntax
                 () => ({}) as HTMLImageElement,
             );
         });

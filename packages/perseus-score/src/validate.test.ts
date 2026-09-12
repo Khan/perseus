@@ -298,7 +298,6 @@ describe("emptyWidgetsFunctional", () => {
     it("upgrades an empty legacy Expression widget", () => {
         // Arrange
         const widgets: PerseusWidgetsMap = {
-            // eslint-disable-next-line no-restricted-syntax
             "expression 1": getLegacyExpressionWidget() as any,
         };
         const widgetIds: Array<string> = ["expression 1"];
@@ -343,7 +342,6 @@ describe("emptyWidgetsFunctional", () => {
     it("upgrades a non-empty legacy Expression widget", () => {
         // Arrange
         const widgets: PerseusWidgetsMap = {
-            // eslint-disable-next-line no-restricted-syntax
             "expression 1": getLegacyExpressionWidget() as any,
         };
         const widgetIds: Array<string> = ["expression 1"];

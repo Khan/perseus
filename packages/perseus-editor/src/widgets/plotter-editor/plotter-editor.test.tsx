@@ -37,7 +37,6 @@ describe("PlotterEditor", () => {
             height: 200,
         };
         jest.spyOn(global, "Image").mockImplementation(
-            // eslint-disable-next-line no-restricted-syntax
             () => mockImage as HTMLImageElement,
         );
 

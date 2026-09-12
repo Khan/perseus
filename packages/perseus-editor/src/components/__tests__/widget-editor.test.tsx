@@ -206,13 +206,13 @@ describe("WidgetEditor", () => {
             const output = _upgradeWidgetInfo(dirtyInfo);
 
             // make sure we filter as expected
-            // eslint-disable-next-line no-restricted-syntax
+
             expect((output as any).onChange).toBeUndefined();
-            // eslint-disable-next-line no-restricted-syntax
+
             expect((output as any).onRemove).toBeUndefined();
-            // eslint-disable-next-line no-restricted-syntax
+
             expect((output as any).apiOptions).toBeUndefined();
-            // eslint-disable-next-line no-restricted-syntax
+
             expect((output as any).problemNum).toBeUndefined();
 
             // make sure we're not filtering too much

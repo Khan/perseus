@@ -193,7 +193,7 @@ describe("Ray graph pointLabels", () => {
                 {...baseMafsGraphProps}
                 state={{
                     ...baseRayState,
-                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
+
                     pointLabels: [{number: 42}, "B"] as unknown as string[],
                 }}
             />,

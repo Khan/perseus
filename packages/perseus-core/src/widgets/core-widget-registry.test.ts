@@ -31,7 +31,6 @@ describe("core-widget-registry", () => {
     test.each(registryFnNames)(
         "%s throws when called before registration",
         (fnName) => {
-            // eslint-disable-next-line no-restricted-syntax
             const fn = (CoreWidgetRegistry as any)[fnName];
             expect(() => fn("radio")).toThrow(
                 "Core widget registry accessed before initialization!",
@@ -86,7 +85,6 @@ describe("core-widget-registry", () => {
                 // sentinel rather than comparing function references.
                 (type) =>
                     CoreWidgetRegistry.getPublicWidgetOptionsFunction(type)(
-                        // eslint-disable-next-line no-restricted-syntax
                         "_sentinel_" as never,
                     ),
                 "_sentinel_",
@@ -96,7 +94,7 @@ describe("core-widget-registry", () => {
                 (type) =>
                     CoreWidgetRegistry.isAccessible(
                         type,
-                        // eslint-disable-next-line no-restricted-syntax
+
                         {} as PerseusWidgetOptions,
                     ),
                 false,
@@ -149,7 +147,6 @@ describe("core-widget-registry", () => {
         });
 
         it("traverseChildWidgets ignores strict for a missing type", () => {
-            // eslint-disable-next-line no-restricted-syntax
             const widget = {
                 type: "_missing_",
                 options: {foo: 1},
@@ -227,7 +224,6 @@ describe("core-widget-registry", () => {
             };
         };
 
-        // eslint-disable-next-line no-restricted-syntax
         const validRadioWidget = {
             type: "radio",
             options: {
@@ -260,7 +256,6 @@ describe("core-widget-registry", () => {
         });
 
         it("returns the widget unchanged if widget type is unregistered", () => {
-            // eslint-disable-next-line no-restricted-syntax
             const widget = {
                 type: "non-existent-widget",
                 options: {foo: 1},
@@ -280,7 +275,6 @@ describe("core-widget-registry", () => {
 
         it("calls traverseChildWidgets when defined and returns updated widget", () => {
             const widget: PerseusWidget = {
-                // eslint-disable-next-line no-restricted-syntax
                 type: mockWidgetType as any,
                 options: {foo: 1},
             };

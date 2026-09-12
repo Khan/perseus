@@ -31,7 +31,7 @@ const mockSize = (
 // tests don't break when the number of render passes changes.
 async function waitForVisible(container: HTMLElement) {
     await waitFor(() => {
-        // eslint-disable-next-line testing-library/no-node-access, no-restricted-syntax
+        // eslint-disable-next-line testing-library/no-node-access
         const rootNode = container.firstElementChild as HTMLElement;
         expect(rootNode.style.transitionDuration).toBe(
             `${ENTRANCE_TRANSITION_DURATION_MS}ms`,
@@ -163,7 +163,7 @@ describe("Zoomable", () => {
         );
 
         // Parent node bounds
-        // eslint-disable-next-line testing-library/no-node-access, no-restricted-syntax
+        // eslint-disable-next-line testing-library/no-node-access
         const rootNode = container.firstElementChild as HTMLElement;
         mockSize(rootNode, {width: 400, height: 100});
 
@@ -200,7 +200,7 @@ describe("Zoomable", () => {
         );
 
         // Parent node bounds
-        // eslint-disable-next-line testing-library/no-node-access, no-restricted-syntax
+        // eslint-disable-next-line testing-library/no-node-access
         const rootNode = container.firstElementChild as HTMLElement;
         mockSize(rootNode, {width: 400, height: 100});
 
@@ -370,7 +370,7 @@ describe("Zoomable", () => {
                 </Zoomable>,
             );
 
-            // eslint-disable-next-line testing-library/no-node-access, no-restricted-syntax
+            // eslint-disable-next-line testing-library/no-node-access
             const rootNode = container.firstElementChild as HTMLElement;
             mockSize(rootNode, {width: 400, height: 100});
             mockSize(screen.getByText("Some zoomable text"), {
@@ -397,7 +397,7 @@ describe("Zoomable", () => {
                 </Zoomable>,
             );
 
-            // eslint-disable-next-line testing-library/no-node-access, no-restricted-syntax
+            // eslint-disable-next-line testing-library/no-node-access
             const rootNode = container.firstElementChild as HTMLElement;
             mockSize(rootNode, {width: 400, height: 100});
             mockSize(screen.getByText("Some zoomable text"), {
@@ -435,7 +435,7 @@ describe("Zoomable", () => {
             );
             componentContainer = container;
 
-            // eslint-disable-next-line testing-library/no-node-access, no-restricted-syntax
+            // eslint-disable-next-line testing-library/no-node-access
             const rootNode = container.firstElementChild as HTMLElement;
             mockSize(rootNode, {width: 200, height: 200});
 
@@ -641,7 +641,7 @@ describe("Zoomable", () => {
                     </Zoomable>
                 </AssetContext.Provider>,
             );
-            // eslint-disable-next-line testing-library/no-node-access, no-restricted-syntax
+            // eslint-disable-next-line testing-library/no-node-access
             mockSize(container.firstElementChild as HTMLElement, {
                 width: 400,
                 height: 100,

@@ -41,7 +41,6 @@ function generateDragEnd(
     targetId: string,
     canceled = false,
 ): DragEndEvent {
-    // eslint-disable-next-line no-restricted-syntax -- The hook reads only these fields; a full dnd-kit event needs a live drag manager.
     return {
         canceled,
         operation: {

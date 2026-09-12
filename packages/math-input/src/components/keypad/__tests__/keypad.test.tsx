@@ -45,7 +45,6 @@ describe("keypad", () => {
                     <Keypad
                         onClickKey={() => {}}
                         cursorContext={
-                            // eslint-disable-next-line no-restricted-syntax
                             context as (typeof CursorContext)[keyof typeof CursorContext]
                         }
                         onAnalyticsEvent={async () => {}}

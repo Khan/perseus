@@ -286,7 +286,6 @@ describe("EditorPage", () => {
             />,
         );
 
-        // eslint-disable-next-line no-restricted-syntax
         const textarea = screen.getByRole("textbox") as HTMLTextAreaElement;
         expect(textarea).toBeInTheDocument();
 

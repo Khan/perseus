@@ -256,7 +256,6 @@ describe("getAngleFromPoints", () => {
             const result = getAngleFromPoints(squarePoints, index);
             expect(result).not.toBeNull();
 
-            // eslint-disable-next-line no-restricted-syntax
             const degrees = convertRadiansToDegrees(result as number);
             expect(degrees).toEqual(90);
         }
@@ -279,7 +278,6 @@ describe("getAngleFromPoints", () => {
             const result = getAngleFromPoints(trianglePoints, index);
             expect(result).not.toBeNull();
 
-            // eslint-disable-next-line no-restricted-syntax
             const degrees = convertRadiansToDegrees(result as number);
             expect(degrees).toEqual(angle);
         },

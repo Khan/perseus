@@ -5,7 +5,6 @@ import type {Coord} from "../../interactive2/types";
 describe("getEquationString", () => {
     describe("logarithm", () => {
         function makeProps(coords: [Coord, Coord], asymptote: number) {
-            // eslint-disable-next-line no-restricted-syntax
             return {
                 userInput: {
                     type: "logarithm",

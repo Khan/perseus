@@ -103,7 +103,7 @@ describe("Interactive Graph", function () {
         );
 
         // Mocked for loading graphie in svg-image
-        // eslint-disable-next-line no-restricted-syntax
+
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 text: () => Promise.resolve("{}"),
@@ -122,7 +122,6 @@ describe("Interactive Graph", function () {
             it("Should accept the right answer", async () => {
                 // Arrange
                 const userInput: UserInputMap = {
-                    // eslint-disable-next-line no-restricted-syntax
                     "interactive-graph 1": {
                         type: question.widgets["interactive-graph 1"].options
                             .graph.type,
@@ -150,7 +149,6 @@ describe("Interactive Graph", function () {
 
             it("Should render user input predictably", async () => {
                 const userInput: UserInputMap = {
-                    // eslint-disable-next-line no-restricted-syntax
                     "interactive-graph 1": {
                         type: question.widgets["interactive-graph 1"].options
                             .graph.type,
@@ -180,7 +178,6 @@ describe("Interactive Graph", function () {
             it("should reject an incorrect answer", async () => {
                 // Arrange
                 const userInput: UserInputMap = {
-                    // eslint-disable-next-line no-restricted-syntax
                     "interactive-graph 1": {
                         type: question.widgets["interactive-graph 1"].options
                             .graph.type,
@@ -1151,7 +1148,6 @@ describe("Interactive Graph", function () {
             });
         });
 
-        // eslint-disable-next-line no-restricted-syntax
         it.each([
             {weight: "thin", expectedStrokeWidth: 1},
             {weight: "medium", expectedStrokeWidth: 2},

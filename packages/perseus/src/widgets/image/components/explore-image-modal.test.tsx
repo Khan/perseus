@@ -77,7 +77,7 @@ describe("ExploreImageModal", () => {
         unmockImageLoading = mockImageLoading();
 
         // jsdom doesn't implement canvas getContext or ImageData.
-        // eslint-disable-next-line no-restricted-syntax
+
         jest.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue({
             putImageData: jest.fn(),
             clearRect: jest.fn(),
@@ -303,7 +303,7 @@ describe("ExploreImageModal", () => {
     describe("gif controls", () => {
         beforeEach(() => {
             // Decode resolves to two fake frames (an animated GIF) by default.
-            // eslint-disable-next-line no-restricted-syntax
+
             (decodeGifFrames as jest.Mock).mockResolvedValue([
                 fakeFrame,
                 fakeFrame,
@@ -329,7 +329,7 @@ describe("ExploreImageModal", () => {
 
         it("should not render gif controls if the image is a single frame gif", async () => {
             // Arrange
-            // eslint-disable-next-line no-restricted-syntax
+
             (decodeGifFrames as jest.Mock).mockResolvedValue([fakeFrame]);
             //Act
             renderModal({

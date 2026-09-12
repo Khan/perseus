@@ -57,7 +57,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         unmockImageLoading = mockImageLoading();
 
         // jsdom doesn't implement canvas getContext or ImageData.
-        // eslint-disable-next-line no-restricted-syntax
+
         jest.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue({
             putImageData: jest.fn(),
             clearRect: jest.fn(),
@@ -1101,7 +1101,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
     describe("gif controls", () => {
         beforeEach(() => {
             // Decode resolves to two fake frames (an animated GIF) by default.
-            // eslint-disable-next-line no-restricted-syntax
+
             (decodeGifFrames as jest.Mock).mockResolvedValue([
                 fakeFrame,
                 fakeFrame,
@@ -1131,7 +1131,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
         it("should not render gif controls if the gif has only one frame", async () => {
             // Arrange
-            // eslint-disable-next-line no-restricted-syntax
+
             (decodeGifFrames as jest.Mock).mockResolvedValue([fakeFrame]);
 
             const imageQuestion = generateTestPerseusRenderer({

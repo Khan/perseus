@@ -33,7 +33,7 @@ describe("measurer widget", () => {
             // `interactive.js` adds `protractor`/`ruler` to the graphie object
             // at runtime, so they're absent from the static `Graphie` type.
             // The mock only needs the methods the widget actually calls.
-            // eslint-disable-next-line no-restricted-syntax
+
             fakeGraphie as unknown as ReturnType<
                 typeof GraphUtils.createGraphie
             >,

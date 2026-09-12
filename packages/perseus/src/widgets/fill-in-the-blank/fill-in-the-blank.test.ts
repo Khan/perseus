@@ -40,13 +40,6 @@ describe("Fill in the Blank Widget", () => {
         ).not.toBeInTheDocument();
     });
 
-    it("is registered in the widget registry", () => {
-        // Arrange, Act
-        const widget = Widgets.getWidget("fill-in-the-blank");
-
-        expect(widget).not.toBeNull();
-    });
-
     it("is hidden from the content editor's widget dropdown", () => {
         // Arrange, Act
         const publicWidgets = Widgets.getPublicWidgets();

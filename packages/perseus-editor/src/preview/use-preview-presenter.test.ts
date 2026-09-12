@@ -36,7 +36,7 @@ describe("usePreviewPresenter", () => {
         mockAxeRun.mockResolvedValue({violations: [], incomplete: []});
 
         mockPostMessage = jest.fn();
-        // eslint-disable-next-line no-restricted-syntax
+
         mockParentWindow = {
             postMessage: mockPostMessage,
         } as unknown as Window;
@@ -51,7 +51,6 @@ describe("usePreviewPresenter", () => {
 
         // Override window properties
         jest.spyOn(window, "frameElement", "get").mockReturnValue(
-            // eslint-disable-next-line no-restricted-syntax
             mockIframeElement as unknown as HTMLIFrameElement,
         );
         jest.spyOn(window, "parent", "get").mockReturnValue(mockParentWindow);
@@ -310,7 +309,6 @@ describe("usePreviewPresenter", () => {
         it("ignores content-data from non-parent source", () => {
             const {result} = renderHook(() => usePreviewPresenter());
 
-            // eslint-disable-next-line no-restricted-syntax
             const mockOtherWindow = {
                 postMessage: jest.fn(),
             } as unknown as Window;
@@ -320,7 +318,7 @@ describe("usePreviewPresenter", () => {
                 type: "content-data",
                 content: {
                     type: "question",
-                    // eslint-disable-next-line no-restricted-syntax
+
                     data: {} as any,
                 },
                 contentVersion: 1,
@@ -975,7 +973,7 @@ describe("usePreviewPresenter", () => {
             expect(mockParentWindow.postMessage).toHaveBeenCalledTimes(3);
 
             // Check the height update calls
-            // eslint-disable-next-line no-restricted-syntax
+
             const calls = (mockParentWindow.postMessage as jest.Mock).mock
                 .calls;
             expect(calls[1][0]).toEqual({
@@ -1007,7 +1005,6 @@ describe("usePreviewPresenter", () => {
         it("ignores messages from different source window", () => {
             const {result} = renderHook(() => usePreviewPresenter());
 
-            // eslint-disable-next-line no-restricted-syntax
             const differentWindow = {} as Window;
 
             const message: ParentToIframeMessage = {
@@ -1016,7 +1013,7 @@ describe("usePreviewPresenter", () => {
 
                 content: {
                     type: "question",
-                    // eslint-disable-next-line no-restricted-syntax
+
                     data: {} as any,
                 },
                 contentVersion: 1,

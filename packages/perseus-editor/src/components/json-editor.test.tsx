@@ -231,7 +231,6 @@ describe("JsonEditor", () => {
             />,
         );
 
-        // eslint-disable-next-line no-restricted-syntax
         const textarea = screen.getByRole("textbox") as HTMLTextAreaElement;
 
         // Act
@@ -268,7 +267,6 @@ describe("JsonEditor", () => {
             />,
         );
 
-        // eslint-disable-next-line no-restricted-syntax
         const textarea = screen.getByRole("textbox") as HTMLTextAreaElement;
 
         // Act

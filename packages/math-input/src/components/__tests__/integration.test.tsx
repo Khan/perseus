@@ -33,7 +33,6 @@ function InputWithContext({keypadConfiguration}) {
             {({keypadElement}) => {
                 return (
                     <MathInput
-                        // eslint-disable-next-line no-restricted-syntax
                         keypadElement={keypadElement as any}
                         value={value}
                         onChange={(nextValue, cb) => {
@@ -183,7 +182,7 @@ describe("math input integration", () => {
         // MathQuill is problematic,
         // this is the only way I know how to test the "input"
         const mathquillInput =
-            // eslint-disable-next-line testing-library/no-node-access, no-restricted-syntax
+            // eslint-disable-next-line testing-library/no-node-access
             document.getElementsByClassName("mq-root-block")[0] as HTMLElement;
         const span1 = within(mathquillInput).getByText("1");
 
@@ -210,7 +209,7 @@ describe("math input integration", () => {
         // MathQuill is problematic,
         // this is how to get the value of the input directly from MQ
         const mathquillInstance = MQ(
-            // eslint-disable-next-line testing-library/no-node-access, no-restricted-syntax
+            // eslint-disable-next-line testing-library/no-node-access
             document.getElementsByClassName(
                 "mq-editable-field",
             )[0] as HTMLElement,
@@ -239,7 +238,7 @@ describe("math input integration", () => {
         // MathQuill is problematic,
         // this is how to get the value of the input directly from MQ
         const mathquillInstance = MQ(
-            // eslint-disable-next-line testing-library/no-node-access, no-restricted-syntax
+            // eslint-disable-next-line testing-library/no-node-access
             document.getElementsByClassName(
                 "mq-editable-field",
             )[0] as HTMLElement,
@@ -283,7 +282,7 @@ describe("math input integration", () => {
         // MathQuill is problematic,
         // this is how to get the value of the input directly from MQ
         const mathquillInstance = MQ(
-            // eslint-disable-next-line testing-library/no-node-access, no-restricted-syntax
+            // eslint-disable-next-line testing-library/no-node-access
             document.getElementsByClassName(
                 "mq-editable-field",
             )[0] as HTMLElement,
@@ -322,7 +321,7 @@ describe("math input integration", () => {
         // MathQuill is problematic,
         // this is how to get the value of the input directly from MQ
         const mathquillInstance = MQ(
-            // eslint-disable-next-line testing-library/no-node-access, no-restricted-syntax
+            // eslint-disable-next-line testing-library/no-node-access
             document.getElementsByClassName(
                 "mq-editable-field",
             )[0] as HTMLElement,

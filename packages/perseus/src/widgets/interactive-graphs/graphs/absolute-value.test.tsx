@@ -258,7 +258,7 @@ describe("Absolute value graph pointLabels", () => {
                 {...baseMafsGraphProps}
                 state={{
                     ...baseAbsoluteValueState,
-                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
+
                     pointLabels: [42, "B"] as unknown as string[],
                 }}
             />,

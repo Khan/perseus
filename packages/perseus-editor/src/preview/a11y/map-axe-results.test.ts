@@ -22,7 +22,7 @@ function axeNodeResult(fields: {
         none: (fields.none ?? []).map((message) => ({message})),
         element: fields.element,
     };
-    // eslint-disable-next-line no-restricted-syntax -- minimal NodeResult fixture contains only the bits we care about
+
     return result as unknown as axe.NodeResult;
 }
 
@@ -40,7 +40,7 @@ function axeResult(fields: {
         impact: "moderate",
         ...fields,
     };
-    // eslint-disable-next-line no-restricted-syntax -- minimal Result fixture contains only the bits we care about
+
     return result as unknown as axe.Result;
 }
 

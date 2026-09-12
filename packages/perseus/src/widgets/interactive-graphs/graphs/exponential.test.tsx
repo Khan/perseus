@@ -292,7 +292,6 @@ describe("Exponential graph pointLabels", () => {
     it("falls back to the default label for truthy non-string entries (defensive against malformed hand-authored JSON bypassing the parser)", () => {
         // Arrange, Act
         renderExponentialGraph({
-            // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
             pointLabels: [42, "B"] as unknown as string[],
         });
 

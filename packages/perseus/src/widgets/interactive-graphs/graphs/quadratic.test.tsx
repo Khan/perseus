@@ -320,7 +320,7 @@ describe("Quadratic graph pointLabels", () => {
                 {...baseMafsGraphProps}
                 state={{
                     ...baseQuadraticState,
-                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
+
                     pointLabels: [42, "B", "C"] as unknown as string[],
                 }}
             />,

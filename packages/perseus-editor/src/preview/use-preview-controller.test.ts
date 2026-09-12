@@ -27,7 +27,7 @@ describe("usePreviewController", () => {
 
     beforeEach(() => {
         // Create mock content window with postMessage
-        // eslint-disable-next-line no-restricted-syntax
+
         mockContentWindow = {
             postMessage: jest.fn(),
         } as unknown as Window;
@@ -39,7 +39,7 @@ describe("usePreviewController", () => {
         };
 
         // Create ref pointing to mock iframe
-        // eslint-disable-next-line no-restricted-syntax
+
         iframeRef = {current: mockIframe as any};
     });
 
@@ -55,7 +55,6 @@ describe("usePreviewController", () => {
     }
 
     function messagesOfType(type: string) {
-        // eslint-disable-next-line no-restricted-syntax
         return (mockContentWindow.postMessage as jest.Mock).mock.calls
             .map(([msg]) => msg)
             .filter((msg) => msg.type === type);
@@ -548,7 +547,6 @@ describe("usePreviewController", () => {
         it("ignores messages from different source window", () => {
             const {result} = renderHook(() => usePreviewController(iframeRef));
 
-            // eslint-disable-next-line no-restricted-syntax
             const differentWindow = {} as Window;
 
             act(() => {
@@ -713,7 +711,7 @@ describe("usePreviewController", () => {
                         {content: "Section 1", widgets: {}, images: {}},
                         {content: "Section 2", widgets: {}, images: {}},
                     ],
-                    // eslint-disable-next-line no-restricted-syntax
+
                     apiOptions: {
                         readOnly: true,
                         onFocusChange: jest.fn(),

@@ -7,7 +7,7 @@ import type {ParsedFrame} from "gifuct-js";
 
 // A minimal fake frame from gifuct-js with a 50ms delay. We only populate the
 // fields GifImage actually reads, so we cast past the full ParsedFrame shape.
-// eslint-disable-next-line no-restricted-syntax
+
 const fakeFrame = {
     patch: new Uint8ClampedArray(4), // 1x1 RGBA
     delay: 50,
@@ -21,7 +21,7 @@ const fakeFrames: ParsedFrame[] = [fakeFrame, fakeFrame];
 describe("GifImage", () => {
     beforeEach(() => {
         // jsdom doesn't implement canvas getContext or ImageData.
-        // eslint-disable-next-line no-restricted-syntax
+
         jest.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue({
             putImageData: jest.fn(),
             clearRect: jest.fn(),

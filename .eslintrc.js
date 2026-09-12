@@ -53,6 +53,44 @@ function banImportExtension(extension) {
  * overrides below. An override *replaces* `no-restricted-imports` rather
  * than merging with it, so anything adding restrictions must carry these.
  */
+const restrictedSyntax = [
+    {
+        selector:
+            "MemberExpression[property.name='render'][object.name='ReactDOM']",
+        message: "DEPRECATED: Use a React Portal instead.",
+    },
+    ...banImportExtension("js"),
+    ...banImportExtension("jsx"),
+    ...banImportExtension("ts"),
+    ...banImportExtension("tsx"),
+    {
+        selector: "TSQualifiedName[left.name='React'][right.name='FC']",
+        message:
+            "Use of React.FC<Props> is disallowed, use the following alternative: https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/2201682693/TypeScript+for+Flow+Developers#Functional-Components",
+    },
+    {
+        // Ban `expr as Type` casts (TSAsExpression). `as const` is
+        // excluded because it's a const assertion — a distinct construct that
+        // has no `satisfies` equivalent.
+        selector: "TSAsExpression:not([typeAnnotation.typeName.name='const'])",
+        message:
+            "Avoid `as` for type casting — it bypasses type checking. Prefer `satisfies` to verify a value matches a type without widening or losing inference. If a cast is truly necessary (e.g., at an unsafe boundary like an external API), disable this rule on the line with a comment explaining why.",
+    },
+    {
+        // Ban the legacy angle-bracket assertion form: `<Type>expr`.
+        selector: "TSTypeAssertion",
+        message:
+            "Avoid angle-bracket type assertions (`<Type>expr`) — they bypass type checking. Prefer `satisfies` to verify a value matches a type without widening or losing inference.",
+    },
+];
+
+const storyAndTestRestrictedSyntax = restrictedSyntax.filter(
+    ({selector}) =>
+        selector !==
+            "TSAsExpression:not([typeAnnotation.typeName.name='const'])" &&
+        selector !== "TSTypeAssertion",
+);
+
 const restrictedImportPaths = [
     /** Wonder Blocks Restricted Imports */
     {
@@ -237,6 +275,37 @@ module.exports = {
             files: ["**/*.stories.@(js|jsx|ts|tsx)"],
             rules: {
                 "testing-library/prefer-screen-queries": "off",
+            },
+        },
+        {
+            files: [
+                "**/*.stories.@(js|jsx|ts|tsx)",
+                "**/*.test.@(js|jsx|ts|tsx)",
+            ],
+            rules: {
+                "no-restricted-syntax": [
+                    "error",
+                    ...storyAndTestRestrictedSyntax,
+                    {
+                        selector:
+                            "CallExpression:matches([callee.name=/^get(Widget|Editor)$/], [callee.property.name=/^get(Widget|Editor)$/])",
+                        message:
+                            "Stories and tests must register a descriptor and import the component directly instead of looking it up from a registry.",
+                    },
+                ],
+            },
+        },
+        {
+            // Registry and registration tests exercise these accessors directly.
+            files: [
+                "packages/perseus/src/__tests__/widgets.test.ts",
+                "packages/perseus-core/src/widgets/core-widget-registry.test.ts",
+                "packages/perseus-editor/src/editor-registration.test.ts",
+                "packages/perseus-editor/src/editor-registry.test.ts",
+                "packages/perseus-editor/src/init.test.ts",
+            ],
+            rules: {
+                "no-restricted-syntax": "off",
             },
         },
         {
@@ -456,38 +525,7 @@ module.exports = {
                 ],
             },
         ],
-        "no-restricted-syntax": [
-            "error",
-            {
-                selector:
-                    "MemberExpression[property.name='render'][object.name='ReactDOM']",
-                message: "DEPRECATED: Use a React Portal instead.",
-            },
-            ...banImportExtension("js"),
-            ...banImportExtension("jsx"),
-            ...banImportExtension("ts"),
-            ...banImportExtension("tsx"),
-            {
-                selector: "TSQualifiedName[left.name='React'][right.name='FC']",
-                message:
-                    "Use of React.FC<Props> is disallowed, use the following alternative: https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/2201682693/TypeScript+for+Flow+Developers#Functional-Components",
-            },
-            {
-                // Ban `expr as Type` casts (TSAsExpression). `as const` is
-                // excluded because it's a const assertion — a distinct
-                // construct that has no `satisfies` equivalent.
-                selector:
-                    "TSAsExpression:not([typeAnnotation.typeName.name='const'])",
-                message:
-                    "Avoid `as` for type casting — it bypasses type checking. Prefer `satisfies` to verify a value matches a type without widening or losing inference. If a cast is truly necessary (e.g., at an unsafe boundary like an external API), disable this rule on the line with a comment explaining why.",
-            },
-            {
-                // Ban the legacy angle-bracket assertion form: `<Type>expr`.
-                selector: "TSTypeAssertion",
-                message:
-                    "Avoid angle-bracket type assertions (`<Type>expr`) — they bypass type checking. Prefer `satisfies` to verify a value matches a type without widening or losing inference.",
-            },
-        ],
+        "no-restricted-syntax": ["error", ...restrictedSyntax],
         "no-restricted-properties": [
             "error",
             {

@@ -2223,7 +2223,7 @@ describe("moveCenter", () => {
 
         // make sure the state object is different
         expect(state).not.toBe(updated);
-        // eslint-disable-next-line no-restricted-syntax
+
         expect((updated as CircleGraphState).center).toEqual([1, 1]);
     });
 
@@ -2252,7 +2252,7 @@ describe("moveCenter", () => {
 
         // make sure the state object is different
         expect(state).not.toBe(updated);
-        // eslint-disable-next-line no-restricted-syntax
+
         expect((updated as CircleGraphState).center).toEqual([10, 10]);
     });
 
@@ -2268,7 +2268,7 @@ describe("moveCenter", () => {
 
         // make sure the state object is different
         expect(state).not.toBe(updated);
-        // eslint-disable-next-line no-restricted-syntax
+
         expect((updated as CircleGraphState).radiusPoint).toEqual([3, 1]);
     });
 
@@ -2284,7 +2284,7 @@ describe("moveCenter", () => {
 
         // make sure the state object is different
         expect(state).not.toBe(updated);
-        // eslint-disable-next-line no-restricted-syntax
+
         expect((updated as CircleGraphState).radiusPoint).toEqual([7, 0]);
     });
 
@@ -2351,7 +2351,7 @@ describe("doMoveRadiusPoint", () => {
 
         // make sure the state object is different
         expect(state).not.toBe(updated);
-        // eslint-disable-next-line no-restricted-syntax
+
         expect((updated as CircleGraphState).radiusPoint).toEqual([5, 0]);
     });
 
@@ -2382,7 +2382,7 @@ describe("doMoveRadiusPoint", () => {
         // make sure the state object is different
         expect(state).not.toBe(updated);
         // Assert: the x-coordinate snaps to the nearest multiple of 2.
-        // eslint-disable-next-line no-restricted-syntax
+
         expect((updated as CircleGraphState).radiusPoint).toEqual([-4, 0]);
     });
 
@@ -2398,7 +2398,7 @@ describe("doMoveRadiusPoint", () => {
 
         // make sure the state object is different
         expect(state).not.toBe(updated);
-        // eslint-disable-next-line no-restricted-syntax
+
         expect((updated as CircleGraphState).radiusPoint).toEqual([10, 0]);
     });
 
@@ -2414,7 +2414,7 @@ describe("doMoveRadiusPoint", () => {
 
         // make sure the state object is different
         expect(state).not.toBe(updated);
-        // eslint-disable-next-line no-restricted-syntax
+
         expect((updated as CircleGraphState).radiusPoint).toEqual([2, 0]);
     });
 
@@ -2459,25 +2459,21 @@ describe("doDeleteIntent", () => {
             interactionMode: "mouse",
         };
 
-        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.pointGraph.addPoint([1, 1]),
         ) as PointGraphState;
 
-        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.pointGraph.addPoint([2, 2]),
         ) as PointGraphState;
 
-        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.pointGraph.blurPoint(),
         ) as PointGraphState;
 
-        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.global.deleteIntent(),
@@ -2495,25 +2491,21 @@ describe("doDeleteIntent", () => {
             interactionMode: "mouse",
         };
 
-        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.polygon.addPoint([1, 1]),
         ) as PolygonGraphState;
 
-        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.polygon.addPoint([2, 2]),
         ) as PolygonGraphState;
 
-        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.polygon.blurPoint(),
         ) as PolygonGraphState;
 
-        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.global.deleteIntent(),
@@ -2531,33 +2523,31 @@ describe("doDeleteIntent", () => {
         };
 
         // Add some points
-        // eslint-disable-next-line no-restricted-syntax
+
         state = interactiveGraphReducer(
             state,
             actions.pointGraph.addPoint([1, 1]),
         ) as PointGraphState;
 
-        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.pointGraph.addPoint([2, 2]),
         ) as PointGraphState;
 
-        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.pointGraph.addPoint([3, 3]),
         ) as PointGraphState;
 
         // Focus a point
-        // eslint-disable-next-line no-restricted-syntax
+
         state = interactiveGraphReducer(
             state,
             actions.pointGraph.focusPoint(0),
         ) as PointGraphState;
 
         // Fire a delete intent
-        // eslint-disable-next-line no-restricted-syntax
+
         state = interactiveGraphReducer(
             state,
             actions.global.deleteIntent(),
@@ -2575,33 +2565,31 @@ describe("doDeleteIntent", () => {
         };
 
         // Add some points
-        // eslint-disable-next-line no-restricted-syntax
+
         state = interactiveGraphReducer(
             state,
             actions.polygon.addPoint([1, 1]),
         ) as PolygonGraphState;
 
-        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.polygon.addPoint([2, 2]),
         ) as PolygonGraphState;
 
-        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.polygon.addPoint([3, 3]),
         ) as PolygonGraphState;
 
         // Focus a point
-        // eslint-disable-next-line no-restricted-syntax
+
         state = interactiveGraphReducer(
             state,
             actions.polygon.focusPoint(0),
         ) as PolygonGraphState;
 
         // Fire a delete intent
-        // eslint-disable-next-line no-restricted-syntax
+
         state = interactiveGraphReducer(
             state,
             actions.global.deleteIntent(),
@@ -3092,7 +3080,6 @@ describe("unlimited points", () => {
             ...baseUnlimitedPointGraphState,
         };
 
-        // eslint-disable-next-line no-restricted-syntax
         const stateAfterAddingPoint = interactiveGraphReducer(
             state,
             actions.pointGraph.addPoint([8, 10]),
@@ -3106,25 +3093,21 @@ describe("unlimited points", () => {
             ...baseUnlimitedPointGraphState,
         };
 
-        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.pointGraph.addPoint([1, 1]),
         ) as PointGraphState;
 
-        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.pointGraph.addPoint([2, 2]),
         ) as PointGraphState;
 
-        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.pointGraph.addPoint([3, 3]),
         ) as PointGraphState;
 
-        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.pointGraph.removePoint(1),
@@ -3143,7 +3126,6 @@ describe("unlimited polygon", () => {
             ...baseUnlimitedPolygonGraphState,
         };
 
-        // eslint-disable-next-line no-restricted-syntax
         const stateAfterAddingPoint = interactiveGraphReducer(
             state,
             actions.polygon.addPoint([8, 10]),
@@ -3157,25 +3139,21 @@ describe("unlimited polygon", () => {
             ...baseUnlimitedPolygonGraphState,
         };
 
-        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.polygon.addPoint([1, 1]),
         ) as PolygonGraphState;
 
-        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.polygon.addPoint([2, 2]),
         ) as PolygonGraphState;
 
-        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.polygon.addPoint([3, 3]),
         ) as PolygonGraphState;
 
-        // eslint-disable-next-line no-restricted-syntax
         state = interactiveGraphReducer(
             state,
             actions.polygon.removePoint(1),

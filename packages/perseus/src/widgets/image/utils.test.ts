@@ -10,7 +10,7 @@ jest.mock("gifuct-js", () => ({
 }));
 
 // A minimal fake frame from gifuct-js.
-// eslint-disable-next-line no-restricted-syntax
+
 const fakeFrame = {
     patch: new Uint8ClampedArray(4), // 1x1 RGBA
     delay: 50,
@@ -60,16 +60,16 @@ describe("decodeGifFrames", () => {
     it("returns the decoded frames when the fetch succeeds", async () => {
         // Arrange
         const frames = [fakeFrame, fakeFrame];
-        // eslint-disable-next-line no-restricted-syntax
+
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 ok: true,
                 arrayBuffer: () => Promise.resolve(new ArrayBuffer(8)),
             }),
         ) as jest.Mock;
-        // eslint-disable-next-line no-restricted-syntax
+
         (parseGIF as jest.Mock).mockReturnValue({});
-        // eslint-disable-next-line no-restricted-syntax
+
         (decompressFrames as jest.Mock).mockReturnValue(frames);
 
         // Act
@@ -82,7 +82,7 @@ describe("decodeGifFrames", () => {
 
     it("returns an empty array when the fetch response is not ok", async () => {
         // Arrange
-        // eslint-disable-next-line no-restricted-syntax
+
         global.fetch = jest.fn(() => Promise.resolve({ok: false})) as jest.Mock;
 
         // Act

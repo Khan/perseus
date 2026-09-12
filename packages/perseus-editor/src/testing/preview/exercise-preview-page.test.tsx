@@ -40,7 +40,6 @@ describe("ExercisePreviewPage", () => {
         mockContent = null;
         mockHighlightTargets = [];
 
-        // eslint-disable-next-line no-restricted-syntax
         window.ResizeObserver = jest.fn().mockImplementation(() => ({
             observe: jest.fn(),
             unobserve: jest.fn(),

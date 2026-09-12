@@ -363,7 +363,7 @@ describe("Circle graph pointLabels", () => {
                 {...baseMafsGraphProps}
                 state={{
                     ...baseCircleState,
-                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
+
                     pointLabels: [42] as unknown as string[],
                 }}
             />,

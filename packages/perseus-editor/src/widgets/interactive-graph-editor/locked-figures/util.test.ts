@@ -162,7 +162,6 @@ describe("generateLockedFigureAppearanceDescription", () => {
         },
     );
 
-    // eslint-disable-next-line no-restricted-syntax
     it.each([
         {
             weight: "thin",

@@ -232,7 +232,6 @@ describe("Linear graph pointLabels", () => {
         renderQuestion(
             generateInteractiveGraphQuestion({
                 correct: generateIGLinearGraph({
-                    // eslint-disable-next-line no-restricted-syntax -- short array tests the missing-index fallback
                     pointLabels: ["A"] as unknown as [string, string],
                 }),
             }),
@@ -267,7 +266,6 @@ describe("Linear graph pointLabels", () => {
         renderQuestion(
             generateInteractiveGraphQuestion({
                 correct: generateIGLinearGraph({
-                    // eslint-disable-next-line no-restricted-syntax -- cast simulates malformed JSON the parser would reject
                     pointLabels: [42, "B"] as unknown as [string, string],
                 }),
             }),

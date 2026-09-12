@@ -17,12 +17,10 @@ import type * as React from "react";
 // The handlers only read a couple of fields off the synthetic event, so we
 // build minimal stand-ins rather than full React synthetic events.
 function focusEventOn(target: Element) {
-    // eslint-disable-next-line no-restricted-syntax
     return {target} as React.FocusEvent;
 }
 
 function keyboardEvent(props: {key: string; shiftKey?: boolean}) {
-    // eslint-disable-next-line no-restricted-syntax
     return {shiftKey: false, ...props} as React.KeyboardEvent;
 }
 

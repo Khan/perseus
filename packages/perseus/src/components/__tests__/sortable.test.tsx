@@ -70,7 +70,7 @@ describe("Sortable", () => {
         // `fonts` is typed as FontFaceSet. A real FontFaceSet is an
         // EventTarget, which is the only part of it the component touches, so
         // the stub can be a plain one.
-        // eslint-disable-next-line no-restricted-syntax
+
         const fonts = new EventTarget() as unknown as FontFaceSet;
         jest.spyOn(document, "fonts", "get").mockReturnValue(fonts);
 
