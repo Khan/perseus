@@ -8,6 +8,7 @@ import Definition from "./widgets/definition";
 import DeprecatedStandin from "./widgets/deprecated-standin";
 import Dropdown from "./widgets/dropdown";
 import Explanation from "./widgets/explanation";
+import FillInTheBlank from "./widgets/fill-in-the-blank";
 import FreeResponse from "./widgets/free-response";
 import GradedGroup from "./widgets/graded-group";
 import GradedGroupSet from "./widgets/graded-group-set";
@@ -44,6 +45,7 @@ export default [
     DeprecatedStandin,
     Dropdown,
     Explanation,
+    FillInTheBlank,
     FreeResponse,
     GradedGroup,
     GradedGroupSet,
