@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 39.2.0
+
+### Minor Changes
+
+-   [#4181](https://github.com/Khan/perseus/pull/4181) [`995aa68`](https://github.com/Khan/perseus/commit/995aa68d04bdc95f7b463406d797ed6a24107cad) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add the new Fill in the Blank widget's schema and logic to perseus-core
+
 ## 39.1.0
 
 ### Minor Changes
