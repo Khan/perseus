@@ -32,24 +32,20 @@ const parseAlignment = pipeParsers(optional(string)).then(
 ).parser;
 
 /**
+
  * `static: true` means "render this widget non-interactively, with the correct
- * answer already filled in". That only means something for a widget that takes
- * user input: no user input means no answer to fill in and nothing to freeze.
- * Visual-only widgets have never read the flag, but plenty of existing content
- * data sets it anyway, so we drop it here rather than carry a value whose
- * meaning no widget honors.
+ * answer already filled in". It is only supposed to be used for widgets
+ * that have a correct answer and accept user input.
  *
- * Note that this accepts any raw value without validating it. A widget that
- * can't be static has no stake in whether the flag was well-formed, and
+ * Non-answerable widgets may still be *interactive*, though.
+ * E.g. images zoom in on click. Setting `static: true` for these
+ * widgets blocks interactions and is never desired. So we remove
+ * the static field here for widgets that mistakenly have it set.
+ *
+ * Note that this ignores the raw value without validating it. A widget that
+ * can't be static doesn't care whether the flag was well-formed, and
  * failing the parse would reject content that renders fine. This matches how
  * `object` silently ignores properties that a schema doesn't mention.
- *
- * One caveat: `widget-container` in @khanacademy/perseus applies a generic
- * click-blocking overlay to *any* widget whose `static` is true, without
- * asking the widget. Content that set `static: true` on a visual-only widget
- * with its own affordances (a PhET sim, a measurer's ruler) therefore loses
- * that overlay once the flag is dropped, and the affordance becomes usable
- * again. That combination doesn't appear anywhere in our regression corpus.
  */
 const parseUnsupportedStatic: Parser<boolean | undefined> = (_rawValue, ctx) =>
     ctx.success(undefined);
