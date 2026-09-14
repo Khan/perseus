@@ -27,6 +27,7 @@ config/**                            tier=low
 static/**                            tier=low
 types/**                             tier=low
 **/*.md                              tier=trivial
+# Sample question corpus for the local analysis scripts in data/; not shipped.
 data/questions/                      tier=trivial
 pnpm-lock.yaml                       tier=trivial
 # Changeset entries re-raised over **/*.md: the semver bump level decides what ships
@@ -49,8 +50,9 @@ packages/perseus-score/src/**        tier=high
 # The content contract: schema + parsers; compat with published content is the risk.
 packages/perseus-core/src/data-schema.ts        tier=high
 packages/perseus-core/src/parse-perseus-json/** tier=high
-# Vendored forks with no upstream review.
+# Vendored forks and pnpm dependency patches: hand-patched, no upstream review.
 vendor/**                            tier=high
+patches/**                           tier=high
 # Publish configuration decides what ships to npm and how consumers resolve it.
 .changeset/config.json               tier=high
 packages/*/package.json              tier=high
@@ -63,10 +65,11 @@ packages/*/package.json              tier=high
 **/action.yml                        lens=security-auth tier=high
 
 # The reviewer's own config: a PR tampering with review routing/config must not be
-# reviewed at a reduced budget. Direction-dependent because the risk is in edits
-# that loosen (tier downgrades, rule deletions, narrowed globs); purely additive
-# coverage is routine.
-.github/aw/review/**                 lens=security-auth tier=high direction-dependent
+# reviewed at a reduced budget. NOT direction-dependent: that flag makes the router
+# offer every matching rule's tier as a candidate, and the `.md` files here also match
+# `**/*.md`, so Trivial was on the menu (this PR's own config.md, risk-classification.md
+# and skills.md were classified Trivial and skipped on the first run).
+.github/aw/review/**                 lens=security-auth tier=high
 # Third-party action SHA pins for the reviewer workflow: supply chain, same as workflows.
 .github/aw/actions-lock.json         lens=security-auth tier=high
 
@@ -79,5 +82,9 @@ packages/*/package.json              tier=high
 **/*.test.ts                         tier=low
 **/*.test.tsx                        tier=low
 **/*.testdata.ts                     tier=low
+**/*.typetest.ts                     tier=low
 **/*.stories.tsx                     tier=low
 **/__snapshots__/**                  tier=trivial
+# Frozen parser-regression fixtures: protect-regression-data.yml blocks any edit to
+# existing files, so a diff here is either a new fixture or a CI failure.
+packages/perseus-core/src/parse-perseus-json/regression-tests/**  tier=trivial

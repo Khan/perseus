@@ -25,10 +25,13 @@ that enforces it (see .github/workflows/node-ci.yml and friends).
   acknowledgment labels. Don't flag that a schema change happened or is unlabelled;
   DO review whether the change is backward-compatible (CI only detects the diff).
 - **Frozen parser-regression fixtures** — `protect-regression-data.yml` fails any PR
-  touching `data/questions/**` frozen fixtures. Don't warn about edits there; CI
-  blocks them outright.
-- **Visual regressions** — Chromatic (`chromatic.yml`) snapshots every Storybook
-  story and blocks on unapproved visual diffs. Don't flag purely visual styling
+  that modifies, renames, or deletes an existing file under
+  `packages/perseus-core/src/parse-perseus-json/regression-tests/{item,article,renderer,user-input}-data`.
+  Don't warn about edits there; CI blocks them outright. (Adding new fixtures is
+  allowed and worth a look.)
+- **Visual regressions** — Chromatic (`chromatic-pr.yml`, which calls
+  `chromatic-build.yml`) snapshots every Storybook story and blocks on unapproved
+  visual diffs. Don't flag purely visual styling
   concerns ("this color/spacing change might look wrong") — a human approves the
   Chromatic diff. DO flag behavioral or a11y consequences of styling changes
   (contrast, focus visibility), which Chromatic doesn't judge.
@@ -51,5 +54,6 @@ that enforces it (see .github/workflows/node-ci.yml and friends).
 - TypeScript 5.5+ inferred type predicates are in use here — a `.filter()` narrowing
   without an explicit type guard or cast is fine.
 - Tests build data through the widget generators in
-  `packages/perseus-core/src/utils/generators` — shared defaults there are
-  intentional; don't ask each test to restate them unless the value is asserted on.
+  `packages/perseus-core/src/utils/generators`. Per CLAUDE.md, a value the test
+  asserts on or that drives the logic under test must be passed explicitly; leaning
+  on a shared default for anything else is fine and not worth a comment.
