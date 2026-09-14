@@ -6,6 +6,10 @@
     line-height: 22px;
     margin: 22px 0px;
 }
+/* TODO: (LEMS-4606) Remove the following override of the above rule when refactoring styles for markdown tables */
+.framework-perseus .perseus-renderer.renderer-new-ff > table {
+    font-size: var(--wb-font-body-size-small);
+}
 
 .framework-perseus code {
     font-family: Courier, monospace;
