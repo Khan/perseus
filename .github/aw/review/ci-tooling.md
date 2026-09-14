@@ -13,8 +13,9 @@ that enforces it (see .github/workflows/node-ci.yml and friends).
   hook deps, `testing-library` rules).
 - **Type errors** — `pnpm typecheck` (tsc across all packages) plus `pnpm tstyche`
   (type-level tests, `*.typetest.ts`). If it wouldn't type-check, CI fails.
-- **Test failures** — `pnpm jest` runs the full suite on PRs (node-ci), with coverage
-  reported to Codecov; `pnpm cypress:ci` runs the Cypress component tests.
+- **Test failures** — node-ci runs `pnpm jest` (the full suite when shared test
+  infrastructure changed, otherwise `--findRelatedTests` over the changed files) and
+  `pnpm cypress:ci` for the Cypress component tests. There is no coverage gate.
 - **Missing changeset** — node-ci's "Verify changeset entries" job fails a PR that
   changes publishable files without a `.changeset/*.md` entry. Don't flag a missing
   changeset; DO flag a wrong semver level (CI can't judge that).
