@@ -874,7 +874,6 @@ describe("Radio Widget", () => {
         it("handles undefined choice.correct properly when multipleSelect and randomize are enabled", async () => {
             // Arrange
             renderQuestion(questionWithUndefinedCorrect, {
-                apiOptions: {},
                 extraProps: {reviewMode: true},
             });
 
