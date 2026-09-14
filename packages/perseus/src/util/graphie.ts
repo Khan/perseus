@@ -20,7 +20,6 @@ import {Log} from "../logging/log";
 import KhanColors from "./colors";
 import {DrawingTransform} from "./drawing-transform";
 import {GraphBounds} from "./graph-bounds";
-import {INVISIBLE_HIT_TARGET_FILL} from "./invisible-hit-target";
 import Tex from "./tex";
 
 import type {MouseHandler} from "./interactive";
@@ -1472,7 +1471,8 @@ export class Graphie {
             const canvasClickTarget = this.mouselayer
                 .rect(0, 0, this.xpixels, this.ypixels)
                 .attr({
-                    fill: INVISIBLE_HIT_TARGET_FILL,
+                    // `fill` must be set for clicks to register.
+                    fill: "transparent",
                     opacity: 0,
                 });
             let isClickingCanvas = false;

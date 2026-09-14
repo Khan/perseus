@@ -57,7 +57,6 @@ import _ from "underscore";
 
 import InlineIcon from "../components/inline-icon";
 import {iconTrash} from "../icon-paths";
-import {INVISIBLE_HIT_TARGET_FILL} from "../util/invisible-hit-target";
 import reactRender from "../util/react-render";
 import Tex from "../util/tex";
 
@@ -229,7 +228,8 @@ export class MovablePoint {
                     options,
                 );
                 state.mouseTarget.attr({
-                    fill: INVISIBLE_HIT_TARGET_FILL,
+                    // `fill` must be set for clicks to register.
+                    fill: "transparent",
                     opacity: 0.0,
                 });
             }
