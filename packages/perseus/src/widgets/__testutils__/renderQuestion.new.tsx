@@ -1,4 +1,5 @@
 // TODO(LEMS-4304): feature flag cleanup - rename this file to renderQuestion.tsx.
+import {withStrictRegistration} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render} from "@testing-library/react";
 import * as React from "react";
@@ -33,6 +34,10 @@ type RenderQuestionOptions = {
     initialUserInput?: UserInputMap;
     dependencies?: PerseusDependenciesV2;
     locale?: string;
+    // Tests that intentionally render an unknown widget can pass `true`. The
+    // option renders the empty-widget fallback and leaves strict registration
+    // unchanged afterward.
+    allowUnregisteredWidgets?: boolean;
 };
 
 export const renderQuestion = (
@@ -50,36 +55,44 @@ export const renderQuestion = (
         initialUserInput,
         dependencies = testDependenciesV2,
         locale = "en",
+        allowUnregisteredWidgets = false,
     } = options;
+    const runWithRegistration = <T,>(fn: () => T): T =>
+        allowUnregisteredWidgets ? withStrictRegistration(false, fn) : fn();
 
     setDependencies(testDependencies);
     registerAllWidgetsForTesting();
 
     let renderer: Perseus.Renderer | null = null;
-    const {container, rerender, unmount} = render(
-        <RenderStateRoot>
-            <PerseusI18nContextProvider strings={mockStrings} locale={locale}>
-                <DependenciesContext.Provider value={dependencies}>
-                    <RendererWrapper
-                        ref={(node) => (renderer = node)}
-                        // eslint-disable-next-line no-restricted-syntax
-                        question={question as any}
-                        apiOptions={{
-                            ...apiOptions,
-                            // TODO(LEMS-4304): clean up feature flag.
-                            flags: getFeatureFlags({
-                                "perseus-renderer-upgrade": true,
-                            }),
-                        }}
-                        initialUserInput={initialUserInput}
-                        extraProps={{
-                            ...extraProps,
-                            strings: mockStrings,
-                        }}
-                    />
-                </DependenciesContext.Provider>
-            </PerseusI18nContextProvider>
-        </RenderStateRoot>,
+    const {container, rerender, unmount} = runWithRegistration(() =>
+        render(
+            <RenderStateRoot>
+                <PerseusI18nContextProvider
+                    strings={mockStrings}
+                    locale={locale}
+                >
+                    <DependenciesContext.Provider value={dependencies}>
+                        <RendererWrapper
+                            ref={(node) => (renderer = node)}
+                            // eslint-disable-next-line no-restricted-syntax
+                            question={question as any}
+                            apiOptions={{
+                                ...apiOptions,
+                                // TODO(LEMS-4304): clean up feature flag.
+                                flags: getFeatureFlags({
+                                    "perseus-renderer-upgrade": true,
+                                }),
+                            }}
+                            initialUserInput={initialUserInput}
+                            extraProps={{
+                                ...extraProps,
+                                strings: mockStrings,
+                            }}
+                        />
+                    </DependenciesContext.Provider>
+                </PerseusI18nContextProvider>
+            </RenderStateRoot>,
+        ),
     );
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!renderer) {
@@ -89,21 +102,29 @@ export const renderQuestion = (
         question: PerseusRenderer,
         extraProps?: ExtraProps,
     ) => {
-        rerender(
-            <RenderStateRoot>
-                <DependenciesContext.Provider value={testDependenciesV2}>
-                    <RendererWrapper
-                        ref={(node) => (renderer = node)}
-                        question={question}
-                        apiOptions={apiOptions}
-                        initialUserInput={initialUserInput}
-                        extraProps={{
-                            ...extraProps,
-                            strings: mockStrings,
-                        }}
-                    />
-                </DependenciesContext.Provider>
-            </RenderStateRoot>,
+        runWithRegistration(() =>
+            rerender(
+                <RenderStateRoot>
+                    <DependenciesContext.Provider value={testDependenciesV2}>
+                        <RendererWrapper
+                            ref={(node) => (renderer = node)}
+                            question={question}
+                            apiOptions={{
+                                ...apiOptions,
+                                // TODO(LEMS-4304): clean up feature flag.
+                                flags: getFeatureFlags({
+                                    "perseus-renderer-upgrade": true,
+                                }),
+                            }}
+                            initialUserInput={initialUserInput}
+                            extraProps={{
+                                ...extraProps,
+                                strings: mockStrings,
+                            }}
+                        />
+                    </DependenciesContext.Provider>
+                </RenderStateRoot>,
+            ),
         );
         if (!renderer) {
             throw new Error(`Failed to rerender!`);
