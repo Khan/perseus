@@ -47,7 +47,7 @@ const parseAlignment = pipeParsers(optional(string)).then(
  * failing the parse would reject content that renders fine. This matches how
  * `object` silently ignores properties that a schema doesn't mention.
  */
-const parseUnsupportedStatic: Parser<boolean | undefined> = (_rawValue, ctx) =>
+const forceUndefined: Parser<boolean | undefined> = (_rawValue, ctx) =>
     ctx.success(undefined);
 
 type WidgetParserOptions = {
@@ -66,7 +66,7 @@ export function parseWidget<Type extends string, Options extends object>(
 ) {
     return object({
         type: parseType,
-        static: supportsStatic ? optional(boolean) : parseUnsupportedStatic,
+        static: supportsStatic ? optional(boolean) : forceUndefined,
         graded: optional(boolean),
         alignment: parseAlignment,
         options: parseOptions,
@@ -91,7 +91,7 @@ export function parseWidgetWithVersion<
 ) {
     return object({
         type: parseType,
-        static: supportsStatic ? optional(boolean) : parseUnsupportedStatic,
+        static: supportsStatic ? optional(boolean) : forceUndefined,
         graded: optional(boolean),
         alignment: parseAlignment,
         options: parseOptions,
