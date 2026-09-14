@@ -55,7 +55,7 @@ describe("matcher widget", () => {
         };
 
         // Act
-        const {container} = renderQuestion(question1, apiOptions);
+        const {container} = renderQuestion(question1, {apiOptions});
         await wait();
 
         // Assert
@@ -71,7 +71,7 @@ describe("matcher widget", () => {
         };
 
         // Act
-        const {container} = renderQuestion(question1, apiOptions);
+        const {container} = renderQuestion(question1, {apiOptions});
         await wait();
 
         // Assert
@@ -106,7 +106,7 @@ describe("matcher widget", () => {
         const apiOptions: APIOptions = {
             isMobile: false,
         };
-        const {container, renderer} = renderQuestion(question1, apiOptions);
+        const {container, renderer} = renderQuestion(question1, {apiOptions});
         await wait();
 
         // Act

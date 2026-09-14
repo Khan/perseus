@@ -538,9 +538,11 @@ describe("rendering", () => {
 
     it("supports mobile rendering", () => {
         const {container} = renderQuestion(question, {
-            // Setting this triggers mobile rendering
-            // it would be nice if this was more clear in the code
-            customKeypad: true,
+            apiOptions: {
+                // Setting this triggers mobile rendering
+                // it would be nice if this was more clear in the code
+                customKeypad: true,
+            },
         });
 
         expect(container).toMatchSnapshot("mobile render");

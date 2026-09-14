@@ -44,7 +44,7 @@ describe("orderer widget", () => {
         };
 
         // Act
-        const {container} = renderQuestion(question2, apiOptions);
+        const {container} = renderQuestion(question2, {apiOptions});
 
         // Assert
         expect(container).toMatchSnapshot("first render");
@@ -57,7 +57,7 @@ describe("orderer widget", () => {
         };
 
         // Act
-        const {container} = renderQuestion(question2, apiOptions);
+        const {container} = renderQuestion(question2, {apiOptions});
 
         // Assert
         expect(container).toMatchSnapshot("first mobile render");

@@ -59,7 +59,9 @@ describe("graded-group", () => {
     it.each([true, false])("should snapshot", (isMobile: boolean) => {
         // Arrange and Act
         const {container} = renderQuestion(question1, {
-            isMobile,
+            apiOptions: {
+                isMobile,
+            },
         });
 
         // Assert
@@ -298,7 +300,7 @@ describe("graded-group", () => {
 
         it("should be able to be answered correctly", async () => {
             // Arrange
-            renderQuestion(question1, apiOptions);
+            renderQuestion(question1, {apiOptions});
 
             await userEvent.click(
                 screen.getAllByRole("button", {name: "True"})[0],
@@ -328,7 +330,7 @@ describe("graded-group", () => {
 
         it("should be able to be answered incorrectly", async () => {
             // Arrange
-            renderQuestion(question1, apiOptions);
+            renderQuestion(question1, {apiOptions});
 
             await userEvent.click(
                 screen.getAllByRole("button", {name: "False"})[0],
@@ -356,7 +358,7 @@ describe("graded-group", () => {
 
         it("should let the user try again when checked if not fully answered", async () => {
             // Arrange
-            renderQuestion(question1, apiOptions);
+            renderQuestion(question1, {apiOptions});
 
             await userEvent.click(
                 screen.getAllByRole("button", {name: "False"})[0],
@@ -386,7 +388,7 @@ describe("graded-group", () => {
 
         it("should be able to reveal the hint", async () => {
             // Arrange
-            renderQuestion(question1, apiOptions);
+            renderQuestion(question1, {apiOptions});
 
             // Act
             await userEvent.click(
@@ -401,7 +403,7 @@ describe("graded-group", () => {
 
         it("should be able to hide the hint", async () => {
             // Arrange
-            renderQuestion(question1, apiOptions);
+            renderQuestion(question1, {apiOptions});
             await userEvent.click(
                 screen.getByRole("button", {name: "Explain"}),
             );
@@ -419,7 +421,7 @@ describe("graded-group", () => {
 
         it("should enable Check button when radio is selected", async () => {
             // Arrange - Check button should be visible but disabled
-            renderQuestion(groupedRadioRationaleQuestion, apiOptions);
+            renderQuestion(groupedRadioRationaleQuestion, {apiOptions});
             const checkButton = screen.getByRole("button", {name: "Check"});
             expect(checkButton).toHaveAttribute("aria-disabled", "true");
 

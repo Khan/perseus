@@ -99,7 +99,9 @@ describe("Perseus API", function () {
     describe("onFocusChange", function () {
         it("should be called from focused to blurred to back on one input", async function () {
             const onFocusChange = jest.fn();
-            renderQuestion(mockWidget1Item.question, {onFocusChange});
+            renderQuestion(mockWidget1Item.question, {
+                apiOptions: {onFocusChange},
+            });
 
             const input = screen.getByRole("textbox");
 
@@ -123,7 +125,9 @@ describe("Perseus API", function () {
 
         it("should be called focusing between two inputs", async function () {
             const onFocusChange = jest.fn();
-            renderQuestion(mockWidget2Item.question, {onFocusChange});
+            renderQuestion(mockWidget2Item.question, {
+                apiOptions: {onFocusChange},
+            });
 
             const inputs = screen.getAllByRole("textbox");
             const input1 = inputs[0];

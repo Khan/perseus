@@ -41,7 +41,7 @@ describe("matrix widget", () => {
         };
 
         // Act
-        const {container} = renderQuestion(question1, apiOptions);
+        const {container} = renderQuestion(question1, {apiOptions});
 
         // Assert
         expect(container).toMatchSnapshot("first render");
@@ -54,7 +54,7 @@ describe("matrix widget", () => {
         };
 
         // Act
-        const {container} = renderQuestion(question1, apiOptions);
+        const {container} = renderQuestion(question1, {apiOptions});
 
         // Assert
         expect(container).toMatchSnapshot("first mobile render");
@@ -92,7 +92,7 @@ describe("matrix widget", () => {
         const apiOptions: APIOptions = {
             isMobile: false,
         };
-        const {renderer} = renderQuestion(question1, apiOptions);
+        const {renderer} = renderQuestion(question1, {apiOptions});
 
         // Act
         const correctAnswers = [5, -2, 1, 1, 1, 1, 7, -3, 3, 0, 0, -2];
@@ -114,7 +114,7 @@ describe("matrix widget", () => {
         const apiOptions: APIOptions = {
             isMobile: false,
         };
-        const {renderer} = renderQuestion(question1, apiOptions);
+        const {renderer} = renderQuestion(question1, {apiOptions});
 
         // Act
         const textboxes = await screen.findAllByRole("textbox");

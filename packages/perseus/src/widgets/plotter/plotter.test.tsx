@@ -3,7 +3,6 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
 
 import * as Dependencies from "../../dependencies";
-import {ApiOptions} from "../../perseus-api";
 import {
     testDependencies,
     testDependenciesV2,
@@ -82,8 +81,9 @@ describe("plotter widget", () => {
                     },
                 },
                 {
-                    ...ApiOptions.defaults,
-                    isMobile: true, // <= important
+                    apiOptions: {
+                        isMobile: true, // <= important
+                    },
                 },
             );
 
@@ -108,8 +108,9 @@ describe("plotter widget", () => {
                     },
                 },
                 {
-                    ...ApiOptions.defaults,
-                    isMobile: true, // <= important
+                    apiOptions: {
+                        isMobile: true, // <= important
+                    },
                 },
             );
 

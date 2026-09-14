@@ -23,7 +23,6 @@ import * as React from "react";
 import invariant from "tiny-invariant";
 
 import * as Dependencies from "../../dependencies";
-import {ApiOptions} from "../../perseus-api";
 import {testDependencies} from "../../testing/test-dependencies";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
@@ -79,7 +78,6 @@ import {
 } from "./interactive-graph.testdata";
 
 import type {Coord} from "../../interactive2/types";
-import type {APIOptions} from "../../types";
 import type {
     StrokeWeight,
     PerseusGraphType,
@@ -93,8 +91,6 @@ const commonInstructions =
     "Enable Forms or Focus mode and use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Arrow keys to move it.";
 const unlimitedInstructions =
     "Press Shift + Enter to interact with the graph. Enable Forms or Focus mode and use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Arrow keys to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.";
-
-const blankOptions: APIOptions = Object.freeze(ApiOptions.defaults);
 
 describe("Interactive Graph", function () {
     let userEvent: UserEvent;
@@ -135,7 +131,6 @@ describe("Interactive Graph", function () {
                 };
 
                 const {renderer} = renderQuestion(question, {
-                    apiOptions: blankOptions,
                     initialUserInput: userInput,
                 });
 
@@ -149,7 +144,7 @@ describe("Interactive Graph", function () {
             });
 
             it("Should render blank predictably", async () => {
-                const {container} = renderQuestion(question, blankOptions);
+                const {container} = renderQuestion(question);
                 expect(container).toMatchSnapshot("first render");
             });
 
@@ -163,7 +158,6 @@ describe("Interactive Graph", function () {
                     } as any,
                 };
                 const {container} = renderQuestion(question, {
-                    apiOptions: blankOptions,
                     initialUserInput: userInput,
                 });
                 expect(container).toMatchSnapshot("with user input");
@@ -171,7 +165,7 @@ describe("Interactive Graph", function () {
 
             it("should reject no interaction", async () => {
                 // Arrange
-                const {renderer} = renderQuestion(question, blankOptions);
+                const {renderer} = renderQuestion(question);
 
                 // Act
                 const score = scorePerseusItemTesting(
@@ -195,7 +189,6 @@ describe("Interactive Graph", function () {
                 };
 
                 const {renderer} = renderQuestion(question, {
-                    apiOptions: blankOptions,
                     initialUserInput: userInput,
                 });
 
@@ -215,7 +208,7 @@ describe("Interactive Graph", function () {
             const question = generateInteractiveGraphQuestion({
                 correct: generateIGNoneGraph(),
             });
-            const {container} = renderQuestion(question, blankOptions);
+            const {container} = renderQuestion(question);
 
             expect(container).toMatchSnapshot("first render");
         });
@@ -224,7 +217,7 @@ describe("Interactive Graph", function () {
             const question = generateInteractiveGraphQuestion({
                 correct: generateIGNoneGraph(),
             });
-            const {renderer} = renderQuestion(question, blankOptions);
+            const {renderer} = renderQuestion(question);
             const userInput = renderer.getUserInputMap();
             const score = scorePerseusItemTesting(question, userInput);
 
@@ -276,7 +269,7 @@ describe("Interactive Graph", function () {
         "graph type %s",
         (_type, question) => {
             it("should render", () => {
-                renderQuestion(question, blankOptions);
+                renderQuestion(question);
             });
 
             it("should render when the correct answer is not present", () => {
@@ -288,12 +281,12 @@ describe("Interactive Graph", function () {
                 const answerfulItem = generateTestPerseusItem({question});
                 const answerlessItem = splitPerseusItem(answerfulItem);
 
-                renderQuestion(answerlessItem.question, blankOptions);
+                renderQuestion(answerlessItem.question);
             });
 
             it("should reject when has not been interacted with", () => {
                 // Arrange
-                const {renderer} = renderQuestion(question, blankOptions);
+                const {renderer} = renderQuestion(question);
 
                 // Act
                 const score = scorePerseusItemTesting(
@@ -311,7 +304,7 @@ describe("Interactive Graph", function () {
         "graph type %s: default correct",
         (_type, question) => {
             it("should render", () => {
-                renderQuestion(question, blankOptions);
+                renderQuestion(question);
             });
 
             // TODO(jeremy): This test is disabled because it fails
@@ -319,7 +312,7 @@ describe("Interactive Graph", function () {
             // CI). Will work on a fix after the React 18 release.
             it.skip("rejects incorrect answer", async () => {
                 // Arrange
-                const {renderer} = renderQuestion(question, blankOptions);
+                const {renderer} = renderQuestion(question);
 
                 await userEvent.tab();
 
@@ -343,7 +336,7 @@ describe("Interactive Graph", function () {
             // sporadically (especially on slower/lower-end computers, like
             // CI). Will work on a fix after the React 18 release.
             it.skip("accepts correct answer", async () => {
-                const {renderer} = renderQuestion(question, blankOptions);
+                const {renderer} = renderQuestion(question);
 
                 await userEvent.tab();
 
@@ -365,8 +358,9 @@ describe("Interactive Graph", function () {
 
             it("is marked invalid when readOnly set to true", async () => {
                 const {renderer} = renderQuestion(question, {
-                    ...blankOptions,
-                    readOnly: true,
+                    apiOptions: {
+                        readOnly: true,
+                    },
                 });
 
                 await userEvent.tab();
@@ -392,10 +386,7 @@ describe("Interactive Graph", function () {
     describe("locked layer", () => {
         it("should render locked points", async () => {
             // Arrange
-            const {container} = renderQuestion(
-                segmentWithLockedPointsQuestion,
-                blankOptions,
-            );
+            const {container} = renderQuestion(segmentWithLockedPointsQuestion);
 
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
             const points = container.querySelectorAll(
@@ -411,10 +402,7 @@ describe("Interactive Graph", function () {
 
         it("should render locked points with styles", async () => {
             // Arrange
-            const {container} = renderQuestion(
-                segmentWithLockedPointsQuestion,
-                blankOptions,
-            );
+            const {container} = renderQuestion(segmentWithLockedPointsQuestion);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -436,7 +424,7 @@ describe("Interactive Graph", function () {
 
     describe("tabbing forward on a segment graph", () => {
         it("focuses the first endpoint of a segment first", async () => {
-            const {container} = renderQuestion(segmentQuestion, blankOptions);
+            const {container} = renderQuestion(segmentQuestion);
 
             await userEvent.tab();
             await userEvent.tab();
@@ -449,7 +437,7 @@ describe("Interactive Graph", function () {
         });
 
         it("focuses the whole segment third", async () => {
-            const {container} = renderQuestion(segmentQuestion, blankOptions);
+            const {container} = renderQuestion(segmentQuestion);
 
             await userEvent.tab();
             await userEvent.tab();
@@ -463,7 +451,7 @@ describe("Interactive Graph", function () {
         });
 
         it("focuses the second point third", async () => {
-            const {container} = renderQuestion(segmentQuestion, blankOptions);
+            const {container} = renderQuestion(segmentQuestion);
 
             await userEvent.tab();
             await userEvent.tab();
@@ -480,7 +468,7 @@ describe("Interactive Graph", function () {
 
     describe("tabbing backward on a segment graph", () => {
         it("moves focus from the last point to the whole segment", async () => {
-            const {container} = renderQuestion(segmentQuestion, blankOptions);
+            const {container} = renderQuestion(segmentQuestion);
 
             await userEvent.tab();
             await userEvent.tab();
@@ -496,7 +484,7 @@ describe("Interactive Graph", function () {
         });
 
         it("moves focus from the whole segment to the first point", async () => {
-            const {container} = renderQuestion(segmentQuestion, blankOptions);
+            const {container} = renderQuestion(segmentQuestion);
 
             await userEvent.tab();
             await userEvent.tab();
@@ -514,10 +502,7 @@ describe("Interactive Graph", function () {
     describe("locked layer", () => {
         it("should render locked points", async () => {
             // Arrange
-            const {container} = renderQuestion(
-                segmentWithLockedPointsQuestion,
-                blankOptions,
-            );
+            const {container} = renderQuestion(segmentWithLockedPointsQuestion);
 
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
             const points = container.querySelectorAll(
@@ -533,10 +518,7 @@ describe("Interactive Graph", function () {
 
         it("should render locked points with styles when color is not specified", async () => {
             // Arrange
-            const {container} = renderQuestion(
-                segmentWithLockedPointsQuestion,
-                blankOptions,
-            );
+            const {container} = renderQuestion(segmentWithLockedPointsQuestion);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -559,7 +541,6 @@ describe("Interactive Graph", function () {
             // Arrange
             const {container} = renderQuestion(
                 segmentWithLockedPointsWithColorQuestion,
-                blankOptions,
             );
 
             // Act
@@ -592,7 +573,6 @@ describe("Interactive Graph", function () {
                 });
             const {container} = renderQuestion(
                 lockedPointWithAriaLabelQuestion,
-                blankOptions,
             );
 
             // Act
@@ -608,10 +588,7 @@ describe("Interactive Graph", function () {
             const simpleLockedPointQuestion = generateInteractiveGraphQuestion({
                 lockedFigures: [generateIGLockedPoint({coord: [0, 0]})],
             });
-            const {container} = renderQuestion(
-                simpleLockedPointQuestion,
-                blankOptions,
-            );
+            const {container} = renderQuestion(simpleLockedPointQuestion);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -623,10 +600,7 @@ describe("Interactive Graph", function () {
 
         it("should render locked lines", () => {
             // Arrange
-            const {container} = renderQuestion(
-                segmentWithLockedLineQuestion,
-                blankOptions,
-            );
+            const {container} = renderQuestion(segmentWithLockedLineQuestion);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -641,10 +615,7 @@ describe("Interactive Graph", function () {
 
         it("should render locked lines with styles", () => {
             // Arrange
-            const {container} = renderQuestion(
-                segmentWithLockedLineQuestion,
-                blankOptions,
-            );
+            const {container} = renderQuestion(segmentWithLockedLineQuestion);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -685,7 +656,6 @@ describe("Interactive Graph", function () {
                             }),
                         ],
                     }),
-                    blankOptions,
                 );
 
                 // Act
@@ -743,7 +713,6 @@ describe("Interactive Graph", function () {
                             }),
                         ],
                     }),
-                    blankOptions,
                 );
 
                 // Act
@@ -784,7 +753,6 @@ describe("Interactive Graph", function () {
                             }),
                         ],
                     }),
-                    blankOptions,
                 );
 
                 // Act
@@ -802,10 +770,7 @@ describe("Interactive Graph", function () {
 
         it("should render locked lines with shown points", async () => {
             // Arrange
-            const {container} = renderQuestion(
-                segmentWithLockedLineQuestion,
-                blankOptions,
-            );
+            const {container} = renderQuestion(segmentWithLockedLineQuestion);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -854,10 +819,7 @@ describe("Interactive Graph", function () {
                         }),
                     ],
                 });
-            const {container} = renderQuestion(
-                lockedLineWithAriaLabelQuestion,
-                blankOptions,
-            );
+            const {container} = renderQuestion(lockedLineWithAriaLabelQuestion);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -879,10 +841,7 @@ describe("Interactive Graph", function () {
                     }),
                 ],
             });
-            const {container} = renderQuestion(
-                simpleLockedLinequestion,
-                blankOptions,
-            );
+            const {container} = renderQuestion(simpleLockedLinequestion);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -894,10 +853,7 @@ describe("Interactive Graph", function () {
 
         it("should render locked vectors", async () => {
             // Arrange
-            const {container} = renderQuestion(
-                segmentWithLockedVectors,
-                blankOptions,
-            );
+            const {container} = renderQuestion(segmentWithLockedVectors);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -964,7 +920,6 @@ describe("Interactive Graph", function () {
                             }),
                         ],
                     }),
-                    blankOptions,
                 );
 
                 // Act
@@ -1007,7 +962,6 @@ describe("Interactive Graph", function () {
                 });
             const {container} = renderQuestion(
                 lockedVectorWithAriaLabelQuestion,
-                blankOptions,
             );
 
             // Act
@@ -1032,10 +986,7 @@ describe("Interactive Graph", function () {
                     ],
                 },
             );
-            const {container} = renderQuestion(
-                simpleLockedVectorquestion,
-                blankOptions,
-            );
+            const {container} = renderQuestion(simpleLockedVectorquestion);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1047,10 +998,7 @@ describe("Interactive Graph", function () {
 
         it("should render locked ellipses", async () => {
             // Arrange
-            const {container} = renderQuestion(
-                segmentWithLockedEllipses,
-                blankOptions,
-            );
+            const {container} = renderQuestion(segmentWithLockedEllipses);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1074,10 +1022,7 @@ describe("Interactive Graph", function () {
 
         it("should render locked ellipses with white fill", async () => {
             // Arrange
-            const {container} = renderQuestion(
-                segmentWithLockedEllipseWhite,
-                blankOptions,
-            );
+            const {container} = renderQuestion(segmentWithLockedEllipseWhite);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1120,7 +1065,6 @@ describe("Interactive Graph", function () {
                             }),
                         ],
                     }),
-                    blankOptions,
                 );
 
                 // Act
@@ -1150,7 +1094,6 @@ describe("Interactive Graph", function () {
                 });
             const {container} = renderQuestion(
                 lockedEllipseWithAriaLabelQuestion,
-                blankOptions,
             );
 
             // Act
@@ -1172,10 +1115,7 @@ describe("Interactive Graph", function () {
                         }),
                     ],
                 });
-            const {container} = renderQuestion(
-                simpleLockedEllipsequestion,
-                blankOptions,
-            );
+            const {container} = renderQuestion(simpleLockedEllipsequestion);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1187,10 +1127,7 @@ describe("Interactive Graph", function () {
 
         it("should render locked polygons with style", async () => {
             // Arrange
-            const {container} = renderQuestion(
-                segmentWithLockedPolygons,
-                blankOptions,
-            );
+            const {container} = renderQuestion(segmentWithLockedPolygons);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1239,7 +1176,6 @@ describe("Interactive Graph", function () {
                             }),
                         ],
                     }),
-                    blankOptions,
                 );
 
                 // Act
@@ -1259,10 +1195,7 @@ describe("Interactive Graph", function () {
 
         it("should render locked polygons with white fill", async () => {
             // Arrange
-            const {container} = renderQuestion(
-                segmentWithLockedPolygonWhite,
-                blankOptions,
-            );
+            const {container} = renderQuestion(segmentWithLockedPolygonWhite);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1287,10 +1220,7 @@ describe("Interactive Graph", function () {
 
         it("should render vertices of locked polygons with showVertices", async () => {
             // Arrange
-            const {container} = renderQuestion(
-                segmentWithLockedPolygons,
-                blankOptions,
-            );
+            const {container} = renderQuestion(segmentWithLockedPolygons);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1319,10 +1249,7 @@ describe("Interactive Graph", function () {
 
         it("should render a locked label within a locked polygon", async () => {
             // Arrange
-            const {container} = renderQuestion(
-                graphWithLabeledPolygon,
-                blankOptions,
-            );
+            const {container} = renderQuestion(graphWithLabeledPolygon);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1357,7 +1284,6 @@ describe("Interactive Graph", function () {
                 });
             const {container} = renderQuestion(
                 lockedPolygonWithAriaLabelQuestion,
-                blankOptions,
             );
 
             // Act
@@ -1382,10 +1308,7 @@ describe("Interactive Graph", function () {
                         }),
                     ],
                 });
-            const {container} = renderQuestion(
-                simpleLockedPolygonQuestion,
-                blankOptions,
-            );
+            const {container} = renderQuestion(simpleLockedPolygonQuestion);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1400,7 +1323,6 @@ describe("Interactive Graph", function () {
                 // Arrange
                 const {container} = renderQuestion(
                     segmentWithLockedFunction("x^"),
-                    blankOptions,
                 );
 
                 // Act
@@ -1420,7 +1342,6 @@ describe("Interactive Graph", function () {
                         color: "green",
                         strokeStyle: "dashed",
                     }),
-                    blankOptions,
                 );
 
                 // Act
@@ -1447,7 +1368,7 @@ describe("Interactive Graph", function () {
                     .mockReturnValue(<div>OfY</div>);
 
                 // Act - Render f(x)
-                renderQuestion(segmentWithLockedFunction("x^2"), blankOptions);
+                renderQuestion(segmentWithLockedFunction("x^2"));
 
                 // Assert
                 expect(PlotOfXMock).toHaveBeenCalledTimes(1);
@@ -1461,7 +1382,6 @@ describe("Interactive Graph", function () {
                     segmentWithLockedFunction("x^2", {
                         directionalAxis: "y",
                     }),
-                    blankOptions,
                 );
 
                 // Assert
@@ -1483,7 +1403,6 @@ describe("Interactive Graph", function () {
                 // Act
                 renderQuestion(
                     segmentWithLockedFunction("x^2", {domain: [-2, 3]}),
-                    blankOptions,
                 );
 
                 // Assert
@@ -1515,7 +1434,6 @@ describe("Interactive Graph", function () {
                                 }),
                             ],
                         }),
-                        blankOptions,
                     );
 
                     // Act
@@ -1545,7 +1463,6 @@ describe("Interactive Graph", function () {
                     });
                 const {container} = renderQuestion(
                     lockedFunctionWithAriaLabelQuestion,
-                    blankOptions,
                 );
 
                 // Act
@@ -1566,7 +1483,6 @@ describe("Interactive Graph", function () {
                     });
                 const {container} = renderQuestion(
                     simpleLockedFunctionquestion,
-                    blankOptions,
                 );
 
                 // Act
@@ -1580,10 +1496,7 @@ describe("Interactive Graph", function () {
 
         it("should render locked labels", async () => {
             // Arrange
-            const {container} = renderQuestion(
-                segmentWithLockedLabels,
-                blankOptions,
-            );
+            const {container} = renderQuestion(segmentWithLockedLabels);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1620,10 +1533,7 @@ describe("Interactive Graph", function () {
 
         it("should render a locked label within a locked point", async () => {
             // Arrange
-            const {container} = renderQuestion(
-                graphWithLabeledPoint,
-                blankOptions,
-            );
+            const {container} = renderQuestion(graphWithLabeledPoint);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1642,10 +1552,7 @@ describe("Interactive Graph", function () {
         });
 
         it("should render a locked label within a locked line", async () => {
-            const {container} = renderQuestion(
-                graphWithLabeledLine,
-                blankOptions,
-            );
+            const {container} = renderQuestion(graphWithLabeledLine);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1685,10 +1592,7 @@ describe("Interactive Graph", function () {
                     ],
                 },
             ];
-            const {container} = renderQuestion(
-                graphWithLabeledLine,
-                blankOptions,
-            );
+            const {container} = renderQuestion(graphWithLabeledLine);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1706,10 +1610,7 @@ describe("Interactive Graph", function () {
 
         it("should render a locked label within a locked vector", async () => {
             // Arrange
-            const {container} = renderQuestion(
-                graphWithLabeledVector,
-                blankOptions,
-            );
+            const {container} = renderQuestion(graphWithLabeledVector);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1729,10 +1630,7 @@ describe("Interactive Graph", function () {
 
         it("should render a locked label within a locked ellipse", async () => {
             // Arrange
-            const {container} = renderQuestion(
-                graphWithLabeledEllipse,
-                blankOptions,
-            );
+            const {container} = renderQuestion(graphWithLabeledEllipse);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1752,10 +1650,7 @@ describe("Interactive Graph", function () {
 
         it("should render a locked label within a locked function", async () => {
             // Arrange
-            const {container} = renderQuestion(
-                graphWithLabeledFunction,
-                blankOptions,
-            );
+            const {container} = renderQuestion(graphWithLabeledFunction);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1775,10 +1670,7 @@ describe("Interactive Graph", function () {
 
         it("should have an aria-label and description if they are provided", async () => {
             // Arrange
-            const {container} = renderQuestion(
-                interactiveGraphWithAriaLabel,
-                blankOptions,
-            );
+            const {container} = renderQuestion(interactiveGraphWithAriaLabel);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1794,7 +1686,7 @@ describe("Interactive Graph", function () {
 
         it("should not have an aria-label or description if they are not provided", async () => {
             // Arrange
-            const {container} = renderQuestion(noneQuestion, blankOptions);
+            const {container} = renderQuestion(noneQuestion);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -1862,7 +1754,6 @@ describe("Interactive Graph", function () {
                         }),
                     ],
                 }),
-                blankOptions,
             );
 
             // Assert
@@ -1913,7 +1804,6 @@ describe("Interactive Graph", function () {
                         }),
                     ],
                 }),
-                blankOptions,
             );
 
             // Assert
@@ -1939,7 +1829,6 @@ describe("Interactive Graph", function () {
                         }),
                     ],
                 }),
-                blankOptions,
             );
 
             // Assert
@@ -1961,7 +1850,6 @@ describe("Interactive Graph", function () {
                         }),
                     ],
                 }),
-                blankOptions,
             );
 
             // Assert
@@ -1999,7 +1887,7 @@ describe("Interactive Graph", function () {
         it.each(Object.entries(limitedGraphQuestionRenderers))(
             "graph type %s has SR instructions for interacting with the graph",
             (_type, question) => {
-                const {container} = renderQuestion(question, blankOptions);
+                const {container} = renderQuestion(question);
 
                 // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
                 const graph = container.querySelector(".mafs-graph");
@@ -2011,7 +1899,7 @@ describe("Interactive Graph", function () {
         it.each(Object.entries(unlimitedGraphQuestionRenderers))(
             "graph type %s has SR instructions for interacting with the graph",
             (_type, question) => {
-                const {container} = renderQuestion(question, blankOptions);
+                const {container} = renderQuestion(question);
 
                 // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
                 const graph = container.querySelector(".mafs-graph");
@@ -2021,7 +1909,7 @@ describe("Interactive Graph", function () {
         );
 
         it("none graph type should not include instructions for interacting with the graph", () => {
-            const {container} = renderQuestion(noneQuestion, blankOptions);
+            const {container} = renderQuestion(noneQuestion);
 
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
             const graph = container.querySelector(".mafs-graph");
@@ -2034,10 +1922,7 @@ describe("Interactive Graph", function () {
     describe("axis labels", () => {
         test("should render x axis labels as multiples of pi if the tick step is a multiple of pi", () => {
             // Arrange
-            const {container} = renderQuestion(
-                sinusoidWithPiTicks,
-                blankOptions,
-            );
+            const {container} = renderQuestion(sinusoidWithPiTicks);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -2065,10 +1950,7 @@ describe("Interactive Graph", function () {
 
         test("should render y axis labels as multiples of pi if the tick step is a multiple of pi", () => {
             // Arrange
-            const {container} = renderQuestion(
-                sinusoidWithPiTicks,
-                blankOptions,
-            );
+            const {container} = renderQuestion(sinusoidWithPiTicks);
 
             // Act
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -2105,7 +1987,6 @@ describe("Interactive Graph", function () {
                 generateInteractiveGraphQuestion({
                     correct: generateIGNoneGraph(),
                 }),
-                blankOptions,
             );
 
             // Act
@@ -2130,7 +2011,6 @@ describe("Interactive Graph", function () {
                         yMax: false,
                     },
                 }),
-                blankOptions,
             );
 
             // Act
@@ -2180,7 +2060,6 @@ describe("Interactive Graph", function () {
                         correct: generateIGNoneGraph(),
                         showAxisArrows,
                     }),
-                    blankOptions,
                 );
 
                 // Act
@@ -2203,7 +2082,6 @@ describe("Interactive Graph", function () {
                 generateInteractiveGraphQuestion({
                     correct: generateIGNoneGraph(),
                 }),
-                blankOptions,
             );
 
             const ticks1 = screen.getAllByText("9");
@@ -2221,7 +2099,6 @@ describe("Interactive Graph", function () {
                     correct: generateIGNoneGraph(),
                     showAxisTicks: {x: false, y: true},
                 }),
-                blankOptions,
             );
 
             const ticks1 = screen.getAllByText("9");
@@ -2239,7 +2116,6 @@ describe("Interactive Graph", function () {
                     correct: generateIGNoneGraph(),
                     showAxisTicks: {x: true, y: false},
                 }),
-                blankOptions,
             );
 
             const ticks1 = screen.getAllByText("9");
@@ -2258,7 +2134,6 @@ describe("Interactive Graph", function () {
                     markings: "graph",
                     showAxisTicks: {x: false, y: false},
                 }),
-                blankOptions,
             );
 
             const ticks1 = screen.queryAllByText("9");
@@ -2283,7 +2158,7 @@ describe("Interactive Graph", function () {
                 graded: false,
                 graph: generateIGLinearGraph(),
             });
-            renderQuestion(question, blankOptions);
+            renderQuestion(question);
 
             // Assert
             expect(
@@ -2299,7 +2174,7 @@ describe("Interactive Graph", function () {
                 graded: false,
                 graph: generateIGLinearGraph(),
             });
-            renderQuestion(question, blankOptions);
+            renderQuestion(question);
 
             // Assert
             const note = screen.getByText(
@@ -2319,7 +2194,7 @@ describe("Interactive Graph", function () {
                 graded: true,
                 graph: generateIGLinearGraph(),
             });
-            renderQuestion(question, blankOptions);
+            renderQuestion(question);
 
             // Assert
             expect(
@@ -2338,7 +2213,7 @@ describe("Interactive Graph", function () {
                 correct: generateIGNoneGraph(),
             });
 
-            renderQuestion(question, blankOptions);
+            renderQuestion(question);
 
             // Assert
             expect(
