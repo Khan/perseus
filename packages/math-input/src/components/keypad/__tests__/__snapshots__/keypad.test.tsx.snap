@@ -81,7 +81,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                   >
                     <path
                       d="M0 0h28v11.457H0z"
-                      fill="#fff"
                       transform="translate(2 10.271)"
                     />
                   </clippath>
@@ -705,7 +704,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                         >
                           <path
                             d="M0 0h3v3H0z"
-                            fill="#fff"
                             transform="translate(18.5 18.5)"
                           />
                         </clippath>
@@ -1114,7 +1112,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                   >
                     <path
                       d="M0 0h28v11.457H0z"
-                      fill="#fff"
                       transform="translate(2 10.271)"
                     />
                   </clippath>
@@ -1738,7 +1735,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                         >
                           <path
                             d="M0 0h3v3H0z"
-                            fill="#fff"
                             transform="translate(18.5 18.5)"
                           />
                         </clippath>
