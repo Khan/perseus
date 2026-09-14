@@ -43,6 +43,13 @@ CI supply chain:
 - **Publish configuration** — `.changeset/config.json`, package `exports`/`main`
   fields in `packages/*/package.json`. Decides what gets published to npm and how
   consumers resolve it.
+- **Hand-patched dependencies** — `patches/**` (pnpm patches), same category as
+  `vendor/**`.
+- **Agent hooks and settings** — `.claude/hooks/**`, `.claude/settings.json`. Code the
+  Claude Code harness executes on every session or tool call, as the engineer, with
+  their credentials. Agent *prose* (`SKILL.md`, `CLAUDE.md`, `AGENTS.md`,
+  `accessibility-instructions.md`) steers agents rather than executing, and sits in
+  Medium.
 
 ### Medium Risk
 
@@ -64,8 +71,11 @@ deep-check below).
 
 ### Trivial
 
-Prose docs (READMEs, changelogs), `data/questions/**` (frozen parser-regression
-fixtures — CI blocks changes to them outright), snapshots.
+Prose docs (READMEs, changelogs), snapshots, `data/questions/**` (a sample question
+corpus for the local analysis scripts in `data/`, not shipped), and the frozen
+parser-regression fixtures under
+`packages/perseus-core/src/parse-perseus-json/regression-tests/` (CI blocks any edit
+to an existing fixture; only additions get through).
 
 ### What to verify that CI cannot
 
