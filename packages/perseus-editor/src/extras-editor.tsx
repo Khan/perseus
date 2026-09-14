@@ -1,8 +1,4 @@
-import {
-    ItemExtras as ContentExtras,
-    getDefaultAnswerArea,
-    isFeatureOn,
-} from "@khanacademy/perseus-core";
+import {getDefaultAnswerArea, isFeatureOn} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox, Choice, RadioGroup} from "@khanacademy/wonder-blocks-form";
 import {sizing, spacing} from "@khanacademy/wonder-blocks-tokens";
@@ -68,15 +64,6 @@ class ExtrasEditor extends React.Component<Props> {
             this.props.onChange({calculatorVariant: selected.variant});
         }
     };
-
-    serialize(): PerseusAnswerArea {
-        const data = {...ExtrasEditor.defaultProps};
-        for (const key of ContentExtras) {
-            data[key] = !!this.props[key];
-        }
-        data.calculatorVariant = this.props.calculatorVariant;
-        return data;
-    }
 
     render(): React.ReactNode {
         const {editingDisabled, calculatorVariant} = this.props;

@@ -36,6 +36,9 @@ const parseMeasurerWidgetV1 = parseWidgetWithVersion(
         rulerLength: number,
         box: pair(number, number),
     }),
+    // The ruler and protractor are tools, not answers: nothing the learner
+    // does with them is collected, so `static` has no answer to reveal.
+    {supportsStatic: false},
 );
 
 const parseMeasurerWidgetV0 = parseWidget(
@@ -52,6 +55,8 @@ const parseMeasurerWidgetV0 = parseWidget(
         rulerLength: number,
         box: pair(number, number),
     }),
+    // See parseMeasurerWidgetV1.
+    {supportsStatic: false},
 );
 
 function migrateV0ToV1(

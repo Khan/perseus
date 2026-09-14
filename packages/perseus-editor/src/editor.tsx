@@ -259,10 +259,6 @@ class Editor extends React.Component<Props, State> {
         }
         return (
             <WidgetEditor
-                // The order of props matters here. We need to spread the
-                // widget data before specifying the `key` prop, to ensure the
-                // key overrides any `key` field on the widget (which might not
-                // be unique.
                 widgetInfo={this.props.widgets[id]}
                 ref={id}
                 id={id}
@@ -804,15 +800,6 @@ class Editor extends React.Component<Props, State> {
         }
     };
 
-    focusAndMoveToEnd: () => void = () => {
-        this.focus();
-        const textarea = this.textarea.current;
-        if (textarea) {
-            textarea.selectionStart = textarea.value.length;
-            textarea.selectionEnd = textarea.value.length;
-        }
-    };
-
     /**
      * Returns the current version of the edited {@link PerseusRenderer}.
      *
@@ -935,7 +922,12 @@ class Editor extends React.Component<Props, State> {
             widgetsAndTemplates = (
                 <div className="perseus-editor-widgets">
                     <div className="perseus-editor-widgets-selectors">
-                        <WidgetSelect onChange={this._addWidget} />
+                        {/* TODO(LEMS-4396): clean up feature flag — `flags`
+                            goes away with the last flag-gated widget. */}
+                        <WidgetSelect
+                            flags={this.props.apiOptions.flags}
+                            onChange={this._addWidget}
+                        />
                         {templatesDropDown}
                         {wordCountDisplay}
                     </div>
