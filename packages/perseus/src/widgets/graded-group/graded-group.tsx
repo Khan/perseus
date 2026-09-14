@@ -1,4 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
+import {emptyWidgetsFunctional} from "@khanacademy/perseus-score";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
@@ -13,7 +14,9 @@ import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {mapErrorToString} from "../../strings";
 import {phoneMargin, negativePhoneMargin} from "../../styles/constants";
-import UserInputManager from "../../user-input-manager";
+import UserInputManager, {
+    sharedInitializeUserInput,
+} from "../../user-input-manager";
 import {getPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
 
 import GradedGroupAnswerBar from "./graded-group-answer-bar";
@@ -84,13 +87,26 @@ export interface GradedGroupHandle {
 // correct or not.
 export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
     function GradedGroup(props, ref) {
-        const {strings} = usePerseusI18n();
+        const {strings, locale} = usePerseusI18n();
         const dependencies = useDependencies();
 
         const [showHint, setShowHint] = useState(false);
         const [message, setMessage] = useState("");
-        const [answerBarState, setAnswerBarState] =
-            useState<ANSWER_BAR_STATES>("INACTIVE");
+
+        // Allow moving on when the Graded Group doesn't have any
+        // answerable widgets in it.
+        const [answerBarState, setAnswerBarState] = useState<ANSWER_BAR_STATES>(
+            () => {
+                const {widgets} = props.options;
+                const emptyWidgetIds = emptyWidgetsFunctional(
+                    widgets,
+                    Object.keys(widgets),
+                    sharedInitializeUserInput(widgets, props.problemNum ?? 0),
+                    locale,
+                );
+                return emptyWidgetIds.length > 0 ? "INACTIVE" : "ACTIVE";
+            },
+        );
 
         const rendererRef = useRef<Renderer | null>(null);
         const hintRendererRef = useRef<Renderer | null>(null);
