@@ -128,7 +128,7 @@ describe("Dropdown widget", () => {
         };
 
         // Act
-        renderQuestion(basicDropdown, undefined, undefined, undefined, depsV2);
+        renderQuestion(basicDropdown, {dependencies: depsV2});
 
         // Assert
         expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
@@ -164,7 +164,9 @@ describe("Dropdown widget", () => {
 
     it("should not claim to focus when the dropdown is read-only", async () => {
         // Arrange
-        const {renderer} = renderQuestion(basicDropdown, {readOnly: true});
+        const {renderer} = renderQuestion(basicDropdown, {
+            apiOptions: {readOnly: true},
+        });
 
         // Act
         const focused = renderer.focus();

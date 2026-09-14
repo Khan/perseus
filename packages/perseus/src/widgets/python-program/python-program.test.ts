@@ -13,7 +13,7 @@ describe("python-program widget", () => {
         } as const;
 
         // Act
-        const {container} = renderQuestion(question1, apiOptions);
+        const {container} = renderQuestion(question1, {apiOptions});
 
         // Assert
         expect(container).toMatchSnapshot("first render");
@@ -26,7 +26,7 @@ describe("python-program widget", () => {
         } as const;
 
         // Act
-        const {container} = renderQuestion(question1, apiOptions);
+        const {container} = renderQuestion(question1, {apiOptions});
 
         // Assert
         expect(container).toMatchSnapshot("first mobile render");
@@ -41,7 +41,7 @@ describe("python-program widget", () => {
             },
         };
         // Act
-        renderQuestion(question1, {}, {}, {}, dependencies);
+        renderQuestion(question1, {apiOptions: {}, dependencies});
 
         // Assert
         expect(document.getElementsByTagName("iframe")[0].src).toEqual(

@@ -41,7 +41,7 @@ describe("categorizer widget", () => {
         };
 
         // Act
-        const {container} = renderQuestion(question1, apiOptions);
+        const {container} = renderQuestion(question1, {apiOptions});
 
         // Assert
         expect(container).toMatchSnapshot("first render");
@@ -54,7 +54,7 @@ describe("categorizer widget", () => {
         };
 
         // Act
-        const {container} = renderQuestion(question1, apiOptions);
+        const {container} = renderQuestion(question1, {apiOptions});
 
         // Assert
         expect(container).toMatchSnapshot("first mobile render");
@@ -65,7 +65,7 @@ describe("categorizer widget", () => {
         const apiOptions: APIOptions = {
             isMobile: false,
         };
-        const {renderer} = renderQuestion(question1, apiOptions);
+        const {renderer} = renderQuestion(question1, {apiOptions});
 
         // Act
         const score = scorePerseusItem(
@@ -177,7 +177,7 @@ describe("categorizer widget", () => {
         };
 
         // Act
-        renderQuestion(question1, undefined, undefined, undefined, depsV2);
+        renderQuestion(question1, {dependencies: depsV2});
 
         // Assert
         expect(onAnalyticsEventSpy).toHaveBeenCalledWith({

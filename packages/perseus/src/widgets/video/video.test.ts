@@ -13,7 +13,7 @@ describe("video widget", () => {
         };
 
         // Act
-        const {container} = renderQuestion(question1, apiOptions);
+        const {container} = renderQuestion(question1, {apiOptions});
 
         // Assert
         expect(container).toMatchSnapshot("first render");
@@ -28,7 +28,7 @@ describe("video widget", () => {
         };
 
         // Act
-        const {container} = renderQuestion(question1, apiOptions);
+        const {container} = renderQuestion(question1, {apiOptions});
 
         // Assert
         expect(container).toMatchSnapshot("first mobile render");
@@ -41,7 +41,7 @@ describe("video widget", () => {
         };
 
         // Act
-        renderQuestion(question1, apiOptions);
+        renderQuestion(question1, {apiOptions});
 
         // Assert
         expect(document.getElementsByTagName("iframe")[0]).toHaveAttribute(
@@ -63,7 +63,7 @@ describe("video widget", () => {
         };
 
         // Act
-        renderQuestion(question1, apiOptions, undefined, undefined, depsV2);
+        renderQuestion(question1, {apiOptions, dependencies: depsV2});
 
         // Assert
         expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
@@ -83,7 +83,7 @@ describe("video widget", () => {
         };
 
         // Act
-        renderQuestion(question2, apiOptions);
+        renderQuestion(question2, {apiOptions});
 
         // Assert
         expect(document.getElementsByTagName("iframe")[0].src).toContain(
@@ -101,7 +101,7 @@ describe("video widget", () => {
         };
 
         // Act
-        renderQuestion(question1, {}, {}, {}, dependencies);
+        renderQuestion(question1, {apiOptions: {}, dependencies});
 
         // Assert
         expect(document.getElementsByTagName("iframe")[0].src).toEqual(

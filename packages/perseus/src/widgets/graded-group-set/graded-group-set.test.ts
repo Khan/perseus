@@ -55,7 +55,7 @@ describe("graded group set widget", () => {
         };
 
         // Act
-        renderQuestion(article1, undefined, undefined, undefined, depsV2);
+        renderQuestion(article1, {dependencies: depsV2});
 
         // Assert
         expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
