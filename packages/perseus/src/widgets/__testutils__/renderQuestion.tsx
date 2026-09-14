@@ -26,19 +26,38 @@ type RenderResult = ReturnType<typeof render>;
 
 type ExtraProps = Omit<PropsFor<typeof Perseus.Renderer>, "strings">;
 
+type RenderQuestionOptions = APIOptions & {
+    apiOptions?: APIOptions;
+    extraProps?: ExtraProps;
+    initialUserInput?: UserInputMap;
+    dependencies?: PerseusDependenciesV2;
+    locale?: string;
+};
+
 export const renderQuestion = (
     question: PerseusRenderer,
-    apiOptions: APIOptions = Object.freeze({}),
-    extraProps?: ExtraProps,
-    initialUserInput?: UserInputMap,
-    dependencies: PerseusDependenciesV2 = testDependenciesV2,
-    locale: string = "en",
+    options: RenderQuestionOptions = {},
 ): {
     container: HTMLElement;
     renderer: Perseus.Renderer;
     rerender: (question: PerseusRenderer, extraProps?: ExtraProps) => void;
     unmount: RenderResult["unmount"];
 } => {
+    const {
+        extraProps,
+        initialUserInput,
+        dependencies = testDependenciesV2,
+        locale = "en",
+    } = options;
+    const apiOptions =
+        options.apiOptions ??
+        ("extraProps" in options ||
+        "initialUserInput" in options ||
+        "dependencies" in options ||
+        "locale" in options
+            ? Object.freeze({})
+            : options);
+
     setDependencies(testDependencies);
     registerAllWidgetsForTesting();
 

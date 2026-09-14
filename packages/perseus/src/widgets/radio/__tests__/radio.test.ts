@@ -72,8 +72,9 @@ describe("Radio Widget", () => {
             (reviewMode: boolean) => {
                 it("should snapshot the same", async () => {
                     // Arrange & Act
-                    const {container} = renderQuestion(question, apiOptions, {
-                        reviewMode,
+                    const {container} = renderQuestion(question, {
+                        apiOptions,
+                        extraProps: {reviewMode},
                     });
 
                     // Assert
@@ -308,8 +309,9 @@ describe("Radio Widget", () => {
 
         it("should render all rationales when showSolutions is 'all'", async () => {
             // Arrange
-            renderQuestion(question, apiOptions, {
-                showSolutions: "all",
+            renderQuestion(question, {
+                apiOptions,
+                extraProps: {showSolutions: "all"},
             });
 
             // Assert
@@ -323,8 +325,9 @@ describe("Radio Widget", () => {
 
         it("should render no rationales when showSolutions is 'none'", async () => {
             // Arrange
-            renderQuestion(question, apiOptions, {
-                showSolutions: "none",
+            renderQuestion(question, {
+                apiOptions,
+                extraProps: {showSolutions: "none"},
             });
 
             // Assert
@@ -359,7 +362,7 @@ describe("Radio Widget", () => {
             };
 
             // Act
-            renderQuestion(question, undefined, undefined, undefined, depsV2);
+            renderQuestion(question, {dependencies: depsV2});
 
             // Assert
             expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
@@ -637,7 +640,7 @@ describe("Radio Widget", () => {
             };
 
             // Act
-            renderQuestion(question, undefined, undefined, undefined, depsV2);
+            renderQuestion(question, {dependencies: depsV2});
 
             // Assert
             expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
@@ -875,13 +878,10 @@ describe("Radio Widget", () => {
          */
         it("handles undefined choice.correct properly when multipleSelect and randomize are enabled", async () => {
             // Arrange
-            renderQuestion(
-                questionWithUndefinedCorrect,
-                {},
-                {
-                    reviewMode: true,
-                },
-            );
+            renderQuestion(questionWithUndefinedCorrect, {
+                apiOptions: {},
+                extraProps: {reviewMode: true},
+            });
 
             // Act
             // Find all choice buttons, and count how many are marked as correct

@@ -128,7 +128,7 @@ describe("Dropdown widget", () => {
         };
 
         // Act
-        renderQuestion(basicDropdown, undefined, undefined, undefined, depsV2);
+        renderQuestion(basicDropdown, {dependencies: depsV2});
 
         // Assert
         expect(onAnalyticsEventSpy).toHaveBeenCalledWith({

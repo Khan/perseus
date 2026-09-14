@@ -181,7 +181,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         };
 
         // Act
-        renderQuestion(imageQuestion, apiOptions, undefined, undefined, depsV2);
+        renderQuestion(imageQuestion, {apiOptions, dependencies: depsV2});
         act(() => {
             jest.runAllTimers();
         });
