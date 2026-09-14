@@ -1,5 +1,486 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`sorter widget layout keeps a horizontal sorter horizontal at exactly the maximum number of cards 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        <div
+          class="perseus-widget-container widget-block"
+        >
+          <div
+            class="perseus-clearfix"
+          >
+            <ul
+              class="sortable_a2rat1 perseus-sortable"
+            >
+              <li
+                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
+                style="position: static; margin: 0px 5px 0px 0px;"
+              >
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
+                >
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
+                  >
+                    <div
+                      class="paragraph"
+                    >
+                      Card 5
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
+                style="position: static; margin: 0px 5px 0px 0px;"
+              >
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
+                >
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
+                  >
+                    <div
+                      class="paragraph"
+                    >
+                      Card 1
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
+                style="position: static; margin: 0px 5px 0px 0px;"
+              >
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
+                >
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
+                  >
+                    <div
+                      class="paragraph"
+                    >
+                      Card 3
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
+                style="position: static; margin: 0px 5px 0px 0px;"
+              >
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
+                >
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
+                  >
+                    <div
+                      class="paragraph"
+                    >
+                      Card 2
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
+                style="position: static; margin: 0px;"
+              >
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
+                >
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
+                  >
+                    <div
+                      class="paragraph"
+                    >
+                      Card 4
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`sorter widget layout lays out a horizontal sorter vertically when it has more cards than the maximum 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        <div
+          class="perseus-widget-container widget-block"
+        >
+          <div
+            class="perseus-clearfix"
+          >
+            <ul
+              class="sortable_a2rat1 perseus-sortable"
+            >
+              <li
+                class="card_11zdkra-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
+                style="position: static; margin: 0px 0px 5px 0px;"
+              >
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
+                >
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
+                  >
+                    <div
+                      class="paragraph"
+                    >
+                      Card 5
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="card_11zdkra-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
+                style="position: static; margin: 0px 0px 5px 0px;"
+              >
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
+                >
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
+                  >
+                    <div
+                      class="paragraph"
+                    >
+                      Card 4
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="card_11zdkra-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
+                style="position: static; margin: 0px 0px 5px 0px;"
+              >
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
+                >
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
+                  >
+                    <div
+                      class="paragraph"
+                    >
+                      Card 1
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="card_11zdkra-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
+                style="position: static; margin: 0px 0px 5px 0px;"
+              >
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
+                >
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
+                  >
+                    <div
+                      class="paragraph"
+                    >
+                      Card 6
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="card_11zdkra-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
+                style="position: static; margin: 0px 0px 5px 0px;"
+              >
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
+                >
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
+                  >
+                    <div
+                      class="paragraph"
+                    >
+                      Card 2
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="card_11zdkra-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
+                style="position: static; margin: 0px;"
+              >
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
+                >
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
+                  >
+                    <div
+                      class="paragraph"
+                    >
+                      Card 3
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`sorter widget layout lays out the cards horizontally when the layout is horizontal 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        <div
+          class="perseus-widget-container widget-block"
+        >
+          <div
+            class="perseus-clearfix"
+          >
+            <ul
+              class="sortable_a2rat1 perseus-sortable"
+            >
+              <li
+                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
+                style="position: static; margin: 0px 5px 0px 0px;"
+              >
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
+                >
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
+                  >
+                    <div
+                      class="paragraph"
+                    >
+                      Card 4
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
+                style="position: static; margin: 0px 5px 0px 0px;"
+              >
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
+                >
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
+                  >
+                    <div
+                      class="paragraph"
+                    >
+                      Card 2
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
+                style="position: static; margin: 0px 5px 0px 0px;"
+              >
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
+                >
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
+                  >
+                    <div
+                      class="paragraph"
+                    >
+                      Card 1
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
+                style="position: static; margin: 0px;"
+              >
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
+                >
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
+                  >
+                    <div
+                      class="paragraph"
+                    >
+                      Card 3
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`sorter widget layout lays out the cards vertically when the layout is vertical 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        <div
+          class="perseus-widget-container widget-block"
+        >
+          <div
+            class="perseus-clearfix"
+          >
+            <ul
+              class="sortable_a2rat1 perseus-sortable"
+            >
+              <li
+                class="card_11zdkra-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
+                style="position: static; margin: 0px 0px 5px 0px;"
+              >
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
+                >
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
+                  >
+                    <div
+                      class="paragraph"
+                    >
+                      Card 4
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="card_11zdkra-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
+                style="position: static; margin: 0px 0px 5px 0px;"
+              >
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
+                >
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
+                  >
+                    <div
+                      class="paragraph"
+                    >
+                      Card 2
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="card_11zdkra-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
+                style="position: static; margin: 0px 0px 5px 0px;"
+              >
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
+                >
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
+                  >
+                    <div
+                      class="paragraph"
+                    >
+                      Card 1
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li
+                class="card_11zdkra-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
+                style="position: static; margin: 0px;"
+              >
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
+                >
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
+                  >
+                    <div
+                      class="paragraph"
+                    >
+                      Card 3
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`sorter widget snapshot should snapshot on mobile: first mobile render 1`] = `
 <div>
   <div
