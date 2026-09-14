@@ -139,7 +139,7 @@ describe.each([
     ["python-program", parsePythonProgramWidget, {programID: "", height: 1}],
     ["video", parseVideoWidget, {location: ""}],
 ])("the %s widget parser", (type, parser: Parser<any>, options) => {
-    it("drops `static`, which the widget takes no user input to honor", () => {
+    it("drops `static`", () => {
         // Arrange, Act
         const result = parse(
             {type, static: true, options, version: {major: 1, minor: 0}},
