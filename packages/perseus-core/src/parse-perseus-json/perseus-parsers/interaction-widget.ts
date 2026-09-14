@@ -167,4 +167,7 @@ export const parseInteractionWidget = parseWidget(
                 .withBranch("rectangle", parseRectangleElement).parser,
         ),
     }),
+    // Interaction graphs are explorable but never scored: the learner's
+    // manipulations aren't collected, so `static` has no answer to reveal.
+    {supportsStatic: false},
 );
