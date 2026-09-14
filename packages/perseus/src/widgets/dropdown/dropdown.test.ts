@@ -164,7 +164,9 @@ describe("Dropdown widget", () => {
 
     it("should not claim to focus when the dropdown is read-only", async () => {
         // Arrange
-        const {renderer} = renderQuestion(basicDropdown, {readOnly: true});
+        const {renderer} = renderQuestion(basicDropdown, {
+            apiOptions: {readOnly: true},
+        });
 
         // Act
         const focused = renderer.focus();

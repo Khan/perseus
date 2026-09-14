@@ -93,7 +93,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         // Arrange
 
         // Act
-        const {container} = renderQuestion(question, apiOptions);
+        const {container} = renderQuestion(question, {apiOptions});
 
         // Assert
         expect(container).toMatchSnapshot("first render");
@@ -103,7 +103,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         // Arrange
 
         // Act
-        const {renderer} = renderQuestion(question, apiOptions);
+        const {renderer} = renderQuestion(question, {apiOptions});
         const score = scorePerseusItemTesting(
             question,
             renderer.getUserInputMap(),
@@ -132,7 +132,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         });
 
         // Act
-        renderQuestion(imageQuestion, apiOptions);
+        renderQuestion(imageQuestion, {apiOptions});
 
         // Assert
         expect(screen.queryByRole("figure")).not.toBeInTheDocument();
@@ -152,7 +152,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         });
 
         // Act
-        renderQuestion(imageQuestion, apiOptions);
+        renderQuestion(imageQuestion, {apiOptions});
         act(() => {
             jest.runAllTimers();
         });
@@ -212,7 +212,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         });
 
         // Act
-        renderQuestion(imageQuestion, apiOptions);
+        renderQuestion(imageQuestion, {apiOptions});
         act(() => {
             jest.runAllTimers();
         });
@@ -236,7 +236,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         });
 
         // Act
-        renderQuestion(imageQuestion, apiOptions);
+        renderQuestion(imageQuestion, {apiOptions});
         act(() => {
             jest.runAllTimers();
         });
@@ -260,7 +260,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         });
 
         // Act
-        renderQuestion(imageQuestion, apiOptions);
+        renderQuestion(imageQuestion, {apiOptions});
         act(() => {
             jest.runAllTimers();
         });
@@ -284,7 +284,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         });
 
         // Act
-        renderQuestion(imageQuestion, apiOptions);
+        renderQuestion(imageQuestion, {apiOptions});
         act(() => {
             jest.runAllTimers();
         });
@@ -313,7 +313,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         });
 
         // Act
-        renderQuestion(imageQuestion, apiOptions);
+        renderQuestion(imageQuestion, {apiOptions});
         act(() => {
             jest.runAllTimers();
         });
@@ -344,7 +344,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             },
         });
 
-        renderQuestion(imageQuestion, apiOptions);
+        renderQuestion(imageQuestion, {apiOptions});
         act(() => {
             jest.runAllTimers();
         });
@@ -374,7 +374,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             },
         });
 
-        renderQuestion(imageQuestion, apiOptions);
+        renderQuestion(imageQuestion, {apiOptions});
         act(() => {
             jest.runAllTimers();
         });
@@ -405,7 +405,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             },
         });
 
-        renderQuestion(imageQuestion, apiOptions);
+        renderQuestion(imageQuestion, {apiOptions});
         act(() => {
             jest.runAllTimers();
         });
@@ -439,7 +439,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             },
         });
 
-        renderQuestion(imageQuestion, apiOptions);
+        renderQuestion(imageQuestion, {apiOptions});
         act(() => {
             jest.runAllTimers();
         });
@@ -470,7 +470,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             },
         });
 
-        renderQuestion(imageQuestion, apiOptions);
+        renderQuestion(imageQuestion, {apiOptions});
         act(() => {
             jest.runAllTimers();
         });
@@ -504,7 +504,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Act
-            renderQuestion(imageQuestion, apiOptions);
+            renderQuestion(imageQuestion, {apiOptions});
 
             // Assert
             // Can't use `getByRole` here because we need to wait
@@ -529,7 +529,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Act
-            renderQuestion(imageQuestion, apiOptions);
+            renderQuestion(imageQuestion, {apiOptions});
 
             // Assert
             const button = screen.queryByRole("button");
@@ -551,7 +551,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Act
-            renderQuestion(imageQuestion, apiOptions);
+            renderQuestion(imageQuestion, {apiOptions});
 
             // Assert
             const button = screen.queryByRole("button");
@@ -572,7 +572,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Act
-            renderQuestion(gifImageQuestion, apiOptions);
+            renderQuestion(gifImageQuestion, {apiOptions});
 
             // Assert
             const zoomButton = screen.queryByRole("button", {
@@ -598,7 +598,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Act
-            renderQuestion(imageQuestion, apiOptions);
+            renderQuestion(imageQuestion, {apiOptions});
 
             // Assert
             const button = screen.queryByRole("button");
@@ -617,7 +617,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                     }),
                 },
             });
-            renderQuestion(imageQuestion, apiOptions);
+            renderQuestion(imageQuestion, {apiOptions});
 
             // Act
             const button = await screen.findByRole("button", {
@@ -641,7 +641,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                     }),
                 },
             });
-            renderQuestion(imageQuestion, apiOptions);
+            renderQuestion(imageQuestion, {apiOptions});
 
             // Act - open the modal
             const button = await screen.findByRole("button", {
@@ -680,7 +680,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Act
-            renderQuestion(imageQuestion, apiOptions);
+            renderQuestion(imageQuestion, {apiOptions});
             act(() => {
                 jest.runAllTimers();
             });
@@ -705,7 +705,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Act
-            renderQuestion(imageQuestion, apiOptions);
+            renderQuestion(imageQuestion, {apiOptions});
             act(() => {
                 jest.runAllTimers();
             });
@@ -732,7 +732,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Act
-            renderQuestion(imageQuestion, apiOptions);
+            renderQuestion(imageQuestion, {apiOptions});
             act(() => {
                 jest.runAllTimers();
             });
@@ -761,7 +761,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Act
-            renderQuestion(imageQuestion, apiOptions);
+            renderQuestion(imageQuestion, {apiOptions});
             act(() => {
                 jest.runAllTimers();
             });
@@ -794,7 +794,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Act
-            renderQuestion(imageQuestion, apiOptions);
+            renderQuestion(imageQuestion, {apiOptions});
             act(() => {
                 jest.runAllTimers();
             });
@@ -837,7 +837,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Act
-            renderQuestion(imageQuestion, apiOptions);
+            renderQuestion(imageQuestion, {apiOptions});
             act(() => {
                 jest.runAllTimers();
             });
@@ -873,7 +873,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Act, Assert
-            const {container} = renderQuestion(imageQuestion, apiOptions);
+            const {container} = renderQuestion(imageQuestion, {apiOptions});
             act(() => {
                 jest.runAllTimers();
             });
@@ -902,7 +902,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Act, Assert
-            const {container} = renderQuestion(imageQuestion, apiOptions);
+            const {container} = renderQuestion(imageQuestion, {apiOptions});
             act(() => {
                 jest.runAllTimers();
             });
@@ -933,7 +933,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 });
 
                 // Act, Assert
-                renderQuestion(imageQuestion, apiOptions);
+                renderQuestion(imageQuestion, {apiOptions});
                 const expectedWidth = earthMoonImage.width * scale;
 
                 // Assert
@@ -962,7 +962,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 });
 
                 // Act, Assert
-                renderQuestion(imageQuestion, apiOptions);
+                renderQuestion(imageQuestion, {apiOptions});
 
                 // Assert
                 const image = screen.getByRole("figure");
@@ -986,7 +986,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Act
-            renderQuestion(imageQuestion, apiOptions);
+            renderQuestion(imageQuestion, {apiOptions});
             act(() => {
                 jest.runAllTimers();
             });
@@ -1025,7 +1025,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 });
 
                 // Act
-                renderQuestion(imageQuestion, apiOptions);
+                renderQuestion(imageQuestion, {apiOptions});
                 const zoomButton = screen.getByRole("button", {
                     name: "Make image bigger.",
                 });
@@ -1081,7 +1081,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                 });
 
                 // Act
-                renderQuestion(imageQuestion, apiOptions);
+                renderQuestion(imageQuestion, {apiOptions});
                 const zoomButton = screen.getByRole("button", {
                     name: "Make image bigger.",
                 });
@@ -1124,7 +1124,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                     }),
                 },
             });
-            renderQuestion(gifImageQuestion, apiOptions);
+            renderQuestion(gifImageQuestion, {apiOptions});
 
             // Assert — wait for the async GIF decode to report frame count
             const playButton = await screen.findByRole("button", {
@@ -1150,7 +1150,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
             });
 
             // Act
-            renderQuestion(imageQuestion, apiOptions);
+            renderQuestion(imageQuestion, {apiOptions});
 
             // Wait for the decode to run so the controls' absence is
             // intentional, not just not-yet-rendered.
@@ -1181,7 +1181,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                     }),
                 },
             });
-            renderQuestion(imageQuestion, apiOptions);
+            renderQuestion(imageQuestion, {apiOptions});
 
             // Assert
             const playButton = screen.queryByRole("button", {
@@ -1206,7 +1206,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                     }),
                 },
             });
-            renderQuestion(gifImageQuestion, apiOptions);
+            renderQuestion(gifImageQuestion, {apiOptions});
 
             // Act - gif is paused by default, click play button
             const playButton = await screen.findByRole("button", {
@@ -1233,7 +1233,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
                     }),
                 },
             });
-            renderQuestion(gifImageQuestion, apiOptions);
+            renderQuestion(gifImageQuestion, {apiOptions});
 
             // Act - gif is paused by default, click play button
             const playButton = await screen.findByRole("button", {

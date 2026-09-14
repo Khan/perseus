@@ -49,7 +49,7 @@ describe("phet-simulation widget", () => {
         };
 
         // Act
-        renderQuestion(question1, apiOptions);
+        renderQuestion(question1, {apiOptions});
 
         // Assert
         await waitFor(() => {
@@ -73,7 +73,7 @@ describe("phet-simulation widget", () => {
         };
 
         // Act
-        renderQuestion(nonPhetUrl, apiOptions);
+        renderQuestion(nonPhetUrl, {apiOptions});
 
         // Assert
         await waitFor(() => {
@@ -160,7 +160,7 @@ describe("phet-simulation widget", () => {
         };
 
         // Act
-        renderQuestion(question1, apiOptions);
+        renderQuestion(question1, {apiOptions});
 
         // Assert
         const link = await screen.findByRole("link", {
@@ -179,7 +179,7 @@ describe("phet-simulation widget", () => {
     it("does not show the open-in-new-tab link when fullscreen is supported", async () => {
         // Arrange, Act
         // The default beforeEach marks the Fullscreen API as supported.
-        renderQuestion(question1, {isMobile: false});
+        renderQuestion(question1, {apiOptions: {isMobile: false}});
 
         // Assert
         await waitFor(() => {
@@ -207,7 +207,7 @@ describe("phet-simulation widget", () => {
         };
 
         // Act
-        renderQuestion(question1, apiOptions);
+        renderQuestion(question1, {apiOptions});
 
         // Assert
         await waitFor(() => {
@@ -220,7 +220,7 @@ describe("phet-simulation widget", () => {
     it("requests browser fullscreen when the fullscreen button is clicked on web", async () => {
         // Arrange
         const requestFullscreen = jest.fn(() => Promise.resolve());
-        renderQuestion(question1, {isMobile: false});
+        renderQuestion(question1, {apiOptions: {isMobile: false}});
         const iframe = await screen.findByTitle("Projectile Data Lab");
         iframe.requestFullscreen = requestFullscreen;
 
@@ -236,7 +236,7 @@ describe("phet-simulation widget", () => {
     it("falls back to webkitRequestFullscreen when the standard API is unavailable", async () => {
         // Arrange
         const webkitRequestFullscreen = jest.fn();
-        renderQuestion(question1, {isMobile: false});
+        renderQuestion(question1, {apiOptions: {isMobile: false}});
         const iframe = await screen.findByTitle("Projectile Data Lab");
         // jsdom doesn't implement requestFullscreen, so only the prefixed
         // variant exists on the element in this test.
@@ -258,7 +258,7 @@ describe("phet-simulation widget", () => {
         };
 
         // Act
-        renderQuestion(question1, apiOptions);
+        renderQuestion(question1, {apiOptions});
         await waitFor(() => {
             expect(
                 screen.getByTitle("Projectile Data Lab"),

@@ -16,7 +16,9 @@ describe("Fill in the Blank Widget", () => {
     it("renders the widget when the dnd-widget-fitb flag is on", () => {
         // Arrange, Act
         renderQuestion(basicFillInTheBlankQuestion, {
-            flags: getFeatureFlags({"dnd-widget-fitb": true}),
+            apiOptions: {
+                flags: getFeatureFlags({"dnd-widget-fitb": true}),
+            },
         });
 
         // The placeholder has no accessible role or name to query by yet.
@@ -28,7 +30,9 @@ describe("Fill in the Blank Widget", () => {
     it("renders nothing when the dnd-widget-fitb flag is off", () => {
         // Arrange, Act
         renderQuestion(basicFillInTheBlankQuestion, {
-            flags: getFeatureFlags({"dnd-widget-fitb": false}),
+            apiOptions: {
+                flags: getFeatureFlags({"dnd-widget-fitb": false}),
+            },
         });
 
         expect(
