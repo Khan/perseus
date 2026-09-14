@@ -71,6 +71,10 @@ jobs:
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   projectToken: ${{ secrets.projectToken }}
+                  # WARNING! Although we don't build above, we _must_ provide
+                  # this setting, otherwise Chromatic's configuration validation
+                  # fails!
+                  storybookBuildDir: storybook-static
                   # Release PRs only bump versions and changelogs, so there is
                   # nothing visual to review. Reporting success without
                   # capturing anything saves the snapshot quota and leaves a
