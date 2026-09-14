@@ -63,7 +63,7 @@ describe("video widget", () => {
         };
 
         // Act
-        renderQuestion(question1, apiOptions, undefined, undefined, depsV2);
+        renderQuestion(question1, {apiOptions, dependencies: depsV2});
 
         // Assert
         expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
@@ -101,7 +101,7 @@ describe("video widget", () => {
         };
 
         // Act
-        renderQuestion(question1, {}, {}, {}, dependencies);
+        renderQuestion(question1, {apiOptions: {}, dependencies});
 
         // Assert
         expect(document.getElementsByTagName("iframe")[0].src).toEqual(

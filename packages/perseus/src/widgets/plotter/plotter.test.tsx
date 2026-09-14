@@ -39,7 +39,7 @@ describe("plotter widget", () => {
         };
 
         // Act
-        renderQuestion(dotPlotter, undefined, undefined, undefined, depsV2);
+        renderQuestion(dotPlotter, {dependencies: depsV2});
 
         // Assert
         expect(onAnalyticsEventSpy).toHaveBeenCalledWith({

@@ -115,9 +115,11 @@ describe("sorter widget", () => {
             const onAnalyticsEvent = jest.fn();
 
             // Act
-            renderQuestion(sorterQuestion, undefined, undefined, undefined, {
-                ...testDependenciesV2,
-                analytics: {onAnalyticsEvent},
+            renderQuestion(sorterQuestion, {
+                dependencies: {
+                    ...testDependenciesV2,
+                    analytics: {onAnalyticsEvent},
+                },
             });
 
             // Assert

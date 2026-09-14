@@ -41,7 +41,7 @@ describe("python-program widget", () => {
             },
         };
         // Act
-        renderQuestion(question1, {}, {}, {}, dependencies);
+        renderQuestion(question1, {apiOptions: {}, dependencies});
 
         // Assert
         expect(document.getElementsByTagName("iframe")[0].src).toEqual(

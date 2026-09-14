@@ -102,7 +102,7 @@ describe("input-number", function () {
             };
 
             // Act
-            renderQuestion(question, undefined, undefined, undefined, depsV2);
+            renderQuestion(question, {dependencies: depsV2});
 
             // Assert
             expect(onAnalyticsEventSpy).toHaveBeenCalledWith({

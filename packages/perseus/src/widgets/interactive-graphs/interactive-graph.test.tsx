@@ -134,12 +134,10 @@ describe("Interactive Graph", function () {
                     } as any,
                 };
 
-                const {renderer} = renderQuestion(
-                    question,
-                    blankOptions,
-                    undefined,
-                    userInput,
-                );
+                const {renderer} = renderQuestion(question, {
+                    apiOptions: blankOptions,
+                    initialUserInput: userInput,
+                });
 
                 const score = scorePerseusItemTesting(
                     question,
@@ -164,12 +162,10 @@ describe("Interactive Graph", function () {
                         coords: [...correct],
                     } as any,
                 };
-                const {container} = renderQuestion(
-                    question,
-                    blankOptions,
-                    undefined,
-                    userInput,
-                );
+                const {container} = renderQuestion(question, {
+                    apiOptions: blankOptions,
+                    initialUserInput: userInput,
+                });
                 expect(container).toMatchSnapshot("with user input");
             });
 
@@ -198,12 +194,10 @@ describe("Interactive Graph", function () {
                     } as any,
                 };
 
-                const {renderer} = renderQuestion(
-                    question,
-                    blankOptions,
-                    undefined,
-                    userInput,
-                );
+                const {renderer} = renderQuestion(question, {
+                    apiOptions: blankOptions,
+                    initialUserInput: userInput,
+                });
 
                 const score = scorePerseusItemTesting(
                     question,

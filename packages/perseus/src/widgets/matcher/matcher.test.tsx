@@ -87,7 +87,7 @@ describe("matcher widget", () => {
         };
 
         // Act
-        renderQuestion(question1, undefined, undefined, undefined, depsV2);
+        renderQuestion(question1, {dependencies: depsV2});
         await wait();
 
         // Assert

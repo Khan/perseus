@@ -91,7 +91,7 @@ describe("grapher widget", () => {
         };
 
         // Act
-        renderQuestion(linearQuestion, undefined, undefined, undefined, depsV2);
+        renderQuestion(linearQuestion, {dependencies: depsV2});
         // Assert
         expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
             type: "perseus:widget:rendered:ti",
