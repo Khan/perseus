@@ -1,5 +1,5 @@
 /**
- * Main entry point - change to test partial ESLint run
+ * Main entry point
  */
 
 export {default as init} from "./init";
