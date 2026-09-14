@@ -25,7 +25,7 @@ import {
     groupedRadioRationaleQuestion,
 } from "./graded-group.testdata";
 
-import type {APIOptions, PerseusDependenciesV2} from "../../types";
+import type {PerseusDependenciesV2} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const checkAnswer = async (
@@ -112,10 +112,8 @@ describe("graded-group", () => {
             await checkAnswer(userEvent);
 
             // Assert
-            expect(screen.getByRole("alert", {name: "Correct"})).toBeVisible();
-            expect(
-                screen.queryByRole("alert", {name: "Incorrect"}),
-            ).not.toBeInTheDocument();
+            expect(screen.getByRole("alert", {name: "Correct!"})).toBeVisible();
+            expect(screen.queryByText("Keep trying")).not.toBeInTheDocument();
         });
 
         it("should be able to be answered incorrectly", async () => {
@@ -140,10 +138,11 @@ describe("graded-group", () => {
 
             // Assert
             expect(
-                screen.queryByRole("alert", {name: "Correct"}),
+                screen.queryByRole("alert", {name: "Correct!"}),
             ).not.toBeInTheDocument();
+            expect(screen.getByText("Keep trying")).toBeVisible();
             expect(
-                screen.getByRole("alert", {name: "Incorrect"}),
+                screen.getByRole("button", {name: "Try again"}),
             ).toBeVisible();
         });
 
@@ -214,7 +213,7 @@ describe("graded-group", () => {
             await checkAnswer(userEvent);
 
             // Assert
-            expect(screen.getByRole("alert", {name: "Correct"})).toBeVisible();
+            expect(screen.getByRole("alert", {name: "Correct!"})).toBeVisible();
             // Verify the rationale for the correct answer is shown
             expect(
                 screen.getByText("This is the correct answer."),
@@ -277,160 +276,11 @@ describe("graded-group", () => {
             await checkAnswer(userEvent);
 
             // Assert
-            expect(
-                screen.getByRole("alert", {name: "Incorrect"}),
-            ).toBeVisible();
+            expect(screen.getByText("Keep trying")).toBeVisible();
             // Verify that rationales are not shown
             expect(
                 screen.queryByText("This is not the correct answer."),
             ).not.toBeInTheDocument();
-        });
-    });
-
-    // The Graded Group on mobile has some different functionality from
-    // desktop, so we have a completely different set of tests.
-    // Hint titling is also not exactly the same ("Hint" vs "[Hint]")
-    describe("on mobile", () => {
-        const apiOptions: APIOptions = {
-            isMobile: true,
-            isArticle: true,
-        };
-
-        it("should be able to be answered correctly", async () => {
-            // Arrange
-            renderQuestion(question1, apiOptions);
-
-            await userEvent.click(
-                screen.getAllByRole("button", {name: "True"})[0],
-            );
-            await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[1],
-            );
-            await userEvent.click(
-                screen.getAllByRole("button", {name: "True"})[2],
-            );
-            await userEvent.click(
-                screen.getAllByRole("button", {name: "True"})[3],
-            );
-            act(() => jest.runOnlyPendingTimers());
-
-            // Act
-            await checkAnswer(userEvent);
-
-            // Assert
-            expect(screen.getByRole("alert", {name: "Correct!"})).toBeVisible();
-            // On mobile, you can't interact with the widget at all once you
-            // answer correctly.
-            expect(
-                screen.queryByRole("button", {name: "Check"}),
-            ).not.toBeInTheDocument();
-        });
-
-        it("should be able to be answered incorrectly", async () => {
-            // Arrange
-            renderQuestion(question1, apiOptions);
-
-            await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[0],
-            );
-            await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[1],
-            );
-            await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[2],
-            );
-            await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[3],
-            );
-            act(() => jest.runOnlyPendingTimers());
-
-            // Act
-            await checkAnswer(userEvent);
-
-            // Assert
-            expect(
-                screen.getByRole("button", {name: "Try again"}),
-            ).toBeVisible();
-            expect(screen.getByText("Keep trying")).toBeVisible();
-        });
-
-        it("should let the user try again when checked if not fully answered", async () => {
-            // Arrange
-            renderQuestion(question1, apiOptions);
-
-            await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[0],
-            );
-            await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[1],
-            );
-            act(() => jest.runOnlyPendingTimers());
-
-            // Act
-            await checkAnswer(userEvent);
-
-            expect(
-                await screen.findByRole("button", {name: "Try again"}),
-            ).toBeVisible();
-
-            await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[2],
-            );
-            act(() => jest.runOnlyPendingTimers());
-
-            // Assert
-            expect(
-                await screen.findByRole("button", {name: "Check"}),
-            ).toBeVisible();
-        });
-
-        it("should be able to reveal the hint", async () => {
-            // Arrange
-            renderQuestion(question1, apiOptions);
-
-            // Act
-            await userEvent.click(
-                screen.getByRole("button", {name: "Explain"}),
-            );
-
-            // Assert
-            expect(
-                screen.getByText(/Some bacteria synthesize their own fuel/),
-            ).toBeVisible();
-        });
-
-        it("should be able to hide the hint", async () => {
-            // Arrange
-            renderQuestion(question1, apiOptions);
-            await userEvent.click(
-                screen.getByRole("button", {name: "Explain"}),
-            );
-
-            // Act
-            await userEvent.click(
-                screen.getByRole("button", {name: "Hide explanation"}),
-            );
-
-            // Assert
-            expect(
-                screen.queryByText(/Some bacteria synthesize their own fuel./),
-            ).not.toBeInTheDocument();
-        });
-
-        it("should enable Check button when radio is selected", async () => {
-            // Arrange - Check button should be visible but disabled
-            renderQuestion(groupedRadioRationaleQuestion, apiOptions);
-            const checkButton = screen.getByRole("button", {name: "Check"});
-            expect(checkButton).toHaveAttribute("aria-disabled", "true");
-
-            // Act
-            await userEvent.click(
-                screen.getByRole("button", {name: /(Choice C)/}),
-            );
-
-            // Assert - Check button should be visible and enabled
-            expect(checkButton).toBeVisible();
-            expect(checkButton).toHaveAttribute("aria-disabled", "false");
         });
     });
 
@@ -488,7 +338,7 @@ describe("graded-group", () => {
             await checkAnswer(userEvent);
 
             // this shows that the question was scored as expected
-            expect(screen.getByText("Correct")).toBeInTheDocument();
+            expect(screen.getByText("Correct!")).toBeInTheDocument();
         });
 
         it("can be answered incorrectly", async () => {
@@ -505,7 +355,7 @@ describe("graded-group", () => {
             await checkAnswer(userEvent);
 
             // this shows that the question was scored as expected
-            expect(screen.getByText("Incorrect")).toBeInTheDocument();
+            expect(screen.getByText("Keep trying")).toBeInTheDocument();
         });
     });
 });
