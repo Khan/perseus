@@ -157,7 +157,7 @@ describe("renderer", () => {
 
         it("should run the linter on mount", () => {
             // Arrange and Act
-            renderQuestion(question1, {apiOptions: {}, extraProps});
+            renderQuestion(question1, {extraProps});
 
             // Assert
             expect(mockRunLinter).toHaveBeenCalledWith(
@@ -168,10 +168,7 @@ describe("renderer", () => {
 
         it("should do nothing in linter callback if component is already unmounted", () => {
             // Arrange
-            const {unmount} = renderQuestion(question1, {
-                apiOptions: {},
-                extraProps,
-            });
+            const {unmount} = renderQuestion(question1, {extraProps});
             unmount();
             mockApplyLintErrors.mockClear();
 
@@ -187,10 +184,7 @@ describe("renderer", () => {
 
         it("should run linter on update", () => {
             // Arrange
-            const {rerender} = renderQuestion(question1, {
-                apiOptions: {},
-                extraProps,
-            });
+            const {rerender} = renderQuestion(question1, {extraProps});
 
             mockRunLinter.mockClear();
 
