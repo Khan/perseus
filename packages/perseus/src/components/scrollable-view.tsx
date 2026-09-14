@@ -35,7 +35,6 @@ interface ScrollState {
     isScrollable: boolean;
     canScrollStart: boolean;
     canScrollEnd: boolean;
-    isRTL: boolean;
     scroll: (direction: "start" | "end") => void;
     scrollDescription: string;
 }
@@ -181,7 +180,6 @@ function ScrollableArea({
             isScrollable: newIsScrollable,
             canScrollStart: newCanScrollStart,
             canScrollEnd: newCanScrollEnd,
-            isRTL: newIsRtl,
             scroll,
             scrollDescription: scrollDescription || strings.scrollAnswers,
         };
@@ -294,7 +292,7 @@ function ScrollControls({
             aria-label={description}
         >
             <IconButton
-                icon={scrollState.isRTL ? caretRightIcon : caretLeftIcon}
+                icon={caretLeftIcon}
                 actionType="neutral"
                 kind="secondary"
                 size="small"
@@ -303,7 +301,7 @@ function ScrollControls({
                 disabled={!scrollState.canScrollStart}
             />
             <IconButton
-                icon={scrollState.isRTL ? caretLeftIcon : caretRightIcon}
+                icon={caretRightIcon}
                 actionType="neutral"
                 kind="secondary"
                 size="small"

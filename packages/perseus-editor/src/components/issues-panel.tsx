@@ -100,7 +100,7 @@ const IssuesPanel = (props: IssuesPanelProps) => {
     });
 
     return (
-        <div className="perseus-widget-editor">
+        <div className="perseus-widget-editor perseus-issues-panel">
             <div className="perseus-widget-editor-title">
                 <div className="perseus-widget-editor-title-id">
                     <View

@@ -6,9 +6,9 @@ import {getCustomPointLabel} from "../components/build-point-aria-label";
 import {srFormatNumber} from "./format-number";
 
 import type {I18nContextType} from "../../../../components/i18n-context";
+import type {PerseusStrings} from "../../../../strings";
 import type {LogarithmGraphState} from "../../types";
 import type {LogarithmCoefficient} from "@khanacademy/kmath";
-import type {PerseusStrings} from "@khanacademy/perseus/strings";
 
 const {getLogarithmCoefficients} = kmathCoefficients;
 

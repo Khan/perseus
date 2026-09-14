@@ -56,6 +56,7 @@ const RenderArticleContent = (
         return (
             <ArticleRenderer
                 json={json}
+                seed={0}
                 dependencies={storybookDependenciesV2}
                 apiOptions={apiOptions}
             />

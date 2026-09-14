@@ -1,5 +1,55 @@
 # @khanacademy/math-input
 
+## 27.0.16
+
+### Patch Changes
+
+-   [#4227](https://github.com/Khan/perseus/pull/4227) [`c927205`](https://github.com/Khan/perseus/commit/c9272053e926d8c78f2b07c64855ec6a27674839) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dependencies
+
+-   Updated dependencies [[`995aa68`](https://github.com/Khan/perseus/commit/995aa68d04bdc95f7b463406d797ed6a24107cad)]:
+    -   @khanacademy/perseus-core@39.2.0
+    -   @khanacademy/keypad-context@3.2.92
+
+## 27.0.15
+
+### Patch Changes
+
+-   [#4219](https://github.com/Khan/perseus/pull/4219) [`43887dc`](https://github.com/Khan/perseus/commit/43887dc4b4ca3133b00e78db16810249c70ce66c) Thanks [@jandrade](https://github.com/jandrade)! - Bumps Wonder Blocks dependencies: IconButton now requires aria-label (major), Accordion, Clickable and Link improvments
+
+## 27.0.14
+
+### Patch Changes
+
+-   [#4206](https://github.com/Khan/perseus/pull/4206) [`c2a9d3e`](https://github.com/Khan/perseus/commit/c2a9d3ea577927464c53b0e027d707d41c06f78e) Thanks [@jandrade](https://github.com/jandrade)! - Updates WB peer deps
+
+-   Updated dependencies [[`dc12384`](https://github.com/Khan/perseus/commit/dc123845614fae331d8517a524212fc1dbbe110f)]:
+    -   @khanacademy/perseus-core@39.1.0
+    -   @khanacademy/keypad-context@3.2.91
+
+## 27.0.13
+
+### Patch Changes
+
+-   Updated dependencies [[`cf56830`](https://github.com/Khan/perseus/commit/cf568308a7ac5601af0afbc386832000c7f8cae5)]:
+    -   @khanacademy/perseus-core@39.0.0
+    -   @khanacademy/keypad-context@3.2.90
+
+## 27.0.12
+
+### Patch Changes
+
+-   [#4186](https://github.com/Khan/perseus/pull/4186) [`e7948d2`](https://github.com/Khan/perseus/commit/e7948d21dac9d38cac27d67b139d34a71152b59c) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Sync dependencies with Frontend
+
+-   [#4184](https://github.com/Khan/perseus/pull/4184) [`8b12a98`](https://github.com/Khan/perseus/commit/8b12a985e0be7b30af0d18e80107d54fb306a4cc) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Memoize the i18n context provider values so consumers no longer re-render whenever the provider's parent renders
+
+## 27.0.11
+
+### Patch Changes
+
+-   Updated dependencies [[`1f6424a`](https://github.com/Khan/perseus/commit/1f6424a4a34123a1e9609ae8499ac6e8138c589d)]:
+    -   @khanacademy/perseus-core@38.1.1
+    -   @khanacademy/keypad-context@3.2.89
+
 ## 27.0.10
 
 ### Patch Changes

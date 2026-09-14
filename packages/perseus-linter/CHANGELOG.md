@@ -1,5 +1,53 @@
 # @khanacademy/perseus-linter
 
+## 5.4.1
+
+### Patch Changes
+
+-   [#4209](https://github.com/Khan/perseus/pull/4209) [`e114416`](https://github.com/Khan/perseus/commit/e11441600e2b4c9efe6ec008d387ee245f11470d) Thanks [@nishasy](https://github.com/nishasy)! - [Sorter] Add linter error for cards with image and other content type
+
+-   Updated dependencies [[`995aa68`](https://github.com/Khan/perseus/commit/995aa68d04bdc95f7b463406d797ed6a24107cad)]:
+    -   @khanacademy/perseus-core@39.2.0
+    -   @khanacademy/kmath@2.4.51
+
+## 5.4.0
+
+### Minor Changes
+
+-   [#4204](https://github.com/Khan/perseus/pull/4204) [`dc12384`](https://github.com/Khan/perseus/commit/dc123845614fae331d8517a524212fc1dbbe110f) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Makes max sorter card count a const in perseus core and consumes it
+
+### Patch Changes
+
+-   Updated dependencies [[`dc12384`](https://github.com/Khan/perseus/commit/dc123845614fae331d8517a524212fc1dbbe110f)]:
+    -   @khanacademy/perseus-core@39.1.0
+    -   @khanacademy/kmath@2.4.50
+
+## 5.3.1
+
+### Patch Changes
+
+-   Updated dependencies [[`cf56830`](https://github.com/Khan/perseus/commit/cf568308a7ac5601af0afbc386832000c7f8cae5)]:
+    -   @khanacademy/perseus-core@39.0.0
+    -   @khanacademy/kmath@2.4.49
+
+## 5.3.0
+
+### Minor Changes
+
+-   [#4171](https://github.com/Khan/perseus/pull/4171) [`b9df1a4`](https://github.com/Khan/perseus/commit/b9df1a4bb9ef2d0b2cc1ac2a3e648396bce4fb05) Thanks [@nishasy](https://github.com/nishasy)! - [Sorter] Add more lint rules for Sorter widget
+
+### Patch Changes
+
+-   [#4172](https://github.com/Khan/perseus/pull/4172) [`8fe153e`](https://github.com/Khan/perseus/commit/8fe153ebde6a97f8500e21cf1410e6cf9cabae7d) Thanks [@nishasy](https://github.com/nishasy)! - Disable issues panel CTA buttons when editing is disabled
+
+## 5.2.2
+
+### Patch Changes
+
+-   Updated dependencies [[`1f6424a`](https://github.com/Khan/perseus/commit/1f6424a4a34123a1e9609ae8499ac6e8138c589d)]:
+    -   @khanacademy/perseus-core@38.1.1
+    -   @khanacademy/kmath@2.4.48
+
 ## 5.2.1
 
 ### Patch Changes

@@ -44,7 +44,6 @@ const ViewportResizer = (props: Props) => {
             Viewport:{" "}
             <ButtonGroup
                 value={props.deviceType}
-                allowEmpty={false}
                 buttons={[
                     {value: devices.PHONE, content: phoneButtonContents},
                     {value: devices.TABLET, content: tabletButtonContents},

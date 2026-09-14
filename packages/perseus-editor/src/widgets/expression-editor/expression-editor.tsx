@@ -568,7 +568,6 @@ class AnswerOption extends React.Component<
             <div className={styles.answerOption}>
                 <ButtonGroup
                     onChange={this.toggleConsidered}
-                    allowEmpty={false}
                     disabled={editingDisabled}
                     value={this.props.considered}
                     selectedButtonStyle={

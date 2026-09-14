@@ -6,6 +6,7 @@ import type {CSSProperties} from "aphrodite";
 
 interface Props {
     // the initial value of the button selected, defaults to null
+    // TODO(tamara): use a type parameter instead of `any`
     value: any;
     buttons: ReadonlyArray<{
         // the value returned when the button is selected
@@ -19,9 +20,6 @@ interface Props {
     // a function that is provided with the updated value (which it then is
     // responsible for updating)
     onChange: (value?: any) => unknown;
-    // if false, exactly one button _must_ be selected;
-    // defaults to true and _at most_ one button (0 or 1) may be selected.
-    allowEmpty: boolean;
 
     /**
      * Customizes the selected button's styling.
@@ -35,7 +33,6 @@ interface Props {
 }
 
 interface DefaultProps {
-    allowEmpty: Props["allowEmpty"];
     value: Props["value"];
 }
 
@@ -46,8 +43,9 @@ class ButtonGroup extends React.Component<Props> {
     container: HTMLDivElement | null | undefined;
 
     static defaultProps: DefaultProps = {
+        // TODO(tamara): null may not be a valid value; there is no
+        // empty/deselected state anymore
         value: null,
-        allowEmpty: true,
     };
 
     componentWillUnmount() {
@@ -62,12 +60,7 @@ class ButtonGroup extends React.Component<Props> {
     }
 
     toggleSelect(newValue: any) {
-        const value = this.props.value;
-
-        if (this.props.allowEmpty) {
-            // Select the new button or unselect if it's already selected
-            this.props.onChange(value !== newValue ? newValue : null);
-        } else {
+        if (this.props.value !== newValue) {
             this.props.onChange(newValue);
         }
     }

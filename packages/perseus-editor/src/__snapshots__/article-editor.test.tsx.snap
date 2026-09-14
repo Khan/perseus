@@ -3,7 +3,7 @@
 exports[`ArticleEditor should match snapshot for editing disabled for all widgets 1`] = `
 <div>
   <div
-    class="framework-perseus wb-themed-math perseus-article-editor"
+    class="framework-perseus perseus-article-editor"
   >
     <div
       class="perseus-editor-table"
@@ -14,11 +14,11 @@ exports[`ArticleEditor should match snapshot for editing disabled for all widget
         <div
           class="perseus-editor-left-cell"
         >
-          <fieldset
-            disabled=""
+          <div
+            class="perseus-editor-sticky-header"
           >
             <div
-              class="perseus-widget-editor"
+              class="perseus-widget-editor perseus-issues-panel"
             >
               <div
                 class="perseus-widget-editor-title"
@@ -30,7 +30,7 @@ exports[`ArticleEditor should match snapshot for editing disabled for all widget
                     class="default_7zhre1-o_O-inlineStyles_d7xzml"
                   >
                     <span
-                      class="svg_1q6jc65-o_O-small_6q1hy-o_O-collapsed_zgg88f-o_O-inlineStyles_u4fgyh"
+                      class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-collapsed_zgg88f-o_O-inlineStyles_u4fgyh"
                     />
                     <span>
                       Issues
@@ -41,7 +41,7 @@ exports[`ArticleEditor should match snapshot for editing disabled for all widget
                   class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_1bholod"
                   data-testid="issues-icon-warning-octagon-fill.svg"
                 />
-                16 issues
+                17 issues
               </div>
             </div>
             <div
@@ -49,8 +49,8 @@ exports[`ArticleEditor should match snapshot for editing disabled for all widget
             >
               Section 
               1
-              <div
-                style="display: inline-block; float: inline-end;"
+              <fieldset
+                disabled=""
               >
                 <span />
                 <button
@@ -75,8 +75,12 @@ exports[`ArticleEditor should match snapshot for editing disabled for all widget
                     class="svg_1q6jc65-o_O-medium_12bui46-o_O-inlineStyles_13u9hv4"
                   />
                 </button>
-              </div>
+              </fieldset>
             </div>
+          </div>
+          <fieldset
+            disabled=""
+          >
             <div
               class="perseus-single-editor  perseus-editor-disabled"
               data-testid="perseus-single-editor"
@@ -87,7 +91,9 @@ exports[`ArticleEditor should match snapshot for editing disabled for all widget
                 <div
                   class="perseus-textarea-underlay"
                 >
-                  categorizer: 
+                  ![earth and moon](https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg)
+
+categorizer: 
                   <b
                     class=""
                   >
@@ -291,7 +297,9 @@ table:
                   aria-label="Markdown content"
                   placeholder="Type your section text here..."
                 >
-                  categorizer: [[☃ categorizer 1]]
+                  ![earth and moon](https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg)
+
+categorizer: [[☃ categorizer 1]]
 
 definition: [[☃ definition 1]]
 
@@ -485,16 +493,6 @@ table: [[☃ table 1]]
                     >
                       Piecewise function
                     </option>
-                    <option
-                      disabled=""
-                    >
-                      --
-                    </option>
-                    <option
-                      value="allWidgets"
-                    >
-                      All widgets (for testing)
-                    </option>
                   </select>
                 </div>
                 <div
@@ -510,7 +508,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           categorizer 1
@@ -945,7 +943,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           definition 1
@@ -1040,7 +1038,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           dropdown 1
@@ -1329,7 +1327,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           expression 1
@@ -1943,7 +1941,7 @@ table: [[☃ table 1]]
                                       aria-controls=":r13:"
                                       aria-expanded="false"
                                       aria-label="open math keypad"
-                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4"
+                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_uraxz"
                                       id=":r13:-anchor"
                                       role="button"
                                       type="button"
@@ -2103,7 +2101,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           explanation 1
@@ -2336,16 +2334,6 @@ table: [[☃ table 1]]
                                 >
                                   Piecewise function
                                 </option>
-                                <option
-                                  disabled=""
-                                >
-                                  --
-                                </option>
-                                <option
-                                  value="allWidgets"
-                                >
-                                  All widgets (for testing)
-                                </option>
                               </select>
                             </div>
                           </div>
@@ -2367,7 +2355,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           free-response 1
@@ -2597,7 +2585,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           graded-group 1
@@ -2813,16 +2801,6 @@ table: [[☃ table 1]]
                               >
                                 Piecewise function
                               </option>
-                              <option
-                                disabled=""
-                              >
-                                --
-                              </option>
-                              <option
-                                value="allWidgets"
-                              >
-                                All widgets (for testing)
-                              </option>
                             </select>
                           </div>
                           <div
@@ -2838,7 +2816,7 @@ table: [[☃ table 1]]
                                   class="default_7zhre1-o_O-inlineStyles_d7xzml"
                                 >
                                   <span
-                                    class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                                    class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                                   />
                                   <span>
                                     numeric-input 3
@@ -2901,7 +2879,7 @@ table: [[☃ table 1]]
                               >
                                 <button
                                   aria-disabled="false"
-                                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
+                                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81-o_O-inlineStyles_uraxz"
                                   type="button"
                                 >
                                   <div
@@ -2913,7 +2891,7 @@ table: [[☃ table 1]]
                                       General Settings
                                     </span>
                                     <span
-                                      class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                                      class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                                     />
                                   </div>
                                 </button>
@@ -2947,7 +2925,7 @@ table: [[☃ table 1]]
                                         <button
                                           aria-checked="true"
                                           aria-disabled="true"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="radio"
                                           type="button"
                                         >
@@ -2956,7 +2934,7 @@ table: [[☃ table 1]]
                                         <button
                                           aria-checked="false"
                                           aria-disabled="true"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="radio"
                                           type="button"
                                         >
@@ -3016,7 +2994,7 @@ table: [[☃ table 1]]
                                         <button
                                           aria-checked="true"
                                           aria-disabled="true"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="radio"
                                           type="button"
                                         >
@@ -3025,7 +3003,7 @@ table: [[☃ table 1]]
                                         <button
                                           aria-checked="false"
                                           aria-disabled="true"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="radio"
                                           type="button"
                                         >
@@ -3068,7 +3046,7 @@ table: [[☃ table 1]]
                                 </div>
                                 <button
                                   aria-disabled="false"
-                                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
+                                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81-o_O-inlineStyles_uraxz"
                                   type="button"
                                 >
                                   <div
@@ -3080,7 +3058,7 @@ table: [[☃ table 1]]
                                       Answers
                                     </span>
                                     <span
-                                      class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                                      class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                                     />
                                   </div>
                                 </button>
@@ -3097,7 +3075,8 @@ table: [[☃ table 1]]
                                         class="default_7zhre1 perseus-editor-accordion"
                                       >
                                         <div
-                                          class="default_7zhre1-o_O-wrapper_13982vy-o_O-wrapperWithAnimation_t6xj9m-o_O-wrapper_m5h1c0-o_O-wrapperExpanded_nhpyf7-o_O-container_1kh6h4u"
+                                          class="default_7zhre1-o_O-wrapper_4htftm-o_O-wrapperWithAnimation_t6xj9m-o_O-wrapper_m5h1c0-o_O-container_1kh6h4u"
+                                          data-expanded="true"
                                           id=":r1m:"
                                         >
                                           <h2
@@ -3107,7 +3086,7 @@ table: [[☃ table 1]]
                                               aria-controls=":r1o:"
                                               aria-disabled="false"
                                               aria-expanded="true"
-                                              class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-headerWrapper_1xej40y-o_O-headerWrapperWithAnimation_14an94y-o_O-roundedTop_kesvr4-o_O-accordionHeader_2cig4f"
+                                              class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-headerWrapper_1xej40y-o_O-headerWrapperWithAnimation_14an94y-o_O-roundedTop_kesvr4-o_O-accordionHeader_2cig4f-o_O-inlineStyles_uraxz"
                                               id=":r1n:"
                                               type="button"
                                             >
@@ -3180,7 +3159,7 @@ table: [[☃ table 1]]
                                                   <button
                                                     aria-checked="true"
                                                     aria-disabled="true"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="radio"
                                                     type="button"
                                                   >
@@ -3189,7 +3168,7 @@ table: [[☃ table 1]]
                                                   <button
                                                     aria-checked="false"
                                                     aria-disabled="true"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="radio"
                                                     type="button"
                                                   >
@@ -3198,7 +3177,7 @@ table: [[☃ table 1]]
                                                   <button
                                                     aria-checked="false"
                                                     aria-disabled="true"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="radio"
                                                     type="button"
                                                   >
@@ -3230,7 +3209,7 @@ table: [[☃ table 1]]
                                                   <button
                                                     aria-checked="true"
                                                     aria-disabled="true"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="radio"
                                                     type="button"
                                                   >
@@ -3239,7 +3218,7 @@ table: [[☃ table 1]]
                                                   <button
                                                     aria-checked="false"
                                                     aria-disabled="true"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="radio"
                                                     type="button"
                                                   >
@@ -3248,7 +3227,7 @@ table: [[☃ table 1]]
                                                   <button
                                                     aria-checked="false"
                                                     aria-disabled="true"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="radio"
                                                     type="button"
                                                   >
@@ -3308,7 +3287,7 @@ table: [[☃ table 1]]
                                                     aria-checked="false"
                                                     aria-disabled="true"
                                                     aria-label="Integers"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="checkbox"
                                                     type="button"
                                                   >
@@ -3318,7 +3297,7 @@ table: [[☃ table 1]]
                                                     aria-checked="false"
                                                     aria-disabled="true"
                                                     aria-label="Decimals"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="checkbox"
                                                     type="button"
                                                   >
@@ -3328,7 +3307,7 @@ table: [[☃ table 1]]
                                                     aria-checked="false"
                                                     aria-disabled="true"
                                                     aria-label="Proper fractions"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="checkbox"
                                                     type="button"
                                                   >
@@ -3338,7 +3317,7 @@ table: [[☃ table 1]]
                                                     aria-checked="false"
                                                     aria-disabled="true"
                                                     aria-label="Improper fractions"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="checkbox"
                                                     type="button"
                                                   >
@@ -3348,7 +3327,7 @@ table: [[☃ table 1]]
                                                     aria-checked="false"
                                                     aria-disabled="true"
                                                     aria-label="Mixed numbers"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="checkbox"
                                                     type="button"
                                                   >
@@ -3358,7 +3337,7 @@ table: [[☃ table 1]]
                                                     aria-checked="false"
                                                     aria-disabled="true"
                                                     aria-label="Numbers with π"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="checkbox"
                                                     type="button"
                                                   >
@@ -3382,7 +3361,7 @@ table: [[☃ table 1]]
                                                   <button
                                                     aria-checked="true"
                                                     aria-disabled="true"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="radio"
                                                     type="button"
                                                   >
@@ -3391,7 +3370,7 @@ table: [[☃ table 1]]
                                                   <button
                                                     aria-checked="false"
                                                     aria-disabled="true"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="radio"
                                                     type="button"
                                                   >
@@ -3614,16 +3593,6 @@ table: [[☃ table 1]]
                                 >
                                   Piecewise function
                                 </option>
-                                <option
-                                  disabled=""
-                                >
-                                  --
-                                </option>
-                                <option
-                                  value="allWidgets"
-                                >
-                                  All widgets (for testing)
-                                </option>
                               </select>
                             </div>
                           </div>
@@ -3816,7 +3785,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           graded-group-set 1
@@ -4035,16 +4004,6 @@ table: [[☃ table 1]]
                                 >
                                   Piecewise function
                                 </option>
-                                <option
-                                  disabled=""
-                                >
-                                  --
-                                </option>
-                                <option
-                                  value="allWidgets"
-                                >
-                                  All widgets (for testing)
-                                </option>
                               </select>
                             </div>
                             <div
@@ -4060,7 +4019,7 @@ table: [[☃ table 1]]
                                     class="default_7zhre1-o_O-inlineStyles_d7xzml"
                                   >
                                     <span
-                                      class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                                      class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                                     />
                                     <span>
                                       numeric-input 4
@@ -4123,7 +4082,7 @@ table: [[☃ table 1]]
                                 >
                                   <button
                                     aria-disabled="false"
-                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
+                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81-o_O-inlineStyles_uraxz"
                                     type="button"
                                   >
                                     <div
@@ -4135,7 +4094,7 @@ table: [[☃ table 1]]
                                         General Settings
                                       </span>
                                       <span
-                                        class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                                        class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                                       />
                                     </div>
                                   </button>
@@ -4169,7 +4128,7 @@ table: [[☃ table 1]]
                                           <button
                                             aria-checked="true"
                                             aria-disabled="true"
-                                            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                             role="radio"
                                             type="button"
                                           >
@@ -4178,7 +4137,7 @@ table: [[☃ table 1]]
                                           <button
                                             aria-checked="false"
                                             aria-disabled="true"
-                                            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                             role="radio"
                                             type="button"
                                           >
@@ -4238,7 +4197,7 @@ table: [[☃ table 1]]
                                           <button
                                             aria-checked="true"
                                             aria-disabled="true"
-                                            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                             role="radio"
                                             type="button"
                                           >
@@ -4247,7 +4206,7 @@ table: [[☃ table 1]]
                                           <button
                                             aria-checked="false"
                                             aria-disabled="true"
-                                            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                             role="radio"
                                             type="button"
                                           >
@@ -4290,7 +4249,7 @@ table: [[☃ table 1]]
                                   </div>
                                   <button
                                     aria-disabled="false"
-                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
+                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81-o_O-inlineStyles_uraxz"
                                     type="button"
                                   >
                                     <div
@@ -4302,7 +4261,7 @@ table: [[☃ table 1]]
                                         Answers
                                       </span>
                                       <span
-                                        class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                                        class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                                       />
                                     </div>
                                   </button>
@@ -4319,7 +4278,8 @@ table: [[☃ table 1]]
                                           class="default_7zhre1 perseus-editor-accordion"
                                         >
                                           <div
-                                            class="default_7zhre1-o_O-wrapper_13982vy-o_O-wrapperWithAnimation_t6xj9m-o_O-wrapper_m5h1c0-o_O-wrapperExpanded_nhpyf7-o_O-container_1kh6h4u"
+                                            class="default_7zhre1-o_O-wrapper_4htftm-o_O-wrapperWithAnimation_t6xj9m-o_O-wrapper_m5h1c0-o_O-container_1kh6h4u"
+                                            data-expanded="true"
                                             id=":r22:"
                                           >
                                             <h2
@@ -4329,7 +4289,7 @@ table: [[☃ table 1]]
                                                 aria-controls=":r24:"
                                                 aria-disabled="false"
                                                 aria-expanded="true"
-                                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-headerWrapper_1xej40y-o_O-headerWrapperWithAnimation_14an94y-o_O-roundedTop_kesvr4-o_O-accordionHeader_2cig4f"
+                                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-headerWrapper_1xej40y-o_O-headerWrapperWithAnimation_14an94y-o_O-roundedTop_kesvr4-o_O-accordionHeader_2cig4f-o_O-inlineStyles_uraxz"
                                                 id=":r23:"
                                                 type="button"
                                               >
@@ -4402,7 +4362,7 @@ table: [[☃ table 1]]
                                                     <button
                                                       aria-checked="true"
                                                       aria-disabled="true"
-                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                       role="radio"
                                                       type="button"
                                                     >
@@ -4411,7 +4371,7 @@ table: [[☃ table 1]]
                                                     <button
                                                       aria-checked="false"
                                                       aria-disabled="true"
-                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                       role="radio"
                                                       type="button"
                                                     >
@@ -4420,7 +4380,7 @@ table: [[☃ table 1]]
                                                     <button
                                                       aria-checked="false"
                                                       aria-disabled="true"
-                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                       role="radio"
                                                       type="button"
                                                     >
@@ -4452,7 +4412,7 @@ table: [[☃ table 1]]
                                                     <button
                                                       aria-checked="true"
                                                       aria-disabled="true"
-                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                       role="radio"
                                                       type="button"
                                                     >
@@ -4461,7 +4421,7 @@ table: [[☃ table 1]]
                                                     <button
                                                       aria-checked="false"
                                                       aria-disabled="true"
-                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                       role="radio"
                                                       type="button"
                                                     >
@@ -4470,7 +4430,7 @@ table: [[☃ table 1]]
                                                     <button
                                                       aria-checked="false"
                                                       aria-disabled="true"
-                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                       role="radio"
                                                       type="button"
                                                     >
@@ -4530,7 +4490,7 @@ table: [[☃ table 1]]
                                                       aria-checked="false"
                                                       aria-disabled="true"
                                                       aria-label="Integers"
-                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                       role="checkbox"
                                                       type="button"
                                                     >
@@ -4540,7 +4500,7 @@ table: [[☃ table 1]]
                                                       aria-checked="false"
                                                       aria-disabled="true"
                                                       aria-label="Decimals"
-                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                       role="checkbox"
                                                       type="button"
                                                     >
@@ -4550,7 +4510,7 @@ table: [[☃ table 1]]
                                                       aria-checked="false"
                                                       aria-disabled="true"
                                                       aria-label="Proper fractions"
-                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                       role="checkbox"
                                                       type="button"
                                                     >
@@ -4560,7 +4520,7 @@ table: [[☃ table 1]]
                                                       aria-checked="false"
                                                       aria-disabled="true"
                                                       aria-label="Improper fractions"
-                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                       role="checkbox"
                                                       type="button"
                                                     >
@@ -4570,7 +4530,7 @@ table: [[☃ table 1]]
                                                       aria-checked="false"
                                                       aria-disabled="true"
                                                       aria-label="Mixed numbers"
-                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                       role="checkbox"
                                                       type="button"
                                                     >
@@ -4580,7 +4540,7 @@ table: [[☃ table 1]]
                                                       aria-checked="false"
                                                       aria-disabled="true"
                                                       aria-label="Numbers with π"
-                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                       role="checkbox"
                                                       type="button"
                                                     >
@@ -4604,7 +4564,7 @@ table: [[☃ table 1]]
                                                     <button
                                                       aria-checked="true"
                                                       aria-disabled="true"
-                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                       role="radio"
                                                       type="button"
                                                     >
@@ -4613,7 +4573,7 @@ table: [[☃ table 1]]
                                                     <button
                                                       aria-checked="false"
                                                       aria-disabled="true"
-                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                       role="radio"
                                                       type="button"
                                                     >
@@ -4858,7 +4818,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           grapher 1
@@ -6703,7 +6663,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           group 1
@@ -6896,16 +6856,6 @@ table: [[☃ table 1]]
                               >
                                 Piecewise function
                               </option>
-                              <option
-                                disabled=""
-                              >
-                                --
-                              </option>
-                              <option
-                                value="allWidgets"
-                              >
-                                All widgets (for testing)
-                              </option>
                             </select>
                           </div>
                           <div
@@ -6921,7 +6871,7 @@ table: [[☃ table 1]]
                                   class="default_7zhre1-o_O-inlineStyles_d7xzml"
                                 >
                                   <span
-                                    class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                                    class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                                   />
                                   <span>
                                     numeric-input 2
@@ -6984,7 +6934,7 @@ table: [[☃ table 1]]
                               >
                                 <button
                                   aria-disabled="false"
-                                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
+                                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81-o_O-inlineStyles_uraxz"
                                   type="button"
                                 >
                                   <div
@@ -6996,7 +6946,7 @@ table: [[☃ table 1]]
                                       General Settings
                                     </span>
                                     <span
-                                      class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                                      class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                                     />
                                   </div>
                                 </button>
@@ -7030,7 +6980,7 @@ table: [[☃ table 1]]
                                         <button
                                           aria-checked="true"
                                           aria-disabled="true"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="radio"
                                           type="button"
                                         >
@@ -7039,7 +6989,7 @@ table: [[☃ table 1]]
                                         <button
                                           aria-checked="false"
                                           aria-disabled="true"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="radio"
                                           type="button"
                                         >
@@ -7099,7 +7049,7 @@ table: [[☃ table 1]]
                                         <button
                                           aria-checked="true"
                                           aria-disabled="true"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="radio"
                                           type="button"
                                         >
@@ -7108,7 +7058,7 @@ table: [[☃ table 1]]
                                         <button
                                           aria-checked="false"
                                           aria-disabled="true"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="radio"
                                           type="button"
                                         >
@@ -7151,7 +7101,7 @@ table: [[☃ table 1]]
                                 </div>
                                 <button
                                   aria-disabled="false"
-                                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
+                                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81-o_O-inlineStyles_uraxz"
                                   type="button"
                                 >
                                   <div
@@ -7163,7 +7113,7 @@ table: [[☃ table 1]]
                                       Answers
                                     </span>
                                     <span
-                                      class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                                      class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                                     />
                                   </div>
                                 </button>
@@ -7180,7 +7130,8 @@ table: [[☃ table 1]]
                                         class="default_7zhre1 perseus-editor-accordion"
                                       >
                                         <div
-                                          class="default_7zhre1-o_O-wrapper_13982vy-o_O-wrapperWithAnimation_t6xj9m-o_O-wrapper_m5h1c0-o_O-wrapperExpanded_nhpyf7-o_O-container_1kh6h4u"
+                                          class="default_7zhre1-o_O-wrapper_4htftm-o_O-wrapperWithAnimation_t6xj9m-o_O-wrapper_m5h1c0-o_O-container_1kh6h4u"
+                                          data-expanded="true"
                                           id=":r2i:"
                                         >
                                           <h2
@@ -7190,7 +7141,7 @@ table: [[☃ table 1]]
                                               aria-controls=":r2k:"
                                               aria-disabled="false"
                                               aria-expanded="true"
-                                              class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-headerWrapper_1xej40y-o_O-headerWrapperWithAnimation_14an94y-o_O-roundedTop_kesvr4-o_O-accordionHeader_2cig4f"
+                                              class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-headerWrapper_1xej40y-o_O-headerWrapperWithAnimation_14an94y-o_O-roundedTop_kesvr4-o_O-accordionHeader_2cig4f-o_O-inlineStyles_uraxz"
                                               id=":r2j:"
                                               type="button"
                                             >
@@ -7263,7 +7214,7 @@ table: [[☃ table 1]]
                                                   <button
                                                     aria-checked="true"
                                                     aria-disabled="true"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="radio"
                                                     type="button"
                                                   >
@@ -7272,7 +7223,7 @@ table: [[☃ table 1]]
                                                   <button
                                                     aria-checked="false"
                                                     aria-disabled="true"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="radio"
                                                     type="button"
                                                   >
@@ -7281,7 +7232,7 @@ table: [[☃ table 1]]
                                                   <button
                                                     aria-checked="false"
                                                     aria-disabled="true"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="radio"
                                                     type="button"
                                                   >
@@ -7313,7 +7264,7 @@ table: [[☃ table 1]]
                                                   <button
                                                     aria-checked="true"
                                                     aria-disabled="true"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="radio"
                                                     type="button"
                                                   >
@@ -7322,7 +7273,7 @@ table: [[☃ table 1]]
                                                   <button
                                                     aria-checked="false"
                                                     aria-disabled="true"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="radio"
                                                     type="button"
                                                   >
@@ -7331,7 +7282,7 @@ table: [[☃ table 1]]
                                                   <button
                                                     aria-checked="false"
                                                     aria-disabled="true"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="radio"
                                                     type="button"
                                                   >
@@ -7391,7 +7342,7 @@ table: [[☃ table 1]]
                                                     aria-checked="false"
                                                     aria-disabled="true"
                                                     aria-label="Integers"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="checkbox"
                                                     type="button"
                                                   >
@@ -7401,7 +7352,7 @@ table: [[☃ table 1]]
                                                     aria-checked="false"
                                                     aria-disabled="true"
                                                     aria-label="Decimals"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="checkbox"
                                                     type="button"
                                                   >
@@ -7411,7 +7362,7 @@ table: [[☃ table 1]]
                                                     aria-checked="false"
                                                     aria-disabled="true"
                                                     aria-label="Proper fractions"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="checkbox"
                                                     type="button"
                                                   >
@@ -7421,7 +7372,7 @@ table: [[☃ table 1]]
                                                     aria-checked="false"
                                                     aria-disabled="true"
                                                     aria-label="Improper fractions"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="checkbox"
                                                     type="button"
                                                   >
@@ -7431,7 +7382,7 @@ table: [[☃ table 1]]
                                                     aria-checked="false"
                                                     aria-disabled="true"
                                                     aria-label="Mixed numbers"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="checkbox"
                                                     type="button"
                                                   >
@@ -7441,7 +7392,7 @@ table: [[☃ table 1]]
                                                     aria-checked="false"
                                                     aria-disabled="true"
                                                     aria-label="Numbers with π"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="checkbox"
                                                     type="button"
                                                   >
@@ -7465,7 +7416,7 @@ table: [[☃ table 1]]
                                                   <button
                                                     aria-checked="true"
                                                     aria-disabled="true"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="radio"
                                                     type="button"
                                                   >
@@ -7474,7 +7425,7 @@ table: [[☃ table 1]]
                                                   <button
                                                     aria-checked="false"
                                                     aria-disabled="true"
-                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                                     role="radio"
                                                     type="button"
                                                   >
@@ -7542,7 +7493,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           image 1
@@ -8129,7 +8080,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           input-number 1
@@ -8192,7 +8143,7 @@ table: [[☃ table 1]]
                     >
                       <button
                         aria-disabled="false"
-                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
+                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81-o_O-inlineStyles_uraxz"
                         type="button"
                       >
                         <div
@@ -8204,7 +8155,7 @@ table: [[☃ table 1]]
                             General Settings
                           </span>
                           <span
-                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                           />
                         </div>
                       </button>
@@ -8238,7 +8189,7 @@ table: [[☃ table 1]]
                               <button
                                 aria-checked="true"
                                 aria-disabled="true"
-                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                 role="radio"
                                 type="button"
                               >
@@ -8247,7 +8198,7 @@ table: [[☃ table 1]]
                               <button
                                 aria-checked="false"
                                 aria-disabled="true"
-                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                 role="radio"
                                 type="button"
                               >
@@ -8307,7 +8258,7 @@ table: [[☃ table 1]]
                               <button
                                 aria-checked="true"
                                 aria-disabled="true"
-                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                 role="radio"
                                 type="button"
                               >
@@ -8316,7 +8267,7 @@ table: [[☃ table 1]]
                               <button
                                 aria-checked="false"
                                 aria-disabled="true"
-                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                 role="radio"
                                 type="button"
                               >
@@ -8359,7 +8310,7 @@ table: [[☃ table 1]]
                       </div>
                       <button
                         aria-disabled="false"
-                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
+                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81-o_O-inlineStyles_uraxz"
                         type="button"
                       >
                         <div
@@ -8371,7 +8322,7 @@ table: [[☃ table 1]]
                             Answers
                           </span>
                           <span
-                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                           />
                         </div>
                       </button>
@@ -8388,7 +8339,8 @@ table: [[☃ table 1]]
                               class="default_7zhre1 perseus-editor-accordion"
                             >
                               <div
-                                class="default_7zhre1-o_O-wrapper_13982vy-o_O-wrapperWithAnimation_t6xj9m-o_O-wrapper_m5h1c0-o_O-wrapperExpanded_nhpyf7-o_O-container_1kh6h4u"
+                                class="default_7zhre1-o_O-wrapper_4htftm-o_O-wrapperWithAnimation_t6xj9m-o_O-wrapper_m5h1c0-o_O-container_1kh6h4u"
+                                data-expanded="true"
                                 id=":r3l:"
                               >
                                 <h2
@@ -8398,7 +8350,7 @@ table: [[☃ table 1]]
                                     aria-controls=":r3n:"
                                     aria-disabled="false"
                                     aria-expanded="true"
-                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-headerWrapper_1xej40y-o_O-headerWrapperWithAnimation_14an94y-o_O-roundedTop_kesvr4-o_O-accordionHeader_2cig4f"
+                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-headerWrapper_1xej40y-o_O-headerWrapperWithAnimation_14an94y-o_O-roundedTop_kesvr4-o_O-accordionHeader_2cig4f-o_O-inlineStyles_uraxz"
                                     id=":r3m:"
                                     type="button"
                                   >
@@ -8473,7 +8425,7 @@ table: [[☃ table 1]]
                                         <button
                                           aria-checked="true"
                                           aria-disabled="true"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="radio"
                                           type="button"
                                         >
@@ -8482,7 +8434,7 @@ table: [[☃ table 1]]
                                         <button
                                           aria-checked="false"
                                           aria-disabled="true"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="radio"
                                           type="button"
                                         >
@@ -8491,7 +8443,7 @@ table: [[☃ table 1]]
                                         <button
                                           aria-checked="false"
                                           aria-disabled="true"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="radio"
                                           type="button"
                                         >
@@ -8523,7 +8475,7 @@ table: [[☃ table 1]]
                                         <button
                                           aria-checked="false"
                                           aria-disabled="true"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="radio"
                                           type="button"
                                         >
@@ -8532,7 +8484,7 @@ table: [[☃ table 1]]
                                         <button
                                           aria-checked="true"
                                           aria-disabled="true"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="radio"
                                           type="button"
                                         >
@@ -8541,7 +8493,7 @@ table: [[☃ table 1]]
                                         <button
                                           aria-checked="false"
                                           aria-disabled="true"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="radio"
                                           type="button"
                                         >
@@ -8601,7 +8553,7 @@ table: [[☃ table 1]]
                                           aria-checked="true"
                                           aria-disabled="true"
                                           aria-label="Integers"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="checkbox"
                                           type="button"
                                         >
@@ -8611,7 +8563,7 @@ table: [[☃ table 1]]
                                           aria-checked="false"
                                           aria-disabled="true"
                                           aria-label="Decimals"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="checkbox"
                                           type="button"
                                         >
@@ -8621,7 +8573,7 @@ table: [[☃ table 1]]
                                           aria-checked="true"
                                           aria-disabled="true"
                                           aria-label="Proper fractions"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="checkbox"
                                           type="button"
                                         >
@@ -8631,7 +8583,7 @@ table: [[☃ table 1]]
                                           aria-checked="true"
                                           aria-disabled="true"
                                           aria-label="Improper fractions"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="checkbox"
                                           type="button"
                                         >
@@ -8641,7 +8593,7 @@ table: [[☃ table 1]]
                                           aria-checked="true"
                                           aria-disabled="true"
                                           aria-label="Mixed numbers"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="checkbox"
                                           type="button"
                                         >
@@ -8651,7 +8603,7 @@ table: [[☃ table 1]]
                                           aria-checked="false"
                                           aria-disabled="true"
                                           aria-label="Numbers with π"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="checkbox"
                                           type="button"
                                         >
@@ -8675,7 +8627,7 @@ table: [[☃ table 1]]
                                         <button
                                           aria-checked="false"
                                           aria-disabled="true"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="radio"
                                           type="button"
                                         >
@@ -8684,7 +8636,7 @@ table: [[☃ table 1]]
                                         <button
                                           aria-checked="true"
                                           aria-disabled="true"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="radio"
                                           type="button"
                                         >
@@ -8747,7 +8699,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           interaction 1
@@ -9462,7 +9414,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           interactive-graph 1
@@ -9488,7 +9440,7 @@ table: [[☃ table 1]]
                       class="default_7zhre1 best-practices-container"
                     >
                       <a
-                        class="shared_1y1t15t-o_O-rest_19jgcvc"
+                        class="shared_1y1t15t-o_O-rest_19jgcvc-o_O-inlineStyles_uraxz"
                         href="https://khanacademy.atlassian.net/wiki/spaces/LC/pages/3295281289/Interactive+Graph+Widget#Adding-a-new-Interactive-Graph-Widget"
                         rel="noopener noreferrer"
                         target="_blank"
@@ -9608,7 +9560,7 @@ table: [[☃ table 1]]
                       </label>
                       <button
                         aria-disabled="false"
-                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
+                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81-o_O-inlineStyles_uraxz"
                         type="button"
                       >
                         <div
@@ -9620,7 +9572,7 @@ table: [[☃ table 1]]
                             Description
                           </span>
                           <span
-                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                           />
                         </div>
                       </button>
@@ -9674,7 +9626,7 @@ table: [[☃ table 1]]
                       </div>
                       <button
                         aria-disabled="true"
-                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-container_f36q81-o_O-notClickable_l0aty"
+                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-container_f36q81-o_O-notClickable_l0aty-o_O-inlineStyles_uraxz"
                         type="button"
                       >
                         <div
@@ -11071,7 +11023,7 @@ table: [[☃ table 1]]
                       >
                         <button
                           aria-disabled="false"
-                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
+                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81-o_O-inlineStyles_uraxz"
                           type="button"
                         >
                           <div
@@ -11083,7 +11035,7 @@ table: [[☃ table 1]]
                               Start coordinates
                             </span>
                             <span
-                              class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                              class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                             />
                           </div>
                         </button>
@@ -11259,7 +11211,7 @@ table: [[☃ table 1]]
                       </div>
                       <button
                         aria-disabled="false"
-                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
+                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81-o_O-inlineStyles_uraxz"
                         type="button"
                       >
                         <div
@@ -11271,7 +11223,7 @@ table: [[☃ table 1]]
                             Screen reader tree
                           </span>
                           <span
-                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                           />
                         </div>
                       </button>
@@ -11515,7 +11467,7 @@ table: [[☃ table 1]]
                       </ol>
                       <button
                         aria-disabled="false"
-                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
+                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81-o_O-inlineStyles_uraxz"
                         type="button"
                       >
                         <div
@@ -11527,7 +11479,7 @@ table: [[☃ table 1]]
                             Common Graph Settings
                           </span>
                           <span
-                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                           />
                         </div>
                       </button>
@@ -12187,7 +12139,7 @@ table: [[☃ table 1]]
                       </div>
                       <button
                         aria-disabled="false"
-                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
+                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81-o_O-inlineStyles_uraxz"
                         type="button"
                       >
                         <div
@@ -12199,7 +12151,7 @@ table: [[☃ table 1]]
                             Locked Figures
                           </span>
                           <span
-                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                           />
                         </div>
                       </button>
@@ -12210,7 +12162,8 @@ table: [[☃ table 1]]
                           class="default_7zhre1 perseus-editor-accordion"
                         >
                           <div
-                            class="default_7zhre1-o_O-wrapper_13982vy-o_O-wrapper_m5h1c0-o_O-wrapperExpanded_nhpyf7-o_O-container_1kh6h4u"
+                            class="default_7zhre1-o_O-wrapper_4htftm-o_O-wrapper_m5h1c0-o_O-container_1kh6h4u"
+                            data-expanded="true"
                             id=":r4u:"
                           >
                             <h2
@@ -12220,7 +12173,7 @@ table: [[☃ table 1]]
                                 aria-controls=":r50:"
                                 aria-disabled="false"
                                 aria-expanded="true"
-                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-headerWrapper_1xej40y-o_O-roundedTop_kesvr4-o_O-accordionHeader_2cig4f"
+                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-headerWrapper_1xej40y-o_O-roundedTop_kesvr4-o_O-accordionHeader_2cig4f-o_O-inlineStyles_uraxz"
                                 id=":r4v:"
                                 type="button"
                               >
@@ -12586,7 +12539,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           label-image 1
@@ -12733,7 +12686,7 @@ table: [[☃ table 1]]
                             <button
                               aria-disabled="true"
                               aria-label="Remove answer"
-                              class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 remove-button"
+                              class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz remove-button"
                               type="button"
                             >
                               <span
@@ -12761,7 +12714,7 @@ table: [[☃ table 1]]
                             <button
                               aria-disabled="true"
                               aria-label="Remove answer"
-                              class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 remove-button"
+                              class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz remove-button"
                               type="button"
                             >
                               <span
@@ -12786,7 +12739,7 @@ table: [[☃ table 1]]
                         </ul>
                         <button
                           aria-disabled="true"
-                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 add-answer"
+                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz add-answer"
                           type="button"
                         >
                           <span
@@ -12949,7 +12902,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           matcher 1
@@ -13156,7 +13109,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           matrix 1
@@ -13404,7 +13357,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           measurer 1
@@ -13563,7 +13516,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           number-line 1
@@ -13974,7 +13927,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           numeric-input 1
@@ -14037,7 +13990,7 @@ table: [[☃ table 1]]
                     >
                       <button
                         aria-disabled="false"
-                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
+                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81-o_O-inlineStyles_uraxz"
                         type="button"
                       >
                         <div
@@ -14049,7 +14002,7 @@ table: [[☃ table 1]]
                             General Settings
                           </span>
                           <span
-                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                           />
                         </div>
                       </button>
@@ -14083,7 +14036,7 @@ table: [[☃ table 1]]
                               <button
                                 aria-checked="true"
                                 aria-disabled="true"
-                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                 role="radio"
                                 type="button"
                               >
@@ -14092,7 +14045,7 @@ table: [[☃ table 1]]
                               <button
                                 aria-checked="false"
                                 aria-disabled="true"
-                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                 role="radio"
                                 type="button"
                               >
@@ -14152,7 +14105,7 @@ table: [[☃ table 1]]
                               <button
                                 aria-checked="true"
                                 aria-disabled="true"
-                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                 role="radio"
                                 type="button"
                               >
@@ -14161,7 +14114,7 @@ table: [[☃ table 1]]
                               <button
                                 aria-checked="false"
                                 aria-disabled="true"
-                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                 role="radio"
                                 type="button"
                               >
@@ -14204,7 +14157,7 @@ table: [[☃ table 1]]
                       </div>
                       <button
                         aria-disabled="false"
-                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81"
+                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-container_f36q81-o_O-inlineStyles_uraxz"
                         type="button"
                       >
                         <div
@@ -14216,7 +14169,7 @@ table: [[☃ table 1]]
                             Answers
                           </span>
                           <span
-                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                            class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                           />
                         </div>
                       </button>
@@ -14233,7 +14186,8 @@ table: [[☃ table 1]]
                               class="default_7zhre1 perseus-editor-accordion"
                             >
                               <div
-                                class="default_7zhre1-o_O-wrapper_13982vy-o_O-wrapperWithAnimation_t6xj9m-o_O-wrapper_m5h1c0-o_O-wrapperExpanded_nhpyf7-o_O-container_1kh6h4u"
+                                class="default_7zhre1-o_O-wrapper_4htftm-o_O-wrapperWithAnimation_t6xj9m-o_O-wrapper_m5h1c0-o_O-container_1kh6h4u"
+                                data-expanded="true"
                                 id=":r61:"
                               >
                                 <h2
@@ -14243,7 +14197,7 @@ table: [[☃ table 1]]
                                     aria-controls=":r63:"
                                     aria-disabled="false"
                                     aria-expanded="true"
-                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-headerWrapper_1xej40y-o_O-headerWrapperWithAnimation_14an94y-o_O-roundedTop_kesvr4-o_O-accordionHeader_2cig4f"
+                                    class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-headerWrapper_1xej40y-o_O-headerWrapperWithAnimation_14an94y-o_O-roundedTop_kesvr4-o_O-accordionHeader_2cig4f-o_O-inlineStyles_uraxz"
                                     id=":r62:"
                                     type="button"
                                   >
@@ -14316,7 +14270,7 @@ table: [[☃ table 1]]
                                         <button
                                           aria-checked="true"
                                           aria-disabled="true"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="radio"
                                           type="button"
                                         >
@@ -14325,7 +14279,7 @@ table: [[☃ table 1]]
                                         <button
                                           aria-checked="false"
                                           aria-disabled="true"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="radio"
                                           type="button"
                                         >
@@ -14334,7 +14288,7 @@ table: [[☃ table 1]]
                                         <button
                                           aria-checked="false"
                                           aria-disabled="true"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="radio"
                                           type="button"
                                         >
@@ -14366,7 +14320,7 @@ table: [[☃ table 1]]
                                         <button
                                           aria-checked="true"
                                           aria-disabled="true"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="radio"
                                           type="button"
                                         >
@@ -14375,7 +14329,7 @@ table: [[☃ table 1]]
                                         <button
                                           aria-checked="false"
                                           aria-disabled="true"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="radio"
                                           type="button"
                                         >
@@ -14384,7 +14338,7 @@ table: [[☃ table 1]]
                                         <button
                                           aria-checked="false"
                                           aria-disabled="true"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="radio"
                                           type="button"
                                         >
@@ -14447,7 +14401,7 @@ table: [[☃ table 1]]
                                           aria-checked="false"
                                           aria-disabled="true"
                                           aria-label="Integers"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="checkbox"
                                           type="button"
                                         >
@@ -14457,7 +14411,7 @@ table: [[☃ table 1]]
                                           aria-checked="false"
                                           aria-disabled="true"
                                           aria-label="Decimals"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="checkbox"
                                           type="button"
                                         >
@@ -14467,7 +14421,7 @@ table: [[☃ table 1]]
                                           aria-checked="false"
                                           aria-disabled="true"
                                           aria-label="Proper fractions"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="checkbox"
                                           type="button"
                                         >
@@ -14477,7 +14431,7 @@ table: [[☃ table 1]]
                                           aria-checked="false"
                                           aria-disabled="true"
                                           aria-label="Improper fractions"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="checkbox"
                                           type="button"
                                         >
@@ -14487,7 +14441,7 @@ table: [[☃ table 1]]
                                           aria-checked="false"
                                           aria-disabled="true"
                                           aria-label="Mixed numbers"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="checkbox"
                                           type="button"
                                         >
@@ -14497,7 +14451,7 @@ table: [[☃ table 1]]
                                           aria-checked="false"
                                           aria-disabled="true"
                                           aria-label="Numbers with π"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="checkbox"
                                           type="button"
                                         >
@@ -14521,7 +14475,7 @@ table: [[☃ table 1]]
                                         <button
                                           aria-checked="true"
                                           aria-disabled="true"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="radio"
                                           type="button"
                                         >
@@ -14530,7 +14484,7 @@ table: [[☃ table 1]]
                                         <button
                                           aria-checked="false"
                                           aria-disabled="true"
-                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                          class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                           role="radio"
                                           type="button"
                                         >
@@ -14593,7 +14547,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           orderer 1
@@ -14739,7 +14693,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           plotter 1
@@ -15222,7 +15176,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           radio 1
@@ -15248,7 +15202,7 @@ table: [[☃ table 1]]
                       class="default_7zhre1 best-practices-container"
                     >
                       <a
-                        class="shared_1y1t15t-o_O-rest_19jgcvc"
+                        class="shared_1y1t15t-o_O-rest_19jgcvc-o_O-inlineStyles_uraxz"
                         href="https://www.khanacademy.org/internal-courses/content-creation-best-practices/xe46daa512cd9c644:question-writing/xe46daa512cd9c644:multiple-choice/a/stems"
                         rel="noopener noreferrer"
                         target="_blank"
@@ -15364,7 +15318,7 @@ table: [[☃ table 1]]
                               <button
                                 aria-checked="true"
                                 aria-disabled="true"
-                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                 role="radio"
                                 type="button"
                               >
@@ -15373,7 +15327,7 @@ table: [[☃ table 1]]
                               <button
                                 aria-checked="false"
                                 aria-disabled="true"
-                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                 role="radio"
                                 type="button"
                               >
@@ -15555,7 +15509,7 @@ table: [[☃ table 1]]
                               <button
                                 aria-checked="false"
                                 aria-disabled="true"
-                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                 role="radio"
                                 type="button"
                               >
@@ -15564,7 +15518,7 @@ table: [[☃ table 1]]
                               <button
                                 aria-checked="true"
                                 aria-disabled="true"
-                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1 segment"
+                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-disabled_1yyknr1-o_O-inlineStyles_uraxz segment"
                                 role="radio"
                                 type="button"
                               >
@@ -15766,7 +15720,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           sorter 1
@@ -16176,7 +16130,7 @@ table: [[☃ table 1]]
                         class="default_7zhre1-o_O-inlineStyles_d7xzml"
                       >
                         <span
-                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
+                          class="svg_1q6jc65-o_O-small_6q1hy-o_O-mirroredInRtl_ugydfe-o_O-expanded_t9diki-o_O-inlineStyles_u4fgyh"
                         />
                         <span>
                           table 1

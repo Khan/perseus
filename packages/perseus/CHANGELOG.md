@@ -1,5 +1,156 @@
 # @khanacademy/perseus
 
+## 87.2.0
+
+### Minor Changes
+
+-   [#4208](https://github.com/Khan/perseus/pull/4208) [`9f6043b`](https://github.com/Khan/perseus/commit/9f6043b0c8230c353304c7455f70d5e4724c4659) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add a placeholder Fill in the Blank content editor behind a feature flag
+
+-   [#4203](https://github.com/Khan/perseus/pull/4203) [`834d458`](https://github.com/Khan/perseus/commit/834d458ee5aee90ad705b81dc1323c417854d0ac) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Register the Fill in the Blank widget with a placeholder render- [#4203](https://github.com/Khan/perseus/issues/4203)
+
+-   [#4181](https://github.com/Khan/perseus/pull/4181) [`995aa68`](https://github.com/Khan/perseus/commit/995aa68d04bdc95f7b463406d797ed6a24107cad) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add the new Fill in the Blank widget's schema and logic to perseus-core
+
+### Patch Changes
+
+-   [#4227](https://github.com/Khan/perseus/pull/4227) [`c927205`](https://github.com/Khan/perseus/commit/c9272053e926d8c78f2b07c64855ec6a27674839) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dependencies
+
+-   Updated dependencies [[`e114416`](https://github.com/Khan/perseus/commit/e11441600e2b4c9efe6ec008d387ee245f11470d), [`995aa68`](https://github.com/Khan/perseus/commit/995aa68d04bdc95f7b463406d797ed6a24107cad), [`c927205`](https://github.com/Khan/perseus/commit/c9272053e926d8c78f2b07c64855ec6a27674839)]:
+    -   @khanacademy/perseus-linter@5.4.1
+    -   @khanacademy/perseus-core@39.2.0
+    -   @khanacademy/math-input@27.0.16
+    -   @khanacademy/keypad-context@3.2.92
+    -   @khanacademy/kmath@2.4.51
+    -   @khanacademy/perseus-score@8.12.24
+
+## 87.1.4
+
+### Patch Changes
+
+-   [#4210](https://github.com/Khan/perseus/pull/4210) [`3c0fe3a`](https://github.com/Khan/perseus/commit/3c0fe3a57b4e1d2a77a894848ec3884ce444355c) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove the unused `zoomToFullSizeOnMobile` prop from `SvgImage`
+
+-   [#4219](https://github.com/Khan/perseus/pull/4219) [`43887dc`](https://github.com/Khan/perseus/commit/43887dc4b4ca3133b00e78db16810249c70ce66c) Thanks [@jandrade](https://github.com/jandrade)! - Bumps Wonder Blocks dependencies: IconButton now requires aria-label (major), Accordion, Clickable and Link improvments
+
+-   Updated dependencies [[`43887dc`](https://github.com/Khan/perseus/commit/43887dc4b4ca3133b00e78db16810249c70ce66c)]:
+    -   @khanacademy/math-input@27.0.15
+
+## 87.1.3
+
+### Patch Changes
+
+-   [#4206](https://github.com/Khan/perseus/pull/4206) [`c2a9d3e`](https://github.com/Khan/perseus/commit/c2a9d3ea577927464c53b0e027d707d41c06f78e) Thanks [@jandrade](https://github.com/jandrade)! - Updates the DnD component to use a valid WB lineHeight token
+
+-   [#4200](https://github.com/Khan/perseus/pull/4200) [`22dc543`](https://github.com/Khan/perseus/commit/22dc5433c41fa04ebe4a718804aaec1ee7201e6a) Thanks [@nishasy](https://github.com/nishasy)! - Fix tooltips getting cut off in the editor preview
+
+-   [#4206](https://github.com/Khan/perseus/pull/4206) [`c2a9d3e`](https://github.com/Khan/perseus/commit/c2a9d3ea577927464c53b0e027d707d41c06f78e) Thanks [@jandrade](https://github.com/jandrade)! - Updates WB peer deps
+
+-   Updated dependencies [[`c2a9d3e`](https://github.com/Khan/perseus/commit/c2a9d3ea577927464c53b0e027d707d41c06f78e), [`dc12384`](https://github.com/Khan/perseus/commit/dc123845614fae331d8517a524212fc1dbbe110f)]:
+    -   @khanacademy/math-input@27.0.14
+    -   @khanacademy/perseus-linter@5.4.0
+    -   @khanacademy/perseus-core@39.1.0
+    -   @khanacademy/keypad-context@3.2.91
+    -   @khanacademy/kmath@2.4.50
+    -   @khanacademy/perseus-score@8.12.23
+
+## 87.1.2
+
+### Patch Changes
+
+-   [#4183](https://github.com/Khan/perseus/pull/4183) [`724a9cc`](https://github.com/Khan/perseus/commit/724a9ccf02d007a0667ea0cc4feb7782c45773f3) Thanks [@nishasy](https://github.com/nishasy)! - Editor tooltip and spacing improvements
+
+-   Updated dependencies [[`cf56830`](https://github.com/Khan/perseus/commit/cf568308a7ac5601af0afbc386832000c7f8cae5)]:
+    -   @khanacademy/perseus-core@39.0.0
+    -   @khanacademy/keypad-context@3.2.90
+    -   @khanacademy/kmath@2.4.49
+    -   @khanacademy/math-input@27.0.13
+    -   @khanacademy/perseus-linter@5.3.1
+    -   @khanacademy/perseus-score@8.12.22
+
+## 87.1.1
+
+### Patch Changes
+
+-   [#4182](https://github.com/Khan/perseus/pull/4182) [`a662363`](https://github.com/Khan/perseus/commit/a662363657d468018de72ea8881720d34474276e) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Temporarily replace Mafs' `vec.midpoint()` with our own `line.midpoint()` to guard against a bug. Mafs' implementation of `midpoint()` returns `[NaN, NaN]` given two equal points.
+
+## 87.1.0
+
+### Minor Changes
+
+-   [#4099](https://github.com/Khan/perseus/pull/4099) [`ab04653`](https://github.com/Khan/perseus/commit/ab046532548311a90897ff9669357cf2757956b8) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Add AnswerTile component for the Drag-and-Drop widget family
+
+-   [#4128](https://github.com/Khan/perseus/pull/4128) [`1fd9c1b`](https://github.com/Khan/perseus/commit/1fd9c1b9c9ff07b47d11a12bf05e360ace63c3a3) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Hook the shared Drag-and-Drop components up to dnd-kit and add the layer the widgets build on: the placement model, the move and clear actions with their announcements and focus handling, and the widest-tile measurement.
+
+-   [#4091](https://github.com/Khan/perseus/pull/4091) [`09afc4e`](https://github.com/Khan/perseus/commit/09afc4edc3c2bc20f81496841707fdce6b4d52b7) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Add DndActionMenu component for the Drag-and-Drop widget family
+
+### Patch Changes
+
+-   [#4186](https://github.com/Khan/perseus/pull/4186) [`e7948d2`](https://github.com/Khan/perseus/commit/e7948d21dac9d38cac27d67b139d34a71152b59c) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Sync dependencies with Frontend
+
+-   [#4184](https://github.com/Khan/perseus/pull/4184) [`8b12a98`](https://github.com/Khan/perseus/commit/8b12a985e0be7b30af0d18e80107d54fb306a4cc) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Memoize the i18n context provider values so consumers no longer re-render whenever the provider's parent renders
+
+-   [#4148](https://github.com/Khan/perseus/pull/4148) [`a2e65fc`](https://github.com/Khan/perseus/commit/a2e65fce39b054b27bee12f31cacf0abe75f0e08) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Swap `withDependencies` HOC for `useDependencies` hook in several widgets.
+
+-   [#4185](https://github.com/Khan/perseus/pull/4185) [`8b20d02`](https://github.com/Khan/perseus/commit/8b20d021e0a0ca7c97da148658a6aad25ca34ecf) Thanks [@somewhatabstract](https://github.com/somewhatabstract)! - Fix `SvgImage` re-running `loadResources` (and calling `setState` during React's commit phase) on every update while a labeled SVG's image was still loading, which could trip React's "Maximum update depth exceeded" limit
+
+-   Updated dependencies [[`e7948d2`](https://github.com/Khan/perseus/commit/e7948d21dac9d38cac27d67b139d34a71152b59c), [`8b12a98`](https://github.com/Khan/perseus/commit/8b12a985e0be7b30af0d18e80107d54fb306a4cc)]:
+    -   @khanacademy/math-input@27.0.12
+
+## 87.0.0
+
+### Major Changes
+
+-   [#4166](https://github.com/Khan/perseus/pull/4166) [`d81fe78`](https://github.com/Khan/perseus/commit/d81fe78cd5d9e34fafe9e3b07f4e9f45fd0c4860) Thanks [@Myranae](https://github.com/Myranae)! - Fixes a console error that appeared when re-clicking the already-selected function type in the Grapher widget by removing ButtonGroup's `allowEmpty` prop — clicking the selected button no longer calls `onChange`.
+
+### Patch Changes
+
+-   [#4175](https://github.com/Khan/perseus/pull/4175) [`5b6df58`](https://github.com/Khan/perseus/commit/5b6df580cba775fe3321262f4c8513e5160baccb) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the Graded Group Set widget is now a functional component.
+
+-   [#4173](https://github.com/Khan/perseus/pull/4173) [`3a503f8`](https://github.com/Khan/perseus/commit/3a503f815f766924dfcdfaa37f7d74a26e3c8da1) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the Graded Group widget is now a functional component
+
+-   [#4104](https://github.com/Khan/perseus/pull/4104) [`147d2f6`](https://github.com/Khan/perseus/commit/147d2f6c48eec7dc3eee8fbc93edc420a5a976fc) Thanks [@maddy531](https://github.com/maddy531)! - Pass LTR-facing directional icons and let PhosphorIcon mirror them in RTL, opting the graph-editor's absolute-axis arrows out.
+
+-   Updated dependencies [[`8fe153e`](https://github.com/Khan/perseus/commit/8fe153ebde6a97f8500e21cf1410e6cf9cabae7d), [`b9df1a4`](https://github.com/Khan/perseus/commit/b9df1a4bb9ef2d0b2cc1ac2a3e648396bce4fb05)]:
+    -   @khanacademy/perseus-linter@5.3.0
+
+## 86.0.1
+
+### Patch Changes
+
+-   [#4169](https://github.com/Khan/perseus/pull/4169) [`44ca8c9`](https://github.com/Khan/perseus/commit/44ca8c92e03609e3d665cbb7bee3d86086ad7553) Thanks [@benchristel](https://github.com/benchristel)! - The editor preview for the Image widget now displays the correct colors for Graphie labels when the dark mode preview is toggled on.
+
+-   [#4169](https://github.com/Khan/perseus/pull/4169) [`44ca8c9`](https://github.com/Khan/perseus/commit/44ca8c92e03609e3d665cbb7bee3d86086ad7553) Thanks [@benchristel](https://github.com/benchristel)! - Bugfix: Graphie labels with no `style` property no longer crash the Renderer.
+
+## 86.0.0
+
+### Major Changes
+
+-   [#4164](https://github.com/Khan/perseus/pull/4164) [`c0345f1`](https://github.com/Khan/perseus/commit/c0345f1f9f151914110d47fdf5b1f811d4cbbff3) Thanks [@benchristel](https://github.com/benchristel)! - The temporary `wb-themed-math` class has been removed. Clients must now use `@khanacademy/mathjax-renderer` 3.2.0 or later with Perseus.
+
+-   [#4165](https://github.com/Khan/perseus/pull/4165) [`771abcc`](https://github.com/Khan/perseus/commit/771abcc097cd95ce83ea0e478f87836f9227312c) Thanks [@handeyeco](https://github.com/handeyeco)! - Add a required `seed` prop to ArticleRenderer to make sure things shuffle correctly.
+
+### Patch Changes
+
+-   [#4154](https://github.com/Khan/perseus/pull/4154) [`d8a833c`](https://github.com/Khan/perseus/commit/d8a833cf55776966ca63c6cd8d78d4949abf7f83) Thanks [@Myranae](https://github.com/Myranae)! - Removes unused color constants and unused interactive graph code. No visible changes to exercises or articles; if your code imports rarely-used entries from Perseus's `KhanColors`, some are no longer available.
+
+-   [#4146](https://github.com/Khan/perseus/pull/4146) [`bc99235`](https://github.com/Khan/perseus/commit/bc99235dae2e89da7bc8dd04704fcf89e468c073) Thanks [@benchristel](https://github.com/benchristel)! - Internal: remove `shouldComponentUpdate` methods that just check shallow equality of props and state
+
+-   [#4158](https://github.com/Khan/perseus/pull/4158) [`1f6424a`](https://github.com/Khan/perseus/commit/1f6424a4a34123a1e9609ae8499ac6e8138c589d) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Adding new dnd-widget-fitb flag
+
+-   [#4153](https://github.com/Khan/perseus/pull/4153) [`53a77dd`](https://github.com/Khan/perseus/commit/53a77ddca87eea74e6fd544e44f7b8c8a24fed4e) Thanks [@Myranae](https://github.com/Myranae)! - Interactive graph shadows and a few remaining colors now follow the Khan Academy theme, including dark mode
+
+-   [#4156](https://github.com/Khan/perseus/pull/4156) [`a732531`](https://github.com/Khan/perseus/commit/a732531a3a653f7fdc668c61ee1a699e789aa168) Thanks [@Myranae](https://github.com/Myranae)! - Converts the last hardcoded white/off-white colors in the shared responsive input and radio styles to theme-aware semantic color tokens. No visible changes to exercises or articles.
+
+-   [#4157](https://github.com/Khan/perseus/pull/4157) [`afcc17c`](https://github.com/Khan/perseus/commit/afcc17c844f0f08f9704042a79eb3d458ea01224) Thanks [@Myranae](https://github.com/Myranae)! - The multi-select button group (used when authoring Grapher widgets with multiple function types) now shares the single-select button group's theme-aware colors.
+
+-   [#4161](https://github.com/Khan/perseus/pull/4161) [`510351d`](https://github.com/Khan/perseus/commit/510351ddd9e3637b4191656a81c6bc599b89c1b4) Thanks [@benchristel](https://github.com/benchristel)! - Graphie labels now render in colors from the Wonder Blocks theme. We use the WB learning.math.foreground color that best matches the authored color.
+
+-   Updated dependencies [[`1f6424a`](https://github.com/Khan/perseus/commit/1f6424a4a34123a1e9609ae8499ac6e8138c589d)]:
+    -   @khanacademy/perseus-core@38.1.1
+    -   @khanacademy/keypad-context@3.2.89
+    -   @khanacademy/kmath@2.4.48
+    -   @khanacademy/math-input@27.0.11
+    -   @khanacademy/perseus-linter@5.2.2
+    -   @khanacademy/perseus-score@8.12.21
+
 ## 85.2.0
 
 ### Minor Changes

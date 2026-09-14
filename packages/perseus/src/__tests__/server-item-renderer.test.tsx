@@ -654,35 +654,51 @@ describe("server item renderer", () => {
     });
 
     describe("content editing", () => {
-        it("shouldn't show linting errors when highlightLint is false", () => {
-            // Arrange and Act
+        const renderQuestionWithLint = (highlightLint: boolean) =>
             renderQuestion(itemWithLintingError, undefined, {
                 linterContext: {
                     contentType: "exercise",
-                    highlightLint: false,
+                    highlightLint,
                     stack: [],
                 },
             });
 
+        // The lint indicator is a link to the rule's documentation, labelled
+        // with the severity and rule name.
+        const lintIndicatorName = "Warning: heading-level-1";
+
+        it("doesn't render a lint indicator when highlightLint is false", () => {
+            // Arrange, Act
+            renderQuestionWithLint(false);
+
             expect(
-                screen.queryByText("Don't use level-1 headings", {
-                    exact: false,
-                }),
+                screen.queryByRole("link", {name: lintIndicatorName}),
             ).not.toBeInTheDocument();
         });
 
-        it("should show linting errors when highlightLint is true", () => {
-            // Arrange and Act
-            renderQuestion(itemWithLintingError, undefined, {
-                linterContext: {
-                    contentType: "exercise",
-                    highlightLint: true,
-                    stack: [],
-                },
-            });
+        it("renders a lint indicator when highlightLint is true", () => {
+            // Arrange, Act
+            renderQuestionWithLint(true);
 
             expect(
-                screen.getByText("Don't use level-1 headings", {exact: false}),
+                screen.getByRole("link", {name: lintIndicatorName}),
+            ).toBeInTheDocument();
+        });
+
+        it("shows the lint message when the indicator is hovered", async () => {
+            // Arrange
+            renderQuestionWithLint(true);
+
+            // Act
+            await userEvent.hover(
+                screen.getByRole("link", {name: lintIndicatorName}),
+            );
+
+            // The tooltip opens after a short delay, so we have to wait for it.
+            expect(
+                await screen.findByText("Don't use level-1 headings", {
+                    exact: false,
+                }),
             ).toBeInTheDocument();
         });
     });

@@ -1,5 +1,35 @@
 # @khanacademy/perseus-core
 
+## 39.2.0
+
+### Minor Changes
+
+-   [#4181](https://github.com/Khan/perseus/pull/4181) [`995aa68`](https://github.com/Khan/perseus/commit/995aa68d04bdc95f7b463406d797ed6a24107cad) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add the new Fill in the Blank widget's schema and logic to perseus-core
+
+## 39.1.0
+
+### Minor Changes
+
+-   [#4204](https://github.com/Khan/perseus/pull/4204) [`dc12384`](https://github.com/Khan/perseus/commit/dc123845614fae331d8517a524212fc1dbbe110f) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Makes max sorter card count a const in perseus core and consumes it
+
+## 39.0.0
+
+### Major Changes
+
+-   [#4194](https://github.com/Khan/perseus/pull/4194) [`cf56830`](https://github.com/Khan/perseus/commit/cf568308a7ac5601af0afbc386832000c7f8cae5) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove the `@khanacademy/perseus-core/item-splitting` entry point.
+
+    This entry point (`/item-splitting`) was incorrectly added to support a CI
+    check that detects important item splitting changes. It doesn't need to be an
+    export to do this though, so this change removes it.
+
+    Import `splitPerseusItem` from `@khanacademy/perseus-core` instead.
+
+## 38.1.1
+
+### Patch Changes
+
+-   [#4158](https://github.com/Khan/perseus/pull/4158) [`1f6424a`](https://github.com/Khan/perseus/commit/1f6424a4a34123a1e9609ae8499ac6e8138c589d) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Adding new dnd-widget-fitb flag
+
 ## 38.1.0
 
 ### Minor Changes

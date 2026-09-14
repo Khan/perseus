@@ -52,8 +52,7 @@ export const DemoInteractiveGraph = (): React.ReactElement => {
         // Many of the editor components use scoped CSS that requires this
         // class to be above it.
         // TODO: Refactor to aphrodite styles instead of scoped CSS in Less.
-        // TODO(LEMS-4492): remove wb-themed-math
-        <div className="framework-perseus wb-themed-math">
+        <div className="framework-perseus">
             <SplitView
                 rendererTitle="Editor"
                 renderer={

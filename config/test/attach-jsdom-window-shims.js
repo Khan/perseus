@@ -78,6 +78,30 @@ const attachShims = (targetWindow) => {
     // JSDOM doesn't implement scrollTo
     targetWindow.scrollTo = () => {};
 
+    // JSDOM doesn't implement ResizeObserver. @dnd-kit/dom constructs one
+    // as soon as it is imported, so any test that renders a draggable or
+    // droppable component needs at least this inert stub.
+    if (!targetWindow.ResizeObserver) {
+        targetWindow.ResizeObserver = class ResizeObserver {
+            observe() {}
+            unobserve() {}
+            disconnect() {}
+        };
+    }
+
+    // JSDOM doesn't define PointerEvent, and @dnd-kit/dom's pointer sensor
+    // runs `event instanceof PointerEvent` on every pointerdown. This shim
+    // only needs to exist for that check; user-event's synthesized pointer
+    // events are MouseEvents, so the check stays false and no drag starts
+    // (which is what tests want — pointer drags aren't simulated in JSDOM).
+    // Suites in the node test environment have no MouseEvent to extend and
+    // no DOM to dispatch events into, so they need no shim.
+    if (targetWindow.MouseEvent && !targetWindow.PointerEvent) {
+        targetWindow.PointerEvent = class PointerEvent extends (
+            targetWindow.MouseEvent
+        ) {};
+    }
+
     // JSDOM doesn't implement the CSS Font Loading API, so `document.fonts`
     // doesn't exist at all — which also means there's no accessor for
     // `jest.spyOn(document, "fonts", "get")` to wrap. Defining it as a getter

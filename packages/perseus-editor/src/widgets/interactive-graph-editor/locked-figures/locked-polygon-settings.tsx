@@ -8,6 +8,7 @@ import {
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
+import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Spring} from "@khanacademy/wonder-blocks-layout";
 import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
@@ -345,7 +346,14 @@ const LockedPolygonSettings = (props: Props) => {
 
                     <Spring />
 
-                    {/* Buttons to move the entire polygon */}
+                    {/* Buttons to move the entire polygon.
+
+                        The left/right arrows are passed as elements so they can
+                        set `mirrorInRtl={false}`. These point along the graph's
+                        x-axis, which is absolute — "left" means decreasing x in
+                        every locale — so they must not flip in RTL the way a
+                        "back" arrow would. The up/down arrows need nothing,
+                        since only the horizontal glyphs are mirrored. */}
                     <View className={styles.movementButtonsContainer}>
                         <IconButton
                             aria-label="Move polygon up"
@@ -359,7 +367,12 @@ const LockedPolygonSettings = (props: Props) => {
                             <IconButton
                                 aria-label="Move polygon left"
                                 size="small"
-                                icon={arrowFatLeft}
+                                icon={
+                                    <PhosphorIcon
+                                        icon={arrowFatLeft}
+                                        mirrorInRtl={false}
+                                    />
+                                }
                                 kind="tertiary"
                                 disabled={editingDisabled}
                                 onClick={() => handlePolygonMove("left")}
@@ -375,7 +388,12 @@ const LockedPolygonSettings = (props: Props) => {
                             <IconButton
                                 aria-label="Move polygon right"
                                 size="small"
-                                icon={arrowFatRight}
+                                icon={
+                                    <PhosphorIcon
+                                        icon={arrowFatRight}
+                                        mirrorInRtl={false}
+                                    />
+                                }
                                 kind="tertiary"
                                 disabled={editingDisabled}
                                 onClick={() => handlePolygonMove("right")}
