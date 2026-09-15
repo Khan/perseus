@@ -49,10 +49,6 @@ class GradedGroupAnswerBar extends React.Component<Props> {
 
         const answerBarStyle = {
             ...styles.answerBar,
-            backgroundColor:
-                answerBarState === "CORRECT"
-                    ? semanticColor.core.background.base.subtle
-                    : semanticColor.core.background.base.default,
             // Center the "Correct!" message only when there's no next question
             justifyContent:
                 answerBarState === "CORRECT" && !onNextQuestion
@@ -129,6 +125,7 @@ const styles = {
         paddingLeft: phoneMargin,
         paddingRight: 10,
         borderTop: `${border.width.thin} solid ${semanticColor.core.border.neutral.default}`,
+        backgroundColor: semanticColor.core.background.base.subtle,
     },
 
     tryAgainIcon: {
