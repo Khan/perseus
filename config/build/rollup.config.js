@@ -14,6 +14,8 @@ import autoExternal from "rollup-plugin-auto-external";
 import filesize from "rollup-plugin-filesize";
 import postcss from "rollup-plugin-postcss";
 
+import {getEntryPoints} from "./get-entry-points";
+
 const rootDir = ancesdir(__dirname);
 
 /**
@@ -235,14 +237,12 @@ const createConfig = (
  *
  * For each package in our packages folder, generate the outputs we want.
  *
- * To determine what those outputs are, we read the `package.json` file for
- * each package. If the package has a `browser` field, then we generate
- * browser and node assets. If not, we just generate the node assets.
- * Note that we also get the output paths from the package.json.
+ * The entry points come from the package's `package.json` exports map, or from
+ * its `source` field if it has no exports map. Each one is built in each
+ * requested format: CJS lands in `dist/` and ESM in `dist/es/`, which is what
+ * the `main`, `module` and `exports` fields of every package point at.
  *
  * We also can filter the outputs based on command line options:
- * `--configPlatforms` - Comma-separated list. Valid values are "browser"
- *                       and "node".
  * `--configFormats`   - Comma-separated list. Valid values are "cjs" and
  *                       "esm". If not specified, then we generate both.
  */
@@ -258,35 +258,9 @@ const getPackageInfo = (commandLineArgs, pkgName) => {
 
     const configs = [];
 
-    if (pkgJson.exports) {
-        for (const exportConfig of Object.values(pkgJson.exports)) {
-            if (exportConfig.require && formats.has("cjs")) {
-                configs.push({
-                    name: pkgName,
-                    fullName: pkgJson.name,
-                    version: pkgJson.version,
-                    format: "cjs",
-                    platform: "browser",
-                    inputFile: exportConfig.source,
-                    file: exportConfig.require,
-                    plugins: [],
-                });
-            }
-
-            if (exportConfig.import && formats.has("esm")) {
-                configs.push({
-                    name: pkgName,
-                    fullName: pkgJson.name,
-                    version: pkgJson.version,
-                    format: "esm",
-                    platform: "browser",
-                    inputFile: exportConfig.source,
-                    file: exportConfig.import,
-                    plugins: [filesize()],
-                });
-            }
-        }
-    } else {
+    for (const [entryName, inputFile] of Object.entries(
+        getEntryPoints(pkgJson),
+    )) {
         if (formats.has("cjs")) {
             configs.push({
                 name: pkgName,
@@ -294,8 +268,8 @@ const getPackageInfo = (commandLineArgs, pkgName) => {
                 version: pkgJson.version,
                 format: "cjs",
                 platform: "browser",
-                inputFile: pkgJson.source,
-                file: pkgJson.main,
+                inputFile,
+                file: `dist/${entryName}.js`,
                 plugins: [],
             });
         }
@@ -306,8 +280,8 @@ const getPackageInfo = (commandLineArgs, pkgName) => {
                 version: pkgJson.version,
                 format: "esm",
                 platform: "browser",
-                inputFile: pkgJson.source,
-                file: pkgJson.module,
+                inputFile,
+                file: `dist/es/${entryName}.js`,
                 // We care about the file size of this one.
                 plugins: [filesize()],
             });
