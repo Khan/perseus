@@ -169,6 +169,12 @@ const TickMarks: any = (Graphie as any).createSimpleClass((graphie, props) => {
         base = undefined;
     }
 
+    // Non-highlighted ticks need an explicit stroke: Raphael's default black
+    // is invisible in dark themes now that this graphie is excluded from the
+    // dark-mode invert filter.
+    const defaultLineStyle = {
+        stroke: tokenValue(semanticColor.core.foreground.neutral.strong),
+    };
     const highlightedLineStyle = {
         stroke: tokenValue(semanticColor.core.foreground.instructive.default),
         strokeWidth: 3.5,
@@ -199,7 +205,9 @@ const TickMarks: any = (Graphie as any).createSimpleClass((graphie, props) => {
     // Cycle through each tick number and add a tick line, and a label (if needed)
     allTicks.forEach((tick) => {
         const tickIsHighlighted = tick === leftLabel || tick === rightLabel;
-        const lineStyle = tickIsHighlighted ? highlightedLineStyle : null;
+        const lineStyle = tickIsHighlighted
+            ? highlightedLineStyle
+            : defaultLineStyle;
         const textStyle = tickIsHighlighted ? highlightedTextStyle : null;
         graphie.style(lineStyle, () => {
             results.push(graphie.line([tick, -0.2], [tick, 0.2]));
@@ -378,10 +386,16 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
                 isMobile: latestProps.apiOptions.isMobile,
             });
 
-            // Draw the number line
+            // Draw the number line. Without an explicit stroke these would
+            // fall back to Raphael's default black, which is invisible in
+            // dark themes now that this graphie is excluded from the
+            // dark-mode invert filter.
             const center = (range[0] + range[1]) / 2;
-            graphie.line([center, 0], [right, 0], {arrows: "->"});
-            graphie.line([center, 0], [left, 0], {arrows: "->"});
+            const stroke = tokenValue(
+                semanticColor.core.foreground.neutral.strong,
+            );
+            graphie.line([center, 0], [right, 0], {stroke, arrows: "->"});
+            graphie.line([center, 0], [left, 0], {stroke, arrows: "->"});
         },
         [propsRef],
     );
