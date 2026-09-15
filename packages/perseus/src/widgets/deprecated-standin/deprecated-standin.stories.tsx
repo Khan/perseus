@@ -1,17 +1,16 @@
-import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+import QuestionRendererForStories from "../__testutils__/question-renderer-for-stories";
 
-import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
-
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
     title: "Widgets/Deprecated Standin",
-    component: ServerItemRendererWithDebugUI,
+    component: QuestionRendererForStories,
     tags: ["!dev"],
 };
 export default meta;
 
-type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
+type Story = StoryObj<typeof QuestionRendererForStories>;
 
 const question1 = {
     content:
@@ -32,6 +31,8 @@ const question1 = {
 
 export const Question1: Story = {
     args: {
-        item: generateTestPerseusItem({question: question1}),
+        // The current widget type map intentionally excludes deprecated-standin.
+        // eslint-disable-next-line no-restricted-syntax
+        question: question1 as PerseusRenderer,
     },
 };
