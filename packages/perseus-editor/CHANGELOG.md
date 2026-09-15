@@ -1,5 +1,21 @@
 # @khanacademy/perseus-editor
 
+## 43.0.0
+
+### Major Changes
+
+-   [#4214](https://github.com/Khan/perseus/pull/4214) [`57331a4`](https://github.com/Khan/perseus/commit/57331a4ee59cffb84e736f73393f77297203520f) Thanks [@benchristel](https://github.com/benchristel)! - The deprecated, non-functional `developerMode` and `onPreviewDeviceChange` props have been removed from `EditorPage`. The `serialize()` imperative method has also been removed. Callers should use `onChange` instead of imperative APIs to receive updates.
+
+### Patch Changes
+
+-   Updated dependencies [[`b718fbc`](https://github.com/Khan/perseus/commit/b718fbc8ff3f3588cbc113cd7d45de0b207bd660), [`284ac95`](https://github.com/Khan/perseus/commit/284ac95dce32e3d3ddbe2287106ad253b16ffadb)]:
+    -   @khanacademy/perseus@87.2.1
+    -   @khanacademy/math-input@27.0.17
+    -   @khanacademy/perseus-core@39.2.1
+    -   @khanacademy/keypad-context@3.2.93
+    -   @khanacademy/kmath@2.4.52
+    -   @khanacademy/perseus-linter@5.4.2
+
 ## 42.2.0
 
 ### Minor Changes

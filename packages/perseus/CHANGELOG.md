@@ -1,5 +1,19 @@
 # @khanacademy/perseus
 
+## 87.2.1
+
+### Patch Changes
+
+-   [#4167](https://github.com/Khan/perseus/pull/4167) [`b718fbc`](https://github.com/Khan/perseus/commit/b718fbc8ff3f3588cbc113cd7d45de0b207bd660) Thanks [@Myranae](https://github.com/Myranae)! - Internal color cleanup. The only visible change is that the shadow under the mobile keypad's cursor handle may appear very slightly darker.
+
+-   Updated dependencies [[`b718fbc`](https://github.com/Khan/perseus/commit/b718fbc8ff3f3588cbc113cd7d45de0b207bd660), [`284ac95`](https://github.com/Khan/perseus/commit/284ac95dce32e3d3ddbe2287106ad253b16ffadb)]:
+    -   @khanacademy/math-input@27.0.17
+    -   @khanacademy/perseus-core@39.2.1
+    -   @khanacademy/keypad-context@3.2.93
+    -   @khanacademy/kmath@2.4.52
+    -   @khanacademy/perseus-linter@5.4.2
+    -   @khanacademy/perseus-score@8.12.25
+
 ## 87.2.0
 
 ### Minor Changes
