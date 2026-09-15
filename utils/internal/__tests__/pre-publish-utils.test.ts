@@ -1,4 +1,10 @@
-import {checkExports} from "../pre-publish-utils";
+import fs from "fs";
+
+import {
+    checkEntrypoints,
+    checkExports,
+    checkExportTargets,
+} from "../pre-publish-utils";
 
 describe("checkExports", () => {
     beforeEach(() => {
@@ -30,5 +36,126 @@ describe("checkExports", () => {
         });
 
         expect(result).toBe(true);
+    });
+});
+
+describe("checkExportTargets", () => {
+    const pkgJson = {
+        name: "@khanacademy/kmath",
+        exports: {
+            ".": {
+                types: "./dist/index.d.ts",
+                source: "./src/index.ts",
+                default: "./dist/index.js",
+            },
+            "./styles.css": "./dist/index.css",
+        },
+    };
+
+    beforeEach(() => {
+        jest.spyOn(console, "error").mockImplementation(() => {});
+    });
+
+    it("returns true when every declared target exists", () => {
+        // Arrange
+        jest.spyOn(fs, "existsSync").mockReturnValue(true);
+
+        // Act
+        const result = checkExportTargets(pkgJson, "/packages/kmath");
+
+        expect(result).toBe(true);
+    });
+
+    it("returns false when a declared target is missing from dist", () => {
+        // Arrange
+        jest.spyOn(fs, "existsSync").mockImplementation(
+            (file) => file !== "/packages/kmath/dist/index.css",
+        );
+
+        // Act
+        const result = checkExportTargets(pkgJson, "/packages/kmath");
+
+        expect(result).toBe(false);
+    });
+
+    it("ignores the source condition, which points at src", () => {
+        // Arrange
+        jest.spyOn(fs, "existsSync").mockImplementation(
+            (file) => !String(file).includes("/src/"),
+        );
+
+        // Act
+        const result = checkExportTargets(pkgJson, "/packages/kmath");
+
+        expect(result).toBe(true);
+    });
+});
+
+describe("checkEntrypoints", () => {
+    const esmOnlyPkgJson = {
+        name: "@khanacademy/kmath",
+        type: "module",
+        module: "dist/index.js",
+        exports: {
+            ".": {
+                types: "./dist/index.d.ts",
+                source: "./src/index.ts",
+                default: "./dist/index.js",
+            },
+        },
+    };
+
+    beforeEach(() => {
+        jest.spyOn(console, "error").mockImplementation(() => {});
+    });
+
+    it("returns true for an ESM-only package", () => {
+        // Arrange, Act
+        const result = checkEntrypoints(esmOnlyPkgJson);
+
+        expect(result).toBe(true);
+    });
+
+    it("returns false when type is not 'module'", () => {
+        // Arrange, Act
+        const result = checkEntrypoints({...esmOnlyPkgJson, type: "commonjs"});
+
+        expect(result).toBe(false);
+    });
+
+    it("returns false when module points somewhere other than dist/index.js", () => {
+        // Arrange, Act
+        const result = checkEntrypoints({
+            ...esmOnlyPkgJson,
+            module: "dist/es/index.js",
+        });
+
+        expect(result).toBe(false);
+    });
+
+    it("returns false when main is present", () => {
+        // Arrange, Act
+        const result = checkEntrypoints({
+            ...esmOnlyPkgJson,
+            main: "dist/index.js",
+        });
+
+        expect(result).toBe(false);
+    });
+
+    it("returns false when a sub-path declares a require condition", () => {
+        // Arrange, Act
+        const result = checkEntrypoints({
+            ...esmOnlyPkgJson,
+            exports: {
+                ...esmOnlyPkgJson.exports,
+                "./strings": {
+                    types: "./dist/strings.d.ts",
+                    require: "./dist/strings.cjs",
+                },
+            },
+        });
+
+        expect(result).toBe(false);
     });
 });
