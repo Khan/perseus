@@ -21,8 +21,8 @@ import type * as React from "react";
 export type FocusPath = ReadonlyArray<string> | null | undefined;
 
 export type Dimensions = {
-    width?: number;
-    height?: number;
+    width: number;
+    height: number;
 };
 
 export type DeviceType = "phone" | "tablet" | "desktop";
