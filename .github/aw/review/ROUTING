@@ -20,7 +20,8 @@ re-review scoped
 
 # Broad defaults first; exceptions re-raise below (last match wins).
 packages/**                          tier=medium
-utils/**                             tier=low
+# utils/ holds the scripts CI runs to gate PRs and publish to npm, so not low.
+utils/**                             tier=medium
 config/**                            tier=low
 .storybook/**                        tier=low
 .changeset/**                        tier=low
@@ -43,6 +44,8 @@ AGENTS.md                            tier=medium
 /accessibility-instructions.md       tier=medium
 .claude/hooks/**                     tier=high
 .claude/settings.json                tier=high
+# Mints the PAT the hooks above consume.
+.claude/setup-git-token.mjs          tier=high
 .codex/hooks/**                      tier=high
 .cursor/hooks/**                     tier=high
 .mcp.json                            tier=high
@@ -75,6 +78,9 @@ packages/*/package.json              tier=high
 .github/aw/review/**                 lens=security-auth tier=high
 # Third-party action SHA pins for the reviewer workflow: supply chain, same as workflows.
 .github/aw/actions-lock.json         lens=security-auth tier=high
+# A linguist-generated line here hides a path from review entirely, so this file is
+# reviewer control input too.
+/.gitattributes                      lens=security-auth tier=high
 
 # Test and dev surfaces drop back down. This block sits LAST on purpose: it has to
 # come after the high-tier src rules above, or a test file inside perseus-score/src
@@ -90,4 +96,4 @@ packages/*/package.json              tier=high
 **/__snapshots__/**                  tier=trivial
 # Frozen parser-regression fixtures: protect-regression-data.yml blocks any edit to
 # existing files, so a diff here is either a new fixture or a CI failure.
-packages/perseus-core/src/parse-perseus-json/regression-tests/**  tier=trivial
+packages/perseus-core/src/parse-perseus-json/regression-tests/*-data/**  tier=trivial
