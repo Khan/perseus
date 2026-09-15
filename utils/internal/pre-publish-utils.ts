@@ -87,4 +87,20 @@ const checkPrivate = (pkgJson): boolean => {
 const checkEntrypoints = (pkgJson): boolean =>
     checkModule(pkgJson) && checkMain(pkgJson);
 
-export {checkPublishConfig, checkEntrypoints, checkSource, checkPrivate};
+const checkExports = (pkgJson): boolean => {
+    if (!pkgJson.exports || !pkgJson.exports["."]) {
+        console.error(
+            `ERROR: ${pkgJson.name} must have an "exports" map with a "." entry.`,
+        );
+        return false;
+    }
+    return true;
+};
+
+export {
+    checkPublishConfig,
+    checkEntrypoints,
+    checkExports,
+    checkSource,
+    checkPrivate,
+};
