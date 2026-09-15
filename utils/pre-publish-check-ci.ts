@@ -9,6 +9,7 @@ import fg from "fast-glob";
 import {
     checkPrivate,
     checkEntrypoints,
+    checkExports,
     checkSource,
     checkPublishConfig,
 } from "./internal/pre-publish-utils";
@@ -24,6 +25,7 @@ fg(path.join(__dirname, "..", "packages", "*", "package.json")).then(
                 !checkPrivate(pkgJson) &&
                 !checkPublishConfig(pkgJson) &&
                 !checkEntrypoints(pkgJson) &&
+                !checkExports(pkgJson) &&
                 !checkSource(pkgJson)
             ) {
                 allPassed = false;
