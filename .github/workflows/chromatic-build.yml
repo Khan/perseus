@@ -62,8 +62,7 @@ jobs:
                   storybookBuildDir: storybook-static
                   autoAcceptChanges: "main"
                   exitOnceUploaded: true
-                  onlyStoryFiles: "**/*-regression.stories.tsx"
-                  # TurboSnap cannot run with onlyStoryFiles.
+                  onlyChanged: true
 
             - name: Exempt snapshots
               if: inputs.target == 'skip'
@@ -93,5 +92,4 @@ jobs:
                   # Chromatic applies autoAcceptChanges server-side once
                   # snapshots finish, so waiting here buys nothing.
                   exitOnceUploaded: true
-                  onlyStoryFiles: "**/*-regression.stories.tsx"
-                  # TurboSnap cannot run with onlyStoryFiles.
+                  onlyChanged: true
