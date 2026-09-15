@@ -5,7 +5,9 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import {registerWidgets} from "../../../widgets";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {sorterRegistration} from "../index";
 
 import type {APIOptions} from "../../../types";
 import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
@@ -21,6 +23,8 @@ export const sorterRendererDecorator: Decorator = (
         parameters?: {apiOptions?: APIOptions};
     },
 ) => {
+    registerWidgets([sorterRegistration]);
+
     return (
         <QuestionRendererForStories
             question={generateTestPerseusRenderer({

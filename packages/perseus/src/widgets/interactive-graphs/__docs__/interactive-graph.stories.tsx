@@ -2,6 +2,9 @@ import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {ApiOptions} from "../../../perseus-api";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import {registerWidgetsDecorator} from "../../__testutils__/story-decorators";
+import {radioRegistration} from "../../radio";
+import {interactiveGraphRegistration} from "../index";
 import {
     angleQuestion,
     circleQuestion,
@@ -59,6 +62,7 @@ const meta: Meta = {
     title: "Widgets/Interactive Graph",
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
+    decorators: [registerWidgetsDecorator([interactiveGraphRegistration])],
     parameters: {
         docs: {
             description: {
@@ -469,6 +473,8 @@ export const StaticGraph: Story = {
 };
 
 export const StaticGraphWithAnotherWidget: Story = {
+    // The question also contains a radio widget.
+    decorators: [registerWidgetsDecorator([radioRegistration])],
     args: {
         item: generateTestPerseusItem({
             question: staticGraphQuestionWithAnotherWidget(),

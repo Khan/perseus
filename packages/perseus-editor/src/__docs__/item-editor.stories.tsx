@@ -9,16 +9,14 @@ import {action} from "storybook/actions";
 
 import {question1} from "../__testdata__/numeric-input.testdata";
 import ItemEditor from "../item-editor";
-import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
-import {usePreviewUrl} from "./use-preview-url";
 import "../styles/perseus-editor.css"; // This helps ensure the styles are loaded correctly and timely
-
-// This is to address timing - Perseus widget editor registry accessed before initialization!
-registerAllWidgetsAndEditorsForTesting();
+import {registerAllWidgetsAndEditorsDecorator} from "./register-all-widgets-and-editors-decorator";
+import {usePreviewUrl} from "./use-preview-url";
 
 export default {
     title: "Editors/ItemEditor",
+    decorators: [registerAllWidgetsAndEditorsDecorator],
 };
 
 const onChangeAction = action("onChange");

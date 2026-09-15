@@ -4,15 +4,19 @@ import {
 } from "@khanacademy/perseus-core";
 
 import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
+import {registerWidgetsDecorator} from "../__testutils__/story-decorators";
 
 import {generateTableRenderer} from "./test-util";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
+import {tableRegistration} from "./index";
+
 const meta: Meta = {
     title: "Widgets/Table",
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
+    decorators: [registerWidgetsDecorator([tableRegistration])],
     parameters: {
         docs: {
             description: {

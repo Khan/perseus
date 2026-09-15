@@ -1,5 +1,8 @@
 import * as React from "react";
 
+import {registerWidgets} from "../../widgets";
+
+import type {WidgetRegistration} from "../../widget-registration";
 import type {Decorator} from "@storybook/react-vite";
 
 export const mobileDecorator: Decorator = (Story) => (
@@ -167,3 +170,17 @@ export const reducedMotionDecorator: Decorator = (Story) => (
         <Story />
     </ReducedMotionWrapper>
 );
+
+/**
+ * Registers the widgets a story renders. Storybook resets the widget
+ * registries before each story, so list every widget type the story's content
+ * uses, including widgets nested inside other widgets.
+ */
+export const registerWidgetsDecorator = (
+    registrations: ReadonlyArray<WidgetRegistration>,
+): Decorator =>
+    function RegisterWidgetsDecorator(Story) {
+        registerWidgets(registrations);
+
+        return <Story />;
+    };

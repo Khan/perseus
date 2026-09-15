@@ -10,13 +10,12 @@ import {action} from "storybook/actions";
 
 import {Editor} from "..";
 import {question1} from "../__testdata__/numeric-input.testdata";
-import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
-// This is to address timing - Perseus widget editor registry accessed before initialization!
-registerAllWidgetsAndEditorsForTesting();
+import {registerAllWidgetsAndEditorsDecorator} from "./register-all-widgets-and-editors-decorator";
 
 export default {
     title: "Editors/Editor",
+    decorators: [registerAllWidgetsAndEditorsDecorator],
 };
 
 export const Demo = (): React.ReactElement => {
@@ -70,7 +69,6 @@ export const DemoInteractiveGraph = (): React.ReactElement => {
                             warnNoPrompt={false}
                             warnNoWidgets={true}
                             onChange={
-                                // eslint-disable-next-line no-restricted-syntax
                                 ((props: Partial<PerseusRenderer>) => {
                                     action("onChange")(props);
                                     if (props.content) {

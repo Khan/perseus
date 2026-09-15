@@ -4,7 +4,10 @@ import {
 } from "@khanacademy/perseus-core";
 
 import {themeModes} from "../../../../../.storybook/modes";
+import {definitionRegistration} from "../definition";
 import {explanationRendererDecorator} from "../explanation/__docs__/explanation-renderer-decorator";
+import {imageRegistration} from "../image";
+import {videoRegistration} from "../video";
 
 import {articleRendererDecorator} from "./nested-widgets-renderer-decorator";
 import {
@@ -77,6 +80,7 @@ export const VideoInContent: ExplanationStory = {
     parameters: {
         content: videoInContent.content,
         widgets: videoExample.widgets,
+        childWidgets: [videoRegistration],
     },
     play: async ({canvas, userEvent}) => {
         const explanationTrigger = canvas.getByRole("button", {
@@ -98,6 +102,7 @@ export const ImageInContent: ExplanationStory = {
     parameters: {
         content: imageInContent.content,
         widgets: imageExample.widgets,
+        childWidgets: [imageRegistration],
     },
     play: async ({canvas, userEvent}) => {
         const explanationTrigger = canvas.getByRole("button", {
@@ -134,6 +139,7 @@ export const DefinitionInContentAndExplanation: StoryObj = {
 export const ExplanationWithDefinition: ExplanationStory = {
     decorators: [articleRendererDecorator, explanationRendererDecorator],
     args: explanationWithDefinitionOptions,
+    parameters: {childWidgets: [definitionRegistration]},
     play: async ({canvas, userEvent}) => {
         const explanationTrigger = canvas.getByRole("button", {
             name: "Explain",

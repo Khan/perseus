@@ -1,6 +1,8 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import {registerWidgetsDecorator} from "../../__testutils__/story-decorators";
+import {interactiveGraphRegistration} from "../index";
 import {
     segmentWithLockedFunction,
     segmentWithLockedFunctionAndAsymmetricRange,
@@ -12,6 +14,7 @@ const meta: Meta = {
     title: "Widgets/Interactive Graph/Locked Functions",
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
+    decorators: [registerWidgetsDecorator([interactiveGraphRegistration])],
 };
 export default meta;
 

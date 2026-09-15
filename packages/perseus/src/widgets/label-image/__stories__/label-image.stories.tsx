@@ -5,6 +5,8 @@ import {
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import {registerWidgetsDecorator} from "../../__testutils__/story-decorators";
+import {imageRegistration} from "../../image";
 import {
     textQuestion,
     mathQuestion,
@@ -12,6 +14,7 @@ import {
     longTextFromArticle,
     mixedContentQuestion,
 } from "../__tests__/label-image.testdata";
+import {labelImageRegistration} from "../index";
 
 const applyStoryArgs = (
     question: PerseusRenderer,
@@ -100,6 +103,11 @@ export const LabelImageMixedContent = (args: StoryArgs): React.ReactElement => {
     );
 };
 
+// The mixed-content question also contains an image widget.
+LabelImageMixedContent.decorators = [
+    registerWidgetsDecorator([imageRegistration]),
+];
+
 export const LabelWidgetAnswerless = (args: StoryArgs): React.ReactElement => {
     return (
         <ServerItemRendererWithDebugUI
@@ -110,7 +118,6 @@ export const LabelWidgetAnswerless = (args: StoryArgs): React.ReactElement => {
     );
 };
 
-// eslint-disable-next-line no-restricted-syntax
 export default {
     title: "Widgets/Label Image",
     args: {
@@ -123,4 +130,5 @@ export default {
         },
     },
     tags: ["!dev"],
+    decorators: [registerWidgetsDecorator([labelImageRegistration])],
 } as ImageStory;

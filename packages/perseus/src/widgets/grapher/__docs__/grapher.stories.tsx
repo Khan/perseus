@@ -1,6 +1,7 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import {registerWidgetsDecorator} from "../../__testutils__/story-decorators";
 import {
     absoluteValueQuestion,
     allAvailableTypesQuestion,
@@ -12,6 +13,7 @@ import {
     simpleQuestion,
     staticGrapher,
 } from "../grapher.testdata";
+import {grapherRegistration} from "../index";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -19,6 +21,7 @@ const meta: Meta = {
     title: "Widgets/Grapher",
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
+    decorators: [registerWidgetsDecorator([grapherRegistration])],
     parameters: {
         docs: {
             description: {

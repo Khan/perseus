@@ -8,18 +8,27 @@ import React from "react";
 
 import {themeModes} from "../../../../.storybook/modes";
 import HintsRenderer from "../hints-renderer";
-import {storybookDependenciesV2} from "../testing/test-dependencies";
+import {storybookDependenciesV2} from "../testing/test-dependencies-data";
+import {registerWidgets} from "../widgets";
+import {definitionRegistration} from "../widgets/definition";
+import {explanationRegistration} from "../widgets/explanation";
 import {ipsumExample} from "../widgets/explanation/explanation.testdata";
 
 import {bibliotronExerciseDecorator} from "./hints-renderer-decorator";
 
-import type {Meta, StoryObj} from "@storybook/react-vite";
+import type {Decorator, Meta, StoryObj} from "@storybook/react-vite";
+
+const widgetDecorator: Decorator = (Story) => {
+    registerWidgets([definitionRegistration, explanationRegistration]);
+    return <Story />;
+};
 
 const meta: Meta<typeof HintsRenderer> = {
     title: "Renderers/Hints Renderer/Visual Regression Tests/Interactions",
     component: HintsRenderer,
     tags: ["!autodocs", "!manifest"],
     decorators: [
+        widgetDecorator,
         (Story) => {
             return (
                 <View style={{paddingInlineStart: 80}}>

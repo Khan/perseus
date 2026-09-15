@@ -8,6 +8,7 @@ import {
     mobileDecorator,
     rtlDecorator,
 } from "../../__testutils__/story-decorators";
+import {dropdownRegistration} from "../../dropdown";
 
 import {gradedGroupRendererDecorator} from "./graded-group-renderer-decorator";
 
@@ -26,6 +27,7 @@ const meta: Meta<PerseusGradedGroupWidgetOptions> = {
             },
         },
         chromatic: {disableSnapshot: false, modes: themeModes},
+        childWidgets: [dropdownRegistration],
     },
 };
 

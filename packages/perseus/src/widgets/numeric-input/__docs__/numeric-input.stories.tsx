@@ -6,6 +6,8 @@ import {
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import {registerWidgetsDecorator} from "../../__testutils__/story-decorators";
+import {numericInputRegistration} from "../index";
 import {
     decimalProblem,
     defaultQuestion,
@@ -37,6 +39,7 @@ const answersArray: string = `[
 const meta: Meta<PerseusNumericInputWidgetOptions> = {
     title: "Widgets/Numeric Input",
     tags: ["!dev"],
+    decorators: [registerWidgetsDecorator([numericInputRegistration])],
     parameters: {
         docs: {
             description: {

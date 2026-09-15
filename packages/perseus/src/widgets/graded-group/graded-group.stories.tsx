@@ -1,6 +1,9 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
+import {registerWidgetsDecorator} from "../__testutils__/story-decorators";
+import {categorizerRegistration} from "../categorizer";
+import {radioRegistration} from "../radio";
 
 import {
     groupedRadioRationaleQuestion,
@@ -9,10 +12,13 @@ import {
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
+import {gradedGroupRegistration} from "./index";
+
 const meta: Meta = {
     title: "Widgets/Graded Group",
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
+    decorators: [registerWidgetsDecorator([gradedGroupRegistration])],
     parameters: {
         docs: {
             description: {
@@ -31,6 +37,7 @@ export const Question1: Story = {
     args: {
         item: generateTestPerseusItem({question: question1}),
     },
+    decorators: [registerWidgetsDecorator([categorizerRegistration])],
 };
 
 export const WithRadioWidget: Story = {
@@ -39,4 +46,5 @@ export const WithRadioWidget: Story = {
             question: groupedRadioRationaleQuestion,
         }),
     },
+    decorators: [registerWidgetsDecorator([radioRegistration])],
 };

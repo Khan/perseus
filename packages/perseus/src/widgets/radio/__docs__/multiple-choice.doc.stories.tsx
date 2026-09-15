@@ -8,6 +8,8 @@ import {ApiOptions} from "../../../perseus-api";
 import Renderer from "../../../renderer";
 import {mockStrings} from "../../../strings";
 import UserInputManager from "../../../user-input-manager";
+import {registerWidgetsDecorator} from "../../__testutils__/story-decorators";
+import {radioRegistration} from "../index";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -17,11 +19,11 @@ interface RendererQuestion {
     images: Record<string, any>;
 }
 
-// eslint-disable-next-line no-restricted-syntax
 const meta = {
     title: "Widgets/Radio",
     tags: ["!dev"],
     component: RadioDemo,
+    decorators: [registerWidgetsDecorator([radioRegistration])],
     parameters: {
         docs: {
             description: {

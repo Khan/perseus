@@ -7,15 +7,19 @@ import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
 import {getAnswerfulItem, getAnswerlessItem} from "../../util/test-utils";
+import {registerWidgetsDecorator} from "../__testutils__/story-decorators";
 
 import {question1, question2, question3} from "./input-number.testdata";
 
 import type {Meta} from "@storybook/react-vite";
 
+import {inputNumberRegistration} from "./index";
+
 const meta: Meta = {
     title: "Widgets/Input Number",
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
+    decorators: [registerWidgetsDecorator([inputNumberRegistration])],
     parameters: {
         docs: {
             description: {

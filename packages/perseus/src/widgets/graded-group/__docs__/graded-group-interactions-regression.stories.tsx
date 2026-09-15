@@ -6,6 +6,7 @@ import {within} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import {mobileDecorator} from "../../__testutils__/story-decorators";
+import {dropdownRegistration} from "../../dropdown";
 
 import {gradedGroupRendererDecorator} from "./graded-group-renderer-decorator";
 
@@ -24,6 +25,7 @@ const meta: Meta<PerseusGradedGroupWidgetOptions> = {
             },
         },
         chromatic: {disableSnapshot: false, modes: themeModes},
+        childWidgets: [dropdownRegistration],
     },
     decorators: [gradedGroupRendererDecorator],
 };

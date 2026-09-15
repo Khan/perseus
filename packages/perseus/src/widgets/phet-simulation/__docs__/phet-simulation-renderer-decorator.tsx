@@ -5,7 +5,9 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import {registerWidgets} from "../../../widgets";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {phetSimulationRegistration} from "../index";
 
 import type {APIOptions} from "../../../types";
 import type {PerseusPhetSimulationWidgetOptions} from "@khanacademy/perseus-core";
@@ -21,6 +23,8 @@ export const phetSimulationRendererDecorator: Decorator = (
         parameters?: {apiOptions?: APIOptions; content?: string};
     },
 ) => {
+    registerWidgets([phetSimulationRegistration]);
+
     return (
         <QuestionRendererForStories
             apiOptions={parameters?.apiOptions}

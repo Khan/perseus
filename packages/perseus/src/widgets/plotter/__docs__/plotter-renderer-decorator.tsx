@@ -5,7 +5,9 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import {registerWidgets} from "../../../widgets";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {plotterRegistration} from "../index";
 
 import type {APIOptions} from "../../../types";
 import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
@@ -21,6 +23,8 @@ export const plotterRendererDecorator: Decorator = (
         parameters?: {apiOptions?: APIOptions};
     },
 ) => {
+    registerWidgets([plotterRegistration]);
+
     return (
         <QuestionRendererForStories
             question={generateTestPerseusRenderer({

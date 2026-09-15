@@ -9,14 +9,16 @@ import * as React from "react";
 import {action} from "storybook/actions";
 
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
+import {registerWidgetEditorDecorator} from "../../__docs__/register-widget-editor-decorator";
 import {getFeatureFlags} from "../../testing/feature-flags-util";
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import {PROD_EDITOR_WIDTH} from "../storybook-constants";
 
 import FillInTheBlankEditor from "./fill-in-the-blank-editor";
 
 import type {PerseusFillInTheBlankWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
+
+import {fillInTheBlankEditorRegistration} from "./index";
 
 // The editor and the widget both render nothing without their flag.
 const apiOptions = {
@@ -44,12 +46,12 @@ const withinEditorPageDecorator = (_, {args, parameters}) => {
     );
 };
 
-// This is to address timing - Perseus widget editor registry accessed before initialization!
-registerAllWidgetsAndEditorsForTesting();
-
 const meta: Meta = {
     title: "Widgets/Fill in the Blank/Editor Demo",
     component: FillInTheBlankEditor,
+    decorators: [
+        registerWidgetEditorDecorator([fillInTheBlankEditorRegistration]),
+    ],
 } satisfies Meta<typeof FillInTheBlankEditor>;
 export default meta;
 

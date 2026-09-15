@@ -13,14 +13,32 @@ import {
 } from "../__testdata__/server-item-renderer.testdata";
 import ServerItemRenderer from "../server-item-renderer";
 import {ServerItemRendererWithDebugUI} from "../testing/server-item-renderer-with-debug-ui";
-import {storybookDependenciesV2} from "../testing/test-dependencies";
+import {storybookDependenciesV2} from "../testing/test-dependencies-data";
+import {registerWidgets} from "../widgets";
+import {expressionRegistration} from "../widgets/expression";
+import {imageRegistration} from "../widgets/image";
+import {labelImageRegistration} from "../widgets/label-image";
+import {numericInputRegistration} from "../widgets/numeric-input";
+import {radioRegistration} from "../widgets/radio";
 
-import type {Meta, StoryObj} from "@storybook/react-vite";
+import type {Decorator, Meta, StoryObj} from "@storybook/react-vite";
+
+const widgetDecorator: Decorator = (Story) => {
+    registerWidgets([
+        expressionRegistration,
+        imageRegistration,
+        labelImageRegistration,
+        numericInputRegistration,
+        radioRegistration,
+    ]);
+    return <Story />;
+};
 
 const meta: Meta = {
     title: "Renderers/Server Item Renderer",
     component: ServerItemRendererWithDebugUI,
     decorators: [
+        widgetDecorator,
         (Story) => {
             return (
                 // The <Lint> components `hoverTarget` style currently uses an

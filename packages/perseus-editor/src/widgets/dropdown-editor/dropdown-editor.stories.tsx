@@ -2,19 +2,17 @@ import * as React from "react";
 import {action} from "storybook/actions";
 
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
+import {registerWidgetEditorDecorator} from "../../__docs__/register-widget-editor-decorator";
 import {question} from "../../__testdata__/dropdown.testdata";
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
-
-import DropdownEditor from "./dropdown-editor";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-// This is to address timing - Perseus widget editor registry accessed before initialization!
-registerAllWidgetsAndEditorsForTesting();
+import DropdownEditor, {dropdownEditorRegistration} from "./index";
 
 const meta: Meta = {
     title: "Widgets/Dropdown/Editor Demo",
     component: DropdownEditor,
+    decorators: [registerWidgetEditorDecorator([dropdownEditorRegistration])],
     tags: ["!dev"],
 } satisfies Meta<typeof DropdownEditor>;
 export default meta;

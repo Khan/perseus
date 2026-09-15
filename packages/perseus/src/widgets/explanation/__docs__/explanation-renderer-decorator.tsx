@@ -5,9 +5,12 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import {registerWidgets} from "../../../widgets";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {explanationRegistration} from "../index";
 
 import type {APIOptions} from "../../../types";
+import type {WidgetRegistration} from "../../../widget-registration";
 import type {
     PerseusExplanationWidgetOptions,
     PerseusWidgetsMap,
@@ -25,9 +28,16 @@ export const explanationRendererDecorator: Decorator = (
             apiOptions?: APIOptions;
             content?: string;
             widgets?: PerseusWidgetsMap;
+            // Widgets nested inside the explanation.
+            childWidgets?: ReadonlyArray<WidgetRegistration>;
         };
     },
 ) => {
+    registerWidgets([
+        explanationRegistration,
+        ...(parameters?.childWidgets ?? []),
+    ]);
+
     return (
         <QuestionRendererForStories
             question={generateTestPerseusRenderer({

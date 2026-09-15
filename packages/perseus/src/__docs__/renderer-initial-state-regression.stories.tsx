@@ -11,7 +11,7 @@ import {
     blockquoteContent,
 } from "../__testdata__/renderer.testdata";
 import ArticleRenderer from "../article-renderer";
-import {storybookDependenciesV2} from "../testing/test-dependencies";
+import {storybookDependenciesV2} from "../testing/test-dependencies-data";
 import {useStorybookApiOptions} from "../testing/use-storybook-api-options";
 import QuestionRendererForStories from "../widgets/__testutils__/question-renderer-for-stories";
 

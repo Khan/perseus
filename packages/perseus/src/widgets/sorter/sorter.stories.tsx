@@ -1,15 +1,19 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
+import {registerWidgetsDecorator} from "../__testutils__/story-decorators";
 
 import {texQuestion} from "./sorter.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
+import {sorterRegistration} from "./index";
+
 const meta: Meta = {
     title: "Widgets/Sorter",
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
+    decorators: [registerWidgetsDecorator([sorterRegistration])],
     parameters: {
         docs: {
             description: {

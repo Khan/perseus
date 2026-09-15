@@ -8,17 +8,25 @@ import React from "react";
 
 import {themeModes} from "../../../../.storybook/modes";
 import HintsRenderer from "../hints-renderer";
-import {storybookDependenciesV2} from "../testing/test-dependencies";
+import {storybookDependenciesV2} from "../testing/test-dependencies-data";
+import {registerWidgets} from "../widgets";
+import {imageRegistration} from "../widgets/image";
 import {earthMoonImage} from "../widgets/image/utils";
 
 import {bibliotronExerciseDecorator} from "./hints-renderer-decorator";
 
-import type {Meta, StoryObj} from "@storybook/react-vite";
+import type {Decorator, Meta, StoryObj} from "@storybook/react-vite";
+
+const widgetDecorator: Decorator = (Story) => {
+    registerWidgets([imageRegistration]);
+    return <Story />;
+};
 
 const meta: Meta<typeof HintsRenderer> = {
     title: "Renderers/Hints Renderer",
     component: HintsRenderer,
     decorators: [
+        widgetDecorator,
         (Story) => {
             return (
                 <View style={{paddingInlineStart: 80}}>

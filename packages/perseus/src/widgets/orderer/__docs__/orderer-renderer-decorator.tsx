@@ -1,7 +1,9 @@
 import {generateTestPerseusRenderer} from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import {registerWidgets} from "../../../widgets";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {ordererRegistration} from "../index";
 
 import type {
     PerseusOrdererWidgetOptions,
@@ -31,6 +33,8 @@ export const ordererRendererDecorator: Decorator = (
         };
     },
 ) => {
+    registerWidgets([ordererRegistration]);
+
     return (
         <QuestionRendererForStories
             initialUserInput={parameters?.initialUserInput}

@@ -5,6 +5,8 @@ import {
     itemWithPieChart,
 } from "../../__testdata__/graphie.testdata";
 import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
+import {registerWidgetsDecorator} from "../../widgets/__testutils__/story-decorators";
+import {imageRegistration} from "../../widgets/image";
 import Graphie from "../graphie";
 
 import GraphieDocsPage from "./graphie.mdx";
@@ -18,6 +20,7 @@ const size = 200;
 const meta: Meta = {
     title: "Components/Graphie",
     component: Graphie,
+    decorators: [registerWidgetsDecorator([imageRegistration])],
     parameters: {
         docs: {
             page: GraphieDocsPage,

@@ -8,9 +8,13 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import {registerWidgets} from "../../../widgets";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {imageRegistration} from "../index";
 
 export const imageRendererDecorator = (_, {args, parameters}) => {
+    registerWidgets([imageRegistration]);
+
     return (
         <QuestionRendererForStories
             question={generateTestPerseusRenderer({

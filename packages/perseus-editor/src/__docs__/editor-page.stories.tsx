@@ -5,16 +5,14 @@ import {comprehensiveQuestion} from "../__testdata__/all-widgets.testdata";
 import {question as definitionQuestion} from "../__testdata__/definition.testdata";
 import {question1} from "../__testdata__/numeric-input.testdata";
 import {singleSelectQuestion} from "../__testdata__/radio.testdata";
-import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 import EditorPageWithStorybookPreview from "./editor-page-with-storybook-preview";
 import "../styles/perseus-editor.css"; // This helps ensure the styles are loaded correctly and timely
-
-// This is to address timing - Perseus widget editor registry accessed before initialization!
-registerAllWidgetsAndEditorsForTesting();
+import {registerAllWidgetsAndEditorsDecorator} from "./register-all-widgets-and-editors-decorator";
 
 export default {
     title: "Editors/EditorPage",
+    decorators: [registerAllWidgetsAndEditorsDecorator],
 };
 
 /**

@@ -1,6 +1,8 @@
 import * as React from "react";
 
+import {registerWidgets} from "../../../widgets";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {grapherRegistration} from "../index";
 
 import type {APIOptions} from "../../../types";
 import type {PerseusRenderer, UserInputMap} from "@khanacademy/perseus-core";
@@ -21,6 +23,8 @@ export const grapherRendererDecorator: Decorator<{
         };
     },
 ) => {
+    registerWidgets([grapherRegistration]);
+
     return (
         <QuestionRendererForStories
             question={args.question}

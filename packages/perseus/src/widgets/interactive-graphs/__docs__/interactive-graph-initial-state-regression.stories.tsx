@@ -19,10 +19,7 @@ import {
     generateIGSinusoidGraph,
     generateIGTangentGraph,
     generateIGVectorGraph,
-    generateInteractiveGraphQuestion,
-    generateTestPerseusItem,
     lockedFigureColorNames,
-    splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
@@ -935,12 +932,7 @@ export const PiTicks: Story = {
 // (answerless rendering — covers the path used when a learner is mid-attempt).
 export const AnswerlessData: Story = {
     parameters: {
-        question: (() => {
-            const question = generateInteractiveGraphQuestion();
-            const answerfulItem = generateTestPerseusItem({question});
-            const answerlessItem = splitPerseusItem(answerfulItem);
-            return answerlessItem.question;
-        })(),
+        answerless: true,
     },
     args: {},
 };

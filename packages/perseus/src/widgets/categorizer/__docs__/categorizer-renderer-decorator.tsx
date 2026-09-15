@@ -5,7 +5,9 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import {registerWidgets} from "../../../widgets";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {categorizerRegistration} from "../index";
 
 import type {APIOptions} from "../../../types";
 import type {UserInputMap} from "@khanacademy/perseus-core";
@@ -25,6 +27,8 @@ export const categorizerRendererDecorator: Decorator = (
         };
     },
 ) => {
+    registerWidgets([categorizerRegistration]);
+
     return (
         <QuestionRendererForStories
             question={generateTestPerseusRenderer({

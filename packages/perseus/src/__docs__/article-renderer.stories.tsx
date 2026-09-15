@@ -7,12 +7,19 @@ import {
     multiSectionArticleWithExpression,
 } from "../__testdata__/article-renderer.testdata";
 import {ArticleRendererWithDebugUI} from "../testing/article-renderer-with-debug-ui";
+import {registerWidgetsDecorator} from "../widgets/__testutils__/story-decorators";
+import {expressionRegistration} from "../widgets/expression";
+import {imageRegistration} from "../widgets/image";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
     title: "Renderers/Article Renderer",
     component: ArticleRendererWithDebugUI,
+    decorators: [
+        registerWidgetsDecorator([expressionRegistration]),
+        registerWidgetsDecorator([imageRegistration]),
+    ],
 };
 export default meta;
 

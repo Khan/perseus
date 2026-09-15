@@ -1,13 +1,17 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
+import {registerWidgetsDecorator} from "../__testutils__/story-decorators";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
+
+import {deprecatedStandinRegistration} from "./index";
 
 const meta: Meta = {
     title: "Widgets/Deprecated Standin",
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
+    decorators: [registerWidgetsDecorator([deprecatedStandinRegistration])],
 };
 export default meta;
 

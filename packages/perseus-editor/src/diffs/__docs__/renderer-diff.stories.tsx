@@ -4,6 +4,8 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import {registerWidgetsDecorator} from "../../../../perseus/src/widgets/__testutils__/story-decorators";
+import {radioRegistration} from "../../../../perseus/src/widgets/radio";
 import RendererDiff from "../renderer-diff";
 
 import Wrapper from "./perseus-diff-wrapper";
@@ -20,6 +22,7 @@ const meta: Meta = {
                 <StoryComponent />
             </Wrapper>
         ),
+        registerWidgetsDecorator([radioRegistration]),
     ],
 };
 

@@ -3,20 +3,19 @@ import {
     generateImageWidget,
     generateTestPerseusItem,
     generateTestPerseusRenderer,
+    type PerseusImageWidgetOptions,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
-import {getWidget} from "../../../widgets";
+import {registerWidgetsDecorator} from "../../__testutils__/story-decorators";
 import {questionWithZoom} from "../image.testdata";
+import {imageRegistration} from "../index";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const ImageWidget = getWidget("image")!;
-
-const meta: Meta<typeof ImageWidget> = {
+const meta: Meta<PerseusImageWidgetOptions> = {
     title: "Widgets/Image",
-    component: ImageWidget,
     tags: ["!dev"],
     parameters: {
         docs: {
@@ -29,6 +28,8 @@ const meta: Meta<typeof ImageWidget> = {
     },
     // Render a ServerItemRendererWithDebugUI, but allow the image widget
     // props to be passed in as args.
+    // Storybook nests later decorators outside earlier ones, so the
+    // registering decorator comes last to run before this renderer.
     decorators: [
         (_, {args}) => (
             <ServerItemRendererWithDebugUI
@@ -46,11 +47,12 @@ const meta: Meta<typeof ImageWidget> = {
                 })}
             />
         ),
+        registerWidgetsDecorator([imageRegistration]),
     ],
 };
 export default meta;
 
-type Story = StoryObj<typeof ImageWidget>;
+type Story = StoryObj<typeof meta>;
 
 export const BasicQuestion: Story = {
     // Need to add these args so the props table shows all the props correctly.

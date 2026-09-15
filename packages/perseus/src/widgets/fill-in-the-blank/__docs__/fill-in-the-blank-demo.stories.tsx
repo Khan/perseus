@@ -2,7 +2,10 @@ import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import {registerWidgetsDecorator} from "../../__testutils__/story-decorators";
+import {blankRegistration} from "../../blank";
 import {basicFillInTheBlankQuestion} from "../fill-in-the-blank.testdata";
+import {fillInTheBlankRegistration} from "../index";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react-vite";
@@ -19,6 +22,13 @@ export default {
     title: "Widgets/Fill in the Blank/Widget Demo",
     component: ServerItemRendererWithDebugUI,
     tags: ["!autodocs"],
+    decorators: [
+        registerWidgetsDecorator([
+            fillInTheBlankRegistration,
+            // Fill-in-the-blank renders `blank` child widgets.
+            blankRegistration,
+        ]),
+    ],
     // TODO(LEMS-4396): clean up feature flag
     globals: {featureFlags: ["dnd-widget-fitb"]},
     parameters: {

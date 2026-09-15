@@ -7,12 +7,16 @@ import {
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import {registerWidgets} from "../../../widgets";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {labelImageRegistration} from "../index";
 
 export const labelImageRendererDecoratorWithDebugUI = (
     _,
     {args, parameters},
 ) => {
+    registerWidgets([labelImageRegistration]);
+
     return (
         <ServerItemRendererWithDebugUI
             item={generateTestPerseusItem({
@@ -32,6 +36,8 @@ export const labelImageRendererDecoratorWithDebugUI = (
 };
 
 export const labelImageRendererDecorator = (_, {args, parameters}) => {
+    registerWidgets([labelImageRegistration]);
+
     return (
         // `apiOptions` is forwarded from story parameters so a story can put
         // the widget into mobile mode. This is required (not just the

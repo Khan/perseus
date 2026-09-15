@@ -17,6 +17,7 @@ import * as React from "react";
 import {action} from "storybook/actions";
 
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
+import {registerWidgetEditorDecorator} from "../../__docs__/register-widget-editor-decorator";
 import {
     angleWithStartingCoordsQuestion,
     circleWithStartingCoordsQuestion,
@@ -37,20 +38,21 @@ import {
     unlimitedPolygonWithCorrectAnswerQuestion,
 } from "../../__testdata__/interactive-graph.testdata";
 import {EditorPage} from "../../index";
-import {testDependenciesV2} from "../../testing/test-dependencies";
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
-
-import InteractiveGraphEditor from "./interactive-graph-editor";
+import {testDependenciesV2} from "../../testing/test-dependencies-data";
 
 import type {Hint, PerseusAnswerArea} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-// This is to address timing - Perseus widget editor registry accessed before initialization!
-registerAllWidgetsAndEditorsForTesting();
+import InteractiveGraphEditor, {
+    interactiveGraphEditorRegistration,
+} from "./index";
 
 const meta: Meta = {
     title: "Widgets/Interactive Graph/Editor Demo",
     component: InteractiveGraphEditor,
+    decorators: [
+        registerWidgetEditorDecorator([interactiveGraphEditorRegistration]),
+    ],
     tags: ["!dev"],
 } satisfies Meta<typeof InteractiveGraphEditor>;
 export default meta;

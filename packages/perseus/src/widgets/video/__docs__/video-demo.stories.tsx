@@ -6,11 +6,14 @@ import {
 import * as React from "react";
 
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {registerWidgetsDecorator} from "../../__testutils__/story-decorators";
+import {videoRegistration} from "../index";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta<PerseusVideoWidgetOptions> = {
     title: "Widgets/Video/Widget Demo",
+    decorators: [registerWidgetsDecorator([videoRegistration])],
 };
 
 export default meta;

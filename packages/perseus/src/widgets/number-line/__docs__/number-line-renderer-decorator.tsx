@@ -5,7 +5,9 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import {registerWidgets} from "../../../widgets";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {numberLineRegistration} from "../index";
 
 import type {APIOptions} from "../../../types";
 import type {
@@ -28,6 +30,8 @@ export const numberLineRendererDecorator: Decorator = (
         };
     },
 ) => {
+    registerWidgets([numberLineRegistration]);
+
     return (
         <QuestionRendererForStories
             question={generateTestPerseusRenderer({

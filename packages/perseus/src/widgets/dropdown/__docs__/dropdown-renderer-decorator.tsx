@@ -5,7 +5,9 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import {registerWidgets} from "../../../widgets";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {dropdownRegistration} from "../index";
 
 import type {APIOptions} from "../../../types";
 import type {PerseusDropdownWidgetOptions} from "@khanacademy/perseus-core";
@@ -24,6 +26,8 @@ export const dropdownRendererDecorator: Decorator = (
         };
     },
 ) => {
+    registerWidgets([dropdownRegistration]);
+
     return (
         <QuestionRendererForStories
             question={generateTestPerseusRenderer({

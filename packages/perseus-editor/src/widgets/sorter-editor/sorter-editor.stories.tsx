@@ -9,13 +9,13 @@ import * as React from "react";
 import {action} from "storybook/actions";
 
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
+import {registerWidgetEditorDecorator} from "../../__docs__/register-widget-editor-decorator";
 import {PROD_EDITOR_WIDTH} from "../storybook-constants";
-
-import SorterEditor from "./sorter-editor";
 
 import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
+
+import SorterEditor, {sorterEditorRegistration} from "./index";
 
 const withinEditorPageDecorator = (_, {args, parameters}) => {
     return (
@@ -37,12 +37,10 @@ const withinEditorPageDecorator = (_, {args, parameters}) => {
     );
 };
 
-// This is to address timing - Perseus widget editor registry accessed before initialization!
-registerAllWidgetsAndEditorsForTesting();
-
 const meta: Meta = {
     title: "Widgets/Sorter/Editor Demo",
     component: SorterEditor,
+    decorators: [registerWidgetEditorDecorator([sorterEditorRegistration])],
 } satisfies Meta<typeof SorterEditor>;
 export default meta;
 

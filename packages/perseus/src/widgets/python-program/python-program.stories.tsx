@@ -1,15 +1,19 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
+import {registerWidgetsDecorator} from "../__testutils__/story-decorators";
 
 import {question1} from "./python-program.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
+import {pythonProgramRegistration} from "./index";
+
 const meta: Meta = {
     title: "Widgets/Python Program",
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
+    decorators: [registerWidgetsDecorator([pythonProgramRegistration])],
     parameters: {
         docs: {
             description: {

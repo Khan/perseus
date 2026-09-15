@@ -1,7 +1,13 @@
-import {generateInteractiveGraphQuestion} from "@khanacademy/perseus-core";
+import {
+    generateInteractiveGraphQuestion,
+    generateTestPerseusItem,
+    splitPerseusItem,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import {registerWidgets} from "../../../widgets";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {interactiveGraphRegistration} from "../index";
 
 import type {APIOptions} from "../../../types";
 import type {
@@ -23,22 +29,33 @@ export const interactiveGraphRendererDecorator = (
             content?: string;
             isStatic?: boolean;
             graded?: boolean;
-            // Escape hatch for stories that need a fully pre-built question
-            // (e.g. answerless data created via splitPerseusItem).
+            // Escape hatch for stories that need a fully pre-built question.
             question?: PerseusRenderer;
+            // Render the question with its answers stripped. Splitting needs
+            // the widget registered, so it happens here rather than at module
+            // load.
+            answerless?: boolean;
         };
     },
 ) => {
+    registerWidgets([interactiveGraphRegistration]);
+
+    const question =
+        parameters?.question ??
+        generateInteractiveGraphQuestion({
+            ...args,
+            content: parameters?.content,
+            isStatic: parameters?.isStatic,
+            graded: parameters?.graded,
+        });
+
     return (
         <QuestionRendererForStories
             question={
-                parameters?.question ??
-                generateInteractiveGraphQuestion({
-                    ...args,
-                    content: parameters?.content,
-                    isStatic: parameters?.isStatic,
-                    graded: parameters?.graded,
-                })
+                parameters?.answerless
+                    ? splitPerseusItem(generateTestPerseusItem({question}))
+                          .question
+                    : question
             }
             apiOptions={parameters?.apiOptions}
             initialUserInput={parameters?.initialUserInput}

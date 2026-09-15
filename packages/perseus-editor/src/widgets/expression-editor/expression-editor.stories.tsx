@@ -8,18 +8,16 @@ import * as React from "react";
 import {action} from "storybook/actions";
 
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
-
-import ExpressionEditor from "./expression-editor";
+import {registerWidgetEditorDecorator} from "../../__docs__/register-widget-editor-decorator";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-// This is to address timing - Perseus widget editor registry accessed before initialization!
-registerAllWidgetsAndEditorsForTesting();
+import ExpressionEditor, {expressionEditorRegistration} from "./index";
 
 const meta: Meta = {
     title: "Widgets/Expression/Editor Demo",
     component: ExpressionEditor,
+    decorators: [registerWidgetEditorDecorator([expressionEditorRegistration])],
     tags: ["!dev"],
 } satisfies Meta<typeof ExpressionEditor>;
 export default meta;

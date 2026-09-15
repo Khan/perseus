@@ -8,6 +8,8 @@ import * as React from "react";
 import {useEffect} from "react";
 
 import QuestionRendererForStories from "../widgets/__testutils__/question-renderer-for-stories";
+import {registerWidgetsDecorator} from "../widgets/__testutils__/story-decorators";
+import {radioRegistration} from "../widgets/radio";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {SupportedThemes} from "@khanacademy/wonder-blocks-theming";
@@ -125,6 +127,7 @@ export const MathJax: Story = {
 };
 
 export const RadioWithMathJax: Story = {
+    decorators: [registerWidgetsDecorator([radioRegistration])],
     render: RenderInDarkMode(
         generateTestPerseusRenderer({
             content: "[[☃ radio 1]]",

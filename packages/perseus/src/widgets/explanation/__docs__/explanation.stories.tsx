@@ -1,12 +1,14 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import {registerWidgetsDecorator} from "../../__testutils__/story-decorators";
 import {
     ipsumExample,
     question1,
     question2,
     wideButton,
 } from "../explanation.testdata";
+import {explanationRegistration} from "../index";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -14,6 +16,7 @@ const meta: Meta = {
     title: "Widgets/Explanation",
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
+    decorators: [registerWidgetsDecorator([explanationRegistration])],
     parameters: {
         docs: {
             description: {

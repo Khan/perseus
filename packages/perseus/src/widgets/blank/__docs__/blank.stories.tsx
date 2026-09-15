@@ -1,11 +1,13 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import {registerWidgetsDecorator} from "../../__testutils__/story-decorators";
 import {
     basicBlankQuestion,
     subscriptQuestion,
     superscriptQuestion,
 } from "../blank.testdata";
+import {blankRegistration} from "../index";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -13,6 +15,7 @@ const meta: Meta = {
     title: "Widgets/Blank",
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
+    decorators: [registerWidgetsDecorator([blankRegistration])],
     parameters: {
         docs: {
             description: {

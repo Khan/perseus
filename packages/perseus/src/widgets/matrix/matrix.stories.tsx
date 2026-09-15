@@ -1,15 +1,19 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
+import {registerWidgetsDecorator} from "../__testutils__/story-decorators";
 
 import {question1} from "./matrix.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
+import {matrixRegistration} from "./index";
+
 const meta: Meta = {
     title: "Widgets/Matrix",
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
+    decorators: [registerWidgetsDecorator([matrixRegistration])],
     parameters: {
         docs: {
             description: {

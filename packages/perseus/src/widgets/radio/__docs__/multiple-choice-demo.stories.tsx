@@ -9,8 +9,11 @@ import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-render
 import {
     mobileDecorator,
     narrowViewportDecorator,
+    registerWidgetsDecorator,
 } from "../../__testutils__/story-decorators";
+import {gradedGroupRegistration} from "../../graded-group";
 import {groupedRadioRationaleQuestion} from "../../graded-group/graded-group.testdata";
+import {gradedGroupSetRegistration} from "../../graded-group-set";
 import {
     question,
     choicesWithGraphie,
@@ -23,6 +26,7 @@ import {
     overflowContentInGradedGroupSet,
     singleSelectWithTallMath,
 } from "../__tests__/radio.testdata";
+import {radioRegistration} from "../index";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react-vite";
@@ -39,6 +43,7 @@ export default {
     title: "Widgets/Radio/Widget Demo",
     component: ServerItemRendererWithDebugUI,
     tags: ["!autodocs"],
+    decorators: [registerWidgetsDecorator([radioRegistration])],
     parameters: {
         docs: {
             description: {
@@ -176,7 +181,10 @@ export const GradedGroupSetWithScroll = {
             question: overflowContentInGradedGroupSet,
         }),
     },
-    decorators: [narrowViewportDecorator],
+    decorators: [
+        narrowViewportDecorator,
+        registerWidgetsDecorator([gradedGroupSetRegistration]),
+    ],
 };
 
 export const GradedGroup = {
@@ -185,6 +193,7 @@ export const GradedGroup = {
             question: groupedRadioRationaleQuestion,
         }),
     },
+    decorators: [registerWidgetsDecorator([gradedGroupRegistration])],
 };
 
 // NOTE(Tamara): For answerless stories, the user's selection disappears after

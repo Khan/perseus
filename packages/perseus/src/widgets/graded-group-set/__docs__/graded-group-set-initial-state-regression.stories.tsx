@@ -3,6 +3,7 @@ import {
     articleDecorator,
     mobileArticleDecorator,
 } from "../../__testutils__/story-decorators";
+import {gradedGroupRegistration} from "../../graded-group";
 import {twoGroupArgs} from "../graded-group-set.testdata";
 
 import {gradedGroupSetRendererDecorator} from "./graded-group-set-renderer-decorator";
@@ -22,6 +23,7 @@ const meta: Meta<PerseusGradedGroupSetWidgetOptions> = {
             },
         },
         chromatic: {disableSnapshot: false, modes: themeModes},
+        childWidgets: [gradedGroupRegistration],
     },
 };
 

@@ -18,7 +18,9 @@ import {
     articleFloatRightDecorator,
     mobileArticleFloatRightDecorator,
     mobileArticleFloatLeftDecorator,
+    registerWidgetsDecorator,
 } from "../../__testutils__/story-decorators";
+import {imageRegistration} from "../index";
 import {
     earthMoonImage,
     frescoImage,
@@ -61,6 +63,7 @@ const bioContent3 =
 const meta: Meta<PerseusImageWidgetOptions> = {
     title: "Widgets/Image/Visual Regression Tests/Initial State",
     tags: ["!autodocs", "!manifest"],
+    decorators: [registerWidgetsDecorator([imageRegistration])],
     parameters: {
         docs: {
             description: {

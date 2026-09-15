@@ -2,19 +2,26 @@ import * as React from "react";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import ArticleRenderer from "../../../article-renderer";
-import {storybookDependenciesV2} from "../../../testing/test-dependencies";
+import {storybookDependenciesV2} from "../../../testing/test-dependencies-data";
 import {useStorybookApiOptions} from "../../../testing/use-storybook-api-options";
+import {registerWidgets} from "../../../widgets";
 import {mobileDecorator} from "../../__testutils__/story-decorators";
 import {
     article,
     definitionQuestionContent,
     definitionQuestionOptions,
 } from "../definition.testdata";
+import {definitionRegistration} from "../index";
 
 import {definitionRendererDecorator} from "./definition-renderer-decorator";
 
 import type {PerseusDefinitionWidgetOptions} from "@khanacademy/perseus-core";
-import type {Meta, StoryObj} from "@storybook/react-vite";
+import type {Decorator, Meta, StoryObj} from "@storybook/react-vite";
+
+const widgetDecorator: Decorator = (Story) => {
+    registerWidgets([definitionRegistration]);
+    return <Story />;
+};
 
 /**
  * This is a visual regression story for the definition widget.
@@ -23,6 +30,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 const meta: Meta<PerseusDefinitionWidgetOptions> = {
     title: "Widgets/Definition/Visual Regression Tests/Initial State",
     tags: ["!autodocs", "!manifest"],
+    decorators: [widgetDecorator],
     parameters: {
         docs: {
             description: {

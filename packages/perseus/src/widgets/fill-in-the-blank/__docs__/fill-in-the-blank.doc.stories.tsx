@@ -5,15 +5,24 @@ import Renderer from "../../../renderer";
 import {mockStrings} from "../../../strings";
 import {useStorybookApiOptions} from "../../../testing/use-storybook-api-options";
 import UserInputManager from "../../../user-input-manager";
+import {registerWidgetsDecorator} from "../../__testutils__/story-decorators";
+import {blankRegistration} from "../../blank";
 import {basicFillInTheBlankQuestion} from "../fill-in-the-blank.testdata";
+import {fillInTheBlankRegistration} from "../index";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-// eslint-disable-next-line no-restricted-syntax
 const meta = {
     title: "Widgets/Fill in the Blank",
     tags: ["!dev"],
+    decorators: [
+        registerWidgetsDecorator([
+            fillInTheBlankRegistration,
+            // Fill-in-the-blank renders `blank` child widgets.
+            blankRegistration,
+        ]),
+    ],
     // TODO(LEMS-4396): clean up feature flag
     globals: {featureFlags: ["dnd-widget-fitb"]},
     component: FillInTheBlankDemo,

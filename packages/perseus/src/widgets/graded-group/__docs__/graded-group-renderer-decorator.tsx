@@ -7,9 +7,12 @@ import {
 import * as React from "react";
 
 import ServerItemRenderer from "../../../server-item-renderer";
-import {testDependenciesV2} from "../../../testing/test-dependencies";
+import {testDependenciesV2} from "../../../testing/test-dependencies-data";
+import {registerWidgets} from "../../../widgets";
+import {gradedGroupRegistration} from "../index";
 
 import type {APIOptions} from "../../../types";
+import type {WidgetRegistration} from "../../../widget-registration";
 import type {PerseusGradedGroupWidgetOptions} from "@khanacademy/perseus-core";
 import type {Decorator} from "@storybook/react-vite";
 
@@ -22,9 +25,15 @@ export const gradedGroupRendererDecorator: Decorator = (
         args: Partial<PerseusGradedGroupWidgetOptions>;
         parameters?: {
             apiOptions?: APIOptions;
+            childWidgets?: ReadonlyArray<WidgetRegistration>;
         };
     },
 ) => {
+    registerWidgets([
+        gradedGroupRegistration,
+        ...(parameters?.childWidgets ?? []),
+    ]);
+
     return (
         <ServerItemRenderer
             item={generateTestPerseusItem({

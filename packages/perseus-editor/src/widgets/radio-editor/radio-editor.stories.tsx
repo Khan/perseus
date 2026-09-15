@@ -2,23 +2,21 @@ import * as React from "react";
 import {action} from "storybook/actions";
 
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
+import {registerWidgetEditorDecorator} from "../../__docs__/register-widget-editor-decorator";
 import {
     multiChoiceQuestion,
     singleSelectQuestion,
 } from "../../__testdata__/radio.testdata";
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import {PROD_EDITOR_WIDTH} from "../storybook-constants";
-
-import RadioEditor from "./radio-editor";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-// This is to address timing - Perseus widget editor registry accessed before initialization!
-registerAllWidgetsAndEditorsForTesting();
+import RadioEditor, {radioEditorRegistration} from "./index";
 
 const meta: Meta = {
     title: "Widgets/Radio/Editor Demo",
     component: RadioEditor,
+    decorators: [registerWidgetEditorDecorator([radioEditorRegistration])],
     tags: ["!autodocs"],
 } satisfies Meta<typeof RadioEditor>;
 export default meta;

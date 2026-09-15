@@ -14,8 +14,12 @@ import {expect, fireEvent} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import WrappedServerItemRenderer from "../../../server-item-renderer";
-import {storybookDependenciesV2} from "../../../testing/test-dependencies";
-import {rtlDecorator} from "../../__testutils__/story-decorators";
+import {storybookDependenciesV2} from "../../../testing/test-dependencies-data";
+import {
+    rtlDecorator,
+    registerWidgetsDecorator,
+} from "../../__testutils__/story-decorators";
+import {numericInputRegistration} from "../index";
 
 import {numericInputRendererDecorator} from "./numeric-input-renderer-decorator";
 
@@ -274,6 +278,7 @@ function MobileKeypadItemRenderer({question}: {question: PerseusRenderer}) {
 }
 
 export const MobilePhoneBasicKeypadOpen: Story = {
+    decorators: [registerWidgetsDecorator([numericInputRegistration])],
     render: () => (
         <div
             className="framework-perseus perseus-mobile"
@@ -302,6 +307,7 @@ export const MobilePhoneBasicKeypadOpen: Story = {
 };
 
 export const MobileTabletExpandedKeypadOpen: Story = {
+    decorators: [registerWidgetsDecorator([numericInputRegistration])],
     render: () => (
         <div
             className="framework-perseus perseus-mobile"

@@ -10,6 +10,8 @@ import {
     articleDecorator,
     mobileArticleDecorator,
 } from "../../__testutils__/story-decorators";
+import {dropdownRegistration} from "../../dropdown";
+import {gradedGroupRegistration} from "../../graded-group";
 import {twoGroupArgs} from "../graded-group-set.testdata";
 
 import {gradedGroupSetRendererDecorator} from "./graded-group-set-renderer-decorator";
@@ -29,6 +31,7 @@ const meta: Meta<PerseusGradedGroupSetWidgetOptions> = {
             },
         },
         chromatic: {disableSnapshot: false, modes: themeModes},
+        childWidgets: [gradedGroupRegistration],
     },
 };
 
@@ -94,7 +97,10 @@ const firstGroupScorableArgs = {
 export const MobileNextQuestionButton: Story = {
     decorators: [gradedGroupSetRendererDecorator, mobileArticleDecorator],
     args: firstGroupScorableArgs,
-    parameters: {apiOptions: {isMobile: true}},
+    parameters: {
+        apiOptions: {isMobile: true},
+        childWidgets: [gradedGroupRegistration, dropdownRegistration],
+    },
     play: async ({canvas, userEvent}) => {
         const dropdown = canvas.getByRole("combobox");
         await userEvent.click(dropdown);

@@ -12,7 +12,6 @@ type Story = {
     title: string;
 };
 
-// eslint-disable-next-line no-restricted-syntax
 export default {
     title: "Widgets/Label Image/Widget Internal Components/Answer Choices",
 } as Story;

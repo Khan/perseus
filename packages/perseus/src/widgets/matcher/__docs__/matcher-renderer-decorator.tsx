@@ -4,9 +4,13 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import {registerWidgets} from "../../../widgets";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {matcherRegistration} from "../index";
 
 export const matcherRendererDecorator = (_, {args}) => {
+    registerWidgets([matcherRegistration]);
+
     return (
         <QuestionRendererForStories
             question={generateTestPerseusRenderer({

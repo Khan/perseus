@@ -10,16 +10,14 @@ import {useRef, useState} from "react";
 import {comprehensiveQuestion} from "../__testdata__/all-widgets.testdata";
 import ArticleEditor from "../article-editor";
 import {testDependenciesV2} from "../testing/test-dependencies";
-import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 import "../styles/perseus-editor.css"; // This helps ensure the styles are loaded correctly and timely
+import {registerAllWidgetsAndEditorsDecorator} from "./register-all-widgets-and-editors-decorator";
 import {usePreviewUrl} from "./use-preview-url";
-
-// This is to address timing - Perseus widget editor registry accessed before initialization!
-registerAllWidgetsAndEditorsForTesting();
 
 export default {
     title: "Editors/ArticleEditor",
+    decorators: [registerAllWidgetsAndEditorsDecorator],
 };
 
 export const Demo = (): React.ReactElement => {
@@ -38,7 +36,6 @@ export const Demo = (): React.ReactElement => {
                     setArticle(value.json);
                 }}
                 previewURL={storybookPreviewUrl}
-                // eslint-disable-next-line no-restricted-syntax
                 ref={articleEditorRef as any}
             />
         </View>
@@ -74,7 +71,6 @@ export const WithAllFlags = (): React.ReactElement => {
                     setArticle(value.json);
                 }}
                 previewURL={storybookPreviewUrl}
-                // eslint-disable-next-line no-restricted-syntax
                 ref={articleEditorRef as any}
             />
         </View>
@@ -97,7 +93,6 @@ export const PreviewMode = (): React.ReactElement => {
                     /* Preview doesn't support editing */
                 }}
                 previewURL={storybookPreviewUrl}
-                // eslint-disable-next-line no-restricted-syntax
                 ref={articleEditorRef as any}
             />
         </View>
@@ -121,7 +116,6 @@ export const WithEditingDisabled = (): React.ReactElement => {
             json={[comprehensiveQuestion]}
             onChange={() => {}}
             previewURL={storybookPreviewUrl}
-            // eslint-disable-next-line no-restricted-syntax
             ref={articleEditorRef as any}
         />
     );

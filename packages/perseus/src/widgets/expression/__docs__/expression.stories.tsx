@@ -1,4 +1,5 @@
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import {registerWidgetsDecorator} from "../../__testutils__/story-decorators";
 import {
     expressionItemKitchenSink,
     expressionItemMixedAnswerStates,
@@ -6,6 +7,7 @@ import {
     expressionItemWithFraction,
     expressionItemWithFractionStatic,
 } from "../expression.testdata";
+import {expressionRegistration} from "../index";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -13,6 +15,7 @@ const meta: Meta = {
     title: "Widgets/Expression",
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
+    decorators: [registerWidgetsDecorator([expressionRegistration])],
     parameters: {
         docs: {
             description: {

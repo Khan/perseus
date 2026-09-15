@@ -7,6 +7,9 @@ import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import {mockStrings} from "../../../perseus/src/strings";
+import {registerWidgetsDecorator} from "../../../perseus/src/widgets/__testutils__/story-decorators";
+import {imageRegistration} from "../../../perseus/src/widgets/image";
+import {radioRegistration} from "../../../perseus/src/widgets/radio";
 import {articleWithImages} from "../__testdata__/article-renderer.testdata";
 import {
     singleSelectQuestion,
@@ -48,6 +51,8 @@ const meta: Meta<typeof ContentPreview> = {
                 </PerseusI18nContextProvider>
             </View>
         ),
+        registerWidgetsDecorator([imageRegistration]),
+        registerWidgetsDecorator([radioRegistration]),
     ],
     render: (props) => <PreviewWrapper {...props} />,
 };

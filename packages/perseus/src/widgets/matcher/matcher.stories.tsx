@@ -1,15 +1,19 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
+import {registerWidgetsDecorator} from "../__testutils__/story-decorators";
 
 import {question1} from "./matcher.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
+import {matcherRegistration} from "./index";
+
 const meta: Meta = {
     title: "Widgets/Matcher",
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
+    decorators: [registerWidgetsDecorator([matcherRegistration])],
     parameters: {
         docs: {
             description: {

@@ -1,15 +1,19 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
+import {registerWidgetsDecorator} from "../__testutils__/story-decorators";
 
 import {inequality, question1, tickCtrl} from "./number-line.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
+import {numberLineRegistration} from "./index";
+
 const meta: Meta = {
     title: "Widgets/Number Line",
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
+    decorators: [registerWidgetsDecorator([numberLineRegistration])],
     parameters: {
         docs: {
             description: {

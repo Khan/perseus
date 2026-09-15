@@ -3,8 +3,10 @@ import * as React from "react";
 
 import ArticleRenderer from "../../../article-renderer";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
-import {storybookDependenciesV2} from "../../../testing/test-dependencies";
+import {storybookDependenciesV2} from "../../../testing/test-dependencies-data";
+import {registerWidgetsDecorator} from "../../__testutils__/story-decorators";
 import {article, question} from "../definition.testdata";
+import {definitionRegistration} from "../index";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -12,6 +14,7 @@ const meta: Meta = {
     title: "Widgets/Definition",
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
+    decorators: [registerWidgetsDecorator([definitionRegistration])],
     parameters: {
         docs: {
             description: {

@@ -8,6 +8,11 @@ import {
 } from "@khanacademy/perseus-core";
 
 import {ArticleRendererWithDebugUI} from "../../testing/article-renderer-with-debug-ui";
+import {registerWidgetsDecorator} from "../__testutils__/story-decorators";
+import {dropdownRegistration} from "../dropdown";
+import {imageRegistration} from "../image";
+import {numericInputRegistration} from "../numeric-input";
+import {radioRegistration} from "../radio";
 
 import {
     article1,
@@ -16,10 +21,21 @@ import {
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
+import {gradedGroupSetRegistration} from "./index";
+
 const meta: Meta = {
     title: "Widgets/Graded Group Set",
     component: ArticleRendererWithDebugUI,
     tags: ["!dev"],
+    decorators: [
+        registerWidgetsDecorator([
+            gradedGroupSetRegistration,
+            dropdownRegistration,
+            imageRegistration,
+            numericInputRegistration,
+            radioRegistration,
+        ]),
+    ],
     parameters: {
         docs: {
             description: {

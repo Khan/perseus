@@ -9,6 +9,9 @@ import * as React from "react";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {registerWidgetsDecorator} from "../../__testutils__/story-decorators";
+import {dropdownRegistration} from "../../dropdown";
+import {numericInputRegistration} from "../index";
 
 import {numericInputRendererDecorator} from "./numeric-input-renderer-decorator";
 
@@ -18,6 +21,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 const meta: Meta<PerseusNumericInputWidgetOptions> = {
     title: "Widgets/Numeric Input/Visual Regression Tests/Initial State",
     tags: ["!autodocs", "!manifest"],
+    decorators: [registerWidgetsDecorator([numericInputRegistration])],
     parameters: {
         docs: {
             description: {
@@ -144,6 +148,7 @@ export const MultipleInputsInParagraph: Story = {
  * inline with a dropdown in the same paragraph.
  */
 export const InlineWithDropdown: Story = {
+    decorators: [registerWidgetsDecorator([dropdownRegistration])],
     render: function Render() {
         return (
             <QuestionRendererForStories

@@ -1,6 +1,7 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
+import {registerWidgetsDecorator} from "../__testutils__/story-decorators";
 
 import {
     question1,
@@ -11,10 +12,13 @@ import {
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
+import {ordererRegistration} from "./index";
+
 const meta: Meta = {
     title: "Widgets/Orderer",
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
+    decorators: [registerWidgetsDecorator([ordererRegistration])],
     parameters: {
         docs: {
             description: {

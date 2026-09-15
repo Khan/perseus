@@ -6,12 +6,14 @@ import * as React from "react";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import ServerItemRenderer from "../../../server-item-renderer";
-import {testDependenciesV2} from "../../../testing/test-dependencies";
+import {testDependenciesV2} from "../../../testing/test-dependencies-data";
+import {registerWidgets} from "../../../widgets";
 import {
     mobileDecorator,
     narrowViewportDecorator,
     rtlDecorator,
 } from "../../__testutils__/story-decorators";
+import {gradedGroupSetRegistration} from "../../graded-group-set";
 import {
     choicesWithGraphieArgs,
     choicesWithGraphieContent,
@@ -20,11 +22,17 @@ import {
     choicesWithImagesContent,
     overflowContentInGradedGroupSet,
 } from "../__tests__/radio.testdata";
+import {radioRegistration} from "../index";
 
 import {radioRendererDecorator} from "./radio-renderer-decorator";
 
 import type {PerseusRadioWidgetOptions} from "@khanacademy/perseus-core";
-import type {Meta, StoryObj} from "@storybook/react-vite";
+import type {Decorator, Meta, StoryObj} from "@storybook/react-vite";
+
+const gradedGroupSetDecorator: Decorator = (Story) => {
+    registerWidgets([gradedGroupSetRegistration, radioRegistration]);
+    return <Story />;
+};
 
 /**
  * These are visual regression stories for the radio widget.
@@ -426,5 +434,5 @@ export const GradedGroupSetWithScroll: Story = {
             />
         );
     },
-    decorators: [narrowViewportDecorator],
+    decorators: [gradedGroupSetDecorator, narrowViewportDecorator],
 };

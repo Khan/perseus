@@ -14,12 +14,13 @@ import {
     graphieImage,
 } from "../../../../perseus/src/widgets/image/utils";
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
+import {registerWidgetEditorDecorator} from "../../__docs__/register-widget-editor-decorator";
+import {radioEditorRegistration} from "../radio-editor";
 import {PROD_EDITOR_WIDTH} from "../storybook-constants";
 
-import ImageEditor from "./image-editor";
-
 import type {Meta, StoryObj} from "@storybook/react-vite";
+
+import ImageEditor, {imageEditorRegistration} from "./index";
 
 const withinEditorPageDecorator = (_, {args, parameters}) => {
     return (
@@ -41,12 +42,15 @@ const withinEditorPageDecorator = (_, {args, parameters}) => {
     );
 };
 
-// This is to address timing - Perseus widget editor registry accessed before initialization!
-registerAllWidgetsAndEditorsForTesting();
-
 const meta: Meta = {
     title: "Widgets/Image/Editor Demo",
     component: ImageEditor,
+    decorators: [
+        registerWidgetEditorDecorator([
+            imageEditorRegistration,
+            radioEditorRegistration,
+        ]),
+    ],
     argTypes: {
         labels: {
             control: false,

@@ -22,14 +22,29 @@ import React from "react";
 import {themeModes} from "../../../../.storybook/modes";
 import HintsRenderer from "../hints-renderer";
 import {ApiOptions} from "../perseus-api";
-import {storybookDependenciesV2} from "../testing/test-dependencies";
+import {storybookDependenciesV2} from "../testing/test-dependencies-data";
+import {registerWidgets} from "../widgets";
 import {mobileDecorator} from "../widgets/__testutils__/story-decorators";
+import {definitionRegistration} from "../widgets/definition";
+import {explanationRegistration} from "../widgets/explanation";
 import {ipsumExample} from "../widgets/explanation/explanation.testdata";
+import {imageRegistration} from "../widgets/image";
 import {earthMoonImage} from "../widgets/image/utils";
+import {interactiveGraphRegistration} from "../widgets/interactive-graphs";
 
 import {bibliotronExerciseDecorator} from "./hints-renderer-decorator";
 
-import type {Meta, StoryObj} from "@storybook/react-vite";
+import type {Decorator, Meta, StoryObj} from "@storybook/react-vite";
+
+const widgetDecorator: Decorator = (Story) => {
+    registerWidgets([
+        definitionRegistration,
+        explanationRegistration,
+        imageRegistration,
+        interactiveGraphRegistration,
+    ]);
+    return <Story />;
+};
 
 const defaultApiOptions = ApiOptions.defaults;
 
@@ -38,6 +53,7 @@ const meta: Meta<typeof HintsRenderer> = {
     component: HintsRenderer,
     tags: ["!autodocs", "!manifest"],
     decorators: [
+        widgetDecorator,
         (Story) => {
             return (
                 <View style={{paddingInlineStart: 80}}>

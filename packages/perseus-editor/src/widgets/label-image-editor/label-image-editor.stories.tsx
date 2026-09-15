@@ -9,12 +9,12 @@ import {action} from "storybook/actions";
 
 import {earthMoonImage} from "../../../../perseus/src/widgets/image/utils";
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
+import {registerWidgetEditorDecorator} from "../../__docs__/register-widget-editor-decorator";
 import {PROD_EDITOR_WIDTH} from "../storybook-constants";
 
-import LabelImageEditor from "./label-image-editor";
-
 import type {Meta, StoryObj} from "@storybook/react-vite";
+
+import LabelImageEditor, {labelImageEditorRegistration} from "./index";
 
 const withinEditorPageDecorator = (_, {args, parameters}) => {
     return (
@@ -36,12 +36,10 @@ const withinEditorPageDecorator = (_, {args, parameters}) => {
     );
 };
 
-// This is to address timing - Perseus widget editor registry accessed before initialization!
-registerAllWidgetsAndEditorsForTesting();
-
 const meta: Meta = {
     title: "Widgets/Label Image/Editor Demo",
     component: LabelImageEditor,
+    decorators: [registerWidgetEditorDecorator([labelImageEditorRegistration])],
 } satisfies Meta<typeof LabelImageEditor>;
 export default meta;
 

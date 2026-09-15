@@ -6,19 +6,17 @@ import * as React from "react";
 import {action} from "storybook/actions";
 
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
+import {registerWidgetEditorDecorator} from "../../__docs__/register-widget-editor-decorator";
 import {PROD_EDITOR_WIDTH} from "../storybook-constants";
-
-import VideoEditor from "./video-editor";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-// This is to address timing - Perseus widget editor registry accessed before initialization!
-registerAllWidgetsAndEditorsForTesting();
+import VideoEditor, {videoEditorRegistration} from "./index";
 
 const meta: Meta<typeof VideoEditor> = {
     title: "Widgets/Video/Editor Demo",
     component: VideoEditor,
+    decorators: [registerWidgetEditorDecorator([videoEditorRegistration])],
     tags: ["!autodocs"],
 };
 export default meta;

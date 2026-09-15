@@ -10,16 +10,24 @@ import * as React from "react";
 import {themeModes} from "../../../../../../.storybook/modes";
 import ArticleRenderer from "../../../article-renderer";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
-import {storybookDependenciesV2} from "../../../testing/test-dependencies";
+import {storybookDependenciesV2} from "../../../testing/test-dependencies-data";
+import {registerWidgets} from "../../../widgets";
+import {gradedGroupRegistration} from "../../graded-group";
 import {
     groupedRadioRationaleQuestion,
     groupedMultipleSelectRationaleQuestion,
 } from "../../graded-group/graded-group.testdata";
+import {radioRegistration} from "../index";
 
 import {radioRendererDecoratorWithDebugUI} from "./radio-renderer-decorator";
 
 import type {PerseusRadioWidgetOptions} from "@khanacademy/perseus-core";
-import type {Meta, StoryObj} from "@storybook/react-vite";
+import type {Decorator, Meta, StoryObj} from "@storybook/react-vite";
+
+const groupedRadioDecorator: Decorator = (Story) => {
+    registerWidgets([gradedGroupRegistration, radioRegistration]);
+    return <Story />;
+};
 
 const choicesWithMathFont = (options?: {
     multipleSelect: boolean;
@@ -165,6 +173,7 @@ export const SelectChoiceMoveFocusAfter: Story = {
    that Radio can be rendered within. */
 
 export const GradedGroupWrapperSingleSelect = {
+    decorators: [groupedRadioDecorator],
     render: function Render() {
         return (
             <ServerItemRendererWithDebugUI
@@ -188,6 +197,7 @@ export const GradedGroupWrapperSingleSelect = {
 };
 
 export const GradedGroupWrapperMultipleSelect = {
+    decorators: [groupedRadioDecorator],
     render: function Render() {
         return (
             <ServerItemRendererWithDebugUI
@@ -217,6 +227,7 @@ export const GradedGroupWrapperMultipleSelect = {
 };
 
 export const ChoiceTextColorInArticle = {
+    decorators: [groupedRadioDecorator],
     render: function Render() {
         return (
             <ArticleRenderer

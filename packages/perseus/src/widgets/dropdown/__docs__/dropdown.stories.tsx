@@ -1,6 +1,7 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import {registerWidgetsDecorator} from "../../__testutils__/story-decorators";
 import {
     basicDropdown,
     dropdownWithEmptyPlaceholder,
@@ -8,6 +9,7 @@ import {
     dropdownWithVisibleLabel,
     inlineDropdownWithVisibleLabel,
 } from "../dropdown.testdata";
+import {dropdownRegistration} from "../index";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -15,6 +17,7 @@ const meta: Meta = {
     title: "Widgets/Dropdown",
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
+    decorators: [registerWidgetsDecorator([dropdownRegistration])],
     parameters: {
         docs: {
             description: {

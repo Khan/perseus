@@ -2,17 +2,20 @@ import {
     generateImageOptions,
     generateImageWidget,
     generateTestPerseusRenderer,
+    type ImageWidget as PerseusImageWidget,
+    type PerseusImageWidgetOptions,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {getWidget} from "../../../widgets";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
 import {
     mobileDecorator,
     articleDecorator,
     mobileArticleDecorator,
     articleFloatLeftDecorator,
+    registerWidgetsDecorator,
 } from "../../__testutils__/story-decorators";
+import {imageRegistration} from "../index";
 import {
     earthMoonImage,
     frescoImage,
@@ -37,23 +40,24 @@ import {imageRendererDecorator} from "./image-renderer-decorator";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const ImageWidget = getWidget("image")!;
-
-type Story = StoryObj<typeof ImageWidget>;
-
 const earthMoonImageCaption =
     "The Moon above Earth's horizon, captured by the International Space Station, [NASA](https://images.nasa.gov/details/iss071e515452)";
 const articleContent = `But in other cases, an object may experience a centripetal force for an extended time and complete *repeated* revolutions. An example of this type of motion is an astronomical object in **orbit**.\n\n[[☃ image 1]]\n\nLet's explore some of the language and relationships involved in orbital motion.`;
 
-const meta: Meta<typeof ImageWidget> = {
+type ImageStoryArgs = PerseusImageWidgetOptions &
+    Pick<PerseusImageWidget, "alignment">;
+
+const meta: Meta<ImageStoryArgs> = {
     title: "Widgets/Image/Widget Demo",
-    component: ImageWidget,
     tags: ["!autodocs"],
+    decorators: [registerWidgetsDecorator([imageRegistration])],
     parameters: {
         chromatic: {disableSnapshot: false},
     },
 };
 export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 export const Image: Story = {
     decorators: [imageRendererDecorator],

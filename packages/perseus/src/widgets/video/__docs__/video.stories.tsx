@@ -1,6 +1,8 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import {registerWidgetsDecorator} from "../../__testutils__/story-decorators";
+import {videoRegistration} from "../index";
 import {question1, question2} from "../video.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -9,6 +11,7 @@ const meta: Meta = {
     title: "Widgets/Video",
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
+    decorators: [registerWidgetsDecorator([videoRegistration])],
     parameters: {
         docs: {
             description: {

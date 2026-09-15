@@ -8,7 +8,9 @@ import * as React from "react";
 
 import ServerItemRenderer from "../../../server-item-renderer";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
-import {testDependenciesV2} from "../../../testing/test-dependencies";
+import {testDependenciesV2} from "../../../testing/test-dependencies-data";
+import {registerWidgets} from "../../../widgets";
+import {radioRegistration} from "../index";
 
 import type {APIOptions} from "../../../types";
 import type {
@@ -32,6 +34,8 @@ export const radioRendererDecorator: Decorator = (
         };
     },
 ) => {
+    registerWidgets([radioRegistration]);
+
     return (
         <ServerItemRenderer
             item={generateTestPerseusItem({
@@ -70,6 +74,8 @@ export const radioRendererDecoratorWithDebugUI: Decorator = (
         };
     },
 ) => {
+    registerWidgets([radioRegistration]);
+
     return (
         <ServerItemRendererWithDebugUI
             item={generateTestPerseusItem({
