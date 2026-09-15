@@ -40,7 +40,8 @@ that enforces it (see .github/workflows/node-ci.yml and friends).
   STOP-SHIP marker (spelled as one word in code). Don't re-flag them.
 - **Workflow hygiene autofix** — `validate-workflows.yml` normalizes
   checkout/setup ordering in workflow files automatically.
-- **Type build** — `pnpm build:types` runs on every PR (node-ci).
+- **Type build** — `pnpm build:types` runs on node-ci whenever the PR changes any
+  JS/TS file (same gate as `pnpm typecheck`); config-only PRs skip it.
   `pnpm pre-publish-check` runs only on the `changeset-release/main` release PR, so
   don't cite it as coverage for ordinary PRs.
 
