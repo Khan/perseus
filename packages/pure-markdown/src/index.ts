@@ -54,6 +54,17 @@ const mathMatcher = (source: any, state: any, isBlock: boolean) => {
     }
 
     index++;
+
+    // Support `$$...$$` as (display) math. Authors and LLM-generated
+    // content frequently wrap math in double-dollar delimiters; without
+    // this, a leading `$$` parses as an empty `$…$` math span and the TeX
+    // that follows leaks out as literal source (e.g. `$$\frac12$$` renders
+    // an empty span + the text "\frac12"). When we open on a doubled `$$`,
+    // only a closing `$$` ends the span — a lone `$` is treated as content.
+    const isDoubleDollar = index < length && source[index] === "$";
+    if (isDoubleDollar) {
+        index++;
+    }
     const startIndex = index;
     let braceLevel = 0;
 
@@ -73,8 +84,12 @@ const mathMatcher = (source: any, state: any, isBlock: boolean) => {
             // This also handles the case of escaping `$`s or
             // braces `\{`
             index++;
-        } else if (braceLevel <= 0 && character === "$") {
-            let endIndex = index + 1;
+        } else if (
+            braceLevel <= 0 &&
+            character === "$" &&
+            (!isDoubleDollar || source[index + 1] === "$")
+        ) {
+            let endIndex = index + (isDoubleDollar ? 2 : 1);
             if (isBlock) {
                 // Look for two trailing newlines after the closing `$`
                 const match = /^(?: *\n){2,}/.exec(source.slice(endIndex));
