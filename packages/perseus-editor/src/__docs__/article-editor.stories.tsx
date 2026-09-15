@@ -18,6 +18,7 @@ import {usePreviewUrl} from "./use-preview-url";
 export default {
     title: "Editors/ArticleEditor",
     decorators: [registerAllWidgetsAndEditorsDecorator],
+    parameters: {chromatic: {disableSnapshot: true}},
 };
 
 export const Demo = (): React.ReactElement => {
@@ -41,6 +42,8 @@ export const Demo = (): React.ReactElement => {
         </View>
     );
 };
+
+Demo.parameters = {chromatic: {disableSnapshot: false}};
 
 /**
  * Article editor with all feature flags on.

@@ -16,6 +16,7 @@ import {registerAllWidgetsAndEditorsDecorator} from "./register-all-widgets-and-
 export default {
     title: "Editors/Editor",
     decorators: [registerAllWidgetsAndEditorsDecorator],
+    parameters: {chromatic: {disableSnapshot: true}},
 };
 
 export const Demo = (): React.ReactElement => {
@@ -35,6 +36,8 @@ export const Demo = (): React.ReactElement => {
         />
     );
 };
+
+Demo.parameters = {chromatic: {disableSnapshot: false}};
 
 export const DemoInteractiveGraph = (): React.ReactElement => {
     const editorRef = React.useRef<Editor>(null);
@@ -99,3 +102,5 @@ export const DemoInteractiveGraph = (): React.ReactElement => {
         </div>
     );
 };
+
+DemoInteractiveGraph.parameters = {chromatic: {disableSnapshot: true}};

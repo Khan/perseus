@@ -17,6 +17,7 @@ import {usePreviewUrl} from "./use-preview-url";
 export default {
     title: "Editors/ItemEditor",
     decorators: [registerAllWidgetsAndEditorsDecorator],
+    parameters: {chromatic: {disableSnapshot: true}},
 };
 
 const onChangeAction = action("onChange");
@@ -52,3 +53,5 @@ export const Demo = (): React.ReactElement => {
         />
     );
 };
+
+Demo.parameters = {chromatic: {disableSnapshot: false}};

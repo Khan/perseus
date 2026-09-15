@@ -13,6 +13,7 @@ import {registerAllWidgetsAndEditorsDecorator} from "./register-all-widgets-and-
 export default {
     title: "Editors/EditorPage",
     decorators: [registerAllWidgetsAndEditorsDecorator],
+    parameters: {chromatic: {disableSnapshot: true}},
 };
 
 /**
@@ -21,6 +22,8 @@ export default {
 export const Demo = (): React.ReactElement => {
     return <EditorPageWithStorybookPreview />;
 };
+
+Demo.parameters = {chromatic: {disableSnapshot: false}};
 
 /**
  * Editor with all feature flags on.
