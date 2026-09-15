@@ -60,7 +60,7 @@ type FlagListProps = {
  */
 function FlagList({activeFlags, onToggle}: FlagListProps) {
     return (
-        <div style={{padding: 4, minWidth: 180}}>
+        <div style={{padding: 4, minInlineSize: 180}}>
             {[...PerseusFeatureFlags].map((flag) => (
                 <label
                     key={flag}
@@ -68,7 +68,8 @@ function FlagList({activeFlags, onToggle}: FlagListProps) {
                         display: "flex",
                         alignItems: "center",
                         gap: 8,
-                        padding: "7px 10px",
+                        paddingBlock: "7px",
+                        paddingInline: "10px",
                         cursor: "pointer",
                     }}
                 >

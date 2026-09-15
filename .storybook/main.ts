@@ -1,5 +1,6 @@
-import {mergeConfig} from "vite";
 import {configureSort} from "storybook-multilevel-sort";
+import {mergeConfig} from "vite";
+
 import type {StorybookConfig} from "@storybook/react-vite";
 
 const excludedCssFiles = ["lato.css", "protractor.css", "mafs-styles.css"];

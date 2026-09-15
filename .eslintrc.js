@@ -325,6 +325,18 @@ module.exports = {
             },
         },
         {
+            // The Storybook config imports package sources directly, and has
+            // to: the published subpaths have no `./src/*` entry, so this
+            // rule's autofix rewrites them to specifiers that don't resolve.
+            // preview.tsx also loads the shared prod stylesheet for its side
+            // effect.
+            files: [".storybook/**"],
+            rules: {
+                "import/no-relative-packages": "off",
+                "import/no-unassigned-import": "off",
+            },
+        },
+        {
             // The perseus-core barrel must import no widget logic: one such
             // import couples every barrel consumer to every widget, which is
             // what the retest and TurboSnap graphs key off. Logic lives behind

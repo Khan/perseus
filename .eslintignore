@@ -19,3 +19,7 @@ cypress/
 **/*.png
 **/*.svg
 **/*.sh
+
+# ESLint skips dot-directories by default, which left the Storybook config --
+# preview.tsx included -- unlinted.
+!.storybook
