@@ -45,8 +45,9 @@ CI supply chain:
   consumers resolve it.
 - **Hand-patched dependencies** — `patches/**` (pnpm patches), same category as
   `vendor/**`.
-- **Agent hooks and settings** — `.claude/hooks/**`, `.claude/settings.json`. Code the
-  Claude Code harness executes on every session or tool call, as the engineer, with
+- **Agent hooks and settings** — `.claude/hooks/**`, `.codex/hooks/**`,
+  `.cursor/hooks/**`, `.claude/settings.json`, `.mcp.json`. Code and server config the
+  coding-agent harnesses execute on every session or tool call, as the engineer, with
   their credentials. Agent *prose* (`SKILL.md`, `CLAUDE.md`, `AGENTS.md`,
   `accessibility-instructions.md`) steers agents rather than executing, and sits in
   Medium.
