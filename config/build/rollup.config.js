@@ -21,11 +21,6 @@ const rootDir = ancesdir(__dirname);
 /**
  * We support the following config args with this rollup configuration:
  *
- * --configFormats
- *      A comma-delimited list of formats to build.
- *      Valid options are "cjs" and "esm".
- *      Default: cjs, esm
- *
  * --configEnvironment
  *      A string to use as the NODE_ENV environment variable.
  *      Valid options are "development" and "production".
@@ -51,10 +46,10 @@ const makePackageBasedPath = (pkgName, pkgRelPath) => {
 /**
  * Generate the rollup output configuration for a given package
  */
-const createOutputConfig = (pkgName, format, targetDir) => ({
-    dir: makePackageBasedPath(pkgName, targetDir),
+const createOutputConfig = (pkgName) => ({
+    dir: makePackageBasedPath(pkgName, "dist"),
     sourcemap: true,
-    format,
+    format: "esm",
 
     // One file per named input, plus a shared chunk for any module reachable
     // from more than one of them. That sharing is the point: a module that
@@ -63,12 +58,6 @@ const createOutputConfig = (pkgName, format, targetDir) => ({
     // instance at runtime no matter which entry point a consumer imports.
     entryFileNames: "[name].js",
     chunkFileNames: "chunk-[name]-[hash].js",
-
-    // These two settings are to keep the builds as similar to pre-Rollup v4 as
-    // possible until we get rid of CJS builds.
-    // See: https://rollupjs.org/migration/#changed-defaults
-    esModule: true,
-    interop: "compat",
 
     // Governs names of CSS files (for assets from CSS use `hash` option for
     // url handler).
@@ -79,33 +68,11 @@ const createOutputConfig = (pkgName, format, targetDir) => ({
 });
 
 /**
- * Get a set of strings from a given string, returning the defaults
- *
- * This assumes comma-delimited strings.
- */
-const getSetFromDelimitedString = (arg, defaults) => {
-    const values =
-        arg != null && arg.length > 0
-            ? arg
-                  .split(",")
-                  .map((p) => p.trim())
-                  .filter(Boolean)
-            : [];
-    return new Set(values.length ? values : defaults);
-};
-
-/**
- * Determine what formats we are targetting.
- */
-const getFormats = ({configFormats}) =>
-    getSetFromDelimitedString(configFormats, ["cjs", "esm"]);
-
-/**
  * Generate a rollup configuration.
  */
 const createConfig = (
     commandLineArgs,
-    {name, fullName, version, format, platform, inputs, dir, plugins},
+    {name, version, platform, inputs, plugins},
 ) => {
     const valueReplacementMappings = {
         __IS_BROWSER__: platform === "browser",
@@ -126,7 +93,7 @@ const createConfig = (
     }
 
     const extensions = [".js", ".jsx", ".ts", ".tsx"];
-    const outputConfig = createOutputConfig(name, format, dir);
+    const outputConfig = createOutputConfig(name);
 
     const config = {
         output: outputConfig,
@@ -250,14 +217,10 @@ const createConfig = (
  *
  * The entry points come from the package's `package.json` exports map, or from
  * its `source` field if it has no exports map. All of a package's entry points
- * are built by a single Rollup config per format, so that modules shared
- * between them are emitted once into a shared chunk. CJS lands in `dist/` and
- * ESM in `dist/es/`, which is what the `main`, `module` and `exports` fields
- * of every package point at.
- *
- * We also can filter the outputs based on command line options:
- * `--configFormats`   - Comma-separated list. Valid values are "cjs" and
- *                       "esm". If not specified, then we generate both.
+ * are built by a single Rollup config, so that modules shared between them are
+ * emitted once into a shared chunk. We publish ESM only; the bundles land in
+ * `dist/`, which is what the `module` and `exports` fields of every package
+ * point at.
  */
 const getPackageInfo = (commandLineArgs, pkgName) => {
     const pkgJsonPath = makePackageBasedPath(pkgName, "./package.json");
@@ -266,40 +229,15 @@ const getPackageInfo = (commandLineArgs, pkgName) => {
     }
     const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath));
 
-    // Determine what formats and platforms we are building.
-    const formats = getFormats(commandLineArgs);
-
-    const inputs = getEntryPoints(pkgJson);
-
-    const configs = [];
-
-    if (formats.has("cjs")) {
-        configs.push({
+    return [
+        {
             name: pkgName,
-            fullName: pkgJson.name,
             version: pkgJson.version,
-            format: "cjs",
             platform: "browser",
-            inputs,
-            dir: "dist",
-            plugins: [],
-        });
-    }
-    if (formats.has("esm")) {
-        configs.push({
-            name: pkgName,
-            fullName: pkgJson.name,
-            version: pkgJson.version,
-            format: "esm",
-            platform: "browser",
-            inputs,
-            dir: "dist/es",
-            // We care about the file size of this one.
+            inputs: getEntryPoints(pkgJson),
             plugins: [filesize()],
-        });
-    }
-
-    return configs;
+        },
+    ];
 };
 
 /**
