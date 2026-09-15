@@ -43,6 +43,9 @@ AGENTS.md                            tier=medium
 /accessibility-instructions.md       tier=medium
 .claude/hooks/**                     tier=high
 .claude/settings.json                tier=high
+.codex/hooks/**                      tier=high
+.cursor/hooks/**                     tier=high
+.mcp.json                            tier=high
 
 # High-risk surfaces (see risk-classification.md for the reasoning).
 # Answer scoring: silent mis-scoring of learners is the worst failure in the repo.

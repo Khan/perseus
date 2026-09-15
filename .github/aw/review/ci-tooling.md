@@ -8,9 +8,9 @@ that enforces it (see .github/workflows/node-ci.yml and friends).
 -->
 
 - **Formatting** — `pnpm prettier --check .` (node-ci). Never comment on formatting.
-- **Lint** — `pnpm lint` (ESLint, node-ci; full run on main-bound PRs, changed-files
-  run otherwise). Don't re-flag what ESLint enforces (import order, unused vars,
-  hook deps, `testing-library` rules).
+- **Lint** — ESLint via node-ci: `pnpm lint packages` (full) when an ESLint config
+  file changed, otherwise `pnpm lint` over the changed files only. Don't re-flag what
+  ESLint enforces (import order, unused vars, hook deps, `testing-library` rules).
 - **Type errors** — `pnpm typecheck` (tsc across all packages) plus `pnpm tstyche`
   (type-level tests, `*.typetest.ts`). If it wouldn't type-check, CI fails.
 - **Test failures** — node-ci runs `pnpm jest` (the full suite when shared test
@@ -40,8 +40,9 @@ that enforces it (see .github/workflows/node-ci.yml and friends).
   STOP-SHIP marker (spelled as one word in code). Don't re-flag them.
 - **Workflow hygiene autofix** — `validate-workflows.yml` normalizes
   checkout/setup ordering in workflow files automatically.
-- **Type build** — `pnpm build:types` and `pnpm pre-publish-check` verify the
-  published type surface builds (publish.yml / node-ci).
+- **Type build** — `pnpm build:types` runs on every PR (node-ci).
+  `pnpm pre-publish-check` runs only on the `changeset-release/main` release PR, so
+  don't cite it as coverage for ordinary PRs.
 
 ### Don't raise these false alarms
 
