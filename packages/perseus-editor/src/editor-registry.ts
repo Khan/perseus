@@ -5,7 +5,7 @@ import {
     Registry,
     resetRegistry,
     strictGet,
-} from "@khanacademy/perseus-core";
+} from "@khanacademy/perseus-core/registry";
 
 import type {EditorRegistration} from "./editor-registration";
 

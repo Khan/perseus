@@ -9,6 +9,7 @@
         "exports": {
             ".": "./dist/index.js",
             "./init": "./dist/init.js",
+            "./registry": "./dist/registry.js",
             "./widgets/*": "./dist/widgets/*/index.js"
         }
     },
@@ -24,6 +25,7 @@
     "exports": {
         ".": "./src/index.ts",
         "./init": "./src/init.ts",
+        "./registry": "./src/registry.ts",
         "./widgets/*": "./src/widgets/*/index.ts"
     },
     "files": [

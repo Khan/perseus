@@ -5,7 +5,7 @@ import {
     Registry,
     resetRegistry,
     strictGet,
-} from "@khanacademy/perseus-core";
+} from "@khanacademy/perseus-core/registry";
 
 import type {Tracking, WidgetExports} from "./types";
 import type {WidgetRegistration} from "./widget-registration";
