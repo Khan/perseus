@@ -39,13 +39,13 @@ for pkg in ./packages/*/package.json; do
         bugs: {
             url: \"https://github.com/Khan/perseus/issues\",
         },
+        type: \"module\",
         module: .module,
-        main: .main,
         source: .source,
         types: .types,
         exports: (.exports | if . then map_values(
             if type == \"object\"
-            then {types: .types, source: .source, import: .import, require: .require}
+            then {types: .types, source: .source, default: .default}
             else . end
         ) else . end),
         files: .files,
