@@ -1,6 +1,10 @@
 // This file is used by the `typecheck` command in package.json
 /* Visit https://aka.ms/tsconfig to read more about this file */
 {
+    // TypeScript's default `**/*` skips dot-directories, so `.storybook` has to
+    // be named explicitly. Without it, `preview.tsx` -- which gates whether any
+    // story renders at all -- is never type-checked.
+    "include": ["**/*", ".storybook/**/*"],
     "exclude": [
         "**/dist",
         "coverage",
