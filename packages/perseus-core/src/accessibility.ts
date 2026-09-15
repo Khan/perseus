@@ -7,7 +7,7 @@ import {parse, traverseContent} from "@khanacademy/pure-markdown";
 
 import {traverse} from "./traversal";
 import {getWidgetIdsFromContent} from "./utils/widget-id-utils";
-import * as Widgets from "./widgets/core-widget-registry";
+import {isAccessible} from "./widgets/core-widget-registry";
 
 import type {PerseusItem, PerseusWidgetsMap} from "./data-schema";
 
@@ -69,7 +69,7 @@ export function isItemAccessible(itemData: PerseusItem): boolean {
     //  `traverse`'s widget callback function to match.
     let hasInaccessibleWidget = false;
     const checkAccessibility = (info: any) => {
-        if (info.type && !Widgets.isAccessible(info.type, info.options)) {
+        if (info.type && !isAccessible(info.type, info.options)) {
             hasInaccessibleWidget = true;
         }
     };
