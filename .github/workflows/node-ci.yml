@@ -264,7 +264,9 @@ jobs:
             - name: Check Builds
               uses: preactjs/compressed-size-action@66325aad6443cb7cf89c4bfcd414aea2367cda94 # v2
               with:
-                  # We only care about the ES module size, really:
+                  # We only care about the ES module size, really. This covers
+                  # both the entry points and the shared chunks the build emits
+                  # beside them.
                   pattern: "**/dist/es/*.js"
                   # Always ignore SourceMaps and node_modules:
                   exclude: "{**/*.map,**/node_modules/**}"
