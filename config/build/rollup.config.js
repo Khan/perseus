@@ -51,10 +51,18 @@ const makePackageBasedPath = (pkgName, pkgRelPath) => {
 /**
  * Generate the rollup output configuration for a given package
  */
-const createOutputConfig = (pkgName, format, targetFile) => ({
-    file: makePackageBasedPath(pkgName, targetFile),
+const createOutputConfig = (pkgName, format, targetDir) => ({
+    dir: makePackageBasedPath(pkgName, targetDir),
     sourcemap: true,
     format,
+
+    // One file per named input, plus a shared chunk for any module reachable
+    // from more than one of them. That sharing is the point: a module that
+    // holds state, such as the widget registry in
+    // `perseus-core/src/widgets/core-widget-registry.ts`, must be a single
+    // instance at runtime no matter which entry point a consumer imports.
+    entryFileNames: "[name].js",
+    chunkFileNames: "chunk-[name]-[hash].js",
 
     // These two settings are to keep the builds as similar to pre-Rollup v4 as
     // possible until we get rid of CJS builds.
@@ -97,7 +105,7 @@ const getFormats = ({configFormats}) =>
  */
 const createConfig = (
     commandLineArgs,
-    {name, fullName, version, format, platform, inputFile, file, plugins},
+    {name, fullName, version, format, platform, inputs, dir, plugins},
 ) => {
     const valueReplacementMappings = {
         __IS_BROWSER__: platform === "browser",
@@ -118,11 +126,16 @@ const createConfig = (
     }
 
     const extensions = [".js", ".jsx", ".ts", ".tsx"];
-    const outputConfig = createOutputConfig(name, format, file);
+    const outputConfig = createOutputConfig(name, format, dir);
 
     const config = {
         output: outputConfig,
-        input: makePackageBasedPath(name, inputFile),
+        input: Object.fromEntries(
+            Object.entries(inputs).map(([entryName, inputFile]) => [
+                entryName,
+                makePackageBasedPath(name, inputFile),
+            ]),
+        ),
         external: [/@phosphor-icons\/core\/.*/],
         plugins: [
             // We don't want to do process.env.NODE_ENV checks in our main
@@ -180,10 +193,8 @@ const createConfig = (
                         // the correct place (the dist/ folder)
                         assetsPath: path.join(
                             rootDir,
-                            path.join(
-                                path.dirname(outputConfig.file),
-                                "assets",
-                            ),
+                            outputConfig.dir,
+                            "assets",
                         ),
                     }),
                 ],
@@ -238,9 +249,11 @@ const createConfig = (
  * For each package in our packages folder, generate the outputs we want.
  *
  * The entry points come from the package's `package.json` exports map, or from
- * its `source` field if it has no exports map. Each one is built in each
- * requested format: CJS lands in `dist/` and ESM in `dist/es/`, which is what
- * the `main`, `module` and `exports` fields of every package point at.
+ * its `source` field if it has no exports map. All of a package's entry points
+ * are built by a single Rollup config per format, so that modules shared
+ * between them are emitted once into a shared chunk. CJS lands in `dist/` and
+ * ESM in `dist/es/`, which is what the `main`, `module` and `exports` fields
+ * of every package point at.
  *
  * We also can filter the outputs based on command line options:
  * `--configFormats`   - Comma-separated list. Valid values are "cjs" and
@@ -256,36 +269,34 @@ const getPackageInfo = (commandLineArgs, pkgName) => {
     // Determine what formats and platforms we are building.
     const formats = getFormats(commandLineArgs);
 
+    const inputs = getEntryPoints(pkgJson);
+
     const configs = [];
 
-    for (const [entryName, inputFile] of Object.entries(
-        getEntryPoints(pkgJson),
-    )) {
-        if (formats.has("cjs")) {
-            configs.push({
-                name: pkgName,
-                fullName: pkgJson.name,
-                version: pkgJson.version,
-                format: "cjs",
-                platform: "browser",
-                inputFile,
-                file: `dist/${entryName}.js`,
-                plugins: [],
-            });
-        }
-        if (formats.has("esm")) {
-            configs.push({
-                name: pkgName,
-                fullName: pkgJson.name,
-                version: pkgJson.version,
-                format: "esm",
-                platform: "browser",
-                inputFile,
-                file: `dist/es/${entryName}.js`,
-                // We care about the file size of this one.
-                plugins: [filesize()],
-            });
-        }
+    if (formats.has("cjs")) {
+        configs.push({
+            name: pkgName,
+            fullName: pkgJson.name,
+            version: pkgJson.version,
+            format: "cjs",
+            platform: "browser",
+            inputs,
+            dir: "dist",
+            plugins: [],
+        });
+    }
+    if (formats.has("esm")) {
+        configs.push({
+            name: pkgName,
+            fullName: pkgJson.name,
+            version: pkgJson.version,
+            format: "esm",
+            platform: "browser",
+            inputs,
+            dir: "dist/es",
+            // We care about the file size of this one.
+            plugins: [filesize()],
+        });
     }
 
     return configs;
