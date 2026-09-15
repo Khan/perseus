@@ -1,6 +1,8 @@
 /**
  * Pre-publish utilities to verify that our publish will go smoothly.
  */
+import fs from "fs";
+import path from "path";
 
 const checkPublishConfig = ({
     name,
@@ -65,11 +67,43 @@ const checkField = (pkgJson, field, value): boolean => {
     return returnCode;
 };
 
-const checkMain = (pkgJson): boolean =>
-    checkField(pkgJson, "main", "dist/index.js");
+const checkNoMain = (pkgJson): boolean => {
+    if (pkgJson.main != null) {
+        console.error(
+            `ERROR: ${pkgJson.name} must not have a "main" field. We publish ESM only.`,
+        );
+        return false;
+    }
+    return true;
+};
 
 const checkModule = (pkgJson): boolean =>
-    checkField(pkgJson, "module", "dist/es/index.js");
+    checkField(pkgJson, "module", "dist/index.js");
+
+const checkType = (pkgJson): boolean => checkField(pkgJson, "type", "module");
+
+/**
+ * Verify that no export sub-path offers a CJS build.
+ *
+ * A `require` condition would hand a CJS consumer something we no longer
+ * build. Without one, `require()` fails at resolution time instead.
+ */
+const checkNoRequireCondition = (pkgJson): boolean =>
+    Object.entries(pkgJson.exports ?? {})
+        .map(([subPath, conditions]) => {
+            if (
+                typeof conditions === "object" &&
+                conditions !== null &&
+                "require" in conditions
+            ) {
+                console.error(
+                    `ERROR: ${pkgJson.name} must not declare a "require" condition for the "${subPath}" export.`,
+                );
+                return false;
+            }
+            return true;
+        })
+        .every(Boolean);
 
 const checkSource = (pkgJson): boolean =>
     checkField(pkgJson, "source", ["src/index.js", "src/index.ts"]);
@@ -84,8 +118,16 @@ const checkPrivate = (pkgJson): boolean => {
     return false;
 };
 
+/**
+ * Verify a package declares the ESM-only entry point shape.
+ */
 const checkEntrypoints = (pkgJson): boolean =>
-    checkModule(pkgJson) && checkMain(pkgJson);
+    [
+        checkType(pkgJson),
+        checkModule(pkgJson),
+        checkNoMain(pkgJson),
+        checkNoRequireCondition(pkgJson),
+    ].every(Boolean);
 
 const checkExports = (pkgJson): boolean => {
     if (!pkgJson.exports || !pkgJson.exports["."]) {
@@ -97,10 +139,50 @@ const checkExports = (pkgJson): boolean => {
     return true;
 };
 
+/**
+ * A package.json `exports` map: sub-path to either a file or a set of
+ * condition/file pairs.
+ */
+type ExportsMap = Record<string, string | Record<string, string>>;
+
+/**
+ * Every file an `exports` map promises to a consumer, as package-relative
+ * paths. The `source` condition is left out: it points into `src/` and is
+ * only read by our own tooling.
+ */
+const exportTargets = (exportsMap: ExportsMap | undefined): Array<string> =>
+    Object.values(exportsMap ?? {}).flatMap((target) =>
+        typeof target === "string"
+            ? [target]
+            : Object.entries(target)
+                  .filter(([condition]) => condition !== "source")
+                  .map(([, file]) => file),
+    );
+
+/**
+ * Verify that every file an `exports` map points at exists.
+ *
+ * Assumes the package has already been built: `dist/` must hold the files the
+ * map declares.
+ */
+const checkExportTargets = (pkgJson, pkgDir: string): boolean =>
+    exportTargets(pkgJson.exports)
+        .map((target) => {
+            if (fs.existsSync(path.resolve(pkgDir, target))) {
+                return true;
+            }
+            console.error(
+                `ERROR: ${pkgJson.name} exports "${target}", which does not exist. Did the build run?`,
+            );
+            return false;
+        })
+        .every(Boolean);
+
 export {
     checkPublishConfig,
     checkEntrypoints,
     checkExports,
+    checkExportTargets,
     checkSource,
     checkPrivate,
 };

@@ -10,6 +10,7 @@ import {
     checkPrivate,
     checkEntrypoints,
     checkExports,
+    checkExportTargets,
     checkSource,
     checkPublishConfig,
 } from "./internal/pre-publish-utils";
@@ -21,13 +22,18 @@ fg(path.join(__dirname, "..", "packages", "*", "package.json")).then(
 
         for (const pkgPath of pkgPaths) {
             const pkgJson = require(path.relative(__dirname, pkgPath));
-            if (
-                !checkPrivate(pkgJson) &&
-                !checkPublishConfig(pkgJson) &&
-                !checkEntrypoints(pkgJson) &&
-                !checkExports(pkgJson) &&
-                !checkSource(pkgJson)
-            ) {
+            if (checkPrivate(pkgJson)) {
+                continue;
+            }
+            const pkgDir = path.dirname(pkgPath);
+            const passed = [
+                checkPublishConfig(pkgJson),
+                checkEntrypoints(pkgJson),
+                checkExports(pkgJson),
+                checkExportTargets(pkgJson, pkgDir),
+                checkSource(pkgJson),
+            ].every(Boolean);
+            if (!passed) {
                 allPassed = false;
             }
         }
