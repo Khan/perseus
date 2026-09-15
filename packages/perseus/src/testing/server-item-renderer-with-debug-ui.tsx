@@ -9,7 +9,7 @@ import {DebugAccordionUI} from "./debug-accordion-ui";
 import {DebugCheckAnswerFooter} from "./debug-check-answer-footer";
 import {useItemRenderer} from "./item-renderer-hooks";
 import {StorybookViewOptionsContext} from "./storybook-view-options-context";
-import {storybookDependenciesV2} from "./test-dependencies";
+import {storybookDependenciesV2} from "./test-dependencies-data";
 import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
 import {useStorybookApiOptions} from "./use-storybook-api-options";
 

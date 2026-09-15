@@ -6,7 +6,7 @@ import ArticleRenderer from "../article-renderer";
 
 import SplitView from "./split-view";
 import {StorybookViewOptionsContext} from "./storybook-view-options-context";
-import {storybookDependenciesV2} from "./test-dependencies";
+import {storybookDependenciesV2} from "./test-dependencies-data";
 import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
 import {useStorybookApiOptions} from "./use-storybook-api-options";
 
