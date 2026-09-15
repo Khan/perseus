@@ -968,7 +968,8 @@ _.extend(GraphUtils.Graphie.prototype, {
     //
     // Include "fixed: true" in the options if you don't want the entire line
     // to be draggable (you can still use points to make the endpoints
-    // draggable)
+    // draggable). Note that "fixed" only affects dragging, not color: fixed
+    // and movable segments draw in the same color.
     //
     // The returned object includes the following properties/methods:
     //
