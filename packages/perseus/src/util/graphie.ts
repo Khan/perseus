@@ -309,13 +309,15 @@ export class Graphie {
             isMobile: options.isMobile,
         });
 
-        // The default strokes are raw light-theme colors, not semantic
-        // tokens, because in dark themes graphie SVGs are recolored by the
-        // invert filter in styles.css ("GLOBAL DARK MODE SETTINGS"); a token
-        // would resolve to the dark theme's value at draw time and get
-        // double-inverted (LEMS-4547). Callers whose graphie is excluded
-        // from that filter should pass gridStroke/axisStroke themselves,
-        // resolved from semantic tokens via tokenValue().
+        // The grapher widget is themed and excluded from the dark-mode invert
+        // filter in styles.css, so it can use semantic tokens: it passes them
+        // in as the gridStroke/axisStroke options.
+        //
+        // The interaction widget is not themed and is still affected by that
+        // filter, so it falls back to the hardcoded light-theme colors below —
+        // the filter inverts them in dark themes, and would double-invert a
+        // resolved token since tokens are automatically changed to dark-mode
+        // colors.
         const gridStroke =
             options.gridStroke ??
             (options.isMobile ? KhanColors.GRAY_C : "#000000");
@@ -375,7 +377,7 @@ export class Graphie {
                 const thisGraphie = this;
                 this.style(
                     {
-                        stroke: options.axisStroke ?? "#000000",
+                        stroke: axisStroke,
                         opacity: axisOpacity,
                         strokeWidth: 2,
                         arrows: axisArrows,
