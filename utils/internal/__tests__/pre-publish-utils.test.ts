@@ -126,6 +126,15 @@ describe("checkEntrypoints", () => {
         expect(result).toBe(false);
     });
 
+    it("returns false when a top-level source field is present", () => {
+        const result = checkEntrypoints({
+            ...esmOnlyPkgJson,
+            source: "src/index.ts",
+        });
+
+        expect(result).toBe(false);
+    });
+
     it("returns false when a sub-path declares a require condition", () => {
         const result = checkEntrypoints({
             ...esmOnlyPkgJson,

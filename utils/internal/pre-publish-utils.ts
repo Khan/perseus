@@ -77,6 +77,16 @@ const checkNoMain = (pkgJson): boolean => {
     return true;
 };
 
+const checkNoSource = (pkgJson): boolean => {
+    if (pkgJson.source != null) {
+        console.error(
+            `ERROR: ${pkgJson.name} must not have a top-level "source" field. Declare source files in the "exports" map.`,
+        );
+        return false;
+    }
+    return true;
+};
+
 const checkType = (pkgJson): boolean => checkField(pkgJson, "type", "module");
 
 /**
@@ -119,6 +129,7 @@ const checkEntrypoints = (pkgJson): boolean =>
     [
         checkType(pkgJson),
         checkNoMain(pkgJson),
+        checkNoSource(pkgJson),
         checkNoRequireCondition(pkgJson),
     ].every(Boolean);
 
