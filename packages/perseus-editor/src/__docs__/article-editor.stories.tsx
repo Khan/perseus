@@ -9,7 +9,7 @@ import {useRef, useState} from "react";
 
 import {comprehensiveQuestion} from "../__testdata__/all-widgets.testdata";
 import ArticleEditor from "../article-editor";
-import {testDependenciesV2} from "../testing/test-dependencies";
+import {testDependenciesV2} from "../testing/test-dependencies-data";
 
 import "../styles/perseus-editor.css"; // This helps ensure the styles are loaded correctly and timely
 import {registerAllWidgetsAndEditorsDecorator} from "./register-all-widgets-and-editors-decorator";

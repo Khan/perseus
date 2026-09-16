@@ -13,7 +13,7 @@ import * as Perseus from "../index";
 import {mockStrings} from "../strings";
 import UserInputManager from "../user-input-manager";
 
-import {cypressDependenciesV2} from "./test-dependencies";
+import {cypressDependenciesV2} from "./test-dependencies-data";
 
 import type {APIOptions} from "../types";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";

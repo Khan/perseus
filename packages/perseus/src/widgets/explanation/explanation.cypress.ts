@@ -1,7 +1,7 @@
 import * as Dependencies from "../../dependencies";
 import {initPerseus} from "../../init";
 import renderQuestion from "../../testing/render-question-with-cypress";
-import {cypressTestDependencies} from "../../testing/test-dependencies";
+import {cypressTestDependencies} from "../../testing/test-dependencies-data";
 
 import {ipsumExample} from "./explanation.testdata";
 

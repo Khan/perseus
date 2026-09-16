@@ -1,7 +1,7 @@
 import * as Perseus from "../../index";
 import {initPerseus} from "../../init";
 import renderQuestionWithCypress from "../../testing/render-question-with-cypress";
-import {cypressTestDependencies} from "../../testing/test-dependencies";
+import {cypressTestDependencies} from "../../testing/test-dependencies-data";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 
 import {twoCardVerticalQuestion} from "./sorter.testdata";
