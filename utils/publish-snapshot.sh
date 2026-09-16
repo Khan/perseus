@@ -88,13 +88,10 @@ parse_args "$@"
 verify_env
 
 check_for_changes
+pre_publish_check
 
 pnpm build
 pnpm build:types
-
-# Runs after the build: the check verifies that every declared export sub-path
-# exists in dist/.
-pre_publish_check
 
 # Now version the packages and publish a snapshot
 # By using the `--snapshot` option we are asking Changeset to version the

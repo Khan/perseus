@@ -191,12 +191,6 @@ jobs:
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
 
-            # The next step (Pre-publish check) verifies that every declared
-            # export sub-path exists in dist/, so the packages have to be built
-            # first.
-            - name: Build
-              run: pnpm build && pnpm build:types
-
             - name: Pre-publish check
               run: pnpm pre-publish-check
 
