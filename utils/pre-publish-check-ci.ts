@@ -11,7 +11,6 @@ import {
     checkEntrypoints,
     checkExports,
     checkExportTargets,
-    checkSource,
     checkPublishConfig,
 } from "./internal/pre-publish-utils";
 import {verifyCatalogHashes} from "./internal/verify-catalog-hashes";
@@ -31,7 +30,6 @@ fg(path.join(__dirname, "..", "packages", "*", "package.json")).then(
                 checkEntrypoints(pkgJson),
                 checkExports(pkgJson),
                 checkExportTargets(pkgJson, pkgDir),
-                checkSource(pkgJson),
             ].every(Boolean);
             if (!passed) {
                 allPassed = false;

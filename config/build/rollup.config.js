@@ -31,17 +31,8 @@ const rootDir = ancesdir(__dirname);
 /**
  * Make path to a package relative path.
  */
-const makePackageBasedPath = (pkgName, pkgRelPath) => {
-    if (pkgRelPath) {
-        return path.normalize(path.join("packages", pkgName, pkgRelPath));
-    }
-
-    const pkgPath = path.normalize(
-        path.join(rootDir, "packages", pkgName, "package.json"),
-    );
-    const pkgJson = require(pkgPath);
-    return path.normalize(path.join("packages", pkgName, pkgJson.source));
-};
+const makePackageBasedPath = (pkgName, pkgRelPath) =>
+    path.normalize(path.join("packages", pkgName, pkgRelPath));
 
 /**
  * Generate the rollup output configuration for a given package
