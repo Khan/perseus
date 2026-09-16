@@ -177,16 +177,22 @@ const supportedThemes = {
     },
 } satisfies NonNullable<Preview["globalTypes"]>["theme"];
 
+// Hosts set `isMobile` from device detection, not from how wide the window
+// is, and it covers tablets as well as phones -- so this is deliberately
+// separate from the viewport picker rather than derived from it.
+//
 // Tri-state because stories pin mobile through their own apiOptions, and
 // "story" has to leave those in charge.
 const mobileLayout = {
-    description: "Render items with the Perseus mobile layout",
+    description:
+        "Treat the host as a phone or tablet (Perseus isMobile). Pair " +
+        "with a phone Viewport for the full experience.",
     toolbar: {
-        title: "Mobile",
+        title: "Device phone/tablet",
         icon: "mobile",
         items: [
             {value: "story", title: "Story default"},
-            {value: "on", title: "Mobile"},
+            {value: "on", title: "Phone/tablet", right: "+ Viewport"},
             {value: "off", title: "Desktop"},
         ],
         dynamicTitle: true,
