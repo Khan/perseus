@@ -49,13 +49,18 @@ const makePackageBasedPath = (pkgName, pkgRelPath) => {
 const createOutputConfig = (pkgName) => ({
     dir: makePackageBasedPath(pkgName, "dist"),
     sourcemap: true,
+
+    // Published packages support only ESM. Their package.json files declare
+    // `"type": "module"` and expose no `require`, `main`, or `module` target,
+    // so CommonJS consumers fail during module resolution.
     format: "esm",
 
-    // One file per named input, plus a shared chunk for any module reachable
-    // from more than one of them. That sharing is the point: a module that
-    // holds state, such as the widget registry in
-    // `perseus-core/src/widgets/core-widget-registry.ts`, must be a single
-    // instance at runtime no matter which entry point a consumer imports.
+    // Emit one file per public entry point and share modules used by multiple
+    // entry points. In particular, stateful modules such as the widget registry
+    // in `perseus-core/src/widgets/core-widget-registry.ts` must have one
+    // runtime instance regardless of which entry point imports them. Shared
+    // chunks ship in `dist/`, but are not public because package export maps do
+    // not expose them.
     entryFileNames: "[name].js",
     chunkFileNames: "chunk-[name]-[hash].js",
 
@@ -200,6 +205,8 @@ const createConfig = (
                 browser: platform === "browser",
                 extensions,
             }),
+            // Keep dependencies and peer dependencies external. This prevents
+            // one Perseus package from bundling another package in this repo.
             autoExternal({
                 packagePath: makePackageBasedPath(name, "./package.json"),
             }),
@@ -215,11 +222,11 @@ const createConfig = (
  *
  * For each package in our packages folder, generate the outputs we want.
  *
- * The entry points come from the package's `package.json` exports map, or from
- * its `source` field if it has no exports map. All of a package's entry points
- * are built by a single Rollup config, so that modules shared between them are
- * emitted once into a shared chunk. We publish ESM only; the bundles land in
- * `dist/`, which is what the `exports` field of every package point at.
+ * Build each exports sub-path that declares both a `source` input and a
+ * `default` published target. If the package has no exports map, build its
+ * top-level `source` as `index`. All entry points build in one Rollup config so
+ * Rollup can emit shared modules once. Bundles land in `dist/`, which each
+ * package's `exports` field exposes.
  */
 const getPackageInfo = (pkgName) => {
     const pkgJsonPath = makePackageBasedPath(pkgName, "./package.json");
