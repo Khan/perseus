@@ -3,7 +3,6 @@ import {semanticColor, tokenValue} from "@khanacademy/wonder-blocks-tokens";
 import {Movable} from "./interactive2/movable";
 import MovableLine from "./interactive2/movable-line";
 import {MovablePoint} from "./interactive2/movable-point";
-import MovablePolygon from "./interactive2/movable-polygon";
 
 const Interactive2 = {
     MovablePoint: MovablePoint,
@@ -16,12 +15,6 @@ const Interactive2 = {
         const movable = new Movable(graphie, {});
         return new MovableLine(graphie, movable, options);
     },
-    MovablePolygon: MovablePolygon,
-    addMovablePolygon: function (graphie: any, options: any): any {
-        const movable = new Movable(graphie, {});
-        return new MovablePolygon(graphie, movable, options);
-    },
-
     addMovablePointV2: function (widget: any, extraProps: any): any {
         const commonStyle = {
             stroke: tokenValue(semanticColor.core.border.knockout.default),

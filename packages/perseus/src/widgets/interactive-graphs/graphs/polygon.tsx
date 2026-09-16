@@ -1,4 +1,4 @@
-import {angles, geometry} from "@khanacademy/kmath";
+import {angles, geometry, line} from "@khanacademy/kmath";
 import {useTimeout} from "@khanacademy/wonder-blocks-timing";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Polygon, Polyline, vec} from "mafs";
@@ -285,7 +285,9 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
             {showSides &&
                 lines.map(([start, end], i) => {
                     // Use x and y to find the position of the label
-                    const [x, y] = vec.midpoint(start, end);
+                    // TODO(LEMS-4567): use vec.midpoint from Mafs here; it has
+                    //  better types.
+                    const [x, y] = line.midpoint([start, end]);
                     const length = vec.dist(start, end);
                     // Check if the length needs to indicate
                     // that it's an approximation.

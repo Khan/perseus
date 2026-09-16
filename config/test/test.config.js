@@ -63,9 +63,12 @@ module.exports = {
         // Otherwise, they just show up as undefined, which prevents unit testing.
         "^.+\\.module\\.css$": "jest-css-modules-transform",
     },
-    // Allow transforming files imported from @phosphor-icons/core.
-    // This is required by the .svg transform above.
-    transformIgnorePatterns: ["/node_modules/.pnpm/(?!@phosphor-icons.core@)"],
+    // Allow transforming files imported from @phosphor-icons/core (required
+    // by the .svg transform above) and @preact/signals-core (a dependency of
+    // @dnd-kit that only ships untranspiled ESM).
+    transformIgnorePatterns: [
+        "/node_modules/.pnpm/(?!(@phosphor-icons.core|@preact.signals-core)@)",
+    ],
     restoreMocks: true,
     resetMocks: true,
     testEnvironment: "jsdom",

@@ -103,49 +103,46 @@ describe("LockedPointSettings", () => {
         expect(yCoordField).toHaveValue(null);
     });
 
-    // While you may expect the value of the field to reflect the input value,
-    // (and it does, visually), the actual value on the HTML element is null
-    // unless the input is a valid number. This is because the input has
-    // type="number".
-    describe.each`
-        Coordinate
-        ${"x"}
-        ${"y"}
-    `("Coordinate $Coordinate", ({Coordinate}) => {
-        test.each`
-            inputValue | expectedValue
-            ${"-"}     | ${null}
-            ${"."}     | ${null}
-            ${"0"}     | ${0}
-            ${"1"}     | ${1}
-            ${"1.2"}   | ${1.2}
-            ${".2"}    | ${0.2}
-            ${"0.2"}   | ${0.2}
-            ${"-1"}    | ${-1}
-            ${"-1.2"}  | ${-1.2}
-            ${"-.2"}   | ${-0.2}
-        `(
-            "Typing in the coord field should update the numeric field value ($inputValue)",
-            async ({inputValue, expectedValue}) => {
-                // Arrange
-                render(
-                    <LockedPointSettings
-                        {...defaultProps}
-                        onChangeProps={() => {}}
-                    />,
-                    {wrapper: RenderStateRoot},
-                );
-
-                // Act
-                const coordField = screen.getByLabelText(`${Coordinate} coord`);
-                await userEvent.clear(coordField);
-                await userEvent.type(coordField, inputValue);
-                await userEvent.tab();
-
-                // Assert
-                expect(coordField).toHaveValue(expectedValue);
-            },
+    it("does not call onChangeProps when you enter an invalid x coordinate", async () => {
+        // Arrange
+        const onChangeSpy = jest.fn();
+        render(
+            <LockedPointSettings
+                {...defaultProps}
+                onChangeProps={onChangeSpy}
+            />,
+            {wrapper: RenderStateRoot},
         );
+
+        // Act
+        const coordField = screen.getByLabelText(`x coord`);
+        await userEvent.clear(coordField);
+        await userEvent.type(coordField, "invalid");
+        await userEvent.tab();
+
+        // Assert
+        expect(onChangeSpy).not.toHaveBeenCalled();
+    });
+
+    it("does not call onChangeProps when you enter an invalid y coordinate", async () => {
+        // Arrange
+        const onChangeSpy = jest.fn();
+        render(
+            <LockedPointSettings
+                {...defaultProps}
+                onChangeProps={onChangeSpy}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Act
+        const coordField = screen.getByLabelText(`y coord`);
+        await userEvent.clear(coordField);
+        await userEvent.type(coordField, "invalid");
+        await userEvent.tab();
+
+        // Assert
+        expect(onChangeSpy).not.toHaveBeenCalled();
     });
 
     test("Calls onToggle when header is clicked", async () => {

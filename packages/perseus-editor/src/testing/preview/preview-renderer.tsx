@@ -91,8 +91,7 @@ function PreviewKeypadConnection({
 
     return (
         <View
-            // TODO(LEMS-4492): remove wb-themed-math
-            className={`framework-perseus wb-themed-math ${className}`}
+            className={`framework-perseus ${className}`}
             style={containerStyle}
         >
             {children({...keypadCtx, isMobile})}
@@ -205,6 +204,7 @@ export function PreviewRenderer({content, isMobile, hasLintGutter}: Props) {
                 {({keypadElement, isMobile}) => (
                     <ArticleRenderer
                         json={article}
+                        seed={0}
                         apiOptions={{...apiOptions, isMobile}}
                         keypadElement={keypadElement}
                         legacyPerseusLint={legacyPerseusLint}
@@ -230,6 +230,7 @@ export function PreviewRenderer({content, isMobile, hasLintGutter}: Props) {
                 {({keypadElement, isMobile}) => (
                     <ArticleRenderer
                         json={[...article]}
+                        seed={0}
                         apiOptions={{...apiOptions, isMobile}}
                         keypadElement={keypadElement}
                         dependencies={storybookDependenciesV2}

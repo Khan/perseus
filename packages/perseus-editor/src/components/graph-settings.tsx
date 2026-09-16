@@ -569,7 +569,6 @@ class GraphSettings extends React.Component<Props, State> {
                             <label>Markings: </label>
                             <ButtonGroup
                                 value={this.props.markings}
-                                allowEmpty={false}
                                 buttons={[
                                     {value: "graph", content: "Graph"},
                                     {value: "grid", content: "Grid"},

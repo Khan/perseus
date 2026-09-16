@@ -15,8 +15,8 @@ import {srSinusoidPointLabel} from "./sinusoid";
 import {srTangentPointLabel} from "./tangent";
 import {srVectorPointLabel} from "./vector";
 
+import type {PerseusStrings} from "../../../../strings";
 import type {InteractiveGraphStateAnnouncement} from "../../types";
-import type {PerseusStrings} from "@khanacademy/perseus/strings";
 
 export function getAnnouncementText(
     state: InteractiveGraphStateAnnouncement,

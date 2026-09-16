@@ -4,8 +4,6 @@ import NumericInputEditor from "../numeric-input-editor";
 /**
  * An editor for adding an input number widget that allows users to enter numerical values.
  */
-class InputNumberEditor extends NumericInputEditor {
-    static widgetName = "input-number" as const;
-}
+class InputNumberEditor extends NumericInputEditor {}
 
 export default InputNumberEditor;

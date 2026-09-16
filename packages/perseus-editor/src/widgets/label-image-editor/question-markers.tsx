@@ -12,6 +12,7 @@ import {gray68} from "../../styles/global-colors";
 
 import Marker from "./marker";
 
+import type {MarkerHandle} from "./marker";
 import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
 type QuestionMarkersProps = {
@@ -31,7 +32,7 @@ type QuestionMarkersProps = {
 };
 
 class QuestionMarkers extends React.Component<QuestionMarkersProps> {
-    private _markers: Array<Marker | null | undefined> = [];
+    private _markers: Array<MarkerHandle | null | undefined> = [];
 
     openDropdownForMarkerIndices(indices: ReadonlyArray<number>) {
         // Open answer selection dropdown for each of the specified markers.

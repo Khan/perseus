@@ -34,8 +34,6 @@ class DropdownEditor extends React.Component<Props> {
         placeholder: PropTypes.string,
     };
 
-    static widgetName = "dropdown" as const;
-
     static defaultProps: PerseusDropdownWidgetOptions =
         dropdownLogic.defaultWidgetOptions;
 

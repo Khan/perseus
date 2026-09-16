@@ -73,8 +73,6 @@ const formatNumber = (num) => "$" + knumber.round(num, 2) + "$";
  * An editor for adding a plotter widget that allows users to create and customize data visualizations.
  */
 class PlotterEditor extends React.Component<Props, State> {
-    static widgetName = "plotter" as const;
-
     static defaultProps: PerseusPlotterWidgetOptions =
         plotterLogic.defaultWidgetOptions;
 

@@ -65,6 +65,7 @@ export const Article = (): React.ReactNode => {
     return (
         <ArticleRenderer
             json={article}
+            seed={0}
             dependencies={storybookDependenciesV2}
             apiOptions={apiOptions}
         />

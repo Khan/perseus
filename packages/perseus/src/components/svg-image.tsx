@@ -5,6 +5,7 @@ import _ from "underscore";
 
 import {getDependencies} from "../dependencies";
 import Util from "../util";
+import {toClosestMathColor} from "../util/colors";
 import {loadGraphie} from "../util/graphie-utils";
 
 import FixedToResponsive from "./fixed-to-responsive";
@@ -84,14 +85,6 @@ export type Props = {
     trackInteraction?: () => void;
     width?: number;
     /**
-     * Whether clicking this image will allow it to be fully zoomed in to
-     * its original size on click, and allow the user to scroll in that
-     * state. This also does some hacky viewport meta tag changing to
-     * ensure this works on mobile devices, so I (david@) don't recommend
-     * enabling this on desktop yet.
-     */
-    zoomToFullSizeOnMobile?: boolean;
-    /**
      * If provided, use AssetContext.Consumer, see renderer.jsx.
      * If not, it defaults to a no-op.
      */
@@ -118,7 +111,6 @@ type DefaultProps = {
     scale: NonNullable<Props["scale"]>;
     setAssetStatus: NonNullable<Props["setAssetStatus"]>;
     src: NonNullable<Props["src"]>;
-    zoomToFullSizeOnMobile: NonNullable<Props["zoomToFullSizeOnMobile"]>;
 };
 
 type Label = {
@@ -163,7 +155,6 @@ class SvgImage extends React.Component<Props, State> {
         responsive: true,
         src: "",
         scale: 1,
-        zoomToFullSizeOnMobile: false,
         setAssetStatus: (src: string, status: boolean) => {},
     };
 
@@ -223,11 +214,18 @@ class SvgImage extends React.Component<Props, State> {
         const wasLoaded = this.isLoadedInState(prevState);
         const isLoaded = this.isLoadedInState(this.state);
 
-        // Only call loadResources if we're not already loading,
-        // This prevents infinite loops when async loading triggers re-renders
+        // Only (re)load the label data when it is actually missing: the src
+        // changed (UNSAFE_componentWillReceiveProps reset dataLoaded), or a
+        // previous attempt never produced data. Do NOT key this off
+        // `isLoaded`: once the data is in state but the <img> is still
+        // loading, every update would re-run loadResources, and loadGraphie
+        // answers synchronously from its cache, so we would call setState
+        // inside React's commit phase on every render. That nested update
+        // is what tripped React's "Maximum update depth exceeded" limit in
+        // production.
         if (
             Util.isLabeledSVG(this.props.src) &&
-            !isLoaded &&
+            !this.state.dataLoaded &&
             !this._isLoadingGraphie
         ) {
             this.loadResources();
@@ -371,6 +369,17 @@ class SvgImage extends React.Component<Props, State> {
                 _.each(labelData.style, (styleValue, styleName) => {
                     label.css(styleName, styleValue);
                 });
+
+                // Override the color authored in `style` with the perceptually
+                // closest semantic color from Wonder Blocks. This ensures that
+                // labels follow the dark mode / light mode theme and remain
+                // readable.
+                if (labelData.style?.color) {
+                    label.css(
+                        "color",
+                        toClosestMathColor(labelData.style.color),
+                    );
+                }
             }
             newLabelsRendered[labelData.content] = true;
         });

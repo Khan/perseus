@@ -166,7 +166,6 @@ export type Props = {
  * Used in the exercise editor.
  */
 class InteractiveGraphEditor extends React.Component<Props> {
-    static widgetName = "interactive-graph";
     static bestPractices = {
         // TODO: replace with real best practices
         // see: https://github.com/Khan/perseus/pull/3466#discussion_r3157121327

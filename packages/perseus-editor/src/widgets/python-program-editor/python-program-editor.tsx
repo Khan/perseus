@@ -36,8 +36,6 @@ export function validateOptions(
  * An editor for adding a Python program widget that allows users to write, edit and execute Python code.
  */
 class PythonProgramEditor extends React.Component<Props> {
-    static widgetName = "python-program" as const;
-
     static defaultProps: PerseusPythonProgramWidgetOptions =
         pythonProgramLogic.defaultWidgetOptions;
 

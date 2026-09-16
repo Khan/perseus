@@ -12,7 +12,7 @@ interface Props {
 }
 
 const IssueCta = ({issue}: Props) => {
-    const {question, onEditorChange} = useItemEditorContext();
+    const {question, editingDisabled, onEditorChange} = useItemEditorContext();
     const cta = getCtaForIssueId(issue.id, question, onEditorChange);
 
     if (!cta) {
@@ -25,6 +25,7 @@ const IssueCta = ({issue}: Props) => {
             size="small"
             onClick={cta.onClick}
             style={styles.button}
+            disabled={editingDisabled}
         >
             {cta.label}
         </Button>

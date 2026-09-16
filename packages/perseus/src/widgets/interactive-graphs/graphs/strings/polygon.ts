@@ -6,8 +6,8 @@ import {
 import {srFormatNumber} from "./format-number";
 
 import type {I18nContextType} from "../../../../components/i18n-context";
+import type {PerseusStrings} from "../../../../strings";
 import type {PolygonGraphState} from "../../types";
-import type {PerseusStrings} from "@khanacademy/perseus/strings";
 import type {PerseusInteractiveGraphWidgetOptions} from "@khanacademy/perseus-core";
 import type {vec} from "mafs";
 

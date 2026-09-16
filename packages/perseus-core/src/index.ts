@@ -97,6 +97,8 @@ export {default as expressionLogic} from "./widgets/expression";
 /** @hidden */
 export {default as deriveExtraKeys} from "./widgets/expression/derive-extra-keys";
 /** @hidden */
+export {default as fillInTheBlankLogic} from "./widgets/fill-in-the-blank";
+/** @hidden */
 export {default as gradedGroupLogic} from "./widgets/graded-group";
 /** @hidden */
 export {default as freeResponseLogic} from "./widgets/free-response";
@@ -214,6 +216,7 @@ export {getLabelImagePublicWidgetOptions} from "./widgets/label-image/label-imag
 export {
     getSorterPublicWidgetOptions,
     shuffleSorter,
+    SORTER_MAX_CARDS,
 } from "./widgets/sorter/sorter-util";
 /** @hidden */
 export type {BlankPublicWidgetOptions} from "./widgets/blank/blank-util";
@@ -304,6 +307,12 @@ export {
     generateExpressionAnswerForm,
     generateExpressionWidget,
 } from "./utils/generators/expression-widget-generator";
+/** @hidden */
+export {
+    generateAnswerTile,
+    generateFillInTheBlankOptions,
+    generateFillInTheBlankWidget,
+} from "./utils/generators/fill-in-the-blank-widget-generator";
 /** @hidden */
 export {
     generateFreeResponseOptions,

@@ -1,5 +1,6 @@
 import {
     sorterLogic,
+    SORTER_MAX_CARDS,
     type PerseusSorterWidgetOptions,
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
@@ -14,10 +15,6 @@ import {TypedSingleSelect} from "../../components/typed-single-select";
 
 import CardEditor from "./card-editor";
 import styles from "./sorter-editor.module.css";
-
-// Ideally Content Creators would keep it <=7
-// but 10 is our hard limit
-const maxCards = 10;
 
 // There's nothing to sort with fewer than two cards.
 const minCards = 2;
@@ -96,7 +93,7 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
         };
 
         const onAddCard = () => {
-            if (correct.length >= maxCards) {
+            if (correct.length >= SORTER_MAX_CARDS) {
                 return;
             }
             onChange({correct: [...correct, ""]});
@@ -156,7 +153,7 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                         kind="tertiary"
                         startIcon={plusCircle}
                         className={styles.addCard}
-                        disabled={correct.length >= maxCards}
+                        disabled={correct.length >= SORTER_MAX_CARDS}
                         onClick={onAddCard}
                     >
                         Add a card
@@ -203,10 +200,6 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
 );
 
 export default Object.assign(SorterEditor, {
-    // Widgets.registerEditors registers the editor under this name, and throws
-    // without it.
-    widgetName: "sorter" as const,
-
     // Read directly by the editor page to seed the options of a newly inserted
     // sorter.
     defaultProps: defaultOptions,

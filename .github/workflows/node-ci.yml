@@ -129,13 +129,15 @@ jobs:
                   - name: Checks that STOPSHIP is not used in any files.
                     run: ./utils/stopship-check.sh
 
-                  - name: Eslint
-                    uses: Khan/actions@8b8506a789a5c2a4a90bd8da8b6801db6931ee2d # full-or-limited-v0
+                  - name: Eslint changed files
+                    # We only run partial ESLint runs in this parallel block,
+                    # because full runs often error with exit code 137 (which
+                    # means Github killed the instance - we presume an OOM).
+                    if: steps.eslint-reset.outputs.filtered == '[]' && steps.js-files.outputs.filtered != '[]'
+                    uses: Khan/actions@e328f493d347841f309766a9c0f216deee1e4065 # json-args-v2.0.0
                     with:
-                        full-trigger: ${{ steps.eslint-reset.outputs.filtered }}
-                        full: pnpm lint packages
-                        limited-trigger: ${{ steps.js-files.outputs.filtered }}
-                        limited: pnpm lint {}
+                        list: ${{ steps.js-files.outputs.filtered }}
+                        run: pnpm lint {}
 
                   - name: Typecheck
                     if: steps.js-files.outputs.filtered != '[]'
@@ -162,6 +164,35 @@ jobs:
                         full: pnpm jest
                         limited-trigger: ${{ steps.js-files.outputs.filtered }}
                         limited: pnpm jest --passWithNoTests --findRelatedTests {}
+
+            # We run full ESLint runs outside the above parallel block, because
+            # full runs often error with exit code 137 (which means Github
+            # killed the instance - we presume an OOM).
+            - name: Eslint all files
+              # We run the lint even on failure so that the action provides as
+              # much info as possible.
+              if: (success() || failure()) && steps.eslint-reset.outputs.filtered != '[]'
+              run: pnpm lint
+
+    pre_publish_check:
+        name: Pre-publish check
+        if: github.head_ref == 'changeset-release/main'
+        runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && 'ubuntu-latest' || 'ephemeral-runner' }}
+        steps:
+            - name: Checking out latest commit
+              uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+            - name: Secure Network
+              uses: Khan/actions@secure-network-v1
+              timeout-minutes: 5
+              with:
+                  conf-files: .github/npm-extra-domains.conf
+
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
+
+            - name: Pre-publish check
+              run: pnpm pre-publish-check
 
     cypress:
         name: Cypress

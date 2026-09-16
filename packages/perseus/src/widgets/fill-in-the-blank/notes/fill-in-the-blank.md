@@ -91,6 +91,18 @@ entire answer-zone contents as one string.
   `packages/perseus/src/widgets/CLAUDE.md` (component, tests, `index.ts`,
   `__docs__/` stories, registration in `extra-widgets.ts`, scoring in
   perseus-score, editor in perseus-editor, schema in perseus-core, linter rule).
+- **FITB schema (landed):** `PerseusFillInTheBlankWidgetOptions` in
+  perseus-core's `src/data-schema.ts`, with the widget logic, JSON parser and
+  test-data generators alongside it
+  ([LEMS-4321](https://khanacademy.atlassian.net/browse/LEMS-4321)). The tile
+  type is **`PerseusAnswerTile`** — named for the Drag-and-Drop family's shared
+  element rather than for FITB, since Sorter, Categorizer and Composer render
+  the same tile. It carries presentation only (`id`, `content`, `label`,
+  `imageHeight?`); each widget expresses correctness its own way, so one
+  needing more should intersect the type locally rather than widen it.
+  Scaffolding only: no render component, no scoring
+  ([LEMS-4370](https://khanacademy.atlassian.net/browse/LEMS-4370)) and no
+  editor ([LEMS-4371](https://khanacademy.atlassian.net/browse/LEMS-4371)) yet.
 - **`blank` widget stub:** `packages/perseus/src/widgets/blank/` — the dropzone
   primitive FITB builds on. Built during the shared prework
   ([LEMS-4364](https://khanacademy.atlassian.net/browse/LEMS-4364)) and likely to

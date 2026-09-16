@@ -23,6 +23,7 @@ type Props = {
      * `json`, but it is the article. Trust me.
      */
     json: PerseusArticle;
+    seed?: number;
     apiOptions?: APIOptions;
     linterContext?: LinterContextProps;
 };
@@ -30,6 +31,7 @@ type Props = {
 export const ArticleRendererWithDebugUI = ({
     title = "📜 Article",
     json,
+    seed = 0,
     apiOptions = Object.freeze({}),
     linterContext,
 }: Props): React.ReactElement => {
@@ -83,6 +85,7 @@ export const ArticleRendererWithDebugUI = ({
                                             ref={ref}
                                             apiOptions={options}
                                             json={json}
+                                            seed={seed}
                                             dependencies={
                                                 storybookDependenciesV2
                                             }

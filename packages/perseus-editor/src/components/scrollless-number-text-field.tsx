@@ -1,7 +1,18 @@
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
+
+interface Props {
+    value: number;
+    onChange: (value: number) => void;
+    min?: number;
+    max?: number;
+    disabled?: boolean;
+    onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
+    onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+    style?: StyleType;
+}
 
 /**
  * This is a custom text field of type="number" for use in Perseus Editors.
@@ -14,6 +25,8 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
  *    events. This is useful to make sure that input behavior
  *    remains predictable, rather than possibly having the cursor
  *    jump around uenxpectedly.
+ * 3. only valid, finite numbers are passed to `onChange`. NaN and +/-Infinity
+ *    are never emitted.
  *
  * NOTE 1: Native HTML number inputs do not update the number value on scroll,
  * they only scroll the page. Inputs in React do NOT work this way (explanation
@@ -25,7 +38,7 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
  * NOTE 2: Firefox seems to have a custom override for input scroll. Even
  * with this stopPropogation, Firefox matches the native HTML behavior.
  */
-const ScrolllessNumberTextField = (props: PropsFor<typeof TextField>) => {
+const ScrolllessNumberTextField = (props: Props) => {
     const {value, onChange, ...restOfProps} = props;
     const [focused, setFocused] = React.useState(false);
     const [wipValue, setWipValue] = React.useState("");
@@ -53,13 +66,15 @@ const ScrolllessNumberTextField = (props: PropsFor<typeof TextField>) => {
         <TextField
             {...restOfProps}
             type="number"
-            value={focused ? wipValue : value}
+            value={focused ? wipValue : String(value)}
             onChange={(newValue) => {
                 setWipValue(newValue);
-                onChange(newValue);
+                if (isFiniteNumeric(newValue)) {
+                    onChange(+newValue);
+                }
             }}
             onFocus={(e) => {
-                setWipValue(value);
+                setWipValue(String(value));
                 setFocused(true);
 
                 props.onFocus?.(e);
@@ -73,5 +88,9 @@ const ScrolllessNumberTextField = (props: PropsFor<typeof TextField>) => {
         />
     );
 };
+
+function isFiniteNumeric(value: string): boolean {
+    return value.trim() !== "" && Number.isFinite(+value);
+}
 
 export default ScrolllessNumberTextField;

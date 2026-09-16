@@ -36,8 +36,6 @@ type Props = {
 };
 
 class GrapherEditor extends React.Component<Props> {
-    static widgetName = "grapher" as const;
-
     static defaultProps: PerseusGrapherWidgetOptions =
         grapherLogic.defaultWidgetOptions;
 

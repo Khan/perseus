@@ -1140,9 +1140,6 @@ class Renderer
                                 title={node.title}
                                 responsive={responsive}
                                 onUpdate={this.props.onRender}
-                                zoomToFullSizeOnMobile={
-                                    apiOptions.isMobile && apiOptions.isArticle
-                                }
                                 {...extraAttrs}
                             />
                         )}

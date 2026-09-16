@@ -19,7 +19,6 @@ class ArrowPicker extends React.Component<Props> {
         return (
             <ButtonGroup
                 value={this.props.value}
-                allowEmpty={false}
                 buttons={[
                     {value: "", content: <span>&mdash;</span>},
                     {value: "->", content: <span>&#x2192;</span>},

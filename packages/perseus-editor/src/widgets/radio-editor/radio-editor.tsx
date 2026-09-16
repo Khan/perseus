@@ -39,7 +39,6 @@ export interface RadioEditorProps {
  * An editor for adding a radio widget that allows users to select a single option from multiple choices.
  */
 class RadioEditor extends React.Component<RadioEditorProps> {
-    static widgetName = "radio" as const;
     static bestPractices = {
         url: "https://www.khanacademy.org/internal-courses/content-creation-best-practices/xe46daa512cd9c644:question-writing/xe46daa512cd9c644:multiple-choice/a/stems",
         label: "Multiple choice best practices",

@@ -3,8 +3,8 @@ import {getCustomPointLabel} from "../components/build-point-aria-label";
 import {srFormatNumber} from "./format-number";
 
 import type {I18nContextType} from "../../../../components/i18n-context";
+import type {PerseusStrings} from "../../../../strings";
 import type {RayGraphState} from "../../types";
-import type {PerseusStrings} from "@khanacademy/perseus/strings";
 
 export function srRayPointLabel(
     state: {

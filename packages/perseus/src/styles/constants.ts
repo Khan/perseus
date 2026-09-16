@@ -1,15 +1,12 @@
 // TODO(LEMS-4463): Remove the hardcoded colors in this file.
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 
-// @baseFontFamily:        "Lato", sans-serif;
-export const baseFontFamily = "'Lato', sans-serif";
 // @boldFontFamily:        "Lato-Bold", "Lato", sans-serif;
 export const boldFontFamily = "'Lato-Bold', 'Lato', sans-serif";
 
 export const white = "#FFFFFF";
 export const gray76 = "#BABEC2";
 export const gray68 = "#888D93";
-export const gray17 = "#21242c";
 
 // @pure-sm-min: 568px;
 export const pureSmMin = "568px";
@@ -46,8 +43,6 @@ export const radioMarginWidth = 2;
 export const warningColor = "#f86700";
 export const warningColorHover = "#df5c00";
 export const warningColorActive = "#c75300";
-
-export const publishBlockingErrorColor = "#be2612";
 
 export const articleMaxWidthInPx = 688;
 export const articleMaxWidthTableInPx = 512;

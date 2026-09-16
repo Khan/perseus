@@ -8,8 +8,6 @@ type Props = {
 };
 
 class DeprecatedStandinEditor extends React.Component<Props> {
-    static widgetName = "deprecated-standin" as const;
-
     serialize(): any {
         return EditorJsonify.serialize.call(this);
     }

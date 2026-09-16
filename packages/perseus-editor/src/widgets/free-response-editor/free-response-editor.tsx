@@ -31,8 +31,6 @@ class FreeResponseEditor extends React.Component<Props> {
         ...freeResponseLogic.defaultWidgetOptions,
     };
 
-    static widgetName = "free-response" as const;
-
     serialize: () => PerseusFreeResponseWidgetOptions = () => {
         return {
             allowUnlimitedCharacters: this.props.allowUnlimitedCharacters,

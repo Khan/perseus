@@ -42,6 +42,9 @@ const config: KnipConfig = {
                 "src/parse-perseus-json/regression-tests/{article,item,user-input,renderer}-data/**",
                 // CLI used for testing against production data.
                 "src/parse-perseus-json/exhaustive-test-tool/index.ts",
+                // Bundled by the item-splitting check in
+                // .github/workflows/pr-comparison-checks.yml; nothing imports it.
+                "src/index.item-splitting.ts",
             ],
         },
     },

@@ -1,16 +1,14 @@
-import {components, ClassNames, Dependencies} from "@khanacademy/perseus";
+import {ClassNames, components, Dependencies} from "@khanacademy/perseus";
 import {
     getDefaultAnswerArea,
     parseAndMigratePerseusItem,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
-import invariant from "tiny-invariant";
 import _ from "underscore";
 
 import {A11yContext, createA11yContextValue} from "./components/a11y-context";
 import IssuesPanel from "./components/issues-panel";
 import JsonEditor from "./components/json-editor";
-import ViewportResizer from "./components/viewport-resizer";
 import ItemEditor from "./item-editor";
 import {createDeviceApiOptionsDeriver} from "./util/derive-device-api-options";
 import {gatherLinterIssues} from "./util/gather-linter-issues";
@@ -33,13 +31,6 @@ import type {
 
 const {HUD} = components;
 
-type OnChangeParams = {
-    jsonMode?: boolean;
-    question?: PerseusRenderer;
-    hints?: Hint[];
-    answerArea?: PerseusAnswerArea | null | undefined;
-};
-
 type Props = {
     /** Additional templates that the host application would like to display
      * within the Perseus Editor.
@@ -48,8 +39,6 @@ type Props = {
     apiOptions?: APIOptions;
     answerArea: PerseusAnswerArea; // related to the question,
     dependencies: PerseusDependenciesV2;
-    /** "Power user" mode. Shows the raw JSON of the question. */
-    developerMode: boolean;
     hints: Hint[]; // related to the question,
     /** A function which takes a file object (guaranteed to be an image) and
      * a callback, then calls the callback with the url where the image
@@ -59,15 +48,10 @@ type Props = {
     imageUploader?: ImageUploader;
     /** The content ID of the AssessmentItem being edited. */
     itemId: string;
-    /** Whether the question is displaying as JSON or if it is
-     * showing the editor itself with the rendering
-     * Only used in the perseus demos. Consider removing.
-     */
+    /** Shows a textarea with the raw JSON instead of the editor GUI. */
     jsonMode: boolean;
     /** A function which is called with the new JSON blob of content. */
-    onChange: (changed: OnChangeParams) => void;
-    /** A function which is called when the preview device changes. */
-    onPreviewDeviceChange: (arg1: DeviceType) => unknown;
+    onChange: (changed: PerseusItem) => void;
     previewDevice: DeviceType;
     /** A global control to expand/collapse all widget editors on a page. */
     widgetsAreOpen?: boolean;
@@ -87,7 +71,6 @@ type Props = {
 
 type DefaultProps = {
     answerArea: Props["answerArea"];
-    developerMode: Props["developerMode"];
     hints: Props["hints"];
     jsonMode: Props["jsonMode"];
     onChange: Props["onChange"];
@@ -113,7 +96,6 @@ class EditorPage extends React.Component<Props, State> {
 
     static defaultProps: DefaultProps = {
         answerArea: getDefaultAnswerArea(),
-        developerMode: false,
         hints: [],
         jsonMode: false,
         onChange: () => {},
@@ -141,13 +123,6 @@ class EditorPage extends React.Component<Props, State> {
                 this.props.issues,
             ),
         });
-    }
-
-    getSnapshotBeforeUpdate(prevProps: Props) {
-        if (!prevProps.jsonMode && this.props.jsonMode) {
-            return this.itemEditor.current?.serialize() ?? {};
-        }
-        return null;
     }
 
     componentDidUpdate(previousProps: Props, prevState: State, snapshot: any) {
@@ -229,40 +204,11 @@ class EditorPage extends React.Component<Props, State> {
         });
     }
 
-    toggleJsonMode: () => void = () => {
-        this.setState(
-            {
-                json: this.serialize(),
-            },
-            () => {
-                this.props.onChange({
-                    jsonMode: !this.props.jsonMode,
-                });
-            },
-        );
-    };
-
     getSaveWarnings(): any {
         return this.itemEditor.current?.getSaveWarnings();
     }
 
-    /**
-     * Returns the current version of the edited {@link PerseusItem}.
-     *
-     * @deprecated Use the {@link Props.onChange} prop instead.
-     */
-    serialize(): PerseusItem {
-        if (this.props.jsonMode) {
-            return this.state.json;
-        }
-        invariant(
-            this.itemEditor.current,
-            "cannot serialize EditorPage without ItemEditor",
-        );
-        return this.itemEditor.current.serialize();
-    }
-
-    handleChange = (toChange: OnChangeParams) => {
+    handleChange = (toChange: Partial<PerseusItem>) => {
         const newProps = _(this.props).pick("question", "hints", "answerArea");
         _(newProps).extend(toChange);
         this.props.onChange(newProps);
@@ -282,8 +228,7 @@ class EditorPage extends React.Component<Props, State> {
     };
 
     render(): React.ReactNode {
-        // TODO(LEMS-4492): remove wb-themed-math
-        let className = "framework-perseus wb-themed-math";
+        let className = "framework-perseus";
         const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
 
         const touch =
@@ -293,8 +238,6 @@ class EditorPage extends React.Component<Props, State> {
             apiOptions: this.props.apiOptions,
             touch,
         });
-
-        const showEditor = !this.props.developerMode || !this.props.jsonMode;
 
         if (deviceBasedApiOptions.isMobile) {
             className += " " + ClassNames.MOBILE;
@@ -308,37 +251,11 @@ class EditorPage extends React.Component<Props, State> {
                     value={{
                         question: this.props.question,
                         onEditorChange: this.handleEditorChange,
+                        editingDisabled: this.props.apiOptions?.editingDisabled,
                     }}
                 >
                     <div id="perseus" className={className}>
                         <div style={{marginBlockEnd: 10}}>
-                            {this.props.developerMode && (
-                                <span>
-                                    <label>
-                                        {" "}
-                                        Developer JSON Mode:{" "}
-                                        <input
-                                            type="checkbox"
-                                            checked={this.props.jsonMode}
-                                            disabled={
-                                                this.props.apiOptions
-                                                    ?.editingDisabled
-                                            }
-                                            onChange={this.toggleJsonMode}
-                                        />
-                                    </label>{" "}
-                                </span>
-                            )}
-
-                            {!this.props.jsonMode && (
-                                <ViewportResizer
-                                    deviceType={this.props.previewDevice}
-                                    onViewportSizeChanged={
-                                        this.props.onPreviewDeviceChange
-                                    }
-                                />
-                            )}
-
                             {!this.props.jsonMode && (
                                 <HUD
                                     message="Style warnings"
@@ -352,7 +269,7 @@ class EditorPage extends React.Component<Props, State> {
                                 />
                             )}
                         </div>
-                        {this.props.developerMode && this.props.jsonMode && (
+                        {this.props.jsonMode ? (
                             <div>
                                 <JsonEditor
                                     multiLine={true}
@@ -362,22 +279,20 @@ class EditorPage extends React.Component<Props, State> {
                                     editingDisabled={editingDisabled}
                                 />
                             </div>
-                        )}
-
-                        <A11yContext.Provider
-                            value={createA11yContextValue({
-                                setIssueHighlight: this.setIssueHighlight,
-                                a11yScanningEnabled:
-                                    this.state.a11yScanningEnabled,
-                                setA11yScanningEnabled:
-                                    this.setA11yScanningEnabled,
-                                highlightInstanceIds:
-                                    this.state.highlightInstanceIds,
-                                onA11yReport: this.handleA11yReport,
-                                axeCoreIssues: this.state.axeCoreIssues,
-                            })}
-                        >
-                            {showEditor && (
+                        ) : (
+                            <A11yContext.Provider
+                                value={createA11yContextValue({
+                                    setIssueHighlight: this.setIssueHighlight,
+                                    a11yScanningEnabled:
+                                        this.state.a11yScanningEnabled,
+                                    setA11yScanningEnabled:
+                                        this.setA11yScanningEnabled,
+                                    highlightInstanceIds:
+                                        this.state.highlightInstanceIds,
+                                    onA11yReport: this.handleA11yReport,
+                                    axeCoreIssues: this.state.axeCoreIssues,
+                                })}
+                            >
                                 <div className="perseus-editor-table">
                                     <div className="perseus-editor-row">
                                         <div className="perseus-editor-left-cell">
@@ -387,9 +302,6 @@ class EditorPage extends React.Component<Props, State> {
                                         </div>
                                     </div>
                                 </div>
-                            )}
-
-                            {showEditor && (
                                 <ItemEditor
                                     ref={this.itemEditor}
                                     itemId={this.props.itemId}
@@ -408,8 +320,8 @@ class EditorPage extends React.Component<Props, State> {
                                     highlightLint={this.state.highlightLint}
                                     problemNum={this.props.problemNum}
                                 />
-                            )}
-                        </A11yContext.Provider>
+                            </A11yContext.Provider>
+                        )}
                     </div>
                 </ItemEditorContext.Provider>
             </Dependencies.DependenciesContext.Provider>
