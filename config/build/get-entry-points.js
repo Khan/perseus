@@ -11,12 +11,10 @@
  *     the build emits, without extension) to its package-relative source file
  */
 export const getEntryPoints = (pkgJson) => {
-    if (!pkgJson.exports) {
-        return {index: pkgJson.source};
-    }
-
     const entryPoints = {};
-    for (const [subPath, exportConfig] of Object.entries(pkgJson.exports)) {
+    for (const [subPath, exportConfig] of Object.entries(
+        pkgJson.exports ?? {},
+    )) {
         // Build only sub-paths with a source input and a published output.
         // Source-only sub-paths support source-based tooling but emit no bundle.
         if (
