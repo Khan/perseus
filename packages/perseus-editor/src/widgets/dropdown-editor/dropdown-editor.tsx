@@ -94,8 +94,8 @@ class DropdownEditor extends React.Component<Props> {
     };
 
     focus: (arg1: number) => boolean = (i) => {
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-        ReactDOM.findDOMNode(this.refs["editor" + i]).focus();
+        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
+        ReactDOM.findDOMNode(this.refs["editor" + i])?.focus();
         return true;
     };
 
