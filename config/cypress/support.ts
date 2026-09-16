@@ -33,12 +33,22 @@ import "@khanacademy/wonder-blocks-tokens/styles.css";
  * Click a node and drag it to the specified {x, y} position
  */
 const dragTo = (node, pos) => {
-    return cy
-        .wrap(node)
-        .trigger("mousedown", {force: true, which: 1, button: 0})
-        .trigger("mousemove", {force: true, pageX: pos.x, pageY: pos.y})
-        .trigger("mouseup", {force: true})
-        .trigger("mouseout", {force: true});
+    const clientX = pos.x - window.scrollX;
+    const clientY = pos.y - window.scrollY;
+
+    cy.wrap(node).realMouseDown({position: "center"});
+    return cy.get("body").then(($body) => {
+        const bodyRect = $body[0].getBoundingClientRect();
+        cy.wrap($body).realMouseMove(
+            clientX - bodyRect.left,
+            clientY - bodyRect.top,
+            {
+                position: "topLeft",
+                scrollBehavior: false,
+            },
+        );
+        cy.wrap($body).realMouseUp();
+    });
 };
 
 // @ts-expect-error - TS2769 - Argument of type '"dragTo"' is not assignable to parameter of type 'keyof Chainable<any>'.
