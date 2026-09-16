@@ -12,9 +12,13 @@ describe("widget manifest recording", () => {
         resetWidgetManifests();
     });
 
-    it("returns undefined outside any scope", () => {
+    it("returns the enclosing scope outside a nested scope", () => {
         // Arrange, Act, Assert
-        expect(getWidgetManifestScope()).toBeUndefined();
+        expect(getWidgetManifestScope()).toBe(
+            process.env.PERSEUS_WIDGET_MANIFESTS === "1"
+                ? "packages/perseus-core/src/utils/widget-manifest.test.ts"
+                : undefined,
+        );
     });
 
     it("attributes to the innermost scope", () => {
@@ -45,6 +49,7 @@ describe("widget manifest recording", () => {
 
     it("keeps an entered context active until it is restored", () => {
         // Arrange
+        const enclosingScope = getWidgetManifestScope();
         const restore = enterWidgetManifestContext("widget.test.tsx");
 
         // Act
@@ -52,7 +57,7 @@ describe("widget manifest recording", () => {
         restore();
 
         expect(active).toBe("widget.test.tsx");
-        expect(getWidgetManifestScope()).toBeUndefined();
+        expect(getWidgetManifestScope()).toBe(enclosingScope);
     });
 
     it("records separate deduplicated registry entries in stable order", () => {

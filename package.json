@@ -112,6 +112,7 @@
     },
     "scripts": {
         "gen:parsers": "pnpm --filter ./packages/kas gen:parsers",
+        "gen:widget-registrations": "node -r @swc-node/register utils/generate-widget-registrations.ts",
         "prebuild": "pnpm gen:parsers",
         "build": "node config/build/build-packages.ts",
         "prebuild:docs": "pnpm clean:docs",
