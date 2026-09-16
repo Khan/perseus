@@ -1,14 +1,17 @@
 import {readFileSync} from "node:fs";
 import {dirname, join, resolve} from "node:path";
+import {fileURLToPath} from "node:url";
 
 import react from "@vitejs/plugin-react";
-import {glob} from "fast-glob";
+import fastGlob from "fast-glob";
 import {defineConfig} from "vite";
 
 // Create aliases for each package in the Perseus monorepo, so Vite knows
 // where to look when a file imports e.g. @khanacademy/perseus.
-const packageAliases = {};
-glob.sync(join(__dirname, "/packages/*/package.json")).forEach(
+const {globSync} = fastGlob;
+const currentDir = dirname(fileURLToPath(import.meta.url));
+const packageAliases: Record<string, string> = {};
+globSync(join(currentDir, "/packages/*/package.json")).forEach(
     (packageJsonPath) => {
         const pkg = JSON.parse(readFileSync(packageJsonPath, "utf-8"));
         packageAliases[pkg.name] = join(
@@ -22,10 +25,10 @@ export default defineConfig({
     resolve: {
         alias: {
             ...packageAliases,
-            raphael: resolve(__dirname, "vendor/raphael/raphael.js"),
-            jsdiff: resolve(__dirname, "vendor/jsdiff/jsdiff.js"),
+            raphael: resolve(currentDir, "vendor/raphael/raphael.js"),
+            jsdiff: resolve(currentDir, "vendor/jsdiff/jsdiff.js"),
             aphrodite: resolve(
-                __dirname,
+                currentDir,
                 "node_modules/aphrodite/no-important",
             ),
         },

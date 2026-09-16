@@ -7,13 +7,13 @@ import {defineConfig} from "cypress";
 import {mergeConfig} from "vite";
 import istanbul from "vite-plugin-istanbul";
 
-import viteConfig from "../../vite.config";
+import viteConfig from "../../vite.config.mts";
 
 const currentDir = path.dirname(fileURLToPath(import.meta.url));
 const coverageEnabled = Boolean(process.env.CYPRESS_COVERAGE);
 const sharedViteConfig = {...viteConfig};
 delete sharedViteConfig.plugins;
-const aliases = {};
+const aliases: Record<string, string> = {};
 fs.readdirSync(path.join(currentDir, "../../packages")).forEach((name) => {
     if (name.startsWith(".")) {
         return;
