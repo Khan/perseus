@@ -36,7 +36,7 @@
     },
     "devDependencies": {
         "@khanacademy/wonder-stuff-core": "catalog:devDeps",
-        "perseus-build-settings": "workspace:*",
+        "@internal/build-settings": "workspace:*",
         "underscore": "catalog:devDeps"
     },
     "peerDependencies": {

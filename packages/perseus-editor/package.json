@@ -70,7 +70,7 @@
         "aphrodite": "catalog:devDeps",
         "classnames": "catalog:devDeps",
         "jsdiff": "workspace:*",
-        "perseus-build-settings": "workspace:*",
+        "@internal/build-settings": "workspace:*",
         "prop-types": "catalog:devDeps",
         "react": "catalog:devDeps",
         "react-dom": "catalog:devDeps",
