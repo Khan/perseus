@@ -9,6 +9,7 @@ import {DebugAccordionUI} from "./debug-accordion-ui";
 import {DebugCheckAnswerFooter} from "./debug-check-answer-footer";
 import {DebugHeader} from "./debug-header";
 import {useItemRenderer} from "./item-renderer-hooks";
+import {StorybookViewOptionsContext} from "./storybook-view-options-context";
 import {storybookDependenciesV2} from "./test-dependencies";
 import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
 import {useStorybookApiOptions} from "./use-storybook-api-options";
@@ -38,20 +39,30 @@ export const ServerItemRendererWithDebugUI = ({
     showSolutions,
 }: Props): React.ReactElement => {
     const mergedApiOptions = useStorybookApiOptions(apiOptions);
+    const {isMobile: mobileOverride, isRtl} = React.useContext(
+        StorybookViewOptionsContext,
+    );
+
+    // The toolbar's "story default" leaves per-story apiOptions in charge so
+    // that mobile stories stay mobile.
+    const isMobile = mobileOverride ?? mergedApiOptions.isMobile ?? false;
+
+    const viewApiOptions = React.useMemo(
+        () => ({...mergedApiOptions, isMobile}),
+        [mergedApiOptions, isMobile],
+    );
 
     // Use our custom hook to manage the renderer state
     const {
         ref,
         state,
         options,
-        toggleMobile,
-        toggleRtl,
         updateJson,
         handleReset,
         handleSkip,
         handleCheck,
         setShowPopover,
-    } = useItemRenderer(item, mergedApiOptions, reviewMode, showSolutions);
+    } = useItemRenderer(item, viewApiOptions, reviewMode, showSolutions);
 
     return (
         <View>
@@ -61,19 +72,13 @@ export const ServerItemRendererWithDebugUI = ({
                         paddingBlockEnd: "60px",
                     }}
                 >
-                    {/* Title and mobile toggle */}
-                    <DebugHeader
-                        title={title}
-                        isMobile={state.isMobile}
-                        isRtl={state.isRtl}
-                        onToggleRtl={toggleRtl}
-                        onToggleMobile={toggleMobile}
-                    />
+                    {/* Title */}
+                    <DebugHeader title={title} />
 
                     {/* Item renderer */}
                     <div
-                        className={state.isMobile ? "perseus-mobile" : ""}
-                        dir={state.isRtl ? "rtl" : "ltr"}
+                        className={isMobile ? "perseus-mobile" : ""}
+                        dir={isRtl ? "rtl" : "ltr"}
                     >
                         <KeypadContext.Consumer>
                             {({keypadElement}) => (

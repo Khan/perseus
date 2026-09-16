@@ -24,6 +24,7 @@ import {
     defaultFeatureFlags,
 } from "../packages/perseus/src/testing/feature-flags-context";
 import type {PerseusFeatureFlag} from "../packages/perseus/src/testing/feature-flags-context";
+import {StorybookViewOptionsContext} from "../packages/perseus/src/testing/storybook-view-options-context";
 
 import type {Decorator, Preview, StoryContext} from "@storybook/react-vite";
 import type {PerseusDependencies} from "../packages/perseus/src/types";
@@ -74,6 +75,20 @@ const withFeatureFlags: Decorator = (Story, context: StoryContext) => {
         <StorybookFeatureFlagsContext.Provider value={flags}>
             <Story />
         </StorybookFeatureFlagsContext.Provider>
+    );
+};
+
+const withViewOptions: Decorator = (Story, context: StoryContext) => {
+    const {mobile, direction} = context.globals;
+    const viewOptions = {
+        isMobile: mobile === "story" ? undefined : mobile === "on",
+        isRtl: direction === "rtl",
+    };
+
+    return (
+        <StorybookViewOptionsContext.Provider value={viewOptions}>
+            <Story />
+        </StorybookViewOptionsContext.Provider>
     );
 };
 
@@ -162,17 +177,55 @@ const supportedThemes = {
     },
 } satisfies NonNullable<Preview["globalTypes"]>["theme"];
 
+// Tri-state because stories pin mobile through their own apiOptions, and
+// "story" has to leave those in charge.
+const mobileLayout = {
+    description: "Render items with the Perseus mobile layout",
+    toolbar: {
+        title: "Mobile",
+        icon: "mobile",
+        items: [
+            {value: "story", title: "Story default"},
+            {value: "on", title: "Mobile"},
+            {value: "off", title: "Desktop"},
+        ],
+        dynamicTitle: true,
+    },
+} satisfies NonNullable<Preview["globalTypes"]>["mobile"];
+
+const textDirection = {
+    description: "Text direction for rendered items",
+    toolbar: {
+        title: "Direction",
+        icon: "paragraph",
+        items: [
+            {value: "ltr", title: "Left to right"},
+            {value: "rtl", title: "Right to left"},
+        ],
+        dynamicTitle: true,
+    },
+} satisfies NonNullable<Preview["globalTypes"]>["direction"];
+
 const preview: Preview = {
     // These decorators apply to all stories, both inside and outside the
     // fixture framework.
-    decorators: [withPerseusDecorator, withThemeSwitcher, withFeatureFlags],
+    decorators: [
+        withPerseusDecorator,
+        withThemeSwitcher,
+        withFeatureFlags,
+        withViewOptions,
+    ],
     initialGlobals: {
         featureFlags: [],
+        mobile: "story",
+        direction: "ltr",
     },
     globalTypes: {
         // Added theme globalTypes to be consistent with WonderBlocks supported
         // themes, that will allow the user to select a theme from the toolbar.
         theme: supportedThemes,
+        mobile: mobileLayout,
+        direction: textDirection,
     },
     // These parameters apply to all stories, both inside and outside the fixture
     // framework.
