@@ -102,9 +102,6 @@ const checkNoRequireCondition = (pkgJson): boolean =>
         })
         .every(Boolean);
 
-const checkSource = (pkgJson): boolean =>
-    checkField(pkgJson, "source", ["src/index.js", "src/index.ts"]);
-
 const checkPrivate = (pkgJson): boolean => {
     if (pkgJson.private) {
         console.warn(
@@ -179,6 +176,5 @@ export {
     checkEntrypoints,
     checkExports,
     checkExportTargets,
-    checkSource,
     checkPrivate,
 };

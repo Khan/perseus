@@ -21,7 +21,7 @@ fs.readdirSync(path.join(__dirname, "../../packages")).forEach((name) => {
         __dirname,
         "../../packages",
         name,
-        pkgJson.source,
+        pkgJson.exports["."].source,
     );
 });
 fs.readdirSync(path.join(__dirname, "../../vendor")).forEach((name) => {
