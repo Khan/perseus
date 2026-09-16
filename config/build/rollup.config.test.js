@@ -16,7 +16,9 @@ describe("createRollupConfig", () => {
         configs.forEach((c) => expect(c.output.format).toBe("esm"));
 
         const outputDirs = configs.map((c) => c.output.dir);
-        outputDirs.forEach((dir) => expect(dir).toMatch(/^packages\/.+\/dist$/));
+        outputDirs.forEach((dir) =>
+            expect(dir).toMatch(/^packages\/.+\/dist$/),
+        );
         expect(new Set(outputDirs).size).toBe(configs.length);
     });
 
