@@ -227,17 +227,21 @@
  */
 
 /* Images with surrounding text that is on the same line should be aligned in the middle */
+.choice :global(.renderer-new-ff) p img,
 .choice :global(.paragraph) img {
     vertical-align: middle;
 }
 
 /* Paragraphs with only images that are adjacent to other paragraphs (before or after) */
+.choice :global(.perseus-renderer.renderer-new-ff) div:has(> p:only-child > img:only-child):not(:first-child),
+.choice :global(.perseus-renderer.renderer-new-ff) div:has(> p:only-child > img:only-child):not(:last-child),
 .choice :global(.paragraph) :global(+ .paragraph):has(img:only-child),
 .choice :global(.paragraph):has(img:only-child):has(:global(+ .paragraph)) {
     display: block;
 }
 
 /* Remove the leading margin when the first paragraph is an image, for better alignment with the choice indicator */
+.choice :global(.perseus-renderer.renderer-new-ff) div:has(> p:only-child > img:only-child):first-child,
 .choice :global(.paragraph):first-child:has(img:only-child) {
     margin-block-start: 0;
 }
