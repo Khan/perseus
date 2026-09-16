@@ -52,7 +52,21 @@ describe("checkExports", () => {
         expect(result).toBe(true);
     });
 
-    it("returns false when a code export omits a required condition", () => {
+    it("returns false when a code export omits its source condition", () => {
+        const result = checkExports({
+            name: "@khanacademy/kmath",
+            exports: {
+                ".": {
+                    types: "./dist/index.d.ts",
+                    default: "./dist/index.js",
+                },
+            },
+        });
+
+        expect(result).toBe(false);
+    });
+
+    it("returns false when a code export omits its types condition", () => {
         const result = checkExports({
             name: "@khanacademy/kmath",
             exports: {
