@@ -219,25 +219,22 @@ const createConfig = (
  * its `source` field if it has no exports map. All of a package's entry points
  * are built by a single Rollup config, so that modules shared between them are
  * emitted once into a shared chunk. We publish ESM only; the bundles land in
- * `dist/`, which is what the `module` and `exports` fields of every package
- * point at.
+ * `dist/`, which is what the `exports` field of every package point at.
  */
-const getPackageInfo = (commandLineArgs, pkgName) => {
+const getPackageInfo = (pkgName) => {
     const pkgJsonPath = makePackageBasedPath(pkgName, "./package.json");
     if (!fs.existsSync(pkgJsonPath)) {
-        return [];
+        return null;
     }
     const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath));
 
-    return [
-        {
-            name: pkgName,
-            version: pkgJson.version,
-            platform: "browser",
-            inputs: getEntryPoints(pkgJson),
-            plugins: [filesize()],
-        },
-    ];
+    return {
+        name: pkgName,
+        version: pkgJson.version,
+        platform: "browser",
+        inputs: getEntryPoints(pkgJson),
+        plugins: [filesize()],
+    };
 };
 
 /**
@@ -248,7 +245,8 @@ const createRollupConfig = async (commandLineArgs) => {
     // about them and generate configurations.
     const results = fs
         .readdirSync("packages")
-        .flatMap((p) => getPackageInfo(commandLineArgs, p))
+        .map(getPackageInfo)
+        .filter(Boolean)
         .map((c) => createConfig(commandLineArgs, c));
     return results;
 };
