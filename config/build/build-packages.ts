@@ -1,10 +1,8 @@
 import {build} from "vite";
 
-// Node's native ES module loader requires the file extension.
-// eslint-disable-next-line no-restricted-syntax
-import {createPackageConfig, getPackageNames} from "./vite.config.js";
+import {createPackageConfig, getPackageNames} from "./vite.config.mts";
 
-const getOption = (name) => {
+const getOption = (name: string) => {
     const prefix = `--${name}=`;
     const argument = process.argv.find((value) => value.startsWith(prefix));
     return argument?.slice(prefix.length);

@@ -1,3 +1,10 @@
+type PackageJson = {
+    exports?: Record<string, unknown>;
+    publishConfig?: {
+        exports?: Record<string, unknown>;
+    };
+};
+
 /**
  * Find the entry points that we _build_ for a package.
  *
@@ -13,15 +20,16 @@
  * defined in the plugin's configuration - and that output file must appear in
  * the package's `.publishConfig.exports`
  *
- * @param {Record<string, any>} pkgJson the parsed `package.json` of a package
- * @returns {Record<string, string>} a map of the sub-path exports names to
- * their package-relative source files.
+ * @returns a map of the sub-path exports names to their package-relative
+ * source files.
  *
  * See: https://nodejs.org/api/packages.html#subpath-exports
  */
-export const getEntryPoints = (pkgJson) => {
+export const getEntryPoints = (
+    pkgJson: PackageJson,
+): Record<string, string> => {
     const publishedExports = pkgJson.publishConfig?.exports ?? {};
-    const entryPoints = {};
+    const entryPoints: Record<string, string> = {};
     for (const [subPath, sourceFile] of Object.entries(pkgJson.exports ?? {})) {
         const publishedFile = publishedExports[subPath];
         if (

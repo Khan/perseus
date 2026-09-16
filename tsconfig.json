@@ -6,6 +6,7 @@
         "coverage",
         "coverage-ts",
         "config/cypress/**",
+        "config/build/**",
         "**/*.cypress.ts",
         "**/*.cypress.tsx"
     ],
