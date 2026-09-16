@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 39.2.1
+
+### Patch Changes
+
+-   [#4225](https://github.com/Khan/perseus/pull/4225) [`284ac95`](https://github.com/Khan/perseus/commit/284ac95dce32e3d3ddbe2287106ad253b16ffadb) Thanks [@nishasy](https://github.com/nishasy)! - Use parser to set `static` to undefined for visual-only widgets
+
 ## 39.2.0
 
 ### Minor Changes
