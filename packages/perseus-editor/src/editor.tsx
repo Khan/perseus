@@ -292,8 +292,9 @@ class Editor extends React.Component<Props, State> {
 
         const textarea = this.textarea.current;
         const re = new RegExp(widgetRegExp.replace("{id}", id), "gm");
+        const newContent = textarea?.value.replace(re, "") ?? "";
         this.props.onChange({
-            content: textarea?.value.replace(re, "") ?? "",
+            content: newContent,
             images: this.props.images,
             widgets: this.props.widgets,
         });
