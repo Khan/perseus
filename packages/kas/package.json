@@ -34,7 +34,7 @@
     },
     "devDependencies": {
         "jison": "0.4.15",
-        "perseus-build-settings": "workspace:*",
+        "@internal/build-settings": "workspace:*",
         "underscore": "catalog:devDeps"
     },
     "peerDependencies": {
