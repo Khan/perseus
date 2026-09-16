@@ -51,8 +51,7 @@ const createOutputConfig = (pkgName) => ({
     sourcemap: true,
 
     // Published packages support only ESM. Their package.json files declare
-    // `"type": "module"` and expose no `require`, `main`, or `module` target,
-    // so CommonJS consumers fail during module resolution.
+    // `"type": "module"`. CommonJS consumers fail during module resolution.
     format: "esm",
 
     // Emit one file per public entry point and share modules used by multiple
@@ -223,8 +222,7 @@ const createConfig = (
  * For each package in our packages folder, generate the outputs we want.
  *
  * Build each exports sub-path that declares both a `source` input and a
- * `default` published target. If the package has no exports map, build its
- * top-level `source` as `index`. All entry points build in one Rollup config so
+ * `default` published target. All entry points build in one Rollup config so
  * Rollup can emit shared modules once. Bundles land in `dist/`, which each
  * package's `exports` field exposes.
  */
@@ -234,12 +232,16 @@ const getPackageInfo = (pkgName) => {
         return null;
     }
     const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath));
+    const inputs = getEntryPoints(pkgJson);
+    if (Object.keys(inputs).length === 0) {
+        return null;
+    }
 
     return {
         name: pkgName,
         version: pkgJson.version,
         platform: "browser",
-        inputs: getEntryPoints(pkgJson),
+        inputs,
         plugins: [filesize()],
     };
 };
