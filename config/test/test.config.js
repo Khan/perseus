@@ -25,12 +25,12 @@ const pkgMap = fg
         const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath).toString());
         return {
             ...map,
-            // NOTE(kevinb): we use the 'source' field here so that we can run our
-            // tests without having to compile all of the packages first.
+            // Use the root export's source condition so tests can run without
+            // compiling every package first.
             // NOTE(jeremy): We use strip the leading "@khanacademy/" namespace
             // from all package names because our local directory structure
             // doesn't include that. So "@khanacademy/perseus" becomes "perseus"
-            [`^${pkgJson.name}$`]: `<rootDir>/packages/${pkgJson.name.replace(/^@khanacademy\//, "")}/${pkgJson.source}`,
+            [`^${pkgJson.name}$`]: `<rootDir>/packages/${pkgJson.name.replace(/^@khanacademy\//, "")}/${pkgJson.exports["."].source}`,
         };
     }, {});
 

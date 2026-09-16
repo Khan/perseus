@@ -16,7 +16,6 @@
         "url": "https://github.com/Khan/perseus/issues"
     },
     "type": "module",
-    "source": "src/index.ts",
     "types": "dist/index.d.ts",
     "exports": {
         ".": {
