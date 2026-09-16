@@ -16,8 +16,12 @@ import _ from "underscore";
 
 import InfoTip from "../../components/info-tip";
 import EditorJsonify from "../../mixins/editor-jsonify";
+import {APIOptions} from "@khanacademy/perseus";
 
-type Props = any;
+interface Props extends PerseusDropdownWidgetOptions {
+    onChange(a: any): void; // FIXME: remove `any`
+    apiOptions?: APIOptions;
+}
 
 // JSDoc will be shown in Storybook widget editor description
 /**
@@ -36,6 +40,16 @@ class DropdownEditor extends React.Component<Props> {
 
     static defaultProps: PerseusDropdownWidgetOptions =
         dropdownLogic.defaultWidgetOptions;
+
+    /** Functions to call after the next componentDidUpdate. */
+    private afterUpdateActionQueue: Array<() => void> = [];
+
+    componentDidUpdate(): void {
+        for (const action of this.afterUpdateActionQueue) {
+            action();
+        }
+        this.afterUpdateActionQueue.length = 0;
+    }
 
     onVisibleLabelChange: (arg1: string) => void = (visibleLabel) => {
         this.props.onChange({visibleLabel});
@@ -72,20 +86,15 @@ class DropdownEditor extends React.Component<Props> {
     addChoice: () => void = () => {
         const choices = this.props.choices;
         const blankChoice = {content: "", correct: false} as const;
-        this.props.onChange(
-            {
-                choices: choices.concat([blankChoice]),
-            },
-            this.focus.bind(this, choices.length),
-        );
+        this.props.onChange({choices: choices.concat([blankChoice])});
+        // Focus the new input after the next render:
+        this.afterUpdateActionQueue.push(() => this.focus(choices.length));
     };
 
     removeChoice: (arg1: number) => void = (choiceIndex) => {
-        const choices = _(this.props.choices).clone();
+        const choices = [...this.props.choices];
         choices.splice(choiceIndex, 1);
-        this.props.onChange({
-            choices: choices,
-        });
+        this.props.onChange({choices});
     };
 
     focus: (arg1: number) => boolean = (i) => {
@@ -121,7 +130,7 @@ class DropdownEditor extends React.Component<Props> {
                     <BodyText tag="label">
                         Visible label
                         <TextField
-                            value={this.props.visibleLabel}
+                            value={this.props.visibleLabel ?? ""}
                             onChange={this.onVisibleLabelChange}
                         />
                     </BodyText>
@@ -133,7 +142,7 @@ class DropdownEditor extends React.Component<Props> {
                     <BodyText tag="label">
                         Aria label
                         <TextField
-                            value={this.props.ariaLabel}
+                            value={this.props.ariaLabel ?? ""}
                             onChange={this.onAriaLabelChange}
                             type={"text"}
                         />
