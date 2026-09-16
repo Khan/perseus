@@ -1,4 +1,6 @@
-import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+
+import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {
     basicBlankQuestion,
     subscriptQuestion,
@@ -9,7 +11,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
     title: "Widgets/Blank",
-    component: QuestionRendererForStories,
+    component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
         docs: {
@@ -23,14 +25,20 @@ const meta: Meta = {
 
 export default meta;
 
-type Story = StoryObj<typeof QuestionRendererForStories>;
+type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 
 export const BasicBlankQuestion: Story = {
-    args: {question: basicBlankQuestion},
+    args: {
+        item: generateTestPerseusItem({question: basicBlankQuestion}),
+    },
 };
 export const SuperscriptQuestion: Story = {
-    args: {question: superscriptQuestion},
+    args: {
+        item: generateTestPerseusItem({question: superscriptQuestion}),
+    },
 };
 export const SubscriptQuestion: Story = {
-    args: {question: subscriptQuestion},
+    args: {
+        item: generateTestPerseusItem({question: subscriptQuestion}),
+    },
 };
