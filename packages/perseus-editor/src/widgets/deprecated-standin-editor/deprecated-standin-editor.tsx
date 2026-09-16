@@ -3,8 +3,8 @@ import * as React from "react";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
 type Props = {
-    // Callback for when a widget prop is changed.
-    onChange: (options: any) => void;
+    /** DeprecatedStandinEditor never calls onChange */
+    onChange: (options: never) => void;
 };
 
 class DeprecatedStandinEditor extends React.Component<Props> {
