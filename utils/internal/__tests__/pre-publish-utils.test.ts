@@ -12,14 +12,12 @@ describe("checkExports", () => {
     });
 
     it("returns false when exports is missing", () => {
-        // Arrange, Act
         const result = checkExports({name: "@khanacademy/kmath"});
 
         expect(result).toBe(false);
     });
 
     it("returns false when exports has no '.' entry", () => {
-        // Arrange, Act
         const result = checkExports({
             name: "@khanacademy/kmath",
             exports: {"./styles.css": "./dist/index.css"},
@@ -29,7 +27,6 @@ describe("checkExports", () => {
     });
 
     it("returns true for a well-formed map", () => {
-        // Arrange, Act
         const result = checkExports({
             name: "@khanacademy/kmath",
             exports: {".": "./dist/index.js"},
@@ -109,21 +106,18 @@ describe("checkEntrypoints", () => {
     });
 
     it("returns true for an ESM-only package", () => {
-        // Arrange, Act
         const result = checkEntrypoints(esmOnlyPkgJson);
 
         expect(result).toBe(true);
     });
 
     it("returns false when type is not 'module'", () => {
-        // Arrange, Act
         const result = checkEntrypoints({...esmOnlyPkgJson, type: "commonjs"});
 
         expect(result).toBe(false);
     });
 
     it("returns false when main is present", () => {
-        // Arrange, Act
         const result = checkEntrypoints({
             ...esmOnlyPkgJson,
             main: "dist/index.js",
@@ -133,7 +127,6 @@ describe("checkEntrypoints", () => {
     });
 
     it("returns false when a sub-path declares a require condition", () => {
-        // Arrange, Act
         const result = checkEntrypoints({
             ...esmOnlyPkgJson,
             exports: {
