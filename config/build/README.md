@@ -5,8 +5,9 @@ This is not a real package. It is used to ensure publishing bumps the version nu
 ## ESM only
 
 Every published package ships ES modules and nothing else. Each
-`package.json` declares `"type": "module"`, has no `main`, and its `exports`
-map offers only `types` / `source` / `default` — no `require` condition. A CJS
+`package.json` declares `"type": "module"`, has no legacy `main` or `module`
+field, and its `exports` map offers only `types` / `source` / `default` — no
+`require` condition. A CJS
 consumer that calls `require("@khanacademy/perseus")` therefore fails at
 resolution time rather than half-loading a build.
 

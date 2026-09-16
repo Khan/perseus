@@ -95,7 +95,6 @@ describe("checkEntrypoints", () => {
     const esmOnlyPkgJson = {
         name: "@khanacademy/kmath",
         type: "module",
-        module: "dist/index.js",
         exports: {
             ".": {
                 types: "./dist/index.d.ts",
@@ -119,16 +118,6 @@ describe("checkEntrypoints", () => {
     it("returns false when type is not 'module'", () => {
         // Arrange, Act
         const result = checkEntrypoints({...esmOnlyPkgJson, type: "commonjs"});
-
-        expect(result).toBe(false);
-    });
-
-    it("returns false when module points somewhere other than dist/index.js", () => {
-        // Arrange, Act
-        const result = checkEntrypoints({
-            ...esmOnlyPkgJson,
-            module: "dist/es/index.js",
-        });
 
         expect(result).toBe(false);
     });

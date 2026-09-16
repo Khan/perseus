@@ -77,9 +77,6 @@ const checkNoMain = (pkgJson): boolean => {
     return true;
 };
 
-const checkModule = (pkgJson): boolean =>
-    checkField(pkgJson, "module", "dist/index.js");
-
 const checkType = (pkgJson): boolean => checkField(pkgJson, "type", "module");
 
 /**
@@ -124,7 +121,6 @@ const checkPrivate = (pkgJson): boolean => {
 const checkEntrypoints = (pkgJson): boolean =>
     [
         checkType(pkgJson),
-        checkModule(pkgJson),
         checkNoMain(pkgJson),
         checkNoRequireCondition(pkgJson),
     ].every(Boolean);

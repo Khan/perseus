@@ -40,7 +40,6 @@ for pkg in ./packages/*/package.json; do
             url: \"https://github.com/Khan/perseus/issues\",
         },
         type: \"module\",
-        module: .module,
         source: .source,
         types: .types,
         exports: (.exports | if . then map_values(

@@ -14,7 +14,8 @@
 ---
 
 Ship ES modules only. Every package now declares `"type": "module"`, drops
-`main`, and no longer offers a `require` condition, so `require()` of a
+the legacy `main` and `module` fields, and no longer offers a `require`
+condition, so `require()` of a
 package or any of its sub-paths fails at resolution time. Bundles moved from
 `dist/es/*.js` to `dist/*.js`.
 
