@@ -118,6 +118,8 @@ describe("Sorter widget", () => {
         dragCardBelowTheNextOne(0);
 
         // Assert
+        // `null` is a dummy subject. Unlike `then`, `should` retries while the
+        // asynchronous user-input update finishes after the mouse release.
         cy.wrap(null).should(() => {
             const score = scorePerseusItemTesting(
                 twoCardVerticalQuestion,
