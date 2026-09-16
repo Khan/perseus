@@ -157,14 +157,23 @@ const checkExports = (pkgJson): boolean => {
                 return false;
             }
 
+            if (!("source" in target) || typeof target.source !== "string") {
+                console.error(
+                    `ERROR: ${pkgJson.name} export "${subPath}" must declare a source condition.`,
+                );
+                return false;
+            }
+
             const conditions = Object.keys(target);
-            const {source, types, default: defaultTarget} = target;
-            if (
-                subPath !== "." &&
-                conditions.length === 1 &&
-                typeof source === "string"
-            ) {
+            if (subPath !== "." && conditions.length === 1) {
                 return true;
+            }
+
+            if (!("types" in target) || !("default" in target)) {
+                console.error(
+                    `ERROR: ${pkgJson.name} export "${subPath}" must declare types and default conditions.`,
+                );
+                return false;
             }
 
             const entryName =
@@ -174,9 +183,8 @@ const checkExports = (pkgJson): boolean => {
                 !conditions.every((condition) =>
                     ["source", "types", "default"].includes(condition),
                 ) ||
-                typeof source !== "string" ||
-                types !== `./dist/${entryName}.d.ts` ||
-                defaultTarget !== `./dist/${entryName}.js`
+                target.types !== `./dist/${entryName}.d.ts` ||
+                target.default !== `./dist/${entryName}.js`
             ) {
                 console.error(
                     `ERROR: ${pkgJson.name} export "${subPath}" must declare source, types, and default conditions with matching dist paths.`,
