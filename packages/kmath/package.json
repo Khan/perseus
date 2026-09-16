@@ -34,7 +34,7 @@
         "@khanacademy/perseus-utils": "workspace:*"
     },
     "devDependencies": {
-        "perseus-build-settings": "workspace:*"
+        "@internal/build-settings": "workspace:*"
     },
     "keywords": [],
     "khan": {
