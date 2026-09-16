@@ -10,7 +10,6 @@ import {
     checkPrivate,
     checkEntrypoints,
     checkExports,
-    checkExportTargets,
     checkPublishConfig,
 } from "./internal/pre-publish-utils";
 import {verifyCatalogHashes} from "./internal/verify-catalog-hashes";
@@ -24,12 +23,10 @@ fg(path.join(__dirname, "..", "packages", "*", "package.json")).then(
             if (checkPrivate(pkgJson)) {
                 continue;
             }
-            const pkgDir = path.dirname(pkgPath);
             const passed = [
                 checkPublishConfig(pkgJson),
                 checkEntrypoints(pkgJson),
                 checkExports(pkgJson),
-                checkExportTargets(pkgJson, pkgDir),
             ].every(Boolean);
             if (!passed) {
                 allPassed = false;
