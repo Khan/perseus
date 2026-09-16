@@ -1,7 +1,7 @@
 import {readFileSync} from "node:fs";
 import {dirname, join, resolve} from "node:path";
 
-import react from "@vitejs/plugin-react-swc";
+import react from "@vitejs/plugin-react";
 import {glob} from "fast-glob";
 import {defineConfig} from "vite";
 

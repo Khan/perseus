@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import {fileURLToPath} from "url";
 
-import react from "@vitejs/plugin-react-swc";
+import react from "@vitejs/plugin-react";
 import {defineConfig} from "cypress";
 import {mergeConfig} from "vite";
 import istanbul from "vite-plugin-istanbul";

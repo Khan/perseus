@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import {fileURLToPath} from "node:url";
 
-import react from "@vitejs/plugin-react-swc";
+import react from "@vitejs/plugin-react";
 import MagicString from "magic-string";
 import postcssImport from "postcss-import";
 import postcssUrl from "postcss-url";
