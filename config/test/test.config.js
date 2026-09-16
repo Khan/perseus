@@ -27,10 +27,10 @@ const pkgMap = fg
             ...map,
             // Use the root export's source condition so tests can run without
             // compiling every package first.
-            // NOTE(jeremy): We use strip the leading "@khanacademy/" namespace
-            // from all package names because our local directory structure
-            // doesn't include that. So "@khanacademy/perseus" becomes "perseus"
-            [`^${pkgJson.name}$`]: `<rootDir>/packages/${pkgJson.name.replace(/^@khanacademy\//, "")}/${pkgJson.exports["."].source}`,
+            [`^${pkgJson.name}$`]: path.join(
+                path.dirname(pkgJsonPath),
+                pkgJson.exports["."].source,
+            ),
         };
     }, {});
 
