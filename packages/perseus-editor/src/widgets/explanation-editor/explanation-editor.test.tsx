@@ -1,14 +1,22 @@
 import {Dependencies} from "@khanacademy/perseus";
+import {fillInTheBlankRegistration} from "@khanacademy/perseus/widgets/fill-in-the-blank" /* widget-manifest import */;
+import {registerWidgets} from "@khanacademy/perseus/widgets/registry" /* widget-manifest import */;
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {testDependencies} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies-data";
 
 import ExplanationEditor from "./explanation-editor";
 
 import type {UserEvent} from "@testing-library/user-event";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([fillInTheBlankRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("explanation-editor", () => {
     let userEvent: UserEvent;
     beforeEach(() => {

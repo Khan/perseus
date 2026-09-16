@@ -2,7 +2,7 @@ import {ApiOptions, Dependencies} from "@khanacademy/perseus";
 import {act, render, screen} from "@testing-library/react";
 import * as React from "react";
 
-import {testDependencies} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies-data";
 
 import PlotterEditor from "./plotter-editor";
 

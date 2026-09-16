@@ -11,12 +11,20 @@ import * as Dependencies from "../../dependencies";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../testing/test-dependencies";
-import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
+} from "../../testing/test-dependencies-data";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
+import {matrixRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([matrixRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 /**
  * [LEMS-3185] These are tests for the legacy Serialization API.
  *
@@ -55,7 +63,7 @@ describe("Matrix serialization", () => {
     }
 
     beforeAll(() => {
-        registerAllWidgetsForTesting();
+        registerManifestWidgets();
     });
 
     let userEvent: UserEvent;

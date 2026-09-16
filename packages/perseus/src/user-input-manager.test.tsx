@@ -15,11 +15,26 @@ import * as React from "react";
 import UserInputManager, {
     sharedInitializeUserInput,
 } from "./user-input-manager";
-import {registerAllWidgetsForTesting} from "./util/register-all-widgets-for-testing";
+import {registerWidgets} from "./widgets" /* widget-manifest import */;
+import {dropdownRegistration} from "./widgets/dropdown" /* widget-manifest import */;
+import {expressionRegistration} from "./widgets/expression" /* widget-manifest import */;
+import {groupRegistration} from "./widgets/group" /* widget-manifest import */;
+import {numberLineRegistration} from "./widgets/number-line" /* widget-manifest import */;
 
 import type {InitializeUserInputCallback} from "./user-input-manager";
 import type {UserEvent} from "@testing-library/user-event";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([
+        dropdownRegistration,
+        expressionRegistration,
+        groupRegistration,
+        numberLineRegistration,
+    ]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 function generateNumberLineMap(): PerseusWidgetsMap {
     return {
         "number-line 1": {
@@ -72,7 +87,7 @@ function generateExpressionWidgetsMap(): PerseusWidgetsMap {
 
 describe("sharedInitializeUserInput", () => {
     beforeAll(() => {
-        registerAllWidgetsForTesting();
+        registerManifestWidgets();
     });
 
     it("initializes a number line", () => {
@@ -113,7 +128,7 @@ describe("sharedInitializeUserInput", () => {
 
 describe("UserInputManager", () => {
     beforeAll(() => {
-        registerAllWidgetsForTesting();
+        registerManifestWidgets();
     });
 
     let userEvent: UserEvent;

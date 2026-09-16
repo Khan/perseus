@@ -1,10 +1,26 @@
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {groupRegistration} from "../../widgets/group" /* widget-manifest import */;
+import {imageRegistration} from "../../widgets/image" /* widget-manifest import */;
+import {numericInputRegistration} from "../../widgets/numeric-input" /* widget-manifest import */;
+import {radioRegistration} from "../../widgets/radio" /* widget-manifest import */;
 
 import {getPromptJSON} from "./group-ai-utils";
 import {question1} from "./group-ai-utils.testdata";
 
 import type {RendererPromptJSON} from "../prompt-types";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([
+        groupRegistration,
+        imageRegistration,
+        numericInputRegistration,
+        radioRegistration,
+    ]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("Group AI utils", () => {
     beforeEach(() => {
         // Mocked for loading graphie in svg-image

@@ -7,12 +7,21 @@ import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies-data";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
+import {freeResponseRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([freeResponseRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("free-response widget", () => {
     let userEvent: UserEvent;
 

@@ -11,6 +11,12 @@ import {
     lintPerseusRenderer,
 } from "../lint-content";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    CoreWidgetRegistry.registerLogics([radioLogic]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 // Long paragraph triggers the `long-paragraph` rule (see long-paragraph.test.ts).
 const longParagraph = new Array(50).fill("lorem ipsum").join(" ");
 

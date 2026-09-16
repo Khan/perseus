@@ -1,9 +1,17 @@
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {phetSimulationRegistration} from "../../widgets/phet-simulation" /* widget-manifest import */;
 
 import {getPromptJSON} from "./phet-simulation-ai-utils";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([phetSimulationRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const question1: PerseusRenderer = {
     content:
         "Do this fun PhET simulation! A projectile data lab!\n[[\u2603 phet-simulation 1]]\n",

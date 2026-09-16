@@ -3,9 +3,14 @@ import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies-data";
 import {scorePerseusItemTesting} from "../../util/test-utils";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
+import {dropdownRegistration} from "../dropdown" /* widget-manifest import */;
+import {imageRegistration} from "../image" /* widget-manifest import */;
+import {numericInputRegistration} from "../numeric-input" /* widget-manifest import */;
+import {radioRegistration} from "../radio" /* widget-manifest import */;
 
 import {
     getFullGroupTestItem,
@@ -15,6 +20,20 @@ import {
 
 import type {UserEvent} from "@testing-library/user-event";
 
+import {groupRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([
+        dropdownRegistration,
+        groupRegistration,
+        imageRegistration,
+        numericInputRegistration,
+        radioRegistration,
+    ]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("group widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {

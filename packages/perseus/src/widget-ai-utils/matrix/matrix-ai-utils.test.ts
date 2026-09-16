@@ -2,7 +2,9 @@ import {generateMatrixOptions} from "@khanacademy/perseus-core";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {matrixRegistration} from "../../widgets/matrix" /* widget-manifest import */;
 
 import {getPromptJSON} from "./matrix-ai-utils";
 
@@ -12,6 +14,12 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([matrixRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const question: PerseusRenderer = {
     content:
         "**Perform the row operation, $R_3 \\leftrightarrow R_2$, on the following matrix.**\n\n$\\left[\\begin{array} {ccc}\n5 & -2 & 1 & 1 \\\\\n3 & 0 & 0 & -2 \\\\\n1 & 1 & 7 & -3 \\end{array} \\right] $\n\n[[\u2603 matrix 1]]\n",

@@ -6,12 +6,14 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
+import {labelImageRegistration} from ".." /* widget-manifest import */;
 import * as Dependencies from "../../../dependencies";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../testing/test-dependencies";
+} from "../../../testing/test-dependencies-data";
 import {scorePerseusItemTesting} from "../../../util/test-utils";
+import {registerWidgets} from "../../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../../__testutils__/renderQuestion";
 import {LabelImage, getComputedSelectedState} from "../label-image";
 
@@ -24,6 +26,12 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([labelImageRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const emptyMarker: InteractiveMarkerType = {
     label: "",
     answers: [],

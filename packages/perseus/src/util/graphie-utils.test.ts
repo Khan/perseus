@@ -1,6 +1,6 @@
 import {Dependencies} from "..";
 import {Log} from "../logging/log";
-import {testDependencies} from "../testing/test-dependencies";
+import {testDependencies} from "../testing/test-dependencies-data";
 
 import {
     parseDataFromJSONP,

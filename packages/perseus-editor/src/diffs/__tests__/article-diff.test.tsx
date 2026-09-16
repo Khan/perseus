@@ -1,4 +1,6 @@
 import {Dependencies} from "@khanacademy/perseus";
+import {expressionRegistration} from "@khanacademy/perseus/widgets/expression" /* widget-manifest import */;
+import {registerWidgets} from "@khanacademy/perseus/widgets/registry" /* widget-manifest import */;
 import {
     generateExpressionOptions,
     generateExpressionWidget,
@@ -10,15 +12,20 @@ import * as React from "react";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../testing/test-dependencies";
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
+} from "../../testing/test-dependencies-data";
 import ArticleDiff from "../article-diff";
 
 import type {PerseusArticle} from "@khanacademy/perseus-core";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([expressionRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("ArticleDiff", () => {
     beforeAll(() => {
-        registerAllWidgetsAndEditorsForTesting();
+        registerManifestWidgets();
     });
 
     beforeEach(() => {

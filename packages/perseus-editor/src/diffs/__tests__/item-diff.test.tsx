@@ -1,4 +1,6 @@
 import {Dependencies} from "@khanacademy/perseus";
+import {imageRegistration} from "@khanacademy/perseus/widgets/image" /* widget-manifest import */;
+import {registerWidgets} from "@khanacademy/perseus/widgets/registry" /* widget-manifest import */;
 import {
     generateImageOptions,
     generateImageWidget,
@@ -14,15 +16,20 @@ import {mockImageLoading} from "../../testing/image-loader-utils";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../testing/test-dependencies";
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
+} from "../../testing/test-dependencies-data";
 import ItemDiff from "../item-diff";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([imageRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("ItemDiff", () => {
     let unmockImageLoading: () => void;
 
     beforeAll(() => {
-        registerAllWidgetsAndEditorsForTesting();
+        registerManifestWidgets();
     });
 
     beforeEach(() => {

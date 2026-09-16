@@ -6,6 +6,12 @@ import {expectWarning, expectPass} from "../__tests__/test-utils";
 
 import inaccessibleWidgetRule from "./inaccessible-widget";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    CoreWidgetRegistry.registerLogics([categorizerLogic, radioLogic]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("inaccessible-widget", () => {
     beforeEach(() => {
         CoreWidgetRegistry.registerLogics([categorizerLogic, radioLogic]);

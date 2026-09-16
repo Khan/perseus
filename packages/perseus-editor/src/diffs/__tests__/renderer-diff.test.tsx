@@ -1,3 +1,6 @@
+import {imageRegistration} from "@khanacademy/perseus/widgets/image" /* widget-manifest import */;
+import {radioRegistration} from "@khanacademy/perseus/widgets/radio" /* widget-manifest import */;
+import {registerWidgets} from "@khanacademy/perseus/widgets/registry" /* widget-manifest import */;
 import {
     generateImageOptions,
     generateImageWidget,
@@ -8,16 +11,21 @@ import {render} from "@testing-library/react";
 import * as React from "react";
 
 import {mockImageLoading} from "../../testing/image-loader-utils";
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import RendererDiff from "../renderer-diff";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([imageRegistration, radioRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("RendererDiff", () => {
     let unmockImageLoading: () => void;
 
     beforeAll(() => {
-        registerAllWidgetsAndEditorsForTesting();
+        registerManifestWidgets();
     });
 
     beforeEach(() => {

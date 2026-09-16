@@ -3,7 +3,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies-data";
 
 import InputWithExamples from "./input-with-examples";
 

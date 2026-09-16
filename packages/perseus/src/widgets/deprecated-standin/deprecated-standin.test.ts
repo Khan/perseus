@@ -1,8 +1,17 @@
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies-data";
 import {scorePerseusItemTesting} from "../../util/test-utils";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
+import {deprecatedStandinRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([deprecatedStandinRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const question = {
     content:
         "Read the excerpt and answer the question below. \n\nThe Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with [[\u2603 widget 1]], upon these conditions.",

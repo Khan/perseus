@@ -10,6 +10,12 @@ import {gatherLinterIssues} from "./gather-linter-issues";
 
 import type {Issue} from "../components/issues-panel";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    CoreWidgetRegistry.registerLogics([categorizerLogic]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const cleanQuestion = {content: "What is $2 + 2$?", images: {}, widgets: {}};
 const cleanHint = {content: "The answer is $4$.", images: {}, widgets: {}};
 

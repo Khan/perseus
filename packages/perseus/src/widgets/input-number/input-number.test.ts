@@ -10,12 +10,13 @@ import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies-data";
 import {
     getAnswerfulItem,
     getAnswerlessItem,
     scorePerseusItemTesting,
 } from "../../util/test-utils";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import InputNumber from "./input-number";
@@ -24,6 +25,14 @@ import {question3 as question} from "./input-number.testdata";
 import type {MathFormat, PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
+import {inputNumberRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([inputNumberRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("input-number", function () {
     let userEvent: UserEvent;
     beforeEach(() => {

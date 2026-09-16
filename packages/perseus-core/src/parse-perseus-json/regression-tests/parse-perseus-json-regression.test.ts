@@ -3,9 +3,35 @@ import {join} from "path";
 
 import _ from "underscore";
 
-import {initPerseusCore} from "../../init";
+import {CoreWidgetRegistry} from "../../registry" /* widget-manifest import */;
 import splitPerseusItem from "../../utils/split-perseus-item";
+import categorizerLogic from "../../widgets/categorizer" /* widget-manifest import */;
 import {getCurrentVersion} from "../../widgets/core-widget-registry";
+import csProgramLogic from "../../widgets/cs-program" /* widget-manifest import */;
+import definitionLogic from "../../widgets/definition" /* widget-manifest import */;
+import deprecatedStandinLogic from "../../widgets/deprecated-standin" /* widget-manifest import */;
+import dropdownLogic from "../../widgets/dropdown" /* widget-manifest import */;
+import explanationLogic from "../../widgets/explanation" /* widget-manifest import */;
+import expressionLogic from "../../widgets/expression" /* widget-manifest import */;
+import gradedGroupLogic from "../../widgets/graded-group" /* widget-manifest import */;
+import gradedGroupSetLogic from "../../widgets/graded-group-set" /* widget-manifest import */;
+import grapherLogic from "../../widgets/grapher" /* widget-manifest import */;
+import groupLogic from "../../widgets/group" /* widget-manifest import */;
+import iframeLogic from "../../widgets/iframe" /* widget-manifest import */;
+import imageLogic from "../../widgets/image" /* widget-manifest import */;
+import inputNumberLogic from "../../widgets/input-number" /* widget-manifest import */;
+import interactionLogic from "../../widgets/interaction" /* widget-manifest import */;
+import interactiveGraphLogic from "../../widgets/interactive-graph" /* widget-manifest import */;
+import labelImageLogic from "../../widgets/label-image" /* widget-manifest import */;
+import matcherLogic from "../../widgets/matcher" /* widget-manifest import */;
+import matrixLogic from "../../widgets/matrix" /* widget-manifest import */;
+import measurerLogic from "../../widgets/measurer" /* widget-manifest import */;
+import numberLineLogic from "../../widgets/number-line" /* widget-manifest import */;
+import numericInputLogic from "../../widgets/numeric-input" /* widget-manifest import */;
+import ordererLogic from "../../widgets/orderer" /* widget-manifest import */;
+import plotterLogic from "../../widgets/plotter" /* widget-manifest import */;
+import radioLogic from "../../widgets/radio" /* widget-manifest import */;
+import sorterLogic from "../../widgets/sorter" /* widget-manifest import */;
 import {anySuccess} from "../general-purpose-parsers/test-helpers";
 import {
     parseAndMigratePerseusArticle,
@@ -33,6 +59,39 @@ import type {
     PerseusWidgetsMap,
 } from "../../data-schema";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    CoreWidgetRegistry.registerLogics([
+        categorizerLogic,
+        csProgramLogic,
+        definitionLogic,
+        deprecatedStandinLogic,
+        dropdownLogic,
+        explanationLogic,
+        expressionLogic,
+        gradedGroupLogic,
+        gradedGroupSetLogic,
+        grapherLogic,
+        groupLogic,
+        iframeLogic,
+        imageLogic,
+        inputNumberLogic,
+        interactionLogic,
+        interactiveGraphLogic,
+        labelImageLogic,
+        matcherLogic,
+        matrixLogic,
+        measurerLogic,
+        numberLineLogic,
+        numericInputLogic,
+        ordererLogic,
+        plotterLogic,
+        radioLogic,
+        sorterLogic,
+    ]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const itemDataDir = join(__dirname, "item-data");
 const itemDataFiles = fs.readdirSync(itemDataDir);
 
@@ -47,7 +106,7 @@ const rendererDataFiles = fs.readdirSync(rendererDataDir);
 
 describe("parseAndMigratePerseusItem", () => {
     beforeAll(() => {
-        initPerseusCore();
+        registerManifestWidgets();
     });
 
     describe.each(itemDataFiles)("given %s", (filename) => {
@@ -237,7 +296,7 @@ describe("parseAndMigratePerseusArticle", () => {
 
 describe("parseAndMigrateUserInputMap", () => {
     beforeAll(() => {
-        initPerseusCore();
+        registerManifestWidgets();
     });
 
     describe.each(userInputDataFiles)("given the data from %s", (filename) => {
@@ -285,7 +344,7 @@ describe("parseAndMigrateUserInputMap", () => {
 
 describe("parseAndMigratePerseusRenderer", () => {
     beforeAll(() => {
-        initPerseusCore();
+        registerManifestWidgets();
     });
 
     describe.each(rendererDataFiles)("given %s", (filename) => {

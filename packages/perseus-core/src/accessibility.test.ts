@@ -1,5 +1,5 @@
 import {isItemAccessible} from "./accessibility";
-import {initPerseusCore} from "./init";
+import {CoreWidgetRegistry} from "./registry" /* widget-manifest import */;
 import {
     generateExplanationOptions,
     generateExplanationWidget,
@@ -22,12 +22,31 @@ import {
     generateTestPerseusItem,
     generateTestPerseusRenderer,
 } from "./utils/test-utils";
+import explanationLogic from "./widgets/explanation" /* widget-manifest import */;
+import imageLogic from "./widgets/image" /* widget-manifest import */;
+import inputNumberLogic from "./widgets/input-number" /* widget-manifest import */;
+import interactiveGraphLogic from "./widgets/interactive-graph" /* widget-manifest import */;
+import matcherLogic from "./widgets/matcher" /* widget-manifest import */;
+import radioLogic from "./widgets/radio" /* widget-manifest import */;
 
 import type {PerseusItem} from "./data-schema";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    CoreWidgetRegistry.registerLogics([
+        explanationLogic,
+        imageLogic,
+        inputNumberLogic,
+        interactiveGraphLogic,
+        matcherLogic,
+        radioLogic,
+    ]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("isItemAccessible", () => {
     beforeEach(() => {
-        initPerseusCore();
+        registerManifestWidgets();
     });
 
     describe("widgets", () => {

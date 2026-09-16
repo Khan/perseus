@@ -3,13 +3,13 @@ import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
-import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
+import {testDependencies} from "../../testing/test-dependencies-data";
 import {
     getAnswerfulItem,
     getAnswerlessItem,
     scorePerseusItemTesting,
 } from "../../util/test-utils";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import CategorizerExport from "./categorizer";
@@ -19,6 +19,14 @@ import type {APIOptions} from "../../types";
 import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
+import {categorizerRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([categorizerRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("categorizer widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
@@ -188,7 +196,7 @@ describe("categorizer widget", () => {
 
     describe("interactive: full vs answerless", () => {
         beforeAll(() => {
-            registerAllWidgetsForTesting();
+            registerManifestWidgets();
         });
 
         let userEvent: UserEvent;

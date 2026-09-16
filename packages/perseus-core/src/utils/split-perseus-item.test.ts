@@ -1,5 +1,12 @@
-import {initPerseusCore} from "../init";
+import {CoreWidgetRegistry} from "../registry" /* widget-manifest import */;
 import {applyDefaultsToWidgets} from "../widgets/apply-defaults";
+import dropdownLogic from "../widgets/dropdown" /* widget-manifest import */;
+import explanationLogic from "../widgets/explanation" /* widget-manifest import */;
+import expressionLogic from "../widgets/expression" /* widget-manifest import */;
+import groupLogic from "../widgets/group" /* widget-manifest import */;
+import interactiveGraphLogic from "../widgets/interactive-graph" /* widget-manifest import */;
+import numericInputLogic from "../widgets/numeric-input" /* widget-manifest import */;
+import radioLogic from "../widgets/radio" /* widget-manifest import */;
 
 import {
     generateExplanationOptions,
@@ -10,9 +17,23 @@ import {generateTestPerseusItem} from "./test-utils";
 
 import type {PerseusItem, PerseusRenderer, RadioWidget} from "../data-schema";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    CoreWidgetRegistry.registerLogics([
+        dropdownLogic,
+        explanationLogic,
+        expressionLogic,
+        groupLogic,
+        interactiveGraphLogic,
+        numericInputLogic,
+        radioLogic,
+    ]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("splitPerseusItem", () => {
     beforeAll(() => {
-        initPerseusCore();
+        registerManifestWidgets();
     });
 
     function getFullRadio(): RadioWidget {

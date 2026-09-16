@@ -7,12 +7,20 @@ import * as React from "react";
 
 import {renderQuestion} from "../../__tests__/test-utils";
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
-import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
+import {testDependencies} from "../../testing/test-dependencies-data";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 
 import type {MatcherHandle} from "./matcher";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 
+import {matcherRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([matcherRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 /**
  * [LEMS-3185] These are tests for the legacy Serialization API.
  *
@@ -51,7 +59,7 @@ describe("Matcher serialization", () => {
     }
 
     beforeAll(() => {
-        registerAllWidgetsForTesting();
+        registerManifestWidgets();
     });
 
     beforeEach(() => {

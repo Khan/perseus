@@ -3,7 +3,7 @@ import {render} from "@testing-library/react";
 import * as React from "react";
 
 import * as Dependencies from "../../../dependencies";
-import {testDependencies} from "../../../testing/test-dependencies";
+import {testDependencies} from "../../../testing/test-dependencies-data";
 import {AnswerPill} from "../answer-pill";
 
 describe("AnswerPill", () => {

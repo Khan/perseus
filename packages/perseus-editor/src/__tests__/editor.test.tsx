@@ -10,19 +10,34 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import Editor from "../editor";
+import {registerEditors} from "../editor-registry" /* widget-manifest import */;
 import {getFeatureFlags} from "../testing/feature-flags-util";
 import {mockImageLoading} from "../testing/image-loader-utils";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../testing/test-dependencies";
+} from "../testing/test-dependencies-data";
 import * as clipboardUtil from "../util/clipboard";
-import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
+import {expressionEditorRegistration} from "../widgets/expression-editor" /* widget-manifest import */;
+import {fillInTheBlankEditorRegistration} from "../widgets/fill-in-the-blank-editor" /* widget-manifest import */;
+import {imageEditorRegistration} from "../widgets/image-editor" /* widget-manifest import */;
+import {radioEditorRegistration} from "../widgets/radio-editor" /* widget-manifest import */;
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {UserEvent} from "@testing-library/user-event";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerEditors([
+        expressionEditorRegistration,
+        fillInTheBlankEditorRegistration,
+        imageEditorRegistration,
+        radioEditorRegistration,
+    ]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const Harnessed = (props: Partial<PropsFor<typeof Editor>>) => {
     return (
         <DependenciesContext.Provider value={testDependenciesV2}>
@@ -50,7 +65,7 @@ const Harnessed = (props: Partial<PropsFor<typeof Editor>>) => {
 
 describe("Editor", () => {
     beforeAll(() => {
-        registerAllWidgetsAndEditorsForTesting();
+        registerManifestWidgets();
     });
 
     let userEvent: UserEvent;

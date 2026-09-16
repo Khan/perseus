@@ -5,7 +5,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {clone} from "../../../testing/object-utils";
-import {testDependencies} from "../../../testing/test-dependencies";
+import {testDependencies} from "../../../testing/test-dependencies-data";
 
 import StartCoordsSettings from "./start-coords-settings";
 

@@ -1,11 +1,20 @@
 import {act} from "@testing-library/react";
 
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies-data";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./cs-program.testdata";
 
+import {csProgramRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([csProgramRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 // The embedded scratchpad reports its result to the widget by posting a
 // message to `window`. This dispatches such a message the way the iframe would.
 function postResultFromIframe(data: unknown): void {

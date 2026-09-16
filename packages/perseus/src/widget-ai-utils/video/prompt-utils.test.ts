@@ -4,12 +4,20 @@ import {
 } from "@khanacademy/perseus-core";
 
 import {generateVideoWidget} from "../../../../perseus-core/src/utils/generators/video-widget-generator";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {videoRegistration} from "../../widgets/video" /* widget-manifest import */;
 
 import {getPromptJSON} from "./video-ai-utils";
 
 import type {UnsupportedWidgetPromptJSON} from "../unsupported-widget";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([videoRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 export const question: PerseusRenderer = generateTestPerseusRenderer({
     content:
         "Watch the Biogeography: Where Life Lives video to find the answer.\n\n[[\u2603 video 1]]\n\n",

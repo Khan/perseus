@@ -13,10 +13,19 @@ import {
 } from "@khanacademy/perseus-core";
 import {screen} from "@testing-library/react";
 
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
+import {interactiveGraphRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([interactiveGraphRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const questionGenerators: Record<
     string,
     (isStatic: boolean) => PerseusRenderer

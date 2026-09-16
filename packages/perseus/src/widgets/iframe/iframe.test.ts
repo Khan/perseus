@@ -1,14 +1,23 @@
 import {act} from "react-dom/test-utils";
 
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies-data";
 import {scorePerseusItemTesting} from "../../util/test-utils";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./iframe.testdata";
 
 import type {APIOptions} from "../../types";
 
+import {iframeRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([iframeRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("iframe widget", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(

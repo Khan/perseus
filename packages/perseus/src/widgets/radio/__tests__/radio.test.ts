@@ -7,10 +7,12 @@ import {scoreRadio} from "@khanacademy/perseus-score";
 import {screen, fireEvent} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
+import {radioRegistration} from ".." /* widget-manifest import */;
 import * as Dependencies from "../../../dependencies";
 import {clone} from "../../../testing/object-utils";
-import {testDependencies} from "../../../testing/test-dependencies";
+import {testDependencies} from "../../../testing/test-dependencies-data";
 import {scorePerseusItemTesting} from "../../../util/test-utils";
+import {registerWidgets} from "../../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../../__testutils__/renderQuestion";
 
 import {
@@ -23,6 +25,12 @@ import {
 
 import type {UserEvent} from "@testing-library/user-event";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([radioRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const selectOption = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
     index: number,

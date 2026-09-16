@@ -20,14 +20,22 @@ import WrappedServerItemRenderer from "../../server-item-renderer";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../testing/test-dependencies";
-import {registerWidget} from "../../widgets";
+} from "../../testing/test-dependencies-data";
+import {registerWidget, registerWidgets} from "../../widgets";
 
 import ExpressionExport from "./expression";
 import {expressionItemMultipleEquivalentAnswers} from "./expression.testdata";
 
 import type {UserEvent} from "@testing-library/user-event";
 
+import {expressionRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([expressionRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const MQ = mathQuillInstance;
 
 function RendererWithContext({item}) {

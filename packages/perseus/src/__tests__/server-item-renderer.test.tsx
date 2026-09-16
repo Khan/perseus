@@ -26,13 +26,16 @@ import ServerItemRenderer from "../server-item-renderer";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../testing/test-dependencies";
+} from "../testing/test-dependencies-data";
 import {registerWidgets} from "../widgets";
+import {expressionRegistration} from "../widgets/expression" /* widget-manifest import */;
 import {
     mockAssetLoadingWidgetRegistration,
     mockedAssetItem,
 } from "../widgets/mock-widgets/mock-asset-loading-widget";
 import {mockWidgetRegistration} from "../widgets/mock-widgets/mock-widget";
+import {numericInputRegistration} from "../widgets/numeric-input" /* widget-manifest import */;
+import {radioRegistration} from "../widgets/radio" /* widget-manifest import */;
 
 import {renderQuestion} from "./test-utils";
 
@@ -41,6 +44,16 @@ import type {MockAssetLoadingWidget} from "../widgets/mock-widgets/mock-asset-lo
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {UserEvent} from "@testing-library/user-event";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([
+        expressionRegistration,
+        numericInputRegistration,
+        radioRegistration,
+    ]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("server item renderer", () => {
     beforeAll(() => {
         registerWidgets([mockWidgetRegistration]);

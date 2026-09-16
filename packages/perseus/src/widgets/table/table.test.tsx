@@ -7,12 +7,21 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {generateTableRenderer} from "./test-util";
 
 import type {UserEvent} from "@testing-library/user-event";
 
+import {tableRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([tableRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 function getFullItem(): PerseusItem {
     return generateTestPerseusItem({question: generateTableRenderer()});
 }

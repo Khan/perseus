@@ -1,7 +1,16 @@
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./python-program.testdata";
 
+import {pythonProgramRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([pythonProgramRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("python-program widget", () => {
     it("should snapshot", () => {
         // Arrange

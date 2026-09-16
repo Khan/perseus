@@ -1,9 +1,10 @@
 import invariant from "tiny-invariant";
 
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies-data";
 import {waitForInitialGraphieRender} from "../../testing/wait";
 import {scorePerseusItemTesting} from "../../util/test-utils";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {
@@ -11,6 +12,14 @@ import {
     questionWithMovablePointMissingConstraints,
 } from "./interaction.testdata";
 
+import {interactionRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([interactionRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("interaction widget", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(

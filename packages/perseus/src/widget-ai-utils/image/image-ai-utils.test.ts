@@ -1,11 +1,19 @@
 import {generateImageOptions} from "@khanacademy/perseus-core";
 
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {imageRegistration} from "../../widgets/image" /* widget-manifest import */;
 
 import {getPromptJSON} from "./image-ai-utils";
 
 import type {ImageWidget} from "@khanacademy/perseus-core";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([imageRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const question = {
     content:
         "[[☃ image 1]]\n\n=====\n\nA quilter wants to make the design shown at left using the Golden Ratio. Specifically, he wants the ratio of the triangle heights $A:B$ and $B:C$ to each equal $1.62$. If the quilter makes the triangle height $A=8\\ \\text{in}$, approximately how tall should he make triangle height $C$?",

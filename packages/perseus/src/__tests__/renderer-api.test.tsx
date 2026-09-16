@@ -7,10 +7,11 @@ import * as Dependencies from "../dependencies";
 import {ClassNames} from "../perseus-api";
 import Renderer from "../renderer";
 import {mockStrings} from "../strings";
-import {testDependencies} from "../testing/test-dependencies";
+import {testDependencies} from "../testing/test-dependencies-data";
 import {registerWidgets} from "../widgets";
 import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
 import {mockWidgetRegistration} from "../widgets/mock-widgets/mock-widget";
+import {tableRegistration} from "../widgets/table" /* widget-manifest import */;
 
 import imageItem from "./test-items/image-item";
 import mockWidget1Item from "./test-items/mock-widget-1-item";
@@ -19,6 +20,12 @@ import tableItem from "./test-items/table-item";
 
 import type {UserEvent} from "@testing-library/user-event";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([tableRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const itemWidget = mockWidget1Item;
 
 describe("Perseus API", function () {

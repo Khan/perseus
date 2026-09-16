@@ -5,12 +5,20 @@ import {
 } from "@khanacademy/perseus-core";
 import {act} from "@testing-library/react";
 
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {expressionRegistration} from "../../widgets/expression" /* widget-manifest import */;
 
 import {getPromptJSON} from "./expression-ai-utils";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([expressionRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const expression = {
     question: {
         content: "[[☃ expression 1]]",

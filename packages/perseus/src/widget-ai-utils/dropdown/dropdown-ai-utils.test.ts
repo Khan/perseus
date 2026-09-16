@@ -7,12 +7,20 @@ import {
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {dropdownRegistration} from "../../widgets/dropdown" /* widget-manifest import */;
 
 import {getPromptJSON} from "./dropdown-ai-utils";
 
 import type {UserEvent} from "@testing-library/user-event";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([dropdownRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const question1: PerseusRenderer = {
     content:
         "The total number of boxes the forklift can carry is [[☃ dropdown 1]] $60$.",

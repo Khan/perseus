@@ -14,9 +14,9 @@ import * as Dependencies from "../../dependencies";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../testing/test-dependencies";
-import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
+} from "../../testing/test-dependencies-data";
 import {scorePerseusItemTesting} from "../../util/test-utils";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import ExpressionWidgetExport from "./expression";
@@ -30,6 +30,14 @@ import {
 import type {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
+import {expressionRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([expressionRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const renderAndAnswer = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
     itemData: PerseusItem,
@@ -655,7 +663,7 @@ describe("Expression Widget", function () {
 
     describe("interactive: full vs answerless", () => {
         beforeAll(() => {
-            registerAllWidgetsForTesting();
+            registerManifestWidgets();
         });
 
         let userEvent: UserEvent;

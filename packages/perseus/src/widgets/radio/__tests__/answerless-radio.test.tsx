@@ -6,9 +6,10 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
+import {radioRegistration} from ".." /* widget-manifest import */;
 import * as Dependencies from "../../../dependencies";
-import {testDependencies} from "../../../testing/test-dependencies";
-import {registerAllWidgetsForTesting} from "../../../util/register-all-widgets-for-testing";
+import {testDependencies} from "../../../testing/test-dependencies-data";
+import {registerWidgets} from "../../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../../__testutils__/renderQuestion";
 
 import type {
@@ -18,6 +19,12 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([radioRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 function getRadioWidgetOptions(): PerseusRadioWidgetOptions {
     return {
         choices: [
@@ -86,7 +93,7 @@ function getAnswerlessItem(): PerseusItem {
 
 describe("interactive: full vs answerless", () => {
     beforeAll(() => {
-        registerAllWidgetsForTesting();
+        registerManifestWidgets();
     });
 
     let userEvent: UserEvent;

@@ -10,9 +10,9 @@ import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
-import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
+import {testDependencies} from "../../testing/test-dependencies-data";
 import {scorePerseusItemTesting} from "../../util/test-utils";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {basicDropdown} from "./dropdown.testdata";
@@ -20,6 +20,14 @@ import {basicDropdown} from "./dropdown.testdata";
 import type {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
+import {dropdownRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([dropdownRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("Dropdown widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
@@ -216,7 +224,7 @@ describe("Dropdown widget", () => {
 
     describe("interactive: full vs answerless", () => {
         beforeAll(() => {
-            registerAllWidgetsForTesting();
+            registerManifestWidgets();
         });
 
         let userEvent: UserEvent;

@@ -27,15 +27,38 @@ import {
 import {testWidgetIdExtraction} from "../testing/extract-widget-ids-contract-tests";
 import {mockImageLoading} from "../testing/image-loader-utils";
 import {clone} from "../testing/object-utils";
-import {testDependencies} from "../testing/test-dependencies";
+import {testDependencies} from "../testing/test-dependencies-data";
 import {registerWidgets} from "../widgets";
 import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
+import {definitionRegistration} from "../widgets/definition" /* widget-manifest import */;
+import {deprecatedStandinRegistration} from "../widgets/deprecated-standin" /* widget-manifest import */;
+import {dropdownRegistration} from "../widgets/dropdown" /* widget-manifest import */;
+import {expressionRegistration} from "../widgets/expression" /* widget-manifest import */;
+import {groupRegistration} from "../widgets/group" /* widget-manifest import */;
 import {simpleGroupQuestion} from "../widgets/group/group.testdata";
+import {imageRegistration} from "../widgets/image" /* widget-manifest import */;
 import {mockWidgetRegistration} from "../widgets/mock-widgets/mock-widget";
+import {numericInputRegistration} from "../widgets/numeric-input" /* widget-manifest import */;
+import {radioRegistration} from "../widgets/radio" /* widget-manifest import */;
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([
+        definitionRegistration,
+        deprecatedStandinRegistration,
+        dropdownRegistration,
+        expressionRegistration,
+        groupRegistration,
+        imageRegistration,
+        numericInputRegistration,
+        radioRegistration,
+    ]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 // NOTE(jeremy): We can't use an automatic mock for the translation linter,
 // because one of it's "instance" methods is created using `debounce` and Jest
 // doesn't provide a mocked instance method for it (I suspect that Jest doesn't

@@ -4,7 +4,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import React from "react";
 
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies-data";
 
 import {initializeGraphState} from "./reducer/initialize-graph-state";
 import * as InteractiveGraphAction from "./reducer/interactive-graph-action";

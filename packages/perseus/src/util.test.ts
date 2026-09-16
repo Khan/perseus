@@ -7,6 +7,18 @@ import radioLogic from "@khanacademy/perseus-core/widgets/radio";
 
 import Util, {noParagraphForInlineWidget} from "./util";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    CoreWidgetRegistry.registerLogics([
+        definitionLogic,
+        expressionLogic,
+        inputNumberLogic,
+        numericInputLogic,
+        radioLogic,
+    ]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("firstNumericalParse", () => {
     it("regression LEMS-2962: handles fractions properly", () => {
         expect(Util.firstNumericalParse("6/8")).toBe(0.75);

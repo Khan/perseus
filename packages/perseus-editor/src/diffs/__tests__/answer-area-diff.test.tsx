@@ -2,7 +2,6 @@ import {getDefaultAnswerArea} from "@khanacademy/perseus-core";
 import {render} from "@testing-library/react";
 import * as React from "react";
 
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import {AnswerAreaDiff} from "../answer-area-diff";
 
 import type {PerseusAnswerArea} from "@khanacademy/perseus-core";
@@ -20,9 +19,7 @@ describe("AnswerAreaDiff", () => {
         periodicTableWithKey: true,
     };
 
-    beforeAll(() => {
-        registerAllWidgetsAndEditorsForTesting();
-    });
+    beforeAll(() => {});
 
     it("renders an answer area in the diff view", () => {
         // Act

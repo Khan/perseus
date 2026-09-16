@@ -16,15 +16,21 @@ import {ApiOptions} from "../perseus-api";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../testing/test-dependencies";
+} from "../testing/test-dependencies-data";
 import {containerSizeClass} from "../util/sizing-utils";
 import WidgetContainer from "../widget-container.old";
 import {registerWidget, registerWidgets} from "../widgets";
-import Explanation from "../widgets/explanation";
+import Explanation, {explanationRegistration} from "../widgets/explanation";
 
 import type {PerseusDependenciesV2, WidgetExports, WidgetProps} from "../types";
 import type {WidgetRegistration} from "../widget-registration";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([explanationRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const MockWidgetComponent = ({
     options: {text, fail = false},
 }: {

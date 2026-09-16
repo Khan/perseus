@@ -14,8 +14,15 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderArticle} from "../../__tests__/article-renderer.test";
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies-data";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
+import {categorizerRegistration} from "../categorizer" /* widget-manifest import */;
+import {dropdownRegistration} from "../dropdown" /* widget-manifest import */;
+import {expressionRegistration} from "../expression" /* widget-manifest import */;
+import {gradedGroupSetRegistration} from "../graded-group-set" /* widget-manifest import */;
+import {numericInputRegistration} from "../numeric-input" /* widget-manifest import */;
+import {radioRegistration} from "../radio" /* widget-manifest import */;
 
 import {
     question1,
@@ -25,6 +32,22 @@ import {
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
+import {gradedGroupRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([
+        categorizerRegistration,
+        dropdownRegistration,
+        expressionRegistration,
+        gradedGroupRegistration,
+        gradedGroupSetRegistration,
+        numericInputRegistration,
+        radioRegistration,
+    ]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const checkAnswer = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
 ) => {

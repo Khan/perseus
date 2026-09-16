@@ -6,9 +6,10 @@ import {act} from "@testing-library/react";
 import * as React from "react";
 
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies-data";
 import {wait} from "../../testing/wait";
 import {scorePerseusItemTesting} from "../../util/test-utils";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./matcher.testdata";
@@ -16,6 +17,14 @@ import {question1} from "./matcher.testdata";
 import type {MatcherHandle} from "./matcher";
 import type {APIOptions} from "../../types";
 
+import {matcherRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([matcherRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("matcher widget", () => {
     beforeEach(() => {
         /*

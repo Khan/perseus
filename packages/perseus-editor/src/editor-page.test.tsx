@@ -1,4 +1,6 @@
 import {Dependencies, Util} from "@khanacademy/perseus";
+import {fillInTheBlankRegistration} from "@khanacademy/perseus/widgets/fill-in-the-blank" /* widget-manifest import */;
+import {registerWidgets} from "@khanacademy/perseus/widgets/registry" /* widget-manifest import */;
 import {
     type PerseusOrdererWidgetOptions,
     type PerseusRenderer,
@@ -14,17 +16,31 @@ import * as React from "react";
 import {earthMoonImage} from "../../perseus/src/widgets/image/utils";
 
 import EditorPage from "./editor-page";
+import {registerEditors} from "./editor-registry" /* widget-manifest import */;
 import {
     testDependencies,
     testDependenciesV2,
-} from "./testing/test-dependencies";
-import {registerAllWidgetsAndEditorsForTesting} from "./util/register-all-widgets-and-editors-for-testing";
+} from "./testing/test-dependencies-data";
+import {categorizerEditorRegistration} from "./widgets/categorizer-editor" /* widget-manifest import */;
+import {definitionEditorRegistration} from "./widgets/definition-editor" /* widget-manifest import */;
+import {ordererEditorRegistration} from "./widgets/orderer-editor" /* widget-manifest import */;
 
 import type {UserEvent} from "@testing-library/user-event";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([fillInTheBlankRegistration]);
+    registerEditors([
+        categorizerEditorRegistration,
+        definitionEditorRegistration,
+        ordererEditorRegistration,
+    ]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("EditorPage", () => {
     beforeAll(() => {
-        registerAllWidgetsAndEditorsForTesting();
+        registerManifestWidgets();
     });
 
     let userEvent: UserEvent;

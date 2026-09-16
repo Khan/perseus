@@ -145,6 +145,9 @@ export const traverseChildWidgets = (
         );
     }
 
+    if (widgetInfo?.type) {
+        recordWidgetManifestEntry("core", widgetInfo.type);
+    }
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!widgetInfo || !widgetInfo.type || !widgets.get(widgetInfo.type)) {
         return widgetInfo;

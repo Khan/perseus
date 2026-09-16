@@ -5,12 +5,15 @@ import {
     generateImageWidget,
     generateRadioWidget,
 } from "@khanacademy/perseus-core";
+import definitionLogic from "@khanacademy/perseus-core/widgets/definition" /* widget-manifest import */;
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {testDependencies} from "../../testing/test-dependencies";
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
+import {registerEditors} from "../../editor-registry" /* widget-manifest import */;
+import {testDependencies} from "../../testing/test-dependencies-data";
+import {imageEditorRegistration} from "../../widgets/image-editor" /* widget-manifest import */;
+import {radioEditorRegistration} from "../../widgets/radio-editor" /* widget-manifest import */;
 import WidgetEditor, {_upgradeWidgetInfo} from "../widget-editor";
 
 import type {
@@ -19,9 +22,16 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    CoreWidgetRegistry.registerLogics([definitionLogic]);
+    registerEditors([imageEditorRegistration, radioEditorRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("WidgetEditor", () => {
     beforeAll(() => {
-        registerAllWidgetsAndEditorsForTesting();
+        registerManifestWidgets();
     });
 
     let userEvent: UserEvent;

@@ -1,4 +1,4 @@
-import {initPerseusCore} from "./init";
+import {CoreWidgetRegistry} from "./registry";
 import {traverse} from "./traversal";
 import {generateBlankWidget} from "./utils/generators/blank-widget-generator";
 import {
@@ -6,8 +6,19 @@ import {
     generateFillInTheBlankOptions,
     generateFillInTheBlankWidget,
 } from "./utils/generators/fill-in-the-blank-widget-generator";
+import blankLogic from "./widgets/blank";
+import fillInTheBlankLogic from "./widgets/fill-in-the-blank";
+import groupLogic from "./widgets/group";
 
 import type {PerseusRenderer} from "./data-schema";
+
+beforeAll(() => {
+    CoreWidgetRegistry.registerLogics([
+        blankLogic,
+        fillInTheBlankLogic,
+        groupLogic,
+    ]);
+});
 
 const missingOptions = {
     content: "[[☃ radio 1]]\n\n",
@@ -164,9 +175,7 @@ const assertNonMutative = () => {
 };
 
 describe("Traversal", () => {
-    beforeAll(() => {
-        initPerseusCore();
-    });
+    beforeAll(() => {});
 
     it("should call a root level content field", () => {
         let readContent = null;

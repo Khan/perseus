@@ -6,7 +6,7 @@ import {
 import * as React from "react";
 
 import * as Dependencies from "../../../dependencies";
-import {testDependencies} from "../../../testing/test-dependencies";
+import {testDependencies} from "../../../testing/test-dependencies-data";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 

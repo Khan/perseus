@@ -12,9 +12,10 @@ import {act, screen} from "@testing-library/react";
 import * as React from "react";
 
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies-data";
 import {wait} from "../../testing/wait";
 import {scorePerseusItemTesting} from "../../util/test-utils";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {basicQuestion} from "./sorter.testdata";
@@ -22,6 +23,14 @@ import {basicQuestion} from "./sorter.testdata";
 import type {SorterHandle} from "./sorter";
 import type {APIOptions} from "../../types";
 
+import {sorterRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([sorterRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 /*
  * Sortable settles its cards from a requestAnimationFrame callback, which can
  * land after a test has finished awaiting and React then reports as an

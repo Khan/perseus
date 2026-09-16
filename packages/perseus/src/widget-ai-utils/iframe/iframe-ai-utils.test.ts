@@ -1,9 +1,17 @@
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {iframeRegistration} from "../../widgets/iframe" /* widget-manifest import */;
 
 import {getPromptJSON} from "./iframe-ai-utils";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([iframeRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const question1: PerseusRenderer = {
     content: "Try matching the target image\n[[\u2603 iframe 1]]\n",
     images: {

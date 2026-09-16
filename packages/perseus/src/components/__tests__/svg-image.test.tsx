@@ -6,7 +6,7 @@ import {mockImageLoading} from "../../testing/image-loader-utils";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../testing/test-dependencies";
+} from "../../testing/test-dependencies-data";
 import * as GraphieUtils from "../../util/graphie-utils";
 import {typicalCase} from "../../util/graphie-utils.testdata";
 import {graphieImage} from "../../widgets/image/utils";

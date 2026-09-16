@@ -5,14 +5,22 @@ import {
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
+import {interactiveGraphRegistration} from ".." /* widget-manifest import */;
 import * as Dependencies from "../../../dependencies";
-import {testDependencies} from "../../../testing/test-dependencies";
+import {testDependencies} from "../../../testing/test-dependencies-data";
+import {registerWidgets} from "../../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../../__testutils__/renderQuestion";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
 import type {InteractiveGraphState} from "../types";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([interactiveGraphRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
 const baseLinearState: InteractiveGraphState = {
     type: "linear",

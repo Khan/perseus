@@ -1,6 +1,8 @@
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {interactiveGraphRegistration} from "../../widgets/interactive-graphs" /* widget-manifest import */;
 import {
     angleQuestion,
     circleQuestion,
@@ -19,6 +21,12 @@ import {getPromptJSON} from "./interactive-graph-ai-utils";
 import type {PerseusInteractiveGraphUserInput} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([interactiveGraphRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("InteractiveGraph AI utils", () => {
     let userEvent: UserEvent;
     beforeEach(() => {

@@ -95,6 +95,7 @@ export const getEditor = (type: string): Editor | null => {
  * registration. Content can name widget types this build doesn't know.
  */
 export const isEditorRegistered = (type: string): boolean => {
+    recordWidgetManifestEntry("editor", type);
     return editors.has(type);
 };
 

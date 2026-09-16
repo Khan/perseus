@@ -8,6 +8,12 @@ import {getTestDropdownWidget} from "../../util/test-helpers";
 
 import validateGroup from "./validate-group";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    CoreWidgetRegistry.registerLogics([dropdownLogic]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("validateGroup", () => {
     beforeEach(() => {
         CoreWidgetRegistry.registerLogics([dropdownLogic]);

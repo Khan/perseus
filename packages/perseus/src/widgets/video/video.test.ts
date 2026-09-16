@@ -1,9 +1,18 @@
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1, question2} from "./video.testdata";
 
 import type {APIOptions} from "../../types";
 
+import {videoRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([videoRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("video widget", () => {
     it("should snapshot", () => {
         // Arrange

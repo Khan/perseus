@@ -9,8 +9,9 @@ import invariant from "tiny-invariant";
 
 import * as Dependencies from "../../dependencies";
 import {mockImageLoading} from "../../testing/image-loader-utils";
-import {testDependencies} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies-data";
 import {scorePerseusItemTesting} from "../../util/test-utils";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question} from "./image.testdata";
@@ -25,6 +26,14 @@ import {
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
+import {imageRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([imageRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 jest.mock("./utils", () => ({
     ...jest.requireActual("./utils"),
     decodeGifFrames: jest.fn(),

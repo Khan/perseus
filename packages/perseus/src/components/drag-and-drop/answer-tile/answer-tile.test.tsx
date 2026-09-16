@@ -8,7 +8,7 @@ import {mockImageLoading} from "../../../testing/image-loader-utils";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../testing/test-dependencies";
+} from "../../../testing/test-dependencies-data";
 import {PerseusDndProvider} from "../perseus-dnd-provider";
 
 import {AnswerTile} from "./answer-tile";

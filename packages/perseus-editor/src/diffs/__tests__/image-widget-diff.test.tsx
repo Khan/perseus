@@ -6,7 +6,6 @@ import {render} from "@testing-library/react";
 import * as React from "react";
 
 import {mockImageLoading} from "../../testing/image-loader-utils";
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import ImageWidgetDiff from "../image-widget-diff";
 
 import type {ImageWidget} from "@khanacademy/perseus-core";
@@ -40,9 +39,7 @@ describe("ImageWidgetDiff", () => {
         }),
     });
 
-    beforeAll(() => {
-        registerAllWidgetsAndEditorsForTesting();
-    });
+    beforeAll(() => {});
 
     beforeEach(() => {
         unmockImageLoading = mockImageLoading();

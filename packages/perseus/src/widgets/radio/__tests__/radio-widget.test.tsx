@@ -9,7 +9,7 @@ import * as React from "react";
 
 import * as Dependencies from "../../../dependencies";
 import {ApiOptions} from "../../../perseus-api";
-import {testDependencies} from "../../../testing/test-dependencies";
+import {testDependencies} from "../../../testing/test-dependencies-data";
 import {containerSizeClass} from "../../../util/sizing-utils";
 import Radio from "../radio-widget";
 

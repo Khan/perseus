@@ -1,10 +1,19 @@
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies-data";
 import GraphUtils from "../../util/graph-utils";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {measurerQuestion} from "./measurer.testdata";
 
+import {measurerRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([measurerRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 jest.mock("../../util/graph-utils", () => ({
     __esModule: true,
     default: {

@@ -4,7 +4,7 @@ import {Mafs} from "mafs";
 import * as React from "react";
 
 import * as Dependencies from "../../../dependencies";
-import {testDependencies} from "../../../testing/test-dependencies";
+import {testDependencies} from "../../../testing/test-dependencies-data";
 import {MafsGraph} from "../mafs-graph";
 import * as ReducerGraphConfig from "../reducer/use-graph-config";
 import {getBaseMafsGraphPropsForTests} from "../utils";

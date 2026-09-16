@@ -1,4 +1,6 @@
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {grapherRegistration} from "../../widgets/grapher" /* widget-manifest import */;
 
 import {getPromptJSON} from "./grapher-ai-utils";
 
@@ -7,6 +9,12 @@ import type {
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([grapherRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const question: PerseusRenderer = {
     content: "**Graph $5x+3y=15$.**\n\n[[☃ grapher 1]]",
     images: {},

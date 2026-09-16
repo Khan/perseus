@@ -2,7 +2,7 @@ import {act, render, screen, waitFor} from "@testing-library/react";
 import * as React from "react";
 
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies-data";
 import Sortable from "../sortable";
 
 describe("Sortable", () => {

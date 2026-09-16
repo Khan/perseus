@@ -2,7 +2,6 @@ import {generateRadioWidget} from "@khanacademy/perseus-core";
 import {render} from "@testing-library/react";
 import * as React from "react";
 
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import WidgetDiff from "../widget-diff";
 
 import type {PerseusWidget} from "@khanacademy/perseus-core";
@@ -42,9 +41,7 @@ describe("WidgetDiff", () => {
         },
     });
 
-    beforeAll(() => {
-        registerAllWidgetsAndEditorsForTesting();
-    });
+    beforeAll(() => {});
 
     it("renders a widget in the diff view", () => {
         // Act

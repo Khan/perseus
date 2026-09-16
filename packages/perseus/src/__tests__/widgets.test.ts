@@ -1,9 +1,48 @@
-import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing";
 import * as Widgets from "../widgets";
+import {
+    registerWidgets,
+    replaceDeprecatedWidgets,
+} from "../widgets" /* widget-manifest import */;
+import {categorizerRegistration} from "../widgets/categorizer" /* widget-manifest import */;
+import {definitionRegistration} from "../widgets/definition" /* widget-manifest import */;
+import {deprecatedStandinRegistration} from "../widgets/deprecated-standin" /* widget-manifest import */;
+import {dropdownRegistration} from "../widgets/dropdown" /* widget-manifest import */;
+import {expressionRegistration} from "../widgets/expression" /* widget-manifest import */;
+import {grapherRegistration} from "../widgets/grapher" /* widget-manifest import */;
+import {inputNumberRegistration} from "../widgets/input-number" /* widget-manifest import */;
+import {interactiveGraphRegistration} from "../widgets/interactive-graphs" /* widget-manifest import */;
+import {labelImageRegistration} from "../widgets/label-image" /* widget-manifest import */;
+import {matrixRegistration} from "../widgets/matrix" /* widget-manifest import */;
+import {numberLineRegistration} from "../widgets/number-line" /* widget-manifest import */;
+import {numericInputRegistration} from "../widgets/numeric-input" /* widget-manifest import */;
+import {plotterRegistration} from "../widgets/plotter" /* widget-manifest import */;
+import {radioRegistration} from "../widgets/radio" /* widget-manifest import */;
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([
+        categorizerRegistration,
+        definitionRegistration,
+        dropdownRegistration,
+        expressionRegistration,
+        grapherRegistration,
+        inputNumberRegistration,
+        interactiveGraphRegistration,
+        labelImageRegistration,
+        matrixRegistration,
+        numberLineRegistration,
+        numericInputRegistration,
+        plotterRegistration,
+        radioRegistration,
+        deprecatedStandinRegistration,
+    ]);
+    replaceDeprecatedWidgets();
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("Widget API support", () => {
     beforeAll(() => {
-        registerAllWidgetsForTesting();
+        registerManifestWidgets();
     });
 
     describe("replaceWidget", () => {

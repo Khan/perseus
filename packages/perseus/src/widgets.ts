@@ -120,6 +120,7 @@ export const getWidgetExport = (type: string): WidgetExports | null => {
 export const getPublicWidgets = (): Record<string, WidgetExports> => {
     const publicWidgets: Record<string, WidgetExports> = {};
     for (const [key, value] of widgets.entries()) {
+        recordWidgetManifestEntry("widget", key);
         /**
          * Even though we don't want content creators adding new "hidden" widgets,
          * we still have to maintain editors for hidden widgets in order to support

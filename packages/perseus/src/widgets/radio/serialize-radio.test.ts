@@ -7,12 +7,20 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../__tests__/test-utils";
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
-import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
+import {testDependencies} from "../../testing/test-dependencies-data";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
+import {radioRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([radioRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const expectedSerializedRadio = {
     alignment: "default",
     numCorrect: 1,
@@ -140,7 +148,7 @@ describe("Radio widget serialization", () => {
     }
 
     beforeAll(() => {
-        registerAllWidgetsForTesting();
+        registerManifestWidgets();
     });
 
     let userEvent: UserEvent;

@@ -2,8 +2,9 @@ import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies-data";
 import {waitForInitialGraphieRender} from "../../testing/wait";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {
@@ -13,6 +14,14 @@ import {
 
 import type {UserEvent} from "@testing-library/user-event";
 
+import {grapherRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([grapherRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("grapher widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {

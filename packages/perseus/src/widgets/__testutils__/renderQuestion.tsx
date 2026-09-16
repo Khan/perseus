@@ -15,9 +15,8 @@ import {mockStrings} from "../../strings";
 import {
     testDependenciesV2,
     testDependencies,
-} from "../../testing/test-dependencies";
+} from "../../testing/test-dependencies-data";
 import UserInputManager from "../../user-input-manager";
-import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
 import type {APIOptions, PerseusDependenciesV2} from "../../types";
 import type {PerseusRenderer, UserInputMap} from "@khanacademy/perseus-core";
@@ -67,7 +66,6 @@ export const renderQuestion = (
         allowUnregisteredWidgets ? withStrictRegistration(false, fn) : fn();
 
     setDependencies(testDependencies);
-    registerAllWidgetsForTesting();
 
     let renderer: Perseus.Renderer | null = null;
     const {container, rerender, unmount} = runWithRegistration(() =>

@@ -3,7 +3,7 @@ import * as React from "react";
 
 import * as Dependencies from "../dependencies";
 import ErrorBoundary from "../error-boundary";
-import {testDependencies} from "../testing/test-dependencies";
+import {testDependencies} from "../testing/test-dependencies-data";
 
 const ProblematicComponent = () => {
     throw new Error("I can haz error");

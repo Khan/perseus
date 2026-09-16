@@ -1,9 +1,18 @@
 import {screen} from "@testing-library/react";
 
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {basicBlankQuestion, superscriptQuestion} from "./blank.testdata";
 
+import {blankRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([blankRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("Blank Widget", function () {
     it("Verify the Blank Widget Renders", async () => {
         // Arrange and Act

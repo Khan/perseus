@@ -1,15 +1,22 @@
+import {fillInTheBlankRegistration} from "@khanacademy/perseus/widgets/fill-in-the-blank" /* widget-manifest import */;
+import {registerWidgets} from "@khanacademy/perseus/widgets/registry" /* widget-manifest import */;
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import CombinedHintsEditor from "../combined-hints-editor";
-import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 import type {UserEvent} from "@testing-library/user-event";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([fillInTheBlankRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("CombinedHintsEditor", () => {
     beforeAll(() => {
-        registerAllWidgetsAndEditorsForTesting();
+        registerManifestWidgets();
     });
 
     let userEvent: UserEvent;

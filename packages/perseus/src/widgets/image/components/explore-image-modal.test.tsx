@@ -10,7 +10,7 @@ import {mockImageLoading} from "../../../testing/image-loader-utils";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../../testing/test-dependencies";
+} from "../../../testing/test-dependencies-data";
 import {
     earthMoonImage,
     animatedGifLandscape,

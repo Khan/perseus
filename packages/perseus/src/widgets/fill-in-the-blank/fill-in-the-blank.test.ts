@@ -1,15 +1,26 @@
+import {CoreWidgetRegistry} from "@khanacademy/perseus-core/registry" /* widget-manifest import */;
+import blankLogic from "@khanacademy/perseus-core/widgets/blank" /* widget-manifest import */;
 import {screen} from "@testing-library/react";
 
 import {getFeatureFlags} from "../../testing/feature-flags-util";
-import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import * as Widgets from "../../widgets";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {basicFillInTheBlankQuestion} from "./fill-in-the-blank.testdata";
 
+import {fillInTheBlankRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    CoreWidgetRegistry.registerLogics([blankLogic]);
+    registerWidgets([fillInTheBlankRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("Fill in the Blank Widget", () => {
     beforeAll(() => {
-        registerAllWidgetsForTesting();
+        registerManifestWidgets();
     });
 
     // TODO(LEMS-4396): clean up feature flag

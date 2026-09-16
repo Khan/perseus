@@ -4,13 +4,13 @@ import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
-import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
+import {testDependencies} from "../../testing/test-dependencies-data";
 import {
     getAnswerfulItem,
     getAnswerlessItem,
     scorePerseusItemTesting,
 } from "../../util/test-utils";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import matrixExport from "./matrix";
@@ -19,6 +19,14 @@ import {question1} from "./matrix.testdata";
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
+import {matrixRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([matrixRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("matrix widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
@@ -128,7 +136,7 @@ describe("matrix widget", () => {
 
     describe("interactive: full vs answerless", () => {
         beforeAll(() => {
-            registerAllWidgetsForTesting();
+            registerManifestWidgets();
         });
 
         const matrixOptions: PerseusMatrixWidgetOptions = {

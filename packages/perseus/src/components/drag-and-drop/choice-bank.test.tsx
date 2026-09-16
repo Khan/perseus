@@ -5,7 +5,7 @@ import * as Dependencies from "../../dependencies";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../testing/test-dependencies";
+} from "../../testing/test-dependencies-data";
 
 import {AnswerTile} from "./answer-tile";
 import {generateAnswerTileProps} from "./answer-tile/answer-tile.testdata";

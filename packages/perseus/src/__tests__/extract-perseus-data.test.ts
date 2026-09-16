@@ -19,9 +19,17 @@ import {
     isWrongAnswerSupported,
     shouldHaveIndividualAnswer,
 } from "../util/extract-perseus-data";
-import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing";
 import {generateTestCategorizerWidget} from "../util/test-utils";
+import {registerWidgets} from "../widgets" /* widget-manifest import */;
+import {inputNumberRegistration} from "../widgets/input-number" /* widget-manifest import */;
+import {radioRegistration} from "../widgets/radio" /* widget-manifest import */;
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([inputNumberRegistration, radioRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const stub: jest.MockedFunction<any> = jest.fn();
 
 beforeEach(() => {
@@ -30,7 +38,7 @@ beforeEach(() => {
 
 describe("ExtractPerseusData", () => {
     beforeAll(() => {
-        registerAllWidgetsForTesting();
+        registerManifestWidgets();
     });
 
     describe("isWrongAnswerSupported", () => {

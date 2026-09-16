@@ -7,17 +7,14 @@ import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
 import {getFeatureFlags} from "../../testing/feature-flags-util";
-import {testDependencies} from "../../testing/test-dependencies";
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
+import {testDependencies} from "../../testing/test-dependencies-data";
 
 import FillInTheBlankEditor from "./fill-in-the-blank-editor";
 
 type FillInTheBlankEditorHandle = React.ElementRef<typeof FillInTheBlankEditor>;
 
 describe("fill-in-the-blank-editor", () => {
-    beforeAll(() => {
-        registerAllWidgetsAndEditorsForTesting();
-    });
+    beforeAll(() => {});
 
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(

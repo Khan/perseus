@@ -174,7 +174,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     >
                       <input
                         class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
-                        name="perseus_radio_10_0"
+                        name="perseus_radio_9_0"
                         type="radio"
                       />
                     </div>
@@ -188,7 +188,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     >
                       <input
                         class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
-                        name="perseus_radio_10_0"
+                        name="perseus_radio_9_0"
                         type="radio"
                       />
                     </div>
@@ -202,7 +202,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     >
                       <input
                         class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
-                        name="perseus_radio_10_0"
+                        name="perseus_radio_9_0"
                         type="radio"
                       />
                     </div>
@@ -216,7 +216,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     >
                       <input
                         class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
-                        name="perseus_radio_10_0"
+                        name="perseus_radio_9_0"
                         type="radio"
                       />
                     </div>
@@ -259,7 +259,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     >
                       <input
                         class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
-                        name="perseus_radio_10_1"
+                        name="perseus_radio_9_1"
                         type="radio"
                       />
                     </div>
@@ -273,7 +273,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     >
                       <input
                         class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
-                        name="perseus_radio_10_1"
+                        name="perseus_radio_9_1"
                         type="radio"
                       />
                     </div>
@@ -287,7 +287,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     >
                       <input
                         class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
-                        name="perseus_radio_10_1"
+                        name="perseus_radio_9_1"
                         type="radio"
                       />
                     </div>
@@ -301,7 +301,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                     >
                       <input
                         class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
-                        name="perseus_radio_10_1"
+                        name="perseus_radio_9_1"
                         type="radio"
                       />
                     </div>

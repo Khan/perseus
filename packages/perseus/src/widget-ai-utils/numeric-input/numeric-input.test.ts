@@ -9,11 +9,19 @@ import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies-data";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {numericInputRegistration} from "../../widgets/numeric-input" /* widget-manifest import */;
 
 import type {UserEvent} from "@testing-library/user-event";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([numericInputRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const question: PerseusRenderer = generateTestPerseusRenderer({
     content: "$5008 \\div 4 =$ [[\u2603 numeric-input 1]] ",
     widgets: {

@@ -6,13 +6,21 @@ import {act} from "@testing-library/react";
 
 import {renderQuestion} from "../../__tests__/test-utils";
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies-data";
 import {deriveUserInputFromSerializedState} from "../../user-input-manager";
-import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 
 import type {SorterHandle} from "./sorter";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 
+import {sorterRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([sorterRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 /**
  * [LEMS-3185] These are tests for the legacy Serialization API.
  *
@@ -49,7 +57,7 @@ describe("Sorter serialization", () => {
     }
 
     beforeAll(() => {
-        registerAllWidgetsForTesting();
+        registerManifestWidgets();
     });
 
     beforeEach(() => {

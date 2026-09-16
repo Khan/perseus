@@ -31,7 +31,12 @@ import {ApiOptions} from "../perseus-api";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../testing/test-dependencies";
+} from "../testing/test-dependencies-data";
+import {registerWidgets} from "../widgets" /* widget-manifest import */;
+import {expressionRegistration} from "../widgets/expression" /* widget-manifest import */;
+import {gradedGroupRegistration} from "../widgets/graded-group" /* widget-manifest import */;
+import {gradedGroupSetRegistration} from "../widgets/graded-group-set" /* widget-manifest import */;
+import {radioRegistration} from "../widgets/radio" /* widget-manifest import */;
 
 import type {APIOptions} from "../types";
 import type {
@@ -41,6 +46,17 @@ import type {
     RadioWidget,
 } from "@khanacademy/perseus-core";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([
+        expressionRegistration,
+        gradedGroupRegistration,
+        gradedGroupSetRegistration,
+        radioRegistration,
+    ]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 function KeypadWithContext() {
     return (
         <KeypadContext.Consumer>

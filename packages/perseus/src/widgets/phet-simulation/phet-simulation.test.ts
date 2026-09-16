@@ -3,7 +3,8 @@ import {screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies-data";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {nonPhetUrl, question1} from "./phet-simulation.testdata";
@@ -11,6 +12,14 @@ import {nonPhetUrl, question1} from "./phet-simulation.testdata";
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
+import {phetSimulationRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([phetSimulationRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const phetOrigin = "https://phet.colorado.edu";
 
 describe("phet-simulation widget", () => {

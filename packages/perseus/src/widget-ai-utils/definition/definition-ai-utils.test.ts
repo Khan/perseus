@@ -4,12 +4,20 @@ import {
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
 
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {definitionRegistration} from "../../widgets/definition" /* widget-manifest import */;
 
 import {getPromptJSON} from "./definition-ai-utils";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([definitionRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const question: PerseusRenderer = generateTestPerseusRenderer({
     content:
         "Read the excerpt and answer the question below. \n\nThe Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with [[\u2603 definition 1]], upon these conditions.",

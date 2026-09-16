@@ -3,7 +3,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import React from "react";
 
 import * as Dependencies from "../../../dependencies";
-import {testDependencies} from "../../../testing/test-dependencies";
+import {testDependencies} from "../../../testing/test-dependencies-data";
 import {MafsGraph} from "../mafs-graph";
 import {
     actions,

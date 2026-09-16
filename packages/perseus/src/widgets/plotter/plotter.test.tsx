@@ -3,14 +3,23 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
 
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies-data";
 import {getAnswerfulItem, getAnswerlessItem} from "../../util/test-utils";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {dotPlotter} from "./plotter.testdata";
 
 import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
 
+import {plotterRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([plotterRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("plotter widget", () => {
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(

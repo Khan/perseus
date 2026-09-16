@@ -2,8 +2,10 @@ import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies-data";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {radioRegistration} from "../../widgets/radio" /* widget-manifest import */;
 
 import {getPromptJSON, type RadioPromptJSON} from "./radio-ai-utils";
 
@@ -14,6 +16,12 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([radioRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const shuffledQuestion: PerseusRenderer = {
     content: "[[\u2603 radio 1]]",
     images: {},

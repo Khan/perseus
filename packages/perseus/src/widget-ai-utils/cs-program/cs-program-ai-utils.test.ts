@@ -1,9 +1,17 @@
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {csProgramRegistration} from "../../widgets/cs-program" /* widget-manifest import */;
 
 import {getPromptJSON} from "./cs-program-ai-utils";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([csProgramRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const question1: PerseusRenderer = {
     content: "[[\u2603 cs-program 1]]\n\n",
     images: {},

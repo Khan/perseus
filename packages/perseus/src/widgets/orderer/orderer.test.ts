@@ -2,8 +2,9 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies-data";
 import {getAnswerfulItem, getAnswerlessItem} from "../../util/test-utils";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question2} from "./orderer.testdata";
@@ -11,6 +12,14 @@ import {question2} from "./orderer.testdata";
 import type {APIOptions} from "../../types";
 import type {PerseusOrdererWidgetOptions} from "@khanacademy/perseus-core";
 
+import {ordererRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([ordererRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const ordererOptions: PerseusOrdererWidgetOptions = {
     otherOptions: [],
     layout: "horizontal",

@@ -1,9 +1,17 @@
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {interactionRegistration} from "../../widgets/interaction" /* widget-manifest import */;
 
 import {getPromptJSON} from "./interaction-ai-utils";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([interactionRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const question1: PerseusRenderer = {
     content:
         "Drag the dot all the way to the right.\n\n[[☃ interaction 1]]\n\n\n*Notice that we add a zero to the empty place value.* ",

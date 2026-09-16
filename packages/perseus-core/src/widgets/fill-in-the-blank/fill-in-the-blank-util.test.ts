@@ -1,18 +1,25 @@
-import {initPerseusCore} from "../../init";
+import {CoreWidgetRegistry} from "../../registry" /* widget-manifest import */;
 import {generateBlankWidget} from "../../utils/generators/blank-widget-generator";
 import {
     generateAnswerTile,
     generateFillInTheBlankOptions,
 } from "../../utils/generators/fill-in-the-blank-widget-generator";
+import blankLogic from "../blank" /* widget-manifest import */;
 
 import {getFillInTheBlankPublicWidgetOptions} from "./fill-in-the-blank-util";
 
 import type {PerseusFillInTheBlankWidgetOptions} from "../../data-schema";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    CoreWidgetRegistry.registerLogics([blankLogic]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 // The split walks the nested widgets through the core registry, so the blank
 // widget's own logic has to be registered for its options to be stripped.
 beforeAll(() => {
-    initPerseusCore();
+    registerManifestWidgets();
 });
 
 function optionsWithTwoBlanks(): PerseusFillInTheBlankWidgetOptions {

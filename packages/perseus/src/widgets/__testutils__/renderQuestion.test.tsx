@@ -3,6 +3,9 @@ import {
     withStrictRegistration,
 } from "@khanacademy/perseus-core";
 
+import {registerWidgets} from "../../widgets";
+import {blankRegistration} from "../blank";
+
 import {renderQuestion} from "./renderQuestion";
 
 import type {PerseusRenderer, WidgetOptions} from "@khanacademy/perseus-core";
@@ -15,6 +18,8 @@ declare module "@khanacademy/perseus-core" {
         >;
     }
 }
+
+registerWidgets([blankRegistration]);
 
 const unknownWidgetQuestion: PerseusRenderer = {
     content: "[[☃ unknown-widget 1]]",

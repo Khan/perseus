@@ -583,7 +583,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   >
                                     <input
                                       class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
-                                      name="perseus_radio_9_0"
+                                      name="perseus_radio_8_0"
                                       type="radio"
                                     />
                                   </div>
@@ -597,7 +597,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   >
                                     <input
                                       class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
-                                      name="perseus_radio_9_0"
+                                      name="perseus_radio_8_0"
                                       type="radio"
                                     />
                                   </div>
@@ -629,7 +629,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   >
                                     <input
                                       class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
-                                      name="perseus_radio_9_1"
+                                      name="perseus_radio_8_1"
                                       type="radio"
                                     />
                                   </div>
@@ -643,7 +643,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   >
                                     <input
                                       class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
-                                      name="perseus_radio_9_1"
+                                      name="perseus_radio_8_1"
                                       type="radio"
                                     />
                                   </div>
@@ -675,7 +675,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   >
                                     <input
                                       class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
-                                      name="perseus_radio_9_2"
+                                      name="perseus_radio_8_2"
                                       type="radio"
                                     />
                                   </div>
@@ -689,7 +689,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   >
                                     <input
                                       class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
-                                      name="perseus_radio_9_2"
+                                      name="perseus_radio_8_2"
                                       type="radio"
                                     />
                                   </div>
@@ -721,7 +721,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   >
                                     <input
                                       class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
-                                      name="perseus_radio_9_3"
+                                      name="perseus_radio_8_3"
                                       type="radio"
                                     />
                                   </div>
@@ -735,7 +735,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   >
                                     <input
                                       class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
-                                      name="perseus_radio_9_3"
+                                      name="perseus_radio_8_3"
                                       type="radio"
                                     />
                                   </div>

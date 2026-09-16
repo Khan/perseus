@@ -23,9 +23,11 @@ import * as React from "react";
 import invariant from "tiny-invariant";
 
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies-data";
 import {scorePerseusItemTesting} from "../../util/test-utils";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
+import {grapherRegistration} from "../grapher" /* widget-manifest import */;
 import {sinusoidQuestion} from "../grapher/grapher.testdata";
 
 import {
@@ -87,6 +89,14 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
+import {interactiveGraphRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([grapherRegistration, interactiveGraphRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const commonInstructions =
     "Enable Forms or Focus mode and use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Arrow keys to move it.";
 const unlimitedInstructions =

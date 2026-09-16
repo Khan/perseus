@@ -15,6 +15,12 @@ import {
     expectedHintsInfoAdded,
 } from "./test-utils.testdata";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    CoreWidgetRegistry.registerLogics([dropdownLogic]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("generateTestPerseusItem", () => {
     it("should provide a basic Perseus item object with no inputs", () => {
         expect(generateTestPerseusItem()).toEqual(basicObject);

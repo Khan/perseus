@@ -1,11 +1,19 @@
 import {act} from "@testing-library/react";
 
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {numberLineRegistration} from "../../widgets/number-line" /* widget-manifest import */;
 
 import {getPromptJSON} from "./number-line-ai-utils";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([numberLineRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 export const question: PerseusRenderer = {
     content:
         "$E=2.5$\n\n**Move the dot to $-E$ on the number line.**\n\n\n[[\u2603 number-line 1]]",

@@ -14,9 +14,9 @@ import * as Dependencies from "../../dependencies";
 import {
     testDependencies,
     testDependenciesV2,
-} from "../../testing/test-dependencies";
-import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
+} from "../../testing/test-dependencies-data";
 import {scorePerseusItemTesting} from "../../util/test-utils";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import NumericInputWidgetExport from "./numeric-input";
@@ -35,6 +35,14 @@ import {findCommonFractions, findPrecision} from "./utils";
 import type {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
+import {numericInputRegistration} from "." /* widget-manifest import */;
+
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([numericInputRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 describe("numeric-input widget", () => {
     const [question, correct, incorrect] = question1AndAnswer;
 
@@ -562,7 +570,7 @@ describe("Numeric input widget", () => {
 
 describe("interactive: full vs answerless", () => {
     beforeAll(() => {
-        registerAllWidgetsForTesting();
+        registerManifestWidgets();
     });
 
     let userEvent: UserEvent;

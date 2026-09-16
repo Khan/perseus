@@ -3,8 +3,10 @@ import {screen, within} from "@testing-library/react";
 import * as React from "react";
 
 import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies-data";
+import {registerWidgets} from "../../widgets" /* widget-manifest import */;
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {matcherRegistration} from "../../widgets/matcher" /* widget-manifest import */;
 
 import {getPromptJSON} from "./matcher-ai-utils";
 
@@ -14,6 +16,12 @@ import type {
     PerseusMatcherUserInput,
 } from "@khanacademy/perseus-core";
 
+// widget-manifest setup: start
+function registerManifestWidgets(): void {
+    registerWidgets([matcherRegistration]);
+}
+registerManifestWidgets();
+// widget-manifest setup: end
 const question1: PerseusRenderer = {
     content:
         "**Match each claim with its supporting evidence.**\n\n[[\u2603 matcher 1]]",
