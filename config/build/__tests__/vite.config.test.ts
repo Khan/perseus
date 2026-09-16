@@ -1,9 +1,16 @@
 import {execFileSync} from "node:child_process";
 
-const readConfigValue = (expression) => {
+/**
+ * Load the Vite config with Node's native TypeScript and ECMAScript module
+ * support, then return a JSON-serializable value selected by `expression`.
+ * Jest transforms tests to CommonJS and does not transform `.mts`, so a
+ * direct import would not exercise the runtime that loads this config during
+ * package builds.
+ */
+const readConfigValue = (expression: string) => {
     const script = `
-        import {createPackageConfig, getPackageNames} from "./config/build/vite.config.js";
-        const value = ${expression};
+        import {createPackageConfig, getPackageNames} from "./config/build/vite.config.mts";
+        const value = await (${expression});
         process.stdout.write(JSON.stringify(value));
     `;
     return JSON.parse(
@@ -86,4 +93,45 @@ describe("createPackageConfig", () => {
             "process.env.STORYBOOK": "false",
         });
     });
+
+    it("copies MathQuill fonts and keeps their CSS URLs package-relative", () => {
+        // Arrange, Act
+        const result = readConfigValue(`(async () => {
+            const fs = await import("node:fs/promises");
+            const path = await import("node:path");
+            const {build} = await import("vite");
+            const outDir = await fs.mkdtemp(
+                path.join(process.cwd(), ".vite-test-"),
+            );
+
+            try {
+                const config = createPackageConfig("math-input");
+                config.logLevel = "silent";
+                config.build.outDir = outDir;
+                config.build.emptyOutDir = true;
+                await build(config);
+
+                return {
+                    assets: (
+                        await fs.readdir(path.join(outDir, "assets"))
+                    ).sort(),
+                    css: await fs.readFile(path.join(outDir, "index.css"), "utf8"),
+                };
+            } finally {
+                await fs.rm(outDir, {recursive: true, force: true});
+            }
+        })()`);
+        const fonts = [
+            "Symbola.eot",
+            "Symbola.svg",
+            "Symbola.ttf",
+            "Symbola.woff",
+            "Symbola.woff2",
+        ];
+
+        expect(result.assets).toEqual(fonts);
+        for (const font of fonts) {
+            expect(result.css).toContain(`url(./assets/${font}`);
+        }
+    }, 30_000);
 });
