@@ -1,12 +1,14 @@
 :global(.framework-perseus) {
-    /* OVERRIDES
+    /* TODO (LEMS-4606): OVERRIDES
        These styles should be removed when either layering control within Perseus is available,
        or when the high-level styles are refactored and these become unnecessary.
      */
-    .choice :global(.paragraph) {
+    .choice :global(.paragraph),
+    .choice :global(.renderer-new-ff) :is(> *, p) {
         font-size: inherit;
         font-weight: inherit;
         line-height: inherit;
+        color: inherit;
     }
 
     &:global(.perseus-article) {
@@ -48,13 +50,6 @@
 
 .choice:not(.is-correct):has(> button[aria-pressed="true"]) {
     color: var(--wb-semanticColor-core-foreground-instructive-strong);
-}
-
-.choice :global(.paragraph) {
-    font-size: inherit;
-    font-weight: inherit;
-    line-height: inherit;
-    color: inherit;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -198,9 +193,25 @@
     display: inline;
 }
 
-.choice table {
+.choice :global(.perseus-renderer.renderer-new-ff) p {
+    display: inline;
+}
+
+.choice :global(.perseus-renderer.renderer-new-ff)
+    div:not(
+        :global(.graphie-container),
+        :global(.graphie),
+        :global(.unresponsive-svg-image)
+    ) {
+    display: inline;
+}
+
+/* TODO (LEMS-4606): Remove references to .perseus-render.renderer-new-ff once style refactor is in place */
+.choice table,
+.choice :global(.perseus-renderer.renderer-new-ff) table {
     border: var(--wb-border-width-thin) solid
         var(--wb-semanticColor-core-border-neutral-subtle);
+    margin: 0;
 }
 
 /*************************
