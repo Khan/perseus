@@ -1,5 +1,29 @@
 # @khanacademy/perseus-editor
 
+## 43.0.0
+
+### Major Changes
+
+-   [#4234](https://github.com/Khan/perseus/pull/4234) [`e561ebf`](https://github.com/Khan/perseus/commit/e561ebfa42d1a7478c99c95b27f13097e23df4f9) Thanks [@benchristel](https://github.com/benchristel)! - The deprecated `serialize()` method of `ArticleEditor` has been removed. Callers should use onChange to get updates from the editor.
+
+-   [#4214](https://github.com/Khan/perseus/pull/4214) [`57331a4`](https://github.com/Khan/perseus/commit/57331a4ee59cffb84e736f73393f77297203520f) Thanks [@benchristel](https://github.com/benchristel)! - The deprecated, non-functional `developerMode` and `onPreviewDeviceChange` props have been removed from `EditorPage`. The `serialize()` imperative method has also been removed. Callers should use `onChange` instead of imperative APIs to receive updates.
+
+### Patch Changes
+
+-   [#4238](https://github.com/Khan/perseus/pull/4238) [`687f1f0`](https://github.com/Khan/perseus/commit/687f1f00e17e1c8f94e391e493bb1603486d10bc) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Avoid using the deprecated ChangeableProps in CSProgramEditor.
+
+-   [#4239](https://github.com/Khan/perseus/pull/4239) [`d51b353`](https://github.com/Khan/perseus/commit/d51b353fb4389f68d2a192a255c3ecaaa18b9a28) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in DefinitionEditor
+
+-   [#4235](https://github.com/Khan/perseus/pull/4235) [`7929ab8`](https://github.com/Khan/perseus/commit/7929ab847c9e4a36da08da51c22619bc2bae123a) Thanks [@benchristel](https://github.com/benchristel)! - Internal: remove deprecated `serialize()` methods from hint editors.
+
+-   Updated dependencies [[`b718fbc`](https://github.com/Khan/perseus/commit/b718fbc8ff3f3588cbc113cd7d45de0b207bd660), [`284ac95`](https://github.com/Khan/perseus/commit/284ac95dce32e3d3ddbe2287106ad253b16ffadb), [`7929ab8`](https://github.com/Khan/perseus/commit/7929ab847c9e4a36da08da51c22619bc2bae123a)]:
+    -   @khanacademy/perseus@87.2.1
+    -   @khanacademy/math-input@27.0.17
+    -   @khanacademy/perseus-core@39.2.1
+    -   @khanacademy/keypad-context@3.2.93
+    -   @khanacademy/kmath@2.4.52
+    -   @khanacademy/perseus-linter@5.4.2
+
 ## 42.2.0
 
 ### Minor Changes
