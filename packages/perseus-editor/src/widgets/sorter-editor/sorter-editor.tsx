@@ -1,8 +1,10 @@
 import {
     sorterLogic,
+    SORTER_MAX_HORIZONTAL_CARDS,
     SORTER_MAX_CARDS,
     type PerseusSorterWidgetOptions,
 } from "@khanacademy/perseus-core";
+import Banner from "@khanacademy/wonder-blocks-banner";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
@@ -159,28 +161,40 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                         Add a card
                     </Button>
                 </View>
-                <View>
-                    <LabeledField
-                        label="Layout"
-                        field={
-                            <TypedSingleSelect
-                                options={layoutOptions}
-                                selectedValue={layout}
-                                onChange={(newLayout) =>
-                                    onChange({layout: newLayout})
-                                }
-                            />
-                        }
-                    />
-                    <InfoTip>
-                        <p>
-                            Use the horizontal layout for short text and small
-                            images. The vertical layout is best for longer text
-                            and larger images.
-                        </p>
-                    </InfoTip>
-                </View>
-                <div>
+                <LabeledField
+                    label="Layout"
+                    field={
+                        <TypedSingleSelect
+                            options={layoutOptions}
+                            selectedValue={layout}
+                            onChange={(newLayout) =>
+                                onChange({layout: newLayout})
+                            }
+                        />
+                    }
+                    contextLabel={
+                        <InfoTip>
+                            <p>
+                                Use the horizontal layout for short text and
+                                small images. The vertical layout is best for
+                                longer text and larger images.
+                            </p>
+                        </InfoTip>
+                    }
+                    styles={{
+                        contextLabel: {
+                            marginInlineEnd: "auto",
+                        },
+                    }}
+                />
+                {layout === "horizontal" &&
+                    correct.length > SORTER_MAX_HORIZONTAL_CARDS && (
+                        <Banner
+                            kind="warning"
+                            text={`Sorter widget with more than ${SORTER_MAX_HORIZONTAL_CARDS} options will display vertically, even if the layout is set to horizontal.`}
+                        />
+                    )}
+                <div className={styles.row}>
                     <Checkbox
                         label="Padding"
                         checked={padding}
