@@ -1,7 +1,10 @@
-import {generateInteractiveGraphQuestion} from "@khanacademy/perseus-core";
+import {
+    generateTestPerseusItem,
+    generateInteractiveGraphQuestion,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 
 import type {APIOptions} from "../../../types";
 import type {
@@ -30,16 +33,17 @@ export const interactiveGraphRendererDecorator = (
     },
 ) => {
     return (
-        <QuestionRendererForStories
-            question={
-                parameters?.question ??
-                generateInteractiveGraphQuestion({
-                    ...args,
-                    content: parameters?.content,
-                    isStatic: parameters?.isStatic,
-                    graded: parameters?.graded,
-                })
-            }
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({
+                question:
+                    parameters?.question ??
+                    generateInteractiveGraphQuestion({
+                        ...args,
+                        content: parameters?.content,
+                        isStatic: parameters?.isStatic,
+                        graded: parameters?.graded,
+                    }),
+            })}
             apiOptions={parameters?.apiOptions}
             initialUserInput={parameters?.initialUserInput}
         />

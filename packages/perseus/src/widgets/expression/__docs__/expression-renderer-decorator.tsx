@@ -1,11 +1,12 @@
 import {
+    generateTestPerseusItem,
     generateExpressionOptions,
     generateExpressionWidget,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 
 import type {APIOptions} from "../../../types";
 import type {UserInputMap} from "@khanacademy/perseus-core";
@@ -28,17 +29,19 @@ export const expressionRendererDecorator: Decorator = (
     },
 ) => {
     return (
-        <QuestionRendererForStories
-            question={generateTestPerseusRenderer({
-                content: parameters?.content ?? "[[☃ expression 1]]",
-                widgets: {
-                    "expression 1": generateExpressionWidget({
-                        static: parameters?.isStatic ?? false,
-                        options: generateExpressionOptions({
-                            ...args,
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({
+                question: generateTestPerseusRenderer({
+                    content: parameters?.content ?? "[[☃ expression 1]]",
+                    widgets: {
+                        "expression 1": generateExpressionWidget({
+                            static: parameters?.isStatic ?? false,
+                            options: generateExpressionOptions({
+                                ...args,
+                            }),
                         }),
-                    }),
-                },
+                    },
+                }),
             })}
             apiOptions={parameters?.apiOptions}
             initialUserInput={parameters?.initialUserInput}

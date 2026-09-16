@@ -1,4 +1,7 @@
-import {generateTestPerseusRenderer} from "@khanacademy/perseus-core";
+import {
+    generateTestPerseusItem,
+    generateTestPerseusRenderer,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {themeModes} from "../../../../.storybook/modes";
@@ -11,9 +14,9 @@ import {
     blockquoteContent,
 } from "../__testdata__/renderer.testdata";
 import ArticleRenderer from "../article-renderer";
+import {ServerItemRendererWithDebugUI} from "../testing/server-item-renderer-with-debug-ui";
 import {storybookDependenciesV2} from "../testing/test-dependencies";
 import {useStorybookApiOptions} from "../testing/use-storybook-api-options";
-import QuestionRendererForStories from "../widgets/__testutils__/question-renderer-for-stories";
 
 import type {APIOptions} from "../types";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
@@ -68,8 +71,10 @@ const RenderExerciseContent = (content: string): (() => React.JSX.Element) => {
     return function Render() {
         return (
             <div style={{padding: "24px"}}>
-                <QuestionRendererForStories
-                    question={generateTestPerseusRenderer({content})}
+                <ServerItemRendererWithDebugUI
+                    item={generateTestPerseusItem({
+                        question: generateTestPerseusRenderer({content}),
+                    })}
                 />
             </div>
         );

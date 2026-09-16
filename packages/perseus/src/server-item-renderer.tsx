@@ -48,6 +48,7 @@ type OwnProps = {
     keypadElement?: KeypadAPI | null | undefined;
     dependencies: PerseusDependenciesV2;
     showSolutions?: ShowSolutions;
+    initialUserInput?: UserInputMap;
 };
 
 type HOCProps = {
@@ -336,6 +337,7 @@ export class ServerItemRenderer
                 <UserInputManager
                     widgets={this.props.item.question.widgets}
                     problemNum={this.props.problemNum ?? 0}
+                    initialUserInput={this.props.initialUserInput}
                 >
                     {({userInput, handleUserInput, initializeUserInput}) => {
                         this.userInput = userInput;

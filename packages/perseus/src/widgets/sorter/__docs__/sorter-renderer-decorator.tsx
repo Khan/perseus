@@ -1,11 +1,12 @@
 import {
+    generateTestPerseusItem,
     generateSorterOptions,
     generateSorterWidget,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 
 import type {APIOptions} from "../../../types";
 import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
@@ -22,14 +23,16 @@ export const sorterRendererDecorator: Decorator = (
     },
 ) => {
     return (
-        <QuestionRendererForStories
-            question={generateTestPerseusRenderer({
-                content: "Arrange these items in order. [[☃ sorter 1]]",
-                widgets: {
-                    "sorter 1": generateSorterWidget({
-                        options: generateSorterOptions({...args}),
-                    }),
-                },
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({
+                question: generateTestPerseusRenderer({
+                    content: "Arrange these items in order. [[☃ sorter 1]]",
+                    widgets: {
+                        "sorter 1": generateSorterWidget({
+                            options: generateSorterOptions({...args}),
+                        }),
+                    },
+                }),
             })}
             apiOptions={parameters?.apiOptions}
         />

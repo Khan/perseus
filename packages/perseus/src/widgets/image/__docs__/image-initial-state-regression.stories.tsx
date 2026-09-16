@@ -1,4 +1,5 @@
 import {
+    generateTestPerseusItem,
     generateImageOptions,
     generateImageWidget,
     generateTestPerseusRenderer,
@@ -8,7 +9,7 @@ import * as React from "react";
 import {expect, waitFor, within} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
-import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {
     mobileDecorator,
     articleDecorator,
@@ -445,30 +446,32 @@ export const MarkdownTableWithImageWidgets: Story = {
         return (
             // Limit width so zoom becomes possible.
             <div style={{width: 600}}>
-                <QuestionRendererForStories
-                    question={generateTestPerseusRenderer({
-                        content:
-                            "| col 1 | col 2 | col 3 |\n| --- | --- | --- |\n| [[☃ image 1]] | [[☃ image 2]] | [[☃ image 3]] |",
-                        widgets: {
-                            "image 1": generateImageWidget({
-                                options: generateImageOptions({
-                                    backgroundImage: frescoImage,
-                                    alt: "Fresco painting",
+                <ServerItemRendererWithDebugUI
+                    item={generateTestPerseusItem({
+                        question: generateTestPerseusRenderer({
+                            content:
+                                "| col 1 | col 2 | col 3 |\n| --- | --- | --- |\n| [[☃ image 1]] | [[☃ image 2]] | [[☃ image 3]] |",
+                            widgets: {
+                                "image 1": generateImageWidget({
+                                    options: generateImageOptions({
+                                        backgroundImage: frescoImage,
+                                        alt: "Fresco painting",
+                                    }),
                                 }),
-                            }),
-                            "image 2": generateImageWidget({
-                                options: generateImageOptions({
-                                    backgroundImage: scienceImage,
-                                    alt: "Earth and Moon",
+                                "image 2": generateImageWidget({
+                                    options: generateImageOptions({
+                                        backgroundImage: scienceImage,
+                                        alt: "Earth and Moon",
+                                    }),
                                 }),
-                            }),
-                            "image 3": generateImageWidget({
-                                options: generateImageOptions({
-                                    backgroundImage: graphieImage,
-                                    alt: graphieImageAlt,
+                                "image 3": generateImageWidget({
+                                    options: generateImageOptions({
+                                        backgroundImage: graphieImage,
+                                        alt: graphieImageAlt,
+                                    }),
                                 }),
-                            }),
-                        },
+                            },
+                        }),
                     })}
                 />
             </div>
@@ -484,10 +487,12 @@ export const MarkdownTableWithMarkdownImages: Story = {
         return (
             // Limit width so zoom becomes possible.
             <div style={{width: 600}}>
-                <QuestionRendererForStories
-                    question={generateTestPerseusRenderer({
-                        content: `| col 1 | col 2 | col 3 |\n| --- | --- | --- |\n| ![Fresco painting](${frescoImage.url}) | ![${scienceImageAlt}](${scienceImage.url}) | ![Graphie image](${graphieImage.url}) |`,
-                        widgets: {},
+                <ServerItemRendererWithDebugUI
+                    item={generateTestPerseusItem({
+                        question: generateTestPerseusRenderer({
+                            content: `| col 1 | col 2 | col 3 |\n| --- | --- | --- |\n| ![Fresco painting](${frescoImage.url}) | ![${scienceImageAlt}](${scienceImage.url}) | ![Graphie image](${graphieImage.url}) |`,
+                            widgets: {},
+                        }),
                     })}
                 />
             </div>
@@ -504,41 +509,43 @@ export const AllAlignmentsInSameArticle: Story = {
     render: function Render() {
         return (
             <div className="framework-perseus perseus-article">
-                <QuestionRendererForStories
-                    question={generateTestPerseusRenderer({
-                        content: `${bioContent1}\n\n[[☃ image 1]]\n\n${bioContent2}\n\n[[☃ image 2]]\n\n${bioContent3}\n\nBlock image\n\n[[☃ image 3]]\n\nFull-width image\n\n[[☃ image 4]]`,
-                        widgets: {
-                            "image 1": generateImageWidget({
-                                alignment: "wrap-left",
-                                options: generateImageOptions({
-                                    backgroundImage: scienceImage,
-                                    alt: scienceImageAlt,
-                                    caption: scienceImageCaption,
+                <ServerItemRendererWithDebugUI
+                    item={generateTestPerseusItem({
+                        question: generateTestPerseusRenderer({
+                            content: `${bioContent1}\n\n[[☃ image 1]]\n\n${bioContent2}\n\n[[☃ image 2]]\n\n${bioContent3}\n\nBlock image\n\n[[☃ image 3]]\n\nFull-width image\n\n[[☃ image 4]]`,
+                            widgets: {
+                                "image 1": generateImageWidget({
+                                    alignment: "wrap-left",
+                                    options: generateImageOptions({
+                                        backgroundImage: scienceImage,
+                                        alt: scienceImageAlt,
+                                        caption: scienceImageCaption,
+                                    }),
                                 }),
-                            }),
-                            "image 2": generateImageWidget({
-                                alignment: "wrap-right",
-                                options: generateImageOptions({
-                                    backgroundImage: earthMoonImage,
-                                    alt: "Earth and Moon",
-                                    caption: earthMoonImageCaption,
+                                "image 2": generateImageWidget({
+                                    alignment: "wrap-right",
+                                    options: generateImageOptions({
+                                        backgroundImage: earthMoonImage,
+                                        alt: "Earth and Moon",
+                                        caption: earthMoonImageCaption,
+                                    }),
                                 }),
-                            }),
-                            "image 3": generateImageWidget({
-                                alignment: "block",
-                                options: generateImageOptions({
-                                    backgroundImage: frescoImage,
-                                    alt: "Fresco image - block",
+                                "image 3": generateImageWidget({
+                                    alignment: "block",
+                                    options: generateImageOptions({
+                                        backgroundImage: frescoImage,
+                                        alt: "Fresco image - block",
+                                    }),
                                 }),
-                            }),
-                            "image 4": generateImageWidget({
-                                alignment: "full-width",
-                                options: generateImageOptions({
-                                    backgroundImage: frescoImage,
-                                    alt: "Fresco image - full-width",
+                                "image 4": generateImageWidget({
+                                    alignment: "full-width",
+                                    options: generateImageOptions({
+                                        backgroundImage: frescoImage,
+                                        alt: "Fresco image - full-width",
+                                    }),
                                 }),
-                            }),
-                        },
+                            },
+                        }),
                     })}
                 />
             </div>
@@ -556,41 +563,43 @@ export const AllAlignmentsInSameArticleMobile: Story = {
     render: function Render() {
         return (
             <div className="framework-perseus perseus-mobile perseus-article">
-                <QuestionRendererForStories
-                    question={generateTestPerseusRenderer({
-                        content: `${bioContent1}\n\n[[☃ image 1]]\n\n${bioContent2}\n\n[[☃ image 2]]\n\n${bioContent3}\n\nBlock image\n\n[[☃ image 3]]\n\nFull-width image\n\n[[☃ image 4]]`,
-                        widgets: {
-                            "image 1": generateImageWidget({
-                                alignment: "wrap-left",
-                                options: generateImageOptions({
-                                    backgroundImage: scienceImage,
-                                    alt: scienceImageAlt,
-                                    caption: scienceImageCaption,
+                <ServerItemRendererWithDebugUI
+                    item={generateTestPerseusItem({
+                        question: generateTestPerseusRenderer({
+                            content: `${bioContent1}\n\n[[☃ image 1]]\n\n${bioContent2}\n\n[[☃ image 2]]\n\n${bioContent3}\n\nBlock image\n\n[[☃ image 3]]\n\nFull-width image\n\n[[☃ image 4]]`,
+                            widgets: {
+                                "image 1": generateImageWidget({
+                                    alignment: "wrap-left",
+                                    options: generateImageOptions({
+                                        backgroundImage: scienceImage,
+                                        alt: scienceImageAlt,
+                                        caption: scienceImageCaption,
+                                    }),
                                 }),
-                            }),
-                            "image 2": generateImageWidget({
-                                alignment: "wrap-right",
-                                options: generateImageOptions({
-                                    backgroundImage: earthMoonImage,
-                                    alt: "Earth and Moon",
-                                    caption: earthMoonImageCaption,
+                                "image 2": generateImageWidget({
+                                    alignment: "wrap-right",
+                                    options: generateImageOptions({
+                                        backgroundImage: earthMoonImage,
+                                        alt: "Earth and Moon",
+                                        caption: earthMoonImageCaption,
+                                    }),
                                 }),
-                            }),
-                            "image 3": generateImageWidget({
-                                alignment: "block",
-                                options: generateImageOptions({
-                                    backgroundImage: frescoImage,
-                                    alt: "Fresco image - block",
+                                "image 3": generateImageWidget({
+                                    alignment: "block",
+                                    options: generateImageOptions({
+                                        backgroundImage: frescoImage,
+                                        alt: "Fresco image - block",
+                                    }),
                                 }),
-                            }),
-                            "image 4": generateImageWidget({
-                                alignment: "full-width",
-                                options: generateImageOptions({
-                                    backgroundImage: frescoImage,
-                                    alt: "Fresco image - full-width",
+                                "image 4": generateImageWidget({
+                                    alignment: "full-width",
+                                    options: generateImageOptions({
+                                        backgroundImage: frescoImage,
+                                        alt: "Fresco image - full-width",
+                                    }),
                                 }),
-                            }),
-                        },
+                            },
+                        }),
                     })}
                 />
             </div>

@@ -1,11 +1,12 @@
 import {
+    generateTestPerseusItem,
     generatePlotterOptions,
     generatePlotterWidget,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 
 import type {APIOptions} from "../../../types";
 import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
@@ -22,14 +23,16 @@ export const plotterRendererDecorator: Decorator = (
     },
 ) => {
     return (
-        <QuestionRendererForStories
-            question={generateTestPerseusRenderer({
-                content: "[[☃ plotter 1]]",
-                widgets: {
-                    "plotter 1": generatePlotterWidget({
-                        options: generatePlotterOptions({...args}),
-                    }),
-                },
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({
+                question: generateTestPerseusRenderer({
+                    content: "[[☃ plotter 1]]",
+                    widgets: {
+                        "plotter 1": generatePlotterWidget({
+                            options: generatePlotterOptions({...args}),
+                        }),
+                    },
+                }),
             })}
             apiOptions={parameters?.apiOptions}
         />
