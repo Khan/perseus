@@ -26,8 +26,6 @@ export {default as Renderer} from "./renderer";
 export * as Widgets from "./widgets";
 export {defineWidgetRegistration} from "./widget-registration";
 export type {WidgetRegistration} from "./widget-registration";
-/** @hidden */
-export {default as widgets} from "./all-widgets";
 export {Expression} from "./widgets/expression";
 export {default as InputNumber} from "./widgets/input-number";
 export {default as NumericInput} from "./widgets/numeric-input";
@@ -102,7 +100,6 @@ export {default as Util} from "./util";
 export {default as KhanColors} from "./util/colors";
 /** @hidden */
 export {default as preprocessTex} from "./util/tex-preprocess";
-export {registerAllWidgetsForTesting} from "./util/register-all-widgets-for-testing";
 /** @hidden */
 export {
     containerSizeClass,

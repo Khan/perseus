@@ -21,4 +21,3 @@ export type {PreviewContent} from "./preview/message-types";
 import "./styles/perseus-editor.css";
 
 export {default as AllEditors} from "./all-editors";
-export {widgets} from "@khanacademy/perseus";
