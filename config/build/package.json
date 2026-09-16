@@ -1,6 +1,7 @@
 {
-    "name": "perseus-build-settings",
+    "name": "@internal/build-settings",
     "version": "0.9.1",
     "license": "MIT",
-    "private": true
+    "private": true,
+    "type": "module"
 }
