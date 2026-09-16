@@ -1,7 +1,6 @@
 /**
  * Pre-publish utilities to verify that our publish will go smoothly.
  */
-
 const checkPublishConfig = ({
     name,
     publishConfig,
@@ -65,14 +64,50 @@ const checkField = (pkgJson, field, value): boolean => {
     return returnCode;
 };
 
-const checkMain = (pkgJson): boolean =>
-    checkField(pkgJson, "main", "dist/index.js");
+const checkNoMain = (pkgJson): boolean => {
+    if (pkgJson.main != null) {
+        console.error(
+            `ERROR: ${pkgJson.name} must not have a "main" field. We publish ESM only.`,
+        );
+        return false;
+    }
+    return true;
+};
 
-const checkModule = (pkgJson): boolean =>
-    checkField(pkgJson, "module", "dist/es/index.js");
+const checkNoSource = (pkgJson): boolean => {
+    if (pkgJson.source != null) {
+        console.error(
+            `ERROR: ${pkgJson.name} must not have a top-level "source" field. Declare source files in the "exports" map.`,
+        );
+        return false;
+    }
+    return true;
+};
 
-const checkSource = (pkgJson): boolean =>
-    checkField(pkgJson, "source", ["src/index.js", "src/index.ts"]);
+const checkType = (pkgJson): boolean => checkField(pkgJson, "type", "module");
+
+/**
+ * Verify that no export sub-path offers a CJS build.
+ *
+ * A `require` condition would hand a CJS consumer something we no longer
+ * build. Without one, `require()` fails at resolution time instead.
+ */
+const checkNoRequireCondition = (pkgJson): boolean =>
+    Object.entries(pkgJson.exports ?? {})
+        .map(([subPath, conditions]) => {
+            if (
+                typeof conditions === "object" &&
+                conditions !== null &&
+                "require" in conditions
+            ) {
+                console.error(
+                    `ERROR: ${pkgJson.name} must not declare a "require" condition for the "${subPath}" export.`,
+                );
+                return false;
+            }
+            return true;
+        })
+        .every(Boolean);
 
 const checkPrivate = (pkgJson): boolean => {
     if (pkgJson.private) {
@@ -84,7 +119,81 @@ const checkPrivate = (pkgJson): boolean => {
     return false;
 };
 
+/**
+ * Verify a package declares the ESM-only entry point shape.
+ */
 const checkEntrypoints = (pkgJson): boolean =>
-    checkModule(pkgJson) && checkMain(pkgJson);
+    [
+        checkType(pkgJson),
+        checkNoMain(pkgJson),
+        checkNoSource(pkgJson),
+        checkNoRequireCondition(pkgJson),
+    ].every(Boolean);
 
-export {checkPublishConfig, checkEntrypoints, checkSource, checkPrivate};
+const checkExports = (pkgJson): boolean => {
+    if (!pkgJson.exports || !pkgJson.exports["."]) {
+        console.error(
+            `ERROR: ${pkgJson.name} must have an "exports" map with a "." entry.`,
+        );
+        return false;
+    }
+
+    return Object.entries(pkgJson.exports)
+        .map(([subPath, target]) => {
+            if (typeof target === "string") {
+                if (subPath !== "." && target.startsWith("./dist/")) {
+                    return true;
+                }
+                console.error(
+                    `ERROR: ${pkgJson.name} export "${subPath}" must declare source, types, and default conditions.`,
+                );
+                return false;
+            }
+
+            if (typeof target !== "object" || target === null) {
+                console.error(
+                    `ERROR: ${pkgJson.name} export "${subPath}" has an invalid target.`,
+                );
+                return false;
+            }
+
+            if (!("source" in target) || typeof target.source !== "string") {
+                console.error(
+                    `ERROR: ${pkgJson.name} export "${subPath}" must declare a source condition.`,
+                );
+                return false;
+            }
+
+            const conditions = Object.keys(target);
+            if (subPath !== "." && conditions.length === 1) {
+                return true;
+            }
+
+            if (!("types" in target) || !("default" in target)) {
+                console.error(
+                    `ERROR: ${pkgJson.name} export "${subPath}" must declare types and default conditions.`,
+                );
+                return false;
+            }
+
+            const entryName =
+                subPath === "." ? "index" : subPath.replace(/^\.\//, "");
+            if (
+                conditions.length !== 3 ||
+                !conditions.every((condition) =>
+                    ["source", "types", "default"].includes(condition),
+                ) ||
+                target.types !== `./dist/${entryName}.d.ts` ||
+                target.default !== `./dist/${entryName}.js`
+            ) {
+                console.error(
+                    `ERROR: ${pkgJson.name} export "${subPath}" must declare source, types, and default conditions with matching dist paths.`,
+                );
+                return false;
+            }
+            return true;
+        })
+        .every(Boolean);
+};
+
+export {checkPublishConfig, checkEntrypoints, checkExports, checkPrivate};

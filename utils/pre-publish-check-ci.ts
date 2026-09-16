@@ -9,7 +9,7 @@ import fg from "fast-glob";
 import {
     checkPrivate,
     checkEntrypoints,
-    checkSource,
+    checkExports,
     checkPublishConfig,
 } from "./internal/pre-publish-utils";
 import {verifyCatalogHashes} from "./internal/verify-catalog-hashes";
@@ -20,12 +20,15 @@ fg(path.join(__dirname, "..", "packages", "*", "package.json")).then(
 
         for (const pkgPath of pkgPaths) {
             const pkgJson = require(path.relative(__dirname, pkgPath));
-            if (
-                !checkPrivate(pkgJson) &&
-                !checkPublishConfig(pkgJson) &&
-                !checkEntrypoints(pkgJson) &&
-                !checkSource(pkgJson)
-            ) {
+            if (checkPrivate(pkgJson)) {
+                continue;
+            }
+            const passed = [
+                checkPublishConfig(pkgJson),
+                checkEntrypoints(pkgJson),
+                checkExports(pkgJson),
+            ].every(Boolean);
+            if (!passed) {
                 allPassed = false;
             }
         }

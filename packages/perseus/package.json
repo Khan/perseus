@@ -15,21 +15,17 @@
     "bugs": {
         "url": "https://github.com/Khan/perseus/issues"
     },
-    "module": "dist/es/index.js",
-    "main": "dist/index.js",
-    "source": "src/index.ts",
+    "type": "module",
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
             "source": "./src/index.ts",
-            "import": "./dist/es/index.js",
-            "require": "./dist/index.js"
+            "default": "./dist/index.js"
         },
         "./strings": {
             "types": "./dist/strings.d.ts",
             "source": "./src/strings.ts",
-            "import": "./dist/es/strings.js",
-            "require": "./dist/strings.js"
+            "default": "./dist/strings.js"
         },
         "./styles.css": "./dist/index.css"
     },
