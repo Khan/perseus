@@ -3,7 +3,7 @@ import {defineConfig} from "cypress";
 import {mergeConfig} from "vite";
 import istanbul from "vite-plugin-istanbul";
 
-import viteConfig from "../../vite.config";
+import viteConfig from "../../vite.config.mts";
 
 const coverageEnabled = Boolean(process.env.CYPRESS_COVERAGE);
 const sharedViteConfig = {...viteConfig};
