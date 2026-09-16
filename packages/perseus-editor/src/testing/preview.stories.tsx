@@ -13,6 +13,7 @@ const meta: Meta = {
     // component supports preview in dev mode and isn't meant to be used as a
     // story by itself..
     tags: ["!autodocs", "!manifest"],
+    parameters: {chromatic: {disableSnapshot: true}},
 };
 export default meta;
 
