@@ -16,10 +16,11 @@ import _ from "underscore";
 
 import InfoTip from "../../components/info-tip";
 import EditorJsonify from "../../mixins/editor-jsonify";
-import {APIOptions} from "@khanacademy/perseus";
+
+import type {APIOptions} from "@khanacademy/perseus";
 
 interface Props extends PerseusDropdownWidgetOptions {
-    onChange(a: any): void; // FIXME: remove `any`
+    onChange: (options: PerseusDropdownWidgetOptions) => void;
     apiOptions?: APIOptions;
 }
 
@@ -51,42 +52,37 @@ class DropdownEditor extends React.Component<Props> {
         this.afterUpdateActionQueue.length = 0;
     }
 
-    onVisibleLabelChange: (arg1: string) => void = (visibleLabel) => {
-        this.props.onChange({visibleLabel});
-    };
+    handleChange(changed: Partial<PerseusDropdownWidgetOptions>) {
+        this.props.onChange({
+            choices: this.props.choices,
+            placeholder: this.props.placeholder,
+            visibleLabel: this.props.visibleLabel,
+            ariaLabel: this.props.ariaLabel,
+            ...changed,
+        });
+    }
 
-    onAriaLabelChange: (arg1: string) => void = (ariaLabel) => {
-        this.props.onChange({ariaLabel});
-    };
-
-    onPlaceholderChange: (arg1: string) => void = (placeholder) => {
-        this.props.onChange({placeholder});
-    };
-
-    onCorrectChange: (arg1: number) => void = (choiceIndex) => {
+    onCorrectChange(choiceIndex: number) {
         const choices = this.props.choices.map(function (choice, i) {
             return _.extend({}, choice, {
                 correct: i === choiceIndex,
             });
         });
-        this.props.onChange({choices: choices});
-    };
+        this.handleChange({choices: choices});
+    }
 
-    onContentChange: (arg1: number, arg2: string) => void = (
-        choiceIndex,
-        newContent,
-    ) => {
+    onContentChange(choiceIndex: number, newContent: string) {
         const choices = this.props.choices.slice();
         const choice = _.clone(choices[choiceIndex]);
         choice.content = newContent;
         choices[choiceIndex] = choice;
-        this.props.onChange({choices: choices});
-    };
+        this.handleChange({choices: choices});
+    }
 
     addChoice: () => void = () => {
         const choices = this.props.choices;
         const blankChoice = {content: "", correct: false} as const;
-        this.props.onChange({choices: choices.concat([blankChoice])});
+        this.handleChange({choices: choices.concat([blankChoice])});
         // Focus the new input after the next render:
         this.afterUpdateActionQueue.push(() => this.focus(choices.length));
     };
@@ -94,7 +90,7 @@ class DropdownEditor extends React.Component<Props> {
     removeChoice: (arg1: number) => void = (choiceIndex) => {
         const choices = [...this.props.choices];
         choices.splice(choiceIndex, 1);
-        this.props.onChange({choices});
+        this.handleChange({choices});
     };
 
     focus: (arg1: number) => boolean = (i) => {
@@ -131,7 +127,9 @@ class DropdownEditor extends React.Component<Props> {
                         Visible label
                         <TextField
                             value={this.props.visibleLabel ?? ""}
-                            onChange={this.onVisibleLabelChange}
+                            onChange={(visibleLabel) =>
+                                this.handleChange({visibleLabel})
+                            }
                         />
                     </BodyText>
                     <InfoTip>
@@ -143,7 +141,9 @@ class DropdownEditor extends React.Component<Props> {
                         Aria label
                         <TextField
                             value={this.props.ariaLabel ?? ""}
-                            onChange={this.onAriaLabelChange}
+                            onChange={(ariaLabel) =>
+                                this.handleChange({ariaLabel})
+                            }
                             type={"text"}
                         />
                     </BodyText>
@@ -170,7 +170,9 @@ class DropdownEditor extends React.Component<Props> {
                         Placeholder
                         <TextField
                             value={this.props.placeholder}
-                            onChange={this.onPlaceholderChange}
+                            onChange={(placeholder) =>
+                                this.handleChange({placeholder})
+                            }
                             placeholder={"Placeholder value"}
                         />
                     </BodyText>
