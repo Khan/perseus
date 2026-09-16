@@ -1,9 +1,6 @@
 /**
  * Pre-publish utilities to verify that our publish will go smoothly.
  */
-import fs from "fs";
-import path from "path";
-
 const checkPublishConfig = ({
     name,
     publishConfig,
@@ -140,52 +137,55 @@ const checkExports = (pkgJson): boolean => {
         );
         return false;
     }
-    return true;
-};
 
-/**
- * A package.json `exports` map: sub-path to either a file or a set of
- * condition/file pairs.
- */
-type ExportsMap = Record<string, string | Record<string, string>>;
+    return Object.entries(pkgJson.exports)
+        .map(([subPath, target]) => {
+            if (typeof target === "string") {
+                if (subPath !== "." && target.startsWith("./dist/")) {
+                    return true;
+                }
+                console.error(
+                    `ERROR: ${pkgJson.name} export "${subPath}" must declare source, types, and default conditions.`,
+                );
+                return false;
+            }
 
-/**
- * Every file an `exports` map promises to a consumer, as package-relative
- * paths. The `source` condition is left out: it points into `src/` and is
- * only read by our own tooling.
- */
-const exportTargets = (exportsMap: ExportsMap | undefined): Array<string> =>
-    Object.values(exportsMap ?? {}).flatMap((target) =>
-        typeof target === "string"
-            ? [target]
-            : Object.entries(target)
-                  .filter(([condition]) => condition !== "source")
-                  .map(([, file]) => file),
-    );
+            if (typeof target !== "object" || target === null) {
+                console.error(
+                    `ERROR: ${pkgJson.name} export "${subPath}" has an invalid target.`,
+                );
+                return false;
+            }
 
-/**
- * Verify that every file an `exports` map points at exists.
- *
- * Assumes the package has already been built: `dist/` must hold the files the
- * map declares.
- */
-const checkExportTargets = (pkgJson, pkgDir: string): boolean =>
-    exportTargets(pkgJson.exports)
-        .map((target) => {
-            if (fs.existsSync(path.resolve(pkgDir, target))) {
+            const conditions = Object.keys(target);
+            const {source, types, default: defaultTarget} = target;
+            if (
+                subPath !== "." &&
+                conditions.length === 1 &&
+                typeof source === "string"
+            ) {
                 return true;
             }
-            console.error(
-                `ERROR: ${pkgJson.name} exports "${target}", which does not exist. Did the build run?`,
-            );
-            return false;
+
+            const entryName =
+                subPath === "." ? "index" : subPath.replace(/^\.\//, "");
+            if (
+                conditions.length !== 3 ||
+                !conditions.every((condition) =>
+                    ["source", "types", "default"].includes(condition),
+                ) ||
+                typeof source !== "string" ||
+                types !== `./dist/${entryName}.d.ts` ||
+                defaultTarget !== `./dist/${entryName}.js`
+            ) {
+                console.error(
+                    `ERROR: ${pkgJson.name} export "${subPath}" must declare source, types, and default conditions with matching dist paths.`,
+                );
+                return false;
+            }
+            return true;
         })
         .every(Boolean);
-
-export {
-    checkPublishConfig,
-    checkEntrypoints,
-    checkExports,
-    checkExportTargets,
-    checkPrivate,
 };
+
+export {checkPublishConfig, checkEntrypoints, checkExports, checkPrivate};

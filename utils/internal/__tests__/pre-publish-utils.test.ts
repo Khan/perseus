@@ -1,10 +1,4 @@
-import fs from "fs";
-
-import {
-    checkEntrypoints,
-    checkExports,
-    checkExportTargets,
-} from "../pre-publish-utils";
+import {checkEntrypoints, checkExports} from "../pre-publish-utils";
 
 describe("checkExports", () => {
     beforeEach(() => {
@@ -26,65 +20,65 @@ describe("checkExports", () => {
         expect(result).toBe(false);
     });
 
-    it("returns true for a well-formed map", () => {
+    it("returns true for well-formed code and asset exports", () => {
         const result = checkExports({
             name: "@khanacademy/kmath",
-            exports: {".": "./dist/index.js"},
+            exports: {
+                ".": {
+                    types: "./dist/index.d.ts",
+                    source: "./src/index.ts",
+                    default: "./dist/index.js",
+                },
+                "./styles.css": "./dist/index.css",
+            },
         });
 
         expect(result).toBe(true);
     });
-});
 
-describe("checkExportTargets", () => {
-    const pkgJson = {
-        name: "@khanacademy/kmath",
-        exports: {
-            ".": {
-                types: "./dist/index.d.ts",
-                source: "./src/index.ts",
-                default: "./dist/index.js",
+    it("returns true for a source-only sub-path", () => {
+        const result = checkExports({
+            name: "@khanacademy/kmath",
+            exports: {
+                ".": {
+                    types: "./dist/index.d.ts",
+                    source: "./src/index.ts",
+                    default: "./dist/index.js",
+                },
+                "./internal": {source: "./src/internal.ts"},
             },
-            "./styles.css": "./dist/index.css",
-        },
-    };
-
-    beforeEach(() => {
-        jest.spyOn(console, "error").mockImplementation(() => {});
-    });
-
-    it("returns true when every declared target exists", () => {
-        // Arrange
-        jest.spyOn(fs, "existsSync").mockReturnValue(true);
-
-        // Act
-        const result = checkExportTargets(pkgJson, "/packages/kmath");
+        });
 
         expect(result).toBe(true);
     });
 
-    it("returns false when a declared target is missing from dist", () => {
-        // Arrange
-        jest.spyOn(fs, "existsSync").mockImplementation(
-            (file) => file !== "/packages/kmath/dist/index.css",
-        );
-
-        // Act
-        const result = checkExportTargets(pkgJson, "/packages/kmath");
+    it("returns false when a code export omits a required condition", () => {
+        const result = checkExports({
+            name: "@khanacademy/kmath",
+            exports: {
+                ".": {
+                    source: "./src/index.ts",
+                    default: "./dist/index.js",
+                },
+            },
+        });
 
         expect(result).toBe(false);
     });
 
-    it("ignores the source condition, which points at src", () => {
-        // Arrange
-        jest.spyOn(fs, "existsSync").mockImplementation(
-            (file) => !String(file).includes("/src/"),
-        );
+    it("returns false when output paths do not match the sub-path", () => {
+        const result = checkExports({
+            name: "@khanacademy/kmath",
+            exports: {
+                ".": {
+                    types: "./dist/other.d.ts",
+                    source: "./src/index.ts",
+                    default: "./dist/other.js",
+                },
+            },
+        });
 
-        // Act
-        const result = checkExportTargets(pkgJson, "/packages/kmath");
-
-        expect(result).toBe(true);
+        expect(result).toBe(false);
     });
 });
 
