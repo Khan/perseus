@@ -2,6 +2,11 @@ import {
     setStrictRegistration,
     withStrictRegistration,
 } from "../utils/strict-registry";
+import {
+    enterWidgetManifestContext,
+    getWidgetManifest,
+    resetWidgetManifests,
+} from "../utils/widget-manifest";
 
 import * as CoreWidgetRegistry from "./core-widget-registry";
 import {
@@ -46,6 +51,24 @@ describe("core-widget-registry", () => {
             registerLogic({name: "_other_", version: {major: 1, minor: 0}});
 
             expect(isWidgetRegistered("_reset_")).toBe(false);
+        });
+    });
+
+    describe("manifest recording", () => {
+        afterEach(() => {
+            resetWidgetManifests("core.test.ts");
+        });
+
+        it("records core logic lookups against the active file", () => {
+            const restore = enterWidgetManifestContext("core.test.ts");
+            registerLogic({name: "radio", version: {major: 1, minor: 0}});
+
+            getCurrentVersion("radio");
+            restore();
+
+            expect(getWidgetManifest("core.test.ts").coreWidgets).toEqual([
+                "radio",
+            ]);
         });
     });
 

@@ -2,6 +2,11 @@ import {
     CoreWidgetRegistry,
     setStrictRegistration,
 } from "@khanacademy/perseus-core";
+import {
+    enterWidgetManifestContext,
+    getWidgetManifest,
+    resetWidgetManifests,
+} from "@khanacademy/perseus-core/registry";
 
 import {
     getTracking,
@@ -59,6 +64,24 @@ describe("registerWidgets", () => {
         registerWidgets([fakeWidget]);
 
         expect(getWidgetExport("_test-widget_")).toBe(fakeWidget);
+    });
+});
+
+describe("manifest recording", () => {
+    afterEach(() => {
+        resetWidgetManifests("widget.test.tsx");
+    });
+
+    it("records React widget lookups against the active file", () => {
+        const restore = enterWidgetManifestContext("widget.test.tsx");
+        registerWidgets([fakeRegistration]);
+
+        getWidget("_test-widget_");
+        restore();
+
+        expect(getWidgetManifest("widget.test.tsx").widgets).toEqual([
+            "_test-widget_",
+        ]);
     });
 });
 

@@ -4,6 +4,11 @@ import {
     Registry,
     setStrictRegistration,
 } from "@khanacademy/perseus-core";
+import {
+    enterWidgetManifestContext,
+    getWidgetManifest,
+    resetWidgetManifests,
+} from "@khanacademy/perseus-core/registry";
 
 import {
     getEditor,
@@ -35,7 +40,18 @@ const radioEditorRegistration = {
 describe("editor registry", () => {
     afterEach(() => {
         resetEditorRegistry();
+        resetWidgetManifests("editor.test.tsx");
         setStrictRegistration(false);
+    });
+
+    it("records editor lookups against the active file", () => {
+        const restore = enterWidgetManifestContext("editor.test.tsx");
+        registerEditors({radio: radioEditor});
+
+        getEditor("radio");
+        restore();
+
+        expect(getWidgetManifest("editor.test.tsx").editors).toEqual(["radio"]);
     });
 
     it("returns the editor registered under a widget name", () => {

@@ -4,6 +4,7 @@ import {Errors} from "../error/errors";
 import {PerseusError} from "../error/perseus-error";
 import Registry, {resetRegistry} from "../utils/registry";
 import {strictGet} from "../utils/strict-registry";
+import {recordWidgetManifestEntry} from "../utils/widget-manifest";
 
 import type {
     PublicWidgetOptionsFunction,
@@ -91,6 +92,7 @@ export function replaceDeprecatedLogics() {
  * production we say so instead.
  */
 function getLogicStrictly(type: string) {
+    recordWidgetManifestEntry("core", type);
     return strictGet(
         widgets,
         type,

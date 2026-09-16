@@ -299,6 +299,7 @@ module.exports = {
             // Registry and registration tests exercise these accessors directly.
             files: [
                 "packages/perseus/src/__tests__/widgets.test.ts",
+                "packages/perseus/src/widgets.test.ts",
                 "packages/perseus-core/src/widgets/core-widget-registry.test.ts",
                 "packages/perseus-editor/src/editor-registration.test.ts",
                 "packages/perseus-editor/src/editor-registry.test.ts",

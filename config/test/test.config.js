@@ -35,6 +35,15 @@ swcrc.jsc.experimental.plugins.push(["swc_mut_cjs_exports", {}]);
 // maxWorkers is not set, so I've reduced it to 10. The test suite seems to run
 // faster with 10 workers, too (16s vs. 18s). This setting is not applied on CI.
 const maxWorkersConfig = process.env.CI ? {} : {maxWorkers: 10};
+const widgetManifestConfig =
+    process.env.PERSEUS_WIDGET_MANIFESTS === "1"
+        ? {
+              reporters: [
+                  "default",
+                  "<rootDir>/config/test/widget-manifest-reporter.js",
+              ],
+          }
+        : {};
 
 /** @type {import('jest').Config} */
 module.exports = {
@@ -72,6 +81,7 @@ module.exports = {
         "<rootDir>/config/test/test-setup.ts",
         "<rootDir>/config/test/custom-matchers.ts",
         "<rootDir>/config/test/crypto-polyfill.js",
+        "<rootDir>/config/test/widget-manifest-test-setup.ts",
     ],
     moduleNameMapper: {
         ...vendorMap,
@@ -93,6 +103,7 @@ module.exports = {
     ],
     coverageProvider: "v8",
     ...maxWorkersConfig,
+    ...widgetManifestConfig,
     // Disable watchman when running under Claude Code.
     // Watchman doesn't work under Claude Code's sandbox, and `watchman: false`
     // must be set at the global config level (not per-project) to take effect.

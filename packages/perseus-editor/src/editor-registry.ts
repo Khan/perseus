@@ -3,6 +3,7 @@ import {
     Errors,
     PerseusError,
     Registry,
+    recordWidgetManifestEntry,
     resetRegistry,
     strictGet,
 } from "@khanacademy/perseus-core/registry";
@@ -79,6 +80,7 @@ export const replaceDeprecatedEditors = () => {
 };
 
 export const getEditor = (type: string): Editor | null => {
+    recordWidgetManifestEntry("editor", type);
     return (
         strictGet(
             editors,

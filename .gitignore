@@ -6,6 +6,7 @@ yarn-error.log
 coverage
 coverage-ts
 storybook-static
+.widget-manifests/
 debug-storybook.log
 .nyc_output
 *.tsbuildinfo

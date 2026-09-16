@@ -3,6 +3,7 @@ import {
     Errors,
     PerseusError,
     Registry,
+    recordWidgetManifestEntry,
     resetRegistry,
     strictGet,
 } from "@khanacademy/perseus-core/registry";
@@ -84,6 +85,7 @@ export const replaceDeprecatedWidgets = () => {
 };
 
 function getWidgetStrictly(type: string): WidgetExports | undefined {
+    recordWidgetManifestEntry("widget", type);
     return strictGet(
         widgets,
         type,
