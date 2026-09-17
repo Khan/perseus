@@ -7,16 +7,13 @@ import _ from "underscore";
 import TextListEditor from "../../components/text-list-editor";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
-import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const Categorizer = CategorizerWidget.widget;
 
-interface Props extends PerseusCategorizerWidgetOptions {
-    apiOptions?: APIOptionsWithDefaults;
-    onChange: (options: PerseusCategorizerWidgetOptions) => void;
-}
+type Props = WidgetEditorProps<PerseusCategorizerWidgetOptions>;
 
 // JSDoc will be shown in Storybook widget editor description
 /**
