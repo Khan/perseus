@@ -47,7 +47,9 @@ AGENTS.md                            tier=medium
 # Mints the PAT the hooks above consume.
 .claude/setup-git-token.mjs          tier=high
 .codex/hooks/**                      tier=high
+.codex/hooks.json                    tier=high
 .cursor/hooks/**                     tier=high
+.cursor/hooks.json                   tier=high
 .mcp.json                            tier=high
 
 # High-risk surfaces (see risk-classification.md for the reasoning).

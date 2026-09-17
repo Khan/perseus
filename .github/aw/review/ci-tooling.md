@@ -8,9 +8,10 @@ that enforces it (see .github/workflows/node-ci.yml and friends).
 -->
 
 - **Formatting** — `pnpm prettier --check .` (node-ci). Never comment on formatting.
-- **Lint** — ESLint via node-ci: `pnpm lint packages` (full) when an ESLint config
-  file changed, otherwise `pnpm lint` over the changed files only. Don't re-flag what
-  ESLint enforces (import order, unused vars, hook deps, `testing-library` rules).
+- **Lint** — ESLint via node-ci: `pnpm lint` (full) when an ESLint config file
+  changed, otherwise `pnpm eslint [FILES...]` over the changed files only. Don't
+  re-flag what ESLint enforces (import order, unused vars, hook deps,
+  `testing-library` rules).
 - **Type errors** — `pnpm typecheck` (tsc across all packages) plus `pnpm tstyche`
   (type-level tests, `*.typetest.ts`). If it wouldn't type-check, CI fails.
 - **Test failures** — node-ci runs `pnpm jest` (the full suite when shared test
