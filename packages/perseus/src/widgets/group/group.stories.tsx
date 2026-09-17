@@ -27,7 +27,6 @@ type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 export const Question1: Story = {
     args: {
         item: generateTestPerseusItem({question: question1}),
-        title: "Hello",
     },
 };
 
