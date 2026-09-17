@@ -268,6 +268,12 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                     <Renderer content={message} strings={strings} />
                 </div>
 
+                {props.options.answerArea &&
+                    apiOptions.renderExtras?.(
+                        props.options.answerArea,
+                        props.widgetId,
+                    )}
+
                 {props.options.hint?.content &&
                     (showHint ? (
                         <div>

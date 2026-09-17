@@ -90,6 +90,49 @@ describe("graded-group", () => {
         });
     });
 
+    it("renders the answer area extras for the group", () => {
+        // Arrange
+        const renderExtras = jest.fn(() => "Calculator");
+        const question = generateTestPerseusRenderer({
+            content: "[[☃ graded-group 1]]",
+            widgets: {
+                "graded-group 1": generateGradedGroupWidget({
+                    options: generateGradedGroupOptions({
+                        answerArea: {
+                            calculator: true,
+                            periodicTable: false,
+                            periodicTableWithKey: false,
+                            financialCalculatorMonthlyPayment: false,
+                            financialCalculatorTotalAmount: false,
+                            financialCalculatorTimeToPayOff: false,
+                        },
+                    }),
+                }),
+            },
+        });
+
+        // Act
+        renderQuestion(question, {renderExtras});
+
+        // Assert
+        expect(screen.getByText("Calculator")).toBeInTheDocument();
+        expect(renderExtras).toHaveBeenCalledWith(
+            expect.objectContaining({calculator: true}),
+            "graded-group 1",
+        );
+    });
+
+    it("does not render answer area extras when the group has no answer area", () => {
+        // Arrange
+        const renderExtras = jest.fn(() => "Calculator");
+
+        // Act
+        renderQuestion(question1, {renderExtras});
+
+        // Assert
+        expect(renderExtras).not.toHaveBeenCalled();
+    });
+
     describe("on desktop", () => {
         it("should be able to be answered correctly", async () => {
             // Arrange
