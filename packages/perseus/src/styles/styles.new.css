@@ -386,6 +386,9 @@
 .bibliotron-exercise .perseus-hint-renderer .renderer-new-ff :is(> *, p) {
     margin-block: 0 var(--wb-sizing-size_160);
 }
+.hint.last-hint .perseus-renderer.renderer-new-ff > * {
+    font-weight: var(--wb-font-weight-bold);
+}
 
 /* Specific for perseus-image-widget caption styling within floated widgets */
 .framework-perseus.perseus-article:not(.perseus-mobile)

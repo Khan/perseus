@@ -30,9 +30,6 @@ div.graphie {
    */
     font-size: 14px;
 }
-.hint.last-hint .perseus-renderer.renderer-new-ff {
-    font-weight: bold;
-}
 #answercontent input[type="text"].perseus-input-size-normal,
 #answercontent input[type="number"].perseus-input-size-normal,
 .framework-perseus input[type="text"].perseus-input-size-normal,
