@@ -428,3 +428,11 @@
     margin: 0;
     font-size: initial;
 }
+
+.framework-perseus
+.perseus-renderer.renderer-new-ff
+> ul:not([data-widget="radio"]),
+.framework-perseus .perseus-renderer.renderer-new-ff > ol {
+    margin: 0;
+    margin-block-end: var(--wb-sizing-size_220);
+}
