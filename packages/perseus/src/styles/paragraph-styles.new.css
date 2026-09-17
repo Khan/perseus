@@ -15,7 +15,7 @@
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer.renderer-new-ff
-    > p {
+    p {
     color: var(--wb-semanticColor-core-foreground-neutral-strong);
     font-size: 20px;
     line-height: 30px;

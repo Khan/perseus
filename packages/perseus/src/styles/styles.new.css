@@ -28,6 +28,11 @@
     line-height: 30px;
     margin-bottom: var(--wb-sizing-size_320);
 }
+.framework-perseus .perseus-renderer.renderer-new-ff h1 {
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: var(--wb-font-weight-bold);
+}
 .framework-perseus.perseus-article:not(.perseus-mobile) h2 {
     font-family: inherit;
     font-size: 30px;
