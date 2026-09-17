@@ -1,5 +1,17 @@
 # @khanacademy/perseus-editor
 
+## 43.0.1
+
+### Patch Changes
+
+-   [#4237](https://github.com/Khan/perseus/pull/4237) [`9d766a2`](https://github.com/Khan/perseus/commit/9d766a290b81645ec56bce6fbf97c4d884eae017) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in CategorizerEditor
+
+-   [#4243](https://github.com/Khan/perseus/pull/4243) [`b3eb128`](https://github.com/Khan/perseus/commit/b3eb128187e4db1e5cb1292e858c5cb5182ad779) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in ExplanationEditor
+
+-   [#4240](https://github.com/Khan/perseus/pull/4240) [`cc876c4`](https://github.com/Khan/perseus/commit/cc876c49364a3120deb7e8d3b40d003045181bc5) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Improve type safety in the DropdownEditor. It now has a real `Props` type instead of `any`.
+
+-   [#4245](https://github.com/Khan/perseus/pull/4245) [`2000793`](https://github.com/Khan/perseus/commit/20007937279b367d35731b7755db67a446d56b30) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in ExpressionEditor
+
 ## 43.0.0
 
 ### Major Changes
