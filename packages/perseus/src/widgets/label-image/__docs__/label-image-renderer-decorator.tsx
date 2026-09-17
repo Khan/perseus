@@ -12,25 +12,36 @@ export const labelImageRendererDecoratorWithDebugUI = (
     _,
     {args, parameters},
 ) => {
-    return (
-        <ServerItemRendererWithDebugUI
-            item={generateTestPerseusItem({
-                question: generateTestPerseusRenderer({
-                    content: parameters?.content ?? "[[☃ label-image 1]]",
-                    widgets: {
-                        "label-image 1": generateLabelImageWidget({
-                            options: generateLabelImageOptions({
-                                ...args,
-                            }),
-                        }),
-                    },
+    const item = generateTestPerseusItem({
+        question: generateTestPerseusRenderer({
+            content: parameters?.content ?? "[[☃ label-image 1]]",
+            widgets: {
+                "label-image 1": generateLabelImageWidget({
+                    options: generateLabelImageOptions({
+                        ...args,
+                    }),
                 }),
-            })}
-        />
-    );
+            },
+        }),
+    });
+
+    return <ServerItemRendererWithDebugUI item={item} />;
 };
 
 export const labelImageRendererDecorator = (_, {args, parameters}) => {
+    const item = generateTestPerseusItem({
+        question: generateTestPerseusRenderer({
+            content: parameters?.content ?? "[[☃ label-image 1]]",
+            widgets: {
+                "label-image 1": generateLabelImageWidget({
+                    options: generateLabelImageOptions({
+                        ...args,
+                    }),
+                }),
+            },
+        }),
+    });
+
     return (
         // `apiOptions` is forwarded from story parameters so a story can put
         // the widget into mobile mode. This is required (not just the
@@ -38,18 +49,7 @@ export const labelImageRendererDecorator = (_, {args, parameters}) => {
         // "Click") is chosen from `apiOptions.isMobile` at render time.
         <ServerItemRendererWithDebugUI
             apiOptions={parameters?.apiOptions}
-            item={generateTestPerseusItem({
-                question: generateTestPerseusRenderer({
-                    content: parameters?.content ?? "[[☃ label-image 1]]",
-                    widgets: {
-                        "label-image 1": generateLabelImageWidget({
-                            options: generateLabelImageOptions({
-                                ...args,
-                            }),
-                        }),
-                    },
-                }),
-            })}
+            item={item}
         />
     );
 };

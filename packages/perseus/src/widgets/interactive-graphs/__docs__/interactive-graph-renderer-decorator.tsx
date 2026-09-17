@@ -32,18 +32,20 @@ export const interactiveGraphRendererDecorator = (
         };
     },
 ) => {
+    const item = generateTestPerseusItem({
+        question:
+            parameters?.question ??
+            generateInteractiveGraphQuestion({
+                ...args,
+                content: parameters?.content,
+                isStatic: parameters?.isStatic,
+                graded: parameters?.graded,
+            }),
+    });
+
     return (
         <ServerItemRendererWithDebugUI
-            item={generateTestPerseusItem({
-                question:
-                    parameters?.question ??
-                    generateInteractiveGraphQuestion({
-                        ...args,
-                        content: parameters?.content,
-                        isStatic: parameters?.isStatic,
-                        graded: parameters?.graded,
-                    }),
-            })}
+            item={item}
             apiOptions={parameters?.apiOptions}
             initialUserInput={parameters?.initialUserInput}
         />

@@ -29,25 +29,27 @@ export const explanationRendererDecorator: Decorator = (
         };
     },
 ) => {
+    const item = generateTestPerseusItem({
+        question: generateTestPerseusRenderer({
+            content:
+                parameters?.content ??
+                "Here's the explanation\n[[☃ explanation 1]]\nDid you get that?",
+            widgets: {
+                "explanation 1": generateExplanationWidget({
+                    options: generateExplanationOptions({
+                        ...args,
+                        ...(parameters?.widgets
+                            ? {widgets: parameters.widgets}
+                            : {}),
+                    }),
+                }),
+            },
+        }),
+    });
+
     return (
         <ServerItemRendererWithDebugUI
-            item={generateTestPerseusItem({
-                question: generateTestPerseusRenderer({
-                    content:
-                        parameters?.content ??
-                        "Here's the explanation\n[[☃ explanation 1]]\nDid you get that?",
-                    widgets: {
-                        "explanation 1": generateExplanationWidget({
-                            options: generateExplanationOptions({
-                                ...args,
-                                ...(parameters?.widgets
-                                    ? {widgets: parameters.widgets}
-                                    : {}),
-                            }),
-                        }),
-                    },
-                }),
-            })}
+            item={item}
             apiOptions={parameters?.apiOptions}
         />
     );

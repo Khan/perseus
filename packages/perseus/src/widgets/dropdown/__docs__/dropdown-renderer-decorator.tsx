@@ -25,22 +25,23 @@ export const dropdownRendererDecorator: Decorator = (
         };
     },
 ) => {
+    const item = generateTestPerseusItem({
+        question: generateTestPerseusRenderer({
+            content:
+                parameters?.content ?? "Select an answer: [[☃ dropdown 1]]",
+            widgets: {
+                "dropdown 1": generateDropdownWidget({
+                    options: generateDropdownOptions({
+                        ...args,
+                    }),
+                }),
+            },
+        }),
+    });
+
     return (
         <ServerItemRendererWithDebugUI
-            item={generateTestPerseusItem({
-                question: generateTestPerseusRenderer({
-                    content:
-                        parameters?.content ??
-                        "Select an answer: [[☃ dropdown 1]]",
-                    widgets: {
-                        "dropdown 1": generateDropdownWidget({
-                            options: generateDropdownOptions({
-                                ...args,
-                            }),
-                        }),
-                    },
-                }),
-            })}
+            item={item}
             apiOptions={parameters?.apiOptions}
         />
     );

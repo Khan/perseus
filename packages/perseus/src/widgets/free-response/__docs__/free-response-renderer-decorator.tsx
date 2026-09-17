@@ -9,20 +9,22 @@ import * as React from "react";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 
 export const freeResponseRendererDecorator = (_, {args, parameters}) => {
+    const item = generateTestPerseusItem({
+        question: generateTestPerseusRenderer({
+            content: parameters?.content ?? "[[☃ free-response 1]]",
+            widgets: {
+                "free-response 1": generateFreeResponseWidget({
+                    options: generateFreeResponseOptions({
+                        ...args,
+                    }),
+                }),
+            },
+        }),
+    });
+
     return (
         <ServerItemRendererWithDebugUI
-            item={generateTestPerseusItem({
-                question: generateTestPerseusRenderer({
-                    content: parameters?.content ?? "[[☃ free-response 1]]",
-                    widgets: {
-                        "free-response 1": generateFreeResponseWidget({
-                            options: generateFreeResponseOptions({
-                                ...args,
-                            }),
-                        }),
-                    },
-                }),
-            })}
+            item={item}
             apiOptions={parameters?.apiOptions}
         />
     );

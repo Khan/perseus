@@ -104,34 +104,36 @@ export const MultipleInputsInParagraph: Story = {
         ),
     ],
     render: function Render() {
+        const item = generateTestPerseusItem({
+            question: generateTestPerseusRenderer({
+                content:
+                    "On long-range sensors, the bridge crew counted " +
+                    "[[☃ numeric-input 1]] Borg cubes, [[☃ numeric-input 2]] " +
+                    "Romulan warbirds, and [[☃ numeric-input 3]] Klingon " +
+                    "birds-of-prey approaching the neutral zone.",
+                widgets: {
+                    "numeric-input 1": generateNumericInputWidget({
+                        options: generateNumericInputOptions({
+                            size: "normal",
+                        }),
+                    }),
+                    "numeric-input 2": generateNumericInputWidget({
+                        options: generateNumericInputOptions({
+                            size: "normal",
+                        }),
+                    }),
+                    "numeric-input 3": generateNumericInputWidget({
+                        options: generateNumericInputOptions({
+                            size: "normal",
+                        }),
+                    }),
+                },
+            }),
+        });
+
         return (
             <ServerItemRendererWithDebugUI
-                item={generateTestPerseusItem({
-                    question: generateTestPerseusRenderer({
-                        content:
-                            "On long-range sensors, the bridge crew counted " +
-                            "[[☃ numeric-input 1]] Borg cubes, [[☃ numeric-input 2]] " +
-                            "Romulan warbirds, and [[☃ numeric-input 3]] Klingon " +
-                            "birds-of-prey approaching the neutral zone.",
-                        widgets: {
-                            "numeric-input 1": generateNumericInputWidget({
-                                options: generateNumericInputOptions({
-                                    size: "normal",
-                                }),
-                            }),
-                            "numeric-input 2": generateNumericInputWidget({
-                                options: generateNumericInputOptions({
-                                    size: "normal",
-                                }),
-                            }),
-                            "numeric-input 3": generateNumericInputWidget({
-                                options: generateNumericInputOptions({
-                                    size: "normal",
-                                }),
-                            }),
-                        },
-                    }),
-                })}
+                item={item}
                 initialUserInput={{
                     "numeric-input 1": {currentValue: "12"},
                     "numeric-input 2": {currentValue: "7"},
@@ -148,39 +150,40 @@ export const MultipleInputsInParagraph: Story = {
  */
 export const InlineWithDropdown: Story = {
     render: function Render() {
+        const item = generateTestPerseusItem({
+            question: generateTestPerseusRenderer({
+                content:
+                    "The shuttlecraft can carry [[☃ numeric-input 1]] " +
+                    "supply crates, which is [[☃ dropdown 1]] the cargo " +
+                    "limit set by Starfleet.",
+                widgets: {
+                    "numeric-input 1": generateNumericInputWidget({
+                        options: generateNumericInputOptions({
+                            size: "normal",
+                        }),
+                    }),
+                    "dropdown 1": generateDropdownWidget({
+                        options: generateDropdownOptions({
+                            placeholder: "greater/less than or equal to",
+                            choices: [
+                                {
+                                    content: "greater than or equal to",
+                                    correct: false,
+                                },
+                                {
+                                    content: "less than or equal to",
+                                    correct: true,
+                                },
+                            ],
+                        }),
+                    }),
+                },
+            }),
+        });
+
         return (
             <ServerItemRendererWithDebugUI
-                item={generateTestPerseusItem({
-                    question: generateTestPerseusRenderer({
-                        content:
-                            "The shuttlecraft can carry [[☃ numeric-input 1]] " +
-                            "supply crates, which is [[☃ dropdown 1]] the cargo " +
-                            "limit set by Starfleet.",
-                        widgets: {
-                            "numeric-input 1": generateNumericInputWidget({
-                                options: generateNumericInputOptions({
-                                    size: "normal",
-                                }),
-                            }),
-                            "dropdown 1": generateDropdownWidget({
-                                options: generateDropdownOptions({
-                                    placeholder:
-                                        "greater/less than or equal to",
-                                    choices: [
-                                        {
-                                            content: "greater than or equal to",
-                                            correct: false,
-                                        },
-                                        {
-                                            content: "less than or equal to",
-                                            correct: true,
-                                        },
-                                    ],
-                                }),
-                            }),
-                        },
-                    }),
-                })}
+                item={item}
                 initialUserInput={{
                     "numeric-input 1": {currentValue: "42"},
                 }}

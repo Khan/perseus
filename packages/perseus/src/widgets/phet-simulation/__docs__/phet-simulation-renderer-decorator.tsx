@@ -22,19 +22,21 @@ export const phetSimulationRendererDecorator: Decorator = (
         parameters?: {apiOptions?: APIOptions; content?: string};
     },
 ) => {
+    const item = generateTestPerseusItem({
+        question: generateTestPerseusRenderer({
+            content: parameters?.content ?? "[[☃ phet-simulation 1]]",
+            widgets: {
+                "phet-simulation 1": generatePhetSimulationWidget({
+                    options: generatePhetSimulationOptions({...args}),
+                }),
+            },
+        }),
+    });
+
     return (
         <ServerItemRendererWithDebugUI
             apiOptions={parameters?.apiOptions}
-            item={generateTestPerseusItem({
-                question: generateTestPerseusRenderer({
-                    content: parameters?.content ?? "[[☃ phet-simulation 1]]",
-                    widgets: {
-                        "phet-simulation 1": generatePhetSimulationWidget({
-                            options: generatePhetSimulationOptions({...args}),
-                        }),
-                    },
-                }),
-            })}
+            item={item}
         />
     );
 };

@@ -34,25 +34,27 @@ export const ordererRendererDecorator: Decorator = (
         };
     },
 ) => {
+    const item = generateTestPerseusItem({
+        question: generateTestPerseusRenderer({
+            content: parameters?.content ?? "[[☃ orderer 1]]",
+            widgets: {
+                "orderer 1": {
+                    version: {major: 0, minor: 0},
+                    type: "orderer",
+                    graded: true,
+                    options: {
+                        ...defaultOptions,
+                        ...args,
+                    },
+                },
+            },
+        }),
+    });
+
     return (
         <ServerItemRendererWithDebugUI
             initialUserInput={parameters?.initialUserInput}
-            item={generateTestPerseusItem({
-                question: generateTestPerseusRenderer({
-                    content: parameters?.content ?? "[[☃ orderer 1]]",
-                    widgets: {
-                        "orderer 1": {
-                            version: {major: 0, minor: 0},
-                            type: "orderer",
-                            graded: true,
-                            options: {
-                                ...defaultOptions,
-                                ...args,
-                            },
-                        },
-                    },
-                }),
-            })}
+            item={item}
         />
     );
 };

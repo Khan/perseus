@@ -22,18 +22,20 @@ export const sorterRendererDecorator: Decorator = (
         parameters?: {apiOptions?: APIOptions};
     },
 ) => {
+    const item = generateTestPerseusItem({
+        question: generateTestPerseusRenderer({
+            content: "Arrange these items in order. [[☃ sorter 1]]",
+            widgets: {
+                "sorter 1": generateSorterWidget({
+                    options: generateSorterOptions({...args}),
+                }),
+            },
+        }),
+    });
+
     return (
         <ServerItemRendererWithDebugUI
-            item={generateTestPerseusItem({
-                question: generateTestPerseusRenderer({
-                    content: "Arrange these items in order. [[☃ sorter 1]]",
-                    widgets: {
-                        "sorter 1": generateSorterWidget({
-                            options: generateSorterOptions({...args}),
-                        }),
-                    },
-                }),
-            })}
+            item={item}
             apiOptions={parameters?.apiOptions}
         />
     );

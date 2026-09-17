@@ -25,22 +25,24 @@ export const numericInputRendererDecorator = (
         };
     },
 ) => {
+    const item = generateTestPerseusItem({
+        question: generateTestPerseusRenderer({
+            content:
+                parameters?.content ??
+                "Registry numbers for USS Enterprise: [[☃ numeric-input 1]]",
+            widgets: {
+                "numeric-input 1": generateNumericInputWidget({
+                    options: generateNumericInputOptions({
+                        ...args,
+                    }),
+                }),
+            },
+        }),
+    });
+
     return (
         <ServerItemRendererWithDebugUI
-            item={generateTestPerseusItem({
-                question: generateTestPerseusRenderer({
-                    content:
-                        parameters?.content ??
-                        "Registry numbers for USS Enterprise: [[☃ numeric-input 1]]",
-                    widgets: {
-                        "numeric-input 1": generateNumericInputWidget({
-                            options: generateNumericInputOptions({
-                                ...args,
-                            }),
-                        }),
-                    },
-                }),
-            })}
+            item={item}
             apiOptions={parameters?.apiOptions}
             initialUserInput={parameters?.initialUserInput}
         />

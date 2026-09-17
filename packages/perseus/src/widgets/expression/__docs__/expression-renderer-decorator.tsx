@@ -28,21 +28,23 @@ export const expressionRendererDecorator: Decorator = (
         };
     },
 ) => {
+    const item = generateTestPerseusItem({
+        question: generateTestPerseusRenderer({
+            content: parameters?.content ?? "[[☃ expression 1]]",
+            widgets: {
+                "expression 1": generateExpressionWidget({
+                    static: parameters?.isStatic ?? false,
+                    options: generateExpressionOptions({
+                        ...args,
+                    }),
+                }),
+            },
+        }),
+    });
+
     return (
         <ServerItemRendererWithDebugUI
-            item={generateTestPerseusItem({
-                question: generateTestPerseusRenderer({
-                    content: parameters?.content ?? "[[☃ expression 1]]",
-                    widgets: {
-                        "expression 1": generateExpressionWidget({
-                            static: parameters?.isStatic ?? false,
-                            options: generateExpressionOptions({
-                                ...args,
-                            }),
-                        }),
-                    },
-                }),
-            })}
+            item={item}
             apiOptions={parameters?.apiOptions}
             initialUserInput={parameters?.initialUserInput}
         />

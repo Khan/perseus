@@ -26,21 +26,23 @@ export const categorizerRendererDecorator: Decorator = (
         };
     },
 ) => {
+    const item = generateTestPerseusItem({
+        question: generateTestPerseusRenderer({
+            content: "[[☃ categorizer 1]]",
+            widgets: {
+                "categorizer 1": generateCategorizerWidget({
+                    static: parameters?.static ?? false,
+                    options: generateCategorizerOptions({
+                        ...args,
+                    }),
+                }),
+            },
+        }),
+    });
+
     return (
         <ServerItemRendererWithDebugUI
-            item={generateTestPerseusItem({
-                question: generateTestPerseusRenderer({
-                    content: "[[☃ categorizer 1]]",
-                    widgets: {
-                        "categorizer 1": generateCategorizerWidget({
-                            static: parameters?.static ?? false,
-                            options: generateCategorizerOptions({
-                                ...args,
-                            }),
-                        }),
-                    },
-                }),
-            })}
+            item={item}
             apiOptions={parameters?.apiOptions}
             initialUserInput={parameters?.initialUserInput}
         />

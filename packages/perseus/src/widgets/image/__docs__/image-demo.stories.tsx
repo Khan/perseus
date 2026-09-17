@@ -204,88 +204,86 @@ export const LargeSVGImageWithNoSizeSaved: Story = {
 /* Different sizes using the scale prop. */
 export const ImageWithScaledSizes: Story = {
     render: function Render() {
-        return (
-            <ServerItemRendererWithDebugUI
-                item={generateTestPerseusItem({
-                    question: generateTestPerseusRenderer({
-                        content:
-                            "[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]\n\n[[☃ image 4]]\n\n[[☃ image 5]]\n\n[[☃ image 6]]\n\n[[☃ image 7]]\n\n[[☃ image 8]]\n\n[[☃ image 9]]",
-                        widgets: {
-                            "image 1": generateImageWidget({
-                                options: generateImageOptions({
-                                    backgroundImage: earthMoonImage,
-                                    scale: 1,
-                                    alt: "Fresco painting",
-                                    longDescription: "long description",
-                                }),
-                            }),
-                            "image 2": generateImageWidget({
-                                options: generateImageOptions({
-                                    backgroundImage: earthMoonImage,
-                                    scale: 0.5,
-                                    alt: "Fresco painting",
-                                    longDescription: "long description",
-                                }),
-                            }),
-                            "image 3": generateImageWidget({
-                                options: generateImageOptions({
-                                    backgroundImage: earthMoonImage,
-                                    scale: 2,
-                                    alt: "Fresco painting",
-                                    longDescription: "long description",
-                                }),
-                            }),
-                            "image 4": generateImageWidget({
-                                options: generateImageOptions({
-                                    backgroundImage: graphieImage,
-                                    alt: graphieImageAlt,
-                                    longDescription: "long description",
-                                }),
-                            }),
-                            "image 5": generateImageWidget({
-                                options: generateImageOptions({
-                                    backgroundImage: graphieImage,
-                                    scale: 0.5,
-                                    alt: graphieImageAlt,
-                                    longDescription: "long description",
-                                }),
-                            }),
-                            "image 6": generateImageWidget({
-                                options: generateImageOptions({
-                                    backgroundImage: graphieImage,
-                                    scale: 2,
-                                    alt: graphieImageAlt,
-                                    longDescription: "long description",
-                                }),
-                            }),
-                            "image 7": generateImageWidget({
-                                options: generateImageOptions({
-                                    backgroundImage: graphieImage2,
-                                    alt: graphieImage2Alt,
-                                    longDescription: "long description",
-                                }),
-                            }),
-                            "image 8": generateImageWidget({
-                                options: generateImageOptions({
-                                    backgroundImage: graphieImage2,
-                                    scale: 0.5,
-                                    alt: graphieImage2Alt,
-                                    longDescription: "long description",
-                                }),
-                            }),
-                            "image 9": generateImageWidget({
-                                options: generateImageOptions({
-                                    backgroundImage: graphieImage2,
-                                    scale: 2,
-                                    alt: graphieImage2Alt,
-                                    longDescription: "long description",
-                                }),
-                            }),
-                        },
+        const item = generateTestPerseusItem({
+            question: generateTestPerseusRenderer({
+                content:
+                    "[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]\n\n[[☃ image 4]]\n\n[[☃ image 5]]\n\n[[☃ image 6]]\n\n[[☃ image 7]]\n\n[[☃ image 8]]\n\n[[☃ image 9]]",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: earthMoonImage,
+                            scale: 1,
+                            alt: "Fresco painting",
+                            longDescription: "long description",
+                        }),
                     }),
-                })}
-            />
-        );
+                    "image 2": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: earthMoonImage,
+                            scale: 0.5,
+                            alt: "Fresco painting",
+                            longDescription: "long description",
+                        }),
+                    }),
+                    "image 3": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: earthMoonImage,
+                            scale: 2,
+                            alt: "Fresco painting",
+                            longDescription: "long description",
+                        }),
+                    }),
+                    "image 4": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: graphieImage,
+                            alt: graphieImageAlt,
+                            longDescription: "long description",
+                        }),
+                    }),
+                    "image 5": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: graphieImage,
+                            scale: 0.5,
+                            alt: graphieImageAlt,
+                            longDescription: "long description",
+                        }),
+                    }),
+                    "image 6": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: graphieImage,
+                            scale: 2,
+                            alt: graphieImageAlt,
+                            longDescription: "long description",
+                        }),
+                    }),
+                    "image 7": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: graphieImage2,
+                            alt: graphieImage2Alt,
+                            longDescription: "long description",
+                        }),
+                    }),
+                    "image 8": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: graphieImage2,
+                            scale: 0.5,
+                            alt: graphieImage2Alt,
+                            longDescription: "long description",
+                        }),
+                    }),
+                    "image 9": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: graphieImage2,
+                            scale: 2,
+                            alt: graphieImage2Alt,
+                            longDescription: "long description",
+                        }),
+                    }),
+                },
+            }),
+        });
+
+        return <ServerItemRendererWithDebugUI item={item} />;
     },
 };
 
@@ -294,37 +292,37 @@ export const ImageWithScaledSizes: Story = {
  */
 export const MarkdownTableWithImageWidgets: Story = {
     render: function Render() {
+        const item = generateTestPerseusItem({
+            question: generateTestPerseusRenderer({
+                content:
+                    "| col 1 | col 2 | col 3 |\n| --- | --- | --- |\n| [[☃ image 1]] | [[☃ image 2]] | [[☃ image 3]] |",
+                widgets: {
+                    "image 1": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: frescoImage,
+                            alt: "Fresco painting",
+                        }),
+                    }),
+                    "image 2": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: scienceImage,
+                            alt: scienceImageAlt,
+                        }),
+                    }),
+                    "image 3": generateImageWidget({
+                        options: generateImageOptions({
+                            backgroundImage: graphieImage,
+                            alt: graphieImageAlt,
+                        }),
+                    }),
+                },
+            }),
+        });
+
         return (
             // Limit width so zoom becomes possible.
             <div style={{width: 600}}>
-                <ServerItemRendererWithDebugUI
-                    item={generateTestPerseusItem({
-                        question: generateTestPerseusRenderer({
-                            content:
-                                "| col 1 | col 2 | col 3 |\n| --- | --- | --- |\n| [[☃ image 1]] | [[☃ image 2]] | [[☃ image 3]] |",
-                            widgets: {
-                                "image 1": generateImageWidget({
-                                    options: generateImageOptions({
-                                        backgroundImage: frescoImage,
-                                        alt: "Fresco painting",
-                                    }),
-                                }),
-                                "image 2": generateImageWidget({
-                                    options: generateImageOptions({
-                                        backgroundImage: scienceImage,
-                                        alt: scienceImageAlt,
-                                    }),
-                                }),
-                                "image 3": generateImageWidget({
-                                    options: generateImageOptions({
-                                        backgroundImage: graphieImage,
-                                        alt: graphieImageAlt,
-                                    }),
-                                }),
-                            },
-                        }),
-                    })}
-                />
+                <ServerItemRendererWithDebugUI item={item} />
             </div>
         );
     },
@@ -335,17 +333,17 @@ export const MarkdownTableWithImageWidgets: Story = {
  */
 export const MarkdownTableWithMarkdownImages: Story = {
     render: function Render() {
+        const item = generateTestPerseusItem({
+            question: generateTestPerseusRenderer({
+                content: `| col 1 | col 2 | col 3 |\n| --- | --- | --- |\n| ![Fresco painting](${frescoImage.url}) | ![${scienceImageAlt}](${scienceImage.url}) | ![Graphie image](${graphieImage.url}) |`,
+                widgets: {},
+            }),
+        });
+
         return (
             // Limit width so zoom becomes possible.
             <div style={{width: 600}}>
-                <ServerItemRendererWithDebugUI
-                    item={generateTestPerseusItem({
-                        question: generateTestPerseusRenderer({
-                            content: `| col 1 | col 2 | col 3 |\n| --- | --- | --- |\n| ![Fresco painting](${frescoImage.url}) | ![${scienceImageAlt}](${scienceImage.url}) | ![Graphie image](${graphieImage.url}) |`,
-                            widgets: {},
-                        }),
-                    })}
-                />
+                <ServerItemRendererWithDebugUI item={item} />
             </div>
         );
     },

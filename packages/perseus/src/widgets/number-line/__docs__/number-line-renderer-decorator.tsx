@@ -29,19 +29,21 @@ export const numberLineRendererDecorator: Decorator = (
         };
     },
 ) => {
+    const item = generateTestPerseusItem({
+        question: generateTestPerseusRenderer({
+            content: "[[☃ number-line 1]]",
+            widgets: {
+                "number-line 1": generateNumberLineWidget({
+                    static: parameters?.static ?? false,
+                    options: generateNumberLineOptions(args),
+                }),
+            },
+        }),
+    });
+
     return (
         <ServerItemRendererWithDebugUI
-            item={generateTestPerseusItem({
-                question: generateTestPerseusRenderer({
-                    content: "[[☃ number-line 1]]",
-                    widgets: {
-                        "number-line 1": generateNumberLineWidget({
-                            static: parameters?.static ?? false,
-                            options: generateNumberLineOptions(args),
-                        }),
-                    },
-                }),
-            })}
+            item={item}
             apiOptions={parameters?.apiOptions}
             initialUserInput={parameters?.initialUserInput}
         />

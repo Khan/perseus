@@ -21,18 +21,20 @@ export const gradedGroupSetRendererDecorator: Decorator = (
         parameters?: {apiOptions?: APIOptions};
     },
 ) => {
+    const item = generateTestPerseusItem({
+        question: generateTestPerseusRenderer({
+            content: "[[☃ graded-group-set 1]]",
+            widgets: {
+                "graded-group-set 1": generateGradedGroupSetWidget({
+                    options: {gradedGroups: [], ...args},
+                }),
+            },
+        }),
+    });
+
     return (
         <ServerItemRendererWithDebugUI
-            item={generateTestPerseusItem({
-                question: generateTestPerseusRenderer({
-                    content: "[[☃ graded-group-set 1]]",
-                    widgets: {
-                        "graded-group-set 1": generateGradedGroupSetWidget({
-                            options: {gradedGroups: [], ...args},
-                        }),
-                    },
-                }),
-            })}
+            item={item}
             apiOptions={parameters?.apiOptions}
         />
     );

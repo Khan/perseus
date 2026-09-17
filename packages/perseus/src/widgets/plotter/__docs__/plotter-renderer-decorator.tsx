@@ -22,18 +22,20 @@ export const plotterRendererDecorator: Decorator = (
         parameters?: {apiOptions?: APIOptions};
     },
 ) => {
+    const item = generateTestPerseusItem({
+        question: generateTestPerseusRenderer({
+            content: "[[☃ plotter 1]]",
+            widgets: {
+                "plotter 1": generatePlotterWidget({
+                    options: generatePlotterOptions({...args}),
+                }),
+            },
+        }),
+    });
+
     return (
         <ServerItemRendererWithDebugUI
-            item={generateTestPerseusItem({
-                question: generateTestPerseusRenderer({
-                    content: "[[☃ plotter 1]]",
-                    widgets: {
-                        "plotter 1": generatePlotterWidget({
-                            options: generatePlotterOptions({...args}),
-                        }),
-                    },
-                }),
-            })}
+            item={item}
             apiOptions={parameters?.apiOptions}
         />
     );

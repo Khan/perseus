@@ -14,18 +14,16 @@ export const measurerRendererDecorator = (
     _: unknown,
     {args}: {args: Partial<PerseusMeasurerWidgetOptions>},
 ) => {
-    return (
-        <ServerItemRendererWithDebugUI
-            item={generateTestPerseusItem({
-                question: generateTestPerseusRenderer({
-                    content: "[[☃ measurer 1]]",
-                    widgets: {
-                        "measurer 1": generateMeasurerWidget({
-                            options: generateMeasurerOptions(args),
-                        }),
-                    },
+    const item = generateTestPerseusItem({
+        question: generateTestPerseusRenderer({
+            content: "[[☃ measurer 1]]",
+            widgets: {
+                "measurer 1": generateMeasurerWidget({
+                    options: generateMeasurerOptions(args),
                 }),
-            })}
-        />
-    );
+            },
+        }),
+    });
+
+    return <ServerItemRendererWithDebugUI item={item} />;
 };

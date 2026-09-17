@@ -22,9 +22,11 @@ export const grapherRendererDecorator: Decorator<{
         };
     },
 ) => {
+    const item = generateTestPerseusItem({question: args.question});
+
     return (
         <ServerItemRendererWithDebugUI
-            item={generateTestPerseusItem({question: args.question})}
+            item={item}
             apiOptions={parameters?.apiOptions}
             initialUserInput={parameters?.initialUserInput}
         />

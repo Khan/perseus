@@ -12,20 +12,22 @@ import * as React from "react";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 
 export const imageRendererDecorator = (_, {args, parameters}) => {
+    const item = generateTestPerseusItem({
+        question: generateTestPerseusRenderer({
+            content: parameters?.content ?? "[[☃ image 1]]",
+            widgets: {
+                "image 1": generateImageWidget({
+                    options: generateImageOptions({
+                        ...args,
+                    }),
+                }),
+            },
+        }),
+    });
+
     return (
         <ServerItemRendererWithDebugUI
-            item={generateTestPerseusItem({
-                question: generateTestPerseusRenderer({
-                    content: parameters?.content ?? "[[☃ image 1]]",
-                    widgets: {
-                        "image 1": generateImageWidget({
-                            options: generateImageOptions({
-                                ...args,
-                            }),
-                        }),
-                    },
-                }),
-            })}
+            item={item}
             apiOptions={parameters?.apiOptions}
         />
     );

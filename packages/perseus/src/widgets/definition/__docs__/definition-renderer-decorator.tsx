@@ -25,20 +25,22 @@ export const definitionRendererDecorator: Decorator = (
         };
     },
 ) => {
+    const item = generateTestPerseusItem({
+        question: generateTestPerseusRenderer({
+            content: parameters?.content ?? "[[☃ definition 1]]",
+            widgets: {
+                "definition 1": generateDefinitionWidget({
+                    options: generateDefinitionOptions({
+                        ...args,
+                    }),
+                }),
+            },
+        }),
+    });
+
     return (
         <ServerItemRendererWithDebugUI
-            item={generateTestPerseusItem({
-                question: generateTestPerseusRenderer({
-                    content: parameters?.content ?? "[[☃ definition 1]]",
-                    widgets: {
-                        "definition 1": generateDefinitionWidget({
-                            options: generateDefinitionOptions({
-                                ...args,
-                            }),
-                        }),
-                    },
-                }),
-            })}
+            item={item}
             apiOptions={parameters?.apiOptions}
         />
     );
