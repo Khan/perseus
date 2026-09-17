@@ -703,12 +703,8 @@ export type PerseusExpressionWidgetOptions = {
     visibleLabel?: string;
     /** Aria label for screen readers attached to MathQuill field */
     ariaLabel?: string;
-    /**
-     * Controls when buttons for special characters are visible when using a
-     * desktop browser. Defaults to "focused".
-     * NOTE: This isn't listed in perseus-format.js or perseus_data.go, but
-     * appears in item data in the datastore.
-     */
+    // TODO(LEMS-4612): Remove buttonsVisible
+    /** @deprecated buttonsVisible has no effect. */
     buttonsVisible?: "always" | "never" | "focused";
 };
 
