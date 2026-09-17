@@ -38,8 +38,6 @@ type EditableExpressionWidgetOptions = Omit<
 >;
 
 type Props = {
-    widgetId?: string;
-    value?: string;
     apiOptions: APIOptions;
     onChange: (newValues: EditableExpressionWidgetOptions) => void;
 } & EditableExpressionWidgetOptions;
@@ -130,24 +128,19 @@ class ExpressionEditor extends React.Component<Props, State> {
             }
 
             _(this.props.answerForms).each((form, ix) => {
-                if (this.props.value === "") {
-                    issues.push(`Answer ${ix + 1} is empty`);
-                } else {
-                    // note we're not using icu for content creators
-                    const expression = KAS.parse(form.value, {
-                        functions: this.props.functions,
-                    });
-                    if (!expression.parsed) {
-                        issues.push(`Couldn't parse ${form.value}`);
-                    } else if (
-                        form.simplify &&
-                        !expression.expr.isSimplified()
-                    ) {
-                        issues.push(
-                            `${form.value} isn't simplified, but is required" +
-                            " to be`,
-                        );
-                    }
+                // TODO(benchristel): validate that `form.value` isn't blank?
+
+                // note we're not using icu for content creators
+                const expression = KAS.parse(form.value, {
+                    functions: this.props.functions,
+                });
+                if (!expression.parsed) {
+                    issues.push(`Couldn't parse ${form.value}`);
+                } else if (form.simplify && !expression.expr.isSimplified()) {
+                    issues.push(
+                        `${form.value} isn't simplified, but is required" +
+                        " to be`,
+                    );
                 }
             });
         }
@@ -328,7 +321,6 @@ class ExpressionEditor extends React.Component<Props, State> {
                     handleUserInput: (input: PerseusExpressionUserInput) =>
                         this.changeExpressionWidget(index, input),
                     trackInteraction: () => {},
-                    widgetId: this.props.widgetId + "-" + ans.key,
                 } as const;
 
                 return (
