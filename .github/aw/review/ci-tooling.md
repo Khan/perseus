@@ -31,11 +31,12 @@ that enforces it (see .github/workflows/node-ci.yml and friends).
   Don't warn about edits there; CI blocks them outright. (Adding new fixtures is
   allowed and worth a look.)
 - **Visual regressions** — Chromatic (`chromatic-pr.yml`, which calls
-  `chromatic-build.yml`) snapshots every Storybook story and blocks on unapproved
-  visual diffs. Don't flag purely visual styling
-  concerns ("this color/spacing change might look wrong") — a human approves the
-  Chromatic diff. DO flag behavioral or a11y consequences of styling changes
-  (contrast, focus visibility), which Chromatic doesn't judge.
+  `chromatic-build.yml`) snapshots all Storybook stories
+  `*-regression.stories.tsx` files and blocks on unapproved visual diffs. Don't
+  flag purely visual styling concerns ("this color/spacing change might look
+  wrong") — a human approves the Chromatic diff. DO flag behavioral or a11y
+  consequences of styling changes (contrast, focus visibility), which Chromatic
+  doesn't judge.
 - **Unused exports/files/deps** — `pnpm knip` (node-ci). Don't flag dead exports.
 - **Ship-blocker markers** — `./utils/stopship-check.sh` (node-ci) fails on the
   STOP-SHIP marker (spelled as one word in code). Don't re-flag them.
