@@ -1,4 +1,11 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
+import {
+    getWidgetIdsFromContent,
+    type PerseusGradedGroupWidgetOptions,
+    type PerseusRenderer,
+    type PerseusScore,
+    type UserInputMap,
+} from "@khanacademy/perseus-core";
 import {emptyWidgetsFunctional} from "@khanacademy/perseus-score";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
@@ -29,12 +36,6 @@ import type {
     WidgetProps,
 } from "../../types";
 import type {GradedGroupPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
-import type {
-    PerseusGradedGroupWidgetOptions,
-    PerseusRenderer,
-    PerseusScore,
-    UserInputMap,
-} from "@khanacademy/perseus-core";
 
 const GRADING_STATUSES = {
     ungraded: "ungraded" as const,
@@ -100,7 +101,7 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                 const {widgets} = props.options;
                 const emptyWidgetIds = emptyWidgetsFunctional(
                     widgets,
-                    Object.keys(widgets),
+                    getWidgetIdsFromContent(props.options.content),
                     sharedInitializeUserInput(widgets, props.problemNum ?? 0),
                     locale,
                 );
