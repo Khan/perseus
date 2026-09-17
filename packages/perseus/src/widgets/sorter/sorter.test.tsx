@@ -9,10 +9,7 @@ import {act} from "@testing-library/react";
 import * as React from "react";
 
 import * as Dependencies from "../../dependencies";
-import {
-    testDependencies,
-    testDependenciesV2,
-} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import {wait} from "../../testing/wait";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
@@ -42,7 +39,7 @@ describe("sorter widget", () => {
             };
 
             // Act
-            const {container} = renderQuestion(basicQuestion, apiOptions);
+            const {container} = renderQuestion(basicQuestion, {apiOptions});
             await wait();
 
             // Assert
@@ -58,7 +55,7 @@ describe("sorter widget", () => {
             };
 
             // Act
-            const {container} = renderQuestion(basicQuestion, apiOptions);
+            const {container} = renderQuestion(basicQuestion, {apiOptions});
             await wait();
 
             // Assert
@@ -115,9 +112,8 @@ describe("sorter widget", () => {
             const onAnalyticsEvent = jest.fn();
 
             // Act
-            renderQuestion(sorterQuestion, undefined, undefined, undefined, {
-                ...testDependenciesV2,
-                analytics: {onAnalyticsEvent},
+            renderQuestion(sorterQuestion, {
+                dependencies: {analytics: {onAnalyticsEvent}},
             });
 
             // Assert
@@ -174,7 +170,9 @@ describe("sorter widget", () => {
             // Arrange
             const trackInteraction = jest.fn();
             const {renderer} = renderQuestion(sorterQuestion, {
-                trackInteraction,
+                apiOptions: {
+                    trackInteraction,
+                },
             });
             const sorter: SorterHandle = renderer.findWidgets("sorter 1")[0];
 
@@ -191,7 +189,7 @@ describe("sorter widget", () => {
         it("does not track an interaction before any card is moved", () => {
             // Arrange, Act
             const trackInteraction = jest.fn();
-            renderQuestion(sorterQuestion, {trackInteraction});
+            renderQuestion(sorterQuestion, {apiOptions: {trackInteraction}});
 
             // Assert
             expect(trackInteraction).not.toHaveBeenCalled();
