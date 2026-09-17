@@ -4,7 +4,8 @@
        or when the high-level styles are refactored and these become unnecessary.
      */
     .choice :global(.paragraph),
-    .choice :global(.renderer-new-ff) :is(> *, p) {
+    .choice :global(.renderer-new-ff) > *,
+    .choice :global(.renderer-new-ff) p {
         font-size: inherit;
         font-weight: inherit;
         line-height: inherit;

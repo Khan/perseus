@@ -215,7 +215,8 @@
 }
 
 .rationale :global(.perseus-renderer .paragraph),
-.rationale :global(.perseus-renderer.renderer-new-ff) :is(> *, p) {
+.rationale :global(.perseus-renderer.renderer-new-ff) > *,
+.rationale :global(.perseus-renderer.renderer-new-ff) p {
     /* Removes margin that is added by overly-broad styling for .paragraph - the gap in the rule above handles spacing */
     margin: 0;
 }
