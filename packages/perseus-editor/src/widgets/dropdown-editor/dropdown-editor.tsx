@@ -11,7 +11,6 @@ import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import PropTypes from "prop-types";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import InfoTip from "../../components/info-tip";
@@ -79,12 +78,6 @@ class DropdownEditor extends React.Component<Props> {
         const choices = [...this.props.choices];
         choices.splice(choiceIndex, 1);
         this.handleChange({choices});
-    };
-
-    focus: (arg1: number) => boolean = (i) => {
-        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-        ReactDOM.findDOMNode(this.refs["editor" + i])?.focus();
-        return true;
     };
 
     serialize: () => any = () => {
@@ -186,7 +179,6 @@ class DropdownEditor extends React.Component<Props> {
                                 <div className="dropdown-choice">
                                     <input
                                         type="radio"
-                                        ref={"radio" + i}
                                         name={dropdownGroupName}
                                         checked={choice.correct}
                                         onChange={() => this.onCorrectChange(i)}
@@ -194,7 +186,6 @@ class DropdownEditor extends React.Component<Props> {
 
                                     <TextField
                                         value={choice.content}
-                                        ref={"editor" + i}
                                         aria-label={`Choice ${i + 1} content`}
                                         disabled={editingDisabled}
                                         style={{
