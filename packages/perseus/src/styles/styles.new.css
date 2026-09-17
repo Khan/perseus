@@ -410,3 +410,8 @@
     .perseus-image-caption p {
     margin-block-end: 0;
 }
+
+.perseus-in-wb-popover .renderer-new-ff p {
+    margin: 0;
+    font-size: initial;
+}
