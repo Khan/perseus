@@ -15,7 +15,7 @@
    specificity above the hint-renderer's `.bibliotron-exercise
    .perseus-hint-renderer div.paragraph` rule, which would otherwise re-apply
    a 16px margin-block-end inside hints. */
-.perseus-image-widget div.perseus-image-title .renderer-new-ff > * {
+.framework-perseus .perseus-image-widget div.perseus-image-title .renderer-new-ff > * {
     margin-block: 0;
 }
 .perseus-image-widget .perseus-image-caption {

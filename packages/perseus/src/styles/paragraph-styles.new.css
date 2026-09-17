@@ -2,7 +2,7 @@
    This rule should be removed as part of the styling refactoring.  */
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer.renderer-new-ff
-    p {
+    :is(p, div) {
     color: var(--wb-semanticColor-core-foreground-neutral-strong);
     font-size: 20px;
     line-height: 30px;
@@ -33,7 +33,7 @@
 /* TODO (LEMS-4452): UL tags should inherit color and fonts - remove */
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer.renderer-new-ff
-    > ul:not([data-widget="radio"]) {
+    > :is(ol, ul:not([data-widget="radio"])) {
     color: var(--wb-semanticColor-core-foreground-neutral-strong);
     font-size: 20px;
     line-height: 30px;
