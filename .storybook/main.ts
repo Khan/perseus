@@ -16,9 +16,11 @@ const cssWrapper = {
             if (!excludedCssFiles.some((file) => pathname.endsWith(file))) {
                 // Exclude any CSS file that already has a layer statement,
                 //    unless it is specifying a sub-layer.
+                // This runs on every CSS file, including the ~150KB
+                // inlined token sheet, so it must stay linear-time.
                 if (
                     !code.includes("@layer") ||
-                    /(?=.*@layer)(?=.*\bperseus-legacy\b)/s.test(code)
+                    /\bperseus-legacy\b/.test(code)
                 ) {
                     const layerStatements =
                         "@layer reset, shared, legacy;\n@layer shared";
