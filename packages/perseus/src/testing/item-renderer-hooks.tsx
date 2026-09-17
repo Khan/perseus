@@ -27,13 +27,7 @@ export const useItemRenderer = (
     const ref = useRef<ServerItemRenderer>(null);
     const [state, dispatch] = useReducer(
         itemRendererReducer,
-        createInitialState(
-            item,
-            apiOptions.isMobile ?? false,
-            false, // isRtl defaults to false
-            reviewMode,
-            showSolutions,
-        ),
+        createInitialState(item, reviewMode, showSolutions),
     );
 
     // Get a derived item based on answerless state
@@ -67,12 +61,14 @@ export const useItemRenderer = (
         }
     }, [state.score]);
 
+    const isMobile = apiOptions.isMobile ?? false;
+
     // Create API options
     const options = React.useMemo(
         () => ({
             ...apiOptions,
-            isMobile: state.isMobile,
-            customKeypad: state.isMobile, // Use the mobile keypad for mobile
+            isMobile,
+            customKeypad: isMobile, // Use the mobile keypad for mobile
             showSolutions: state.showSolutions,
             interactionCallback: () => {
                 if (state.showPopover) {
@@ -80,7 +76,7 @@ export const useItemRenderer = (
                 }
             },
         }),
-        [apiOptions, state.isMobile, state.showPopover, state.showSolutions],
+        [apiOptions, isMobile, state.showPopover, state.showSolutions],
     );
 
     const getUserInput = React.useCallback((): UserInputMap => {
@@ -122,14 +118,6 @@ export const useItemRenderer = (
         }
     }, []);
 
-    const toggleMobile = React.useCallback((isMobile: boolean) => {
-        dispatch({type: "TOGGLE_MOBILE", payload: isMobile});
-    }, []);
-
-    const toggleRtl = React.useCallback((isRtl: boolean) => {
-        dispatch({type: "TOGGLE_RTL", payload: isRtl});
-    }, []);
-
     const handleReset = React.useCallback(() => {
         dispatch({type: "RESET_STATE"});
     }, []);
@@ -156,8 +144,6 @@ export const useItemRenderer = (
         ref,
         state,
         options,
-        toggleMobile,
-        toggleRtl,
         updateJson,
         handleReset,
         handleSkip,
