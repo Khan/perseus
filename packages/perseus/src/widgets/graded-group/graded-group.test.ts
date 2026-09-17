@@ -14,10 +14,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderArticle} from "../../__tests__/article-renderer.test";
 import * as Dependencies from "../../dependencies";
-import {
-    testDependencies,
-    testDependenciesV2,
-} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {
@@ -25,7 +22,6 @@ import {
     groupedRadioRationaleQuestion,
 } from "./graded-group.testdata";
 
-import type {PerseusDependenciesV2} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const checkAnswer = async (
@@ -72,7 +68,9 @@ describe("graded-group", () => {
     it.each([true, false])("should snapshot", (isMobile: boolean) => {
         // Arrange and Act
         const {container} = renderQuestion(question1, {
-            isMobile,
+            apiOptions: {
+                isMobile,
+            },
         });
 
         // Assert
@@ -84,13 +82,12 @@ describe("graded-group", () => {
     it("should send analytics event when widget is rendered", () => {
         // Arrange
         const onAnalyticsEventSpy = jest.fn();
-        const depsV2: PerseusDependenciesV2 = {
-            ...testDependenciesV2,
+        const dependencies = {
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
         };
 
         // Act
-        renderQuestion(question1, undefined, undefined, undefined, depsV2);
+        renderQuestion(question1, {dependencies});
 
         // Assert
         expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
@@ -125,7 +122,7 @@ describe("graded-group", () => {
         });
 
         // Act
-        renderQuestion(question, {renderExtras});
+        renderQuestion(question, {apiOptions: {renderExtras}});
 
         // Assert
         expect(screen.getByText("Calculator")).toBeInTheDocument();
@@ -140,7 +137,7 @@ describe("graded-group", () => {
         const renderExtras = jest.fn(() => "Calculator");
 
         // Act
-        renderQuestion(question1, {renderExtras});
+        renderQuestion(question1, {apiOptions: {renderExtras}});
 
         // Assert
         expect(renderExtras).not.toHaveBeenCalled();

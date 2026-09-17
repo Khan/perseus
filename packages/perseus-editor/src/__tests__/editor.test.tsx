@@ -77,7 +77,9 @@ describe("Editor", () => {
         );
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({content: ""});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({content: ""}),
+        );
     });
 
     it("should NOT delete widget if not confirmed", async () => {
@@ -141,6 +143,8 @@ describe("Editor", () => {
 
         // Assert
         expect(changeFn).toHaveBeenCalledWith({
+            content: "[[☃ image 1]]",
+            images: {},
             widgets: {
                 "image 1": expect.objectContaining({
                     type: "image",

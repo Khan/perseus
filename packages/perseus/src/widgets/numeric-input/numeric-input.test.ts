@@ -451,9 +451,11 @@ describe("Numeric input widget", () => {
 
     it("styles differently on mobile", () => {
         const {container} = renderQuestion(multipleAnswersWithDecimals, {
-            // I wish this was more clear but this is how mobile
-            // rendering is triggered
-            customKeypad: true,
+            apiOptions: {
+                // I wish this was more clear but this is how mobile
+                // rendering is triggered
+                customKeypad: true,
+            },
         });
 
         expect(container).toMatchSnapshot("mobile render");

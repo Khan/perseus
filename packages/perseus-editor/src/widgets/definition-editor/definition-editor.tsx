@@ -1,22 +1,20 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {components} from "@khanacademy/perseus";
 import {definitionLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../../editor";
-import {deprecatedChangeableChange} from "../../mixins/changeable";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {InitializeWidgetOptionsParams} from "../../editor";
-import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {PerseusDefinitionWidgetOptions} from "@khanacademy/perseus-core";
 
 const {TextInput} = components;
 
-interface Props extends PerseusDefinitionWidgetOptions, ChangeableProps {
+interface Props extends PerseusDefinitionWidgetOptions {
     apiOptions?: APIOptionsWithDefaults;
+    onChange: (options: PerseusDefinitionWidgetOptions) => void;
 }
 
 // JSDoc will be shown in Storybook widget editor description
@@ -42,9 +40,13 @@ class DefinitionEditor extends React.Component<Props> {
         return defaultWidgetOptions;
     }
 
-    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return deprecatedChangeableChange.apply(this, args);
-    };
+    handleChange(changed: Partial<PerseusDefinitionWidgetOptions>) {
+        this.props.onChange({
+            togglePrompt: this.props.togglePrompt,
+            definition: this.props.definition,
+            ...changed,
+        });
+    }
 
     serialize: () => any = () => {
         return EditorJsonify.serialize.call(this);
@@ -65,8 +67,9 @@ class DefinitionEditor extends React.Component<Props> {
                         Word to be defined:{" "}
                         <TextInput
                             value={this.props.togglePrompt}
-                            // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                            onChange={this.change("togglePrompt")}
+                            onChange={(togglePrompt) =>
+                                this.handleChange({togglePrompt})
+                            }
                             placeholder="define me"
                         />
                     </label>
@@ -79,11 +82,13 @@ class DefinitionEditor extends React.Component<Props> {
                         placeholder="definition goes here"
                         onChange={(props) => {
                             const newProps: Record<string, any> = {};
+                            // TODO(LEMS-4610): remove this _.has check once
+                            // the editor passes the entire Renderer to
+                            // onChange.
                             if (_.has(props, "content")) {
                                 newProps.definition = props.content;
                             }
-                            // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                            this.change(newProps);
+                            this.handleChange(newProps);
                         }}
                     />
                 </div>
