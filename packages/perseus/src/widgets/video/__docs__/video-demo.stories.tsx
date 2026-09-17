@@ -1,11 +1,12 @@
 import {
+    generateTestPerseusItem,
     generateTestPerseusRenderer,
     generateVideoWidget,
     type PerseusVideoWidgetOptions,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -22,29 +23,31 @@ type Story = StoryObj<typeof meta>;
  */
 export const AllAlignmentsInSameArticle: Story = {
     render: function Render() {
+        const item = generateTestPerseusItem({
+            question: generateTestPerseusRenderer({
+                content: `Block video\n\n[[☃ video 1]]\n\nFull-width video\n\n[[☃ video 2]]`,
+                widgets: {
+                    "video 1": generateVideoWidget({
+                        alignment: "block",
+                        options: {
+                            location:
+                                "https://youtube.com/embed/7mH6Mal6Oh8?rel=0&controls=0",
+                        },
+                    }),
+                    "video 2": generateVideoWidget({
+                        alignment: "full-width",
+                        options: {
+                            location:
+                                "https://youtube.com/embed/7mH6Mal6Oh8?rel=0&controls=0",
+                        },
+                    }),
+                },
+            }),
+        });
+
         return (
             <div className="framework-perseus perseus-article">
-                <QuestionRendererForStories
-                    question={generateTestPerseusRenderer({
-                        content: `Block video\n\n[[☃ video 1]]\n\nFull-width video\n\n[[☃ video 2]]`,
-                        widgets: {
-                            "video 1": generateVideoWidget({
-                                alignment: "block",
-                                options: {
-                                    location:
-                                        "https://youtube.com/embed/7mH6Mal6Oh8?rel=0&controls=0",
-                                },
-                            }),
-                            "video 2": generateVideoWidget({
-                                alignment: "full-width",
-                                options: {
-                                    location:
-                                        "https://youtube.com/embed/7mH6Mal6Oh8?rel=0&controls=0",
-                                },
-                            }),
-                        },
-                    })}
-                />
+                <ServerItemRendererWithDebugUI item={item} />
             </div>
         );
     },
@@ -55,29 +58,31 @@ export const AllAlignmentsInSameArticle: Story = {
  */
 export const AllAlignmentsInSameArticleMobile: Story = {
     render: function Render() {
+        const item = generateTestPerseusItem({
+            question: generateTestPerseusRenderer({
+                content: `Block video\n\n[[☃ video 1]]\n\nFull-width video\n\n[[☃ video 2]]`,
+                widgets: {
+                    "video 1": generateVideoWidget({
+                        alignment: "block",
+                        options: {
+                            location:
+                                "https://youtube.com/embed/7mH6Mal6Oh8?rel=0&controls=0",
+                        },
+                    }),
+                    "video 2": generateVideoWidget({
+                        alignment: "full-width",
+                        options: {
+                            location:
+                                "https://youtube.com/embed/7mH6Mal6Oh8?rel=0&controls=0",
+                        },
+                    }),
+                },
+            }),
+        });
+
         return (
             <div className="framework-perseus perseus-mobile perseus-article">
-                <QuestionRendererForStories
-                    question={generateTestPerseusRenderer({
-                        content: `Block video\n\n[[☃ video 1]]\n\nFull-width video\n\n[[☃ video 2]]`,
-                        widgets: {
-                            "video 1": generateVideoWidget({
-                                alignment: "block",
-                                options: {
-                                    location:
-                                        "https://youtube.com/embed/7mH6Mal6Oh8?rel=0&controls=0",
-                                },
-                            }),
-                            "video 2": generateVideoWidget({
-                                alignment: "full-width",
-                                options: {
-                                    location:
-                                        "https://youtube.com/embed/7mH6Mal6Oh8?rel=0&controls=0",
-                                },
-                            }),
-                        },
-                    })}
-                />
+                <ServerItemRendererWithDebugUI item={item} />
             </div>
         );
     },

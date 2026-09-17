@@ -1,4 +1,5 @@
 import {
+    generateTestPerseusItem,
     generateRadioOptions,
     generateRadioWidget,
     generateTestPerseusRenderer,
@@ -7,7 +8,7 @@ import {THEME_DATA_ATTRIBUTE} from "@khanacademy/wonder-blocks-theming";
 import * as React from "react";
 import {useEffect} from "react";
 
-import QuestionRendererForStories from "../widgets/__testutils__/question-renderer-for-stories";
+import {ServerItemRendererWithDebugUI} from "../testing/server-item-renderer-with-debug-ui";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {SupportedThemes} from "@khanacademy/wonder-blocks-theming";
@@ -53,7 +54,9 @@ function RenderInDarkMode(renderer: PerseusRenderer): () => React.JSX.Element {
                     padding: "50px",
                 }}
             >
-                <QuestionRendererForStories question={renderer} />
+                <ServerItemRendererWithDebugUI
+                    item={generateTestPerseusItem({question: renderer})}
+                />
             </div>
         );
     };

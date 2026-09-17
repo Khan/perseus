@@ -1,11 +1,12 @@
 import {
+    generateTestPerseusItem,
     generateNumericInputOptions,
     generateNumericInputWidget,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 
 import type {APIOptions} from "../../../types";
 import type {UserInputMap} from "@khanacademy/perseus-core";
@@ -24,20 +25,24 @@ export const numericInputRendererDecorator = (
         };
     },
 ) => {
-    return (
-        <QuestionRendererForStories
-            question={generateTestPerseusRenderer({
-                content:
-                    parameters?.content ??
-                    "Registry numbers for USS Enterprise: [[☃ numeric-input 1]]",
-                widgets: {
-                    "numeric-input 1": generateNumericInputWidget({
-                        options: generateNumericInputOptions({
-                            ...args,
-                        }),
+    const item = generateTestPerseusItem({
+        question: generateTestPerseusRenderer({
+            content:
+                parameters?.content ??
+                "Registry numbers for USS Enterprise: [[☃ numeric-input 1]]",
+            widgets: {
+                "numeric-input 1": generateNumericInputWidget({
+                    options: generateNumericInputOptions({
+                        ...args,
                     }),
-                },
-            })}
+                }),
+            },
+        }),
+    });
+
+    return (
+        <ServerItemRendererWithDebugUI
+            item={item}
             apiOptions={parameters?.apiOptions}
             initialUserInput={parameters?.initialUserInput}
         />
