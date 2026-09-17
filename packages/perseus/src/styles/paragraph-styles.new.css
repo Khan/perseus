@@ -1,8 +1,8 @@
 /* TODO (LEMS-4452): This is a temporary base font & color setting to override the <p> styling from frontend.
    This rule should be removed as part of the styling refactoring.  */
 .framework-perseus.perseus-article:not(.perseus-mobile)
-.perseus-renderer.renderer-new-ff
-p {
+    .perseus-renderer.renderer-new-ff
+    p {
     color: var(--wb-semanticColor-core-foreground-neutral-strong);
     font-size: 20px;
     line-height: 30px;
@@ -57,13 +57,15 @@ p {
 }
 /* TODO (LEMS-4452): Verify that full-width is working as expected, once image styling is fixed */
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .renderer-new-ff .widget-full-width {
+    .renderer-new-ff
+    .widget-full-width {
     margin-block-end: var(--wb-sizing-size_320);
     margin-inline: 0;
     max-width: none;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .renderer-new-ff .widget-full-width
+    .renderer-new-ff
+    .widget-full-width
     p {
     margin: 0;
     max-width: none;
@@ -131,7 +133,8 @@ p {
         color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile
-        .renderer-new-ff .perseus-image-caption
+        .renderer-new-ff
+        .perseus-image-caption
         p {
         color: var(--wb-semanticColor-core-foreground-neutral-subtle);
         font-size: 14px;
@@ -150,7 +153,8 @@ p {
         color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile
-        .renderer-new-ff .perseus-image-caption
+        .renderer-new-ff
+        .perseus-image-caption
         p {
         color: var(--wb-semanticColor-core-foreground-neutral-subtle);
         font-size: 17px;
@@ -169,7 +173,8 @@ p {
         color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile
-        .renderer-new-ff .perseus-image-caption
+        .renderer-new-ff
+        .perseus-image-caption
         p {
         color: var(--wb-semanticColor-core-foreground-neutral-subtle);
         font-size: 20px;
@@ -181,9 +186,7 @@ p {
     margin-inline: 0;
     max-width: none;
 }
-.framework-perseus.perseus-mobile
-    .renderer-new-ff .widget-full-width
-    p {
+.framework-perseus.perseus-mobile .renderer-new-ff .widget-full-width p {
     margin: 0;
     max-width: none;
 }

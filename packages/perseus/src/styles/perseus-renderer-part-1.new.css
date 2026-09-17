@@ -311,7 +311,10 @@ div.graphie {
     padding: 25px 25px 0 0;
 }
 .perseus-article .perseus-dropdown .perseus-renderer.renderer-new-ff,
-.perseus-article .perseus-dropdown .perseus-renderer.renderer-new-ff .perseus-block-math {
+.perseus-article
+    .perseus-dropdown
+    .perseus-renderer.renderer-new-ff
+    .perseus-block-math {
     /* overriding overly broad selectors in .framework-perseus rules */
     margin-block: 0 !important;
     font-size: 18px !important;

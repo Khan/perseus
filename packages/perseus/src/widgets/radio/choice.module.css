@@ -197,7 +197,8 @@
     display: inline;
 }
 
-.choice :global(.perseus-renderer.renderer-new-ff)
+.choice
+    :global(.perseus-renderer.renderer-new-ff)
     div:not(
         :global(.graphie-container),
         :global(.graphie),
@@ -233,15 +234,21 @@
 }
 
 /* Paragraphs with only images that are adjacent to other paragraphs (before or after) */
-.choice :global(.perseus-renderer.renderer-new-ff) div:has(> p:only-child > img:only-child):not(:first-child),
-.choice :global(.perseus-renderer.renderer-new-ff) div:has(> p:only-child > img:only-child):not(:last-child),
+.choice
+    :global(.perseus-renderer.renderer-new-ff)
+    div:has(> p:only-child > img:only-child):not(:first-child),
+.choice
+    :global(.perseus-renderer.renderer-new-ff)
+    div:has(> p:only-child > img:only-child):not(:last-child),
 .choice :global(.paragraph) :global(+ .paragraph):has(img:only-child),
 .choice :global(.paragraph):has(img:only-child):has(:global(+ .paragraph)) {
     display: block;
 }
 
 /* Remove the leading margin when the first paragraph is an image, for better alignment with the choice indicator */
-.choice :global(.perseus-renderer.renderer-new-ff) div:has(> p:only-child > img:only-child):first-child,
+.choice
+    :global(.perseus-renderer.renderer-new-ff)
+    div:has(> p:only-child > img:only-child):first-child,
 .choice :global(.paragraph):first-child:has(img:only-child) {
     margin-block-start: 0;
 }

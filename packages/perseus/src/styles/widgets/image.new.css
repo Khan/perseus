@@ -34,7 +34,10 @@
     font-size: var(--wb-font-heading-size-medium);
     line-height: var(--wb-font-heading-lineHeight-medium);
 }
-.framework-perseus .perseus-image-modal-description .perseus-renderer.renderer-new-ff > * {
+.framework-perseus
+    .perseus-image-modal-description
+    .perseus-renderer.renderer-new-ff
+    > * {
     /* Reset default Renderer margins for the description and caption. */
     margin: 0;
 }

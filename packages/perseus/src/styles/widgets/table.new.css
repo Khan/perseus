@@ -40,8 +40,9 @@
 .framework-perseus
     table.perseus-widget-table-of-values.non-markdown
     th
-    .renderer-new-ff > * {
-     margin: 0;
+    .renderer-new-ff
+    > * {
+    margin: 0;
 }
 .framework-perseus table.perseus-widget-table-of-values.non-markdown td {
     padding: 0px 5px;

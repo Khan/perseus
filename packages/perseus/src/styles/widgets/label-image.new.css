@@ -1,4 +1,7 @@
-.framework-perseus .perseus-label-image-widget-instructions .renderer-new-ff > * {
+.framework-perseus
+    .perseus-label-image-widget-instructions
+    .renderer-new-ff
+    > * {
     margin: 0;
 }
 @media (max-width: 767px) {

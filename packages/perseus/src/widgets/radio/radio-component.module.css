@@ -139,7 +139,8 @@
 /* TODO (LEMS-4606): Remove the first selector (with the .paragraph) in favor of the
  * second selector (with the lone :first-child), and remove references to .renderer-new-ff.
  */
-:global(.perseus-renderer):not(:global(.renderer-new-ff)) .content:not(
+:global(.perseus-renderer):not(:global(.renderer-new-ff))
+    .content:not(
         :has(
                 :global(.paragraph):first-child
                     > :global(.paragraph)
@@ -154,7 +155,8 @@
                     )
             )
     ),
-:global(.renderer-new-ff) .content:not(
+:global(.renderer-new-ff)
+    .content:not(
         :has(
                 :global(.perseus-renderer)
                     > :first-child
