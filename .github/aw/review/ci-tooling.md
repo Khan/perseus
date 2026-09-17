@@ -31,7 +31,7 @@ that enforces it (see .github/workflows/node-ci.yml and friends).
   Don't warn about edits there; CI blocks them outright. (Adding new fixtures is
   allowed and worth a look.)
 - **Visual regressions** — Chromatic (`chromatic-pr.yml`, which calls
-  `chromatic-build.yml`) snapshots all Storybook stories
+  `chromatic-build.yml`) snapshots Storybook stories in
   `*-regression.stories.tsx` files and blocks on unapproved visual diffs. Don't
   flag purely visual styling concerns ("this color/spacing change might look
   wrong") — a human approves the Chromatic diff. DO flag behavioral or a11y
