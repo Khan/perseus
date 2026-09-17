@@ -36,6 +36,19 @@ const checkAnswer = async (
     await userEvent.click(await screen.findByRole("button", {name: "Check"}));
 };
 
+/**
+ * Fills in every row of the categorizer in `question1` with the correct
+ * category, leaving the group answerable and scoreable as correct.
+ */
+const answerQuestion1Correctly = async (
+    userEvent: ReturnType<(typeof userEventLib)["setup"]>,
+) => {
+    await userEvent.click(screen.getAllByRole("button", {name: "True"})[0]);
+    await userEvent.click(screen.getAllByRole("button", {name: "False"})[1]);
+    await userEvent.click(screen.getAllByRole("button", {name: "True"})[2]);
+    await userEvent.click(screen.getAllByRole("button", {name: "True"})[3]);
+};
+
 describe("graded-group", () => {
     let userEvent: UserEvent;
 
@@ -133,198 +146,245 @@ describe("graded-group", () => {
         expect(renderExtras).not.toHaveBeenCalled();
     });
 
-    describe("on desktop", () => {
-        it("should be able to be answered correctly", async () => {
-            // Arrange
-            renderQuestion(question1);
+    it("should be able to be answered correctly", async () => {
+        // Arrange
+        renderQuestion(question1);
+        await answerQuestion1Correctly(userEvent);
 
-            await userEvent.click(
-                screen.getAllByRole("button", {name: "True"})[0],
-            );
-            await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[1],
-            );
-            await userEvent.click(
-                screen.getAllByRole("button", {name: "True"})[2],
-            );
-            await userEvent.click(
-                screen.getAllByRole("button", {name: "True"})[3],
-            );
+        // Act
+        await checkAnswer(userEvent);
 
-            // Act
-            await checkAnswer(userEvent);
+        // Assert
+        expect(screen.getByRole("alert", {name: "Correct!"})).toBeVisible();
+        expect(screen.queryByText("Keep trying")).not.toBeInTheDocument();
+    });
 
-            // Assert
-            expect(screen.getByRole("alert", {name: "Correct!"})).toBeVisible();
-            expect(screen.queryByText("Keep trying")).not.toBeInTheDocument();
-        });
+    it("removes the Check button once the answer is correct", async () => {
+        // Arrange
+        renderQuestion(question1);
+        await answerQuestion1Correctly(userEvent);
 
-        it("should be able to be answered incorrectly", async () => {
-            // Arrange
-            renderQuestion(question1);
+        // Act
+        await checkAnswer(userEvent);
 
-            await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[0],
-            );
-            await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[1],
-            );
-            await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[2],
-            );
-            await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[3],
-            );
+        // Assert - the group is locked down so a correct answer can't be
+        // edited into looking wrong.
+        expect(
+            screen.queryByRole("button", {name: "Check"}),
+        ).not.toBeInTheDocument();
+    });
 
-            // Act
-            await checkAnswer(userEvent);
+    it("should be able to be answered incorrectly", async () => {
+        // Arrange
+        renderQuestion(question1);
 
-            // Assert
-            expect(
-                screen.queryByRole("alert", {name: "Correct!"}),
-            ).not.toBeInTheDocument();
-            expect(screen.getByText("Keep trying")).toBeVisible();
-            expect(
-                screen.getByRole("button", {name: "Try again"}),
-            ).toBeVisible();
-        });
+        await userEvent.click(
+            screen.getAllByRole("button", {name: "False"})[0],
+        );
+        await userEvent.click(
+            screen.getAllByRole("button", {name: "False"})[1],
+        );
+        await userEvent.click(
+            screen.getAllByRole("button", {name: "False"})[2],
+        );
+        await userEvent.click(
+            screen.getAllByRole("button", {name: "False"})[3],
+        );
 
-        it("should display an error if not fully answered", async () => {
-            // Arrange
-            renderQuestion(question1);
+        // Act
+        await checkAnswer(userEvent);
 
-            await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[1],
-            );
+        // Assert
+        expect(
+            screen.queryByRole("alert", {name: "Correct!"}),
+        ).not.toBeInTheDocument();
+        expect(screen.getByText("Keep trying")).toBeVisible();
+        expect(screen.getByRole("button", {name: "Try again"})).toBeVisible();
+    });
 
-            // Act
-            await checkAnswer(userEvent);
+    it("should display an error if not fully answered", async () => {
+        // Arrange
+        renderQuestion(question1);
 
-            // Assert
-            expect(
-                screen.getByText(
-                    "We couldn't grade your answer. Make sure you select something for every row.",
-                ),
-            ).toBeVisible();
-        });
+        await userEvent.click(
+            screen.getAllByRole("button", {name: "False"})[1],
+        );
 
-        it("should be able to reveal the hint", async () => {
-            // Arrange
-            renderQuestion(question1);
+        // Act
+        await checkAnswer(userEvent);
 
-            // Act
-            await userEvent.click(
-                screen.getByRole("button", {name: "Explain"}),
-            );
-            act(() => jest.runOnlyPendingTimers());
+        // Assert
+        expect(
+            screen.getByText(
+                "We couldn't grade your answer. Make sure you select something for every row.",
+            ),
+        ).toBeVisible();
+    });
 
-            // Assert
-            expect(
-                screen.getByText(/Some bacteria synthesize their own fuel/),
-            ).toBeVisible();
-        });
+    it("offers Try again instead of Check after an ungradable answer", async () => {
+        // Arrange - only two of the four rows are categorized
+        renderQuestion(question1);
+        await userEvent.click(
+            screen.getAllByRole("button", {name: "False"})[0],
+        );
+        await userEvent.click(
+            screen.getAllByRole("button", {name: "False"})[1],
+        );
 
-        it("should be able to hide the hint", async () => {
-            // Arrange
-            renderQuestion(question1);
-            await userEvent.click(
-                screen.getByRole("button", {name: "Explain"}),
-            );
-            act(() => jest.runOnlyPendingTimers());
+        // Act
+        await checkAnswer(userEvent);
 
-            // Act
-            await userEvent.click(
-                screen.getByRole("button", {name: "Hide explanation"}),
-            );
+        // Assert
+        expect(
+            await screen.findByRole("button", {name: "Try again"}),
+        ).toBeVisible();
+    });
 
-            // Assert
-            expect(
-                screen.queryByText(/Some bacteria synthesize their own fuel/),
-            ).not.toBeInTheDocument();
-        });
+    it("restores the Check button when the answer changes after Try again", async () => {
+        // Arrange
+        renderQuestion(question1);
+        await userEvent.click(
+            screen.getAllByRole("button", {name: "False"})[0],
+        );
+        await userEvent.click(
+            screen.getAllByRole("button", {name: "False"})[1],
+        );
+        await checkAnswer(userEvent);
+        expect(
+            await screen.findByRole("button", {name: "Try again"}),
+        ).toBeVisible();
 
-        it("should show rationales when answer is correct", async () => {
-            // Arrange
-            renderQuestion(groupedRadioRationaleQuestion);
+        // Act - categorizing another row makes the group answerable again
+        await userEvent.click(
+            screen.getAllByRole("button", {name: "False"})[2],
+        );
 
-            // Select the correct answer: "$8$" (index 2)
-            await userEvent.click(
-                screen.getByRole("button", {name: /(Choice C)/}),
-            );
+        // Assert
+        expect(
+            await screen.findByRole("button", {name: "Check"}),
+        ).toBeVisible();
+    });
 
-            // Act
-            await checkAnswer(userEvent);
+    it("enables the Check button when a radio choice is selected", async () => {
+        // Arrange - nothing is selected yet, so there's nothing to grade
+        renderQuestion(groupedRadioRationaleQuestion);
+        const checkButton = screen.getByRole("button", {name: "Check"});
+        expect(checkButton).toHaveAttribute("aria-disabled", "true");
 
-            // Assert
-            expect(screen.getByRole("alert", {name: "Correct!"})).toBeVisible();
-            // Verify the rationale for the correct answer is shown
-            expect(
-                screen.getByText("This is the correct answer."),
-            ).toBeVisible();
-        });
+        // Act
+        await userEvent.click(screen.getByRole("button", {name: /(Choice C)/}));
 
-        it("should render TeX in the answer message", async () => {
-            // Arrange
-            const texMessage = "The answer is $x = 5$";
-            const question = generateTestPerseusRenderer({
-                content: "[[☃ graded-group 1]]",
-                widgets: {
-                    "graded-group 1": generateGradedGroupWidget({
-                        options: generateGradedGroupOptions({
-                            content: "Enter 5: [[☃ numeric-input 1]]",
-                            widgets: {
-                                "numeric-input 1": generateNumericInputWidget({
-                                    options: {
-                                        answers: [
-                                            generateNumericInputAnswer({
-                                                value: 5,
-                                                status: "correct",
-                                                message: texMessage,
-                                            }),
-                                        ],
-                                        labelText: "",
-                                        size: "normal",
-                                        coefficient: false,
-                                        textAlign: "left",
-                                    },
-                                }),
-                            },
-                            images: {},
-                        }),
+        // Assert
+        expect(checkButton).toBeVisible();
+        expect(checkButton).toHaveAttribute("aria-disabled", "false");
+    });
+
+    it("should be able to reveal the hint", async () => {
+        // Arrange
+        renderQuestion(question1);
+
+        // Act
+        await userEvent.click(screen.getByRole("button", {name: "Explain"}));
+        act(() => jest.runOnlyPendingTimers());
+
+        // Assert
+        expect(
+            screen.getByText(/Some bacteria synthesize their own fuel/),
+        ).toBeVisible();
+    });
+
+    it("should be able to hide the hint", async () => {
+        // Arrange
+        renderQuestion(question1);
+        await userEvent.click(screen.getByRole("button", {name: "Explain"}));
+        act(() => jest.runOnlyPendingTimers());
+
+        // Act
+        await userEvent.click(
+            screen.getByRole("button", {name: "Hide explanation"}),
+        );
+
+        // Assert
+        expect(
+            screen.queryByText(/Some bacteria synthesize their own fuel/),
+        ).not.toBeInTheDocument();
+    });
+
+    it("should show rationales when answer is correct", async () => {
+        // Arrange
+        renderQuestion(groupedRadioRationaleQuestion);
+
+        // Select the correct answer: "$8$" (index 2)
+        await userEvent.click(screen.getByRole("button", {name: /(Choice C)/}));
+
+        // Act
+        await checkAnswer(userEvent);
+
+        // Assert
+        expect(screen.getByRole("alert", {name: "Correct!"})).toBeVisible();
+        // Verify the rationale for the correct answer is shown
+        expect(screen.getByText("This is the correct answer.")).toBeVisible();
+    });
+
+    it("should render TeX in the answer message", async () => {
+        // Arrange
+        const texMessage = "The answer is $x = 5$";
+        const question = generateTestPerseusRenderer({
+            content: "[[☃ graded-group 1]]",
+            widgets: {
+                "graded-group 1": generateGradedGroupWidget({
+                    options: generateGradedGroupOptions({
+                        content: "Enter 5: [[☃ numeric-input 1]]",
+                        widgets: {
+                            "numeric-input 1": generateNumericInputWidget({
+                                options: {
+                                    answers: [
+                                        generateNumericInputAnswer({
+                                            value: 5,
+                                            status: "correct",
+                                            message: texMessage,
+                                        }),
+                                    ],
+                                    labelText: "",
+                                    size: "normal",
+                                    coefficient: false,
+                                    textAlign: "left",
+                                },
+                            }),
+                        },
+                        images: {},
                     }),
-                },
-            });
-            renderQuestion(question);
-            const input = screen.getByRole("textbox");
-            await userEvent.type(input, "5");
-
-            // Act
-            await checkAnswer(userEvent);
-
-            // Assert
-            expect(screen.queryByText(texMessage)).not.toBeInTheDocument();
-            expect(screen.getByText("x = 5")).toBeInTheDocument();
+                }),
+            },
         });
+        renderQuestion(question);
+        const input = screen.getByRole("textbox");
+        await userEvent.type(input, "5");
 
-        it("should not show rationales when answer is incorrect", async () => {
-            // Arrange
-            renderQuestion(groupedRadioRationaleQuestion);
+        // Act
+        await checkAnswer(userEvent);
 
-            // Select an incorrect answer: "$-8$" (index 1)
-            await userEvent.click(
-                screen.getByRole("button", {name: /(Choice B)/}),
-            );
+        // Assert
+        expect(screen.queryByText(texMessage)).not.toBeInTheDocument();
+        expect(screen.getByText("x = 5")).toBeInTheDocument();
+    });
 
-            // Act
-            await checkAnswer(userEvent);
+    it("should not show rationales when answer is incorrect", async () => {
+        // Arrange
+        renderQuestion(groupedRadioRationaleQuestion);
 
-            // Assert
-            expect(screen.getByText("Keep trying")).toBeVisible();
-            // Verify that rationales are not shown
-            expect(
-                screen.queryByText("This is not the correct answer."),
-            ).not.toBeInTheDocument();
-        });
+        // Select an incorrect answer: "$-8$" (index 1)
+        await userEvent.click(screen.getByRole("button", {name: /(Choice B)/}));
+
+        // Act
+        await checkAnswer(userEvent);
+
+        // Assert
+        expect(screen.getByText("Keep trying")).toBeVisible();
+        // Verify that rationales are not shown
+        expect(
+            screen.queryByText("This is not the correct answer."),
+        ).not.toBeInTheDocument();
     });
 
     /**
