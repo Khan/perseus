@@ -1060,26 +1060,23 @@ describe("Graphie drawing tools", () => {
         });
 
         describe("when fonts are loading", () => {
-            afterEach(() => {
-                Reflect.deleteProperty(document, "fonts");
-            });
-
             it("applies label margins after fonts.ready resolves even when fonts.status remains 'loading'", async () => {
                 // Arrange: simulate Safari (WebKit bugs 174030, 225790),
                 // where fonts.ready can already be resolved while
                 // fonts.status still reports "loading". Re-checking the
                 // status after awaiting ready would loop forever.
                 let readyReads = 0;
-                Object.defineProperty(document, "fonts", {
-                    configurable: true,
-                    value: {
-                        status: "loading",
-                        get ready() {
-                            readyReads++;
-                            return Promise.resolve();
-                        },
+                // Only `status` and `ready` are read, so a partial stub
+                // is enough.
+                // eslint-disable-next-line no-restricted-syntax
+                const fonts = {
+                    status: "loading",
+                    get ready() {
+                        readyReads++;
+                        return Promise.resolve();
                     },
-                });
+                } as unknown as FontFaceSet;
+                jest.spyOn(document, "fonts", "get").mockReturnValue(fonts);
                 jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
                     testDependencies,
                 );
