@@ -42,16 +42,6 @@ class DropdownEditor extends React.Component<Props> {
     static defaultProps: PerseusDropdownWidgetOptions =
         dropdownLogic.defaultWidgetOptions;
 
-    /** Functions to call after the next componentDidUpdate. */
-    private afterUpdateActionQueue: Array<() => void> = [];
-
-    componentDidUpdate(): void {
-        for (const action of this.afterUpdateActionQueue) {
-            action();
-        }
-        this.afterUpdateActionQueue.length = 0;
-    }
-
     handleChange(changed: Partial<PerseusDropdownWidgetOptions>) {
         this.props.onChange({
             choices: this.props.choices,
@@ -83,8 +73,6 @@ class DropdownEditor extends React.Component<Props> {
         const choices = this.props.choices;
         const blankChoice = {content: "", correct: false} as const;
         this.handleChange({choices: choices.concat([blankChoice])});
-        // Focus the new input after the next render:
-        this.afterUpdateActionQueue.push(() => this.focus(choices.length));
     };
 
     removeChoice: (arg1: number) => void = (choiceIndex) => {

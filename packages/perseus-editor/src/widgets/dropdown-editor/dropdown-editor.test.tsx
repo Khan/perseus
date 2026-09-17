@@ -67,37 +67,6 @@ describe("dropdown-editor", () => {
         );
     });
 
-    it("should focus the text input for a newly added choice", async () => {
-        // Arrange:
-        const {rerender} = render(
-            <DropdownEditor
-                onChange={() => {}}
-                choices={[{content: "", correct: false}]}
-            />,
-        );
-
-        // Act:
-        await userEvent.click(
-            screen.getByRole("button", {name: "Add a choice"}),
-        );
-
-        rerender(
-            <DropdownEditor
-                onChange={() => {}}
-                choices={[
-                    {content: "", correct: false},
-                    {content: "", correct: false},
-                ]}
-            />,
-        );
-
-        // Assert:
-        const choiceInput = screen.getByRole("textbox", {
-            name: "Choice 2 content",
-        });
-        expect(choiceInput).toHaveFocus();
-    });
-
     it("should disable add and delete choice buttons when editingDisabled is true", () => {
         render(
             <DropdownEditor
