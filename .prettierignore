@@ -29,6 +29,7 @@
 LICENSE
 pnpm-lock.yaml
 pnpm-workspace.yaml
+.github/workflows/*.lock.yml
 
 .claude/
 coverage/
