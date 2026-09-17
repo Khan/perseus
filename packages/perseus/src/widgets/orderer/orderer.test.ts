@@ -2,16 +2,13 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 
 import * as Dependencies from "../../dependencies";
-import {
-    testDependencies,
-    testDependenciesV2,
-} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import {getAnswerfulItem, getAnswerlessItem} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question2} from "./orderer.testdata";
 
-import type {APIOptions, PerseusDependenciesV2} from "../../types";
+import type {APIOptions} from "../../types";
 import type {PerseusOrdererWidgetOptions} from "@khanacademy/perseus-core";
 
 const ordererOptions: PerseusOrdererWidgetOptions = {
@@ -66,13 +63,12 @@ describe("orderer widget", () => {
     it("should send analytics event when widget is rendered", () => {
         // Arrange
         const onAnalyticsEventSpy = jest.fn();
-        const depsV2: PerseusDependenciesV2 = {
-            ...testDependenciesV2,
+        const dependencies = {
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
         };
 
         // Act
-        renderQuestion(question2, {dependencies: depsV2});
+        renderQuestion(question2, {dependencies});
         // Assert
         expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
             type: "perseus:widget:rendered:ti",

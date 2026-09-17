@@ -9,10 +9,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../../dependencies";
 import {clone} from "../../../testing/object-utils";
-import {
-    testDependencies,
-    testDependenciesV2,
-} from "../../../testing/test-dependencies";
+import {testDependencies} from "../../../testing/test-dependencies";
 import {scorePerseusItemTesting} from "../../../util/test-utils";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
 
@@ -24,7 +21,6 @@ import {
     questionWithUndefinedCorrect,
 } from "./radio.testdata";
 
-import type {PerseusDependenciesV2} from "../../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const selectOption = async (
@@ -356,13 +352,12 @@ describe("Radio Widget", () => {
         it("should send analytics event when widget is rendered", async () => {
             // Arrange
             const onAnalyticsEventSpy = jest.fn();
-            const depsV2: PerseusDependenciesV2 = {
-                ...testDependenciesV2,
+            const dependencies = {
                 analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
             };
 
             // Act
-            renderQuestion(question, {dependencies: depsV2});
+            renderQuestion(question, {dependencies});
 
             // Assert
             expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
@@ -632,13 +627,12 @@ describe("Radio Widget", () => {
         it("should send analytics event when widget is rendered", async () => {
             // Arrange
             const onAnalyticsEventSpy = jest.fn();
-            const depsV2: PerseusDependenciesV2 = {
-                ...testDependenciesV2,
+            const dependencies = {
                 analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
             };
 
             // Act
-            renderQuestion(question, {dependencies: depsV2});
+            renderQuestion(question, {dependencies});
 
             // Assert
             expect(onAnalyticsEventSpy).toHaveBeenCalledWith({

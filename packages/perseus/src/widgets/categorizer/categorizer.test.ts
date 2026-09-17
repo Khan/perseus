@@ -3,10 +3,7 @@ import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
-import {
-    testDependencies,
-    testDependenciesV2,
-} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {
     getAnswerfulItem,
@@ -18,7 +15,7 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 import CategorizerExport from "./categorizer";
 import {question1} from "./categorizer.testdata";
 
-import type {APIOptions, PerseusDependenciesV2} from "../../types";
+import type {APIOptions} from "../../types";
 import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -171,13 +168,12 @@ describe("categorizer widget", () => {
     it("should send analytics event when widget is rendered", () => {
         // Arrange
         const onAnalyticsEventSpy = jest.fn();
-        const depsV2: PerseusDependenciesV2 = {
-            ...testDependenciesV2,
+        const dependencies = {
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
         };
 
         // Act
-        renderQuestion(question1, {dependencies: depsV2});
+        renderQuestion(question1, {dependencies});
 
         // Assert
         expect(onAnalyticsEventSpy).toHaveBeenCalledWith({

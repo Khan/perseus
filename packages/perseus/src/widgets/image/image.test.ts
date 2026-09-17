@@ -9,10 +9,7 @@ import invariant from "tiny-invariant";
 
 import * as Dependencies from "../../dependencies";
 import {mockImageLoading} from "../../testing/image-loader-utils";
-import {
-    testDependenciesV2,
-    testDependencies,
-} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
@@ -25,7 +22,7 @@ import {
     decodeGifFrames,
 } from "./utils";
 
-import type {APIOptions, PerseusDependenciesV2} from "../../types";
+import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
 jest.mock("./utils", () => ({
@@ -175,13 +172,12 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         });
 
         const onAnalyticsEventSpy = jest.fn();
-        const depsV2: PerseusDependenciesV2 = {
-            ...testDependenciesV2,
+        const dependencies = {
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
         };
 
         // Act
-        renderQuestion(imageQuestion, {apiOptions, dependencies: depsV2});
+        renderQuestion(imageQuestion, {apiOptions, dependencies});
         act(() => {
             jest.runAllTimers();
         });

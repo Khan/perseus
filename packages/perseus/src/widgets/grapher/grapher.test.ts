@@ -2,10 +2,7 @@ import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
-import {
-    testDependencies,
-    testDependenciesV2,
-} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import {waitForInitialGraphieRender} from "../../testing/wait";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
@@ -14,7 +11,6 @@ import {
     multipleAvailableTypesQuestion,
 } from "./grapher.testdata";
 
-import type {PerseusDependenciesV2} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("grapher widget", () => {
@@ -85,13 +81,12 @@ describe("grapher widget", () => {
     it("should send analytics event when widget is rendered", () => {
         // Arrange
         const onAnalyticsEventSpy = jest.fn();
-        const depsV2: PerseusDependenciesV2 = {
-            ...testDependenciesV2,
+        const dependencies = {
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
         };
 
         // Act
-        renderQuestion(linearQuestion, {dependencies: depsV2});
+        renderQuestion(linearQuestion, {dependencies});
         // Assert
         expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
             type: "perseus:widget:rendered:ti",

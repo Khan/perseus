@@ -1,9 +1,8 @@
-import {testDependenciesV2} from "../../testing/test-dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1, question2} from "./video.testdata";
 
-import type {APIOptions, PerseusDependenciesV2} from "../../types";
+import type {APIOptions} from "../../types";
 
 describe("video widget", () => {
     it("should snapshot", () => {
@@ -57,13 +56,12 @@ describe("video widget", () => {
         };
 
         const onAnalyticsEventSpy = jest.fn();
-        const depsV2: PerseusDependenciesV2 = {
-            ...testDependenciesV2,
+        const dependencies = {
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
         };
 
         // Act
-        renderQuestion(question1, {apiOptions, dependencies: depsV2});
+        renderQuestion(question1, {apiOptions, dependencies});
 
         // Assert
         expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
@@ -93,15 +91,14 @@ describe("video widget", () => {
 
     it("should call the generateUrl dependency to set the iframe src", () => {
         // Arrange
-        const dependencies: PerseusDependenciesV2 = {
-            ...testDependenciesV2,
+        const dependencies = {
             generateUrl: (args) => {
                 return "https://www.khanacademy.org/my-test-url";
             },
         };
 
         // Act
-        renderQuestion(question1, {apiOptions: {}, dependencies});
+        renderQuestion(question1, {dependencies});
 
         // Assert
         expect(document.getElementsByTagName("iframe")[0].src).toEqual(

@@ -30,7 +30,7 @@ type RenderQuestionOptions = {
     apiOptions?: APIOptions;
     extraProps?: ExtraProps;
     initialUserInput?: UserInputMap;
-    dependencies?: PerseusDependenciesV2;
+    dependencies?: Partial<PerseusDependenciesV2>;
     locale?: string;
 };
 
@@ -51,6 +51,12 @@ export const renderQuestion = (
         locale = "en",
     } = options;
 
+    // Provide default dependencies and then let the parameter override
+    const depsV2 = {
+        ...testDependenciesV2,
+        ...dependencies,
+    };
+
     setDependencies(testDependencies);
     registerAllWidgetsForTesting();
 
@@ -58,11 +64,10 @@ export const renderQuestion = (
     const {container, rerender, unmount} = render(
         <RenderStateRoot>
             <PerseusI18nContextProvider strings={mockStrings} locale={locale}>
-                <DependenciesContext.Provider value={dependencies}>
+                <DependenciesContext.Provider value={depsV2}>
                     <RendererWrapper
                         ref={(node) => (renderer = node)}
-                        // eslint-disable-next-line no-restricted-syntax
-                        question={question as any}
+                        question={question}
                         apiOptions={apiOptions}
                         initialUserInput={initialUserInput}
                         extraProps={{
@@ -84,7 +89,7 @@ export const renderQuestion = (
     ) => {
         rerender(
             <RenderStateRoot>
-                <DependenciesContext.Provider value={testDependenciesV2}>
+                <DependenciesContext.Provider value={depsV2}>
                     <RendererWrapper
                         ref={(node) => (renderer = node)}
                         question={question}
