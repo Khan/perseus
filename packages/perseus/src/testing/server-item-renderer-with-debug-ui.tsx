@@ -7,7 +7,6 @@ import {isCorrect} from "../util/scoring";
 
 import {DebugAccordionUI} from "./debug-accordion-ui";
 import {DebugCheckAnswerFooter} from "./debug-check-answer-footer";
-import {DebugHeader} from "./debug-header";
 import {useItemRenderer} from "./item-renderer-hooks";
 import {StorybookViewOptionsContext} from "./storybook-view-options-context";
 import {storybookDependenciesV2} from "./test-dependencies";
@@ -19,7 +18,6 @@ import type {PerseusItem, ShowSolutions} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type Props = {
-    title?: string;
     item: PerseusItem;
     apiOptions?: APIOptions;
     linterContext?: LinterContextProps;
@@ -31,7 +29,6 @@ type Props = {
  * ServerItemRendererWithDebugUI is a component that renders a Perseus item with debug UI controls
  */
 export const ServerItemRendererWithDebugUI = ({
-    title = "Widget",
     item,
     apiOptions = Object.freeze({}),
     linterContext,
@@ -72,9 +69,6 @@ export const ServerItemRendererWithDebugUI = ({
                         paddingBlockEnd: "60px",
                     }}
                 >
-                    {/* Title */}
-                    <DebugHeader title={title} />
-
                     {/* Item renderer */}
                     <div
                         className={isMobile ? "perseus-mobile" : ""}
