@@ -10,7 +10,7 @@ import {
     useDependencies,
     setDependencies,
 } from "../../dependencies";
-import * as Perseus from "../../index";
+import Renderer from "../../renderer";
 import {mockStrings} from "../../strings";
 import {
     testDependenciesV2,
@@ -24,7 +24,7 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type RenderResult = ReturnType<typeof render>;
 
-type ExtraProps = Omit<PropsFor<typeof Perseus.Renderer>, "strings">;
+type ExtraProps = Omit<PropsFor<typeof Renderer>, "strings">;
 
 type RenderQuestionOptions = {
     apiOptions?: APIOptions;
@@ -43,7 +43,7 @@ export const renderQuestion = (
     options: RenderQuestionOptions = {},
 ): {
     container: HTMLElement;
-    renderer: Perseus.Renderer;
+    renderer: Renderer;
     rerender: (question: PerseusRenderer, extraProps?: ExtraProps) => void;
     unmount: RenderResult["unmount"];
 } => {
@@ -67,7 +67,7 @@ export const renderQuestion = (
 
     setDependencies(testDependencies);
 
-    let renderer: Perseus.Renderer | null = null;
+    let renderer: Renderer | null = null;
     const {container, rerender, unmount} = runWithRegistration(() =>
         render(
             <RenderStateRoot>
@@ -126,11 +126,11 @@ export const renderQuestion = (
 };
 
 const RendererWrapper = React.forwardRef<
-    Perseus.Renderer,
+    Renderer,
     {
         question: PerseusRenderer;
         apiOptions: APIOptions;
-        extraProps?: PropsFor<typeof Perseus.Renderer>;
+        extraProps?: PropsFor<typeof Renderer>;
         initialUserInput?: UserInputMap;
     }
 >(function RendererWithDependencies(props, ref) {
@@ -146,7 +146,7 @@ const RendererWrapper = React.forwardRef<
         >
             {({userInput, handleUserInput, initializeUserInput}) => {
                 return (
-                    <Perseus.Renderer
+                    <Renderer
                         ref={ref}
                         userInput={userInput}
                         handleUserInput={handleUserInput}
