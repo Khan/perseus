@@ -108,7 +108,7 @@
     -webkit-touch-callout: none;
 }
 @media (max-width: 767px) {
-    .framework-perseus.perseus-mobile h1 {
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff h1 {
         font-weight: var(--wb-font-weight-bold);
         padding-top: 0px;
         font-family: inherit;
@@ -116,7 +116,7 @@
         line-height: 1.2;
         color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
-    .framework-perseus.perseus-mobile h2 {
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff h2 {
         font-weight: var(--wb-font-weight-bold);
         padding-top: var(--wb-sizing-size_160);
         font-family: inherit;
@@ -124,8 +124,8 @@
         line-height: 1.2;
         color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
-    .framework-perseus.perseus-mobile h3,
-    .framework-perseus.perseus-mobile h4 {
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff h3,
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff h4 {
         font-weight: var(--wb-font-weight-bold);
         padding-top: 0px;
         font-family: inherit;
@@ -184,7 +184,7 @@
     }
 }
 @media (min-width: 767px) and (max-width: 1199px) {
-    .framework-perseus.perseus-mobile h1 {
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff h1 {
         font-weight: var(--wb-font-weight-bold);
         padding-top: 0px;
         font-family: inherit;
@@ -192,7 +192,7 @@
         line-height: 1.1;
         color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
-    .framework-perseus.perseus-mobile h2 {
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff h2 {
         font-weight: var(--wb-font-weight-bold);
         padding-top: var(--wb-sizing-size_320);
         font-family: inherit;
@@ -200,8 +200,8 @@
         line-height: 1.1;
         color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
-    .framework-perseus.perseus-mobile h3,
-    .framework-perseus.perseus-mobile h4 {
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff h3,
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff h4 {
         font-weight: var(--wb-font-weight-bold);
         padding-top: var(--wb-sizing-size_160);
         font-family: inherit;
@@ -260,7 +260,7 @@
     }
 }
 @media (min-width: 1200px) {
-    .framework-perseus.perseus-mobile h1 {
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff h1 {
         font-weight: var(--wb-font-weight-bold);
         padding-top: 0px;
         font-family: inherit;
@@ -268,7 +268,7 @@
         line-height: 1.1;
         color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
-    .framework-perseus.perseus-mobile h2 {
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff h2 {
         font-weight: var(--wb-font-weight-bold);
         padding-top: var(--wb-sizing-size_320);
         font-family: inherit;
@@ -276,8 +276,8 @@
         line-height: 1.1;
         color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
-    .framework-perseus.perseus-mobile h3,
-    .framework-perseus.perseus-mobile h4 {
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff h3,
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff h4 {
         font-weight: var(--wb-font-weight-bold);
         padding-top: var(--wb-sizing-size_160);
         font-family: inherit;
