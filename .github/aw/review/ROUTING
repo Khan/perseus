@@ -42,15 +42,15 @@ SKILL.md                             tier=medium
 CLAUDE.md                            tier=medium
 AGENTS.md                            tier=medium
 /accessibility-instructions.md       tier=medium
-.claude/hooks/**                     tier=high
-.claude/settings.json                tier=high
+.claude/hooks/**                     lens=security-auth tier=high
+.claude/settings.json                lens=security-auth tier=high
 # Mints the PAT the hooks above consume.
-.claude/setup-git-token.mjs          tier=high
-.codex/hooks/**                      tier=high
-.codex/hooks.json                    tier=high
-.cursor/hooks/**                     tier=high
-.cursor/hooks.json                   tier=high
-.mcp.json                            tier=high
+.claude/setup-git-token.mjs          lens=security-auth tier=high
+.codex/hooks/**                      lens=security-auth tier=high
+.codex/hooks.json                    lens=security-auth tier=high
+.cursor/hooks/**                     lens=security-auth tier=high
+.cursor/hooks.json                   lens=security-auth tier=high
+.mcp.json                            lens=security-auth tier=high
 
 # High-risk surfaces (see risk-classification.md for the reasoning).
 # Answer scoring: silent mis-scoring of learners is the worst failure in the repo.
@@ -64,6 +64,9 @@ patches/**                           tier=high
 # Publish configuration decides what ships to npm and how consumers resolve it.
 .changeset/config.json               tier=high
 packages/*/package.json              tier=high
+# Root package.json contains deps that run on everyone's workstation so a real
+# security risk
+package.json                         lens=security-auth tier=high
 
 # CI supply chain: workflow files spawn the security-auth lens for the shared
 # workflow-security hunts (pwn-request, over-scoped-secret). Public repo.
