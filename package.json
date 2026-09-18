@@ -132,7 +132,7 @@
         "storybook": "storybook dev -p 6006",
         "start": "pnpm storybook",
         "cypress": "cypress open --component --config-file config/cypress/cypress.config.ts",
-        "cypress:ci": "cross-env cypress run --component --browser chrome --config-file config/cypress/cypress.config.ts",
+        "cypress:ci": "cross-env cypress run --component --config-file config/cypress/cypress.config.ts",
         "format": "prettier --write .",
         "typecheck": "tsc && tsc --project config/build/tsconfig.json",
         "knip": "knip --config knip.config.ts",
