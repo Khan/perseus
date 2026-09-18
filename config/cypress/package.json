@@ -1,0 +1,5 @@
+{
+    "name": "@internal/cypress-config",
+    "private": true,
+    "type": "module"
+}

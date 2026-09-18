@@ -1,3 +1,21 @@
+type PackageJson = {
+    exports?: Record<string, unknown>;
+};
+
+type ExportConfig = {
+    source: string;
+    default: unknown;
+};
+
+const isExportConfig = (value: unknown): value is ExportConfig =>
+    typeof value === "object" &&
+    value !== null &&
+    "source" in value &&
+    typeof value.source === "string" &&
+    Boolean(value.source) &&
+    "default" in value &&
+    Boolean(value.default);
+
 /**
  * Find the entry points that we build for a package.
  *
@@ -6,22 +24,19 @@
  * corresponding published output. Jest and Vite also read `source` to alias
  * packages to their source files.
  *
- * @param {Record<string, any>} pkgJson the parsed `package.json` of a package
- * @returns {Record<string, string>} a map of entry point name (the file name
- *     the build emits, without extension) to its package-relative source file
+ * @returns a map of entry point name (the file name the build emits, without
+ *     extension) to its package-relative source file
  */
-export const getEntryPoints = (pkgJson) => {
-    const entryPoints = {};
+export const getEntryPoints = (
+    pkgJson: PackageJson,
+): Record<string, string> => {
+    const entryPoints: Record<string, string> = {};
     for (const [subPath, exportConfig] of Object.entries(
         pkgJson.exports ?? {},
     )) {
         // Build only sub-paths with a source input and a published output.
         // Source-only sub-paths support source-based tooling but emit no bundle.
-        if (
-            typeof exportConfig !== "object" ||
-            !exportConfig.source ||
-            !exportConfig.default
-        ) {
+        if (!isExportConfig(exportConfig)) {
             continue;
         }
 

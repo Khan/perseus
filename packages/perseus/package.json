@@ -83,7 +83,7 @@
         "@popperjs/core": "catalog:devDeps",
         "aphrodite": "catalog:devDeps",
         "classnames": "catalog:devDeps",
-        "perseus-build-settings": "workspace:*",
+        "@internal/build-settings": "workspace:*",
         "prop-types": "catalog:devDeps",
         "raphael": "workspace:*",
         "react": "catalog:devDeps",
