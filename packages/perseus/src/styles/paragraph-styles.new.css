@@ -13,6 +13,15 @@
     margin-inline: auto;
     max-width: 688px;
 }
+/* TODO (LEMS-4606): The following rule is in place to ensure that tables are left-aligned within the renderer container
+ * which has its width capped at 688px (in desktop). This rule can be removed once a better one is in place.
+ */
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-renderer.renderer-new-ff
+    > table {
+    margin-inline-start: calc(50% - 344px);
+    max-width: 688px;
+}
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer.renderer-new-ff
     p {
