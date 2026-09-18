@@ -1,0 +1,204 @@
+/* TODO (LEMS-4452): This is a temporary base font & color setting to override the <p> styling from frontend.
+   This rule should be removed as part of the styling refactoring.  */
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-renderer.renderer-new-ff
+    :is(p, div) {
+    color: var(--wb-semanticColor-core-foreground-neutral-strong);
+    font-size: 20px;
+    line-height: 30px;
+}
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-renderer.renderer-new-ff
+    > * {
+    margin-inline: auto;
+    max-width: 688px;
+}
+/* TODO (LEMS-4606): The following rule is in place to ensure that tables are left-aligned within the renderer container
+ * which has its width capped at 688px (in desktop). This rule can be removed once a better one is in place.
+ */
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-renderer.renderer-new-ff
+    > table {
+    margin-inline-start: calc(50% - 344px);
+    max-width: 688px;
+}
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-renderer.renderer-new-ff
+    p {
+    color: var(--wb-semanticColor-core-foreground-neutral-strong);
+    font-size: 20px;
+    line-height: 30px;
+    margin-block: 0 var(--wb-sizing-size_320);
+}
+/* Reset the Renderer margins for the image widget.
+    The image widget title and caption shouldn't have margins,
+    so we need to override the above styles. */
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-image-widget
+    .perseus-renderer.renderer-new-ff
+    p {
+    margin-block-end: 0;
+}
+/* TODO (LEMS-4452): UL tags should inherit color and fonts - remove */
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-renderer.renderer-new-ff
+    > :is(ol, ul:not([data-widget="radio"])) {
+    color: var(--wb-semanticColor-core-foreground-neutral-strong);
+    font-size: 20px;
+    line-height: 30px;
+}
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-image-caption
+    .perseus-renderer.renderer-new-ff
+    p,
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-image-caption
+    .perseus-renderer.renderer-new-ff
+    ol,
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-image-caption
+    .perseus-renderer.renderer-new-ff
+    ul {
+    color: var(--wb-semanticColor-core-foreground-neutral-subtle);
+    font-size: var(--wb-font-body-size-small);
+    line-height: var(--wb-font-body-lineHeight-small);
+    text-align: left;
+}
+/* TODO (LEMS-4452): Verify that full-width is working as expected, once image styling is fixed */
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .renderer-new-ff
+    .widget-full-width {
+    margin-block-end: var(--wb-sizing-size_320);
+    margin-inline: 0;
+    max-width: none;
+}
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .renderer-new-ff
+    .widget-full-width
+    p {
+    margin: 0;
+    max-width: none;
+}
+/*************
+    Mobile
+**************/
+.framework-perseus.perseus-mobile .renderer-new-ff:not(blockquote) > p,
+.framework-perseus.perseus-mobile .renderer-new-ff :not(blockquote) > p {
+    margin: 0;
+}
+.framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff > * {
+    margin: 0 auto;
+}
+.framework-perseus.perseus-mobile
+    .perseus-renderer.renderer-new-ff
+    > :not(:first-child) {
+    margin-block-start: var(--wb-sizing-size_240);
+    margin-block-end: var(--wb-sizing-size_240);
+}
+.framework-perseus.perseus-mobile
+    .perseus-renderer.renderer-new-ff
+    > ul:not([data-widget="radio"], .indicatorContainer) {
+    padding: 0;
+    padding-inline-start: 1em;
+}
+.framework-perseus.perseus-mobile
+    .perseus-renderer.renderer-new-ff
+    > ul:not([data-widget="radio"], .indicatorContainer)
+    > li {
+    padding-inline-start: var(--wb-sizing-size_100);
+    margin-block-end: var(--wb-sizing-size_240);
+}
+.framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff ol {
+    margin: 0;
+    padding-inline-start: var(--wb-sizing-size_320);
+}
+.framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff ol > li {
+    list-style-type: decimal;
+    margin-block-end: var(--wb-sizing-size_240);
+}
+.framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff ol ol,
+.framework-perseus.perseus-mobile
+    .perseus-renderer.renderer-new-ff
+    ul:not([data-widget="radio"])
+    ol,
+.framework-perseus.perseus-mobile
+    .perseus-renderer.renderer-new-ff
+    ol
+    ul:not([data-widget="radio"]),
+.framework-perseus.perseus-mobile
+    .perseus-renderer.renderer-new-ff
+    ul:not([data-widget="radio"])
+    ul:not([data-widget="radio"]) {
+    padding-block-start: var(--wb-sizing-size_240);
+}
+@media (max-width: 767px) {
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff > * {
+        max-width: none;
+    }
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff > *,
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff p {
+        font-family: inherit;
+        font-size: 18px;
+        line-height: 1.4;
+        color: var(--wb-semanticColor-core-foreground-neutral-default);
+    }
+    .framework-perseus.perseus-mobile
+        .renderer-new-ff
+        .perseus-image-caption
+        p {
+        color: var(--wb-semanticColor-core-foreground-neutral-subtle);
+        font-size: 14px;
+        line-height: 1.3;
+        text-align: left;
+    }
+}
+@media (min-width: 767px) and (max-width: 1199px) {
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff > * {
+        max-width: 512px;
+    }
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff > *,
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff p {
+        font-family: inherit;
+        font-size: 20px;
+        line-height: 1.5;
+        color: var(--wb-semanticColor-core-foreground-neutral-default);
+    }
+    .framework-perseus.perseus-mobile
+        .renderer-new-ff
+        .perseus-image-caption
+        p {
+        color: var(--wb-semanticColor-core-foreground-neutral-subtle);
+        font-size: 17px;
+        line-height: 1.4;
+        text-align: left;
+    }
+}
+@media (min-width: 1200px) {
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff > * {
+        max-width: 688px;
+    }
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff > *,
+    .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff p {
+        font-family: inherit;
+        font-size: 22px;
+        line-height: 1.4;
+        color: var(--wb-semanticColor-core-foreground-neutral-default);
+    }
+    .framework-perseus.perseus-mobile
+        .renderer-new-ff
+        .perseus-image-caption
+        p {
+        color: var(--wb-semanticColor-core-foreground-neutral-subtle);
+        font-size: 20px;
+        line-height: 1.4;
+        text-align: left;
+    }
+}
+.framework-perseus.perseus-mobile .renderer-new-ff .widget-full-width {
+    margin-inline: 0;
+    max-width: none;
+}
+.framework-perseus.perseus-mobile .renderer-new-ff .widget-full-width p {
+    margin: 0;
+    max-width: none;
+}

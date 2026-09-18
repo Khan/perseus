@@ -1,0 +1,14 @@
+.framework-perseus {
+    .free-response .free-response-question .renderer-new-ff {
+        /* Remove the top margin from the first element, so there isn't forced
+           spacing above the question. */
+        > :first-child {
+            margin-block-start: 0;
+        }
+        /* Remove the bottom margin from the last element, so there isn't a
+           large space between the question and the textarea. */
+        > :last-child {
+            margin-block-end: 0;
+        }
+    }
+}
