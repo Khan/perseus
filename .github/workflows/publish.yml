@@ -471,8 +471,8 @@ jobs:
               uses: actions/upload-artifact@v7
               if: always()
               with:
-                name: npm-logs
-                path: /home/runner/.npm/_logs/
+                  name: npm-logs
+                  path: /home/runner/.npm/_logs/
 
             - name: Calculate short SHA for this commit
               id: short-sha
