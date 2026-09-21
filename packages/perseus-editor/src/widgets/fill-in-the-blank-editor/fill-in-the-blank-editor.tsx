@@ -8,10 +8,7 @@ const defaultOptions: PerseusFillInTheBlankWidgetOptions =
     fillInTheBlankLogic.defaultWidgetOptions;
 
 type Props = PerseusFillInTheBlankWidgetOptions & {
-    onChange: (
-        newOptions: Partial<PerseusFillInTheBlankWidgetOptions>,
-        callback?: () => void,
-    ) => void;
+    onChange: (newOptions: PerseusFillInTheBlankWidgetOptions) => void;
     apiOptions?: APIOptionsWithDefaults;
 };
 

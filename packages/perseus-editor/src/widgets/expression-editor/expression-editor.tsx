@@ -30,12 +30,17 @@ import type {CSSProperties} from "aphrodite";
 
 const {ButtonGroup} = components;
 
+// TODO(LEMS-4612): remove `Omit<..., "buttonsVisible">` and use
+//  PerseusExpressionWidgetOptions directly here.
+type EditableExpressionWidgetOptions = Omit<
+    PerseusExpressionWidgetOptions,
+    "buttonsVisible"
+>;
+
 type Props = {
-    widgetId?: string;
-    value?: string;
     apiOptions: APIOptions;
-    onChange: (newValues: Partial<PerseusExpressionWidgetOptions>) => void;
-} & Omit<PerseusExpressionWidgetOptions, "buttonsVisible">;
+    onChange: (newValues: EditableExpressionWidgetOptions) => void;
+} & EditableExpressionWidgetOptions;
 
 // types for iterables
 type AnswerForm = PerseusExpressionWidgetOptions["answerForms"][number];
@@ -71,6 +76,19 @@ class ExpressionEditor extends React.Component<Props, State> {
         this.state = {
             functionsInternal: this.props.functions.join(" "),
         };
+    }
+
+    handleChange(changes: Partial<EditableExpressionWidgetOptions>) {
+        this.props.onChange({
+            answerForms: this.props.answerForms,
+            buttonSets: this.props.buttonSets,
+            functions: this.props.functions,
+            times: this.props.times,
+            extraKeys: this.props.extraKeys,
+            visibleLabel: this.props.visibleLabel,
+            ariaLabel: this.props.ariaLabel,
+            ...changes,
+        });
     }
 
     serialize(): PerseusExpressionWidgetOptions {
@@ -110,24 +128,19 @@ class ExpressionEditor extends React.Component<Props, State> {
             }
 
             _(this.props.answerForms).each((form, ix) => {
-                if (this.props.value === "") {
-                    issues.push(`Answer ${ix + 1} is empty`);
-                } else {
-                    // note we're not using icu for content creators
-                    const expression = KAS.parse(form.value, {
-                        functions: this.props.functions,
-                    });
-                    if (!expression.parsed) {
-                        issues.push(`Couldn't parse ${form.value}`);
-                    } else if (
-                        form.simplify &&
-                        !expression.expr.isSimplified()
-                    ) {
-                        issues.push(
-                            `${form.value} isn't simplified, but is required" +
-                            " to be`,
-                        );
-                    }
+                // TODO(benchristel): validate that `form.value` isn't blank?
+
+                // note we're not using icu for content creators
+                const expression = KAS.parse(form.value, {
+                    functions: this.props.functions,
+                });
+                if (!expression.parsed) {
+                    issues.push(`Couldn't parse ${form.value}`);
+                } else if (form.simplify && !expression.expr.isSimplified()) {
+                    issues.push(
+                        `${form.value} isn't simplified, but is required" +
+                        " to be`,
+                    );
                 }
             });
         }
@@ -148,13 +161,13 @@ class ExpressionEditor extends React.Component<Props, State> {
         };
 
         answerForms.push(newAnswerForm);
-        this.props.onChange({answerForms});
+        this.handleChange({answerForms});
     };
 
     handleRemoveForm: (answerKey: number) => void = (i) => {
         const updatedAnswerForms = this.props.answerForms.slice();
         updatedAnswerForms.splice(i, 1);
-        this.props.onChange({answerForms: updatedAnswerForms});
+        this.handleChange({answerForms: updatedAnswerForms});
     };
 
     // This function is designed to update the answerForm property
@@ -176,7 +189,7 @@ class ExpressionEditor extends React.Component<Props, State> {
             ...restProps,
             answerForms,
         });
-        this.props.onChange({answerForms, extraKeys: derivedExtraKeys});
+        this.handleChange({answerForms, extraKeys: derivedExtraKeys});
     }
 
     // called when the selected buttonset changes
@@ -191,7 +204,7 @@ class ExpressionEditor extends React.Component<Props, State> {
             );
         });
 
-        this.props.onChange({buttonSets});
+        this.handleChange({buttonSets});
     };
 
     handleToggleDiv: () => void = () => {
@@ -213,7 +226,7 @@ class ExpressionEditor extends React.Component<Props, State> {
             .filter((set) => set !== remove)
             .concat(keep);
 
-        this.props.onChange({buttonSets});
+        this.handleChange({buttonSets});
     };
 
     // called when the correct answer changes
@@ -227,17 +240,17 @@ class ExpressionEditor extends React.Component<Props, State> {
         this.setState({functionsInternal: value});
         const newProps: Record<string, any> = {};
         newProps.functions = value.split(/[ ,]+/).filter(isTruthy);
-        this.props.onChange(newProps);
+        this.handleChange(newProps);
     };
 
     // called when the visible labels change
     handleVisibleLabel: (visibleLabel: string) => void = (visibleLabel) => {
-        this.props.onChange({visibleLabel});
+        this.handleChange({visibleLabel});
     };
 
     // called when the aria label change
     handleAriaLabel: (ariaLabel: string) => void = (ariaLabel) => {
-        this.props.onChange({ariaLabel});
+        this.handleChange({ariaLabel});
     };
 
     changeSimplify(index: number, simplify: boolean) {
@@ -271,7 +284,7 @@ class ExpressionEditor extends React.Component<Props, State> {
     }
 
     changeTimes(times: boolean) {
-        this.props.onChange({times: times});
+        this.handleChange({times: times});
     }
 
     changeExpressionWidget: (
@@ -308,7 +321,6 @@ class ExpressionEditor extends React.Component<Props, State> {
                     handleUserInput: (input: PerseusExpressionUserInput) =>
                         this.changeExpressionWidget(index, input),
                     trackInteraction: () => {},
-                    widgetId: this.props.widgetId + "-" + ans.key,
                 } as const;
 
                 return (

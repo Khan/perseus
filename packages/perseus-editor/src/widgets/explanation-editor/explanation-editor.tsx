@@ -1,21 +1,19 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {components} from "@khanacademy/perseus";
 import {explanationLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../../editor";
-import {deprecatedChangeableChange} from "../../mixins/changeable";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
-import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {PerseusExplanationWidgetOptions} from "@khanacademy/perseus-core";
 
 const {TextInput} = components;
 
-interface Props extends PerseusExplanationWidgetOptions, ChangeableProps {
+interface Props extends PerseusExplanationWidgetOptions {
     apiOptions?: APIOptionsWithDefaults;
+    onChange: (options: PerseusExplanationWidgetOptions) => void;
 }
 
 // JSDoc will be shown in Storybook widget editor description
@@ -26,9 +24,15 @@ class ExplanationEditor extends React.Component<Props> {
     static defaultProps: PerseusExplanationWidgetOptions =
         explanationLogic.defaultWidgetOptions;
 
-    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return deprecatedChangeableChange.apply(this, args);
-    };
+    handleChange(changes: Partial<PerseusExplanationWidgetOptions>) {
+        this.props.onChange({
+            showPrompt: this.props.showPrompt,
+            hidePrompt: this.props.hidePrompt,
+            explanation: this.props.explanation,
+            widgets: this.props.widgets,
+            ...changes,
+        });
+    }
 
     serialize: () => any = () => {
         return EditorJsonify.serialize.call(this);
@@ -42,8 +46,9 @@ class ExplanationEditor extends React.Component<Props> {
                         Prompt to show explanation:{" "}
                         <TextInput
                             value={this.props.showPrompt}
-                            // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                            onChange={this.change("showPrompt")}
+                            onChange={(showPrompt) =>
+                                this.handleChange({showPrompt})
+                            }
                         />
                     </label>
                 </div>
@@ -52,8 +57,9 @@ class ExplanationEditor extends React.Component<Props> {
                         Prompt to hide explanation:{" "}
                         <TextInput
                             value={this.props.hidePrompt}
-                            // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                            onChange={this.change("hidePrompt")}
+                            onChange={(hidePrompt) =>
+                                this.handleChange({hidePrompt})
+                            }
                         />
                     </label>
                 </div>
@@ -71,8 +77,7 @@ class ExplanationEditor extends React.Component<Props> {
                             if (_.has(props, "widgets")) {
                                 newProps.widgets = props.widgets;
                             }
-                            // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                            this.change(newProps);
+                            this.handleChange(newProps);
                         }}
                     />
                 </div>

@@ -11,13 +11,17 @@ import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import PropTypes from "prop-types";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import InfoTip from "../../components/info-tip";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
-type Props = any;
+import type {APIOptions} from "@khanacademy/perseus";
+
+interface Props extends PerseusDropdownWidgetOptions {
+    onChange: (options: PerseusDropdownWidgetOptions) => void;
+    apiOptions?: APIOptions;
+}
 
 // JSDoc will be shown in Storybook widget editor description
 /**
@@ -37,61 +41,43 @@ class DropdownEditor extends React.Component<Props> {
     static defaultProps: PerseusDropdownWidgetOptions =
         dropdownLogic.defaultWidgetOptions;
 
-    onVisibleLabelChange: (arg1: string) => void = (visibleLabel) => {
-        this.props.onChange({visibleLabel});
-    };
+    handleChange(changed: Partial<PerseusDropdownWidgetOptions>) {
+        this.props.onChange({
+            choices: this.props.choices,
+            placeholder: this.props.placeholder,
+            visibleLabel: this.props.visibleLabel,
+            ariaLabel: this.props.ariaLabel,
+            ...changed,
+        });
+    }
 
-    onAriaLabelChange: (arg1: string) => void = (ariaLabel) => {
-        this.props.onChange({ariaLabel});
-    };
-
-    onPlaceholderChange: (arg1: string) => void = (placeholder) => {
-        this.props.onChange({placeholder});
-    };
-
-    onCorrectChange: (arg1: number) => void = (choiceIndex) => {
+    onCorrectChange(choiceIndex: number) {
         const choices = this.props.choices.map(function (choice, i) {
             return _.extend({}, choice, {
                 correct: i === choiceIndex,
             });
         });
-        this.props.onChange({choices: choices});
-    };
+        this.handleChange({choices: choices});
+    }
 
-    onContentChange: (arg1: number, arg2: string) => void = (
-        choiceIndex,
-        newContent,
-    ) => {
+    onContentChange(choiceIndex: number, newContent: string) {
         const choices = this.props.choices.slice();
         const choice = _.clone(choices[choiceIndex]);
         choice.content = newContent;
         choices[choiceIndex] = choice;
-        this.props.onChange({choices: choices});
-    };
+        this.handleChange({choices: choices});
+    }
 
     addChoice: () => void = () => {
         const choices = this.props.choices;
         const blankChoice = {content: "", correct: false} as const;
-        this.props.onChange(
-            {
-                choices: choices.concat([blankChoice]),
-            },
-            this.focus.bind(this, choices.length),
-        );
+        this.handleChange({choices: choices.concat([blankChoice])});
     };
 
     removeChoice: (arg1: number) => void = (choiceIndex) => {
-        const choices = _(this.props.choices).clone();
+        const choices = [...this.props.choices];
         choices.splice(choiceIndex, 1);
-        this.props.onChange({
-            choices: choices,
-        });
-    };
-
-    focus: (arg1: number) => boolean = (i) => {
-        // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-        ReactDOM.findDOMNode(this.refs["editor" + i]).focus();
-        return true;
+        this.handleChange({choices});
     };
 
     serialize: () => any = () => {
@@ -121,8 +107,10 @@ class DropdownEditor extends React.Component<Props> {
                     <BodyText tag="label">
                         Visible label
                         <TextField
-                            value={this.props.visibleLabel}
-                            onChange={this.onVisibleLabelChange}
+                            value={this.props.visibleLabel ?? ""}
+                            onChange={(visibleLabel) =>
+                                this.handleChange({visibleLabel})
+                            }
                         />
                     </BodyText>
                     <InfoTip>
@@ -133,8 +121,10 @@ class DropdownEditor extends React.Component<Props> {
                     <BodyText tag="label">
                         Aria label
                         <TextField
-                            value={this.props.ariaLabel}
-                            onChange={this.onAriaLabelChange}
+                            value={this.props.ariaLabel ?? ""}
+                            onChange={(ariaLabel) =>
+                                this.handleChange({ariaLabel})
+                            }
                             type={"text"}
                         />
                     </BodyText>
@@ -161,7 +151,9 @@ class DropdownEditor extends React.Component<Props> {
                         Placeholder
                         <TextField
                             value={this.props.placeholder}
-                            onChange={this.onPlaceholderChange}
+                            onChange={(placeholder) =>
+                                this.handleChange({placeholder})
+                            }
                             placeholder={"Placeholder value"}
                         />
                     </BodyText>
@@ -187,7 +179,6 @@ class DropdownEditor extends React.Component<Props> {
                                 <div className="dropdown-choice">
                                     <input
                                         type="radio"
-                                        ref={"radio" + i}
                                         name={dropdownGroupName}
                                         checked={choice.correct}
                                         onChange={() => this.onCorrectChange(i)}
@@ -195,7 +186,6 @@ class DropdownEditor extends React.Component<Props> {
 
                                     <TextField
                                         value={choice.content}
-                                        ref={"editor" + i}
                                         aria-label={`Choice ${i + 1} content`}
                                         disabled={editingDisabled}
                                         style={{
