@@ -45,8 +45,24 @@ export function TestMathjax({children: tex, onRender}: Props) {
     }, [ref, addLabel, domElement]);
 
     React.useEffect(() => {
+        let cancelled = false;
+
         renderer.updateStyles();
-        onRender?.();
+
+        // `fonts.ready` only waits for fonts the browser has already been
+        // asked for. Forcing layout first makes it request the MathJax
+        // fonts, so the wait covers them.
+        ref.current?.getBoundingClientRect();
+
+        document.fonts.ready.then(() => {
+            if (!cancelled) {
+                onRender?.();
+            }
+        });
+
+        return () => {
+            cancelled = true;
+        };
     }, [tex, onRender]);
 
     return <span ref={ref} />;
