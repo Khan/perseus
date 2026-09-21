@@ -3,8 +3,9 @@ import * as React from "react";
 
 import {TestMathjax} from "./test-mathjax";
 
-// Hands out a `document.fonts` whose `ready` resolves only when the returned
-// function is called, so tests control when "fonts have loaded".
+// Stubs the `document.fonts.ready` promise so tests can control
+// when it resolves. Returns a function that resolves the promise.
+// This simulates fonts loading.
 function mockFontsLoading(): () => void {
     let resolveReady: () => void = () => {};
     const ready = new Promise<void>((resolve) => {
