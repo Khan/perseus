@@ -238,12 +238,20 @@ div.graphie {
     padding: var(--wb-sizing-size_060) var(--wb-sizing-size_100);
     text-align: left;
 }
-.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile) table th[align="center"],
-.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile) table td[align="center"] {
+.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile)
+    table
+    th[align="center"],
+.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile)
+    table
+    td[align="center"] {
     text-align: center;
 }
-.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile) table th[align="right"],
-.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile) table td[align="right"] {
+.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile)
+    table
+    th[align="right"],
+.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile)
+    table
+    td[align="right"] {
     text-align: right;
 }
 .framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile) table th {
@@ -252,17 +260,24 @@ div.graphie {
     font-weight: var(--wb-font-weight-bold);
     padding-bottom: var(--wb-sizing-size_020);
 }
-.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile) table tr:nth-child(odd) td {
+.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile)
+    table
+    tr:nth-child(odd)
+    td {
     background-color: var(--wb-semanticColor-core-background-base-subtle);
 }
-.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile) .perseus-titled-table {
+.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile)
+    .perseus-titled-table {
     display: inline-block;
 }
-.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile) .perseus-titled-table table {
+.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile)
+    .perseus-titled-table
+    table {
     margin-left: auto;
     margin-right: auto;
 }
-.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile) .perseus-table-title {
+.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile)
+    .perseus-table-title {
     text-align: center;
     font-size: larger;
 }
@@ -272,8 +287,12 @@ div.graphie {
     td {
     background-color: transparent;
 }
-.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile) table.non-markdown th,
-.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile) table.non-markdown td {
+.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile)
+    table.non-markdown
+    th,
+.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile)
+    table.non-markdown
+    td {
     border-width: 0;
 }
 /* New XOM styles for tables. */
