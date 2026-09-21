@@ -109,7 +109,6 @@
     margin-block-end: var(--wb-sizing-size_240);
 }
 .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff ol {
-    margin: 0;
     padding-inline-start: var(--wb-sizing-size_320);
 }
 .framework-perseus.perseus-mobile .perseus-renderer.renderer-new-ff ol > li {
