@@ -209,51 +209,90 @@ div.graphie {
 }
 /* Legacy table styles. Remove when XOM is rolled out (see below for
    updated XOM styles). */
-.framework-perseus:not(.perseus-mobile) table {
+
+/* HACK: The :not(:has(.framework-perseus)) on each of these selectors is a
+ * workaround for a mismatch between our Storybook environment and prod
+ * (khanacademy.org). In prod articles, there is a single .framework-perseus
+ * wrapper element, rendered by our ArticleRenderer, that also has a
+ * .perseus-mobile class in mobile environments. However, in our storybook
+ * environment, there are *two* .framework-perseus elements wrapping articles,
+ * because our storybook unconditionally renders a .framework-perseus wrapper
+ * to simulate the way prod renders exercises. That happens in
+ * .storybook/preview.tsx. The result of this double-wrapping was that selectors
+ * like `.framework-perseus:not(.perseus-mobile)` always matched in articles,
+ * since the outer wrapper rendered by storybook never had the .perseus-mobile
+ * class. This meant that desktop styles for articles got erroneously applied
+ * in mobile stories as well.
+ *
+ * We chose to use this hacky fix because Storybook can't distinguish between
+ * the article and exercise cases on its own, and we didn't want to revisit and
+ * update every story to better reflect prod. Hopefully this will be a
+ * temporary patch until we redesign all our CSS.
+ */
+.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile) table {
     font-size: 14px;
     line-height: 19.6px;
 }
-.framework-perseus:not(.perseus-mobile) table th,
-.framework-perseus:not(.perseus-mobile) table td {
+.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile) table th,
+.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile) table td {
     padding: var(--wb-sizing-size_060) var(--wb-sizing-size_100);
     text-align: left;
 }
-.framework-perseus:not(.perseus-mobile) table th[align="center"],
-.framework-perseus:not(.perseus-mobile) table td[align="center"] {
+.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile)
+    table
+    th[align="center"],
+.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile)
+    table
+    td[align="center"] {
     text-align: center;
 }
-.framework-perseus:not(.perseus-mobile) table th[align="right"],
-.framework-perseus:not(.perseus-mobile) table td[align="right"] {
+.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile)
+    table
+    th[align="right"],
+.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile)
+    table
+    td[align="right"] {
     text-align: right;
 }
-.framework-perseus:not(.perseus-mobile) table th {
+.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile) table th {
     border-bottom: var(--wb-border-width-medium) solid
         var(--wb-semanticColor-core-border-neutral-subtle);
     font-weight: var(--wb-font-weight-bold);
     padding-bottom: var(--wb-sizing-size_020);
 }
-.framework-perseus:not(.perseus-mobile) table tr:nth-child(odd) td {
+.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile)
+    table
+    tr:nth-child(odd)
+    td {
     background-color: var(--wb-semanticColor-core-background-base-subtle);
 }
-.framework-perseus:not(.perseus-mobile) .perseus-titled-table {
+.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile)
+    .perseus-titled-table {
     display: inline-block;
 }
-.framework-perseus:not(.perseus-mobile) .perseus-titled-table table {
+.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile)
+    .perseus-titled-table
+    table {
     margin-left: auto;
     margin-right: auto;
 }
-.framework-perseus:not(.perseus-mobile) .perseus-table-title {
+.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile)
+    .perseus-table-title {
     text-align: center;
     font-size: larger;
 }
-.framework-perseus:not(.perseus-mobile)
+.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile)
     table.non-markdown
     tr:nth-child(odd)
     td {
     background-color: transparent;
 }
-.framework-perseus:not(.perseus-mobile) table.non-markdown th,
-.framework-perseus:not(.perseus-mobile) table.non-markdown td {
+.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile)
+    table.non-markdown
+    th,
+.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile)
+    table.non-markdown
+    td {
     border-width: 0;
 }
 /* New XOM styles for tables. */
