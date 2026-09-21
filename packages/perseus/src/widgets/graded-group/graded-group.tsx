@@ -276,23 +276,6 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                         props.widgetId,
                     )}
 
-                {props.options.hint?.content &&
-                    (showHint ? (
-                        <div>
-                            {/* Not using Button here bc the styles won't work. */}
-                            <button
-                                // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
-                                tabIndex="0"
-                                className={css(styles.explanationTitle)}
-                                onClick={() => setShowHint(false)}
-                                onKeyPress={(e) => {
-                                    // preventDefault stops the screen from scrolling down on keypress
-                                    e.preventDefault();
-                                    setShowHint(false);
-                                }}
-                            >
-                                {strings.hideExplanation}
-                            </button>
                 {props.options.hint?.content && (
                     <>
                         {/* Not using Button here bc the styles won't work. */}
