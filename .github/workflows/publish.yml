@@ -462,6 +462,7 @@ jobs:
               run: ./utils/publish-snapshot.sh ${{ steps.pr.outputs.number }}
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  NPM_TOKEN: ''
                   # Note: we no longer use the NPM_TOKEN secret because we've enabled
                   # Trusted Publishing (https://docs.npmjs.com/trusted-publishers) on
                   # the npmjs.com side:
