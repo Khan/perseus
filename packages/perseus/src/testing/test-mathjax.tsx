@@ -54,7 +54,7 @@ export function TestMathjax({children: tex, onRender}: Props) {
         // fonts, so the wait covers them.
         ref.current?.getBoundingClientRect();
 
-        void document.fonts.ready.then(() => {
+        document.fonts.ready.then(() => {
             if (!cancelled) {
                 onRender?.();
             }
