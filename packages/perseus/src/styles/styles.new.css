@@ -1,9 +1,7 @@
 /* TODO (LEMS-4604): The following is here only to aid in "inherit" settings.
  * This should be removed to properly pull in page-level themes.
  */
-.framework-perseus
-    .perseus-renderer.renderer-new-ff
-    :is(p, ol, ul:not([data-widget="radio"])) {
+.framework-perseus .perseus-renderer.renderer-new-ff {
     font-family: "Lato", sans-serif;
     font-weight: var(--wb-font-weight-regular);
     font-size: 18px;
