@@ -1,3 +1,12 @@
+/* TODO (LEMS-4604): The following is here only to aid in "inherit" settings.
+ * This should be removed to properly pull in page-level themes.
+ */
+.framework-perseus .perseus-renderer.renderer-new-ff {
+    font-family: "Lato", sans-serif;
+    font-weight: var(--wb-font-weight-regular);
+    font-size: 18px;
+    line-height: 22px;
+}
 .framework-perseus .perseus-renderer.renderer-new-ff > *,
 .framework-perseus .perseus-renderer.renderer-new-ff p {
     font-family: "Lato", sans-serif;
@@ -6,7 +15,7 @@
     line-height: 22px;
     margin: 22px 0px;
 }
-/* TODO: (LEMS-4606) Remove the following override of the above rule when refactoring styles for markdown tables */
+/* TODO (LEMS-4606) Remove the following override of the above rule when refactoring styles for markdown tables */
 .framework-perseus .perseus-renderer.renderer-new-ff > table {
     font-size: var(--wb-font-body-size-small);
 }
