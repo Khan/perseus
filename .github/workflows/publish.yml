@@ -462,14 +462,17 @@ jobs:
               run: ./utils/publish-snapshot.sh ${{ steps.pr.outputs.number }}
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  NODE_DEBUG: 'child_process,fs'
-                  # 🔽 Instructs the underlying npm client to log all OIDC requests
-                  NPM_CONFIG_LOGLEVEL: 'verbose'
-                  DEBUG: '*'
                   # Note: we no longer use the NPM_TOKEN secret because we've enabled
                   # Trusted Publishing (https://docs.npmjs.com/trusted-publishers) on
                   # the npmjs.com side:
                   # https://www.npmjs.com/package/@khanacademy/mathjax-renderer/access
+
+            - name: Upload logs
+              uses: actions/upload-artifact@v7
+              if: always()
+              with:
+                name: npm-logs
+                path: /home/runner/.npm/_logs/
 
             - name: Calculate short SHA for this commit
               id: short-sha
