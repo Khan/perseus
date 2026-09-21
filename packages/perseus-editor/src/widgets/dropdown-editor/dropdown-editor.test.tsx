@@ -29,7 +29,9 @@ describe("dropdown-editor", () => {
         const input = screen.getByPlaceholderText("Placeholder value");
         await userEvent.type(input, "a");
 
-        expect(onChangeMock).toHaveBeenCalledWith({placeholder: "a"});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({placeholder: "a"}),
+        );
     });
 
     it("should be possible to delete choice", async () => {
@@ -41,7 +43,9 @@ describe("dropdown-editor", () => {
             screen.getByRole("button", {name: "Delete choice"}),
         );
 
-        expect(onChangeMock).toHaveBeenCalledWith({choices: []});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({choices: []}),
+        );
     });
 
     it("should be possible to add choice", async () => {
@@ -54,16 +58,15 @@ describe("dropdown-editor", () => {
         );
 
         expect(onChangeMock).toHaveBeenCalledWith(
-            {
+            expect.objectContaining({
                 choices: [
                     {content: "", correct: false},
                     {content: "", correct: false},
                 ],
-            },
-            // there's some anonymous function that's also passed
-            expect.anything(),
+            }),
         );
     });
+
     it("should disable add and delete choice buttons when editingDisabled is true", () => {
         render(
             <DropdownEditor

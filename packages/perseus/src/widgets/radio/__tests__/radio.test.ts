@@ -9,10 +9,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../../dependencies";
 import {clone} from "../../../testing/object-utils";
-import {
-    testDependencies,
-    testDependenciesV2,
-} from "../../../testing/test-dependencies";
+import {testDependencies} from "../../../testing/test-dependencies";
 import {scorePerseusItemTesting} from "../../../util/test-utils";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
 
@@ -24,7 +21,6 @@ import {
     questionWithUndefinedCorrect,
 } from "./radio.testdata";
 
-import type {APIOptions, PerseusDependenciesV2} from "../../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const selectOption = async (
@@ -72,8 +68,9 @@ describe("Radio Widget", () => {
             (reviewMode: boolean) => {
                 it("should snapshot the same", async () => {
                     // Arrange & Act
-                    const {container} = renderQuestion(question, apiOptions, {
-                        reviewMode,
+                    const {container} = renderQuestion(question, {
+                        apiOptions,
+                        extraProps: {reviewMode},
                     });
 
                     // Assert
@@ -82,7 +79,7 @@ describe("Radio Widget", () => {
 
                 it("should snapshot the same with correct answer", async () => {
                     // Arrange
-                    const {container} = renderQuestion(question, apiOptions);
+                    const {container} = renderQuestion(question);
 
                     // Act
                     await selectOption(userEvent, correct);
@@ -93,7 +90,7 @@ describe("Radio Widget", () => {
 
                 it("should snapshot the same with incorrect answer", async () => {
                     // Arrange
-                    const {container} = renderQuestion(question, apiOptions);
+                    const {container} = renderQuestion(question);
 
                     // Act
                     await selectOption(userEvent, incorrect[0]);
@@ -104,7 +101,7 @@ describe("Radio Widget", () => {
 
                 it("should accept the right answer (mouse)", async () => {
                     // Arrange
-                    const {renderer} = renderQuestion(question, apiOptions);
+                    const {renderer} = renderQuestion(question);
 
                     // Act
                     await selectOption(userEvent, correct);
@@ -119,7 +116,7 @@ describe("Radio Widget", () => {
 
                 it("should accept the right answer (touch)", async () => {
                     // Arrange
-                    const {renderer} = renderQuestion(question, apiOptions);
+                    const {renderer} = renderQuestion(question);
                     const correctRadio = screen.getAllByRole("button")[correct];
 
                     // Act
@@ -143,7 +140,7 @@ describe("Radio Widget", () => {
                     "should reject incorrect answer - choice %d",
                     async (incorrect: number) => {
                         // Arrange
-                        const {renderer} = renderQuestion(question, apiOptions);
+                        const {renderer} = renderQuestion(question);
 
                         // Act
                         await selectOption(userEvent, incorrect);
@@ -161,7 +158,7 @@ describe("Radio Widget", () => {
 
         it("should be able to navigate down by keyboard", async () => {
             // Arrange
-            renderQuestion(question, apiOptions);
+            renderQuestion(question);
 
             // Act
             await userEvent.tab();
@@ -178,7 +175,7 @@ describe("Radio Widget", () => {
 
         it("should be able to navigate up by keyboard", async () => {
             // Arrange
-            renderQuestion(question, apiOptions);
+            renderQuestion(question);
 
             // Act
             await userEvent.tab();
@@ -203,7 +200,7 @@ describe("Radio Widget", () => {
 
         it("should be able to select an option by keyboard (space)", async () => {
             // Arrange
-            renderQuestion(question, apiOptions);
+            renderQuestion(question);
 
             // Act
             await userEvent.tab();
@@ -218,7 +215,7 @@ describe("Radio Widget", () => {
 
         it("should be able to select an option by keyboard (enter)", async () => {
             // Arrange
-            renderQuestion(question, apiOptions);
+            renderQuestion(question);
 
             // Act
             await userEvent.tab();
@@ -235,7 +232,7 @@ describe("Radio Widget", () => {
             // Arrange
             const q = clone(question);
             q.widgets["radio 1"].options.choices[3].isNoneOfTheAbove = true;
-            renderQuestion(q, apiOptions);
+            renderQuestion(q);
 
             // Act
             await userEvent.tab();
@@ -267,7 +264,7 @@ describe("Radio Widget", () => {
                 );
 
                 // Act
-                const {renderer} = renderQuestion(q, apiOptions);
+                const {renderer} = renderQuestion(q);
                 // We click on the first item, which was the second (index == 1)
                 // item in the original choices. But because of enforced ordering,
                 // it is now at the top of the list (and thus our correct answer).
@@ -298,7 +295,7 @@ describe("Radio Widget", () => {
             );
 
             // Act
-            renderQuestion(q, apiOptions);
+            renderQuestion(q);
 
             // Assert
             const items = screen.getAllByRole("listitem");
@@ -308,8 +305,9 @@ describe("Radio Widget", () => {
 
         it("should render all rationales when showSolutions is 'all'", async () => {
             // Arrange
-            renderQuestion(question, apiOptions, {
-                showSolutions: "all",
+            renderQuestion(question, {
+                apiOptions,
+                extraProps: {showSolutions: "all"},
             });
 
             // Assert
@@ -323,8 +321,9 @@ describe("Radio Widget", () => {
 
         it("should render no rationales when showSolutions is 'none'", async () => {
             // Arrange
-            renderQuestion(question, apiOptions, {
-                showSolutions: "none",
+            renderQuestion(question, {
+                apiOptions,
+                extraProps: {showSolutions: "none"},
             });
 
             // Assert
@@ -338,7 +337,7 @@ describe("Radio Widget", () => {
 
         it("should be invalid when first rendered", async () => {
             // Arrange
-            const {renderer} = renderQuestion(question, apiOptions);
+            const {renderer} = renderQuestion(question);
 
             // Act
             const score = scorePerseusItemTesting(
@@ -353,13 +352,12 @@ describe("Radio Widget", () => {
         it("should send analytics event when widget is rendered", async () => {
             // Arrange
             const onAnalyticsEventSpy = jest.fn();
-            const depsV2: PerseusDependenciesV2 = {
-                ...testDependenciesV2,
+            const dependencies = {
                 analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
             };
 
             // Act
-            renderQuestion(question, undefined, undefined, undefined, depsV2);
+            renderQuestion(question, {dependencies});
 
             // Assert
             expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
@@ -380,7 +378,7 @@ describe("Radio Widget", () => {
             choices[3].isNoneOfTheAbove = true;
             choices[3].correct = true;
 
-            const {renderer} = renderQuestion(q, apiOptions);
+            const {renderer} = renderQuestion(q);
 
             // Act
             const noneOption = screen.getByRole("button", {
@@ -474,11 +472,9 @@ describe("Radio Widget", () => {
         const [question, correct, incorrect, invalid] =
             multiChoiceQuestionAndAnswer;
 
-        const apiOptions: APIOptions = Object.freeze({});
-
         it("should accept the right answer", async () => {
             // Arrange
-            const {renderer} = renderQuestion(question, apiOptions);
+            const {renderer} = renderQuestion(question);
 
             // Act
             const options = screen.getAllByRole("button");
@@ -535,7 +531,7 @@ describe("Radio Widget", () => {
                 },
             };
 
-            renderQuestion(multipleCorrectChoicesQuestion, apiOptions);
+            renderQuestion(multipleCorrectChoicesQuestion);
 
             // Act
             const options = screen.getAllByRole("button");
@@ -588,7 +584,7 @@ describe("Radio Widget", () => {
                 },
             };
 
-            renderQuestion(multipleCorrectChoicesQuestion, apiOptions);
+            renderQuestion(multipleCorrectChoicesQuestion);
 
             // Act
             const options = screen.getAllByRole("button");
@@ -604,7 +600,7 @@ describe("Radio Widget", () => {
 
         it("should snapshot the same when invalid", async () => {
             // Arrange
-            const {container} = renderQuestion(question, apiOptions);
+            const {container} = renderQuestion(question);
 
             // Act
             const options = screen.getAllByRole("button");
@@ -618,7 +614,7 @@ describe("Radio Widget", () => {
 
         it("should be invalid when first rendered", async () => {
             // Act
-            const {renderer} = renderQuestion(question, apiOptions);
+            const {renderer} = renderQuestion(question);
             const score = scorePerseusItemTesting(
                 question,
                 renderer.getUserInputMap(),
@@ -631,13 +627,12 @@ describe("Radio Widget", () => {
         it("should send analytics event when widget is rendered", async () => {
             // Arrange
             const onAnalyticsEventSpy = jest.fn();
-            const depsV2: PerseusDependenciesV2 = {
-                ...testDependenciesV2,
+            const dependencies = {
                 analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
             };
 
             // Act
-            renderQuestion(question, undefined, undefined, undefined, depsV2);
+            renderQuestion(question, {dependencies});
 
             // Assert
             expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
@@ -692,10 +687,7 @@ describe("Radio Widget", () => {
                 },
             };
 
-            const {renderer} = renderQuestion(
-                multipleCorrectChoicesQuestion,
-                apiOptions,
-            );
+            const {renderer} = renderQuestion(multipleCorrectChoicesQuestion);
 
             // Act
             const option = screen.getAllByRole("button");
@@ -715,7 +707,7 @@ describe("Radio Widget", () => {
             "should reject an incorrect answer - test #%#",
             async (...choices) => {
                 // Arrange
-                const {renderer} = renderQuestion(question, apiOptions);
+                const {renderer} = renderQuestion(question);
 
                 // Act
                 const option = screen.getAllByRole("button");
@@ -736,7 +728,7 @@ describe("Radio Widget", () => {
             "should reject an invalid answer - test #%#",
             async (...choices) => {
                 // Arrange
-                const {renderer} = renderQuestion(question, apiOptions);
+                const {renderer} = renderQuestion(question);
 
                 // Act
                 const option = screen.getAllByRole("button");
@@ -875,13 +867,9 @@ describe("Radio Widget", () => {
          */
         it("handles undefined choice.correct properly when multipleSelect and randomize are enabled", async () => {
             // Arrange
-            renderQuestion(
-                questionWithUndefinedCorrect,
-                {},
-                {
-                    reviewMode: true,
-                },
-            );
+            renderQuestion(questionWithUndefinedCorrect, {
+                extraProps: {reviewMode: true},
+            });
 
             // Act
             // Find all choice buttons, and count how many are marked as correct

@@ -13,10 +13,8 @@ import {PairsEditor} from "../../components/pairs-editor";
 import {deprecatedChangeableChange} from "../../mixins/changeable";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
-import type {ChangeableProps} from "../../mixins/changeable";
 import type {PerseusCSProgramWidgetOptions} from "@khanacademy/perseus-core";
 
-const DEFAULT_WIDTH = 400;
 const DEFAULT_HEIGHT = 400;
 
 const KA_PROGRAM_URL = /khanacademy\.org\/computer-programming\/[^/]+\/(\d+)/;
@@ -35,9 +33,9 @@ function isolateProgramID(programUrl: string) {
     return programUrl;
 }
 
-interface CSProgramEditorProps
-    extends PerseusCSProgramWidgetOptions,
-        ChangeableProps {}
+interface CSProgramEditorProps extends PerseusCSProgramWidgetOptions {
+    onChange: (options: PerseusCSProgramWidgetOptions) => void;
+}
 
 /**
  * This is the main editor for this widget, to specify all the options.
@@ -47,6 +45,18 @@ class CSProgramEditor extends React.Component<CSProgramEditorProps> {
         // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return deprecatedChangeableChange.apply(this, args);
     };
+
+    handleChange(changed: Partial<PerseusCSProgramWidgetOptions>) {
+        this.props.onChange({
+            programID: this.props.programID,
+            programType: this.props.programType,
+            settings: this.props.settings,
+            showEditor: this.props.showEditor,
+            showButtons: this.props.showButtons,
+            height: this.props.height,
+            ...changed,
+        });
+    }
 
     _handleProgramIDChange: (arg1: string) => void = (programID) => {
         programID = isolateProgramID(programID);
@@ -73,8 +83,7 @@ class CSProgramEditor extends React.Component<CSProgramEditorProps> {
         fetchProgramInfo().then(
             (programInfo) => {
                 const programType = programInfo.userAuthoredContentType;
-                this.change({
-                    width: programInfo.width,
+                this.handleChange({
                     height: programInfo.height,
                     programID: programID,
                     programType: programType,
@@ -91,8 +100,7 @@ class CSProgramEditor extends React.Component<CSProgramEditorProps> {
                         },
                     },
                 );
-                this.change({
-                    width: DEFAULT_WIDTH,
+                this.handleChange({
                     height: DEFAULT_HEIGHT,
                     programID: programID,
                     programType: null,
@@ -120,7 +128,7 @@ class CSProgramEditor extends React.Component<CSProgramEditorProps> {
                     label="Show Editor"
                     checked={this.props.showEditor}
                     onChange={(value) => {
-                        this.props.onChange({showEditor: value});
+                        this.handleChange({showEditor: value});
                     }}
                 />
                 <InfoTip>
@@ -133,7 +141,7 @@ class CSProgramEditor extends React.Component<CSProgramEditorProps> {
                     label="Show Buttons"
                     checked={this.props.showButtons}
                     onChange={(value) => {
-                        this.props.onChange({showButtons: value});
+                        this.handleChange({showButtons: value});
                     }}
                 />
                 <br />
@@ -142,7 +150,7 @@ class CSProgramEditor extends React.Component<CSProgramEditorProps> {
                     Settings:
                     <PairsEditor
                         pairs={this.props.settings}
-                        onChange={(settings) => this.change({settings})}
+                        onChange={(settings) => this.handleChange({settings})}
                     />
                     <InfoTip>
                         Settings that you add here are available to the program

@@ -125,7 +125,7 @@ type Props = Readonly<{
     warnNoWidgets: boolean;
     widgetIsOpen?: boolean;
     imageUploader?: ImageUploader;
-    onChange: (changes: Partial<PerseusRenderer>) => void;
+    onChange: (renderer: PerseusRenderer) => void;
 }>;
 
 type DefaultProps = {
@@ -250,6 +250,15 @@ class Editor extends React.Component<Props, State> {
         }
     }
 
+    handleChange(changed: Partial<PerseusRenderer>) {
+        this.props.onChange({
+            content: this.props.content,
+            images: this.props.images,
+            widgets: this.props.widgets,
+            ...changed,
+        });
+    }
+
     getWidgetEditor(
         id: string,
         type: PerseusWidget["type"],
@@ -277,7 +286,7 @@ class Editor extends React.Component<Props, State> {
     ) => void = (id: string, newWidgetInfo: PerseusWidget) => {
         const widgets = Object.assign({}, this.props.widgets);
         widgets[id] = Object.assign({}, widgets[id], newWidgetInfo);
-        this.props.onChange({widgets});
+        this.handleChange({widgets});
     };
 
     _handleWidgetEditorRemove: (id: string) => void = (id: string) => {
@@ -288,7 +297,8 @@ class Editor extends React.Component<Props, State> {
 
         const textarea = this.textarea.current;
         const re = new RegExp(widgetRegExp.replace("{id}", id), "gm");
-        this.props.onChange({content: textarea?.value.replace(re, "")});
+        const newContent = textarea?.value.replace(re, "") ?? "";
+        this.handleChange({content: newContent});
     };
 
     /**
@@ -323,9 +333,7 @@ class Editor extends React.Component<Props, State> {
                     width: width,
                     height: height,
                 };
-                props.onChange({
-                    images: _.clone(images),
-                });
+                this.handleChange({images: _.clone(images)});
             });
         });
     };
@@ -355,7 +363,7 @@ class Editor extends React.Component<Props, State> {
                 const newContent = content + "\n\n![](" + imageUrl + ")";
                 // See componentDidUpdate() for how this flag is used
                 this.lastUserValue = this.props.content;
-                this.props.onChange({content: newContent});
+                this.handleChange({content: newContent});
             }
 
             return;
@@ -396,14 +404,14 @@ class Editor extends React.Component<Props, State> {
             .tap(() => {
                 // See componentDidUpdate() for how this flag is used
                 this.lastUserValue = origContent;
-                this.props.onChange({content: content});
+                this.handleChange({content: content});
             })
             .each((fileAndSentinel) => {
                 // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2345 - Argument of type 'File' is not assignable to parameter of type 'string'.
                 imageUploader(fileAndSentinel.file, (url) => {
                     // See componentDidUpdate() for how this flag is used
                     this.lastUserValue = origContent;
-                    this.props.onChange({
+                    this.handleChange({
                         content: this.state.textAreaValue.replace(
                             // @ts-expect-error - TS2531 - Object is possibly 'null'.
                             fileAndSentinel.sentinel,
@@ -414,14 +422,14 @@ class Editor extends React.Component<Props, State> {
             });
     };
 
-    handleChange: (e: React.SyntheticEvent<HTMLTextAreaElement>) => void = (
+    handleContentChange: (
         e: React.SyntheticEvent<HTMLTextAreaElement>,
-    ) => {
+    ) => void = (e: React.SyntheticEvent<HTMLTextAreaElement>) => {
         const newValue = e.currentTarget.value;
         this.setState({textAreaValue: newValue});
         const widgets = this.getWidgetsReferencedIn(newValue);
         if (newValue !== this.props.content) {
-            this.props.onChange({content: newValue, widgets});
+            this.handleChange({content: newValue, widgets});
         }
     };
 
@@ -535,7 +543,7 @@ class Editor extends React.Component<Props, State> {
             // After React commits the new content, place the cursor at the end
             // of what we just pasted in.
             this._pendingCursorPos = selectionStart + safeText.length;
-            this.props.onChange({
+            this.handleChange({
                 content: newContent,
                 widgets: {
                     ...safeWidgetData,
@@ -676,10 +684,7 @@ class Editor extends React.Component<Props, State> {
         // After React commits the new content, place the cursor after the
         // newly-inserted widget syntax (and any added newlines).
         this._pendingCursorPos = newContent.length - postlude.length;
-        this.props.onChange({
-            content: newContent,
-            widgets: newWidgets,
-        });
+        this.handleChange({content: newContent, widgets: newWidgets});
     };
 
     _addWidget: (widgetType: string) => void = (widgetType: string) => {
@@ -752,7 +757,7 @@ class Editor extends React.Component<Props, State> {
 
         // See componentDidUpdate() for how this flag is used
         this.lastUserValue = this.props.content;
-        this.props.onChange({content: newContent});
+        this.handleChange({content: newContent});
     };
 
     getSaveWarnings: () => any = () => {
@@ -954,7 +959,7 @@ class Editor extends React.Component<Props, State> {
                 ref={this.textarea}
                 key="textarea"
                 aria-label="Markdown content"
-                onChange={this.handleChange}
+                onChange={this.handleContentChange}
                 onKeyDown={this._handleKeyDown}
                 onCopy={this._maybeCopyWidgets}
                 onCut={this._maybeCopyWidgets}

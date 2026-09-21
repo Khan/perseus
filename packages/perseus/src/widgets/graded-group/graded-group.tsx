@@ -1,3 +1,11 @@
+/* eslint-disable @khanacademy/ts-no-error-suppressions */
+import {
+    getWidgetIdsFromContent,
+    type PerseusGradedGroupWidgetOptions,
+    type PerseusRenderer,
+    type PerseusScore,
+    type UserInputMap,
+} from "@khanacademy/perseus-core";
 import {emptyWidgetsFunctional} from "@khanacademy/perseus-score";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
@@ -28,12 +36,6 @@ import type {
     WidgetProps,
 } from "../../types";
 import type {GradedGroupPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
-import type {
-    PerseusGradedGroupWidgetOptions,
-    PerseusRenderer,
-    PerseusScore,
-    UserInputMap,
-} from "@khanacademy/perseus-core";
 
 const GRADING_STATUSES = {
     ungraded: "ungraded" as const,
@@ -99,7 +101,7 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                 const {widgets} = props.options;
                 const emptyWidgetIds = emptyWidgetsFunctional(
                     widgets,
-                    Object.keys(widgets),
+                    getWidgetIdsFromContent(props.options.content),
                     sharedInitializeUserInput(widgets, props.problemNum ?? 0),
                     locale,
                 );
@@ -268,6 +270,29 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                     <Renderer content={message} strings={strings} />
                 </div>
 
+                {props.options.answerArea &&
+                    apiOptions.renderExtras?.(
+                        props.options.answerArea,
+                        props.widgetId,
+                    )}
+
+                {props.options.hint?.content &&
+                    (showHint ? (
+                        <div>
+                            {/* Not using Button here bc the styles won't work. */}
+                            <button
+                                // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
+                                tabIndex="0"
+                                className={css(styles.explanationTitle)}
+                                onClick={() => setShowHint(false)}
+                                onKeyPress={(e) => {
+                                    // preventDefault stops the screen from scrolling down on keypress
+                                    e.preventDefault();
+                                    setShowHint(false);
+                                }}
+                            >
+                                {strings.hideExplanation}
+                            </button>
                 {props.options.hint?.content && (
                     <>
                         {/* Not using Button here bc the styles won't work. */}

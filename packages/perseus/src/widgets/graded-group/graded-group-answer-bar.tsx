@@ -1,5 +1,5 @@
 /**
- * Renders answer bar for mobile graded groups. [STATELESS]
+ * Renders the answer bar for graded groups. [STATELESS]
  */
 import Button from "@khanacademy/wonder-blocks-button";
 import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
