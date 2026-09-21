@@ -10,6 +10,7 @@
 set -e # Exit immediately if a command exits with a non-zero status.
 set -o pipefail
 set -u # Treat unset variables as an error when substituting.
+set -x # debug mode
 
 # Identifies the path that the script is in (http://stackoverflow.com/a/246128/11807)
 MYPATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
