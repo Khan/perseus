@@ -1,19 +1,19 @@
 /* TODO (LEMS-4604): The following is here only to aid in "inherit" settings.
  * This should be removed to properly pull in page-level themes.
  */
-.framework-perseus .perseus-renderer.renderer-new-ff {
-    font-family: "Lato", sans-serif;
-    font-weight: var(--wb-font-weight-regular);
-    font-size: 18px;
-    line-height: 22px;
-}
-.framework-perseus .perseus-renderer.renderer-new-ff > *,
+.framework-perseus .perseus-renderer.renderer-new-ff,
 .framework-perseus .perseus-renderer.renderer-new-ff p {
     font-family: "Lato", sans-serif;
     font-weight: var(--wb-font-weight-regular);
     font-size: 18px;
     line-height: 22px;
+}
+/* TODO (LEMS-4604): do we need to set the margin here? */
+.framework-perseus .perseus-renderer.renderer-new-ff > :not(h2,h3,h4,h5,h6) {
     margin: 22px 0px;
+}
+.framework-perseus .perseus-renderer.renderer-new-ff :is(h1, h2, h3, h4, h5, h6) {
+    line-height: 22px;
 }
 /* TODO (LEMS-4606) Remove the following override of the above rule when refactoring styles for markdown tables */
 .framework-perseus .perseus-renderer.renderer-new-ff > table {
@@ -37,7 +37,7 @@
     line-height: 30px;
     margin-bottom: var(--wb-sizing-size_320);
 }
-.framework-perseus .perseus-renderer.renderer-new-ff h1 {
+.framework-perseus.perseus-article .perseus-renderer.renderer-new-ff h1 {
     font-size: 24px;
     line-height: 30px;
     font-weight: var(--wb-font-weight-bold);
