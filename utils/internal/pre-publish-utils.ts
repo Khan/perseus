@@ -169,9 +169,9 @@ const checkExports = (pkgJson): boolean => {
                 return true;
             }
 
-            if (!("types" in target) || !("default" in target)) {
+            if (!("default" in target)) {
                 console.error(
-                    `ERROR: ${pkgJson.name} export "${subPath}" must declare types and default conditions.`,
+                    `ERROR: ${pkgJson.name} export "${subPath}" must declare a default condition.`,
                 );
                 return false;
             }
@@ -179,15 +179,14 @@ const checkExports = (pkgJson): boolean => {
             const entryName =
                 subPath === "." ? "index" : subPath.replace(/^\.\//, "");
             if (
-                conditions.length !== 3 ||
+                conditions.length !== 2 ||
                 !conditions.every((condition) =>
-                    ["source", "types", "default"].includes(condition),
+                    ["source", "default"].includes(condition),
                 ) ||
-                target.types !== `./dist/${entryName}.d.ts` ||
                 target.default !== `./dist/${entryName}.js`
             ) {
                 console.error(
-                    `ERROR: ${pkgJson.name} export "${subPath}" must declare source, types, and default conditions with matching dist paths.`,
+                    `ERROR: ${pkgJson.name} export "${subPath}" must declare source and default conditions with matching dist paths.`,
                 );
                 return false;
             }
