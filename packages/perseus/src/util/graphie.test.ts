@@ -1093,7 +1093,6 @@ describe("Graphie drawing tools", () => {
                 expect($span[0].style.marginLeft).toBe("");
                 // Flush microtasks so the fonts.ready callback runs.
                 await Promise.resolve();
-                await Promise.resolve();
 
                 // Assert
                 expect($span[0].style.marginLeft).not.toBe("");

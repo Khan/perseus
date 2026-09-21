@@ -18,13 +18,6 @@ function mockFontsLoading(): () => void {
     return resolveReady;
 }
 
-// Lets any already-resolved `fonts.ready` callbacks run. Timers are faked
-// in tests, so this can't lean on setTimeout.
-async function flushMicrotasks(): Promise<void> {
-    await Promise.resolve();
-    await Promise.resolve();
-}
-
 describe("TestMathjax", () => {
     it("calls onRender only after document.fonts.ready resolves", async () => {
         // Arrange
@@ -33,7 +26,9 @@ describe("TestMathjax", () => {
 
         // Act
         render(<TestMathjax onRender={onRender}>x^2</TestMathjax>);
-        await flushMicrotasks();
+        // Ensure any async tasks started during the render are flushed, so
+        // that the assertion is valid.
+        await Promise.resolve();
 
         // Assert
         expect(onRender).not.toHaveBeenCalled();
