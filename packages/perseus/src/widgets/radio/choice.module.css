@@ -4,7 +4,10 @@
        or when the high-level styles are refactored and these become unnecessary.
      */
     .choice :global(.paragraph),
-    .choice :global(.deprecated-perseus-container) {
+    .choice :global(.deprecated-perseus-container),
+    &:global(.perseus-article:not(.perseus-mobile))
+        .choice
+        :global(.perseus-renderer .deprecated-perseus-container) {
         font-size: inherit;
         font-weight: inherit;
         line-height: inherit;
