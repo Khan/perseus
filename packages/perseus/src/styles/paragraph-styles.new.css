@@ -26,11 +26,13 @@
     .deprecated-perseus-container {
     margin-bottom: 0;
 }
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-renderer
-    > .deprecated-perseus-container
-    mjx-container {
-    font-size: 100%;
+@layer perseus-legacy {
+    .framework-perseus.perseus-article:not(.perseus-mobile)
+        .perseus-renderer
+        > .deprecated-perseus-container
+        mjx-container {
+        font-size: 100%;
+    }
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer
