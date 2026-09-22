@@ -149,6 +149,21 @@
                         mjx-munderover
                     )
             )
+    ),
+.content:not(
+        :has(
+                :global(.deprecated-perseus-container):first-child
+                    > :global(.deprecated-perseus-container)
+                    :is(
+                        img,
+                        mjx-mfrac,
+                        mjx-msqrt,
+                        mjx-mroot,
+                        mjx-munder,
+                        mjx-mover,
+                        mjx-munderover
+                    )
+            )
     ) {
     /* Replace "var(--perseus-content-line-height)" with "1lh" once support for Safari is at least v16.4 */
     margin-block-start: calc(
@@ -193,12 +208,15 @@
     gap: var(--wb-sizing-size_120);
 }
 
-.rationale :global(.perseus-renderer .paragraph) {
+.rationale :global(.perseus-renderer .paragraph),
+.rationale :global(.perseus-renderer .deprecated-perseus-container) {
     /* Removes margin that is added by overly-broad styling for .paragraph - the gap in the rule above handles spacing */
     margin: 0;
 }
 
-.rationale :global(.perseus-renderer > .paragraph:not(:has(*))) {
+.rationale :global(.perseus-renderer > .paragraph:not(:has(*))),
+.rationale
+    :global(.perseus-renderer > .deprecated-perseus-container:not(:has(*))) {
     /* Ensures that empty paragraphs do not take up space */
     display: none;
 }
