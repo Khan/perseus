@@ -381,3 +381,63 @@
         filter: invert(1) hue-rotate(180deg) brightness(1.5);
     }
 }
+
+/* Migrated from perseus-renderer-part-1.css to get them out of the perseus-legacy layer.
+ * renderer-part-1 needs to stay in perseus-legacy because otherwise Grapher breaks.
+ */
+.hint.last-hint .deprecated-perseus-container {
+    font-weight: bold;
+}
+.framework-perseus :is(div, p).deprecated-perseus-container {
+    font-family: "Lato", sans-serif;
+    font-weight: var(--wb-font-weight-regular);
+    font-size: 18px;
+    line-height: 22px;
+    margin: 22px 0px;
+}
+.framework-perseus
+    .perseus-renderer
+    > .deprecated-perseus-container
+    > ul:not([data-widget="radio"]),
+.framework-perseus .perseus-renderer > .deprecated-perseus-container > ol {
+    margin: 0px 0px var(--wb-sizing-size_220) 0px;
+}
+.framework-perseus
+    .deprecated-perseus-container
+    ul:not([data-widget="radio"], .indicatorContainer) {
+    padding-left: var(--wb-sizing-size_360);
+    list-style-type: disc;
+}
+.framework-perseus .deprecated-perseus-container ol {
+    list-style: decimal;
+    padding-left: 2em;
+}
+.perseus-article
+    .perseus-dropdown
+    .perseus-renderer
+    .deprecated-perseus-container,
+.perseus-article .perseus-dropdown .perseus-renderer .perseus-block-math {
+    /* overriding overly broad selectors in .framework-perseus rules */
+    margin-bottom: 0 !important;
+    font-size: 18px !important;
+}
+
+/* Migrated from perseus-renderer-part-2.css */
+.bibliotron-exercise
+    .perseus-hint-renderer
+    :is(div, p).deprecated-perseus-container {
+    margin-top: 0px;
+    margin-bottom: var(--wb-sizing-size_160);
+}
+/*
+    Extra specificity needed to override other styles that are too broad.
+    Once we get a better framework in place (like CSS Modules), we can fix this selector.
+*/
+.framework-perseus .perseus-formats-tooltip .deprecated-perseus-container,
+.framework-perseus
+    .tooltipContainer
+    .perseus-formats-tooltip
+    .deprecated-perseus-container
+    ul {
+    margin: 0;
+}
