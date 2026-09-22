@@ -75,32 +75,32 @@
 .framework-perseus.perseus-article:not(.perseus-mobile)
     > .clearfix:first-child
     > .perseus-renderer:first-child
-    > .paragraph:first-child
+    > .deprecated-perseus-container:first-child
     h1:first-child,
 .framework-perseus.perseus-article:not(.perseus-mobile)
     > .clearfix:first-child
     > .perseus-renderer:first-child
-    > .paragraph:first-child
+    > .deprecated-perseus-container:first-child
     h2:first-child,
 .framework-perseus.perseus-article:not(.perseus-mobile)
     > .clearfix:first-child
     > .perseus-renderer:first-child
-    > .paragraph:first-child
+    > .deprecated-perseus-container:first-child
     h3:first-child,
 .framework-perseus.perseus-article:not(.perseus-mobile)
     > .clearfix:first-child
     > .perseus-renderer:first-child
-    > .paragraph:first-child
+    > .deprecated-perseus-container:first-child
     h4:first-child,
 .framework-perseus.perseus-article:not(.perseus-mobile)
     > .clearfix:first-child
     > .perseus-renderer:first-child
-    > .paragraph:first-child
+    > .deprecated-perseus-container:first-child
     h5:first-child,
 .framework-perseus.perseus-article:not(.perseus-mobile)
     > .clearfix:first-child
     > .perseus-renderer:first-child
-    > .paragraph:first-child
+    > .deprecated-perseus-container:first-child
     h6:first-child {
     margin-top: 0;
 }
