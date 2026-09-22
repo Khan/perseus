@@ -1,7 +1,7 @@
 .framework-perseus .perseus-label-image-widget-instructions div.paragraph,
 .framework-perseus
     .perseus-label-image-widget-instructions
-    div.deprecated-perseus-container {
+    :is(div, p).deprecated-perseus-container {
     margin: 0;
 }
 @media (max-width: 767px) {
