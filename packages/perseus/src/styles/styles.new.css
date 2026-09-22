@@ -443,7 +443,8 @@
 }
 
 /* Undo <p> resets in popovers, which are outside the .framework-perseus container. */
-.perseus-in-wb-popover p.deprecated-perseus-container {
+.perseus-in-wb-popover:not(.framework-perseus *)
+    p.deprecated-perseus-container {
     margin: 0;
     font-size: initial;
 }
