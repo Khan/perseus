@@ -19,7 +19,7 @@ import type {
 
 type Props = PerseusFreeResponseWidgetOptions & {
     apiOptions: APIOptions;
-    onChange: (options: Partial<PerseusFreeResponseWidgetOptions>) => void;
+    onChange: (options: PerseusFreeResponseWidgetOptions) => void;
 };
 
 // JSDoc will be shown in Storybook widget editor description
@@ -30,6 +30,17 @@ class FreeResponseEditor extends React.Component<Props> {
     static defaultProps = {
         ...freeResponseLogic.defaultWidgetOptions,
     };
+
+    handleChange(changes: Partial<PerseusFreeResponseWidgetOptions>) {
+        this.props.onChange({
+            allowUnlimitedCharacters: this.props.allowUnlimitedCharacters,
+            characterLimit: this.props.characterLimit,
+            placeholder: this.props.placeholder,
+            question: this.props.question,
+            scoringCriteria: this.props.scoringCriteria,
+            ...changes,
+        });
+    }
 
     serialize: () => PerseusFreeResponseWidgetOptions = () => {
         return {
@@ -60,7 +71,7 @@ class FreeResponseEditor extends React.Component<Props> {
             return;
         }
 
-        this.props.onChange({characterLimit: Math.max(1, val)});
+        this.handleChange({characterLimit: Math.max(1, val)});
     };
 
     handleUpdateCriterion = (
@@ -74,13 +85,11 @@ class FreeResponseEditor extends React.Component<Props> {
             return c;
         });
 
-        this.props.onChange({
-            scoringCriteria: newCriteria,
-        });
+        this.handleChange({scoringCriteria: newCriteria});
     };
 
     handleDeleteCriterion: (index: number) => void = (index: number) => {
-        this.props.onChange({
+        this.handleChange({
             scoringCriteria: this.props.scoringCriteria.filter(
                 (_, i) => i !== index,
             ),
@@ -88,7 +97,7 @@ class FreeResponseEditor extends React.Component<Props> {
     };
 
     handleAddCriterion: () => void = () => {
-        this.props.onChange({
+        this.handleChange({
             scoringCriteria: [...this.props.scoringCriteria, {text: ""}],
         });
     };
@@ -123,7 +132,7 @@ class FreeResponseEditor extends React.Component<Props> {
                         <TextArea
                             value={this.props.question}
                             onChange={(newValue) =>
-                                this.props.onChange({question: newValue})
+                                this.handleChange({question: newValue})
                             }
                         />
                     }
@@ -135,9 +144,7 @@ class FreeResponseEditor extends React.Component<Props> {
                         <TextArea
                             value={this.props.placeholder}
                             onChange={(newValue) =>
-                                this.props.onChange({
-                                    placeholder: newValue,
-                                })
+                                this.handleChange({placeholder: newValue})
                             }
                         />
                     }
@@ -149,7 +156,7 @@ class FreeResponseEditor extends React.Component<Props> {
                         <Checkbox
                             checked={this.props.allowUnlimitedCharacters}
                             onChange={(val) =>
-                                this.props.onChange({
+                                this.handleChange({
                                     allowUnlimitedCharacters: val,
                                 })
                             }
