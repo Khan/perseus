@@ -1,4 +1,4 @@
-import {getEntryPoints} from "../get-entry-points";
+import {getEntryPoints} from "./get-entry-points";
 
 describe("getEntryPoints", () => {
     it("returns a single index entry for a package with no exports map", () => {
