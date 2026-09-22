@@ -897,6 +897,7 @@ class Renderer
                 className={className}
                 translationIndex={this.translationIndex}
                 paragraphIndex={state.paragraphIndex}
+                inline={this.props.inline}
             >
                 <ErrorBoundary>{output}</ErrorBoundary>
             </QuestionParagraph>
