@@ -5,6 +5,7 @@
 @import "./paragraph-styles.new.css";
 @import "./perseus-renderer-part-1.css" layer(perseus-legacy);
 @import "widgets/categorizer.css" layer(perseus-legacy);
+@import "widgets/categorizer.new.css";
 @import "widgets/dropdown.css" layer(perseus-legacy);
 @import "widgets/expression.css" layer(perseus-legacy);
 @import "widgets/free-response.css" layer(perseus-legacy);
