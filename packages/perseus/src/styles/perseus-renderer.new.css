@@ -23,7 +23,7 @@
 @import "widgets/sortable.css" layer(perseus-legacy);
 @import "widgets/table.css" layer(perseus-legacy);
 @import "widget-container.css" layer(perseus-legacy);
-@import "./perseus-renderer-part-2.css" layer(perseus-legacy);
+@import "./perseus-renderer-part-2.new.css";
 /*
   This file replicates the definition order of our styling when it was in LESS format.
   The styling in the original perseus-renderer.less had import statements interspersed among style definitions
