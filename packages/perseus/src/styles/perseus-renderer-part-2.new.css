@@ -16,7 +16,9 @@
     display: table;
     clear: both;
 }
-.bibliotron-exercise .perseus-hint-renderer div.paragraph {
+.bibliotron-exercise
+    .perseus-hint-renderer
+    :is(div, p).deprecated-perseus-container {
     margin-top: 0px;
     margin-bottom: var(--wb-sizing-size_160);
 }
@@ -51,8 +53,12 @@
     Extra specificity needed to override other styles that are too broad.
     Once we get a better framework in place (like CSS Modules), we can fix this selector.
 */
-.framework-perseus .perseus-formats-tooltip .paragraph,
-.framework-perseus .tooltipContainer .perseus-formats-tooltip .paragraph ul {
+.framework-perseus .perseus-formats-tooltip .deprecated-perseus-container,
+.framework-perseus
+    .tooltipContainer
+    .perseus-formats-tooltip
+    .deprecated-perseus-container
+    ul {
     margin: 0;
 }
 .perseus-math-input.mq-editable-field.mq-math-mode {
