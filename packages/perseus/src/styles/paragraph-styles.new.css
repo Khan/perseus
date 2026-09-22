@@ -1,6 +1,6 @@
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer
-    > .paragraph {
+    > .deprecated-perseus-container {
     color: var(--wb-semanticColor-core-foreground-neutral-strong);
     font-size: 20px;
     line-height: 30px;
@@ -9,8 +9,8 @@
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer
-    > .paragraph
-    .paragraph {
+    > .deprecated-perseus-container
+    .deprecated-perseus-container {
     color: var(--wb-semanticColor-core-foreground-neutral-strong);
     font-size: 20px;
     line-height: 30px;
@@ -23,18 +23,18 @@
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-image-widget
     .perseus-renderer
-    .paragraph {
+    .deprecated-perseus-container {
     margin-bottom: 0;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer
-    > .paragraph
+    > .deprecated-perseus-container
     mjx-container {
     font-size: 100%;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer
-    > .paragraph
+    > .deprecated-perseus-container
     ul:not([data-widget="radio"]) {
     color: var(--wb-semanticColor-core-foreground-neutral-strong);
     font-size: 20px;
@@ -43,17 +43,17 @@
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-image-caption
     .perseus-renderer
-    .paragraph
-    .paragraph,
+    .deprecated-perseus-container
+    .deprecated-perseus-container,
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-image-caption
     .perseus-renderer
-    .paragraph
+    .deprecated-perseus-container
     ol,
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-image-caption
     .perseus-renderer
-    .paragraph
+    .deprecated-perseus-container
     ul {
     color: var(--wb-semanticColor-core-foreground-neutral-subtle);
     font-size: var(--wb-font-body-size-small);
@@ -61,29 +61,29 @@
     text-align: left;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .paragraph.perseus-paragraph-full-width {
+    .deprecated-perseus-container.perseus-paragraph-full-width {
     margin-bottom: var(--wb-sizing-size_320);
     margin-left: 0;
     margin-right: 0;
     max-width: none;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
-    .paragraph.perseus-paragraph-full-width
-    > .paragraph {
+    .deprecated-perseus-container.perseus-paragraph-full-width
+    > .deprecated-perseus-container {
     margin: 0;
     max-width: none;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer
-    > .paragraph
+    > .deprecated-perseus-container
     .perseus-formats-tooltip {
     padding: var(--wb-sizing-size_080) var(--wb-sizing-size_120);
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer
-    > .paragraph
+    > .deprecated-perseus-container
     .perseus-formats-tooltip
-    .paragraph {
+    .deprecated-perseus-container {
     margin-bottom: 0;
 }
 /* TODO(benchristel): .perseus-formats-tooltip doesn't seem to be used.
@@ -91,9 +91,9 @@
  */
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer
-    > .paragraph
+    > .deprecated-perseus-container
     .perseus-formats-tooltip
-    .paragraph
+    .deprecated-perseus-container
     ul:not([data-widget="radio"]) {
     font-size: 15px;
     line-height: 1.5;
@@ -102,86 +102,108 @@
 .framework-perseus.perseus-mobile
     .perseus-article
     .perseus-renderer
-    > .paragraph {
+    > .deprecated-perseus-container {
     margin-left: auto;
     margin-right: auto;
     max-width: 700px;
 }
 .framework-perseus.perseus-mobile
     .perseus-article
-    .paragraph.perseus-paragraph-full-width {
+    .deprecated-perseus-container.perseus-paragraph-full-width {
     margin-left: 0;
     margin-right: 0;
     max-width: none;
 }
 .framework-perseus.perseus-mobile
     .perseus-article
-    .paragraph.perseus-paragraph-full-width
-    > .paragraph {
+    .deprecated-perseus-container.perseus-paragraph-full-width
+    > .deprecated-perseus-container {
     margin: 0;
     max-width: none;
 }
-.framework-perseus.perseus-mobile :not(blockquote) > div.paragraph {
+.framework-perseus.perseus-mobile
+    :not(blockquote)
+    > :is(div, p).deprecated-perseus-container {
     margin: 0;
 }
-.framework-perseus.perseus-mobile .perseus-renderer > .paragraph {
+.framework-perseus.perseus-mobile
+    .perseus-renderer
+    > .deprecated-perseus-container {
     margin: 0 auto;
 }
 .framework-perseus.perseus-mobile
     .perseus-renderer
-    > .paragraph:not(:first-child) {
+    > .deprecated-perseus-container:not(:first-child) {
     margin-top: var(--wb-sizing-size_240);
     margin-bottom: var(--wb-sizing-size_240);
 }
-.framework-perseus.perseus-mobile .perseus-renderer > .paragraph > .paragraph {
+.framework-perseus.perseus-mobile
+    .perseus-renderer
+    > .deprecated-perseus-container
+    > .deprecated-perseus-container {
     margin: 0;
 }
 .framework-perseus.perseus-mobile
     .perseus-renderer
-    > .paragraph
+    > .deprecated-perseus-container
     ul:not([data-widget="radio"], .indicatorContainer) {
     margin: 0 0 0 1em;
     padding: 0;
 }
 .framework-perseus.perseus-mobile
     .perseus-renderer
-    > .paragraph
+    > .deprecated-perseus-container
     ul:not([data-widget="radio"], .indicatorContainer)
     > li {
     padding-left: var(--wb-sizing-size_100);
     margin-bottom: var(--wb-sizing-size_240);
 }
-.framework-perseus.perseus-mobile .perseus-renderer > .paragraph ol {
+.framework-perseus.perseus-mobile
+    .perseus-renderer
+    > .deprecated-perseus-container
+    ol {
     margin: 0;
     padding-left: var(--wb-sizing-size_320);
 }
-.framework-perseus.perseus-mobile .perseus-renderer > .paragraph ol > li {
+.framework-perseus.perseus-mobile
+    .perseus-renderer
+    > .deprecated-perseus-container
+    ol
+    > li {
     list-style-type: decimal;
     margin-bottom: var(--wb-sizing-size_240);
 }
-.framework-perseus.perseus-mobile .perseus-renderer > .paragraph ol ol,
 .framework-perseus.perseus-mobile
     .perseus-renderer
-    > .paragraph
+    > .deprecated-perseus-container
+    ol
+    ol,
+.framework-perseus.perseus-mobile
+    .perseus-renderer
+    > .deprecated-perseus-container
     ul:not([data-widget="radio"])
     ol,
 .framework-perseus.perseus-mobile
     .perseus-renderer
-    > .paragraph
+    > .deprecated-perseus-container
     ol
     ul:not([data-widget="radio"]),
 .framework-perseus.perseus-mobile
     .perseus-renderer
-    > .paragraph
+    > .deprecated-perseus-container
     ul:not([data-widget="radio"])
     ul:not([data-widget="radio"]) {
     padding-top: var(--wb-sizing-size_240);
 }
 @media (max-width: 767px) {
-    .framework-perseus.perseus-mobile .perseus-renderer > .paragraph {
+    .framework-perseus.perseus-mobile
+        .perseus-renderer
+        > .deprecated-perseus-container {
         max-width: none;
     }
-    .framework-perseus.perseus-mobile .perseus-renderer > .paragraph {
+    .framework-perseus.perseus-mobile
+        .perseus-renderer
+        > .deprecated-perseus-container {
         font-family: inherit;
         font-size: 18px;
         line-height: 1.4;
@@ -189,8 +211,8 @@
     }
     .framework-perseus.perseus-mobile
         .perseus-renderer
-        > .paragraph
-        .paragraph {
+        > .deprecated-perseus-container
+        .deprecated-perseus-container {
         font-family: inherit;
         font-size: 18px;
         line-height: 1.4;
@@ -198,14 +220,17 @@
     }
     .framework-perseus.perseus-mobile
         .perseus-renderer
-        > .paragraph
+        > .deprecated-perseus-container
         ul:not([data-widget="radio"]) {
         font-family: inherit;
         font-size: 18px;
         line-height: 1.4;
         color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
-    .framework-perseus.perseus-mobile .perseus-renderer > .paragraph ol {
+    .framework-perseus.perseus-mobile
+        .perseus-renderer
+        > .deprecated-perseus-container
+        ol {
         font-family: inherit;
         font-size: 18px;
         line-height: 1.4;
@@ -213,8 +238,8 @@
     }
     .framework-perseus.perseus-mobile
         .perseus-image-caption
-        .paragraph
-        .paragraph {
+        .deprecated-perseus-container
+        .deprecated-perseus-container {
         color: var(--wb-semanticColor-core-foreground-neutral-subtle);
         font-size: 14px;
         line-height: 1.3;
@@ -222,10 +247,14 @@
     }
 }
 @media (min-width: 767px) and (max-width: 1199px) {
-    .framework-perseus.perseus-mobile .perseus-renderer > .paragraph {
+    .framework-perseus.perseus-mobile
+        .perseus-renderer
+        > .deprecated-perseus-container {
         max-width: 512px;
     }
-    .framework-perseus.perseus-mobile .perseus-renderer > .paragraph {
+    .framework-perseus.perseus-mobile
+        .perseus-renderer
+        > .deprecated-perseus-container {
         font-family: inherit;
         font-size: 20px;
         line-height: 1.5;
@@ -233,8 +262,8 @@
     }
     .framework-perseus.perseus-mobile
         .perseus-renderer
-        > .paragraph
-        .paragraph {
+        > .deprecated-perseus-container
+        .deprecated-perseus-container {
         font-family: inherit;
         font-size: 20px;
         line-height: 1.5;
@@ -242,14 +271,17 @@
     }
     .framework-perseus.perseus-mobile
         .perseus-renderer
-        > .paragraph
+        > .deprecated-perseus-container
         ul:not([data-widget="radio"]) {
         font-family: inherit;
         font-size: 20px;
         line-height: 1.5;
         color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
-    .framework-perseus.perseus-mobile .perseus-renderer > .paragraph ol {
+    .framework-perseus.perseus-mobile
+        .perseus-renderer
+        > .deprecated-perseus-container
+        ol {
         font-family: inherit;
         font-size: 20px;
         line-height: 1.5;
@@ -257,8 +289,8 @@
     }
     .framework-perseus.perseus-mobile
         .perseus-image-caption
-        .paragraph
-        .paragraph {
+        .deprecated-perseus-container
+        .deprecated-perseus-container {
         color: var(--wb-semanticColor-core-foreground-neutral-subtle);
         font-size: 17px;
         line-height: 1.4;
@@ -266,10 +298,14 @@
     }
 }
 @media (min-width: 1200px) {
-    .framework-perseus.perseus-mobile .perseus-renderer > .paragraph {
+    .framework-perseus.perseus-mobile
+        .perseus-renderer
+        > .deprecated-perseus-container {
         max-width: 688px;
     }
-    .framework-perseus.perseus-mobile .perseus-renderer > .paragraph {
+    .framework-perseus.perseus-mobile
+        .perseus-renderer
+        > .deprecated-perseus-container {
         font-family: inherit;
         font-size: 22px;
         line-height: 1.4;
@@ -277,8 +313,8 @@
     }
     .framework-perseus.perseus-mobile
         .perseus-renderer
-        > .paragraph
-        .paragraph {
+        > .deprecated-perseus-container
+        .deprecated-perseus-container {
         font-family: inherit;
         font-size: 22px;
         line-height: 1.4;
@@ -286,14 +322,17 @@
     }
     .framework-perseus.perseus-mobile
         .perseus-renderer
-        > .paragraph
+        > .deprecated-perseus-container
         ul:not([data-widget="radio"]) {
         font-family: inherit;
         font-size: 22px;
         line-height: 1.4;
         color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
-    .framework-perseus.perseus-mobile .perseus-renderer > .paragraph ol {
+    .framework-perseus.perseus-mobile
+        .perseus-renderer
+        > .deprecated-perseus-container
+        ol {
         font-family: inherit;
         font-size: 22px;
         line-height: 1.4;
@@ -301,43 +340,44 @@
     }
     .framework-perseus.perseus-mobile
         .perseus-image-caption
-        .paragraph
-        .paragraph {
+        .deprecated-perseus-container
+        .deprecated-perseus-container {
         color: var(--wb-semanticColor-core-foreground-neutral-subtle);
         font-size: 20px;
         line-height: 1.4;
         text-align: left;
     }
 }
-.framework-perseus.perseus-mobile .paragraph.perseus-paragraph-full-width {
+.framework-perseus.perseus-mobile
+    .deprecated-perseus-container.perseus-paragraph-full-width {
     margin-left: 0;
     margin-right: 0;
     max-width: none;
 }
 .framework-perseus.perseus-mobile
-    .paragraph.perseus-paragraph-full-width
-    > .paragraph {
+    .deprecated-perseus-container.perseus-paragraph-full-width
+    > .deprecated-perseus-container {
     margin: 0;
     max-width: none;
 }
 .framework-perseus.perseus-mobile
     .perseus-renderer
-    > .paragraph
+    > .deprecated-perseus-container
     .perseus-formats-tooltip {
     padding: var(--wb-sizing-size_080) var(--wb-sizing-size_120);
 }
 .framework-perseus.perseus-mobile
     .perseus-renderer
-    > .paragraph
+    > .deprecated-perseus-container
     .perseus-formats-tooltip
-    .paragraph {
+    .deprecated-perseus-container {
     margin-bottom: 0;
 }
 .framework-perseus.perseus-mobile
     .perseus-renderer
-    > .paragraph
+    > .deprecated-perseus-container
     .perseus-formats-tooltip
-    .paragraph
+    .deprecated-perseus-container
     ul:not([data-widget="radio"]) {
     font-size: 15px;
     line-height: 1.5;
