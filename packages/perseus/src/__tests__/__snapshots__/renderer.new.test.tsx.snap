@@ -43,7 +43,9 @@ exports[`renderer in a JIPT context replaces the \`crwdn\` placeholder with the 
       data-perseus-component-index="42"
       data-perseus-paragraph-index="0"
     >
-      <p>
+      <p
+        class="deprecated-perseus-container"
+      >
         first paragraph
       </p>
     </div>
@@ -52,7 +54,9 @@ exports[`renderer in a JIPT context replaces the \`crwdn\` placeholder with the 
       data-perseus-component-index="42"
       data-perseus-paragraph-index="1"
     >
-      <p>
+      <p
+        class="deprecated-perseus-container"
+      >
         second paragraph
       </p>
     </div>
@@ -70,7 +74,9 @@ exports[`renderer in a JIPT context replaces the \`crwdn\` placeholder with the 
       data-perseus-component-index="42"
       data-perseus-paragraph-index="0"
     >
-      <p>
+      <p
+        class="deprecated-perseus-container"
+      >
         <a
           href="https://khanacademy.org"
           target="_blank"
@@ -243,7 +249,9 @@ exports[`renderer rendering should render block math 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p>
+      <p
+        class="deprecated-perseus-container"
+      >
         This is some block math
       </p>
     </div>
@@ -268,7 +276,9 @@ exports[`renderer rendering should render block math 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p>
+      <p
+        class="deprecated-perseus-container"
+      >
         And a footer.
       </p>
     </div>
@@ -284,7 +294,9 @@ exports[`renderer rendering should render block math on mobile 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p>
+      <p
+        class="deprecated-perseus-container"
+      >
         This is some block math
       </p>
     </div>
@@ -314,7 +326,9 @@ exports[`renderer rendering should render block math on mobile 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p>
+      <p
+        class="deprecated-perseus-container"
+      >
         And a footer.
       </p>
     </div>
@@ -339,7 +353,9 @@ exports[`renderer rendering should render columns 1`] = `
           <div
             class="perseus-column-content"
           >
-            <p>
+            <p
+              class="deprecated-perseus-container"
+            >
               Stuff in column 1
             </p>
           </div>
@@ -350,7 +366,9 @@ exports[`renderer rendering should render columns 1`] = `
           <div
             class="perseus-column-content"
           >
-            <p>
+            <p
+              class="deprecated-perseus-container"
+            >
               Stuff in column 2
             </p>
           </div>
@@ -369,7 +387,9 @@ exports[`renderer rendering should render the math 1`] = `
     <div
       class="deprecated-perseus-container"
     >
-      <p>
+      <p
+        class="deprecated-perseus-container"
+      >
         This is some inline math: 
         <span
           style="white-space: nowrap;"

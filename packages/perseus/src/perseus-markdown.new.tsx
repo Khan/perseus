@@ -285,7 +285,11 @@ const rules = {
                 // content and let the parent handle layout, etc.
                 return output(node.content, state);
             } else {
-                return <p>{output(node.content, state)}</p>;
+                return (
+                    <p className="deprecated-perseus-container">
+                        {output(node.content, state)}
+                    </p>
+                );
             }
         },
     },
