@@ -30,7 +30,7 @@
 .perseus-image-widget figcaption.perseus-image-caption div.paragraph,
 .perseus-image-widget
     figcaption.perseus-image-caption
-    div.deprecated-perseus-container {
+    :is(div, p).deprecated-perseus-container {
     font-size: var(--wb-font-body-size-small);
     line-height: var(--wb-font-body-lineHeight-small);
     padding-right: 12px;
