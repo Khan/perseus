@@ -1,0 +1,116 @@
+/* All perseus-widget-container styles moved to widget-container.css */
+
+.bibliotron-exercise .perseus-hint-renderer {
+    border-left: var(--wb-border-width-thick) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+    padding-left: var(--wb-sizing-size_160);
+    position: relative;
+}
+.bibliotron-exercise .perseus-hint-renderer:focus {
+    border-left-color: var(--wb-semanticColor-core-border-neutral-default);
+    outline: none;
+}
+.bibliotron-exercise .perseus-hint-renderer:before,
+.bibliotron-exercise .perseus-hint-renderer:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.bibliotron-exercise .perseus-hint-renderer div.paragraph {
+    margin-top: 0px;
+    margin-bottom: var(--wb-sizing-size_160);
+}
+.bibliotron-exercise .perseus-hint-renderer.last-hint {
+    margin-bottom: var(--wb-sizing-size_320);
+}
+@media (max-width: 767px) {
+    .bibliotron-exercise .perseus-hint-renderer.last-hint {
+        margin-bottom: 0;
+    }
+}
+.perseus-hint-label {
+    color: var(--wb-semanticColor-core-foreground-instructive-strong);
+    display: none;
+    font-weight: var(--wb-font-weight-bold);
+    margin-right: var(--wb-sizing-size_120);
+    position: absolute;
+    right: 100%;
+    white-space: nowrap;
+}
+.bibliotron-exercise .perseus-hint-renderer.last-rendered .perseus-hint-label {
+    display: block;
+}
+@media (max-width: 767px) {
+    .bibliotron-exercise
+        .perseus-hint-renderer.last-rendered
+        .perseus-hint-label {
+        display: none;
+    }
+}
+/*
+    Extra specificity needed to override other styles that are too broad.
+    Once we get a better framework in place (like CSS Modules), we can fix this selector.
+*/
+.framework-perseus .perseus-formats-tooltip .paragraph,
+.framework-perseus .tooltipContainer .perseus-formats-tooltip .paragraph ul {
+    margin: 0;
+}
+.perseus-math-input.mq-editable-field.mq-math-mode {
+    background-color: transparent;
+    font-size: 18px;
+    min-width: 100px;
+    border: unset;
+    /* Even in RTL languages, math is LTR. */
+    /*  So we force this component to always render LTR */
+    direction: ltr;
+}
+.perseus-math-input.mq-editable-field.mq-math-mode.mq-focused {
+    box-shadow: unset;
+}
+.perseus-math-input.mq-editable-field.mq-math-mode > .mq-root-block {
+    padding: var(--wb-sizing-size_040);
+}
+.perseus-math-input.mq-editable-field.mq-math-mode .mq-cursor {
+    padding-left: 0;
+}
+.perseus-math-input.mq-editable-field.mq-math-mode .mq-paren.mq-ghost {
+    color: inherit;
+}
+.perseus-math-input.mq-editable-field.mq-math-mode .mq-paren + span {
+    margin: 0;
+}
+.perseus-math-input.mq-editable-field.mq-math-mode .mq-binary-operator {
+    font-family: KaTeX_Main !important;
+}
+.perseus-math-input.mq-editable-field.mq-math-mode sup {
+    line-height: normal;
+}
+.perseus-widget-editor
+    .perseus-math-input.mq-editable-field.mq-math-mode
+    > .mq-root-block {
+    border-radius: var(--wb-border-radius-radius_0);
+}
+.renderer-widget-error {
+    background-color: var(--wb-semanticColor-core-background-critical-subtle);
+}
+.perseus-error {
+    background: var(--wb-semanticColor-core-background-critical-subtle);
+    border: var(--wb-border-width-medium) solid
+        var(--wb-semanticColor-core-border-critical-default);
+    border-radius: var(--wb-border-radius-radius_040);
+    padding: var(--wb-sizing-size_200);
+    margin: var(--wb-sizing-size_160) 0 var(--wb-sizing-size_100);
+}
+@media (max-width: 767px) {
+    .perseus-renderer-responsive {
+        margin: 0 var(--wb-sizing-size_160);
+    }
+    .perseus-renderer-responsive .perseus-renderer-responsive {
+        margin: 0;
+    }
+}
+@media (max-width: 767px) {
+    .perseus-mobile .perseus-block-math {
+        font-size: 18px;
+    }
+}
