@@ -1,7 +1,8 @@
 .categorizer-container {
     margin-top: 20px;
 }
-.categorizer-container div.paragraph {
+.categorizer-container div.paragraph,
+.categorizer-container div.deprecated-perseus-container {
     margin: 10px 0px;
 }
 .categorizer-container .category {

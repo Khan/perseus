@@ -55,7 +55,8 @@
     box-shadow: var(--wb-boxShadow-mid);
     cursor: grab;
 }
-.perseus-sortable div.paragraph {
+.perseus-sortable div.paragraph,
+.perseus-sortable div.deprecated-perseus-container {
     margin: 0;
 }
 .perseus-sortable .perseus-sortable-draggable:before {

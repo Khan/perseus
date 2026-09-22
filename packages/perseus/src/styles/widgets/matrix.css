@@ -18,7 +18,8 @@
 .perseus-matrix .matrix-suffix {
     margin: 10px 10px 0 5px;
 }
-.perseus-matrix div.paragraph {
+.perseus-matrix div.paragraph,
+.perseus-matrix div.deprecated-perseus-container {
     margin: 0;
 }
 /* The fill behind the matrix input cells */
