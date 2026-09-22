@@ -15,7 +15,8 @@
 .framework-perseus
     .perseus-renderer.renderer-new-ff
     > :not(h2, h3, h4, h5, h6) {
-    margin: 22px 0px;
+    margin: 0;
+    margin-block-end: 22px;
 }
 .framework-perseus
     .perseus-renderer.renderer-new-ff
