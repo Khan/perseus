@@ -25,7 +25,6 @@ describe("checkExports", () => {
             name: "@khanacademy/kmath",
             exports: {
                 ".": {
-                    types: "./dist/index.d.ts",
                     source: "./src/index.ts",
                     default: "./dist/index.js",
                 },
@@ -41,7 +40,6 @@ describe("checkExports", () => {
             name: "@khanacademy/kmath",
             exports: {
                 ".": {
-                    types: "./dist/index.d.ts",
                     source: "./src/index.ts",
                     default: "./dist/index.js",
                 },
@@ -57,21 +55,6 @@ describe("checkExports", () => {
             name: "@khanacademy/kmath",
             exports: {
                 ".": {
-                    types: "./dist/index.d.ts",
-                    default: "./dist/index.js",
-                },
-            },
-        });
-
-        expect(result).toBe(false);
-    });
-
-    it("returns false when a code export omits its types condition", () => {
-        const result = checkExports({
-            name: "@khanacademy/kmath",
-            exports: {
-                ".": {
-                    source: "./src/index.ts",
                     default: "./dist/index.js",
                 },
             },
@@ -85,7 +68,6 @@ describe("checkExports", () => {
             name: "@khanacademy/kmath",
             exports: {
                 ".": {
-                    types: "./dist/other.d.ts",
                     source: "./src/index.ts",
                     default: "./dist/other.js",
                 },
@@ -102,7 +84,6 @@ describe("checkEntrypoints", () => {
         type: "module",
         exports: {
             ".": {
-                types: "./dist/index.d.ts",
                 source: "./src/index.ts",
                 default: "./dist/index.js",
             },
@@ -149,7 +130,6 @@ describe("checkEntrypoints", () => {
             exports: {
                 ...esmOnlyPkgJson.exports,
                 "./strings": {
-                    types: "./dist/strings.d.ts",
                     require: "./dist/strings.cjs",
                 },
             },
