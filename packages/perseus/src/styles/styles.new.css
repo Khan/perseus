@@ -448,3 +448,8 @@
     margin: 0;
     font-size: initial;
 }
+
+/* Add bottom margin to block widgets */
+.deprecated-perseus-container > .perseus-widget-container {
+    margin-block-end: var(--wb-sizing-size_320);
+}
