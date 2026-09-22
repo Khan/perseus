@@ -1,4 +1,4 @@
-import createRollupConfig from "../rollup.config";
+import createRollupConfig from "./rollup.config";
 
 /**
  * These tests run the real config generator against the real `packages/`
