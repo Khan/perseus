@@ -16,7 +16,9 @@
    .perseus-hint-renderer div.paragraph` rule, which would otherwise re-apply
    a 16px margin-block-end inside hints. */
 .perseus-image-widget div.perseus-image-title div.paragraph,
-.perseus-image-widget div.perseus-image-title :is(div, p).deprecated-perseus-container {
+.perseus-image-widget
+    div.perseus-image-title
+    :is(div, p).deprecated-perseus-container {
     margin-block: 0;
 }
 .perseus-image-widget .perseus-image-caption {
