@@ -133,6 +133,7 @@ const Matcher = forwardRef<MatcherHandle, Props>(function Matcher(props, ref) {
                                 content={labels[0] || "..."}
                                 linterContext={props.linterContext}
                                 strings={strings}
+                                apiOptions={props.apiOptions}
                             />
                         </th>
                         <th
@@ -146,6 +147,7 @@ const Matcher = forwardRef<MatcherHandle, Props>(function Matcher(props, ref) {
                                 content={labels[1] || "..."}
                                 linterContext={props.linterContext}
                                 strings={strings}
+                                apiOptions={props.apiOptions}
                             />
                         </th>
                     </tr>
@@ -153,6 +155,7 @@ const Matcher = forwardRef<MatcherHandle, Props>(function Matcher(props, ref) {
                 <tr className={css(styles.row)}>
                     <td className={css(styles.column)}>
                         <Sortable
+                            apiOptions={props.apiOptions}
                             options={props.userInput.left}
                             layout={"vertical"}
                             padding={padding}
@@ -169,6 +172,7 @@ const Matcher = forwardRef<MatcherHandle, Props>(function Matcher(props, ref) {
                     </td>
                     <td className={css(styles.column, styles.columnRight)}>
                         <Sortable
+                            apiOptions={props.apiOptions}
                             options={props.userInput.right}
                             layout={"vertical"}
                             padding={padding}
