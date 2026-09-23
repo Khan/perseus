@@ -1,5 +1,35 @@
 # @khanacademy/perseus-editor
 
+## 43.0.1
+
+### Patch Changes
+
+-   [#4249](https://github.com/Khan/perseus/pull/4249) [`850bab9`](https://github.com/Khan/perseus/commit/850bab9057587fe25e413cb9f46319ee87bc653b) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Update onChange callback type for fill-in-the-blank widget editor to conform to the future editor API.
+
+-   [#4237](https://github.com/Khan/perseus/pull/4237) [`9d766a2`](https://github.com/Khan/perseus/commit/9d766a290b81645ec56bce6fbf97c4d884eae017) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in CategorizerEditor
+
+-   [#4243](https://github.com/Khan/perseus/pull/4243) [`b3eb128`](https://github.com/Khan/perseus/commit/b3eb128187e4db1e5cb1292e858c5cb5182ad779) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in ExplanationEditor
+
+-   [#4240](https://github.com/Khan/perseus/pull/4240) [`cc876c4`](https://github.com/Khan/perseus/commit/cc876c49364a3120deb7e8d3b40d003045181bc5) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Improve type safety in the DropdownEditor. It now has a real `Props` type instead of `any`.
+
+-   [#4255](https://github.com/Khan/perseus/pull/4255) [`b5b5437`](https://github.com/Khan/perseus/commit/b5b54376f8e89e32b0aecfe07c31c5f13b67bdaa) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in GradedGroupEditor.
+
+-   [#4258](https://github.com/Khan/perseus/pull/4258) [`6b422ce`](https://github.com/Khan/perseus/commit/6b422ce7aeb04b9928fd21dabf42d2edbe048886) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in GrapherEditor.
+
+-   [#4250](https://github.com/Khan/perseus/pull/4250) [`b4dba58`](https://github.com/Khan/perseus/commit/b4dba58765f0c06667994fe3b2da076652018c5d) Thanks [@benchristel](https://github.com/benchristel)! - Internal: The FreeResponseEditor now passes all widget options to its onChange prop on every call.
+
+-   [#4256](https://github.com/Khan/perseus/pull/4256) [`9afc1ab`](https://github.com/Khan/perseus/commit/9afc1ab090484e4dfea4c3323a4d7b6edf73c3e3) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in GradedGroupSetEditor.
+
+-   [#4245](https://github.com/Khan/perseus/pull/4245) [`2000793`](https://github.com/Khan/perseus/commit/20007937279b367d35731b7755db67a446d56b30) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in ExpressionEditor
+
+-   Updated dependencies [[`6b422ce`](https://github.com/Khan/perseus/commit/6b422ce7aeb04b9928fd21dabf42d2edbe048886), [`54959a3`](https://github.com/Khan/perseus/commit/54959a308d6bd9cc41fbb06feb6dbb7029d5371b)]:
+    -   @khanacademy/perseus-core@39.2.2
+    -   @khanacademy/keypad-context@4.0.0
+    -   @khanacademy/math-input@28.0.0
+    -   @khanacademy/perseus@87.2.2
+    -   @khanacademy/kmath@2.4.53
+    -   @khanacademy/perseus-linter@5.4.3
+
 ## 43.0.0
 
 ### Major Changes
