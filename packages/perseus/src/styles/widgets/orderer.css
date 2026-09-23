@@ -56,8 +56,7 @@
     white-space: nowrap;
     /* End Fix */
 }
-.orderer div.paragraph,
-.orderer div.deprecated-perseus-container {
+.orderer div.paragraph {
     margin: 0;
 }
 .orderer .card-wrap {
