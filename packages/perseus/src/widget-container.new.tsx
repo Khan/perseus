@@ -71,6 +71,9 @@ class WidgetContainer extends React.Component<Props, State> {
     render(): React.ReactNode {
         let className = classNames({
             "perseus-widget-container": true,
+            // deprecated-perseus-container is needed to get the correct amount
+            // of margin-block-end in all cases.
+            "deprecated-perseus-container": true,
             // HACK(matthewc): perseus-widget-container is setting a font-size
             // but we want the definition prompt to match the surrounding font
             // I'm sorry, but there's a time crunch
