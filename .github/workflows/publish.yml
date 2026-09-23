@@ -411,36 +411,36 @@ jobs:
             - name: Self-dispatch via workflow_dispatch on comment
               if: github.event_name == 'issue_comment'
               env:
-                COMMENT_BODY: ${{ github.event.comment.body }}
-                GH_TOKEN: ${{ secrets.KHAN_ACTIONS_BOT_TOKEN || secrets.GITHUB_TOKEN }}
+                  COMMENT_BODY: ${{ github.event.comment.body }}
+                  GH_TOKEN: ${{ secrets.KHAN_ACTIONS_BOT_TOKEN || secrets.GITHUB_TOKEN }}
               run: |
-                if ! echo "$COMMENT_BODY" | grep -Eqx '\s*/snapshot\s*'; then
-                  echo "Comment is not exactly '/snapshot'. Skipping." >&2
-                  exit 1
-                fi
+                  if ! echo "$COMMENT_BODY" | grep -Eqx '\s*/snapshot\s*'; then
+                    echo "Comment is not exactly '/snapshot'. Skipping." >&2
+                    exit 1
+                  fi
 
-                echo "Triggered via comment. Self-dispatching workflow_dispatch to satisfy npm OIDC..."
+                  echo "Triggered via comment. Self-dispatching workflow_dispatch to satisfy npm OIDC..."
 
-                # React to the comment first
-                gh api \
-                  repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions \
-                  -X POST -f content='eyes'
+                  # React to the comment first
+                  gh api \
+                    repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions \
+                    -X POST -f content='eyes'
 
-                # Re-trigger THIS exact workflow via workflow_dispatch
-                gh workflow run publish.yml \
-                  --repo ${{ github.repository }} \
-                  -f run_type=snapshot \
-                  -f pr_number=${{ github.event.issue.number }}
+                  # Re-trigger THIS exact workflow via workflow_dispatch
+                  gh workflow run publish.yml \
+                    --repo ${{ github.repository }} \
+                    -f run_type=snapshot \
+                    -f pr_number=${{ github.event.issue.number }}
 
-                echo "Dispatched workflow_dispatch successfully. Terminating comment listener run."
-                exit 0 # Exits this job cleanly without failing
+                  echo "Dispatched workflow_dispatch successfully. Terminating comment listener run."
+                  exit 0 # Exits this job cleanly without failing
 
             # Part II - validate incoming PR number and do the publish!
             - name: Bail if PR number is missing
               if: inputs.pr_number == ''
               run: |
-                echo "::error::No PR number provided. Terminating step."
-                exit 1
+                  echo "::error::No PR number provided. Terminating step."
+                  exit 1
 
             # We need to checkout all history, so that the changeset tool can diff it.
             # We check out the PR's merge commit so we publish what would land on main.
