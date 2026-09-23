@@ -112,7 +112,7 @@ pnpm changeset version --snapshot "$PR_NUMBER"
 # provenance information in the package.json file and surface
 # it in the npm registry.
 # See: https://docs.npmjs.com/generating-provenance-statements
-pnpm publish --recursive --batch --provenance \
+pnpm publish --recursive --provenance \
     --tag "${PR_NUMBER}" \
     --no-git-checks \
     --loglevel debug
