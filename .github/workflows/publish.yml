@@ -520,8 +520,8 @@ jobs:
                   GH_TOKEN: ${{ github.token }}
                   COMMENT_ID: ${{ inputs.comment_id }}
               run: |
-                  url="repos/$GITHUB_REPOSITORY/issues/comments/$COMMENT_ID"
-                  gh api --method POST "$url/reactions" -f content=confused
+                  gh api --method POST -f content=confused \
+                    "repos/$GITHUB_REPOSITORY/issues/comments/$COMMENT_ID/reactions"
 
             - name: React to /snapshot comment on success
               if: >-
@@ -531,5 +531,5 @@ jobs:
                   GH_TOKEN: ${{ github.token }}
                   COMMENT_ID: ${{ inputs.comment_id }}
               run: |
-                  url="repos/$GITHUB_REPOSITORY/issues/comments/$COMMENT_ID"
-                  gh api --method POST "$url/reactions" -f content=rocket
+                  gh api --method POST -f content=rocket \
+                    "repos/$GITHUB_REPOSITORY/issues/comments/$COMMENT_ID/reactions"
