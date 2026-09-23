@@ -154,7 +154,7 @@ describe("graded group set widget", () => {
         await userEvent.click(screen.getByRole("button", {name: "Check"}));
 
         // Assert
-        expect(screen.getByRole("alert")).toHaveTextContent("Correct");
+        expect(screen.getByText("Correct!")).toBeVisible();
         expect(
             screen.queryByRole("button", {name: "Next question"}),
         ).not.toBeInTheDocument();
@@ -331,7 +331,7 @@ describe("graded group set widget", () => {
         await userEvent.click(screen.getByRole("button", {name: "Check"}));
 
         // Assert
-        expect(screen.getByRole("alert", {name: "Correct!"})).toBeVisible();
+        expect(screen.getByText("Correct!")).toBeVisible();
         // Verify the rationale for the correct answer is shown
         expect(screen.getByText("This is the correct answer.")).toBeVisible();
     });

@@ -3,6 +3,9 @@ import {
     generateCategorizerWidget,
     generateDropdownOptions,
     generateDropdownWidget,
+    generateNumericInputAnswer,
+    generateNumericInputOptions,
+    generateNumericInputWidget,
 } from "@khanacademy/perseus-core";
 import {within} from "storybook/test";
 
@@ -84,6 +87,38 @@ export const DesktopCorrectAnswer: Story = {
     },
 };
 
+export const DesktopCorrectAnswerWithMessage: Story = {
+    args: {
+        title: "Check your understanding!",
+        content: "Solve for $x$: [[☃ numeric-input 1]]",
+        widgets: {
+            "numeric-input 1": generateNumericInputWidget({
+                options: generateNumericInputOptions({
+                    answers: [
+                        generateNumericInputAnswer({
+                            value: 5,
+                            status: "correct",
+                            message: "$5$ is correct!",
+                        }),
+                    ],
+                }),
+            }),
+        },
+        hint: {
+            content: "This is a hint.",
+            images: {},
+            widgets: {},
+        },
+        images: {},
+    },
+    play: async ({canvas, userEvent}) => {
+        // Matching the correct answer puts its message in the Graded Group.
+        await userEvent.type(canvas.getByRole("textbox"), "5");
+        const checkButton = canvas.getByRole("button", {name: "Check"});
+        await userEvent.click(checkButton);
+    },
+};
+
 export const DesktopIncorrectAnswer: Story = {
     args: sharedArgs,
     play: async ({canvas, userEvent}) => {
@@ -126,6 +161,34 @@ export const DesktopInvalidAnswer: Story = {
         // This is considered an "invalid" state.
         const [firstRowTrue] = canvas.getAllByRole("button", {name: "True"});
         await userEvent.click(firstRowTrue);
+        const checkButton = canvas.getByRole("button", {name: "Check"});
+        await userEvent.click(checkButton);
+    },
+};
+
+export const DesktopInvalidAnswerWithTexMessage: Story = {
+    args: {
+        title: "Check your understanding!",
+        content: "Solve for $x$: [[☃ numeric-input 1]]",
+        widgets: {
+            "numeric-input 1": generateNumericInputWidget({
+                options: generateNumericInputOptions({
+                    answers: [
+                        generateNumericInputAnswer({
+                            value: 5,
+                            // The "ungraded" status makes the message show up in a warning banner.
+                            status: "ungraded",
+                            message: "Could not grade $5$",
+                        }),
+                    ],
+                }),
+            }),
+        },
+        images: {},
+    },
+    play: async ({canvas, userEvent}) => {
+        // Matching the ungraded answer puts its message in the banner.
+        await userEvent.type(canvas.getByRole("textbox"), "5");
         const checkButton = canvas.getByRole("button", {name: "Check"});
         await userEvent.click(checkButton);
     },

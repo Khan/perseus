@@ -35,6 +35,10 @@ type Props = {
     // answering one graded group out of a set. If this is null, the
     // "Next question" button will not appear.
     onNextQuestion?: () => unknown;
+    // Points at the "Correct!" result once it is rendered, so GradedGroup can
+    // move focus there, rather than dropping focus to the body after the
+    // Check button unmounts.
+    resultRef?: React.Ref<HTMLSpanElement>;
 };
 
 class GradedGroupAnswerBar extends React.Component<Props> {
@@ -42,8 +46,13 @@ class GradedGroupAnswerBar extends React.Component<Props> {
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
     render(): React.ReactNode {
-        const {apiOptions, answerBarState, onCheckAnswer, onNextQuestion} =
-            this.props;
+        const {
+            apiOptions,
+            answerBarState,
+            onCheckAnswer,
+            onNextQuestion,
+            resultRef,
+        } = this.props;
         const {keepTrying, tryAgain, check, correctExcited, nextQuestion} =
             this.context.strings;
 
@@ -97,9 +106,11 @@ class GradedGroupAnswerBar extends React.Component<Props> {
                     >
                         <InlineIcon {...iconStar} style={{marginBlockEnd: 5}} />
                     </span>
+                    {/* GradedGroup moves focus here once this renders, which
+                        is what reads the result to a screen reader. */}
                     <span
-                        role="alert"
-                        aria-label={correctExcited}
+                        ref={resultRef}
+                        tabIndex={-1}
                         style={{marginInlineStart: 8}}
                     >
                         {correctExcited}

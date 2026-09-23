@@ -9,6 +9,7 @@ import {
     generateTestPerseusRenderer,
     type PerseusArticle,
 } from "@khanacademy/perseus-core";
+import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -23,6 +24,12 @@ import {
 } from "./graded-group.testdata";
 
 import type {UserEvent} from "@testing-library/user-event";
+
+// The Announcer writes into live regions on a timer, so assert on the call
+// rather than on the DOM.
+jest.mock("@khanacademy/wonder-blocks-announcer", () => ({
+    announceMessage: jest.fn(),
+}));
 
 const checkAnswer = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
@@ -43,6 +50,20 @@ const answerQuestion1Correctly = async (
     await userEvent.click(screen.getAllByRole("button", {name: "False"})[1]);
     await userEvent.click(screen.getAllByRole("button", {name: "True"})[2]);
     await userEvent.click(screen.getAllByRole("button", {name: "True"})[3]);
+};
+
+/**
+ * Fills in every row of the categorizer in `question1` with "False", leaving
+ * the group answerable but scoreable as incorrect.
+ */
+const answerQuestion1Incorrectly = async (
+    userEvent: ReturnType<(typeof userEventLib)["setup"]>,
+) => {
+    for (let row = 0; row < 4; row++) {
+        await userEvent.click(
+            screen.getAllByRole("button", {name: "False"})[row],
+        );
+    }
 };
 
 describe("graded-group", () => {
@@ -152,7 +173,7 @@ describe("graded-group", () => {
         await checkAnswer(userEvent);
 
         // Assert
-        expect(screen.getByRole("alert", {name: "Correct!"})).toBeVisible();
+        expect(screen.getByText("Correct!")).toBeVisible();
         expect(screen.queryByText("Keep trying")).not.toBeInTheDocument();
     });
 
@@ -174,29 +195,90 @@ describe("graded-group", () => {
     it("should be able to be answered incorrectly", async () => {
         // Arrange
         renderQuestion(question1);
-
-        await userEvent.click(
-            screen.getAllByRole("button", {name: "False"})[0],
-        );
-        await userEvent.click(
-            screen.getAllByRole("button", {name: "False"})[1],
-        );
-        await userEvent.click(
-            screen.getAllByRole("button", {name: "False"})[2],
-        );
-        await userEvent.click(
-            screen.getAllByRole("button", {name: "False"})[3],
-        );
+        await answerQuestion1Incorrectly(userEvent);
 
         // Act
         await checkAnswer(userEvent);
 
         // Assert
-        expect(
-            screen.queryByRole("alert", {name: "Correct!"}),
-        ).not.toBeInTheDocument();
+        expect(screen.queryByText("Correct!")).not.toBeInTheDocument();
         expect(screen.getByText("Keep trying")).toBeVisible();
         expect(screen.getByRole("button", {name: "Try again"})).toBeVisible();
+    });
+
+    it("moves focus to the result when the answer is correct", async () => {
+        // Arrange - the Check button is unmounted in this state, so focus
+        // would otherwise be lost to <body>.
+        renderQuestion(question1);
+        await answerQuestion1Correctly(userEvent);
+
+        // Act
+        await checkAnswer(userEvent);
+
+        // Assert
+        expect(screen.getByText("Correct!")).toHaveFocus();
+    });
+
+    it("keeps focus on the answer bar button when the answer is incorrect", async () => {
+        // Arrange - the button stays mounted and relabels to "Try again"
+        renderQuestion(question1);
+        await answerQuestion1Incorrectly(userEvent);
+
+        // Act
+        await checkAnswer(userEvent);
+
+        // Assert
+        expect(screen.getByRole("button", {name: "Try again"})).toHaveFocus();
+    });
+
+    it("announces the incorrect result to screen readers when Check is pressed", async () => {
+        // Arrange
+        renderQuestion(question1);
+        await answerQuestion1Incorrectly(userEvent);
+
+        // Act
+        await checkAnswer(userEvent);
+
+        // Assert
+        expect(jest.mocked(announceMessage)).toHaveBeenCalledWith({
+            message: "Keep trying",
+        });
+    });
+
+    it("announces again when a second wrong answer is checked", async () => {
+        // Arrange - the result text is identical both times, so a plain live
+        // region would stay silent on the second submission.
+        renderQuestion(question1);
+        await answerQuestion1Incorrectly(userEvent);
+        await checkAnswer(userEvent);
+
+        // Act - changing a row makes the group answerable again
+        await userEvent.click(screen.getAllByRole("button", {name: "True"})[0]);
+        await checkAnswer(userEvent);
+
+        // Assert
+        expect(jest.mocked(announceMessage)).toHaveBeenCalledTimes(2);
+        expect(jest.mocked(announceMessage)).toHaveBeenNthCalledWith(2, {
+            message: "Keep trying",
+        });
+    });
+
+    it("shows why the answer could not be graded in a warning banner", async () => {
+        // Arrange - only one of the four rows is categorized, so the group
+        // can't be scored at all.
+        renderQuestion(question1);
+        await userEvent.click(
+            screen.getAllByRole("button", {name: "False"})[1],
+        );
+
+        // Act
+        await checkAnswer(userEvent);
+
+        // Assert - kind="warning" renders the banner as a live region, which
+        // is what reads the message to a screen reader.
+        expect(screen.getByRole("alert")).toHaveTextContent(
+            "We couldn't grade your answer. Make sure you select something for every row.",
+        );
     });
 
     it("should display an error if not fully answered", async () => {
@@ -318,7 +400,7 @@ describe("graded-group", () => {
         await checkAnswer(userEvent);
 
         // Assert
-        expect(screen.getByRole("alert", {name: "Correct!"})).toBeVisible();
+        expect(screen.getByText("Correct!")).toBeVisible();
         // Verify the rationale for the correct answer is shown
         expect(screen.getByText("This is the correct answer.")).toBeVisible();
     });
@@ -363,6 +445,50 @@ describe("graded-group", () => {
 
         // Assert
         expect(screen.queryByText(texMessage)).not.toBeInTheDocument();
+        expect(screen.getByText("x = 5")).toBeInTheDocument();
+    });
+
+    it("should render TeX in an ungraded answer's message", async () => {
+        // Arrange - an "ungraded" answer scores as invalid, but carries the
+        // author's own message rather than an error code, so it can contain
+        // TeX just like a graded answer's message can.
+        const texMessage = "The answer is $x = 5$";
+        const question = generateTestPerseusRenderer({
+            content: "[[☃ graded-group 1]]",
+            widgets: {
+                "graded-group 1": generateGradedGroupWidget({
+                    options: generateGradedGroupOptions({
+                        content: "Enter 5: [[☃ numeric-input 1]]",
+                        widgets: {
+                            "numeric-input 1": generateNumericInputWidget({
+                                options: {
+                                    answers: [
+                                        generateNumericInputAnswer({
+                                            value: 5,
+                                            status: "ungraded",
+                                            message: texMessage,
+                                        }),
+                                    ],
+                                    labelText: "",
+                                    size: "normal",
+                                    coefficient: false,
+                                    textAlign: "left",
+                                },
+                            }),
+                        },
+                        images: {},
+                    }),
+                }),
+            },
+        });
+        renderQuestion(question);
+        await userEvent.type(screen.getByRole("textbox"), "5");
+
+        // Act
+        await checkAnswer(userEvent);
+
+        // Assert
+        expect(screen.queryByText(/\$x = 5\$/)).not.toBeInTheDocument();
         expect(screen.getByText("x = 5")).toBeInTheDocument();
     });
 

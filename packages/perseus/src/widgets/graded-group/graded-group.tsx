@@ -7,12 +7,20 @@ import {
     type UserInputMap,
 } from "@khanacademy/perseus-core";
 import {emptyWidgetsFunctional} from "@khanacademy/perseus-score";
+import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
+import Banner from "@khanacademy/wonder-blocks-banner";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
-import {useState, useRef, useImperativeHandle, forwardRef} from "react";
+import {
+    useState,
+    useRef,
+    useEffect,
+    useImperativeHandle,
+    forwardRef,
+} from "react";
 import _ from "underscore";
 
 import {usePerseusI18n} from "../../components/i18n-context";
@@ -93,6 +101,8 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
 
         const [showHint, setShowHint] = useState(false);
         const [message, setMessage] = useState("");
+        const [messageIsForInvalidState, setMessageIsForInvalidState] =
+            useState(false);
 
         // Allow moving on when the Graded Group doesn't have any
         // answerable widgets in it.
@@ -111,6 +121,15 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
 
         const rendererRef = useRef<Renderer | null>(null);
         const hintRendererRef = useRef<Renderer | null>(null);
+        const resultRef = useRef<HTMLSpanElement>(null);
+
+        // Don't let focus fall back to the body after answer is checked and
+        // the "Check/Try again" button is unmounted.
+        useEffect(() => {
+            if (answerBarState === "CORRECT") {
+                resultRef.current?.focus();
+            }
+        }, [answerBarState]);
 
         useOnMountEffect(() => {
             dependencies.analytics.onAnalyticsEvent({
@@ -163,6 +182,7 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
         ): void {
             // Reset grading display when user changes answer
             setMessage("");
+            setMessageIsForInvalidState(false);
 
             const answerable = !widgetsEmpty;
             const nextState = getNextState(answerBarState, answerable);
@@ -193,8 +213,15 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                       : `${INVALID_MESSAGE_PREFIX} ${DEFAULT_INVALID_MESSAGE_1}${DEFAULT_INVALID_MESSAGE_2}`;
 
             setMessage(message);
-            // TODO(kevinb) handle 'invalid' status
+            setMessageIsForInvalidState(status === GRADING_STATUSES.invalid);
             setAnswerBarState(status === "correct" ? "CORRECT" : "INCORRECT");
+
+            // Only an "Incorrect" answer needs explicit announcing here.
+            // ("Correct" state reads out when we move focus to it.
+            // "Invalid" state is in a WB Banner, which handles its own announcement.)
+            if (status === GRADING_STATUSES.incorrect) {
+                announceMessage({message: strings.keepTrying});
+            }
 
             props.trackInteraction({
                 status: status,
@@ -263,11 +290,20 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                     )}
                 </UserInputManager>
 
-                {/* Using Renderer so TeX expressions in
-                   answer messages are displayed as formatted math */}
-                <div role="status" aria-live="polite">
-                    <Renderer content={message} strings={strings} />
-                </div>
+                {messageIsForInvalidState ? (
+                    <Banner
+                        kind="warning"
+                        text={
+                            <div className="perseus-graded-group-banner-message">
+                                <Renderer content={message} strings={strings} />
+                            </div>
+                        }
+                    />
+                ) : (
+                    <div role="status" aria-live="polite">
+                        <Renderer content={message} strings={strings} />
+                    </div>
+                )}
 
                 {props.options.answerArea &&
                     apiOptions.renderExtras?.(
@@ -349,6 +385,7 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                     answerBarState={answerBarState}
                     onCheckAnswer={checkAnswer}
                     onNextQuestion={props.onNextQuestion}
+                    resultRef={resultRef}
                 />
             </div>
         );
