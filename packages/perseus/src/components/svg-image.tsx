@@ -85,14 +85,6 @@ export type Props = {
     trackInteraction?: () => void;
     width?: number;
     /**
-     * Whether clicking this image will allow it to be fully zoomed in to
-     * its original size on click, and allow the user to scroll in that
-     * state. This also does some hacky viewport meta tag changing to
-     * ensure this works on mobile devices, so I (david@) don't recommend
-     * enabling this on desktop yet.
-     */
-    zoomToFullSizeOnMobile?: boolean;
-    /**
      * If provided, use AssetContext.Consumer, see renderer.jsx.
      * If not, it defaults to a no-op.
      */
@@ -119,7 +111,6 @@ type DefaultProps = {
     scale: NonNullable<Props["scale"]>;
     setAssetStatus: NonNullable<Props["setAssetStatus"]>;
     src: NonNullable<Props["src"]>;
-    zoomToFullSizeOnMobile: NonNullable<Props["zoomToFullSizeOnMobile"]>;
 };
 
 type Label = {
@@ -164,7 +155,6 @@ class SvgImage extends React.Component<Props, State> {
         responsive: true,
         src: "",
         scale: 1,
-        zoomToFullSizeOnMobile: false,
         setAssetStatus: (src: string, status: boolean) => {},
     };
 

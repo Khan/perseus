@@ -6,10 +6,7 @@ import {act} from "@testing-library/react";
 import * as React from "react";
 
 import * as Dependencies from "../../dependencies";
-import {
-    testDependencies,
-    testDependenciesV2,
-} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import {wait} from "../../testing/wait";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
@@ -17,7 +14,7 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 import {question1} from "./matcher.testdata";
 
 import type {MatcherHandle} from "./matcher";
-import type {APIOptions, PerseusDependenciesV2} from "../../types";
+import type {APIOptions} from "../../types";
 
 describe("matcher widget", () => {
     beforeEach(() => {
@@ -55,7 +52,7 @@ describe("matcher widget", () => {
         };
 
         // Act
-        const {container} = renderQuestion(question1, apiOptions);
+        const {container} = renderQuestion(question1, {apiOptions});
         await wait();
 
         // Assert
@@ -71,7 +68,7 @@ describe("matcher widget", () => {
         };
 
         // Act
-        const {container} = renderQuestion(question1, apiOptions);
+        const {container} = renderQuestion(question1, {apiOptions});
         await wait();
 
         // Assert
@@ -81,13 +78,12 @@ describe("matcher widget", () => {
     it("should send analytics event when widget is rendered", async () => {
         // Arrange
         const onAnalyticsEventSpy = jest.fn();
-        const depsV2: PerseusDependenciesV2 = {
-            ...testDependenciesV2,
+        const dependencies = {
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
         };
 
         // Act
-        renderQuestion(question1, undefined, undefined, undefined, depsV2);
+        renderQuestion(question1, {dependencies});
         await wait();
 
         // Assert
@@ -106,7 +102,7 @@ describe("matcher widget", () => {
         const apiOptions: APIOptions = {
             isMobile: false,
         };
-        const {container, renderer} = renderQuestion(question1, apiOptions);
+        const {container, renderer} = renderQuestion(question1, {apiOptions});
         await wait();
 
         // Act

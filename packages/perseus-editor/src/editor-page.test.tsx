@@ -65,11 +65,9 @@ describe("EditorPage", () => {
                 dependencies={testDependenciesV2}
                 question={question}
                 onChange={(next) => (callbackValue = next)}
-                onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
                 previewURL=""
                 itemId="itemId"
-                developerMode={false}
                 jsonMode={false}
                 widgetsAreOpen={true}
             />,
@@ -89,11 +87,9 @@ describe("EditorPage", () => {
                 dependencies={testDependenciesV2}
                 question={callbackValue.question}
                 onChange={(next) => (callbackValue = next)}
-                onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
                 previewURL=""
                 itemId="itemId"
-                developerMode={false}
                 jsonMode={false}
                 widgetsAreOpen={true}
             />,
@@ -148,11 +144,9 @@ describe("EditorPage", () => {
                 dependencies={testDependenciesV2}
                 question={startRenderer}
                 onChange={onChangeMock}
-                onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
                 previewURL=""
                 itemId="itemId"
-                developerMode={false}
                 jsonMode={false}
                 widgetsAreOpen={true}
             />,
@@ -202,11 +196,9 @@ describe("EditorPage", () => {
                 question={question}
                 onChange={() => {}}
                 apiOptions={{editingDisabled: true}}
-                onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
                 previewURL=""
                 itemId="itemId"
-                developerMode={false}
                 jsonMode={false}
                 widgetsAreOpen={true}
             />,
@@ -244,11 +236,9 @@ describe("EditorPage", () => {
                 dependencies={testDependenciesV2}
                 question={initialQuestion}
                 onChange={onChangeMock}
-                onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
                 previewURL=""
                 itemId="itemId"
-                developerMode={true}
                 jsonMode={true}
                 widgetsAreOpen={true}
             />,
@@ -260,11 +250,9 @@ describe("EditorPage", () => {
                 dependencies={testDependenciesV2}
                 question={updatedQuestion}
                 onChange={onChangeMock}
-                onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
                 previewURL=""
                 itemId="itemId"
-                developerMode={true}
                 jsonMode={true}
                 widgetsAreOpen={true}
             />,
@@ -290,11 +278,9 @@ describe("EditorPage", () => {
                 dependencies={testDependenciesV2}
                 question={startRenderer}
                 onChange={onChangeMock}
-                onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
                 previewURL=""
                 itemId="itemId"
-                developerMode={false}
                 jsonMode={false}
                 widgetsAreOpen={true}
             />,
@@ -357,11 +343,9 @@ describe("EditorPage", () => {
                 dependencies={testDependenciesV2}
                 question={question}
                 onChange={onChangeMock}
-                onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
                 previewURL=""
                 itemId="itemId"
-                developerMode={false}
                 jsonMode={false}
                 widgetsAreOpen={true}
             />,

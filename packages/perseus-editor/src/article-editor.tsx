@@ -405,24 +405,17 @@ export default class ArticleEditor extends React.Component<Props, State> {
     }
 
     _handleAddSectionAfter(i: number) {
-        // We do a full serialization here because we
-        // might be copying widgets:
-        const clonedArticle = this.serialize();
+        const article = this.props.json;
         // Articles are (annoyingly) either a single PerseusRenderer _or_ an
         // array of them! Would be nice for the article to always be an array!
-        const sections =
-            clonedArticle instanceof Array ? clonedArticle : [clonedArticle];
+        // If we already have an array, we copy it here so we can safely mutate
+        // it below.
+        const sections = Array.isArray(article) ? [...article] : [article];
 
-        // Here we do magic to allow you to copy-paste
-        // things from the previous section into the new
-        // section while preserving widgets.
-        // To enable this, we preserve the widgets
-        // object for the new section, but wipe out
-        // the content.
         const newSection = {
             content: "",
             images: {},
-            widgets: i >= 0 ? sections[i].widgets : {},
+            widgets: {},
         };
 
         sections.splice(i + 1, 0, newSection);
@@ -437,27 +430,6 @@ export default class ArticleEditor extends React.Component<Props, State> {
         this.props.onChange({
             json: sections,
         });
-    }
-
-    /**
-     * Returns the current version of the edited {@link PerseusArticle}.
-     *
-     * @deprecated Use the `onChange` prop instead.
-     */
-    serialize(): PerseusArticle {
-        if (this.props.mode === "edit") {
-            return this._sections().map((section, i) => {
-                // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
-                return this.refs["editor" + i].serialize();
-            });
-        }
-        if (this.props.mode === "preview" || this.props.mode === "json") {
-            return this.props.json;
-        }
-        throw new PerseusError(
-            "Could not serialize; mode " + this.props.mode + " not found",
-            Errors.Internal,
-        );
     }
 
     /**

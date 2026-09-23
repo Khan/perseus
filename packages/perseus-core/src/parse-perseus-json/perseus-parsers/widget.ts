@@ -31,13 +31,42 @@ const parseAlignment = pipeParsers(optional(string)).then(
     convert(toValidAlignment),
 ).parser;
 
+/**
+
+ * `static: true` means "render this widget non-interactively, with the correct
+ * answer already filled in". It is only supposed to be used for widgets
+ * that have a correct answer and accept user input.
+ *
+ * Non-answerable widgets may still be *interactive*, though.
+ * E.g. images zoom in on click. Setting `static: true` for these
+ * widgets blocks interactions and is never desired. So we remove
+ * the static field here for widgets that mistakenly have it set.
+ *
+ * Note that this ignores the raw value without validating it. A widget that
+ * can't be static doesn't care whether the flag was well-formed, and
+ * failing the parse would reject content that renders fine. This matches how
+ * `object` silently ignores properties that a schema doesn't mention.
+ */
+const forceUndefined: Parser<boolean | undefined> = (_rawValue, ctx) =>
+    ctx.success(undefined);
+
+type WidgetParserOptions = {
+    /**
+     * Whether `static` is meaningful for this widget. Defaults to `true`; pass
+     * `false` for presentational widgets so that `static` parses to
+     * `undefined`. See `parseUnsupportedStatic`.
+     */
+    supportsStatic?: boolean;
+};
+
 export function parseWidget<Type extends string, Options extends object>(
     parseType: Parser<Type>,
     parseOptions: Parser<Options>,
+    {supportsStatic = true}: WidgetParserOptions = {},
 ) {
     return object({
         type: parseType,
-        static: optional(boolean),
+        static: supportsStatic ? optional(boolean) : forceUndefined,
         graded: optional(boolean),
         alignment: parseAlignment,
         options: parseOptions,
@@ -58,10 +87,11 @@ export function parseWidgetWithVersion<
     parseVersion: Parser<{major: number; minor: number} | undefined>,
     parseType: Parser<Type>,
     parseOptions: Parser<Options>,
+    {supportsStatic = true}: WidgetParserOptions = {},
 ) {
     return object({
         type: parseType,
-        static: optional(boolean),
+        static: supportsStatic ? optional(boolean) : forceUndefined,
         graded: optional(boolean),
         alignment: parseAlignment,
         options: parseOptions,

@@ -1471,7 +1471,8 @@ export class Graphie {
             const canvasClickTarget = this.mouselayer
                 .rect(0, 0, this.xpixels, this.ypixels)
                 .attr({
-                    fill: "#000",
+                    // `fill` must be set for clicks to register.
+                    fill: "transparent",
                     opacity: 0,
                 });
             let isClickingCanvas = false;

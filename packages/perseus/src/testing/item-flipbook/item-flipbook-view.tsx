@@ -80,7 +80,6 @@ function ItemDisplayView({itemDisplay}: ItemDisplayViewProps) {
         case "item":
             return (
                 <ServerItemRendererWithDebugUI
-                    title={""}
                     item={itemDisplay.item}
                     key={itemDisplay.key}
                 />

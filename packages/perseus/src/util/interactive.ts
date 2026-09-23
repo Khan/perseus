@@ -803,7 +803,11 @@ _.extend(GraphUtils.Graphie.prototype, {
                     radii,
                     options,
                 );
-                movablePoint.mouseTarget.attr({fill: "#000", opacity: 0.0});
+                movablePoint.mouseTarget.attr({
+                    // `fill` must be set for clicks to register.
+                    fill: "transparent",
+                    opacity: 0.0,
+                });
             }
 
             const $mouseTarget = $(movablePoint.mouseTarget.getMouseTarget());
@@ -1098,7 +1102,11 @@ _.extend(GraphUtils.Graphie.prototype, {
                 [1, 0],
                 options,
             );
-            lineSegment.mouseTarget.attr({fill: "#000", opacity: 0.0});
+            lineSegment.mouseTarget.attr({
+                // `fill` must be set for clicks to register.
+                fill: "transparent",
+                opacity: 0.0,
+            });
         }
 
         // Reposition the line segment. Call after changing coordA and/or
@@ -2082,9 +2090,10 @@ function Ruler(graphie: any, options: any) {
         ]),
     );
     mouseTarget.attr({
-        fill: "#000",
+        // `fill` must be set for clicks to register.
+        fill: "transparent",
         opacity: 0,
-        stroke: "#000",
+        stroke: "transparent",
         "stroke-width": 2,
     });
     set.push(mouseTarget);

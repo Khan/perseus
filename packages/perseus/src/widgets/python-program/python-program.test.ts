@@ -1,9 +1,6 @@
-import {testDependenciesV2} from "../../testing/test-dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./python-program.testdata";
-
-import type {PerseusDependenciesV2} from "../../types";
 
 describe("python-program widget", () => {
     it("should snapshot", () => {
@@ -13,7 +10,7 @@ describe("python-program widget", () => {
         } as const;
 
         // Act
-        const {container} = renderQuestion(question1, apiOptions);
+        const {container} = renderQuestion(question1, {apiOptions});
 
         // Assert
         expect(container).toMatchSnapshot("first render");
@@ -26,7 +23,7 @@ describe("python-program widget", () => {
         } as const;
 
         // Act
-        const {container} = renderQuestion(question1, apiOptions);
+        const {container} = renderQuestion(question1, {apiOptions});
 
         // Assert
         expect(container).toMatchSnapshot("first mobile render");
@@ -34,14 +31,13 @@ describe("python-program widget", () => {
 
     it("python program widget should call the generateUrl dependency to set the iframe src", () => {
         // Arrange
-        const dependencies: PerseusDependenciesV2 = {
-            ...testDependenciesV2,
+        const dependencies = {
             generateUrl: (args) => {
                 return "https://www.khanacademy.org/my-test-url";
             },
         };
         // Act
-        renderQuestion(question1, {}, {}, {}, dependencies);
+        renderQuestion(question1, {dependencies});
 
         // Assert
         expect(document.getElementsByTagName("iframe")[0].src).toEqual(

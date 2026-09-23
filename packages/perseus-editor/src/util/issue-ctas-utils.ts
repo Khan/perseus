@@ -104,6 +104,11 @@ export async function convertImageMarkdownToImageWidget(
     onEditorChange({
         content: newContent,
         widgets: newWidgets,
+        // The `images` field only caches dimensions for images referenced by
+        // image markdown. Since we just converted every image markdown to a
+        // widget (which carries its own dimensions), anything left in `images`
+        // is stale, so we can clear it out entirely.
+        images: {},
     });
 }
 

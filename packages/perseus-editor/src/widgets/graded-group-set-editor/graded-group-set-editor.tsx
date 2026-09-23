@@ -1,32 +1,21 @@
 import {gradedGroupSetLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {deprecatedChangeableChange} from "../../mixins/changeable";
 import GradedGroupEditor from "../graded-group-editor";
 
-import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {PerseusGradedGroupSetWidgetOptions} from "@khanacademy/perseus-core";
 
-interface Props extends PerseusGradedGroupSetWidgetOptions, ChangeableProps {
+interface Props extends PerseusGradedGroupSetWidgetOptions {
     apiOptions?: APIOptionsWithDefaults;
+    onChange: (options: PerseusGradedGroupSetWidgetOptions) => void;
 }
 
 class GradedGroupSetEditor extends React.Component<Props> {
-    // @ts-expect-error - TS2564 - Property '_editors' has no initializer and is not definitely assigned in the constructor.
-    _editors: Array<any>;
+    _editors: Array<GradedGroupEditor | null> = [];
 
     static defaultProps: PerseusGradedGroupSetWidgetOptions =
         gradedGroupSetLogic.defaultWidgetOptions;
-
-    // TODO(jangmi, CP-3288): Remove usage of `UNSAFE_componentWillMount`
-    UNSAFE_componentWillMount() {
-        this._editors = [];
-    }
-
-    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return deprecatedChangeableChange.apply(this, args);
-    };
 
     getSaveWarnings: () => ReadonlyArray<any> = () => {
         return [].concat(
@@ -36,9 +25,7 @@ class GradedGroupSetEditor extends React.Component<Props> {
         );
     };
 
-    serialize: () => {
-        gradedGroups: any;
-    } = () => {
+    serialize = () => {
         return {
             gradedGroups: this.props.gradedGroups,
         };
@@ -55,26 +42,19 @@ class GradedGroupSetEditor extends React.Component<Props> {
                 {...group}
                 apiOptions={this.props.apiOptions}
                 onChange={(data) =>
-                    // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
-                    this.change(
-                        "gradedGroups",
-                        setArrayItem(gradedGroups, i, {
-                            ...gradedGroups[i],
-                            ...data,
-                        }),
-                    )
+                    this.props.onChange({
+                        gradedGroups: setArrayItem(gradedGroups, i, data),
+                    })
                 }
             />
         ));
     };
 
-    addGroup: () => void = () => {
-        const groups = this.props.gradedGroups ?? [];
-        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
-        this.change(
-            "gradedGroups",
-            groups.concat([GradedGroupEditor.defaultProps]),
-        );
+    addGroup = () => {
+        const newGroup = GradedGroupEditor.defaultProps;
+        this.props.onChange({
+            gradedGroups: this.props.gradedGroups.concat([newGroup]),
+        });
     };
 
     render(): React.ReactNode {
@@ -90,6 +70,8 @@ class GradedGroupSetEditor extends React.Component<Props> {
     }
 }
 
+// TODO(benchristel): Replace usages of this function with Array#with(), once
+//  that's available in our supported browsers.
 const setArrayItem = (list, i: any, value) => [
     ...list.slice(0, i),
     value,

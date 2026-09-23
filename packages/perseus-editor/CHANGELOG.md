@@ -1,5 +1,111 @@
 # @khanacademy/perseus-editor
 
+## 43.0.1
+
+### Patch Changes
+
+-   [#4249](https://github.com/Khan/perseus/pull/4249) [`850bab9`](https://github.com/Khan/perseus/commit/850bab9057587fe25e413cb9f46319ee87bc653b) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Update onChange callback type for fill-in-the-blank widget editor to conform to the future editor API.
+
+-   [#4237](https://github.com/Khan/perseus/pull/4237) [`9d766a2`](https://github.com/Khan/perseus/commit/9d766a290b81645ec56bce6fbf97c4d884eae017) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in CategorizerEditor
+
+-   [#4243](https://github.com/Khan/perseus/pull/4243) [`b3eb128`](https://github.com/Khan/perseus/commit/b3eb128187e4db1e5cb1292e858c5cb5182ad779) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in ExplanationEditor
+
+-   [#4240](https://github.com/Khan/perseus/pull/4240) [`cc876c4`](https://github.com/Khan/perseus/commit/cc876c49364a3120deb7e8d3b40d003045181bc5) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Improve type safety in the DropdownEditor. It now has a real `Props` type instead of `any`.
+
+-   [#4255](https://github.com/Khan/perseus/pull/4255) [`b5b5437`](https://github.com/Khan/perseus/commit/b5b54376f8e89e32b0aecfe07c31c5f13b67bdaa) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in GradedGroupEditor.
+
+-   [#4258](https://github.com/Khan/perseus/pull/4258) [`6b422ce`](https://github.com/Khan/perseus/commit/6b422ce7aeb04b9928fd21dabf42d2edbe048886) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in GrapherEditor.
+
+-   [#4250](https://github.com/Khan/perseus/pull/4250) [`b4dba58`](https://github.com/Khan/perseus/commit/b4dba58765f0c06667994fe3b2da076652018c5d) Thanks [@benchristel](https://github.com/benchristel)! - Internal: The FreeResponseEditor now passes all widget options to its onChange prop on every call.
+
+-   [#4256](https://github.com/Khan/perseus/pull/4256) [`9afc1ab`](https://github.com/Khan/perseus/commit/9afc1ab090484e4dfea4c3323a4d7b6edf73c3e3) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in GradedGroupSetEditor.
+
+-   [#4245](https://github.com/Khan/perseus/pull/4245) [`2000793`](https://github.com/Khan/perseus/commit/20007937279b367d35731b7755db67a446d56b30) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in ExpressionEditor
+
+-   Updated dependencies [[`6b422ce`](https://github.com/Khan/perseus/commit/6b422ce7aeb04b9928fd21dabf42d2edbe048886), [`54959a3`](https://github.com/Khan/perseus/commit/54959a308d6bd9cc41fbb06feb6dbb7029d5371b)]:
+    -   @khanacademy/perseus-core@39.2.2
+    -   @khanacademy/keypad-context@4.0.0
+    -   @khanacademy/math-input@28.0.0
+    -   @khanacademy/perseus@87.2.2
+    -   @khanacademy/kmath@2.4.53
+    -   @khanacademy/perseus-linter@5.4.3
+
+## 43.0.0
+
+### Major Changes
+
+-   [#4234](https://github.com/Khan/perseus/pull/4234) [`e561ebf`](https://github.com/Khan/perseus/commit/e561ebfa42d1a7478c99c95b27f13097e23df4f9) Thanks [@benchristel](https://github.com/benchristel)! - The deprecated `serialize()` method of `ArticleEditor` has been removed. Callers should use onChange to get updates from the editor.
+
+-   [#4214](https://github.com/Khan/perseus/pull/4214) [`57331a4`](https://github.com/Khan/perseus/commit/57331a4ee59cffb84e736f73393f77297203520f) Thanks [@benchristel](https://github.com/benchristel)! - The deprecated, non-functional `developerMode` and `onPreviewDeviceChange` props have been removed from `EditorPage`. The `serialize()` imperative method has also been removed. Callers should use `onChange` instead of imperative APIs to receive updates.
+
+### Patch Changes
+
+-   [#4238](https://github.com/Khan/perseus/pull/4238) [`687f1f0`](https://github.com/Khan/perseus/commit/687f1f00e17e1c8f94e391e493bb1603486d10bc) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Avoid using the deprecated ChangeableProps in CSProgramEditor.
+
+-   [#4239](https://github.com/Khan/perseus/pull/4239) [`d51b353`](https://github.com/Khan/perseus/commit/d51b353fb4389f68d2a192a255c3ecaaa18b9a28) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in DefinitionEditor
+
+-   [#4235](https://github.com/Khan/perseus/pull/4235) [`7929ab8`](https://github.com/Khan/perseus/commit/7929ab847c9e4a36da08da51c22619bc2bae123a) Thanks [@benchristel](https://github.com/benchristel)! - Internal: remove deprecated `serialize()` methods from hint editors.
+
+-   Updated dependencies [[`b718fbc`](https://github.com/Khan/perseus/commit/b718fbc8ff3f3588cbc113cd7d45de0b207bd660), [`284ac95`](https://github.com/Khan/perseus/commit/284ac95dce32e3d3ddbe2287106ad253b16ffadb), [`7929ab8`](https://github.com/Khan/perseus/commit/7929ab847c9e4a36da08da51c22619bc2bae123a)]:
+    -   @khanacademy/perseus@87.2.1
+    -   @khanacademy/math-input@27.0.17
+    -   @khanacademy/perseus-core@39.2.1
+    -   @khanacademy/keypad-context@3.2.93
+    -   @khanacademy/kmath@2.4.52
+    -   @khanacademy/perseus-linter@5.4.2
+
+## 42.2.0
+
+### Minor Changes
+
+-   [#4208](https://github.com/Khan/perseus/pull/4208) [`9f6043b`](https://github.com/Khan/perseus/commit/9f6043b0c8230c353304c7455f70d5e4724c4659) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add a placeholder Fill in the Blank content editor behind a feature flag
+
+### Patch Changes
+
+-   [#4227](https://github.com/Khan/perseus/pull/4227) [`c927205`](https://github.com/Khan/perseus/commit/c9272053e926d8c78f2b07c64855ec6a27674839) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dependencies
+
+-   [#4216](https://github.com/Khan/perseus/pull/4216) [`56ef030`](https://github.com/Khan/perseus/commit/56ef030bdc302a201268ab33d8e6b8a320f00c1e) Thanks [@benchristel](https://github.com/benchristel)! - Internal: deduplicate the `PairEditor` and `PairsEditor` components across the CS Program and Iframe widget editors.
+
+-   Updated dependencies [[`9f6043b`](https://github.com/Khan/perseus/commit/9f6043b0c8230c353304c7455f70d5e4724c4659), [`834d458`](https://github.com/Khan/perseus/commit/834d458ee5aee90ad705b81dc1323c417854d0ac), [`e114416`](https://github.com/Khan/perseus/commit/e11441600e2b4c9efe6ec008d387ee245f11470d), [`995aa68`](https://github.com/Khan/perseus/commit/995aa68d04bdc95f7b463406d797ed6a24107cad), [`c927205`](https://github.com/Khan/perseus/commit/c9272053e926d8c78f2b07c64855ec6a27674839)]:
+    -   @khanacademy/perseus@87.2.0
+    -   @khanacademy/perseus-linter@5.4.1
+    -   @khanacademy/perseus-core@39.2.0
+    -   @khanacademy/math-input@27.0.16
+    -   @khanacademy/keypad-context@3.2.92
+    -   @khanacademy/kmath@2.4.51
+
+## 42.1.1
+
+### Patch Changes
+
+-   [#4219](https://github.com/Khan/perseus/pull/4219) [`43887dc`](https://github.com/Khan/perseus/commit/43887dc4b4ca3133b00e78db16810249c70ce66c) Thanks [@jandrade](https://github.com/jandrade)! - Bumps Wonder Blocks dependencies: IconButton now requires aria-label (major), Accordion, Clickable and Link improvments
+
+-   Updated dependencies [[`3c0fe3a`](https://github.com/Khan/perseus/commit/3c0fe3a57b4e1d2a77a894848ec3884ce444355c), [`43887dc`](https://github.com/Khan/perseus/commit/43887dc4b4ca3133b00e78db16810249c70ce66c)]:
+    -   @khanacademy/perseus@87.1.4
+    -   @khanacademy/math-input@27.0.15
+
+## 42.1.0
+
+### Minor Changes
+
+-   [#4198](https://github.com/Khan/perseus/pull/4198) [`0bd3bf8`](https://github.com/Khan/perseus/commit/0bd3bf8ce16d94b42e4c4dde84a760bcde395b05) Thanks [@benchristel](https://github.com/benchristel)! - The "All Widgets" template has been removed from the Perseus editor. It was broken, and crashed the editor if selected.
+
+-   [#4204](https://github.com/Khan/perseus/pull/4204) [`dc12384`](https://github.com/Khan/perseus/commit/dc123845614fae331d8517a524212fc1dbbe110f) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Makes max sorter card count a const in perseus core and consumes it
+
+### Patch Changes
+
+-   [#4199](https://github.com/Khan/perseus/pull/4199) [`6143f20`](https://github.com/Khan/perseus/commit/6143f202b67f1d3486eeef581b47461136840461) Thanks [@nishasy](https://github.com/nishasy)! - [Image] Clear stale image URLs after markdown image conversion
+
+-   [#4206](https://github.com/Khan/perseus/pull/4206) [`c2a9d3e`](https://github.com/Khan/perseus/commit/c2a9d3ea577927464c53b0e027d707d41c06f78e) Thanks [@jandrade](https://github.com/jandrade)! - Updates WB peer deps
+
+-   Updated dependencies [[`c2a9d3e`](https://github.com/Khan/perseus/commit/c2a9d3ea577927464c53b0e027d707d41c06f78e), [`22dc543`](https://github.com/Khan/perseus/commit/22dc5433c41fa04ebe4a718804aaec1ee7201e6a), [`c2a9d3e`](https://github.com/Khan/perseus/commit/c2a9d3ea577927464c53b0e027d707d41c06f78e), [`dc12384`](https://github.com/Khan/perseus/commit/dc123845614fae331d8517a524212fc1dbbe110f)]:
+    -   @khanacademy/perseus@87.1.3
+    -   @khanacademy/math-input@27.0.14
+    -   @khanacademy/perseus-linter@5.4.0
+    -   @khanacademy/perseus-core@39.1.0
+    -   @khanacademy/keypad-context@3.2.91
+    -   @khanacademy/kmath@2.4.50
+
 ## 42.0.0
 
 ### Major Changes
