@@ -165,10 +165,11 @@ jobs:
               uses: Khan/actions@secure-network-v1
               timeout-minutes: 5
               with:
-                  conf-files: .github/npm-extra-domains.conf
+                  conf-files: |
+                      .github/npm-extra-domains.conf
+                      .github/npm-domains-oidc.conf
                   # hooks.slack.com: Slack webhook for publish success/failure notifications
-                  # fulcio.sigstore.dev,rekor.sigstore.dev: signing certificates are stored here
-                  extra-domains: hooks.slack.com fulcio.sigstore.dev rekor.sigstore.dev
+                  extra-domains: hooks.slack.com
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
@@ -439,10 +440,9 @@ jobs:
               uses: Khan/actions@secure-network-v1
               timeout-minutes: 5
               with:
-                  conf-files: .github/npm-extra-domains.conf
-                  # fulcio.sigstore.dev,rekor.sigstore.dev: signing certificates are stored here
-                  # timestamp.sigstore.dev: needed to fetch timestamp for signing
-                  extra-domains: fulcio.sigstore.dev rekor.sigstore.dev timestamp.sigstore.dev
+                  conf-files: |
+                      .github/npm-extra-domains.conf
+                      .github/npm-domains-oidc.conf
 
             - name: Ensure main branch is available
               run: |
