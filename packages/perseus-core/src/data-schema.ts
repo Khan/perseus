@@ -896,7 +896,10 @@ export type PerseusGrapherWidgetOptions = {
         };
         /** The [width, height] of the graph canvas in pixels. */
         box?: [number, number];
-        /** Which graph settings are editable in the editor UI. */
+        /**
+         * Which graph settings are editable in the editor UI.
+         * @deprecated - not used
+         */
         editableSettings?: Array<"graph" | "snap" | "image" | "measure">;
         /** The [x, y] spacing between grid lines. */
         gridStep?: [number, number];
