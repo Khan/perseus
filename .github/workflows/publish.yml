@@ -546,6 +546,17 @@ jobs:
                       ---
                       Want to try again? Comment `/snapshot` once you've added a changeset.
 
+            - name: React to /snapshot comment on failure
+              if: >-
+                  github.event_name == 'issue_comment' &&
+                  failure()
+              env:
+                  GH_TOKEN: ${{ github.token }}
+              run: |
+                  gh api \
+                    repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions \
+                    -X POST -f content='confused'
+
             - name: React to /snapshot comment on success
               if: >-
                   github.event_name == 'issue_comment' &&
