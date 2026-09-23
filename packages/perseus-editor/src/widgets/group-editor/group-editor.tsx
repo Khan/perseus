@@ -1,27 +1,21 @@
-/* eslint-disable react/forbid-prop-types */
-import {ApiOptions} from "@khanacademy/perseus";
 import {groupLogic} from "@khanacademy/perseus-core";
-import PropTypes from "prop-types";
 import * as React from "react";
 import invariant from "tiny-invariant";
 
 import Editor from "../../editor";
 
+import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
     PerseusGroupWidgetOptions,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
-type Props = any;
+interface Props extends PerseusGroupWidgetOptions {
+    onChange: (options: PerseusGroupWidgetOptions) => void;
+    apiOptions: APIOptionsWithDefaults;
+}
 
 class GroupEditor extends React.Component<Props> {
-    static propTypes = {
-        content: PropTypes.string,
-        widgets: PropTypes.object,
-        images: PropTypes.object,
-        apiOptions: ApiOptions.propTypes,
-    };
-
     static defaultProps: PerseusGroupWidgetOptions =
         groupLogic.defaultWidgetOptions;
 
