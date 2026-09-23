@@ -1,5 +1,16 @@
 # @khanacademy/keypad-context
 
+## 4.0.0
+
+### Major Changes
+
+-   [#4133](https://github.com/Khan/perseus/pull/4133) [`54959a3`](https://github.com/Khan/perseus/commit/54959a308d6bd9cc41fbb06feb6dbb7029d5371b) Thanks [@handeyeco](https://github.com/handeyeco)! - Change KeypadContext API so that rather than exposing a raw `renderer` we abstract functionality behind `blurRenderer`
+
+### Patch Changes
+
+-   Updated dependencies [[`6b422ce`](https://github.com/Khan/perseus/commit/6b422ce7aeb04b9928fd21dabf42d2edbe048886)]:
+    -   @khanacademy/perseus-core@39.2.2
+
 ## 3.2.93
 
 ### Patch Changes

@@ -273,7 +273,7 @@ describe("graded group set widget", () => {
             name: "Explain",
         });
         explainButton.focus();
-        await userEvent.type(explainButton, "{enter}");
+        await userEvent.keyboard("{Enter}");
 
         // Assert
         expect(
@@ -311,7 +311,7 @@ describe("graded group set widget", () => {
             name: "Hide explanation",
         });
         hideExplanationButton.focus();
-        await userEvent.type(hideExplanationButton, "{enter}");
+        await userEvent.keyboard("{Enter}");
 
         // Assert
         expect(screen.getByRole("button", {name: "Explain"})).toBeVisible();
