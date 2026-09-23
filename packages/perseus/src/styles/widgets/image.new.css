@@ -4,8 +4,8 @@
    .perseus-hint-renderer div.paragraph` rule, which would otherwise re-apply
    a 16px margin-block-end inside hints. */
 .perseus-image-widget
-div.perseus-image-title
-:is(div, p).deprecated-perseus-container {
+    div.perseus-image-title
+    :is(div, p).deprecated-perseus-container {
     margin-block: 0;
 }
 
@@ -13,22 +13,22 @@ div.perseus-image-title
    hint-renderer's `.bibliotron-exercise .perseus-hint-renderer div.paragraph`
    rule, which would otherwise re-apply a 16px margin-block-end inside hints. */
 .perseus-image-widget
-figcaption.perseus-image-caption
-:is(div, p).deprecated-perseus-container {
+    figcaption.perseus-image-caption
+    :is(div, p).deprecated-perseus-container {
     font-size: var(--wb-font-body-size-small);
     line-height: var(--wb-font-body-lineHeight-small);
     padding-right: 12px;
     margin-block: 0;
 }
 .perseus-image-modal-title
-.deprecated-perseus-container
-.deprecated-perseus-container {
+    .deprecated-perseus-container
+    .deprecated-perseus-container {
     font-size: var(--wb-font-heading-size-medium);
     line-height: var(--wb-font-heading-lineHeight-medium);
 }
 .perseus-image-modal-description
-.perseus-renderer
-.deprecated-perseus-container {
+    .perseus-renderer
+    .deprecated-perseus-container {
     /* Reset default Renderer margins for the description and caption. */
     margin: 0px 0px;
 }
