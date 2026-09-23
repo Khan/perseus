@@ -54,6 +54,16 @@ overrides:
     # browserslist <= 4.28.6 is vulnerable to GHSA-73wf-gq98-2v4g (DoS /
     # prototype pollution via a poisoned browserslist-stats.json).
     browserslist: ">=4.28.7"
+allowBuilds:
+    '@parcel/watcher': true
+    '@swc/core': true
+    cypress: true
+    esbuild: true
+    # git-hosted dependencies must provide the full URL to the tarball
+    mathquill@https://codeload.github.com/Khan/mathquill/tar.gz/c9e4329b0bc5d9b4c21d765b5768e4e7693515b3: true
+    unrs-resolver: false
+patchedDependencies:
+    postcss-url: patches/postcss-url.patch
 catalogs:
     peerDeps:
         react: ^18.2.0
