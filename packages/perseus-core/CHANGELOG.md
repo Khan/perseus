@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 39.2.2
+
+### Patch Changes
+
+-   [#4258](https://github.com/Khan/perseus/pull/4258) [`6b422ce`](https://github.com/Khan/perseus/commit/6b422ce7aeb04b9928fd21dabf42d2edbe048886) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in GrapherEditor.
+
 ## 39.2.1
 
 ### Patch Changes
