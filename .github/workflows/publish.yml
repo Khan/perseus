@@ -441,7 +441,8 @@ jobs:
               with:
                   conf-files: .github/npm-extra-domains.conf
                   # fulcio.sigstore.dev,rekor.sigstore.dev: signing certificates are stored here
-                  extra-domains: fulcio.sigstore.dev rekor.sigstore.dev
+                  # timestamp.sigstore.dev: needed to fetch timestamp for signing
+                  extra-domains: fulcio.sigstore.dev rekor.sigstore.dev timestamp.sigstore.dev
 
             - name: Ensure main branch is available
               run: |
