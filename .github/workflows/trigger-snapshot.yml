@@ -73,8 +73,6 @@ jobs:
               env:
                   PR_NUMBER: ${{ github.event.issue.number }}
                   COMMENT_ID: ${{ github.event.comment.id }}
-              # No `--ref`, so publish.yml runs from the default branch; the
-              # PR's code must never define how it gets published.
               run: |
                   gh workflow run publish.yml \
                     -f run_type=snapshot \
