@@ -1,6 +1,6 @@
 {
   "name": "raphael",
-  "private": "true",
+  "private": true,
   "version": "1.5.4",
   "main": "raphael.js",
   "types": "raphael.d.ts"
