@@ -290,11 +290,6 @@ div.graphie {
 }
 .framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile)
     table.non-markdown
-    tr:nth-child(odd)
-    td,
-.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile)
-    table.non-markdown
-    tr:nth-child(even)
     td {
     background-color: transparent;
 }
