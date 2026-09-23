@@ -71,9 +71,6 @@ class WidgetContainer extends React.Component<Props, State> {
     render(): React.ReactNode {
         let className = classNames({
             "perseus-widget-container": true,
-            // deprecated-perseus-container is needed to get the correct amount
-            // of margin-block-end in all cases.
-            "deprecated-perseus-container": true,
             // HACK(matthewc): perseus-widget-container is setting a font-size
             // but we want the definition prompt to match the surrounding font
             // I'm sorry, but there's a time crunch
@@ -156,43 +153,47 @@ class WidgetContainer extends React.Component<Props, State> {
         // because of a strange bug where the static styles aren't applied
         // after toggling static mode.
         return (
-            <Container
-                className={className}
-                style={isStatic ? staticContainerStyles : {}}
-            >
-                <DependenciesContext.Consumer>
-                    {({analytics}) => (
-                        <ErrorBoundary
-                            metadata={{
-                                widget_type: type,
-                                widget_id: this.props.id,
-                            }}
-                            onError={(error: Error) => {
-                                analytics.onAnalyticsEvent({
-                                    type: "perseus:widget-rendering-error:ti",
-                                    payload: {
-                                        widgetSubType: subType,
-                                        widgetType: type,
-                                        widgetId: this.props.id,
-                                        message: error.message,
-                                        stack:
-                                            error.stack ??
-                                            "No stack trace available",
-                                        userAgent: userAgent,
-                                    },
-                                });
-                            }}
-                        >
-                            <WidgetType
-                                {...this.props.widgetProps}
-                                linterContext={linterContext}
-                                containerSizeClass={this.state.sizeClass}
-                                ref={this.widgetRef}
-                            />
-                            {isStatic && <div style={staticOverlayStyles} />}
-                        </ErrorBoundary>
-                    )}
-                </DependenciesContext.Consumer>
+            <Container className="deprecated-perseus-container">
+                <Container
+                    className={className}
+                    style={isStatic ? staticContainerStyles : {}}
+                >
+                    <DependenciesContext.Consumer>
+                        {({analytics}) => (
+                            <ErrorBoundary
+                                metadata={{
+                                    widget_type: type,
+                                    widget_id: this.props.id,
+                                }}
+                                onError={(error: Error) => {
+                                    analytics.onAnalyticsEvent({
+                                        type: "perseus:widget-rendering-error:ti",
+                                        payload: {
+                                            widgetSubType: subType,
+                                            widgetType: type,
+                                            widgetId: this.props.id,
+                                            message: error.message,
+                                            stack:
+                                                error.stack ??
+                                                "No stack trace available",
+                                            userAgent: userAgent,
+                                        },
+                                    });
+                                }}
+                            >
+                                <WidgetType
+                                    {...this.props.widgetProps}
+                                    linterContext={linterContext}
+                                    containerSizeClass={this.state.sizeClass}
+                                    ref={this.widgetRef}
+                                />
+                                {isStatic && (
+                                    <div style={staticOverlayStyles} />
+                                )}
+                            </ErrorBoundary>
+                        )}
+                    </DependenciesContext.Consumer>
+                </Container>
             </Container>
         );
     }
