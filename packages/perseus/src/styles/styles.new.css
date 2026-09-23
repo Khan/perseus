@@ -448,3 +448,7 @@
     margin: 0;
     font-size: initial;
 }
+
+:is(th, td) > .deprecated-perseus-container:has(> .perseus-widget-container.widget-block) {
+    margin-block: 0;
+}
