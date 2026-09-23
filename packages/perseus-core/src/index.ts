@@ -215,6 +215,7 @@ export {getLabelImagePublicWidgetOptions} from "./widgets/label-image/label-imag
 /** @hidden */
 export {
     getSorterPublicWidgetOptions,
+    exceedsCardLimit,
     shuffleSorter,
     SORTER_MAX_CARDS,
 } from "./widgets/sorter/sorter-util";

@@ -4,6 +4,10 @@ import type {PerseusSorterWidgetOptions} from "../../data-schema";
 
 export const SORTER_MAX_CARDS = 10;
 
+export function exceedsCardLimit(correct: readonly string[]): boolean {
+    return correct.length > SORTER_MAX_CARDS;
+}
+
 /**
  * For details on the individual options, see the
  * PerseusSorterWidgetOptions type

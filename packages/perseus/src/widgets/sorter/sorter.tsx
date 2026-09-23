@@ -1,4 +1,4 @@
-import {SORTER_MAX_CARDS} from "@khanacademy/perseus-core";
+import {exceedsCardLimit} from "@khanacademy/perseus-core";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {forwardRef, useImperativeHandle, useRef} from "react";
@@ -6,7 +6,7 @@ import {forwardRef, useImperativeHandle, useRef} from "react";
 import Sortable from "../../components/sortable";
 import {useDependencies} from "../../dependencies";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
-import {DeprecatedStandin} from "../deprecated-standin/deprecated-standin";
+import deprecatedStandin from "../deprecated-standin";
 
 import type {SortableOption} from "../../components/sortable";
 import type {Widget, WidgetProps} from "../../types";
@@ -15,6 +15,8 @@ import type {
     PerseusSorterWidgetOptions,
     PerseusSorterUserInput,
 } from "@khanacademy/perseus-core";
+
+const DeprecatedStandin = deprecatedStandin.widget;
 
 type Props = WidgetProps<PerseusSorterWidgetOptions, PerseusSorterUserInput>;
 
@@ -85,7 +87,7 @@ const Sorter = forwardRef<SorterHandle, Props>(function Sorter(props, ref) {
     // Legacy content predates the card limit the editor now enforces. These
     // sorters are unusable, so learners get the standin while authors keep the
     // full editor to fix them with.
-    if (options.correct.length > SORTER_MAX_CARDS) {
+    if (exceedsCardLimit(options.correct)) {
         return <DeprecatedStandin />;
     }
 

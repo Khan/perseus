@@ -1,6 +1,6 @@
 import {
     approximateDeepEqual,
-    SORTER_MAX_CARDS,
+    exceedsCardLimit,
 } from "@khanacademy/perseus-core";
 
 import type {
@@ -15,7 +15,7 @@ function scoreSorter(
 ): PerseusScore {
     // These sorters render as the deprecated standin, so the learner was never
     // shown anything to answer. Award the point so they aren't blocked.
-    if (rubric.correct.length > SORTER_MAX_CARDS) {
+    if (exceedsCardLimit(rubric.correct)) {
         return {
             type: "points",
             earned: 1,

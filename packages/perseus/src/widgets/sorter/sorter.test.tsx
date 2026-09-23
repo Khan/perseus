@@ -328,5 +328,20 @@ describe("sorter widget", () => {
                 screen.queryByText(deprecatedStandinText),
             ).not.toBeInTheDocument();
         });
+
+        it("is scored as correct without the learner answering", () => {
+            // Arrange
+            const question = generateSorterQuestion(SORTER_MAX_CARDS + 1);
+            const {renderer} = renderQuestion(question);
+
+            // Act
+            const score = scorePerseusItemTesting(
+                question,
+                renderer.getUserInputMap(),
+            );
+
+            // Assert
+            expect(score).toHaveBeenAnsweredCorrectly();
+        });
     });
 });
