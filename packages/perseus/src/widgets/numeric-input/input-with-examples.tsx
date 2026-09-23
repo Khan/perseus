@@ -136,7 +136,7 @@ const InputWithExamples = forwardRef<Focusable, Props>(
         const renderTooltipContent = () => {
             return (
                 <TooltipContent>
-                    <div id={id} className="input-with-examples-tooltip">
+                    <div id={id} className="input-with-examples-tooltip perseus-in-wb-popover">
                         <Renderer
                             content={examplesContent}
                             linterContext={PerseusLinter.pushContextStack(
