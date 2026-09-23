@@ -394,38 +394,53 @@ jobs:
             pull-requests: write # For creating/updating "snapshot created/updated" comment
             issues: write # For PR comments
         steps:
-            # Resolve the PR number regardless of how the workflow was triggered:
-            # - issue_comment: read from github.event.issue.number
-            # - workflow_dispatch: read from the pr_number input (required)
-            - name: Resolve PR number
-              id: pr
-              env:
-                  COMMENT_BODY: ${{ github.event.comment.body }}
-              run: |
-                  if [ "${{ github.event_name }}" = "issue_comment" ]; then
-                    if ! echo "$COMMENT_BODY" | grep -Eqx '\s*/snapshot\s*'; then
-                      echo "Comment is not exactly '/snapshot'. Skipping." >&2
-                       exit 1
-                    fi
-                    # For issue_comment events, GitHub represents a PR as an
-                    # "issue" under the hood, so github.event.issue.number is
-                    # the PR number.
-                    echo "number=${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
-                  elif [ -n "${{ inputs.pr_number }}" ]; then
-                    echo "number=${{ inputs.pr_number }}" >> $GITHUB_OUTPUT
-                  else
-                    echo "Error: pr_number input is required for workflow_dispatch." >&2
-                    exit 1
-                  fi
+            # Publishing snapshots is a 2-part process to satisfy npm Trusted
+            # Publishing (OIDC) requirements: Trigger Phase (issue_comment):
+            # Captures the /snapshot comment, validates authorization, and
+            # self-dispatches this workflow via workflow_dispatch. Publish
+            # Phase (workflow_dispatch): Executes the actual build and publish
+            # steps. Why this is necessary: When a workflow runs directly on
+            # issue_comment, GitHub generates an OIDC JWT containing
+            # event_name: issue_comment evaluated against main. npm's Trusted
+            # Publisher backend rejects issue_comment claim payloads during the
+            # OIDC exchange, returning a 404. Re-triggering via
+            # workflow_dispatch produces standard OIDC claims that npm
+            # successfully validates.
 
-            - name: React to /snapshot comment
+            # Part I - validate comment and kick off actual snapshot publishing
+            - name: Self-dispatch via workflow_dispatch on comment
               if: github.event_name == 'issue_comment'
               env:
-                  GH_TOKEN: ${{ github.token }}
+                COMMENT_BODY: ${{ github.event.comment.body }}
+                GH_TOKEN: ${{ secrets.KHAN_ACTIONS_BOT_TOKEN || secrets.GITHUB_TOKEN }}
               run: |
-                  gh api \
-                    repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions \
-                    -X POST -f content='eyes'
+                if ! echo "$COMMENT_BODY" | grep -Eqx '\s*/snapshot\s*'; then
+                  echo "Comment is not exactly '/snapshot'. Skipping." >&2
+                  exit 1
+                fi
+
+                echo "Triggered via comment. Self-dispatching workflow_dispatch to satisfy npm OIDC..."
+
+                # React to the comment first
+                gh api \
+                  repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions \
+                  -X POST -f content='eyes'
+
+                # Re-trigger THIS exact workflow via workflow_dispatch
+                gh workflow run publish.yml \
+                  --repo ${{ github.repository }} \
+                  -f run_type=snapshot \
+                  -f pr_number=${{ github.event.issue.number }}
+
+                echo "Dispatched workflow_dispatch successfully. Terminating comment listener run."
+                exit 0 # Exits this job cleanly without failing
+
+            # Part II - validate incoming PR number and do the publish!
+            - name: Bail if PR number is missing
+              if: inputs.pr_number == ''
+              run: |
+                echo "::error::No PR number provided. Terminating step."
+                exit 1
 
             # We need to checkout all history, so that the changeset tool can diff it.
             # We check out the PR's merge commit so we publish what would land on main.
@@ -433,7 +448,7 @@ jobs:
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
               with:
                   token: ${{ secrets.KHAN_ACTIONS_BOT_TOKEN }}
-                  ref: refs/pull/${{ steps.pr.outputs.number }}/merge
+                  ref: refs/pull/${{ inputs.pr_number }}/merge
                   fetch-depth: "0"
 
             - name: Secure Network
