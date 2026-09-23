@@ -5,7 +5,10 @@
      */
     .choice :global(.paragraph),
     .choice :global(.deprecated-perseus-container),
-    &:global(.perseus-mobile) :global(.perseus-renderer) .choice :global(.deprecated-perseus-container),
+    &:global(.perseus-mobile)
+        :global(.perseus-renderer)
+        .choice
+        :global(.deprecated-perseus-container),
     &:global(.perseus-article:not(.perseus-mobile))
         .choice
         :global(.perseus-renderer .deprecated-perseus-container) {
