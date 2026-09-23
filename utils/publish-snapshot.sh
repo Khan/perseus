@@ -10,7 +10,6 @@
 set -e # Exit immediately if a command exits with a non-zero status.
 set -o pipefail
 set -u # Treat unset variables as an error when substituting.
-set -x # debug mode
 
 # Identifies the path that the script is in (http://stackoverflow.com/a/246128/11807)
 MYPATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
@@ -113,9 +112,7 @@ pnpm changeset version --snapshot "$PR_NUMBER"
 # provenance information in the package.json file and surface
 # it in the npm registry.
 # See: https://docs.npmjs.com/generating-provenance-statements
-set +o pipefall
 env NPM_CONFIG_PROVENANCE=true pnpm changeset publish --no-git-tag --tag "${PR_NUMBER}"
-find /home/runner/.npm/_logs/ | xargs -n 1 cat
 
 # Now we export the npm tag name so that later Github Action steps have access
 # to this value in the form of:

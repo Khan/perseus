@@ -467,13 +467,6 @@ jobs:
                   # the npmjs.com side:
                   # https://www.npmjs.com/package/@khanacademy/mathjax-renderer/access
 
-            - name: Upload logs
-              uses: actions/upload-artifact@v7
-              if: always()
-              with:
-                  name: npm-logs
-                  path: /home/runner/.npm/_logs/
-
             - name: Calculate short SHA for this commit
               id: short-sha
               # We capture HEAD after checkout rather than using
