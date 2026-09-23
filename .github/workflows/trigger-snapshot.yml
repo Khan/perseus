@@ -1,0 +1,82 @@
+name: Trigger Snapshot Publish
+
+# Publishing snapshots is a 2-part process to satisfy npm Trusted
+# Publishing (OIDC) requirements:
+#   a) Trigger Phase (via issue_comment) in this file.
+#      Captures the /snapshot comment, validates authorization, and
+#      dispatches publish.yml via workflow_dispatch.
+#   b) Publish Phase (via workflow_dispatch) in publish.yml.
+#      Executes the actual build and publish steps.
+#
+# Why is this necessary? When a workflow runs directly on
+# issue_comment, GitHub generates an OIDC JWT containing
+# event_name: issue_comment evaluated against main. npm's Trusted
+# Publisher backend rejects issue_comment claim payloads during the
+# OIDC exchange, returning a 404. Re-triggering via
+# workflow_dispatch produces standard OIDC claims that npm
+# successfully validates.
+
+on:
+    issue_comment:
+        types: [created]
+
+concurrency:
+    # Key by PR number so each PR gets its own serialization slot.
+    group: ${{ github.workflow }}-${{ github.event.issue.number }}
+    # We don't want later comments of any kind to cancel this job
+    cancel-in-progress: false
+
+jobs:
+    trigger_snapshot:
+        name: Trigger npm snapshot
+        # `contains()` is only a fail-fast pre-filter; expressions can't trim
+        # or pattern-match, so the exact check happens in the first step.
+        if: |
+            (github.event.issue.pull_request != null &&
+             contains(github.event.comment.body, '/snapshot') &&
+             (github.event.comment.author_association == 'OWNER' ||
+              github.event.comment.author_association == 'MEMBER'))
+        runs-on: ubuntu-latest
+        permissions:
+            actions: write # For `gh workflow run` (GITHUB_TOKEN fallback)
+            issues: write # For reacting to the /snapshot comment
+        env:
+            GH_TOKEN: >-
+                ${{ secrets.KHAN_ACTIONS_BOT_TOKEN || secrets.GITHUB_TOKEN }}
+            # Lets `gh` resolve the repo (and `{owner}/{repo}` in `gh api`)
+            # without a checkout.
+            GH_REPO: ${{ github.repository }}
+        steps:
+            - name: Check for /snapshot command
+              id: check
+              env:
+                  COMMENT_BODY: ${{ github.event.comment.body }}
+              run: |
+                  if printf '%s\n' "$COMMENT_BODY" |
+                    grep -Eqx '\s*/snapshot\s*'; then
+                    echo "is_snapshot=true" >> "$GITHUB_OUTPUT"
+                  else
+                    echo "::notice::No line is exactly '/snapshot'. Skipping."
+                    echo "is_snapshot=false" >> "$GITHUB_OUTPUT"
+                  fi
+
+            - name: React to /snapshot comment
+              if: steps.check.outputs.is_snapshot == 'true'
+              env:
+                  COMMENT_ID: ${{ github.event.comment.id }}
+              run: |
+                  url="repos/{owner}/{repo}/issues/comments/$COMMENT_ID"
+                  gh api --method POST "$url/reactions" -f content=eyes
+
+            - name: Dispatch snapshot publish
+              if: steps.check.outputs.is_snapshot == 'true'
+              env:
+                  PR_NUMBER: ${{ github.event.issue.number }}
+                  COMMENT_ID: ${{ github.event.comment.id }}
+              # No `--ref`, so publish.yml runs from the default branch; the
+              # PR's code must never define how it gets published.
+              run: |
+                  gh workflow run publish.yml \
+                    -f run_type=snapshot \
+                    -f pr_number="$PR_NUMBER" \
+                    -f comment_id="$COMMENT_ID"

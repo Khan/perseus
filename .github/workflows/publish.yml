@@ -5,8 +5,6 @@ on:
         branches: [main]
     pull_request:
         types: [opened]
-    issue_comment:
-        types: [created]
 
     workflow_dispatch:
         inputs:
@@ -20,6 +18,10 @@ on:
                     - release
             pr_number:
                 description: "PR number (required when run_type is snapshot)"
+                required: false
+                type: string
+            comment_id:
+                description: "ID of the /snapshot comment to react to (optional)"
                 required: false
                 type: string
 
@@ -63,11 +65,13 @@ env:
 concurrency:
     # For snapshot jobs, key by PR number so each PR gets its own serialization
     # slot. For release jobs, key by ref so only one production release runs at
-    # a time per branch. issue_comment events carry the default-branch ref, so
-    # without this distinction all snapshot runs would serialize together.
+    # a time per branch. Dispatched snapshots carry the default-branch ref, so
+    # without this distinction all snapshot runs would serialize together (and
+    # behind releases).
     group: >-
         ${{ github.workflow }}-${{
-          github.event_name == 'issue_comment' && github.event.issue.number ||
+          inputs.run_type == 'snapshot' &&
+          format('pr-{0}', inputs.pr_number) ||
           github.ref }}
     # IMPORTANT! We do not want to cancel in-progress runs, because we don't
     # want a production publish to be interrupted by a snapshot publish ever.
@@ -372,70 +376,19 @@ jobs:
 
     publish_snapshot:
         name: Publish npm snapshot
-        # Snapshots are on-demand only (either):
-        # - comment '/snapshot' on a PR (Khan Academy org members only)
-        # - trigger manually via workflow_dispatch.
-        # We skip "Version Packages" PRs since those are release-prep, not
-        # feature work.
-        #   Note that the `if` check here gates on finding `/snapshot`
-        #   _anywhere_ in the comment (contains()), but we'll do a better job
-        #   checking exactly lower down when we resolve the PR number. So this
-        #   `if` check is just a "fail fast".
-        if: |
-            (github.event_name == 'workflow_dispatch' && inputs.run_type == 'snapshot') ||
-            (github.event_name == 'issue_comment' &&
-             github.event.issue.pull_request != null &&
-             contains(github.event.comment.body, '/snapshot') &&
-             (github.event.comment.author_association == 'OWNER' ||
-              github.event.comment.author_association == 'MEMBER'))
+        # Snapshots are on-demand only, always via workflow_dispatch: either
+        # manually, or dispatched by trigger-snapshot.yml when someone
+        # comments '/snapshot' on a PR. See that file for why the comment
+        # can't run this job directly (npm Trusted Publishing/OIDC).
+        if: >-
+            github.event_name == 'workflow_dispatch' &&
+            inputs.run_type == 'snapshot'
         runs-on: ubuntu-latest
         permissions:
             id-token: write # For trusted publishing to npm (includes provenance)
             pull-requests: write # For creating/updating "snapshot created/updated" comment
             issues: write # For PR comments
         steps:
-            # Publishing snapshots is a 2-part process to satisfy npm Trusted
-            # Publishing (OIDC) requirements: Trigger Phase (issue_comment):
-            # Captures the /snapshot comment, validates authorization, and
-            # self-dispatches this workflow via workflow_dispatch. Publish
-            # Phase (workflow_dispatch): Executes the actual build and publish
-            # steps. Why this is necessary: When a workflow runs directly on
-            # issue_comment, GitHub generates an OIDC JWT containing
-            # event_name: issue_comment evaluated against main. npm's Trusted
-            # Publisher backend rejects issue_comment claim payloads during the
-            # OIDC exchange, returning a 404. Re-triggering via
-            # workflow_dispatch produces standard OIDC claims that npm
-            # successfully validates.
-
-            # Part I - validate comment and kick off actual snapshot publishing
-            - name: Self-dispatch via workflow_dispatch on comment
-              if: github.event_name == 'issue_comment'
-              env:
-                  COMMENT_BODY: ${{ github.event.comment.body }}
-                  GH_TOKEN: ${{ secrets.KHAN_ACTIONS_BOT_TOKEN || secrets.GITHUB_TOKEN }}
-              run: |
-                  if ! echo "$COMMENT_BODY" | grep -Eqx '\s*/snapshot\s*'; then
-                    echo "Comment is not exactly '/snapshot'. Skipping." >&2
-                    exit 1
-                  fi
-
-                  echo "Triggered via comment. Self-dispatching workflow_dispatch to satisfy npm OIDC..."
-
-                  # React to the comment first
-                  gh api \
-                    repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions \
-                    -X POST -f content='eyes'
-
-                  # Re-trigger THIS exact workflow via workflow_dispatch
-                  gh workflow run publish.yml \
-                    --repo ${{ github.repository }} \
-                    -f run_type=snapshot \
-                    -f pr_number=${{ github.event.issue.number }}
-
-                  echo "Dispatched workflow_dispatch successfully. Terminating comment listener run."
-                  exit 0 # Exits this job cleanly without failing
-
-            # Part II - validate incoming PR number and do the publish!
             - name: Bail if PR number is missing
               if: inputs.pr_number == ''
               run: |
@@ -475,7 +428,7 @@ jobs:
 
             - name: Publish Snapshot Release to npm
               id: publish-snapshot
-              run: ./utils/publish-snapshot.sh ${{ steps.pr.outputs.number }}
+              run: ./utils/publish-snapshot.sh ${{ inputs.pr_number }}
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   # Note: we no longer use the NPM_TOKEN secret because we've enabled
@@ -487,7 +440,7 @@ jobs:
               id: short-sha
               # We capture HEAD after checkout rather than using
               # github.event.pull_request.head.sha, which isn't available for
-              # issue_comment events.
+              # workflow_dispatch events.
               run: echo "short_sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
             # Note: these two actions are locked to the latest version that were
@@ -498,7 +451,7 @@ jobs:
               uses: peter-evans/find-comment@b30e6a3c0ed37e7c023ccd3f1db5c6c0b0c23aad # v4.0.0
               id: find-comment
               with:
-                  issue-number: ${{ steps.pr.outputs.number }}
+                  issue-number: ${{ inputs.pr_number }}
                   comment-author: "github-actions[bot]"
                   body-includes: "${{ env.SNAPSHOT_COMMENT_MARKER }}"
 
@@ -506,7 +459,7 @@ jobs:
               if: steps.publish-snapshot.outputs.npm_snapshot_tag != ''
               uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5.0.0
               with:
-                  issue-number: ${{ steps.pr.outputs.number }}
+                  issue-number: ${{ inputs.pr_number }}
                   comment-id: ${{ steps.find-comment.outputs.comment-id }}
                   edit-mode: replace
                   body: |
@@ -526,12 +479,12 @@ jobs:
 
                       If you are working in Khan Academy's frontend, you can run the below command.
                       ```sh
-                      ./dev/tools/bump_perseus_version.ts -t PR${{ steps.pr.outputs.number }}
+                      ./dev/tools/bump_perseus_version.ts -t PR${{ inputs.pr_number }}
                       ```
 
                       If you are working in Khan Academy's webapp, you can run the below command.
                       ```sh
-                      ./dev/tools/bump_perseus_version.js -t PR${{ steps.pr.outputs.number }}
+                      ./dev/tools/bump_perseus_version.js -t PR${{ inputs.pr_number }}
                       ```
 
                       ---
@@ -541,7 +494,7 @@ jobs:
               if: steps.publish-snapshot.outputs.npm_snapshot_tag == ''
               uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5.0.0
               with:
-                  issue-number: ${{ steps.pr.outputs.number }}
+                  issue-number: ${{ inputs.pr_number }}
                   comment-id: ${{ steps.find-comment.outputs.comment-id }}
                   edit-mode: replace
                   body: |
@@ -555,24 +508,23 @@ jobs:
                       ---
                       Want to try again? Comment `/snapshot` once you've added a changeset.
 
+            # comment_id is only set when trigger-snapshot.yml dispatched us.
             - name: React to /snapshot comment on failure
-              if: >-
-                  github.event_name == 'issue_comment' &&
-                  failure()
+              if: failure() && inputs.comment_id != ''
               env:
                   GH_TOKEN: ${{ github.token }}
+                  COMMENT_ID: ${{ inputs.comment_id }}
               run: |
-                  gh api \
-                    repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions \
-                    -X POST -f content='confused'
+                  url="repos/$GITHUB_REPOSITORY/issues/comments/$COMMENT_ID"
+                  gh api --method POST "$url/reactions" -f content=confused
 
             - name: React to /snapshot comment on success
               if: >-
-                  github.event_name == 'issue_comment' &&
+                  inputs.comment_id != '' &&
                   steps.publish-snapshot.outputs.npm_snapshot_tag != ''
               env:
                   GH_TOKEN: ${{ github.token }}
+                  COMMENT_ID: ${{ inputs.comment_id }}
               run: |
-                  gh api \
-                    repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions \
-                    -X POST -f content='rocket'
+                  url="repos/$GITHUB_REPOSITORY/issues/comments/$COMMENT_ID"
+                  gh api --method POST "$url/reactions" -f content=rocket
