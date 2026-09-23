@@ -46,9 +46,7 @@ const Renderer = React.forwardRef<Renderer, Props>(
             "perseus-renderer-upgrade",
         );
 
-        // STOPSHIP: remove feature flag hardcoding before landing this PR.
-        // eslint-disable-next-line no-constant-condition
-        return true || rendererFF ? (
+        return rendererFF ? (
             <RendererNew ref={ref} {...props} />
         ) : (
             <RendererOld ref={ref} {...props} />
