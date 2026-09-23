@@ -521,7 +521,7 @@ jobs:
                   COMMENT_ID: ${{ inputs.comment_id }}
               run: |
                   gh api --method POST -f content=confused \
-                    "repos/$GITHUB_REPOSITORY/issues/comments/$COMMENT_ID/reactions"
+                    "repos/{owner}/{repo}/issues/comments/$COMMENT_ID/reactions"
 
             - name: React to /snapshot comment on success
               if: >-
@@ -532,4 +532,4 @@ jobs:
                   COMMENT_ID: ${{ inputs.comment_id }}
               run: |
                   gh api --method POST -f content=rocket \
-                    "repos/$GITHUB_REPOSITORY/issues/comments/$COMMENT_ID/reactions"
+                    "repos/{owner}/{repo}/issues/comments/$COMMENT_ID/reactions"
