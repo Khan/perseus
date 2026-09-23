@@ -65,8 +65,8 @@ jobs:
               env:
                   COMMENT_ID: ${{ github.event.comment.id }}
               run: |
-                  url="repos/{owner}/{repo}/issues/comments/$COMMENT_ID"
-                  gh api --method POST "$url/reactions" -f content=eyes
+                  gh api --method POST -f content=eyes \
+                    "repos/{owner}/{repo}/issues/comments/$COMMENT_ID/reactions"
 
             - name: Dispatch snapshot publish
               if: steps.check.outputs.is_snapshot == 'true'
