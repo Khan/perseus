@@ -114,6 +114,7 @@ pnpm changeset version --snapshot "$PR_NUMBER"
 # See: https://docs.npmjs.com/generating-provenance-statements
 pnpm publish --recursive --batch --provenance \
     --tag "${PR_NUMBER}" \
+    --no-git-checks \
     --loglevel debug
 
 # Now we export the npm tag name so that later Github Action steps have access
