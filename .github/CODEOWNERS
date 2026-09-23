@@ -1,14 +1,14 @@
 # Khan/perseus is tagged for all PRs
-@Khan/perseus
+* @Khan/perseus
 
 # AI Utils are owned by Tutor Platform
 widget-ai-utils/* @Khan/tut
 
 # For the Color Sync renderer updates
-packages/perseus/src/perseus-markdown.new.tsx @nishasy @markfitzgerald @myranae
-packages/perseus/src/perseus-markdown.tsx @nishasy @markfitzgerald @myranae
-packages/perseus/src/renderer.new.tsx @nishasy @markfitzgerald @myranae
-packages/perseus/src/renderer.old.tsx @nishasy @markfitzgerald @myranae
-packages/perseus/src/renderer.tsx @nishasy @markfitzgerald @myranae
-packages/perseus/src/styles/perseus-renderer.new.css @nishasy @markfitzgerald @myranae
-packages/perseus/src/styles/perseus-renderer.css @nishasy @markfitzgerald @myranae
+packages/perseus/src/perseus-markdown.new.tsx @nishasy @markfitzgerald
+packages/perseus/src/perseus-markdown.tsx @nishasy @markfitzgerald
+packages/perseus/src/renderer.new.tsx @nishasy @markfitzgerald
+packages/perseus/src/renderer.old.tsx @nishasy @markfitzgerald
+packages/perseus/src/renderer.tsx @nishasy @markfitzgerald
+packages/perseus/src/styles/perseus-renderer.new.css @nishasy @markfitzgerald
+packages/perseus/src/styles/perseus-renderer.css @nishasy @markfitzgerald
