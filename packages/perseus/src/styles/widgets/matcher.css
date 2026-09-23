@@ -4,6 +4,6 @@
        descendent widgets that we can't modify */
 }
 .perseus-widget-matcher div.paragraph,
-.perseus-widget-matcher div.deprecated-perseus-container {
+.perseus-widget-matcher :is(div, p).deprecated-perseus-container {
     margin: 0;
 }
