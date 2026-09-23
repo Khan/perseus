@@ -1,0 +1,7 @@
+---
+"@khanacademy/perseus-editor": patch
+"@khanacademy/perseus": patch
+"@khanacademy/perseus-core": patch
+---
+
+[Sorter] Render horizontal sorters as vertical if they have too many cards
