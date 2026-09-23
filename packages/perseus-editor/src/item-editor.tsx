@@ -1,5 +1,4 @@
 import * as React from "react";
-import invariant from "tiny-invariant";
 import _ from "underscore";
 
 import CombinedHintsEditor from "./combined-hints-editor";
@@ -96,26 +95,6 @@ class ItemEditor extends React.Component<Props> {
     handleA11yReport = (report: A11yReport | null) => {
         this.context?.onA11yReport(report);
     };
-
-    serialize(): PerseusItem {
-        invariant(
-            this.questionEditor.current,
-            "cannot serialize ItemEditor without Editor",
-        );
-        invariant(
-            this.extrasEditor.current,
-            "cannot serialize ItemEditor without ExtrasEditor",
-        );
-        invariant(
-            this.hintsEditor.current,
-            "cannot serialize ItemEditor without CombinedHintsEditor",
-        );
-        return {
-            question: this.questionEditor.current.serialize(),
-            answerArea: this.extrasEditor.current.serialize(),
-            hints: this.hintsEditor.current.serialize(),
-        };
-    }
 
     render(): React.ReactNode {
         const isMobile =

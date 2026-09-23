@@ -531,9 +531,7 @@ describe("Expression Widget", function () {
         it("prevents focus callback errors after the component is unmounted", () => {
             const {renderer, unmount} = renderQuestion(
                 expressionItemMultipleEquivalentAnswers.question,
-                {
-                    customKeypad: true,
-                },
+                {apiOptions: {customKeypad: true}},
             );
             const expression = renderer.findWidgets("expression 1")[0];
             unmount();
@@ -579,9 +577,11 @@ describe("Expression Widget", function () {
         it("supports mobile rendering", async () => {
             // arrange and act
             renderQuestion(expressionItemMultipleEquivalentAnswers.question, {
-                // Setting this triggers mobile rendering
-                // it would be nice if this was more clear in the code
-                customKeypad: true,
+                apiOptions: {
+                    // Setting this triggers mobile rendering
+                    // it would be nice if this was more clear in the code
+                    customKeypad: true,
+                },
             });
 
             // Assert

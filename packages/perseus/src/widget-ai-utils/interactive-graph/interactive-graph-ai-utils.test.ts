@@ -1,6 +1,5 @@
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {ApiOptions} from "../../perseus-api";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 import {
     angleQuestion,
@@ -19,8 +18,6 @@ import {getPromptJSON} from "./interactive-graph-ai-utils";
 
 import type {PerseusInteractiveGraphUserInput} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
-
-const apiOptions = ApiOptions.defaults;
 
 describe("InteractiveGraph AI utils", () => {
     let userEvent: UserEvent;
@@ -657,7 +654,7 @@ describe("InteractiveGraph AI utils", () => {
 
     it("should get prompt JSON for an angle graph", async () => {
         // Arrange
-        const {renderer} = renderQuestion(angleQuestion, apiOptions);
+        const {renderer} = renderQuestion(angleQuestion);
 
         // Act
         await userEvent.tab();
@@ -701,7 +698,7 @@ describe("InteractiveGraph AI utils", () => {
 
     it("should get prompt JSON for a circle graph", async () => {
         // Arrange
-        const {renderer} = renderQuestion(circleQuestion, apiOptions);
+        const {renderer} = renderQuestion(circleQuestion);
 
         // Act
         await userEvent.tab();
@@ -741,7 +738,7 @@ describe("InteractiveGraph AI utils", () => {
 
     it("should get prompt JSON for a linear graph", async () => {
         // Arrange
-        const {renderer} = renderQuestion(linearQuestion, apiOptions);
+        const {renderer} = renderQuestion(linearQuestion);
 
         // Act
         await userEvent.tab();
@@ -780,7 +777,7 @@ describe("InteractiveGraph AI utils", () => {
 
     it("should get prompt JSON for a linear system graph", async () => {
         // Arrange
-        const {renderer} = renderQuestion(linearSystemQuestion, apiOptions);
+        const {renderer} = renderQuestion(linearSystemQuestion);
 
         // Act
         await userEvent.tab();
@@ -825,7 +822,7 @@ describe("InteractiveGraph AI utils", () => {
 
     it("should get prompt JSON for a point graph", async () => {
         // Arrange
-        const {renderer} = renderQuestion(pointQuestion, apiOptions);
+        const {renderer} = renderQuestion(pointQuestion);
 
         // Act
         const json = renderer.getPromptJSON();
@@ -861,7 +858,7 @@ describe("InteractiveGraph AI utils", () => {
 
     it("should get prompt JSON for a polygon graph", async () => {
         // Arrange
-        const {renderer} = renderQuestion(polygonQuestion, apiOptions);
+        const {renderer} = renderQuestion(polygonQuestion);
 
         // Act
         await userEvent.tab();
@@ -904,7 +901,7 @@ describe("InteractiveGraph AI utils", () => {
 
     it("should get prompt JSON for a quadratic graph", async () => {
         // Arrange
-        const {renderer} = renderQuestion(quadraticQuestion, apiOptions);
+        const {renderer} = renderQuestion(quadraticQuestion);
 
         // Act
         await userEvent.tab();
@@ -944,7 +941,7 @@ describe("InteractiveGraph AI utils", () => {
 
     it("should get prompt JSON for a ray graph", async () => {
         // Arrange
-        const {renderer} = renderQuestion(rayQuestion, apiOptions);
+        const {renderer} = renderQuestion(rayQuestion);
 
         // Act
         await userEvent.tab();
@@ -984,7 +981,7 @@ describe("InteractiveGraph AI utils", () => {
 
     it("should get prompt JSON for a segment graph", async () => {
         // Arrange
-        const {renderer} = renderQuestion(segmentQuestion, apiOptions);
+        const {renderer} = renderQuestion(segmentQuestion);
 
         // Act
         await userEvent.tab();
@@ -1027,7 +1024,7 @@ describe("InteractiveGraph AI utils", () => {
 
     it("should get prompt JSON for a sinusoid graph", async () => {
         // Arrange
-        const {renderer} = renderQuestion(sinusoidQuestion, apiOptions);
+        const {renderer} = renderQuestion(sinusoidQuestion);
 
         // Act
         await userEvent.tab();

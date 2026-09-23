@@ -42,7 +42,6 @@ describe("explanation-editor", () => {
         expect(onChangeMock).toHaveBeenCalledWith(
             // The dropdown initalizes with "Explain"
             expect.objectContaining({showPrompt: "Explaina"}),
-            undefined,
         );
     });
 
@@ -59,7 +58,6 @@ describe("explanation-editor", () => {
         expect(onChangeMock).toHaveBeenCalledWith(
             // The dropdown initalizes with "Hide explain"
             expect.objectContaining({hidePrompt: "Hide explanationa"}),
-            undefined,
         );
     });
 });

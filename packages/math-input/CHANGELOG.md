@@ -1,5 +1,53 @@
 # @khanacademy/math-input
 
+## 28.0.0
+
+### Major Changes
+
+-   [#4133](https://github.com/Khan/perseus/pull/4133) [`54959a3`](https://github.com/Khan/perseus/commit/54959a308d6bd9cc41fbb06feb6dbb7029d5371b) Thanks [@handeyeco](https://github.com/handeyeco)! - Change KeypadContext API so that rather than exposing a raw `renderer` we abstract functionality behind `blurRenderer`
+
+### Patch Changes
+
+-   Updated dependencies [[`6b422ce`](https://github.com/Khan/perseus/commit/6b422ce7aeb04b9928fd21dabf42d2edbe048886), [`54959a3`](https://github.com/Khan/perseus/commit/54959a308d6bd9cc41fbb06feb6dbb7029d5371b)]:
+    -   @khanacademy/perseus-core@39.2.2
+    -   @khanacademy/keypad-context@4.0.0
+
+## 27.0.17
+
+### Patch Changes
+
+-   [#4167](https://github.com/Khan/perseus/pull/4167) [`b718fbc`](https://github.com/Khan/perseus/commit/b718fbc8ff3f3588cbc113cd7d45de0b207bd660) Thanks [@Myranae](https://github.com/Myranae)! - Internal color cleanup. The only visible change is that the shadow under the mobile keypad's cursor handle may appear very slightly darker.
+
+-   Updated dependencies [[`284ac95`](https://github.com/Khan/perseus/commit/284ac95dce32e3d3ddbe2287106ad253b16ffadb)]:
+    -   @khanacademy/perseus-core@39.2.1
+    -   @khanacademy/keypad-context@3.2.93
+
+## 27.0.16
+
+### Patch Changes
+
+-   [#4227](https://github.com/Khan/perseus/pull/4227) [`c927205`](https://github.com/Khan/perseus/commit/c9272053e926d8c78f2b07c64855ec6a27674839) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dependencies
+
+-   Updated dependencies [[`995aa68`](https://github.com/Khan/perseus/commit/995aa68d04bdc95f7b463406d797ed6a24107cad)]:
+    -   @khanacademy/perseus-core@39.2.0
+    -   @khanacademy/keypad-context@3.2.92
+
+## 27.0.15
+
+### Patch Changes
+
+-   [#4219](https://github.com/Khan/perseus/pull/4219) [`43887dc`](https://github.com/Khan/perseus/commit/43887dc4b4ca3133b00e78db16810249c70ce66c) Thanks [@jandrade](https://github.com/jandrade)! - Bumps Wonder Blocks dependencies: IconButton now requires aria-label (major), Accordion, Clickable and Link improvments
+
+## 27.0.14
+
+### Patch Changes
+
+-   [#4206](https://github.com/Khan/perseus/pull/4206) [`c2a9d3e`](https://github.com/Khan/perseus/commit/c2a9d3ea577927464c53b0e027d707d41c06f78e) Thanks [@jandrade](https://github.com/jandrade)! - Updates WB peer deps
+
+-   Updated dependencies [[`dc12384`](https://github.com/Khan/perseus/commit/dc123845614fae331d8517a524212fc1dbbe110f)]:
+    -   @khanacademy/perseus-core@39.1.0
+    -   @khanacademy/keypad-context@3.2.91
+
 ## 27.0.13
 
 ### Patch Changes

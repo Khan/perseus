@@ -1,5 +1,33 @@
 # @khanacademy/kmath
 
+## 2.4.53
+
+### Patch Changes
+
+-   Updated dependencies [[`6b422ce`](https://github.com/Khan/perseus/commit/6b422ce7aeb04b9928fd21dabf42d2edbe048886)]:
+    -   @khanacademy/perseus-core@39.2.2
+
+## 2.4.52
+
+### Patch Changes
+
+-   Updated dependencies [[`284ac95`](https://github.com/Khan/perseus/commit/284ac95dce32e3d3ddbe2287106ad253b16ffadb)]:
+    -   @khanacademy/perseus-core@39.2.1
+
+## 2.4.51
+
+### Patch Changes
+
+-   Updated dependencies [[`995aa68`](https://github.com/Khan/perseus/commit/995aa68d04bdc95f7b463406d797ed6a24107cad)]:
+    -   @khanacademy/perseus-core@39.2.0
+
+## 2.4.50
+
+### Patch Changes
+
+-   Updated dependencies [[`dc12384`](https://github.com/Khan/perseus/commit/dc123845614fae331d8517a524212fc1dbbe110f)]:
+    -   @khanacademy/perseus-core@39.1.0
+
 ## 2.4.49
 
 ### Patch Changes
