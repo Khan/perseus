@@ -418,52 +418,60 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
     >
       The total number of boxes the forklift can carry is 
       <span
-        class="perseus-widget-container widget-inline-block"
+        class="deprecated-perseus-container"
       >
-        <div
-          class="default_7zhre1"
+        <span
+          class="perseus-widget-container widget-inline-block"
         >
-          <label
-            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
-            for=":r3:"
-          >
-            Test visible label
-          </label>
           <div
-            class="default_7zhre1-o_O-menuWrapper_1rs652y perseus-dropdown"
+            class="default_7zhre1"
           >
-            <button
-              aria-controls=":r4:"
-              aria-expanded="false"
-              aria-haspopup="listbox"
-              aria-invalid="false"
-              aria-label="Test ARIA label"
-              aria-required="false"
-              class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_znuyo8"
-              id=":r3:"
-              role="combobox"
-              type="button"
+            <label
+              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+              for=":r3:"
             >
-              <span
-                class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_awxjrp"
+              Test visible label
+            </label>
+            <div
+              class="default_7zhre1-o_O-menuWrapper_1rs652y perseus-dropdown"
+            >
+              <button
+                aria-controls=":r4:"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                aria-invalid="false"
+                aria-label="Test ARIA label"
+                aria-required="false"
+                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_znuyo8"
+                id=":r3:"
+                role="combobox"
+                type="button"
               >
-                <div
-                  class="perseus-renderer perseus-renderer-responsive"
+                <span
+                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_awxjrp"
                 >
                   <div
-                    class=""
+                    class="perseus-in-wb-popover"
                   >
-                    less than or equal to
+                    <div
+                      class="perseus-renderer perseus-renderer-responsive"
+                    >
+                      <div
+                        class=""
+                      >
+                        less than or equal to
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </span>
-              <span
-                aria-hidden="true"
-                class="svg_1q6jc65-o_O-small_6q1hy-o_O-caret_1e21hpf-o_O-inlineStyles_efsbsa"
-              />
-            </button>
+                </span>
+                <span
+                  aria-hidden="true"
+                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-caret_1e21hpf-o_O-inlineStyles_efsbsa"
+                />
+              </button>
+            </div>
           </div>
-        </div>
+        </span>
       </span>
        
       <span
@@ -493,52 +501,60 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
     >
       The total number of boxes the forklift can carry is 
       <span
-        class="perseus-widget-container widget-inline-block"
+        class="deprecated-perseus-container"
       >
-        <div
-          class="default_7zhre1"
+        <span
+          class="perseus-widget-container widget-inline-block"
         >
-          <label
-            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
-            for=":r6:"
-          >
-            Test visible label
-          </label>
           <div
-            class="default_7zhre1-o_O-menuWrapper_1rs652y perseus-dropdown"
+            class="default_7zhre1"
           >
-            <button
-              aria-controls=":r7:"
-              aria-expanded="false"
-              aria-haspopup="listbox"
-              aria-invalid="false"
-              aria-label="Test ARIA label"
-              aria-required="false"
-              class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_znuyo8"
-              id=":r6:"
-              role="combobox"
-              type="button"
+            <label
+              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+              for=":r6:"
             >
-              <span
-                class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_awxjrp"
+              Test visible label
+            </label>
+            <div
+              class="default_7zhre1-o_O-menuWrapper_1rs652y perseus-dropdown"
+            >
+              <button
+                aria-controls=":r7:"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                aria-invalid="false"
+                aria-label="Test ARIA label"
+                aria-required="false"
+                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_znuyo8"
+                id=":r6:"
+                role="combobox"
+                type="button"
               >
-                <div
-                  class="perseus-renderer perseus-renderer-responsive"
+                <span
+                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_awxjrp"
                 >
                   <div
-                    class=""
+                    class="perseus-in-wb-popover"
                   >
-                    greater than or equal to
+                    <div
+                      class="perseus-renderer perseus-renderer-responsive"
+                    >
+                      <div
+                        class=""
+                      >
+                        greater than or equal to
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </span>
-              <span
-                aria-hidden="true"
-                class="svg_1q6jc65-o_O-small_6q1hy-o_O-caret_1e21hpf-o_O-inlineStyles_efsbsa"
-              />
-            </button>
+                </span>
+                <span
+                  aria-hidden="true"
+                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-caret_1e21hpf-o_O-inlineStyles_efsbsa"
+                />
+              </button>
+            </div>
           </div>
-        </div>
+        </span>
       </span>
        
       <span
@@ -568,57 +584,65 @@ exports[`renderer snapshots initial render: initial render 1`] = `
     >
       The total number of boxes the forklift can carry is 
       <span
-        class="perseus-widget-container widget-inline-block"
+        class="deprecated-perseus-container"
       >
-        <div
-          class="default_7zhre1"
+        <span
+          class="perseus-widget-container widget-inline-block"
         >
-          <label
-            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
-            for=":r0:"
-          >
-            Test visible label
-          </label>
           <div
-            class="default_7zhre1-o_O-menuWrapper_1rs652y perseus-dropdown"
+            class="default_7zhre1"
           >
-            <button
-              aria-controls=":r1:"
-              aria-expanded="false"
-              aria-haspopup="listbox"
-              aria-invalid="false"
-              aria-label="Test ARIA label"
-              aria-required="false"
-              class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_znuyo8"
-              id=":r0:"
-              role="combobox"
-              type="button"
+            <label
+              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumBoldWeight_uu4up7"
+              for=":r0:"
             >
-              <span
-                class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_awxjrp"
+              Test visible label
+            </label>
+            <div
+              class="default_7zhre1-o_O-menuWrapper_1rs652y perseus-dropdown"
+            >
+              <button
+                aria-controls=":r1:"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                aria-invalid="false"
+                aria-label="Test ARIA label"
+                aria-required="false"
+                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_znuyo8"
+                id=":r0:"
+                role="combobox"
+                type="button"
               >
-                <div
-                  class="perseus-renderer perseus-renderer-responsive"
+                <span
+                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_awxjrp"
                 >
                   <div
-                    class=""
+                    class="perseus-in-wb-popover"
                   >
-                    greater
+                    <div
+                      class="perseus-renderer perseus-renderer-responsive"
+                    >
+                      <div
+                        class=""
+                      >
+                        greater
+                      </div>
+                      <div
+                        class=""
+                      >
+                        /less than or equal to
+                      </div>
+                    </div>
                   </div>
-                  <div
-                    class=""
-                  >
-                    /less than or equal to
-                  </div>
-                </div>
-              </span>
-              <span
-                aria-hidden="true"
-                class="svg_1q6jc65-o_O-small_6q1hy-o_O-caret_1e21hpf-o_O-inlineStyles_efsbsa"
-              />
-            </button>
+                </span>
+                <span
+                  aria-hidden="true"
+                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-caret_1e21hpf-o_O-inlineStyles_efsbsa"
+                />
+              </button>
+            </div>
           </div>
-        </div>
+        </span>
       </span>
        
       <span
@@ -647,34 +671,38 @@ exports[`renderer snapshots renders a placeholder for a deprecated widget: depre
       class="deprecated-perseus-container"
     >
       <div
-        class="perseus-widget-container widget-block"
+        class="deprecated-perseus-container"
       >
         <div
-          style="padding-block-start: 8px; padding-block-end: 8px;"
+          class="perseus-widget-container widget-block"
         >
           <div
-            class="default_7zhre1-o_O-containerOuter_1fa127e-o_O-infoBanner_rdpfpm"
-            role="status"
+            style="padding-block-start: 8px; padding-block-end: 8px;"
           >
             <div
-              class="default_7zhre1-o_O-containerInner_1lza62o"
+              class="default_7zhre1-o_O-containerOuter_1fa127e-o_O-infoBanner_rdpfpm"
+              role="status"
             >
-              <span
-                aria-label="info"
-                class="svg_1q6jc65-o_O-small_6q1hy-o_O-icon_18itqqa-o_O-infoIcon_cju5w7-o_O-inlineStyles_iads8r"
-                data-testid="banner-kind-icon"
-                role="img"
-              />
               <div
-                class="default_7zhre1-o_O-labelAndButtonsContainer_1dntbm4"
+                class="default_7zhre1-o_O-containerInner_1lza62o"
               >
+                <span
+                  aria-label="info"
+                  class="svg_1q6jc65-o_O-small_6q1hy-o_O-icon_18itqqa-o_O-infoIcon_cju5w7-o_O-inlineStyles_iads8r"
+                  data-testid="banner-kind-icon"
+                  role="img"
+                />
                 <div
-                  class="default_7zhre1-o_O-labelContainer_14mmd26"
+                  class="default_7zhre1-o_O-labelAndButtonsContainer_1dntbm4"
                 >
                   <div
-                    class="labelTypography_1y1267m"
+                    class="default_7zhre1-o_O-labelContainer_14mmd26"
                   >
-                    Sorry, this part of the question is no longer available. 😅 Don't worry, you won't be graded on this part. Keep going!
+                    <div
+                      class="labelTypography_1y1267m"
+                    >
+                      Sorry, this part of the question is no longer available. 😅 Don't worry, you won't be graded on this part. Keep going!
+                    </div>
                   </div>
                 </div>
               </div>
