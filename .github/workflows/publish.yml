@@ -63,11 +63,16 @@ env:
 # We also do not want to cancel in-progress runs, because we don't want a
 # production publish to be interrupted by a snapshot publish ever.
 concurrency:
-    # For snapshot jobs, key by PR number so each PR gets its own serialization
-    # slot. For release jobs, key by ref so only one production release runs at
-    # a time per branch. Dispatched snapshots carry the default-branch ref, so
-    # without this distinction all snapshot runs would serialize together (and
-    # behind releases).
+    # Only one action run per group can be in progress; the next one waits
+    # until it finishes. (If several are waiting, GitHub keeps only the
+    # newest.)
+    #  - Snapshots get one line per PR: two snapshots of the same PR never
+    #    publish at once, but different PRs don't wait on each other.
+    #  - Releases get one line per branch (ie `main`): only one production
+    #    release runs at a time.
+    # Snapshot runs are always started from main, so if we grouped them by
+    # branch too, every snapshot would wait behind every other snapshot _and_
+    # behind releases. That's why we group them by PR number instead.
     group: >-
         ${{ github.workflow }}-${{
           inputs.run_type == 'snapshot' &&
