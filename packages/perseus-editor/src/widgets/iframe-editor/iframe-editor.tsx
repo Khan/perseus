@@ -7,14 +7,11 @@ import * as React from "react";
 
 import BlurInput from "../../components/blur-input";
 import {PairsEditor} from "../../components/pairs-editor";
-import {deprecatedChangeableChange} from "../../mixins/changeable";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
-import type {ChangeableProps} from "../../mixins/changeable";
-
-interface IframeEditorProps
-    extends PerseusIFrameWidgetOptions,
-        ChangeableProps {}
+interface IframeEditorProps extends PerseusIFrameWidgetOptions {
+    onChange: (options: PerseusIFrameWidgetOptions) => void;
+}
 
 /**
  * This is the main editor for this widget, to specify all the options.
@@ -23,9 +20,17 @@ class IframeEditor extends React.Component<IframeEditorProps> {
     static defaultProps: PerseusIFrameWidgetOptions =
         iframeLogic.defaultWidgetOptions;
 
-    change: (arg1: any) => any = (...args) => {
-        return deprecatedChangeableChange.apply(this, args);
-    };
+    handleChange(changes: Partial<PerseusIFrameWidgetOptions>) {
+        this.props.onChange({
+            url: this.props.url,
+            settings: this.props.settings,
+            width: this.props.width,
+            height: this.props.height,
+            allowFullScreen: this.props.allowFullScreen,
+            allowTopNavigation: this.props.allowTopNavigation,
+            ...changes,
+        });
+    }
 
     serialize: () => any = () => {
         return EditorJsonify.serialize.call(this);
@@ -42,7 +47,7 @@ class IframeEditor extends React.Component<IframeEditorProps> {
                     Url or Program ID:
                     <BlurInput
                         value={this.props.url}
-                        onChange={this.change("url")}
+                        onChange={(url) => this.handleChange({url})}
                     />
                 </label>
                 <br />
@@ -51,7 +56,7 @@ class IframeEditor extends React.Component<IframeEditorProps> {
                     Settings:
                     <PairsEditor
                         pairs={this.props.settings ?? []}
-                        onChange={(settings) => this.change({settings})}
+                        onChange={(settings) => this.handleChange({settings})}
                     />
                 </label>
                 <br />
@@ -59,29 +64,29 @@ class IframeEditor extends React.Component<IframeEditorProps> {
                     Width:
                     <BlurInput
                         value={String(this.props.width)}
-                        onChange={this.change("width")}
+                        onChange={(width) => this.handleChange({width})}
                     />
                 </label>
                 <label>
                     Height:
                     <BlurInput
                         value={String(this.props.height)}
-                        onChange={this.change("height")}
+                        onChange={(height) => this.handleChange({height})}
                     />
                 </label>
                 <Checkbox
                     label="Allow full screen"
                     checked={this.props.allowFullScreen}
-                    onChange={(value) => {
-                        this.props.onChange({allowFullScreen: value});
+                    onChange={(allowFullScreen) => {
+                        this.handleChange({allowFullScreen});
                     }}
                 />
                 <br />
                 <Checkbox
                     label="Allow iframe content to redirect the page"
                     checked={this.props.allowTopNavigation}
-                    onChange={(value) => {
-                        this.props.onChange({allowTopNavigation: value});
+                    onChange={(allowTopNavigation) => {
+                        this.handleChange({allowTopNavigation});
                     }}
                 />
             </div>
