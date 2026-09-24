@@ -1,3 +1,5 @@
+#!/usr/bin/env -S node -r @swc-node/register
+
 /**
  * To use this:
  * - Modify `predicateCallback` to look for questions that
