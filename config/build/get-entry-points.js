@@ -1,15 +1,23 @@
 /**
- * Find the entry points that we build for a package.
+ * Find the entry points that we _build_ for a package.
  *
- * A package's `exports` map points at its TypeScript sources so that tooling
+ * A package's `.exports` map points at its TypeScript sources so that tooling
  * inside this repo (TypeScript, Jest, Vite) resolves workspace packages to
- * source without a build. `publishConfig.exports` holds the published map,
- * which pnpm swaps in when it packs the package. A sub-path is an entry point
- * when it maps a source file to a JavaScript file in `dist/`.
+ * source without a build.
+ *
+ * `.publishConfig.exports` defines what the `.exports` object looks like in the
+ * published package. That means that exports that are not TypeScript source
+ * code, only need to appear in `.publishConfig.exports` as they are created in
+ * other ways than Rollup treating them as entry points. For example, the CSS
+ * for each package is built using a Rollup plugin and the output filename is
+ * defined in the plugin's configuration - and that output file must appear in
+ * the package's `.publishConfig.exports`
  *
  * @param {Record<string, any>} pkgJson the parsed `package.json` of a package
- * @returns {Record<string, string>} a map of entry point name (the file name
- *     the build emits, without extension) to its package-relative source file
+ * @returns {Record<string, string>} a map of the sub-path exports names to
+ * their package-relative source files.
+ *
+ * See: https://nodejs.org/api/packages.html#subpath-exports
  */
 export const getEntryPoints = (pkgJson) => {
     const publishedExports = pkgJson.publishConfig?.exports ?? {};

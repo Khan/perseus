@@ -25,7 +25,6 @@
     "exports": {
         ".": "./src/index.ts",
         "./strings": "./src/strings.ts",
-        "./styles.css": "./dist/index.css",
         "./testing": "./src/testing.ts"
     },
     "files": [
