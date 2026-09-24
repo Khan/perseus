@@ -1,8 +1,8 @@
 import {describe, expect, it} from "@jest/globals";
 
-import {checkForCatalogHashUpdate} from "../check-for-catalog-hash-update";
+import {checkForCatalogHashUpdate} from "./check-for-catalog-hash-update";
 
-import type {PackageJson} from "../catalog-hash-utils";
+import type {PackageJson} from "./catalog-hash-utils";
 
 const getMockPackageJson = (): PackageJson => ({
     name: "@khanacademy/test-package",
