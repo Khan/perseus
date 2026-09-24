@@ -6,17 +6,7 @@ import {
     interactiveSizes,
     Util,
 } from "@khanacademy/perseus";
-import {
-    type LockedFigure,
-    type PerseusImageBackground,
-    type PerseusInteractiveGraphWidgetOptions,
-    type PerseusGraphType,
-    type MarkingsType,
-    type AxisLabelLocation,
-    interactiveGraphLogic,
-    type ShowAxisArrows,
-    type ShowAxisTicks,
-} from "@khanacademy/perseus-core";
+import {interactiveGraphLogic} from "@khanacademy/perseus-core";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
@@ -41,11 +31,20 @@ import {getStartCoords, shouldShowStartCoordsUI} from "./start-coords/util";
 import {reshapePointLabelsForGraphType} from "./utils/reshape-point-labels";
 
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import type {
+    PerseusInteractiveGraphUserInput,
+    LockedFigure,
+    PerseusImageBackground,
+    PerseusInteractiveGraphWidgetOptions,
+    PerseusGraphType,
+    MarkingsType,
+    AxisLabelLocation,
+    ShowAxisArrows,
+    ShowAxisTicks,
+} from "@khanacademy/perseus-core";
 
-const InteractiveGraph = InteractiveGraphWidget.widget;
-
-type InteractiveGraphProps = PropsFor<typeof InteractiveGraph>;
+const InteractiveGraph: typeof InteractiveGraphWidget.widget =
+    InteractiveGraphWidget.widget;
 
 type Range = [min: number, max: number];
 
@@ -146,7 +145,7 @@ export type Props = {
     /**
      * The graph to display in the graph area.
      */
-    graph: InteractiveGraphProps["userInput"];
+    graph: PerseusInteractiveGraphUserInput;
     onChange: (props: Partial<Props>) => void;
     // Whether the graph has been set to static mode.
     // Graphs in static mode are not interactive, and their coords are
@@ -426,7 +425,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         ? {...correct, showPointLabels: false}
                         : correct,
                 handleUserInput: (
-                    newGraph: InteractiveGraphProps["userInput"],
+                    newGraph: PerseusInteractiveGraphUserInput,
                 ) => {
                     let correct = this.props.correct;
                     // TODO(benchristel): can we improve the type of onChange
