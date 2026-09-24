@@ -35,9 +35,6 @@ type Props = {
     // answering one graded group out of a set. If this is null, the
     // "Next question" button will not appear.
     onNextQuestion?: () => unknown;
-    // Points at the status result once it is rendered ("Correct!" or "Keep
-    // trying"), so GradedGroup can move focus there for screen readers.
-    resultRef?: React.Ref<HTMLOutputElement>;
 };
 
 function GradedGroupAnswerBar({
@@ -45,10 +42,19 @@ function GradedGroupAnswerBar({
     answerBarState,
     onCheckAnswer,
     onNextQuestion,
-    resultRef,
 }: Props) {
     const {strings} = usePerseusI18n();
     const {keepTrying, tryAgain, check, correctExcited, nextQuestion} = strings;
+
+    const resultRef = React.useRef<HTMLOutputElement>(null);
+    const prevAnswerBarState = React.useRef(answerBarState);
+
+    // Don't let focus fall back to the body after answer is checked and
+    // the "Check/Try again" button is unmounted.
+    React.useEffect(() => {
+        resultRef.current?.focus();
+        prevAnswerBarState.current = answerBarState;
+    }, [answerBarState]);
 
     const answerBarStyle = {
         ...styles.answerBar,

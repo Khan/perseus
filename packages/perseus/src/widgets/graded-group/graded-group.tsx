@@ -13,13 +13,7 @@ import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
-import {
-    useState,
-    useRef,
-    useEffect,
-    useImperativeHandle,
-    forwardRef,
-} from "react";
+import {useState, useRef, useImperativeHandle, forwardRef} from "react";
 import _ from "underscore";
 
 import {usePerseusI18n} from "../../components/i18n-context";
@@ -120,18 +114,6 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
 
         const rendererRef = useRef<Renderer | null>(null);
         const hintRendererRef = useRef<Renderer | null>(null);
-        const resultRef = useRef<HTMLOutputElement>(null);
-
-        // Don't let focus fall back to the body after answer is checked and
-        // the "Check/Try again" button is unmounted.
-        useEffect(() => {
-            if (
-                answerBarState === "CORRECT" ||
-                answerBarState === "INCORRECT"
-            ) {
-                resultRef.current?.focus();
-            }
-        }, [answerBarState]);
 
         useOnMountEffect(() => {
             dependencies.analytics.onAnalyticsEvent({
@@ -391,7 +373,6 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                     answerBarState={answerBarState}
                     onCheckAnswer={checkAnswer}
                     onNextQuestion={props.onNextQuestion}
-                    resultRef={resultRef}
                 />
             </div>
         );
