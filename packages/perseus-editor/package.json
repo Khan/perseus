@@ -5,7 +5,11 @@
     "license": "MIT",
     "version": "43.0.1",
     "publishConfig": {
-        "access": "public"
+        "access": "public",
+        "exports": {
+            ".": "./dist/index.js",
+            "./styles.css": "./dist/index.css"
+        }
     },
     "repository": {
         "type": "git",
@@ -17,10 +21,7 @@
     },
     "type": "module",
     "exports": {
-        ".": {
-            "source": "./src/index.ts",
-            "default": "./dist/index.js"
-        },
+        ".": "./src/index.ts",
         "./styles.css": "./dist/index.css"
     },
     "files": [

@@ -5,7 +5,10 @@
     "license": "MIT",
     "version": "3.0.1",
     "publishConfig": {
-        "access": "public"
+        "access": "public",
+        "exports": {
+            ".": "./dist/index.js"
+        }
     },
     "repository": {
         "type": "git",
@@ -17,10 +20,7 @@
     },
     "type": "module",
     "exports": {
-        ".": {
-            "source": "./src/index.ts",
-            "default": "./dist/index.js"
-        }
+        ".": "./src/index.ts"
     },
     "files": [
         "dist"

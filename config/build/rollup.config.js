@@ -212,10 +212,10 @@ const createConfig = (
  *
  * For each package in our packages folder, generate the outputs we want.
  *
- * Build each exports sub-path that declares both a `source` input and a
- * `default` published target. All entry points build in one Rollup config so
- * Rollup can emit shared modules once. Bundles land in `dist/`, which each
- * package's `exports` field exposes.
+ * Build each exports sub-path that maps a source file (in `exports`) to a
+ * published JavaScript file (in `publishConfig.exports`). All entry points
+ * build in one Rollup config so Rollup can emit shared modules once. Bundles
+ * land in `dist/`, which each package's published `exports` map exposes.
  */
 const getPackageInfo = (pkgName) => {
     const pkgJsonPath = makePackageBasedPath(pkgName, "./package.json");

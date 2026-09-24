@@ -5,7 +5,12 @@
     "license": "MIT",
     "version": "28.0.0",
     "publishConfig": {
-        "access": "public"
+        "access": "public",
+        "exports": {
+            ".": "./dist/index.js",
+            "./strings": "./dist/strings.js",
+            "./styles.css": "./dist/index.css"
+        }
     },
     "repository": {
         "type": "git",
@@ -17,14 +22,8 @@
     },
     "type": "module",
     "exports": {
-        ".": {
-            "source": "./src/index.ts",
-            "default": "./dist/index.js"
-        },
-        "./strings": {
-            "source": "./src/strings.ts",
-            "default": "./dist/strings.js"
-        },
+        ".": "./src/index.ts",
+        "./strings": "./src/strings.ts",
         "./styles.css": "./dist/index.css"
     },
     "files": [
