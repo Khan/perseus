@@ -301,13 +301,18 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                                     // Remove paragraph styles, stick to
                                     // WB Banner styles.
                                     inline={true}
+                                    apiOptions={apiOptions}
                                 />
                             </div>
                         }
                     />
                 ) : (
                     <div role="status" aria-live="polite">
-                        <Renderer content={message} strings={strings} />
+                        <Renderer
+                            content={message}
+                            strings={strings}
+                            apiOptions={apiOptions}
+                        />
                     </div>
                 )}
 
