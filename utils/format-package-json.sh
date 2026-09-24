@@ -3,6 +3,11 @@
 ## This script re-formats each `package.json` in the `packages` directory and
 ## orders the top-level keys by a consistent order. It also forces a few values
 ## to be standardized (such as 'author' always being 'Khan Academy').
+##
+## `exports` only maps sub-paths to TypeScript source files. Exports that the
+## build produces some other way (such as CSS) belong only in
+## `publishConfig.exports`, which pnpm swaps in at publish time, so any other
+## entries are dropped.
 
 if ! command -v jq &> /dev/null
 then
@@ -41,7 +46,9 @@ for pkg in ./packages/*/package.json; do
             url: \"https://github.com/Khan/perseus/issues\",
         },
         type: \"module\",
-        exports: .exports,
+        exports: (.exports | if . == null then . else with_entries(
+            select(.value | type == \"string\" and test(\"\\\\.tsx?$\"))
+        ) end),
         files: .files,
         scripts: (.scripts // {}),
         dependencies: (.dependencies // {}),

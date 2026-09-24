@@ -141,6 +141,9 @@ const checkEntrypoints = (pkgJson): boolean =>
  * workspace packages without a build. `publishConfig.exports` is the map pnpm
  * publishes in its place, so it must expose the same sub-paths, each pointing
  * at the file the build emits for it.
+ *
+ * Built assets (such as CSS) have no source file, so they appear only in
+ * `publishConfig.exports`.
  */
 const checkExports = (pkgJson): boolean => {
     const sourceExports = pkgJson.exports;
@@ -160,24 +163,24 @@ const checkExports = (pkgJson): boolean => {
         .map((subPath) => {
             const sourceFile = sourceExports[subPath];
             const publishedFile = publishedExports[subPath];
-            if (
-                typeof sourceFile !== "string" ||
-                typeof publishedFile !== "string"
-            ) {
+            if (typeof publishedFile !== "string") {
                 console.error(
-                    `ERROR: ${pkgJson.name} export "${subPath}" must map to a file path in both "exports" and "publishConfig.exports".`,
+                    `ERROR: ${pkgJson.name} export "${subPath}" must map to a file path in "publishConfig.exports".`,
                 );
                 return false;
             }
 
-            // Built assets (such as CSS) have no source file, so both maps
-            // point at the build output.
-            if (subPath !== "." && sourceFile === publishedFile) {
-                if (publishedFile.startsWith("./dist/")) {
+            // A JS entry point is built from source, so only built assets
+            // may be missing from `exports`.
+            if (sourceFile === undefined) {
+                if (
+                    publishedFile.startsWith("./dist/") &&
+                    !publishedFile.endsWith(".js")
+                ) {
                     return true;
                 }
                 console.error(
-                    `ERROR: ${pkgJson.name} export "${subPath}" must point at a file in dist/.`,
+                    `ERROR: ${pkgJson.name} export "${subPath}" must be a built asset in dist/ or also map a source file in "exports".`,
                 );
                 return false;
             }

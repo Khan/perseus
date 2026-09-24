@@ -32,10 +32,7 @@ describe("getEntryPoints", () => {
     it("skips sub-paths that export a built asset", () => {
         // Arrange, Act
         const entryPoints = getEntryPoints({
-            exports: {
-                ".": "./src/index.ts",
-                "./styles.css": "./dist/index.css",
-            },
+            exports: {".": "./src/index.ts"},
             publishConfig: {
                 exports: {
                     ".": "./dist/index.js",
