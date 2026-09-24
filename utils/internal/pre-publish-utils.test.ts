@@ -1,11 +1,11 @@
-import {checkEntrypoints, checkExports} from "../pre-publish-utils";
+import {checkEntrypoints, checkExports} from "./pre-publish-utils";
 
 describe("checkExports", () => {
     beforeEach(() => {
         jest.spyOn(console, "error").mockImplementation(() => {});
     });
 
-    it("returns false when exports is missing", () => {
+    it("rejects when exports is missing", () => {
         const result = checkExports({
             name: "@khanacademy/kmath",
             publishConfig: {exports: {".": "./dist/index.js"}},
@@ -14,7 +14,7 @@ describe("checkExports", () => {
         expect(result).toBe(false);
     });
 
-    it("returns false when publishConfig.exports is missing", () => {
+    it("rejects when publishConfig.exports is missing", () => {
         const result = checkExports({
             name: "@khanacademy/kmath",
             exports: {".": "./src/index.ts"},
@@ -23,7 +23,7 @@ describe("checkExports", () => {
         expect(result).toBe(false);
     });
 
-    it("returns false when exports has no '.' entry", () => {
+    it("rejects when exports has no '.' entry", () => {
         const result = checkExports({
             name: "@khanacademy/kmath",
             exports: {"./styles.css": "./dist/index.css"},
@@ -33,7 +33,7 @@ describe("checkExports", () => {
         expect(result).toBe(false);
     });
 
-    it("returns true for well-formed code and asset exports", () => {
+    it("accepts well-formed code and asset exports", () => {
         const result = checkExports({
             name: "@khanacademy/kmath",
             exports: {
@@ -51,7 +51,7 @@ describe("checkExports", () => {
         expect(result).toBe(true);
     });
 
-    it("returns false when a sub-path is missing from the published exports", () => {
+    it("rejects when a sub-path is missing from the published exports", () => {
         const result = checkExports({
             name: "@khanacademy/kmath",
             exports: {
@@ -64,7 +64,7 @@ describe("checkExports", () => {
         expect(result).toBe(false);
     });
 
-    it("returns false when a code export does not point at a source file", () => {
+    it("rejects when a code export does not point at a source file", () => {
         const result = checkExports({
             name: "@khanacademy/kmath",
             exports: {".": "./dist/index.js"},
@@ -74,7 +74,7 @@ describe("checkExports", () => {
         expect(result).toBe(false);
     });
 
-    it("returns false when an export uses conditions", () => {
+    it("rejects when an export uses conditions", () => {
         const result = checkExports({
             name: "@khanacademy/kmath",
             exports: {
@@ -86,7 +86,7 @@ describe("checkExports", () => {
         expect(result).toBe(false);
     });
 
-    it("returns false when output paths do not match the sub-path", () => {
+    it("rejects when publishConfig's output paths do not match the sub-path", () => {
         const result = checkExports({
             name: "@khanacademy/kmath",
             exports: {".": "./src/index.ts"},
@@ -109,19 +109,19 @@ describe("checkEntrypoints", () => {
         jest.spyOn(console, "error").mockImplementation(() => {});
     });
 
-    it("returns true for an ESM-only package", () => {
+    it("accepts an ESM-only package", () => {
         const result = checkEntrypoints(esmOnlyPkgJson);
 
         expect(result).toBe(true);
     });
 
-    it("returns false when type is not 'module'", () => {
+    it("rejects when type is not 'module'", () => {
         const result = checkEntrypoints({...esmOnlyPkgJson, type: "commonjs"});
 
         expect(result).toBe(false);
     });
 
-    it("returns false when main is present", () => {
+    it("rejects when main is present", () => {
         const result = checkEntrypoints({
             ...esmOnlyPkgJson,
             main: "dist/index.js",
@@ -130,7 +130,7 @@ describe("checkEntrypoints", () => {
         expect(result).toBe(false);
     });
 
-    it("returns false when a top-level source field is present", () => {
+    it("rejects when a top-level source field is present", () => {
         const result = checkEntrypoints({
             ...esmOnlyPkgJson,
             source: "src/index.ts",
@@ -139,7 +139,7 @@ describe("checkEntrypoints", () => {
         expect(result).toBe(false);
     });
 
-    it("returns false when a published sub-path declares a require condition", () => {
+    it("rejects when a published sub-path declares a require (CJS) condition", () => {
         const result = checkEntrypoints({
             ...esmOnlyPkgJson,
             publishConfig: {
