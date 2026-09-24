@@ -92,8 +92,8 @@ const checkType = (pkgJson): boolean => checkField(pkgJson, "type", "module");
  * A `require` condition would hand a CJS consumer something we no longer
  * build. Without one, `require()` fails at resolution time instead.
  */
-const checkNoRequireCondition = (pkgJson): boolean =>
-    [
+const checkNoRequireCondition = (pkgJson): boolean => {
+    return [
         ...Object.entries(pkgJson.exports ?? {}),
         ...Object.entries(pkgJson.publishConfig?.exports ?? {}),
     ]
@@ -111,6 +111,7 @@ const checkNoRequireCondition = (pkgJson): boolean =>
             return true;
         })
         .every(Boolean);
+};
 
 const checkPrivate = (pkgJson): boolean => {
     if (pkgJson.private) {
