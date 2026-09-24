@@ -1,0 +1,10 @@
+{
+    "name": "@internal/repo-stories",
+    "private": true,
+    "dependencies": {
+        "@storybook/addon-docs": "10.3.1",
+        "@khanacademy/perseus": "workspace:*",
+        "@khanacademy/perseus-core": "workspace:*",
+        "@khanacademy/wonder-blocks-core": "catalog:devDeps"
+    }
+}

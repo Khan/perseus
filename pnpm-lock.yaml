@@ -467,6 +467,21 @@ importers:
         specifier: ^2.7.0
         version: 2.7.0
 
+  __docs__:
+    dependencies:
+      '@khanacademy/perseus':
+        specifier: workspace:*
+        version: link:../packages/perseus
+      '@khanacademy/perseus-core':
+        specifier: workspace:*
+        version: link:../packages/perseus-core
+      '@khanacademy/wonder-blocks-core':
+        specifier: catalog:devDeps
+        version: 12.5.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@storybook/addon-docs':
+        specifier: 10.3.1
+        version: 10.3.1(@types/react@18.2.79)(esbuild@0.24.0)(rollup@4.37.0)(storybook@10.3.1(@testing-library/dom@10.3.1)(prettier@3.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(vite@5.4.0(@types/node@20.17.6)(less@4.2.0)(sass@1.89.2)(stylus@0.62.0)(terser@5.51.2))(webpack@5.97.1(@swc/core@1.11.13(@swc/helpers@0.5.17))(esbuild@0.24.0)(postcss@8.5.4))
+
   config/build: {}
 
   packages/kas:
