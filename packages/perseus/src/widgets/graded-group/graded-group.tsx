@@ -295,7 +295,13 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                         kind="warning"
                         text={
                             <div className="perseus-graded-group-banner-message">
-                                <Renderer content={message} strings={strings} />
+                                <Renderer
+                                    content={message}
+                                    strings={strings}
+                                    // Remove paragraph styles, stick to
+                                    // WB Banner styles.
+                                    inline={true}
+                                />
                             </div>
                         }
                     />

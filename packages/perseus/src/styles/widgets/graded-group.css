@@ -4,23 +4,3 @@
     margin-left: 3px;
     padding-left: 5px;
 }
-
-/* Invalid state banner: Inherit the font from Wonder Blocks Banner rather
-   than using the Renderer styles. This is so that the alignment with the
-   Banner elements looks correct, rather than misaligning due to the
-   Renderer styles. */
-.framework-perseus
-    .perseus-graded-group
-    .perseus-graded-group-banner-message
-    .perseus-renderer
-    .paragraph,
-.framework-perseus
-    .perseus-graded-group
-    .perseus-graded-group-banner-message
-    .perseus-renderer
-    .paragraph
-    .paragraph {
-    margin: 0;
-    max-width: none;
-    font: inherit;
-}
