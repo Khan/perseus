@@ -1981,7 +1981,10 @@ export type PerseusInteractionWidgetOptions = {
 };
 
 export type PerseusInteractionGraph = {
-    /** "canvas", "graph" */
+    /**
+     * "canvas", "graph"
+     * @deprecated - not used
+     */
     editableSettings?: Array<"canvas" | "graph">;
     /** The Grid Canvas size. e.g. [400, 140] */
     box: Size;
