@@ -38,7 +38,7 @@ type Props = {
     // Points at the "Correct!" result once it is rendered, so GradedGroup can
     // move focus there, rather than dropping focus to the body after the
     // Check button unmounts.
-    resultRef?: React.Ref<HTMLSpanElement>;
+    resultRef?: React.Ref<HTMLOutputElement>;
 };
 
 class GradedGroupAnswerBar extends React.Component<Props> {
@@ -106,15 +106,19 @@ class GradedGroupAnswerBar extends React.Component<Props> {
                     >
                         <InlineIcon {...iconStar} style={{marginBlockEnd: 5}} />
                     </span>
-                    {/* GradedGroup moves focus here once this renders, which
+                    {/* <output> is the native element for the result of a
+                        user action, and it means screen readers don't read
+                        "group" like they would for a span.
+
+                        GradedGroup moves focus here once this renders, which
                         is what reads the result to a screen reader. */}
-                    <span
+                    <output
                         ref={resultRef}
                         tabIndex={-1}
                         style={{marginInlineStart: 8}}
                     >
                         {correctExcited}
-                    </span>
+                    </output>
                 </span>
                 {onNextQuestion && (
                     <Button onClick={onNextQuestion}>{nextQuestion}</Button>

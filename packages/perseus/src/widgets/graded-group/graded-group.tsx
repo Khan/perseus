@@ -121,7 +121,7 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
 
         const rendererRef = useRef<Renderer | null>(null);
         const hintRendererRef = useRef<Renderer | null>(null);
-        const resultRef = useRef<HTMLSpanElement>(null);
+        const resultRef = useRef<HTMLOutputElement>(null);
 
         // Don't let focus fall back to the body after answer is checked and
         // the "Check/Try again" button is unmounted.
