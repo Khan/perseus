@@ -11,7 +11,7 @@ import ImageUrlInput from "./components/image-url-input";
 
 import type {APIOptions} from "@khanacademy/perseus";
 
-export interface Props extends PerseusImageWidgetOptions {
+interface Props extends PerseusImageWidgetOptions {
     apiOptions: APIOptions;
     onChange: (options: PerseusImageWidgetOptions) => void;
 }
