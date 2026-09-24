@@ -98,7 +98,7 @@ export const DesktopCorrectAnswerWithMessage: Story = {
                         generateNumericInputAnswer({
                             value: 5,
                             status: "correct",
-                            message: "$5$ is correct!",
+                            message: "$5$ is the *correct* answer!",
                         }),
                     ],
                 }),
