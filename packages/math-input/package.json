@@ -23,8 +23,7 @@
     "type": "module",
     "exports": {
         ".": "./src/index.ts",
-        "./strings": "./src/strings.ts",
-        "./styles.css": "./dist/index.css"
+        "./strings": "./src/strings.ts"
     },
     "files": [
         "dist"

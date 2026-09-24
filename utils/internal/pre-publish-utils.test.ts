@@ -26,14 +26,29 @@ describe("checkExports", () => {
     it("rejects when exports has no '.' entry", () => {
         const result = checkExports({
             name: "@khanacademy/kmath",
-            exports: {"./styles.css": "./dist/index.css"},
-            publishConfig: {exports: {"./styles.css": "./dist/index.css"}},
+            exports: {"./strings": "./src/strings.ts"},
+            publishConfig: {exports: {"./strings": "./dist/strings.js"}},
         });
 
         expect(result).toBe(false);
     });
 
-    it("accepts well-formed code and asset exports", () => {
+    it("accepts code exports in both maps and asset exports only in publishConfig.exports", () => {
+        const result = checkExports({
+            name: "@khanacademy/kmath",
+            exports: {".": "./src/index.ts"},
+            publishConfig: {
+                exports: {
+                    ".": "./dist/index.js",
+                    "./styles.css": "./dist/index.css",
+                },
+            },
+        });
+
+        expect(result).toBe(true);
+    });
+
+    it("rejects when an asset export appears in exports", () => {
         const result = checkExports({
             name: "@khanacademy/kmath",
             exports: {
@@ -48,7 +63,22 @@ describe("checkExports", () => {
             },
         });
 
-        expect(result).toBe(true);
+        expect(result).toBe(false);
+    });
+
+    it("rejects when a published JS export has no source file in exports", () => {
+        const result = checkExports({
+            name: "@khanacademy/kmath",
+            exports: {".": "./src/index.ts"},
+            publishConfig: {
+                exports: {
+                    ".": "./dist/index.js",
+                    "./strings": "./dist/strings.js",
+                },
+            },
+        });
+
+        expect(result).toBe(false);
     });
 
     it("rejects when a sub-path is missing from the published exports", () => {

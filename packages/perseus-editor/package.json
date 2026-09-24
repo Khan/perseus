@@ -21,8 +21,7 @@
     },
     "type": "module",
     "exports": {
-        ".": "./src/index.ts",
-        "./styles.css": "./dist/index.css"
+        ".": "./src/index.ts"
     },
     "files": [
         "dist"
