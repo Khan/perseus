@@ -1,0 +1,11 @@
+{
+    "name": "@internal/data-utils",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "find-questions": "./find-questions.ts"
+    },
+    "dependencies": {
+        "@khanacademy/perseus-core": "workspace:*"
+    }
+}

@@ -5,12 +5,12 @@ import fs from "node:fs";
 
 import {describe, expect, it, jest, beforeEach} from "@jest/globals";
 
-import * as CatalogHashUtils from "../catalog-hash-utils";
-import * as CheckForCatalogHashUpdate from "../check-for-catalog-hash-update";
-import * as GetCatalogDepsHash from "../get-catalog-deps-hash";
-import {updateCatalogHashes} from "../update-catalog-hashes";
+import * as CatalogHashUtils from "./catalog-hash-utils";
+import * as CheckForCatalogHashUpdate from "./check-for-catalog-hash-update";
+import * as GetCatalogDepsHash from "./get-catalog-deps-hash";
+import {updateCatalogHashes} from "./update-catalog-hashes";
 
-import type {PnpmWorkspace} from "../catalog-hash-utils";
+import type {PnpmWorkspace} from "./catalog-hash-utils";
 
 // Mock fs to prevent actual file writes
 jest.mock("node:fs");

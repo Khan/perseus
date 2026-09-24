@@ -40,7 +40,9 @@ minimumReleaseAge: 4320
 minimumReleaseAgeExclude:
     - "@khanacademy/*"
 packages:
+    - __docs__
     - config/build
+    - data
     - dev
     - packages/*
     - vendor/*

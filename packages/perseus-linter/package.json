@@ -5,7 +5,10 @@
     "license": "MIT",
     "version": "5.4.3",
     "publishConfig": {
-        "access": "public"
+        "access": "public",
+        "exports": {
+            ".": "./dist/index.js"
+        }
     },
     "repository": {
         "type": "git",
@@ -15,9 +18,10 @@
     "bugs": {
         "url": "https://github.com/Khan/perseus/issues"
     },
-    "module": "dist/es/index.js",
-    "main": "dist/index.js",
-    "source": "src/index.ts",
+    "type": "module",
+    "exports": {
+        ".": "./src/index.ts"
+    },
     "files": [
         "dist"
     ],

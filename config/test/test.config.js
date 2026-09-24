@@ -19,21 +19,6 @@ const vendorMap = fg
         };
     }, {});
 
-const pkgMap = fg
-    .globSync(path.join(root, "packages/*/package.json"))
-    .reduce((map, pkgJsonPath) => {
-        const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath).toString());
-        return {
-            ...map,
-            // NOTE(kevinb): we use the 'source' field here so that we can run our
-            // tests without having to compile all of the packages first.
-            // NOTE(jeremy): We use strip the leading "@khanacademy/" namespace
-            // from all package names because our local directory structure
-            // doesn't include that. So "@khanacademy/perseus" becomes "perseus"
-            [`^${pkgJson.name}$`]: `<rootDir>/packages/${pkgJson.name.replace(/^@khanacademy\//, "")}/${pkgJson.source}`,
-        };
-    }, {});
-
 // NOTE: We need to use this plugin in order to turn the module exports
 // into module.exports. This will make it so that we can mock exports
 // correctly.
@@ -89,7 +74,6 @@ module.exports = {
         "<rootDir>/config/test/crypto-polyfill.js",
     ],
     moduleNameMapper: {
-        ...pkgMap,
         ...vendorMap,
         // Load a .js file with no exports whenever a .css file is requested.
         "(?<!\\.module)\\.css$": "<rootDir>/config/test/style-mock.js",

@@ -5,9 +5,9 @@ import {createHash} from "node:crypto";
 
 import {describe, expect, it, jest} from "@jest/globals";
 
-import {getCatalogDepsHash} from "../get-catalog-deps-hash";
+import {getCatalogDepsHash} from "./get-catalog-deps-hash";
 
-import type {PackageJson, PnpmWorkspace} from "../catalog-hash-utils";
+import type {PackageJson, PnpmWorkspace} from "./catalog-hash-utils";
 
 // SHA-256 hash of an empty string (truncated to 16 chars) - used when a package has no catalog dependencies
 const EMPTY_CATALOG_HASH = createHash("sha256")
