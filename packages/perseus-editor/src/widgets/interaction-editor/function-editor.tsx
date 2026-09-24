@@ -1,38 +1,23 @@
 import {components, Dependencies, KhanColors} from "@khanacademy/perseus";
 import * as React from "react";
 
-import {deprecatedChangeableChange} from "../../mixins/changeable";
-
 import ColorPicker from "./color-picker";
 import DashPicker from "./dash-picker";
 import MathquillInput from "./mathquill-input";
 
-import type {ChangeableProps} from "../../mixins/changeable";
+import type {PerseusInteractionFunctionElementOptions} from "@khanacademy/perseus-core";
 
 const {NumberInput} = components;
 
-type Props = ChangeableProps & {
-    value: string;
-    rangeMin: string;
-    rangeMax: string;
-    color: string;
-    strokeDasharray: string;
-    strokeWidth: number;
-};
-
-type DefaultProps = {
-    value: Props["value"];
-    rangeMin: Props["rangeMin"];
-    rangeMax: Props["rangeMax"];
-    color: Props["color"];
-    strokeDasharray: Props["strokeDasharray"];
-    strokeWidth: Props["strokeWidth"];
-};
+interface Props extends PerseusInteractionFunctionElementOptions {
+    onChange: (options: PerseusInteractionFunctionElementOptions) => void;
+}
 
 // Editor for function plots
 class FunctionEditor extends React.Component<Props> {
-    static defaultProps: DefaultProps = {
+    static defaultProps: PerseusInteractionFunctionElementOptions = {
         value: "x",
+        funcName: "f",
         rangeMin: "-10",
         rangeMax: "10",
         color: KhanColors.BLUE,
@@ -40,9 +25,18 @@ class FunctionEditor extends React.Component<Props> {
         strokeWidth: 2,
     };
 
-    change: (arg1: any, arg2?: any, arg3?: any) => any = (...args) => {
-        return deprecatedChangeableChange.apply(this, args);
-    };
+    handleChange(changes: Partial<PerseusInteractionFunctionElementOptions>) {
+        this.props.onChange({
+            value: this.props.value,
+            funcName: this.props.funcName,
+            rangeMin: this.props.rangeMin,
+            rangeMax: this.props.rangeMax,
+            color: this.props.color,
+            strokeDasharray: this.props.strokeDasharray,
+            strokeWidth: this.props.strokeWidth,
+            ...changes,
+        });
+    }
 
     render(): React.ReactNode {
         const {TeX} = Dependencies.getDependencies();
@@ -50,36 +44,37 @@ class FunctionEditor extends React.Component<Props> {
         return (
             <div className="graph-settings">
                 <div className="perseus-widget-row">
-                    {/* @ts-expect-error - TS2339 - Property 'funcName' does not exist on type props. */}
                     <TeX>{this.props.funcName + "(x)="}</TeX>{" "}
                     <MathquillInput
                         value={this.props.value}
-                        onChange={this.change("value")}
+                        onChange={(value) => this.handleChange({value})}
                     />
                 </div>
                 <div className="perseus-widget-row">
                     Range: <TeX>\Large(</TeX>
                     <MathquillInput
                         value={this.props.rangeMin}
-                        onChange={this.change("rangeMin")}
+                        onChange={(rangeMin) => this.handleChange({rangeMin})}
                     />
                     <TeX>,</TeX>{" "}
                     <MathquillInput
                         value={this.props.rangeMax}
-                        onChange={this.change("rangeMax")}
+                        onChange={(rangeMax) => this.handleChange({rangeMax})}
                     />
                     <TeX>\Large)</TeX>
                 </div>
                 <div className="perseus-widget-row">
                     <ColorPicker
                         value={this.props.color}
-                        onChange={this.change("color")}
+                        onChange={(color) => this.handleChange({color})}
                     />
                 </div>
                 <div className="perseus-widget-row">
                     <DashPicker
                         value={this.props.strokeDasharray}
-                        onChange={this.change("strokeDasharray")}
+                        onChange={(strokeDasharray) =>
+                            this.handleChange({strokeDasharray})
+                        }
                     />
                 </div>
                 <div className="perseus-widget-row">
@@ -88,7 +83,9 @@ class FunctionEditor extends React.Component<Props> {
                         <NumberInput
                             value={this.props.strokeWidth}
                             placeholder={2}
-                            onChange={this.change("strokeWidth")}
+                            onChange={(strokeWidth) =>
+                                this.handleChange({strokeWidth})
+                            }
                         />
                     </div>
                 </div>
