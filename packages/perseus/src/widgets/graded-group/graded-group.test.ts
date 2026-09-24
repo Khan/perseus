@@ -9,7 +9,6 @@ import {
     generateTestPerseusRenderer,
     type PerseusArticle,
 } from "@khanacademy/perseus-core";
-import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -24,12 +23,6 @@ import {
 } from "./graded-group.testdata";
 
 import type {UserEvent} from "@testing-library/user-event";
-
-// The Announcer writes into live regions on a timer, so assert on the call
-// rather than on the DOM.
-jest.mock("@khanacademy/wonder-blocks-announcer", () => ({
-    announceMessage: jest.fn(),
-}));
 
 const checkAnswer = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,
@@ -219,19 +212,7 @@ describe("graded-group", () => {
         expect(screen.getByText("Correct!")).toHaveFocus();
     });
 
-    it("keeps focus on the answer bar button when the answer is incorrect", async () => {
-        // Arrange - the button stays mounted and relabels to "Try again"
-        renderQuestion(question1);
-        await answerQuestion1Incorrectly(userEvent);
-
-        // Act
-        await checkAnswer(userEvent);
-
-        // Assert
-        expect(screen.getByRole("button", {name: "Try again"})).toHaveFocus();
-    });
-
-    it("announces the incorrect result to screen readers when Check is pressed", async () => {
+    it("moves focus to the result when the answer is incorrect", async () => {
         // Arrange
         renderQuestion(question1);
         await answerQuestion1Incorrectly(userEvent);
@@ -240,14 +221,12 @@ describe("graded-group", () => {
         await checkAnswer(userEvent);
 
         // Assert
-        expect(jest.mocked(announceMessage)).toHaveBeenCalledWith({
-            message: "Keep trying",
-        });
+        expect(screen.getByText("Keep trying")).toHaveFocus();
     });
 
-    it("announces again when a second wrong answer is checked", async () => {
-        // Arrange - the result text is identical both times, so a plain live
-        // region would stay silent on the second submission.
+    it("moves focus to the result again when a second wrong answer is checked", async () => {
+        // Arrange - the result text is identical both times, so this is the
+        // repeat case a plain live region would stay silent on.
         renderQuestion(question1);
         await answerQuestion1Incorrectly(userEvent);
         await checkAnswer(userEvent);
@@ -257,10 +236,7 @@ describe("graded-group", () => {
         await checkAnswer(userEvent);
 
         // Assert
-        expect(jest.mocked(announceMessage)).toHaveBeenCalledTimes(2);
-        expect(jest.mocked(announceMessage)).toHaveBeenNthCalledWith(2, {
-            message: "Keep trying",
-        });
+        expect(screen.getByText("Keep trying")).toHaveFocus();
     });
 
     it("shows why the answer could not be graded in a warning banner", async () => {

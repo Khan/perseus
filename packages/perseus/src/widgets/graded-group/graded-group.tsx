@@ -7,7 +7,6 @@ import {
     type UserInputMap,
 } from "@khanacademy/perseus-core";
 import {emptyWidgetsFunctional} from "@khanacademy/perseus-score";
-import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
 import Banner from "@khanacademy/wonder-blocks-banner";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
@@ -126,7 +125,10 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
         // Don't let focus fall back to the body after answer is checked and
         // the "Check/Try again" button is unmounted.
         useEffect(() => {
-            if (answerBarState === "CORRECT") {
+            if (
+                answerBarState === "CORRECT" ||
+                answerBarState === "INCORRECT"
+            ) {
                 resultRef.current?.focus();
             }
         }, [answerBarState]);
@@ -215,13 +217,6 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
             setMessage(message);
             setMessageIsForInvalidState(status === GRADING_STATUSES.invalid);
             setAnswerBarState(status === "correct" ? "CORRECT" : "INCORRECT");
-
-            // Only an "Incorrect" answer needs explicit announcing here.
-            // ("Correct" state reads out when we move focus to it.
-            // "Invalid" state is in a WB Banner, which handles its own announcement.)
-            if (status === GRADING_STATUSES.incorrect) {
-                announceMessage({message: strings.keepTrying});
-            }
 
             props.trackInteraction({
                 status: status,

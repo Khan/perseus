@@ -35,9 +35,8 @@ type Props = {
     // answering one graded group out of a set. If this is null, the
     // "Next question" button will not appear.
     onNextQuestion?: () => unknown;
-    // Points at the "Correct!" result once it is rendered, so GradedGroup can
-    // move focus there, rather than dropping focus to the body after the
-    // Check button unmounts.
+    // Points at the status result once it is rendered ("Correct!" or "Keep
+    // trying"), so GradedGroup can move focus there for screen readers.
     resultRef?: React.Ref<HTMLOutputElement>;
 };
 
@@ -71,7 +70,13 @@ class GradedGroupAnswerBar extends React.Component<Props> {
                     <span style={styles.tryAgainIcon}>
                         <InlineIcon {...iconTryAgain} />
                     </span>
-                    <span style={{marginInlineStart: 8}}>{keepTrying}</span>
+                    <output
+                        ref={resultRef}
+                        tabIndex={-1}
+                        style={{marginInlineStart: 8}}
+                    >
+                        {keepTrying}
+                    </output>
                 </span>
             ) : (
                 <span />
