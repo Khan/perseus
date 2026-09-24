@@ -217,6 +217,7 @@ export {
     getSorterPublicWidgetOptions,
     exceedsCardLimit,
     shuffleSorter,
+    SORTER_MAX_HORIZONTAL_CARDS,
     SORTER_MAX_CARDS,
 } from "./widgets/sorter/sorter-util";
 /** @hidden */

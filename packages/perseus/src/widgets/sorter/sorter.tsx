@@ -1,4 +1,5 @@
 import {exceedsCardLimit} from "@khanacademy/perseus-core";
+import {SORTER_MAX_HORIZONTAL_CARDS} from "@khanacademy/perseus-core";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {forwardRef, useImperativeHandle, useRef} from "react";
@@ -35,7 +36,14 @@ const Sorter = forwardRef<SorterHandle, Props>(function Sorter(props, ref) {
     const sortable = useRef<Sortable>(null);
 
     const {options, userInput, widgetId, linterContext, apiOptions} = props;
-    const {layout, padding} = options;
+    const {correct, padding} = options;
+
+    // If there are more than the max limit of horizontal cards, force
+    // the layout direction to be vertical.
+    const layout =
+        correct.length > SORTER_MAX_HORIZONTAL_CARDS
+            ? "vertical"
+            : options.layout;
 
     useOnMountEffect(() => {
         dependencies.analytics.onAnalyticsEvent({
