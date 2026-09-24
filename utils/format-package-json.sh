@@ -29,7 +29,8 @@ for pkg in ./packages/*/package.json; do
         license: \"MIT\",
         version: .version,
         publishConfig: {
-            access: \"public\"
+            access: \"public\",
+            exports: .publishConfig.exports
         },
         repository: {
             type: \"git\",
@@ -40,11 +41,7 @@ for pkg in ./packages/*/package.json; do
             url: \"https://github.com/Khan/perseus/issues\",
         },
         type: \"module\",
-        exports: (.exports | if . then map_values(
-            if type == \"object\"
-            then {source: .source, default: .default}
-            else . end
-        ) else . end),
+        exports: .exports,
         files: .files,
         scripts: (.scripts // {}),
         dependencies: (.dependencies // {}),

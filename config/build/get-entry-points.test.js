@@ -8,17 +8,17 @@ describe("getEntryPoints", () => {
         expect(entryPoints).toEqual({});
     });
 
-    it("returns one entry per exports sub-path with source and default conditions", () => {
+    it("returns one entry per sub-path that maps a source file to a published JS file", () => {
         // Arrange, Act
         const entryPoints = getEntryPoints({
             exports: {
-                ".": {
-                    source: "./src/index.ts",
-                    default: "./dist/index.js",
-                },
-                "./strings": {
-                    source: "./src/strings.ts",
-                    default: "./dist/strings.js",
+                ".": "./src/index.ts",
+                "./strings": "./src/strings.ts",
+            },
+            publishConfig: {
+                exports: {
+                    ".": "./dist/index.js",
+                    "./strings": "./dist/strings.js",
                 },
             },
         });
@@ -29,27 +29,28 @@ describe("getEntryPoints", () => {
         });
     });
 
-    it("skips exports sub-paths with no source condition", () => {
+    it("skips sub-paths that export a built asset", () => {
         // Arrange, Act
         const entryPoints = getEntryPoints({
             exports: {
-                ".": {
-                    source: "./src/index.ts",
-                    default: "./dist/index.js",
-                },
+                ".": "./src/index.ts",
                 "./styles.css": "./dist/index.css",
+            },
+            publishConfig: {
+                exports: {
+                    ".": "./dist/index.js",
+                    "./styles.css": "./dist/index.css",
+                },
             },
         });
 
         expect(entryPoints).toEqual({index: "./src/index.ts"});
     });
 
-    it("skips exports sub-paths with no default condition", () => {
+    it("skips sub-paths with no published export", () => {
         // Arrange, Act
         const entryPoints = getEntryPoints({
-            exports: {
-                ".": {source: "./src/index.ts"},
-            },
+            exports: {".": "./src/index.ts"},
         });
 
         expect(entryPoints).toEqual({});

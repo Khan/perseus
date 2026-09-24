@@ -19,21 +19,6 @@ const vendorMap = fg
         };
     }, {});
 
-const pkgMap = fg
-    .globSync(path.join(root, "packages/*/package.json"))
-    .reduce((map, pkgJsonPath) => {
-        const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath).toString());
-        return {
-            ...map,
-            // Use the root export's source condition so tests can run without
-            // compiling every package first.
-            [`^${pkgJson.name}$`]: path.join(
-                path.dirname(pkgJsonPath),
-                pkgJson.exports["."].source,
-            ),
-        };
-    }, {});
-
 // NOTE: We need to use this plugin in order to turn the module exports
 // into module.exports. This will make it so that we can mock exports
 // correctly.
@@ -89,7 +74,6 @@ module.exports = {
         "<rootDir>/config/test/crypto-polyfill.js",
     ],
     moduleNameMapper: {
-        ...pkgMap,
         ...vendorMap,
         // Load a .js file with no exports whenever a .css file is requested.
         "(?<!\\.module)\\.css$": "<rootDir>/config/test/style-mock.js",

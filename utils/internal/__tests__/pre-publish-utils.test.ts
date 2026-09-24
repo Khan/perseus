@@ -6,7 +6,19 @@ describe("checkExports", () => {
     });
 
     it("returns false when exports is missing", () => {
-        const result = checkExports({name: "@khanacademy/kmath"});
+        const result = checkExports({
+            name: "@khanacademy/kmath",
+            publishConfig: {exports: {".": "./dist/index.js"}},
+        });
+
+        expect(result).toBe(false);
+    });
+
+    it("returns false when publishConfig.exports is missing", () => {
+        const result = checkExports({
+            name: "@khanacademy/kmath",
+            exports: {".": "./src/index.ts"},
+        });
 
         expect(result).toBe(false);
     });
@@ -15,6 +27,7 @@ describe("checkExports", () => {
         const result = checkExports({
             name: "@khanacademy/kmath",
             exports: {"./styles.css": "./dist/index.css"},
+            publishConfig: {exports: {"./styles.css": "./dist/index.css"}},
         });
 
         expect(result).toBe(false);
@@ -24,40 +37,50 @@ describe("checkExports", () => {
         const result = checkExports({
             name: "@khanacademy/kmath",
             exports: {
-                ".": {
-                    source: "./src/index.ts",
-                    default: "./dist/index.js",
-                },
+                ".": "./src/index.ts",
                 "./styles.css": "./dist/index.css",
             },
-        });
-
-        expect(result).toBe(true);
-    });
-
-    it("returns true for a source-only sub-path", () => {
-        const result = checkExports({
-            name: "@khanacademy/kmath",
-            exports: {
-                ".": {
-                    source: "./src/index.ts",
-                    default: "./dist/index.js",
+            publishConfig: {
+                exports: {
+                    ".": "./dist/index.js",
+                    "./styles.css": "./dist/index.css",
                 },
-                "./internal": {source: "./src/internal.ts"},
             },
         });
 
         expect(result).toBe(true);
     });
 
-    it("returns false when a code export omits its source condition", () => {
+    it("returns false when a sub-path is missing from the published exports", () => {
         const result = checkExports({
             name: "@khanacademy/kmath",
             exports: {
-                ".": {
-                    default: "./dist/index.js",
-                },
+                ".": "./src/index.ts",
+                "./strings": "./src/strings.ts",
             },
+            publishConfig: {exports: {".": "./dist/index.js"}},
+        });
+
+        expect(result).toBe(false);
+    });
+
+    it("returns false when a code export does not point at a source file", () => {
+        const result = checkExports({
+            name: "@khanacademy/kmath",
+            exports: {".": "./dist/index.js"},
+            publishConfig: {exports: {".": "./dist/index.js"}},
+        });
+
+        expect(result).toBe(false);
+    });
+
+    it("returns false when an export uses conditions", () => {
+        const result = checkExports({
+            name: "@khanacademy/kmath",
+            exports: {
+                ".": {source: "./src/index.ts", default: "./dist/index.js"},
+            },
+            publishConfig: {exports: {".": "./dist/index.js"}},
         });
 
         expect(result).toBe(false);
@@ -66,12 +89,8 @@ describe("checkExports", () => {
     it("returns false when output paths do not match the sub-path", () => {
         const result = checkExports({
             name: "@khanacademy/kmath",
-            exports: {
-                ".": {
-                    source: "./src/index.ts",
-                    default: "./dist/other.js",
-                },
-            },
+            exports: {".": "./src/index.ts"},
+            publishConfig: {exports: {".": "./dist/other.js"}},
         });
 
         expect(result).toBe(false);
@@ -82,12 +101,8 @@ describe("checkEntrypoints", () => {
     const esmOnlyPkgJson = {
         name: "@khanacademy/kmath",
         type: "module",
-        exports: {
-            ".": {
-                source: "./src/index.ts",
-                default: "./dist/index.js",
-            },
-        },
+        exports: {".": "./src/index.ts"},
+        publishConfig: {exports: {".": "./dist/index.js"}},
     };
 
     beforeEach(() => {
@@ -124,13 +139,15 @@ describe("checkEntrypoints", () => {
         expect(result).toBe(false);
     });
 
-    it("returns false when a sub-path declares a require condition", () => {
+    it("returns false when a published sub-path declares a require condition", () => {
         const result = checkEntrypoints({
             ...esmOnlyPkgJson,
-            exports: {
-                ...esmOnlyPkgJson.exports,
-                "./strings": {
-                    require: "./dist/strings.cjs",
+            publishConfig: {
+                exports: {
+                    ...esmOnlyPkgJson.publishConfig.exports,
+                    "./strings": {
+                        require: "./dist/strings.cjs",
+                    },
                 },
             },
         });

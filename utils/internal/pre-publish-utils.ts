@@ -93,7 +93,10 @@ const checkType = (pkgJson): boolean => checkField(pkgJson, "type", "module");
  * build. Without one, `require()` fails at resolution time instead.
  */
 const checkNoRequireCondition = (pkgJson): boolean =>
-    Object.entries(pkgJson.exports ?? {})
+    [
+        ...Object.entries(pkgJson.exports ?? {}),
+        ...Object.entries(pkgJson.publishConfig?.exports ?? {}),
+    ]
         .map(([subPath, conditions]) => {
             if (
                 typeof conditions === "object" &&
@@ -130,48 +133,50 @@ const checkEntrypoints = (pkgJson): boolean =>
         checkNoRequireCondition(pkgJson),
     ].every(Boolean);
 
+/**
+ * Verify the in-repo and published export maps agree.
+ *
+ * `exports` points at source files so that tooling in this repo resolves
+ * workspace packages without a build. `publishConfig.exports` is the map pnpm
+ * publishes in its place, so it must expose the same sub-paths, each pointing
+ * at the file the build emits for it.
+ */
 const checkExports = (pkgJson): boolean => {
-    if (!pkgJson.exports || !pkgJson.exports["."]) {
+    const sourceExports = pkgJson.exports;
+    const publishedExports = pkgJson.publishConfig?.exports;
+    if (!sourceExports?.["."] || !publishedExports?.["."]) {
         console.error(
-            `ERROR: ${pkgJson.name} must have an "exports" map with a "." entry.`,
+            `ERROR: ${pkgJson.name} must have "exports" and "publishConfig.exports" maps with a "." entry.`,
         );
         return false;
     }
 
-    return Object.entries(pkgJson.exports)
-        .map(([subPath, target]) => {
-            if (typeof target === "string") {
-                if (subPath !== "." && target.startsWith("./dist/")) {
+    const subPaths = new Set([
+        ...Object.keys(sourceExports),
+        ...Object.keys(publishedExports),
+    ]);
+    return [...subPaths]
+        .map((subPath) => {
+            const sourceFile = sourceExports[subPath];
+            const publishedFile = publishedExports[subPath];
+            if (
+                typeof sourceFile !== "string" ||
+                typeof publishedFile !== "string"
+            ) {
+                console.error(
+                    `ERROR: ${pkgJson.name} export "${subPath}" must map to a file path in both "exports" and "publishConfig.exports".`,
+                );
+                return false;
+            }
+
+            // Built assets (such as CSS) have no source file, so both maps
+            // point at the build output.
+            if (subPath !== "." && sourceFile === publishedFile) {
+                if (publishedFile.startsWith("./dist/")) {
                     return true;
                 }
                 console.error(
-                    `ERROR: ${pkgJson.name} export "${subPath}" must declare source, types, and default conditions.`,
-                );
-                return false;
-            }
-
-            if (typeof target !== "object" || target === null) {
-                console.error(
-                    `ERROR: ${pkgJson.name} export "${subPath}" has an invalid target.`,
-                );
-                return false;
-            }
-
-            if (!("source" in target) || typeof target.source !== "string") {
-                console.error(
-                    `ERROR: ${pkgJson.name} export "${subPath}" must declare a source condition.`,
-                );
-                return false;
-            }
-
-            const conditions = Object.keys(target);
-            if (subPath !== "." && conditions.length === 1) {
-                return true;
-            }
-
-            if (!("default" in target)) {
-                console.error(
-                    `ERROR: ${pkgJson.name} export "${subPath}" must declare a default condition.`,
+                    `ERROR: ${pkgJson.name} export "${subPath}" must point at a file in dist/.`,
                 );
                 return false;
             }
@@ -179,14 +184,11 @@ const checkExports = (pkgJson): boolean => {
             const entryName =
                 subPath === "." ? "index" : subPath.replace(/^\.\//, "");
             if (
-                conditions.length !== 2 ||
-                !conditions.every((condition) =>
-                    ["source", "default"].includes(condition),
-                ) ||
-                target.default !== `./dist/${entryName}.js`
+                !/^\.\/src\/.+\.tsx?$/.test(sourceFile) ||
+                publishedFile !== `./dist/${entryName}.js`
             ) {
                 console.error(
-                    `ERROR: ${pkgJson.name} export "${subPath}" must declare source and default conditions with matching dist paths.`,
+                    `ERROR: ${pkgJson.name} export "${subPath}" must map a source file in src/ to "./dist/${entryName}.js" in "publishConfig.exports".`,
                 );
                 return false;
             }
