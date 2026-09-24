@@ -1,4 +1,7 @@
-import {exceedsCardLimit, SORTER_MAX_HORIZONTAL_CARDS} from "@khanacademy/perseus-core";
+import {
+    exceedsCardLimit,
+    SORTER_MAX_HORIZONTAL_CARDS,
+} from "@khanacademy/perseus-core";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {forwardRef, useImperativeHandle, useRef} from "react";
