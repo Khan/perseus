@@ -24,6 +24,9 @@ const basePackageConfig = {
 };
 
 const config: KnipConfig = {
+    // .pi/ holds local agent tooling that git ignores, but knip still picks
+    // up its files.
+    ignore: [".pi/**"],
     workspaces: {
         ".": {
             project: ["{config,utils}/**/*.{ts,tsx,js,jsx}"],
