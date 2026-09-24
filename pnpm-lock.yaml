@@ -484,6 +484,12 @@ importers:
 
   config/build: {}
 
+  data:
+    dependencies:
+      '@khanacademy/perseus-core':
+        specifier: workspace:*
+        version: link:../packages/perseus-core
+
   packages/kas:
     dependencies:
       '@khanacademy/perseus-utils':

@@ -42,6 +42,7 @@ minimumReleaseAgeExclude:
 packages:
     - __docs__
     - config/build
+    - data
     - dev
     - packages/*
     - vendor/*

@@ -1,10 +1,8 @@
-#!/usr/bin/env -S node -r @swc-node/register
-
 /**
  * To use this:
  * - Modify `predicateCallback` to look for questions that
  *   match your requirements
- * - run: ./find-questions.js
+ * - run: pnpm find-questions
  */
 
 import fs from "fs";
