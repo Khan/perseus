@@ -29,7 +29,7 @@ import {getPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-
 
 import GradedGroupAnswerBar from "./graded-group-answer-bar";
 
-import type {ANSWER_BAR_STATES} from "./graded-group-answer-bar";
+import type {AnswerBarState, GradingStatus} from "./graded-group-answer-bar";
 import type {
     FocusPath,
     TrackingGradedGroupExtraArguments,
@@ -38,26 +38,20 @@ import type {
 } from "../../types";
 import type {GradedGroupPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
 
-const GRADING_STATUSES = {
-    ungraded: "ungraded" as const,
-    correct: "correct" as const,
-    incorrect: "incorrect" as const,
-    invalid: "invalid" as const,
-} as const;
-
 // Update answer bar state based on current state and whether the question is
 // answerable (all parts have been filled out) or not.
 const getNextState = (
-    currentState: ANSWER_BAR_STATES,
+    currentState: AnswerBarState,
     answerable,
-): ANSWER_BAR_STATES => {
+): AnswerBarState => {
     switch (currentState) {
-        case "ACTIVE":
-            return !answerable ? "INACTIVE" : currentState;
-        case "INACTIVE":
-            return answerable ? "ACTIVE" : currentState;
-        case "INCORRECT":
-            return answerable ? "ACTIVE" : "INACTIVE";
+        case "active":
+            return !answerable ? "inactive" : currentState;
+        case "inactive":
+            return answerable ? "active" : currentState;
+        case "incorrect":
+        case "invalid":
+            return answerable ? "active" : "inactive";
         default:
             return currentState;
     }
@@ -94,12 +88,10 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
 
         const [showHint, setShowHint] = useState(false);
         const [message, setMessage] = useState("");
-        const [messageIsForInvalidState, setMessageIsForInvalidState] =
-            useState(false);
 
         // Allow moving on when the Graded Group doesn't have any
         // answerable widgets in it.
-        const [answerBarState, setAnswerBarState] = useState<ANSWER_BAR_STATES>(
+        const [answerBarState, setAnswerBarState] = useState<AnswerBarState>(
             () => {
                 const {widgets} = props.options;
                 const emptyWidgetIds = emptyWidgetsFunctional(
@@ -108,7 +100,7 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                     sharedInitializeUserInput(widgets, props.problemNum ?? 0),
                     locale,
                 );
-                return emptyWidgetIds.length > 0 ? "INACTIVE" : "ACTIVE";
+                return emptyWidgetIds.length > 0 ? "inactive" : "active";
             },
         );
 
@@ -166,7 +158,6 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
         ): void {
             // Reset grading display when user changes answer
             setMessage("");
-            setMessageIsForInvalidState(false);
 
             const answerable = !widgetsEmpty;
             const nextState = getNextState(answerBarState, answerable);
@@ -183,12 +174,12 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                 DEFAULT_INVALID_MESSAGE_2,
             } = strings;
 
-            const status =
+            const status: GradingStatus =
                 score.type === "points"
                     ? score.total === score.earned
-                        ? GRADING_STATUSES.correct
-                        : GRADING_STATUSES.incorrect
-                    : GRADING_STATUSES.invalid;
+                        ? "correct"
+                        : "incorrect"
+                    : "invalid";
             const message =
                 score.type === "points"
                     ? score.message || ""
@@ -197,8 +188,7 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                       : `${INVALID_MESSAGE_PREFIX} ${DEFAULT_INVALID_MESSAGE_1}${DEFAULT_INVALID_MESSAGE_2}`;
 
             setMessage(message);
-            setMessageIsForInvalidState(status === GRADING_STATUSES.invalid);
-            setAnswerBarState(status === "correct" ? "CORRECT" : "INCORRECT");
+            setAnswerBarState(status);
 
             props.trackInteraction({
                 status: status,
@@ -228,7 +218,7 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
         // Disabled widgets after the answer has been answered correctly to
         // prevent a situation where the answer has been marked correct but
         // looks incorrect because a user has modified it afterwards.
-        const isCorrect = answerBarState === "CORRECT";
+        const isCorrect = answerBarState === "correct";
         const readOnly = apiOptions.readOnly || isCorrect;
 
         // We only want to show the solutions and rationale if the answer is correct
@@ -267,7 +257,7 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                     )}
                 </UserInputManager>
 
-                {messageIsForInvalidState ? (
+                {answerBarState === "invalid" ? (
                     <Banner
                         kind="warning"
                         text={

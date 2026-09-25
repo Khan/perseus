@@ -248,7 +248,7 @@ describe("graded-group", () => {
         ).toBeVisible();
     });
 
-    it("offers Try again instead of Check after an ungradable answer", async () => {
+    it("disables the Check button after an invalid answer is submitted", async () => {
         // Arrange - only two of the four rows are categorized
         renderQuestion(question1);
         await userEvent.click(
@@ -262,12 +262,13 @@ describe("graded-group", () => {
         await checkAnswer(userEvent);
 
         // Assert
-        expect(
-            await screen.findByRole("button", {name: "Try again"}),
-        ).toBeVisible();
+        expect(screen.getByRole("button", {name: "Check"})).toHaveAttribute(
+            "aria-disabled",
+            "true",
+        );
     });
 
-    it("restores the Check button when the answer changes after Try again", async () => {
+    it("re-enables the Check button when the answer changes after an ungradable answer", async () => {
         // Arrange
         renderQuestion(question1);
         await userEvent.click(
@@ -277,9 +278,6 @@ describe("graded-group", () => {
             screen.getAllByRole("button", {name: "False"})[1],
         );
         await checkAnswer(userEvent);
-        expect(
-            await screen.findByRole("button", {name: "Try again"}),
-        ).toBeVisible();
 
         // Act - categorizing another row makes the group answerable again
         await userEvent.click(
@@ -287,9 +285,27 @@ describe("graded-group", () => {
         );
 
         // Assert
-        expect(
-            await screen.findByRole("button", {name: "Check"}),
-        ).toBeVisible();
+        expect(screen.getByRole("button", {name: "Check"})).toHaveAttribute(
+            "aria-disabled",
+            "false",
+        );
+    });
+
+    it("clears the warning banner when the answer changes after an ungradable answer", async () => {
+        // Arrange
+        renderQuestion(question1);
+        await userEvent.click(
+            screen.getAllByRole("button", {name: "False"})[0],
+        );
+        await checkAnswer(userEvent);
+
+        // Act
+        await userEvent.click(
+            screen.getAllByRole("button", {name: "False"})[1],
+        );
+
+        // Assert
+        expect(screen.queryByRole("alert")).not.toBeInTheDocument();
     });
 
     it("enables the Check button when a radio choice is selected", async () => {
