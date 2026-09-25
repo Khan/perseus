@@ -20,6 +20,7 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 import {
     question1,
     groupedRadioRationaleQuestion,
+    gradedGroupWithDropdownQuestion,
 } from "./graded-group.testdata";
 
 import type {UserEvent} from "@testing-library/user-event";
@@ -30,33 +31,6 @@ const checkAnswer = async (
     // NOTE(jeremy): The only route to check the answer
     // is to use the "Check" button that is embedded _inside_ the widget.
     await userEvent.click(await screen.findByRole("button", {name: "Check"}));
-};
-
-/**
- * Fills in every row of the categorizer in `question1` with the correct
- * category, leaving the group answerable and scoreable as correct.
- */
-const answerQuestion1Correctly = async (
-    userEvent: ReturnType<(typeof userEventLib)["setup"]>,
-) => {
-    await userEvent.click(screen.getAllByRole("button", {name: "True"})[0]);
-    await userEvent.click(screen.getAllByRole("button", {name: "False"})[1]);
-    await userEvent.click(screen.getAllByRole("button", {name: "True"})[2]);
-    await userEvent.click(screen.getAllByRole("button", {name: "True"})[3]);
-};
-
-/**
- * Fills in every row of the categorizer in `question1` with "False", leaving
- * the group answerable but scoreable as incorrect.
- */
-const answerQuestion1Incorrectly = async (
-    userEvent: ReturnType<(typeof userEventLib)["setup"]>,
-) => {
-    for (let row = 0; row < 4; row++) {
-        await userEvent.click(
-            screen.getAllByRole("button", {name: "False"})[row],
-        );
-    }
 };
 
 describe("graded-group", () => {
@@ -159,10 +133,13 @@ describe("graded-group", () => {
 
     it("should be able to be answered correctly", async () => {
         // Arrange
-        renderQuestion(question1);
-        await answerQuestion1Correctly(userEvent);
+        renderQuestion(gradedGroupWithDropdownQuestion);
 
         // Act
+        // Answer correctly
+        const dropdown = screen.getByRole("combobox");
+        await userEvent.click(dropdown);
+        await userEvent.click(screen.getByText("Correct answer"));
         await checkAnswer(userEvent);
 
         // Assert
@@ -172,10 +149,13 @@ describe("graded-group", () => {
 
     it("removes the Check button once the answer is correct", async () => {
         // Arrange
-        renderQuestion(question1);
-        await answerQuestion1Correctly(userEvent);
+        renderQuestion(gradedGroupWithDropdownQuestion);
 
         // Act
+        // Answer correctly
+        const dropdown = screen.getByRole("combobox");
+        await userEvent.click(dropdown);
+        await userEvent.click(screen.getByText("Correct answer"));
         await checkAnswer(userEvent);
 
         // Assert - the group is locked down so a correct answer can't be
@@ -187,10 +167,13 @@ describe("graded-group", () => {
 
     it("should be able to be answered incorrectly", async () => {
         // Arrange
-        renderQuestion(question1);
-        await answerQuestion1Incorrectly(userEvent);
+        renderQuestion(gradedGroupWithDropdownQuestion);
 
         // Act
+        // Answer incorrectly
+        const dropdown = screen.getByRole("combobox");
+        await userEvent.click(dropdown);
+        await userEvent.click(screen.getByText("Incorrect answer"));
         await checkAnswer(userEvent);
 
         // Assert
@@ -202,10 +185,13 @@ describe("graded-group", () => {
     it("moves focus to the result when the answer is correct", async () => {
         // Arrange - the Check button is unmounted in this state, so focus
         // would otherwise be lost to <body>.
-        renderQuestion(question1);
-        await answerQuestion1Correctly(userEvent);
+        renderQuestion(gradedGroupWithDropdownQuestion);
 
         // Act
+        // Answer correctly
+        const dropdown = screen.getByRole("combobox");
+        await userEvent.click(dropdown);
+        await userEvent.click(screen.getByText("Correct answer"));
         await checkAnswer(userEvent);
 
         // Assert
@@ -214,10 +200,13 @@ describe("graded-group", () => {
 
     it("moves focus to the result when the answer is incorrect", async () => {
         // Arrange
-        renderQuestion(question1);
-        await answerQuestion1Incorrectly(userEvent);
+        renderQuestion(gradedGroupWithDropdownQuestion);
 
         // Act
+        // Answer incorrectly
+        const dropdown = screen.getByRole("combobox");
+        await userEvent.click(dropdown);
+        await userEvent.click(screen.getByText("Incorrect answer"));
         await checkAnswer(userEvent);
 
         // Assert
@@ -227,12 +216,17 @@ describe("graded-group", () => {
     it("moves focus to the result again when a second wrong answer is checked", async () => {
         // Arrange - the result text is identical both times, so this is the
         // repeat case a plain live region would stay silent on.
-        renderQuestion(question1);
-        await answerQuestion1Incorrectly(userEvent);
+        renderQuestion(gradedGroupWithDropdownQuestion);
+        // Answer incorrectly
+        const dropdown = screen.getByRole("combobox");
+        await userEvent.click(dropdown);
+        await userEvent.click(screen.getByText("Incorrect answer"));
         await checkAnswer(userEvent);
 
-        // Act - changing a row makes the group answerable again
-        await userEvent.click(screen.getAllByRole("button", {name: "True"})[0]);
+        // Act - picking a different wrong answer makes the group answerable
+        // again
+        await userEvent.click(dropdown);
+        await userEvent.click(screen.getByText("Another incorrect answer"));
         await checkAnswer(userEvent);
 
         // Assert
