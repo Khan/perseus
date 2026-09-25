@@ -163,6 +163,29 @@ const mergeInlineNodes = (
 };
 
 /**
+ * Combines adjacent text nodes in an ASTNode array into a single text node.
+ * Does not recurse.
+ */
+function joinAdjacentTextNodes(ast: ASTNode): ASTNode {
+    if (!Array.isArray(ast)) {
+        return ast;
+    }
+
+    const joined: SingleASTNode[] = [];
+
+    for (const node of ast) {
+        const lastIndex = joined.length - 1;
+        if (node.type === "text" && joined[lastIndex]?.type === "text") {
+            joined[lastIndex].content += node.content;
+        } else {
+            joined.push(node);
+        }
+    }
+
+    return joined;
+}
+
+/**
  * Handle situations in the markdown where a block-level widget doesn't have the
  * expected double-newline characters in place. The blockRegex function in
  * perseus-markdown.tsx expects a double-newline. When only a single newline
@@ -706,6 +729,7 @@ const Util = {
     getDataUrl: getDataUrl,
     textarea,
     unescapeMathMode,
+    joinAdjacentTextNodes,
 } as const;
 
 export default Util;
