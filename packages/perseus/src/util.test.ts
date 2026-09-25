@@ -298,3 +298,86 @@ describe("noParagraphForInlineWidget", () => {
         expect(result).toBe(false);
     });
 });
+
+describe("joinAdjacentTextNodes", () => {
+    it("does nothing to a single node", () => {
+        const ast = {type: "text", content: "hi"};
+
+        const joined = Util.joinAdjacentTextNodes(ast);
+
+        expect(joined).toEqual({type: "text", content: "hi"});
+    });
+
+    it("does nothing to a single node in an array", () => {
+        const ast = [{type: "text", content: "hi"}];
+
+        const joined = Util.joinAdjacentTextNodes(ast);
+
+        expect(joined).toEqual([{type: "text", content: "hi"}]);
+    });
+
+    it("combines two adjacent text nodes", () => {
+        const ast = [
+            {type: "text", content: "one"},
+            {type: "text", content: ", two"},
+        ];
+
+        const joined = Util.joinAdjacentTextNodes(ast);
+
+        expect(joined).toEqual([{type: "text", content: "one, two"}]);
+    });
+
+    it("combines three adjacent text nodes", () => {
+        const ast = [
+            {type: "text", content: "uno"},
+            {type: "text", content: ", dos"},
+            {type: "text", content: ", tres"},
+        ];
+
+        const joined = Util.joinAdjacentTextNodes(ast);
+
+        expect(joined).toEqual([{type: "text", content: "uno, dos, tres"}]);
+    });
+
+    it("leaves non-text nodes alone", () => {
+        const ast = [
+            {type: "text", content: "a"},
+            {type: "text", content: "b"},
+            {type: "foo"},
+            {type: "text", content: "c"},
+            {type: "text", content: "d"},
+        ];
+
+        const joined = Util.joinAdjacentTextNodes(ast);
+
+        expect(joined).toEqual([
+            {type: "text", content: "ab"},
+            {type: "foo"},
+            {type: "text", content: "cd"},
+        ]);
+    });
+
+    it("does not recurse into sub-nodes", () => {
+        const ast = [
+            {
+                type: "paragraph",
+                content: [
+                    {type: "text", content: "a"},
+                    {type: "text", content: "b"},
+                ],
+            },
+        ];
+
+        const joined = Util.joinAdjacentTextNodes(ast);
+
+        expect(joined).toEqual([
+            {
+                type: "paragraph",
+                content: [
+                    {type: "text", content: "a"},
+                    {type: "text", content: "b"},
+                ],
+            },
+        ]);
+    });
+});

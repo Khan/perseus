@@ -1605,9 +1605,12 @@ class Renderer
         }
 
         // Render the linted markdown parse tree with React components
-        const markdownContents = this.outputMarkdown(parsedMarkdown, {
-            baseElements: apiOptions.baseElements,
-        });
+        const markdownContents = this.outputMarkdown(
+            Util.joinAdjacentTextNodes(parsedMarkdown),
+            {
+                baseElements: apiOptions.baseElements,
+            },
+        );
 
         const className = classNames({
             [ApiClassNames.RENDERER]: true,
