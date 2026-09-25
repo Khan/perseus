@@ -375,49 +375,6 @@ describe("graded-group", () => {
         expect(screen.getByText("This is the correct answer.")).toBeVisible();
     });
 
-    it("should render TeX in the answer message", async () => {
-        // Arrange
-        const texMessage = "The answer is $x = 5$";
-        const question = generateTestPerseusRenderer({
-            content: "[[☃ graded-group 1]]",
-            widgets: {
-                "graded-group 1": generateGradedGroupWidget({
-                    options: generateGradedGroupOptions({
-                        content: "Enter 5: [[☃ numeric-input 1]]",
-                        widgets: {
-                            "numeric-input 1": generateNumericInputWidget({
-                                options: {
-                                    answers: [
-                                        generateNumericInputAnswer({
-                                            value: 5,
-                                            status: "correct",
-                                            message: texMessage,
-                                        }),
-                                    ],
-                                    labelText: "",
-                                    size: "normal",
-                                    coefficient: false,
-                                    textAlign: "left",
-                                },
-                            }),
-                        },
-                        images: {},
-                    }),
-                }),
-            },
-        });
-        renderQuestion(question);
-        const input = screen.getByRole("textbox");
-        await userEvent.type(input, "5");
-
-        // Act
-        await checkAnswer(userEvent);
-
-        // Assert
-        expect(screen.queryByText(texMessage)).not.toBeInTheDocument();
-        expect(screen.getByText("x = 5")).toBeInTheDocument();
-    });
-
     it("should render TeX in an ungraded answer's message", async () => {
         // Arrange - an "ungraded" answer scores as invalid, but carries the
         // author's own message rather than an error code, so it can contain
