@@ -5,7 +5,7 @@ import {
 import * as React from "react";
 
 import {themeModes} from "../../../../../../.storybook/modes";
-import {ServerItemRenderer} from "../../../server-item-renderer";
+import ServerItemRenderer from "../../../server-item-renderer";
 import {testDependenciesV2} from "../../../testing/test-dependencies";
 import {
     mobileDecorator,

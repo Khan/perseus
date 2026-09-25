@@ -2,7 +2,7 @@ import {KeypadContext} from "@khanacademy/keypad-context";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
-import {ServerItemRenderer} from "../server-item-renderer";
+import ServerItemRenderer from "../server-item-renderer";
 import {isCorrect} from "../util/scoring";
 
 import {DebugAccordionUI} from "./debug-accordion-ui";

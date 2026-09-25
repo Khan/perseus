@@ -12,7 +12,6 @@ export interface RendererInterface {
     // TODO(LEMS-3185): remove serializedState
     blur(): void;
     focus(): boolean | null | undefined;
-    props: any;
 }
 
 // Base marker, with the props that are set by the editor.
