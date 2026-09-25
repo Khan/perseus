@@ -82,6 +82,7 @@ import type {
     UserInputMap,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import type {ASTNode, SingleASTNode} from "@khanacademy/simple-markdown";
 
 import "./styles/perseus-renderer.new.css";
 
@@ -820,11 +821,7 @@ class Renderer
 
     // wrap top-level elements in a QuestionParagraph, mostly
     // for appropriate spacing and other css
-    // @ts-expect-error - TS2322 - Type '(ast: any, state: WidgetState) => never[] | JSX.Element' is not assignable to type '(ast: any, state: WidgetState) => ReactElement<any, string | JSXElementConstructor<any>>'.
-    outputMarkdown: (ast: any, state: WidgetState) => React.ReactElement = (
-        ast: any,
-        state: WidgetState,
-    ) => {
+    outputMarkdown = (ast: ASTNode, state: WidgetState): React.ReactNode => {
         if (Array.isArray(ast)) {
             // This is duplicated from simple-markdown
             // TODO(aria): Don't duplicate this logic
@@ -904,10 +901,7 @@ class Renderer
     };
 
     // output non-top-level nodes or arrays
-    outputNested: (ast: any, state: WidgetState) => React.ReactElement = (
-        ast: any,
-        state: WidgetState,
-    ) => {
+    outputNested = (ast: ASTNode, state: WidgetState): React.ReactNode => {
         if (Array.isArray(ast)) {
             // This is duplicated from simple-markdown
             // TODO(aria): Don't duplicate this logic
@@ -940,20 +934,14 @@ class Renderer
     };
 
     // output individual AST nodes [not arrays]
-    outputNode: (
-        node: any,
-        nestedOutput: any,
+    outputNode = (
+        node: SingleASTNode,
+        nestedOutput: (
+            ast: SingleASTNode,
+            state: WidgetState,
+        ) => React.ReactNode,
         state: WidgetState,
-    ) =>
-        | any
-        | null
-        | React.ReactElement<React.ComponentProps<"div">>
-        | React.ReactElement<React.ComponentProps<"span">>
-        | React.ReactNode = (
-        node: any,
-        nestedOutput: any,
-        state: WidgetState,
-    ) => {
+    ): React.ReactNode => {
         const apiOptions = this.getApiOptions();
         const imagePlaceholder = apiOptions.imagePlaceholder;
 
