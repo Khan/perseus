@@ -909,10 +909,6 @@ class Renderer
                 const nodeOut = this.outputNested(ast[i], state);
                 const isString = typeof nodeOut === "string";
                 if (typeof nodeOut === "string" && lastWasString) {
-                    /**
-                     * We know that last was string, but TypeScript can't see this
-                     * refinement.
-                     */
                     result[result.length - 1] += nodeOut;
                 } else {
                     result.push(nodeOut);
