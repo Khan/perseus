@@ -10,30 +10,25 @@ import InlineIcon from "../../components/inline-icon";
 import {iconStar, iconTryAgain} from "../../icon-paths";
 import {phoneMargin, negativePhoneMargin} from "../../styles/constants";
 
-import type {APIOptions} from "../../types";
+import type {APIOptions, TrackingGradedGroupExtraArguments} from "../../types";
 
-export type ANSWER_BAR_STATES =
+// The result of clicking 'Check'. ("correct", "incorrect", "invalid")
+export type GradingStatus = TrackingGradedGroupExtraArguments["status"];
+
+export type AnswerBarState =
     // The 'Check' button is active whenever the question is answerable or any
     // of the input widgets have been modified after getting the answer wrong.
-    | "ACTIVE"
+    | "active"
     // The 'Check' button is disabled and there is no message.  This is the initial state and also occurs when
     // some of the widgets haven't been filled in after the answer bar has already become
     // visible.
-    | "INACTIVE"
-    // This happens immediately after clicking 'Check' with a wrong answer.
-    // The 'Check' button is disabled and the 'Try Again' message is displayed.
-    | "INCORRECT"
-    // This happens immediately after clicking 'Check' with an answer that
-    // couldn't be graded (e.g. only partially filled out). The 'Check' button
-    // is disabled and no message is shown here; GradedGroup explains why the
-    // answer couldn't be graded in a warning banner instead.
-    | "INVALID"
-    // Final state.  This occurs after the user submits the correct answer.
-    // The widgets in this grade-group are disabled.
-    | "CORRECT";
+    | "inactive"
+    // Immediately after clicking 'Check', the answer bar shows the result
+    // until the user changes their answer.
+    | GradingStatus;
 
 type Props = {
-    answerBarState: ANSWER_BAR_STATES;
+    answerBarState: AnswerBarState;
     apiOptions: APIOptions;
     onCheckAnswer: () => unknown;
     // The function to call when clicking "Next question" after correctly
@@ -65,13 +60,13 @@ function GradedGroupAnswerBar({
         ...styles.answerBar,
         // Center the "Correct!" message only when there's no next question
         justifyContent:
-            answerBarState === "CORRECT" && !onNextQuestion
+            answerBarState === "correct" && !onNextQuestion
                 ? "center"
                 : "space-between",
     } as const;
 
     const message =
-        answerBarState === "INCORRECT" ? (
+        answerBarState === "incorrect" ? (
             <span style={styles.text}>
                 <span style={styles.tryAgainIcon}>
                     <InlineIcon {...iconTryAgain} />
@@ -88,15 +83,15 @@ function GradedGroupAnswerBar({
             <span />
         ); // empty span keeps the button on the right side
 
-    if (answerBarState !== "CORRECT") {
-        const buttonLabel = answerBarState === "INCORRECT" ? tryAgain : check;
+    if (answerBarState !== "correct") {
+        const buttonLabel = answerBarState === "incorrect" ? tryAgain : check;
 
         return (
             <div style={answerBarStyle}>
                 {message}
                 <Button
                     disabled={
-                        apiOptions.readOnly || answerBarState !== "ACTIVE"
+                        apiOptions.readOnly || answerBarState !== "active"
                     }
                     onClick={onCheckAnswer}
                 >
