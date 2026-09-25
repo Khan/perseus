@@ -5,13 +5,13 @@ import LabeledSwitch from "../../../components/labeled-switch";
 
 import styles from "./decorative-toggle.module.css";
 
-import type {Props as ImageEditorProps} from "../image-editor";
+import type {PerseusImageWidgetOptions} from "@khanacademy/perseus-core";
 
 interface Props {
     decorative?: boolean;
     hasPopulatedFields?: boolean;
     editingDisabled?: boolean;
-    onChange: ImageEditorProps["onChange"];
+    onChange: (changes: Partial<PerseusImageWidgetOptions>) => void;
 }
 
 export default function DecorativeToggle({
