@@ -1,7 +1,10 @@
-import {generateTestPerseusRenderer} from "@khanacademy/perseus-core";
+import {
+    generateTestPerseusItem,
+    generateTestPerseusRenderer,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 
 import type {
     PerseusOrdererWidgetOptions,
@@ -31,23 +34,27 @@ export const ordererRendererDecorator: Decorator = (
         };
     },
 ) => {
-    return (
-        <QuestionRendererForStories
-            initialUserInput={parameters?.initialUserInput}
-            question={generateTestPerseusRenderer({
-                content: parameters?.content ?? "[[☃ orderer 1]]",
-                widgets: {
-                    "orderer 1": {
-                        version: {major: 0, minor: 0},
-                        type: "orderer",
-                        graded: true,
-                        options: {
-                            ...defaultOptions,
-                            ...args,
-                        },
+    const item = generateTestPerseusItem({
+        question: generateTestPerseusRenderer({
+            content: parameters?.content ?? "[[☃ orderer 1]]",
+            widgets: {
+                "orderer 1": {
+                    version: {major: 0, minor: 0},
+                    type: "orderer",
+                    graded: true,
+                    options: {
+                        ...defaultOptions,
+                        ...args,
                     },
                 },
-            })}
+            },
+        }),
+    });
+
+    return (
+        <ServerItemRendererWithDebugUI
+            initialUserInput={parameters?.initialUserInput}
+            item={item}
         />
     );
 };

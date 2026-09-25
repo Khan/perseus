@@ -1,6 +1,7 @@
+import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 
 import type {APIOptions} from "../../../types";
 import type {PerseusRenderer, UserInputMap} from "@khanacademy/perseus-core";
@@ -21,9 +22,11 @@ export const grapherRendererDecorator: Decorator<{
         };
     },
 ) => {
+    const item = generateTestPerseusItem({question: args.question});
+
     return (
-        <QuestionRendererForStories
-            question={args.question}
+        <ServerItemRendererWithDebugUI
+            item={item}
             apiOptions={parameters?.apiOptions}
             initialUserInput={parameters?.initialUserInput}
         />

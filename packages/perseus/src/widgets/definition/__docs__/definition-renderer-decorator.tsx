@@ -1,11 +1,12 @@
 import {
+    generateTestPerseusItem,
     generateDefinitionOptions,
     generateDefinitionWidget,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
+import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 
 import type {APIOptions} from "../../../types";
 import type {PerseusDefinitionWidgetOptions} from "@khanacademy/perseus-core";
@@ -24,18 +25,22 @@ export const definitionRendererDecorator: Decorator = (
         };
     },
 ) => {
-    return (
-        <QuestionRendererForStories
-            question={generateTestPerseusRenderer({
-                content: parameters?.content ?? "[[☃ definition 1]]",
-                widgets: {
-                    "definition 1": generateDefinitionWidget({
-                        options: generateDefinitionOptions({
-                            ...args,
-                        }),
+    const item = generateTestPerseusItem({
+        question: generateTestPerseusRenderer({
+            content: parameters?.content ?? "[[☃ definition 1]]",
+            widgets: {
+                "definition 1": generateDefinitionWidget({
+                    options: generateDefinitionOptions({
+                        ...args,
                     }),
-                },
-            })}
+                }),
+            },
+        }),
+    });
+
+    return (
+        <ServerItemRendererWithDebugUI
+            item={item}
             apiOptions={parameters?.apiOptions}
         />
     );

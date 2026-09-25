@@ -1,5 +1,6 @@
 import {
     generateTestPerseusItem,
+    splitPerseusItem,
     type PerseusItem,
 } from "@khanacademy/perseus-core";
 
@@ -29,6 +30,7 @@ type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 const tableItem: PerseusItem = generateTestPerseusItem({
     question: generateTableRenderer(),
 });
+const answerlessTableItem = splitPerseusItem(tableItem);
 
 export const AnswerfulTable: Story = {
     args: {
@@ -38,6 +40,6 @@ export const AnswerfulTable: Story = {
 
 export const AnswerlessTable: Story = {
     args: {
-        item: tableItem,
+        item: answerlessTableItem,
     },
 };

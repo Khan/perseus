@@ -14,7 +14,11 @@ import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
 import {useStorybookApiOptions} from "./use-storybook-api-options";
 
 import type {APIOptions} from "../types";
-import type {PerseusItem, ShowSolutions} from "@khanacademy/perseus-core";
+import type {
+    PerseusItem,
+    ShowSolutions,
+    UserInputMap,
+} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type Props = {
@@ -23,6 +27,7 @@ type Props = {
     linterContext?: LinterContextProps;
     reviewMode?: boolean;
     showSolutions?: ShowSolutions;
+    initialUserInput?: UserInputMap;
 };
 
 /**
@@ -34,6 +39,7 @@ export const ServerItemRendererWithDebugUI = ({
     linterContext,
     reviewMode = false,
     showSolutions,
+    initialUserInput,
 }: Props): React.ReactElement => {
     const mergedApiOptions = useStorybookApiOptions(apiOptions);
     const {isMobile: mobileOverride, isRtl} = React.useContext(
@@ -86,6 +92,7 @@ export const ServerItemRendererWithDebugUI = ({
                                     keypadElement={keypadElement}
                                     linterContext={linterContext}
                                     showSolutions={state.showSolutions}
+                                    initialUserInput={initialUserInput}
                                     hintsVisible={state.hintsVisible}
                                     reviewMode={
                                         state.score != null &&
