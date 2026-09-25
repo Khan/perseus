@@ -1,41 +1,35 @@
 import {components, Dependencies, KhanColors} from "@khanacademy/perseus";
 import * as React from "react";
 
-import {deprecatedChangeableChange} from "../../mixins/changeable";
-
 import ColorPicker from "./color-picker";
 import MathquillInput from "./mathquill-input";
 
-import type {ChangeableProps} from "../../mixins/changeable";
+import type {PerseusInteractionLabelElementOptions} from "@khanacademy/perseus-core";
 
 const {TextInput} = components;
 
-type Props = ChangeableProps & {
-    color: string;
-    coordX: string;
-    coordY: string;
-    label: string;
-};
-
-type DefaultProps = {
-    color: Props["color"];
-    coordX: Props["coordX"];
-    coordY: Props["coordY"];
-    label: Props["label"];
-};
+interface Props extends PerseusInteractionLabelElementOptions {
+    onChange: (options: PerseusInteractionLabelElementOptions) => void;
+}
 
 // Editor for labels
 class LabelEditor extends React.Component<Props> {
-    static defaultProps: DefaultProps = {
+    static defaultProps: PerseusInteractionLabelElementOptions = {
         coordX: "0",
         coordY: "0",
         color: KhanColors.BLACK,
         label: "\\phi",
     };
 
-    change: (arg1: any, arg2?: any, arg3?: any) => any = (...args) => {
-        return deprecatedChangeableChange.apply(this, args);
-    };
+    handleChange(changes: Partial<PerseusInteractionLabelElementOptions>) {
+        this.props.onChange({
+            label: this.props.label,
+            color: this.props.color,
+            coordX: this.props.coordX,
+            coordY: this.props.coordY,
+            ...changes,
+        });
+    }
 
     render(): React.ReactNode {
         const {TeX} = Dependencies.getDependencies();
@@ -45,7 +39,7 @@ class LabelEditor extends React.Component<Props> {
                 <div className="perseus-widget-row">
                     <TextInput
                         value={this.props.label}
-                        onChange={this.change("label")}
+                        onChange={(label) => this.handleChange({label})}
                         style={{
                             width: "100%",
                         }}
@@ -55,19 +49,19 @@ class LabelEditor extends React.Component<Props> {
                     Location: <TeX>\Large(</TeX>
                     <MathquillInput
                         value={this.props.coordX}
-                        onChange={this.change("coordX")}
+                        onChange={(coordX) => this.handleChange({coordX})}
                     />
                     <TeX>,</TeX>{" "}
                     <MathquillInput
                         value={this.props.coordY}
-                        onChange={this.change("coordY")}
+                        onChange={(coordY) => this.handleChange({coordY})}
                     />
                     <TeX>\Large)</TeX>
                 </div>
                 <div className="perseus-widget-row">
                     <ColorPicker
                         value={this.props.color}
-                        onChange={this.change("color")}
+                        onChange={(color) => this.handleChange({color})}
                     />
                 </div>
             </div>

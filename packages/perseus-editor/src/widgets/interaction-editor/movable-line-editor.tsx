@@ -1,40 +1,20 @@
 import {components, Dependencies} from "@khanacademy/perseus";
 import * as React from "react";
 
-import {deprecatedChangeableChange} from "../../mixins/changeable";
-
 import ConstraintEditor from "./constraint-editor";
 import MathquillInput from "./mathquill-input";
 
-import type {ChangeableProps, ChangeFn} from "../../mixins/changeable";
+import type {PerseusInteractionMovableLineElementOptions} from "@khanacademy/perseus-core";
 
 const {NumberInput} = components;
 
-type Props = ChangeableProps & {
-    startX: string;
-    startY: string;
-    endX: string;
-    endY: string;
-    constraint: string;
-    snap: number;
-    constraintFn: string;
-    startSubscript: number;
-    endSubscript: number;
-};
-
-type DefaultProps = {
-    startX: Props["startX"];
-    startY: Props["startY"];
-    endX: Props["endX"];
-    endY: Props["endY"];
-    constraint: Props["constraint"];
-    snap: Props["snap"];
-    constraintFn: Props["constraintFn"];
-};
+interface Props extends PerseusInteractionMovableLineElementOptions {
+    onChange: (options: PerseusInteractionMovableLineElementOptions) => void;
+}
 
 // Editor for interactive movable line segments
 class MovableLineEditor extends React.Component<Props> {
-    static defaultProps: DefaultProps = {
+    static defaultProps: PerseusInteractionMovableLineElementOptions = {
         startX: "-5",
         startY: "5",
         endX: "5",
@@ -42,16 +22,34 @@ class MovableLineEditor extends React.Component<Props> {
         constraint: "none",
         snap: 0.5,
         constraintFn: "0",
-        // @ts-expect-error - TS2561
         constraintXMin: "-10",
         constraintXMax: "10",
         constraintYMin: "-10",
         constraintYMax: "10",
+        startSubscript: 0,
+        endSubscript: 0,
     };
 
-    change: ChangeFn = (...args) => {
-        return deprecatedChangeableChange.apply(this, args);
-    };
+    handleChange(
+        changes: Partial<PerseusInteractionMovableLineElementOptions>,
+    ) {
+        this.props.onChange({
+            startX: this.props.startX,
+            startY: this.props.startY,
+            endX: this.props.endX,
+            endY: this.props.endY,
+            constraint: this.props.constraint,
+            snap: this.props.snap,
+            constraintFn: this.props.constraintFn,
+            constraintXMin: this.props.constraintXMin,
+            constraintXMax: this.props.constraintXMax,
+            constraintYMin: this.props.constraintYMin,
+            constraintYMax: this.props.constraintYMax,
+            startSubscript: this.props.startSubscript,
+            endSubscript: this.props.endSubscript,
+            ...changes,
+        });
+    }
 
     render(): React.ReactNode {
         const {TeX} = Dependencies.getDependencies();
@@ -63,12 +61,12 @@ class MovableLineEditor extends React.Component<Props> {
                     Start: <TeX>\Large(</TeX>
                     <MathquillInput
                         value={this.props.startX}
-                        onChange={this.change("startX")}
+                        onChange={(startX) => this.handleChange({startX})}
                     />
                     <TeX>,</TeX>{" "}
                     <MathquillInput
                         value={this.props.startY}
-                        onChange={this.change("startY")}
+                        onChange={(startY) => this.handleChange({startY})}
                     />
                     <TeX>\Large)</TeX>
                 </div>
@@ -76,12 +74,12 @@ class MovableLineEditor extends React.Component<Props> {
                     End: <TeX>\Large(</TeX>
                     <MathquillInput
                         value={this.props.endX}
-                        onChange={this.change("endX")}
+                        onChange={(endX) => this.handleChange({endX})}
                     />
                     <TeX>,</TeX>{" "}
                     <MathquillInput
                         value={this.props.endY}
-                        onChange={this.change("endY")}
+                        onChange={(endY) => this.handleChange({endY})}
                     />
                     <TeX>\Large)</TeX>
                 </div>
@@ -90,7 +88,9 @@ class MovableLineEditor extends React.Component<Props> {
                     <NumberInput
                         value={this.props.startSubscript}
                         placeholder={0}
-                        onChange={this.change("startSubscript")}
+                        onChange={(startSubscript) =>
+                            this.handleChange({startSubscript})
+                        }
                     />
                 </div>
                 <div className="perseus-widget-row">
@@ -98,13 +98,18 @@ class MovableLineEditor extends React.Component<Props> {
                     <NumberInput
                         value={this.props.endSubscript}
                         placeholder={0}
-                        onChange={this.change("endSubscript")}
+                        onChange={(endSubscript) =>
+                            this.handleChange({endSubscript})
+                        }
                     />
                 </div>
                 <div className="perseus-widget-row">
                     All constraints are applied to the start point.
                 </div>
-                <ConstraintEditor {...this.props} />
+                <ConstraintEditor
+                    {...this.props}
+                    onChange={(constraint) => this.handleChange(constraint)}
+                />
             </div>
         );
     }
