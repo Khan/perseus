@@ -27,6 +27,9 @@ catalogs:
     '@khanacademy/wonder-blocks-clickable':
       specifier: 8.3.1
       version: 8.3.1
+    '@khanacademy/wonder-blocks-config':
+      specifier: 0.2.0
+      version: 0.2.0
     '@khanacademy/wonder-blocks-core':
       specifier: 12.5.0
       version: 12.5.0
@@ -184,6 +187,9 @@ importers:
       '@khanacademy/wonder-blocks-accordion':
         specifier: catalog:devDeps
         version: 3.2.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-config':
+        specifier: catalog:devDeps
+        version: 0.2.0(react@18.2.0)
       '@khanacademy/wonder-blocks-core':
         specifier: catalog:devDeps
         version: 12.5.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
@@ -2476,6 +2482,11 @@ packages:
       react-router: 5.3.4
       react-router-dom: 5.3.4
       react-router-dom-v5-compat: ^6.30.0
+
+  '@khanacademy/wonder-blocks-config@0.2.0':
+    resolution: {integrity: sha512-GN8aQpvBnKrhrV3XjzYsZWPhrxwz1cyTuESQ6K0DyPdUm5YSBuUINzh1mNZF+ko0tNxMr/jBtpoQ8rAOMed4rA==}
+    peerDependencies:
+      react: 18.2.0
 
   '@khanacademy/wonder-blocks-core@12.5.0':
     resolution: {integrity: sha512-95GNyMnvHHxrY3UJ9aQgk2FNcrsg86gwhN1FCJ1sr+LCipZzQ8e6eD6N8J/TiEzx+HAp3Ww6NrEwJgfuArhDsg==}
@@ -11542,6 +11553,10 @@ snapshots:
       react-router: 5.3.4(react@18.2.0)
       react-router-dom: 5.3.4(react@18.2.0)
       react-router-dom-v5-compat: 6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0)
+
+  '@khanacademy/wonder-blocks-config@0.2.0(react@18.2.0)':
+    dependencies:
+      react: 18.2.0
 
   '@khanacademy/wonder-blocks-core@12.5.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)':
     dependencies:

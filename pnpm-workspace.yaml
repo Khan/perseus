@@ -112,6 +112,7 @@ catalogs:
         "@khanacademy/wonder-blocks-banner": 5.1.16
         "@khanacademy/wonder-blocks-button": 11.7.12
         "@khanacademy/wonder-blocks-clickable": 8.3.1
+        "@khanacademy/wonder-blocks-config": 0.2.0
         "@khanacademy/wonder-blocks-core": 12.5.0
         "@khanacademy/wonder-blocks-data": 15.1.0
         "@khanacademy/wonder-blocks-dropdown": 10.12.6
