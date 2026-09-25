@@ -3,11 +3,12 @@ import {
     generateSorterWidget,
     generateTestPerseusItem,
     generateTestPerseusRenderer,
+    SORTER_MAX_CARDS,
     SORTER_MAX_HORIZONTAL_CARDS,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
-import {act} from "@testing-library/react";
+import {act, screen} from "@testing-library/react";
 import * as React from "react";
 
 import * as Dependencies from "../../dependencies";
@@ -374,6 +375,60 @@ describe("sorter widget", () => {
                 // Assert
                 expect(score).toHaveBeenAnsweredIncorrectly();
             });
+        });
+    });
+
+    describe("legacy sorters with too many cards", () => {
+        const deprecatedStandinText =
+            "Sorry, this part of the question is no longer available. 😅 Don't worry, you won't be graded on this part. Keep going!";
+
+        function generateSorterQuestion(cardCount: number) {
+            return generateTestPerseusRenderer({
+                content: "[[☃ sorter 1]]",
+                widgets: {
+                    "sorter 1": generateSorterWidget({
+                        options: generateSorterOptions({
+                            correct: Array.from(
+                                {length: cardCount},
+                                (_, index) => `card ${index}`,
+                            ),
+                        }),
+                    }),
+                },
+            });
+        }
+
+        it("renders the deprecated standin above the card limit", () => {
+            // Arrange, Act
+            renderQuestion(generateSorterQuestion(SORTER_MAX_CARDS + 1));
+
+            // Assert
+            expect(screen.getByText(deprecatedStandinText)).toBeInTheDocument();
+        });
+
+        it("does not render the deprecated standin at the card limit", () => {
+            // Arrange, Act
+            renderQuestion(generateSorterQuestion(SORTER_MAX_CARDS));
+
+            // Assert
+            expect(
+                screen.queryByText(deprecatedStandinText),
+            ).not.toBeInTheDocument();
+        });
+
+        it("is scored as correct without the learner answering", () => {
+            // Arrange
+            const question = generateSorterQuestion(SORTER_MAX_CARDS + 1);
+            const {renderer} = renderQuestion(question);
+
+            // Act
+            const score = scorePerseusItemTesting(
+                question,
+                renderer.getUserInputMap(),
+            );
+
+            // Assert
+            expect(score).toHaveBeenAnsweredCorrectly();
         });
     });
 });
