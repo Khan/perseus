@@ -20,6 +20,7 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
           >
             <div
               class="default_7zhre1"
+              id=":r2:-labeled-field"
             >
               <div
                 class="default_7zhre1-o_O-labelContainer_1qlbwdv"
@@ -106,6 +107,7 @@ exports[`free-response widget should snapshot: first render 1`] = `
           >
             <div
               class="default_7zhre1"
+              id=":r0:-labeled-field"
             >
               <div
                 class="default_7zhre1-o_O-labelContainer_1qlbwdv"
