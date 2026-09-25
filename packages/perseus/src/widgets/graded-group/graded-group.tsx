@@ -57,6 +57,7 @@ const getNextState = (
         case "INACTIVE":
             return answerable ? "ACTIVE" : currentState;
         case "INCORRECT":
+        case "INVALID":
             return answerable ? "ACTIVE" : "INACTIVE";
         default:
             return currentState;
@@ -94,8 +95,6 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
 
         const [showHint, setShowHint] = useState(false);
         const [message, setMessage] = useState("");
-        const [messageIsForInvalidState, setMessageIsForInvalidState] =
-            useState(false);
 
         // Allow moving on when the Graded Group doesn't have any
         // answerable widgets in it.
@@ -166,7 +165,6 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
         ): void {
             // Reset grading display when user changes answer
             setMessage("");
-            setMessageIsForInvalidState(false);
 
             const answerable = !widgetsEmpty;
             const nextState = getNextState(answerBarState, answerable);
@@ -197,8 +195,13 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                       : `${INVALID_MESSAGE_PREFIX} ${DEFAULT_INVALID_MESSAGE_1}${DEFAULT_INVALID_MESSAGE_2}`;
 
             setMessage(message);
-            setMessageIsForInvalidState(status === GRADING_STATUSES.invalid);
-            setAnswerBarState(status === "correct" ? "CORRECT" : "INCORRECT");
+            setAnswerBarState(
+                status === GRADING_STATUSES.correct
+                    ? "CORRECT"
+                    : status === GRADING_STATUSES.incorrect
+                      ? "INCORRECT"
+                      : "INVALID",
+            );
 
             props.trackInteraction({
                 status: status,
@@ -267,7 +270,7 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                     )}
                 </UserInputManager>
 
-                {messageIsForInvalidState ? (
+                {answerBarState === "INVALID" ? (
                     <Banner
                         kind="warning"
                         text={

@@ -23,6 +23,11 @@ export type ANSWER_BAR_STATES =
     // This happens immediately after clicking 'Check' with a wrong answer.
     // The 'Check' button is disabled and the 'Try Again' message is displayed.
     | "INCORRECT"
+    // This happens immediately after clicking 'Check' with an answer that
+    // couldn't be graded (e.g. only partially filled out). The 'Check' button
+    // is disabled and no message is shown here; GradedGroup explains why the
+    // answer couldn't be graded in a warning banner instead.
+    | "INVALID"
     // Final state.  This occurs after the user submits the correct answer.
     // The widgets in this grade-group are disabled.
     | "CORRECT";
