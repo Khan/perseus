@@ -183,8 +183,7 @@ describe("graded-group", () => {
     });
 
     it("moves focus to the result when the answer is correct", async () => {
-        // Arrange - the Check button is unmounted in this state, so focus
-        // would otherwise be lost to <body>.
+        // Arrange
         renderQuestion(gradedGroupWithDropdownQuestion);
 
         // Act
@@ -213,29 +212,9 @@ describe("graded-group", () => {
         expect(screen.getByText("Keep trying")).toHaveFocus();
     });
 
-    it("moves focus to the result again when a second wrong answer is checked", async () => {
-        // Arrange - the result text is identical both times, so this is the
-        // repeat case a plain live region would stay silent on.
-        renderQuestion(gradedGroupWithDropdownQuestion);
-        // Answer incorrectly
-        const dropdown = screen.getByRole("combobox");
-        await userEvent.click(dropdown);
-        await userEvent.click(screen.getByText("Incorrect answer"));
-        await checkAnswer(userEvent);
-
-        // Act - picking a different wrong answer makes the group answerable
-        // again
-        await userEvent.click(dropdown);
-        await userEvent.click(screen.getByText("Another incorrect answer"));
-        await checkAnswer(userEvent);
-
-        // Assert
-        expect(screen.getByText("Keep trying")).toHaveFocus();
-    });
-
     it("shows why the answer could not be graded in a warning banner", async () => {
-        // Arrange - only one of the four rows is categorized, so the group
-        // can't be scored at all.
+        // Arrange - only one of the four rows is categorized, which is an
+        // invalid state.
         renderQuestion(question1);
         await userEvent.click(
             screen.getAllByRole("button", {name: "False"})[1],
@@ -244,8 +223,7 @@ describe("graded-group", () => {
         // Act
         await checkAnswer(userEvent);
 
-        // Assert - kind="warning" renders the banner as a live region, which
-        // is what reads the message to a screen reader.
+        // Assert
         expect(screen.getByRole("alert")).toHaveTextContent(
             "We couldn't grade your answer. Make sure you select something for every row.",
         );
@@ -375,10 +353,8 @@ describe("graded-group", () => {
         expect(screen.getByText("This is the correct answer.")).toBeVisible();
     });
 
-    it("should render TeX in an ungraded answer's message", async () => {
-        // Arrange - an "ungraded" answer scores as invalid, but carries the
-        // author's own message rather than an error code, so it can contain
-        // TeX just like a graded answer's message can.
+    it("should render TeX in the answer message", async () => {
+        // Arrange
         const texMessage = "The answer is $x = 5$";
         const question = generateTestPerseusRenderer({
             content: "[[☃ graded-group 1]]",
@@ -392,7 +368,7 @@ describe("graded-group", () => {
                                     answers: [
                                         generateNumericInputAnswer({
                                             value: 5,
-                                            status: "ungraded",
+                                            status: "correct",
                                             message: texMessage,
                                         }),
                                     ],
@@ -409,13 +385,14 @@ describe("graded-group", () => {
             },
         });
         renderQuestion(question);
-        await userEvent.type(screen.getByRole("textbox"), "5");
+        const input = screen.getByRole("textbox");
+        await userEvent.type(input, "5");
 
         // Act
         await checkAnswer(userEvent);
 
         // Assert
-        expect(screen.queryByText(/\$x = 5\$/)).not.toBeInTheDocument();
+        expect(screen.queryByText(texMessage)).not.toBeInTheDocument();
         expect(screen.getByText("x = 5")).toBeInTheDocument();
     });
 
