@@ -153,16 +153,5 @@
     "nyc": {
         "report-dir": "coverage/cypress/"
     },
-    "packageManager": "pnpm@10.32.1+sha512.a706938f0e89ac1456b6563eab4edf1d1faf3368d1191fc5c59790e96dc918e4456ab2e67d613de1043d2e8c81f87303e6b40d4ffeca9df15ef1ad567348f2be",
-    "pnpm": {
-        "onlyBuiltDependencies": [
-            "cypress@13.6.5",
-            "esbuild@0.24.0",
-            "@swc/core@1.11.13",
-            "mathquill"
-        ],
-        "patchedDependencies": {
-            "postcss-url": "patches/postcss-url.patch"
-        }
-    }
+    "packageManager": "pnpm@12.6.0+sha512.3ef68f951cb111ac204b4a5a16f0b2ddf0da56a96e0413e81d855d9f0b55ef926714709028e1cd00c405c2c5fb7b9e8ec4dc46777c805d0373c2f2ff00fd20ec"
 }
