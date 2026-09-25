@@ -2,7 +2,14 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {Heading} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
-import ReactJson from "react-json-view";
+import ReactJsonModule from "react-json-view";
+
+// Vite 8 applies Node's CJS interop in "type": "module" packages, so the
+// default import is the whole `module.exports` ({default: ReactJson}).
+// Jest/TS interop already unwraps it. Handle both.
+const ReactJson: typeof ReactJsonModule =
+    // eslint-disable-next-line no-restricted-syntax -- react-json-view's CommonJS/Vite interop exposes an untyped default at this external module boundary.
+    (ReactJsonModule as any).default ?? ReactJsonModule;
 
 type Props = {
     rendererTitle: React.ReactNode;
