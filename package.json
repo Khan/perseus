@@ -89,7 +89,7 @@
         "prettier": "^3",
         "react": "catalog:devDeps",
         "react-dom": "catalog:devDeps",
-        "react-json-view": "^1.19.1",
+        "react-json-view": "^1.21.3",
         "react-router": "5.3.4",
         "react-router-dom": "5.3.4",
         "semver": "^7.7.2",
