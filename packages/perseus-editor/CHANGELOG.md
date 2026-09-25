@@ -1,5 +1,25 @@
 # @khanacademy/perseus-editor
 
+## 43.0.2
+
+### Patch Changes
+
+-   [#4269](https://github.com/Khan/perseus/pull/4269) [`19dada1`](https://github.com/Khan/perseus/commit/19dada1d3c0555302050fd3ad7ef74dda4651cd6) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in IframeEditor.
+
+-   [#4271](https://github.com/Khan/perseus/pull/4271) [`6c0b9cd`](https://github.com/Khan/perseus/commit/6c0b9cdfcedf14bf599acf937494e4ec0f4ad08d) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the ImageEditor now passes the entire options object to its onChange callback on every call.
+
+-   [#4268](https://github.com/Khan/perseus/pull/4268) [`b19bee0`](https://github.com/Khan/perseus/commit/b19bee025163f7c4794bf2871258d692dc0e2a0e) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Add TypeScript prop types for GroupEditor.
+
+-   [#4196](https://github.com/Khan/perseus/pull/4196) [`e86d317`](https://github.com/Khan/perseus/commit/e86d317c25e791739ff7c9cae6cbb1c0331cfd3d) Thanks [@nishasy](https://github.com/nishasy)! - [Sorter] Render horizontal sorters as vertical if they have too many cards
+
+-   Updated dependencies [[`82c5bd1`](https://github.com/Khan/perseus/commit/82c5bd1167b98f894436b9de4ea4621e245fab76), [`e86d317`](https://github.com/Khan/perseus/commit/e86d317c25e791739ff7c9cae6cbb1c0331cfd3d)]:
+    -   @khanacademy/perseus@87.3.0
+    -   @khanacademy/perseus-core@39.2.3
+    -   @khanacademy/keypad-context@4.0.1
+    -   @khanacademy/kmath@2.4.54
+    -   @khanacademy/math-input@28.0.1
+    -   @khanacademy/perseus-linter@5.4.4
+
 ## 43.0.1
 
 ### Patch Changes
