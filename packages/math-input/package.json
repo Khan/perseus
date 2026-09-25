@@ -49,7 +49,7 @@
         "@phosphor-icons/core": "catalog:devDeps",
         "aphrodite": "catalog:devDeps",
         "mathquill": "github:Khan/mathquill#v1.0.3",
-        "perseus-build-settings": "workspace:*",
+        "@internal/build-settings": "workspace:*",
         "prop-types": "catalog:devDeps",
         "react": "catalog:devDeps",
         "react-dom": "catalog:devDeps",

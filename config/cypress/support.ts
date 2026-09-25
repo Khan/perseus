@@ -4,15 +4,12 @@ import "cypress-jest-adapter";
 import "cypress-wait-until";
 // eslint-disable-next-line import/no-unassigned-import
 import "cypress-real-events";
+// eslint-disable-next-line import/no-unassigned-import
+import "@cypress/code-coverage/support";
 
 // Defines the --wb-* custom properties that Wonder Blocks design tokens
 // compile down to.
 import "@khanacademy/wonder-blocks-tokens/styles.css";
-
-if (Cypress.env("CYPRESS_COVERAGE")) {
-    // @ts-expect-error - TS1378 - (trust me!) Top-level 'await' expressions are only allowed when the 'module' option is set to 'es2022', 'esnext', 'system', 'node16', or 'nodenext', and the 'target' option is set to 'es2017' or higher.
-    await import("@cypress/code-coverage/support");
-}
 
 // Here we register our custom commands
 // NOTE: If we end up with a lot of custom commands, we should break
@@ -36,12 +33,22 @@ if (Cypress.env("CYPRESS_COVERAGE")) {
  * Click a node and drag it to the specified {x, y} position
  */
 const dragTo = (node, pos) => {
-    return cy
-        .wrap(node)
-        .trigger("mousedown", {force: true, which: 1, button: 0})
-        .trigger("mousemove", {force: true, pageX: pos.x, pageY: pos.y})
-        .trigger("mouseup", {force: true})
-        .trigger("mouseout", {force: true});
+    const clientX = pos.x - window.scrollX;
+    const clientY = pos.y - window.scrollY;
+
+    cy.wrap(node).realMouseDown({position: "center"});
+    return cy.get("body").then(($body) => {
+        const bodyRect = $body[0].getBoundingClientRect();
+        cy.wrap($body).realMouseMove(
+            clientX - bodyRect.left,
+            clientY - bodyRect.top,
+            {
+                position: "topLeft",
+                scrollBehavior: false,
+            },
+        );
+        cy.wrap($body).realMouseUp();
+    });
 };
 
 // @ts-expect-error - TS2769 - Argument of type '"dragTo"' is not assignable to parameter of type 'keyof Chainable<any>'.

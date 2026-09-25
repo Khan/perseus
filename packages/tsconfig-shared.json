@@ -31,7 +31,7 @@
         "composite": true,
         "incremental": true, // Required for composite projects
 
-        // We use rollup + swc to compile our bundles so we
+        // We use Vite + SWC to compile our bundles so we
         // only need tsc to output .d.ts files
         "declaration": true,
         "emitDeclarationOnly": true,

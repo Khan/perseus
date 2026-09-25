@@ -1,14 +1,20 @@
-import fs from "fs";
-import path from "path";
+import react from "@vitejs/plugin-react";
+import {defineConfig} from "cypress";
 import {mergeConfig} from "vite";
 import istanbul from "vite-plugin-istanbul";
 
-import {defineConfig} from "cypress";
-import viteConfig from "../../vite.config";
+import viteConfig from "../../vite.config.mts";
+
+const coverageEnabled = Boolean(process.env.CYPRESS_COVERAGE);
+const sharedViteConfig = {...viteConfig};
+delete sharedViteConfig.plugins;
 
 export default defineConfig({
     fixturesFolder: false,
     video: false,
+    expose: {
+        coverage: coverageEnabled,
+    },
     // Prevent Cypress from scrolling to elements before clicking them.
     scrollBehavior: false,
     // iPhone 14/15 Pro Max
@@ -23,10 +29,11 @@ export default defineConfig({
             bundler: "vite",
             framework: "react",
             viteConfig: async (config) => {
-                return mergeConfig(mergeConfig(config, viteConfig), {
-                    // The istanbul plugin only enables itself if the
-                    // CYPRESS_COVERAGE Cypress env is set!
-                    plugins: [istanbul()],
+                return mergeConfig(mergeConfig(config, sharedViteConfig), {
+                    plugins: [
+                        react(),
+                        ...(coverageEnabled ? [istanbul()] : []),
+                    ],
                     define: {
                         // This is used to determine if we are running in a
                         // Storybook environment.

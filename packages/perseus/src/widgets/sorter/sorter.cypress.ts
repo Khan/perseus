@@ -38,15 +38,11 @@ const EXPECTED_CORRECT_SCORE = {
  * Sortable hand-rolls its dragging with jQuery rather than using a drag-and-drop
  * library, which constrains how the events have to be sent:
  *
- * - `mousedown` must carry button 0, and it defers the Static -> Dragging
- *   transition into a requestAnimationFrame. Until that frame runs, the move
- *   handler bails out, so a `mousemove` sent immediately after `mousedown` is
- *   silently dropped. We wait for the card to become absolutely positioned,
- *   which is proof the drag has started.
- * - `mousemove`/`mouseup` are bound to `document` (not to the card) once the
- *   drag begins, so we dispatch them on `body` and let them bubble.
- * - Positions are read from `pageX`/`pageY` (see Util.extractPointerLocation),
- *   not `clientX`/`clientY`.
+ * - `mousedown` defers the Static -> Dragging transition into a
+ *   requestAnimationFrame. We wait for the card to become absolutely
+ *   positioned, which confirms the drag has started.
+ * - `mousemove` and `mouseup` are bound to `document` once the drag begins, so
+ *   we dispatch native mouse events through `body`.
  */
 function dragCardBelowTheNextOne(index: number): void {
     cy.get(CARDS).then(($cards) => {
@@ -59,22 +55,29 @@ function dragCardBelowTheNextOne(index: number): void {
         // doesn't break if the card padding changes.
         const dy = rect.height + CARD_MARGIN;
 
-        cy.get(CARDS).eq(index).trigger("mousedown", {which: 1, button: 0});
+        cy.get(CARDS).eq(index).realMouseDown({position: "center"});
         cy.get(DRAGGED_CARD).should("exist");
 
         // Two steps rather than one jump: each move is throttled through a
         // requestAnimationFrame, so the reorder needs a frame to land before
         // we let go.
-        // `force` because we don't care where on the page these land — the
-        // handlers read the coordinates off the event, not off the target.
-        const move = (pageY: number) =>
-            cy.get("body").trigger("mousemove", {force: true, pageX, pageY});
-        move(startY + dy / 2);
-        move(startY + dy);
-        cy.get("body").trigger("mouseup", {
-            force: true,
-            pageX,
-            pageY: startY + dy,
+        const clientX = pageX - window.scrollX;
+        cy.get("body").then(($body) => {
+            const bodyRect = $body[0].getBoundingClientRect();
+            const move = (pageY: number) =>
+                cy
+                    .wrap($body)
+                    .realMouseMove(
+                        clientX - bodyRect.left,
+                        pageY - window.scrollY - bodyRect.top,
+                        {
+                            position: "topLeft",
+                            scrollBehavior: false,
+                        },
+                    );
+            move(startY + dy / 2);
+            move(startY + dy);
+            cy.wrap($body).realMouseUp();
         });
 
         // The card animates back into the flow after release, and `onChange`
@@ -115,7 +118,9 @@ describe("Sorter widget", () => {
         dragCardBelowTheNextOne(0);
 
         // Assert
-        cy.then(() => {
+        // `null` is a dummy subject. Unlike `then`, `should` retries while the
+        // asynchronous user-input update finishes after the mouse release.
+        cy.wrap(null).should(() => {
             const score = scorePerseusItemTesting(
                 twoCardVerticalQuestion,
                 getRenderer().getUserInputMap(),
