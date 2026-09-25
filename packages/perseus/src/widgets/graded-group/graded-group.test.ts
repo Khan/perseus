@@ -20,6 +20,7 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 import {
     question1,
     groupedRadioRationaleQuestion,
+    gradedGroupWithDropdownQuestion,
 } from "./graded-group.testdata";
 
 import type {UserEvent} from "@testing-library/user-event";
@@ -30,19 +31,6 @@ const checkAnswer = async (
     // NOTE(jeremy): The only route to check the answer
     // is to use the "Check" button that is embedded _inside_ the widget.
     await userEvent.click(await screen.findByRole("button", {name: "Check"}));
-};
-
-/**
- * Fills in every row of the categorizer in `question1` with the correct
- * category, leaving the group answerable and scoreable as correct.
- */
-const answerQuestion1Correctly = async (
-    userEvent: ReturnType<(typeof userEventLib)["setup"]>,
-) => {
-    await userEvent.click(screen.getAllByRole("button", {name: "True"})[0]);
-    await userEvent.click(screen.getAllByRole("button", {name: "False"})[1]);
-    await userEvent.click(screen.getAllByRole("button", {name: "True"})[2]);
-    await userEvent.click(screen.getAllByRole("button", {name: "True"})[3]);
 };
 
 describe("graded-group", () => {
@@ -145,23 +133,29 @@ describe("graded-group", () => {
 
     it("should be able to be answered correctly", async () => {
         // Arrange
-        renderQuestion(question1);
-        await answerQuestion1Correctly(userEvent);
+        renderQuestion(gradedGroupWithDropdownQuestion);
 
         // Act
+        // Answer correctly
+        const dropdown = screen.getByRole("combobox");
+        await userEvent.click(dropdown);
+        await userEvent.click(screen.getByText("Correct answer"));
         await checkAnswer(userEvent);
 
         // Assert
-        expect(screen.getByRole("alert", {name: "Correct!"})).toBeVisible();
+        expect(screen.getByText("Correct!")).toBeVisible();
         expect(screen.queryByText("Keep trying")).not.toBeInTheDocument();
     });
 
     it("removes the Check button once the answer is correct", async () => {
         // Arrange
-        renderQuestion(question1);
-        await answerQuestion1Correctly(userEvent);
+        renderQuestion(gradedGroupWithDropdownQuestion);
 
         // Act
+        // Answer correctly
+        const dropdown = screen.getByRole("combobox");
+        await userEvent.click(dropdown);
+        await userEvent.click(screen.getByText("Correct answer"));
         await checkAnswer(userEvent);
 
         // Assert - the group is locked down so a correct answer can't be
@@ -173,30 +167,66 @@ describe("graded-group", () => {
 
     it("should be able to be answered incorrectly", async () => {
         // Arrange
-        renderQuestion(question1);
+        renderQuestion(gradedGroupWithDropdownQuestion);
 
-        await userEvent.click(
-            screen.getAllByRole("button", {name: "False"})[0],
-        );
+        // Act
+        // Answer incorrectly
+        const dropdown = screen.getByRole("combobox");
+        await userEvent.click(dropdown);
+        await userEvent.click(screen.getByText("Incorrect answer"));
+        await checkAnswer(userEvent);
+
+        // Assert
+        expect(screen.queryByText("Correct!")).not.toBeInTheDocument();
+        expect(screen.getByText("Keep trying")).toBeVisible();
+        expect(screen.getByRole("button", {name: "Try again"})).toBeVisible();
+    });
+
+    it("moves focus to the result when the answer is correct", async () => {
+        // Arrange
+        renderQuestion(gradedGroupWithDropdownQuestion);
+
+        // Act
+        // Answer correctly
+        const dropdown = screen.getByRole("combobox");
+        await userEvent.click(dropdown);
+        await userEvent.click(screen.getByText("Correct answer"));
+        await checkAnswer(userEvent);
+
+        // Assert
+        expect(screen.getByText("Correct!")).toHaveFocus();
+    });
+
+    it("moves focus to the result when the answer is incorrect", async () => {
+        // Arrange
+        renderQuestion(gradedGroupWithDropdownQuestion);
+
+        // Act
+        // Answer incorrectly
+        const dropdown = screen.getByRole("combobox");
+        await userEvent.click(dropdown);
+        await userEvent.click(screen.getByText("Incorrect answer"));
+        await checkAnswer(userEvent);
+
+        // Assert
+        expect(screen.getByText("Keep trying")).toHaveFocus();
+    });
+
+    it("shows why the answer could not be graded in a warning banner", async () => {
+        // Arrange - only one of the four rows is categorized, which is an
+        // invalid state.
+        renderQuestion(question1);
         await userEvent.click(
             screen.getAllByRole("button", {name: "False"})[1],
-        );
-        await userEvent.click(
-            screen.getAllByRole("button", {name: "False"})[2],
-        );
-        await userEvent.click(
-            screen.getAllByRole("button", {name: "False"})[3],
         );
 
         // Act
         await checkAnswer(userEvent);
 
         // Assert
-        expect(
-            screen.queryByRole("alert", {name: "Correct!"}),
-        ).not.toBeInTheDocument();
-        expect(screen.getByText("Keep trying")).toBeVisible();
-        expect(screen.getByRole("button", {name: "Try again"})).toBeVisible();
+        expect(screen.getByRole("alert")).toHaveTextContent(
+            "We couldn't grade your answer. Make sure you select something for every row.",
+        );
     });
 
     it("should display an error if not fully answered", async () => {
@@ -318,7 +348,7 @@ describe("graded-group", () => {
         await checkAnswer(userEvent);
 
         // Assert
-        expect(screen.getByRole("alert", {name: "Correct!"})).toBeVisible();
+        expect(screen.getByText("Correct!")).toBeVisible();
         // Verify the rationale for the correct answer is shown
         expect(screen.getByText("This is the correct answer.")).toBeVisible();
     });

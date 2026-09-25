@@ -5,7 +5,7 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
-import {PerseusI18nContext} from "../../components/i18n-context";
+import {usePerseusI18n} from "../../components/i18n-context";
 import InlineIcon from "../../components/inline-icon";
 import {iconStar, iconTryAgain} from "../../icon-paths";
 import {phoneMargin, negativePhoneMargin} from "../../styles/constants";
@@ -37,80 +37,98 @@ type Props = {
     onNextQuestion?: () => unknown;
 };
 
-class GradedGroupAnswerBar extends React.Component<Props> {
-    static contextType = PerseusI18nContext;
-    declare context: React.ContextType<typeof PerseusI18nContext>;
+function GradedGroupAnswerBar({
+    apiOptions,
+    answerBarState,
+    onCheckAnswer,
+    onNextQuestion,
+}: Props) {
+    const {strings} = usePerseusI18n();
+    const {keepTrying, tryAgain, check, correctExcited, nextQuestion} = strings;
 
-    render(): React.ReactNode {
-        const {apiOptions, answerBarState, onCheckAnswer, onNextQuestion} =
-            this.props;
-        const {keepTrying, tryAgain, check, correctExcited, nextQuestion} =
-            this.context.strings;
+    const resultRef = React.useRef<HTMLOutputElement>(null);
+    const prevAnswerBarState = React.useRef(answerBarState);
 
-        const answerBarStyle = {
-            ...styles.answerBar,
-            // Center the "Correct!" message only when there's no next question
-            justifyContent:
-                answerBarState === "CORRECT" && !onNextQuestion
-                    ? "center"
-                    : "space-between",
-        } as const;
+    // Don't let focus fall back to the body after answer is checked and
+    // the "Check/Try again" button is unmounted.
+    React.useEffect(() => {
+        resultRef.current?.focus();
+        prevAnswerBarState.current = answerBarState;
+    }, [answerBarState]);
 
-        const message =
-            answerBarState === "INCORRECT" ? (
-                <span style={styles.text}>
-                    <span style={styles.tryAgainIcon}>
-                        <InlineIcon {...iconTryAgain} />
-                    </span>
-                    <span style={{marginInlineStart: 8}}>{keepTrying}</span>
+    const answerBarStyle = {
+        ...styles.answerBar,
+        // Center the "Correct!" message only when there's no next question
+        justifyContent:
+            answerBarState === "CORRECT" && !onNextQuestion
+                ? "center"
+                : "space-between",
+    } as const;
+
+    const message =
+        answerBarState === "INCORRECT" ? (
+            <span style={styles.text}>
+                <span style={styles.tryAgainIcon}>
+                    <InlineIcon {...iconTryAgain} />
                 </span>
-            ) : (
-                <span />
-            ); // empty span keeps the button on the right side
+                <output
+                    ref={resultRef}
+                    tabIndex={-1}
+                    style={{marginInlineStart: 8}}
+                >
+                    {keepTrying}
+                </output>
+            </span>
+        ) : (
+            <span />
+        ); // empty span keeps the button on the right side
 
-        if (answerBarState !== "CORRECT") {
-            const buttonLabel =
-                answerBarState === "INCORRECT" ? tryAgain : check;
+    if (answerBarState !== "CORRECT") {
+        const buttonLabel = answerBarState === "INCORRECT" ? tryAgain : check;
 
-            return (
-                <div style={answerBarStyle}>
-                    {message}
-                    <Button
-                        disabled={
-                            apiOptions.readOnly || answerBarState !== "ACTIVE"
-                        }
-                        onClick={onCheckAnswer}
-                    >
-                        {buttonLabel}
-                    </Button>
-                </div>
-            );
-        }
         return (
             <div style={answerBarStyle}>
-                <span style={styles.text}>
-                    <span
-                        style={{
-                            color: semanticColor.core.foreground.success
-                                .default,
-                        }}
-                    >
-                        <InlineIcon {...iconStar} style={{marginBlockEnd: 5}} />
-                    </span>
-                    <span
-                        role="alert"
-                        aria-label={correctExcited}
-                        style={{marginInlineStart: 8}}
-                    >
-                        {correctExcited}
-                    </span>
-                </span>
-                {onNextQuestion && (
-                    <Button onClick={onNextQuestion}>{nextQuestion}</Button>
-                )}
+                {message}
+                <Button
+                    disabled={
+                        apiOptions.readOnly || answerBarState !== "ACTIVE"
+                    }
+                    onClick={onCheckAnswer}
+                >
+                    {buttonLabel}
+                </Button>
             </div>
         );
     }
+    return (
+        <div style={answerBarStyle}>
+            <span style={styles.text}>
+                <span
+                    style={{
+                        color: semanticColor.core.foreground.success.default,
+                    }}
+                >
+                    <InlineIcon {...iconStar} style={{marginBlockEnd: 5}} />
+                </span>
+                {/* <output> is the native element for the result of a
+                    user action, and it means screen readers don't read
+                    "group" like they would for a span.
+
+                    GradedGroup moves focus here once this renders, which
+                    is what reads the result to a screen reader. */}
+                <output
+                    ref={resultRef}
+                    tabIndex={-1}
+                    style={{marginInlineStart: 8}}
+                >
+                    {correctExcited}
+                </output>
+            </span>
+            {onNextQuestion && (
+                <Button onClick={onNextQuestion}>{nextQuestion}</Button>
+            )}
+        </div>
+    );
 }
 
 const styles = {
