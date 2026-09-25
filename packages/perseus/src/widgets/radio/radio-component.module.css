@@ -135,10 +135,31 @@
    For tall math content, the natural top-alignment with the indicator is the correct visual behavior.
    Short inline math (e.g. $x = 4$) stays within the CSS line-height and benefits from the margin.
 */
-.content:not(
+
+/* TODO (LEMS-4606): Remove the first selector (with the .paragraph) in favor of the
+ * second selector (with the lone :first-child), and remove references to .renderer-new-ff.
+ */
+:global(.perseus-renderer):not(:global(.renderer-new-ff))
+    .content:not(
         :has(
                 :global(.paragraph):first-child
                     > :global(.paragraph)
+                    :is(
+                        img,
+                        mjx-mfrac,
+                        mjx-msqrt,
+                        mjx-mroot,
+                        mjx-munder,
+                        mjx-mover,
+                        mjx-munderover
+                    )
+            )
+    ),
+:global(.renderer-new-ff)
+    .content:not(
+        :has(
+                :global(.perseus-renderer)
+                    > :first-child
                     :is(
                         img,
                         mjx-mfrac,
@@ -193,11 +214,15 @@
     gap: var(--wb-sizing-size_120);
 }
 
-.rationale :global(.perseus-renderer .paragraph) {
+.rationale :global(.perseus-renderer .paragraph),
+.rationale :global(.perseus-renderer.renderer-new-ff) > *,
+.rationale :global(.perseus-renderer.renderer-new-ff) p {
     /* Removes margin that is added by overly-broad styling for .paragraph - the gap in the rule above handles spacing */
     margin: 0;
 }
 
+/* TODO (LEMS-4606): No refactor of this rule is needed since there is no more paragraph container,
+    and therefore no "empty" containers to adjust */
 .rationale :global(.perseus-renderer > .paragraph:not(:has(*))) {
     /* Ensures that empty paragraphs do not take up space */
     display: none;

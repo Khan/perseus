@@ -1,0 +1,71 @@
+/* The matrix widget always reads left-to-right, even in right-to-left
+ * languages, because the math notation and operations don't flip. */
+.perseus-matrix {
+    direction: ltr;
+}
+/* The widget as a whole should still sit on the right within an RTL page, so
+ * restore the right alignment that `direction: ltr` would otherwise reset to
+ * the left. Scoped to an RTL ancestor since the root's own direction is ltr. */
+:dir(rtl) .perseus-matrix {
+    text-align: right;
+}
+.perseus-matrix .matrix-prefix,
+.perseus-matrix .matrix-suffix {
+    display: inline-block;
+    margin: 10px 5px 0 10px;
+    vertical-align: top;
+}
+.perseus-matrix .matrix-suffix {
+    margin: 10px 10px 0 5px;
+}
+.perseus-matrix .perseus-renderer.renderer-new-ff > * {
+    margin: 0;
+}
+/* The fill behind the matrix input cells */
+.perseus-matrix .matrix-input {
+    background: var(--wb-semanticColor-core-background-base-subtle);
+    display: inline-block;
+    margin: 5px;
+    padding: 3px;
+    position: relative;
+    width: auto;
+}
+.perseus-matrix .matrix-row {
+    white-space: nowrap;
+}
+.perseus-matrix .matrix-bracket {
+    border-color: var(--wb-semanticColor-core-border-neutral-strong);
+    border-style: solid;
+    border-bottom-width: var(--wb-border-width-medium);
+    border-top-width: var(--wb-border-width-medium);
+    margin-top: -2px;
+    position: absolute;
+    width: 6px;
+}
+.perseus-matrix .matrix-bracket.bracket-left {
+    border-left-width: var(--wb-border-width-medium);
+    border-right-width: var(--wb-border-width-none);
+    left: 3px;
+}
+.perseus-matrix .matrix-bracket.bracket-right {
+    border-left-width: var(--wb-border-width-none);
+    border-right-width: var(--wb-border-width-medium);
+    margin-left: -3px;
+}
+/* Matrix input cell */
+.perseus-matrix input,
+.perseus-matrix .number-input {
+    text-align: center;
+}
+body.mobile .perseus-matrix .matrix-input {
+    display: table;
+}
+body.mobile .perseus-matrix .matrix-row {
+    display: table-row;
+}
+body.mobile .perseus-matrix .matrix-input-field {
+    display: table-cell;
+}
+.perseus-matrix-editor .perseus-single-editor {
+    width: 338px;
+}

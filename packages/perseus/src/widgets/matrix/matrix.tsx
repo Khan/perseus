@@ -307,6 +307,7 @@ class Matrix extends React.Component<Props, State> implements Widget {
                             content={this.props.options.prefix}
                             linterContext={this.props.linterContext}
                             strings={this.context.strings}
+                            apiOptions={this.props.apiOptions}
                         />
                     </div>
                 )}
@@ -457,6 +458,7 @@ class Matrix extends React.Component<Props, State> implements Widget {
                             content={this.props.options.suffix}
                             linterContext={this.props.linterContext}
                             strings={this.context.strings}
+                            apiOptions={this.props.apiOptions}
                         />
                     </div>
                 )}

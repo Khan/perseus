@@ -116,6 +116,14 @@ const inlineWidgetsToExclude = (node: SingleASTNode): boolean => {
     );
 };
 
+const nodeIsGraphie = (node: SingleASTNode): boolean => {
+    return node.type === "image" && node.target.startsWith("web+graphie:");
+};
+
+export const isContentGraphie = (node: SingleASTNode): boolean => {
+    return Array.isArray(node.content) && node.content.some(nodeIsGraphie);
+};
+
 /**
  * Some widgets render as inline content but CANNOT safely live
  * inside a paragraph (`<p>`). When this function returns true, the
