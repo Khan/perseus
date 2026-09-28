@@ -46,7 +46,8 @@ const Renderer = React.forwardRef<Renderer, Props>(
             "perseus-renderer-upgrade",
         );
 
-        return rendererFF ? (
+        // eslint-disable-next-line no-constant-condition
+        return true || rendererFF ? (
             <RendererNew ref={ref} {...props} />
         ) : (
             <RendererOld ref={ref} {...props} />

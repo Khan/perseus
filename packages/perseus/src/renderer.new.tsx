@@ -1629,6 +1629,7 @@ class Renderer
             [ApiClassNames.RENDERER]: true,
             [ApiClassNames.RESPONSIVE_RENDERER]: true,
             [ApiClassNames.TWO_COLUMN_RENDERER]: this._isTwoColumn,
+            "renderer-new-ff": true,
         });
 
         return (

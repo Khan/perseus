@@ -1,0 +1,75 @@
+.draggy-boxy-thing .draggable-box,
+.draggy-boxy-thing .cards-area {
+    /* This is the overall area where cards are dragged to*/
+    background: var(--wb-semanticColor-core-background-base-default);
+    border-width: var(--wb-border-width-thin);
+    border-style: solid;
+    border-color: var(--wb-semanticColor-core-border-neutral-subtle);
+    border-radius: var(--wb-border-radius-radius_040);
+}
+.draggy-boxy-thing .card {
+    background-color: var(--wb-semanticColor-core-background-base-default);
+    border-width: var(--wb-border-width-thin);
+    border-style: solid;
+    border-color: var(--wb-semanticColor-core-border-neutral-subtle);
+    border-radius: var(--wb-border-radius-radius_080);
+    cursor: pointer;
+    touch-action: none;
+    box-shadow: var(--wb-boxShadow-low);
+}
+.draggy-boxy-thing .card.placeholder {
+    /* The dashed line box when dragging a card to it */
+    background: var(--wb-semanticColor-core-background-base-subtle);
+    border-width: var(--wb-border-width-thin);
+    border-style: solid;
+    border-color: var(--wb-semanticColor-core-border-neutral-subtle);
+}
+.draggy-boxy-thing .card.drag-hint {
+    /* Dashed line box */
+    background: var(--wb-semanticColor-core-background-base-subtle);
+    border-width: var(--wb-border-width-thin);
+    border-style: dashed;
+    border-color: var(--wb-semanticColor-core-border-neutral-default);
+    border-radius: var(--wb-border-radius-radius_040);
+    box-shadow: none;
+}
+.draggy-boxy-thing .card.drag-hint:hover {
+    /* Styles to modify behavior of dashed line box on hover;
+    otherwise, it follows the card styling */
+    border-color: var(--wb-semanticColor-core-border-neutral-default);
+    box-shadow: none;
+    cursor: default;
+}
+.draggy-boxy-thing .card.dragging,
+.draggy-boxy-thing .card.dragging:hover {
+    cursor: grabbing;
+}
+.draggy-boxy-thing .card.dragging.removing,
+.draggy-boxy-thing .card.dragging.removing:hover {
+    background: var(--wb-semanticColor-core-background-instructive-subtle);
+    border-width: var(--wb-border-width-medium);
+    border-style: solid;
+    border-color: var(--wb-semanticColor-core-border-instructive-default);
+}
+.draggy-boxy-thing .card:hover {
+    box-shadow: var(--wb-boxShadow-mid);
+    cursor: grab;
+}
+.framework-perseus .perseus-sortable .perseus-renderer.renderer-new-ff > * {
+    margin: 0;
+}
+.perseus-sortable .perseus-sortable-draggable:before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+.perseus-sortable .perseus-sortable-draggable > div {
+    display: inline-block;
+    font-size: var(--wb-font-body-size-small);
+    max-width: 100%;
+    vertical-align: middle;
+}
+.perseus-sortable .perseus-sortable-draggable-unpadded img {
+    vertical-align: bottom;
+}
