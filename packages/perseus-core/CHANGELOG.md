@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 39.2.3
+
+### Patch Changes
+
+-   [#4196](https://github.com/Khan/perseus/pull/4196) [`e86d317`](https://github.com/Khan/perseus/commit/e86d317c25e791739ff7c9cae6cbb1c0331cfd3d) Thanks [@nishasy](https://github.com/nishasy)! - [Sorter] Render horizontal sorters as vertical if they have too many cards
+
 ## 39.2.2
 
 ### Patch Changes
