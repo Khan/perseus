@@ -35,11 +35,5 @@
         // only need tsc to output .d.ts files
         "declaration": true,
         "emitDeclarationOnly": true,
-
-        "paths": {
-            "@khanacademy/*": [
-                "./*/src"
-            ]
-        },
     },
 }

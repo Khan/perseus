@@ -106,7 +106,7 @@ jobs:
               name: Files that would trigger a full eslint run
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
-                  files: ".eslintrc.js,package.json,pnpm-lock.yaml,.eslintignore"
+                  files: ".eslintrc.js,.eslintrc.cjs,package.json,pnpm-lock.yaml,.eslintignore"
 
             - id: jest-reset
               uses: Khan/actions@069171ef7dea82ab80a8e499c4217d9b812f6af4 # filter-files-v3
@@ -264,10 +264,9 @@ jobs:
             - name: Check Builds
               uses: preactjs/compressed-size-action@66325aad6443cb7cf89c4bfcd414aea2367cda94 # v2
               with:
-                  # We only care about the ES module size, really. This covers
-                  # both the entry points and the shared chunks the build emits
-                  # beside them.
-                  pattern: "**/dist/es/*.js"
+                  # This covers both the entry points and the shared chunks the
+                  # build emits beside them.
+                  pattern: "**/dist/*.js"
                   # Always ignore SourceMaps and node_modules:
                   exclude: "{**/*.map,**/node_modules/**}"
                   # Clean up before a build
