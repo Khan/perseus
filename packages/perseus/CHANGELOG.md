@@ -1,5 +1,39 @@
 # @khanacademy/perseus
 
+## 87.3.0
+
+### Minor Changes
+
+-   [#4220](https://github.com/Khan/perseus/pull/4220) [`82c5bd1`](https://github.com/Khan/perseus/commit/82c5bd1167b98f894436b9de4ea4621e245fab76) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Replaces Sorter with Deprecated Stand in when cards > 10
+
+### Patch Changes
+
+-   [#4274](https://github.com/Khan/perseus/pull/4274) [`188c0bf`](https://github.com/Khan/perseus/commit/188c0bf711c16f0d7ef4aa98d7cecf3bc82cf471) Thanks [@benchristel](https://github.com/benchristel)! - Bugfix: Inline Renderers no longer break up text into separate elements at punctuation marks when the `perseus-renderer-upgrade` feature flag is on. The previous buggy behavior confused screenreaders, especially in cases where words contained an apostrophe. E.g. `"don't"` would become something like `<span>don</span><span>'t</span>`.
+
+-   [#4196](https://github.com/Khan/perseus/pull/4196) [`e86d317`](https://github.com/Khan/perseus/commit/e86d317c25e791739ff7c9cae6cbb1c0331cfd3d) Thanks [@nishasy](https://github.com/nishasy)! - [Sorter] Render horizontal sorters as vertical if they have too many cards
+
+-   Updated dependencies [[`82c5bd1`](https://github.com/Khan/perseus/commit/82c5bd1167b98f894436b9de4ea4621e245fab76), [`e86d317`](https://github.com/Khan/perseus/commit/e86d317c25e791739ff7c9cae6cbb1c0331cfd3d)]:
+    -   @khanacademy/perseus-score@8.13.0
+    -   @khanacademy/perseus-core@39.2.3
+    -   @khanacademy/keypad-context@4.0.1
+    -   @khanacademy/kmath@2.4.54
+    -   @khanacademy/math-input@28.0.1
+    -   @khanacademy/perseus-linter@5.4.4
+
+## 87.2.2
+
+### Patch Changes
+
+-   [#4133](https://github.com/Khan/perseus/pull/4133) [`54959a3`](https://github.com/Khan/perseus/commit/54959a308d6bd9cc41fbb06feb6dbb7029d5371b) Thanks [@handeyeco](https://github.com/handeyeco)! - Change KeypadContext API so that rather than exposing a raw `renderer` we abstract functionality behind `blurRenderer`
+
+-   Updated dependencies [[`6b422ce`](https://github.com/Khan/perseus/commit/6b422ce7aeb04b9928fd21dabf42d2edbe048886), [`54959a3`](https://github.com/Khan/perseus/commit/54959a308d6bd9cc41fbb06feb6dbb7029d5371b)]:
+    -   @khanacademy/perseus-core@39.2.2
+    -   @khanacademy/keypad-context@4.0.0
+    -   @khanacademy/math-input@28.0.0
+    -   @khanacademy/kmath@2.4.53
+    -   @khanacademy/perseus-linter@5.4.3
+    -   @khanacademy/perseus-score@8.12.26
+
 ## 87.2.1
 
 ### Patch Changes

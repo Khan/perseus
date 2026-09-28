@@ -1,3 +1,7 @@
+import {
+    exceedsCardLimit,
+    SORTER_MAX_HORIZONTAL_CARDS,
+} from "@khanacademy/perseus-core";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {forwardRef, useImperativeHandle, useRef} from "react";
@@ -5,6 +9,7 @@ import {forwardRef, useImperativeHandle, useRef} from "react";
 import Sortable from "../../components/sortable";
 import {useDependencies} from "../../dependencies";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
+import deprecatedStandin from "../deprecated-standin";
 
 import type {SortableOption} from "../../components/sortable";
 import type {Widget, WidgetProps} from "../../types";
@@ -13,6 +18,8 @@ import type {
     PerseusSorterWidgetOptions,
     PerseusSorterUserInput,
 } from "@khanacademy/perseus-core";
+
+const DeprecatedStandin = deprecatedStandin.widget;
 
 type Props = WidgetProps<PerseusSorterWidgetOptions, PerseusSorterUserInput>;
 
@@ -31,7 +38,14 @@ const Sorter = forwardRef<SorterHandle, Props>(function Sorter(props, ref) {
     const sortable = useRef<Sortable>(null);
 
     const {options, userInput, widgetId, linterContext, apiOptions} = props;
-    const {layout, padding} = options;
+    const {correct, padding} = options;
+
+    // If there are more than the max limit of horizontal cards, force
+    // the layout direction to be vertical.
+    const layout =
+        correct.length > SORTER_MAX_HORIZONTAL_CARDS
+            ? "vertical"
+            : options.layout;
 
     useOnMountEffect(() => {
         dependencies.analytics.onAnalyticsEvent({
@@ -78,6 +92,13 @@ const Sorter = forwardRef<SorterHandle, Props>(function Sorter(props, ref) {
         });
 
         props.trackInteraction();
+    }
+
+    // Legacy content predates the card limit the editor now enforces. These
+    // sorters are unusable, so learners get the standin while authors keep the
+    // full editor to fix them with.
+    if (exceedsCardLimit(options.correct)) {
+        return <DeprecatedStandin />;
     }
 
     return (

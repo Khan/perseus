@@ -27,3 +27,9 @@
 .add-card {
     align-self: flex-start !important;
 }
+
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

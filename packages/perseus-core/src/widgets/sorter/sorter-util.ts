@@ -4,6 +4,17 @@ import type {PerseusSorterWidgetOptions} from "../../data-schema";
 
 export const SORTER_MAX_CARDS = 10;
 
+export function exceedsCardLimit(correct: readonly string[]): boolean {
+    return correct.length > SORTER_MAX_CARDS;
+}
+
+/**
+ * Maximum number of cards Sorter to supports in horizontal layout.
+ * If this number is exceeded, the cards render vertically even if
+ * the layout is set to horizontal.
+ */
+export const SORTER_MAX_HORIZONTAL_CARDS = 5;
+
 /**
  * For details on the individual options, see the
  * PerseusSorterWidgetOptions type
