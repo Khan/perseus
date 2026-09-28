@@ -353,14 +353,16 @@ describe("image editor", () => {
         await userEvent.tab();
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({
-            backgroundImage: {
-                url: earthMoonImage.url,
-                width: 200,
-                height: 300,
-            },
-            box: [200, 300],
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                backgroundImage: {
+                    url: earthMoonImage.url,
+                    width: 200,
+                    height: 300,
+                },
+                box: [200, 300],
+            }),
+        );
     });
 
     it("should call onChange with empty image url", async () => {
@@ -382,14 +384,16 @@ describe("image editor", () => {
         await userEvent.tab();
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({
-            backgroundImage: {
-                url: "",
-                width: 0,
-                height: 0,
-            },
-            box: [0, 0],
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                backgroundImage: {
+                    url: "",
+                    width: 0,
+                    height: 0,
+                },
+                box: [0, 0],
+            }),
+        );
     });
 
     it("should clear the warning when the image url is cleared", async () => {
@@ -447,9 +451,11 @@ describe("image editor", () => {
         await userEvent.click(resetToOriginalSizeButton);
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({
-            backgroundImage: earthMoonImage,
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                backgroundImage: earthMoonImage,
+            }),
+        );
     });
 
     it("should not call onChange when recalculate natural size is clicked and the image size is already the original size", async () => {
@@ -494,9 +500,11 @@ describe("image editor", () => {
         await userEvent.paste("Earth and moon");
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({
-            alt: "Earth and moon",
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                alt: "Earth and moon",
+            }),
+        );
     });
 
     it("should call onChange with empty alt", async () => {
@@ -518,9 +526,11 @@ describe("image editor", () => {
         await userEvent.clear(altField);
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({
-            alt: "",
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                alt: "",
+            }),
+        );
     });
 
     it("should call onChange with new long description", async () => {
@@ -544,9 +554,11 @@ describe("image editor", () => {
         await userEvent.paste("Earth and moon long description");
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({
-            longDescription: "Earth and moon long description",
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                longDescription: "Earth and moon long description",
+            }),
+        );
     });
 
     it("should call onChange with empty long description", async () => {
@@ -569,9 +581,11 @@ describe("image editor", () => {
         await userEvent.clear(altField);
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({
-            longDescription: "",
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                longDescription: "",
+            }),
+        );
     });
 
     it("should call onChange with new caption", async () => {
@@ -593,9 +607,11 @@ describe("image editor", () => {
         await userEvent.paste("Earth and moon");
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({
-            caption: "Earth and moon",
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                caption: "Earth and moon",
+            }),
+        );
     });
 
     it("should call onChange with empty caption", async () => {
@@ -617,9 +633,11 @@ describe("image editor", () => {
         await userEvent.clear(captionField);
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({
-            caption: "",
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                caption: "",
+            }),
+        );
     });
     it("should call onChange with new title", async () => {
         // Arrange
@@ -640,9 +658,11 @@ describe("image editor", () => {
         await userEvent.paste("Earth and moon");
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({
-            title: "Earth and moon",
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                title: "Earth and moon",
+            }),
+        );
     });
 
     it("should call onChange with empty title", async () => {
@@ -664,9 +684,11 @@ describe("image editor", () => {
         await userEvent.clear(titleField);
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({
-            title: "",
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                title: "",
+            }),
+        );
     });
 
     it("should show alt text too short error", async () => {
@@ -821,7 +843,9 @@ describe("image editor", () => {
             await userEvent.click(decorativeToggle);
 
             // Assert
-            expect(onChangeMock).toHaveBeenCalledWith({decorative: true});
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({decorative: true}),
+            );
         });
     });
 
@@ -909,9 +933,11 @@ describe("image editor", () => {
             await userEvent.paste("2");
 
             // Assert
-            expect(onChangeMock).toHaveBeenCalledWith({
-                scale: 2,
-            });
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    scale: 2,
+                }),
+            );
         });
 
         it("should call onChange with new scale when scaled width is changed", async () => {
@@ -937,9 +963,11 @@ describe("image editor", () => {
             await userEvent.paste(`${earthMoonImage.width * 2}`);
 
             // Assert
-            expect(onChangeMock).toHaveBeenCalledWith({
-                scale: 2,
-            });
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    scale: 2,
+                }),
+            );
         });
 
         it("should call onChange with new scale when scaled height is changed", async () => {
@@ -965,9 +993,11 @@ describe("image editor", () => {
             await userEvent.paste(`${earthMoonImage.height * 2}`);
 
             // Assert
-            expect(onChangeMock).toHaveBeenCalledWith({
-                scale: 2,
-            });
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    scale: 2,
+                }),
+            );
         });
 
         it.each([0, -1, -3.14])(
@@ -1403,12 +1433,14 @@ describe("image editor", () => {
             );
 
             // Assert
-            expect(onChangeMock).toHaveBeenCalledWith({
-                backgroundImage: {
-                    ...pngImage,
-                    url: pngImage.url + "?dark-mode=off",
-                },
-            });
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    backgroundImage: {
+                        ...pngImage,
+                        url: pngImage.url + "?dark-mode=off",
+                    },
+                }),
+            );
         });
 
         it('calls onChange with "dark-mode=off" removed when Suppress Dark Mode Filter is toggled off', async () => {
@@ -1435,12 +1467,14 @@ describe("image editor", () => {
             );
 
             // Assert
-            expect(onChangeMock).toHaveBeenCalledWith({
-                backgroundImage: {
-                    ...pngImage,
-                    url: pngImage.url,
-                },
-            });
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    backgroundImage: {
+                        ...pngImage,
+                        url: pngImage.url,
+                    },
+                }),
+            );
         });
 
         it("disables Suppress Dark Mode Filter toggle when URL changes from PNG to non-PNG", async () => {

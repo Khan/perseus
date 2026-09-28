@@ -55,7 +55,7 @@ jobs:
 
             - name: Publish snapshots for review
               if: inputs.target == 'review'
-              uses: chromaui/action@f191a0224b10e1a38b2091cefb7b7a2337009116 # v16.0.0
+              uses: chromaui/action@6b3c2820222d23bad770d57a4ad5e2d1c91f92e9 # v18.9.5
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   projectToken: ${{ secrets.projectToken }}
@@ -67,7 +67,7 @@ jobs:
 
             - name: Exempt snapshots
               if: inputs.target == 'skip'
-              uses: chromaui/action@f191a0224b10e1a38b2091cefb7b7a2337009116 # v16.0.0
+              uses: chromaui/action@6b3c2820222d23bad770d57a4ad5e2d1c91f92e9 # v18.9.5
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   projectToken: ${{ secrets.projectToken }}
@@ -84,7 +84,7 @@ jobs:
 
             - name: Publish and accept snapshots on main
               if: inputs.target == 'main'
-              uses: chromaui/action@f191a0224b10e1a38b2091cefb7b7a2337009116 # v16.0.0
+              uses: chromaui/action@6b3c2820222d23bad770d57a4ad5e2d1c91f92e9 # v18.9.5
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   projectToken: ${{ secrets.projectToken }}
