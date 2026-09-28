@@ -1,5 +1,17 @@
 # @khanacademy/perseus-score
 
+## 8.13.0
+
+### Minor Changes
+
+-   [#4220](https://github.com/Khan/perseus/pull/4220) [`82c5bd1`](https://github.com/Khan/perseus/commit/82c5bd1167b98f894436b9de4ea4621e245fab76) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Replaces Sorter with Deprecated Stand in when cards > 10
+
+### Patch Changes
+
+-   Updated dependencies [[`e86d317`](https://github.com/Khan/perseus/commit/e86d317c25e791739ff7c9cae6cbb1c0331cfd3d)]:
+    -   @khanacademy/perseus-core@39.2.3
+    -   @khanacademy/kmath@2.4.54
+
 ## 8.12.26
 
 ### Patch Changes
