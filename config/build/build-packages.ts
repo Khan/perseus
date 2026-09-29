@@ -1,16 +1,19 @@
+import {parseArgs} from "node:util";
 import {build} from "vite";
 
 import {createPackageConfig, getPackageNames} from "./vite.config.mts";
 
-const getOption = (name: string) => {
-    const prefix = `--${name}=`;
-    const argument = process.argv.find((value) => value.startsWith(prefix));
-    return argument?.slice(prefix.length);
-};
+const {values} = parseArgs({
+    options: {
+        configEnvironment: {type: "string"},
+        watch: {type: "boolean"},
+    },
+    strict: true,
+});
 
 const options = {
-    environment: getOption("configEnvironment"),
-    watch: process.argv.includes("--watch"),
+    environment: values.configEnvironment,
+    watch: values.watch,
 };
 
 for (const packageName of getPackageNames()) {
