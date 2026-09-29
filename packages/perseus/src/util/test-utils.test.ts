@@ -1,4 +1,8 @@
-import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+import {
+    CoreWidgetRegistry,
+    generateTestPerseusItem,
+} from "@khanacademy/perseus-core";
+import dropdownLogic from "@khanacademy/perseus-core/widgets/dropdown";
 
 import {getAnswerfulItem, getAnswerlessItem} from "./test-utils";
 import {
@@ -88,6 +92,10 @@ describe("getAnswerfulItem", () => {
 });
 
 describe("getAnswerlessItem", () => {
+    beforeEach(() => {
+        CoreWidgetRegistry.registerLogics([dropdownLogic]);
+    });
+
     it("should return an answerless item using the type given with upgraded widget options", () => {
         const answerlessItem = getAnswerlessItem("dropdown", {
             placeholder: "greater/less than or equal to",

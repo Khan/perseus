@@ -39,3 +39,6 @@ CoreWidgetRegistry.registerLogics([radioLogic]);
 
 Apps rendering Perseus content get this for free: `initPerseus()` (from
 `@khanacademy/perseus/init`) registers every widget's core logic too.
+
+Nothing is registered as a side effect of importing the package: the barrel used
+to register everything, which coupled every consumer to every widget.

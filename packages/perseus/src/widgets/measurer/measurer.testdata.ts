@@ -1,7 +1,5 @@
-import {
-    generateTestPerseusRenderer,
-    measurerLogic,
-} from "@khanacademy/perseus-core";
+import {generateTestPerseusRenderer} from "@khanacademy/perseus-core";
+import measurerLogic from "@khanacademy/perseus-core/widgets/measurer";
 
 import type {
     PerseusMeasurerWidgetOptions,

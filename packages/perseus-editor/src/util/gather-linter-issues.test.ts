@@ -1,4 +1,8 @@
-import {generateCategorizerWidget} from "@khanacademy/perseus-core";
+import {
+    CoreWidgetRegistry,
+    generateCategorizerWidget,
+} from "@khanacademy/perseus-core";
+import categorizerLogic from "@khanacademy/perseus-core/widgets/categorizer";
 
 import {getIssueKey} from "../components/issues-panel";
 
@@ -155,6 +159,8 @@ describe("gatherLinterIssues", () => {
 
     it("keeps an instanceId the warning already provides", () => {
         // Arrange
+        // The inaccessible-widget rule reads the widget's core logic.
+        CoreWidgetRegistry.registerLogics([categorizerLogic]);
         const widgetRenderer = {
             content: "[[☃ categorizer 1]]",
             images: {},

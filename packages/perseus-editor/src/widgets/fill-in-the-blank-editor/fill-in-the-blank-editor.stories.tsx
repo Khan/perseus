@@ -1,10 +1,10 @@
 import {ApiOptions} from "@khanacademy/perseus";
 import {
-    fillInTheBlankLogic,
     generateFillInTheBlankOptions,
     generateFillInTheBlankWidget,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
+import fillInTheBlankLogic from "@khanacademy/perseus-core/widgets/fill-in-the-blank";
 import * as React from "react";
 import {action} from "storybook/actions";
 

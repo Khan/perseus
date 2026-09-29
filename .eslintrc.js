@@ -256,6 +256,28 @@ module.exports = {
             },
         },
         {
+            // The perseus-core barrel must import no widget logic: one such
+            // import couples every barrel consumer to every widget, which is
+            // what the retest and TurboSnap graphs key off. Logic lives behind
+            // the `./widgets/*` subpaths; the aggregate behind `./init`.
+            files: ["packages/perseus-core/src/index.ts"],
+            rules: {
+                // A selector rather than `no-restricted-imports`: the barrel
+                // does re-export deeper modules (`./widgets/radio/radio-util`)
+                // and only the widget dirs themselves are off limits, which
+                // that rule's gitignore-style patterns can't express.
+                "no-restricted-syntax": [
+                    "error",
+                    {
+                        selector:
+                            ":matches(ImportDeclaration, ExportNamedDeclaration, ExportAllDeclaration)[source.value=/^[.]\\x2fwidgets(\\x2f(?!apply-defaults$|core-widget-registry$)[a-z0-9-]+)?$/]",
+                        message:
+                            "The barrel must not import widget logic. Consumers reach it via @khanacademy/perseus-core/init or /widgets/<name>.",
+                    },
+                ],
+            },
+        },
+        {
             files: ["score-*.ts"],
             rules: {
                 "no-restricted-syntax": [

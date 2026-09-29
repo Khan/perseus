@@ -1,3 +1,10 @@
+import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
+import definitionLogic from "@khanacademy/perseus-core/widgets/definition";
+import expressionLogic from "@khanacademy/perseus-core/widgets/expression";
+import inputNumberLogic from "@khanacademy/perseus-core/widgets/input-number";
+import numericInputLogic from "@khanacademy/perseus-core/widgets/numeric-input";
+import radioLogic from "@khanacademy/perseus-core/widgets/radio";
+
 import Util, {noParagraphForInlineWidget} from "./util";
 
 describe("firstNumericalParse", () => {
@@ -22,6 +29,17 @@ describe("stringArrayOfSize2D", () => {
 });
 
 describe("splitBlockWidgetsFromParagraphs", () => {
+    beforeEach(() => {
+        // Block-vs-inline comes from each widget's registered alignment.
+        CoreWidgetRegistry.registerLogics([
+            definitionLogic,
+            expressionLogic,
+            inputNumberLogic,
+            numericInputLogic,
+            radioLogic,
+        ]);
+    });
+
     const text = (content: string) => ({type: "text", content});
     const strong = (content: string) => ({
         type: "strong",
