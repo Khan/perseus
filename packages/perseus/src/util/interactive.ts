@@ -972,7 +972,8 @@ _.extend(GraphUtils.Graphie.prototype, {
     //
     // Include "fixed: true" in the options if you don't want the entire line
     // to be draggable (you can still use points to make the endpoints
-    // draggable)
+    // draggable). Note that "fixed" only affects dragging, not color: fixed
+    // and movable segments draw in the same color.
     //
     // The returned object includes the following properties/methods:
     //
@@ -1003,8 +1004,12 @@ _.extend(GraphUtils.Graphie.prototype, {
                     "stroke-width": 6,
                 },
                 labelStyle: {
-                    stroke: KhanColors.INTERACTIVE,
-                    color: KhanColors.INTERACTIVE,
+                    stroke: tokenValue(
+                        semanticColor.core.foreground.instructive.default,
+                    ),
+                    color: tokenValue(
+                        semanticColor.core.foreground.instructive.default,
+                    ),
                 },
                 highlight: false,
                 dragging: false,
@@ -1025,9 +1030,11 @@ _.extend(GraphUtils.Graphie.prototype, {
             options,
         );
 
-        const normalColor = lineSegment.fixed
-            ? KhanColors.DYNAMIC
-            : KhanColors.INTERACTIVE;
+        // tokenValue resolves the semantic tokens to raw hex; graphie only
+        // accepts raw CSS colors, not CSS variables.
+        const normalColor = tokenValue(
+            semanticColor.core.foreground.instructive.default,
+        );
         lineSegment.normalStyle = {
             "stroke-width": 2,
             stroke: normalColor,
