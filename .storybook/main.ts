@@ -23,7 +23,7 @@ const cssWrapper = {
                     /\bperseus-legacy\b/.test(code)
                 ) {
                     const layerStatements =
-                        "@layer reset, shared, legacy;\n@layer shared";
+                        "@layer reset, shared, shared.base, legacy;\n@layer shared";
                     return {
                         code: `${layerStatements} { ${code} }`,
                         map: null,
