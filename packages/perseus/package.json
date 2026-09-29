@@ -3,9 +3,15 @@
     "description": "Core Perseus API (includes renderers and widgets)",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "87.3.0",
+    "version": "88.0.0",
     "publishConfig": {
-        "access": "public"
+        "access": "public",
+        "exports": {
+            ".": "./dist/index.js",
+            "./strings": "./dist/strings.js",
+            "./styles.css": "./dist/index.css",
+            "./testing": "./dist/testing.js"
+        }
     },
     "repository": {
         "type": "git",
@@ -15,23 +21,11 @@
     "bugs": {
         "url": "https://github.com/Khan/perseus/issues"
     },
-    "module": "dist/es/index.js",
-    "main": "dist/index.js",
-    "source": "src/index.ts",
+    "type": "module",
     "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "source": "./src/index.ts",
-            "import": "./dist/es/index.js",
-            "require": "./dist/index.js"
-        },
-        "./strings": {
-            "types": "./dist/strings.d.ts",
-            "source": "./src/strings.ts",
-            "import": "./dist/es/strings.js",
-            "require": "./dist/strings.js"
-        },
-        "./styles.css": "./dist/index.css"
+        ".": "./src/index.ts",
+        "./strings": "./src/strings.ts",
+        "./testing": "./src/testing.ts"
     },
     "files": [
         "dist"
@@ -131,6 +125,6 @@
     },
     "keywords": [],
     "khan": {
-        "catalogHash": "b5f16d9867976000"
+        "catalogHash": "5534417e736ba3ce"
     }
 }

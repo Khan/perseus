@@ -1,7 +1,6 @@
 /**
  * Pre-publish utilities to verify that our publish will go smoothly.
  */
-
 const checkPublishConfig = ({
     name,
     publishConfig,
@@ -65,14 +64,54 @@ const checkField = (pkgJson, field, value): boolean => {
     return returnCode;
 };
 
-const checkMain = (pkgJson): boolean =>
-    checkField(pkgJson, "main", "dist/index.js");
+const checkNoMain = (pkgJson): boolean => {
+    if (pkgJson.main != null) {
+        console.error(
+            `ERROR: ${pkgJson.name} must not have a "main" field. We publish ESM only.`,
+        );
+        return false;
+    }
+    return true;
+};
 
-const checkModule = (pkgJson): boolean =>
-    checkField(pkgJson, "module", "dist/es/index.js");
+const checkNoSource = (pkgJson): boolean => {
+    if (pkgJson.source != null) {
+        console.error(
+            `ERROR: ${pkgJson.name} must not have a top-level "source" field. Declare source files in the "exports" map.`,
+        );
+        return false;
+    }
+    return true;
+};
 
-const checkSource = (pkgJson): boolean =>
-    checkField(pkgJson, "source", ["src/index.js", "src/index.ts"]);
+const checkType = (pkgJson): boolean => checkField(pkgJson, "type", "module");
+
+/**
+ * Verify that no export sub-path offers a CJS build.
+ *
+ * A `require` condition would hand a CJS consumer something we no longer
+ * build. Without one, `require()` fails at resolution time instead.
+ */
+const checkNoRequireCondition = (pkgJson): boolean => {
+    return [
+        ...Object.entries(pkgJson.exports ?? {}),
+        ...Object.entries(pkgJson.publishConfig?.exports ?? {}),
+    ]
+        .map(([subPath, conditions]) => {
+            if (
+                typeof conditions === "object" &&
+                conditions !== null &&
+                "require" in conditions
+            ) {
+                console.error(
+                    `ERROR: ${pkgJson.name} must not declare a "require" condition for the "${subPath}" export.`,
+                );
+                return false;
+            }
+            return true;
+        })
+        .every(Boolean);
+};
 
 const checkPrivate = (pkgJson): boolean => {
     if (pkgJson.private) {
@@ -84,7 +123,82 @@ const checkPrivate = (pkgJson): boolean => {
     return false;
 };
 
+/**
+ * Verify a package declares the ESM-only entry point shape.
+ */
 const checkEntrypoints = (pkgJson): boolean =>
-    checkModule(pkgJson) && checkMain(pkgJson);
+    [
+        checkType(pkgJson),
+        checkNoMain(pkgJson),
+        checkNoSource(pkgJson),
+        checkNoRequireCondition(pkgJson),
+    ].every(Boolean);
 
-export {checkPublishConfig, checkEntrypoints, checkSource, checkPrivate};
+/**
+ * Verify the in-repo and published export maps agree.
+ *
+ * `exports` points at source files so that tooling in this repo resolves
+ * workspace packages without a build. `publishConfig.exports` is the map pnpm
+ * publishes in its place, so it must expose the same sub-paths, each pointing
+ * at the file the build emits for it.
+ *
+ * Built assets (such as CSS) have no source file, so they appear only in
+ * `publishConfig.exports`.
+ */
+const checkExports = (pkgJson): boolean => {
+    const sourceExports = pkgJson.exports;
+    const publishedExports = pkgJson.publishConfig?.exports;
+    if (!sourceExports?.["."] || !publishedExports?.["."]) {
+        console.error(
+            `ERROR: ${pkgJson.name} must have "exports" and "publishConfig.exports" maps with a "." entry.`,
+        );
+        return false;
+    }
+
+    const subPaths = new Set([
+        ...Object.keys(sourceExports),
+        ...Object.keys(publishedExports),
+    ]);
+    return [...subPaths]
+        .map((subPath) => {
+            const sourceFile = sourceExports[subPath];
+            const publishedFile = publishedExports[subPath];
+            if (typeof publishedFile !== "string") {
+                console.error(
+                    `ERROR: ${pkgJson.name} export "${subPath}" must map to a file path in "publishConfig.exports".`,
+                );
+                return false;
+            }
+
+            // A JS entry point is built from source, so only built assets
+            // may be missing from `exports`.
+            if (sourceFile === undefined) {
+                if (
+                    publishedFile.startsWith("./dist/") &&
+                    !publishedFile.endsWith(".js")
+                ) {
+                    return true;
+                }
+                console.error(
+                    `ERROR: ${pkgJson.name} export "${subPath}" must be a built asset in dist/ or also map a source file in "exports".`,
+                );
+                return false;
+            }
+
+            const entryName =
+                subPath === "." ? "index" : subPath.replace(/^\.\//, "");
+            if (
+                !/^\.\/src\/.+\.tsx?$/.test(sourceFile) ||
+                publishedFile !== `./dist/${entryName}.js`
+            ) {
+                console.error(
+                    `ERROR: ${pkgJson.name} export "${subPath}" must map a source file in src/ to "./dist/${entryName}.js" in "publishConfig.exports".`,
+                );
+                return false;
+            }
+            return true;
+        })
+        .every(Boolean);
+};
+
+export {checkPublishConfig, checkEntrypoints, checkExports, checkPrivate};
