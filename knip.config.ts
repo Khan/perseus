@@ -57,6 +57,9 @@ const config: KnipConfig = {
                 "utils/**/*.{ts,tsx,js,jsx}",
                 // Cypress loads this file through its supportFile setting.
                 "config/cypress/support.ts",
+                // Helpers imported by the Storybook docs pages (MDX), which
+                // Knip doesn't parse.
+                "__docs__/**/*.{ts,tsx}",
             ],
         },
         "packages/*": basePackageConfig,
