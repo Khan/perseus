@@ -11,7 +11,7 @@ import {
     itemWithMultipleNumericInputs,
     itemWithRadioAndExpressionWidgets,
 } from "../__testdata__/server-item-renderer.testdata";
-import {ServerItemRenderer} from "../server-item-renderer";
+import ServerItemRenderer from "../server-item-renderer";
 import {ServerItemRendererWithDebugUI} from "../testing/server-item-renderer-with-debug-ui";
 import {storybookDependenciesV2} from "../testing/test-dependencies";
 
