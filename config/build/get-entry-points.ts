@@ -1,8 +1,33 @@
-type PackageJson = {
-    exports?: Record<string, unknown>;
-    publishConfig?: {
-        exports?: Record<string, unknown>;
-    };
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+    typeof value === "object" && value !== null && !Array.isArray(value);
+
+const parseRecord = (
+    value: unknown,
+    fieldName: string,
+): Record<string, unknown> => {
+    if (!isRecord(value)) {
+        throw new TypeError(`Expected ${fieldName} to be an object.`);
+    }
+
+    return value;
+};
+
+const parseStringRecord = (
+    value: unknown,
+    fieldName: string,
+): Record<string, string> => {
+    const record = parseRecord(value, fieldName);
+    const stringRecord: Record<string, string> = {};
+
+    for (const [key, fieldValue] of Object.entries(record)) {
+        if (typeof fieldValue !== "string") {
+            throw new TypeError(`Expected ${fieldName}.${key} to be a string.`);
+        }
+
+        stringRecord[key] = fieldValue;
+    }
+
+    return stringRecord;
 };
 
 /**
@@ -26,16 +51,27 @@ type PackageJson = {
  * See: https://nodejs.org/api/packages.html#subpath-exports
  */
 export const getEntryPoints = (
-    pkgJson: PackageJson,
+    pkgJson: unknown,
 ): Record<string, string> => {
-    const publishedExports = pkgJson.publishConfig?.exports ?? {};
+    const packageJson = parseRecord(pkgJson, "package.json");
+    const sourceExports = parseStringRecord(
+        packageJson.exports,
+        "package.json.exports",
+    );
+    const publishConfig = parseRecord(
+        packageJson.publishConfig,
+        "package.json.publishConfig",
+    );
+    const publishedExports = parseStringRecord(
+        publishConfig.exports,
+        "package.json.publishConfig.exports",
+    );
     const entryPoints: Record<string, string> = {};
-    for (const [subPath, sourceFile] of Object.entries(pkgJson.exports ?? {})) {
+    for (const [subPath, sourceFile] of Object.entries(sourceExports)) {
         const publishedFile = publishedExports[subPath];
         if (
-            typeof sourceFile !== "string" ||
             !sourceFile.startsWith("./src/") ||
-            typeof publishedFile !== "string" ||
+            publishedFile === undefined ||
             !publishedFile.endsWith(".js")
         ) {
             continue;
