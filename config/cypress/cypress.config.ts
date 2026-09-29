@@ -1,3 +1,6 @@
+import path from "node:path";
+import {fileURLToPath} from "node:url";
+
 import react from "@vitejs/plugin-react";
 import {defineConfig} from "cypress";
 import {mergeConfig} from "vite";
@@ -5,6 +8,10 @@ import istanbul from "vite-plugin-istanbul";
 
 import viteConfig from "../../vite.config.mts";
 
+const repoRoot = path.resolve(
+    path.dirname(fileURLToPath(import.meta.url)),
+    "../..",
+);
 const coverageEnabled = Boolean(process.env.CYPRESS_COVERAGE);
 const sharedViteConfig = {...viteConfig};
 delete sharedViteConfig.plugins;
@@ -32,7 +39,9 @@ export default defineConfig({
                 return mergeConfig(mergeConfig(config, sharedViteConfig), {
                     plugins: [
                         react(),
-                        ...(coverageEnabled ? [istanbul()] : []),
+                        ...(coverageEnabled
+                            ? [istanbul({cypress: true, cwd: repoRoot})]
+                            : []),
                     ],
                     define: {
                         // This is used to determine if we are running in a
@@ -45,8 +54,15 @@ export default defineConfig({
 
         setupNodeEvents: async (on, config) => {
             if (config.env["CYPRESS_COVERAGE"]) {
-                const task = await import("@cypress/code-coverage/task");
-                task.default(on, config);
+                const workingDirectory = process.cwd();
+                // The coverage task reads NYC settings from process.cwd().
+                process.chdir(repoRoot);
+                try {
+                    const task = await import("@cypress/code-coverage/task");
+                    task.default(on, config);
+                } finally {
+                    process.chdir(workingDirectory);
+                }
             }
 
             config.env.reactDevtools = true;
