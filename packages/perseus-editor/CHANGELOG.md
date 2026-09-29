@@ -1,5 +1,66 @@
 # @khanacademy/perseus-editor
 
+## 44.0.1
+
+### Patch Changes
+
+-   Updated dependencies [[`bf02601`](https://github.com/Khan/perseus/commit/bf02601f17fc0c11844b0d077b60cafd2c8e1a37), [`bf02601`](https://github.com/Khan/perseus/commit/bf02601f17fc0c11844b0d077b60cafd2c8e1a37)]:
+    -   @khanacademy/perseus@89.0.0
+    -   @khanacademy/perseus-core@40.0.1
+    -   @khanacademy/keypad-context@6.0.0
+    -   @khanacademy/math-input@30.0.0
+    -   @khanacademy/kmath@3.0.1
+    -   @khanacademy/perseus-linter@6.0.1
+
+## 44.0.0
+
+### Major Changes
+
+-   [#4242](https://github.com/Khan/perseus/pull/4242) [`324add8`](https://github.com/Khan/perseus/commit/324add8b5e2cf5752fd3bee882caffbcbd84238c) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Ship ES modules only. Every package now declares `"type": "module"`, drops
+    the legacy `main` and `module` fields, and no longer offers a `require`
+    condition, so `require()` of a
+    package or any of its sub-paths fails at resolution time. Bundles moved from
+    `dist/es/*.js` to `dist/*.js`.
+
+    `import` specifiers are unchanged — `@khanacademy/perseus`,
+    `@khanacademy/perseus/strings`, `@khanacademy/perseus/styles.css` and the rest
+    all still resolve. CJS consumers need to either move to `import`, or use a
+    dynamic `await import()` from an async context.
+
+### Patch Changes
+
+-   [#4273](https://github.com/Khan/perseus/pull/4273) [`7d7705a`](https://github.com/Khan/perseus/commit/7d7705a43b13dd31ca52cf331c1cc04a9eed3fcc) Thanks [@beaesguerra](https://github.com/beaesguerra)! - Update WB dependencies
+
+-   Updated dependencies [[`324add8`](https://github.com/Khan/perseus/commit/324add8b5e2cf5752fd3bee882caffbcbd84238c), [`7d7705a`](https://github.com/Khan/perseus/commit/7d7705a43b13dd31ca52cf331c1cc04a9eed3fcc)]:
+    -   @khanacademy/kas@3.0.0
+    -   @khanacademy/keypad-context@5.0.0
+    -   @khanacademy/kmath@3.0.0
+    -   @khanacademy/math-input@29.0.0
+    -   @khanacademy/perseus@88.0.0
+    -   @khanacademy/perseus-core@40.0.0
+    -   @khanacademy/perseus-linter@6.0.0
+    -   @khanacademy/perseus-utils@3.0.0
+
+## 43.0.2
+
+### Patch Changes
+
+-   [#4269](https://github.com/Khan/perseus/pull/4269) [`19dada1`](https://github.com/Khan/perseus/commit/19dada1d3c0555302050fd3ad7ef74dda4651cd6) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in IframeEditor.
+
+-   [#4271](https://github.com/Khan/perseus/pull/4271) [`6c0b9cd`](https://github.com/Khan/perseus/commit/6c0b9cdfcedf14bf599acf937494e4ec0f4ad08d) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the ImageEditor now passes the entire options object to its onChange callback on every call.
+
+-   [#4268](https://github.com/Khan/perseus/pull/4268) [`b19bee0`](https://github.com/Khan/perseus/commit/b19bee025163f7c4794bf2871258d692dc0e2a0e) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Add TypeScript prop types for GroupEditor.
+
+-   [#4196](https://github.com/Khan/perseus/pull/4196) [`e86d317`](https://github.com/Khan/perseus/commit/e86d317c25e791739ff7c9cae6cbb1c0331cfd3d) Thanks [@nishasy](https://github.com/nishasy)! - [Sorter] Render horizontal sorters as vertical if they have too many cards
+
+-   Updated dependencies [[`82c5bd1`](https://github.com/Khan/perseus/commit/82c5bd1167b98f894436b9de4ea4621e245fab76), [`188c0bf`](https://github.com/Khan/perseus/commit/188c0bf711c16f0d7ef4aa98d7cecf3bc82cf471), [`e86d317`](https://github.com/Khan/perseus/commit/e86d317c25e791739ff7c9cae6cbb1c0331cfd3d)]:
+    -   @khanacademy/perseus@87.3.0
+    -   @khanacademy/perseus-core@39.2.3
+    -   @khanacademy/keypad-context@4.0.1
+    -   @khanacademy/kmath@2.4.54
+    -   @khanacademy/math-input@28.0.1
+    -   @khanacademy/perseus-linter@5.4.4
+
 ## 43.0.1
 
 ### Patch Changes

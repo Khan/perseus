@@ -32,6 +32,7 @@ import PreviewWithIframe from "./preview-with-iframe";
 import {detectTexErrors} from "./util/tex-error-detector";
 
 import type {Issue} from "./components/issues-panel";
+import type {ArticleSectionPreviewData} from "./preview/message-types";
 import type {
     APIOptions,
     ImageUploader,
@@ -133,7 +134,10 @@ export default class ArticleEditor extends React.Component<Props, State> {
         this.setState({issues});
     }
 
-    _previewDataForSection(section: PerseusRenderer, sectionIndex: number) {
+    _previewDataForSection(
+        section: PerseusRenderer,
+        sectionIndex: number,
+    ): ArticleSectionPreviewData {
         const editor = this.refs[`editor${sectionIndex}`];
 
         return {

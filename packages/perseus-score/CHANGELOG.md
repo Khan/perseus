@@ -1,5 +1,48 @@
 # @khanacademy/perseus-score
 
+## 9.0.1
+
+### Patch Changes
+
+-   Updated dependencies [[`bf02601`](https://github.com/Khan/perseus/commit/bf02601f17fc0c11844b0d077b60cafd2c8e1a37)]:
+    -   @khanacademy/perseus-core@40.0.1
+    -   @khanacademy/kmath@3.0.1
+
+## 9.0.0
+
+### Major Changes
+
+-   [#4242](https://github.com/Khan/perseus/pull/4242) [`324add8`](https://github.com/Khan/perseus/commit/324add8b5e2cf5752fd3bee882caffbcbd84238c) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Ship ES modules only. Every package now declares `"type": "module"`, drops
+    the legacy `main` and `module` fields, and no longer offers a `require`
+    condition, so `require()` of a
+    package or any of its sub-paths fails at resolution time. Bundles moved from
+    `dist/es/*.js` to `dist/*.js`.
+
+    `import` specifiers are unchanged — `@khanacademy/perseus`,
+    `@khanacademy/perseus/strings`, `@khanacademy/perseus/styles.css` and the rest
+    all still resolve. CJS consumers need to either move to `import`, or use a
+    dynamic `await import()` from an async context.
+
+### Patch Changes
+
+-   Updated dependencies [[`324add8`](https://github.com/Khan/perseus/commit/324add8b5e2cf5752fd3bee882caffbcbd84238c)]:
+    -   @khanacademy/kas@3.0.0
+    -   @khanacademy/kmath@3.0.0
+    -   @khanacademy/perseus-core@40.0.0
+    -   @khanacademy/perseus-utils@3.0.0
+
+## 8.13.0
+
+### Minor Changes
+
+-   [#4220](https://github.com/Khan/perseus/pull/4220) [`82c5bd1`](https://github.com/Khan/perseus/commit/82c5bd1167b98f894436b9de4ea4621e245fab76) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Replaces Sorter with Deprecated Stand in when cards > 10
+
+### Patch Changes
+
+-   Updated dependencies [[`e86d317`](https://github.com/Khan/perseus/commit/e86d317c25e791739ff7c9cae6cbb1c0331cfd3d)]:
+    -   @khanacademy/perseus-core@39.2.3
+    -   @khanacademy/kmath@2.4.54
+
 ## 8.12.26
 
 ### Patch Changes

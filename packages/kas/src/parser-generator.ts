@@ -1,11 +1,8 @@
 #!/usr/bin/env node
-/* eslint-disable @typescript-eslint/no-require-imports */
-/* eslint-disable import/no-commonjs */
+import fs from "fs";
+import path from "path";
 
-const fs = require("fs");
-const path = require("path");
-
-const jison = require("jison");
+import jison from "jison";
 
 const grammar = {
     lex: {
@@ -208,16 +205,16 @@ parser = parser.replace(/(_token_stack:)/g, "//$1");
 const postlude = "\n\nexport {parser};\n";
 
 fs.writeFileSync(
-    path.resolve(__dirname, "__genfiles__", "parser.js"),
+    path.resolve(import.meta.dirname, "__genfiles__", "parser.js"),
     prelude + parser + postlude,
 );
 
 const unitPrelude = "// this is a @gene" + "rated file\n\n";
 const unitEpilogue = "\n\nexport const unitParser = parser;\n";
 
-const unitParserInfile = path.resolve(__dirname, "unitvalue.jison");
+const unitParserInfile = path.resolve(import.meta.dirname, "unitvalue.jison");
 const unitParserOutfile = path.resolve(
-    __dirname,
+    import.meta.dirname,
     "__genfiles__",
     "unitparser.js",
 );
