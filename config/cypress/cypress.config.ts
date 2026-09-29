@@ -55,7 +55,10 @@ export default defineConfig({
         setupNodeEvents: async (on, config) => {
             if (config.env["CYPRESS_COVERAGE"]) {
                 const workingDirectory = process.cwd();
-                // The coverage task reads NYC settings from process.cwd().
+                // process.cwd() is this file's directory, be default, and the
+                // coverage task reads NYC settings from process.cwd() so we
+                // need to switch it to be the root of the repo (where the
+                // `.nycrc.json` file is)
                 process.chdir(repoRoot);
                 try {
                     const task = await import("@cypress/code-coverage/task");
