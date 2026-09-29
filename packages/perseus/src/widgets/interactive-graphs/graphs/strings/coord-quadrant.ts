@@ -1,6 +1,6 @@
 import {srFormatNumber} from "./format-number";
 
-import type {PerseusStrings} from "@khanacademy/perseus/strings";
+import type {PerseusStrings} from "../../../../strings";
 import type {Coord} from "@khanacademy/perseus-core";
 
 type GraphLocations = "origin" | "x-axis" | "y-axis" | 1 | 2 | 3 | 4;

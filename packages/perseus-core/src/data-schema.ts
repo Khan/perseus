@@ -150,6 +150,7 @@ export interface PerseusWidgetTypes {
     dropdown: DropdownWidget;
     explanation: ExplanationWidget;
     expression: ExpressionWidget;
+    "fill-in-the-blank": FillInTheBlankWidget;
     "free-response": FreeResponseWidget;
     grapher: GrapherWidget;
     "graded-group-set": GradedGroupSetWidget;
@@ -465,6 +466,8 @@ export type ExplanationWidget = WidgetOptions<'explanation', PerseusExplanationW
 // prettier-ignore
 export type ExpressionWidget = WidgetOptions<'expression', PerseusExpressionWidgetOptions>;
 // prettier-ignore
+export type FillInTheBlankWidget = WidgetOptions<'fill-in-the-blank', PerseusFillInTheBlankWidgetOptions>;
+// prettier-ignore
 export type FreeResponseWidget = WidgetOptions<'free-response', PerseusFreeResponseWidgetOptions>;
 // prettier-ignore
 export type GradedGroupSetWidget = WidgetOptions<'graded-group-set', PerseusGradedGroupSetWidgetOptions>;
@@ -552,6 +555,54 @@ export type PerseusBlankWidgetOptions = {
     displayType: "normal" | "superscript" | "subscript";
     /** ID for the correct answer tile for the blank */
     correctId: string;
+};
+
+/**
+ * A draggable tile in a "Drag And Drop" widget's choice bank, shared across
+ * the widget family.
+ *
+ * Presentation only: each widget expresses correctness differently, so one
+ * needing extra data should intersect this type locally rather than widen it.
+ * Any field added here must be optional.
+ */
+export type PerseusAnswerTile = {
+    /**
+     * Identifies the tile within its own widget's choice bank: a blank's
+     * `correctId` and the learner's placements both name a tile this way.
+     * Uniqueness is scoped to the one widget.
+     */
+    id: string;
+    /**
+     * Translatable Markdown; what this tile displays. Blank renders an empty
+     * tile, which is announced using `label`.
+     */
+    content: string;
+    /** Translatable text; the tile's value as plain text, for screen readers */
+    label: string;
+    /** Display height in px for an image tile. */
+    imageHeight?: number;
+};
+
+/**
+ * Options for the fill-in-the-blank widget. Presents content with inline
+ * blanks above a choice bank of answer tiles.
+ */
+export type PerseusFillInTheBlankWidgetOptions = {
+    /** Translatable Markdown; the content. Translators may move the
+     *  `[[☃ blank n]]` widget placeholders within it */
+    content: string;
+    /** The widgets embedded in `content`, keyed by widget id. */
+    widgets: PerseusWidgetsMap;
+    /** The choice bank the learner draws answer tiles from */
+    tiles: PerseusAnswerTile[];
+    /**
+     * How many times each tile may be placed, for the whole choice bank.
+     */
+    maxUsesPerTile: number | "unlimited";
+    /**
+     * Randomize the order of the answer tiles or keep them as defined.
+     */
+    randomize: boolean;
 };
 
 /** Options for the categorizer widget. Presents items to sort into groups. */
@@ -652,12 +703,8 @@ export type PerseusExpressionWidgetOptions = {
     visibleLabel?: string;
     /** Aria label for screen readers attached to MathQuill field */
     ariaLabel?: string;
-    /**
-     * Controls when buttons for special characters are visible when using a
-     * desktop browser. Defaults to "focused".
-     * NOTE: This isn't listed in perseus-format.js or perseus_data.go, but
-     * appears in item data in the datastore.
-     */
+    // TODO(LEMS-4612): Remove buttonsVisible
+    /** @deprecated buttonsVisible has no effect. */
     buttonsVisible?: "always" | "never" | "focused";
 };
 
@@ -697,6 +744,8 @@ export type PerseusGradedGroupWidgetOptions = {
     images: {
         [key: string]: PerseusImageDetail;
     };
+    /** optional content extras (calculators/financial calcs/periodic tables) */
+    answerArea?: PerseusAnswerArea;
 };
 
 /** Options for the graded-group-set widget. A set of graded groups. */
@@ -847,7 +896,10 @@ export type PerseusGrapherWidgetOptions = {
         };
         /** The [width, height] of the graph canvas in pixels. */
         box?: [number, number];
-        /** Which graph settings are editable in the editor UI. */
+        /**
+         * Which graph settings are editable in the editor UI.
+         * @deprecated - not used
+         */
         editableSettings?: Array<"graph" | "snap" | "image" | "measure">;
         /** The [x, y] spacing between grid lines. */
         gridStep?: [number, number];
@@ -1893,15 +1945,19 @@ export type PerseusSorterWidgetOptions = {
      */
     correct: string[];
     /**
-     * Adds padding to the options. Padding is good for text but not needed
-     * for images
-     */
-    padding: boolean;
-    /**
      * Use the "horizontal" layout for short text and small images. The
      * "vertical" layout is best for longer text and larger images.
      */
     layout: "horizontal" | "vertical";
+    /**
+     * Adds padding to the options. Padding is good for text but not needed
+     * for images
+     *
+     * @deprecated
+     *
+     * TODO(LEMS-4538): remove padding from Sorter
+     */
+    padding: boolean;
 };
 
 /** Options for the table widget. A grid of input cells with column headers. */
@@ -2271,6 +2327,7 @@ export type PerseusWidgetOptions =
     | PerseusDropdownWidgetOptions
     | PerseusExplanationWidgetOptions
     | PerseusExpressionWidgetOptions
+    | PerseusFillInTheBlankWidgetOptions
     | PerseusFreeResponseWidgetOptions
     | PerseusGradedGroupSetWidgetOptions
     | PerseusGradedGroupWidgetOptions

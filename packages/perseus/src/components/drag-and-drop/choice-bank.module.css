@@ -31,10 +31,12 @@
 
 .list {
     /* Reflow: tiles flow inline and wrap onto new rows. No hardcoded physical
-     * direction, so it reverses automatically in RTL. */
+     * direction, so it reverses automatically in RTL. Rows are centered,
+     * per the Figma frames. */
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
     column-gap: var(--wb-sizing-size_080);
     row-gap: var(--wb-sizing-size_120);
 

@@ -1,0 +1,17 @@
+/*
+ * Shared accessibility utility classes for CSS-module components.
+ * (Aphrodite components have their own copy in util/a11y.ts.)
+ */
+
+/* Screen-reader-only content: visually hidden, still exposed to AT. */
+.srOnly {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}

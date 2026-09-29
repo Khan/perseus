@@ -46,9 +46,7 @@ describe("GradedGroupEditor", () => {
         };
 
         expect(onChangeMock).toHaveBeenCalledWith(
-            {hint: expected},
-            // this is just the changeable callback
-            expect.any(Function),
+            expect.objectContaining({hint: expected}),
         );
     });
 });

@@ -6,15 +6,10 @@ import {StyleSheet} from "aphrodite";
 import React, {forwardRef, useImperativeHandle} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
-import {withDependencies} from "../../components/with-dependencies";
+import {useDependencies} from "../../dependencies";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/python-program/python-ai-utils";
 
-import type {
-    PerseusDependenciesV2,
-    Widget,
-    WidgetExports,
-    WidgetProps,
-} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {PerseusPythonProgramWidgetOptions} from "@khanacademy/perseus-core";
 
@@ -22,9 +17,7 @@ function getUrlFromProgramID(programID: string) {
     return `/python-program/${programID}/embedded`;
 }
 
-type Props = WidgetProps<PerseusPythonProgramWidgetOptions> & {
-    dependencies: PerseusDependenciesV2;
-};
+type Props = WidgetProps<PerseusPythonProgramWidgetOptions>;
 
 // The Widget-interface methods this component exposes via its ref.
 type WidgetHandle = Pick<Widget, "getPromptJSON">;
@@ -35,8 +28,8 @@ type WidgetHandle = Pick<Widget, "getPromptJSON">;
 const PythonProgram = forwardRef<WidgetHandle, Props>(
     function PythonProgram(props, ref) {
         const {strings, locale} = usePerseusI18n();
+        const dependencies = useDependencies();
         const {programID, height} = props.options;
-        const {dependencies} = props;
 
         useImperativeHandle(ref, () => ({
             getPromptJSON: (): UnsupportedWidgetPromptJSON => {
@@ -87,10 +80,8 @@ const styles = StyleSheet.create({
     },
 });
 
-const WrappedPythonProgram = withDependencies(PythonProgram);
-
 export default {
     name: "python-program",
     displayName: "Python Program",
-    widget: WrappedPythonProgram,
-} satisfies WidgetExports<typeof WrappedPythonProgram>;
+    widget: PythonProgram,
+} satisfies WidgetExports<typeof PythonProgram>;

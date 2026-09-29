@@ -2,16 +2,38 @@ import {constrainedShuffle, type RNG, seededRNG} from "../../utils/random-util";
 
 import type {PerseusSorterWidgetOptions} from "../../data-schema";
 
+export const SORTER_MAX_CARDS = 10;
+
+export function exceedsCardLimit(correct: readonly string[]): boolean {
+    return correct.length > SORTER_MAX_CARDS;
+}
+
+/**
+ * Maximum number of cards Sorter to supports in horizontal layout.
+ * If this number is exceeded, the cards render vertically even if
+ * the layout is set to horizontal.
+ */
+export const SORTER_MAX_HORIZONTAL_CARDS = 5;
+
 /**
  * For details on the individual options, see the
  * PerseusSorterWidgetOptions type
  */
 export type SorterPublicWidgetOptions = {
-    // TODO(benchristel): rename to `cards`; the whole point of public widget
-    // options is that this isn't the correct order!
-    correct: PerseusSorterWidgetOptions["correct"];
-    padding: PerseusSorterWidgetOptions["padding"];
     layout: PerseusSorterWidgetOptions["layout"];
+    /**
+     * `correct` is the wrong term, because it's not
+     * in the correct order when in SorterPublicWidgetOptions
+     *
+     * TODO(LEMS-4535): rename this
+     */
+    correct: PerseusSorterWidgetOptions["correct"];
+    /**
+     * @deprecated
+     *
+     * TODO(LEMS-4538): remove padding from Sorter
+     */
+    padding: PerseusSorterWidgetOptions["padding"];
 };
 
 /**
@@ -42,7 +64,11 @@ export function shuffleSorter(
     return shuffleDisplacingFirst(correct, rng);
 }
 
-function sortAllButFirst([first, ...rest]: readonly string[]): string[] {
+function sortAllButFirst(cards: readonly string[]): string[] {
+    if (cards.length === 0) {
+        return [];
+    }
+    const [first, ...rest] = cards;
     return [first, ...rest.sort()];
 }
 

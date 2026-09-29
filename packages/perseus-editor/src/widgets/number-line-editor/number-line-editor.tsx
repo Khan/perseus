@@ -50,8 +50,6 @@ type Props = {
  * positions, intervals, and points on a number line.
  */
 class NumberLineEditor extends React.Component<Props> {
-    static widgetName = "number-line" as const;
-
     static defaultProps: PerseusNumberLineWidgetOptions =
         numberLineLogic.defaultWidgetOptions;
 
@@ -338,7 +336,6 @@ class NumberLineEditor extends React.Component<Props> {
                 <div className="perseus-widget-row">
                     Style:{" "}
                     <ButtonGroup
-                        allowEmpty={false}
                         value={this.props.labelStyle}
                         buttons={labelStyleEditorButtons}
                         onChange={this.onLabelStyleChange}

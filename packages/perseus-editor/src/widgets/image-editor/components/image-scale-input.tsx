@@ -11,8 +11,10 @@ import ScrolllessNumberTextField from "../../../components/scrollless-number-tex
 import styles from "../image-editor.module.css";
 import {isInvalidDimension, wbFieldStyles} from "../utils";
 
-import type {Props as ImageEditorProps} from "../image-editor";
-import type {PerseusImageBackground} from "@khanacademy/perseus-core";
+import type {
+    PerseusImageBackground,
+    PerseusImageWidgetOptions,
+} from "@khanacademy/perseus-core";
 
 // 1024 * 1024 = 1,048,576
 const LARGE_DIMENSION_THRESHOLD = 1048576;
@@ -21,7 +23,7 @@ interface Props {
     backgroundImage: PerseusImageBackground;
     scale: number;
     editingDisabled?: boolean;
-    onChange: ImageEditorProps["onChange"];
+    onChange: (changes: Partial<PerseusImageWidgetOptions>) => void;
 }
 
 export default function ImageScaleInput({
@@ -36,24 +38,20 @@ export default function ImageScaleInput({
     const hasInvalidDimensions =
         isInvalidDimension(width) || isInvalidDimension(height);
 
-    function handleScaleChange(newScale: string) {
-        const scaleNum = Number(newScale);
-
+    function handleScaleChange(newScale: number) {
         // Scale needs to be a positive number.
-        if (isNaN(scaleNum) || scaleNum <= 0) {
+        if (newScale <= 0) {
             return;
         }
 
         onChange({
-            scale: scaleNum,
+            scale: newScale,
         });
     }
 
-    function handleScaledWidthChange(newScaledWidth: string) {
-        const newScaledWidthNum = Number(newScaledWidth);
-
+    function handleScaledWidthChange(newScaledWidth: number) {
         // Width needs to be a positive number.
-        if (isNaN(newScaledWidthNum) || newScaledWidthNum <= 0) {
+        if (newScaledWidth <= 0) {
             return;
         }
 
@@ -62,18 +60,14 @@ export default function ImageScaleInput({
             return;
         }
 
-        const newScale = newScaledWidthNum / width;
-
         onChange({
-            scale: newScale,
+            scale: newScaledWidth / width,
         });
     }
 
-    function handleScaledHeightChange(newScaledHeight: string) {
-        const newScaledHeightNum = Number(newScaledHeight);
-
+    function handleScaledHeightChange(newScaledHeight: number) {
         // Height needs to be a positive number.
-        if (isNaN(newScaledHeightNum) || newScaledHeightNum <= 0) {
+        if (newScaledHeight <= 0) {
             return;
         }
 
@@ -82,10 +76,8 @@ export default function ImageScaleInput({
             return;
         }
 
-        const newScale = newScaledHeightNum / height;
-
         onChange({
-            scale: newScale,
+            scale: newScaledHeight / height,
         });
     }
 
@@ -154,7 +146,7 @@ export default function ImageScaleInput({
                 description="Use 1 to display image at original size."
                 field={
                     <ScrolllessNumberTextField
-                        value={scale.toString()}
+                        value={scale}
                         min={0}
                         onChange={handleScaleChange}
                         disabled={hasInvalidDimensions || editingDisabled}
@@ -167,7 +159,7 @@ export default function ImageScaleInput({
                     label="Scaled Width"
                     field={
                         <ScrolllessNumberTextField
-                            value={(width * scale).toString()}
+                            value={width * scale}
                             min={0}
                             onChange={handleScaledWidthChange}
                             disabled={hasInvalidDimensions || editingDisabled}
@@ -180,7 +172,7 @@ export default function ImageScaleInput({
                     label="Scaled Height"
                     field={
                         <ScrolllessNumberTextField
-                            value={(height * scale).toString()}
+                            value={height * scale}
                             min={0}
                             onChange={handleScaledHeightChange}
                             disabled={hasInvalidDimensions || editingDisabled}

@@ -21,8 +21,8 @@ import type * as React from "react";
 export type FocusPath = ReadonlyArray<string> | null | undefined;
 
 export type Dimensions = {
-    width?: number;
-    height?: number;
+    width: number;
+    height: number;
 };
 
 export type DeviceType = "phone" | "tablet" | "desktop";
@@ -165,6 +165,10 @@ export type APIOptions = Readonly<{
         focusedElement?: HTMLElement,
     ) => unknown;
     showAlignmentOptions?: boolean;
+    renderExtras?: (
+        answerArea: PerseusAnswerArea,
+        widgetId: string,
+    ) => React.ReactNode;
     /**
      * A boolean that indicates whether the associated problem has been
      * answered correctly and should no longer be interactive.

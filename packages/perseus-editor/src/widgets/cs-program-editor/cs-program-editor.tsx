@@ -9,102 +9,13 @@ import * as React from "react";
 
 import BlurInput from "../../components/blur-input";
 import InfoTip from "../../components/info-tip";
+import {PairsEditor} from "../../components/pairs-editor";
 import {deprecatedChangeableChange} from "../../mixins/changeable";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
-import type {ChangeableProps, ChangeFn} from "../../mixins/changeable";
-import type {
-    PerseusCSProgramWidgetOptions,
-    PerseusCSProgramSetting,
-} from "@khanacademy/perseus-core";
+import type {PerseusCSProgramWidgetOptions} from "@khanacademy/perseus-core";
 
-const DEFAULT_WIDTH = 400;
 const DEFAULT_HEIGHT = 400;
-
-interface PairEditorProps extends PerseusCSProgramSetting, ChangeableProps {}
-
-/**
- * This is used for editing a name/value pair.
- *
- * TODO: PairsEditor and PairEditor are duplicated
- * between iframe-editor and cs-program-editor;
- * we should consolidate them
- */
-class PairEditor extends React.Component<PairEditorProps> {
-    static defaultProps: PerseusCSProgramSetting = {
-        name: "",
-        value: "",
-    };
-
-    change: ChangeFn = (...args) => {
-        return deprecatedChangeableChange.apply(this, args);
-    };
-
-    render(): React.ReactNode {
-        return (
-            <fieldset className="pair-editor">
-                <label>
-                    Name:{" "}
-                    <BlurInput
-                        value={this.props.name}
-                        onChange={this.change("name")}
-                    />
-                </label>
-                <label>
-                    {" "}
-                    Value:{" "}
-                    <BlurInput
-                        value={this.props.value}
-                        onChange={this.change("value")}
-                    />
-                </label>
-            </fieldset>
-        );
-    }
-}
-
-interface PairsEditorProps extends ChangeableProps {
-    pairs: PerseusCSProgramSetting[];
-}
-
-/**
- * This is used for editing a set of name/value pairs.
- *
- * TODO: PairsEditor and PairEditor are duplicated
- * between iframe-editor and cs-program-editor;
- * we should consolidate them
- */
-class PairsEditor extends React.Component<PairsEditorProps> {
-    change: ChangeFn = (...args) => {
-        return deprecatedChangeableChange.apply(this, args);
-    };
-
-    handlePairChange = (pairIndex, pair: any) => {
-        // If they're both non empty, add a new one
-        const pairs = this.props.pairs.slice();
-        pairs[pairIndex] = pair;
-
-        const lastPair = pairs[pairs.length - 1];
-        if (lastPair.name && lastPair.value) {
-            pairs.push({name: "", value: ""});
-        }
-        this.change("pairs", pairs);
-    };
-
-    render(): React.ReactNode {
-        const editors = this.props.pairs.map((pair, i) => {
-            return (
-                <PairEditor
-                    key={i}
-                    name={pair.name}
-                    value={pair.value}
-                    onChange={this.handlePairChange.bind(this, i)}
-                />
-            );
-        });
-        return <div>{editors}</div>;
-    }
-}
 
 const KA_PROGRAM_URL = /khanacademy\.org\/computer-programming\/[^/]+\/(\d+)/;
 
@@ -122,24 +33,30 @@ function isolateProgramID(programUrl: string) {
     return programUrl;
 }
 
-interface CSProgramEditorProps
-    extends PerseusCSProgramWidgetOptions,
-        ChangeableProps {}
+interface CSProgramEditorProps extends PerseusCSProgramWidgetOptions {
+    onChange: (options: PerseusCSProgramWidgetOptions) => void;
+}
 
 /**
  * This is the main editor for this widget, to specify all the options.
  */
 class CSProgramEditor extends React.Component<CSProgramEditorProps> {
-    static widgetName = "cs-program" as const;
-
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
         // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return deprecatedChangeableChange.apply(this, args);
     };
 
-    _handleSettingsChange: (arg1: any) => void = (settings) => {
-        this.change({settings: settings.pairs});
-    };
+    handleChange(changed: Partial<PerseusCSProgramWidgetOptions>) {
+        this.props.onChange({
+            programID: this.props.programID,
+            programType: this.props.programType,
+            settings: this.props.settings,
+            showEditor: this.props.showEditor,
+            showButtons: this.props.showButtons,
+            height: this.props.height,
+            ...changed,
+        });
+    }
 
     _handleProgramIDChange: (arg1: string) => void = (programID) => {
         programID = isolateProgramID(programID);
@@ -166,8 +83,7 @@ class CSProgramEditor extends React.Component<CSProgramEditorProps> {
         fetchProgramInfo().then(
             (programInfo) => {
                 const programType = programInfo.userAuthoredContentType;
-                this.change({
-                    width: programInfo.width,
+                this.handleChange({
                     height: programInfo.height,
                     programID: programID,
                     programType: programType,
@@ -184,8 +100,7 @@ class CSProgramEditor extends React.Component<CSProgramEditorProps> {
                         },
                     },
                 );
-                this.change({
-                    width: DEFAULT_WIDTH,
+                this.handleChange({
                     height: DEFAULT_HEIGHT,
                     programID: programID,
                     programType: null,
@@ -213,7 +128,7 @@ class CSProgramEditor extends React.Component<CSProgramEditorProps> {
                     label="Show Editor"
                     checked={this.props.showEditor}
                     onChange={(value) => {
-                        this.props.onChange({showEditor: value});
+                        this.handleChange({showEditor: value});
                     }}
                 />
                 <InfoTip>
@@ -226,7 +141,7 @@ class CSProgramEditor extends React.Component<CSProgramEditorProps> {
                     label="Show Buttons"
                     checked={this.props.showButtons}
                     onChange={(value) => {
-                        this.props.onChange({showButtons: value});
+                        this.handleChange({showButtons: value});
                     }}
                 />
                 <br />
@@ -235,7 +150,7 @@ class CSProgramEditor extends React.Component<CSProgramEditorProps> {
                     Settings:
                     <PairsEditor
                         pairs={this.props.settings}
-                        onChange={this._handleSettingsChange}
+                        onChange={(settings) => this.handleChange({settings})}
                     />
                     <InfoTip>
                         Settings that you add here are available to the program

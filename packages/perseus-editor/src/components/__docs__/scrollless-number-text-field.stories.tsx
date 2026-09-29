@@ -36,7 +36,7 @@ Default.args = defaultProps;
  */
 export const Controlled: StoryComponentType = {
     render: function Render() {
-        const [value, setValue] = React.useState("");
+        const [value, setValue] = React.useState(0);
 
         return <ScrolllessNumberTextField value={value} onChange={setValue} />;
     },
@@ -57,7 +57,7 @@ Controlled.parameters = {
  */
 export const LongPageScroll: StoryComponentType = {
     render: function Render() {
-        const [value, setValue] = React.useState("");
+        const [value, setValue] = React.useState(0);
 
         return (
             <>

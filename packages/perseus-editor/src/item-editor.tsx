@@ -1,12 +1,11 @@
 import * as React from "react";
-import invariant from "tiny-invariant";
 import _ from "underscore";
 
 import CombinedHintsEditor from "./combined-hints-editor";
 import {A11yContext} from "./components/a11y-context";
 import DeviceFramer from "./components/device-framer";
 import Editor from "./editor";
-import ItemExtrasEditor from "./item-extras-editor";
+import ExtrasEditor from "./extras-editor";
 import PreviewWithIframe from "./preview-with-iframe";
 import {createPreviewContentDeriver} from "./util/derive-question-preview-content";
 
@@ -64,7 +63,7 @@ class ItemEditor extends React.Component<Props> {
         answerArea: {},
     };
     questionEditor = React.createRef<Editor>();
-    itemExtrasEditor = React.createRef<ItemExtrasEditor>();
+    extrasEditor = React.createRef<ExtrasEditor>();
     hintsEditor = React.createRef<CombinedHintsEditor>();
     derivePreviewContent = createPreviewContentDeriver();
 
@@ -80,7 +79,7 @@ class ItemEditor extends React.Component<Props> {
         this.updateProps({question});
     };
 
-    handleItemExtrasChange = (newProps: Partial<PerseusAnswerArea>) => {
+    handleExtrasChange = (newProps: Partial<PerseusAnswerArea>) => {
         const answerArea = _.extend({}, this.props.answerArea, newProps);
         this.updateProps({answerArea});
     };
@@ -96,26 +95,6 @@ class ItemEditor extends React.Component<Props> {
     handleA11yReport = (report: A11yReport | null) => {
         this.context?.onA11yReport(report);
     };
-
-    serialize(): PerseusItem {
-        invariant(
-            this.questionEditor.current,
-            "cannot serialize ItemEditor without Editor",
-        );
-        invariant(
-            this.itemExtrasEditor.current,
-            "cannot serialize ItemEditor without ItemExtrasEditor",
-        );
-        invariant(
-            this.hintsEditor.current,
-            "cannot serialize ItemEditor without CombinedHintsEditor",
-        );
-        return {
-            question: this.questionEditor.current.serialize(),
-            answerArea: this.itemExtrasEditor.current.serialize(),
-            hints: this.hintsEditor.current.serialize(),
-        };
-    }
 
     render(): React.ReactNode {
         const isMobile =
@@ -185,16 +164,14 @@ class ItemEditor extends React.Component<Props> {
                 <div className="perseus-editor-row perseus-answer-container">
                     <div className="perseus-editor-left-cell">
                         <div className="pod-title">Question extras</div>
-                        <ItemExtrasEditor
-                            ref={this.itemExtrasEditor}
+                        <ExtrasEditor
+                            ref={this.extrasEditor}
                             apiOptions={this.props.apiOptions}
-                            onChange={this.handleItemExtrasChange}
+                            onChange={this.handleExtrasChange}
                             editingDisabled={editingDisabled}
                             {...this.props.answerArea}
                         />
                     </div>
-
-                    <div className="perseus-editor-right-cell" />
                 </div>
 
                 <CombinedHintsEditor

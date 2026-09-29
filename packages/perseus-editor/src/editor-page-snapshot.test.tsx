@@ -44,11 +44,9 @@ describe("EditorPage", () => {
                 question={comprehensiveQuestion} // question with all widgets
                 apiOptions={{editingDisabled: true}} // editing disabled
                 onChange={() => {}}
-                onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
                 previewURL=""
                 itemId="itemId"
-                developerMode={false}
                 jsonMode={false}
                 widgetsAreOpen={true}
             />,

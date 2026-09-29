@@ -6,6 +6,7 @@ import {
     KhanMath,
 } from "@khanacademy/kmath";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {entries} from "@khanacademy/wonder-stuff-core";
 import $ from "jquery";
 import Raphael from "raphael";
@@ -28,7 +29,7 @@ import type {GraphieLabelElement} from "../types";
 
 const {processMath} = Tex;
 
-export function polar(r: number | Coord, th: number): Coord {
+function polar(r: number | Coord, th: number): Coord {
     if (typeof r === "number") {
         r = [r, r];
     }
@@ -990,8 +991,7 @@ export class Graphie {
                 .css({
                     position: "absolute",
                     padding: (pad != null ? pad : 7) + "px",
-                    // Note: Theme aware as is; breaks if converted to a token
-                    color: "black",
+                    color: semanticColor.core.foreground.neutral.strong,
                 })
                 .data("labelDirection", direction)
                 .appendTo(this.el);
@@ -1471,7 +1471,8 @@ export class Graphie {
             const canvasClickTarget = this.mouselayer
                 .rect(0, 0, this.xpixels, this.ypixels)
                 .attr({
-                    fill: "#000",
+                    // `fill` must be set for clicks to register.
+                    fill: "transparent",
                     opacity: 0,
                 });
             let isClickingCanvas = false;

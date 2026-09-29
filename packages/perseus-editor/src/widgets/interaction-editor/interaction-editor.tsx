@@ -63,7 +63,6 @@ type State = any;
  * and their properties.
  */
 class InteractionEditor extends React.Component<Props, State> {
-    static widgetName = "interaction" as const;
     static defaultProps: PerseusInteractionWidgetOptions =
         interactionLogic.defaultWidgetOptions;
 

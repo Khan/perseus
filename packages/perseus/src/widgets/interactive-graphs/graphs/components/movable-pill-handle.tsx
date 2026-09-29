@@ -67,6 +67,7 @@ export function MovablePillHandle(props: Props) {
 
     return (
         <g
+            className="movable-pill-handle-group"
             aria-hidden={true}
             style={{pointerEvents: "none"}}
             transform={`translate(${cx} ${cy}) rotate(${rotation})`}

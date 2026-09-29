@@ -20,8 +20,6 @@ type Props = PerseusMatcherWidgetOptions & {
  * An editor for adding a matcher widget that allows users to match items from two different sets.
  */
 class MatcherEditor extends React.Component<Props> {
-    static widgetName = "matcher" as const;
-
     static defaultProps: PerseusMatcherWidgetOptions =
         matcherLogic.defaultWidgetOptions;
 

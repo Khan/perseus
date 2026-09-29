@@ -8,18 +8,12 @@ import {forwardRef, useImperativeHandle, useRef, useState} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 import Sortable from "../../components/sortable";
-import {withDependencies} from "../../components/with-dependencies";
-import {getDependencies} from "../../dependencies";
+import {getDependencies, useDependencies} from "../../dependencies";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
 
 import type {SortableOption} from "../../components/sortable";
-import type {
-    WidgetExports,
-    WidgetProps,
-    Widget,
-    PerseusDependenciesV2,
-} from "../../types";
+import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {MatcherPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
 import type {
     PerseusMatcherWidgetOptions,
@@ -29,12 +23,7 @@ import type {
 
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 
-type Props = WidgetProps<
-    PerseusMatcherWidgetOptions,
-    PerseusMatcherUserInput
-> & {
-    dependencies: PerseusDependenciesV2;
-};
+type Props = WidgetProps<PerseusMatcherWidgetOptions, PerseusMatcherUserInput>;
 
 /**
  * The imperative API the Matcher widget exposes to its parent renderer. On top
@@ -48,6 +37,7 @@ export interface MatcherHandle extends Widget {
 
 const Matcher = forwardRef<MatcherHandle, Props>(function Matcher(props, ref) {
     const {strings} = usePerseusI18n();
+    const dependencies = useDependencies();
 
     const leftSortable = useRef<Sortable>(null);
     const rightSortable = useRef<Sortable>(null);
@@ -57,7 +47,7 @@ const Matcher = forwardRef<MatcherHandle, Props>(function Matcher(props, ref) {
     const [texRendererLoaded, setTexRendererLoaded] = useState(false);
 
     useOnMountEffect(() => {
-        props.dependencies.analytics.onAnalyticsEvent({
+        dependencies.analytics.onAnalyticsEvent({
             type: "perseus:widget:rendered:ti",
             payload: {
                 widgetSubType: "null",
@@ -220,17 +210,15 @@ function getUserInputFromSerializedState(
     };
 }
 
-const WrappedMatcher = withDependencies(Matcher);
-
 export default {
     name: "matcher",
     displayName: "Matcher (two column)",
     hidden: true,
-    widget: WrappedMatcher,
+    widget: Matcher,
     isLintable: true,
     getStartUserInput,
     getUserInputFromSerializedState,
-} satisfies WidgetExports<typeof WrappedMatcher>;
+} satisfies WidgetExports<typeof Matcher>;
 
 const padding = 5;
 const border = `var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-strong)`;

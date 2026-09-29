@@ -12,7 +12,9 @@ const DEFAULT_FEATURE_FLAGS: Record<
     // Real production flags.
     "perseus-renderer-upgrade": false,
     "desmos-calculator": false,
+    "article-extras": false,
     // ...add new flags here
+    "dnd-widget-fitb": false,
 };
 
 /** Utility to get feature flags with optional overrides for testing.

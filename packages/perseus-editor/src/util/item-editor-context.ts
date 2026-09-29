@@ -5,6 +5,7 @@ import type {PerseusRenderer} from "@khanacademy/perseus-core";
 export type ItemEditorContextType = {
     question: PerseusRenderer;
     onEditorChange: (newProps: any) => void;
+    editingDisabled?: boolean;
 };
 
 const defaultItemEditorContext: ItemEditorContextType = {

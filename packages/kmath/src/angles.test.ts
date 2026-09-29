@@ -2,7 +2,10 @@ import {
     calculateAngleInDegrees,
     convertDegreesToRadians,
     convertRadiansToDegrees,
+    getClockwiseAngle,
 } from "./angles";
+
+import type {Coord} from "@khanacademy/perseus-core";
 
 describe("calculateAngleInDegrees", () => {
     it.each`
@@ -56,4 +59,14 @@ describe("convertRadiansToDegrees", () => {
             expect(convertRadiansToDegrees(radians)).toBe(degrees);
         },
     );
+});
+
+describe("getClockwiseAngle", () => {
+    it("should correctly calculate the angle for the given coordinates", () => {
+        const point1: Coord = [2, 2];
+        const point2: Coord = [2, 0];
+        const vertex: Coord = [0, 0];
+        const coords: [Coord, Coord, Coord] = [point1, vertex, point2];
+        expect(getClockwiseAngle(coords)).toBe(45);
+    });
 });

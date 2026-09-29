@@ -7,8 +7,6 @@ import type {
 
 // Define state type
 export type ItemRendererState = {
-    isMobile: boolean;
-    isRtl: boolean;
     perseusItem: PerseusItem;
     originalItem: PerseusItem;
     answerless: boolean;
@@ -23,8 +21,6 @@ export type ItemRendererState = {
 
 // Define action types
 export type ItemRendererAction =
-    | {type: "TOGGLE_MOBILE"; payload: boolean}
-    | {type: "TOGGLE_RTL"; payload: boolean}
     | {type: "UPDATE_ITEM"; payload: PerseusItem}
     | {type: "SET_SCORE"; score: PerseusScore; userInput: UserInputMap}
     | {type: "TOGGLE_POPOVER"; payload: boolean}
@@ -37,13 +33,9 @@ export type ItemRendererAction =
 // Create initial state function to allow passing props
 export const createInitialState = (
     item: PerseusItem,
-    isMobile: boolean = false,
-    isRtl: boolean = false,
     reviewMode: boolean = false,
     showSolutions?: ShowSolutions,
 ): ItemRendererState => ({
-    isMobile,
-    isRtl,
     perseusItem: item,
     originalItem: item,
     answerless: true,
@@ -62,12 +54,6 @@ export const itemRendererReducer = (
     action: ItemRendererAction,
 ): ItemRendererState => {
     switch (action.type) {
-        case "TOGGLE_MOBILE":
-            return {...state, isMobile: action.payload};
-
-        case "TOGGLE_RTL":
-            return {...state, isRtl: action.payload};
-
         case "UPDATE_ITEM":
             return {...state, perseusItem: action.payload};
 
@@ -92,12 +78,7 @@ export const itemRendererReducer = (
 
         case "RESET_STATE":
             return {
-                ...createInitialState(
-                    state.originalItem,
-                    state.isMobile,
-                    state.isRtl,
-                    state.reviewMode,
-                ),
+                ...createInitialState(state.originalItem, state.reviewMode),
                 key: state.key + 1, // Force remount
             };
 

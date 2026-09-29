@@ -23,8 +23,6 @@ const defaultImage = {
 interface Props extends PerseusMeasurerWidgetOptions, ChangeableProps {}
 
 class MeasurerEditor extends React.Component<Props> {
-    static widgetName = "measurer" as const;
-
     static defaultProps: PerseusMeasurerWidgetOptions =
         measurerLogic.defaultWidgetOptions;
 

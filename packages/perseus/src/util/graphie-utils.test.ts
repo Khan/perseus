@@ -10,6 +10,18 @@ import {
 } from "./graphie-utils";
 import {typicalCase, edgeCases} from "./graphie-utils.testdata";
 
+// Test helper to wait for loadGraphie callback
+async function waitForLoadGraphie(url: string) {
+    return new Promise<{
+        data: unknown;
+        localized: boolean;
+    }>((resolve) => {
+        loadGraphie(url, (data, localized) => {
+            resolve({data, localized});
+        });
+    });
+}
+
 describe("graphie utils", () => {
     const errorCallback = jest.fn((error) => {
         // Do nothing
@@ -108,13 +120,13 @@ describe("graphie utils", () => {
         );
 
         // Act
-        await loadGraphie(typicalCase.url, (data, localized) => {
-            // Assert - should get English data with localized=false
-            expect(data).toEqual({labels: [], range: null});
-            expect(localized).toEqual(false);
-        });
+        const loadedData = await waitForLoadGraphie(typicalCase.url);
 
         // Assert
+        expect(loadedData).toEqual({
+            data: {labels: [], range: null},
+            localized: false,
+        });
         expect(Log.error).not.toHaveBeenCalled();
     });
 
@@ -146,10 +158,12 @@ describe("graphie utils", () => {
         }) as jest.Mock;
 
         // Act
-        await loadGraphie(typicalCase.url, (data, localized) => {
-            // Assert - should get localized data with localized=true
-            expect(data).toEqual({labels: [], range: null});
-            expect(localized).toEqual(true);
+        const loadedData = await waitForLoadGraphie(typicalCase.url);
+
+        // Assert
+        expect(loadedData).toEqual({
+            data: {labels: [], range: null},
+            localized: true,
         });
     });
 });

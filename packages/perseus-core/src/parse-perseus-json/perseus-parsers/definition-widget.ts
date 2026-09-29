@@ -8,4 +8,6 @@ export const parseDefinitionWidget = parseWidget(
         togglePrompt: string,
         definition: string,
     }),
+    // Definitions take no user input, so `static` has no answer to reveal.
+    {supportsStatic: false},
 );

@@ -2,6 +2,7 @@ import {
     constant,
     number,
     object,
+    optional,
     pipeParsers,
     record,
     string,
@@ -10,6 +11,7 @@ import {
 import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 
+import {parsePerseusAnswerArea} from "./perseus-answer-area";
 import {parsePerseusRenderer} from "./perseus-renderer";
 import {parseWidget} from "./widget";
 import {parseWidgetsMap} from "./widgets-map";
@@ -38,6 +40,7 @@ export const parseGradedGroupWidgetOptions = object({
             height: number,
         }),
     ),
+    answerArea: optional(parsePerseusAnswerArea),
 });
 
 export const parseGradedGroupWidget = parseWidget(

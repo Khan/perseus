@@ -972,7 +972,12 @@ class Plotter extends React.Component<Props, State> implements Widget {
                 c.picBoxHeight,
             );
             $(mouseRect[0])
-                .css({fill: "#000", opacity: 0.0, cursor: "pointer"})
+                .css({
+                    // `fill` must be set for clicks to register.
+                    fill: "transparent",
+                    opacity: 0.0,
+                    cursor: "pointer",
+                })
                 .on("vmousedown", function (e) {
                     e.preventDefault();
                     // @ts-expect-error - TS2339 - Property 'whichPicClicked' does not exist on type 'Plotter'.

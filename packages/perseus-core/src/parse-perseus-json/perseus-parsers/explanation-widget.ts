@@ -18,4 +18,7 @@ export const parseExplanationWidget = parseWidget(
             () => ({}),
         ),
     }),
+    // An explanation takes no user input of its own. Its nested widgets each
+    // carry their own `static`, so dropping this one doesn't affect them.
+    {supportsStatic: false},
 );

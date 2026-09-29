@@ -19,7 +19,6 @@ class DashPicker extends React.Component<Props> {
         return (
             <ButtonGroup
                 value={this.props.value}
-                allowEmpty={false}
                 buttons={[
                     {value: "", content: <span>&mdash;</span>},
                     {value: "-", content: <span>&ndash;&ndash;&ndash;</span>},

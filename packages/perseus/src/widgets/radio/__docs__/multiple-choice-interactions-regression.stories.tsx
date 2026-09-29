@@ -11,7 +11,10 @@ import {themeModes} from "../../../../../../.storybook/modes";
 import ArticleRenderer from "../../../article-renderer";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {storybookDependenciesV2} from "../../../testing/test-dependencies";
-import {groupedRadioRationaleQuestion} from "../../graded-group/graded-group.testdata";
+import {
+    groupedRadioRationaleQuestion,
+    groupedMultipleSelectRationaleQuestion,
+} from "../../graded-group/graded-group.testdata";
 
 import {radioRendererDecoratorWithDebugUI} from "./radio-renderer-decorator";
 
@@ -157,11 +160,11 @@ export const SelectChoiceMoveFocusAfter: Story = {
     },
 };
 
-/* The following stories don't use the Radio args, beacuse they are not
+/* The following stories don't use the Radio args, because they are not
    directly rendered Radio widgets. These are examples of other environments
    that Radio can be rendered within. */
 
-export const GradedGroupWrapper = {
+export const GradedGroupWrapperSingleSelect = {
     render: function Render() {
         return (
             <ServerItemRendererWithDebugUI
@@ -184,10 +187,40 @@ export const GradedGroupWrapper = {
     },
 };
 
+export const GradedGroupWrapperMultipleSelect = {
+    render: function Render() {
+        return (
+            <ServerItemRendererWithDebugUI
+                item={generateTestPerseusItem({
+                    question: groupedMultipleSelectRationaleQuestion,
+                })}
+            />
+        );
+    },
+    play: async ({canvas, userEvent}) => {
+        await userEvent.click(
+            canvas.getByRole("button", {
+                name: "(Choice A) Correct",
+            }),
+        );
+        await userEvent.click(
+            canvas.getByRole("button", {
+                name: "(Choice C) Correct",
+            }),
+        );
+        const checkAnswerButton = canvas.getAllByRole("button", {
+            name: "Check",
+        })[0];
+        await userEvent.click(checkAnswerButton);
+        await checkAnswerButton.blur();
+    },
+};
+
 export const ChoiceTextColorInArticle = {
     render: function Render() {
         return (
             <ArticleRenderer
+                seed={0}
                 json={generateTestPerseusRenderer({
                     content:
                         "Exceeding reaction chamber thermal limit. We have begun power-supply calibration. Force fields have been established on all turbo lifts and crawlways. Computer, run a level-two diagnostic on warp-drive systems. Antimatter containment positive. Warp drive within normal parameters. I read an ion trail characteristic of a freighter escape pod. The bomb had a molecular-decay detonator. Detecting some unusual fluctuations in subspace frequencies.\n\n" +

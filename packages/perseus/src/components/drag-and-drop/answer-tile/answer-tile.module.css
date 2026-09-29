@@ -1,0 +1,181 @@
+/*
+ * AnswerTile — the card that a learner moves into a blank.
+ */
+.tile {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+
+    /* One-line tiles are 48px tall and the narrowest tiles (empty and
+     * single-character) are 64px wide in the design. Larger content
+     * still grows the tile, because these are minimums. */
+    min-block-size: var(--wb-sizing-size_480);
+    min-inline-size: var(--wb-sizing-size_640);
+
+    padding-block: var(--wb-sizing-size_080);
+    padding-inline: var(--wb-sizing-size_100);
+
+    border-radius: var(--wb-border-radius-radius_080);
+    background: var(--wb-semanticColor-core-background-base-default);
+
+    font-family: var(--wb-font-family-sans);
+    font-size: var(--wb-font-body-size-medium);
+    font-weight: var(--wb-font-weight-semi);
+    line-height: var(--wb-font-body-lineHeight-medium);
+    word-break: break-word;
+
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+    color: var(--wb-semanticColor-core-foreground-neutral-strong);
+    box-shadow: 0 2px 2px var(--wb-semanticColor-core-shadow-transparent-low);
+}
+
+/* Scored borders are 2px. The default border is 1px. Scored tiles
+ * remove the extra 1px from their padding. The tile keeps the same
+ * size, so nothing moves when the question is scored. */
+.correct,
+.incorrect {
+    padding-block: calc(
+        var(--wb-sizing-size_080) -
+            (var(--wb-border-width-medium) - var(--wb-border-width-thin))
+    );
+    padding-inline: calc(
+        var(--wb-sizing-size_100) -
+            (var(--wb-border-width-medium) - var(--wb-border-width-thin))
+    );
+}
+
+.correct {
+    border: var(--wb-border-width-medium) solid
+        var(--wb-semanticColor-core-border-success-default);
+    color: var(--wb-semanticColor-core-foreground-success-default);
+    box-shadow: none;
+}
+
+.incorrect {
+    border: var(--wb-border-width-medium) solid
+        var(--wb-semanticColor-core-border-critical-default);
+    color: var(--wb-semanticColor-core-foreground-critical-default);
+    box-shadow: none;
+}
+
+/* A tile the learner left in the bank when the question was scored. */
+.unused {
+    color: var(--wb-semanticColor-core-foreground-disabled-strong);
+    box-shadow: none;
+}
+
+.draggable {
+    cursor: grab;
+}
+
+.draggable:hover,
+.dragging {
+    box-shadow: 0 4px 8px var(--wb-semanticColor-core-shadow-transparent-low);
+}
+
+.dragging {
+    border-radius: var(--wb-border-radius-radius_120);
+    cursor: grabbing;
+}
+
+/* A placed tile hugs its value and hides its menu. Hover or focus
+ * shows the menu, and the tile grows. */
+.hidesMenuAtRest:not(:hover):not(:focus-within) {
+    min-inline-size: 0;
+}
+
+.hidesMenuAtRest:not(:hover):not(:focus-within) .startContainer {
+    min-inline-size: 0;
+    inline-size: 0;
+    margin-inline-end: 0;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.hidesMenuAtRest:not(:hover):not(:focus-within) .content {
+    padding-inline-end: 0;
+}
+
+/* A tile that fills its blank, content at the start. The menu stays
+ * visible (there is no .hidesMenuAtRest collapse). */
+.fillsBlank {
+    flex-grow: 1;
+    inline-size: 100%;
+    block-size: 100%;
+}
+
+.fillsBlank .content {
+    justify-content: flex-start;
+}
+
+/* A tile in a sub/superscript blank rests as a small value chip.
+ * Hover or focus restores the full size, which makes room for the
+ * menu. These rules must come after the .hidesMenuAtRest rules. */
+.compact:not(:hover):not(:focus-within) {
+    min-block-size: 28px;
+    min-inline-size: 26px;
+    padding-block: var(--wb-sizing-size_020);
+    padding-inline: var(--wb-sizing-size_040);
+    font-size: 12px;
+    line-height: var(--wb-sizing-size_160);
+}
+
+.compact:not(:hover):not(:focus-within) .content {
+    padding-inline-end: var(--wb-sizing-size_020);
+}
+
+/* The box at the start of the tile. It holds the actions menu or the
+ * scored icon, and it owns the 6px gap before the content. */
+.startContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-inline-size: var(--wb-sizing-size_240);
+    block-size: var(--wb-sizing-size_240);
+    margin-inline-end: var(--wb-sizing-size_060);
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    /* Fill the leftover width in a minimum-width tile, so narrow
+     * content stays centered. */
+    flex-grow: 1;
+    /* Text wraps at this width. TeX does not wrap, so wide TeX can go
+     * past this limit. Content never scrolls. */
+    max-inline-size: 200px;
+    padding-inline-end: var(--wb-sizing-size_060);
+    /* The rendered markdown inherits the scored text color. */
+    color: inherit;
+}
+
+/* Images keep their set height. They must not overflow the tile. */
+.content img {
+    block-size: var(--answer-tile-image-height, auto);
+    max-inline-size: 100%;
+}
+
+/* Narrow mode: a placed tile fills its blank, content at the start. */
+@container fitb-answer-zone (width < 504px) {
+    .hidesMenuAtRest {
+        flex-grow: 1;
+    }
+
+    .hidesMenuAtRest .content {
+        justify-content: flex-start;
+    }
+}
+
+/* The renderer puts content in .paragraph divs, and Perseus gives
+ * those divs global page styles (article paragraphs set their own font
+ * and color). The tile owns its typography, so we remove those styles
+ * here. The global sheets sit in the perseus-legacy cascade layer, so
+ * this rule wins wherever it is loaded. Color needs an explicit
+ * declaration: a scored tile sets its color on the tile, and an
+ * inherited value loses to any rule that names the paragraph. */
+.tile .content :global(div.paragraph) {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+}

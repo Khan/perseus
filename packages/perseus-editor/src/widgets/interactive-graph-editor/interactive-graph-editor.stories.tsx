@@ -42,7 +42,6 @@ import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-wi
 
 import InteractiveGraphEditor from "./interactive-graph-editor";
 
-import type {DeviceType} from "@khanacademy/perseus";
 import type {Hint, PerseusAnswerArea} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -218,9 +217,6 @@ export const InteractiveGraphZeroBounds = (): React.ReactElement => {
 };
 
 export const WithSaveWarnings = (): React.ReactElement => {
-    const [previewDevice, setPreviewDevice] =
-        React.useState<DeviceType>("phone");
-    const [jsonMode, setJsonMode] = React.useState(false);
     const [answerArea, setAnswerArea] =
         React.useState<PerseusAnswerArea>(getDefaultAnswerArea);
     const [question, setQuestion] = React.useState(segmentWithLockedFigures);
@@ -244,12 +240,8 @@ export const WithSaveWarnings = (): React.ReactElement => {
                 apiOptions={{
                     isMobile: false,
                 }}
-                previewDevice={previewDevice}
-                onPreviewDeviceChange={(newDevice) =>
-                    setPreviewDevice(newDevice)
-                }
-                developerMode={true}
-                jsonMode={jsonMode}
+                previewDevice={"desktop"}
+                jsonMode={false}
                 answerArea={answerArea}
                 question={question}
                 hints={hints}
@@ -257,19 +249,9 @@ export const WithSaveWarnings = (): React.ReactElement => {
                 itemId="1"
                 onChange={(props) => {
                     onChangeAction(props);
-
-                    if (props.jsonMode != null) {
-                        setJsonMode(props.jsonMode);
-                    }
-                    if (props.answerArea != null) {
-                        setAnswerArea(props.answerArea);
-                    }
-                    if (props.question != null) {
-                        setQuestion(props.question);
-                    }
-                    if (props.hints != null) {
-                        setHints(props.hints);
-                    }
+                    setAnswerArea(props.answerArea ?? answerArea);
+                    setQuestion(props.question);
+                    setHints(props.hints);
                 }}
             />
             <View style={styles.errorContainer}>

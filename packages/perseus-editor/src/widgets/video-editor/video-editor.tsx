@@ -14,8 +14,6 @@ export interface VideoEditorProps extends PerseusVideoWidgetOptions {
  * This is the main editor for this widget, to specify all the options.
  */
 class VideoEditor extends React.Component<VideoEditorProps> {
-    static widgetName = "video" as const;
-
     static defaultProps: PerseusVideoWidgetOptions =
         videoLogic.defaultWidgetOptions;
 

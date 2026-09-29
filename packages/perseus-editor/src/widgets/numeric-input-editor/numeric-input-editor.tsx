@@ -75,7 +75,6 @@ interface State {
  * numerical values with specific validation rules.
  */
 class NumericInputEditor extends React.Component<Props, State> {
-    static widgetName = "numeric-input";
     static displayName = "NumericInputEditor";
 
     static defaultProps = {

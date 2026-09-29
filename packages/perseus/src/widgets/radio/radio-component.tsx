@@ -12,7 +12,7 @@ import {getInstructionsText} from "./utils/string-utils";
 
 import type {IndicatorContent} from "./choice-indicator";
 import type {ChoiceType} from "./radio-widget";
-import type {PerseusStrings} from "@khanacademy/perseus/strings";
+import type {PerseusStrings} from "../../strings";
 
 /**
  * Props for the RadioComponent

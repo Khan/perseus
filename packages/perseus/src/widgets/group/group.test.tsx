@@ -50,7 +50,9 @@ describe("group widget", () => {
             const onFocusChange = jest.fn();
 
             const {renderer} = renderQuestion(question1, {
-                onFocusChange,
+                apiOptions: {
+                    onFocusChange,
+                },
             });
 
             // Act
@@ -68,7 +70,9 @@ describe("group widget", () => {
             const onFocusChange = jest.fn();
 
             const {renderer} = renderQuestion(question1, {
-                onFocusChange,
+                apiOptions: {
+                    onFocusChange,
+                },
             });
 
             await userEvent.click(

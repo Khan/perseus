@@ -3,16 +3,16 @@ import {
     generateSorterWidget,
     generateTestPerseusItem,
     generateTestPerseusRenderer,
+    SORTER_MAX_CARDS,
+    SORTER_MAX_HORIZONTAL_CARDS,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {act} from "@testing-library/react";
+import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
+import {act, screen} from "@testing-library/react";
 import * as React from "react";
 
 import * as Dependencies from "../../dependencies";
-import {
-    testDependencies,
-    testDependenciesV2,
-} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import {wait} from "../../testing/wait";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
@@ -31,6 +31,37 @@ import type {APIOptions} from "../../types";
  */
 const EXPECTED_CONSOLE_ERROR = /not wrapped in act\(/;
 
+/**
+ * Sortable hides its cards behind a spinner until the TeX renderer tells it
+ * that math is on screen, which it learns from the `onRender` callback of a
+ * hidden dummy TeX node. The default test TeX dependency never calls
+ * `onRender`, so a sorter rendered with it stays a spinner forever and any
+ * snapshot of it captures the spinner instead of the cards. This stand-in
+ * reports itself as rendered on mount so the cards — and the layout we're
+ * actually asserting on — reach the DOM.
+ */
+function useLoadedTexRenderer() {
+    function LoadedTeX({
+        children,
+        onRender,
+    }: {
+        children: React.ReactNode;
+        onRender?: () => unknown;
+    }) {
+        useOnMountEffect(() => {
+            onRender?.();
+        });
+        return <span className="mock-TeX">{children}</span>;
+    }
+
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+            ...testDependencies,
+            TeX: LoadedTeX,
+        });
+    });
+}
+
 describe("sorter widget", () => {
     describe("snapshot", () => {
         it("should snapshot", async () => {
@@ -42,7 +73,7 @@ describe("sorter widget", () => {
             };
 
             // Act
-            const {container} = renderQuestion(basicQuestion, apiOptions);
+            const {container} = renderQuestion(basicQuestion, {apiOptions});
             await wait();
 
             // Assert
@@ -58,7 +89,7 @@ describe("sorter widget", () => {
             };
 
             // Act
-            const {container} = renderQuestion(basicQuestion, apiOptions);
+            const {container} = renderQuestion(basicQuestion, {apiOptions});
             await wait();
 
             // Assert
@@ -88,22 +119,6 @@ describe("sorter widget", () => {
                     unexpectedConsoleErrors.push(message);
                 }
             });
-
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
-                ...testDependencies,
-                TeX: ({
-                    children,
-                    onRender: onLoad,
-                }: {
-                    children: React.ReactNode;
-                    onRender?: () => unknown;
-                }) => {
-                    React.useLayoutEffect(() => {
-                        onLoad?.();
-                    }, [onLoad]);
-                    return <span className="tex-mock">{children}</span>;
-                },
-            });
         });
 
         afterEach(() => {
@@ -115,9 +130,8 @@ describe("sorter widget", () => {
             const onAnalyticsEvent = jest.fn();
 
             // Act
-            renderQuestion(sorterQuestion, undefined, undefined, undefined, {
-                ...testDependenciesV2,
-                analytics: {onAnalyticsEvent},
+            renderQuestion(sorterQuestion, {
+                dependencies: {analytics: {onAnalyticsEvent}},
             });
 
             // Assert
@@ -174,7 +188,9 @@ describe("sorter widget", () => {
             // Arrange
             const trackInteraction = jest.fn();
             const {renderer} = renderQuestion(sorterQuestion, {
-                trackInteraction,
+                apiOptions: {
+                    trackInteraction,
+                },
             });
             const sorter: SorterHandle = renderer.findWidgets("sorter 1")[0];
 
@@ -191,7 +207,7 @@ describe("sorter widget", () => {
         it("does not track an interaction before any card is moved", () => {
             // Arrange, Act
             const trackInteraction = jest.fn();
-            renderQuestion(sorterQuestion, {trackInteraction});
+            renderQuestion(sorterQuestion, {apiOptions: {trackInteraction}});
 
             // Assert
             expect(trackInteraction).not.toHaveBeenCalled();
@@ -214,6 +230,76 @@ describe("sorter widget", () => {
                     userInput: {values: sortedOrder, changed: true},
                 },
             );
+        });
+    });
+
+    describe("layout", () => {
+        useLoadedTexRenderer();
+
+        function sorterQuestionWith(
+            cardCount: number,
+            layout: "horizontal" | "vertical",
+        ) {
+            return generateTestPerseusRenderer({
+                content: "[[☃ sorter 1]]",
+                widgets: {
+                    "sorter 1": generateSorterWidget({
+                        options: generateSorterOptions({
+                            correct: Array.from(
+                                {length: cardCount},
+                                (_, i) => `Card ${i + 1}`,
+                            ),
+                            layout,
+                        }),
+                    }),
+                },
+            });
+        }
+
+        it("lays out the cards horizontally when the layout is horizontal", () => {
+            // Arrange, Act
+            const {container} = renderQuestion(
+                sorterQuestionWith(
+                    SORTER_MAX_HORIZONTAL_CARDS - 1,
+                    "horizontal",
+                ),
+            );
+
+            // Assert
+            expect(container).toMatchSnapshot();
+        });
+
+        it("lays out the cards vertically when the layout is vertical", () => {
+            // Arrange, Act
+            const {container} = renderQuestion(
+                sorterQuestionWith(SORTER_MAX_HORIZONTAL_CARDS - 1, "vertical"),
+            );
+
+            // Assert
+            expect(container).toMatchSnapshot();
+        });
+
+        it("keeps a horizontal sorter horizontal at exactly the maximum number of cards", () => {
+            // Arrange, Act
+            const {container} = renderQuestion(
+                sorterQuestionWith(SORTER_MAX_HORIZONTAL_CARDS, "horizontal"),
+            );
+
+            // Assert
+            expect(container).toMatchSnapshot();
+        });
+
+        it("lays out a horizontal sorter vertically when it has more cards than the maximum", () => {
+            // Arrange, Act
+            const {container} = renderQuestion(
+                sorterQuestionWith(
+                    SORTER_MAX_HORIZONTAL_CARDS + 1,
+                    "horizontal",
+                ),
+            );
+
+            // Assert
+            expect(container).toMatchSnapshot();
         });
     });
 
@@ -289,6 +375,60 @@ describe("sorter widget", () => {
                 // Assert
                 expect(score).toHaveBeenAnsweredIncorrectly();
             });
+        });
+    });
+
+    describe("legacy sorters with too many cards", () => {
+        const deprecatedStandinText =
+            "Sorry, this part of the question is no longer available. 😅 Don't worry, you won't be graded on this part. Keep going!";
+
+        function generateSorterQuestion(cardCount: number) {
+            return generateTestPerseusRenderer({
+                content: "[[☃ sorter 1]]",
+                widgets: {
+                    "sorter 1": generateSorterWidget({
+                        options: generateSorterOptions({
+                            correct: Array.from(
+                                {length: cardCount},
+                                (_, index) => `card ${index}`,
+                            ),
+                        }),
+                    }),
+                },
+            });
+        }
+
+        it("renders the deprecated standin above the card limit", () => {
+            // Arrange, Act
+            renderQuestion(generateSorterQuestion(SORTER_MAX_CARDS + 1));
+
+            // Assert
+            expect(screen.getByText(deprecatedStandinText)).toBeInTheDocument();
+        });
+
+        it("does not render the deprecated standin at the card limit", () => {
+            // Arrange, Act
+            renderQuestion(generateSorterQuestion(SORTER_MAX_CARDS));
+
+            // Assert
+            expect(
+                screen.queryByText(deprecatedStandinText),
+            ).not.toBeInTheDocument();
+        });
+
+        it("is scored as correct without the learner answering", () => {
+            // Arrange
+            const question = generateSorterQuestion(SORTER_MAX_CARDS + 1);
+            const {renderer} = renderQuestion(question);
+
+            // Act
+            const score = scorePerseusItemTesting(
+                question,
+                renderer.getUserInputMap(),
+            );
+
+            // Assert
+            expect(score).toHaveBeenAnsweredCorrectly();
         });
     });
 });

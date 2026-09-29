@@ -30,7 +30,7 @@ describe("cs-program widget", () => {
         } as const;
 
         // Act
-        const {container} = renderQuestion(question1, apiOptions);
+        const {container} = renderQuestion(question1, {apiOptions});
 
         // Assert
         expect(container).toMatchSnapshot("first render");
@@ -43,7 +43,7 @@ describe("cs-program widget", () => {
         } as const;
 
         // Act
-        const {container} = renderQuestion(question1, apiOptions);
+        const {container} = renderQuestion(question1, {apiOptions});
 
         // Assert
         expect(container).toMatchSnapshot("first mobile render");
@@ -54,7 +54,7 @@ describe("cs-program widget", () => {
             isMobile: false,
         } as const;
 
-        const {renderer} = renderQuestion(question1, apiOptions);
+        const {renderer} = renderQuestion(question1, {apiOptions});
         const userInput = renderer.getUserInputMap()["cs-program 1"];
 
         expect(userInput.status).toBe("incomplete");

@@ -50,7 +50,9 @@ describe("Iframe AI utils", () => {
 
     it("should get prompt json which matches the state of the UI", async () => {
         // Arrange
-        const {renderer} = renderQuestion(question1, {isMobile: false});
+        const {renderer} = renderQuestion(question1, {
+            apiOptions: {isMobile: false},
+        });
 
         // Act
         const json = renderer.getPromptJSON();

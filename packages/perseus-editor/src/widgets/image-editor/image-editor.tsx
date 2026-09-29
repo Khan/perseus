@@ -11,9 +11,9 @@ import ImageUrlInput from "./components/image-url-input";
 
 import type {APIOptions} from "@khanacademy/perseus";
 
-export interface Props extends PerseusImageWidgetOptions {
+interface Props extends PerseusImageWidgetOptions {
     apiOptions: APIOptions;
-    onChange: (newValues: Partial<PerseusImageWidgetOptions>) => void;
+    onChange: (options: PerseusImageWidgetOptions) => void;
 }
 
 // JSDoc will be shown in Storybook widget editor description
@@ -22,10 +22,25 @@ export interface Props extends PerseusImageWidgetOptions {
  */
 class ImageEditor extends React.Component<Props> {
     static displayName = "ImageEditor";
-    static widgetName = "image";
 
     static defaultProps: PerseusImageWidgetOptions =
         imageLogic.defaultWidgetOptions;
+
+    handleChange = (changes: Partial<PerseusImageWidgetOptions>) => {
+        this.props.onChange({
+            title: this.props.title,
+            caption: this.props.caption,
+            alt: this.props.alt,
+            longDescription: this.props.longDescription,
+            decorative: this.props.decorative,
+            backgroundImage: this.props.backgroundImage,
+            scale: this.props.scale,
+            labels: this.props.labels,
+            range: this.props.range,
+            box: this.props.box,
+            ...changes,
+        });
+    };
 
     serialize() {
         return EditorJsonify.serialize.call(this);
@@ -34,8 +49,8 @@ class ImageEditor extends React.Component<Props> {
     render() {
         return (
             <>
-                <ImageUrlInput {...this.props} />
-                <ImageSettings {...this.props} />
+                <ImageUrlInput {...this.props} onChange={this.handleChange} />
+                <ImageSettings {...this.props} onChange={this.handleChange} />
             </>
         );
     }

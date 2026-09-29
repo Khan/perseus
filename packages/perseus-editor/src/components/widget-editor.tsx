@@ -16,13 +16,8 @@ import type {APIOptions} from "@khanacademy/perseus";
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
 
 type Props = {
-    // Unserialized props
     id: string;
-    onChange: (
-        widgetInfo: PerseusWidget,
-        cb?: () => unknown,
-        silent?: boolean,
-    ) => unknown;
+    onChange: (widgetInfo: PerseusWidget) => void;
     onRemove: () => unknown;
     apiOptions: APIOptions;
     widgetIsOpen?: boolean;
@@ -88,11 +83,7 @@ class WidgetEditor extends React.Component<Props, State> {
         this.setState({showWidget: !this.state.showWidget});
     };
 
-    _handleWidgetChange = (
-        newOptions: PerseusWidget["options"],
-        cb: () => unknown,
-        silent: boolean,
-    ) => {
+    _handleWidgetChange = (newOptions: PerseusWidget["options"]) => {
         // eslint-disable-next-line no-restricted-syntax
         const newWidgetInfo = {
             ...this.state.widgetInfo,
@@ -102,7 +93,7 @@ class WidgetEditor extends React.Component<Props, State> {
                 ...newOptions,
             },
         } as PerseusWidget;
-        this.props.onChange(newWidgetInfo, cb, silent);
+        this.props.onChange(newWidgetInfo);
     };
 
     _setStatic = (value: boolean) => {

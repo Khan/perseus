@@ -1,5 +1,7 @@
-import {css, StyleSheet} from "aphrodite";
+import {css} from "aphrodite";
 import * as React from "react";
+
+import {buttonGroupStyles} from "./button-group";
 
 type Props = {
     /**
@@ -47,8 +49,9 @@ type DefaultProps = {
  * MultiButtonGroup is an aesthetically pleasing group of buttons,
  * which allows multiple buttons to be selected at the same time.
  *
- * NOTE: This component is almost identical to ./button-group.jsx except that
- * this component allows multiple selection!
+ * NOTE: This component is almost identical to ./button-group.tsx except that
+ * this component allows multiple selection! It shares button-group's styles
+ * so the two components render identically.
  */
 class MultiButtonGroup extends React.Component<Props> {
     buttonContainerRef = React.createRef<HTMLDivElement>();
@@ -95,8 +98,8 @@ class MultiButtonGroup extends React.Component<Props> {
                     key={"" + i}
                     ref={"button" + i}
                     className={css(
-                        styles.buttonStyle,
-                        selected && styles.selectedStyle,
+                        buttonGroupStyles.buttonStyle,
+                        selected && buttonGroupStyles.selectedStyle,
                     )}
                     onClick={() => this.toggleSelect(button.value)}
                 >
@@ -116,42 +119,5 @@ class MultiButtonGroup extends React.Component<Props> {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    buttonStyle: {
-        backgroundColor: "white",
-        border: "1px solid #ccc",
-        borderInlineStart: "0",
-        cursor: "pointer",
-        margin: "0",
-        paddingBlock: "5px",
-        paddingInline: "10px",
-        position: "relative", // for hover
-
-        ":first-child": {
-            borderInlineStart: "1px solid #ccc",
-            borderStartStartRadius: "3px",
-            borderEndStartRadius: "3px",
-        },
-
-        ":last-child": {
-            borderInlineEnd: "1px solid #ccc",
-            borderStartEndRadius: "3px",
-            borderEndEndRadius: "3px",
-        },
-
-        ":hover": {
-            backgroundColor: "#ccc",
-        },
-
-        ":focus": {
-            zIndex: 2,
-        },
-    },
-
-    selectedStyle: {
-        backgroundColor: "#ddd",
-    },
-});
 
 export default MultiButtonGroup;

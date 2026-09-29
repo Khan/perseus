@@ -73,6 +73,11 @@ const draw = {
                 this.mouseTarget().toFront();
             }
         }
+        if (state.shadow !== prevState.shadow) {
+            // @ts-expect-error - TS2339 - Property 'state' does not exist on type '{ readonly basic: (state: any, prevState: any) => void; readonly highlight: (state: any, prevState: any) => void; }'.
+            this.state.visibleShape.setShadow(state.shadow);
+        }
+
         if (
             state.normalStyle !== prevState.normalStyle &&
             !_.isEqual(state.normalStyle, prevState.normalStyle)

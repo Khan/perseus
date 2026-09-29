@@ -2,8 +2,20 @@ import {Widgets} from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
 
+import type {APIOptions} from "@khanacademy/perseus";
+import type {PerseusFeatureFlags} from "@khanacademy/perseus-core";
+
+// TODO(LEMS-4396): clean up feature flag
+const WIDGETS_BEHIND_FLAGS: Record<
+    string,
+    (typeof PerseusFeatureFlags)[number]
+> = {
+    "fill-in-the-blank": "dnd-widget-fitb",
+};
+
 type WidgetSelectProps = {
     onChange?: (widgetType: string) => unknown;
+    flags?: APIOptions["flags"];
 };
 
 class WidgetSelect extends React.Component<WidgetSelectProps> {
@@ -24,7 +36,18 @@ class WidgetSelect extends React.Component<WidgetSelectProps> {
     };
 
     render(): React.ReactNode {
-        const widgets = Widgets.getPublicWidgets();
+        const widgets = {...Widgets.getPublicWidgets()};
+
+        // TODO(LEMS-4396): clean up feature flag
+        for (const [widgetType, flag] of Object.entries(WIDGETS_BEHIND_FLAGS)) {
+            const widgetExport = Widgets.getWidgetExport(widgetType);
+            if (this.props.flags?.[flag] && widgetExport) {
+                widgets[widgetType] = widgetExport;
+            } else {
+                delete widgets[widgetType];
+            }
+        }
+
         const orderedWidgetNames = _.sortBy(Object.keys(widgets), (name) => {
             return widgets[name].displayName;
         });

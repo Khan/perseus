@@ -62,7 +62,7 @@ import Tex from "../util/tex";
 
 import InteractiveUtil from "./interactive-util";
 import MovablePointOptions from "./movable-point-options";
-import WrappedEllipse from "./wrapped-ellipse";
+import WrappedEllipse, {wrappedEllipseShadow} from "./wrapped-ellipse";
 
 import type {Movable} from "./movable";
 import type {Constraint, ConstraintCallbacks, Coord} from "./types";
@@ -227,7 +227,11 @@ export class MovablePoint {
                     radii,
                     options,
                 );
-                state.mouseTarget.attr({fill: "#000", opacity: 0.0});
+                state.mouseTarget.attr({
+                    // `fill` must be set for clicks to register.
+                    fill: "transparent",
+                    opacity: 0.0,
+                });
             }
         }
 
@@ -306,8 +310,7 @@ export class MovablePoint {
                                 svgElem.getElementsByClassName(
                                     "tooltip-content",
                                 )[0];
-                            const filter =
-                                "drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5))";
+                            const filter = wrappedEllipseShadow;
 
                             content.style.filter = filter;
                         }
@@ -356,8 +359,7 @@ export class MovablePoint {
                     const svgElem = state.visibleShape.wrapper;
 
                     if (state.shadow) {
-                        const filter =
-                            "drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5))";
+                        const filter = wrappedEllipseShadow;
                         svgElem.style.filter = filter;
                     }
 

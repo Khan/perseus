@@ -24,8 +24,6 @@ interface Props extends PerseusMatrixWidgetOptions, ChangeableProps {
 }
 
 class MatrixEditor extends React.Component<Props> {
-    static widgetName = "matrix" as const;
-
     static defaultProps: PerseusMatrixWidgetOptions =
         matrixLogic.defaultWidgetOptions;
 

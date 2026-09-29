@@ -15,24 +15,8 @@ interface AsymptoteInputProps {
 const AsymptoteInput = (props: AsymptoteInputProps) => {
     const {axis, value, onChange} = props;
 
-    // Local state so the user can type freely without the field resetting
-    // mid-keystroke. Pattern from StartCoordsCircle.
-    const [textState, setTextState] = React.useState(value.toString());
-
-    // Sync local state when props change (e.g. "Use default start coordinates").
-    React.useEffect(() => {
-        setTextState(value.toString());
-    }, [value]);
-
-    function handleChange(newValue: string) {
-        setTextState(newValue);
-
-        // Assume the user is still typing. Don't propagate until a valid number.
-        if (isNaN(+newValue) || newValue === "") {
-            return;
-        }
-
-        onChange(parseFloat(newValue));
+    function handleChange(newValue: number) {
+        onChange(newValue);
     }
 
     return (
@@ -40,7 +24,7 @@ const AsymptoteInput = (props: AsymptoteInputProps) => {
             {`Asymptote ${axis} =`}
             <View className={styles["text-field-wrapper"]}>
                 <ScrolllessNumberTextField
-                    value={textState}
+                    value={value}
                     onChange={handleChange}
                 />
             </View>

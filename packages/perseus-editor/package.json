@@ -3,9 +3,13 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "38.0.0",
+    "version": "44.0.0",
     "publishConfig": {
-        "access": "public"
+        "access": "public",
+        "exports": {
+            ".": "./dist/index.js",
+            "./styles.css": "./dist/index.css"
+        }
     },
     "repository": {
         "type": "git",
@@ -15,17 +19,9 @@
     "bugs": {
         "url": "https://github.com/Khan/perseus/issues"
     },
-    "module": "dist/es/index.js",
-    "main": "dist/index.js",
-    "source": "src/index.ts",
+    "type": "module",
     "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "source": "./src/index.ts",
-            "import": "./dist/es/index.js",
-            "require": "./dist/index.js"
-        },
-        "./styles.css": "./dist/index.css"
+        ".": "./src/index.ts"
     },
     "files": [
         "dist"
@@ -63,6 +59,7 @@
         "@khanacademy/wonder-blocks-layout": "catalog:devDeps",
         "@khanacademy/wonder-blocks-link": "catalog:devDeps",
         "@khanacademy/wonder-blocks-pill": "catalog:devDeps",
+        "@khanacademy/wonder-blocks-popover": "catalog:devDeps",
         "@khanacademy/wonder-blocks-switch": "catalog:devDeps",
         "@khanacademy/wonder-blocks-timing": "catalog:devDeps",
         "@khanacademy/wonder-blocks-tokens": "catalog:devDeps",
@@ -95,6 +92,7 @@
         "@khanacademy/wonder-blocks-layout": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-link": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-pill": "catalog:peerDeps",
+        "@khanacademy/wonder-blocks-popover": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-switch": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-timing": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-tokens": "catalog:peerDeps",
@@ -111,6 +109,6 @@
     },
     "keywords": [],
     "khan": {
-        "catalogHash": "7f07796630cee0b3"
+        "catalogHash": "bd6b7ded989a6772"
     }
 }

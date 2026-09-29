@@ -23,8 +23,6 @@ class PhetSimulationEditor extends React.Component<Props> {
     static defaultProps: PerseusPhetSimulationWidgetOptions =
         phetSimulationLogic.defaultWidgetOptions;
 
-    static widgetName = "phet-simulation" as const;
-
     serialize(): PerseusPhetSimulationWidgetOptions {
         return {
             url: this.props.url,

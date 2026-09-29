@@ -1,6 +1,9 @@
 import * as React from "react";
 
-import {itemWithPieChart} from "../../__testdata__/graphie.testdata";
+import {
+    itemWithLabeledAngle,
+    itemWithPieChart,
+} from "../../__testdata__/graphie.testdata";
 import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
 import Graphie from "../graphie";
 
@@ -28,11 +31,11 @@ export default meta;
  * with overlaid labels and an image caption below.
  */
 export const PieChartGraphieLabels: Story = {
-    args: {
-        box: [size, size],
-        setup: () => {},
-    },
-    render: (args) => <ServerItemRendererWithDebugUI item={itemWithPieChart} />,
+    render: () => <ServerItemRendererWithDebugUI item={itemWithPieChart} />,
+};
+
+export const AngleWithColoredGraphieLabels: Story = {
+    render: () => <ServerItemRendererWithDebugUI item={itemWithLabeledAngle} />,
 };
 
 export const SquareBoxSizeAndOtherwiseEmpty: Story = {

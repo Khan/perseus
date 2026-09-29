@@ -157,7 +157,7 @@ describe("renderer", () => {
 
         it("should run the linter on mount", () => {
             // Arrange and Act
-            renderQuestion(question1, {}, extraProps);
+            renderQuestion(question1, {extraProps});
 
             // Assert
             expect(mockRunLinter).toHaveBeenCalledWith(
@@ -168,7 +168,7 @@ describe("renderer", () => {
 
         it("should do nothing in linter callback if component is already unmounted", () => {
             // Arrange
-            const {unmount} = renderQuestion(question1, {}, extraProps);
+            const {unmount} = renderQuestion(question1, {extraProps});
             unmount();
             mockApplyLintErrors.mockClear();
 
@@ -184,7 +184,7 @@ describe("renderer", () => {
 
         it("should run linter on update", () => {
             // Arrange
-            const {rerender} = renderQuestion(question1, {}, extraProps);
+            const {rerender} = renderQuestion(question1, {extraProps});
 
             mockRunLinter.mockClear();
 
@@ -291,7 +291,9 @@ describe("renderer", () => {
 
                 // Act
                 const {container} = renderQuestion(question, {
-                    isMobile,
+                    apiOptions: {
+                        isMobile,
+                    },
                 });
 
                 // Assert
@@ -465,7 +467,9 @@ describe("renderer", () => {
 
             // Act
             renderQuestion(question1, {
-                widgetPlaceholder,
+                apiOptions: {
+                    widgetPlaceholder,
+                },
             });
 
             // Assert
@@ -509,7 +513,9 @@ describe("renderer", () => {
 
             // Act
             renderQuestion(question, {
-                imagePlaceholder,
+                apiOptions: {
+                    imagePlaceholder,
+                },
             });
 
             // Assert
@@ -550,9 +556,7 @@ describe("renderer", () => {
                     },
                     widgets: {},
                 },
-                {
-                    imagePlaceholder,
-                },
+                {apiOptions: {imagePlaceholder}},
             );
 
             // Assert
@@ -587,10 +591,9 @@ describe("renderer", () => {
                 images: {},
                 widgets: {},
             } as const;
-            const apiOptions: Record<string, any> = {};
 
             // Act
-            const {container} = renderQuestion(question, apiOptions);
+            const {container} = renderQuestion(question);
 
             // Assert
             expect(container).toMatchSnapshot();
@@ -609,7 +612,7 @@ describe("renderer", () => {
             const apiOptions = {isMobile: true} as const;
 
             // Act
-            const {container} = renderQuestion(question, apiOptions);
+            const {container} = renderQuestion(question, {apiOptions});
 
             // Assert
             expect(container).toMatchSnapshot();
@@ -625,10 +628,10 @@ describe("renderer", () => {
                 images: {},
                 widgets: {},
             } as const;
-            const apiOptions = {isMobile: true} as const;
+            const apiOptions = {isMobile: true};
 
             // Act
-            const {container} = renderQuestion(question, apiOptions);
+            const {container} = renderQuestion(question, {apiOptions});
 
             // Assert
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
@@ -798,7 +801,9 @@ describe("renderer", () => {
             } as const;
             const onFocusChange = jest.fn();
             const {renderer} = renderQuestion(question, {
-                onFocusChange,
+                apiOptions: {
+                    onFocusChange,
+                },
             });
 
             // Act
@@ -834,9 +839,7 @@ describe("renderer", () => {
                         },
                     },
                 },
-                {
-                    onFocusChange,
-                },
+                {apiOptions: {onFocusChange}},
             );
 
             // Act
@@ -861,7 +864,7 @@ describe("renderer", () => {
                         "mock-widget 2": question2.widgets["mock-widget 1"],
                     },
                 },
-                {onFocusChange},
+                {apiOptions: {onFocusChange}},
             );
 
             // Act
@@ -888,7 +891,7 @@ describe("renderer", () => {
                         "mock-widget 2": question2.widgets["mock-widget 1"],
                     },
                 },
-                {onFocusChange},
+                {apiOptions: {onFocusChange}},
             );
             await userEvent.click(screen.getAllByRole("textbox")[1]);
             onFocusChange.mockClear();
@@ -941,7 +944,9 @@ describe("renderer", () => {
             // Arrange
             const onFocusChange = jest.fn();
             const {renderer} = renderQuestion(question2, {
-                onFocusChange,
+                apiOptions: {
+                    onFocusChange,
+                },
             });
             act(() => renderer.focusPath(["mock-widget 1"]));
             onFocusChange.mockClear();
@@ -967,7 +972,7 @@ describe("renderer", () => {
                         "mock-widget 2": question2.widgets["mock-widget 1"],
                     },
                 },
-                {onFocusChange},
+                {apiOptions: {onFocusChange}},
             );
             act(() => renderer.focusPath(["mock-widget 1"]));
             onFocusChange.mockClear();
@@ -996,7 +1001,7 @@ describe("renderer", () => {
                         "mock-widget 2": question2.widgets["mock-widget 1"],
                     },
                 },
-                {onFocusChange},
+                {apiOptions: {onFocusChange}},
             );
             // Focus _second_ input number widget
             act(() => screen.getAllByRole("textbox")[1].focus());
@@ -1023,7 +1028,7 @@ describe("renderer", () => {
                         "mock-widget 2": question2.widgets["mock-widget 1"],
                     },
                 },
-                {onFocusChange},
+                {apiOptions: {onFocusChange}},
             );
             // Focus _second_ input number widget
             act(() => screen.getAllByRole("textbox")[1].focus());
@@ -1054,7 +1059,7 @@ describe("renderer", () => {
                         "mock-widget 2": question2.widgets["mock-widget 1"],
                     },
                 },
-                {onFocusChange},
+                {apiOptions: {onFocusChange}},
             );
 
             // Act
@@ -1506,7 +1511,7 @@ describe("renderer", () => {
                     widgets: {},
                     images: {},
                 },
-                {isArticle: false},
+                {apiOptions: {isArticle: false}},
             );
 
             // Assert
@@ -1524,7 +1529,7 @@ describe("renderer", () => {
                     widgets: {},
                     images: {},
                 },
-                {isArticle: true},
+                {apiOptions: {isArticle: true}},
             );
 
             // Assert
@@ -1540,7 +1545,7 @@ describe("renderer", () => {
                     widgets: {},
                     images: {},
                 },
-                {isArticle: false},
+                {apiOptions: {isArticle: false}},
             );
 
             // Act
@@ -1565,7 +1570,7 @@ describe("renderer", () => {
                     widgets: {},
                     images: {},
                 },
-                {isArticle: true},
+                {apiOptions: {isArticle: true}},
             );
 
             // Act

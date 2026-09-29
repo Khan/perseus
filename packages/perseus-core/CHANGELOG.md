@@ -1,5 +1,99 @@
 # @khanacademy/perseus-core
 
+## 40.0.0
+
+### Major Changes
+
+-   [#4242](https://github.com/Khan/perseus/pull/4242) [`324add8`](https://github.com/Khan/perseus/commit/324add8b5e2cf5752fd3bee882caffbcbd84238c) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Ship ES modules only. Every package now declares `"type": "module"`, drops
+    the legacy `main` and `module` fields, and no longer offers a `require`
+    condition, so `require()` of a
+    package or any of its sub-paths fails at resolution time. Bundles moved from
+    `dist/es/*.js` to `dist/*.js`.
+
+    `import` specifiers are unchanged — `@khanacademy/perseus`,
+    `@khanacademy/perseus/strings`, `@khanacademy/perseus/styles.css` and the rest
+    all still resolve. CJS consumers need to either move to `import`, or use a
+    dynamic `await import()` from an async context.
+
+### Patch Changes
+
+-   Updated dependencies [[`324add8`](https://github.com/Khan/perseus/commit/324add8b5e2cf5752fd3bee882caffbcbd84238c)]:
+    -   @khanacademy/kas@3.0.0
+    -   @khanacademy/perseus-utils@3.0.0
+    -   @khanacademy/pure-markdown@3.0.0
+
+## 39.2.3
+
+### Patch Changes
+
+-   [#4196](https://github.com/Khan/perseus/pull/4196) [`e86d317`](https://github.com/Khan/perseus/commit/e86d317c25e791739ff7c9cae6cbb1c0331cfd3d) Thanks [@nishasy](https://github.com/nishasy)! - [Sorter] Render horizontal sorters as vertical if they have too many cards
+
+## 39.2.2
+
+### Patch Changes
+
+-   [#4258](https://github.com/Khan/perseus/pull/4258) [`6b422ce`](https://github.com/Khan/perseus/commit/6b422ce7aeb04b9928fd21dabf42d2edbe048886) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in GrapherEditor.
+
+## 39.2.1
+
+### Patch Changes
+
+-   [#4225](https://github.com/Khan/perseus/pull/4225) [`284ac95`](https://github.com/Khan/perseus/commit/284ac95dce32e3d3ddbe2287106ad253b16ffadb) Thanks [@nishasy](https://github.com/nishasy)! - Use parser to set `static` to undefined for visual-only widgets
+
+## 39.2.0
+
+### Minor Changes
+
+-   [#4181](https://github.com/Khan/perseus/pull/4181) [`995aa68`](https://github.com/Khan/perseus/commit/995aa68d04bdc95f7b463406d797ed6a24107cad) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add the new Fill in the Blank widget's schema and logic to perseus-core
+
+## 39.1.0
+
+### Minor Changes
+
+-   [#4204](https://github.com/Khan/perseus/pull/4204) [`dc12384`](https://github.com/Khan/perseus/commit/dc123845614fae331d8517a524212fc1dbbe110f) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Makes max sorter card count a const in perseus core and consumes it
+
+## 39.0.0
+
+### Major Changes
+
+-   [#4194](https://github.com/Khan/perseus/pull/4194) [`cf56830`](https://github.com/Khan/perseus/commit/cf568308a7ac5601af0afbc386832000c7f8cae5) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove the `@khanacademy/perseus-core/item-splitting` entry point.
+
+    This entry point (`/item-splitting`) was incorrectly added to support a CI
+    check that detects important item splitting changes. It doesn't need to be an
+    export to do this though, so this change removes it.
+
+    Import `splitPerseusItem` from `@khanacademy/perseus-core` instead.
+
+## 38.1.1
+
+### Patch Changes
+
+-   [#4158](https://github.com/Khan/perseus/pull/4158) [`1f6424a`](https://github.com/Khan/perseus/commit/1f6424a4a34123a1e9609ae8499ac6e8138c589d) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Adding new dnd-widget-fitb flag
+
+## 38.1.0
+
+### Minor Changes
+
+-   [#4094](https://github.com/Khan/perseus/pull/4094) [`68e3230`](https://github.com/Khan/perseus/commit/68e32306819a52d9d2ade1f11a3b5f9f4167c9e3) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Renames item extras editor to item editor; adds extras editor to graded group
+
+## 38.0.1
+
+### Patch Changes
+
+-   [#4136](https://github.com/Khan/perseus/pull/4136) [`6136694`](https://github.com/Khan/perseus/commit/61366941590e0134bcf796eda4979cda83bc1f6b) Thanks [@handeyeco](https://github.com/handeyeco)! - Modernize Sorter editor and add some lint rules to make sure content is reasonable
+
+## 38.0.0
+
+### Major Changes
+
+-   [#4118](https://github.com/Khan/perseus/pull/4118) [`d06c9ec`](https://github.com/Khan/perseus/commit/d06c9ecce4e62079e94870d17506ae92e016f0f6) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove Perseus*Rubric and Perseus*ValidationData types in favor of Perseus*WidgetOptions and *PublicWidgetOptions
+
+-   [#4114](https://github.com/Khan/perseus/pull/4114) [`20d11be`](https://github.com/Khan/perseus/commit/20d11be077ad6df8053a77759b97ffab1b3d535f) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove *DefaultWidgetOptions and use Perseus*WidgetOptions instead
+
+### Patch Changes
+
+-   [#4134](https://github.com/Khan/perseus/pull/4134) [`88eeb3a`](https://github.com/Khan/perseus/commit/88eeb3a2146c391bccd18dfd9a5d3467d10b2556) Thanks [@handeyeco](https://github.com/handeyeco)! - Mark Sorter's `padding` as deprecated
+
 ## 37.0.0
 
 ### Major Changes

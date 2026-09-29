@@ -1,4 +1,10 @@
 import {traverse} from "./traversal";
+import {generateBlankWidget} from "./utils/generators/blank-widget-generator";
+import {
+    generateAnswerTile,
+    generateFillInTheBlankOptions,
+    generateFillInTheBlankWidget,
+} from "./utils/generators/fill-in-the-blank-widget-generator";
 import {registerCoreWidgets} from "./widgets/core-widget-registry";
 
 import type {PerseusRenderer} from "./data-schema";
@@ -119,11 +125,42 @@ const sampleGroup: PerseusRenderer = {
 
 const clonedSampleGroup = JSON.parse(JSON.stringify(sampleGroup));
 
+const sampleFillInTheBlank: PerseusRenderer = {
+    content: "[[☃ fill-in-the-blank 1]]\n\n",
+    images: {},
+    widgets: {
+        "fill-in-the-blank 1": generateFillInTheBlankWidget({
+            options: generateFillInTheBlankOptions({
+                content: "The [[☃ blank 1]] drum is a tall drum.",
+                widgets: {
+                    "blank 1": generateBlankWidget({
+                        options: {displayType: "normal", correctId: "tile-1"},
+                    }),
+                },
+                tiles: [
+                    generateAnswerTile({
+                        id: "tile-1",
+                        content: "djembe",
+                        label: "djembe",
+                    }),
+                ],
+                maxUsesPerTile: 3,
+                randomize: true,
+            }),
+        }),
+    },
+};
+
+const clonedSampleFillInTheBlank = JSON.parse(
+    JSON.stringify(sampleFillInTheBlank),
+);
+
 const assertNonMutative = () => {
     expect(missingOptions).toEqual(clonedMissingOptions);
     expect(sampleOptions).toEqual(clonedSampleOptions);
     expect(sampleOptions2).toEqual(clonedSampleOptions2);
     expect(sampleGroup).toEqual(clonedSampleGroup);
+    expect(sampleFillInTheBlank).toEqual(clonedSampleFillInTheBlank);
 };
 
 describe("Traversal", () => {
@@ -204,6 +241,44 @@ describe("Traversal", () => {
             group: 1,
             radio: 1,
         });
+        assertNonMutative();
+    });
+
+    it("visits the blank widgets nested inside a fill-in-the-blank", () => {
+        const widgetMap: Record<string, any> = {};
+
+        traverse(sampleFillInTheBlank, null, (widgetInfo) => {
+            widgetMap[widgetInfo.type] = (widgetMap[widgetInfo.type] || 0) + 1;
+        });
+
+        expect(widgetMap).toEqual({
+            "fill-in-the-blank": 1,
+            blank: 1,
+        });
+        assertNonMutative();
+    });
+
+    it("modifies the content inside a fill-in-the-blank", () => {
+        const newOptions = traverse(sampleFillInTheBlank, (content) =>
+            content.replace("tall", "short"),
+        );
+
+        expect(newOptions.widgets["fill-in-the-blank 1"].options.content).toBe(
+            "The [[☃ blank 1]] drum is a short drum.",
+        );
+        assertNonMutative();
+    });
+
+    it("preserves a fill-in-the-blank's non-renderer options", () => {
+        const newOptions = traverse(sampleFillInTheBlank, (content) => content);
+
+        expect(newOptions.widgets["fill-in-the-blank 1"].options).toMatchObject(
+            {
+                tiles: [{id: "tile-1", content: "djembe", label: "djembe"}],
+                maxUsesPerTile: 3,
+                randomize: true,
+            },
+        );
         assertNonMutative();
     });
 

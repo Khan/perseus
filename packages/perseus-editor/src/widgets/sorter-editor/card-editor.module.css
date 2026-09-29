@@ -1,0 +1,9 @@
+/* TODO(LEMS-3686): Remove the !important once Wonder Blocks is in the shared layer. */
+
+/* A card's text sits on one line with the controls that reorder and remove it,
+   so the controls stay next to the card they act on. */
+.card {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: var(--wb-sizing-size_040) !important;
+}

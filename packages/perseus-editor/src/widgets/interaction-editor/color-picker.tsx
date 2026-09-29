@@ -43,7 +43,6 @@ class ColorPicker extends React.Component<Props> {
         return (
             <ButtonGroup
                 value={this.props.value}
-                allowEmpty={false}
                 buttons={colors.map((color) => {
                     return {
                         value: color,

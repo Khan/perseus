@@ -1,6 +1,9 @@
+import {generateTestPerseusRenderer} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
+
+import {ItemEditorContext} from "../util/item-editor-context";
 
 import {A11yContext, createA11yContextValue} from "./a11y-context";
 import IssuesPanel, {getIssueKey} from "./issues-panel";
@@ -134,6 +137,40 @@ describe("IssuesPanel", () => {
 
         // Assert
         expect(cta).toBeInTheDocument();
+        expect(cta).toHaveAttribute("aria-disabled", "false");
+    });
+
+    it("disables the CTA button when editing is disabled", async () => {
+        // Arrange
+        render(
+            <ItemEditorContext.Provider
+                value={{
+                    question: generateTestPerseusRenderer({
+                        content:
+                            "![earth and moon](https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg)",
+                    }),
+                    onEditorChange: () => {},
+                    editingDisabled: true,
+                }}
+            >
+                <IssuesPanel
+                    // "image-markdown" issue ID has a CTA associated with it
+                    issues={[makeIssue("image-markdown")]}
+                />
+                ,
+            </ItemEditorContext.Provider>,
+        );
+
+        // Act
+        const toggleHeader = screen.getByText("Issues");
+        await userEvent.click(toggleHeader);
+
+        const cta = screen.getByRole("button", {
+            name: "Convert all image markdown to widget",
+        });
+
+        // Assert
+        expect(cta).toHaveAttribute("aria-disabled", "true");
     });
 
     it("includes A11yContext's axeCoreIssues in the count when scanning is enabled", () => {

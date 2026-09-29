@@ -2,6 +2,7 @@ import {Util} from "@khanacademy/perseus";
 import {
     generateImageOptions,
     generateImageWidget,
+    generateRadioChoice,
     generateRadioOptions,
     generateRadioWidget,
     generateTestPerseusRenderer,
@@ -169,6 +170,7 @@ describe("convertImageMarkdownToImageWidget", () => {
                     }),
                 }),
             },
+            images: {},
         });
     });
 
@@ -195,6 +197,7 @@ describe("convertImageMarkdownToImageWidget", () => {
                     }),
                 }),
             },
+            images: {},
         });
     });
 
@@ -234,6 +237,7 @@ describe("convertImageMarkdownToImageWidget", () => {
                     }),
                 }),
             },
+            images: {},
         });
     });
 
@@ -266,6 +270,7 @@ describe("convertImageMarkdownToImageWidget", () => {
                     }),
                 }),
             },
+            images: {},
         });
     });
 
@@ -323,6 +328,7 @@ describe("convertImageMarkdownToImageWidget", () => {
                     }),
                 }),
             },
+            images: {},
         });
     });
 
@@ -362,6 +368,7 @@ describe("convertImageMarkdownToImageWidget", () => {
                     }),
                 }),
             },
+            images: {},
         });
     });
 
@@ -399,6 +406,84 @@ describe("convertImageMarkdownToImageWidget", () => {
                     }),
                 }),
             },
+            images: {},
+        });
+    });
+
+    it("empties the images field once the markdown is converted", async () => {
+        // Arrange: earthMoonImage is referenced by the markdown we're about to
+        // convert; frescoImage is an entry that's already stale.
+        const question = generateTestPerseusRenderer({
+            content: `![markdown 1](${earthMoonImage.url})`,
+            widgets: {},
+            images: {
+                [earthMoonImage.url]: {width: 400, height: 225},
+                [frescoImage.url]: {width: 400, height: 225},
+            },
+        });
+        const onEditorChange = jest.fn();
+
+        // Act
+        await convertImageMarkdownToImageWidget(question, onEditorChange);
+
+        // Assert
+        expect(onEditorChange).toHaveBeenCalledWith(
+            expect.objectContaining({images: {}}),
+        );
+    });
+
+    it("empties the images field once the markdown is converted and leaves nested markdown as is", async () => {
+        // Arrange
+        const nestedChoiceContent = `![nested markdown](${earthMoonImage.url})`;
+        const question = generateTestPerseusRenderer({
+            // Content includes a markdown image and a radio with a markdown choice
+            content: `![markdown 1](${earthMoonImage.url})\n\n[[☃ radio 1]]`,
+            widgets: {
+                "radio 1": generateRadioWidget({
+                    options: generateRadioOptions({
+                        choices: [
+                            generateRadioChoice(nestedChoiceContent, {
+                                id: "radio-choice-1",
+                            }),
+                        ],
+                    }),
+                }),
+            },
+            images: {
+                // Image being converted to a widget
+                [earthMoonImage.url]: {width: 400, height: 225},
+                // Stale image URL from a previously backspaced markdown image.
+                [frescoImage.url]: {width: 400, height: 225},
+            },
+        });
+        const onEditorChange = jest.fn();
+
+        // Act
+        await convertImageMarkdownToImageWidget(question, onEditorChange);
+
+        // Assert
+        expect(onEditorChange).toHaveBeenCalledWith({
+            // Markdown image has been converted to image widget
+            content: `[[☃ image 1]]\n\n[[☃ radio 1]]`,
+            widgets: {
+                "radio 1": generateRadioWidget({
+                    options: generateRadioOptions({
+                        choices: [
+                            // Radio still contains nested image
+                            generateRadioChoice(nestedChoiceContent, {
+                                id: "radio-choice-1",
+                            }),
+                        ],
+                    }),
+                }),
+                "image 1": generateImageWidget({
+                    options: generateImageOptions({
+                        backgroundImage: earthMoonImage,
+                        alt: "markdown 1",
+                    }),
+                }),
+            },
+            images: {},
         });
     });
 });

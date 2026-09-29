@@ -6,8 +6,8 @@ import {getCustomPointLabel} from "../components/build-point-aria-label";
 import {srFormatNumber} from "./format-number";
 
 import type {I18nContextType} from "../../../../components/i18n-context";
+import type {PerseusStrings} from "../../../../strings";
 import type {TangentGraphState} from "../../types";
-import type {PerseusStrings} from "@khanacademy/perseus/strings";
 import type {Coord} from "@khanacademy/perseus-core";
 
 export function srTangentPointLabel(

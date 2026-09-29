@@ -49,8 +49,6 @@ class LabelImageEditor extends React.Component<Props> {
     static defaultProps: PerseusLabelImageWidgetOptions =
         labelImageLogic.defaultWidgetOptions;
 
-    static widgetName = "label-image" as const;
-
     componentDidUpdate(prevProps: Props) {
         const coordsToMarkers: Record<string, any> = {};
 

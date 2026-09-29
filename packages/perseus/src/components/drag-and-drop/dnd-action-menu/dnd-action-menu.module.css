@@ -1,0 +1,49 @@
+/*
+ * DndActionMenu — per-tile actions menu for the Drag-and-Drop family.
+ *
+ * Note: the open menu renders in a portal (document.body), so descendant
+ * selectors from here never reach it. The container is styled via
+ * ActionMenu's dropdownStyle prop; these classes only style elements we
+ * render ourselves (the opener and the injected header span, whose module
+ * class travels with it through the portal).
+ */
+
+.opener {
+    /* Center the dots; pad the hit area beyond the visual icon so the
+     * target is ≥24×24 CSS px (WCAG 2.5.8). */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-inline-size: var(--wb-sizing-size_240);
+    min-block-size: var(--wb-sizing-size_240);
+
+    color: var(--wb-semanticColor-core-foreground-neutral-default);
+}
+
+/* CustomOpener provides the focus ring but leaves disabled visuals to us. */
+.opener[aria-disabled="true"] {
+    color: var(--wb-semanticColor-core-foreground-disabled-subtle);
+}
+
+/* The visual-only "Move to" header — see dnd-action-menu.tsx for why it
+ * exists. pointer-events: none is load-bearing: without it, clicking the
+ * header fires the onClick ActionMenu injects and WB's dropdown internals
+ * throw (they expect every child to be a registered item). Untestable in
+ * jsdom, which doesn't apply CSS-module styles. */
+.menuHeader {
+    display: flex;
+    align-items: center;
+    block-size: var(--wb-sizing-size_280);
+    /* Align the header text with the item labels: ActionItem's label inset
+     * comes from the WB cell's themed inline padding (16px classic, 12px
+     * thunderblocks), so reuse that variable rather than hardcoding a
+     * value that only matches one theme. */
+    padding-inline: var(--wb-c-cell-root-layout-padding-inline-default);
+    pointer-events: none;
+
+    color: var(--wb-semanticColor-core-foreground-neutral-subtle);
+    font-family: var(--wb-font-family-sans);
+    font-size: var(--wb-font-body-size-xsmall);
+    line-height: var(--wb-font-body-lineHeight-xsmall);
+    font-weight: var(--wb-font-weight-medium);
+}

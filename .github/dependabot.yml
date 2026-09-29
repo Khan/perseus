@@ -12,9 +12,6 @@ updates:
       allow:
           - dependency-name: "@khanacademy/eslint-config"
           - dependency-name: "@khanacademy/eslint-plugin"
-      reviewers:
-          - "Khan/perseus"
-          - "Khan/lems"
 
       # Grouped updates for Wonder Stuff releases.
       # This helps us to stay in sync with the latest releases of these packages.

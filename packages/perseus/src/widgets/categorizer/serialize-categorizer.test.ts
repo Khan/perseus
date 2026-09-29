@@ -7,10 +7,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../__tests__/test-utils";
 import * as Dependencies from "../../dependencies";
-import {
-    testDependencies,
-    testDependenciesV2,
-} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
@@ -99,7 +96,6 @@ describe("Categorizer serialization", () => {
                      * - value: represents which category is selected for that item
                      */
                     values: [undefined, 0],
-                    dependencies: testDependenciesV2,
                 },
             },
             hints: [],

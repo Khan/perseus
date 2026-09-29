@@ -1,118 +1,36 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {
     iframeLogic,
     type PerseusIFrameWidgetOptions,
-    type PerseusCSProgramSetting,
 } from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 
 import BlurInput from "../../components/blur-input";
-import {deprecatedChangeableChange} from "../../mixins/changeable";
+import {PairsEditor} from "../../components/pairs-editor";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
-import type {ChangeableProps, ChangeFn} from "../../mixins/changeable";
-
-interface PairEditorProps extends PerseusCSProgramSetting, ChangeableProps {}
-
-/**
- * This is used for editing a name/value pair.
- *
- * TODO: PairsEditor and PairEditor are duplicated
- * between iframe-editor and cs-program-editor;
- * we should consolidate them
- */
-class PairEditor extends React.Component<PairEditorProps> {
-    change: ChangeFn = (...args) => {
-        return deprecatedChangeableChange.apply(this, args);
-    };
-
-    render(): React.ReactNode {
-        return (
-            <fieldset>
-                <label>
-                    Name:
-                    <BlurInput
-                        value={this.props.name}
-                        onChange={this.change("name")}
-                    />
-                </label>
-                <label>
-                    Value:
-                    <BlurInput
-                        value={this.props.value}
-                        onChange={this.change("value")}
-                    />
-                </label>
-            </fieldset>
-        );
-    }
+interface IframeEditorProps extends PerseusIFrameWidgetOptions {
+    onChange: (options: PerseusIFrameWidgetOptions) => void;
 }
-
-interface PairsEditorProps extends ChangeableProps {
-    pairs: PerseusCSProgramSetting[];
-}
-
-/**
- * This is used for editing a set of name/value pairs.
- *
- * TODO: PairsEditor and PairEditor are duplicated
- * between iframe-editor and cs-program-editor;
- * we should consolidate them
- */
-class PairsEditor extends React.Component<PairsEditorProps> {
-    change: ChangeFn = (...args) => {
-        return deprecatedChangeableChange.apply(this, args);
-    };
-
-    handlePairChange = (pairIndex: any, pair: any) => {
-        // If they're both non empty, add a new one
-        const pairs = this.props.pairs.slice();
-        pairs[pairIndex] = pair;
-
-        const lastPair = pairs[pairs.length - 1];
-        if (lastPair.name && lastPair.value) {
-            pairs.push({name: "", value: ""});
-        }
-        this.change("pairs", pairs);
-    };
-
-    render(): React.ReactNode {
-        const editors = this.props.pairs.map((pair, i) => {
-            return (
-                <PairEditor
-                    key={i}
-                    name={pair.name}
-                    value={pair.value}
-                    onChange={this.handlePairChange.bind(this, i)}
-                />
-            );
-        });
-        return <div>{editors}</div>;
-    }
-}
-
-interface IframeEditorProps
-    extends PerseusIFrameWidgetOptions,
-        ChangeableProps {}
 
 /**
  * This is the main editor for this widget, to specify all the options.
  */
 class IframeEditor extends React.Component<IframeEditorProps> {
-    static widgetName = "iframe" as const;
-
     static defaultProps: PerseusIFrameWidgetOptions =
         iframeLogic.defaultWidgetOptions;
 
-    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return deprecatedChangeableChange.apply(this, args);
-    };
-
-    handleSettingsChange: (arg1: any) => void = (settings) => {
-        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-        this.change({settings: settings.pairs});
-    };
+    handleChange(changes: Partial<PerseusIFrameWidgetOptions>) {
+        this.props.onChange({
+            url: this.props.url,
+            settings: this.props.settings,
+            width: this.props.width,
+            height: this.props.height,
+            allowFullScreen: this.props.allowFullScreen,
+            allowTopNavigation: this.props.allowTopNavigation,
+            ...changes,
+        });
+    }
 
     serialize: () => any = () => {
         return EditorJsonify.serialize.call(this);
@@ -129,8 +47,7 @@ class IframeEditor extends React.Component<IframeEditorProps> {
                     Url or Program ID:
                     <BlurInput
                         value={this.props.url}
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("url")}
+                        onChange={(url) => this.handleChange({url})}
                     />
                 </label>
                 <br />
@@ -139,7 +56,7 @@ class IframeEditor extends React.Component<IframeEditorProps> {
                     Settings:
                     <PairsEditor
                         pairs={this.props.settings ?? []}
-                        onChange={this.handleSettingsChange}
+                        onChange={(settings) => this.handleChange({settings})}
                     />
                 </label>
                 <br />
@@ -147,31 +64,29 @@ class IframeEditor extends React.Component<IframeEditorProps> {
                     Width:
                     <BlurInput
                         value={String(this.props.width)}
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("width")}
+                        onChange={(width) => this.handleChange({width})}
                     />
                 </label>
                 <label>
                     Height:
                     <BlurInput
                         value={String(this.props.height)}
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("height")}
+                        onChange={(height) => this.handleChange({height})}
                     />
                 </label>
                 <Checkbox
                     label="Allow full screen"
                     checked={this.props.allowFullScreen}
-                    onChange={(value) => {
-                        this.props.onChange({allowFullScreen: value});
+                    onChange={(allowFullScreen) => {
+                        this.handleChange({allowFullScreen});
                     }}
                 />
                 <br />
                 <Checkbox
                     label="Allow iframe content to redirect the page"
                     checked={this.props.allowTopNavigation}
-                    onChange={(value) => {
-                        this.props.onChange({allowTopNavigation: value});
+                    onChange={(allowTopNavigation) => {
+                        this.handleChange({allowTopNavigation});
                     }}
                 />
             </div>

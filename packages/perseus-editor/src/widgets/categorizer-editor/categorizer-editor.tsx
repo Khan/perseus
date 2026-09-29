@@ -5,18 +5,17 @@ import * as React from "react";
 import _ from "underscore";
 
 import TextListEditor from "../../components/text-list-editor";
-import {deprecatedChangeableChange} from "../../mixins/changeable";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
-import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const Categorizer = CategorizerWidget.widget;
 
-interface Props extends PerseusCategorizerWidgetOptions, ChangeableProps {
+interface Props extends PerseusCategorizerWidgetOptions {
     apiOptions?: APIOptionsWithDefaults;
+    onChange: (options: PerseusCategorizerWidgetOptions) => void;
 }
 
 // JSDoc will be shown in Storybook widget editor description
@@ -24,14 +23,18 @@ interface Props extends PerseusCategorizerWidgetOptions, ChangeableProps {
  * An editor for adding a categorizer widget that allows users to sort items into categories.
  */
 class CategorizerEditor extends React.Component<Props> {
-    static widgetName = "categorizer" as const;
-
     static defaultProps: PerseusCategorizerWidgetOptions =
         categorizerLogic.defaultWidgetOptions;
 
-    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return deprecatedChangeableChange.apply(this, args);
-    };
+    handleChange(changed: Partial<PerseusCategorizerWidgetOptions>) {
+        this.props.onChange({
+            items: this.props.items,
+            categories: this.props.categories,
+            randomizeItems: this.props.randomizeItems,
+            values: this.props.values,
+            ...changed,
+        });
+    }
 
     serialize: () => any = () => {
         return EditorJsonify.serialize.call(this);
@@ -49,7 +52,9 @@ class CategorizerEditor extends React.Component<Props> {
             },
             userInput: {values: this.props.values},
             handleUserInput: (userInput) => {
-                this.props.onChange({values: userInput.values});
+                this.handleChange({
+                    values: userInput.values.map((value) => value ?? 0),
+                });
             },
             apiOptions: this.props.apiOptions,
             trackInteraction: function () {},
@@ -62,25 +67,21 @@ class CategorizerEditor extends React.Component<Props> {
                         label="Randomize item order"
                         checked={this.props.randomizeItems}
                         onChange={(value) => {
-                            this.props.onChange({randomizeItems: value});
+                            this.handleChange({randomizeItems: value});
                         }}
                     />
                 </div>
                 Categories:
                 <TextListEditor
                     options={this.props.categories}
-                    onChange={(cat) => {
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
-                        this.change("categories", cat);
-                    }}
+                    onChange={(cat) => this.handleChange({categories: cat})}
                     layout="horizontal"
                 />
                 Items:
                 <TextListEditor
                     options={this.props.items}
                     onChange={(items) => {
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        this.change({
+                        this.handleChange({
                             items: items,
                             // NOTE(eater): This truncates props.values so there
                             // are never more correct answers than items,

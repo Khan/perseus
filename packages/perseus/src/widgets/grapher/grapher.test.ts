@@ -1,10 +1,8 @@
 import {screen} from "@testing-library/react";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
-import {
-    testDependencies,
-    testDependenciesV2,
-} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import {waitForInitialGraphieRender} from "../../testing/wait";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
@@ -13,10 +11,15 @@ import {
     multipleAvailableTypesQuestion,
 } from "./grapher.testdata";
 
-import type {PerseusDependenciesV2} from "../../types";
+import type {UserEvent} from "@testing-library/user-event";
 
 describe("grapher widget", () => {
+    let userEvent: UserEvent;
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -57,16 +60,33 @@ describe("grapher widget", () => {
         expect(container).toMatchSnapshot("initial render");
     });
 
+    it("does not log an error when the selected type button is clicked again", async () => {
+        // Arrange
+        const consoleErrorSpy = jest
+            .spyOn(console, "error")
+            .mockImplementation(() => {});
+        renderQuestion(multipleAvailableTypesQuestion);
+        await waitForInitialGraphieRender();
+
+        const linearButton = screen.getByRole("button", {name: "Linear"});
+        await userEvent.click(linearButton);
+
+        // Act
+        await userEvent.click(linearButton);
+
+        // Assert
+        expect(consoleErrorSpy).not.toHaveBeenCalled();
+    });
+
     it("should send analytics event when widget is rendered", () => {
         // Arrange
         const onAnalyticsEventSpy = jest.fn();
-        const depsV2: PerseusDependenciesV2 = {
-            ...testDependenciesV2,
+        const dependencies = {
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
         };
 
         // Act
-        renderQuestion(linearQuestion, undefined, undefined, undefined, depsV2);
+        renderQuestion(linearQuestion, {dependencies});
         // Assert
         expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
             type: "perseus:widget:rendered:ti",

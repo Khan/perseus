@@ -50,7 +50,7 @@ describe("table", () => {
                         },
                     },
                 }),
-                apiOptions,
+                {apiOptions},
             );
             return renderer.findWidgets("table 1")[0];
         }

@@ -46,7 +46,7 @@ describe("free-response widget", () => {
                     }),
                 },
             }),
-            apiOptions,
+            {apiOptions},
         );
 
         // Assert
@@ -73,7 +73,7 @@ describe("free-response widget", () => {
                     }),
                 },
             }),
-            apiOptions,
+            {apiOptions},
         );
 
         // Assert

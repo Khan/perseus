@@ -3,18 +3,21 @@ import * as React from "react";
 import type {Decorator} from "@storybook/react-vite";
 
 export const mobileDecorator: Decorator = (Story) => (
+    // TODO(LEMS-4492): remove wb-themed-math
     <div className="framework-perseus perseus-mobile">
         <Story />
     </div>
 );
 
 export const articleDecorator: Decorator = (Story) => (
+    // TODO(LEMS-4492): remove wb-themed-math
     <div className="framework-perseus perseus-article">
         <Story />
     </div>
 );
 
 export const mobileArticleDecorator: Decorator = (Story) => (
+    // TODO(LEMS-4492): remove wb-themed-math
     <div className="framework-perseus perseus-mobile perseus-article">
         <Story />
     </div>

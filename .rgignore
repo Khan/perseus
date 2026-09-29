@@ -1,0 +1,8 @@
+# These are primarily here so that `fixie` can operate in these directories (it
+# ignores hidden directories by default)
+!.changeset
+!.swc
+!.storybook
+!.github
+!.vscode
+

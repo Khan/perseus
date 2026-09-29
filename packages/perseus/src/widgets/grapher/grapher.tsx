@@ -570,7 +570,6 @@ class Grapher extends React.Component<Props> implements Widget {
             <div style={typeSelectorStyle}>
                 <ButtonGroup
                     value={type}
-                    allowEmpty={true}
                     buttons={availableTypes.map(typeToButton)}
                     onChange={this.handleActiveTypeChange}
                 />
