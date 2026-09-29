@@ -3,6 +3,7 @@ import {
     Errors,
     PerseusError,
     Registry,
+    resetRegistry,
     strictGet,
 } from "@khanacademy/perseus-core";
 
@@ -129,6 +130,11 @@ export const getPublicWidgets = (): Record<string, WidgetExports> => {
 export const getAllWidgetTypes = (): ReadonlyArray<string> => {
     return widgets.keys();
 };
+
+/** Empty the widget registry for test and Storybook isolation. */
+export function resetWidgetRegistry(): void {
+    resetRegistry(widgets);
+}
 
 /**
  * Handling for static mode for widgets that support it.

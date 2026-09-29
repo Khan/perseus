@@ -2,7 +2,7 @@
 // Widget-logic imports are prohibited here by the dependency rule.
 import {Errors} from "../error/errors";
 import {PerseusError} from "../error/perseus-error";
-import Registry from "../utils/registry";
+import Registry, {resetRegistry} from "../utils/registry";
 import {strictGet} from "../utils/strict-registry";
 
 import type {
@@ -33,6 +33,11 @@ export function registerLogic(logic: AnyWidgetLogic) {
 /** Register several widget logics, each under its own `name`. */
 export function registerLogics(logics: ReadonlyArray<AnyWidgetLogic>) {
     logics.forEach(registerLogic);
+}
+
+/** Empty the core widget registry for test and Storybook isolation. */
+export function resetCoreWidgetRegistry(): void {
+    resetRegistry(widgets);
 }
 
 /**

@@ -9,6 +9,7 @@ import {
     isWidgetRegistered,
     registerLogic,
     registerLogics,
+    resetCoreWidgetRegistry,
     replaceLogic,
     traverseChildWidgets,
 } from "./core-widget-registry";
@@ -37,6 +38,17 @@ describe("core-widget-registry", () => {
             );
         },
     );
+
+    describe("resetCoreWidgetRegistry", () => {
+        it("returns the registry to its uninitialized state", () => {
+            registerLogic({name: "_reset_", version: {major: 1, minor: 0}});
+
+            resetCoreWidgetRegistry();
+            registerLogic({name: "_other_", version: {major: 1, minor: 0}});
+
+            expect(isWidgetRegistered("_reset_")).toBe(false);
+        });
+    });
 
     describe("registerLogics", () => {
         it("registers each logic under its own name", () => {

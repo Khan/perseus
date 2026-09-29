@@ -8,8 +8,10 @@ import {
     getWidget,
     getWidgetExport,
     isLintable,
+    isWidgetRegistered,
     registerWidget,
     registerWidgets,
+    resetWidgetRegistry,
     replaceDeprecatedWidgets,
     supportsStaticMode,
     supportsUngraded,
@@ -30,6 +32,17 @@ const fakeRegistration = {
     widget: fakeWidget,
     logic: {name: "_test-widget_", version: {major: 4, minor: 2}},
 } satisfies WidgetRegistration;
+
+describe("resetWidgetRegistry", () => {
+    it("returns the widget registry to its uninitialized state", () => {
+        registerWidget(fakeWidget.name, fakeWidget);
+
+        resetWidgetRegistry();
+        registerWidget("_other-test-widget_", fakeWidget);
+
+        expect(isWidgetRegistered(fakeWidget.name)).toBe(false);
+    });
+});
 
 describe("registerWidgets", () => {
     it("registers a registration's core logic and React widget", () => {
