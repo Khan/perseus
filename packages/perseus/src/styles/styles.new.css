@@ -385,7 +385,12 @@
 /* Migrated from perseus-renderer-part-1.css to get them out of the perseus-legacy layer.
  * renderer-part-1 needs to stay in perseus-legacy because otherwise Grapher breaks.
  */
-.hint.last-hint .deprecated-perseus-container {
+.hint.last-hint .deprecated-perseus-container,
+/* A higher-specificity version of this rule, to override the compiled version
+ * of the rule below that uses `:-webkit-any` instead of `:is`. See:
+ * https://khanacademy.atlassian.net/browse/LEMS-4627
+ */
+.framework-perseus .hint.last-hint .deprecated-perseus-container {
     font-weight: bold;
 }
 .framework-perseus :is(div, p).deprecated-perseus-container {
