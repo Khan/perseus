@@ -23,8 +23,12 @@ import {StorybookViewOptionsContext} from "../packages/perseus/src/testing/story
 import {
     testDependencies,
     storybookDependenciesV2,
-} from "../packages/perseus/src/testing/test-dependencies";
+} from "../packages/perseus/src/testing/test-dependencies-data";
 import {TestMathjax} from "../packages/perseus/src/testing/test-mathjax";
+import {resetWidgetRegistry} from "../packages/perseus/src/widgets";
+import {setStrictRegistration} from "../packages/perseus-core/src/utils/strict-registry";
+import {resetCoreWidgetRegistry} from "../packages/perseus-core/src/widgets/core-widget-registry";
+import {resetEditorRegistry} from "../packages/perseus-editor/src/editor-registry";
 
 import darkTheme from "./dark-theme";
 import lightTheme from "./lightTheme";
@@ -53,6 +57,7 @@ const wonderBlocksI18n = {strings: defaultStringsEn, locale: "en"};
 // If you want code to run once per story, see `StorybookWrapper`.
 
 setDependencies(storybookTestDependencies);
+setStrictRegistration(true);
 
 const withPerseusDecorator: Decorator = (Story) => {
     return (
@@ -231,6 +236,13 @@ const preview: Preview = {
         withFeatureFlags,
         withViewOptions,
     ],
+    beforeEach: (context) => {
+        if (context.viewMode === "story") {
+            resetCoreWidgetRegistry();
+            resetWidgetRegistry();
+            resetEditorRegistry();
+        }
+    },
     initialGlobals: {
         featureFlags: [],
         mobile: "story",
@@ -246,16 +258,6 @@ const preview: Preview = {
     // These parameters apply to all stories, both inside and outside the fixture
     // framework.
     parameters: {
-        // Disables Chromatic's snapshotting on a global level
-        // We disable snapshotting globally because we have enabled
-        // turbosnaps for `-regression.stories.tsx` files. If we have
-        // snapshots enabled globally, we pay for turbosnaps even for
-        // skipped stories/tests (which is all of them).
-        // We then enable snapshots for `-regression.stories.tsx` files in
-        // each of those files (unfortunately, this is how we have to do
-        // it).
-        chromatic: {disableSnapshot: true},
-
         options: {
             storySort: (story1, story2) =>
                 globalThis["storybook-multilevel-sort:storySort"](
