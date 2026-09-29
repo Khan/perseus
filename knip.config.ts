@@ -57,6 +57,8 @@ const config: KnipConfig = {
                 "utils/**/*.{ts,tsx,js,jsx}",
                 // Cypress loads this file through its supportFile setting.
                 "config/cypress/support.ts",
+                // Jest loads this reporter by path from config/test/test.config.js.
+                "config/test/widget-manifest-reporter.js",
                 // Helpers imported by the Storybook docs pages (MDX), which
                 // Knip doesn't parse.
                 "__docs__/**/*.{ts,tsx}",
