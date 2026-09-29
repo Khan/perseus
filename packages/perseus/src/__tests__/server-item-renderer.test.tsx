@@ -6,7 +6,7 @@ import {
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {within, render, screen, act, waitFor} from "@testing-library/react";
+import {render, screen, act, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -21,7 +21,8 @@ import {
 } from "../__testdata__/server-item-renderer.testdata";
 import {ENTRANCE_TRANSITION_DURATION_MS} from "../components/zoomable";
 import * as Dependencies from "../dependencies";
-import {ServerItemRenderer} from "../server-item-renderer";
+import LoadingContext from "../loading-context";
+import ServerItemRenderer from "../server-item-renderer";
 import {
     testDependencies,
     testDependenciesV2,
@@ -34,6 +35,7 @@ import MockAssetLoadingWidgetExport, {
 
 import {renderQuestion} from "./test-utils";
 
+import type {ServerItemRendererHandle} from "../server-item-renderer";
 import type {MockAssetLoadingWidget} from "../widgets/mock-widgets/mock-asset-loading-widget";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {UserEvent} from "@testing-library/user-event";
@@ -122,36 +124,6 @@ describe("server item renderer", () => {
         });
     });
 
-    it("should return the DOM node for the requested focus path", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(itemWithMockWidget);
-
-        // Act
-        const node = renderer.getDOMNodeForPath(["mock-widget 1"]);
-
-        // Assert
-        // @ts-expect-error - TS2345 - Argument of type 'Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement'.
-        expect(await within(node).findAllByRole("textbox")).toHaveLength(1);
-    });
-
-    it("should return the number of hints available", () => {
-        // Arrange
-        const {renderer} = renderQuestion({
-            ...itemWithMockWidget,
-            hints: [
-                {content: "Hint #1", images: {}, widgets: {}},
-                {content: "Hint #2", images: {}, widgets: {}},
-                {content: "Hint #3", images: {}, widgets: {}},
-            ],
-        });
-
-        // Act
-        const numHints = renderer.getNumHints();
-
-        // Assert
-        expect(numHints).toBe(3);
-    });
-
     it("should return all widget ids", () => {
         // Arrange
         const {renderer} = renderQuestion(itemWithTwoMockWidgets);
@@ -203,18 +175,19 @@ describe("server item renderer", () => {
         );
 
         const onRendered = jest.fn();
-        let renderer: ServerItemRenderer | null | undefined;
+        let renderer: ServerItemRendererHandle | null | undefined;
         const {rerender} = render(
-            <RenderStateRoot>
-                <ServerItemRenderer
-                    ref={(component) => (renderer = component)}
-                    item={mockedAssetItem}
-                    problemNum={0}
-                    reviewMode={false}
-                    onRendered={onRendered}
-                    dependencies={testDependenciesV2}
-                />
-            </RenderStateRoot>,
+            <LoadingContext.Provider value={{onRendered}}>
+                <RenderStateRoot>
+                    <ServerItemRenderer
+                        ref={(component) => (renderer = component)}
+                        item={mockedAssetItem}
+                        problemNum={0}
+                        reviewMode={false}
+                        dependencies={testDependenciesV2}
+                    />
+                </RenderStateRoot>
+            </LoadingContext.Provider>,
         );
         if (renderer == null) {
             throw new Error("Renderer failed to render.");
@@ -228,15 +201,16 @@ describe("server item renderer", () => {
         }
 
         rerender(
-            <RenderStateRoot>
-                <ServerItemRenderer
-                    item={mockedAssetItem}
-                    problemNum={1}
-                    reviewMode={false}
-                    onRendered={onRendered}
-                    dependencies={testDependenciesV2}
-                />
-            </RenderStateRoot>,
+            <LoadingContext.Provider value={{onRendered}}>
+                <RenderStateRoot>
+                    <ServerItemRenderer
+                        item={mockedAssetItem}
+                        problemNum={1}
+                        reviewMode={false}
+                        dependencies={testDependenciesV2}
+                    />
+                </RenderStateRoot>
+            </LoadingContext.Provider>,
         );
 
         // Act
@@ -265,15 +239,16 @@ describe("server item renderer", () => {
 
         // Act
         render(
-            <RenderStateRoot>
-                <ServerItemRenderer
-                    item={itemWithMath}
-                    problemNum={0}
-                    reviewMode={false}
-                    dependencies={testDependenciesV2}
-                    onRendered={onRendered}
-                />
-            </RenderStateRoot>,
+            <LoadingContext.Provider value={{onRendered}}>
+                <RenderStateRoot>
+                    <ServerItemRenderer
+                        item={itemWithMath}
+                        problemNum={0}
+                        reviewMode={false}
+                        dependencies={testDependenciesV2}
+                    />
+                </RenderStateRoot>
+            </LoadingContext.Provider>,
         );
 
         // Assert
@@ -305,15 +280,16 @@ describe("server item renderer", () => {
 
         // Act
         render(
-            <RenderStateRoot>
-                <ServerItemRenderer
-                    item={itemWithMath}
-                    problemNum={0}
-                    reviewMode={false}
-                    dependencies={testDependenciesV2}
-                    onRendered={onRendered}
-                />
-            </RenderStateRoot>,
+            <LoadingContext.Provider value={{onRendered}}>
+                <RenderStateRoot>
+                    <ServerItemRenderer
+                        item={itemWithMath}
+                        problemNum={0}
+                        reviewMode={false}
+                        dependencies={testDependenciesV2}
+                    />
+                </RenderStateRoot>
+            </LoadingContext.Provider>,
         );
 
         // Assert
@@ -343,16 +319,17 @@ describe("server item renderer", () => {
 
         // Act
         render(
-            <RenderStateRoot>
-                <ServerItemRenderer
-                    item={itemWithMath}
-                    problemNum={0}
-                    reviewMode={false}
-                    apiOptions={{isMobile: true}}
-                    dependencies={testDependenciesV2}
-                    onRendered={onRendered}
-                />
-            </RenderStateRoot>,
+            <LoadingContext.Provider value={{onRendered}}>
+                <RenderStateRoot>
+                    <ServerItemRenderer
+                        item={itemWithMath}
+                        problemNum={0}
+                        reviewMode={false}
+                        apiOptions={{isMobile: true}}
+                        dependencies={testDependenciesV2}
+                    />
+                </RenderStateRoot>
+            </LoadingContext.Provider>,
         );
 
         // Assert
@@ -373,16 +350,17 @@ describe("server item renderer", () => {
 
         // Act
         render(
-            <RenderStateRoot>
-                <ServerItemRenderer
-                    item={itemWithTable}
-                    problemNum={0}
-                    reviewMode={false}
-                    apiOptions={{isMobile: true}}
-                    dependencies={testDependenciesV2}
-                    onRendered={onRendered}
-                />
-            </RenderStateRoot>,
+            <LoadingContext.Provider value={{onRendered}}>
+                <RenderStateRoot>
+                    <ServerItemRenderer
+                        item={itemWithTable}
+                        problemNum={0}
+                        reviewMode={false}
+                        apiOptions={{isMobile: true}}
+                        dependencies={testDependenciesV2}
+                    />
+                </RenderStateRoot>
+            </LoadingContext.Provider>,
         );
 
         // Assert
@@ -431,15 +409,16 @@ describe("server item renderer", () => {
 
         // Act
         render(
-            <RenderStateRoot>
-                <ServerItemRenderer
-                    item={content}
-                    problemNum={0}
-                    reviewMode={false}
-                    dependencies={testDependenciesV2}
-                    onRendered={onRendered}
-                />
-            </RenderStateRoot>,
+            <LoadingContext.Provider value={{onRendered}}>
+                <RenderStateRoot>
+                    <ServerItemRenderer
+                        item={content}
+                        problemNum={0}
+                        reviewMode={false}
+                        dependencies={testDependenciesV2}
+                    />
+                </RenderStateRoot>
+            </LoadingContext.Provider>,
         );
 
         // Assert
@@ -456,6 +435,84 @@ describe("server item renderer", () => {
         const widgetKeys = Object.keys(itemWithTwoMockWidgets.question.widgets);
 
         expect(Object.keys(json.widgets)).toEqual(widgetKeys);
+    });
+
+    describe("imperative handle", () => {
+        // Callers commonly attach an inline arrow function as the ref, which
+        // React detaches and reattaches on every commit because its identity
+        // changes each render. React also folds `ref` into the dependency list
+        // it uses for useImperativeHandle, so the handle has to be built once
+        // and reused rather than recreated whenever the ref changes.
+        it("returns the same handle after a re-render with a new ref callback", () => {
+            // Arrange
+            const handles: Array<ServerItemRendererHandle | null> = [];
+            const renderWithRef = (
+                refCallback: (handle: ServerItemRendererHandle | null) => void,
+            ) => (
+                <RenderStateRoot>
+                    <ServerItemRenderer
+                        ref={refCallback}
+                        item={itemWithMockWidget}
+                        problemNum={0}
+                        reviewMode={false}
+                        dependencies={testDependenciesV2}
+                    />
+                </RenderStateRoot>
+            );
+            const {rerender} = render(
+                renderWithRef((node) => handles.push(node)),
+            );
+
+            // Act
+            rerender(renderWithRef((node) => handles.push(node)));
+
+            // Assert
+            // Compared as a boolean rather than with toBe(): a failure message
+            // would serialize the handle, and its questionRenderer getter drags
+            // in the whole renderer instance.
+            const attached = handles.filter(Boolean);
+            expect(attached.length).toBe(2);
+            expect(attached[0] === attached[1]).toBe(true);
+        });
+
+        it("does not re-render forever when a caller stores the handle in state", () => {
+            // Arrange
+            // A new handle per render would make setRenderer see a new value
+            // every time, re-rendering the caller forever. The cap keeps a
+            // regression failing this assertion rather than hanging the suite.
+            const renderLimit = 20;
+            let renderCount = 0;
+
+            function Harness() {
+                const [, setRenderer] =
+                    React.useState<ServerItemRendererHandle | null>(null);
+                renderCount++;
+
+                return (
+                    <ServerItemRenderer
+                        ref={(node) => {
+                            if (renderCount < renderLimit) {
+                                setRenderer(node);
+                            }
+                        }}
+                        item={itemWithMockWidget}
+                        problemNum={0}
+                        reviewMode={false}
+                        dependencies={testDependenciesV2}
+                    />
+                );
+            }
+
+            // Act
+            render(
+                <RenderStateRoot>
+                    <Harness />
+                </RenderStateRoot>,
+            );
+
+            // Assert
+            expect(renderCount).toBeLessThan(renderLimit);
+        });
     });
 
     describe("focus management", () => {
@@ -596,28 +653,6 @@ describe("server item renderer", () => {
                 ["numeric-input 1"],
                 0,
                 null,
-            );
-        });
-
-        it("should focus the widget requested in focusPath()", () => {
-            // Arrange
-            const onFocusChange = jest.fn();
-            const {renderer} = renderQuestion(itemWithMockWidget, {
-                onFocusChange,
-            });
-
-            // Act
-            act(() => renderer.focusPath(["mock-widget 1"]));
-
-            // We have some async processes that need to be resolved here
-            jest.runAllTimers();
-
-            // Assert
-            expect(onFocusChange).toHaveBeenCalledWith(
-                ["mock-widget 1"],
-                null,
-                0,
-                expect.any(Object),
             );
         });
     });

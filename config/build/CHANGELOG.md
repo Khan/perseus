@@ -1,5 +1,13 @@
 # perseus-build-settings
 
+## 0.9.2
+
+### Patch Changes
+
+-   [#4233](https://github.com/Khan/perseus/pull/4233) [`13894ab`](https://github.com/Khan/perseus/commit/13894ab66ece40aee85b42b09d385c1ac893d045) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Build each package's entry points from a single Rollup config, so that a
+    module reachable from more than one of them is emitted once into a shared
+    chunk instead of being duplicated into every bundle that reaches it.
+
 ## 0.9.1
 
 ### Patch Changes

@@ -1,5 +1,9 @@
 import * as React from "react";
 import {DocsContainer} from "@storybook/addon-docs/blocks";
+import {
+    defaultStringsEn,
+    WonderBlocksConfigProvider,
+} from "@khanacademy/wonder-blocks-config";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {
     THEME_DATA_ATTRIBUTE,
@@ -39,6 +43,11 @@ const storybookTestDependencies: PerseusDependencies = {
 // have the same styles as prod when viewed within Storybook.
 import "./styles/shared.css";
 
+// Wonder Blocks components read their built-in strings (e.g. accessible
+// labels) from this config. Storybook only renders in English, so we use the
+// default English strings that Wonder Blocks ships with.
+const wonderBlocksI18n = {strings: defaultStringsEn, locale: "en"};
+
 // IMPORTANT: This code runs ONCE per story file, not per story within that file.
 // If you want code to run once per story, see `StorybookWrapper`.
 
@@ -47,18 +56,20 @@ setDependencies(storybookTestDependencies);
 const withPerseusDecorator: Decorator = (Story) => {
     return (
         <RenderStateRoot>
-            <DependenciesContext.Provider value={storybookDependenciesV2}>
-                {/* Most of our components have an expectation to be rendered
-                    inside of a .framework-perseus container. We want to make sure
-                    we can include it here, since it can also affect the styling.
+            <WonderBlocksConfigProvider i18n={wonderBlocksI18n}>
+                <DependenciesContext.Provider value={storybookDependenciesV2}>
+                    {/* Most of our components have an expectation to be rendered
+                        inside of a .framework-perseus container. We want to make sure
+                        we can include it here, since it can also affect the styling.
 
-                    Include box-sizing-border-box-reset to reflect the global styles
-                    from prod.
-                */}
-                <div className="framework-perseus box-sizing-border-box-reset">
-                    <Story />
-                </div>
-            </DependenciesContext.Provider>
+                        Include box-sizing-border-box-reset to reflect the global styles
+                        from prod.
+                    */}
+                    <div className="framework-perseus box-sizing-border-box-reset">
+                        <Story />
+                    </div>
+                </DependenciesContext.Provider>
+            </WonderBlocksConfigProvider>
         </RenderStateRoot>
     );
 };
