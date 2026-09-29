@@ -1,7 +1,12 @@
 import {parseArgs} from "node:util";
+
 import {build} from "vite";
 
-import {createPackageConfig, getPackageNames} from "./vite.config.mts";
+import {
+    createPackageConfig,
+    getPackageNames,
+    type BuildOptions,
+} from "./vite.config.mts";
 
 const {values} = parseArgs({
     options: {
@@ -11,7 +16,7 @@ const {values} = parseArgs({
     strict: true,
 });
 
-const options = {
+const options: BuildOptions = {
     environment: values.configEnvironment,
     watch: values.watch,
 };

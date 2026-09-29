@@ -5,10 +5,10 @@ import MagicString from "magic-string";
 import type {Plugin} from "vite";
 
 /** Create a Vite plugin that injects the package version into version.ts. */
-export const createVersionPlugin = (
+export function createVersionPlugin(
     packageDir: string,
     version: string,
-): Plugin => {
+): Plugin {
     const versionFile = path.join(packageDir, "src/version.ts");
 
     return {
@@ -35,4 +35,4 @@ export const createVersionPlugin = (
             };
         },
     };
-};
+}
