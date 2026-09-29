@@ -1,34 +1,5 @@
-const isRecord = (value: unknown): value is Record<string, unknown> =>
-    typeof value === "object" && value !== null && !Array.isArray(value);
-
-const parseRecord = (
-    value: unknown,
-    fieldName: string,
-): Record<string, unknown> => {
-    if (!isRecord(value)) {
-        throw new TypeError(`Expected ${fieldName} to be an object.`);
-    }
-
-    return value;
-};
-
-const parseStringRecord = (
-    value: unknown,
-    fieldName: string,
-): Record<string, string> => {
-    const record = parseRecord(value, fieldName);
-    const stringRecord: Record<string, string> = {};
-
-    for (const [key, fieldValue] of Object.entries(record)) {
-        if (typeof fieldValue !== "string") {
-            throw new TypeError(`Expected ${fieldName}.${key} to be a string.`);
-        }
-
-        stringRecord[key] = fieldValue;
-    }
-
-    return stringRecord;
-};
+// Node's native ES module loader requires the file extension.
+import {parseRecord, parseStringRecord} from "./package-json.ts"; // eslint-disable-line no-restricted-syntax
 
 /**
  * Find the entry points that we _build_ for a package.
@@ -50,9 +21,7 @@ const parseStringRecord = (
  *
  * See: https://nodejs.org/api/packages.html#subpath-exports
  */
-export const getEntryPoints = (
-    pkgJson: unknown,
-): Record<string, string> => {
+export function getEntryPoints(pkgJson: unknown): Record<string, string> {
     const packageJson = parseRecord(pkgJson, "package.json");
     const sourceExports = parseStringRecord(
         packageJson.exports,
@@ -82,4 +51,4 @@ export const getEntryPoints = (
     }
 
     return entryPoints;
-};
+}

@@ -9,6 +9,13 @@ import postcssImport from "postcss-import";
 // Node's native ES module loader requires the file extension.
 import {getEntryPoints} from "./get-entry-points.ts"; // eslint-disable-line no-restricted-syntax
 // Node's native ES module loader requires the file extension.
+import {
+    parseBuildPackageMetadata,
+    parseRecord,
+    parseString,
+    parseStringRecord,
+} from "./package-json.ts"; // eslint-disable-line no-restricted-syntax
+// Node's native ES module loader requires the file extension.
 import {createCssAssetPlugin} from "./plugins/css-assets.ts"; // eslint-disable-line no-restricted-syntax
 // Node's native ES module loader requires the file extension.
 import {createVersionPlugin} from "./plugins/inject-package-version.ts"; // eslint-disable-line no-restricted-syntax
@@ -20,19 +27,12 @@ const rootDir = path.resolve(
     "../..",
 );
 
-type PackageJson = {
-    dependencies?: Record<string, string>;
-    exports?: Record<string, unknown>;
-    peerDependencies?: Record<string, string>;
-    version: string;
-};
-
-type BuildOptions = {
+export type BuildOptions = {
     environment?: string;
     watch?: boolean;
 };
 
-const makeScopedClassName = (name: string, filename: string) => {
+function makeScopedClassName(name: string, filename: string) {
     if (!filename.endsWith(".module.css")) {
         return name;
     }
@@ -44,12 +44,16 @@ const makeScopedClassName = (name: string, filename: string) => {
         .replace(/[/+=]/g, "-")
         .slice(0, 8);
     return `perseus_${hash}`;
-};
+}
 
-const isPackageImport = (id: string, packageName: string) =>
-    id === packageName || id.startsWith(`${packageName}/`);
+function isPackageImport(id: string, packageName: string) {
+    return id === packageName || id.startsWith(`${packageName}/`);
+}
 
-const createExternal = (pkgJson: PackageJson) => {
+// Builds a function that returns `true` if the module should be treated as
+// external and not bundled (we don't want to bundle any packages that are
+// listed as a dependency or peerDependency!)
+function createExternal(pkgJson: ReturnType<typeof parseBuildPackageMetadata>) {
     const bundledDependencies = new Set(["jsdiff", "raphael"]);
     const externalDependencies = [
         ...Object.keys(pkgJson.dependencies ?? {}),
@@ -59,17 +63,18 @@ const createExternal = (pkgJson: PackageJson) => {
     return (id: string) =>
         id.startsWith("@phosphor-icons/core/") ||
         externalDependencies.some((name) => isPackageImport(id, name));
-};
+}
 
-export const createPackageConfig = (
+export function createPackageConfig(
     pkgName: string,
     options: BuildOptions = {},
-): InlineConfig => {
+): InlineConfig {
     const packageDir = path.join(rootDir, "packages", pkgName);
-    const pkgJson: PackageJson = JSON.parse(
+    const rawPackageJson: unknown = JSON.parse(
         fs.readFileSync(path.join(packageDir, "package.json"), "utf8"),
     );
-    const packageEntryPoints = getEntryPoints(pkgJson);
+    const packageJson = parseBuildPackageMetadata(rawPackageJson);
+    const packageEntryPoints = getEntryPoints(rawPackageJson);
     const entries = Object.fromEntries(
         Object.keys(packageEntryPoints).map((name) => [
             name,
@@ -97,7 +102,10 @@ export const createPackageConfig = (
             },
         },
         define,
-        plugins: [react(), createVersionPlugin(packageDir, pkgJson.version)],
+        plugins: [
+            react(),
+            createVersionPlugin(packageDir, packageJson.version),
+        ],
         css: {
             modules: {
                 localsConvention: "camelCase",
@@ -122,7 +130,7 @@ export const createPackageConfig = (
                 cssFileName: "index",
             },
             rolldownOptions: {
-                external: createExternal(pkgJson),
+                external: createExternal(packageJson),
                 output: {
                     entryFileNames: "[name].js",
                     chunkFileNames: "chunk-[name]-[hash].js",
@@ -134,11 +142,12 @@ export const createPackageConfig = (
             },
         },
     };
-};
+}
 
-export const getPackageNames = () =>
-    fs
+export function getPackageNames() {
+    return fs
         .readdirSync(path.join(rootDir, "packages"))
         .filter((name) =>
             fs.existsSync(path.join(rootDir, "packages", name, "package.json")),
         );
+}

@@ -6,8 +6,8 @@ import postcssUrl from "postcss-url";
  * to emit each asset and rewrite its URL for the build output. External and
  * fragment-only URLs are left unchanged.
  */
-export const createCssAssetPlugin = () =>
-    postcssUrl({
+export function createCssAssetPlugin() {
+    return postcssUrl({
         url(asset) {
             // Keep scheme-based URLs (e.g. `https:` or `data:`),
             // protocol-relative URLs (e.g. `//cdn.example.com/font.woff`),
@@ -19,3 +19,4 @@ export const createCssAssetPlugin = () =>
             return `${asset.url}?no-inline${asset.hash ?? ""}`;
         },
     });
+}
