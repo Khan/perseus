@@ -279,18 +279,24 @@ const rules = {
     paragraph: {
         ...pureMarkdownRules.paragraph,
         react: (node, output, state) => {
-            if (noParagraphForInlineWidget(node) || isContentGraphie(node)) {
+            const content = output(node.content, state);
+
+            if (isContentGraphie(node)) {
+                return (
+                    <div className="deprecated-perseus-container">
+                        {content}
+                    </div>
+                );
+            }
+
+            if (noParagraphForInlineWidget(node)) {
                 // Some widgets can appear inline with text, but
                 // shouldn't be contained by a <p> element, so just render the
                 // content and let the parent handle layout, etc.
-                return output(node.content, state);
-            } else {
-                return (
-                    <p className="deprecated-perseus-container">
-                        {output(node.content, state)}
-                    </p>
-                );
+                return content;
             }
+
+            return <p className="deprecated-perseus-container">{content}</p>;
         },
     },
 } as const;
