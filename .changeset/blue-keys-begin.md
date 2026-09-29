@@ -1,5 +1,6 @@
 ---
 "@khanacademy/perseus": patch
+"@khanacademy/perseus-core": minor
 ---
 
-fix markdown so linter errors doesn't cause wrapping in preview
+create new util for alignment, propagate through perseus and fix markdown so linter errors doesn't cause wrapping in preview

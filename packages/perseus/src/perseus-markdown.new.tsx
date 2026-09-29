@@ -299,9 +299,7 @@ function isInline(node: any) {
     // Match how WidgetContainer decides between <span> and <div>, so that
     // lint on an inline widget doesn't push it onto its own line.
     if (node?.type === "widget") {
-        return CoreWidgetRegistry.getDefaultAlignment(
-            node.widgetType,
-        ).startsWith("inline");
+        return CoreWidgetRegistry.isInlineWidget(node.widgetType);
     }
     // eslint-disable-next-line no-prototype-builtins
     return !!(node && node.type && inlineNodeTypes.hasOwnProperty(node.type));
