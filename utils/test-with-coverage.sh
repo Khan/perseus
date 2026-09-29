@@ -42,7 +42,7 @@ run_jest() {
 }
 
 run_cypress() {
-  env CYPRESS_COVERAGE=1 pnpm cypress:ci --env CYPRESS_COVERAGE=1
+    env CYPRESS_COVERAGE=true pnpm cypress:ci
 }
 
 merge_reports() {

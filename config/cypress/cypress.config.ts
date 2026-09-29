@@ -12,7 +12,7 @@ const repoRoot = path.resolve(
     path.dirname(fileURLToPath(import.meta.url)),
     "../..",
 );
-const coverageEnabled = Boolean(process.env.CYPRESS_COVERAGE);
+const coverageEnabled = process.env.CYPRESS_COVERAGE === "true";
 const sharedViteConfig = {...viteConfig};
 delete sharedViteConfig.plugins;
 
@@ -40,7 +40,13 @@ export default defineConfig({
                     plugins: [
                         react(),
                         ...(coverageEnabled
-                            ? [istanbul({cypress: true, cwd: repoRoot})]
+                            ? [
+                                  istanbul({
+                                      cypress: true,
+                                      cwd: repoRoot,
+                                      requireEnv: true,
+                                  }),
+                              ]
                             : []),
                     ],
                     define: {
@@ -53,7 +59,7 @@ export default defineConfig({
         },
 
         setupNodeEvents: async (on, config) => {
-            if (config.env["CYPRESS_COVERAGE"]) {
+            if (coverageEnabled) {
                 const workingDirectory = process.cwd();
                 // process.cwd() is this file's directory, be default, and the
                 // coverage task reads NYC settings from process.cwd() so we
