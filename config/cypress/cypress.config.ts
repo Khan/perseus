@@ -1,3 +1,6 @@
+import path from "node:path";
+import {fileURLToPath} from "node:url";
+
 import react from "@vitejs/plugin-react";
 import {defineConfig} from "cypress";
 import {mergeConfig} from "vite";
@@ -5,7 +8,11 @@ import istanbul from "vite-plugin-istanbul";
 
 import viteConfig from "../../vite.config.mts";
 
-const coverageEnabled = Boolean(process.env.CYPRESS_COVERAGE);
+const repoRoot = path.resolve(
+    path.dirname(fileURLToPath(import.meta.url)),
+    "../..",
+);
+const coverageEnabled = process.env.CYPRESS_COVERAGE === "true";
 const sharedViteConfig = {...viteConfig};
 delete sharedViteConfig.plugins;
 
@@ -32,7 +39,15 @@ export default defineConfig({
                 return mergeConfig(mergeConfig(config, sharedViteConfig), {
                     plugins: [
                         react(),
-                        ...(coverageEnabled ? [istanbul()] : []),
+                        ...(coverageEnabled
+                            ? [
+                                  istanbul({
+                                      cypress: true,
+                                      cwd: repoRoot,
+                                      requireEnv: true,
+                                  }),
+                              ]
+                            : []),
                     ],
                     define: {
                         // This is used to determine if we are running in a
@@ -44,9 +59,19 @@ export default defineConfig({
         },
 
         setupNodeEvents: async (on, config) => {
-            if (config.env["CYPRESS_COVERAGE"]) {
-                const task = await import("@cypress/code-coverage/task");
-                task.default(on, config);
+            if (coverageEnabled) {
+                const workingDirectory = process.cwd();
+                // process.cwd() is this file's directory, be default, and the
+                // coverage task reads NYC settings from process.cwd() so we
+                // need to switch it to be the root of the repo (where the
+                // `.nycrc.json` file is)
+                process.chdir(repoRoot);
+                try {
+                    const task = await import("@cypress/code-coverage/task");
+                    task.default(on, config);
+                } finally {
+                    process.chdir(workingDirectory);
+                }
             }
 
             config.env.reactDevtools = true;
