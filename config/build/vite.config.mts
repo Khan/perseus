@@ -121,6 +121,8 @@ export function createPackageConfig(
             sourcemap: true,
             minify: "oxc",
             watch: options.watch ? {} : null,
+            // Keep this value in sync with the root tsconfig-common.json!
+            target: "es2020",
             lib: {
                 entry: entries,
                 formats: ["es"],
