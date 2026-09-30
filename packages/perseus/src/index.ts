@@ -175,10 +175,7 @@ export {extractWidgetIds} from "./util/extract-widget-ids";
  * Types
  */
 export type {ILogger, LogErrorOptions} from "./logging/log";
-export type {
-    ServerItemRendererHandle,
-    ServerItemRendererHandle as ServerItemRendererComponent,
-} from "./server-item-renderer";
+export type {ServerItemRenderer as ServerItemRendererComponent} from "./server-item-renderer";
 export type {
     APIOptions,
     /** @hidden */
