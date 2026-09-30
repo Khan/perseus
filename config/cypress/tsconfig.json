@@ -14,9 +14,15 @@
         ],
     },
     "include": [
+        // All typescript files in _this_ directory
         "**/*.ts",
         "**/*.tsx",
+        // All .cypress.tsx? files in any package
         "../../packages/**/*.cypress.ts",
         "../../packages/**/*.cypress.tsx",
+        // Shared and package-specific ambient declarations
+        "../../packages/perseus/src/testing/render-question-with-cypress.tsx",
+        "../../types/**/*.d.ts",
+        "../../packages/*/types/**/*.d.ts",
     ],
 }
