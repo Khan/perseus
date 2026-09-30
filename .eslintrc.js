@@ -230,10 +230,17 @@ module.exports = {
             files: [
                 "*.cypress.ts",
                 "*.cypress.tsx",
-                "config/cypress/**",
+                "config/cypress/support.ts",
                 "packages/perseus/src/testing/render-question-with-cypress.tsx",
             ],
             extends: ["plugin:cypress/recommended"],
+            rules: {
+                "cypress/assertion-before-screenshot": "error",
+                "cypress/no-async-before": "error",
+                "cypress/no-debug": "error",
+                "cypress/no-force": "error",
+                "cypress/no-pause": "error",
+            },
         },
         {
             // Storybook has an API for interaction tests that is similar
@@ -311,7 +318,12 @@ module.exports = {
                     },
                 ],
             },
-            excludedFiles: ["*.d.ts", "*.config.ts", "**/*.cypress.ts"],
+            excludedFiles: [
+                "*.d.ts",
+                "*.config.ts",
+                "**/*.cypress.ts",
+                "config/cypress/**",
+            ],
         },
     ],
     reportUnusedDisableDirectives: true,

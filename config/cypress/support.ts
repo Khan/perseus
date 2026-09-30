@@ -34,6 +34,10 @@ if (Cypress.env("CYPRESS_COVERAGE")) {
  * Click a node and drag it to the specified {x, y} position
  */
 const dragTo = (node, pos) => {
+    // `node` is a fixed element rather than a selector, so splitting this
+    // chain wouldn't re-query anything. Chaining is only unsafe if the
+    // element is replaced mid-drag, and the grapher's handles aren't.
+    // eslint-disable-next-line cypress/unsafe-to-chain-command, cypress/no-force
     return cy
         .wrap(node)
         .trigger("mousedown", {force: true, which: 1, button: 0})
