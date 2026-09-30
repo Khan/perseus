@@ -1,6 +1,4 @@
 // eslint-disable-next-line import/no-unassigned-import
-import "cypress-jest-adapter";
-// eslint-disable-next-line import/no-unassigned-import
 import "cypress-wait-until";
 // eslint-disable-next-line import/no-unassigned-import
 import "cypress-real-events";

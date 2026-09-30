@@ -208,7 +208,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).to.deep.equal({
                             type: "points",
                             earned: 1,
                             total: 1,
@@ -244,7 +244,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).to.deep.equal({
                             type: "points",
                             earned: 0,
                             total: 1,
@@ -306,7 +306,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).to.deep.equal({
                             type: "points",
                             earned: 1,
                             total: 1,
@@ -343,7 +343,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).to.deep.equal({
                             type: "points",
                             earned: 0,
                             total: 1,
@@ -404,7 +404,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).to.deep.equal({
                             type: "points",
                             earned: 1,
                             total: 1,
@@ -440,7 +440,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).to.deep.equal({
                             type: "points",
                             earned: 0,
                             total: 1,
@@ -503,7 +503,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).to.deep.equal({
                             type: "points",
                             earned: 1,
                             total: 1,
@@ -540,7 +540,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).to.deep.equal({
                             type: "points",
                             earned: 0,
                             total: 1,
@@ -614,7 +614,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).to.deep.equal({
                             type: "points",
                             earned: 1,
                             total: 1,
@@ -663,7 +663,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).to.deep.equal({
                             type: "points",
                             earned: 0,
                             total: 1,
@@ -724,7 +724,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).to.deep.equal({
                             type: "points",
                             earned: 1,
                             total: 1,
@@ -760,7 +760,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).to.deep.equal({
                             type: "points",
                             earned: 0,
                             total: 1,
@@ -837,7 +837,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).to.deep.equal({
                             type: "points",
                             earned: 1,
                             total: 1,
@@ -889,7 +889,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).to.deep.equal({
                             type: "points",
                             earned: 0,
                             total: 1,
