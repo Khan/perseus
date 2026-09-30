@@ -1,15 +1,18 @@
-import {resolve} from "node:path";
+import {dirname, resolve} from "node:path";
+import {fileURLToPath} from "node:url";
 
-import react from "@vitejs/plugin-react-swc";
+import react from "@vitejs/plugin-react";
 import {defineConfig} from "vite";
+
+const currentDir = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
     resolve: {
         alias: {
-            raphael: resolve(__dirname, "vendor/raphael/raphael.js"),
-            jsdiff: resolve(__dirname, "vendor/jsdiff/jsdiff.js"),
+            raphael: resolve(currentDir, "vendor/raphael/raphael.js"),
+            jsdiff: resolve(currentDir, "vendor/jsdiff/jsdiff.js"),
             aphrodite: resolve(
-                __dirname,
+                currentDir,
                 "node_modules/aphrodite/no-important",
             ),
         },
