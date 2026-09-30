@@ -3,10 +3,7 @@ import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {mount} from "cypress/react";
 import React from "react";
 
-// TODO(benchristel): Figure out why cypress tests fail when we import
-// mockStrings from "@khanacademy/math-input/strings" here. Alternatively,
-// export mockStrings from packages/math-input/src/index.ts.
-import {mockStrings as mathInputMockStrings} from "../../../math-input/src/strings";
+import {mockStrings as mathInputMockStrings} from "@khanacademy/math-input/strings";
 import AssetContext from "../asset-context";
 import {DependenciesContext} from "../dependencies";
 import * as Perseus from "../index";
@@ -101,7 +98,6 @@ const renderQuestion = (
     cy.get('span[style*="images/spinner.gif"]').should("not.exist");
 
     // Wait for all widgets to finish rendering.
-    // @ts-expect-error FEI-5003 - TS2339 - Property 'waitUntil' does not exist on type 'cy & CyEventEmitter'
     cy.waitUntil(() => checkIsRenderedAndLoaded(), {
         customMessage: "Wait for rendering to finish",
     });

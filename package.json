@@ -53,7 +53,6 @@
         "aphrodite": "catalog:devDeps",
         "cross-env": "^5.2.0",
         "cypress": "^16.1.0",
-        "cypress-jest-adapter": "^0.1.1",
         "cypress-real-events": "^1.15.1",
         "cypress-wait-until": "^3.0.2",
         "esbuild": "0.28.2",

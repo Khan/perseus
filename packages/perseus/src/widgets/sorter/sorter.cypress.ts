@@ -125,7 +125,7 @@ describe("Sorter widget", () => {
                 twoCardVerticalQuestion,
                 getRenderer().getUserInputMap(),
             );
-            expect(score).toStrictEqual(EXPECTED_CORRECT_SCORE);
+            expect(score).equal(EXPECTED_CORRECT_SCORE);
         });
     });
 });

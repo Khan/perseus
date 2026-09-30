@@ -208,7 +208,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).equal({
                             type: "points",
                             earned: 1,
                             total: 1,
@@ -244,7 +244,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).equal({
                             type: "points",
                             earned: 0,
                             total: 1,
@@ -306,7 +306,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).equal({
                             type: "points",
                             earned: 1,
                             total: 1,
@@ -343,7 +343,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).equal({
                             type: "points",
                             earned: 0,
                             total: 1,
@@ -404,7 +404,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).equal({
                             type: "points",
                             earned: 1,
                             total: 1,
@@ -440,7 +440,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).equal({
                             type: "points",
                             earned: 0,
                             total: 1,
@@ -503,7 +503,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).equal({
                             type: "points",
                             earned: 1,
                             total: 1,
@@ -540,7 +540,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).equal({
                             type: "points",
                             earned: 0,
                             total: 1,
@@ -597,13 +597,11 @@ describe("Grapher widget", () => {
                             cy.get(POINTS)
                                 .eq(0)
                                 .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                                 .dragTo({x: left + 260, y: top + 360});
                             // Move point B
                             cy.get(POINTS)
                                 .eq(1)
                                 .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                                 .dragTo({x: left + 220, y: top + 200});
                         });
 
@@ -614,7 +612,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).equal({
                             type: "points",
                             earned: 1,
                             total: 1,
@@ -646,13 +644,11 @@ describe("Grapher widget", () => {
                             cy.get(POINTS)
                                 .eq(0)
                                 .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                                 .dragTo({x: left + 50, y: top + 50});
                             // Move point B
                             cy.get(POINTS)
                                 .eq(1)
                                 .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                                 .dragTo({x: left + 200, y: top + 300});
                         });
 
@@ -663,7 +659,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).equal({
                             type: "points",
                             earned: 0,
                             total: 1,
@@ -724,7 +720,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).equal({
                             type: "points",
                             earned: 1,
                             total: 1,
@@ -760,7 +756,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).equal({
                             type: "points",
                             earned: 0,
                             total: 1,
@@ -821,12 +817,10 @@ describe("Grapher widget", () => {
                             cy.get(POINTS)
                                 .eq(0)
                                 .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                                 .dragTo({x: left + 220, y: top + 260});
                             cy.get(POINTS)
                                 .eq(1)
                                 .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                                 .dragTo({x: left + 200, y: top + 200});
                         });
 
@@ -837,7 +831,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).equal({
                             type: "points",
                             earned: 1,
                             total: 1,
@@ -873,12 +867,10 @@ describe("Grapher widget", () => {
                             cy.get(POINTS)
                                 .eq(0)
                                 .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                                 .dragTo({x: left + 200, y: top + 200});
                             cy.get(POINTS)
                                 .eq(1)
                                 .should("exist")
-                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
                                 .dragTo({x: left + 100, y: top + 100});
                         });
 
@@ -889,7 +881,7 @@ describe("Grapher widget", () => {
                             answerful.question,
                             userInput,
                         );
-                        expect(score).toStrictEqual({
+                        expect(score).equal({
                             type: "points",
                             earned: 0,
                             total: 1,

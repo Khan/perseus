@@ -6,7 +6,17 @@
         "allowImportingTsExtensions": true,
         // be explicit about types included
         // to avoid clashing with Jest types
-        "types": ["cypress", "node", "cypress-real-events"]
+        "types": ["cypress", "node", "cypress-real-events"],
     },
-    "include": ["**/*.ts", "**/*.tsx"]
+    "include": [
+        // All typescript files in _this_ directory
+        "**/*.ts",
+        "**/*.tsx",
+        // All .cypress.tsx? files in any package
+        "../../packages/**/*.cypress.ts",
+        "../../packages/**/*.cypress.tsx",
+        // Shared and package-specific ambient declarations
+        "../../types/**/*.d.ts",
+        "../../packages/*/types/**/*.d.ts",
+    ],
 }
