@@ -1,6 +1,6 @@
-import {mount} from "@cypress/react";
 import {MathInputI18nContextProvider} from "@khanacademy/math-input";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
+import {mount} from "cypress/react";
 import React from "react";
 
 // TODO(benchristel): Figure out why cypress tests fail when we import
