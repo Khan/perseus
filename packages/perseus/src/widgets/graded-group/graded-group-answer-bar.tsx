@@ -4,7 +4,6 @@
 import Button from "@khanacademy/wonder-blocks-button";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import {border, semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
-import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import arrowCounterIcon from "@phosphor-icons/core/bold/arrow-counter-clockwise-bold.svg";
 import warningIcon from "@phosphor-icons/core/bold/warning-bold.svg";
 import starIcon from "@phosphor-icons/core/fill/star-fill.svg";
@@ -12,6 +11,7 @@ import * as React from "react";
 import {flushSync} from "react-dom";
 
 import {usePerseusI18n} from "../../components/i18n-context";
+import Renderer from "../../renderer";
 
 import type {APIOptions, TrackingGradedGroupExtraArguments} from "../../types";
 
@@ -69,13 +69,11 @@ function GradedGroupAnswerBar({
             icon: starIcon,
             iconColor: semanticColor.core.foreground.success.default,
             text: correctExcited,
-            weight: "bold",
         },
         incorrect: {
             icon: arrowCounterIcon,
             iconColor: semanticColor.core.foreground.neutral.subtle,
             text: keepTrying,
-            weight: "bold",
         },
         invalid: {
             icon: warningIcon,
@@ -83,7 +81,6 @@ function GradedGroupAnswerBar({
             text: invalidMessage,
             // This one explains what went wrong rather than announcing a
             // result, so it isn't emphasized like the other two.
-            weight: "medium",
         },
         active: null,
     } as const;
@@ -125,14 +122,13 @@ function GradedGroupAnswerBar({
 
                             Focus moves here on every check, which is what
                             reads the result out to a screen reader. */}
-                        <BodyText
-                            tag="output"
-                            ref={resultRef}
-                            tabIndex={-1}
-                            weight={stateInfo.weight}
-                        >
-                            {stateInfo.text}
-                        </BodyText>
+                        <output ref={resultRef} tabIndex={-1}>
+                            <Renderer
+                                content={stateInfo.text}
+                                strings={strings}
+                                apiOptions={apiOptions}
+                            />
+                        </output>
                     </>
                 )}
             </span>

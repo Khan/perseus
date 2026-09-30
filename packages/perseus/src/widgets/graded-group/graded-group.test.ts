@@ -9,7 +9,7 @@ import {
     generateTestPerseusRenderer,
     type PerseusArticle,
 } from "@khanacademy/perseus-core";
-import {act, screen} from "@testing-library/react";
+import {act, screen, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderArticle} from "../../__tests__/article-renderer.test";
@@ -31,6 +31,20 @@ const checkAnswer = async (
     // NOTE(jeremy): The only route to check the answer
     // is to use the "Check" button that is embedded _inside_ the widget.
     await userEvent.click(await screen.findByRole("button", {name: "Check"}));
+};
+
+// The group has two status regions: the answer bar's result (shown for all
+// states: correct, incorrect, invalid) and the live region for answer
+// rationales (only shown in correct and incorrect states).
+// Pick out the one showing `text`.
+const getStatusWithText = (text: string) => {
+    const status = screen
+        .getAllByRole("status")
+        .find((region) => within(region).queryByText(text));
+    if (!status) {
+        throw new Error(`No status region contains "${text}"`);
+    }
+    return status;
 };
 
 describe("graded-group", () => {
@@ -194,7 +208,7 @@ describe("graded-group", () => {
         await checkAnswer(userEvent);
 
         // Assert
-        expect(screen.getByText("Correct!")).toHaveFocus();
+        expect(getStatusWithText("Correct!")).toHaveFocus();
     });
 
     it("moves focus to the result when the answer is incorrect", async () => {
@@ -209,7 +223,7 @@ describe("graded-group", () => {
         await checkAnswer(userEvent);
 
         // Assert
-        expect(screen.getByText("Keep trying")).toHaveFocus();
+        expect(getStatusWithText("Keep trying")).toHaveFocus();
     });
 
     it("moves focus back to the result when the answer is checked again without being changed", async () => {
@@ -227,7 +241,7 @@ describe("graded-group", () => {
         await checkAnswer(userEvent);
 
         // Assert
-        expect(screen.getByText("Keep trying")).toHaveFocus();
+        expect(getStatusWithText("Keep trying")).toHaveFocus();
     });
 
     it("shows why the answer could not be graded in the answer bar", async () => {
