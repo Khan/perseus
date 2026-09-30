@@ -561,18 +561,18 @@ describe("Numeric input widget", () => {
 });
 
 describe("required state", () => {
-    const generateItem = (isStatic: boolean): PerseusRenderer => ({
-        content: "[[☃ numeric-input 1]] ",
-        images: {},
-        widgets: {
-            "numeric-input 1": generateNumericInputWidget({
-                static: isStatic,
-                options: generateNumericInputOptions({
-                    answers: [generateNumericInputAnswer({value: 42})],
+    const generateRenderer = (isStatic: boolean): PerseusRenderer =>
+        generateTestPerseusRenderer({
+            content: "[[☃ numeric-input 1]] ",
+            widgets: {
+                "numeric-input 1": generateNumericInputWidget({
+                    static: isStatic,
+                    options: generateNumericInputOptions({
+                        answers: [generateNumericInputAnswer({value: 42})],
+                    }),
                 }),
-            }),
-        },
-    });
+            },
+        });
 
     beforeEach(() => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
@@ -582,7 +582,7 @@ describe("required state", () => {
 
     it("renders the input as required when scorable and interactive", () => {
         // Arrange, Act
-        renderQuestion(generateItem(false), {
+        renderQuestion(generateRenderer(false), {
             apiOptions: {readOnly: false},
             extraProps: {isScorable: true, reviewMode: false},
         });
@@ -593,7 +593,7 @@ describe("required state", () => {
 
     it("does not render the input as required when not scorable", () => {
         // Arrange, Act
-        renderQuestion(generateItem(false), {
+        renderQuestion(generateRenderer(false), {
             apiOptions: {readOnly: false},
             extraProps: {isScorable: false, reviewMode: false},
         });
@@ -604,7 +604,7 @@ describe("required state", () => {
 
     it("does not render the input as required in review mode", () => {
         // Arrange, Act
-        renderQuestion(generateItem(false), {
+        renderQuestion(generateRenderer(false), {
             apiOptions: {readOnly: false},
             extraProps: {isScorable: true, reviewMode: true},
         });
@@ -615,7 +615,7 @@ describe("required state", () => {
 
     it("does not render the input as required when static", () => {
         // Arrange, Act
-        renderQuestion(generateItem(true), {
+        renderQuestion(generateRenderer(true), {
             apiOptions: {readOnly: false},
             extraProps: {isScorable: true, reviewMode: false},
         });
@@ -626,7 +626,7 @@ describe("required state", () => {
 
     it("does not render the input as required when read-only", () => {
         // Arrange, Act
-        renderQuestion(generateItem(false), {
+        renderQuestion(generateRenderer(false), {
             apiOptions: {readOnly: true},
             extraProps: {isScorable: true, reviewMode: false},
         });
@@ -637,7 +637,7 @@ describe("required state", () => {
 
     it("renders the mobile input as required when scorable and interactive", () => {
         // Arrange, Act
-        renderQuestion(generateItem(false), {
+        renderQuestion(generateRenderer(false), {
             apiOptions: {readOnly: false, customKeypad: true},
             extraProps: {isScorable: true, reviewMode: false},
         });
@@ -648,7 +648,7 @@ describe("required state", () => {
 
     it("does not render the mobile input as required when not scorable", () => {
         // Arrange, Act
-        renderQuestion(generateItem(false), {
+        renderQuestion(generateRenderer(false), {
             apiOptions: {readOnly: false, customKeypad: true},
             extraProps: {isScorable: false, reviewMode: false},
         });
