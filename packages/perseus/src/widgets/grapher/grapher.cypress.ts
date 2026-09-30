@@ -36,21 +36,21 @@ const POINTS =
 // Drags the legacy Graphie point at `index` (DOM order) to the page
 // coordinates `pos` by replaying the mouse events Graphie listens for.
 function dragPointTo(index: number, pos: {x: number; y: number}): void {
-    cy.get(POINTS)
-        .eq(index)
-        .should("exist")
-        .then((point) => {
-            // `point` is a fixed element rather than a selector, so splitting
-            // this chain wouldn't re-query anything. Chaining is only unsafe if
-            // the element is replaced mid-drag, and the grapher's handles
-            // aren't.
-            // eslint-disable-next-line cypress/unsafe-to-chain-command, cypress/no-force
-            cy.wrap(point)
-                .trigger("mousedown", {force: true, which: 1, button: 0})
-                .trigger("mousemove", {force: true, pageX: pos.x, pageY: pos.y})
-                .trigger("mouseup", {force: true})
-                .trigger("mouseout", {force: true});
-        });
+    // Create an alias for the point we want, Cypress re-queries for it when we
+    // use the alias (which avoids Cypress using an element that might have
+    // been removed from the DOM during a re-render)
+    cy.get(POINTS).eq(index).as("point");
+
+    /* eslint-disable cypress/no-force */
+    cy.get("@point").trigger("mousedown", {force: true, which: 1, button: 0});
+    cy.get("@point").trigger("mousemove", {
+        force: true,
+        pageX: pos.x,
+        pageY: pos.y,
+    });
+    cy.get("@point").trigger("mouseup", {force: true});
+    cy.get("@point").trigger("mouseout", {force: true});
+    /* eslint-enable cypress/no-force */
 }
 
 // --- Interactive Graph (Mafs) keyboard helpers --------------------------
