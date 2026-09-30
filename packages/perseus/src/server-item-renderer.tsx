@@ -449,7 +449,20 @@ export default React.forwardRef<
     ServerItemRendererHandle,
     Omit<PropsFor<typeof ServerItemRenderer>, "onRendered">
 >(function ServerItemRendererWithRef(props, ref) {
-    const innerRef = React.useRef<ServerItemRenderer>(null);
+    const innerRef = React.useRef<ServerItemRenderer | null>(null);
+
+    // This is a hack to get around some bugs in Frontend:
+    // they store stale refs in multiple places and call methods on it.
+    // This worked when SIR was a class component, but doesn't now
+    // that it's a functional component.
+    const setInnerRef = React.useCallback(
+        (instance: ServerItemRenderer | null) => {
+            if (instance != null) {
+                innerRef.current = instance;
+            }
+        },
+        [],
+    );
 
     // external imperative API for ServerItemRenderer.
     //
@@ -466,10 +479,7 @@ export default React.forwardRef<
     if (handleRef.current === null) {
         const instance = (): ServerItemRenderer => {
             const current = innerRef.current;
-            invariant(
-                current,
-                "ServerItemRenderer: ref was used before mount or after unmount",
-            );
+            invariant(current, "ServerItemRenderer: ref was used before mount");
             return current;
         };
 
@@ -494,7 +504,7 @@ export default React.forwardRef<
                 <ServerItemRenderer
                     {...props}
                     onRendered={onRendered}
-                    ref={innerRef}
+                    ref={setInnerRef}
                 />
             )}
         </LoadingContext.Consumer>

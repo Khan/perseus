@@ -513,6 +513,32 @@ describe("server item renderer", () => {
             // Assert
             expect(renderCount).toBeLessThan(renderLimit);
         });
+
+        it("does not throw when a caller uses it after unmount", () => {
+            // Arrange
+            let handle: ServerItemRendererHandle | null = null;
+            const {unmount} = render(
+                <RenderStateRoot>
+                    <ServerItemRenderer
+                        ref={(node) => {
+                            if (node != null) {
+                                handle = node;
+                            }
+                        }}
+                        item={itemWithMockWidget}
+                        problemNum={0}
+                        reviewMode={false}
+                        dependencies={testDependenciesV2}
+                    />
+                </RenderStateRoot>,
+            );
+
+            // Act
+            unmount();
+
+            // Assert
+            expect(() => handle!.getWidgetIds()).not.toThrow();
+        });
     });
 
     describe("focus management", () => {
