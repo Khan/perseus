@@ -19,6 +19,7 @@ delete sharedViteConfig.plugins;
 export default defineConfig({
     fixturesFolder: false,
     video: false,
+    defaultBrowser: "chrome",
     expose: {
         coverage: coverageEnabled,
     },
