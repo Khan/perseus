@@ -7,13 +7,13 @@ import react from "@vitejs/plugin-react";
 import postcssImport from "postcss-import";
 
 // Node's native ES module loader requires the file extension.
-import {getEntryPoints} from "./get-entry-points.ts"; // eslint-disable-line no-restricted-syntax
+import {getEntryPoints} from "./get-entry-points.ts";
 // Node's native ES module loader requires the file extension.
-import {parseBuildPackageMetadata} from "./package-json.ts"; // eslint-disable-line no-restricted-syntax
+import {parseBuildPackageMetadata} from "./package-json.ts";
 // Node's native ES module loader requires the file extension.
-import {createCssAssetPlugin} from "./plugins/css-assets.ts"; // eslint-disable-line no-restricted-syntax
+import {createCssAssetPlugin} from "./plugins/css-assets.ts";
 // Node's native ES module loader requires the file extension.
-import {createVersionPlugin} from "./plugins/inject-package-version.ts"; // eslint-disable-line no-restricted-syntax
+import {createVersionPlugin} from "./plugins/inject-package-version.ts";
 
 import type {InlineConfig} from "vite";
 

@@ -1,5 +1,5 @@
 // Node's native ES module loader requires the file extension.
-import {parseRecord, parseStringRecord} from "./package-json.ts"; // eslint-disable-line no-restricted-syntax
+import {parseRecord, parseStringRecord} from "./package-json.ts";
 
 /**
  * Find the entry points that we _build_ for a package.
