@@ -231,8 +231,20 @@ jobs:
             - name: Install Cypress
               run: pnpm exec cypress install
 
+            - name: Detect available browsers
+              id: cypress_browser
+              shell: bash
+              run: |
+                  browser=electron
+
+                  if pnpm exec cypress info | grep -Eiq '\b(chrome|chromium)\b'; then
+                      browser=chrome
+                  fi
+
+                  echo "browser=$browser" >> "$GITHUB_OUTPUT"
+
             - name: Run tests
-              run: pnpm cypress:ci
+              run: pnpm cypress:ci --browser ${{ steps.cypress_browser.outputs.browser }}
 
             - name: Upload Screenshots
               uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
