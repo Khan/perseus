@@ -25,6 +25,7 @@ const constrainingFrictionFactor = 0.8;
 type Props = {
     keypadElement?: KeypadAPI;
     ariaLabel: string;
+    ariaRequired?: boolean;
     onBlur: () => void;
     onChange: (value: string, callback: any) => void;
     onFocus: () => void;
@@ -959,6 +960,7 @@ class MathInput extends React.Component<Props, State> {
                         }}
                         role={"textbox"}
                         aria-label={ariaLabel}
+                        aria-required={this.props.ariaRequired}
                     >
                         {/* NOTE(charlie): This is used purely to namespace the styles in
                 overrides.css. */}
