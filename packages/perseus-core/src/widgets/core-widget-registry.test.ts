@@ -1,5 +1,9 @@
 import * as CoreWidgetRegistry from "./core-widget-registry";
-import {registerWidget, traverseChildWidgets} from "./core-widget-registry";
+import {
+    isInlineWidget,
+    registerWidget,
+    traverseChildWidgets,
+} from "./core-widget-registry";
 
 import type {PerseusWidget} from "../data-schema";
 
@@ -10,6 +14,7 @@ const registryFnNames = [
     "getDefaultWidgetOptions",
     "getSupportedAlignments",
     "getDefaultAlignment",
+    "isInlineWidget",
 ];
 
 const mockWidgetType = "_test-mock-widget_";
@@ -99,6 +104,42 @@ describe("core-widget-registry", () => {
                 type: mockWidgetType,
                 options: {foo: 1, traversed: true},
             });
+        });
+    });
+
+    describe("isInlineWidget", () => {
+        beforeEach(() => {
+            registerWidget("_inline-widget_", {
+                name: "_inline-widget_",
+                defaultAlignment: "inline-block",
+            });
+            registerWidget("_block-widget_", {
+                name: "_block-widget_",
+                defaultAlignment: "block",
+            });
+            registerWidget("_no-alignment-widget_", {
+                name: "_no-alignment-widget_",
+            });
+        });
+
+        it("returns true when the default alignment is inline", () => {
+            expect(isInlineWidget("_inline-widget_")).toBe(true);
+        });
+
+        it("returns false when the default alignment is block", () => {
+            expect(isInlineWidget("_block-widget_")).toBe(false);
+        });
+
+        it("returns false when the widget has no default alignment", () => {
+            expect(isInlineWidget("_no-alignment-widget_")).toBe(false);
+        });
+
+        it("uses the default alignment when alignment is 'default'", () => {
+            expect(isInlineWidget("_inline-widget_", "default")).toBe(true);
+        });
+
+        it("uses the given alignment instead of the default", () => {
+            expect(isInlineWidget("_block-widget_", "inline")).toBe(true);
         });
     });
 });

@@ -96,9 +96,7 @@ const snowman = "\u2603";
 
 const isBlockWidgetNode = (node: SingleASTNode): boolean =>
     node?.type === "widget" &&
-    !CoreWidgetRegistry.getDefaultAlignment(node.widgetType).startsWith(
-        "inline",
-    );
+    !CoreWidgetRegistry.isInlineWidget(node.widgetType);
 
 const isParagraphWithBlockWidget = (node: SingleASTNode): boolean =>
     node?.type === "paragraph" &&
