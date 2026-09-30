@@ -2,7 +2,8 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {Heading} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
-import ReactJson from "react-json-view";
+
+import JsonView from "./json-view";
 
 type Props = {
     rendererTitle: React.ReactNode;
@@ -29,7 +30,7 @@ const SplitView = ({
             </View>
             <View>
                 <Heading size="large">{JSONTitle}</Heading>
-                <ReactJson
+                <JsonView
                     style={{marginBlockStart: "10px"}}
                     quotesOnKeys={false}
                     enableClipboard={false}
