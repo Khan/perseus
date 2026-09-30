@@ -6,7 +6,7 @@ import * as React from "react";
 import WrappedServerItemRenderer from "../server-item-renderer";
 import {testDependenciesV2} from "../testing/test-dependencies";
 
-import type {ServerItemRendererHandle} from "../server-item-renderer";
+import type {ServerItemRenderer} from "../server-item-renderer";
 import type {APIOptions} from "../types";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -21,10 +21,10 @@ export const renderQuestion = (
     > = Object.freeze({}),
 ): {
     container: HTMLElement;
-    renderer: ServerItemRendererHandle;
+    renderer: ServerItemRenderer;
     rerender: any;
 } => {
-    let renderer: ServerItemRendererHandle | null = null;
+    let renderer: ServerItemRenderer | null = null;
 
     const {container, rerender} = render(
         <RenderStateRoot>

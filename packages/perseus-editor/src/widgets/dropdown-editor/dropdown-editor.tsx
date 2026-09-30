@@ -9,7 +9,6 @@ import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -28,16 +27,6 @@ interface Props extends PerseusDropdownWidgetOptions {
  * An editor for adding a dropdown widget that allows users to select an option from a predefined list.
  */
 class DropdownEditor extends React.Component<Props> {
-    static propTypes = {
-        choices: PropTypes.arrayOf(
-            PropTypes.shape({
-                content: PropTypes.string,
-                correct: PropTypes.bool,
-            }),
-        ),
-        placeholder: PropTypes.string,
-    };
-
     static defaultProps: PerseusDropdownWidgetOptions =
         dropdownLogic.defaultWidgetOptions;
 
