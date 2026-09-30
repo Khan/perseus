@@ -48,6 +48,45 @@ function banImportExtension(extension) {
     ];
 }
 
+const bannedImportExtensions = [
+    ...banImportExtension("js"),
+    ...banImportExtension("jsx"),
+    ...banImportExtension("ts"),
+    ...banImportExtension("tsx"),
+];
+
+/**
+ * `no-restricted-syntax` restrictions that apply everywhere. Kept separate
+ * from the import-extension bans so that overrides which lift those bans
+ * (an override *replaces* the rule) still carry these.
+ */
+const restrictedSyntax = [
+    {
+        selector:
+            "MemberExpression[property.name='render'][object.name='ReactDOM']",
+        message: "DEPRECATED: Use a React Portal instead.",
+    },
+    {
+        selector: "TSQualifiedName[left.name='React'][right.name='FC']",
+        message:
+            "Use of React.FC<Props> is disallowed, use the following alternative: https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/2201682693/TypeScript+for+Flow+Developers#Functional-Components",
+    },
+    {
+        // Ban `expr as Type` casts (TSAsExpression). `as const` is
+        // excluded because it's a const assertion — a distinct
+        // construct that has no `satisfies` equivalent.
+        selector: "TSAsExpression:not([typeAnnotation.typeName.name='const'])",
+        message:
+            "Avoid `as` for type casting — it bypasses type checking. Prefer `satisfies` to verify a value matches a type without widening or losing inference. If a cast is truly necessary (e.g., at an unsafe boundary like an external API), disable this rule on the line with a comment explaining why.",
+    },
+    {
+        // Ban the legacy angle-bracket assertion form: `<Type>expr`.
+        selector: "TSTypeAssertion",
+        message:
+            "Avoid angle-bracket type assertions (`<Type>expr`) — they bypass type checking. Prefer `satisfies` to verify a value matches a type without widening or losing inference.",
+    },
+];
+
 /**
  * Import restrictions shared by the base config and the per-package
  * overrides below. An override *replaces* `no-restricted-imports` rather
@@ -270,6 +309,15 @@ module.exports = {
             },
         },
         {
+            // The build config runs directly under Node (not bundled), and
+            // Node's ESM resolver requires relative imports to include the
+            // file extension.
+            files: ["config/build/**"],
+            rules: {
+                "no-restricted-syntax": ["error", ...restrictedSyntax],
+            },
+        },
+        {
             files: ["score-*.ts"],
             rules: {
                 "no-restricted-syntax": [
@@ -437,35 +485,8 @@ module.exports = {
         ],
         "no-restricted-syntax": [
             "error",
-            {
-                selector:
-                    "MemberExpression[property.name='render'][object.name='ReactDOM']",
-                message: "DEPRECATED: Use a React Portal instead.",
-            },
-            ...banImportExtension("js"),
-            ...banImportExtension("jsx"),
-            ...banImportExtension("ts"),
-            ...banImportExtension("tsx"),
-            {
-                selector: "TSQualifiedName[left.name='React'][right.name='FC']",
-                message:
-                    "Use of React.FC<Props> is disallowed, use the following alternative: https://khanacademy.atlassian.net/wiki/spaces/ENG/pages/2201682693/TypeScript+for+Flow+Developers#Functional-Components",
-            },
-            {
-                // Ban `expr as Type` casts (TSAsExpression). `as const` is
-                // excluded because it's a const assertion — a distinct
-                // construct that has no `satisfies` equivalent.
-                selector:
-                    "TSAsExpression:not([typeAnnotation.typeName.name='const'])",
-                message:
-                    "Avoid `as` for type casting — it bypasses type checking. Prefer `satisfies` to verify a value matches a type without widening or losing inference. If a cast is truly necessary (e.g., at an unsafe boundary like an external API), disable this rule on the line with a comment explaining why.",
-            },
-            {
-                // Ban the legacy angle-bracket assertion form: `<Type>expr`.
-                selector: "TSTypeAssertion",
-                message:
-                    "Avoid angle-bracket type assertions (`<Type>expr`) — they bypass type checking. Prefer `satisfies` to verify a value matches a type without widening or losing inference.",
-            },
+            ...restrictedSyntax,
+            ...bannedImportExtensions,
         ],
         "no-restricted-properties": [
             "error",
