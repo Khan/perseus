@@ -1,7 +1,6 @@
 import {Dependencies, Util} from "@khanacademy/perseus";
 import {interactionLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
-import invariant from "tiny-invariant";
 
 import GraphSettings from "../../components/graph-settings";
 import EditorJsonify from "../../mixins/editor-jsonify";
@@ -18,17 +17,14 @@ import RectangleEditor from "./rectangle-editor";
 
 import type {
     PerseusInteractionWidgetOptions,
-    PerseusInteractionGraph,
     PerseusInteractionElement,
 } from "@khanacademy/perseus-core";
 
 const {unescapeMathMode} = Util;
 
-type Props = {
+interface Props extends PerseusInteractionWidgetOptions {
     onChange: (options: PerseusInteractionWidgetOptions) => void;
-    elements: PerseusInteractionElement[];
-    graph: PerseusInteractionGraph;
-};
+}
 
 type State = any;
 
@@ -133,6 +129,7 @@ class InteractionEditor extends React.Component<Props, State> {
                     options: {
                         ...MovableLineEditor.defaultProps,
                         startSubscript: this.nextSubscript(),
+                        endSubscript: this.nextSubscript() + 1,
                     },
                 };
             case "point":
@@ -167,6 +164,12 @@ class InteractionEditor extends React.Component<Props, State> {
                     type: "rectangle",
                     key: `rectangle-${randomId()}`,
                     options: {...RectangleEditor.defaultProps},
+                };
+            case "label":
+                return {
+                    type: "label",
+                    key: `label-${randomId()}`,
+                    options: {...LabelEditor.defaultProps},
                 };
             default:
                 throw new Error(`Unrecognized element type: ${elementType}`);
@@ -270,13 +273,8 @@ class InteractionEditor extends React.Component<Props, State> {
                                         const elementsCopy = [
                                             ...this.props.elements,
                                         ];
-                                        invariant(
-                                            elementsCopy[n].type ===
-                                                "movable-point",
-                                            "edited element must be a movable-point",
-                                        );
                                         elementsCopy[n] = {
-                                            ...elementsCopy[n],
+                                            ...element,
                                             options: newOptions,
                                         };
                                         this.handleChange({
@@ -329,13 +327,8 @@ class InteractionEditor extends React.Component<Props, State> {
                                         const elementsCopy = [
                                             ...this.props.elements,
                                         ];
-                                        invariant(
-                                            elementsCopy[n].type ===
-                                                "movable-line",
-                                            "edited element must be a movable-line",
-                                        );
                                         elementsCopy[n] = {
-                                            ...elementsCopy[n],
+                                            ...element,
                                             options: newOptions,
                                         };
                                         this.handleChange({
@@ -380,12 +373,8 @@ class InteractionEditor extends React.Component<Props, State> {
                                         const elementsCopy = [
                                             ...this.props.elements,
                                         ];
-                                        invariant(
-                                            elementsCopy[n].type === "point",
-                                            "edited element must be a point",
-                                        );
                                         elementsCopy[n] = {
-                                            ...elementsCopy[n],
+                                            ...element,
                                             options: newOptions,
                                         };
                                         this.handleChange({
@@ -438,12 +427,8 @@ class InteractionEditor extends React.Component<Props, State> {
                                         const elementsCopy = [
                                             ...this.props.elements,
                                         ];
-                                        invariant(
-                                            elementsCopy[n].type === "line",
-                                            "edited element must be a line",
-                                        );
                                         elementsCopy[n] = {
-                                            ...elementsCopy[n],
+                                            ...element,
                                             options: newOptions,
                                         };
                                         this.handleChange({
@@ -486,12 +471,8 @@ class InteractionEditor extends React.Component<Props, State> {
                                         const elementsCopy = [
                                             ...this.props.elements,
                                         ];
-                                        invariant(
-                                            elementsCopy[n].type === "function",
-                                            "edited element must be a function",
-                                        );
                                         elementsCopy[n] = {
-                                            ...elementsCopy[n],
+                                            ...element,
                                             options: newOptions,
                                         };
                                         this.handleChange({
@@ -525,13 +506,8 @@ class InteractionEditor extends React.Component<Props, State> {
                                         const elementsCopy = [
                                             ...this.props.elements,
                                         ];
-                                        invariant(
-                                            elementsCopy[n].type ===
-                                                "parametric",
-                                            "edited element must be a parametric",
-                                        );
                                         elementsCopy[n] = {
-                                            ...elementsCopy[n],
+                                            ...element,
                                             options: newOptions,
                                         };
                                         this.handleChange({
@@ -574,12 +550,8 @@ class InteractionEditor extends React.Component<Props, State> {
                                         const elementsCopy = [
                                             ...this.props.elements,
                                         ];
-                                        invariant(
-                                            elementsCopy[n].type === "label",
-                                            "edited element must be a label",
-                                        );
                                         elementsCopy[n] = {
-                                            ...elementsCopy[n],
+                                            ...element,
                                             options: newOptions,
                                         };
                                         this.handleChange({
@@ -630,13 +602,8 @@ class InteractionEditor extends React.Component<Props, State> {
                                         const elementsCopy = [
                                             ...this.props.elements,
                                         ];
-                                        invariant(
-                                            elementsCopy[n].type ===
-                                                "rectangle",
-                                            "edited element must be a rectangle",
-                                        );
                                         elementsCopy[n] = {
-                                            ...elementsCopy[n],
+                                            ...element,
                                             options: newOptions,
                                         };
                                         this.handleChange({
