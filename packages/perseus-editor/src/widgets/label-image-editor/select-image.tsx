@@ -10,7 +10,7 @@ import FormWrappedTextField from "../../components/form-wrapped-text-field";
 
 import styles from "./select-image.module.css";
 
-export interface SelectImageProps {
+interface SelectImageProps {
     // Callback for when image URL is changed.
     onChange: (url: string) => void;
     // The selected image URL.
