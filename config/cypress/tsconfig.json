@@ -20,6 +20,7 @@
         // All .cypress.tsx? files in any package
         "../../packages/**/*.cypress.ts",
         "../../packages/**/*.cypress.tsx",
+        "../../packages/perseus/src/testing/render-question-with-cypress.tsx",
         // Shared and package-specific ambient declarations
         "../../packages/perseus/src/testing/render-question-with-cypress.tsx",
         "../../types/**/*.d.ts",

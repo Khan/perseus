@@ -5,11 +5,10 @@
         "**/dist",
         "coverage",
         "coverage-ts",
-
-        // All Cypress-related files are covered by
-        // config/cypress/tsconfig.json so we exclude them here!
-        "config/cypress/**",
         "config/build/**",
+
+        // Cypress files - covered by config/cypress/tsconfig.json
+        "config/cypress/**",
         "**/*.cypress.ts",
         "**/*.cypress.tsx",
         "packages/perseus/src/testing/render-question-with-cypress.tsx",
