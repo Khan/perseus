@@ -1,4 +1,5 @@
 import {ApiOptions} from "@khanacademy/perseus";
+import {SplitView} from "@khanacademy/perseus/testing";
 import {
     generateInteractiveGraphWidget,
     type PerseusRenderer,
@@ -9,7 +10,6 @@ import {action} from "storybook/actions";
 
 import {Editor} from "..";
 import {question1} from "../__testdata__/numeric-input.testdata";
-import SplitView from "../testing/split-view";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 // This is to address timing - Perseus widget editor registry accessed before initialization!
