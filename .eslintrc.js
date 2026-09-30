@@ -304,7 +304,7 @@ module.exports = {
             files: ["*.ts", "*.tsx"],
             parser: "@typescript-eslint/parser",
             parserOptions: {
-                project: ["tsconfig.json"],
+                project: ["tsconfig.json", "config/cypress/tsconfig.json"],
             },
             rules: {
                 "@typescript-eslint/strict-boolean-expressions": [
@@ -318,12 +318,7 @@ module.exports = {
                     },
                 ],
             },
-            excludedFiles: [
-                "*.d.ts",
-                "*.config.ts",
-                "**/*.cypress.ts",
-                "config/cypress/**",
-            ],
+            excludedFiles: ["*.d.ts"],
         },
     ],
     reportUnusedDisableDirectives: true,
