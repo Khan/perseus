@@ -7,6 +7,8 @@ import react from "@vitejs/plugin-react";
 import postcssImport from "postcss-import";
 
 // Node's native ES module loader requires the file extension.
+import {jsTarget} from "./browser-targets.ts";
+// Node's native ES module loader requires the file extension.
 import {getEntryPoints} from "./get-entry-points.ts";
 // Node's native ES module loader requires the file extension.
 import {parseBuildPackageMetadata} from "./package-json.ts";
@@ -121,6 +123,7 @@ export function createPackageConfig(
             sourcemap: true,
             minify: "oxc",
             watch: options.watch ? {} : null,
+            target: jsTarget,
             lib: {
                 entry: entries,
                 formats: ["es"],
