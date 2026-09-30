@@ -308,6 +308,8 @@ module.exports = {
             rules: {
                 "no-restricted-syntax": [
                     "error",
+                    ...restrictedSyntax,
+                    ...bannedImportExtensions,
                     {
                         selector:
                             "ImportDeclaration > ImportSpecifier[local.name='APIOptions']",
