@@ -8,7 +8,7 @@ import {
 
 export const question1: PerseusRenderer = generateTestPerseusRenderer({
     content:
-        "A sequence is defined recursively as follows:\n\n\n$\\qquad\\displaystyle{{a}_{n}}=-\\frac{1}{a_{n-1}-1} \n~~~~~~\\text{ with}\\qquad\\displaystyle{{a}_{0}}=\\frac{1}{2}\\,$\n\n\nFind the term $a_3$ in the sequence.\n\n[[\u2603 numeric-input 1]]",
+        "A sequence is defined recursively as follows:\n\n\n$\\displaystyle{{a}_{n}}=-\\dfrac{1}{a_{n-1}-1}$ with $\\displaystyle{{a}_{0}}=\\dfrac{1}{2}$\n\n\nFind the term $a_3$ in the sequence.\n\n[[\u2603 numeric-input 1]]",
     widgets: {
         "numeric-input 1": generateNumericInputWidget({
             options: generateNumericInputOptions({
