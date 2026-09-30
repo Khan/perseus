@@ -44,6 +44,7 @@
         "tiny-invariant": "catalog:prodDeps"
     },
     "devDependencies": {
+        "@internal/build-settings": "workspace:*",
         "@khanacademy/mathjax-renderer": "catalog:devDeps",
         "@khanacademy/wonder-blocks-accordion": "catalog:devDeps",
         "@khanacademy/wonder-blocks-badge": "catalog:devDeps",
@@ -70,7 +71,6 @@
         "aphrodite": "catalog:devDeps",
         "classnames": "catalog:devDeps",
         "jsdiff": "workspace:*",
-        "@internal/build-settings": "workspace:*",
         "prop-types": "catalog:devDeps",
         "react": "catalog:devDeps",
         "react-dom": "catalog:devDeps",
