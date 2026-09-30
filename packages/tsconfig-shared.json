@@ -11,10 +11,13 @@
     "exclude": [
         "**/dist",
         "**/*.test.*",
+        "**/*.typetest.*",
         "**/__tests__/**",
         "**/*.testdata.*",
         "**/__testdata__/**",
         "**/__testutils__/**",
+        "**/test-helpers.*",
+        "**/testing/**",
         "**/*.stories.*",
         "**/__stories__/**",
         "**/__docs__/**",
