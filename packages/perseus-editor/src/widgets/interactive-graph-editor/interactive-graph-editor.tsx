@@ -6,7 +6,7 @@ import {
     interactiveSizes,
     Util,
 } from "@khanacademy/perseus";
-import {interactiveGraphLogic} from "@khanacademy/perseus-core";
+import {interactiveGraphLogic, PerseusInteractionGraph} from "@khanacademy/perseus-core";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
@@ -46,116 +46,19 @@ import type {
 const InteractiveGraph: typeof InteractiveGraphWidget.widget =
     InteractiveGraphWidget.widget;
 
-type Range = [min: number, max: number];
-
-export type Props = {
+export interface Props extends PerseusInteractiveGraphWidgetOptions {
     apiOptions: APIOptionsWithDefaults;
-
-    /**
-     * The labels for the x and y axes.
-     */
-    labels: ReadonlyArray<string>;
-    /**
-     * Specifies the location of the labels on the graph.  default: "onAxis".
-     * - "onAxis": Labels are positioned on the axis at the right (x) and top (y) of the graph.
-     * - "alongEdge": Labels are centered along the bottom (x) and left (y) edges of the graph.
-     *    The y label is rotated. Typically used when the range min is near 0 with longer labels.
-     */
-    labelLocation?: AxisLabelLocation;
-    /**
-     * The range of the graph in the x and y directions.
-     */
-    range: [x: Range, y: Range];
-    /**
-     * Whether the graph is bounded on the x and y axes.
-     */
-    showAxisArrows: ShowAxisArrows;
-    /**
-     * Whether to show tick marks and tick numbers per axis.
-     */
-    showAxisTicks: ShowAxisTicks;
-    /**
-     * How far apart the tick marks on the axes are in the x and y
-     * directions.
-     */
-    step: [x: number, y: number];
-    /**
-     * How far apart the grid lines are in the x and y directions.
-     */
-    gridStep: [x: number, y: number];
-    /**
-     * How far apart the snap-to points are in the x and y directions.
-     */
-    snapStep: [x: number, y: number];
-    /**
-     * The size of the graph in pixels.
-     */
-    box: [x: number, y: number];
-
-    /**
-     * An error message to display in the graph area, or true if the
-     * graph is valid.
-     */
-    valid: true | string;
-    /**
-     * The background image to display in the graph area and its properties.
-     */
-    backgroundImage: PerseusImageBackground;
-    /**
-     * The type of markings to display on the graph.
-     * - graph: shows the axes and the grid lines
-     * - grid: shows only the grid lines
-     * - none: shows no markings
-     */
-    markings: MarkingsType;
-    /**
-     * Whether to show the protractor on the graph.
-     */
-    showProtractor: boolean;
-    /**
-     * Whether to show tooltips on the graph.
-     * (Currently not used, but will be in the future.)
-     */
-    showTooltips: boolean;
-    /**
-     * The current correct answer for the graph. Updated by this component
-     * when the graph is changed.
-     *
-     * Note that the "Correct answer:" textbox is not an interactive
-     * element. Instead, it is a representation of the correct answer based
-     * on the state of the interactive graph previewed at the bottom of the
-     * editor page.
-     */
-    // TODO(LEMS-2344): make the type of `correct` more specific
-    correct: PerseusGraphType;
-    /**
-     * The locked figures to display in the graph area.
-     * Locked figures are graph elements (points, lines, line segmeents,
-     * etc.) that are locked in place and not interactive.
-     */
-    lockedFigures?: Array<LockedFigure>;
-    // Aria-label for the full graph area. Short title for the graph.
-    fullGraphAriaLabel?: string;
-    // Aria-description for the graph area. Longer description of the graph.
-    // Note that the `aria-description` property is not supported well,
-    // so this description will be hidden in a DOM element whose ID will
-    // then be referenced by the graph's `aria-describedby` property.
-    fullGraphAriaDescription?: string;
-
-    /**
-     * The graph to display in the graph area.
-     */
-    graph: PerseusInteractiveGraphUserInput;
-    onChange: (props: Partial<Props>) => void;
+    onChange: (options: PerseusInteractiveGraphWidgetOptions) => void;
     // Whether the graph has been set to static mode.
     // Graphs in static mode are not interactive, and their coords are
     // set to those of the "correct" graph in the editor.
     static?: boolean;
     /**
-     * Whether this widget is graded.
+     * An error message to display in the graph area, or true if the
+     * graph is valid.
      */
-    graded?: boolean;
-};
+    valid: true | string;
+}
 
 // JSDoc will be shown in Storybook widget editor description
 /**
@@ -182,6 +85,32 @@ class InteractiveGraphEditor extends React.Component<Props> {
         lockedFigures: [],
     };
 
+    handleChange(changes: Partial<PerseusInteractiveGraphWidgetOptions>) {
+        this.props.onChange({
+            step: this.props.step,
+            gridStep: this.props.gridStep,
+            snapStep: this.props.snapStep,
+            backgroundImage: this.props.backgroundImage,
+            markings: this.props.markings,
+            labels: this.props.labels,
+            labelLocation: this.props.labelLocation,
+            showAxisArrows: this.props.showAxisArrows,
+            showAxisTicks: this.props.showAxisTicks,
+            showProtractor: this.props.showProtractor,
+            showRuler: this.props.showRuler,
+            showTooltips: this.props.showTooltips,
+            rulerLabel: this.props.rulerLabel,
+            rulerTicks: this.props.rulerTicks,
+            range: this.props.range,
+            graph: this.props.graph,
+            correct: this.props.correct,
+            lockedFigures: this.props.lockedFigures,
+            fullGraphAriaLabel: this.props.fullGraphAriaLabel,
+            fullGraphAriaDescription: this.props.fullGraphAriaDescription,
+            ...changes,
+        })
+    }
+
     changeStartCoords = (coords) => {
         if (!this.props.graph?.type) {
             return;
@@ -191,7 +120,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
             ...this.props.graph,
             startCoords: coords,
         };
-        this.props.onChange({graph: graph});
+        this.handleChange({graph: graph});
     };
 
     changePointLabels = (pointLabels: ReadonlyArray<string>) => {
@@ -201,7 +130,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
             this.props.correct,
         );
         if (next) {
-            this.props.onChange(next);
+            this.handleChange(next);
         }
     };
 
@@ -217,7 +146,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
         if (newGraph === undefined || newCorrect === undefined) {
             return;
         }
-        this.props.onChange({graph: newGraph, correct: newCorrect});
+        this.handleChange({graph: newGraph, correct: newCorrect});
     };
 
     // serialize() is what makes copy/paste work. All the properties included
@@ -397,7 +326,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
             const graphProps = {
                 ref: "graph",
                 options: {
-                    box: this.props.box,
                     range: this.props.range,
                     showAxisArrows: this.props.showAxisArrows,
                     showAxisTicks: this.props.showAxisTicks,
@@ -453,7 +381,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         // Clear options from previous graph
                         correct = newGraph;
                     }
-                    this.props.onChange({
+                    this.handleChange({
                         correct: correct,
                         graph: this.props.graph,
                     });
@@ -494,7 +422,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                 }
                                 graphType={this.props.graph?.type ?? "none"}
                                 onChange={(type) => {
-                                    this.props.onChange({
+                                    this.handleChange({
                                         graph: {type},
                                         correct: {type},
                                     });
@@ -509,7 +437,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             editingDisabled={
                                 this.props.apiOptions?.editingDisabled ?? false
                             }
-                            onChange={this.props.onChange}
+                            onChange={(options) => this.handleChange(options)}
                         />
                         <InteractiveGraphCorrectAnswer
                             id={graphId}
@@ -522,34 +450,34 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             <AngleAnswerOptions
                                 correct={this.props.correct}
                                 graph={this.props.graph}
-                                onChange={this.props.onChange}
+                                onChange={(options) => this.handleChange(options)}
                             />
                         )}
                         {this.props.correct?.type === "point" && (
                             <GraphPointsCountSelector
                                 correct={this.props.correct}
                                 graph={this.props.graph}
-                                onChange={this.props.onChange}
+                                onChange={(options) => this.handleChange(options)}
                             />
                         )}
                         {this.props.correct?.type === "polygon" && (
                             <PolygonAnswerOptions
                                 correct={this.props.correct}
                                 graph={this.props.graph}
-                                onChange={this.props.onChange}
+                                onChange={(options) => this.handleChange(options)}
                             />
                         )}
                         {this.props.correct?.type === "vector" && (
                             <VectorAnswerOptions
                                 correct={this.props.correct}
-                                onChange={this.props.onChange}
+                                onChange={(options) => this.handleChange(options)}
                             />
                         )}
                         {this.props.correct?.type === "segment" && (
                             <SegmentCountSelector
                                 correct={this.props.correct}
                                 graph={this.props.graph}
-                                onChange={this.props.onChange}
+                                onChange={(options) => this.handleChange(options)}
                             />
                         )}
 
@@ -612,12 +540,12 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             markings={this.props.markings}
                             showProtractor={this.props.showProtractor}
                             showTooltips={this.props.showTooltips}
-                            onChange={this.props.onChange}
+                            onChange={(options) => this.handleChange(options)}
                             apiOptions={this.props.apiOptions}
                         />
                         <LockedFiguresSection
                             figures={this.props.lockedFigures}
-                            onChange={this.props.onChange}
+                            onChange={(options) => this.handleChange(options)}
                             apiOptions={this.props.apiOptions}
                         />
                     </View>
