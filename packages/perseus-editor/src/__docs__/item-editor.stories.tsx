@@ -1,41 +1,57 @@
+import {
+    getDefaultAnswerArea,
+    type Hint,
+    type PerseusAnswerArea,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
+import {action} from "storybook/actions";
 
-import ExtrasEditor from "../extras-editor";
+import {question1} from "../__testdata__/numeric-input.testdata";
+import ItemEditor from "../item-editor";
+import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
-import type {Meta, StoryObj} from "@storybook/react-vite";
+import {usePreviewUrl} from "./use-preview-url";
+import "../styles/perseus-editor.css"; // This helps ensure the styles are loaded correctly and timely
 
-import "../styles/perseus-editor.css";
+// This is to address timing - Perseus widget editor registry accessed before initialization!
+registerAllWidgetsAndEditorsForTesting();
 
-type Props = React.ComponentProps<typeof ExtrasEditor>;
-
-const Wrapper = (props: Props) => {
-    const {onChange, ...rest} = props;
-    const [extras, setExtras] =
-        React.useState<Partial<typeof ExtrasEditor.defaultProps>>(rest);
-
-    return (
-        <ExtrasEditor
-            {...extras}
-            onChange={(e) => {
-                onChange?.(e); // to register action in storybook
-                setExtras((prevExtras) => ({...prevExtras, ...e}));
-            }}
-            editingDisabled={false}
-        />
-    );
-};
-
-const story: Meta<Props> = {
-    title: "Editors/Item Extras Editor",
-    component: ExtrasEditor,
-    render: (args) => <Wrapper {...args} />,
-    argTypes: {onChange: {action: "changed"}},
+export default {
+    title: "Editors/Item Editor",
     tags: ["!autodocs"],
 };
-export default story;
 
-type Story = StoryObj<typeof ExtrasEditor>;
+const onChangeAction = action("onChange");
 
-export const Default: Story = {
-    args: {...ExtrasEditor.defaultProps},
+export const Demo = (): React.ReactElement => {
+    const [question, setQuestion] = React.useState<PerseusRenderer>(question1);
+    const [answerArea, setAnswerArea] =
+        React.useState<PerseusAnswerArea>(getDefaultAnswerArea);
+    const [hints, setHints] = React.useState<Hint[]>([]);
+
+    return (
+        <ItemEditor
+            deviceType="desktop"
+            question={question}
+            answerArea={answerArea}
+            hints={hints}
+            previewURL={usePreviewUrl()}
+            itemId="1"
+            highlightLint={true}
+            onChange={(changed) => {
+                onChangeAction(changed);
+
+                if (changed.question != null) {
+                    setQuestion(changed.question);
+                }
+                if (changed.answerArea != null) {
+                    setAnswerArea(changed.answerArea);
+                }
+                if (changed.hints != null) {
+                    setHints(changed.hints);
+                }
+            }}
+        />
+    );
 };

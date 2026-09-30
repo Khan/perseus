@@ -3,28 +3,24 @@ import {
     tableLogic,
     type PerseusTableWidgetOptions,
 } from "@khanacademy/perseus-core";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import InfoTip from "../../components/info-tip";
 import Editor from "../../editor";
 
+import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {NumberInput} = components;
 const Table = TableWidget.widget;
 
-type Props = any;
+interface Props extends PerseusTableWidgetOptions {
+    onChange: (options: Partial<PerseusTableWidgetOptions>) => void;
+    apiOptions?: APIOptionsWithDefaults;
+}
 
 class TableEditor extends React.Component<Props> {
-    static propTypes = {
-        rows: PropTypes.number,
-        columns: PropTypes.number,
-        headers: PropTypes.arrayOf(PropTypes.string),
-        answers: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
-    };
-
     static defaultProps: PerseusTableWidgetOptions =
         tableLogic.defaultWidgetOptions;
 

@@ -1,5 +1,23 @@
 # @khanacademy/perseus
 
+## 89.0.0
+
+### Major Changes
+
+-   [#4126](https://github.com/Khan/perseus/pull/4126) [`bf02601`](https://github.com/Khan/perseus/commit/bf02601f17fc0c11844b0d077b60cafd2c8e1a37) Thanks [@handeyeco](https://github.com/handeyeco)! - Encapsulate ServerItemRenderer to only allow explicitly declared imperative APIS
+
+### Patch Changes
+
+-   [#4126](https://github.com/Khan/perseus/pull/4126) [`bf02601`](https://github.com/Khan/perseus/commit/bf02601f17fc0c11844b0d077b60cafd2c8e1a37) Thanks [@handeyeco](https://github.com/handeyeco)! - Change KeypadContext API so that rather than exposing a raw `renderer` we abstract functionality behind `blurRenderer`
+
+-   Updated dependencies [[`bf02601`](https://github.com/Khan/perseus/commit/bf02601f17fc0c11844b0d077b60cafd2c8e1a37), [`bf02601`](https://github.com/Khan/perseus/commit/bf02601f17fc0c11844b0d077b60cafd2c8e1a37)]:
+    -   @khanacademy/perseus-core@40.0.1
+    -   @khanacademy/keypad-context@6.0.0
+    -   @khanacademy/math-input@30.0.0
+    -   @khanacademy/kmath@3.0.1
+    -   @khanacademy/perseus-linter@6.0.1
+    -   @khanacademy/perseus-score@9.0.1
+
 ## 88.0.0
 
 ### Major Changes
