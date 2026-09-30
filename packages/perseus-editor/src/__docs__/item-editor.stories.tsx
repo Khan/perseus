@@ -19,7 +19,7 @@ registerAllWidgetsAndEditorsForTesting();
 
 export default {
     title: "Editors/Item Editor",
-    tags: ["!autodocs"]
+    tags: ["!autodocs"],
 };
 
 const onChangeAction = action("onChange");
