@@ -30,6 +30,7 @@ const story: Meta<Props> = {
     component: ExtrasEditor,
     render: (args) => <Wrapper {...args} />,
     argTypes: {onChange: {action: "changed"}},
+    tags: ["!autodocs"],
 };
 export default story;
 
