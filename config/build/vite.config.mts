@@ -117,9 +117,9 @@ export function createPackageConfig(
         },
         build: {
             outDir: path.join(packageDir, "dist"),
-            // Match the previous Rollup build: keep declarations emitted by
-            // `build:types` when JavaScript is rebuilt.
-            emptyOutDir: false,
+            // Types will need to be rebuilt after, but this avoids stale
+            // artifacts in our dist/ folders when building!
+            emptyOutDir: true,
             sourcemap: true,
             minify: "oxc",
             watch: options.watch ? {} : null,

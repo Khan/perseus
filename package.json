@@ -113,7 +113,7 @@
         "prebuild:docs": "pnpm clean:docs",
         "build:docs": "typedoc",
         "build:storybook": "storybook build --stats-json",
-        "build:types": "tsc --build tsconfig-build.json",
+        "build:types": "tsc --build --force tsconfig-build.json",
         "build:prodsizecheck": "pnpm build --configEnvironment='production'",
         "watch": "pnpm build --watch",
         "clean": "./utils/clean.sh",
