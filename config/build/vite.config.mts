@@ -56,8 +56,11 @@ function createExternal(pkgJson: ReturnType<typeof parseBuildPackageMetadata>) {
     ].filter((name) => !bundledDependencies.has(name));
 
     return (id: string) =>
-        id.startsWith("@phosphor-icons/core/") ||
-        externalDependencies.some((name) => isPackageImport(id, name));
+        // Always bundle CSS, including dependencies' stylesheets such as
+        // mafs/core.css, so it all lands in dist/index.css.
+        !id.endsWith(".css") &&
+        (id.startsWith("@phosphor-icons/core/") ||
+            externalDependencies.some((name) => isPackageImport(id, name)));
 }
 
 export function createPackageConfig(
