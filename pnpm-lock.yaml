@@ -302,8 +302,8 @@ importers:
         specifier: ^3.5.5
         version: 3.6.1(@typescript-eslint/parser@8.27.0(eslint@8.57.1)(typescript@5.9.3))(eslint-plugin-import@2.29.1)(eslint@8.57.1)
       eslint-plugin-cypress:
-        specifier: ^6.4.4
-        version: 6.4.4(@typescript-eslint/parser@8.27.0(eslint@8.57.1)(typescript@5.9.3))(eslint@8.57.1)
+        specifier: ^3.6.0
+        version: 3.6.0(eslint@8.57.1)
       eslint-plugin-disable:
         specifier: ^2.0.3
         version: 2.0.3(eslint@8.57.1)
@@ -5030,14 +5030,10 @@ packages:
       eslint-import-resolver-webpack:
         optional: true
 
-  eslint-plugin-cypress@6.4.4:
-    resolution: {integrity: sha512-ez6i14V0xYrq0DMKQmKPeWpi9XP8RI8GK6YT657yOnVlg72PUyR2psgVmC3jXjpTAXVdyB5VDoQPN/ytaw9+Pg==}
+  eslint-plugin-cypress@3.6.0:
+    resolution: {integrity: sha512-7IAMcBbTVu5LpWeZRn5a9mQ30y4hKp3AfTz+6nSD/x/7YyLMoBI6X7XjDLYI6zFvuy4Q4QVGl563AGEXGW/aSA==}
     peerDependencies:
-      '@typescript-eslint/parser': '>=8'
-      eslint: '>=9'
-    peerDependenciesMeta:
-      '@typescript-eslint/parser':
-        optional: true
+      eslint: '>=7'
 
   eslint-plugin-disable@2.0.3:
     resolution: {integrity: sha512-JWT4TPhcIhd8jcwACbsDValvAtHl7BQDhbTZC40vqcp4Fciz2oTnEAFtOCGojdskviN3VGOObVCrjjWe8DGYIg==}
@@ -5496,10 +5492,6 @@ packages:
   globals@13.23.0:
     resolution: {integrity: sha512-XAmF0RjlrjY23MA51q3HltdlGxUpXPvg0GioKiD9X6HD28iMjo2dKC8Vqwm7lne4GNr78+RHTfliktR6ZH09wA==}
     engines: {node: '>=8'}
-
-  globals@17.12.0:
-    resolution: {integrity: sha512-cezEd/DTyyht9cvSSURyygXPfy04GtWO/5e6ZPvH7fCtjKz9PYOmuawphw1Ctd1f6C+5JypXfGD7ahNMXvevBA==}
-    engines: {node: '>=18'}
 
   globalthis@1.0.3:
     resolution: {integrity: sha512-sFdI5LyBiNTHjRd7cGPWapiHWMOXKyuBNX/cWJ3NfzrZQVa8GI/8cofCl74AOVqq9W5kNmguTIzJ/1s2gyI9wA==}
@@ -6550,7 +6542,7 @@ packages:
     deprecated: Version 4 replaces this package with the scoped package @mathjax/src
 
   mathquill@https://codeload.github.com/Khan/mathquill/tar.gz/c9e4329b0bc5d9b4c21d765b5768e4e7693515b3:
-    resolution: {gitHosted: true, tarball: https://codeload.github.com/Khan/mathquill/tar.gz/c9e4329b0bc5d9b4c21d765b5768e4e7693515b3}
+    resolution: {tarball: https://codeload.github.com/Khan/mathquill/tar.gz/c9e4329b0bc5d9b4c21d765b5768e4e7693515b3}
     version: 1.0.3
 
   mdurl@2.0.0:
@@ -13352,12 +13344,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-cypress@6.4.4(@typescript-eslint/parser@8.27.0(eslint@8.57.1)(typescript@5.9.3))(eslint@8.57.1):
+  eslint-plugin-cypress@3.6.0(eslint@8.57.1):
     dependencies:
       eslint: 8.57.1
-      globals: 17.12.0
-    optionalDependencies:
-      '@typescript-eslint/parser': 8.27.0(eslint@8.57.1)(typescript@5.9.3)
+      globals: 13.23.0
 
   eslint-plugin-disable@2.0.3(eslint@8.57.1):
     dependencies:
@@ -13962,8 +13952,6 @@ snapshots:
   globals@13.23.0:
     dependencies:
       type-fest: 0.20.2
-
-  globals@17.12.0: {}
 
   globalthis@1.0.3:
     dependencies:
