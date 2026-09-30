@@ -5,7 +5,6 @@
         "**/dist",
         "coverage",
         "coverage-ts",
-        "cypress.config.ts",
         "config/cypress/**",
         "**/*.cypress.ts",
         "**/*.cypress.tsx"
