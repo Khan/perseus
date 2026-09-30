@@ -2,7 +2,8 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {Heading} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
-import ReactJson from "react-json-view";
+
+import JsonView from "./json-view";
 
 import type {UserInputMap} from "@khanacademy/perseus-core";
 
@@ -20,7 +21,7 @@ export default function UserInputUI({userInput}: Props) {
             <Heading size="medium" style={{marginBlockStart: sizing.size_100}}>
                 User Input
             </Heading>
-            <ReactJson
+            <JsonView
                 quotesOnKeys={false}
                 enableClipboard={false}
                 src={userInput}

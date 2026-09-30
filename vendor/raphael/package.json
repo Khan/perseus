@@ -2,6 +2,7 @@
   "name": "raphael",
   "private": "true",
   "version": "1.5.4",
+  "type": "module",
   "main": "raphael.js",
   "types": "raphael.d.ts"
 }
