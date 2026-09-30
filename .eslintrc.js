@@ -140,7 +140,6 @@ module.exports = {
     ],
     parser: "@typescript-eslint/parser",
     plugins: [
-        "cypress",
         "disable",
         "import",
         "jest",
@@ -187,7 +186,6 @@ module.exports = {
         },
     },
     env: {
-        "cypress/globals": true,
         "jest/globals": false,
         node: true,
         browser: true,
@@ -227,6 +225,15 @@ module.exports = {
                 "import/no-extraneous-dependencies": "off",
                 "import/no-relative-packages": "off",
             },
+        },
+        {
+            files: [
+                "*.cypress.ts",
+                "*.cypress.tsx",
+                "config/cypress/**",
+                "packages/perseus/src/testing/render-question-with-cypress.tsx",
+            ],
+            extends: ["plugin:cypress/recommended"],
         },
         {
             // Storybook has an API for interaction tests that is similar
