@@ -77,7 +77,6 @@ import type {
     PerseusWidget,
     PerseusWidgetOptions,
     PerseusWidgetsMap,
-    RendererInterface,
     ShowSolutions,
     UserInput,
     UserInputMap,
@@ -239,7 +238,7 @@ function isDifferentQuestion(
 
 class Renderer
     extends React.Component<Props, State>
-    implements RendererInterface, GetPromptJSONInterface
+    implements GetPromptJSONInterface
 {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
