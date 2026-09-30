@@ -63,6 +63,12 @@ class InteractionEditor extends React.Component<Props, State> {
         });
     }
 
+    handleElementChange(n: number, newElement: PerseusInteractionElement) {
+        const elementsCopy = [...this.props.elements];
+        elementsCopy[n] = newElement;
+        this.handleChange({elements: elementsCopy});
+    }
+
     _getAllVarSubscripts(elements: ReadonlyArray<any>): ReadonlyArray<any> {
         const movableLines = elements.filter(
             (element) => element.type === "movable-line",
@@ -270,15 +276,9 @@ class InteractionEditor extends React.Component<Props, State> {
                                 <MovablePointEditor
                                     {...element.options}
                                     onChange={(newOptions) => {
-                                        const elementsCopy = [
-                                            ...this.props.elements,
-                                        ];
-                                        elementsCopy[n] = {
+                                        this.handleElementChange(n, {
                                             ...element,
                                             options: newOptions,
-                                        };
-                                        this.handleChange({
-                                            elements: elementsCopy,
                                         });
                                     }}
                                 />
@@ -324,15 +324,9 @@ class InteractionEditor extends React.Component<Props, State> {
                                 <MovableLineEditor
                                     {...element.options}
                                     onChange={(newOptions) => {
-                                        const elementsCopy = [
-                                            ...this.props.elements,
-                                        ];
-                                        elementsCopy[n] = {
+                                        this.handleElementChange(n, {
                                             ...element,
                                             options: newOptions,
-                                        };
-                                        this.handleChange({
-                                            elements: elementsCopy,
                                         });
                                     }}
                                 />
@@ -370,15 +364,9 @@ class InteractionEditor extends React.Component<Props, State> {
                                 <PointEditor
                                     {...element.options}
                                     onChange={(newOptions) => {
-                                        const elementsCopy = [
-                                            ...this.props.elements,
-                                        ];
-                                        elementsCopy[n] = {
+                                        this.handleElementChange(n, {
                                             ...element,
                                             options: newOptions,
-                                        };
-                                        this.handleChange({
-                                            elements: elementsCopy,
                                         });
                                     }}
                                 />
@@ -424,15 +412,9 @@ class InteractionEditor extends React.Component<Props, State> {
                                 <LineEditor
                                     {...element.options}
                                     onChange={(newOptions) => {
-                                        const elementsCopy = [
-                                            ...this.props.elements,
-                                        ];
-                                        elementsCopy[n] = {
+                                        this.handleElementChange(n, {
                                             ...element,
                                             options: newOptions,
-                                        };
-                                        this.handleChange({
-                                            elements: elementsCopy,
                                         });
                                     }}
                                 />
@@ -468,15 +450,9 @@ class InteractionEditor extends React.Component<Props, State> {
                                 <FunctionEditor
                                     {...element.options}
                                     onChange={(newOptions) => {
-                                        const elementsCopy = [
-                                            ...this.props.elements,
-                                        ];
-                                        elementsCopy[n] = {
+                                        this.handleElementChange(n, {
                                             ...element,
                                             options: newOptions,
-                                        };
-                                        this.handleChange({
-                                            elements: elementsCopy,
                                         });
                                     }}
                                 />
@@ -503,15 +479,9 @@ class InteractionEditor extends React.Component<Props, State> {
                                 <ParametricEditor
                                     {...element.options}
                                     onChange={(newOptions) => {
-                                        const elementsCopy = [
-                                            ...this.props.elements,
-                                        ];
-                                        elementsCopy[n] = {
+                                        this.handleElementChange(n, {
                                             ...element,
                                             options: newOptions,
-                                        };
-                                        this.handleChange({
-                                            elements: elementsCopy,
                                         });
                                     }}
                                 />
@@ -547,15 +517,9 @@ class InteractionEditor extends React.Component<Props, State> {
                                 <LabelEditor
                                     {...element.options}
                                     onChange={(newOptions) => {
-                                        const elementsCopy = [
-                                            ...this.props.elements,
-                                        ];
-                                        elementsCopy[n] = {
+                                        this.handleElementChange(n, {
                                             ...element,
                                             options: newOptions,
-                                        };
-                                        this.handleChange({
-                                            elements: elementsCopy,
                                         });
                                     }}
                                 />
@@ -599,15 +563,9 @@ class InteractionEditor extends React.Component<Props, State> {
                                 <RectangleEditor
                                     {...element.options}
                                     onChange={(newOptions) => {
-                                        const elementsCopy = [
-                                            ...this.props.elements,
-                                        ];
-                                        elementsCopy[n] = {
+                                        this.handleElementChange(n, {
                                             ...element,
                                             options: newOptions,
-                                        };
-                                        this.handleChange({
-                                            elements: elementsCopy,
                                         });
                                     }}
                                 />
