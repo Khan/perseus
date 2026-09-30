@@ -18,7 +18,8 @@ import "../styles/perseus-editor.css"; // This helps ensure the styles are loade
 registerAllWidgetsAndEditorsForTesting();
 
 export default {
-    title: "Editors/ItemEditor",
+    title: "Editors/Item Editor",
+    tags: ["!autodocs"]
 };
 
 const onChangeAction = action("onChange");
