@@ -93,9 +93,11 @@ function scoreGrapher(
         userInput.type === "tangent"
             ? approximateDeepEqual(
                   geometry.canonicalTangentCoefficients(
+                      // eslint-disable-next-line no-restricted-syntax
                       guessCoeffs as TangentCoefficient,
                   ),
                   geometry.canonicalTangentCoefficients(
+                      // eslint-disable-next-line no-restricted-syntax
                       correctCoeffs as TangentCoefficient,
                   ),
               )
