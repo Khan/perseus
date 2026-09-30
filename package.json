@@ -66,7 +66,7 @@
         "eslint-config-prettier": "^9.1.0",
         "eslint-import-resolver-alias": "^1.1.2",
         "eslint-import-resolver-typescript": "^3.5.5",
-        "eslint-plugin-cypress": "^2.15.1",
+        "eslint-plugin-cypress": "^3.6.0",
         "eslint-plugin-disable": "^2.0.3",
         "eslint-plugin-import": "^2.29.1",
         "eslint-plugin-jest": "28.9.0",
