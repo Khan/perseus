@@ -1,10 +1,5 @@
 import {Dependencies, Util} from "@khanacademy/perseus";
-import {
-    interactionLogic,
-    type Coords,
-    type PerseusInteractionWidgetOptions,
-    type MarkingsType,
-} from "@khanacademy/perseus-core";
+import {interactionLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import GraphSettings from "../../components/graph-settings";
@@ -20,36 +15,16 @@ import ParametricEditor from "./parametric-editor";
 import PointEditor from "./point-editor";
 import RectangleEditor from "./rectangle-editor";
 
+import type {
+    PerseusInteractionWidgetOptions,
+    PerseusInteractionElement,
+} from "@khanacademy/perseus-core";
+
 const {unescapeMathMode} = Util;
 
-// The starting options for each element type offered by the "Add an element"
-// dropdown. Element types with no entry here start out with no options.
-const defaultOptionsByElementType: Record<string, Record<string, unknown>> = {
-    point: PointEditor.defaultProps,
-    line: LineEditor.defaultProps,
-    "movable-point": MovablePointEditor.defaultProps,
-    "movable-line": MovableLineEditor.defaultProps,
-    function: FunctionEditor.defaultProps,
-    parametric: ParametricEditor.defaultProps,
-    label: LabelEditor.defaultProps,
-    rectangle: RectangleEditor.defaultProps,
-};
-
-type Graph = {
-    box: ReadonlyArray<number>;
-    labels: ReadonlyArray<string>;
-    range: Coords;
-    tickStep: [number, number];
-    gridStep: [number, number];
-    markings: MarkingsType;
-    valid?: boolean | string;
-};
-
-type Props = {
-    onChange: (newProps: Record<string, unknown>) => void;
-    elements: ReadonlyArray<any>;
-    graph: Graph;
-};
+interface Props extends PerseusInteractionWidgetOptions {
+    onChange: (options: PerseusInteractionWidgetOptions) => void;
+}
 
 type State = any;
 
@@ -72,10 +47,26 @@ class InteractionEditor extends React.Component<Props, State> {
     };
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
+        // TODO(benchristel): we shouldn't be using state for next-subscripts
+        //  and function names; these values are a pure function of the props!
         this.setState({
             usedVarSubscripts: this._getAllVarSubscripts(nextProps.elements),
             usedFunctionNames: this._getAllFunctionNames(nextProps.elements),
         });
+    }
+
+    handleChange(changes: Partial<PerseusInteractionWidgetOptions>) {
+        this.props.onChange({
+            graph: this.props.graph,
+            elements: this.props.elements,
+            ...changes,
+        });
+    }
+
+    handleElementChange(n: number, newElement: PerseusInteractionElement) {
+        const elementsCopy = [...this.props.elements];
+        elementsCopy[n] = newElement;
+        this.handleChange({elements: elementsCopy});
     }
 
     _getAllVarSubscripts(elements: ReadonlyArray<any>): ReadonlyArray<any> {
@@ -101,9 +92,10 @@ class InteractionEditor extends React.Component<Props, State> {
 
     // Spread existing graph props to preserve properties not included
     // in the GraphSettings onChange payload (e.g. box, markings).
-    _updateGraphProps = (newProps: Record<string, unknown>) => {
+    // TODO(benchristel): remove `any` and give this a real type.
+    _updateGraphProps = (newProps: Record<string, any>) => {
         const {step, ...rest} = newProps;
-        this.props.onChange({
+        this.handleChange({
             graph: {
                 ...this.props.graph,
                 ...rest,
@@ -111,6 +103,84 @@ class InteractionEditor extends React.Component<Props, State> {
             },
         });
     };
+
+    nextSubscript() {
+        return Math.max(...this.state.usedVarSubscripts, -1) + 1;
+    }
+
+    nextFuncName() {
+        return String.fromCharCode(
+            Math.max(
+                ...this.state.usedFunctionNames.map((c) => c.charCodeAt(0)),
+                "e".charCodeAt(0),
+            ) + 1,
+        );
+    }
+
+    createElement(elementType: string): PerseusInteractionElement {
+        switch (elementType) {
+            case "movable-point":
+                return {
+                    type: "movable-point",
+                    key: `movable-point-${randomId()}`,
+                    options: {
+                        ...MovablePointEditor.defaultProps,
+                        varSubscript: this.nextSubscript(),
+                    },
+                };
+            case "movable-line":
+                return {
+                    type: "movable-line",
+                    key: `movable-line-${randomId()}`,
+                    options: {
+                        ...MovableLineEditor.defaultProps,
+                        startSubscript: this.nextSubscript(),
+                        endSubscript: this.nextSubscript() + 1,
+                    },
+                };
+            case "point":
+                return {
+                    type: "point",
+                    key: `point-${randomId()}`,
+                    options: {...PointEditor.defaultProps},
+                };
+            case "line":
+                return {
+                    type: "line",
+                    key: `line-${randomId()}`,
+                    options: {...LineEditor.defaultProps},
+                };
+            case "function":
+                return {
+                    type: "function",
+                    key: `function-${randomId()}`,
+                    options: {
+                        ...FunctionEditor.defaultProps,
+                        funcName: this.nextFuncName(),
+                    },
+                };
+            case "parametric":
+                return {
+                    type: "parametric",
+                    key: `parametric-${randomId()}`,
+                    options: {...ParametricEditor.defaultProps},
+                };
+            case "rectangle":
+                return {
+                    type: "rectangle",
+                    key: `rectangle-${randomId()}`,
+                    options: {...RectangleEditor.defaultProps},
+                };
+            case "label":
+                return {
+                    type: "label",
+                    key: `label-${randomId()}`,
+                    options: {...LabelEditor.defaultProps},
+                };
+            default:
+                throw new Error(`Unrecognized element type: ${elementType}`);
+        }
+    }
 
     _addNewElement: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
         e,
@@ -120,41 +190,16 @@ class InteractionEditor extends React.Component<Props, State> {
             return;
         }
         e.target.value = "";
-        const newElement = {
-            type: elementType,
-            key:
-                elementType +
-                "-" +
-                // eslint-disable-next-line no-restricted-properties
-                ((Math.random() * 0xffffff) << 0).toString(16),
-            options: {...defaultOptionsByElementType[elementType]},
-        };
-
-        let nextSubscript;
-        if (elementType === "movable-point") {
-            nextSubscript = Math.max(...this.state.usedVarSubscripts, -1) + 1;
-            newElement.options.varSubscript = nextSubscript;
-        } else if (elementType === "movable-line") {
-            nextSubscript = Math.max(...this.state.usedVarSubscripts, -1) + 1;
-            newElement.options.startSubscript = nextSubscript;
-            newElement.options.endSubscript = nextSubscript + 1;
-        } else if (elementType === "function") {
-            const nextLetter = String.fromCharCode(
-                Math.max(
-                    ...this.state.usedFunctionNames.map((c) => c.charCodeAt(0)),
-                    "e".charCodeAt(0),
-                ) + 1,
-            );
-            newElement.options.funcName = nextLetter;
-        }
-        this.props.onChange({
-            elements: this.props.elements.concat(newElement),
+        this.handleChange({
+            elements: this.props.elements.concat([
+                this.createElement(elementType),
+            ]),
         });
     };
 
     _deleteElement: (arg1: number) => void = (index) => {
         const element = this.props.elements[index];
-        this.props.onChange({
+        this.handleChange({
             elements: this.props.elements.filter((e) => e !== element),
         });
     };
@@ -163,14 +208,14 @@ class InteractionEditor extends React.Component<Props, State> {
         const element = this.props.elements[index];
         const newElements = this.props.elements.filter((e) => e !== element);
         newElements.splice(index - 1, 0, element);
-        this.props.onChange({elements: newElements});
+        this.handleChange({elements: newElements});
     };
 
     _moveElementDown: (arg1: number) => void = (index) => {
         const element = this.props.elements[index];
         const newElements = this.props.elements.filter((e) => e !== element);
         newElements.splice(index + 1, 0, element);
-        this.props.onChange({elements: newElements});
+        this.handleChange({elements: newElements});
     };
 
     serialize: () => any = () => {
@@ -230,16 +275,10 @@ class InteractionEditor extends React.Component<Props, State> {
                             >
                                 <MovablePointEditor
                                     {...element.options}
-                                    onChange={(newProps) => {
-                                        const elements = JSON.parse(
-                                            JSON.stringify(this.props.elements),
-                                        );
-                                        Object.assign(
-                                            elements[n].options,
-                                            newProps,
-                                        );
-                                        this.props.onChange({
-                                            elements: elements,
+                                    onChange={(newOptions) => {
+                                        this.handleElementChange(n, {
+                                            ...element,
+                                            options: newOptions,
                                         });
                                     }}
                                 />
@@ -284,16 +323,10 @@ class InteractionEditor extends React.Component<Props, State> {
                             >
                                 <MovableLineEditor
                                     {...element.options}
-                                    onChange={(newProps) => {
-                                        const elements = JSON.parse(
-                                            JSON.stringify(this.props.elements),
-                                        );
-                                        Object.assign(
-                                            elements[n].options,
-                                            newProps,
-                                        );
-                                        this.props.onChange({
-                                            elements: elements,
+                                    onChange={(newOptions) => {
+                                        this.handleElementChange(n, {
+                                            ...element,
+                                            options: newOptions,
                                         });
                                     }}
                                 />
@@ -330,16 +363,10 @@ class InteractionEditor extends React.Component<Props, State> {
                             >
                                 <PointEditor
                                     {...element.options}
-                                    onChange={(newProps) => {
-                                        const elements = JSON.parse(
-                                            JSON.stringify(this.props.elements),
-                                        );
-                                        Object.assign(
-                                            elements[n].options,
-                                            newProps,
-                                        );
-                                        this.props.onChange({
-                                            elements: elements,
+                                    onChange={(newOptions) => {
+                                        this.handleElementChange(n, {
+                                            ...element,
+                                            options: newOptions,
                                         });
                                     }}
                                 />
@@ -384,16 +411,10 @@ class InteractionEditor extends React.Component<Props, State> {
                             >
                                 <LineEditor
                                     {...element.options}
-                                    onChange={(newProps) => {
-                                        const elements = JSON.parse(
-                                            JSON.stringify(this.props.elements),
-                                        );
-                                        Object.assign(
-                                            elements[n].options,
-                                            newProps,
-                                        );
-                                        this.props.onChange({
-                                            elements: elements,
+                                    onChange={(newOptions) => {
+                                        this.handleElementChange(n, {
+                                            ...element,
+                                            options: newOptions,
                                         });
                                     }}
                                 />
@@ -428,16 +449,10 @@ class InteractionEditor extends React.Component<Props, State> {
                             >
                                 <FunctionEditor
                                     {...element.options}
-                                    onChange={(newProps) => {
-                                        const elements = JSON.parse(
-                                            JSON.stringify(this.props.elements),
-                                        );
-                                        Object.assign(
-                                            elements[n].options,
-                                            newProps,
-                                        );
-                                        this.props.onChange({
-                                            elements: elements,
+                                    onChange={(newOptions) => {
+                                        this.handleElementChange(n, {
+                                            ...element,
+                                            options: newOptions,
                                         });
                                     }}
                                 />
@@ -463,16 +478,10 @@ class InteractionEditor extends React.Component<Props, State> {
                             >
                                 <ParametricEditor
                                     {...element.options}
-                                    onChange={(newProps) => {
-                                        const elements = JSON.parse(
-                                            JSON.stringify(this.props.elements),
-                                        );
-                                        Object.assign(
-                                            elements[n].options,
-                                            newProps,
-                                        );
-                                        this.props.onChange({
-                                            elements: elements,
+                                    onChange={(newOptions) => {
+                                        this.handleElementChange(n, {
+                                            ...element,
+                                            options: newOptions,
                                         });
                                     }}
                                 />
@@ -507,16 +516,10 @@ class InteractionEditor extends React.Component<Props, State> {
                             >
                                 <LabelEditor
                                     {...element.options}
-                                    onChange={(newProps) => {
-                                        const elements = JSON.parse(
-                                            JSON.stringify(this.props.elements),
-                                        );
-                                        Object.assign(
-                                            elements[n].options,
-                                            newProps,
-                                        );
-                                        this.props.onChange({
-                                            elements: elements,
+                                    onChange={(newOptions) => {
+                                        this.handleElementChange(n, {
+                                            ...element,
+                                            options: newOptions,
                                         });
                                     }}
                                 />
@@ -559,16 +562,10 @@ class InteractionEditor extends React.Component<Props, State> {
                             >
                                 <RectangleEditor
                                     {...element.options}
-                                    onChange={(newProps) => {
-                                        const elements = JSON.parse(
-                                            JSON.stringify(this.props.elements),
-                                        );
-                                        Object.assign(
-                                            elements[n].options,
-                                            newProps,
-                                        );
-                                        this.props.onChange({
-                                            elements: elements,
+                                    onChange={(newOptions) => {
+                                        this.handleElementChange(n, {
+                                            ...element,
+                                            options: newOptions,
                                         });
                                     }}
                                 />
@@ -598,6 +595,13 @@ class InteractionEditor extends React.Component<Props, State> {
             </div>
         );
     }
+}
+
+function randomId(): string {
+    // Using Math.random() is okay here because the IDs are written to the
+    // content data; they don't need to be deterministically derivable.
+    // eslint-disable-next-line no-restricted-properties
+    return ((Math.random() * 0xffffff) << 0).toString(16);
 }
 
 export default InteractionEditor;
