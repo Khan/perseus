@@ -535,7 +535,9 @@ describe("InteractiveGraph scoring on an angle question: defensive null-coords g
         // Characterization: hasValue accepts a truthy `coords` OR a truthy
         // `center && radius`. Smuggling center/radius onto an angle guess
         // satisfies hasValue while leaving coords undefined, hitting the
-        // defensive `if (!coords)` guard inside the angle branch.
+        // defensive `if (!coords)` guard inside the angle branch. The cast
+        // is needed because this shape is deliberately invalid.
+        // eslint-disable-next-line no-restricted-syntax
         const guess = {
             type: "angle",
             center: [0, 0],
