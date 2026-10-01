@@ -8,7 +8,7 @@ const defaultWidgetOptions: PerseusExplanationWidgetOptions = {
     widgets: {},
 };
 
-const explanationWidgetLogic: WidgetLogic = {
+const explanationWidgetLogic: WidgetLogic<PerseusExplanationWidgetOptions> = {
     name: "explanation",
     defaultWidgetOptions,
     defaultAlignment: "inline",
