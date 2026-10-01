@@ -41,6 +41,7 @@ const denylist = [
     "analytics",
     "showSolutions",
     "reviewMode",
+    "isScorable",
     "widgetIndex",
     "graded",
 ];
