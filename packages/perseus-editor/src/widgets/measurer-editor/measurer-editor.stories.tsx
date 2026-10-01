@@ -1,10 +1,10 @@
 import * as React from "react";
 
-import {question1} from "../../../../perseus/src/widgets/number-line/number-line.testdata";
+import {measurerQuestion} from "../../../../perseus/src/widgets/measurer/measurer.testdata";
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 
-import NumberLineEditor from "./number-line-editor";
+import MeasurerEditor from "./measurer-editor";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -12,16 +12,18 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 registerAllWidgetsAndEditorsForTesting();
 
 const meta: Meta = {
-    title: "Widgets/Number Line/Editor Demo",
-    component: NumberLineEditor,
+    title: "Widgets/Measurer/Editor Demo",
+    component: MeasurerEditor,
     tags: ["!autodocs"],
-};
+} satisfies Meta<typeof MeasurerEditor>;
 export default meta;
 
 type Story = StoryObj<typeof EditorPageWithStorybookPreview>;
 
 export const EditorDemo: Story = {
     render: (): React.ReactElement => (
-        <EditorPageWithStorybookPreview question={question1} />
+        <EditorPageWithStorybookPreview
+            question={measurerQuestion({showProtractor: true, showRuler: true})}
+        />
     ),
 };
