@@ -117,8 +117,8 @@ jobs:
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
                   # esbuild produces a deliberately non-minified bundle for
-                  # comparison purposes — the production build pipeline
-                  # (rollup + swc + minification) is too noisy for diffs.
+                  # comparison purposes — the production Vite pipeline uses
+                  # Rolldown and Oxc minification, which produce noisy diffs.
                   # We bundle from source rather than diffing the production
                   # artifact so we're insulated from build-pipeline drift.
                   #

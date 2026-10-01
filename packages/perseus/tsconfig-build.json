@@ -7,6 +7,7 @@
             "raphael": ["../../vendor/raphael/raphael.js"]
         }
     },
+    "include": ["**/*"],
     "references": [
         {"path": "../kas/tsconfig-build.json"},
         {"path": "../keypad-context/tsconfig-build.json"},

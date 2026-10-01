@@ -9,8 +9,7 @@
         "exports": {
             ".": "./dist/index.js",
             "./strings": "./dist/strings.js",
-            "./styles.css": "./dist/index.css",
-            "./testing": "./dist/testing.js"
+            "./styles.css": "./dist/index.css"
         }
     },
     "repository": {
@@ -54,6 +53,7 @@
         "uuid": "^10.0.0"
     },
     "devDependencies": {
+        "@internal/build-settings": "workspace:*",
         "@khanacademy/wonder-blocks-announcer": "catalog:devDeps",
         "@khanacademy/wonder-blocks-banner": "catalog:devDeps",
         "@khanacademy/wonder-blocks-button": "catalog:devDeps",
@@ -81,7 +81,6 @@
         "@popperjs/core": "catalog:devDeps",
         "aphrodite": "catalog:devDeps",
         "classnames": "catalog:devDeps",
-        "perseus-build-settings": "workspace:*",
         "prop-types": "catalog:devDeps",
         "raphael": "workspace:*",
         "react": "catalog:devDeps",
