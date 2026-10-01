@@ -489,6 +489,7 @@ export type WidgetProps<
     onBlur: (blurPath: FocusPath) => void;
     findWidgets: FindWidgetsFunction;
     reviewMode: boolean;
+    isScorable: boolean;
     showSolutions?: ShowSolutions;
     handleUserInput: (
         newUserInput: TUserInput,

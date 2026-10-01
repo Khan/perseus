@@ -140,7 +140,6 @@ module.exports = {
     ],
     parser: "@typescript-eslint/parser",
     plugins: [
-        "cypress",
         "disable",
         "import",
         "jest",
@@ -187,7 +186,6 @@ module.exports = {
         },
     },
     env: {
-        "cypress/globals": true,
         "jest/globals": false,
         node: true,
         browser: true,
@@ -226,6 +224,22 @@ module.exports = {
                 "max-lines": "off",
                 "import/no-extraneous-dependencies": "off",
                 "import/no-relative-packages": "off",
+            },
+        },
+        {
+            files: [
+                "*.cypress.ts",
+                "*.cypress.tsx",
+                "config/cypress/support.ts",
+                "packages/perseus/src/testing/render-question-with-cypress.tsx",
+            ],
+            extends: ["plugin:cypress/recommended"],
+            rules: {
+                "cypress/assertion-before-screenshot": "error",
+                "cypress/no-async-before": "error",
+                "cypress/no-debug": "error",
+                "cypress/no-force": "error",
+                "cypress/no-pause": "error",
             },
         },
         {
@@ -290,7 +304,7 @@ module.exports = {
             files: ["*.ts", "*.tsx"],
             parser: "@typescript-eslint/parser",
             parserOptions: {
-                project: ["tsconfig.json"],
+                project: ["tsconfig.json", "config/cypress/tsconfig.json"],
             },
             rules: {
                 "@typescript-eslint/strict-boolean-expressions": [
@@ -304,7 +318,7 @@ module.exports = {
                     },
                 ],
             },
-            excludedFiles: ["*.d.ts", "*.config.ts", "**/*.cypress.ts"],
+            excludedFiles: ["*.d.ts"],
         },
     ],
     reportUnusedDisableDirectives: true,

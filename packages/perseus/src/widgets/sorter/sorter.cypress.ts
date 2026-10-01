@@ -68,9 +68,11 @@ function dragCardBelowTheNextOne(index: number): void {
         // `force` because we don't care where on the page these land — the
         // handlers read the coordinates off the event, not off the target.
         const move = (pageY: number) =>
+            // eslint-disable-next-line cypress/no-force
             cy.get("body").trigger("mousemove", {force: true, pageX, pageY});
         move(startY + dy / 2);
         move(startY + dy);
+        // eslint-disable-next-line cypress/no-force
         cy.get("body").trigger("mouseup", {
             force: true,
             pageX,
@@ -120,7 +122,7 @@ describe("Sorter widget", () => {
                 twoCardVerticalQuestion,
                 getRenderer().getUserInputMap(),
             );
-            expect(score).toStrictEqual(EXPECTED_CORRECT_SCORE);
+            expect(score).to.deep.equal(EXPECTED_CORRECT_SCORE);
         });
     });
 });

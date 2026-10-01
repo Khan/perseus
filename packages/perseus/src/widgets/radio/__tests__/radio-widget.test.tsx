@@ -88,6 +88,7 @@ const getBaseProps = (
     onBlur: jest.fn(),
     findWidgets: () => [],
     reviewMode: false,
+    isScorable: false,
     showSolutions: "none",
     handleUserInput: jest.fn(),
     userInput: {selectedChoiceIds: []},
