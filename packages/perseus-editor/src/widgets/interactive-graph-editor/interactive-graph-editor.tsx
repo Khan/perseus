@@ -6,7 +6,7 @@ import {
     interactiveSizes,
     Util,
 } from "@khanacademy/perseus";
-import {interactiveGraphLogic, PerseusInteractionGraph} from "@khanacademy/perseus-core";
+import {interactiveGraphLogic} from "@khanacademy/perseus-core";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
@@ -33,31 +33,29 @@ import {reshapePointLabelsForGraphType} from "./utils/reshape-point-labels";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
     PerseusInteractiveGraphUserInput,
-    LockedFigure,
-    PerseusImageBackground,
     PerseusInteractiveGraphWidgetOptions,
     PerseusGraphType,
-    MarkingsType,
-    AxisLabelLocation,
-    ShowAxisArrows,
-    ShowAxisTicks,
 } from "@khanacademy/perseus-core";
 
 const InteractiveGraph: typeof InteractiveGraphWidget.widget =
     InteractiveGraphWidget.widget;
 
-export interface Props extends PerseusInteractiveGraphWidgetOptions {
-    apiOptions: APIOptionsWithDefaults;
-    onChange: (options: PerseusInteractiveGraphWidgetOptions) => void;
-    // Whether the graph has been set to static mode.
-    // Graphs in static mode are not interactive, and their coords are
-    // set to those of the "correct" graph in the editor.
-    static?: boolean;
+interface EditingInteractiveGraphOptions
+    extends PerseusInteractiveGraphWidgetOptions {
     /**
      * An error message to display in the graph area, or true if the
      * graph is valid.
      */
     valid: true | string;
+}
+
+export interface Props extends EditingInteractiveGraphOptions {
+    apiOptions: APIOptionsWithDefaults;
+    onChange: (options: EditingInteractiveGraphOptions) => void;
+    // Whether the graph has been set to static mode.
+    // Graphs in static mode are not interactive, and their coords are
+    // set to those of the "correct" graph in the editor.
+    static?: boolean;
 }
 
 // JSDoc will be shown in Storybook widget editor description
@@ -77,15 +75,12 @@ class InteractiveGraphEditor extends React.Component<Props> {
     displayName = "InteractiveGraphEditor";
     className = "perseus-widget-interactive-graph";
 
-    static defaultProps: PerseusInteractiveGraphWidgetOptions & {
-        valid: true | string;
-    } = {
+    static defaultProps: EditingInteractiveGraphOptions = {
         ...interactiveGraphLogic.defaultWidgetOptions,
         valid: true,
-        lockedFigures: [],
     };
 
-    handleChange(changes: Partial<PerseusInteractiveGraphWidgetOptions>) {
+    handleChange(changes: Partial<EditingInteractiveGraphOptions>) {
         this.props.onChange({
             step: this.props.step,
             gridStep: this.props.gridStep,
@@ -107,8 +102,9 @@ class InteractiveGraphEditor extends React.Component<Props> {
             lockedFigures: this.props.lockedFigures,
             fullGraphAriaLabel: this.props.fullGraphAriaLabel,
             fullGraphAriaDescription: this.props.fullGraphAriaDescription,
+            valid: this.props.valid,
             ...changes,
-        })
+        });
     }
 
     changeStartCoords = (coords) => {
@@ -301,7 +297,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
         let equationString;
 
         const gridStep =
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             this.props.gridStep ||
             Util.getGridStep(
                 this.props.range,
@@ -309,7 +304,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 interactiveSizes.defaultBoxSize,
             );
         const snapStep =
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             this.props.snapStep || Util.snapStepFromGridStep(gridStep);
 
         const sizeClass = containerSizeClass.SMALL;
@@ -450,34 +444,44 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             <AngleAnswerOptions
                                 correct={this.props.correct}
                                 graph={this.props.graph}
-                                onChange={(options) => this.handleChange(options)}
+                                onChange={(options) =>
+                                    this.handleChange(options)
+                                }
                             />
                         )}
                         {this.props.correct?.type === "point" && (
                             <GraphPointsCountSelector
                                 correct={this.props.correct}
                                 graph={this.props.graph}
-                                onChange={(options) => this.handleChange(options)}
+                                onChange={(options) =>
+                                    this.handleChange(options)
+                                }
                             />
                         )}
                         {this.props.correct?.type === "polygon" && (
                             <PolygonAnswerOptions
                                 correct={this.props.correct}
                                 graph={this.props.graph}
-                                onChange={(options) => this.handleChange(options)}
+                                onChange={(options) =>
+                                    this.handleChange(options)
+                                }
                             />
                         )}
                         {this.props.correct?.type === "vector" && (
                             <VectorAnswerOptions
                                 correct={this.props.correct}
-                                onChange={(options) => this.handleChange(options)}
+                                onChange={(options) =>
+                                    this.handleChange(options)
+                                }
                             />
                         )}
                         {this.props.correct?.type === "segment" && (
                             <SegmentCountSelector
                                 correct={this.props.correct}
                                 graph={this.props.graph}
-                                onChange={(options) => this.handleChange(options)}
+                                onChange={(options) =>
+                                    this.handleChange(options)
+                                }
                             />
                         )}
 

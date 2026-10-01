@@ -96,9 +96,11 @@ describe("InteractiveGraphEditor locked figures", () => {
             await userEvent.click(addFigureButton);
 
             // Assert
-            expect(onChangeMock).toHaveBeenCalledWith(expect.objectContaining({
-                lockedFigures: [getDefaultFigureForType(figureType)],
-            }));
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    lockedFigures: [getDefaultFigureForType(figureType)],
+                }),
+            );
         });
 
         test("Calls onChange when a locked $figureType is removed", async () => {
