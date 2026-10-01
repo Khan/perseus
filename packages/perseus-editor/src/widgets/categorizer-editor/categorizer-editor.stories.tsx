@@ -12,7 +12,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 registerAllWidgetsAndEditorsForTesting();
 
 const meta: Meta = {
-    title: "Widgets/Categorizer",
+    title: "Widgets/Categorizer/Editor Demo",
     component: CategorizerEditor,
     tags: ["!autodocs"],
 } satisfies Meta<typeof CategorizerEditor>;
