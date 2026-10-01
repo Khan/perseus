@@ -266,7 +266,7 @@ describe("graded-group", () => {
 
         // Assert
         expect(screen.getByRole("status")).toHaveTextContent(
-            "We couldn't grade your answer. Make sure you select something for every row.",
+            "We couldn't check your answer. Select an answer for every row.",
         );
     });
 
@@ -284,7 +284,7 @@ describe("graded-group", () => {
         // Assert
         expect(
             screen.getByText(
-                "We couldn't grade your answer. Make sure you select something for every row.",
+                "We couldn't check your answer. Select an answer for every row.",
             ),
         ).toBeVisible();
     });
