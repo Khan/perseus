@@ -309,15 +309,6 @@ module.exports = {
             },
         },
         {
-            // The build config runs directly under Node (not bundled), and
-            // Node's ESM resolver requires relative imports to include the
-            // file extension.
-            files: ["config/build/**"],
-            rules: {
-                "no-restricted-syntax": ["error", ...restrictedSyntax],
-            },
-        },
-        {
             files: ["score-*.ts"],
             rules: {
                 "no-restricted-syntax": [

@@ -9,7 +9,6 @@
         // Cypress files - covered by config/cypress/tsconfig.json
         "cypress.config.mts",
         "config/cypress/**",
-        "config/build/**",
         "**/*.cypress.ts",
         "**/*.cypress.tsx",
         "packages/perseus/src/testing/render-question-with-cypress.tsx",

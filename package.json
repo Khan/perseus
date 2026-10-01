@@ -109,7 +109,7 @@
     "scripts": {
         "gen:parsers": "pnpm --filter ./packages/kas gen:parsers",
         "prebuild": "pnpm gen:parsers",
-        "build": "node config/build/build-packages.ts",
+        "build": "config/build/build-packages.ts",
         "prebuild:docs": "pnpm clean:docs",
         "build:docs": "typedoc",
         "build:storybook": "storybook build --stats-json",
@@ -134,7 +134,7 @@
         "cypress:ci": "cypress run --component --config-file ./cypress.config.mts",
         "format": "prettier --write .",
         "tsc": "pnpm typecheck",
-        "typecheck": "tsc && tsc --project config/cypress/tsconfig.json && tsc --project config/build/tsconfig.json",
+        "typecheck": "tsc && tsc --project config/cypress/tsconfig.json",
         "knip": "knip --config knip.config.ts",
         "extract-css": "node ./utils/extract-css.js",
         "sync-legacy-styles": "node ./utils/sync-legacy-styles.js",

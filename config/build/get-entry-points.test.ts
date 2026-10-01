@@ -1,4 +1,4 @@
-import {getEntryPoints} from "./get-entry-points.ts";
+import {getEntryPoints} from "./get-entry-points";
 
 describe("getEntryPoints", () => {
     const sourceOnlyPackage = {exports: {".": "./src/index.ts"}};
