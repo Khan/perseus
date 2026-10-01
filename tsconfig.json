@@ -6,8 +6,7 @@
         "coverage",
         "coverage-ts",
 
-        // All Cypress-related files are covered by
-        // config/cypress/tsconfig.json so we exclude them here!
+        // Cypress files - covered by config/cypress/tsconfig.json
         "config/cypress/**",
         "**/*.cypress.ts",
         "**/*.cypress.tsx",
