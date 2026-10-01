@@ -6,7 +6,7 @@ import {fileURLToPath} from "node:url";
 import react from "@vitejs/plugin-react";
 import postcssImport from "postcss-import";
 
-import {jsTarget} from "./browser-targets";
+import {cssTarget, jsTarget} from "./browser-targets";
 import {getEntryPoints} from "./get-entry-points";
 import {parseBuildPackageMetadata} from "./package-json";
 import {createCssAssetPlugin} from "./plugins/css-assets";
@@ -119,6 +119,7 @@ export function createPackageConfig(
             minify: "oxc",
             watch: options.watch ? {} : null,
             target: jsTarget,
+            cssTarget,
             lib: {
                 entry: entries,
                 formats: ["es"],
