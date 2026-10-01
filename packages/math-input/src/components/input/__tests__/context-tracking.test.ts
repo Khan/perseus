@@ -146,6 +146,51 @@ describe("Cursor context", () => {
         });
     });
 
+    describe("In square root", () => {
+        it("should detect when inside empty square root", () => {
+            const cursor = mathField.pressKey("SQRT");
+            expect(cursor.context).toEqual(CursorContext.IN_SQUARE_ROOT);
+        });
+
+        it("should detect when inside non-empty square root", () => {
+            mathField.pressKey("SQRT");
+            const cursor = mathField.pressKey("NUM_2");
+            expect(cursor.context).toEqual(CursorContext.IN_SQUARE_ROOT);
+        });
+
+        it("should not detect after leaving square root", () => {
+            mathField.pressKey("SQRT");
+            const cursor = mathField.pressKey("RIGHT");
+            expect(cursor.context).toEqual(CursorContext.NONE);
+        });
+    });
+
+    describe("In radical index", () => {
+        it("should detect when inside empty index", () => {
+            const cursor = mathField.pressKey("RADICAL");
+            expect(cursor.context).toEqual(CursorContext.IN_RADICAL_INDEX);
+        });
+
+        it("should detect when inside non-empty index", () => {
+            mathField.pressKey("RADICAL");
+            const cursor = mathField.pressKey("NUM_3");
+            expect(cursor.context).toEqual(CursorContext.IN_RADICAL_INDEX);
+        });
+    });
+
+    describe("In radical", () => {
+        it("should detect when inside empty radicand", () => {
+            mathField.pressKey("RADICAL");
+            const cursor = mathField.pressKey("RIGHT");
+            expect(cursor.context).toEqual(CursorContext.IN_RADICAL);
+        });
+
+        it("should detect when inside cube root", () => {
+            const cursor = mathField.pressKey("CUBE_ROOT");
+            expect(cursor.context).toEqual(CursorContext.IN_RADICAL);
+        });
+    });
+
     describe("Nesting", () => {
         it("should defer to jumping into fraction if possible", () => {
             // Move inside parens, but include a fraction.

@@ -25,6 +25,12 @@ const contextToKeyAria = {
         keyConfigs(mockStrings).JUMP_OUT_DENOMINATOR.ariaLabel,
     [CursorContext.BEFORE_FRACTION]:
         keyConfigs(mockStrings).JUMP_INTO_NUMERATOR.ariaLabel,
+    [CursorContext.IN_SQUARE_ROOT]:
+        keyConfigs(mockStrings).JUMP_OUT_SQUARE_ROOT.ariaLabel,
+    [CursorContext.IN_RADICAL_INDEX]:
+        keyConfigs(mockStrings).JUMP_OUT_RADICAL_INDEX.ariaLabel,
+    [CursorContext.IN_RADICAL]:
+        keyConfigs(mockStrings).JUMP_OUT_RADICAL.ariaLabel,
 };
 
 describe("keypad", () => {
