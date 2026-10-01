@@ -237,7 +237,7 @@ jobs:
               run: |
                   browser=electron
 
-                  if pnpm exec cypress info | grep -Eiq '\b(chrome|chromium)\b'; then
+                  if pnpm exec cypress info | grep -Eq '\bchrome\b'; then
                       browser=chrome
                   fi
 
