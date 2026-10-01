@@ -1,4 +1,3 @@
-// Node's native ES module loader requires the file extension.
 import {parseRecord, parseStringRecord} from "./package-json.ts";
 
 /**
