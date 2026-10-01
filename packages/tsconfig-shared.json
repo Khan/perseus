@@ -20,6 +20,10 @@
         "**/__docs__/**",
         "**/*.cypress.*",
         "perseus/src/testing/render-question-with-cypress.tsx",
+        // Perseus's `./testing` entry point exists only for cross-package
+        // imports within this repo. It is not published, so a declaration for
+        // it would ship a file nothing can import.
+        "perseus/src/testing.ts",
         // perseus-core's item-splitting entry point exists only for the
         // `check_item_splitting` job in
         // .github/workflows/pr-comparison-checks.yml, which esbuilds it from
