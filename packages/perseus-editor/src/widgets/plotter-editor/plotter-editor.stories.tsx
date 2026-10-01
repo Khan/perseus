@@ -1,35 +1,27 @@
-import {ApiOptions} from "@khanacademy/perseus";
-import {action} from "storybook/actions";
+import * as React from "react";
+
+import {question1 as question} from "../../../../perseus/src/widgets/plotter/plotter.testdata";
+import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
+import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 
 import PlotterEditor from "./plotter-editor";
 
-import type {StoryObj} from "@storybook/react-vite";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const meta = {
+// This is to address timing - Perseus widget editor registry accessed before initialization!
+registerAllWidgetsAndEditorsForTesting();
+
+const meta: Meta = {
     title: "Widgets/Plotter/Editor Demo",
     component: PlotterEditor,
-    tags: ["!dev"],
-};
+    tags: ["!autodocs"],
+} satisfies Meta<typeof PlotterEditor>;
 export default meta;
 
-type Story = StoryObj<typeof meta>;
-export const Default: Story = {
-    args: {
-        onChange: action("onChange"),
-        apiOptions: ApiOptions.defaults,
-        categories: ["0", "1", "2"],
-        plotDimensions: [300, 300],
-        correct: [0, 1, 2],
-        labels: ["Horizontal", "Vertical"],
-        maxY: 2,
-        scaleY: 1,
-        snapsPerLine: 1,
-        starting: [0, 0, 0],
-        type: "bar",
-        picSize: 400,
-        picBoxHeight: 400,
-        picUrl: "",
-        labelInterval: 1,
-        static: false,
-    },
+type Story = StoryObj<typeof EditorPageWithStorybookPreview>;
+
+export const EditorDemo: Story = {
+    render: (): React.ReactElement => (
+        <EditorPageWithStorybookPreview question={question} />
+    ),
 };
