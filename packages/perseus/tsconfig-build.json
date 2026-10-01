@@ -4,11 +4,6 @@
         "outDir": "./dist",
         "rootDir": "src"
     },
-    // `**/testing/**` is excluded in tsconfig-shared.json, but the
-    // `@khanacademy/perseus/testing` entry point (src/testing.ts) ships these.
-    // Composite projects must list every file they compile (TS6307), and
-    // `files` entries bypass `exclude`. Setting `files` drops the default
-    // `include`, so it is restored here.
     "include": ["**/*"],
     "files": [
         // TODO: Move internal-only test support files to __testutils__/
