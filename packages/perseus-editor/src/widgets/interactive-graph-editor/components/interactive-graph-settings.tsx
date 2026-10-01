@@ -11,14 +11,12 @@ import _ from "underscore";
 
 import Heading from "../../../components/heading";
 import InfoTip from "../../../components/info-tip";
-import {deprecatedChangeableChange} from "../../../mixins/changeable";
 import LabeledRow from "../locked-figures/labeled-row";
 
 import AxisArrowSwitches from "./axis-arrow-switches";
 import AxisTickSwitches from "./axis-tick-switches";
 import styles from "./interactive-graph-settings.module.css";
 
-import type {ChangeFn} from "../../../mixins/changeable";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
     AxisLabelLocation,
@@ -42,11 +40,7 @@ function numSteps(range: any, step: any) {
 
 type Range = [min: number, max: number];
 
-interface Props {
-    /**
-     * The size of the graph area in pixels.
-     */
-    box: [x: number, y: number];
+interface InteractiveGraphSettingsData {
     /**
      * The labels for the x and y axes.
      */
@@ -109,15 +103,20 @@ interface Props {
      * Whether to show tooltips on the graph.
      */
     showTooltips: boolean;
+}
 
-    onChange: (arg1: Partial<Props>) => void;
-
+interface Props extends InteractiveGraphSettingsData {
+    /**
+     * The size of the graph area in pixels.
+     */
+    box: [x: number, y: number];
+    onChange: (settings: InteractiveGraphSettingsData) => void;
     apiOptions: APIOptionsWithDefaults;
 }
 
 interface State {
     isExpanded: boolean;
-    labelsTextbox: ReadonlyArray<string>;
+    labelsTextbox: string[];
     labelLocation: AxisLabelLocation;
     gridStepTextbox: [x: number, y: number];
     snapStepTextbox: [x: number, y: number];
@@ -212,9 +211,24 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         this._isMounted = false;
     }
 
-    change: ChangeFn = (...args) => {
-        return deprecatedChangeableChange.apply(this, args);
-    };
+    handleChange(changes: Partial<InteractiveGraphSettingsData>) {
+        this.props.onChange({
+            labels: this.props.labels,
+            labelLocation: this.props.labelLocation,
+            range: this.props.range,
+            showAxisArrows: this.props.showAxisArrows,
+            showAxisTicks: this.props.showAxisTicks,
+            step: this.props.step,
+            gridStep: this.props.gridStep,
+            snapStep: this.props.snapStep,
+            valid: this.props.valid,
+            backgroundImage: this.props.backgroundImage,
+            markings: this.props.markings,
+            showProtractor: this.props.showProtractor,
+            showTooltips: this.props.showTooltips,
+            ...changes,
+        });
+    }
 
     changeBackgroundUrl = (e) => {
         // Only continue on blur or "enter"
@@ -464,15 +478,15 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         );
     };
 
-    changeStep = (step) => {
+    changeStep = (step: [number, number]) => {
         this.setState({stepTextbox: step}, this.changeGraph);
     };
 
-    changeSnapStep = (snapStep) => {
+    changeSnapStep = (snapStep: [number, number]) => {
         this.setState({snapStepTextbox: snapStep}, this.changeGraph);
     };
 
-    changeGridStep = (gridStep) => {
+    changeGridStep = (gridStep: [number, number]) => {
         this.setState(
             {
                 gridStepTextbox: gridStep,
@@ -488,12 +502,10 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
     changeGraph = () => {
         const labels = this.state.labelsTextbox;
         const labelLocation = this.state.labelLocation;
-        const range = this.state.rangeTextbox.map((range) =>
-            range.map((value) => Number(value)),
-        );
+        const range = this.state.rangeTextbox;
         const showAxisArrows = this.state.showAxisArrowsSwitches;
         const showAxisTicks = this.state.showAxisTicksSwitches;
-        const step = this.state.stepTextbox.map((value) => Number(value));
+        const step = this.state.stepTextbox;
         const gridStep = this.state.gridStepTextbox;
         const snapStep = this.state.snapStepTextbox;
         const image = this.state.backgroundImage;
@@ -512,7 +524,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
 
         if (validationResult === true) {
             // either true or a string
-            this.change({
+            this.handleChange({
                 valid: true,
                 labels: labels,
                 labelLocation: labelLocation,
@@ -525,7 +537,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                 backgroundImage: image,
             });
         } else {
-            this.change({
+            this.handleChange({
                 valid: validationResult, // a string message, not false
             });
         }
@@ -560,7 +572,9 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                                 content: "Along Graph Edge",
                                             },
                                         ]}
-                                        onChange={this.change("labelLocation")}
+                                        onChange={(labelLocation) =>
+                                            this.handleChange({labelLocation})
+                                        }
                                         disabled={editingDisabled}
                                     />
                                 </LabeledRow>
@@ -711,7 +725,9 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                             {value: "grid", content: "Grid"},
                                             {value: "none", content: "None"},
                                         ]}
-                                        onChange={this.change("markings")}
+                                        onChange={(markings) =>
+                                            this.handleChange({markings})
+                                        }
                                         disabled={editingDisabled}
                                     />
                                 </LabeledRow>
@@ -720,8 +736,8 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                 <Checkbox
                                     label="Show tooltips"
                                     checked={this.props.showTooltips}
-                                    onChange={(value) => {
-                                        this.change({showTooltips: value});
+                                    onChange={(showTooltips) => {
+                                        this.handleChange({showTooltips});
                                     }}
                                     disabled={editingDisabled}
                                 />
@@ -762,8 +778,8 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                 <Checkbox
                                     label="Show protractor"
                                     checked={this.props.showProtractor}
-                                    onChange={(value) => {
-                                        this.change({showProtractor: value});
+                                    onChange={(showProtractor) => {
+                                        this.handleChange({showProtractor});
                                     }}
                                     disabled={editingDisabled}
                                     style={{marginBlockStart: 0}}
