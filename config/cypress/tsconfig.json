@@ -3,7 +3,6 @@
     "extends": "../../tsconfig-common.json",
     "compilerOptions": {
         "noEmit": true,
-        "allowImportingTsExtensions": true,
         // be explicit about types included
         // to avoid clashing with Jest types
         "types": [

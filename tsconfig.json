@@ -5,7 +5,6 @@
         "**/dist",
         "coverage",
         "coverage-ts",
-        "config/build/**",
 
         // Cypress files - covered by config/cypress/tsconfig.json
         "config/cypress/**",

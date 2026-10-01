@@ -41,6 +41,8 @@ function dragPointTo(index: number, pos: {x: number; y: number}): void {
     const clientX = pos.x - window.scrollX;
     const clientY = pos.y - window.scrollY;
 
+    cy.get(POINTS).clidck().click().click();
+
     cy.get(POINTS).eq(index).realMouseDown({position: "center"});
     cy.get("body").then(($body) => {
         const bodyRect = $body[0].getBoundingClientRect();

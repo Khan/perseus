@@ -6,10 +6,10 @@ import {fileURLToPath} from "node:url";
 import react from "@vitejs/plugin-react";
 import postcssImport from "postcss-import";
 
-import {getEntryPoints} from "./get-entry-points.ts";
-import {parseBuildPackageMetadata} from "./package-json.ts";
-import {createCssAssetPlugin} from "./plugins/css-assets.ts";
-import {createVersionPlugin} from "./plugins/inject-package-version.ts";
+import {getEntryPoints} from "./get-entry-points";
+import {parseBuildPackageMetadata} from "./package-json";
+import {createCssAssetPlugin} from "./plugins/css-assets";
+import {createVersionPlugin} from "./plugins/inject-package-version";
 
 import type {InlineConfig} from "vite";
 

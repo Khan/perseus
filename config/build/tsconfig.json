@@ -1,9 +1,0 @@
-{
-    "extends": "../../tsconfig-common.json",
-    "compilerOptions": {
-        "allowImportingTsExtensions": true,
-        "noEmit": true,
-        "target": "ES2021"
-    },
-    "include": ["**/*.ts", "**/*.mts"]
-}
