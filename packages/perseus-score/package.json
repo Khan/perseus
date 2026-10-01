@@ -36,7 +36,7 @@
         "tiny-invariant": "^1.3.3"
     },
     "devDependencies": {
-        "perseus-build-settings": "workspace:*",
+        "@internal/build-settings": "workspace:*",
         "underscore": "catalog:devDeps"
     },
     "peerDependencies": {
