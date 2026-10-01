@@ -134,6 +134,11 @@ export function createPackageConfig(
                         assetInfo.names.some((name) => name.endsWith(".css"))
                             ? "[name][extname]"
                             : "assets/[name][extname]",
+                    // @khanacademy/kas has functionality that reflects on its
+                    // own function names. Some of our production code
+                    // _depends_ on those names not being mangled, so we enable
+                    // 'keepNames' here!
+                    keepNames: true,
                 },
             },
         },
