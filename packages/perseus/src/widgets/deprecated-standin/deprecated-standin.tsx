@@ -6,6 +6,9 @@ import {usePerseusI18n} from "../../components/i18n-context";
 
 import type {Widget, WidgetExports} from "../../types";
 
+// forwardRef is only needed because WidgetContainer passes a ref
+// but React complains when you pass a ref to a functional component
+// without forwardRef
 const DeprecatedStandin = forwardRef<Widget>(function DeprecatedStandin() {
     const {strings} = usePerseusI18n();
 
