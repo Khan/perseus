@@ -5,14 +5,6 @@
         "rootDir": "src"
     },
     "include": ["**/*"],
-    "files": [
-        // TODO: Move internal-only test support files to __testutils__/
-        // directories so we don't have to special-case these inclusions.
-        "src/testing/json-view.tsx",
-        "src/testing/split-view.tsx",
-        "src/testing/test-dependencies.tsx",
-        "src/testing/test-mathjax.tsx"
-    ],
     "references": [
         {"path": "../kas/tsconfig-build.json"},
         {"path": "../keypad-context/tsconfig-build.json"},
