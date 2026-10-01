@@ -1,3 +1,5 @@
+import {parseRecord, parseStringRecord} from "./package-json";
+
 /**
  * Find the entry points that we _build_ for a package.
  *
@@ -13,21 +15,31 @@
  * defined in the plugin's configuration - and that output file must appear in
  * the package's `.publishConfig.exports`
  *
- * @param {Record<string, any>} pkgJson the parsed `package.json` of a package
- * @returns {Record<string, string>} a map of the sub-path exports names to
- * their package-relative source files.
+ * @returns a map of the sub-path exports names to their package-relative
+ * source files.
  *
  * See: https://nodejs.org/api/packages.html#subpath-exports
  */
-export const getEntryPoints = (pkgJson) => {
-    const publishedExports = pkgJson.publishConfig?.exports ?? {};
-    const entryPoints = {};
-    for (const [subPath, sourceFile] of Object.entries(pkgJson.exports ?? {})) {
+export function getEntryPoints(pkgJson: unknown): Record<string, string> {
+    const packageJson = parseRecord(pkgJson, "package.json");
+    const sourceExports = parseStringRecord(
+        packageJson.exports,
+        "package.json.exports",
+    );
+    const publishConfig = parseRecord(
+        packageJson.publishConfig,
+        "package.json.publishConfig",
+    );
+    const publishedExports = parseStringRecord(
+        publishConfig.exports,
+        "package.json.publishConfig.exports",
+    );
+    const entryPoints: Record<string, string> = {};
+    for (const [subPath, sourceFile] of Object.entries(sourceExports)) {
         const publishedFile = publishedExports[subPath];
         if (
-            typeof sourceFile !== "string" ||
             !sourceFile.startsWith("./src/") ||
-            typeof publishedFile !== "string" ||
+            publishedFile === undefined ||
             !publishedFile.endsWith(".js")
         ) {
             continue;
@@ -38,4 +50,4 @@ export const getEntryPoints = (pkgJson) => {
     }
 
     return entryPoints;
-};
+}
