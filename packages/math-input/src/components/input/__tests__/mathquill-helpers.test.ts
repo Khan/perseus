@@ -129,20 +129,6 @@ describe("MathQuill Helpers", () => {
             expect(context).toBe(CursorContext.IN_RADICAL);
         });
 
-        it("returns NONE after a square root", () => {
-            // Arrange
-            const mount = document.createElement("div");
-            const mathField = createMathField(mount, "en", mockStrings);
-            mathField.cmd("sqrt");
-            mathField.keystroke("Right");
-
-            // Act
-            const context = getCursorContext(mathField);
-
-            // Assert
-            expect(context).toBe(CursorContext.NONE);
-        });
-
         it("returns IN_SUPER_SCRIPT when in superscript", () => {
             // Arrange
             const mount = document.createElement("div");

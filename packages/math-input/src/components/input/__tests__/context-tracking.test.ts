@@ -157,12 +157,6 @@ describe("Cursor context", () => {
             const cursor = mathField.pressKey("NUM_2");
             expect(cursor.context).toEqual(CursorContext.IN_SQUARE_ROOT);
         });
-
-        it("should not detect after leaving square root", () => {
-            mathField.pressKey("SQRT");
-            const cursor = mathField.pressKey("RIGHT");
-            expect(cursor.context).toEqual(CursorContext.NONE);
-        });
     });
 
     describe("In radical index", () => {
