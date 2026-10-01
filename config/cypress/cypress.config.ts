@@ -6,7 +6,7 @@ import {defineConfig} from "cypress";
 import {mergeConfig} from "vite";
 import istanbul from "vite-plugin-istanbul";
 
-import viteConfig from "../../vite.config.mts";
+import viteConfig from "../../vite.config.mjs";
 
 const repoRoot = path.resolve(
     path.dirname(fileURLToPath(import.meta.url)),
