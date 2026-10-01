@@ -1,5 +1,19 @@
 # @khanacademy/perseus-editor
 
+## 44.0.2
+
+### Patch Changes
+
+-   [#4294](https://github.com/Khan/perseus/pull/4294) [`63ae907`](https://github.com/Khan/perseus/commit/63ae9073dbd784e33118631fe4962212f5b4664d) Thanks [@handeyeco](https://github.com/handeyeco)! - Switch some uses of PropTypes over to TS
+
+-   Updated dependencies [[`4608173`](https://github.com/Khan/perseus/commit/46081733b9995aa840286b16e82216e45e0a0be6), [`f4ebbe8`](https://github.com/Khan/perseus/commit/f4ebbe83e76699e2d5446c8a1ace829f6e895263), [`460483d`](https://github.com/Khan/perseus/commit/460483d3ad269330fd9dae3d9198cabc6df16245), [`a4372f8`](https://github.com/Khan/perseus/commit/a4372f860833f4954b32d007f26bbf8720c7db94)]:
+    -   @khanacademy/perseus@90.0.0
+    -   @khanacademy/perseus-core@40.1.0
+    -   @khanacademy/keypad-context@6.0.1
+    -   @khanacademy/kmath@3.0.2
+    -   @khanacademy/math-input@30.0.1
+    -   @khanacademy/perseus-linter@6.0.2
+
 ## 44.0.1
 
 ### Patch Changes
