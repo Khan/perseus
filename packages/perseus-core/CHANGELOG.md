@@ -1,5 +1,17 @@
 # @khanacademy/perseus-core
 
+## 40.1.0
+
+### Minor Changes
+
+-   [#4275](https://github.com/Khan/perseus/pull/4275) [`4608173`](https://github.com/Khan/perseus/commit/46081733b9995aa840286b16e82216e45e0a0be6) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - create new util for alignment, propagate through perseus and fix markdown so linter errors doesn't cause wrapping in preview
+
+### Patch Changes
+
+-   [#4291](https://github.com/Khan/perseus/pull/4291) [`460483d`](https://github.com/Khan/perseus/commit/460483d3ad269330fd9dae3d9198cabc6df16245) Thanks [@handeyeco](https://github.com/handeyeco)! - Add a new optional `isScorable` flag to Renderer, which is used by ServerItemRenderer and GradedGroup to mark inputs as `aria-required`.
+
+-   [#4285](https://github.com/Khan/perseus/pull/4285) [`a4372f8`](https://github.com/Khan/perseus/commit/a4372f860833f4954b32d007f26bbf8720c7db94) Thanks [@handeyeco](https://github.com/handeyeco)! - Revert ServerItemRenderer encapsulation (Perseus#4126)
+
 ## 40.0.1
 
 ### Patch Changes
