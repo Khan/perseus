@@ -119,6 +119,8 @@ export function createPackageConfig(
             watch: options.watch ? {} : null,
             // Keep this value in sync with the root tsconfig-common.json!
             target: "es2020",
+            // Khan Academy's current browser targets as of Oct 1, 2026
+            cssTarget: ["chrome144", "safari16.6"],
             lib: {
                 entry: entries,
                 formats: ["es"],
