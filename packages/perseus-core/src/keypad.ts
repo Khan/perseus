@@ -48,7 +48,7 @@ export const KeypadKeys = [
     "JUMP_OUT_DENOMINATOR",
     "JUMP_OUT_SQUARE_ROOT",
     "JUMP_OUT_RADICAL_INDEX",
-    "JUMP_OUT_RADICAL", // Multi-functional keys.
+    "JUMP_OUT_RADICAL",
     "NUM_0",
     "NUM_1",
     "NUM_2",
