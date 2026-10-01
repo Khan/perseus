@@ -30,6 +30,7 @@ import StartCoordsSettings from "./start-coords/start-coords-settings";
 import {getStartCoords, shouldShowStartCoordsUI} from "./start-coords/util";
 import {reshapePointLabelsForGraphType} from "./utils/reshape-point-labels";
 
+import type {InteractiveGraphSettingsData} from "./components/interactive-graph-settings";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
     PerseusInteractiveGraphUserInput,
@@ -40,8 +41,7 @@ import type {
 const InteractiveGraph: typeof InteractiveGraphWidget.widget =
     InteractiveGraphWidget.widget;
 
-interface EditingInteractiveGraphOptions
-    extends PerseusInteractiveGraphWidgetOptions {
+interface State {
     /**
      * An error message to display in the graph area, or true if the
      * graph is valid.
@@ -49,9 +49,9 @@ interface EditingInteractiveGraphOptions
     valid: true | string;
 }
 
-export interface Props extends EditingInteractiveGraphOptions {
+export interface Props extends PerseusInteractiveGraphWidgetOptions {
     apiOptions: APIOptionsWithDefaults;
-    onChange: (options: EditingInteractiveGraphOptions) => void;
+    onChange: (options: PerseusInteractiveGraphWidgetOptions) => void;
     // Whether the graph has been set to static mode.
     // Graphs in static mode are not interactive, and their coords are
     // set to those of the "correct" graph in the editor.
@@ -65,7 +65,7 @@ export interface Props extends EditingInteractiveGraphOptions {
  *
  * Used in the exercise editor.
  */
-class InteractiveGraphEditor extends React.Component<Props> {
+class InteractiveGraphEditor extends React.Component<Props, State> {
     static bestPractices = {
         // TODO: replace with real best practices
         // see: https://github.com/Khan/perseus/pull/3466#discussion_r3157121327
@@ -75,12 +75,16 @@ class InteractiveGraphEditor extends React.Component<Props> {
     displayName = "InteractiveGraphEditor";
     className = "perseus-widget-interactive-graph";
 
-    static defaultProps: EditingInteractiveGraphOptions = {
+    state: State = {
+        valid: true,
+    };
+
+    static defaultProps = {
         ...interactiveGraphLogic.defaultWidgetOptions,
         valid: true,
     };
 
-    handleChange(changes: Partial<EditingInteractiveGraphOptions>) {
+    handleChange(changes: Partial<PerseusInteractiveGraphWidgetOptions>) {
         this.props.onChange({
             step: this.props.step,
             gridStep: this.props.gridStep,
@@ -102,9 +106,15 @@ class InteractiveGraphEditor extends React.Component<Props> {
             lockedFigures: this.props.lockedFigures,
             fullGraphAriaLabel: this.props.fullGraphAriaLabel,
             fullGraphAriaDescription: this.props.fullGraphAriaDescription,
-            valid: this.props.valid,
             ...changes,
         });
+    }
+
+    handleSettingsChange({valid, ...settings}: InteractiveGraphSettingsData) {
+        this.setState({valid});
+        if (valid === true) {
+            this.handleChange(settings);
+        }
     }
 
     changeStartCoords = (coords) => {
@@ -308,7 +318,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
 
         const sizeClass = containerSizeClass.SMALL;
 
-        if (this.props.valid === true) {
+        if (this.state.valid === true) {
             // Default `correct` to `graph` if the type is wrong. This works
             // around a bug in the AX editor.
             // See: https://khanacademy.atlassian.net/browse/LEMS-3903
@@ -401,7 +411,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
             // @ts-expect-error - TS2345 - Argument of type '{ readonly ref: "graph"; readonly box: any; readonly range: any; readonly labels: any; readonly step: any; readonly gridStep: any; readonly snapStep: any; readonly graph: any; readonly backgroundImage: any; ... 6 more ...; readonly onChange: (newProps: Pick<...> & ... 1 more ... & InexactPartial<...>) => void; }' is not assignable to parameter of type 'Props'.
             equationString = InteractiveGraph.getEquationString(graphProps);
         } else {
-            graph = <div className="perseus-error">{this.props.valid}</div>;
+            graph = <div className="perseus-error">{this.state.valid}</div>;
         }
 
         return (
@@ -539,12 +549,14 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             step={this.props.step}
                             gridStep={gridStep}
                             snapStep={snapStep}
-                            valid={this.props.valid}
+                            valid={this.state.valid}
                             backgroundImage={this.props.backgroundImage}
                             markings={this.props.markings}
                             showProtractor={this.props.showProtractor}
                             showTooltips={this.props.showTooltips}
-                            onChange={(options) => this.handleChange(options)}
+                            onChange={(settings) =>
+                                this.handleSettingsChange(settings)
+                            }
                             apiOptions={this.props.apiOptions}
                         />
                         <LockedFiguresSection

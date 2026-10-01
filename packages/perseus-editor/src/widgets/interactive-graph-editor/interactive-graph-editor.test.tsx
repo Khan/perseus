@@ -90,55 +90,22 @@ describe("InteractiveGraphEditor", () => {
         );
     });
 
-    it("displays error message when `valid` prop is a string", async () => {
+    it("displays an appropriate error message given invalid input", async () => {
         // Arrange
+        render(<InteractiveGraphEditor {...baseProps} />, {
+            wrapper: RenderStateRoot,
+        });
 
         // Act
-        render(
-            <InteractiveGraphEditor
-                {...baseProps}
-                valid="This is an error message"
-            />,
-            {
-                wrapper: RenderStateRoot,
-            },
-        );
+        const input = screen.getByRole("textbox", {name: "Snap Step 1"});
+        await userEvent.clear(input);
 
         // Assert
         expect(
-            await screen.findByText("This is an error message"),
+            await screen.findByText(
+                "Snap step is too small, there can be at most 60 ticks.",
+            ),
         ).toBeInTheDocument();
-    });
-
-    it("includes the current `valid` value in `onChange` calls", async () => {
-        // If `valid` is not included, the error message will be cleared
-        // whenever any data is changed in the editor.
-        // Arrange
-        const onChangeMock = jest.fn();
-
-        render(
-            <InteractiveGraphEditor
-                {...segmentProps}
-                graph={{type: "linear"}}
-                correct={{type: "linear"}}
-                onChange={onChangeMock}
-                valid={"fake error message"}
-            />,
-            {
-                wrapper: RenderStateRoot,
-            },
-        );
-
-        // Act: change the startCoords
-        const xInput = screen.getAllByRole("spinbutton", {name: "x"})[0];
-        await userEvent.type(xInput, "1");
-
-        // Assert
-        expect(onChangeMock).toHaveBeenCalledWith(
-            expect.objectContaining({
-                valid: "fake error message",
-            }),
-        );
     });
 
     it("preserves the configured graph and correct answer when `valid` is a string", () => {

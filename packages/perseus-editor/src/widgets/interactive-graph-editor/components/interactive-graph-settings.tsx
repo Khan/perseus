@@ -40,7 +40,7 @@ function numSteps(range: any, step: any) {
 
 type Range = [min: number, max: number];
 
-interface InteractiveGraphSettingsData {
+export interface InteractiveGraphSettingsData {
     /**
      * The labels for the x and y axes.
      */
