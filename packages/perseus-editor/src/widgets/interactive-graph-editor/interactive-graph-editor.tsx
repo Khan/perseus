@@ -81,7 +81,6 @@ class InteractiveGraphEditor extends React.Component<Props, State> {
 
     static defaultProps = {
         ...interactiveGraphLogic.defaultWidgetOptions,
-        valid: true,
     };
 
     handleChange(changes: Partial<PerseusInteractiveGraphWidgetOptions>) {
