@@ -3,8 +3,7 @@
     "extends": "../../tsconfig-common.json",
     "compilerOptions": {
         "noEmit": true,
-        // be explicit about types included
-        // to avoid clashing with Jest types
+        // be explicit about types included to avoid clashing with Jest types
         "types": [
             "cypress",
             "node",
