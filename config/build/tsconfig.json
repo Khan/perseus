@@ -5,5 +5,5 @@
         "noEmit": true,
         "target": "ES2021"
     },
-    "include": ["**/*.ts", "*.mts"]
+    "include": ["**/*.ts", "**/*.mts"]
 }
