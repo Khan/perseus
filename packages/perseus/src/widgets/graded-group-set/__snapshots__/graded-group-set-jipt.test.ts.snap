@@ -69,13 +69,13 @@ exports[`graded-group-set should render all graded groups 1`] = `
                         autocorrect="off"
                         class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
                         data-testid="input-with-examples"
-                        id=":r0:"
+                        id=":r1:"
                         tabindex="0"
                         type="text"
                         value=""
                       />
                       <span
-                        id="aria-for-:r0:"
+                        id="aria-for-:r1:"
                         style="display: none;"
                       />
                     </div>
@@ -99,11 +99,15 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 </div>
               </div>
               <button
-                class="showHintLink_1rvdp1e"
-                tabindex="0"
+                aria-controls=":r0:"
+                aria-expanded="false"
+                class="explainToggle_1rvdp1e"
               >
                 Explain
               </button>
+              <div
+                id=":r0:"
+              />
               <div
                 style="display: flex; align-items: center; height: 68px; margin: 16px -16px -16px -16px; padding-left: 16px; padding-right: 10px; justify-content: space-between;"
               >
@@ -165,13 +169,13 @@ exports[`graded-group-set should render all graded groups 1`] = `
                         autocorrect="off"
                         class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
                         data-testid="input-with-examples"
-                        id=":r3:"
+                        id=":r5:"
                         tabindex="0"
                         type="text"
                         value=""
                       />
                       <span
-                        id="aria-for-:r3:"
+                        id="aria-for-:r5:"
                         style="display: none;"
                       />
                     </div>
@@ -195,11 +199,15 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 </div>
               </div>
               <button
-                class="showHintLink_1rvdp1e"
-                tabindex="0"
+                aria-controls=":r4:"
+                aria-expanded="false"
+                class="explainToggle_1rvdp1e"
               >
                 Explain
               </button>
+              <div
+                id=":r4:"
+              />
               <div
                 style="display: flex; align-items: center; height: 68px; margin: 16px -16px -16px -16px; padding-left: 16px; padding-right: 10px; justify-content: space-between;"
               >
@@ -261,13 +269,13 @@ exports[`graded-group-set should render all graded groups 1`] = `
                         autocorrect="off"
                         class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
                         data-testid="input-with-examples"
-                        id=":r6:"
+                        id=":r9:"
                         tabindex="0"
                         type="text"
                         value=""
                       />
                       <span
-                        id="aria-for-:r6:"
+                        id="aria-for-:r9:"
                         style="display: none;"
                       />
                     </div>
@@ -291,11 +299,15 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 </div>
               </div>
               <button
-                class="showHintLink_1rvdp1e"
-                tabindex="0"
+                aria-controls=":r8:"
+                aria-expanded="false"
+                class="explainToggle_1rvdp1e"
               >
                 Explain
               </button>
+              <div
+                id=":r8:"
+              />
               <div
                 style="display: flex; align-items: center; height: 68px; margin: 16px -16px -16px -16px; padding-left: 16px; padding-right: 10px; justify-content: space-between;"
               >
