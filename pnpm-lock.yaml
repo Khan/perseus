@@ -748,6 +748,9 @@ importers:
       react-dom:
         specifier: catalog:devDeps
         version: 18.2.0(react@18.2.0)
+      react-json-view:
+        specifier: ^1.21.3
+        version: 1.21.3(@types/react@18.2.79)(encoding@0.1.13)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       react-popper:
         specifier: ^2.2.5
         version: 2.3.0(@popperjs/core@2.10.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
