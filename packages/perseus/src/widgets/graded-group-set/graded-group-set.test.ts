@@ -132,6 +132,22 @@ describe("graded group set widget", () => {
         expect(screen.getByText("Problem 1b")).toBeVisible();
     });
 
+    it("moves focus to the current pip after advancing with 'Next question'", async () => {
+        // Arrange
+        renderQuestion(article1);
+        await userEvent.type(screen.getByRole("textbox"), "0.9");
+        await userEvent.click(screen.getByRole("button", {name: "Check"}));
+        act(() => screen.getByRole("button", {name: "Next question"}).focus());
+
+        // Act
+        await userEvent.keyboard("{Enter}");
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Problem 1b", current: true}),
+        ).toHaveFocus();
+    });
+
     it("should not allow advancing past the last group", async () => {
         // Arrange
         renderQuestion(article1);
@@ -273,7 +289,7 @@ describe("graded group set widget", () => {
             name: "Explain",
         });
         explainButton.focus();
-        await userEvent.type(explainButton, "{enter}");
+        await userEvent.keyboard("{Enter}");
 
         // Assert
         expect(
@@ -311,7 +327,7 @@ describe("graded group set widget", () => {
             name: "Hide explanation",
         });
         hideExplanationButton.focus();
-        await userEvent.type(hideExplanationButton, "{enter}");
+        await userEvent.keyboard("{Enter}");
 
         // Assert
         expect(screen.getByRole("button", {name: "Explain"})).toBeVisible();

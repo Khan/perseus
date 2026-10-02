@@ -419,11 +419,15 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
               </div>
             </div>
             <button
-              class="showHintLink_1rvdp1e"
-              tabindex="0"
+              aria-controls=":r27:"
+              aria-expanded="false"
+              class="explainToggle_1rvdp1e"
             >
               Explain
             </button>
+            <div
+              id=":r27:"
+            />
             <div
               style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--wb-sizing-size_080); margin-block-start: var(--wb-sizing-size_120); padding-block-start: var(--wb-sizing-size_120);"
             >
@@ -774,11 +778,15 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
               </div>
             </div>
             <button
-              class="showHintLink_1rvdp1e"
-              tabindex="0"
+              aria-controls=":r26:"
+              aria-expanded="false"
+              class="explainToggle_1rvdp1e"
             >
               Explain
             </button>
+            <div
+              id=":r26:"
+            />
             <div
               style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--wb-sizing-size_080); margin-block-start: var(--wb-sizing-size_120); padding-block-start: var(--wb-sizing-size_120);"
             >
