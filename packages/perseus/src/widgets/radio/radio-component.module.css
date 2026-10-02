@@ -135,28 +135,41 @@
    For tall math content, the natural top-alignment with the indicator is the correct visual behavior.
    Short inline math (e.g. $x = 4$) stays within the CSS line-height and benefits from the margin.
 */
-.content:not(
-        :has(
-                :global(.paragraph):first-child
-                    > :global(.paragraph)
-                    :is(
-                        img,
-                        mjx-mfrac,
-                        mjx-msqrt,
-                        mjx-mroot,
-                        mjx-munder,
-                        mjx-mover,
-                        mjx-munderover
-                    )
-            )
-    ) {
-    /* Replace "var(--perseus-content-line-height)" with "1lh" once support for Safari is at least v16.4 */
+.content {
     margin-block-start: calc(
         (
                 var(--perseus-multiple-choice-indicator-size) -
                     var(--perseus-content-line-height)
             ) * 0.4
     );
+}
+
+.content:has(
+        :global(.paragraph):first-child
+            > :global(.paragraph)
+            :is(
+                img,
+                mjx-mfrac,
+                mjx-msqrt,
+                mjx-mroot,
+                mjx-munder,
+                mjx-mover,
+                mjx-munderover
+            )
+    ),
+.content:has(
+        :global(.perseus-renderer > .deprecated-perseus-container:first-child)
+            :is(
+                img,
+                mjx-mfrac,
+                mjx-msqrt,
+                mjx-mroot,
+                mjx-munder,
+                mjx-mover,
+                mjx-munderover
+            )
+    ) {
+    margin-block-start: 0;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -193,12 +206,15 @@
     gap: var(--wb-sizing-size_120);
 }
 
-.rationale :global(.perseus-renderer .paragraph) {
+.rationale :global(.perseus-renderer .paragraph),
+.rationale :global(.perseus-renderer .deprecated-perseus-container) {
     /* Removes margin that is added by overly-broad styling for .paragraph - the gap in the rule above handles spacing */
     margin: 0;
 }
 
-.rationale :global(.perseus-renderer > .paragraph:not(:has(*))) {
+.rationale :global(.perseus-renderer > .paragraph:not(:has(*))),
+.rationale
+    :global(.perseus-renderer > .deprecated-perseus-container:not(:has(*))) {
     /* Ensures that empty paragraphs do not take up space */
     display: none;
 }

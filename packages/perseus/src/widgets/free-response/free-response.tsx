@@ -86,6 +86,7 @@ export class FreeResponse extends React.Component<Props> implements Widget {
                             <Renderer
                                 content={question}
                                 strings={this.context.strings}
+                                apiOptions={this.props.apiOptions}
                             />
                         </View>
                     }

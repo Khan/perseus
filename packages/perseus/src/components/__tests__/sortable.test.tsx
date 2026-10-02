@@ -19,6 +19,7 @@ describe("Sortable", () => {
                 layout={"horizontal"}
                 options={["a", "b", "c"]}
                 waitForTexRendererToLoad={false}
+                apiOptions={{}}
             />,
         );
 
@@ -49,6 +50,7 @@ describe("Sortable", () => {
                 waitForTexRendererToLoad={true}
                 layout={"horizontal"}
                 options={["a", "b", "c"]}
+                apiOptions={{}}
             />,
         );
 
@@ -91,6 +93,7 @@ describe("Sortable", () => {
                 layout="horizontal"
                 options={["a", "b", "c"]}
                 waitForTexRendererToLoad={false}
+                apiOptions={{}}
             />,
         );
 
@@ -130,6 +133,7 @@ describe("moveOptionToIndex", () => {
                 layout={"horizontal"}
                 options={["a", "b", "c"]}
                 waitForTexRendererToLoad={false}
+                apiOptions={{}}
             />,
         );
 
@@ -154,6 +158,7 @@ describe("moveOptionToIndex", () => {
                 layout={"horizontal"}
                 options={["a", "b", "c"]}
                 waitForTexRendererToLoad={false}
+                apiOptions={{}}
             />,
         );
 
@@ -176,6 +181,7 @@ describe("moveOptionToIndex", () => {
                 layout={"horizontal"}
                 options={["a", "b", "c"]}
                 waitForTexRendererToLoad={false}
+                apiOptions={{}}
             />,
         );
 
@@ -198,6 +204,7 @@ describe("moveOptionToIndex", () => {
                 layout={"horizontal"}
                 options={["a", "b", "c"]}
                 waitForTexRendererToLoad={false}
+                apiOptions={{}}
             />,
         );
 
