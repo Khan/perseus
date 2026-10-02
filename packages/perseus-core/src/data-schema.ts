@@ -177,14 +177,14 @@ export interface PerseusWidgetTypes {
     video: VideoWidget;
 
     // Deprecated widgets
-    "molecule-renderer": DeprecatedStandinWidget;
-    "passage-ref-target": DeprecatedStandinWidget;
-    "passage-ref": DeprecatedStandinWidget;
-    passage: DeprecatedStandinWidget;
-    "lights-puzzle": DeprecatedStandinWidget;
-    sequence: DeprecatedStandinWidget;
-    simulator: DeprecatedStandinWidget;
-    transformer: DeprecatedStandinWidget;
+    "molecule-renderer": DeprecatedStandinWidget<"molecule-renderer">;
+    "passage-ref-target": DeprecatedStandinWidget<"passage-ref-target">;
+    "passage-ref": DeprecatedStandinWidget<"passage-ref">;
+    passage: DeprecatedStandinWidget<"passage">;
+    "lights-puzzle": DeprecatedStandinWidget<"lights-puzzle">;
+    sequence: DeprecatedStandinWidget<"sequence">;
+    simulator: DeprecatedStandinWidget<"simulator">;
+    transformer: DeprecatedStandinWidget<"transformer">;
 }
 
 /**
@@ -516,7 +516,7 @@ export type InputNumberWidget = WidgetOptions<'input-number', PerseusInputNumber
 // prettier-ignore
 export type VideoWidget = WidgetOptions<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
-export type DeprecatedStandinWidget = WidgetOptions<'deprecated-standin', object>;
+export type DeprecatedStandinWidget<Type extends string> = WidgetOptions<Type, object>;
 
 /**
  * A background image applied to various widgets.
