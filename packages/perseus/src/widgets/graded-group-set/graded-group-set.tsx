@@ -1,3 +1,4 @@
+import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {useOnMountEffect, View} from "@khanacademy/wonder-blocks-core";
 import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
@@ -161,6 +162,15 @@ const GradedGroupSet = forwardRef<Widget, Props>(
 
         const numGroups = gradedGroups.length;
         const atEnd = currentGroupIndex >= numGroups - 1;
+
+        // Selecting a pip keeps focus on it, so some screen readers (e.g.
+        // VoiceOver in Chrome) only announce that it's now current, not which
+        // problem is showing. Announce the title so the learner knows.
+        const handleSelectGroup = (groupIndex: number) => {
+            setCurrentGroupIndex(groupIndex);
+            announceMessage({message: gradedGroups[groupIndex].title});
+        };
+
         // Moving to the next group replaces the whole group, including the
         // focused "Next question" button, which would drop focus onto <body>.
         // Focus the new current pip instead so screen readers announce which
@@ -185,7 +195,7 @@ const GradedGroupSet = forwardRef<Widget, Props>(
                     <Indicators
                         currentGroupIndex={currentGroupIndex}
                         gradedGroups={gradedGroups}
-                        onChangeGroupIndex={setCurrentGroupIndex}
+                        onChangeGroupIndex={handleSelectGroup}
                         currentPipRef={currentPipRef}
                     />
                 </div>

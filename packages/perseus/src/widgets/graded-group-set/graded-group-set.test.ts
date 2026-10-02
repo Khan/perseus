@@ -1,4 +1,5 @@
 import {type PerseusRenderer} from "@khanacademy/perseus-core";
+import {announceMessage} from "@khanacademy/wonder-blocks-announcer";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -12,6 +13,10 @@ import {
 } from "./graded-group-set.testdata";
 
 import type {UserEvent} from "@testing-library/user-event";
+
+jest.mock("@khanacademy/wonder-blocks-announcer", () => ({
+    announceMessage: jest.fn(),
+}));
 
 describe("graded group set widget", () => {
     let userEvent: UserEvent;
@@ -148,6 +153,22 @@ describe("graded group set widget", () => {
         ).toHaveFocus();
     });
 
+    it("does not announce the title after advancing with 'Next question'", async () => {
+        // Arrange
+        renderQuestion(article1);
+        await userEvent.type(screen.getByRole("textbox"), "0.9");
+        await userEvent.click(screen.getByRole("button", {name: "Check"}));
+
+        // Act
+        await userEvent.click(
+            screen.getByRole("button", {name: "Next question"}),
+        );
+
+        // Assert
+        // Focus moves to the current pip, which already reads the title.
+        expect(announceMessage).not.toHaveBeenCalled();
+    });
+
     it("should not allow advancing past the last group", async () => {
         // Arrange
         renderQuestion(article1);
@@ -188,6 +209,21 @@ describe("graded group set widget", () => {
 
             // Assert
             expect(screen.getByText("Problem 1c")).toBeVisible();
+        });
+
+        it("announces the selected group's title", async () => {
+            // Arrange
+            renderQuestion(article1);
+
+            // Act
+            await userEvent.click(
+                screen.getByRole("button", {name: "Problem 1c"}),
+            );
+
+            // Assert
+            expect(announceMessage).toHaveBeenCalledWith({
+                message: "Problem 1c",
+            });
         });
 
         it("by key", async () => {
