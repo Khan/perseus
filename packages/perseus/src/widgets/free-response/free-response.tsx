@@ -32,24 +32,27 @@ type Props = WidgetProps<
 
 // TODO(agoforth): Create a custom validator for the widget that will cause
 //   renderer.emptyWidgets() to work when there is no user input.
-
 export const FreeResponse = forwardRef<Widget, Props>(function FreeResponse(
     {options, userInput, handleUserInput},
     _ref,
 ) {
     const {strings} = usePerseusI18n();
+
     const {allowUnlimitedCharacters, characterLimit, question, placeholder} =
         options;
 
     const characterCount = userInput.currentValue.replace(/\n/g, "").length;
+
     const isOverLimit =
         !allowUnlimitedCharacters && characterCount > characterLimit;
+
     const characterCountText = allowUnlimitedCharacters
         ? undefined
         : strings.characterCount({
               used: characterCount,
               num: characterLimit,
           });
+
     if (characterCountText) {
         announceMessage({
             message: characterCountText,
