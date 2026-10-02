@@ -14,9 +14,6 @@ export default defineConfig({
     fixturesFolder: false,
     video: false,
     defaultBrowser: "chrome",
-    expose: {
-        coverage: coverageEnabled,
-    },
     // Prevent Cypress from scrolling to elements before clicking them.
     scrollBehavior: false,
     // iPhone 14/15 Pro Max
