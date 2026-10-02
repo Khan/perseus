@@ -6,10 +6,7 @@ import {act} from "@testing-library/react";
 
 import {renderQuestion} from "../../__tests__/test-utils";
 import * as Dependencies from "../../dependencies";
-import {
-    testDependencies,
-    testDependenciesV2,
-} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
@@ -101,7 +98,6 @@ describe("Grapher serialization", () => {
                     alignment: "default",
                     static: false,
                     availableTypes: ["linear"],
-                    dependencies: testDependenciesV2,
                     graph: {
                         range: [
                             [-10, 10],
