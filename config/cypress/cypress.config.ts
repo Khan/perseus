@@ -1,20 +1,14 @@
 import path from "node:path";
 import {fileURLToPath} from "node:url";
 
-import react from "@vitejs/plugin-react";
 import {defineConfig} from "cypress";
-import {mergeConfig} from "vite";
 import istanbul from "vite-plugin-istanbul";
-
-import viteConfig from "../../vite.config.mjs";
 
 const repoRoot = path.resolve(
     path.dirname(fileURLToPath(import.meta.url)),
     "../..",
 );
 const coverageEnabled = process.env.CYPRESS_COVERAGE === "true";
-const sharedViteConfig = {...viteConfig};
-delete sharedViteConfig.plugins;
 
 export default defineConfig({
     fixturesFolder: false,
@@ -36,47 +30,37 @@ export default defineConfig({
         devServer: {
             bundler: "vite",
             framework: "react",
-            viteConfig: async (config) => {
-                return mergeConfig(mergeConfig(config, sharedViteConfig), {
-                    plugins: [
-                        react(),
-                        ...(coverageEnabled
-                            ? [
-                                  istanbul({
-                                      cypress: true,
-                                      cwd: repoRoot,
-                                      requireEnv: true,
-                                  }),
-                              ]
-                            : []),
-                    ],
-                    define: {
-                        // This is used to determine if we are running in a
-                        // Storybook environment.
-                        "process.env.STORYBOOK": "true",
-                    },
-                });
-            },
+            viteConfig: async () => ({
+                configFile: path.join(repoRoot, "vite.config.mts"),
+                build: {sourcemap: true},
+                plugins: [
+                    istanbul({
+                        // Changes istanbul to look for the CYPRESS_COVERAGE
+                        // env var instead of its default VITE_COVERAGEsß
+                        cypress: true,
+                        // Only instrument when CYPRESS_COVERAGE=true.
+                        // Without this, istanbul instruments unless
+                        // CYPRESS_COVERAGE is explicitly "false".
+                        requireEnv: true,
+                    }),
+                ],
+
+                define: {
+                    // This is used to determine if we are running in a
+                    // Storybook environment.
+                    "process.env.STORYBOOK": "true",
+                },
+            }),
         },
 
         setupNodeEvents: async (on, config) => {
             if (coverageEnabled) {
-                const workingDirectory = process.cwd();
-                // process.cwd() is this file's directory, be default, and the
-                // coverage task reads NYC settings from process.cwd() so we
-                // need to switch it to be the root of the repo (where the
-                // `.nycrc.json` file is)
-                process.chdir(repoRoot);
-                try {
-                    const task = await import("@cypress/code-coverage/task");
-                    task.default(on, config);
-                } finally {
-                    process.chdir(workingDirectory);
-                }
+                const task = await import("@cypress/code-coverage/task");
+                task.default(on, config);
             }
 
+            // Force Cypress to enable reactDevtools support
             config.env.reactDevtools = true;
-
             return config;
         },
     },

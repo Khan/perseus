@@ -38,7 +38,7 @@ clean() {
 }
 
 run_jest() {
-    pnpm cross-env NODE_OPTIONS=--max_old_space_size=8192 jest --coverage
+    env NODE_OPTIONS="--max_old_space_size=8192" pnpm jest --coverage
 }
 
 run_cypress() {
@@ -51,11 +51,16 @@ merge_reports() {
     cp coverage/jest/coverage-final.json coverage/reports/from-jest.json
     cp coverage/cypress/coverage-final.json coverage/reports/from-cypress.json
 
+    # nyc looks in `.nyc_output` for coverage info so we clear it out and copy
+    # our two coverage reports there
     rm -rf .nyc_output
     mkdir .nyc_output
     pnpm nyc merge coverage/reports/ .nyc_output/out.json
 
-    pnpm nyc report --reporter lcov --reporter text-summary --report-dir coverage/final
+    pnpm nyc report \
+        --reporter lcov \
+        --reporter text-summary \
+        --report-dir coverage/final
 }
 
 pushd "$REPO_ROO" >/dev/null 2>&1
