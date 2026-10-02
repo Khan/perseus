@@ -1,5 +1,15 @@
 # @khanacademy/perseus-core
 
+## 40.1.1
+
+### Patch Changes
+
+-   [#4302](https://github.com/Khan/perseus/pull/4302) [`b50edb9`](https://github.com/Khan/perseus/commit/b50edb961335264c17acc1fe8176597b54796854) Thanks [@handeyeco](https://github.com/handeyeco)! - Stop serializing dependencies
+
+-   [#4312](https://github.com/Khan/perseus/pull/4312) [`b7087f8`](https://github.com/Khan/perseus/commit/b7087f8b69deb2c7f9e023f8d6a4d31cfe7d06b7) Thanks [@benchristel](https://github.com/benchristel)! - Bugfix: The Label Image widget now respects its `preferredPopoverDirection` setting. This was broken around March 5, 2026, when the Perseus parser started discarding unrecognized object properties.
+
+-   [#4305](https://github.com/Khan/perseus/pull/4305) [`97c15c4`](https://github.com/Khan/perseus/commit/97c15c4c4d951dc6ee05ad10cafb6ec0d08b3a51) Thanks [@handeyeco](https://github.com/handeyeco)! - Properly type `defaultWidgetOptions` in `WidgetLogic`
+
 ## 40.1.0
 
 ### Minor Changes
