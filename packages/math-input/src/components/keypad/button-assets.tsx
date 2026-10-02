@@ -1750,6 +1750,57 @@ export default function ButtonAsset({id}: Props): React.ReactNode {
                     </defs>
                 </svg>
             );
+        case "JUMP_OUT_SQUARE_ROOT":
+            return (
+                <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 40 40"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <g transform="translate(0 10) scale(0.5)">
+                        <path
+                            fill="currentColor"
+                            fillRule="evenodd"
+                            d="M22.159 12.46A1 1 0 0 1 23 12h7a1 1 0 1 1 0 2h-6.454l-8.705 13.54a1 1 0 0 1-1.673.015l-4-6a1 1 0 0 1 1.664-1.11l3.153 4.73 8.174-12.716Z"
+                            clipRule="evenodd"
+                        />
+                    </g>
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M25.5429 16.2929c.3905-.3905 1.0237-.3905 1.4142 0l3 3c.3905.3905.3905 1.0237 0 1.4142l-3 3c-.3905.3905-1.0237.3905-1.4142 0-.3905-.3905-.3905-1.0237 0-1.4142L26.8358 21H16.25c-.5523 0-1-.4477-1-1s.4477-1 1-1h10.5858l-1.2929-1.2929c-.3905-.3905-.3905-1.0237 0-1.4142z"
+                        fill={semanticColor.core.foreground.instructive.default}
+                    />
+                </svg>
+            );
+        case "JUMP_OUT_RADICAL_INDEX":
+        case "JUMP_OUT_RADICAL":
+            return (
+                <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 40 40"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <g transform="translate(0 10) scale(0.5)">
+                        <path
+                            fill="currentColor"
+                            fillRule="evenodd"
+                            d="M9 9a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1V9Zm2 1h4v4h-4v-4Zm12 2a1 1 0 0 0-.841.46l-8.174 12.714-3.153-4.729a1 1 0 0 0-1.664 1.11l4 6a1 1 0 0 0 1.673-.014L23.546 14H30a1 1 0 1 0 0-2h-7Z"
+                            clipRule="evenodd"
+                        />
+                    </g>
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M25.5429 16.2929c.3905-.3905 1.0237-.3905 1.4142 0l3 3c.3905.3905.3905 1.0237 0 1.4142l-3 3c-.3905.3905-1.0237.3905-1.4142 0-.3905-.3905-.3905-1.0237 0-1.4142L26.8358 21H16.25c-.5523 0-1-.4477-1-1s.4477-1 1-1h10.5858l-1.2929-1.2929c-.3905-.3905-.3905-1.0237 0-1.4142z"
+                        fill={semanticColor.core.foreground.instructive.default}
+                    />
+                </svg>
+            );
 
         case "UP":
             return (

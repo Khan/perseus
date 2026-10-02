@@ -80,19 +80,19 @@ function isSuperScript(node): boolean {
 }
 
 export function isParens(node): boolean {
-    return node && node.ctrlSeq === "\\left(";
+    return node?.ctrlSeq === "\\left(";
 }
 
 function isLeaf(node): boolean {
-    return node && node.ctrlSeq && ValidLeaves.includes(node.ctrlSeq.trim());
+    return node?.ctrlSeq && ValidLeaves.includes(node.ctrlSeq.trim());
 }
 
 export function isSquareRoot(node): boolean {
-    return node.blocks && mqNodeHasClass(node.blocks[0], "mq-sqrt-stem");
+    return node?.blocks && mqNodeHasClass(node.blocks[0], "mq-sqrt-stem");
 }
 
 export function isNthRoot(node): boolean {
-    return node.blocks && mqNodeHasClass(node.blocks[0], "mq-nthroot");
+    return node?.blocks && mqNodeHasClass(node.blocks[0], "mq-nthroot");
 }
 
 export function isNthRootIndex(node): boolean {
@@ -259,6 +259,12 @@ export function getCursorContext(
         return CursorContext.IN_SUB_SCRIPT;
     } else if (isSuperScript(cursor.parent)) {
         return CursorContext.IN_SUPER_SCRIPT;
+    } else if (isNthRootIndex(cursor.parent)) {
+        return CursorContext.IN_RADICAL_INDEX;
+    } else if (isSquareRoot(cursor.parent?.parent)) {
+        return CursorContext.IN_SQUARE_ROOT;
+    } else if (isNthRoot(cursor.parent?.parent)) {
+        return CursorContext.IN_RADICAL;
     } else {
         return CursorContext.NONE;
     }

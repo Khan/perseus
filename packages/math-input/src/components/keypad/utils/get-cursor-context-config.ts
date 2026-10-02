@@ -34,5 +34,11 @@ export function getCursorContextConfig(
             return Keys(strings).JUMP_OUT_DENOMINATOR;
         case CursorContext.BEFORE_FRACTION:
             return Keys(strings).JUMP_INTO_NUMERATOR;
+        case CursorContext.IN_SQUARE_ROOT:
+            return Keys(strings).JUMP_OUT_SQUARE_ROOT;
+        case CursorContext.IN_RADICAL_INDEX:
+            return Keys(strings).JUMP_OUT_RADICAL_INDEX;
+        case CursorContext.IN_RADICAL:
+            return Keys(strings).JUMP_OUT_RADICAL;
     }
 }
