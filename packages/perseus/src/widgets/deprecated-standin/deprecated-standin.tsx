@@ -1,4 +1,5 @@
 import Banner from "@khanacademy/wonder-blocks-banner";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 import {forwardRef} from "react";
 
@@ -15,8 +16,8 @@ const DeprecatedStandin = forwardRef<Widget>(function DeprecatedStandin() {
     return (
         <div
             style={{
-                paddingBlockStart: 8,
-                paddingBlockEnd: 8,
+                paddingBlockStart: sizing.size_080,
+                paddingBlockEnd: sizing.size_080,
             }}
         >
             <Banner text={strings.deprecatedStandin} kind="info" />
