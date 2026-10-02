@@ -1,6 +1,9 @@
 // This file is used by the tsconfig-build.json files in each package.
 /* Visit https://aka.ms/tsconfig to read more about this file */
 {
+    // This is a shared TypeScript build config. As such, we exclude everything
+    // that is test-related (Jest, Cypress, Storybook).
+    //
     // Paths in this file resolve relative to THIS file, not to any file that
     // extends it, so a bare "dist" would mean `packages/dist` and match
     // nothing. Every pattern in this list needs the `**/` prefix to reach each
@@ -16,6 +19,7 @@
         "**/__stories__/**",
         "**/__docs__/**",
         "**/*.cypress.*",
+        "perseus/src/testing/render-question-with-cypress.tsx",
         // perseus-core's item-splitting entry point exists only for the
         // `check_item_splitting` job in
         // .github/workflows/pr-comparison-checks.yml, which esbuilds it from

@@ -58,7 +58,8 @@ jobs:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
                   build-command: |
                       pnpm install && \
-                      pnpm tsc --declaration --emitDeclarationOnly --removeComments \
+                      pnpm exec tsc --declaration --emitDeclarationOnly \
+                        --removeComments \
                         --outfile ${{ runner.temp }}/schema.d.ts \
                         packages/perseus-core/src/data-schema.ts
                       pnpm prettier --write ${{ runner.temp }}/schema.d.ts
