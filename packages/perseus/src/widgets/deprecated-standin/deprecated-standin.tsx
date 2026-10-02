@@ -1,38 +1,29 @@
 import Banner from "@khanacademy/wonder-blocks-banner";
-import React from "react";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
+import * as React from "react";
+import {forwardRef} from "react";
 
-import {PerseusI18nContext} from "../../components/i18n-context";
+import {usePerseusI18n} from "../../components/i18n-context";
 
 import type {Widget, WidgetExports} from "../../types";
 
-// There are no required props, but this component can receive props from any
-// deprecated widget
-type Props = object;
+// forwardRef is only needed because WidgetContainer passes a ref
+// but React complains when you pass a ref to a functional component
+// without forwardRef
+const DeprecatedStandin = forwardRef<Widget>(function DeprecatedStandin() {
+    const {strings} = usePerseusI18n();
 
-class DeprecatedStandin extends React.Component<Props> implements Widget {
-    static contextType = PerseusI18nContext;
-    declare context: React.ContextType<typeof PerseusI18nContext>;
-
-    // this just helps with TS weak typing when a Widget
-    // doesn't implement any Widget methods
-    isWidget = true as const;
-
-    render() {
-        return (
-            <div
-                style={{
-                    paddingBlockStart: 8,
-                    paddingBlockEnd: 8,
-                }}
-            >
-                <Banner
-                    text={this.context.strings.deprecatedStandin}
-                    kind="info"
-                />
-            </div>
-        );
-    }
-}
+    return (
+        <div
+            style={{
+                paddingBlockStart: sizing.size_080,
+                paddingBlockEnd: sizing.size_080,
+            }}
+        >
+            <Banner text={strings.deprecatedStandin} kind="info" />
+        </div>
+    );
+});
 
 export default {
     name: "deprecated-standin",
