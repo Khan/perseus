@@ -12588,7 +12588,7 @@ exports[`parseAndMigratePerseusItem given lights-puzzle.ts returns the same resu
             ],
           ],
         },
-        "type": "deprecated-standin",
+        "type": "lights-puzzle",
       },
     },
   },
@@ -12636,7 +12636,7 @@ exports[`parseAndMigratePerseusItem given lights-puzzle.ts returns the same resu
           ],
         },
         "static": false,
-        "type": "deprecated-standin",
+        "type": "lights-puzzle",
         "version": {
           "major": 0,
           "minor": 0,
@@ -15687,7 +15687,7 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
             },
           ],
         },
-        "type": "deprecated-standin",
+        "type": "sequence",
         "version": {
           "major": 0,
           "minor": 0,
@@ -15838,7 +15838,7 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
           ],
         },
         "static": false,
-        "type": "deprecated-standin",
+        "type": "sequence",
         "version": {
           "major": 0,
           "minor": 0,
@@ -21857,7 +21857,7 @@ exports[`parseAndMigratePerseusItem given simulator-widget.ts returns the same r
           "xAxisLabel": "Proportion (%)",
           "yAxisLabel": "Number of times seen",
         },
-        "type": "deprecated-standin",
+        "type": "simulator",
         "version": {
           "major": 0,
           "minor": 0,
@@ -21913,7 +21913,7 @@ exports[`parseAndMigratePerseusItem given simulator-widget.ts returns the same r
           "yAxisLabel": "Number of times seen",
         },
         "static": false,
-        "type": "deprecated-standin",
+        "type": "simulator",
         "version": {
           "major": 0,
           "minor": 0,
@@ -22096,7 +22096,7 @@ exports[`parseAndMigratePerseusItem given transformer-widget.ts returns the same
           },
           "version": 1.2,
         },
-        "type": "deprecated-standin",
+        "type": "transformer",
         "version": {
           "major": 0,
           "minor": 0,
@@ -22262,7 +22262,7 @@ exports[`parseAndMigratePerseusItem given transformer-widget.ts returns the same
           "version": 1.2,
         },
         "static": false,
-        "type": "deprecated-standin",
+        "type": "transformer",
         "version": {
           "major": 0,
           "minor": 0,
