@@ -586,11 +586,22 @@ class Orderer
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState(): any {
-        const {userInput, options, ...rest} = this.props;
+        const {alignment, options, userInput} = this.props;
         return {
-            ...options,
-            ...rest,
+            alignment,
+            static: this.props.static,
+            options: options.options,
             current: userInput.current.map((e) => ({content: e})),
+            height: options.height,
+            layout: options.layout,
+
+            // props use answerless types, but this can serialize answerful too
+            otherOptions:
+                "otherOptions" in options ? options.otherOptions : undefined,
+            correctOptions:
+                "correctOptions" in options
+                    ? options.correctOptions
+                    : undefined,
         };
     }
 

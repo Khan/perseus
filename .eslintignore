@@ -12,7 +12,7 @@ packages/**/build
 vendor
 LICENSE
 **/__genfiles__
-cypress/
+/cypress/
 
 **/*.json
 **/*.jpg

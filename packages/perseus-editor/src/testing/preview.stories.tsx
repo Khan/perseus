@@ -7,8 +7,10 @@ const meta: Meta = {
     component: ExerciseFramePage,
     // 👇 Disable auto-generated documentation for this component. This
     // component supports preview in dev mode and isn't meant to be used as a
-    // story by itself..
-    tags: ["!autodocs", "!manifest"],
+    // story by itself. `!dev` hides it from the sidebar while keeping it in
+    // the story index, so the editor stories can still load it in an iframe
+    // (see `use-preview-url.ts`).
+    tags: ["!autodocs", "!manifest", "!dev"],
 };
 export default meta;
 

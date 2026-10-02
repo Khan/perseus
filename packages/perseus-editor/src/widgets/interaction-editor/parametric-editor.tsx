@@ -1,39 +1,21 @@
 import {components, Dependencies, KhanColors} from "@khanacademy/perseus";
 import * as React from "react";
 
-import {deprecatedChangeableChange} from "../../mixins/changeable";
-
 import ColorPicker from "./color-picker";
 import DashPicker from "./dash-picker";
 import MathquillInput from "./mathquill-input";
 
-import type {ChangeableProps} from "../../mixins/changeable";
+import type {PerseusInteractionParametricElementOptions} from "@khanacademy/perseus-core";
 
 const {NumberInput} = components;
 
-type Props = ChangeableProps & {
-    x: string;
-    y: string;
-    rangeMin: string;
-    rangeMax: string;
-    color: string;
-    strokeDasharray: string;
-    strokeWidth: number;
-};
-
-type DefaultProps = {
-    x: Props["x"];
-    y: Props["y"];
-    rangeMin: Props["rangeMin"];
-    rangeMax: Props["rangeMax"];
-    color: Props["color"];
-    strokeDasharray: Props["strokeDasharray"];
-    strokeWidth: Props["strokeWidth"];
-};
+interface Props extends PerseusInteractionParametricElementOptions {
+    onChange: (options: PerseusInteractionParametricElementOptions) => void;
+}
 
 // Editor for parametric plots
 class ParametricEditor extends React.Component<Props> {
-    static defaultProps: DefaultProps = {
+    static defaultProps: PerseusInteractionParametricElementOptions = {
         x: "cos(t)",
         y: "sin(t)",
         rangeMin: "0",
@@ -43,9 +25,18 @@ class ParametricEditor extends React.Component<Props> {
         strokeWidth: 2,
     };
 
-    change: (arg1: any, arg2?: any, arg3?: any) => any = (...args) => {
-        return deprecatedChangeableChange.apply(this, args);
-    };
+    handleChange(changes: Partial<PerseusInteractionParametricElementOptions>) {
+        this.props.onChange({
+            x: this.props.x,
+            y: this.props.y,
+            rangeMin: this.props.rangeMin,
+            rangeMax: this.props.rangeMax,
+            color: this.props.color,
+            strokeDasharray: this.props.strokeDasharray,
+            strokeWidth: this.props.strokeWidth,
+            ...changes,
+        });
+    }
 
     render(): React.ReactNode {
         const {TeX} = Dependencies.getDependencies();
@@ -56,39 +47,41 @@ class ParametricEditor extends React.Component<Props> {
                     <TeX>X(t) =</TeX>{" "}
                     <MathquillInput
                         value={this.props.x}
-                        onChange={this.change("x")}
+                        onChange={(x) => this.handleChange({x})}
                     />
                 </div>
                 <div className="perseus-widget-row">
                     <TeX>Y(t) =</TeX>{" "}
                     <MathquillInput
                         value={this.props.y}
-                        onChange={this.change("y")}
+                        onChange={(y) => this.handleChange({y})}
                     />
                 </div>
                 <div className="perseus-widget-row">
                     Range: <TeX>\Large(</TeX>
                     <MathquillInput
                         value={this.props.rangeMin}
-                        onChange={this.change("rangeMin")}
+                        onChange={(rangeMin) => this.handleChange({rangeMin})}
                     />
                     <TeX>,</TeX>{" "}
                     <MathquillInput
                         value={this.props.rangeMax}
-                        onChange={this.change("rangeMax")}
+                        onChange={(rangeMax) => this.handleChange({rangeMax})}
                     />
                     <TeX>\Large)</TeX>
                 </div>
                 <div className="perseus-widget-row">
                     <ColorPicker
                         value={this.props.color}
-                        onChange={this.change("color")}
+                        onChange={(color) => this.handleChange({color})}
                     />
                 </div>
                 <div className="perseus-widget-row">
                     <DashPicker
                         value={this.props.strokeDasharray}
-                        onChange={this.change("strokeDasharray")}
+                        onChange={(strokeDasharray) =>
+                            this.handleChange({strokeDasharray})
+                        }
                     />
                 </div>
                 <div className="perseus-widget-row">
@@ -97,7 +90,9 @@ class ParametricEditor extends React.Component<Props> {
                         <NumberInput
                             value={this.props.strokeWidth}
                             placeholder={2}
-                            onChange={this.change("strokeWidth")}
+                            onChange={(strokeWidth) =>
+                                this.handleChange({strokeWidth})
+                            }
                         />
                     </div>
                 </div>

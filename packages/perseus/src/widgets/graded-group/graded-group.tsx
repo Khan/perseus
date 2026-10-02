@@ -259,6 +259,7 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                             showSolutions={showSolutions}
                             linterContext={props.linterContext}
                             strings={strings}
+                            isScorable
                         />
                     )}
                 </UserInputManager>
