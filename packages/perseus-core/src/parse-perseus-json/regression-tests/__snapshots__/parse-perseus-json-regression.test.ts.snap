@@ -12549,6 +12549,154 @@ exports[`parseAndMigratePerseusItem given label-image-missing-static.ts returns 
 }
 `;
 
+exports[`parseAndMigratePerseusItem given label-image-with-preferredPopoverDirection.ts returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": true,
+    "calculatorVariant": "scientific",
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": true,
+    "periodicTableWithKey": true,
+  },
+  "hints": [],
+  "question": {
+    "content": "**Label each point on the number line with the correct value.**
+
+Order L-R: -2.9, -2 5/8, -7/3
+
+------
+
+[[☃ label-image 1]]",
+    "images": {},
+    "widgets": {
+      "label-image 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "choices": [
+            "$-\\dfrac{7}{3}$",
+            "$-2\\dfrac{5}{8}$",
+            "$-2.9$",
+          ],
+          "hideChoicesFromInstructions": false,
+          "imageAlt": "A number line from negative 6 halves to negative 3 halves, labeled in increments of 1 half. There are three points on the line, labeled from left to right with a, b, and c.",
+          "imageHeight": 160,
+          "imageUrl": "web+graphie://ka-perseus-graphie.s3.amazonaws.com/05faa925d02e5effd3069bf24da4777e3ae1a28b",
+          "imageWidth": 360,
+          "markers": [
+            {
+              "answers": [
+                "$-2.9$",
+              ],
+              "label": "Point a is the leftmost of two points between negative 6 halves and negative 5 halves.",
+              "x": 14,
+              "y": 51.2,
+            },
+            {
+              "answers": [
+                "$-2\\dfrac{5}{8}$",
+              ],
+              "label": "Point b is the rightmost of two points between negative 6 halves and negative 5 halves.",
+              "x": 29.2,
+              "y": 51.2,
+            },
+            {
+              "answers": [
+                "$-\\dfrac{7}{3}$",
+              ],
+              "label": "Point c is between negative 5 halves and negative 4 halves.",
+              "x": 45.5,
+              "y": 50.5,
+            },
+          ],
+          "multipleAnswers": false,
+          "preferredPopoverDirection": "DOWN",
+        },
+        "static": false,
+        "type": "label-image",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given label-image-with-preferredPopoverDirection.ts returns the same result as before with answer information removed 1`] = `
+{
+  "answerArea": {
+    "calculator": true,
+    "calculatorVariant": "scientific",
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": true,
+    "periodicTableWithKey": true,
+  },
+  "hints": [],
+  "question": {
+    "content": "**Label each point on the number line with the correct value.**
+
+Order L-R: -2.9, -2 5/8, -7/3
+
+------
+
+[[☃ label-image 1]]",
+    "images": {},
+    "widgets": {
+      "label-image 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "choices": [
+            "$-\\dfrac{7}{3}$",
+            "$-2\\dfrac{5}{8}$",
+            "$-2.9$",
+          ],
+          "hideChoicesFromInstructions": false,
+          "imageAlt": "A number line from negative 6 halves to negative 3 halves, labeled in increments of 1 half. There are three points on the line, labeled from left to right with a, b, and c.",
+          "imageHeight": 160,
+          "imageUrl": "web+graphie://ka-perseus-graphie.s3.amazonaws.com/05faa925d02e5effd3069bf24da4777e3ae1a28b",
+          "imageWidth": 360,
+          "markers": [
+            {
+              "answers": [],
+              "label": "Point a is the leftmost of two points between negative 6 halves and negative 5 halves.",
+              "x": 14,
+              "y": 51.2,
+            },
+            {
+              "answers": [],
+              "label": "Point b is the rightmost of two points between negative 6 halves and negative 5 halves.",
+              "x": 29.2,
+              "y": 51.2,
+            },
+            {
+              "answers": [],
+              "label": "Point c is between negative 5 halves and negative 4 halves.",
+              "x": 45.5,
+              "y": 50.5,
+            },
+          ],
+          "multipleAnswers": false,
+          "preferredPopoverDirection": "DOWN",
+        },
+        "static": false,
+        "type": "label-image",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given lights-puzzle.ts returns the same result as before 1`] = `
 {
   "answerArea": {

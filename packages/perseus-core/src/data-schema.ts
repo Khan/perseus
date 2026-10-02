@@ -1561,6 +1561,13 @@ export type PerseusGraphCorrectType =
     | LogarithmGraphCorrect
     | VectorGraphCorrect;
 
+export type PreferredPopoverDirection =
+    | "NONE"
+    | "UP"
+    | "DOWN"
+    | "LEFT"
+    | "RIGHT";
+
 /** Options for the label-image widget. Asks learners to label image parts. */
 export type PerseusLabelImageWidgetOptions = {
     /** Translatable Text; TeX representation of choices */
@@ -1579,6 +1586,8 @@ export type PerseusLabelImageWidgetOptions = {
     hideChoicesFromInstructions: boolean;
     /** Allow multiple answers per marker */
     multipleAnswers: boolean;
+    /** Determines the placement of the list of choices for each marker */
+    preferredPopoverDirection?: PreferredPopoverDirection;
 };
 
 export type PerseusLabelImageMarker = {
