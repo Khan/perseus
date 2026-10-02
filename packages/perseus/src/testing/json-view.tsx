@@ -1,3 +1,8 @@
+/**
+ * This file exists mostly to work around how Vite 8/Rolldown "wrap" the
+ * react-json-view package. It is an older package and is bundled in a CJS
+ * package that
+ */
 import * as React from "react";
 import ReactJsonModule from "react-json-view";
 
@@ -12,28 +17,8 @@ const ReactJson: typeof ReactJsonModule =
 
 type ReactJsonProps = PropsFor<typeof ReactJson>;
 
-function JsonView({
-    style,
-    quotesOnKeys,
-    enableClipboard,
-    collapsed,
-    src,
-}: {
-    style?: ReactJsonProps["style"];
-    quotesOnKeys?: ReactJsonProps["quotesOnKeys"];
-    enableClipboard?: ReactJsonProps["enableClipboard"];
-    collapsed?: ReactJsonProps["collapsed"];
-    src: ReactJsonProps["src"];
-}) {
-    return (
-        <ReactJson
-            style={style}
-            quotesOnKeys={quotesOnKeys}
-            enableClipboard={enableClipboard}
-            collapsed={collapsed}
-            src={src}
-        />
-    );
+function JsonView(props: ReactJsonProps) {
+    return <ReactJson {...props} />;
 }
 
 export default JsonView;
