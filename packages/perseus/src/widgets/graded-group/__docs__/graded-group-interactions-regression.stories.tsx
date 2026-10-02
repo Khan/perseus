@@ -1,4 +1,6 @@
 import {
+    generateCategorizerOptions,
+    generateCategorizerWidget,
     generateDropdownOptions,
     generateDropdownWidget,
 } from "@khanacademy/perseus-core";
@@ -58,10 +60,10 @@ const sharedArgs = {
 } satisfies Partial<PerseusGradedGroupWidgetOptions>;
 
 // A group with no scorable widget scores as correct on Check (zero widgets =
-// 0/0 points), and the desktop Check button is always enabled — so the correct
-// state needs no widget, keeping the snapshot to graded-group's own chrome.
-// Contains a hint so the Explain link gives some buffer space below the Check
-// button; otherwise Chromatic cuts off the bottom of the button.
+// 0/0 points), and starts out answerable because there is nothing to fill in —
+// so the correct state needs no widget, keeping the snapshot to graded-group's
+// own chrome. Contains a hint so the Explain link gives some buffer space below
+// the Check button; otherwise Chromatic cuts off the bottom of the button.
 const textOnlyArgs = {
     title: "Check your understanding!",
     content: "This group is marked correct when checked.",
@@ -96,9 +98,34 @@ export const DesktopIncorrectAnswer: Story = {
     },
 };
 
+const categorizerArgs = {
+    title: "Check your understanding!",
+    content: "[[☃ categorizer 1]]",
+    widgets: {
+        "categorizer 1": generateCategorizerWidget({
+            options: generateCategorizerOptions({
+                items: ["Categorize this row", "Leave this row blank"],
+                categories: ["True", "False"],
+                values: [0, 1],
+                randomizeItems: false,
+            }),
+        }),
+    },
+    hint: {
+        content: "This is a hint.",
+        images: {},
+        widgets: {},
+    },
+    images: {},
+} satisfies Partial<PerseusGradedGroupWidgetOptions>;
+
 export const DesktopInvalidAnswer: Story = {
-    args: sharedArgs,
+    args: categorizerArgs,
     play: async ({canvas, userEvent}) => {
+        // Categorize only the first row, leaving the second blank.
+        // This is considered an "invalid" state.
+        const [firstRowTrue] = canvas.getAllByRole("button", {name: "True"});
+        await userEvent.click(firstRowTrue);
         const checkButton = canvas.getByRole("button", {name: "Check"});
         await userEvent.click(checkButton);
     },

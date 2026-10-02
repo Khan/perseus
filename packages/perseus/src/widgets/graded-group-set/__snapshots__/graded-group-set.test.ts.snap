@@ -89,7 +89,7 @@ exports[`graded group set widget should snapshot 1`] = `
               </ul>
             </div>
             <div
-              class="perseus-graded-group"
+              class="perseus-graded-group gradedGroupInSet_wdbmhs"
             >
               <div
                 class="perseus-renderer perseus-renderer-responsive"
@@ -156,23 +156,28 @@ exports[`graded group set widget should snapshot 1`] = `
                 </div>
               </div>
               <button
-                aria-disabled="false"
-                class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_u9mtba"
-                data-kind="secondary"
-                type="button"
-              >
-                <span
-                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
-                >
-                  Check
-                </span>
-              </button>
-              <button
                 class="showHintLink_1rvdp1e"
                 tabindex="0"
               >
                 Explain
               </button>
+              <div
+                style="display: flex; align-items: center; height: 68px; margin: 16px -16px -16px -16px; padding-left: 16px; padding-right: 10px; justify-content: space-between;"
+              >
+                <span />
+                <button
+                  aria-disabled="false"
+                  class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn"
+                  data-kind="primary"
+                  type="button"
+                >
+                  <span
+                    class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+                  >
+                    Check
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
