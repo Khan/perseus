@@ -19,6 +19,7 @@
         "../../packages/**/*.cypress.ts",
         "../../packages/**/*.cypress.tsx",
         // Shared and package-specific ambient declarations
+        "../../cypress.config.mts",
         "../../packages/perseus/src/testing/render-question-with-cypress.tsx",
         "../../types/**/*.d.ts",
         "../../packages/*/types/**/*.d.ts",
