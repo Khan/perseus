@@ -162,7 +162,6 @@
     .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
         font-size: 21px;
         line-height: 1.2;
-        color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
     .framework-perseus.perseus-mobile .perseus-block-math mjx-container {
         font-size: 21px;
@@ -238,7 +237,6 @@
     .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
         font-size: 23px;
         line-height: 1.3;
-        color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
     .framework-perseus.perseus-mobile .perseus-block-math mjx-container {
         font-size: 30px;
@@ -314,7 +312,6 @@
     .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
         font-size: 25px;
         line-height: 1.2;
-        color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
     .framework-perseus.perseus-mobile .perseus-block-math mjx-container {
         font-size: 30px;
