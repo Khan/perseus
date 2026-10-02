@@ -7,15 +7,12 @@ import Editor from "../../editor";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {InitializeWidgetOptionsParams} from "../../editor";
-import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {PerseusDefinitionWidgetOptions} from "@khanacademy/perseus-core";
 
 const {TextInput} = components;
 
-interface Props extends PerseusDefinitionWidgetOptions {
-    apiOptions?: APIOptionsWithDefaults;
-    onChange: (options: PerseusDefinitionWidgetOptions) => void;
-}
+type Props = WidgetEditorProps<PerseusDefinitionWidgetOptions>;
 
 // JSDoc will be shown in Storybook widget editor description
 /**

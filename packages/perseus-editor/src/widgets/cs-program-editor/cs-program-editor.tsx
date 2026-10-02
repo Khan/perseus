@@ -13,6 +13,7 @@ import {PairsEditor} from "../../components/pairs-editor";
 import {deprecatedChangeableChange} from "../../mixins/changeable";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {PerseusCSProgramWidgetOptions} from "@khanacademy/perseus-core";
 
 const DEFAULT_HEIGHT = 400;
@@ -33,14 +34,12 @@ function isolateProgramID(programUrl: string) {
     return programUrl;
 }
 
-interface CSProgramEditorProps extends PerseusCSProgramWidgetOptions {
-    onChange: (options: PerseusCSProgramWidgetOptions) => void;
-}
+type Props = WidgetEditorProps<PerseusCSProgramWidgetOptions>;
 
 /**
  * This is the main editor for this widget, to specify all the options.
  */
-class CSProgramEditor extends React.Component<CSProgramEditorProps> {
+class CSProgramEditor extends React.Component<Props> {
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
         // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return deprecatedChangeableChange.apply(this, args);
