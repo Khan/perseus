@@ -128,7 +128,7 @@
         "clean:docs": "git clean -fdx docs/ && git checkout HEAD -- docs/",
         "coverage": "./utils/test-with-coverage.sh",
         "fixc": "utils/changed-files.sh | utils/lint.sh --fix",
-        "lint": "eslint . --ext .js --ext .jsx --ext .ts --ext .tsx --ext .mts",
+        "lint": "eslint . --ext .js --ext .jsx --ext .ts --ext .tsx --ext .mts --ext .cjs",
         "linc": "utils/changed-files.sh | utils/lint.sh",
         "lint:timing": "cross-env TIMING=1 pnpm lint",
         "pre-publish-check": "utils/pre-publish-check-ci.ts",
