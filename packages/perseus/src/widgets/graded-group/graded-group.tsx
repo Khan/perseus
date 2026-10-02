@@ -1,12 +1,4 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {
-    getWidgetIdsFromContent,
-    type PerseusGradedGroupWidgetOptions,
-    type PerseusRenderer,
-    type PerseusScore,
-    type UserInputMap,
-} from "@khanacademy/perseus-core";
-import {emptyWidgetsFunctional} from "@khanacademy/perseus-score";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
@@ -21,14 +13,12 @@ import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {mapErrorToString} from "../../strings";
 import {phoneMargin, negativePhoneMargin} from "../../styles/constants";
-import UserInputManager, {
-    sharedInitializeUserInput,
-} from "../../user-input-manager";
+import UserInputManager from "../../user-input-manager";
 import {getPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
 
 import GradedGroupAnswerBar from "./graded-group-answer-bar";
 
-import type {ANSWER_BAR_STATES} from "./graded-group-answer-bar";
+import type {AnswerBarState, GradingStatus} from "./graded-group-answer-bar";
 import type {
     FocusPath,
     TrackingGradedGroupExtraArguments,
@@ -36,31 +26,11 @@ import type {
     WidgetProps,
 } from "../../types";
 import type {GradedGroupPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
-
-const GRADING_STATUSES = {
-    ungraded: "ungraded" as const,
-    correct: "correct" as const,
-    incorrect: "incorrect" as const,
-    invalid: "invalid" as const,
-} as const;
-
-// Update answer bar state based on current state and whether the question is
-// answerable (all parts have been filled out) or not.
-const getNextState = (
-    currentState: ANSWER_BAR_STATES,
-    answerable,
-): ANSWER_BAR_STATES => {
-    switch (currentState) {
-        case "ACTIVE":
-            return !answerable ? "INACTIVE" : currentState;
-        case "INACTIVE":
-            return answerable ? "ACTIVE" : currentState;
-        case "INCORRECT":
-            return answerable ? "ACTIVE" : "INACTIVE";
-        default:
-            return currentState;
-    }
-};
+import type {
+    PerseusGradedGroupWidgetOptions,
+    PerseusRenderer,
+    PerseusScore,
+} from "@khanacademy/perseus-core";
 
 type Props = WidgetProps<
     PerseusGradedGroupWidgetOptions,
@@ -88,26 +58,14 @@ export interface GradedGroupHandle {
 // correct or not.
 export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
     function GradedGroup(props, ref) {
-        const {strings, locale} = usePerseusI18n();
+        const {strings} = usePerseusI18n();
         const dependencies = useDependencies();
 
         const [showHint, setShowHint] = useState(false);
         const [message, setMessage] = useState("");
 
-        // Allow moving on when the Graded Group doesn't have any
-        // answerable widgets in it.
-        const [answerBarState, setAnswerBarState] = useState<ANSWER_BAR_STATES>(
-            () => {
-                const {widgets} = props.options;
-                const emptyWidgetIds = emptyWidgetsFunctional(
-                    widgets,
-                    getWidgetIdsFromContent(props.options.content),
-                    sharedInitializeUserInput(widgets, props.problemNum ?? 0),
-                    locale,
-                );
-                return emptyWidgetIds.length > 0 ? "INACTIVE" : "ACTIVE";
-            },
-        );
+        const [answerBarState, setAnswerBarState] =
+            useState<AnswerBarState>("active");
 
         const rendererRef = useRef<Renderer | null>(null);
         const hintRendererRef = useRef<Renderer | null>(null);
@@ -157,16 +115,13 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
             },
         }));
 
-        function handleUserInput(
-            _userInput: UserInputMap,
-            widgetsEmpty: boolean,
-        ): void {
+        function handleAnswerChange(): void {
             // Reset grading display when user changes answer
             setMessage("");
 
-            const answerable = !widgetsEmpty;
-            const nextState = getNextState(answerBarState, answerable);
-            setAnswerBarState(nextState);
+            setAnswerBarState((state) =>
+                state === "correct" ? state : "active",
+            );
         }
 
         function checkAnswer() {
@@ -179,12 +134,12 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                 DEFAULT_INVALID_MESSAGE_2,
             } = strings;
 
-            const status =
+            const status: GradingStatus =
                 score.type === "points"
                     ? score.total === score.earned
-                        ? GRADING_STATUSES.correct
-                        : GRADING_STATUSES.incorrect
-                    : GRADING_STATUSES.invalid;
+                        ? "correct"
+                        : "incorrect"
+                    : "invalid";
             const message =
                 score.type === "points"
                     ? score.message || ""
@@ -193,8 +148,7 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                       : `${INVALID_MESSAGE_PREFIX} ${DEFAULT_INVALID_MESSAGE_1}${DEFAULT_INVALID_MESSAGE_2}`;
 
             setMessage(message);
-            // TODO(kevinb) handle 'invalid' status
-            setAnswerBarState(status === "correct" ? "CORRECT" : "INCORRECT");
+            setAnswerBarState(status);
 
             props.trackInteraction({
                 status: status,
@@ -224,7 +178,7 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
         // Disabled widgets after the answer has been answered correctly to
         // prevent a situation where the answer has been marked correct but
         // looks incorrect because a user has modified it afterwards.
-        const isCorrect = answerBarState === "CORRECT";
+        const isCorrect = answerBarState === "correct";
         const readOnly = apiOptions.readOnly || isCorrect;
 
         // We only want to show the solutions and rationale if the answer is correct
@@ -239,10 +193,7 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                 )}
                 <UserInputManager
                     widgets={props.options.widgets}
-                    handleUserInput={(
-                        userInput: UserInputMap,
-                        widgetsEmpty: boolean,
-                    ) => handleUserInput(userInput, widgetsEmpty)}
+                    handleUserInput={handleAnswerChange}
                     problemNum={props.problemNum ?? 0}
                 >
                     {({userInput, handleUserInput}) => (
@@ -264,11 +215,15 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                     )}
                 </UserInputManager>
 
-                {/* Using Renderer so TeX expressions in
-                   answer messages are displayed as formatted math */}
-                <div role="status" aria-live="polite">
-                    <Renderer content={message} strings={strings} />
-                </div>
+                {answerBarState !== "invalid" && (
+                    <div role="status" aria-live="polite">
+                        <Renderer
+                            content={message}
+                            strings={strings}
+                            apiOptions={apiOptions}
+                        />
+                    </div>
+                )}
 
                 {props.options.answerArea &&
                     apiOptions.renderExtras?.(
@@ -347,6 +302,7 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                     ))}
                 <GradedGroupAnswerBar
                     apiOptions={apiOptions}
+                    invalidMessage={message}
                     answerBarState={answerBarState}
                     onCheckAnswer={checkAnswer}
                     onNextQuestion={props.onNextQuestion}
