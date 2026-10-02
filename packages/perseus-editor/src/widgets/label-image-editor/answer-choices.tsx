@@ -29,7 +29,7 @@ interface AnswerProps {
     editingDisabled: boolean;
 }
 
-export interface AnswerChoicesProps {
+interface AnswerChoicesProps {
     // The list of possible answers in a specific order.
     choices: ReadonlyArray<string>;
     // Callback for when answers change.

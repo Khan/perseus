@@ -1,7 +1,10 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+import * as React from "react";
 
 import {ApiOptions} from "../../../perseus-api";
+import WrappedServerItemRenderer from "../../../server-item-renderer";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import {storybookDependenciesV2} from "../../../testing/test-dependencies";
 import {
     angleQuestion,
     circleQuestion,
@@ -57,8 +60,11 @@ const defaultApiOptions = ApiOptions.defaults;
 
 const meta: Meta = {
     title: "Widgets/Interactive Graph",
-    component: ServerItemRendererWithDebugUI,
+    component: WrappedServerItemRenderer,
     tags: ["!dev"],
+    args: {
+        dependencies: storybookDependenciesV2,
+    },
     parameters: {
         docs: {
             description: {
@@ -71,7 +77,7 @@ const meta: Meta = {
 };
 export default meta;
 
-type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
+type Story = StoryObj<typeof WrappedServerItemRenderer>;
 
 export const Angle: Story = {
     args: {
@@ -564,12 +570,16 @@ export const AnswerlessSinusoid: Story = {
     },
 };
 
+// Uses the debug UI so you can check an answer and see that an ungraded
+// graph is not scored.
 export const Ungraded: Story = {
-    args: {
-        item: generateTestPerseusItem({
-            question: ungradedQuestion,
-        }),
-    },
+    render: () => (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({
+                question: ungradedQuestion,
+            })}
+        />
+    ),
 };
 
 export const NoTicks: Story = {

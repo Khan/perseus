@@ -23,7 +23,7 @@ const cssWrapper = {
                     /\bperseus-legacy\b/.test(code)
                 ) {
                     const layerStatements =
-                        "@layer reset, shared, legacy;\n@layer shared";
+                        "@layer reset, shared, shared.base, legacy;\n@layer shared";
                     return {
                         code: `${layerStatements} { ${code} }`,
                         map: null,
@@ -31,25 +31,6 @@ const cssWrapper = {
                 }
             }
         }
-    },
-};
-
-// Workaround for Storybook v10 + pnpm + Vite issue where the
-// MDX React shim is resolved as a file:// URL that Rollup can't
-// handle. Converts it to a regular path.
-// See: https://github.com/storybookjs/storybook/issues/21716 and
-// https://github.com/storybookjs/storybook/issues/33118
-const fixMdxReactShim = {
-    name: "fix-mdx-react-shim",
-    enforce: "pre" as const,
-    resolveId(source: string) {
-        if (
-            source.startsWith("file://") &&
-            source.includes("mdx-react-shim.js")
-        ) {
-            return new URL(source).pathname;
-        }
-        return null;
     },
 };
 
@@ -149,7 +130,7 @@ const config: StorybookConfig = {
                     return !file.endsWith(".svg");
                 },
             },
-            plugins: [fixMdxReactShim, cssWrapper],
+            plugins: [cssWrapper],
         });
     },
     staticDirs: [
