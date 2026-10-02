@@ -14,8 +14,9 @@ import {font, spacing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import warningCircleIcon from "@phosphor-icons/core/regular/warning-circle.svg";
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
+import {forwardRef} from "react";
 
-import {PerseusI18nContext} from "../../components/i18n-context";
+import {usePerseusI18n} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
@@ -32,97 +33,72 @@ type Props = WidgetProps<
 // TODO(agoforth): Create a custom validator for the widget that will cause
 //   renderer.emptyWidgets() to work when there is no user input.
 
-export class FreeResponse extends React.Component<Props> implements Widget {
-    static contextType = PerseusI18nContext;
-    declare context: React.ContextType<typeof PerseusI18nContext>;
+export const FreeResponse = forwardRef<Widget, Props>(function FreeResponse(
+    {options, userInput, handleUserInput},
+    _ref,
+) {
+    const {strings} = usePerseusI18n();
+    const {allowUnlimitedCharacters, characterLimit, question, placeholder} =
+        options;
 
-    // this just helps with TS weak typing when a Widget
-    // doesn't implement any Widget methods
-    isWidget = true as const;
-
-    announceCharacterCount = (message: string, isOverLimit: boolean) => {
-        const level = isOverLimit ? "assertive" : "polite";
-        announceMessage({message, level, debounceThreshold: 750});
-    };
-
-    characterCount = () => {
-        return this.props.userInput.currentValue.replace(/\n/g, "").length;
-    };
-
-    _handleUserInput = (newValue: string) => {
-        this.props.handleUserInput({currentValue: newValue});
-    };
-
-    isOverLimit() {
-        return (
-            !this.props.options.allowUnlimitedCharacters &&
-            this.characterCount() > this.props.options.characterLimit
-        );
+    const characterCount = userInput.currentValue.replace(/\n/g, "").length;
+    const isOverLimit =
+        !allowUnlimitedCharacters && characterCount > characterLimit;
+    const characterCountText = allowUnlimitedCharacters
+        ? undefined
+        : strings.characterCount({
+              used: characterCount,
+              num: characterLimit,
+          });
+    if (characterCountText) {
+        announceMessage({
+            message: characterCountText,
+            level: isOverLimit ? "assertive" : "polite",
+            debounceThreshold: 750,
+        });
     }
 
-    render(): React.ReactNode {
-        const {
-            allowUnlimitedCharacters,
-            characterLimit,
-            question,
-            placeholder,
-        } = this.props.options;
-        const isOverLimit = this.isOverLimit();
-        const characterCountText = allowUnlimitedCharacters
-            ? undefined
-            : this.context.strings.characterCount({
-                  used: this.characterCount(),
-                  num: characterLimit,
-              });
-        if (characterCountText) {
-            this.announceCharacterCount(characterCountText, isOverLimit);
-        }
-
-        return (
-            <View style={styles.container} className={"free-response"}>
-                <LabeledField
-                    label={
-                        <View className="free-response-question">
-                            <Renderer
-                                content={question}
-                                strings={this.context.strings}
+    return (
+        <View style={styles.container} className={"free-response"}>
+            <LabeledField
+                label={
+                    <View className="free-response-question">
+                        <Renderer content={question} strings={strings} />
+                    </View>
+                }
+                field={
+                    <TextArea
+                        error={isOverLimit}
+                        onChange={(newValue: string) =>
+                            handleUserInput({currentValue: newValue})
+                        }
+                        placeholder={placeholder}
+                        style={styles.textarea}
+                        value={userInput.currentValue}
+                    />
+                }
+                additionalHelperMessage={
+                    <p
+                        className={css(
+                            styles.characterCountText,
+                            isOverLimit ? styles.overCharacterLimit : undefined,
+                        )}
+                    >
+                        {isOverLimit && (
+                            <PhosphorIcon
+                                aria-label="Error:"
+                                icon={warningCircleIcon}
+                                size="small"
+                                style={styles.warningCircleIcon}
                             />
-                        </View>
-                    }
-                    field={
-                        <TextArea
-                            error={isOverLimit}
-                            onChange={this._handleUserInput}
-                            placeholder={placeholder}
-                            style={styles.textarea}
-                            value={this.props.userInput.currentValue}
-                        />
-                    }
-                    additionalHelperMessage={
-                        <p
-                            className={css(
-                                styles.characterCountText,
-                                isOverLimit
-                                    ? styles.overCharacterLimit
-                                    : undefined,
-                            )}
-                        >
-                            {isOverLimit && (
-                                <PhosphorIcon
-                                    aria-label="Error:"
-                                    icon={warningCircleIcon}
-                                    size="small"
-                                    style={styles.warningCircleIcon}
-                                />
-                            )}
-                            {characterCountText}
-                        </p>
-                    }
-                />
-            </View>
-        );
-    }
-}
+                        )}
+                        {characterCountText}
+                    </p>
+                }
+            />
+        </View>
+    );
+});
 
 function getStartUserInput(): PerseusFreeResponseUserInput {
     return {
