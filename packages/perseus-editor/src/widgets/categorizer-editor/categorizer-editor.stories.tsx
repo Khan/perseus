@@ -1,6 +1,4 @@
-import {ApiOptions} from "@khanacademy/perseus";
 import * as React from "react";
-import {action} from "storybook/actions";
 
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
 import {question} from "../../__testdata__/categorizer.testdata";
@@ -16,21 +14,14 @@ registerAllWidgetsAndEditorsForTesting();
 const meta: Meta = {
     title: "Widgets/Categorizer/Editor Demo",
     component: CategorizerEditor,
-    tags: ["!dev"],
+    tags: ["!autodocs"],
 } satisfies Meta<typeof CategorizerEditor>;
 export default meta;
 
-type Story = StoryObj<typeof meta>;
-export const Default: Story = {
-    args: {
-        onChange: action("onChange"),
-        apiOptions: ApiOptions.defaults,
-    },
-};
+type Story = StoryObj<typeof EditorPageWithStorybookPreview>;
 
-export const WithinEditorPage: StoryObj<typeof EditorPageWithStorybookPreview> =
-    {
-        render: (): React.ReactElement => (
-            <EditorPageWithStorybookPreview question={question} />
-        ),
-    };
+export const EditorDemo: Story = {
+    render: (): React.ReactElement => (
+        <EditorPageWithStorybookPreview question={question} />
+    ),
+};

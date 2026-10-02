@@ -1,5 +1,45 @@
 # @khanacademy/perseus
 
+## 90.0.0
+
+### Major Changes
+
+-   [#4285](https://github.com/Khan/perseus/pull/4285) [`a4372f8`](https://github.com/Khan/perseus/commit/a4372f860833f4954b32d007f26bbf8720c7db94) Thanks [@handeyeco](https://github.com/handeyeco)! - Revert ServerItemRenderer encapsulation (Perseus#4126)
+
+### Patch Changes
+
+-   [#4275](https://github.com/Khan/perseus/pull/4275) [`4608173`](https://github.com/Khan/perseus/commit/46081733b9995aa840286b16e82216e45e0a0be6) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - create new util for alignment, propagate through perseus and fix markdown so linter errors doesn't cause wrapping in preview
+
+-   [#4295](https://github.com/Khan/perseus/pull/4295) [`f4ebbe8`](https://github.com/Khan/perseus/commit/f4ebbe83e76699e2d5446c8a1ace829f6e895263) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove ApiOptions.PropTypes which was unused
+
+-   [#4291](https://github.com/Khan/perseus/pull/4291) [`460483d`](https://github.com/Khan/perseus/commit/460483d3ad269330fd9dae3d9198cabc6df16245) Thanks [@handeyeco](https://github.com/handeyeco)! - Add a new optional `isScorable` flag to Renderer, which is used by ServerItemRenderer and GradedGroup to mark inputs as `aria-required`.
+
+-   Updated dependencies [[`4608173`](https://github.com/Khan/perseus/commit/46081733b9995aa840286b16e82216e45e0a0be6), [`460483d`](https://github.com/Khan/perseus/commit/460483d3ad269330fd9dae3d9198cabc6df16245), [`a4372f8`](https://github.com/Khan/perseus/commit/a4372f860833f4954b32d007f26bbf8720c7db94)]:
+    -   @khanacademy/perseus-core@40.1.0
+    -   @khanacademy/keypad-context@6.0.1
+    -   @khanacademy/kmath@3.0.2
+    -   @khanacademy/math-input@30.0.1
+    -   @khanacademy/perseus-linter@6.0.2
+    -   @khanacademy/perseus-score@9.0.2
+
+## 89.0.0
+
+### Major Changes
+
+-   [#4126](https://github.com/Khan/perseus/pull/4126) [`bf02601`](https://github.com/Khan/perseus/commit/bf02601f17fc0c11844b0d077b60cafd2c8e1a37) Thanks [@handeyeco](https://github.com/handeyeco)! - Encapsulate ServerItemRenderer to only allow explicitly declared imperative APIS
+
+### Patch Changes
+
+-   [#4126](https://github.com/Khan/perseus/pull/4126) [`bf02601`](https://github.com/Khan/perseus/commit/bf02601f17fc0c11844b0d077b60cafd2c8e1a37) Thanks [@handeyeco](https://github.com/handeyeco)! - Change KeypadContext API so that rather than exposing a raw `renderer` we abstract functionality behind `blurRenderer`
+
+-   Updated dependencies [[`bf02601`](https://github.com/Khan/perseus/commit/bf02601f17fc0c11844b0d077b60cafd2c8e1a37), [`bf02601`](https://github.com/Khan/perseus/commit/bf02601f17fc0c11844b0d077b60cafd2c8e1a37)]:
+    -   @khanacademy/perseus-core@40.0.1
+    -   @khanacademy/keypad-context@6.0.0
+    -   @khanacademy/math-input@30.0.0
+    -   @khanacademy/kmath@3.0.1
+    -   @khanacademy/perseus-linter@6.0.1
+    -   @khanacademy/perseus-score@9.0.1
+
 ## 88.0.0
 
 ### Major Changes

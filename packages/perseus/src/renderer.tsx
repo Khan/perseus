@@ -29,6 +29,7 @@ type DefaultedPropKeys =
     | "onRender"
     | "alwaysUpdate"
     | "reviewMode"
+    | "isScorable"
     | "showSolutions"
     | "linterContext";
 

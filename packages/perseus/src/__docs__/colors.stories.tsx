@@ -9,7 +9,7 @@ type Story = StoryObj;
 
 const meta: Meta = {
     title: "Utilities/resolveColor",
-    tags: ["!manifest"],
+    tags: ["!manifest", "!autodocs"],
     parameters: {
         docs: {
             description: {
@@ -39,6 +39,7 @@ const COLORS = [
 ];
 
 export const ResolveColor: Story = {
+    name: "resolveColor",
     render: () => (
         <ul>
             {COLORS.map((color) => {
