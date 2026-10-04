@@ -1767,6 +1767,12 @@ export type PerseusNumericInputAnswer = {
     simplify: PerseusNumericInputSimplify;
 };
 
+export type PerseusNumberLineLabelStyle =
+    | "decimal"
+    | "improper"
+    | "mixed"
+    | "non-reduced";
+
 /** Options for the number-line widget. A draggable point on a number line. */
 export type PerseusNumberLineWidgetOptions = {
     /**
@@ -1785,7 +1791,7 @@ export type PerseusNumberLineWidgetOptions = {
      * This controls the styling of the labels for the two main labels as well
      * as all the tick mark labels, if applicable.
      */
-    labelStyle: "decimal" | "improper" | "mixed" | "non-reduced";
+    labelStyle: PerseusNumberLineLabelStyle;
     /** Show label ticks */
     labelTicks: boolean;
     /** Show tick controller */
