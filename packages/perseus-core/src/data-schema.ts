@@ -1794,15 +1794,25 @@ export type PerseusNumberLineWidgetOptions = {
     labelStyle: PerseusNumberLineLabelStyle;
     /** Show label ticks */
     labelTicks: boolean;
-    /** Show tick controller */
+    /**
+     * Whether the learner should be able to set the number of divisions.
+     */
     isTickCtrl: boolean;
     isInequality: boolean;
-    /** The range of divisions within the line */
+    /**
+     * The range of possible values for numDivisions, in the format [min, max].
+     */
     divisionRange: number[];
     /**
-     * This controls the number (and position) of the tick marks. The number of
-     * divisions is constrained to the division range. Note: The user will be
-     * able to specify the number of divisions in a number input.
+     * The number of divisions of the number line. Divisions are the spaces
+     * between tick marks.
+     *
+     * When `isTickCtrl` is true, the learner can change the number of
+     * divisions, constrained by `divisionRange`. In that case, `numDivisions`
+     * specifies the initial value.
+     *
+     * Exactly one of tickStep and numDivisions must be set; the missing value
+     * will be calculated from the other.
      */
     numDivisions?: number | null;
     /**
@@ -1812,12 +1822,10 @@ export type PerseusNumberLineWidgetOptions = {
      */
     snapDivisions: number;
     /**
-     * This controls the number (and position) of the tick marks; you can
-     * either set the number of divisions (2 divisions would split the entire
-     * range in two halves), or the tick step (the distance between ticks) and
-     * the other value will be updated accordingly. Note: There is no check to
-     * see if labels coordinate with the tick marks, which may be confusing for
-     * users if the blue labels and black ticks are off-step.
+     * The distance between tick marks on the number line.
+     *
+     * Exactly one of tickStep and numDivisions must be set; the missing value
+     * will be calculated from the other.
      */
     tickStep?: number | null;
     /**

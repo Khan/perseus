@@ -13873,7 +13873,6 @@ table: [[☃ table 1]]
                             <input
                               class="number-input"
                               format="decimal"
-                              placeholder="Infinity"
                               type="text"
                               value="5"
                             />

@@ -131,12 +131,6 @@ class NumberLineEditor extends React.Component<Props> {
         this.handleChange({labelStyle});
     };
 
-    getNumDivisions(): number {
-        // FIXME: this is gross; we're duplicating the defaultProps value.
-        // Defaulting should happen in the parser.
-        return this.props.numDivisions ?? 5;
-    }
-
     serialize: () => any = () => {
         return EditorJsonify.serialize.call(this);
     };
@@ -150,21 +144,22 @@ class NumberLineEditor extends React.Component<Props> {
         range[1] = +range[1];
 
         const width = range[1] - range[0];
-        const numDivisions = this.getNumDivisions();
+        const numDivisions = this.props.numDivisions;
         const snapDivisions = this.props.snapDivisions;
         const tickStep = this.props.tickStep;
         const isTickCtrl = this.props.isTickCtrl;
-        // Default tickStep to 0 to make TS happy. If `placeholder` is not a
-        // finite number, the input defaults to blank.
-        const numDivisionsInputPlaceholder = width / (tickStep ?? 0);
+        const numDivisionsInputPlaceholder = tickStep ? width / tickStep : null
 
-        let step;
+        let step: number | null;
         if (!isTickCtrl) {
             // this will help constrain the answer to what is reachable
-
-            step = tickStep
-                ? tickStep / snapDivisions
-                : width / numDivisions / snapDivisions;
+            if (tickStep) {
+                step = tickStep / snapDivisions
+            } else if (numDivisions) {
+                step = width / numDivisions / snapDivisions;
+            } else {
+                step = null;
+            }
         } else {
             // but if tickCtrl is on, the range of what is reachable is
             // rather large, and it becomes obnoxious to check for this
@@ -435,7 +430,7 @@ class NumberLineEditor extends React.Component<Props> {
                                     checkValidity={(val) => {
                                         return val > 0 && val <= width;
                                     }}
-                                    placeholder={width / this.getNumDivisions()}
+                                    placeholder={numDivisions ? width / numDivisions : null}
                                     useArrowKeys={true}
                                 />
                             </label>
