@@ -41,8 +41,8 @@ export const getDiffedWidgetIds = (
     const beforeWidgets = Object.keys(before?.widgets ?? {}).filter(
         (widgetId) => before?.content.includes(widgetId),
     );
-    const afterWidgets = Object.keys(after?.widgets ?? {}).filter(
-        (widgetId) => after?.content.includes(widgetId),
+    const afterWidgets = Object.keys(after?.widgets ?? {}).filter((widgetId) =>
+        after?.content.includes(widgetId),
     );
     return _.union(beforeWidgets, afterWidgets);
 };
