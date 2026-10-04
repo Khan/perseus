@@ -18,11 +18,7 @@ import type {
     RadioWidget,
 } from "@khanacademy/perseus-core";
 
-/**
- * A radio widget whose first choice reads `firstChoice`.
- *
- * Choice ids are fixed so that two calls build structurally equal widgets.
- */
+// Choice ids are fixed so two calls build equal widgets.
 const radioWidget = (
     firstChoice: string,
     widgetFields?: Partial<Omit<RadioWidget, "type" | "options">>,
@@ -49,10 +45,8 @@ const imageWidget = (
 const hint = (content: string): PerseusRenderer =>
     generateTestPerseusRenderer({content, widgets: {}});
 
-/**
- * An item with a two-widget question, two hints (the second with a widget)
- * and the default answer area. Each call builds an independent copy.
- */
+// Two-widget question, two hints (the second with a widget), default
+// answer area. Each call builds an independent copy.
 const buildItem = (): PerseusItem =>
     generateTestPerseusItem({
         question: generateTestPerseusRenderer({
@@ -141,8 +135,7 @@ describe("getChangedItemSections", () => {
         expect(sections).toEqual([]);
     });
 
-    // ItemDiff renders questions and hints with alignment options hidden, so
-    // an alignment change is never shown, whatever the widget type.
+    // ItemDiff hides alignment for questions and hints, whatever the type.
     it("ignores an alignment change on a widget type with several alignments", () => {
         // Arrange
         const after = buildItem();

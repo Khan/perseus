@@ -1,9 +1,6 @@
 /**
  * Which widgets a renderer diff compares, and which of their fields.
- *
- * RendererDiff (the rendered side-by-side view) and getChangedItemSections
- * (its data-level counterpart) both go through these helpers, so they agree
- * on what counts as a widget change.
+ * Shared by RendererDiff and getChangedItemSections so the two agree.
  */
 import {Widgets} from "@khanacademy/perseus";
 import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
@@ -11,12 +8,7 @@ import _ from "underscore";
 
 import type {PerseusRenderer, PerseusWidget} from "@khanacademy/perseus-core";
 
-/**
- * The fields of a widget that a diff compares.
- *
- * `alignment` and `static` are only present when they are meaningful for the
- * widget's type (see `filterWidgetInfo`).
- */
+/** The widget fields a diff compares. */
 export type DiffedWidgetInfo = {
     options: PerseusWidget["options"];
     alignment?: PerseusWidget["alignment"];
@@ -24,15 +16,9 @@ export type DiffedWidgetInfo = {
 };
 
 /**
- * List the widget ids a renderer diff compares, in diff order.
- *
- * A widget is only diffed when its id appears in that side's `content`.
- * Entries in `widgets` that the content no longer references are leftovers
- * the renderer never shows, so a change to one of them is invisible to
- * learners and would only add noise to the diff.
- *
- * @returns The ids `before` references, followed by any ids only `after`
- * references, each at most once.
+ * List the widget ids to diff: those referenced in either side's `content`,
+ * `before`'s first. Widgets the content doesn't reference are never
+ * rendered, so a change to them would only be noise.
  */
 export const getDiffedWidgetIds = (
     before: PerseusRenderer | undefined,
@@ -48,19 +34,10 @@ export const getDiffedWidgetIds = (
 };
 
 /**
- * Reduce a widget to the fields a diff compares.
- *
- * Only `options` always takes part: the other fields of a widget (`graded`,
- * `version`, ...) are bookkeeping that the editor manages and that authors
- * don't change deliberately, so a diff of them would only distract from the
- * content change under review. `alignment` is added when the caller asks for
- * it and the widget's type actually offers a choice of alignments, and
- * `static` when the widget's type supports static mode; for any other type
- * those fields can't be meaningfully changed.
- *
- * @param widgetInfo The widget on one side of the diff, if that side has it.
- * @param showAlignmentOptions Whether the diff compares alignment at all.
- * @returns The fields to diff, or `undefined` when the side has no widget.
+ * Keep only the widget fields worth diffing: `options`, plus `alignment`
+ * when asked for and the type offers more than one, and `static` when the
+ * type supports static mode. Bookkeeping fields like `graded` and `version`
+ * aren't edited deliberately and would distract from the content change.
  */
 export const filterWidgetInfo = (
     widgetInfo: PerseusWidget | undefined,

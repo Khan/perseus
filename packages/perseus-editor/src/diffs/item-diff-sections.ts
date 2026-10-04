@@ -1,6 +1,5 @@
 /**
- * A data-level view of an item diff: which sections ItemDiff would show as
- * changed, without rendering anything.
+ * Which sections of an item ItemDiff would show as changed, as data.
  */
 import {filterWidgetInfo, getDiffedWidgetIds} from "./shared/diffed-widgets";
 import performDiff from "./shared/widget-diff-performer";
@@ -8,10 +7,8 @@ import performDiff from "./shared/widget-diff-performer";
 import type {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
 
 /**
- * A section of an item that differs between two versions.
- *
- * `hintIndex` is 0-based. `widgetId` is the widget's key in the renderer's
- * `widgets` map (e.g. "radio 1").
+ * A section of an item that differs between two versions. `hintIndex` is
+ * 0-based.
  */
 export type ChangedItemSection =
     | {section: "question"}
@@ -20,21 +17,12 @@ export type ChangedItemSection =
     | {section: "hint-widget"; hintIndex: number; widgetId: string}
     | {section: "answer-area"};
 
-/**
- * Report whether a structural diff of two values finds any difference.
- *
- * A missing side is diffed as an empty object, as WidgetDiff and
- * AnswerAreaDiff do, so a value present on only one side counts as changed.
- */
+/** A missing side diffs as `{}`, as WidgetDiff and AnswerAreaDiff do. */
 const hasChanges = (before: unknown, after: unknown): boolean =>
     performDiff(before ?? {}, after ?? {}).status !== "unchanged";
 
-/**
- * List the widgets of a renderer that RendererDiff would show as changed.
- *
- * ItemDiff renders questions and hints with alignment options hidden, so
- * alignment never counts as a change here either.
- */
+// ItemDiff hides alignment options for questions and hints, so alignment
+// never counts as a change here either.
 const getChangedWidgetIds = (
     before: PerseusRenderer,
     after: PerseusRenderer,
@@ -47,21 +35,12 @@ const getChangedWidgetIds = (
     );
 
 /**
- * List the sections of an item that differ between two versions.
+ * List the sections of an item that differ between two versions, in item
+ * order: question, its widgets, each hint and its widgets, answer area.
  *
- * Reports exactly the sections ItemDiff would render as changed, derived
- * with the same rules: text content counts as changed when it differs, a
- * widget only when its id appears in the content and only in the fields
- * ItemDiff compares, and the answer area when its structural diff finds a
- * difference. A hint present on only one side is reported as a changed
- * hint without listing its widgets, since the whole hint is new or gone.
- *
- * Sections come in item order: the question, then its widgets, then each
- * hint followed by its widgets, then the answer area.
- *
- * @param before The earlier version of the item.
- * @param after The later version of the item.
- * @returns The changed sections, empty when the two versions diff clean.
+ * Uses the same rules as ItemDiff, so it reports exactly what the rendered
+ * diff would show as changed. A hint present on only one side is reported
+ * as a changed hint without its widgets.
  */
 export function getChangedItemSections(
     before: PerseusItem,
