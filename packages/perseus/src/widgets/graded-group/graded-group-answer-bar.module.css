@@ -12,9 +12,6 @@
 
 .answer-bar {
     display: flex;
-    /* Keep the "Check" button on the right of the status message, letting
-       the message wrap onto more lines instead. */
-    flex-wrap: nowrap;
     align-items: center;
     /* Keep the result at the inline-start of the bar and the button at the
        inline-end. */
