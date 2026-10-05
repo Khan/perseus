@@ -2,6 +2,8 @@ import {mergeConfig} from "vite";
 import {configureSort} from "storybook-multilevel-sort";
 import type {StorybookConfig} from "@storybook/react-vite";
 
+import {cssTarget, jsTarget} from "../config/build/browser-targets";
+
 const excludedCssFiles = ["lato.css", "protractor.css", "mafs-styles.css"];
 // This is a temporary plugin option to mimic what is in PROD in regard to cascade layers.
 // Perseus CSS files are wrapped in the 'shared' layer in khan/frontend.
@@ -120,6 +122,20 @@ const config: StorybookConfig = {
                 "process.env.STORYBOOK": "true",
             },
             build: {
+                // Build for the same browsers as our published packages, so
+                // Chromatic snapshots show the CSS and JS we ship. These
+                // must be set here: Storybook ignores the `build` options in
+                // vite.config.mts (except `target`).
+                target: jsTarget,
+                cssTarget,
+                rolldownOptions: {
+                    output: {
+                        // Minification would otherwise rename classes, and
+                        // some code reads class names at runtime (e.g. kas's
+                        // `Expr.name()`).
+                        keepNames: true,
+                    },
+                },
                 // Vite 5 has a bug with how it builds `url(data: )` urls when
                 // it inlines SVGs. Given this is mostly used for static
                 // storybook builds, we just tell Vite to never inline assets.
