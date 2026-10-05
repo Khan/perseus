@@ -155,7 +155,6 @@ class DropdownEditor extends React.Component<Props> {
                         </p>
                     </InfoTip>
                 </div>
-                <div className="clearfix" />
                 <BodyText>Choices</BodyText>
                 <ul className="dropdown-choices">
                     {this.props.choices.map((choice, i) => {
