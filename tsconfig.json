@@ -16,10 +16,6 @@
     "extends": "./tsconfig-common.json",
     "compilerOptions": {
         "noEmit": true,
-        "paths": {
-            "jsdiff": ["./vendor/jsdiff/jsdiff.js"],
-            "raphael": ["./vendor/raphael/raphael.js"],
-        },
         "plugins": [
             {
                 "name": "typescript-plugin-css-modules",
