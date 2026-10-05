@@ -161,16 +161,9 @@ const GradedGroupSet = forwardRef<Widget, Props>(
 
         const numGroups = gradedGroups.length;
         const atEnd = currentGroupIndex >= numGroups - 1;
-        // Moving to the next group replaces the whole group, including the
-        // focused "Next question" button, which would drop focus onto <body>.
-        // Focus the new current pip instead so screen readers announce which
-        // problem the learner is now on.
         const handleNextQuestion = atEnd
             ? undefined
             : () => {
-                  // React waits until the handler finishes before updating
-                  // the page, so the pip wouldn't be current yet for us to
-                  // focus. `flushSync` makes React update it right away.
                   flushSync(() => setCurrentGroupIndex(currentGroupIndex + 1));
                   currentPipRef.current?.focus();
               };
