@@ -49,6 +49,23 @@ describe("getDiffedWidgetIds", () => {
         expect(widgetIds).toEqual(["radio 1", "image 1", "radio 2"]);
     });
 
+    it("does not match a widget whose id is a prefix of the placed one", () => {
+        // Arrange
+        const renderer = generateTestPerseusRenderer({
+            content: "[[☃ radio 10]]",
+            widgets: {
+                "radio 1": generateRadioWidget(),
+                "radio 10": generateRadioWidget(),
+            },
+        });
+
+        // Act
+        const widgetIds = getDiffedWidgetIds(renderer, renderer);
+
+        // Assert
+        expect(widgetIds).toEqual(["radio 10"]);
+    });
+
     it("returns no widgets when both sides are missing", () => {
         // Arrange, Act
         const widgetIds = getDiffedWidgetIds(undefined, undefined);

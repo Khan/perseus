@@ -3,7 +3,10 @@
  * Shared by RendererDiff and getChangedItemSections so the two agree.
  */
 import {Widgets} from "@khanacademy/perseus";
-import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
+import {
+    CoreWidgetRegistry,
+    getWidgetIdsFromContent,
+} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
 import type {PerseusRenderer, PerseusWidget} from "@khanacademy/perseus-core";
@@ -15,6 +18,17 @@ export type DiffedWidgetInfo = {
     static?: PerseusWidget["static"];
 };
 
+/** The ids in `widgets` that `content` places, in `widgets` order. */
+const placedWidgetIds = (renderer: PerseusRenderer | undefined): string[] => {
+    if (renderer == null) {
+        return [];
+    }
+    const placed = new Set(getWidgetIdsFromContent(renderer.content));
+    return Object.keys(renderer.widgets ?? {}).filter((widgetId) =>
+        placed.has(widgetId),
+    );
+};
+
 /**
  * List the widget ids to diff: those referenced in either side's `content`,
  * `before`'s first. Widgets the content doesn't reference are never
@@ -23,15 +37,7 @@ export type DiffedWidgetInfo = {
 export const getDiffedWidgetIds = (
     before: PerseusRenderer | undefined,
     after: PerseusRenderer | undefined,
-): string[] => {
-    const beforeWidgets = Object.keys(before?.widgets ?? {}).filter(
-        (widgetId) => before?.content.includes(widgetId),
-    );
-    const afterWidgets = Object.keys(after?.widgets ?? {}).filter((widgetId) =>
-        after?.content.includes(widgetId),
-    );
-    return _.union(beforeWidgets, afterWidgets);
-};
+): string[] => _.union(placedWidgetIds(before), placedWidgetIds(after));
 
 /**
  * Keep only the widget fields worth diffing: `options`, plus `alignment`

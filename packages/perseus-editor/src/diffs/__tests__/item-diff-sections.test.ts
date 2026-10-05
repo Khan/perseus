@@ -1,4 +1,6 @@
 import {
+    generateGradedGroupOptions,
+    generateGradedGroupWidget,
     generateImageOptions,
     generateImageWidget,
     generateRadioOptions,
@@ -233,6 +235,37 @@ describe("getChangedItemSections", () => {
         // Assert
         expect(sections).toEqual([
             {section: "hint-widget", hintIndex: 1, widgetId: "radio 1"},
+        ]);
+    });
+
+    it("returns the containing widget when a nested widget changes", () => {
+        // Arrange
+        const itemWithInnerChoice = (firstChoice: string): PerseusItem =>
+            generateTestPerseusItem({
+                question: generateTestPerseusRenderer({
+                    content: "[[☃ graded-group 1]]",
+                    widgets: {
+                        "graded-group 1": generateGradedGroupWidget({
+                            options: generateGradedGroupOptions({
+                                content: "[[☃ radio 1]]",
+                                widgets: {"radio 1": radioWidget(firstChoice)},
+                            }),
+                        }),
+                    },
+                }),
+                answerArea: getDefaultAnswerArea(),
+                hints: [],
+            });
+
+        // Act
+        const sections = getChangedItemSections(
+            itemWithInnerChoice("Blue"),
+            itemWithInnerChoice("Purple"),
+        );
+
+        // Assert
+        expect(sections).toEqual([
+            {section: "question-widget", widgetId: "graded-group 1"},
         ]);
     });
 
