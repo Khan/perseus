@@ -339,106 +339,117 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                     this.state.focused && styles.wrapperFocused,
                 ]}
             >
-                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events -- TODO(LEMS-2871): Address a11y error */}
-                <div
-                    style={{
-                        display: "flex",
-                        alignItems: "center",
-                        padding: 1,
-                    }}
-                    onClick={(e) => {
-                        // Prevent the click into the input from registering
-                        // so that the keypad popover doesn't close when
-                        // switching focus to the input.
-                        e.stopPropagation();
-
-                        const mathField = this.mathField();
-                        if (!mathField) {
-                            return;
-                        }
-                        this.setState({
-                            cursorContext: getCursorContext(mathField),
-                        });
-                    }}
-                >
-                    {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO(LEMS-2871): Address a11y error */}
-                    <span
-                        className={className}
-                        ref={(ref) => (this.__mathFieldWrapperRef = ref)}
-                        onFocus={() => this.focus()}
-                        onBlur={() => this.blur()}
-                    />
-                    <Popover
-                        opened={this.state.keypadOpen}
-                        dismissEnabled
-                        rootBoundary="document"
-                        aria-label={this.context.strings.mathInputTitle}
-                        aria-describedby={`popover-content-${popoverContentUniqueId}`}
-                        onClose={() => this.closeKeypad()}
-                        content={() => (
-                            <>
-                                <Heading
-                                    size="large"
-                                    id={`popover-content-${popoverContentUniqueId}`}
-                                    style={a11y.srOnly}
-                                >
-                                    {this.context.strings.mathInputDescription}
-                                </Heading>
-                                <PopoverContentCore
-                                    style={styles.popoverContent}
-                                >
-                                    <DesktopKeypad
-                                        onAnalyticsEvent={
-                                            this.props.onAnalyticsEvent
-                                        }
-                                        extraKeys={this.props.extraKeys}
-                                        onClickKey={this.handleKeypadPress}
-                                        cursorContext={this.state.cursorContext}
-                                        convertDotToTimes={
-                                            this.props.convertDotToTimes
-                                        }
-                                        {...(this.props.keypadButtonSets ??
-                                            mapButtonSets(
-                                                this.props?.buttonSets,
-                                            ))}
-                                        showDismiss
-                                    />
-                                </PopoverContentCore>
-                            </>
-                        )}
-                    >
-                        {this.props.buttonsVisible === "never" ? (
-                            <MathInputIcon
-                                hovered={false}
-                                focused={false}
-                                active={false}
-                                pressed={false}
-                            />
-                        ) : (
-                            <Clickable
-                                aria-label={
-                                    this.state.keypadOpen
-                                        ? this.context.strings.closeKeypad
-                                        : this.context.strings.openKeypad
-                                }
-                                role="button"
-                                hideDefaultFocusRing
-                                onClick={() =>
-                                    this.state.keypadOpen
-                                        ? this.closeKeypad()
-                                        : this.openKeypad()
-                                }
+                <Popover
+                    opened={this.state.keypadOpen}
+                    dismissEnabled
+                    rootBoundary="document"
+                    aria-label={this.context.strings.mathInputTitle}
+                    aria-describedby={`popover-content-${popoverContentUniqueId}`}
+                    onClose={() => this.closeKeypad()}
+                    content={() => (
+                        <>
+                            <Heading
+                                size="large"
+                                id={`popover-content-${popoverContentUniqueId}`}
+                                style={a11y.srOnly}
                             >
-                                {(props) => (
-                                    <MathInputIcon
-                                        active={this.state.keypadOpen}
-                                        {...props}
+                                {this.context.strings.mathInputDescription}
+                            </Heading>
+                            <PopoverContentCore style={styles.popoverContent}>
+                                <DesktopKeypad
+                                    onAnalyticsEvent={
+                                        this.props.onAnalyticsEvent
+                                    }
+                                    extraKeys={this.props.extraKeys}
+                                    onClickKey={this.handleKeypadPress}
+                                    cursorContext={this.state.cursorContext}
+                                    convertDotToTimes={
+                                        this.props.convertDotToTimes
+                                    }
+                                    {...(this.props.keypadButtonSets ??
+                                        mapButtonSets(this.props?.buttonSets))}
+                                    showDismiss
+                                />
+                            </PopoverContentCore>
+                        </>
+                    )}
+                >
+                    {/*
+                     * The popover is anchored to the whole input (the math
+                     * field and the keypad button), not just the button.
+                     * Popover closes when focus or a pointer press lands
+                     * outside of its anchor and content, and the math field
+                     * must stay usable while the keypad is open: every
+                     * keypad press moves focus back into the math field, and
+                     * users can click into the field to move the cursor.
+                     *
+                     * Child-as-function keeps Popover from wrapping our
+                     * onClick handlers with its own open/close toggle, since
+                     * this is a controlled popover.
+                     */}
+                    {() => (
+                        <KeypadAnchor
+                            onClick={() => {
+                                const mathField = this.mathField();
+                                if (!mathField) {
+                                    return;
+                                }
+                                this.setState({
+                                    cursorContext: getCursorContext(mathField),
+                                });
+                            }}
+                        >
+                            {(triggerProps) => (
+                                <>
+                                    {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO(LEMS-2871): Address a11y error */}
+                                    <span
+                                        className={className}
+                                        ref={(ref) =>
+                                            (this.__mathFieldWrapperRef = ref)
+                                        }
+                                        onFocus={() => this.focus()}
+                                        onBlur={() => this.blur()}
                                     />
-                                )}
-                            </Clickable>
-                        )}
-                    </Popover>
-                </div>
+                                    {this.props.buttonsVisible === "never" ? (
+                                        <MathInputIcon
+                                            hovered={false}
+                                            focused={false}
+                                            active={false}
+                                            pressed={false}
+                                        />
+                                    ) : (
+                                        <Clickable
+                                            {...triggerProps}
+                                            aria-label={
+                                                this.state.keypadOpen
+                                                    ? this.context.strings
+                                                          .closeKeypad
+                                                    : this.context.strings
+                                                          .openKeypad
+                                            }
+                                            role="button"
+                                            hideDefaultFocusRing
+                                            onClick={() =>
+                                                this.state.keypadOpen
+                                                    ? this.closeKeypad()
+                                                    : this.openKeypad()
+                                            }
+                                        >
+                                            {(props) => (
+                                                <MathInputIcon
+                                                    active={
+                                                        this.state.keypadOpen
+                                                    }
+                                                    {...props}
+                                                />
+                                            )}
+                                        </Clickable>
+                                    )}
+                                </>
+                            )}
+                        </KeypadAnchor>
+                    )}
+                </Popover>
             </View>
         );
     }
@@ -478,6 +489,63 @@ class MathInput extends React.Component<Props, State> {
         );
     }
 }
+
+// The props that Popover gives its anchor to wire it up to the popover dialog.
+type KeypadTriggerProps = {
+    id?: string;
+    "aria-controls"?: string;
+    "aria-expanded"?: React.AriaAttributes["aria-expanded"];
+};
+
+type KeypadAnchorProps = KeypadTriggerProps & {
+    // Injected by Popover so it can find the anchor element in the DOM.
+    "data-wb-floating-reference"?: string;
+    onClick: () => void;
+    // Renders the anchor's contents. The trigger props are meant for the
+    // button that opens the keypad.
+    children: (triggerProps: KeypadTriggerProps) => React.ReactNode;
+};
+
+/**
+ * The element the keypad popover is anchored to. It wraps the whole input so
+ * that interacting with the math field doesn't dismiss the keypad, but hands
+ * the ARIA props that describe the popover (`aria-controls`,
+ * `aria-expanded`) to the keypad button instead. Those attributes describe the
+ * state of an interactive element and aren't allowed on a generic `<div>`.
+ */
+const KeypadAnchor = React.forwardRef<HTMLDivElement, KeypadAnchorProps>(
+    function KeypadAnchor(
+        {
+            children,
+            onClick,
+            id,
+            "aria-controls": ariaControls,
+            "aria-expanded": ariaExpanded,
+            ...anchorProps
+        },
+        ref,
+    ) {
+        return (
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events -- TODO(LEMS-2871): Address a11y error
+            <div
+                {...anchorProps}
+                ref={ref}
+                style={{
+                    display: "flex",
+                    alignItems: "center",
+                    padding: 1,
+                }}
+                onClick={onClick}
+            >
+                {children({
+                    id,
+                    "aria-controls": ariaControls,
+                    "aria-expanded": ariaExpanded,
+                })}
+            </div>
+        );
+    },
+);
 
 const MathInputIcon = ({
     hovered,

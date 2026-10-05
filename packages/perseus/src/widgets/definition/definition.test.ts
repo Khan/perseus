@@ -3,7 +3,7 @@ import {
     generateDefinitionWidget,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
-import {screen} from "@testing-library/react";
+import {screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
@@ -157,69 +157,106 @@ describe("Definition widget", () => {
         });
     });
 
-    it("should close the popover when we Tab off the close button", async () => {
-        // Arrange
-        renderQuestion(question);
-
-        // Act - Open the popover
-        const definitionAnchor = screen.getByRole("button", {
-            name: "Definition of: the Pequots",
+    describe("focus management", () => {
+        beforeEach(() => {
+            // Popover's focus management (floating-ui) moves focus using
+            // microtasks and animation frames, which Jest's fake timers hold
+            // back.
+            jest.useRealTimers();
+            userEvent = userEventLib.setup();
         });
-        await userEvent.click(definitionAnchor);
 
-        // Verify popover is open
-        const tooltip = screen.getByRole("dialog");
-        expect(tooltip).toBeVisible();
+        it("closes the popover when we Tab off the close button", async () => {
+            // Arrange
+            renderQuestion(question);
 
-        // Tab off the close button
-        await userEvent.tab();
+            // Act - Open the popover
+            const definitionAnchor = screen.getByRole("button", {
+                name: "Definition of: the Pequots",
+            });
+            await userEvent.click(definitionAnchor);
 
-        // Assert - Popover should be closed
-        expect(screen.queryByRole("dialog")).toBeNull();
-    });
+            // Verify popover is open
+            const tooltip = screen.getByRole("dialog");
+            expect(tooltip).toBeVisible();
 
-    it("should return focus to the anchor when we Shift + Tab from the close button", async () => {
-        // Arrange
-        renderQuestion(question);
+            // Tab off the close button
+            await userEvent.tab();
 
-        // Act - Open the popover (focus lands on the close button)
-        const definitionAnchor = screen.getByRole("button", {
-            name: "Definition of: the Pequots",
+            // Assert - Popover should be closed
+            await waitFor(() =>
+                expect(screen.queryByRole("dialog")).not.toBeInTheDocument(),
+            );
         });
-        await userEvent.click(definitionAnchor);
 
-        // Verify popover is open
-        const tooltip = screen.getByRole("dialog");
-        expect(tooltip).toBeVisible();
+        it("returns focus to the anchor when we Shift + Tab from the close button", async () => {
+            // Arrange
+            renderQuestion(question);
 
-        // Shift + Tab off the close button (tab backwards)
-        await userEvent.tab({shift: true});
+            // Act - Open the popover (focus lands on the close button)
+            const definitionAnchor = screen.getByRole("button", {
+                name: "Definition of: the Pequots",
+            });
+            await userEvent.click(definitionAnchor);
 
-        // Assert - Focus traps back to the anchor and the popover stays open
-        expect(definitionAnchor).toHaveFocus();
-        expect(screen.getByRole("dialog")).toBeVisible();
-    });
+            // Verify popover is open
+            const tooltip = screen.getByRole("dialog");
+            expect(tooltip).toBeVisible();
 
-    it("should close the popover when we Shift + Tab off the anchor", async () => {
-        // Arrange
-        renderQuestion(question);
+            // Shift + Tab off the close button (tab backwards)
+            await userEvent.tab({shift: true});
 
-        // Act - Open the popover (focus lands on the close button)
-        const definitionAnchor = screen.getByRole("button", {
-            name: "Definition of: the Pequots",
+            // Assert - Focus moves back to the anchor and the popover stays open
+            await waitFor(() => expect(definitionAnchor).toHaveFocus());
+            expect(screen.getByRole("dialog")).toBeVisible();
         });
-        await userEvent.click(definitionAnchor);
 
-        // Verify popover is open
-        const tooltip = screen.getByRole("dialog");
-        expect(tooltip).toBeVisible();
+        it("closes the popover when we Shift + Tab off the anchor", async () => {
+            // Arrange - A second definition before the one under test gives
+            // focus somewhere to go when we Shift + Tab off its anchor.
+            const questionWithTwoDefinitions: PerseusRenderer =
+                generateTestPerseusRenderer({
+                    content:
+                        "[[\u2603 definition 1]] and [[\u2603 definition 2]]",
+                    widgets: {
+                        "definition 1": generateDefinitionWidget({
+                            options: generateDefinitionOptions({
+                                togglePrompt: "first word",
+                            }),
+                        }),
+                        "definition 2": generateDefinitionWidget({
+                            options: generateDefinitionOptions({
+                                definition: "Definition text",
+                                togglePrompt: "second word",
+                            }),
+                        }),
+                    },
+                });
+            renderQuestion(questionWithTwoDefinitions);
 
-        // Shift + Tab back to the anchor, then Shift + Tab off it entirely
-        await userEvent.tab({shift: true});
-        await userEvent.tab({shift: true});
+            // Act - Open the popover (focus lands on the close button)
+            const definitionAnchor = screen.getByRole("button", {
+                name: "Definition of: second word",
+            });
+            await userEvent.click(definitionAnchor);
 
-        // Assert - Popover should be closed
-        expect(screen.queryByRole("dialog")).toBeNull();
+            // Verify popover is open
+            const tooltip = screen.getByRole("dialog");
+            expect(tooltip).toBeVisible();
+
+            // Shift + Tab back to the anchor, then Shift + Tab off it entirely
+            await userEvent.tab({shift: true});
+            await waitFor(() => expect(definitionAnchor).toHaveFocus());
+            await userEvent.tab({shift: true});
+
+            // Assert - Popover should be closed
+            await waitFor(() =>
+                expect(screen.queryByRole("dialog")).not.toBeInTheDocument(),
+            );
+            expect(
+                screen.getByRole("button", {name: "Definition of: first word"}),
+            ).toHaveFocus();
+        });
     });
 
     it("should close the popover when we press Escape", async () => {
