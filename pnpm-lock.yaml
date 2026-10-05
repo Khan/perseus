@@ -492,12 +492,12 @@ importers:
         specifier: workspace:*
         version: link:../perseus-utils
     devDependencies:
+      '@internal/build-settings':
+        specifier: workspace:*
+        version: link:../../config/build
       jison:
         specifier: 0.4.15
         version: 0.4.15
-      perseus-build-settings:
-        specifier: workspace:*
-        version: link:../../config/build
       underscore:
         specifier: catalog:devDeps
         version: 1.4.4
@@ -508,7 +508,7 @@ importers:
         specifier: workspace:*
         version: link:../perseus-core
     devDependencies:
-      perseus-build-settings:
+      '@internal/build-settings':
         specifier: workspace:*
         version: link:../../config/build
       react:
@@ -524,7 +524,7 @@ importers:
         specifier: workspace:*
         version: link:../perseus-utils
     devDependencies:
-      perseus-build-settings:
+      '@internal/build-settings':
         specifier: workspace:*
         version: link:../../config/build
 
@@ -540,6 +540,9 @@ importers:
         specifier: workspace:*
         version: link:../perseus-utils
     devDependencies:
+      '@internal/build-settings':
+        specifier: workspace:*
+        version: link:../../config/build
       '@khanacademy/mathjax-renderer':
         specifier: catalog:devDeps
         version: 3.2.0
@@ -576,9 +579,6 @@ importers:
       mathquill:
         specifier: github:Khan/mathquill#v1.0.3
         version: https://codeload.github.com/Khan/mathquill/tar.gz/c9e4329b0bc5d9b4c21d765b5768e4e7693515b3
-      perseus-build-settings:
-        specifier: workspace:*
-        version: link:../../config/build
       prop-types:
         specifier: catalog:devDeps
         version: 15.8.1
@@ -649,6 +649,9 @@ importers:
         specifier: ^10.0.0
         version: 10.0.0
     devDependencies:
+      '@internal/build-settings':
+        specifier: workspace:*
+        version: link:../../config/build
       '@khanacademy/wonder-blocks-announcer':
         specifier: catalog:devDeps
         version: 1.1.2(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
@@ -730,9 +733,6 @@ importers:
       classnames:
         specifier: catalog:devDeps
         version: 1.1.4
-      perseus-build-settings:
-        specifier: workspace:*
-        version: link:../../config/build
       prop-types:
         specifier: catalog:devDeps
         version: 15.8.1
@@ -770,12 +770,12 @@ importers:
         specifier: catalog:prodDeps
         version: 1.3.1
     devDependencies:
+      '@internal/build-settings':
+        specifier: workspace:*
+        version: link:../../config/build
       '@khanacademy/wonder-stuff-core':
         specifier: catalog:devDeps
         version: 3.0.0
-      perseus-build-settings:
-        specifier: workspace:*
-        version: link:../../config/build
       underscore:
         specifier: catalog:devDeps
         version: 1.4.4
@@ -819,6 +819,9 @@ importers:
         specifier: catalog:prodDeps
         version: 1.3.1
     devDependencies:
+      '@internal/build-settings':
+        specifier: workspace:*
+        version: link:../../config/build
       '@khanacademy/mathjax-renderer':
         specifier: catalog:devDeps
         version: 3.2.0
@@ -897,9 +900,6 @@ importers:
       jsdiff:
         specifier: workspace:*
         version: link:../../vendor/jsdiff
-      perseus-build-settings:
-        specifier: workspace:*
-        version: link:../../config/build
       prop-types:
         specifier: catalog:devDeps
         version: 15.8.1
@@ -931,7 +931,7 @@ importers:
         specifier: workspace:*
         version: link:../pure-markdown
     devDependencies:
-      perseus-build-settings:
+      '@internal/build-settings':
         specifier: workspace:*
         version: link:../../config/build
 
@@ -953,7 +953,7 @@ importers:
         specifier: ^1.3.3
         version: 1.3.3
     devDependencies:
-      perseus-build-settings:
+      '@internal/build-settings':
         specifier: workspace:*
         version: link:../../config/build
       underscore:
@@ -962,7 +962,7 @@ importers:
 
   packages/perseus-utils:
     devDependencies:
-      perseus-build-settings:
+      '@internal/build-settings':
         specifier: workspace:*
         version: link:../../config/build
 
@@ -975,7 +975,7 @@ importers:
         specifier: workspace:*
         version: link:../simple-markdown
     devDependencies:
-      perseus-build-settings:
+      '@internal/build-settings':
         specifier: workspace:*
         version: link:../../config/build
 
@@ -991,7 +991,7 @@ importers:
         specifier: catalog:peerDeps
         version: 18.3.1(react@18.3.1)
     devDependencies:
-      perseus-build-settings:
+      '@internal/build-settings':
         specifier: workspace:*
         version: link:../../config/build
 
