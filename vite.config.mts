@@ -9,8 +9,6 @@ const currentDir = dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
     resolve: {
         alias: {
-            raphael: resolve(currentDir, "vendor/raphael/raphael.js"),
-            jsdiff: resolve(currentDir, "vendor/jsdiff/jsdiff.js"),
             aphrodite: resolve(
                 currentDir,
                 "node_modules/aphrodite/no-important",
