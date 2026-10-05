@@ -1,18 +1,20 @@
 import {
     generateGradedGroupOptions,
     generateGradedGroupWidget,
-    generateTestPerseusItem,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {ServerItemRenderer} from "../../../server-item-renderer";
+import ArticleRenderer from "../../../article-renderer";
 import {testDependenciesV2} from "../../../testing/test-dependencies";
 
 import type {APIOptions} from "../../../types";
 import type {PerseusGradedGroupWidgetOptions} from "@khanacademy/perseus-core";
 import type {Decorator} from "@storybook/react-vite";
 
+// Graded groups only appear in articles, so render them through the
+// ArticleRenderer. It adds the `perseus-article` class, which pulls in the
+// article-only paragraph styles that graded groups get in prod.
 export const gradedGroupRendererDecorator: Decorator = (
     _,
     {
@@ -26,19 +28,18 @@ export const gradedGroupRendererDecorator: Decorator = (
     },
 ) => {
     return (
-        <ServerItemRenderer
-            item={generateTestPerseusItem({
-                question: generateTestPerseusRenderer({
-                    content: "[[☃ graded-group 1]]",
-                    widgets: {
-                        "graded-group 1": generateGradedGroupWidget({
-                            options: generateGradedGroupOptions({
-                                ...args,
-                            }),
+        <ArticleRenderer
+            json={generateTestPerseusRenderer({
+                content: "[[☃ graded-group 1]]",
+                widgets: {
+                    "graded-group 1": generateGradedGroupWidget({
+                        options: generateGradedGroupOptions({
+                            ...args,
                         }),
-                    },
-                }),
+                    }),
+                },
             })}
+            seed={0}
             apiOptions={parameters?.apiOptions}
             dependencies={testDependenciesV2}
         />

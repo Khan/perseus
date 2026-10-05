@@ -1,0 +1,18 @@
+/* OVERRIDES
+   Articles give Renderer paragraphs margins (see paragraph-styles.css), which
+   make the result taller than its text. Then the icon, which is centered
+   against the result, ends up lower than the text's center.
+
+   Each selector has one more class than the article rule it overrides, so it
+   wins no matter which stylesheet loads first. These can be removed once
+   layering control within Perseus is available, or when the high-level
+   styles are refactored and these become unnecessary.
+ */
+:global(.framework-perseus.perseus-article:not(.perseus-mobile))
+    .result
+    :global(.perseus-renderer .paragraph),
+:global(.framework-perseus.perseus-article:not(.perseus-mobile))
+    .result
+    :global(.perseus-renderer .paragraph .paragraph) {
+    margin: 0;
+}

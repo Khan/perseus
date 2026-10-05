@@ -13,6 +13,8 @@ import {flushSync} from "react-dom";
 import {usePerseusI18n} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 
+import cssStyles from "./graded-group-answer-bar.module.css";
+
 import type {APIOptions, TrackingGradedGroupExtraArguments} from "../../types";
 
 // The result of clicking 'Check'. ("correct", "incorrect", "invalid")
@@ -122,7 +124,11 @@ function GradedGroupAnswerBar({
 
                             Focus moves here on every check, which is what
                             reads the result out to a screen reader. */}
-                        <output ref={resultRef} tabIndex={-1}>
+                        <output
+                            ref={resultRef}
+                            tabIndex={-1}
+                            className={cssStyles.result}
+                        >
                             <Renderer
                                 content={stateInfo.text}
                                 strings={strings}
