@@ -33,7 +33,7 @@ export default defineConfig({
                 plugins: [
                     istanbul({
                         // Changes istanbul to look for the CYPRESS_COVERAGE
-                        // env var instead of its default VITE_COVERAGEsß
+                        // env var instead of its default VITE_COVERAGE
                         cypress: true,
                         // Only instrument when CYPRESS_COVERAGE=true.
                         // Without this, istanbul instruments unless
