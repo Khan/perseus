@@ -54,7 +54,6 @@
     },
     "devDependencies": {
         "@internal/build-settings": "workspace:*",
-        "@khanacademy/mathjax-renderer": "catalog:devDeps",
         "@khanacademy/wonder-blocks-announcer": "catalog:devDeps",
         "@khanacademy/wonder-blocks-banner": "catalog:devDeps",
         "@khanacademy/wonder-blocks-button": "catalog:devDeps",
