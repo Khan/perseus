@@ -13,7 +13,7 @@ export function parseRecord(
     return value;
 }
 
-export function parseString(value: unknown, fieldName: string): string {
+function parseString(value: unknown, fieldName: string): string {
     if (typeof value !== "string") {
         throw new TypeError(`Expected ${fieldName} to be a string.`);
     }
