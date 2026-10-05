@@ -1,18 +1,45 @@
 /* OVERRIDES
-   Articles give Renderer paragraphs margins (see paragraph-styles.css), which
-   make the result taller than its text. Then the icon, which is centered
-   against the result, ends up lower than the text's center.
-
-   Each selector has one more class than the article rule it overrides, so it
-   wins no matter which stylesheet loads first. These can be removed once
-   layering control within Perseus is available, or when the high-level
-   styles are refactored and these become unnecessary.
+   Articles give Renderer paragraphs margins, which make the status message
+   area taller than its text. This causes the alignment with the icon
+   to be messed up in the Graded Group answer bar.
+   Resetting the style here to fix the alignemnt.
  */
-:global(.framework-perseus.perseus-article:not(.perseus-mobile))
+:global(.framework-perseus.perseus-article)
     .result
-    :global(.perseus-renderer .paragraph),
-:global(.framework-perseus.perseus-article:not(.perseus-mobile))
-    .result
-    :global(.perseus-renderer .paragraph .paragraph) {
+    :global(.perseus-renderer .paragraph) {
     margin: 0;
+}
+
+.answer-bar {
+    display: flex;
+    /* Keep the "Check" button on the right of the status message, letting
+       the message wrap onto more lines instead. */
+    flex-wrap: nowrap;
+    align-items: center;
+    /* Keep the result at the inline-start of the bar and the button at the
+       inline-end. */
+    justify-content: space-between;
+    /* Keep a space between the message and the "Check" button, whether the
+       button is on the right of the message or below. */
+    gap: var(--wb-sizing-size_080);
+    margin-block-start: var(--wb-sizing-size_120);
+    padding-block-start: var(--wb-sizing-size_120);
+    border-top: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-default);
+    background-color: var(--wb-semanticColor-core-background-base-subtle);
+}
+
+/* Small screens or smaller, matching `mediaQueries.pureSmMin` in
+   styles/media-queries.ts. There isn't room for the message and the button
+   side by side, so put the button on the next line when needed. */
+@media screen and (max-width: 568px) {
+    .answer-bar {
+        flex-wrap: wrap;
+    }
+}
+
+.message {
+    display: flex;
+    align-items: center;
+    gap: var(--wb-sizing-size_080);
 }

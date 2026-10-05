@@ -105,14 +105,14 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 Explain
               </button>
               <div
-                style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--wb-sizing-size_080); margin-block-start: var(--wb-sizing-size_120); padding-block-start: var(--wb-sizing-size_120);"
+                class="answer-bar"
               >
                 <span
                   style="display: flex; align-items: center; gap: var(--wb-sizing-size_080);"
                 />
                 <button
                   aria-disabled="false"
-                  class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn"
+                  class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_fz3zdn"
                   data-kind="primary"
                   type="button"
                 >
@@ -203,14 +203,14 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 Explain
               </button>
               <div
-                style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--wb-sizing-size_080); margin-block-start: var(--wb-sizing-size_120); padding-block-start: var(--wb-sizing-size_120);"
+                class="answer-bar"
               >
                 <span
                   style="display: flex; align-items: center; gap: var(--wb-sizing-size_080);"
                 />
                 <button
                   aria-disabled="false"
-                  class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn"
+                  class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_fz3zdn"
                   data-kind="primary"
                   type="button"
                 >
@@ -301,14 +301,14 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 Explain
               </button>
               <div
-                style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--wb-sizing-size_080); margin-block-start: var(--wb-sizing-size_120); padding-block-start: var(--wb-sizing-size_120);"
+                class="answer-bar"
               >
                 <span
                   style="display: flex; align-items: center; gap: var(--wb-sizing-size_080);"
                 />
                 <button
                   aria-disabled="false"
-                  class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn"
+                  class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_fz3zdn"
                   data-kind="primary"
                   type="button"
                 >
