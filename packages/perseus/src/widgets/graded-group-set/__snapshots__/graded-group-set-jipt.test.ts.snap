@@ -108,11 +108,11 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 class="answer-bar"
               >
                 <span
-                  style="display: flex; align-items: center; gap: var(--wb-sizing-size_080);"
+                  class="message"
                 />
                 <button
                   aria-disabled="false"
-                  class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_fz3zdn"
+                  class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn"
                   data-kind="primary"
                   type="button"
                 >
@@ -206,11 +206,11 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 class="answer-bar"
               >
                 <span
-                  style="display: flex; align-items: center; gap: var(--wb-sizing-size_080);"
+                  class="message"
                 />
                 <button
                   aria-disabled="false"
-                  class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_fz3zdn"
+                  class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn"
                   data-kind="primary"
                   type="button"
                 >
@@ -304,11 +304,11 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 class="answer-bar"
               >
                 <span
-                  style="display: flex; align-items: center; gap: var(--wb-sizing-size_080);"
+                  class="message"
                 />
                 <button
                   aria-disabled="false"
-                  class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-inlineStyles_fz3zdn"
+                  class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn"
                   data-kind="primary"
                   type="button"
                 >
