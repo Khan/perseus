@@ -59,6 +59,10 @@ const config: KnipConfig = {
                 "config/cypress/support.ts",
             ],
         },
+        "config/build": {
+            // Run by the `build` script in the root package.json.
+            entry: ["build-packages.ts"],
+        },
         "packages/*": basePackageConfig,
         "packages/perseus-core": {
             ...basePackageConfig,
@@ -96,6 +100,7 @@ const config: KnipConfig = {
     ],
     // Scripts we use in `package.json`
     ignoreBinaries: [
+        "config/build/build-packages.ts",
         "utils/changed-files.sh",
         "utils/lint.sh",
         "utils/pre-publish-check-ci.ts",
