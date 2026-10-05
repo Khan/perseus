@@ -27,6 +27,7 @@ import UserInputManager, {
 import {getPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
 
 import GradedGroupAnswerBar from "./graded-group-answer-bar";
+import cssModuleStyles from "./graded-group.module.css";
 
 import type {ANSWER_BAR_STATES} from "./graded-group-answer-bar";
 import type {
@@ -131,8 +132,6 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
             },
 
             getPromptJSON(): GradedGroupPromptJSON {
-                // If the hint isn't expanded, we can't get the prompt JSON from the rendered widgets.
-                // We'll just pass in the hint content as a string instead.
                 const hint = hintRendererRef.current?.getPromptJSON() || {
                     content: props.options.hint?.content || "",
                     widgets: {},
@@ -282,10 +281,7 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                         <button
                             aria-expanded={showHint}
                             aria-controls={hintId}
-                            className={css(
-                                styles.explainToggle,
-                                showHint && styles.explainToggleExpanded,
-                            )}
+                            className={css(styles.explainToggle)}
                             onClick={() => setShowHint(!showHint)}
                         >
                             {showHint
@@ -293,12 +289,16 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                                 : strings.explain}
                         </button>
 
-                        {/* Rendered even when collapsed so aria-controls
-                            always points at a real element. The content
-                            itself stays out of the DOM, and so out of the
-                            tab order, until it's expanded. */}
-                        <div id={hintId}>
-                            {showHint && (
+                        <div
+                            id={hintId}
+                            className={classNames(
+                                cssModuleStyles.hint,
+                                showHint
+                                    ? cssModuleStyles.hintExpanded
+                                    : cssModuleStyles.hintCollapsed,
+                            )}
+                        >
+                            <div className={cssModuleStyles.hintWrapper}>
                                 <UserInputManager
                                     widgets={props.options.hint.widgets}
                                     problemNum={props.problemNum ?? 0}
@@ -337,7 +337,7 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                                         );
                                     }}
                                 </UserInputManager>
-                            )}
+                            </div>
                         </div>
                     </>
                 )}
@@ -382,10 +382,6 @@ const styles = StyleSheet.create({
         cursor: "pointer",
         display: "block",
         clear: "both",
-    },
-
-    explainToggleExpanded: {
-        marginBlockEnd: 10,
     },
 
     title: {
