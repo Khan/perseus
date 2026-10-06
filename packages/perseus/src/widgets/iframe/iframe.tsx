@@ -25,6 +25,47 @@ const {updateQueryString} = Util;
 
 type Props = WidgetProps<PerseusIFrameWidgetOptions, PerseusIFrameUserInput>;
 
+function getIframeUrl(
+    options: PerseusIFrameWidgetOptions,
+    locale: string,
+    origin: string,
+): string {
+    let url = options.url;
+
+    // If the URL doesnt start with http, it must be a program ID
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (url && url.length && url.indexOf("http") !== 0) {
+        url =
+            "https://www.khanacademy.org/computer-programming/program/" +
+            url +
+            "/embedded?buttons=no&embed=yes&editor=no&author=no";
+        url = updateQueryString(url, "width", `${options.width}`);
+        url = updateQueryString(url, "height", `${options.height}`);
+        // Origin is used by output.js in deciding to send messages
+        url = updateQueryString(url, "origin", origin);
+    }
+
+    // Forward content locale to KA program URLs so they render in the
+    // correct language, overriding any existing ?lang= param.
+    if (locale && url?.includes("khanacademy.org")) {
+        url = updateQueryString(url, "lang", locale);
+    }
+
+    // Turn array of [{name: "", value: ""}] into object
+    if (options.settings) {
+        const settings: Record<string, any> = {};
+        options.settings.forEach((setting) => {
+            if (setting.name && setting.value) {
+                settings[setting.name] = setting.value;
+            }
+        });
+        // This becomes available to programs as Program.settings()
+        url = updateQueryString(url, "settings", JSON.stringify(settings));
+    }
+
+    return url;
+}
+
 /* This renders the iframe and handles validation via window.postMessage */
 const Iframe = forwardRef<Widget, Props>(function Iframe(props, ref) {
     const {strings, locale} = usePerseusI18n();
@@ -90,38 +131,7 @@ const Iframe = forwardRef<Widget, Props>(function Iframe(props, ref) {
         }
     });
 
-    let url = props.options.url;
-
-    // If the URL doesnt start with http, it must be a program ID
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (url && url.length && url.indexOf("http") !== 0) {
-        url =
-            "https://www.khanacademy.org/computer-programming/program/" +
-            url +
-            "/embedded?buttons=no&embed=yes&editor=no&author=no";
-        url = updateQueryString(url, "width", `${width}`);
-        url = updateQueryString(url, "height", `${height}`);
-        // Origin is used by output.js in deciding to send messages
-        url = updateQueryString(url, "origin", InitialRequestUrl.origin);
-    }
-
-    // Forward content locale to KA program URLs so they render in the
-    // correct language, overriding any existing ?lang= param.
-    if (locale && url?.includes("khanacademy.org")) {
-        url = updateQueryString(url, "lang", locale);
-    }
-
-    // Turn array of [{name: "", value: ""}] into object
-    if (props.options.settings) {
-        const settings: Record<string, any> = {};
-        props.options.settings.forEach((setting) => {
-            if (setting.name && setting.value) {
-                settings[setting.name] = setting.value;
-            }
-        });
-        // This becomes available to programs as Program.settings()
-        url = updateQueryString(url, "settings", JSON.stringify(settings));
-    }
+    const url = getIframeUrl(props.options, locale, InitialRequestUrl.origin);
 
     let sandboxProperties = "allow-same-origin allow-scripts";
     sandboxProperties += " allow-top-navigation";
