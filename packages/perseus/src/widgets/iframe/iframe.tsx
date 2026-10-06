@@ -32,7 +32,7 @@ const Iframe = forwardRef<Widget, Props>(function Iframe(props, ref) {
     const {allowFullScreen} = props.options;
 
     useEffect(() => {
-        const handleMessageEvent = (e: MessageEvent) => {
+        function handleMessageEvent(e: MessageEvent) {
             // We receive data from the iframe that contains {passed: true/false}
             //  and use that to set the status
             // It could also contain an optional message
@@ -51,7 +51,7 @@ const Iframe = forwardRef<Widget, Props>(function Iframe(props, ref) {
                 status: data.testsPassed ? "correct" : "incorrect",
                 message: data.message,
             });
-        };
+        }
 
         window.addEventListener("message", handleMessageEvent);
         return () => {
@@ -60,7 +60,7 @@ const Iframe = forwardRef<Widget, Props>(function Iframe(props, ref) {
     }, [props]);
 
     useImperativeHandle(ref, () => ({
-        getPromptJSON: (): UnsupportedWidgetPromptJSON => {
+        getPromptJSON(): UnsupportedWidgetPromptJSON {
             return _getPromptJSON();
         },
 
@@ -68,7 +68,7 @@ const Iframe = forwardRef<Widget, Props>(function Iframe(props, ref) {
          * @deprecated and likely very broken API
          * [LEMS-3185] do not trust serializedState
          */
-        getSerializedState: (): any => {
+        getSerializedState(): any {
             const {userInput, alignment, options, ...rest} = props;
             const defaults = {allowTopNavigation: false};
             return {...defaults, ...options, ...rest};
@@ -138,19 +138,17 @@ function getIframeStyle(options: PerseusIFrameWidgetOptions): {
     width: string;
     height: string;
 } {
-    const style = {
-        width: String(options.width),
-        height: String(options.height),
-    } as const;
+    return {
+        width: toCssSize(String(options.width)),
+        height: toCssSize(String(options.height)),
+    };
+}
 
-    // Add "px" to unitless numbers
-    Object.entries(style).forEach(([key, value]: [any, any]) => {
-        if (!value.endsWith("%") && !value.endsWith("px")) {
-            style[key] = value + "px";
-        }
-    });
-
-    return style;
+function toCssSize(value: string): string {
+    if (value.endsWith("%") || value.endsWith("px")) {
+        return value;
+    }
+    return `${value}px`;
 }
 
 /**
