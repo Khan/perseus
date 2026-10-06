@@ -1,0 +1,8 @@
+.perseus-article > .perseus-renderer > * {
+    /** center everything in a column except full-width widgets */
+    margin-inline: auto;
+    /* TODO: remove the perseus-paragraph-full-width wrapper element */
+    &:not(.perseus-paragraph-full-width, .widget-full-width) {
+        max-width: 688px;
+    }
+}

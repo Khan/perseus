@@ -4,8 +4,7 @@
     color: var(--wb-semanticColor-core-foreground-neutral-strong);
     font-size: 20px;
     line-height: 30px;
-    margin: 0 auto;
-    max-width: 688px;
+    margin-block: 0;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer
@@ -300,11 +299,6 @@
     }
 }
 @media (min-width: 1200px) {
-    .framework-perseus.perseus-mobile
-        .perseus-renderer
-        > .deprecated-perseus-container {
-        max-width: 688px;
-    }
     .framework-perseus.perseus-mobile
         .perseus-renderer
         > .deprecated-perseus-container {
