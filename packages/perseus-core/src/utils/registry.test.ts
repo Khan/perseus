@@ -1,4 +1,4 @@
-import Registry from "./registry";
+import Registry, {resetRegistry} from "./registry";
 
 describe("Registry", () => {
     const defaultMessage = "Registry accessed before initialization!";
@@ -36,7 +36,7 @@ describe("Registry", () => {
         const registry: any = new Registry();
         registry.set("radio", "hello");
         expect(() => registry.entries()).not.toThrow(defaultMessage);
-        expect(registry.entries("radio")).toEqual([["radio", "hello"]]);
+        expect([...registry.entries()]).toEqual([["radio", "hello"]]);
     });
 
     it("throws when calling keys before setting anything", () => {
@@ -49,6 +49,44 @@ describe("Registry", () => {
         registry.set("radio", "hello");
         expect(() => registry.keys()).not.toThrow(defaultMessage);
         expect(registry.keys("radio")).toEqual(["radio"]);
+    });
+
+    it("keeps the first value when a key is registered twice", () => {
+        const registry = new Registry<string>();
+        registry.set("radio", "first");
+
+        registry.set("radio", "second");
+
+        expect(registry.get("radio")).toBe("first");
+    });
+
+    it("overwrites an existing value when replaced", () => {
+        const registry = new Registry<string>();
+        registry.set("radio", "first");
+
+        registry.replace("radio", "second");
+
+        expect(registry.get("radio")).toBe("second");
+    });
+
+    it("throws the initialization error again after a reset", () => {
+        const registry = new Registry<string>();
+        registry.set("radio", "hello");
+
+        resetRegistry(registry);
+
+        expect(() => registry.get("radio")).toThrow(defaultMessage);
+    });
+
+    it("discards previously registered entries when reset", () => {
+        const registry = new Registry<string>();
+        registry.set("radio", "hello");
+
+        resetRegistry(registry);
+        registry.set("radio", "goodbye");
+
+        expect(registry.keys()).toEqual(["radio"]);
+        expect(registry.get("radio")).toBe("goodbye");
     });
 
     it("accepts an optional name", () => {
