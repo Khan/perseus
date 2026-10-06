@@ -1874,7 +1874,6 @@ table: [[☃ table 1]]
                                   class="default_7zhre1-o_O-outerWrapper_rzav75"
                                 >
                                   <div
-                                    data-wb-floating-reference=":r15:"
                                     style="display: flex; align-items: center; padding: 1px;"
                                   >
                                     <span
@@ -1943,6 +1942,7 @@ table: [[☃ table 1]]
                                       aria-expanded="false"
                                       aria-label="open math keypad"
                                       class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_uraxz"
+                                      data-wb-floating-reference=":r15:"
                                       id=":r13:-anchor"
                                       role="button"
                                       type="button"

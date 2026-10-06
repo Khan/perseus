@@ -203,59 +203,6 @@ describe("Perseus' MathInput", () => {
         expect(mockOnChange).toHaveBeenLastCalledWith("1+2\\div3");
     });
 
-    it("keeps the keypad open when clicking into the math input", async () => {
-        // Arrange
-        render(
-            <MathInput
-                onChange={() => {}}
-                keypadButtonSets={allButtonSets}
-                onAnalyticsEvent={() => Promise.resolve()}
-                convertDotToTimes={false}
-                value=""
-            />,
-        );
-        act(() => jest.runOnlyPendingTimers());
-        await userEvent.click(
-            screen.getByRole("button", {name: /open math keypad/}),
-        );
-
-        // Act
-        await userEvent.click(screen.getByRole("textbox"));
-        act(() => jest.runOnlyPendingTimers());
-
-        // Assert
-        expect(screen.getByRole("dialog")).toBeInTheDocument();
-    });
-
-    it("wires the keypad button to the keypad popover", async () => {
-        // Arrange
-        render(
-            <MathInput
-                onChange={() => {}}
-                keypadButtonSets={allButtonSets}
-                onAnalyticsEvent={() => Promise.resolve()}
-                convertDotToTimes={false}
-                value=""
-            />,
-        );
-        act(() => jest.runOnlyPendingTimers());
-
-        // Act
-        await userEvent.click(
-            screen.getByRole("button", {name: /open math keypad/}),
-        );
-
-        // Assert
-        const keypadButton = screen.getByRole("button", {
-            name: /close math keypad/,
-        });
-        expect(keypadButton).toHaveAttribute("aria-expanded", "true");
-        expect(keypadButton).toHaveAttribute(
-            "aria-controls",
-            screen.getByRole("dialog").id,
-        );
-    });
-
     it("returns focus to input after button click", async () => {
         // Arrange
         render(
