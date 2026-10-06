@@ -956,6 +956,52 @@ describe("LabelImage", function () {
         });
     });
 
+    describe("accessible name", () => {
+        const question = generateTestPerseusRenderer({
+            content: "[[☃ label-image 1]]",
+            widgets: {
+                "label-image 1": generateLabelImageWidget({
+                    options: generateLabelImageOptions({
+                        choices: ["Cars", "Trucks"],
+                        imageUrl: "https://example.com/image.png",
+                        imageWidth: 400,
+                        imageHeight: 300,
+                        markers: [
+                            {
+                                label: "The first marker.",
+                                answers: ["Cars"],
+                                x: 25,
+                                y: 50,
+                            },
+                        ],
+                    }),
+                }),
+            },
+        });
+
+        it("names the marker combobox with the marker label", async () => {
+            // Arrange, Act
+            renderQuestion(question);
+
+            // Assert
+            expect(
+                await screen.findByRole("combobox", {
+                    name: "The first marker.",
+                }),
+            ).toBeInTheDocument();
+        });
+
+        it("names the marker combobox as correct when answered correctly", async () => {
+            // Arrange, Act
+            renderQuestion(question, {extraProps: {reviewMode: true}});
+
+            // Assert
+            expect(
+                await screen.findByRole("combobox", {name: "Correct!"}),
+            ).toBeInTheDocument();
+        });
+    });
+
     describe("required state", () => {
         const generateRenderer = (isStatic: boolean): PerseusRenderer =>
             generateTestPerseusRenderer({

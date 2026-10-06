@@ -626,11 +626,18 @@ export class LabelImage
                             <Clickable
                                 role="button"
                                 aria-expanded={opened}
+                                // The opener is the element WB exposes to
+                                // assistive tech (as a combobox), so it must
+                                // carry the accessible name.
+                                aria-label={
+                                    showCorrectness === "correct"
+                                        ? this.context.strings.correctExcited
+                                        : marker.label
+                                }
                                 key={`marker-${marker.x}.${marker.y}`}
                             >
                                 {({hovered, focused, pressed}) => (
                                     <Marker
-                                        label={marker.label}
                                         showCorrectness={showCorrectness}
                                         showSelected={opened}
                                         showPulsate={!markersInteracted}
