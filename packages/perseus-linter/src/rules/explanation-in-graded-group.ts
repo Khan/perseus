@@ -29,24 +29,27 @@ export default Rule.makeRule({
             return;
         }
 
-        const message =
-            "Explanation widget in graded group: Use the graded group's Explain section instead.";
+        // The issues panel can't highlight linter warnings in the preview, so
+        // the location in the message is the only way authors can find it.
+        const message = (location: string) =>
+            `Explanation widget in graded group (${location}): Use the Graded Group Hint instead.`;
 
         if (widget.type === "graded-group") {
             const options: PerseusGradedGroupWidgetOptions = widget.options;
             if (hasExplanation(options.widgets)) {
-                return message;
+                return message(nodeId);
             }
         }
 
         if (widget.type === "graded-group-set") {
             const options: PerseusGradedGroupSetWidgetOptions = widget.options;
-            if (
-                options.gradedGroups.some((group) =>
-                    hasExplanation(group.widgets),
-                )
-            ) {
-                return message;
+            const groupNumbers = options.gradedGroups
+                .map((group, i) => (hasExplanation(group.widgets) ? i + 1 : 0))
+                .filter((groupNumber) => groupNumber > 0);
+            if (groupNumbers.length > 0) {
+                return message(
+                    `${nodeId}, group ${groupNumbers.join(" and ")}`,
+                );
             }
         }
     },

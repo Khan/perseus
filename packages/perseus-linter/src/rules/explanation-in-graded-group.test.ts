@@ -29,7 +29,7 @@ describe("explanation-in-graded-group", () => {
             },
             {
                 message:
-                    "Explanation widget in graded group: Use the graded group's Explain section instead.",
+                    "Explanation widget in graded group (graded-group 1): Use the Graded Group Hint instead.",
             },
         );
     });
@@ -63,7 +63,7 @@ describe("explanation-in-graded-group", () => {
             },
             {
                 message:
-                    "Explanation widget in graded group: Use the graded group's Explain section instead.",
+                    "Explanation widget in graded group (graded-group-set 1, group 2): Use the Graded Group Hint instead.",
             },
         );
     });
