@@ -6,6 +6,7 @@ import {
     generateRadioOptions,
     generateRadioWidget,
     generateTestPerseusRenderer,
+    imageLogic,
 } from "@khanacademy/perseus-core";
 
 import {
@@ -20,11 +21,26 @@ import {
     getCtaForIssueId,
 } from "./issue-ctas-utils";
 
-import type {PerseusWidgetsMap} from "@khanacademy/perseus-core";
+import type {
+    PerseusImageWidgetOptions,
+    PerseusWidgetsMap,
+} from "@khanacademy/perseus-core";
 
 const defaultImageWidget = generateImageWidget({
     options: generateImageOptions(),
 });
+
+// Converted images go through applyDefaultsToWidget, which marks them graded
+// and locks in the image widget's first supported alignment.
+function generateConvertedImageWidget(
+    options: Partial<PerseusImageWidgetOptions>,
+) {
+    return generateImageWidget({
+        graded: true,
+        alignment: "block",
+        options: generateImageOptions(options),
+    });
+}
 
 const defaultRadioWidget = generateRadioWidget({
     options: generateRadioOptions(),
@@ -163,15 +179,34 @@ describe("convertImageMarkdownToImageWidget", () => {
         expect(onEditorChange).toHaveBeenCalledWith({
             content: "[[☃ image 1]]",
             widgets: {
-                "image 1": generateImageWidget({
-                    options: generateImageOptions({
-                        backgroundImage: earthMoonImage,
-                        alt: "some alt text",
-                    }),
+                "image 1": generateConvertedImageWidget({
+                    backgroundImage: earthMoonImage,
+                    alt: "some alt text",
                 }),
             },
             images: {},
         });
+    });
+
+    it("creates image widgets at the image widget's current version", async () => {
+        // Arrange
+        const question = {
+            content: `![some alt text](${earthMoonImage.url})`,
+            widgets: {},
+            images: {},
+        };
+        const onEditorChange = jest.fn();
+
+        // Act
+        await convertImageMarkdownToImageWidget(question, onEditorChange);
+
+        // Assert
+        // The conversion hard-codes version 0.0. If this fails, the image
+        // widget has a new version: update the conversion's version and
+        // options together.
+        expect(
+            onEditorChange.mock.calls[0][0].widgets["image 1"].version,
+        ).toEqual(imageLogic.version ?? {major: 0, minor: 0});
     });
 
     it("converts image markdown to image widget with surrounding text", async () => {
@@ -190,11 +225,9 @@ describe("convertImageMarkdownToImageWidget", () => {
         expect(onEditorChange).toHaveBeenCalledWith({
             content: "Hello [[☃ image 1]] World",
             widgets: {
-                "image 1": generateImageWidget({
-                    options: generateImageOptions({
-                        backgroundImage: earthMoonImage,
-                        alt: "some alt text",
-                    }),
+                "image 1": generateConvertedImageWidget({
+                    backgroundImage: earthMoonImage,
+                    alt: "some alt text",
                 }),
             },
             images: {},
@@ -230,11 +263,9 @@ describe("convertImageMarkdownToImageWidget", () => {
                         alt: "some alt text",
                     }),
                 }),
-                "image 2": generateImageWidget({
-                    options: generateImageOptions({
-                        backgroundImage: earthMoonImage,
-                        alt: "some alt text",
-                    }),
+                "image 2": generateConvertedImageWidget({
+                    backgroundImage: earthMoonImage,
+                    alt: "some alt text",
                 }),
             },
             images: {},
@@ -257,17 +288,13 @@ describe("convertImageMarkdownToImageWidget", () => {
         expect(onEditorChange).toHaveBeenCalledWith({
             content: `[[☃ image 1]] [[☃ image 2]]`,
             widgets: {
-                "image 1": generateImageWidget({
-                    options: generateImageOptions({
-                        backgroundImage: earthMoonImage,
-                        alt: "alt 1",
-                    }),
+                "image 1": generateConvertedImageWidget({
+                    backgroundImage: earthMoonImage,
+                    alt: "alt 1",
                 }),
-                "image 2": generateImageWidget({
-                    options: generateImageOptions({
-                        backgroundImage: earthMoonImage,
-                        alt: "alt 2",
-                    }),
+                "image 2": generateConvertedImageWidget({
+                    backgroundImage: earthMoonImage,
+                    alt: "alt 2",
                 }),
             },
             images: {},
@@ -315,17 +342,13 @@ describe("convertImageMarkdownToImageWidget", () => {
                         alt: "alt 3",
                     }),
                 }),
-                "image 1": generateImageWidget({
-                    options: generateImageOptions({
-                        backgroundImage: earthMoonImage,
-                        alt: "markdown 1",
-                    }),
+                "image 1": generateConvertedImageWidget({
+                    backgroundImage: earthMoonImage,
+                    alt: "markdown 1",
                 }),
-                "image 4": generateImageWidget({
-                    options: generateImageOptions({
-                        backgroundImage: earthMoonImage,
-                        alt: "markdown 2",
-                    }),
+                "image 4": generateConvertedImageWidget({
+                    backgroundImage: earthMoonImage,
+                    alt: "markdown 2",
                 }),
             },
             images: {},
@@ -355,11 +378,9 @@ describe("convertImageMarkdownToImageWidget", () => {
         expect(onEditorChange).toHaveBeenCalledWith({
             content: `[[☃ image 2]] [[☃ image 1]] **bold** *italic* \n\n| col 1 | col 2 |\n| --- | --- |\n| row 1 | row 2 |`,
             widgets: {
-                "image 2": generateImageWidget({
-                    options: generateImageOptions({
-                        backgroundImage: earthMoonImage,
-                        alt: "markdown 1",
-                    }),
+                "image 2": generateConvertedImageWidget({
+                    backgroundImage: earthMoonImage,
+                    alt: "markdown 1",
                 }),
                 "image 1": generateImageWidget({
                     options: generateImageOptions({
@@ -389,21 +410,17 @@ describe("convertImageMarkdownToImageWidget", () => {
         expect(onEditorChange).toHaveBeenCalledWith({
             content: `| col 1 | col 2 |\n| --- | --- |\n| [[☃ image 1]] | [[☃ image 2]] |`,
             widgets: {
-                "image 1": generateImageWidget({
-                    options: generateImageOptions({
-                        backgroundImage: earthMoonImage,
-                        alt: "markdown 1",
-                    }),
+                "image 1": generateConvertedImageWidget({
+                    backgroundImage: earthMoonImage,
+                    alt: "markdown 1",
                 }),
-                "image 2": generateImageWidget({
-                    options: generateImageOptions({
-                        backgroundImage: {
-                            url: frescoImage.url,
-                            width: 400, // mocked
-                            height: 225, // mocked
-                        },
-                        alt: "markdown 2",
-                    }),
+                "image 2": generateConvertedImageWidget({
+                    backgroundImage: {
+                        url: frescoImage.url,
+                        width: 400, // mocked
+                        height: 225, // mocked
+                    },
+                    alt: "markdown 2",
                 }),
             },
             images: {},
@@ -476,11 +493,9 @@ describe("convertImageMarkdownToImageWidget", () => {
                         ],
                     }),
                 }),
-                "image 1": generateImageWidget({
-                    options: generateImageOptions({
-                        backgroundImage: earthMoonImage,
-                        alt: "markdown 1",
-                    }),
+                "image 1": generateConvertedImageWidget({
+                    backgroundImage: earthMoonImage,
+                    alt: "markdown 1",
                 }),
             },
             images: {},
