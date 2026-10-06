@@ -277,7 +277,7 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
 
                 {props.options.hint?.content && (
                     <>
-                        {/* Not using Button here bc the styles won't work. */}
+                        {/* Not using WB Button here bc the styles won't work. */}
                         <button
                             aria-expanded={showHint}
                             aria-controls={hintId}
