@@ -25,6 +25,74 @@ const {updateQueryString} = Util;
 
 type Props = WidgetProps<PerseusIFrameWidgetOptions, PerseusIFrameUserInput>;
 
+/* This renders the iframe and handles validation via window.postMessage */
+const Iframe = forwardRef<Widget, Props>(function Iframe(props, ref) {
+    const {strings, locale} = usePerseusI18n();
+    const {InitialRequestUrl} = getDependencies();
+    const {allowFullScreen} = props.options;
+
+    useEffect(() => {
+        const handleMessageEvent = (e: MessageEvent) => {
+            // We receive data from the iframe that contains {passed: true/false}
+            //  and use that to set the status
+            // It could also contain an optional message
+            let data: Record<string, any> = {};
+            try {
+                data = JSON.parse(e.data);
+            } catch {
+                return;
+            }
+
+            if (data.testsPassed === undefined) {
+                return;
+            }
+
+            props.handleUserInput({
+                status: data.testsPassed ? "correct" : "incorrect",
+                message: data.message,
+            });
+        };
+
+        window.addEventListener("message", handleMessageEvent);
+        return () => {
+            window.removeEventListener("message", handleMessageEvent);
+        };
+    }, [props]);
+
+    useImperativeHandle(ref, () => ({
+        getPromptJSON: (): UnsupportedWidgetPromptJSON => {
+            return _getPromptJSON();
+        },
+
+        /**
+         * @deprecated and likely very broken API
+         * [LEMS-3185] do not trust serializedState
+         */
+        getSerializedState: (): any => {
+            const {userInput, alignment, options, ...rest} = props;
+            const defaults = {allowTopNavigation: false};
+            return {...defaults, ...options, ...rest};
+        },
+    }));
+
+    const style = getIframeStyle(props.options);
+    const url = getIframeUrl(props.options, locale, InitialRequestUrl.origin);
+
+    // We sandbox the iframe so that we allowlist only the functionality
+    //  that we need. This makes it a bit safer in case some content
+    //  creator "went wild".
+    // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
+    return (
+        <iframe
+            title={strings.embeddedContent}
+            sandbox="allow-same-origin allow-scripts allow-top-navigation"
+            style={style}
+            src={url}
+            allowFullScreen={allowFullScreen}
+        />
+    );
+});
+
 function getIframeUrl(
     options: PerseusIFrameWidgetOptions,
     locale: string,
@@ -66,63 +134,14 @@ function getIframeUrl(
     return url;
 }
 
-/* This renders the iframe and handles validation via window.postMessage */
-const Iframe = forwardRef<Widget, Props>(function Iframe(props, ref) {
-    const {strings, locale} = usePerseusI18n();
-
-    useEffect(() => {
-        const handleMessageEvent = (e: MessageEvent) => {
-            // We receive data from the iframe that contains {passed: true/false}
-            //  and use that to set the status
-            // It could also contain an optional message
-            let data: Record<string, any> = {};
-            try {
-                data = JSON.parse(e.data);
-            } catch {
-                return;
-            }
-
-            if (data.testsPassed === undefined) {
-                return;
-            }
-
-            const status = data.testsPassed ? "correct" : "incorrect";
-            props.handleUserInput({
-                status: status,
-                message: data.message,
-            });
-        };
-
-        window.addEventListener("message", handleMessageEvent);
-        return () => {
-            window.removeEventListener("message", handleMessageEvent);
-        };
-    }, [props]);
-
-    useImperativeHandle(ref, () => ({
-        getPromptJSON: (): UnsupportedWidgetPromptJSON => {
-            return _getPromptJSON();
-        },
-
-        /**
-         * @deprecated and likely very broken API
-         * [LEMS-3185] do not trust serializedState
-         */
-        getSerializedState: (): any => {
-            const {userInput, alignment, options, ...rest} = props;
-            const defaults = {allowTopNavigation: false};
-            return {...defaults, ...options, ...rest};
-        },
-    }));
-
-    const {width, height, allowFullScreen} = props.options;
-
+function getIframeStyle(options: PerseusIFrameWidgetOptions): {
+    width: string;
+    height: string;
+} {
     const style = {
-        width: String(width),
-        height: String(height),
+        width: String(options.width),
+        height: String(options.height),
     } as const;
-
-    const {InitialRequestUrl} = getDependencies();
 
     // Add "px" to unitless numbers
     Object.entries(style).forEach(([key, value]: [any, any]) => {
@@ -131,25 +150,8 @@ const Iframe = forwardRef<Widget, Props>(function Iframe(props, ref) {
         }
     });
 
-    const url = getIframeUrl(props.options, locale, InitialRequestUrl.origin);
-
-    let sandboxProperties = "allow-same-origin allow-scripts";
-    sandboxProperties += " allow-top-navigation";
-
-    // We sandbox the iframe so that we allowlist only the functionality
-    //  that we need. This makes it a bit safer in case some content
-    //  creator "went wild".
-    // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
-    return (
-        <iframe
-            title={strings.embeddedContent}
-            sandbox={sandboxProperties}
-            style={style}
-            src={url}
-            allowFullScreen={allowFullScreen}
-        />
-    );
-});
+    return style;
+}
 
 /**
  * @deprecated and likely a very broken API
