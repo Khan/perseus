@@ -4,10 +4,8 @@ import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../../editor";
-import {deprecatedChangeableChange} from "../../mixins/changeable";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
-import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {PerseusMatrixWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -38,8 +36,8 @@ class MatrixEditor extends React.Component<Props> {
             answers: this.props.answers,
             matrixBoardSize: this.props.matrixBoardSize,
             ...changes,
-        })
-    };
+        });
+    }
 
     onMatrixBoardSizeChange: (arg1: [number, number]) => void = (range) => {
         const matrixSize = getMatrixSize(this.props.answers);
@@ -79,7 +77,11 @@ class MatrixEditor extends React.Component<Props> {
                 answers: answers.map((row) => row.map(serializeCell)),
             },
             handleUserInput: (userInput) => {
-                this.handleChange({answers: userInput.answers.map(row => row.map(parseFloat))});
+                this.handleChange({
+                    answers: userInput.answers.map((row) =>
+                        row.map(parseFloat),
+                    ),
+                });
             },
             ...this.props,
             options: {
