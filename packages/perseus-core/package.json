@@ -9,7 +9,7 @@
         "exports": {
             ".": "./dist/index.js",
             "./init": "./dist/init.js",
-            "./widgets/*": "./dist/widgets/*/index.js"
+            "./internal/widgets/*": "./dist/widgets/*/index.js"
         }
     },
     "repository": {
@@ -24,7 +24,7 @@
     "exports": {
         ".": "./src/index.ts",
         "./init": "./src/init.ts",
-        "./widgets/*": "./src/widgets/*/index.ts"
+        "./internal/widgets/*": "./src/widgets/*/index.ts"
     },
     "files": [
         "dist"

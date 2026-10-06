@@ -55,11 +55,11 @@ describe("the ./init subpath", () => {
     });
 });
 
-describe("the ./widgets/* subpath", () => {
+describe("the ./internal/widgets/* subpath", () => {
     it.each(widgetDirectoryNames())("resolves %s", (name) => {
         // eslint-disable-next-line @typescript-eslint/no-require-imports
         const {default: logic} = require(
-            `@khanacademy/perseus-core/widgets/${name}`,
+            `@khanacademy/perseus-core/internal/widgets/${name}`,
         );
 
         expect(logic.name).toBe(name);

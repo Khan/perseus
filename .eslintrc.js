@@ -478,7 +478,7 @@ module.exports = {
                         // widget logic: doing so couples every consumer of an
                         // accessor to every widget, which is exactly what the
                         // retest and TurboSnap graphs key off. Logic belongs
-                        // behind the `./widgets/*` subpaths.
+                        // behind the `./internal/widgets/*` subpaths.
                         target: "./packages/perseus-core/src/widgets/core-widget-registry.ts",
                         from: "./packages/perseus-core/src/widgets",
                         except: [

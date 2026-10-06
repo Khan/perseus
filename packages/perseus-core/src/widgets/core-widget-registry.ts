@@ -91,7 +91,7 @@ function getLogicStrictly(type: string) {
         widgets,
         type,
         `registerLogics([...]) with the logic from ` +
-            `@khanacademy/perseus-core/widgets/${type}`,
+            `@khanacademy/perseus-core/internal/widgets/${type}`,
     );
 }
 
