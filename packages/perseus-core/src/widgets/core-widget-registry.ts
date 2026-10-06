@@ -1,39 +1,9 @@
+/** Provides registration and lookup for widget logic. */
+// Widget-logic imports are prohibited here by the dependency rule.
 import {Errors} from "../error/errors";
 import {PerseusError} from "../error/perseus-error";
 import Registry from "../utils/registry";
-
-import blankWidgetLogic from "./blank";
-import categorizerWidgetLogic from "./categorizer";
-import csProgramWidgetLogic from "./cs-program";
-import definitionWidgetLogic from "./definition";
-import deprecatedStandinWidgetLogic from "./deprecated-standin";
-import dropdownWidgetLogic from "./dropdown";
-import explanationWidgetLogic from "./explanation";
-import expressionWidgetLogic from "./expression";
-import fillInTheBlankWidgetLogic from "./fill-in-the-blank";
-import gradedGroupWidgetLogic from "./graded-group";
-import gradedGroupSetWidgetLogic from "./graded-group-set";
-import grapherWidgetLogic from "./grapher";
-import groupWidgetLogic from "./group";
-import iframeWidgetLogic from "./iframe";
-import imageWidgetLogic from "./image";
-import inputNumberWidgetLogic from "./input-number";
-import interactionWidgetLogic from "./interaction";
-import interactiveGraphWidgetLogic from "./interactive-graph";
-import labelImageWidgetLogic from "./label-image";
-import matcherWidgetLogic from "./matcher";
-import matrixWidgetLogic from "./matrix";
-import measurerWidgetLogic from "./measurer";
-import numberLineWidgetLogic from "./number-line";
-import numericInputWidgetLogic from "./numeric-input";
-import ordererWidgetLogic from "./orderer";
-import phetSimulationWidgetLogic from "./phet-simulation";
-import plotterWidgetLogic from "./plotter";
-import pythonProgramWidgetLogic from "./python-program";
-import radioWidgetLogic from "./radio";
-import sorterWidgetLogic from "./sorter";
-import tableWidgetLogic from "./table";
-import videoWidgetLogic from "./video";
+import {strictGet} from "../utils/strict-registry";
 
 import type {
     PublicWidgetOptionsFunction,
@@ -45,10 +15,84 @@ import type {
     Alignment,
 } from "../data-schema";
 
+/**
+ * A widget logic of any concrete widget's shape, as the registry stores them.
+ */
+export type AnyWidgetLogic = WidgetLogic<any, any>;
+
 const widgets = new Registry<WidgetLogic<any, any>>("Core widget registry");
 
+/** Register one widget logic under its own `name`. */
+export function registerLogic(logic: AnyWidgetLogic) {
+    widgets.set(logic.name, logic);
+}
+
+/** Register several widget logics, each under its own `name`. */
+export function registerLogics(logics: ReadonlyArray<AnyWidgetLogic>) {
+    logics.forEach(registerLogic);
+}
+
+/** @deprecated Use `registerLogic`, which reads the type from `logic.name`. */
 export function registerWidget(type: string, logic: WidgetLogic<any, any>) {
     widgets.set(type, logic);
+}
+
+/**
+ * Replace `type`'s logic with the logic already registered for
+ * `replacementType`.
+ *
+ * Fails if the `replacementType` is not already registered.
+ */
+export function replaceLogic(type: string, replacementType: string) {
+    const substitute = widgets.get(replacementType);
+    if (!substitute) {
+        throw new PerseusError(
+            `Failed to replace ${type} with ${replacementType}. ` +
+                `Nothing registered for ${replacementType}.`,
+            Errors.Internal,
+        );
+    }
+    widgets.replace(type, substitute);
+}
+
+/** Widget types Perseus no longer implements; content may still name them. */
+const deprecatedWidgetTypes = [
+    "transformer",
+    "lights-puzzle",
+    "reaction-diagram",
+    "sequence",
+    "simulator",
+    "unit-input",
+    "passage",
+    "passage-ref",
+    "passage-ref-target",
+    "molecule-renderer",
+];
+
+/**
+ * Map every deprecated widget type onto the `deprecated-standin` logic, which
+ * must already be registered.
+ */
+export function replaceDeprecatedLogics() {
+    deprecatedWidgetTypes.forEach((type) =>
+        replaceLogic(type, "deprecated-standin"),
+    );
+}
+
+/**
+ * Look up a logic for one of the accessors that would otherwise default.
+ *
+ * Defaulting on a miss hides a forgotten registration behind a plausible-
+ * looking answer (version 0.0, no options, not accessible), so outside
+ * production we say so instead.
+ */
+function getLogicStrictly(type: string) {
+    return strictGet(
+        widgets,
+        type,
+        `registerLogics([...]) with the logic from ` +
+            `@khanacademy/perseus-core/internal/widgets/${type}`,
+    );
 }
 
 export function isWidgetRegistered(type: string) {
@@ -57,7 +101,7 @@ export function isWidgetRegistered(type: string) {
 }
 
 export function getCurrentVersion(type: string) {
-    const widgetLogic = widgets.get(type);
+    const widgetLogic = getLogicStrictly(type);
     return widgetLogic?.version || {major: 0, minor: 0};
 }
 
@@ -66,11 +110,11 @@ export function getCurrentVersion(type: string) {
 export const getPublicWidgetOptionsFunction = (
     type: string,
 ): PublicWidgetOptionsFunction => {
-    return widgets.get(type)?.getPublicWidgetOptions ?? ((i: any) => i);
+    return getLogicStrictly(type)?.getPublicWidgetOptions ?? ((i: any) => i);
 };
 
 export function getDefaultWidgetOptions(type: string) {
-    const widgetLogic = widgets.get(type);
+    const widgetLogic = getLogicStrictly(type);
     return widgetLogic?.defaultWidgetOptions || {};
 }
 
@@ -78,7 +122,7 @@ export function isAccessible(
     type: string,
     widgetOptions: PerseusWidgetOptions,
 ): boolean {
-    const accessible = widgets.get(type)?.accessible;
+    const accessible = getLogicStrictly(type)?.accessible;
     return typeof accessible === "function"
         ? accessible(widgetOptions)
         : !!accessible;
@@ -129,7 +173,7 @@ export const traverseChildWidgets = (
 export const getSupportedAlignments = (
     type: string,
 ): ReadonlyArray<Alignment> => {
-    const widgetLogic = widgets.get(type);
+    const widgetLogic = getLogicStrictly(type);
     if (!widgetLogic?.supportedAlignments?.[0]) {
         // default alignments
         return ["default"];
@@ -147,7 +191,7 @@ export const getSupportedAlignments = (
  * the exports of a widget's module.
  */
 export const getDefaultAlignment = (type: string): Alignment => {
-    const widgetLogic = widgets.get(type);
+    const widgetLogic = getLogicStrictly(type);
     if (!widgetLogic?.defaultAlignment) {
         return "block";
     }
@@ -197,52 +241,3 @@ export const getAlignmentClassName = (
             return "";
     }
 };
-
-/**
- * We use a function here rather than registering widgets
- * at the top-level of the file to avoid circular dependencies.
- * Logic that needs core widget functionality
- * (like a prod or in tests)
- * need to call this function before trying to use that logic.
- */
-export function registerCoreWidgets() {
-    const widgets = [
-        blankWidgetLogic,
-        categorizerWidgetLogic,
-        csProgramWidgetLogic,
-        definitionWidgetLogic,
-        deprecatedStandinWidgetLogic,
-        dropdownWidgetLogic,
-        explanationWidgetLogic,
-        expressionWidgetLogic,
-        fillInTheBlankWidgetLogic,
-        gradedGroupWidgetLogic,
-        gradedGroupSetWidgetLogic,
-        grapherWidgetLogic,
-        groupWidgetLogic,
-        iframeWidgetLogic,
-        imageWidgetLogic,
-        inputNumberWidgetLogic,
-        interactionWidgetLogic,
-        interactiveGraphWidgetLogic,
-        labelImageWidgetLogic,
-        matcherWidgetLogic,
-        matrixWidgetLogic,
-        measurerWidgetLogic,
-        numberLineWidgetLogic,
-        numericInputWidgetLogic,
-        ordererWidgetLogic,
-        phetSimulationWidgetLogic,
-        plotterWidgetLogic,
-        pythonProgramWidgetLogic,
-        radioWidgetLogic,
-        sorterWidgetLogic,
-        tableWidgetLogic,
-        videoWidgetLogic,
-    ];
-
-    widgets.forEach((w) => {
-        // eslint-disable-next-line no-restricted-syntax
-        registerWidget(w.name, w as WidgetLogic<any, any>);
-    });
-}

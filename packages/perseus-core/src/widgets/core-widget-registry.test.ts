@@ -1,11 +1,20 @@
+import {
+    setStrictRegistration,
+    withStrictRegistration,
+} from "../utils/strict-registry";
+
 import * as CoreWidgetRegistry from "./core-widget-registry";
 import {
+    getCurrentVersion,
     isInlineWidget,
+    isWidgetRegistered,
+    registerLogics,
     registerWidget,
+    replaceLogic,
     traverseChildWidgets,
 } from "./core-widget-registry";
 
-import type {PerseusWidget} from "../data-schema";
+import type {PerseusWidget, PerseusWidgetOptions} from "../data-schema";
 
 const registryFnNames = [
     "isWidgetRegistered",
@@ -30,6 +39,162 @@ describe("core-widget-registry", () => {
             );
         },
     );
+
+    describe("registerLogics", () => {
+        it("registers each logic under its own name", () => {
+            registerLogics([
+                {
+                    name: "_first_",
+                    version: {major: 3, minor: 0},
+                    defaultWidgetOptions: {},
+                },
+                {
+                    name: "_second_",
+                    version: {major: 7, minor: 0},
+                    defaultWidgetOptions: {},
+                },
+            ]);
+
+            expect(isWidgetRegistered("_first_")).toBe(true);
+            expect(getCurrentVersion("_second_")).toEqual({
+                major: 7,
+                minor: 0,
+            });
+        });
+    });
+
+    describe("strict registration", () => {
+        // [accessor name, call it for a type, the value it defaults to]
+        const defaultingAccessors: ReadonlyArray<
+            [string, (type: string) => unknown, unknown]
+        > = [
+            [
+                "getCurrentVersion",
+                CoreWidgetRegistry.getCurrentVersion,
+                {major: 0, minor: 0},
+            ],
+            [
+                "getDefaultWidgetOptions",
+                CoreWidgetRegistry.getDefaultWidgetOptions,
+                {},
+            ],
+            [
+                "getPublicWidgetOptionsFunction",
+                // The default is the identity function, so apply it to a
+                // sentinel rather than comparing function references.
+                (type) =>
+                    CoreWidgetRegistry.getPublicWidgetOptionsFunction(type)(
+                        // eslint-disable-next-line no-restricted-syntax
+                        "_sentinel_" as never,
+                    ),
+                "_sentinel_",
+            ],
+            [
+                "isAccessible",
+                (type) =>
+                    CoreWidgetRegistry.isAccessible(
+                        type,
+                        // eslint-disable-next-line no-restricted-syntax
+                        {} as PerseusWidgetOptions,
+                    ),
+                false,
+            ],
+            [
+                "getSupportedAlignments",
+                CoreWidgetRegistry.getSupportedAlignments,
+                ["default"],
+            ],
+            [
+                "getDefaultAlignment",
+                CoreWidgetRegistry.getDefaultAlignment,
+                "block",
+            ],
+        ];
+
+        beforeEach(() => {
+            registerLogics([
+                {
+                    name: "_registered_",
+                    version: {major: 1, minor: 0},
+                    defaultWidgetOptions: {},
+                },
+            ]);
+            setStrictRegistration(true);
+        });
+
+        afterEach(() => {
+            setStrictRegistration(false);
+        });
+
+        test.each(defaultingAccessors)(
+            "%s throws for a registered-but-missing type",
+            (_name, accessor) => {
+                expect(() => accessor("_missing_")).toThrow(
+                    'Widget "_missing_" is not registered',
+                );
+            },
+        );
+
+        test.each(defaultingAccessors)(
+            "%s returns its default for a missing type when not strict",
+            (_name, accessor, expected) => {
+                const value = withStrictRegistration(false, () =>
+                    accessor("_missing_"),
+                );
+
+                expect(value).toEqual(expected);
+            },
+        );
+
+        it("isWidgetRegistered tolerates a missing type under strict", () => {
+            expect(isWidgetRegistered("_missing_")).toBe(false);
+        });
+
+        it("traverseChildWidgets ignores strict for a missing type", () => {
+            // eslint-disable-next-line no-restricted-syntax
+            const widget = {
+                type: "_missing_",
+                options: {foo: 1},
+            } as unknown as PerseusWidget;
+
+            expect(traverseChildWidgets(widget, jest.fn())).toBe(widget);
+        });
+    });
+
+    describe("replaceLogic", () => {
+        it("points the replaced type at the replacement's logic", () => {
+            registerLogics([
+                {
+                    name: "_standin_",
+                    version: {major: 9, minor: 1},
+                    defaultWidgetOptions: {},
+                },
+                {
+                    name: "_gone_",
+                    version: {major: 2, minor: 0},
+                    defaultWidgetOptions: {},
+                },
+            ]);
+
+            replaceLogic("_gone_", "_standin_");
+
+            expect(getCurrentVersion("_gone_")).toEqual({major: 9, minor: 1});
+        });
+
+        it("throws when the replacement is not registered", () => {
+            registerLogics([
+                {
+                    name: "_present_",
+                    version: {major: 1, minor: 0},
+                    defaultWidgetOptions: {},
+                },
+            ]);
+
+            expect(() =>
+                replaceLogic("_present_", "_never-registered_"),
+            ).toThrow("Failed to replace _present_ with _never-registered_");
+        });
+    });
 
     describe("traverseChildWidgets", () => {
         const realTraverseChildWidgets = (options, traverseRenderer) => {

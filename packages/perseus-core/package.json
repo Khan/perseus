@@ -7,7 +7,9 @@
     "publishConfig": {
         "access": "public",
         "exports": {
-            ".": "./dist/index.js"
+            ".": "./dist/index.js",
+            "./init": "./dist/init.js",
+            "./internal/widgets/*": "./dist/widgets/*/index.js"
         }
     },
     "repository": {
@@ -20,7 +22,9 @@
     },
     "type": "module",
     "exports": {
-        ".": "./src/index.ts"
+        ".": "./src/index.ts",
+        "./init": "./src/init.ts",
+        "./internal/widgets/*": "./src/widgets/*/index.ts"
     },
     "files": [
         "dist"

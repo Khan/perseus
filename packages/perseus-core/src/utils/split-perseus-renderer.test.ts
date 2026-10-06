@@ -1,5 +1,5 @@
+import {initPerseusCore} from "../init";
 import {applyDefaultsToWidgets} from "../widgets/apply-defaults";
-import {registerCoreWidgets} from "../widgets/core-widget-registry";
 
 import {generateBlankWidget} from "./generators/blank-widget-generator";
 import {
@@ -17,7 +17,7 @@ import type {PerseusRenderer, RadioWidget} from "../data-schema";
 
 describe("splitPerseusRenderer", () => {
     beforeAll(() => {
-        registerCoreWidgets();
+        initPerseusCore();
     });
 
     it("doesn't do anything with an empty item", () => {

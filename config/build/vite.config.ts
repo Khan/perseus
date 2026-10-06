@@ -4,6 +4,7 @@ import path from "node:path";
 import {fileURLToPath} from "node:url";
 
 import react from "@vitejs/plugin-react";
+import fg from "fast-glob";
 import postcssImport from "postcss-import";
 
 import {jsTarget, cssTarget} from "./browser-targets";
@@ -69,7 +70,9 @@ export function createPackageConfig(
         fs.readFileSync(path.join(packageDir, "package.json"), "utf8"),
     );
     const packageJson = parseBuildPackageMetadata(rawPackageJson);
-    const packageEntryPoints = getEntryPoints(rawPackageJson);
+    const packageEntryPoints = getEntryPoints(rawPackageJson, (pattern) =>
+        fg.globSync(pattern, {cwd: packageDir}),
+    );
     const entries = Object.fromEntries(
         Object.keys(packageEntryPoints).map((name) => [
             name,

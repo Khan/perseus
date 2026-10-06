@@ -14,7 +14,7 @@ describe("strictGet", () => {
     }
 
     afterEach(() => {
-        setStrictRegistration(process.env.NODE_ENV !== "production");
+        setStrictRegistration(false);
     });
 
     it("returns the registered value", () => {
@@ -62,7 +62,7 @@ describe("strictGet", () => {
 
 describe("withStrictRegistration", () => {
     afterEach(() => {
-        setStrictRegistration(process.env.NODE_ENV !== "production");
+        setStrictRegistration(false);
     });
 
     it("restores the previous setting after the call throws", () => {

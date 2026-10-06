@@ -1,5 +1,5 @@
+import {initPerseusCore} from "../init";
 import {applyDefaultsToWidgets} from "../widgets/apply-defaults";
-import {registerCoreWidgets} from "../widgets/core-widget-registry";
 
 import {
     generateExplanationOptions,
@@ -12,7 +12,7 @@ import type {PerseusItem, PerseusRenderer, RadioWidget} from "../data-schema";
 
 describe("splitPerseusItem", () => {
     beforeAll(() => {
-        registerCoreWidgets();
+        initPerseusCore();
     });
 
     function getFullRadio(): RadioWidget {
