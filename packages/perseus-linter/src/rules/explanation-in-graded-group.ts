@@ -29,10 +29,8 @@ export default Rule.makeRule({
             return;
         }
 
-        // The issues panel can't highlight linter warnings in the preview, so
-        // the location in the message is the only way authors can find it.
         const message = (location: string) =>
-            `Explanation widget in graded group (${location}): Use the Graded Group Hint instead.`;
+            `Explanation widget in ${location}: Use the Graded Group Hint instead.`;
 
         if (widget.type === "graded-group") {
             const options: PerseusGradedGroupWidgetOptions = widget.options;
