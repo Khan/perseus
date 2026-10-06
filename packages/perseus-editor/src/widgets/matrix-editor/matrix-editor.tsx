@@ -74,7 +74,7 @@ class MatrixEditor extends React.Component<Props> {
             // edit or stores the correct answers as number[][]. We show the
             // answers in the preview, so they have to be stringified.
             userInput: {
-                answers: answers.map((row) => row.map(serializeCell)),
+                answers: answers.map((row) => row.map(stringifyCell)),
             },
             handleUserInput: (userInput) => {
                 this.handleChange({
@@ -137,14 +137,14 @@ class MatrixEditor extends React.Component<Props> {
     }
 }
 
-function serializeCell(value: number | null | undefined): string {
+function stringifyCell(value: number | null | undefined): string {
     // Empty cells come back from JSON as null (a sparse row like
     // [, , 5] serializes to [null, null, 5]), and those need to stay
     // empty rather than becoming the text "null".
-    if (value == null || Number.isNaN(value)) {
-        return "";
+    if (Number.isFinite(value)) {
+        return String(value);
     }
-    return String(value);
+    return "";
 }
 
 export default MatrixEditor;
