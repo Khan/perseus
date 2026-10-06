@@ -1,5 +1,8 @@
 import {
+    generateLabelImageOptions,
+    generateLabelImageWidget,
     generateTestPerseusItem,
+    generateTestPerseusRenderer,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
@@ -21,6 +24,7 @@ import type {OptionalAnswersMarkerType} from "../label-image";
 import type {
     InteractiveMarkerType,
     PerseusLabelImageUserInputMarker,
+    PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -949,6 +953,102 @@ describe("LabelImage", function () {
 
             // Assert
             expect(score).toHaveInvalidInput();
+        });
+    });
+
+    describe("required state", () => {
+        const generateRenderer = (isStatic: boolean): PerseusRenderer =>
+            generateTestPerseusRenderer({
+                content: "[[☃ label-image 1]]",
+                widgets: {
+                    "label-image 1": generateLabelImageWidget({
+                        static: isStatic,
+                        options: generateLabelImageOptions({
+                            choices: ["Cars", "Trucks"],
+                            imageUrl: "https://example.com/image.png",
+                            imageWidth: 400,
+                            imageHeight: 300,
+                            markers: [
+                                {
+                                    label: "The first marker.",
+                                    answers: ["Cars"],
+                                    x: 25,
+                                    y: 50,
+                                },
+                            ],
+                        }),
+                    }),
+                },
+            });
+
+        it("renders the marker as required when scorable and interactive", async () => {
+            // Arrange, Act
+            renderQuestion(generateRenderer(false), {
+                apiOptions: {readOnly: false},
+                extraProps: {isScorable: true, reviewMode: false},
+            });
+
+            // Assert
+            expect(await screen.findByRole("combobox")).toBeRequired();
+        });
+
+        it("does not render the marker as required when not scorable", async () => {
+            // Arrange, Act
+            renderQuestion(generateRenderer(false), {
+                apiOptions: {readOnly: false},
+                extraProps: {isScorable: false, reviewMode: false},
+            });
+
+            // Assert
+            expect(await screen.findByRole("combobox")).not.toBeRequired();
+        });
+
+        it("does not render the marker as required in review mode", async () => {
+            // Arrange, Act
+            renderQuestion(generateRenderer(false), {
+                apiOptions: {readOnly: false},
+                extraProps: {isScorable: true, reviewMode: true},
+            });
+
+            // Assert
+            expect(await screen.findByRole("combobox")).not.toBeRequired();
+        });
+
+        it("does not render the marker as required when showing solutions", async () => {
+            // Arrange, Act
+            renderQuestion(generateRenderer(false), {
+                apiOptions: {readOnly: false},
+                extraProps: {
+                    isScorable: true,
+                    reviewMode: false,
+                    showSolutions: "all",
+                },
+            });
+
+            // Assert
+            expect(await screen.findByRole("combobox")).not.toBeRequired();
+        });
+
+        it("does not render the marker as required when static", async () => {
+            // Arrange, Act
+            renderQuestion(generateRenderer(true), {
+                apiOptions: {readOnly: false},
+                extraProps: {isScorable: true, reviewMode: false},
+            });
+
+            // Assert
+            expect(await screen.findByRole("combobox")).not.toBeRequired();
+        });
+
+        it("does not render the marker as required when read-only", async () => {
+            // Arrange, Act
+            renderQuestion(generateRenderer(false), {
+                apiOptions: {readOnly: true},
+                extraProps: {isScorable: true, reviewMode: false},
+            });
+
+            // Assert
+            expect(await screen.findByRole("combobox")).not.toBeRequired();
         });
     });
 

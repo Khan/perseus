@@ -552,6 +552,14 @@ export class LabelImage
             // Disable marker interaction once the question has been answered or skipped.
             const disabled = shouldShowFeedback;
 
+            // Markers must be labeled to move on from the question, but only
+            // when the learner can actually interact with them.
+            const isRequired =
+                this.props.isScorable &&
+                !disabled &&
+                !this.props.static &&
+                !this.props.apiOptions.readOnly;
+
             // Determine whether the marker is currently being interacted with.
             const isActiveAnswerChoice = activeMarkerIndex === index;
 
@@ -613,6 +621,7 @@ export class LabelImage
                         }
                         // cannot change answer choices once question is answered
                         disabled={disabled}
+                        aria-required={isRequired}
                         opener={({opened}) => (
                             <Clickable
                                 role="button"
