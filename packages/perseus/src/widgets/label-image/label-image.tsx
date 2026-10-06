@@ -38,12 +38,11 @@ import type {
     LabelImagePublicWidgetOptions,
     ShowSolutions,
     PerseusLabelImageUserInputMarker,
+    PreferredPopoverDirection,
 } from "@khanacademy/perseus-core";
 import type {InteractiveMarkerScore} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
-
-type PreferredPopoverDirection = "NONE" | "UP" | "DOWN" | "LEFT" | "RIGHT";
 
 /**
  * Represents a direction vector.
@@ -78,14 +77,6 @@ export type OptionalAnswersMarkerType = Omit<
 type Options = Omit<PerseusLabelImageWidgetOptions, "markers"> & {
     // The list of label markers on the question image.
     markers: ReadonlyArray<OptionalAnswersMarkerType>;
-    // Preferred placement for the popover (a preference, not a guarantee).
-    // The editor offers a control for this, but it is absent from
-    // PerseusLabelImageWidgetOptions and from parseLabelImageWidget, so the
-    // parser drops it from persisted content — only unparsed callers (e.g.
-    // Storybook) ever supply it.
-    // TODO(benchristel): parse preferredPopoverDirection so it has the
-    //  intended effect in production (or remove it if it's not needed).
-    preferredPopoverDirection?: PreferredPopoverDirection;
 };
 
 type Props = WidgetProps<Options, PerseusLabelImageUserInput> & {

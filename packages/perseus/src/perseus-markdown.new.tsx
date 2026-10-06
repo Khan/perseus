@@ -5,6 +5,7 @@
  ***********************************************************************/
 // TODO(LEMS-4304): feature flag cleanup - rename this file to perseus-markdown.tsx.
 // This file is the new perseus markdown that will replace the old perseus markdown.
+import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 import {pureMarkdownRules, traverseContent} from "@khanacademy/pure-markdown";
 import SimpleMarkdown from "@khanacademy/simple-markdown";
 import * as React from "react";
@@ -305,6 +306,11 @@ const rules = {
 // and false otherwise. We need this so that lint nodes can figure out whether
 // they should behave as an inline wrapper or a block wrapper
 function isInline(node: any) {
+    // Match how WidgetContainer decides between <span> and <div>, so that
+    // lint on an inline widget doesn't push it onto its own line.
+    if (node?.type === "widget") {
+        return CoreWidgetRegistry.isInlineWidget(node.widgetType);
+    }
     // eslint-disable-next-line no-prototype-builtins
     return !!(node && node.type && inlineNodeTypes.hasOwnProperty(node.type));
 }

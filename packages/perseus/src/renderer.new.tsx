@@ -143,6 +143,12 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     reviewMode?: boolean | null | undefined;
 
     /**
+     * Meant to differentiate between "scorable" contexts (exercises, GradedGroup)
+     * and non-"scorable" contexts (articles, hints)
+     */
+    isScorable?: boolean;
+
+    /**
      * If set to "all", all rationales or solutions will be shown. If set to
      * "selected", soltions will only be shown for selected choices. If set to
      * "none", solutions will not be shown-- equivalent to `undefined`.
@@ -189,6 +195,7 @@ type DefaultProps = Required<
         | "onRender"
         | "showSolutions"
         | "reviewMode"
+        | "isScorable"
         | "widgets"
     >
 >;
@@ -279,6 +286,7 @@ class Renderer
         findExternalWidgets: () => [],
         alwaysUpdate: false,
         reviewMode: false,
+        isScorable: false,
         linterContext: PerseusLinter.linterContextDefault,
     };
 
@@ -565,6 +573,7 @@ class Renderer
             onBlur: _.partial(this._onWidgetBlur, widgetId),
             findWidgets: this.findWidgets,
             reviewMode: this.props.reviewMode ?? false,
+            isScorable: this.props.isScorable ?? false,
             // Default containerSizeClass; overridden in WidgetContainer based
             // on the measured size of the DOM element.
             containerSizeClass: containerSizeClass.MEDIUM,

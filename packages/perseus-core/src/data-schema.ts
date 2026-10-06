@@ -177,14 +177,14 @@ export interface PerseusWidgetTypes {
     video: VideoWidget;
 
     // Deprecated widgets
-    "molecule-renderer": DeprecatedStandinWidget;
-    "passage-ref-target": DeprecatedStandinWidget;
-    "passage-ref": DeprecatedStandinWidget;
-    passage: DeprecatedStandinWidget;
-    "lights-puzzle": DeprecatedStandinWidget;
-    sequence: DeprecatedStandinWidget;
-    simulator: DeprecatedStandinWidget;
-    transformer: DeprecatedStandinWidget;
+    "molecule-renderer": DeprecatedStandinWidget<"molecule-renderer">;
+    "passage-ref-target": DeprecatedStandinWidget<"passage-ref-target">;
+    "passage-ref": DeprecatedStandinWidget<"passage-ref">;
+    passage: DeprecatedStandinWidget<"passage">;
+    "lights-puzzle": DeprecatedStandinWidget<"lights-puzzle">;
+    sequence: DeprecatedStandinWidget<"sequence">;
+    simulator: DeprecatedStandinWidget<"simulator">;
+    transformer: DeprecatedStandinWidget<"transformer">;
 }
 
 /**
@@ -516,7 +516,7 @@ export type InputNumberWidget = WidgetOptions<'input-number', PerseusInputNumber
 // prettier-ignore
 export type VideoWidget = WidgetOptions<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
-export type DeprecatedStandinWidget = WidgetOptions<'deprecated-standin', object>;
+export type DeprecatedStandinWidget<Type extends string> = WidgetOptions<Type, object>;
 
 /**
  * A background image applied to various widgets.
@@ -1561,6 +1561,13 @@ export type PerseusGraphCorrectType =
     | LogarithmGraphCorrect
     | VectorGraphCorrect;
 
+export type PreferredPopoverDirection =
+    | "NONE"
+    | "UP"
+    | "DOWN"
+    | "LEFT"
+    | "RIGHT";
+
 /** Options for the label-image widget. Asks learners to label image parts. */
 export type PerseusLabelImageWidgetOptions = {
     /** Translatable Text; TeX representation of choices */
@@ -1579,6 +1586,8 @@ export type PerseusLabelImageWidgetOptions = {
     hideChoicesFromInstructions: boolean;
     /** Allow multiple answers per marker */
     multipleAnswers: boolean;
+    /** Determines the placement of the list of choices for each marker */
+    preferredPopoverDirection?: PreferredPopoverDirection;
 };
 
 export type PerseusLabelImageMarker = {
@@ -1981,7 +1990,10 @@ export type PerseusInteractionWidgetOptions = {
 };
 
 export type PerseusInteractionGraph = {
-    /** "canvas", "graph" */
+    /**
+     * "canvas", "graph"
+     * @deprecated - not used
+     */
     editableSettings?: Array<"canvas" | "graph">;
     /** The Grid Canvas size. e.g. [400, 140] */
     box: Size;

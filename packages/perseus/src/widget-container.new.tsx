@@ -109,7 +109,9 @@ class WidgetContainer extends React.Component<Props, State> {
         // render() gets a new identity on every render, which makes React
         // unmount and remount the entire widget subtree on each update —
         // losing input focus and dropped keystrokes for text-based widgets.
-        const Container = alignment.startsWith("inline") ? "span" : "div";
+        const Container = CoreWidgetRegistry.isInlineWidget(type, alignment)
+            ? "span"
+            : "div";
 
         const apiOptions = this.props.widgetProps.apiOptions;
 

@@ -1,5 +1,31 @@
 # @khanacademy/perseus-core
 
+## 41.0.0
+
+### Major Changes
+
+-   [#4314](https://github.com/Khan/perseus/pull/4314) [`999df5b`](https://github.com/Khan/perseus/commit/999df5bcd7958788e486b5cf72fb8fba1a612b1a) Thanks [@benchristel](https://github.com/benchristel)! - The `type` property of deprecated widgets is now preserved, rather than forced to `"deprecated-standin"`, during parsing. Breaking change: the `DeprecatedStandinWidget` type now has a required type parameter for the value of the `type` property.
+
+### Patch Changes
+
+-   [#4302](https://github.com/Khan/perseus/pull/4302) [`b50edb9`](https://github.com/Khan/perseus/commit/b50edb961335264c17acc1fe8176597b54796854) Thanks [@handeyeco](https://github.com/handeyeco)! - Stop serializing dependencies
+
+-   [#4312](https://github.com/Khan/perseus/pull/4312) [`b7087f8`](https://github.com/Khan/perseus/commit/b7087f8b69deb2c7f9e023f8d6a4d31cfe7d06b7) Thanks [@benchristel](https://github.com/benchristel)! - Bugfix: The Label Image widget now respects its `preferredPopoverDirection` setting. This was broken around March 5, 2026, when the Perseus parser started discarding unrecognized object properties.
+
+-   [#4305](https://github.com/Khan/perseus/pull/4305) [`97c15c4`](https://github.com/Khan/perseus/commit/97c15c4c4d951dc6ee05ad10cafb6ec0d08b3a51) Thanks [@handeyeco](https://github.com/handeyeco)! - Properly type `defaultWidgetOptions` in `WidgetLogic`
+
+## 40.1.0
+
+### Minor Changes
+
+-   [#4275](https://github.com/Khan/perseus/pull/4275) [`4608173`](https://github.com/Khan/perseus/commit/46081733b9995aa840286b16e82216e45e0a0be6) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - create new util for alignment, propagate through perseus and fix markdown so linter errors doesn't cause wrapping in preview
+
+### Patch Changes
+
+-   [#4291](https://github.com/Khan/perseus/pull/4291) [`460483d`](https://github.com/Khan/perseus/commit/460483d3ad269330fd9dae3d9198cabc6df16245) Thanks [@handeyeco](https://github.com/handeyeco)! - Add a new optional `isScorable` flag to Renderer, which is used by ServerItemRenderer and GradedGroup to mark inputs as `aria-required`.
+
+-   [#4285](https://github.com/Khan/perseus/pull/4285) [`a4372f8`](https://github.com/Khan/perseus/commit/a4372f860833f4954b32d007f26bbf8720c7db94) Thanks [@handeyeco](https://github.com/handeyeco)! - Revert ServerItemRenderer encapsulation (Perseus#4126)
+
 ## 40.0.1
 
 ### Patch Changes

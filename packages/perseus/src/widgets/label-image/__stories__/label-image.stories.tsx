@@ -4,7 +4,8 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import WrappedServerItemRenderer from "../../../server-item-renderer";
+import {storybookDependenciesV2} from "../../../testing/test-dependencies";
 import {
     textQuestion,
     mathQuestion,
@@ -50,7 +51,8 @@ type ImageStory = {
 
 export const LabelWidgetWithText = (args: StoryArgs): React.ReactElement => {
     return (
-        <ServerItemRendererWithDebugUI
+        <WrappedServerItemRenderer
+            dependencies={storybookDependenciesV2}
             item={generateTestPerseusItem({
                 question: applyStoryArgs(textQuestion, args),
             })}
@@ -62,7 +64,8 @@ export const LabelWidgetWithLongText = (
     args: StoryArgs,
 ): React.ReactElement => {
     return (
-        <ServerItemRendererWithDebugUI
+        <WrappedServerItemRenderer
+            dependencies={storybookDependenciesV2}
             item={generateTestPerseusItem({
                 question: applyStoryArgs(longTextFromArticle, args),
             })}
@@ -72,7 +75,8 @@ export const LabelWidgetWithLongText = (
 
 export const LabelWidgetWithMath = (args: StoryArgs): React.ReactElement => {
     return (
-        <ServerItemRendererWithDebugUI
+        <WrappedServerItemRenderer
+            dependencies={storybookDependenciesV2}
             item={generateTestPerseusItem({
                 question: applyStoryArgs(mathQuestion, args),
             })}
@@ -82,7 +86,8 @@ export const LabelWidgetWithMath = (args: StoryArgs): React.ReactElement => {
 
 export const LabelImageNumberline = (args: StoryArgs): React.ReactElement => {
     return (
-        <ServerItemRendererWithDebugUI
+        <WrappedServerItemRenderer
+            dependencies={storybookDependenciesV2}
             item={generateTestPerseusItem({
                 question: applyStoryArgs(numberline, args),
             })}
@@ -92,7 +97,8 @@ export const LabelImageNumberline = (args: StoryArgs): React.ReactElement => {
 
 export const LabelImageMixedContent = (args: StoryArgs): React.ReactElement => {
     return (
-        <ServerItemRendererWithDebugUI
+        <WrappedServerItemRenderer
+            dependencies={storybookDependenciesV2}
             item={generateTestPerseusItem({
                 question: applyStoryArgs(mixedContentQuestion, args),
             })}
@@ -102,7 +108,8 @@ export const LabelImageMixedContent = (args: StoryArgs): React.ReactElement => {
 
 export const LabelWidgetAnswerless = (args: StoryArgs): React.ReactElement => {
     return (
-        <ServerItemRendererWithDebugUI
+        <WrappedServerItemRenderer
+            dependencies={storybookDependenciesV2}
             item={generateTestPerseusItem({
                 question: applyStoryArgs(textQuestion, args),
             })}

@@ -254,10 +254,13 @@ class Matrix extends React.Component<Props, State> implements Widget {
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState(): any {
-        const {userInput, options, ...rest} = this.props;
+        const {alignment, options, userInput} = this.props;
         return {
-            ...options,
-            ...rest,
+            static: this.props.static,
+            alignment,
+            matrixBoardSize: options.matrixBoardSize,
+            prefix: options.prefix,
+            suffix: options.suffix,
             answers: userInput.answers,
             cursorPosition: this.state.cursorPosition,
         };

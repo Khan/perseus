@@ -1,15 +1,11 @@
 import {components, Dependencies} from "@khanacademy/perseus";
 import * as React from "react";
 
-import {deprecatedChangeableChange} from "../../mixins/changeable";
-
 import MathquillInput from "./mathquill-input";
-
-import type {ChangeableProps} from "../../mixins/changeable";
 
 const {ButtonGroup, NumberInput} = components;
 
-type Props = ChangeableProps & {
+interface ConstraintOptions {
     constraint: string;
     constraintFn: string;
     constraintXMax: string;
@@ -17,20 +13,14 @@ type Props = ChangeableProps & {
     constraintYMax: string;
     constraintYMin: string;
     snap: number;
-};
+}
 
-type DefaultProps = {
-    constraint: Props["constraint"];
-    constraintFn: Props["constraintFn"];
-    constraintXMax: Props["constraintXMax"];
-    constraintXMin: Props["constraintXMin"];
-    constraintYMax: Props["constraintYMax"];
-    constraintYMin: Props["constraintYMin"];
-    snap: Props["snap"];
-};
+interface Props extends ConstraintOptions {
+    onChange: (options: ConstraintOptions) => void;
+}
 
 class ConstraintEditor extends React.Component<Props> {
-    static defaultProps: DefaultProps = {
+    static defaultProps: ConstraintOptions = {
         constraint: "none",
         snap: 0.5,
         constraintFn: "0",
@@ -40,13 +30,18 @@ class ConstraintEditor extends React.Component<Props> {
         constraintYMax: "10",
     };
 
-    change: (
-        propName: string,
-    ) => (value?: any, callback?: () => unknown) => unknown = (
-        propName: string,
-    ): ((value?: any, callback?: () => unknown) => unknown) => {
-        return deprecatedChangeableChange.call(this, propName);
-    };
+    handleChange(changes: Partial<ConstraintOptions>) {
+        this.props.onChange({
+            constraint: this.props.constraint,
+            constraintFn: this.props.constraintFn,
+            constraintXMax: this.props.constraintXMax,
+            constraintXMin: this.props.constraintXMin,
+            constraintYMax: this.props.constraintYMax,
+            constraintYMin: this.props.constraintYMin,
+            snap: this.props.snap,
+            ...changes,
+        });
+    }
 
     render(): React.ReactNode {
         const {TeX} = Dependencies.getDependencies();
@@ -63,7 +58,9 @@ class ConstraintEditor extends React.Component<Props> {
                             {value: "x", content: "x="},
                             {value: "y", content: "y="},
                         ]}
-                        onChange={this.change("constraint")}
+                        onChange={(constraint) =>
+                            this.handleChange({constraint})
+                        }
                     />
                 </div>
                 {this.props.constraint === "snap" && (
@@ -72,7 +69,7 @@ class ConstraintEditor extends React.Component<Props> {
                         <NumberInput
                             value={this.props.snap}
                             placeholder={0}
-                            onChange={this.change("snap")}
+                            onChange={(snap) => this.handleChange({snap})}
                         />
                     </div>
                 )}
@@ -82,7 +79,9 @@ class ConstraintEditor extends React.Component<Props> {
                             <TeX>x=</TeX>{" "}
                             <MathquillInput
                                 value={this.props.constraintFn}
-                                onChange={this.change("constraintFn")}
+                                onChange={(constraintFn) =>
+                                    this.handleChange({constraintFn})
+                                }
                             />
                         </div>
                     </div>
@@ -93,7 +92,9 @@ class ConstraintEditor extends React.Component<Props> {
                             <TeX>y=</TeX>{" "}
                             <MathquillInput
                                 value={this.props.constraintFn}
-                                onChange={this.change("constraintFn")}
+                                onChange={(constraintFn) =>
+                                    this.handleChange({constraintFn})
+                                }
                             />
                         </div>
                     </div>
@@ -104,12 +105,16 @@ class ConstraintEditor extends React.Component<Props> {
                         <TeX>x \in \Large[</TeX>{" "}
                         <MathquillInput
                             value={this.props.constraintXMin}
-                            onChange={this.change("constraintXMin")}
+                            onChange={(constraintXMin) =>
+                                this.handleChange({constraintXMin})
+                            }
                         />
                         <TeX>, </TeX>{" "}
                         <MathquillInput
                             value={this.props.constraintXMax}
-                            onChange={this.change("constraintXMax")}
+                            onChange={(constraintXMax) =>
+                                this.handleChange({constraintXMax})
+                            }
                         />{" "}
                         <TeX>\Large]</TeX>
                     </div>
@@ -119,12 +124,16 @@ class ConstraintEditor extends React.Component<Props> {
                         <TeX>y \in \Large[</TeX>{" "}
                         <MathquillInput
                             value={this.props.constraintYMin}
-                            onChange={this.change("constraintYMin")}
+                            onChange={(constraintYMin) =>
+                                this.handleChange({constraintYMin})
+                            }
                         />
                         <TeX>, </TeX>{" "}
                         <MathquillInput
                             value={this.props.constraintYMax}
-                            onChange={this.change("constraintYMax")}
+                            onChange={(constraintYMax) =>
+                                this.handleChange({constraintYMax})
+                            }
                         />{" "}
                         <TeX>\Large]</TeX>
                     </div>

@@ -119,7 +119,7 @@ describe("renderer", () => {
                 images: {},
                 widgets: {
                     "sequence 1": {
-                        type: "deprecated-standin",
+                        type: "sequence",
                         version: {major: 0, minor: 0},
                         graded: true,
                         options: {
