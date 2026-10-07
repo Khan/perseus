@@ -4,10 +4,8 @@
    to be messed up in the Graded Group answer bar.
    Resetting the style here to fix the alignemnt.
  */
-:global(.framework-perseus.perseus-article)
-    .result
-    :global(.perseus-renderer .paragraph) {
-    margin: 0;
+.result :global(.perseus-renderer) * {
+    margin-block: 0;
 }
 
 .answer-bar {
