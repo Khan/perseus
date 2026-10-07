@@ -956,11 +956,14 @@ describe("LabelImage", function () {
         });
     });
 
-    describe("accessible name", () => {
-        const question = generateTestPerseusRenderer({
+    const generateSingleMarkerRenderer = ({
+        isStatic = false,
+    }: {isStatic?: boolean} = {}): PerseusRenderer =>
+        generateTestPerseusRenderer({
             content: "[[☃ label-image 1]]",
             widgets: {
                 "label-image 1": generateLabelImageWidget({
+                    static: isStatic,
                     options: generateLabelImageOptions({
                         choices: ["Cars", "Trucks"],
                         imageUrl: "https://example.com/image.png",
@@ -978,6 +981,9 @@ describe("LabelImage", function () {
                 }),
             },
         });
+
+    describe("accessible name", () => {
+        const question = generateSingleMarkerRenderer();
 
         it("names the marker combobox with the marker label", () => {
             // Arrange, Act
@@ -1003,33 +1009,9 @@ describe("LabelImage", function () {
     });
 
     describe("required state", () => {
-        const generateRenderer = (isStatic: boolean): PerseusRenderer =>
-            generateTestPerseusRenderer({
-                content: "[[☃ label-image 1]]",
-                widgets: {
-                    "label-image 1": generateLabelImageWidget({
-                        static: isStatic,
-                        options: generateLabelImageOptions({
-                            choices: ["Cars", "Trucks"],
-                            imageUrl: "https://example.com/image.png",
-                            imageWidth: 400,
-                            imageHeight: 300,
-                            markers: [
-                                {
-                                    label: "The first marker.",
-                                    answers: ["Cars"],
-                                    x: 25,
-                                    y: 50,
-                                },
-                            ],
-                        }),
-                    }),
-                },
-            });
-
         it("renders the marker as required when scorable and interactive", () => {
             // Arrange, Act
-            renderQuestion(generateRenderer(false), {
+            renderQuestion(generateSingleMarkerRenderer(), {
                 apiOptions: {readOnly: false},
                 extraProps: {isScorable: true, reviewMode: false},
             });
@@ -1040,7 +1022,7 @@ describe("LabelImage", function () {
 
         it("does not render the marker as required when not scorable", () => {
             // Arrange, Act
-            renderQuestion(generateRenderer(false), {
+            renderQuestion(generateSingleMarkerRenderer(), {
                 apiOptions: {readOnly: false},
                 extraProps: {isScorable: false, reviewMode: false},
             });
@@ -1051,7 +1033,7 @@ describe("LabelImage", function () {
 
         it("does not render the marker as required in review mode", () => {
             // Arrange, Act
-            renderQuestion(generateRenderer(false), {
+            renderQuestion(generateSingleMarkerRenderer(), {
                 apiOptions: {readOnly: false},
                 extraProps: {isScorable: true, reviewMode: true},
             });
@@ -1062,7 +1044,7 @@ describe("LabelImage", function () {
 
         it("does not render the marker as required when showing solutions", () => {
             // Arrange, Act
-            renderQuestion(generateRenderer(false), {
+            renderQuestion(generateSingleMarkerRenderer(), {
                 apiOptions: {readOnly: false},
                 extraProps: {
                     isScorable: true,
@@ -1077,7 +1059,7 @@ describe("LabelImage", function () {
 
         it("does not render the marker as required when static", () => {
             // Arrange, Act
-            renderQuestion(generateRenderer(true), {
+            renderQuestion(generateSingleMarkerRenderer({isStatic: true}), {
                 apiOptions: {readOnly: false},
                 extraProps: {isScorable: true, reviewMode: false},
             });
@@ -1088,7 +1070,7 @@ describe("LabelImage", function () {
 
         it("does not render the marker as required when read-only", () => {
             // Arrange, Act
-            renderQuestion(generateRenderer(false), {
+            renderQuestion(generateSingleMarkerRenderer(), {
                 apiOptions: {readOnly: true},
                 extraProps: {isScorable: true, reviewMode: false},
             });
