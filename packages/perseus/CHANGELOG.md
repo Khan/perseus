@@ -1,5 +1,18 @@
 # @khanacademy/perseus
 
+## 90.0.2
+
+### Patch Changes
+
+-   [#4323](https://github.com/Khan/perseus/pull/4323) [`320349f`](https://github.com/Khan/perseus/commit/320349fec03f44be8c9989097ccd7caed5411edf) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Remove the vestigial `clearfix` CSS class
+
+-   [#4324](https://github.com/Khan/perseus/pull/4324) [`dad705c`](https://github.com/Khan/perseus/commit/dad705c9e4002211d0d4ce5cc7854586a3c2d354) Thanks [@jandrade](https://github.com/jandrade)! - Updates WB peer deps, including `@khanacademy/wonder-blocks-popover` 7.0.0, which is now built on `@khanacademy/wonder-blocks-floating`. Tests and snapshots are updated for the new Popover.
+
+-   [#4329](https://github.com/Khan/perseus/pull/4329) [`e0c0fe5`](https://github.com/Khan/perseus/commit/e0c0fe5742b5e4a75611878a46358ef00aa5b6df) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert iFrame into a functional component
+
+-   Updated dependencies [[`4da9528`](https://github.com/Khan/perseus/commit/4da95281f38eca305b8e82ea6a21ae60248a76b1), [`dad705c`](https://github.com/Khan/perseus/commit/dad705c9e4002211d0d4ce5cc7854586a3c2d354)]:
+    -   @khanacademy/math-input@30.0.3
+
 ## 90.0.1
 
 ### Patch Changes
