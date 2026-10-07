@@ -240,12 +240,6 @@ describe("required state", () => {
             },
         });
 
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
     it("renders the textarea as required when scorable and interactive", () => {
         // Arrange, Act
         renderQuestion(generateRenderer(false), {
