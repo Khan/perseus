@@ -71,7 +71,7 @@ class MatrixEditor extends React.Component<Props> {
             onFocus: () => {},
             trackInteraction: () => {},
             // The widget renders learner input, which is string[][], while the
-            // edit or stores the correct answers as number[][]. We show the
+            // editor stores the correct answers as number[][]. We show the
             // answers in the preview, so they have to be stringified.
             userInput: {
                 answers: answers.map((row) => row.map(stringifyCell)),
@@ -138,9 +138,11 @@ class MatrixEditor extends React.Component<Props> {
 }
 
 function stringifyCell(value: number | null | undefined): string {
-    // Empty cells come back from JSON as null (a sparse row like
-    // [, , 5] serializes to [null, null, 5]), and those need to stay
-    // empty rather than becoming the text "null".
+    // Empty cells (from a sparse row like `[, , 5]`), Infinity, and NaN all
+    // get converted to null when Perseus data is JSON-stringified. These
+    // values need to stay empty cells rather than becoming the text "null".
+    // `Number.isFinite()` is false for null, undefined, NaN, and Infinity, so
+    // it covers all the cases.
     if (Number.isFinite(value)) {
         return String(value);
     }
