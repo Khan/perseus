@@ -162,23 +162,27 @@ exports[`graded group set widget should snapshot 1`] = `
                 Explain
               </button>
               <div
-                class="answer-bar"
+                class="answer-bar-container"
               >
-                <span
-                  class="message"
-                />
-                <button
-                  aria-disabled="false"
-                  class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn"
-                  data-kind="primary"
-                  type="button"
+                <div
+                  class="answer-bar"
                 >
                   <span
-                    class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+                    class="message"
+                  />
+                  <button
+                    aria-disabled="false"
+                    class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn"
+                    data-kind="primary"
+                    type="button"
                   >
-                    Check
-                  </span>
-                </button>
+                    <span
+                      class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+                    >
+                      Check
+                    </span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>

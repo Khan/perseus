@@ -8,6 +8,11 @@
     margin-block: 0;
 }
 
+/* Query container wrapper so that the answer bar can use a container query. */
+.answer-bar-container {
+    container-type: inline-size;
+}
+
 .answer-bar {
     display: flex;
     align-items: center;
@@ -25,7 +30,7 @@
 /* Small screens or smaller, matching `pureSmMin` in styles/media-queries.ts.
    There isn't room for the message and the button side by side, so put
    the button on the next line when needed. */
-@media screen and (max-width: 568px) {
+@container (width < 568px) {
     .answer-bar {
         flex-wrap: wrap;
     }

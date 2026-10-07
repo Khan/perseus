@@ -107,42 +107,47 @@ function GradedGroupAnswerBar({
               };
 
     return (
-        <div className={styles.answerBar}>
-            {/* Render the <span> whether `stateInfo` is available or not,
-                so that `space-between` keeps the button at the inline-end of
-                the bar while there's no result to sit at the inline-start. */}
-            <span className={styles.message}>
-                {stateInfo && (
-                    <>
-                        <PhosphorIcon
-                            icon={stateInfo.icon}
-                            color={stateInfo.iconColor}
-                        />
-                        {/* <output> is the native element for the result of a
-                            user action, and it means screen readers don't read
-                            "group" like they would for a span.
-
-                            Focus moves here on every check, which is what
-                            reads the result out to a screen reader. */}
-                        <output
-                            ref={resultRef}
-                            tabIndex={-1}
-                            className={styles.result}
-                        >
-                            <Renderer
-                                content={stateInfo.text}
-                                strings={strings}
-                                apiOptions={apiOptions}
+        // The wrapper is the query container for the answer bar's
+        // `@container` rule. An element can't query its own size.
+        <div className={styles.answerBarContainer}>
+            <div className={styles.answerBar}>
+                {/* Render the <span> whether `stateInfo` is available or not,
+                    so that `space-between` keeps the button at the inline-end
+                    of the bar while there's no result to sit at the
+                    inline-start. */}
+                <span className={styles.message}>
+                    {stateInfo && (
+                        <>
+                            <PhosphorIcon
+                                icon={stateInfo.icon}
+                                color={stateInfo.iconColor}
                             />
-                        </output>
-                    </>
+                            {/* <output> is the native element for the result
+                                of a user action, and it means screen readers
+                                don't read "group" like they would for a span.
+
+                                Focus moves here on every check, which is what
+                                reads the result out to a screen reader. */}
+                            <output
+                                ref={resultRef}
+                                tabIndex={-1}
+                                className={styles.result}
+                            >
+                                <Renderer
+                                    content={stateInfo.text}
+                                    strings={strings}
+                                    apiOptions={apiOptions}
+                                />
+                            </output>
+                        </>
+                    )}
+                </span>
+                {action && (
+                    <Button disabled={action.disabled} onClick={action.onClick}>
+                        {action.label}
+                    </Button>
                 )}
-            </span>
-            {action && (
-                <Button disabled={action.disabled} onClick={action.onClick}>
-                    {action.label}
-                </Button>
-            )}
+            </div>
         </div>
     );
 }
