@@ -86,6 +86,7 @@
         "raphael": "workspace:*",
         "react": "catalog:devDeps",
         "react-dom": "catalog:devDeps",
+        "react-json-view": "^1.21.3",
         "react-popper": "^2.2.5",
         "underscore": "catalog:devDeps"
     },

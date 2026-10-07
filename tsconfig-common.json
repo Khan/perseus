@@ -7,6 +7,8 @@
          * Academy's supported browser list. We intentionally choose to use a
          * slightly older JS version to allow the JS to run, unbroken in
          * recently unsupported browsers.
+         *
+         * Keep in sync with `jsTarget` in config/build/browser-targets.ts!
          */
         "target": "ES2020",
         "jsx": "preserve",
