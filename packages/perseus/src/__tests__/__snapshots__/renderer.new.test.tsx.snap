@@ -78,6 +78,27 @@ exports[`renderer in a JIPT context replaces the \`crwdn\` placeholder with the 
 </div>
 `;
 
+exports[`renderer rendering should not wrap math in divs in inline mode 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    This is some inline math: 
+    <span
+      style="white-space: nowrap;"
+    >
+      <span />
+      <span
+        class="mock-TeX"
+      >
+        1 + 2
+      </span>
+      <span />
+    </span>
+  </div>
+</div>
+`;
+
 exports[`renderer rendering should render a table when isMobile: false 1`] = `
 <div>
   <div

@@ -667,6 +667,26 @@ describe("renderer", () => {
             expect(container).toMatchSnapshot();
         });
 
+        it("should not wrap math in divs in inline mode", async () => {
+            // Arrange
+            const question: PerseusRenderer = {
+                content: "This is some inline math: $1 + 2$",
+                images: {},
+                widgets: {},
+            };
+
+            // Act. Note `inline: true`
+            const {container} = renderQuestion(question, {
+                extraProps: {inline: true},
+            });
+
+            // Assert
+            await waitFor(() => {
+                expect(screen.getByText("1 + 2")).toBeInTheDocument();
+            });
+            expect(container).toMatchSnapshot();
+        });
+
         it("should replace deprecated alignment tags in block math", async () => {
             // Arrange
             const question = {
