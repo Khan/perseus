@@ -36,22 +36,19 @@ env:
     # release needs a webapp+frontend PR (not just a frontend release).
     WEBAPP_REQUIRED_COMMENT_MARKER: "<!-- perseus-webapp-required-comment -->"
 
-    # POLICY: packages whose *direct* change forces a webapp/backend release
-    # (not just a frontend release). These are the server / content-pipeline
-    # packages that webapp consumes at build or run time:
-    #   - perseus-core    → shared data schema + types used server-side
-    #   - perseus-score   → server-side answer scoring
-    #   - perseus-linter  → content validation in the content pipeline
-    #   - pure-markdown   → content parsing used server-side
-    # A change to any OTHER package (perseus, perseus-editor, math-input, …) is
-    # frontend-only. Keep this list — and the reasons above — in sync when a
-    # package's server-side role changes. `>-` folds this into one space-
-    # separated string.
+    # The list of Perseus packages used on the backend. If any of these
+    # packages change, a backend release is required. Generated via:
+    # find . -name pnpm-lock.yaml | xargs grep -Eo '@khanacademy/[a-z-]+' | cut -d: -f2 | sort | uniq
+    # NOTE: >- folds the list into a space-separated string.
     WEBAPP_RELEASE_PACKAGES: >-
+        @khanacademy/kas
+        @khanacademy/kmath
         @khanacademy/perseus-core
-        @khanacademy/perseus-score
         @khanacademy/perseus-linter
+        @khanacademy/perseus-score
+        @khanacademy/perseus-utils
         @khanacademy/pure-markdown
+        @khanacademy/simple-markdown
 
 # IMPORTANT! We set concurrency to this workflow and the branch (github.ref),
 # meaning that this workflow can only run one instance, per branch, at a time.
