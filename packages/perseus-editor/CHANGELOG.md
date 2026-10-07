@@ -1,5 +1,23 @@
 # @khanacademy/perseus-editor
 
+## 44.0.4
+
+### Patch Changes
+
+-   [#4328](https://github.com/Khan/perseus/pull/4328) [`154ebc5`](https://github.com/Khan/perseus/commit/154ebc5741a36d663dceb2f321b55aa67c24f0b4) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in MatrixEditor
+
+-   [#4317](https://github.com/Khan/perseus/pull/4317) [`798e4fa`](https://github.com/Khan/perseus/commit/798e4faaba11f1fa0974b8ccea391ec407cbfe3c) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in LabelImageEditor
+
+-   [#4323](https://github.com/Khan/perseus/pull/4323) [`320349f`](https://github.com/Khan/perseus/commit/320349fec03f44be8c9989097ccd7caed5411edf) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Remove the vestigial `clearfix` CSS class
+
+-   [#4318](https://github.com/Khan/perseus/pull/4318) [`97924f0`](https://github.com/Khan/perseus/commit/97924f0b8c1293180fe8af8c575408006c878f0a) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Pass all widget options to MatcherEditor's onChange callback.
+
+-   [#4324](https://github.com/Khan/perseus/pull/4324) [`dad705c`](https://github.com/Khan/perseus/commit/dad705c9e4002211d0d4ce5cc7854586a3c2d354) Thanks [@jandrade](https://github.com/jandrade)! - Updates WB peer deps, including `@khanacademy/wonder-blocks-popover` 7.0.0, which is now built on `@khanacademy/wonder-blocks-floating`. Tests and snapshots are updated for the new Popover.
+
+-   Updated dependencies [[`320349f`](https://github.com/Khan/perseus/commit/320349fec03f44be8c9989097ccd7caed5411edf), [`4da9528`](https://github.com/Khan/perseus/commit/4da95281f38eca305b8e82ea6a21ae60248a76b1), [`dad705c`](https://github.com/Khan/perseus/commit/dad705c9e4002211d0d4ce5cc7854586a3c2d354), [`e0c0fe5`](https://github.com/Khan/perseus/commit/e0c0fe5742b5e4a75611878a46358ef00aa5b6df)]:
+    -   @khanacademy/perseus@90.0.2
+    -   @khanacademy/math-input@30.0.3
+
 ## 44.0.3
 
 ### Patch Changes
