@@ -979,25 +979,25 @@ describe("LabelImage", function () {
             },
         });
 
-        it("names the marker combobox with the marker label", async () => {
+        it("names the marker combobox with the marker label", () => {
             // Arrange, Act
             renderQuestion(question);
 
             // Assert
             expect(
-                await screen.findByRole("combobox", {
+                screen.getByRole("combobox", {
                     name: "The first marker.",
                 }),
             ).toBeInTheDocument();
         });
 
-        it("names the marker combobox as correct when answered correctly", async () => {
+        it("names the marker combobox as correct when answered correctly", () => {
             // Arrange, Act
             renderQuestion(question, {extraProps: {reviewMode: true}});
 
             // Assert
             expect(
-                await screen.findByRole("combobox", {name: "Correct!"}),
+                screen.getByRole("combobox", {name: "Correct!"}),
             ).toBeInTheDocument();
         });
     });
@@ -1027,7 +1027,7 @@ describe("LabelImage", function () {
                 },
             });
 
-        it("renders the marker as required when scorable and interactive", async () => {
+        it("renders the marker as required when scorable and interactive", () => {
             // Arrange, Act
             renderQuestion(generateRenderer(false), {
                 apiOptions: {readOnly: false},
@@ -1035,10 +1035,10 @@ describe("LabelImage", function () {
             });
 
             // Assert
-            expect(await screen.findByRole("combobox")).toBeRequired();
+            expect(screen.getByRole("combobox")).toBeRequired();
         });
 
-        it("does not render the marker as required when not scorable", async () => {
+        it("does not render the marker as required when not scorable", () => {
             // Arrange, Act
             renderQuestion(generateRenderer(false), {
                 apiOptions: {readOnly: false},
@@ -1046,10 +1046,10 @@ describe("LabelImage", function () {
             });
 
             // Assert
-            expect(await screen.findByRole("combobox")).not.toBeRequired();
+            expect(screen.getByRole("combobox")).not.toBeRequired();
         });
 
-        it("does not render the marker as required in review mode", async () => {
+        it("does not render the marker as required in review mode", () => {
             // Arrange, Act
             renderQuestion(generateRenderer(false), {
                 apiOptions: {readOnly: false},
@@ -1057,10 +1057,10 @@ describe("LabelImage", function () {
             });
 
             // Assert
-            expect(await screen.findByRole("combobox")).not.toBeRequired();
+            expect(screen.getByRole("combobox")).not.toBeRequired();
         });
 
-        it("does not render the marker as required when showing solutions", async () => {
+        it("does not render the marker as required when showing solutions", () => {
             // Arrange, Act
             renderQuestion(generateRenderer(false), {
                 apiOptions: {readOnly: false},
@@ -1072,10 +1072,10 @@ describe("LabelImage", function () {
             });
 
             // Assert
-            expect(await screen.findByRole("combobox")).not.toBeRequired();
+            expect(screen.getByRole("combobox")).not.toBeRequired();
         });
 
-        it("does not render the marker as required when static", async () => {
+        it("does not render the marker as required when static", () => {
             // Arrange, Act
             renderQuestion(generateRenderer(true), {
                 apiOptions: {readOnly: false},
@@ -1083,10 +1083,10 @@ describe("LabelImage", function () {
             });
 
             // Assert
-            expect(await screen.findByRole("combobox")).not.toBeRequired();
+            expect(screen.getByRole("combobox")).not.toBeRequired();
         });
 
-        it("does not render the marker as required when read-only", async () => {
+        it("does not render the marker as required when read-only", () => {
             // Arrange, Act
             renderQuestion(generateRenderer(false), {
                 apiOptions: {readOnly: true},
@@ -1094,7 +1094,7 @@ describe("LabelImage", function () {
             });
 
             // Assert
-            expect(await screen.findByRole("combobox")).not.toBeRequired();
+            expect(screen.getByRole("combobox")).not.toBeRequired();
         });
     });
 
