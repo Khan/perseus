@@ -165,3 +165,60 @@ describe("Radio widget", () => {
         });
     });
 });
+
+describe("required state", () => {
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    it("labels the choices as required when scorable and interactive", () => {
+        // Arrange, Act
+        render(<Radio {...getBaseProps({isScorable: true})} />);
+
+        // Assert
+        expect(screen.getByRole("list", {name: /required/})).toBeTruthy();
+    });
+
+    it("does not label the choices as required when not scorable", () => {
+        // Arrange, Act
+        render(<Radio {...getBaseProps({isScorable: false})} />);
+
+        // Assert
+        expect(screen.queryByRole("list", {name: /required/})).toBeNull();
+    });
+
+    it("does not label the choices as required in review mode", () => {
+        // Arrange, Act
+        render(
+            <Radio {...getBaseProps({isScorable: true, reviewMode: true})} />,
+        );
+
+        // Assert
+        expect(screen.queryByRole("list", {name: /required/})).toBeNull();
+    });
+
+    it("does not label the choices as required when static", () => {
+        // Arrange, Act
+        render(<Radio {...getBaseProps({isScorable: true, static: true})} />);
+
+        // Assert
+        expect(screen.queryByRole("list", {name: /required/})).toBeNull();
+    });
+
+    it("does not label the choices as required when read-only", () => {
+        // Arrange, Act
+        render(
+            <Radio
+                {...getBaseProps({
+                    isScorable: true,
+                    apiOptions: {...ApiOptions.defaults, readOnly: true},
+                })}
+            />,
+        );
+
+        // Assert
+        expect(screen.queryByRole("list", {name: /required/})).toBeNull();
+    });
+});
