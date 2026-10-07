@@ -1,7 +1,7 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import {StyleSheet} from "aphrodite";
-import * as React from "react";
+import React, {forwardRef, useImperativeHandle, useRef} from "react";
 
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
 
@@ -26,74 +26,72 @@ type Props = ExternalProps;
  *
  * You can register this widget for your tests by calling `registerWidget("mock-widget", MockWidget);`
  */
-class MockWidgetComponent extends React.Component<Props> implements Widget {
-    inputRef: HTMLElement | null = null;
+const MockWidgetComponent = forwardRef<Widget, Props>(
+    function MockWidgetComponent(props, ref) {
+        const inputRef = useRef<HTMLInputElement>(null);
 
-    getPromptJSON(): MockWidgetPromptJSON {
-        return _getPromptJSON(this.props);
-    }
-
-    focus: () => boolean = () => {
-        this.inputRef?.focus();
-        return true;
-    };
-
-    focusInputPath: () => void = () => {
-        this.props.onFocus([]);
-        this.inputRef?.focus();
-    };
-
-    blurInputPath: () => void = () => {
-        this.props.onBlur([]);
-        this.inputRef?.blur();
-    };
-
-    getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
-        // The widget itself is an input, so we return a single empty list to
-        // indicate this.
-        return [[]];
-    };
-
-    handleChange: (
-        newValue: string,
-        cb?: () => unknown | null | undefined,
-    ) => void = (newValue, cb) => {
-        this.props.handleUserInput({currentValue: newValue}, cb);
-        this.props.trackInteraction();
-    };
-
-    /**
-     * @deprecated and likely very broken API
-     * [LEMS-3185] do not trust serializedState
-     */
-    getSerializedState() {
-        const {userInput, options, ...rest} = this.props;
-        return {
-            // `rest` goes last because the renderer used to spread the universal
-            // props over the options, so the universal `static` — not the
-            // option of the same name — is the one that gets serialized.
-            ...options,
-            ...rest,
-            currentValue: userInput.currentValue,
+        const focusInputPath = () => {
+            props.onFocus([]);
+            inputRef.current?.focus();
         };
-    }
 
-    render(): React.ReactNode {
+        const blurInputPath = () => {
+            props.onBlur([]);
+            inputRef.current?.blur();
+        };
+
+        const handleChange = (newValue: string) => {
+            props.handleUserInput({currentValue: newValue});
+            props.trackInteraction();
+        };
+
+        useImperativeHandle(ref, () => ({
+            focus: () => {
+                inputRef.current?.focus();
+                return true;
+            },
+            focusInputPath,
+            blurInputPath,
+            getInputPaths: () => {
+                // The widget itself is an input, so we return a single empty list to
+                // indicate this.
+                return [[]];
+            },
+            getPromptJSON: (): MockWidgetPromptJSON => {
+                return _getPromptJSON(props);
+            },
+            /**
+             * @deprecated and likely very broken API
+             * [LEMS-3185] do not trust serializedState
+             */
+            getSerializedState: () => {
+                const {userInput, options, ...rest} = props;
+                return {
+                    // `rest` goes last because the renderer used to spread the universal
+                    // props over the options, so the universal `static` — not the
+                    // option of the same name — is the one that gets serialized.
+                    ...options,
+                    ...rest,
+                    currentValue: userInput.currentValue,
+                };
+            },
+        }));
+
         return (
             <View style={styles.widgetContainer}>
                 <TextField
-                    ref={(ref) => (this.inputRef = ref)}
+                    ref={inputRef}
                     aria-label="Mock Widget"
-                    value={this.props.userInput.currentValue}
-                    onChange={this.handleChange}
-                    id={this.props.widgetId}
-                    onFocus={this.focusInputPath}
-                    onBlur={this.blurInputPath}
+                    value={props.userInput.currentValue}
+                    onChange={handleChange}
+                    id={props.widgetId}
+                    onFocus={focusInputPath}
+                    onBlur={blurInputPath}
                 />
             </View>
         );
-    }
-}
+    },
+);
 
 /**
  * @deprecated and likely a very broken API
