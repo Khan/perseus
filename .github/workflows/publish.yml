@@ -32,12 +32,12 @@ env:
     # needed.
     SNAPSHOT_COMMENT_MARKER: "<!-- perseus-snapshot-comment -->"
 
-    # Marker for the single sticky comment that tells release-runners this
-    # release needs a webapp+frontend PR (not just a frontend release).
+    # Marker for the single sticky comment that tells release engineers that
+    # this release needs a webapp deploy (not just a frontend deploy).
     WEBAPP_REQUIRED_COMMENT_MARKER: "<!-- perseus-webapp-required-comment -->"
 
     # The list of Perseus packages used on the backend. If any of these
-    # packages change, a backend release is required. Generated via:
+    # packages change, a backend deploy is required. Generated via:
     # find . -name pnpm-lock.yaml | xargs grep -Eo '@khanacademy/[a-z-]+' | cut -d: -f2 | sort | uniq
     # NOTE: >- folds the list into a space-separated string.
     WEBAPP_RELEASE_PACKAGES: >-
@@ -185,7 +185,7 @@ jobs:
             # server/content-pipeline package (see WEBAPP_RELEASE_PACKAGES). The
             # result drives the sticky comment + label on the Version Packages
             # PR below.
-            - name: Detect whether a webapp release is required
+            - name: Detect whether a webapp deploy is required
               id: webapp_check
               # Phase 1 only. The raw .changeset/*.md files exist only while a
               # Version Packages PR is accumulating; on a real Phase 2 publish
@@ -334,7 +334,7 @@ jobs:
 
             # Rare flip: a changeset touching a trigger package was reverted
             # before release. Remove the now-stale comment + label so the PR
-            # doesn't keep claiming a webapp release is needed.
+            # doesn't keep claiming a webapp deploy is needed.
             - name: Clear stale webapp-required signal
               if: steps.vpr.outputs.number != '' && steps.webapp_check.outputs.required == 'no' && steps.webapp_find.outputs.comment-id != ''
               continue-on-error: true
