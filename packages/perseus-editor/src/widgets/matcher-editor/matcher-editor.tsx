@@ -8,12 +8,9 @@ import * as React from "react";
 import InfoTip from "../../components/info-tip";
 import TextListEditor from "../../components/text-list-editor";
 
-type Props = PerseusMatcherWidgetOptions & {
-    onChange: (
-        newOptions: Partial<PerseusMatcherWidgetOptions>,
-        callback?: () => void,
-    ) => void;
-};
+interface Props extends PerseusMatcherWidgetOptions {
+    onChange: (options: PerseusMatcherWidgetOptions) => void;
+}
 
 // JSDoc will be shown in Storybook widget editor description
 /**
@@ -23,10 +20,21 @@ class MatcherEditor extends React.Component<Props> {
     static defaultProps: PerseusMatcherWidgetOptions =
         matcherLogic.defaultWidgetOptions;
 
+    handleChange(changes: Partial<PerseusMatcherWidgetOptions>) {
+        this.props.onChange({
+            labels: this.props.labels,
+            left: this.props.left,
+            right: this.props.right,
+            orderMatters: this.props.orderMatters,
+            padding: this.props.padding,
+            ...changes,
+        });
+    }
+
     onLabelChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
         const labels = [...this.props.labels];
         labels[index] = e.target.value;
-        this.props.onChange({labels});
+        this.handleChange({labels});
     };
 
     // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
@@ -69,14 +77,14 @@ class MatcherEditor extends React.Component<Props> {
                     <TextListEditor
                         options={this.props.left}
                         onChange={(options) => {
-                            this.props.onChange({left: options});
+                            this.handleChange({left: options});
                         }}
                         layout="vertical"
                     />
                     <TextListEditor
                         options={this.props.right}
                         onChange={(options) => {
-                            this.props.onChange({right: options});
+                            this.handleChange({right: options});
                         }}
                         layout="vertical"
                     />
@@ -109,7 +117,7 @@ class MatcherEditor extends React.Component<Props> {
                         label="Order of the matched pairs matters:"
                         checked={this.props.orderMatters}
                         onChange={(value) => {
-                            this.props.onChange({orderMatters: value});
+                            this.handleChange({orderMatters: value});
                         }}
                     />
                     <InfoTip>
@@ -132,7 +140,7 @@ class MatcherEditor extends React.Component<Props> {
                         label="Padding:"
                         checked={this.props.padding}
                         onChange={(value) => {
-                            this.props.onChange({padding: value});
+                            this.handleChange({padding: value});
                         }}
                     />
                     <InfoTip>
