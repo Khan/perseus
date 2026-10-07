@@ -178,7 +178,7 @@ describe("required state", () => {
         render(<Radio {...getBaseProps({isScorable: true})} />);
 
         // Assert
-        expect(screen.getByRole("list", {name: /required/})).toBeTruthy();
+        expect(screen.getByRole("list", {name: /required/i})).toBeTruthy();
     });
 
     it("does not label the choices as required when not scorable", () => {
@@ -186,7 +186,7 @@ describe("required state", () => {
         render(<Radio {...getBaseProps({isScorable: false})} />);
 
         // Assert
-        expect(screen.queryByRole("list", {name: /required/})).toBeNull();
+        expect(screen.queryByRole("list", {name: /required/i})).toBeNull();
     });
 
     it("does not label the choices as required in review mode", () => {
@@ -196,7 +196,7 @@ describe("required state", () => {
         );
 
         // Assert
-        expect(screen.queryByRole("list", {name: /required/})).toBeNull();
+        expect(screen.queryByRole("list", {name: /required/i})).toBeNull();
     });
 
     it("does not label the choices as required when static", () => {
@@ -204,7 +204,7 @@ describe("required state", () => {
         render(<Radio {...getBaseProps({isScorable: true, static: true})} />);
 
         // Assert
-        expect(screen.queryByRole("list", {name: /required/})).toBeNull();
+        expect(screen.queryByRole("list", {name: /required/i})).toBeNull();
     });
 
     it("does not label the choices as required when read-only", () => {
@@ -219,6 +219,6 @@ describe("required state", () => {
         );
 
         // Assert
-        expect(screen.queryByRole("list", {name: /required/})).toBeNull();
+        expect(screen.queryByRole("list", {name: /required/i})).toBeNull();
     });
 });
