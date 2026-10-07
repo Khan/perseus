@@ -39,7 +39,7 @@
         "@khanacademy/perseus-linter": "workspace:*",
         "@khanacademy/perseus-utils": "workspace:*",
         "axe-core": "^4.11.0",
-        "katex": "0.11.1",
+        "katex": "0.18.2",
         "mafs": "^0.19.0",
         "tiny-invariant": "catalog:prodDeps"
     },
