@@ -350,6 +350,27 @@ const KeyConfigs = (
             ariaLabel: strings.navOutOfDenominator,
         }),
     },
+    JUMP_OUT_SQUARE_ROOT: {
+        ...getDefaultOperatorFields({
+            key: "JUMP_OUT_SQUARE_ROOT",
+            keyType: "INPUT_NAVIGATION",
+            ariaLabel: strings.navOutOfSquareRoot,
+        }),
+    },
+    JUMP_OUT_RADICAL_INDEX: {
+        ...getDefaultOperatorFields({
+            key: "JUMP_OUT_RADICAL_INDEX",
+            keyType: "INPUT_NAVIGATION",
+            ariaLabel: strings.navOutOfRadicalIndexIntoRadicand,
+        }),
+    },
+    JUMP_OUT_RADICAL: {
+        ...getDefaultOperatorFields({
+            key: "JUMP_OUT_RADICAL",
+            keyType: "INPUT_NAVIGATION",
+            ariaLabel: strings.navOutOfRadical,
+        }),
+    },
     BACKSPACE: {
         ...getDefaultOperatorFields({
             key: "BACKSPACE",
