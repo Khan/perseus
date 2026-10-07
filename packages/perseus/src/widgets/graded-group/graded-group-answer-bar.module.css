@@ -11,8 +11,6 @@
 .answer-bar {
     display: flex;
     align-items: center;
-    /* Keep the result at the inline-start of the bar and the button at the
-       inline-end. */
     justify-content: space-between;
     /* Keep a space between the message and the "Check" button, whether the
        button is on the right of the message or below. */
