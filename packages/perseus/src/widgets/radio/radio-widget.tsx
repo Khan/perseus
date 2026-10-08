@@ -372,9 +372,16 @@ const RadioWidget = forwardRef<RadioWidgetHandle, Props>(
         const onChoiceChange =
             apiOptions.readOnly || isReviewMode ? () => {} : handleChoiceChange;
 
+        const isRequired =
+            props.isScorable &&
+            !isReviewMode &&
+            !props.static &&
+            !apiOptions.readOnly;
+
         return (
             <RadioComponent
                 reviewMode={isReviewMode}
+                isRequired={isRequired}
                 multipleSelect={multipleSelect}
                 countChoices={countChoices}
                 numCorrect={numCorrect}

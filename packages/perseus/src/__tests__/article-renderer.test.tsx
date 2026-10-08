@@ -255,7 +255,7 @@ describe("article renderer", () => {
          */
         function getRenderedChoiceOrders(): string[][] {
             return screen
-                .getAllByRole("list", {name: "Choose 1 answer:"})
+                .getAllByRole("list", {name: /^Choose 1 answer:/})
                 .map((choiceList) =>
                     within(choiceList)
                         .getAllByRole("listitem")

@@ -15,7 +15,7 @@ exports[`RendererDiff renders an image widget in the diff view 1`] = `
         Image
       </div>
       <div
-        class="diff-body ui-helper-clearfix"
+        class="diff-body"
       >
         <div
           class="diff-row before"
@@ -66,7 +66,7 @@ exports[`RendererDiff renders an image widget in the diff view 1`] = `
       image 1
     </div>
     <div
-      class="diff-body ui-helper-clearfix"
+      class="diff-body"
     >
       <div>
         <div
@@ -462,7 +462,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
         Missing after
       </div>
       <div
-        class="diff-body ui-helper-clearfix"
+        class="diff-body"
       >
         <div
           class="diff-row before"
@@ -515,7 +515,7 @@ exports[`RendererDiff renders with missing 'after' props 1`] = `
       radio 1
     </div>
     <div
-      class="diff-body ui-helper-clearfix"
+      class="diff-body"
     >
       <div>
         <div>
@@ -1116,7 +1116,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
         Missing before
       </div>
       <div
-        class="diff-body ui-helper-clearfix"
+        class="diff-body"
       >
         <div
           class="diff-row before"
@@ -1169,7 +1169,7 @@ exports[`RendererDiff renders with missing 'before' props 1`] = `
       radio 1
     </div>
     <div
-      class="diff-body ui-helper-clearfix"
+      class="diff-body"
     >
       <div>
         <div>

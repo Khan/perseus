@@ -127,16 +127,13 @@ const Marker = React.forwardRef<MarkerHandle, MarkerProps>(function Marker(
             }
         >
             {/*
-             * Child-as-function is needed here to allow click-outside dismissal.
+             * Child-as-function keeps Popover from wrapping our onClick.
              *
-             * If we use a plain element instead, Popover wraps the child's
-             * onClick in stopPropagation, so the opening click never reaches
-             * the window listener that implements click-outside dismissal.
-             *
-             * That listener discards the first click it sees, expecting it
-             * to be the opening one, so it ends up eating the first real
-             * outside click instead of closing. The function form leaves
-             * our handler untouched.
+             * With a plain element, Popover wraps the child's onClick so that
+             * it also runs Popover's own open/close toggle, which would fight
+             * with the toggle below since this is a controlled popover. The
+             * function form leaves our handler untouched while still
+             * anchoring the popover to the button.
              */}
             {() => (
                 <button
