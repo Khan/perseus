@@ -57,4 +57,64 @@ describe("Registry", () => {
             "TestName accessed before initialization!",
         );
     });
+
+    describe("aliases", () => {
+        function createAliasedRegistry() {
+            const registry = new Registry<string>("Aliased", {
+                aliases: {keys: ["old-a", "old-b"], value: "standin"},
+            });
+            registry.set("radio", "hello");
+            return registry;
+        }
+
+        it("returns the alias value for every aliased key", () => {
+            // Arrange, Act
+            const registry = createAliasedRegistry();
+
+            expect(registry.get("old-a")).toBe("standin");
+            expect(registry.get("old-b")).toBe("standin");
+        });
+
+        it("reports aliased keys as present", () => {
+            // Arrange, Act
+            const registry = createAliasedRegistry();
+
+            expect(registry.has("old-a")).toBe(true);
+        });
+
+        it("includes aliased keys in keys()", () => {
+            // Arrange, Act
+            const registry = createAliasedRegistry();
+
+            expect(registry.keys()).toEqual(["old-a", "old-b", "radio"]);
+        });
+
+        it("excludes aliased keys from entries()", () => {
+            // Arrange, Act
+            const registry = createAliasedRegistry();
+
+            expect(registry.entries()).toEqual([["radio", "hello"]]);
+        });
+
+        it("throws when registering an aliased key", () => {
+            // Arrange
+            const registry = createAliasedRegistry();
+
+            // Act, Assert
+            expect(() => registry.set("old-a", "nope")).toThrow(
+                'Aliased: "old-a" is an alias and cannot be registered.',
+            );
+        });
+
+        it("still throws on access before anything is registered", () => {
+            // Arrange, Act
+            const registry = new Registry<string>("Aliased", {
+                aliases: {keys: ["old-a"], value: "standin"},
+            });
+
+            expect(() => registry.get("old-a")).toThrow(
+                "Aliased accessed before initialization!",
+            );
+        });
+    });
 });

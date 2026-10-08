@@ -1,5 +1,5 @@
 import {
-    Registry,
+    createWidgetRegistry,
     type WidgetScorerFunction,
     type WidgetValidatorFunction,
 } from "@khanacademy/perseus-core";
@@ -7,7 +7,6 @@ import {
 import scoreCategorizer from "./categorizer/score-categorizer";
 import validateCategorizer from "./categorizer/validate-categorizer";
 import scoreCSProgram from "./cs-program/score-cs-program";
-import scoreDeprecatedStandin from "./deprecated-standin/score-deprecated-standin";
 import scoreDropdown from "./dropdown/score-dropdown";
 import validateDropdown from "./dropdown/validate-dropdown";
 import scoreExpression from "./expression/score-expression";
@@ -44,7 +43,12 @@ type ScoringLogic = {
     validator?: WidgetValidatorFunction;
 };
 
-const widgets = new Registry<ScoringLogic>("Score widget registry");
+// Deprecated widgets resolve to `null`: they have no scorer or validator, so
+// they're unscoreable and don't count towards an item's score.
+const widgets = createWidgetRegistry<ScoringLogic | null>(
+    "Score widget registry",
+    null,
+);
 
 export function registerWidget(
     type: string,
@@ -77,8 +81,6 @@ registerWidget(
 );
 // eslint-disable-next-line no-restricted-syntax
 registerWidget("cs-program", scoreCSProgram as any);
-// eslint-disable-next-line no-restricted-syntax
-registerWidget("deprecated-standin", scoreDeprecatedStandin as any);
 // eslint-disable-next-line no-restricted-syntax
 registerWidget("dropdown", scoreDropdown as any, validateDropdown as any);
 // eslint-disable-next-line no-restricted-syntax

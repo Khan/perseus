@@ -10,7 +10,6 @@ import * as Widgets from "./widgets";
 const init = function () {
     Widgets.registerWidgets(basicWidgets);
     Widgets.registerWidgets(extraWidgets);
-    Widgets.replaceDeprecatedWidgets();
 };
 
 export default init;

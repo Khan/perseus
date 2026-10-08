@@ -1,7 +1,10 @@
 import isWidgetScoreable from "./is-widget-scoreable";
 import {getTestDropdownWidget} from "./test-helpers";
 
-import type {PhetSimulationWidget} from "@khanacademy/perseus-core";
+import type {
+    DeprecatedStandinWidget,
+    PhetSimulationWidget,
+} from "@khanacademy/perseus-core";
 
 describe("isWidgetScoreable", () => {
     it("returns false for undefined widget", () => {
@@ -76,6 +79,16 @@ describe("isWidgetScoreable", () => {
                 description: "Projectile Data Lab",
             },
         } satisfies PhetSimulationWidget;
+        expect(isWidgetScoreable(widget)).toBe(false);
+    });
+
+    it("returns false for a deprecated widget", () => {
+        const widget = {
+            type: "transformer",
+            graded: true,
+            static: false,
+            options: {},
+        } satisfies DeprecatedStandinWidget<"transformer">;
         expect(isWidgetScoreable(widget)).toBe(false);
     });
 });

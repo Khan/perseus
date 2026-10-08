@@ -10,5 +10,4 @@ import * as Widgets from "../widgets";
  */
 export const registerAllWidgetsForTesting = () => {
     Widgets.registerWidgets(allWidgets);
-    Widgets.replaceDeprecatedWidgets();
 };
