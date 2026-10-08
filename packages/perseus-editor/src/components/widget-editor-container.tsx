@@ -8,10 +8,13 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
 
+import * as WidgetEditors from "../editor-registry";
+
 import SectionControlButton from "./section-control-button";
 import ToggleableCaret from "./toggleable-caret";
 import WidgetEditorSettings from "./widget-editor-settings";
 
+import type {WidgetEditorRefHandle} from "../widgets/types";
 import type {APIOptions} from "@khanacademy/perseus";
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
 
@@ -48,15 +51,12 @@ export function _upgradeWidgetInfo(widgetInfo: PerseusWidget): PerseusWidget {
     return applyDefaultsToWidget(filteredWidget);
 }
 
-// This component handles upgading widget editor props via prop
+// This component handles upgrading widget editor props via prop
 // upgrade transforms. Widget editors will always be rendered
 // with all available transforms applied, but the results of those
 // transforms will not be propogated upwards until serialization.
 class WidgetEditorContainer extends React.Component<Props, State> {
-    widgetSpecificEditor: React.RefObject<{
-        serialize(): unknown;
-        getSaveWarnings?: () => unknown;
-    }>;
+    widgetSpecificEditor: React.RefObject<WidgetEditorRefHandle>;
 
     constructor(props: Props) {
         super(props);
@@ -157,7 +157,7 @@ class WidgetEditorContainer extends React.Component<Props, State> {
         const isEditingDisabled =
             this.props.apiOptions.editingDisabled ?? false;
 
-        const Ed = Widgets.getEditor(widgetInfo.type);
+        const Ed = WidgetEditors.getEditor(widgetInfo.type);
         let supportedAlignments: ReadonlyArray<Alignment>;
 
         if (this.props.apiOptions.showAlignmentOptions) {

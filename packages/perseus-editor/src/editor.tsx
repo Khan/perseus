@@ -18,6 +18,7 @@ import _ from "underscore";
 import DragTarget from "./components/drag-target";
 import WidgetEditorContainer from "./components/widget-editor-container";
 import WidgetSelect from "./components/widget-select";
+import * as EditorWidgetRegistry from "./editor-registry";
 import {
     getPerseusClipboardData,
     setPerseusClipboardData,
@@ -263,7 +264,7 @@ class Editor extends React.Component<Props, State> {
         id: string,
         type: PerseusWidget["type"],
     ): undefined | React.ReactNode {
-        if (!Widgets.getEditor(type)) {
+        if (!EditorWidgetRegistry.getEditor(type)) {
             return;
         }
         return (
@@ -602,16 +603,11 @@ class Editor extends React.Component<Props, State> {
         return safeWidgetMapping;
     };
 
-    // @ts-expect-error: Types of parameter 'widgetType' and 'widgetType' are incompatible. Type 'string' is not assignable to type '"cs-program" | "iframe" | "table" | "video" | "image" | "deprecated-standin" | "categorizer" | "definition" | "dropdown" | "explanation" | "expression" | "graded-group" | "graded-group-set" | ... 20 more ... | "radio"'.
-    _addWidgetToContent: (
-        oldContent: string,
-        cursorRange: ReadonlyArray<number>,
-        widgetType: string,
-    ) => void = (
+    _addWidgetToContent(
         oldContent: string,
         cursorRange: ReadonlyArray<number>,
         widgetType: PerseusWidget["type"],
-    ) => {
+    ) {
         // Note: we have to use _.map here instead of Array::map
         // because the results of a .match might be null if no
         // widgets were found.
@@ -658,7 +654,7 @@ class Editor extends React.Component<Props, State> {
         const newContent = newPrelude + widgetContent + newPostlude;
 
         const newWidgets = {...this.props.widgets};
-        const widgetEditor = Widgets.getEditor(widgetType);
+        const widgetEditor = EditorWidgetRegistry.getEditor(widgetType);
         const initializeWidgetOptionsParams: InitializeWidgetOptionsParams = {
             selectedText,
         };
@@ -685,7 +681,7 @@ class Editor extends React.Component<Props, State> {
         // newly-inserted widget syntax (and any added newlines).
         this._pendingCursorPos = newContent.length - postlude.length;
         this.handleChange({content: newContent, widgets: newWidgets});
-    };
+    }
 
     _addWidget: (widgetType: string) => void = (widgetType: string) => {
         const textarea = this.textarea.current;
@@ -760,7 +756,7 @@ class Editor extends React.Component<Props, State> {
         this.handleChange({content: newContent});
     };
 
-    getSaveWarnings: () => any = () => {
+    getSaveWarnings: () => string[] = () => {
         const widgetIds = _.intersection(
             this.widgetIds,
             Object.keys(this.refs),
