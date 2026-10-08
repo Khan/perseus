@@ -38,7 +38,7 @@ env:
 
     # The list of Perseus packages used on the backend. If any of these
     # packages change, a backend deploy is required. Generated via:
-    # find . -name pnpm-lock.yaml | xargs grep -Eo '@khanacademy/[a-z-]+' | cut -d: -f2 | sort | uniq
+    # git ls-files "*pnpm-lock.yaml" | xargs grep -Eo '@khanacademy/[a-z-]+' | cut -d: -f2 | sort | uniq
     # NOTE: >- folds the list into a space-separated string.
     WEBAPP_RELEASE_PACKAGES: >-
         @khanacademy/kas
