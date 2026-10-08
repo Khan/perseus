@@ -743,8 +743,8 @@ describe("Expression Widget", function () {
 });
 
 describe("required state", () => {
-    const generateRenderer = (isStatic: boolean): PerseusRenderer =>
-        generateTestPerseusRenderer({
+    function generateRenderer(isStatic: boolean): PerseusRenderer {
+        return generateTestPerseusRenderer({
             content: "[[☃ expression 1]]",
             widgets: {
                 "expression 1": generateExpressionWidget({
@@ -757,15 +757,7 @@ describe("required state", () => {
                 }),
             },
         });
-
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-        jest.spyOn(Dependencies, "useDependencies").mockReturnValue(
-            testDependenciesV2,
-        );
-    });
+    }
 
     it("renders the input as required when scorable and interactive", () => {
         // Arrange, Act
