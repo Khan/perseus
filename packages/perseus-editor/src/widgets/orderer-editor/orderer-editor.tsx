@@ -4,26 +4,36 @@ import {
     toCard,
     type PerseusOrdererWidgetOptions,
 } from "@khanacademy/perseus-core";
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 
 import InfoTip from "../../components/info-tip";
 import TextListEditor from "../../components/text-list-editor";
+import {TypedSingleSelect} from "../../components/typed-single-select";
 
 const NORMAL = "normal";
 const AUTO = "auto";
 const HORIZONTAL = "horizontal";
 const VERTICAL = "vertical";
 
-type Props = PerseusOrdererWidgetOptions & {
-    onChange: (
-        newOptions: Partial<PerseusOrdererWidgetOptions>,
-        callback?: () => void,
-    ) => void;
-};
+interface Props extends PerseusOrdererWidgetOptions {
+    onChange: (options: PerseusOrdererWidgetOptions) => void;
+}
 
 class OrdererEditor extends React.Component<Props> {
     static defaultProps: PerseusOrdererWidgetOptions =
         ordererLogic.defaultWidgetOptions;
+
+    handleChange(changes: Partial<PerseusOrdererWidgetOptions>) {
+        this.props.onChange({
+            options: this.props.options,
+            correctOptions: this.props.correctOptions,
+            otherOptions: this.props.otherOptions,
+            height: this.props.height,
+            layout: this.props.layout,
+            ...changes,
+        });
+    }
 
     onOptionsChange = (
         whichOptions: "correctOptions" | "otherOptions",
@@ -39,33 +49,37 @@ class OrdererEditor extends React.Component<Props> {
                 ? changedCards
                 : this.props.otherOptions;
 
-        this.props.onChange({
+        this.handleChange({
             [whichOptions]: changedCards,
             options: mergeCards(correctOptions, otherOptions),
         });
     };
 
-    onLayoutChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const layout = e.target.value;
+    onLayoutChange = (layout: "horizontal" | "vertical") => {
         switch (layout) {
             case HORIZONTAL:
             case VERTICAL:
-                this.props.onChange({layout});
+                this.handleChange({layout});
                 break;
             default:
-                throw new Error(`${layout} is not an available layout option`);
+                throw new UnreachableCaseError(
+                    layout,
+                    `${layout} is not an available layout option`,
+                );
         }
     };
 
-    onHeightChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const height = e.target.value;
+    onHeightChange = (height: "normal" | "auto") => {
         switch (height) {
             case NORMAL:
             case AUTO:
-                this.props.onChange({height});
+                this.handleChange({height});
                 break;
             default:
-                throw new Error(`${height} is not an available height option`);
+                throw new UnreachableCaseError(
+                    height,
+                    `${height} is not an available height option`,
+                );
         }
     };
 
@@ -128,13 +142,15 @@ class OrdererEditor extends React.Component<Props> {
                     <label>
                         {" "}
                         Layout:{" "}
-                        <select
-                            value={this.props.layout}
+                        <TypedSingleSelect
+                            style={{display: "inline-block"}}
+                            selectedValue={this.props.layout}
                             onChange={this.onLayoutChange}
-                        >
-                            <option value={HORIZONTAL}>Horizontal</option>
-                            <option value={VERTICAL}>Vertical</option>
-                        </select>
+                            options={{
+                                [HORIZONTAL]: "Horizontal",
+                                [VERTICAL]: "Vertical",
+                            }}
+                        />
                     </label>
                     <InfoTip>
                         <p>
@@ -148,13 +164,15 @@ class OrdererEditor extends React.Component<Props> {
                     <label>
                         {" "}
                         Height:{" "}
-                        <select
-                            value={this.props.height}
+                        <TypedSingleSelect
+                            style={{display: "inline-block"}}
+                            selectedValue={this.props.height}
                             onChange={this.onHeightChange}
-                        >
-                            <option value={NORMAL}>Normal</option>
-                            <option value={AUTO}>Automatic</option>
-                        </select>
+                            options={{
+                                [NORMAL]: "Normal",
+                                [AUTO]: "Automatic",
+                            }}
+                        />
                     </label>
                     <InfoTip>
                         <p>
