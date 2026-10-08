@@ -9,14 +9,9 @@ import InfoTip from "../../components/info-tip";
 import {TypedSingleSelect} from "../../components/typed-single-select";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
-import type {
-    PerseusNumberLineWidgetOptions,
-    PerseusNumberLineLabelStyle,
-} from "@khanacademy/perseus-core";
+import type {PerseusNumberLineWidgetOptions} from "@khanacademy/perseus-core";
 
 const {ButtonGroup, NumberInput, RangeInput} = components;
-
-type Range = [number, number];
 
 const EN_DASH = "\u2013";
 
@@ -53,16 +48,7 @@ class NumberLineEditor extends React.Component<Props> {
         });
     }
 
-    onRangeChange = (range: Range) => {
-        // Changing the range constrains the initial position, as well as the
-        // position of the answer and labels. Atm, it just marks them as
-        // invalid and prevents the number line from showing; it was annoying
-        // to change it for them, because if they're typing in fractions,
-        // it registers one-at-a-time and messes things up.
-        this.handleChange({range});
-    };
-
-    onLabelRangeChange = (i: number, num: number) => {
+    handleLabelRangeChange(i: number, num: number) {
         let labelRange = this.props.labelRange.slice();
         const otherNum = labelRange[1 - i];
 
@@ -76,16 +62,7 @@ class NumberLineEditor extends React.Component<Props> {
         }
 
         this.handleChange({labelRange});
-    };
-
-    onNumChange = (
-        key: "correctX" | "initialX" | "snapDivisions",
-        value: number,
-    ) => {
-        const opts: Record<string, any> = {};
-        opts[key] = value;
-        this.handleChange(opts);
-    };
+    }
 
     onNumDivisionsChange = (numDivisions: number) => {
         const divRange = this.props.divisionRange.slice();
@@ -127,10 +104,6 @@ class NumberLineEditor extends React.Component<Props> {
         });
     };
 
-    onLabelStyleChange = (labelStyle: PerseusNumberLineLabelStyle) => {
-        this.handleChange({labelStyle});
-    };
-
     serialize: () => any = () => {
         return EditorJsonify.serialize.call(this);
     };
@@ -148,13 +121,13 @@ class NumberLineEditor extends React.Component<Props> {
         const snapDivisions = this.props.snapDivisions;
         const tickStep = this.props.tickStep;
         const isTickCtrl = this.props.isTickCtrl;
-        const numDivisionsInputPlaceholder = tickStep ? width / tickStep : null
+        const numDivisionsInputPlaceholder = tickStep ? width / tickStep : null;
 
         let step: number | null;
         if (!isTickCtrl) {
             // this will help constrain the answer to what is reachable
             if (tickStep) {
-                step = tickStep / snapDivisions
+                step = tickStep / snapDivisions;
             } else if (numDivisions) {
                 step = width / numDivisions / snapDivisions;
             } else {
@@ -210,7 +183,7 @@ class NumberLineEditor extends React.Component<Props> {
                     <NumberInput
                         value={this.props.correctX}
                         format={this.props.labelStyle}
-                        onChange={this.onNumChange.bind(this, "correctX")}
+                        onChange={(correctX) => this.handleChange({correctX})}
                         checkValidity={(val) =>
                             val >= range[0] &&
                             val <= range[1] &&
@@ -244,10 +217,9 @@ class NumberLineEditor extends React.Component<Props> {
                             <NumberInput
                                 value={this.props.initialX}
                                 format={this.props.labelStyle}
-                                onChange={this.onNumChange.bind(
-                                    this,
-                                    "initialX",
-                                )}
+                                onChange={(initialX) =>
+                                    this.handleChange({initialX})
+                                }
                                 placeholder={range[0]}
                                 checkValidity={(val) => {
                                     return val >= range[0] && val <= range[1];
@@ -260,7 +232,7 @@ class NumberLineEditor extends React.Component<Props> {
 
                     <RangeInput
                         value={range}
-                        onChange={this.onRangeChange}
+                        onChange={(range) => this.handleChange({range})}
                         format={this.props.labelStyle}
                         useArrowKeys={true}
                     />
@@ -289,7 +261,9 @@ class NumberLineEditor extends React.Component<Props> {
                             checkValidity={(val) =>
                                 val >= range[0] && val <= range[1]
                             }
-                            onChange={this.onLabelRangeChange.bind(this, 0)}
+                            onChange={(min) =>
+                                this.handleLabelRangeChange(0, min)
+                            }
                             useArrowKeys={true}
                         />
                         <span> &amp; </span>
@@ -300,7 +274,9 @@ class NumberLineEditor extends React.Component<Props> {
                             checkValidity={(val) =>
                                 val >= range[0] && val <= range[1]
                             }
-                            onChange={this.onLabelRangeChange.bind(this, 1)}
+                            onChange={(max) =>
+                                this.handleLabelRangeChange(1, max)
+                            }
                             useArrowKeys={true}
                         />
                         <InfoTip>
@@ -320,7 +296,9 @@ class NumberLineEditor extends React.Component<Props> {
                     <ButtonGroup
                         value={this.props.labelStyle}
                         buttons={labelStyleEditorButtons}
-                        onChange={this.onLabelStyleChange}
+                        onChange={(labelStyle) =>
+                            this.handleChange({labelStyle})
+                        }
                     />
                     <InfoTip>
                         <p>
@@ -430,7 +408,11 @@ class NumberLineEditor extends React.Component<Props> {
                                     checkValidity={(val) => {
                                         return val > 0 && val <= width;
                                     }}
-                                    placeholder={numDivisions ? width / numDivisions : null}
+                                    placeholder={
+                                        numDivisions
+                                            ? width / numDivisions
+                                            : null
+                                    }
                                     useArrowKeys={true}
                                 />
                             </label>
@@ -460,10 +442,9 @@ class NumberLineEditor extends React.Component<Props> {
                             value={snapDivisions}
                             checkValidity={(val) => val > 0}
                             format={this.props.labelStyle}
-                            onChange={this.onNumChange.bind(
-                                this,
-                                "snapDivisions",
-                            )}
+                            onChange={(snapDivisions) =>
+                                this.handleChange({snapDivisions})
+                            }
                             useArrowKeys={true}
                         />
                     </label>
