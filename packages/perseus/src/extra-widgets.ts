@@ -5,7 +5,6 @@ import Blank from "./widgets/blank";
 import Categorizer from "./widgets/categorizer";
 import CSProgram from "./widgets/cs-program";
 import Definition from "./widgets/definition";
-import DeprecatedStandin from "./widgets/deprecated-standin";
 import Dropdown from "./widgets/dropdown";
 import Explanation from "./widgets/explanation";
 import FillInTheBlank from "./widgets/fill-in-the-blank";
@@ -42,7 +41,6 @@ export default [
     CSProgram,
     Categorizer,
     Definition,
-    DeprecatedStandin,
     Dropdown,
     Explanation,
     FillInTheBlank,

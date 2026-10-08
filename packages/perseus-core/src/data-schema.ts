@@ -32,6 +32,30 @@
 // be independent of everything else.
 import type {KeypadKey} from "./keypad";
 
+/**
+ * The list of widget types that are deprecated. Widgets in this list are no
+ * longer supported or rendered.
+ *
+ * If these show up in any Perseus content, we display the
+ * {@link DeprecatedStandinWidget} instead.
+ */
+export const DeprecatedWidgetTypes = [
+    "lights-puzzle",
+    "molecule-renderer",
+    "passage-ref-target",
+    "passage-ref",
+    "passage",
+    "reaction-diagram",
+    "sequence",
+    "simulator",
+    "transformer",
+    "unit-input",
+] as const;
+
+type DeprecatedWidgets = {
+    [K in (typeof DeprecatedWidgetTypes)[number]]: DeprecatedStandinWidget<K>;
+};
+
 export type Coord = [x: number, y: number];
 export type Interval = [min: number, max: number];
 export type Vector2 = Coord; // Same name as Mafs
@@ -142,7 +166,7 @@ export type MakeWidgetMap<TRegistry> = {
  *
  * @see {@link https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation}
  */
-export interface PerseusWidgetTypes {
+export interface PerseusWidgetTypes extends DeprecatedWidgets {
     blank: BlankWidget;
     categorizer: CategorizerWidget;
     "cs-program": CSProgramWidget;
@@ -175,16 +199,6 @@ export interface PerseusWidgetTypes {
     sorter: SorterWidget;
     table: TableWidget;
     video: VideoWidget;
-
-    // Deprecated widgets
-    "molecule-renderer": DeprecatedStandinWidget<"molecule-renderer">;
-    "passage-ref-target": DeprecatedStandinWidget<"passage-ref-target">;
-    "passage-ref": DeprecatedStandinWidget<"passage-ref">;
-    passage: DeprecatedStandinWidget<"passage">;
-    "lights-puzzle": DeprecatedStandinWidget<"lights-puzzle">;
-    sequence: DeprecatedStandinWidget<"sequence">;
-    simulator: DeprecatedStandinWidget<"simulator">;
-    transformer: DeprecatedStandinWidget<"transformer">;
 }
 
 /**
@@ -196,20 +210,18 @@ export interface PerseusWidgetTypes {
  * reading/parsing the widget id to derive any information from it, except in
  * the case of this map.
  *
- * @see {@link PerseusWidgetTypes} additional widgets can be added to this map type
+ * See {@link PerseusWidgetTypes} additional widgets can be added to this map type
  * by augmenting the PerseusWidgetTypes with new widget types!
  */
 export type PerseusWidgetsMap = MakeWidgetMap<PerseusWidgetTypes>;
 
 /**
- * PerseusWidget is a union of all the different types of widget options that
- * Perseus knows about.
+ * {@link PerseusWidget} is a union of all the different types of widget
+ * options that Perseus knows about.
  *
- * Thanks to it being based on PerseusWidgetTypes interface, this union is
- * automatically extended to include widgets used in tests without those widget
- * option types seeping into our production types.
- *
- * @see MockWidget for an example
+ * Thanks to it being based on the {@link PerseusWidgetTypes} interface, this
+ * union is automatically extended to include widgets used in tests without
+ * those widget option types seeping into our production types.
  */
 export type PerseusWidget = PerseusWidgetTypes[keyof PerseusWidgetTypes];
 

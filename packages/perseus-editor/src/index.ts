@@ -23,11 +23,9 @@ import "./styles/perseus-editor.css";
 // eslint-disable-next-line import/order
 import {Widgets, widgets} from "@khanacademy/perseus";
 import AllEditors from "./all-editors";
+import * as WidgetEditorRegistry from "./widget-editor-registry";
 
-Widgets.registerEditors(AllEditors);
+WidgetEditorRegistry.registerEditors(AllEditors);
 Widgets.registerWidgets(widgets);
 
-Widgets.replaceDeprecatedWidgets();
-Widgets.replaceDeprecatedEditors();
-
-export {AllEditors, widgets};
+export {AllEditors};
