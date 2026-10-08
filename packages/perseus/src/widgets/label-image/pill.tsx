@@ -161,47 +161,26 @@ const _generateColorStyles = (clickable: boolean) => {
         return styles[pillType];
     }
 
-    const backgroundColor =
-        semanticColor.action.primary.progressive.default.background;
-    const textColor =
-        semanticColor.action.primary.progressive.default.foreground;
-
-    const pressColor =
-        semanticColor.action.primary.progressive.press.background;
-
-    const theme = {
-        default: {
-            border: "none",
-            background: backgroundColor,
-            foreground: textColor,
-        },
-        hover: {
-            border: semanticColor.core.border.instructive.default,
-        },
-        press: {
-            border: semanticColor.core.border.instructive.strong,
-            background: pressColor,
-        },
-    };
-
     const colorStyles: StyleDeclaration = {
         pill: {
-            backgroundColor: theme.default.background,
-            outline: theme.default.border,
-            color: theme.default.foreground,
+            backgroundColor:
+                semanticColor.action.primary.progressive.default.background,
+            outline: "none",
+            color: semanticColor.action.primary.progressive.default.foreground,
             alignItems: "center",
             justifyContent: "center",
         },
         clickableWrapper: {
-            outline: theme.default.border,
+            outline: "none",
 
             ":hover": {
-                outline: `${border.width.medium} solid ${theme.hover.border}`,
+                outline: `${border.width.medium} solid ${semanticColor.core.border.instructive.default}`,
                 outlineOffset: sizing.size_020,
             },
             ":active": {
-                backgroundColor: theme.press.background,
-                outline: `${border.width.medium} solid ${theme.press.border}`,
+                backgroundColor:
+                    semanticColor.action.primary.progressive.press.background,
+                outline: `${border.width.medium} solid ${semanticColor.core.border.instructive.strong}`,
                 outlineOffset: sizing.size_020,
             },
             ...focus,
