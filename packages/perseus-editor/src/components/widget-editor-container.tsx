@@ -8,7 +8,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
 
-import * as WidgetEditors from "../editor-registry";
+import * as WidgetEditorRegistry from "../widget-editor-registry";
 
 import SectionControlButton from "./section-control-button";
 import ToggleableCaret from "./toggleable-caret";
@@ -159,7 +159,7 @@ class WidgetEditorContainer extends React.Component<Props, State> {
         const isEditingDisabled =
             this.props.apiOptions.editingDisabled ?? false;
 
-        const Ed = WidgetEditors.getEditor(widgetInfo.type);
+        const Ed = WidgetEditorRegistry.getEditor(widgetInfo.type);
         let supportedAlignments: ReadonlyArray<Alignment>;
 
         if (this.props.apiOptions.showAlignmentOptions) {
