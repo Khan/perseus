@@ -4,7 +4,6 @@ import {
     toCard,
     type PerseusOrdererWidgetOptions,
 } from "@khanacademy/perseus-core";
-import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 
 import InfoTip from "../../components/info-tip";
@@ -53,34 +52,6 @@ class OrdererEditor extends React.Component<Props> {
             [whichOptions]: changedCards,
             options: mergeCards(correctOptions, otherOptions),
         });
-    };
-
-    onLayoutChange = (layout: "horizontal" | "vertical") => {
-        switch (layout) {
-            case HORIZONTAL:
-            case VERTICAL:
-                this.handleChange({layout});
-                break;
-            default:
-                throw new UnreachableCaseError(
-                    layout,
-                    `${layout} is not an available layout option`,
-                );
-        }
-    };
-
-    onHeightChange = (height: "normal" | "auto") => {
-        switch (height) {
-            case NORMAL:
-            case AUTO:
-                this.handleChange({height});
-                break;
-            default:
-                throw new UnreachableCaseError(
-                    height,
-                    `${height} is not an available height option`,
-                );
-        }
     };
 
     serialize = (): PerseusOrdererWidgetOptions => {
@@ -145,7 +116,7 @@ class OrdererEditor extends React.Component<Props> {
                         <TypedSingleSelect
                             style={{display: "inline-block"}}
                             selectedValue={this.props.layout}
-                            onChange={this.onLayoutChange}
+                            onChange={(layout) => this.handleChange({layout})}
                             options={{
                                 [HORIZONTAL]: "Horizontal",
                                 [VERTICAL]: "Vertical",
@@ -167,7 +138,7 @@ class OrdererEditor extends React.Component<Props> {
                         <TypedSingleSelect
                             style={{display: "inline-block"}}
                             selectedValue={this.props.height}
-                            onChange={this.onHeightChange}
+                            onChange={(height) => this.handleChange({height})}
                             options={{
                                 [NORMAL]: "Normal",
                                 [AUTO]: "Automatic",
