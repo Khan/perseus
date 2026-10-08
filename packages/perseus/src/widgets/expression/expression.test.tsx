@@ -4,6 +4,7 @@ import {
     generateExpressionOptions,
     generateExpressionWidget,
     generateTestPerseusItem,
+    generateTestPerseusRenderer,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
@@ -738,5 +739,108 @@ describe("Expression Widget", function () {
                 expect(score).toHaveBeenAnsweredCorrectly();
             },
         );
+    });
+});
+
+describe("required state", () => {
+    const generateRenderer = (isStatic: boolean): PerseusRenderer =>
+        generateTestPerseusRenderer({
+            content: "[[☃ expression 1]]",
+            widgets: {
+                "expression 1": generateExpressionWidget({
+                    static: isStatic,
+                    options: generateExpressionOptions({
+                        answerForms: [
+                            generateExpressionAnswerForm({value: "x+1"}),
+                        ],
+                    }),
+                }),
+            },
+        });
+
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+        jest.spyOn(Dependencies, "useDependencies").mockReturnValue(
+            testDependenciesV2,
+        );
+    });
+
+    it("renders the input as required when scorable and interactive", () => {
+        // Arrange, Act
+        renderQuestion(generateRenderer(false), {
+            apiOptions: {readOnly: false},
+            extraProps: {isScorable: true, reviewMode: false},
+        });
+
+        // Assert
+        expect(screen.getByRole("textbox", {hidden: true})).toBeRequired();
+    });
+
+    it("does not render the input as required when not scorable", () => {
+        // Arrange, Act
+        renderQuestion(generateRenderer(false), {
+            apiOptions: {readOnly: false},
+            extraProps: {isScorable: false, reviewMode: false},
+        });
+
+        // Assert
+        expect(screen.getByRole("textbox", {hidden: true})).not.toBeRequired();
+    });
+
+    it("does not render the input as required in review mode", () => {
+        // Arrange, Act
+        renderQuestion(generateRenderer(false), {
+            apiOptions: {readOnly: false},
+            extraProps: {isScorable: true, reviewMode: true},
+        });
+
+        // Assert
+        expect(screen.getByRole("textbox", {hidden: true})).not.toBeRequired();
+    });
+
+    it("does not render the input as required when static", () => {
+        // Arrange, Act
+        renderQuestion(generateRenderer(true), {
+            apiOptions: {readOnly: false},
+            extraProps: {isScorable: true, reviewMode: false},
+        });
+
+        // Assert
+        expect(screen.getByRole("textbox", {hidden: true})).not.toBeRequired();
+    });
+
+    it("does not render the input as required when read-only", () => {
+        // Arrange, Act
+        renderQuestion(generateRenderer(false), {
+            apiOptions: {readOnly: true},
+            extraProps: {isScorable: true, reviewMode: false},
+        });
+
+        // Assert
+        expect(screen.getByRole("textbox", {hidden: true})).not.toBeRequired();
+    });
+
+    it("renders the mobile input as required when scorable and interactive", () => {
+        // Arrange, Act
+        renderQuestion(generateRenderer(false), {
+            apiOptions: {readOnly: false, customKeypad: true},
+            extraProps: {isScorable: true, reviewMode: false},
+        });
+
+        // Assert
+        expect(screen.getByRole("textbox", {hidden: true})).toBeRequired();
+    });
+
+    it("does not render the mobile input as required when not scorable", () => {
+        // Arrange, Act
+        renderQuestion(generateRenderer(false), {
+            apiOptions: {readOnly: false, customKeypad: true},
+            extraProps: {isScorable: false, reviewMode: false},
+        });
+
+        // Assert
+        expect(screen.getByRole("textbox", {hidden: true})).not.toBeRequired();
     });
 });

@@ -58,6 +58,7 @@ type Props = {
      */
     keypadButtonSets?: KeypadButtonSets;
     ariaLabel: string;
+    ariaRequired?: boolean;
     onFocus?: () => void;
     onBlur?: () => void;
     extraKeys?: ReadonlyArray<KeypadKey>;
@@ -120,6 +121,10 @@ class InnerMathInput extends React.Component<InnerProps, State> {
     }
 
     componentDidUpdate(prevProps: Readonly<InnerProps>): void {
+        if (prevProps.ariaRequired !== this.props.ariaRequired) {
+            this.updateAriaRequired();
+        }
+
         if (prevProps.value !== this.props.value) {
             // Don't do anything if the user is currently focused on this input
             if (this.state.focused) {
@@ -273,7 +278,17 @@ class InnerMathInput extends React.Component<InnerProps, State> {
         }
 
         this.__mathField?.setAriaLabel(this.props.ariaLabel);
+        this.updateAriaRequired();
         return this.__mathField;
+    };
+
+    updateAriaRequired: () => void = () => {
+        const textarea = this.__mathFieldWrapperRef?.querySelector("textarea");
+        if (this.props.ariaRequired) {
+            textarea?.setAttribute("aria-required", "true");
+        } else {
+            textarea?.removeAttribute("aria-required");
+        }
     };
 
     focus: () => void = () => {
