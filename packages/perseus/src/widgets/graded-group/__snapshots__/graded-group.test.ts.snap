@@ -419,7 +419,7 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
               </div>
             </div>
             <button
-              aria-controls=":r27:"
+              aria-controls=":r2f:"
               aria-expanded="false"
               class="explainToggle_1rvdp1e"
             >
@@ -427,7 +427,7 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
             </button>
             <div
               class="hint hint-collapsed"
-              id=":r27:"
+              id=":r2f:"
             >
               <div
                 class="hint-wrapper"
@@ -1188,7 +1188,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
               </div>
             </div>
             <button
-              aria-controls=":r26:"
+              aria-controls=":r2e:"
               aria-expanded="false"
               class="explainToggle_1rvdp1e"
             >
@@ -1196,7 +1196,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
             </button>
             <div
               class="hint hint-collapsed"
-              id=":r26:"
+              id=":r2e:"
             >
               <div
                 class="hint-wrapper"
