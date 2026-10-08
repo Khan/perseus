@@ -209,10 +209,13 @@ describe("convertImageMarkdownToImageWidget", () => {
 
         // Assert
         // The conversion hard-codes version 0.0. If this fails, the image
-        // widget has a new version: update the conversion's version and
+        // widget has a newer version: update the conversion's version and
         // options together.
         expect(
             onEditorChange.mock.calls[0][0].widgets["image 1"].version,
+            // We default the version here because currently the `imageLogic`
+            // doesn't define a version. The system falls back to `0.0` in that
+            // case.
         ).toEqual(imageLogic.version ?? {major: 0, minor: 0});
     });
 
