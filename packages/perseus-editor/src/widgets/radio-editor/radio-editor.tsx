@@ -34,7 +34,6 @@ export interface RadioEditorProps {
     ) => void;
 }
 
-// JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for adding a radio widget that allows users to select a single option from multiple choices.
  */

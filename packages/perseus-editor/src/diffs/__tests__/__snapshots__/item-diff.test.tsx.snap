@@ -18,7 +18,7 @@ exports[`ItemDiff renders a diff view 1`] = `
           Question
         </div>
         <div
-          class="diff-body ui-helper-clearfix"
+          class="diff-body"
         >
           <div
             class="diff-row before"
@@ -105,7 +105,7 @@ exports[`ItemDiff renders a diff view 1`] = `
       Question extras
     </div>
     <div
-      class="diff-body ui-helper-clearfix"
+      class="diff-body"
     >
       <div>
         <div>
@@ -204,7 +204,7 @@ exports[`ItemDiff renders a diff view 1`] = `
           Hint 1
         </div>
         <div
-          class="diff-body ui-helper-clearfix"
+          class="diff-body"
         >
           <div
             class="diff-row before"
@@ -283,7 +283,7 @@ exports[`ItemDiff renders a diff view 1`] = `
           Hint 2
         </div>
         <div
-          class="diff-body ui-helper-clearfix"
+          class="diff-body"
         >
           <div
             class="diff-row before"

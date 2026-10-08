@@ -1,32 +1,18 @@
 import {Dependencies, KhanColors} from "@khanacademy/perseus";
 import * as React from "react";
 
-import {deprecatedChangeableChange} from "../../mixins/changeable";
-
 import ColorPicker from "./color-picker";
 import MathquillInput from "./mathquill-input";
 
-import type {ChangeableProps} from "../../mixins/changeable";
+import type {PerseusInteractionRectangleElementOptions} from "@khanacademy/perseus-core";
 
-type Props = ChangeableProps & {
-    color: string;
-    coordX: string;
-    coordY: string;
-    height: string;
-    width: string;
-};
-
-type DefaultProps = {
-    color: Props["color"];
-    coordX: Props["coordX"];
-    coordY: Props["coordY"];
-    height: Props["height"];
-    width: Props["width"];
-};
+interface Props extends PerseusInteractionRectangleElementOptions {
+    onChange: (options: PerseusInteractionRectangleElementOptions) => void;
+}
 
 // Editor for rectangles
 class RectangleEditor extends React.Component<Props> {
-    static defaultProps: DefaultProps = {
+    static defaultProps: PerseusInteractionRectangleElementOptions = {
         coordX: "-5",
         coordY: "5",
         width: "2",
@@ -34,9 +20,16 @@ class RectangleEditor extends React.Component<Props> {
         color: KhanColors.LIGHT_BLUE,
     };
 
-    change: (arg1: any, arg2?: any, arg3?: any) => any = (...args) => {
-        return deprecatedChangeableChange.apply(this, args);
-    };
+    handleChange(changes: Partial<PerseusInteractionRectangleElementOptions>) {
+        this.props.onChange({
+            coordX: this.props.coordX,
+            coordY: this.props.coordY,
+            width: this.props.width,
+            height: this.props.height,
+            color: this.props.color,
+            ...changes,
+        });
+    }
 
     render(): React.ReactNode {
         const {TeX} = Dependencies.getDependencies();
@@ -47,12 +40,12 @@ class RectangleEditor extends React.Component<Props> {
                     Bottom left: <TeX>\Large(</TeX>
                     <MathquillInput
                         value={this.props.coordX}
-                        onChange={this.change("coordX")}
+                        onChange={(coordX) => this.handleChange({coordX})}
                     />
                     <TeX>,</TeX>{" "}
                     <MathquillInput
                         value={this.props.coordY}
-                        onChange={this.change("coordY")}
+                        onChange={(coordY) => this.handleChange({coordY})}
                     />
                     <TeX>\Large)</TeX>
                 </div>
@@ -60,21 +53,21 @@ class RectangleEditor extends React.Component<Props> {
                     Width:{" "}
                     <MathquillInput
                         value={this.props.width}
-                        onChange={this.change("width")}
+                        onChange={(width) => this.handleChange({width})}
                     />
                 </div>
                 <div className="perseus-widget-row">
                     Height:{" "}
                     <MathquillInput
                         value={this.props.height}
-                        onChange={this.change("height")}
+                        onChange={(height) => this.handleChange({height})}
                     />
                 </div>
                 <div className="perseus-widget-row">
                     <ColorPicker
                         value={this.props.color}
                         lightColors={true}
-                        onChange={this.change("color")}
+                        onChange={(color) => this.handleChange({color})}
                     />
                 </div>
                 <div className="perseus-widget-row">

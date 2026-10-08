@@ -75,20 +75,22 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
           src="mockStaticUrl(https://example.com/test-image.png)"
         />
         <button
-          aria-controls=":rc:"
+          aria-controls=":r14:"
           aria-expanded="false"
           aria-label="Edit marker: First marker"
           class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
-          id=":rc:-anchor"
+          data-wb-floating-reference=":r16:"
+          id=":r14:-anchor"
           style="left: 25%; top: 25%;"
           type="button"
         />
         <button
-          aria-controls=":rd:"
+          aria-controls=":r17:"
           aria-expanded="false"
           aria-label="Edit marker: Second marker"
           class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
-          id=":rd:-anchor"
+          data-wb-floating-reference=":r19:"
+          id=":r17:-anchor"
           style="left: 50%; top: 50%;"
           type="button"
         />
@@ -416,20 +418,22 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
           src="mockStaticUrl(https://example.com/test-image.png)"
         />
         <button
-          aria-controls=":re:"
+          aria-controls=":r1a:"
           aria-expanded="false"
           aria-label="Edit marker: First marker"
           class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
-          id=":re:-anchor"
+          data-wb-floating-reference=":r1c:"
+          id=":r1a:-anchor"
           style="left: 25%; top: 25%;"
           type="button"
         />
         <button
-          aria-controls=":rf:"
+          aria-controls=":r1d:"
           aria-expanded="false"
           aria-label="Edit marker: Second marker"
           class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
-          id=":rf:-anchor"
+          data-wb-floating-reference=":r1f:"
+          id=":r1d:-anchor"
           style="left: 50%; top: 50%;"
           type="button"
         />
@@ -757,20 +761,22 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
           src="mockStaticUrl(https://example.com/test-image.png)"
         />
         <button
-          aria-controls=":ri:"
+          aria-controls=":r1m:"
           aria-expanded="false"
           aria-label="Edit marker: First marker"
           class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
-          id=":ri:-anchor"
+          data-wb-floating-reference=":r1o:"
+          id=":r1m:-anchor"
           style="left: 25%; top: 25%;"
           type="button"
         />
         <button
-          aria-controls=":rj:"
+          aria-controls=":r1p:"
           aria-expanded="false"
           aria-label="Edit marker: Second marker"
           class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
-          id=":rj:-anchor"
+          data-wb-floating-reference=":r1r:"
+          id=":r1p:-anchor"
           style="left: 50%; top: 50%;"
           type="button"
         />
@@ -1098,20 +1104,22 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
           src="mockStaticUrl(https://example.com/test-image.png)"
         />
         <button
-          aria-controls=":rg:"
+          aria-controls=":r1g:"
           aria-expanded="false"
           aria-label="Edit marker: First marker"
           class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
-          id=":rg:-anchor"
+          data-wb-floating-reference=":r1i:"
+          id=":r1g:-anchor"
           style="left: 25%; top: 25%;"
           type="button"
         />
         <button
-          aria-controls=":rh:"
+          aria-controls=":r1j:"
           aria-expanded="false"
           aria-label="Edit marker: Second marker"
           class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
-          id=":rh:-anchor"
+          data-wb-floating-reference=":r1l:"
+          id=":r1j:-anchor"
           style="left: 50%; top: 50%;"
           type="button"
         />
@@ -1439,20 +1447,22 @@ exports[`label-image-editor popover direction snapshots should render with UP po
           src="mockStaticUrl(https://example.com/test-image.png)"
         />
         <button
-          aria-controls=":ra:"
+          aria-controls=":ru:"
           aria-expanded="false"
           aria-label="Edit marker: First marker"
           class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
-          id=":ra:-anchor"
+          data-wb-floating-reference=":r10:"
+          id=":ru:-anchor"
           style="left: 25%; top: 25%;"
           type="button"
         />
         <button
-          aria-controls=":rb:"
+          aria-controls=":r11:"
           aria-expanded="false"
           aria-label="Edit marker: Second marker"
           class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
-          id=":rb:-anchor"
+          data-wb-floating-reference=":r13:"
+          id=":r11:-anchor"
           style="left: 50%; top: 50%;"
           type="button"
         />

@@ -9,12 +9,7 @@ import Checkbox from "../../components/checkbox";
 
 import styles from "./label-image-editor.module.css";
 
-export type PreferredPopoverDirection =
-    | "NONE"
-    | "UP"
-    | "DOWN"
-    | "LEFT"
-    | "RIGHT";
+import type {PreferredPopoverDirection} from "@khanacademy/perseus-core";
 
 type Props = {
     // Whether multiple answer choices may be selected for markers.
@@ -22,7 +17,7 @@ type Props = {
     // Whether to hide answer choices from user instructions.
     hideChoicesFromInstructions: boolean;
 
-    preferredPopoverDirection: PreferredPopoverDirection;
+    preferredPopoverDirection?: PreferredPopoverDirection;
     // Callback for when widget options change.
     onChange: (options: {
         multipleAnswers?: boolean;
