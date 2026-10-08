@@ -27,19 +27,35 @@ describe("number-line-editor", () => {
         expect(await screen.findByText("Correct x")).toBeInTheDocument();
     });
 
-    const relationships = ["lt", "gt", "le", "ge", "eq"];
-    relationships.forEach((rel) => {
+    const relationships = [
+        ["lt", "Less than"],
+        ["gt", "Greater than"],
+        ["le", "Less than or equal"],
+        ["ge", "Greater than or equal"],
+        ["eq", "Equal"],
+    ];
+    relationships.forEach(([rel, name]) => {
         it(`should be possible to set relationship to: ${rel}`, async () => {
             const onChangeMock = jest.fn();
 
-            render(<NumberLineEditor onChange={onChangeMock} />);
+            // Ensure a different option is selected initially; onChange
+            // doesn't fire if you re-select the option that's already selected.
+            const selected = name === "Equal" ? "lt" : "eq";
+            render(
+                <NumberLineEditor
+                    onChange={onChangeMock}
+                    correctRel={selected}
+                />,
+            );
 
-            const select = screen.getByRole("combobox", {
-                name: "Select relationship",
-            });
-            await userEvent.selectOptions(select, rel);
+            await userEvent.click(
+                screen.getByRole("combobox", {
+                    name: "Select relationship",
+                }),
+            );
+            await userEvent.click(screen.getByRole("option", {name}));
 
-            expect(onChangeMock).toHaveBeenCalledWith(
+            expect(onChangeMock).toHaveBeenLastCalledWith(
                 expect.objectContaining({correctRel: rel}),
             );
         });
@@ -53,7 +69,9 @@ describe("number-line-editor", () => {
         const input = screen.getByPlaceholderText("answer");
         await userEvent.type(input, "1");
 
-        expect(onChangeMock).toHaveBeenCalledWith({correctX: 1});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({correctX: 1}),
+        );
     });
 
     it("should be possible to update position", async () => {
@@ -64,7 +82,9 @@ describe("number-line-editor", () => {
         const input = screen.getByRole("textbox", {name: "Position: ∈"});
         await userEvent.type(input, "1");
 
-        expect(onChangeMock).toHaveBeenCalledWith({initialX: 1});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({initialX: 1}),
+        );
     });
 
     it("should be possible to update style", async () => {
@@ -74,7 +94,9 @@ describe("number-line-editor", () => {
 
         await userEvent.click(screen.getByTitle("Improper fractions"));
 
-        expect(onChangeMock).toHaveBeenCalledWith({labelStyle: "improper"});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({labelStyle: "improper"}),
+        );
     });
 
     it("should be possible to change show tick controller", async () => {
@@ -86,7 +108,9 @@ describe("number-line-editor", () => {
             screen.getByRole("checkbox", {name: "Show tick controller"}),
         );
 
-        expect(onChangeMock).toHaveBeenCalledWith({isTickCtrl: true});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({isTickCtrl: true}),
+        );
     });
 
     it("should be possible to change show label tickets", async () => {
@@ -98,7 +122,9 @@ describe("number-line-editor", () => {
             screen.getByRole("checkbox", {name: "Show label ticks"}),
         );
 
-        expect(onChangeMock).toHaveBeenCalledWith({labelTicks: false});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({labelTicks: false}),
+        );
     });
 
     it("should be possible to change show tooltips", async () => {
@@ -110,7 +136,9 @@ describe("number-line-editor", () => {
             screen.getByRole("checkbox", {name: "Show tooltips"}),
         );
 
-        expect(onChangeMock).toHaveBeenCalledWith({showTooltips: true});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({showTooltips: true}),
+        );
     });
 
     it("should be possible to update tick steps", async () => {
@@ -123,10 +151,12 @@ describe("number-line-editor", () => {
         });
         await userEvent.type(input, "6");
 
-        expect(onChangeMock).toHaveBeenCalledWith({
-            numDivisions: null,
-            tickStep: 6,
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                numDivisions: null,
+                tickStep: 6,
+            }),
+        );
     });
 
     it("should be possible to update snap divisions", async () => {
@@ -139,6 +169,8 @@ describe("number-line-editor", () => {
         });
         await userEvent.type(input, "6");
 
-        expect(onChangeMock).toHaveBeenCalledWith({snapDivisions: 26});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({snapDivisions: 26}),
+        );
     });
 });

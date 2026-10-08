@@ -58,6 +58,49 @@ const bioContent2 =
 const bioContent3 =
     "The nucleolus (a structure inside the nucleus where ribosomes are made) disappears during prophase. The mitotic spindle begins to form during prophase, starting at regions called centrosomes. These regions contain the material needed for building the spindle, and also function to regulate the spindle throughout mitosis.";
 
+const allAlignmentsArticle = generateTestPerseusRenderer({
+    content: `${bioContent1}\n\n[[☃ image 1]]\n\n${bioContent2}\n\n[[☃ image 2]]\n\n${bioContent3}\n\nMarkdown image\n\n![](web+graphie://ka-perseus-graphie.s3.amazonaws.com/1efa6780f129f3680a56f36ad7b2f26dab9327cf)\n\nBlock image\n\n[[☃ image 3]]\n\nFull-width image\n\n[[☃ image 4]]`,
+    images: {
+        "web+graphie://ka-perseus-graphie.s3.amazonaws.com/1efa6780f129f3680a56f36ad7b2f26dab9327cf":
+            {
+                width: 325,
+                height: 325,
+            },
+    },
+    widgets: {
+        "image 1": generateImageWidget({
+            alignment: "wrap-left",
+            options: generateImageOptions({
+                backgroundImage: scienceImage,
+                alt: scienceImageAlt,
+                caption: scienceImageCaption,
+            }),
+        }),
+        "image 2": generateImageWidget({
+            alignment: "wrap-right",
+            options: generateImageOptions({
+                backgroundImage: earthMoonImage,
+                alt: "Earth and Moon",
+                caption: earthMoonImageCaption,
+            }),
+        }),
+        "image 3": generateImageWidget({
+            alignment: "block",
+            options: generateImageOptions({
+                backgroundImage: frescoImage,
+                alt: "Fresco image - block",
+            }),
+        }),
+        "image 4": generateImageWidget({
+            alignment: "full-width",
+            options: generateImageOptions({
+                backgroundImage: frescoImage,
+                alt: "Fresco image - full-width",
+            }),
+        }),
+    },
+});
+
 const meta: Meta<PerseusImageWidgetOptions> = {
     title: "Widgets/Image/Visual Regression Tests/Initial State",
     tags: ["!autodocs", "!manifest"],
@@ -504,43 +547,7 @@ export const AllAlignmentsInSameArticle: Story = {
     render: function Render() {
         return (
             <div className="framework-perseus perseus-article">
-                <QuestionRendererForStories
-                    question={generateTestPerseusRenderer({
-                        content: `${bioContent1}\n\n[[☃ image 1]]\n\n${bioContent2}\n\n[[☃ image 2]]\n\n${bioContent3}\n\nBlock image\n\n[[☃ image 3]]\n\nFull-width image\n\n[[☃ image 4]]`,
-                        widgets: {
-                            "image 1": generateImageWidget({
-                                alignment: "wrap-left",
-                                options: generateImageOptions({
-                                    backgroundImage: scienceImage,
-                                    alt: scienceImageAlt,
-                                    caption: scienceImageCaption,
-                                }),
-                            }),
-                            "image 2": generateImageWidget({
-                                alignment: "wrap-right",
-                                options: generateImageOptions({
-                                    backgroundImage: earthMoonImage,
-                                    alt: "Earth and Moon",
-                                    caption: earthMoonImageCaption,
-                                }),
-                            }),
-                            "image 3": generateImageWidget({
-                                alignment: "block",
-                                options: generateImageOptions({
-                                    backgroundImage: frescoImage,
-                                    alt: "Fresco image - block",
-                                }),
-                            }),
-                            "image 4": generateImageWidget({
-                                alignment: "full-width",
-                                options: generateImageOptions({
-                                    backgroundImage: frescoImage,
-                                    alt: "Fresco image - full-width",
-                                }),
-                            }),
-                        },
-                    })}
-                />
+                <QuestionRendererForStories question={allAlignmentsArticle} />
             </div>
         );
     },
@@ -556,43 +563,7 @@ export const AllAlignmentsInSameArticleMobile: Story = {
     render: function Render() {
         return (
             <div className="framework-perseus perseus-mobile perseus-article">
-                <QuestionRendererForStories
-                    question={generateTestPerseusRenderer({
-                        content: `${bioContent1}\n\n[[☃ image 1]]\n\n${bioContent2}\n\n[[☃ image 2]]\n\n${bioContent3}\n\nBlock image\n\n[[☃ image 3]]\n\nFull-width image\n\n[[☃ image 4]]`,
-                        widgets: {
-                            "image 1": generateImageWidget({
-                                alignment: "wrap-left",
-                                options: generateImageOptions({
-                                    backgroundImage: scienceImage,
-                                    alt: scienceImageAlt,
-                                    caption: scienceImageCaption,
-                                }),
-                            }),
-                            "image 2": generateImageWidget({
-                                alignment: "wrap-right",
-                                options: generateImageOptions({
-                                    backgroundImage: earthMoonImage,
-                                    alt: "Earth and Moon",
-                                    caption: earthMoonImageCaption,
-                                }),
-                            }),
-                            "image 3": generateImageWidget({
-                                alignment: "block",
-                                options: generateImageOptions({
-                                    backgroundImage: frescoImage,
-                                    alt: "Fresco image - block",
-                                }),
-                            }),
-                            "image 4": generateImageWidget({
-                                alignment: "full-width",
-                                options: generateImageOptions({
-                                    backgroundImage: frescoImage,
-                                    alt: "Fresco image - full-width",
-                                }),
-                            }),
-                        },
-                    })}
-                />
+                <QuestionRendererForStories question={allAlignmentsArticle} />
             </div>
         );
     },

@@ -174,6 +174,7 @@ const Table = forwardRef<Widget, Props>(function Table(props, ref) {
                             content={header}
                             linterContext={props.linterContext}
                             strings={strings}
+                            apiOptions={props.apiOptions}
                         />
                     </th>
                 );

@@ -38,16 +38,20 @@ exports[`Dropdown widget should snapshot when opened: dropdown open 1`] = `
                   class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_awxjrp"
                 >
                   <div
-                    class="perseus-renderer perseus-renderer-responsive"
+                    class="perseus-in-wb-popover"
                   >
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="0"
+                      class="perseus-renderer perseus-renderer-responsive"
                     >
                       <div
                         class="paragraph"
+                        data-perseus-paragraph-index="0"
                       >
-                        greater/less than or equal to
+                        <div
+                          class="paragraph"
+                        >
+                          greater/less than or equal to
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -117,16 +121,20 @@ exports[`Dropdown widget should snapshot: initial render 1`] = `
                   class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_awxjrp"
                 >
                   <div
-                    class="perseus-renderer perseus-renderer-responsive"
+                    class="perseus-in-wb-popover"
                   >
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="0"
+                      class="perseus-renderer perseus-renderer-responsive"
                     >
                       <div
                         class="paragraph"
+                        data-perseus-paragraph-index="0"
                       >
-                        greater/less than or equal to
+                        <div
+                          class="paragraph"
+                        >
+                          greater/less than or equal to
+                        </div>
                       </div>
                     </div>
                   </div>
