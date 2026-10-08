@@ -111,11 +111,6 @@ class NumberInput extends React.Component<Props, any> {
         return this.parseInputValue(this._getInput().value);
     };
 
-    /* Return the current string value of this input */
-    getStringValue: () => string = () => {
-        return this._getInput().toString();
-    };
-
     parseInputValue: (arg1: any) => any = (value) => {
         if (value === "") {
             const placeholder = this.props.placeholder;
@@ -134,27 +129,6 @@ class NumberInput extends React.Component<Props, any> {
     blur: () => void = () => {
         this._getInput().blur();
         this._handleBlur();
-    };
-
-    // TODO(benchristel): setSelectionRange appears to be unused. Confirm and
-    //  delete.
-    setSelectionRange: (arg1: number, arg2: number) => void = (
-        selectionStart,
-        selectionEnd,
-    ) => {
-        this._getInput().setSelectionRange(selectionStart, selectionEnd);
-    };
-
-    // TODO(benchristel): getSelectionStart appears to be unused. Confirm and
-    //  delete.
-    getSelectionStart: () => number | null = () => {
-        return this._getInput().selectionStart;
-    };
-
-    // TODO(benchristel): getSelectionEnd appears to be unused. Confirm and
-    //  delete.
-    getSelectionEnd: () => number | null = () => {
-        return this._getInput().selectionEnd;
     };
 
     _checkValidity: (arg1: any) => boolean = (value) => {
