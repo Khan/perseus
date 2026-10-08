@@ -1,6 +1,5 @@
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {focusStyles} from "@khanacademy/wonder-blocks-styles";
 import {semanticColor, border, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
@@ -141,6 +140,21 @@ const pillStyles = StyleSheet.create({
 
 const styles: Record<string, any> = {};
 
+/**
+ * A global focus style that can be applied to interactive elements.
+ *
+ * This style injects a combination of `outline` and `box-shadow` to indicate
+ * the element is focused. This is used for accessibility purposes as it allows
+ * the element to present a focus state on Windows High Contrast mode.
+ */
+const focus = {
+    ":focus-visible": {
+        boxShadow: `0 0 0 ${border.width.medium} ${semanticColor.focus.inner}`,
+        outline: `${border.width.medium} solid ${semanticColor.focus.outer}`,
+        outlineOffset: border.width.medium,
+    },
+};
+
 const _generateColorStyles = (clickable: boolean) => {
     const pillType = `${clickable.toString()}`;
     if (styles[pillType]) {
@@ -190,7 +204,7 @@ const _generateColorStyles = (clickable: boolean) => {
                 outline: `${border.width.medium} solid ${theme.press.border}`,
                 outlineOffset: sizing.size_020,
             },
-            ...focusStyles.focus,
+            ...focus,
         },
     };
 
