@@ -6,9 +6,9 @@
 import {Widgets, widgets} from "@khanacademy/perseus";
 
 import allEditors from "../all-editors";
-import * as WidgetEditors from "../editor-registry";
+import * as WidgetEditorRegistry from "../widget-editor-registry";
 
 export const registerAllWidgetsAndEditorsForTesting = () => {
     Widgets.registerWidgets(widgets);
-    WidgetEditors.registerEditors(allEditors);
+    WidgetEditorRegistry.registerEditors(allEditors);
 };
