@@ -1,4 +1,3 @@
-import Pill from "@khanacademy/wonder-blocks-pill";
 import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, type CSSProperties} from "aphrodite";
 import * as React from "react";
@@ -7,6 +6,8 @@ import {Popper} from "react-popper";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 import Renderer from "../../renderer";
+
+import Pill from "./pill";
 
 const BringToFront: CSSProperties = {
     boxShadow: `0 8px 8px ${semanticColor.core.border.neutral.default}`,
