@@ -87,7 +87,7 @@ class NumberInput extends React.Component<Props, any> {
         }
     }
 
-    componentDidUpdate(prevProps: any) {
+    componentDidUpdate() {
         if (!knumber.equal(this.getValue(), this.props.value)) {
             this._setValue(this.props.value, this.state.format);
         }
