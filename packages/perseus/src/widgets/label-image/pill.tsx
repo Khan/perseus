@@ -1,25 +1,12 @@
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {semanticColor, border, sizing} from "@khanacademy/wonder-blocks-tokens";
-import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import type {ClickableRole} from "@khanacademy/wonder-blocks-clickable";
 import type {StyleType, AriaProps} from "@khanacademy/wonder-blocks-core";
 import type {Typography} from "@khanacademy/wonder-blocks-typography";
 import type {StyleDeclaration} from "aphrodite";
-
-export type PillKind =
-    | "neutral"
-    | "accent"
-    | "info"
-    | "success"
-    | "warning"
-    | "critical"
-    | "transparent";
-
-export type PillSize = "small" | "medium" | "large";
 
 type Props = AriaProps & {
     /**
@@ -29,18 +16,7 @@ type Props = AriaProps & {
     /**
      * The text to display within the pill.
      */
-    children: string | React.ReactElement<React.ComponentProps<Typography>>;
-    /**
-     * The role the pill should have depending on its behavior.
-     * By default, it has none. If pill is Clickable, this is automatically
-     * set to “button".
-     *
-     * Role should be set according to the pill's behavior. For example,
-     * if the pill is used as a tab in a tabbed panel, set its role to "tab".
-     * If pills are being selected or deselected from a list, they should
-     * probably have a role of "checkbox".
-     */
-    role?: ClickableRole;
+    children: React.ReactElement<React.ComponentProps<Typography>>;
     /**
      * Called when the pill is clicked.
      */
@@ -49,38 +25,13 @@ type Props = AriaProps & {
      * Custom styles to add to this pill component.
      */
     style?: StyleType;
-    /**
-     * The tab index of the pill (clickable only).
-     */
-    tabIndex?: number;
-    /**
-     * Optional test ID for e2e testing.
-     */
-    testId?: string;
 };
 
-const PillInner = (props: {
-    children: string | React.ReactElement<React.ComponentProps<Typography>>;
-}) => {
-    const {children} = props;
-
-    if (typeof children !== "string") {
-        return children;
-    }
-
-    return <BodyText tag="span">{children}</BodyText>;
-};
-
-/**
- * A `Pill` component displays text in a rounded, colored container. This is
- * usually used to add label tags.
- */
 const Pill = React.forwardRef(function Pill(
     props: Props,
     ref: React.ForwardedRef<HTMLElement | HTMLButtonElement>,
 ) {
-    const {id, children, role, onClick, style, tabIndex, testId, ...ariaProps} =
-        props;
+    const {id, children, role, onClick, style, ...ariaProps} = props;
 
     const wrapperSizeStyle = pillStyles.wrapperLarge;
 
@@ -96,16 +47,13 @@ const Pill = React.forwardRef(function Pill(
         return (
             <Clickable
                 id={id}
-                role={role}
                 onClick={onClick}
                 style={[defaultStyles, colorStyles.clickableWrapper, style]}
-                testId={testId}
                 // eslint-disable-next-line no-restricted-syntax
                 ref={ref as React.ForwardedRef<HTMLButtonElement>}
-                tabIndex={tabIndex}
                 {...ariaProps}
             >
-                {() => <PillInner>{children}</PillInner>}
+                {() => children}
             </Clickable>
         );
     }
@@ -115,12 +63,11 @@ const Pill = React.forwardRef(function Pill(
             id={id}
             role={role}
             style={[defaultStyles, style]}
-            testId={testId}
             // eslint-disable-next-line no-restricted-syntax
             ref={ref as React.ForwardedRef<HTMLElement>}
             {...ariaProps}
         >
-            <PillInner>{children}</PillInner>
+            {children}
         </View>
     );
 });
