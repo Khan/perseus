@@ -60,8 +60,6 @@ class NumberInput extends React.Component<Props, any> {
         onFormatChange: PropTypes.func,
         checkValidity: PropTypes.func,
         size: PropTypes.oneOf(["mini", "small", "normal"]),
-        // FIXME: delete label
-        label: PropTypes.oneOf(["put your labels outside your inputs!"]),
         allowPiTruncation: PropTypes.bool,
     };
 
