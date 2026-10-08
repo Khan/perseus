@@ -3,6 +3,7 @@
        to inline styles using Aphrodite, but this is a hacky "reach-in" into
        descendent widgets that we can't modify */
 }
-.perseus-widget-matcher div.paragraph {
+.perseus-widget-matcher div.paragraph,
+.perseus-widget-matcher :is(div, p).deprecated-perseus-container {
     margin: 0;
 }

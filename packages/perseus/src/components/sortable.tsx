@@ -15,6 +15,7 @@ import Util from "../util";
 
 import {PerseusI18nContext} from "./i18n-context";
 
+import type {APIOptions} from "../types";
 import type {Position} from "../util";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
@@ -72,6 +73,7 @@ class Placeholder extends React.Component<PlaceholderProps> {
 }
 
 type DraggableProps = {
+    apiOptions: APIOptions;
     content: string;
     endPosition?: {left: number; top: number};
     includePadding: boolean;
@@ -398,6 +400,7 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
                     )}
                     onRender={this.props.onRender}
                     strings={this.context.strings}
+                    apiOptions={this.props.apiOptions}
                 />
             </li>
         );
@@ -407,6 +410,7 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
 export type SortableOption = string;
 
 type SortableProps = {
+    apiOptions: APIOptions;
     constraints:
         | {
               width: number;
@@ -836,6 +840,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
 
             cards.push(
                 <Draggable
+                    apiOptions={this.props.apiOptions}
                     content={item.option}
                     key={item.key}
                     state={item.state}

@@ -13,7 +13,7 @@ import _ from "underscore";
 
 import Lint from "./components/lint";
 import {getDependencies} from "./dependencies";
-import {noParagraphForInlineWidget} from "./util";
+import {isContentGraphie, noParagraphForInlineWidget} from "./util";
 
 /**
  * These rules are the same as the pure-markdown rules, but with some
@@ -280,14 +280,24 @@ const rules = {
     paragraph: {
         ...pureMarkdownRules.paragraph,
         react: (node, output, state) => {
+            const content = output(node.content, state);
+
+            if (isContentGraphie(node)) {
+                return (
+                    <div className="deprecated-perseus-container">
+                        {content}
+                    </div>
+                );
+            }
+
             if (noParagraphForInlineWidget(node)) {
                 // Some widgets can appear inline with text, but
                 // shouldn't be contained by a <p> element, so just render the
                 // content and let the parent handle layout, etc.
-                return output(node.content, state);
-            } else {
-                return <p>{output(node.content, state)}</p>;
+                return content;
             }
+
+            return <p className="deprecated-perseus-container">{content}</p>;
         },
     },
 } as const;
