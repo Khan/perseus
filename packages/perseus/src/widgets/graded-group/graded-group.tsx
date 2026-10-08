@@ -4,7 +4,7 @@ import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
-import {useState, useRef, useImperativeHandle, forwardRef} from "react";
+import {useState, useRef, useId, useImperativeHandle, forwardRef} from "react";
 import _ from "underscore";
 
 import {usePerseusI18n} from "../../components/i18n-context";
@@ -17,6 +17,7 @@ import UserInputManager from "../../user-input-manager";
 import {getPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
 
 import GradedGroupAnswerBar from "./graded-group-answer-bar";
+import cssModuleStyles from "./graded-group.module.css";
 
 import type {AnswerBarState, GradingStatus} from "./graded-group-answer-bar";
 import type {
@@ -69,6 +70,7 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
 
         const rendererRef = useRef<Renderer | null>(null);
         const hintRendererRef = useRef<Renderer | null>(null);
+        const hintId = useId();
 
         useOnMountEffect(() => {
             dependencies.analytics.onAnalyticsEvent({
@@ -88,8 +90,6 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
             },
 
             getPromptJSON(): GradedGroupPromptJSON {
-                // If the hint isn't expanded, we can't get the prompt JSON from the rendered widgets.
-                // We'll just pass in the hint content as a string instead.
                 const hint = hintRendererRef.current?.getPromptJSON() || {
                     content: props.options.hint?.content || "",
                     widgets: {},
@@ -231,75 +231,72 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                         props.widgetId,
                     )}
 
-                {props.options.hint?.content &&
-                    (showHint ? (
-                        <div>
-                            {/* Not using Button here bc the styles won't work. */}
-                            <button
-                                // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
-                                tabIndex="0"
-                                className={css(styles.explanationTitle)}
-                                onClick={() => setShowHint(false)}
-                                onKeyPress={(e) => {
-                                    // preventDefault stops the screen from scrolling down on keypress
-                                    e.preventDefault();
-                                    setShowHint(false);
-                                }}
-                            >
-                                {strings.hideExplanation}
-                            </button>
-
-                            <UserInputManager
-                                widgets={props.options.hint.widgets}
-                                problemNum={props.problemNum ?? 0}
-                            >
-                                {({
-                                    userInput,
-                                    handleUserInput,
-                                    initializeUserInput,
-                                }) => {
-                                    // we did a check above to make sure hints exists
-                                    // TODO(benchristel): extract a renderHint
-                                    //  function; then we can remove this cast.
-                                    // eslint-disable-next-line no-restricted-syntax
-                                    const {content, widgets, images} = props
-                                        .options.hint as PerseusRenderer;
-                                    return (
-                                        <Renderer
-                                            content={content}
-                                            widgets={widgets}
-                                            images={images}
-                                            userInput={userInput}
-                                            handleUserInput={handleUserInput}
-                                            initializeUserInput={
-                                                initializeUserInput
-                                            }
-                                            ref={hintRendererRef}
-                                            apiOptions={apiOptions}
-                                            linterContext={props.linterContext}
-                                            strings={strings}
-                                            showSolutions={showSolutions}
-                                        />
-                                    );
-                                }}
-                            </UserInputManager>
-                        </div>
-                    ) : (
-                        // Not using Button here bc the styles won't work.
+                {props.options.hint?.content && (
+                    <>
+                        {/* Not using WB Button here bc the styles won't work. */}
                         <button
-                            // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
-                            tabIndex="0"
-                            onClick={() => setShowHint(true)}
-                            onKeyPress={(e) => {
-                                // preventDefault stops the screen from scrolling down on keypress
-                                e.preventDefault();
-                                setShowHint(true);
-                            }}
-                            className={css(styles.showHintLink)}
+                            aria-expanded={showHint}
+                            aria-controls={hintId}
+                            className={css(styles.explainToggle)}
+                            onClick={() => setShowHint(!showHint)}
                         >
-                            {strings.explain}
+                            {showHint
+                                ? strings.hideExplanation
+                                : strings.explain}
                         </button>
-                    ))}
+
+                        <div
+                            id={hintId}
+                            className={classNames(
+                                cssModuleStyles.hint,
+                                showHint
+                                    ? cssModuleStyles.hintExpanded
+                                    : cssModuleStyles.hintCollapsed,
+                            )}
+                        >
+                            <div className={cssModuleStyles.hintWrapper}>
+                                <UserInputManager
+                                    widgets={props.options.hint.widgets}
+                                    problemNum={props.problemNum ?? 0}
+                                >
+                                    {({
+                                        userInput,
+                                        handleUserInput,
+                                        initializeUserInput,
+                                    }) => {
+                                        // we did a check above to make sure hints exists
+                                        // TODO(benchristel): extract a renderHint
+                                        //  function; then we can remove this cast.
+                                        // eslint-disable-next-line no-restricted-syntax
+                                        const {content, widgets, images} = props
+                                            .options.hint as PerseusRenderer;
+                                        return (
+                                            <Renderer
+                                                content={content}
+                                                widgets={widgets}
+                                                images={images}
+                                                userInput={userInput}
+                                                handleUserInput={
+                                                    handleUserInput
+                                                }
+                                                initializeUserInput={
+                                                    initializeUserInput
+                                                }
+                                                ref={hintRendererRef}
+                                                apiOptions={apiOptions}
+                                                linterContext={
+                                                    props.linterContext
+                                                }
+                                                strings={strings}
+                                                showSolutions={showSolutions}
+                                            />
+                                        );
+                                    }}
+                                </UserInputManager>
+                            </div>
+                        </div>
+                    </>
+                )}
                 <GradedGroupAnswerBar
                     apiOptions={apiOptions}
                     invalidMessage={message}
@@ -332,7 +329,7 @@ const styles = StyleSheet.create({
         width: "auto",
     },
 
-    showHintLink: {
+    explainToggle: {
         backgroundColor: "unset",
         fontSize: font.body.size.small,
         padding: 0,
@@ -340,19 +337,6 @@ const styles = StyleSheet.create({
         marginBlockStart: 20,
         color: semanticColor.core.foreground.instructive.default,
         cursor: "pointer",
-        display: "block",
-        clear: "both",
-    },
-
-    explanationTitle: {
-        backgroundColor: "unset",
-        marginBlockStart: 20,
-        color: semanticColor.core.foreground.instructive.default,
-        marginBlockEnd: 10,
-        cursor: "pointer",
-        fontSize: font.body.size.small,
-        padding: 0,
-        border: "none",
         display: "block",
         clear: "both",
     },

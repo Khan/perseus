@@ -320,7 +320,7 @@ describe("graded-group", () => {
         ).not.toBeInTheDocument();
     });
 
-    it("should be able to reveal the hint", async () => {
+    it("expands the hint when Explain is clicked", async () => {
         // Arrange
         renderQuestion(question1);
 
@@ -330,11 +330,11 @@ describe("graded-group", () => {
 
         // Assert
         expect(
-            screen.getByText(/Some bacteria synthesize their own fuel/),
-        ).toBeVisible();
+            screen.getByRole("button", {name: "Hide explanation"}),
+        ).toHaveAttribute("aria-expanded", "true");
     });
 
-    it("should be able to hide the hint", async () => {
+    it("collapses the hint when Hide explanation is clicked", async () => {
         // Arrange
         renderQuestion(question1);
         await userEvent.click(screen.getByRole("button", {name: "Explain"}));
@@ -346,9 +346,10 @@ describe("graded-group", () => {
         );
 
         // Assert
-        expect(
-            screen.queryByText(/Some bacteria synthesize their own fuel/),
-        ).not.toBeInTheDocument();
+        expect(screen.getByRole("button", {name: "Explain"})).toHaveAttribute(
+            "aria-expanded",
+            "false",
+        );
     });
 
     it("should show rationales when answer is correct", async () => {
