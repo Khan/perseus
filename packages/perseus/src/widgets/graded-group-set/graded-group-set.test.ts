@@ -110,7 +110,7 @@ describe("graded group set widget", () => {
         await userEvent.click(screen.getByRole("button", {name: "Check"}));
 
         // Assert
-        expect(screen.getByRole("alert")).toHaveTextContent("Incorrect");
+        expect(screen.getByText("Keep trying")).toBeVisible();
         expect(
             screen.queryByRole("button", {name: "Next question"}),
         ).toBeNull();
@@ -331,7 +331,7 @@ describe("graded group set widget", () => {
         await userEvent.click(screen.getByRole("button", {name: "Check"}));
 
         // Assert
-        expect(screen.getByRole("alert", {name: "Correct"})).toBeVisible();
+        expect(screen.getByRole("alert", {name: "Correct!"})).toBeVisible();
         // Verify the rationale for the correct answer is shown
         expect(screen.getByText("This is the correct answer.")).toBeVisible();
     });
@@ -347,7 +347,7 @@ describe("graded group set widget", () => {
         await userEvent.click(screen.getByRole("button", {name: "Check"}));
 
         // Assert
-        expect(screen.getByRole("alert", {name: "Incorrect"})).toBeVisible();
+        expect(screen.getByText("Keep trying")).toBeVisible();
         // Verify that rationales are not shown
         expect(
             screen.queryByText("This is not the correct answer."),
