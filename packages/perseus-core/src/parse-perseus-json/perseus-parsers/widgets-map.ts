@@ -225,6 +225,16 @@ const parseWidgetsMapEntry: (
                 `passage-ref-target ${n}`,
                 parseDeprecatedWidget("passage-ref-target"),
             );
+        case "reaction-diagram":
+            return parseAndAssign(
+                `reaction-diagram ${n}`,
+                parseDeprecatedWidget("reaction-diagram"),
+            );
+        case "unit-input":
+            return parseAndAssign(
+                `unit-input ${n}`,
+                parseDeprecatedWidget("unit-input"),
+            );
 
         default:
             return parseAndAssign(

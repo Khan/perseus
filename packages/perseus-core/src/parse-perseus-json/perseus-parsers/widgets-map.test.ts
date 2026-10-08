@@ -1,6 +1,9 @@
 // `import/no-restricted-paths` keeps the parsers self-contained: they may not
 // import from the rest of perseus-core. Tests can override that restriction,
 // while main files cannot — hence the disables on the imports below.
+
+// eslint-disable-next-line import/no-restricted-paths
+import {DeprecatedWidgetTypes} from "../../data-schema";
 import {
     generateDefinitionOptions,
     generateDefinitionWidget,
@@ -871,4 +874,58 @@ describe("parseWidgetsMap", () => {
 
         expect(result).toEqual(success(widgetsMap));
     });
+
+    it("accepts a reaction-diagram widget", () => {
+        const widgetsMap: unknown = {
+            "reaction-diagram 1": {
+                type: "reaction-diagram",
+                version: {major: 0, minor: 0},
+                options: {
+                    smiles: ["C", "O"],
+                    rotationAngle: [0, 0],
+                },
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
+    it("accepts a unit-input widget", () => {
+        const widgetsMap: unknown = {
+            "unit-input 1": {
+                type: "unit-input",
+                version: {major: 0, minor: 0},
+                graded: true,
+                options: {
+                    value: "5x10^5 kg",
+                    sigfigs: 3,
+                },
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
+    // Unknown widget types accept any options, so rejecting non-object options
+    // shows that these types are parsed as deprecated widgets.
+    it.each(DeprecatedWidgetTypes)(
+        "rejects a %s widget whose options aren't an object",
+        (type) => {
+            const widgetsMap: unknown = {
+                [`${type} 1`]: {
+                    type,
+                    version: {major: 0, minor: 0},
+                    options: "not an object",
+                },
+            };
+
+            const result = parse(widgetsMap, parseWidgetsMap);
+
+            expect(result).toEqual(anyFailure);
+        },
+    );
 });
