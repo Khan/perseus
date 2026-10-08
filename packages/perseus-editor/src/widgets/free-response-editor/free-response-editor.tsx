@@ -11,6 +11,7 @@ import trashIcon from "@phosphor-icons/core/regular/trash.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import type {WidgetEditorRefHandle} from "../types";
 import type {APIOptions} from "@khanacademy/perseus";
 import type {
     PerseusFreeResponseWidgetOptions,
@@ -26,7 +27,10 @@ type Props = PerseusFreeResponseWidgetOptions & {
 /**
  * An editor for adding a free response widget that allows users to enter open-ended text answers.
  */
-class FreeResponseEditor extends React.Component<Props> {
+class FreeResponseEditor
+    extends React.Component<Props>
+    implements WidgetEditorRefHandle
+{
     static defaultProps = {
         ...freeResponseLogic.defaultWidgetOptions,
     };

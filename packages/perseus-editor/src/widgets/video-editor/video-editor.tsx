@@ -6,6 +6,8 @@ import * as React from "react";
 
 import VideoSettings from "./video-settings";
 
+import type {WidgetEditorRefHandle} from "../types";
+
 export interface VideoEditorProps extends PerseusVideoWidgetOptions {
     onChange: (options: PerseusVideoWidgetOptions) => void;
 }
@@ -13,7 +15,10 @@ export interface VideoEditorProps extends PerseusVideoWidgetOptions {
 /**
  * This is the main editor for this widget, to specify all the options.
  */
-class VideoEditor extends React.Component<VideoEditorProps> {
+class VideoEditor
+    extends React.Component<VideoEditorProps>
+    implements WidgetEditorRefHandle
+{
     static defaultProps: PerseusVideoWidgetOptions =
         videoLogic.defaultWidgetOptions;
 

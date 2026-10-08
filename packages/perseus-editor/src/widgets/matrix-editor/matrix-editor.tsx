@@ -6,6 +6,7 @@ import _ from "underscore";
 import Editor from "../../editor";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
+import type {WidgetEditorRefHandle} from "../types";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {PerseusMatrixWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -22,7 +23,10 @@ interface Props extends PerseusMatrixWidgetOptions {
     onChange: (options: PerseusMatrixWidgetOptions) => void;
 }
 
-class MatrixEditor extends React.Component<Props> {
+class MatrixEditor
+    extends React.Component<Props>
+    implements WidgetEditorRefHandle
+{
     static defaultProps: PerseusMatrixWidgetOptions =
         matrixLogic.defaultWidgetOptions;
 

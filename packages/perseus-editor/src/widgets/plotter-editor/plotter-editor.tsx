@@ -9,6 +9,7 @@ import BlurInput from "../../components/blur-input";
 import InfoTip from "../../components/info-tip";
 import TextListEditor from "../../components/text-list-editor";
 
+import type {WidgetEditorRefHandle} from "../types";
 import type {APIOptions} from "@khanacademy/perseus";
 import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -72,7 +73,10 @@ const formatNumber = (num) => "$" + knumber.round(num, 2) + "$";
 /**
  * An editor for adding a plotter widget that allows users to create and customize data visualizations.
  */
-class PlotterEditor extends React.Component<Props, State> {
+class PlotterEditor
+    extends React.Component<Props, State>
+    implements WidgetEditorRefHandle
+{
     static defaultProps: PerseusPlotterWidgetOptions =
         plotterLogic.defaultWidgetOptions;
 

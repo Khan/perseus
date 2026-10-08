@@ -9,6 +9,7 @@ import EditorJsonify from "../../mixins/editor-jsonify";
 import ImageSettings from "./components/image-settings";
 import ImageUrlInput from "./components/image-url-input";
 
+import type {WidgetEditorRefHandle} from "../types";
 import type {APIOptions} from "@khanacademy/perseus";
 
 interface Props extends PerseusImageWidgetOptions {
@@ -20,7 +21,10 @@ interface Props extends PerseusImageWidgetOptions {
 /**
  * An editor for adding an image widget that allows users to display and configure images within content.
  */
-class ImageEditor extends React.Component<Props> {
+class ImageEditor
+    extends React.Component<Props>
+    implements WidgetEditorRefHandle
+{
     static displayName = "ImageEditor";
 
     static defaultProps: PerseusImageWidgetOptions =

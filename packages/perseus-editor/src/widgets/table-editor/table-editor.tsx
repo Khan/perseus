@@ -9,6 +9,7 @@ import _ from "underscore";
 import InfoTip from "../../components/info-tip";
 import Editor from "../../editor";
 
+import type {WidgetEditorRefHandle} from "../types";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -20,7 +21,10 @@ interface Props extends PerseusTableWidgetOptions {
     apiOptions?: APIOptionsWithDefaults;
 }
 
-class TableEditor extends React.Component<Props> {
+class TableEditor
+    extends React.Component<Props>
+    implements WidgetEditorRefHandle
+{
     static defaultProps: PerseusTableWidgetOptions =
         tableLogic.defaultWidgetOptions;
 

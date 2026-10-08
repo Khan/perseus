@@ -11,6 +11,7 @@ import styles from "./label-image-editor.module.css";
 import QuestionMarkers from "./question-markers";
 import SelectImage from "./select-image";
 
+import type {WidgetEditorRefHandle} from "../types";
 import type {APIOptions} from "@khanacademy/perseus";
 import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
@@ -27,7 +28,10 @@ export interface Props extends PerseusLabelImageWidgetOptions {
  * that involve the use of images, and enable learners to demonstrate their
  * knowledge by directly interacting with the image.
  */
-class LabelImageEditor extends React.Component<Props> {
+class LabelImageEditor
+    extends React.Component<Props>
+    implements WidgetEditorRefHandle
+{
     private _questionMarkers: QuestionMarkers | null | undefined;
 
     static defaultProps: PerseusLabelImageWidgetOptions =
@@ -75,7 +79,7 @@ class LabelImageEditor extends React.Component<Props> {
 
     // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
     // the new linter rules for save warnings.
-    getSaveWarnings: () => ReadonlyArray<any | string> = () => {
+    getSaveWarnings(): string[] {
         const {choices, imageAlt, imageUrl, markers} = this.props;
 
         const warnings: Array<string> = [];
@@ -126,7 +130,7 @@ class LabelImageEditor extends React.Component<Props> {
         }
 
         return warnings;
-    };
+    }
 
     serialize(): any {
         return EditorJsonify.serialize.call(this);

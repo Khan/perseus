@@ -1,6 +1,7 @@
 import {fillInTheBlankLogic, isFeatureOn} from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import type {WidgetEditorRefHandle} from "../types";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {PerseusFillInTheBlankWidgetOptions} from "@khanacademy/perseus-core";
 
@@ -15,10 +16,10 @@ type Props = PerseusFillInTheBlankWidgetOptions & {
 /**
  * Imperative API that WidgetEditor calls
  */
-type FillInTheBlankEditorHandle = {
+interface FillInTheBlankEditorHandle extends WidgetEditorRefHandle {
     serialize: () => PerseusFillInTheBlankWidgetOptions;
     getSaveWarnings: () => string[];
-};
+}
 
 /**
  * An editor for a Fill in the Blank widget, where the learner drags answer

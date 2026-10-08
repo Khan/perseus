@@ -21,6 +21,7 @@ import type {UserEvent} from "@testing-library/user-event";
  * the type from the component keeps these tests tied to the contract rather than
  * to how the component happens to be written.
  */
+// TODO: Remove and use WidgetEditorRefHandle
 type SorterEditorHandle = React.ElementRef<typeof SorterEditor>;
 
 /**

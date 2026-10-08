@@ -5,6 +5,7 @@ import * as React from "react";
 import {deprecatedChangeableChange} from "../../mixins/changeable";
 
 import type {ChangeableProps} from "../../mixins/changeable";
+import type {WidgetEditorRefHandle} from "../types";
 import type {PerseusPythonProgramWidgetOptions} from "@khanacademy/perseus-core";
 
 const {NumberInput, TextInput} = components;
@@ -35,7 +36,10 @@ export function validateOptions(
 /**
  * An editor for adding a Python program widget that allows users to write, edit and execute Python code.
  */
-class PythonProgramEditor extends React.Component<Props> {
+class PythonProgramEditor
+    extends React.Component<Props>
+    implements WidgetEditorRefHandle
+{
     static defaultProps: PerseusPythonProgramWidgetOptions =
         pythonProgramLogic.defaultWidgetOptions;
 

@@ -13,6 +13,7 @@ import InfoTip from "../../components/info-tip";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {ChangeableProps} from "../../mixins/changeable";
+import type {WidgetEditorRefHandle} from "../types";
 
 const {ButtonGroup, NumberInput, RangeInput} = components;
 
@@ -49,7 +50,10 @@ type Props = {
  * An editor for adding a number line widget that allows users to mark
  * positions, intervals, and points on a number line.
  */
-class NumberLineEditor extends React.Component<Props> {
+class NumberLineEditor
+    extends React.Component<Props>
+    implements WidgetEditorRefHandle
+{
     static defaultProps: PerseusNumberLineWidgetOptions =
         numberLineLogic.defaultWidgetOptions;
 

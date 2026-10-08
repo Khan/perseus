@@ -7,6 +7,7 @@ import _ from "underscore";
 import TextListEditor from "../../components/text-list-editor";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
+import type {WidgetEditorRefHandle} from "../types";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -20,9 +21,13 @@ interface Props extends PerseusCategorizerWidgetOptions {
 
 // JSDoc will be shown in Storybook widget editor description
 /**
- * An editor for adding a categorizer widget that allows users to sort items into categories.
+ * An editor for adding a categorizer widget that allows users to sort items
+ * into categories.
  */
-class CategorizerEditor extends React.Component<Props> {
+class CategorizerEditor
+    extends React.Component<Props>
+    implements WidgetEditorRefHandle
+{
     static defaultProps: PerseusCategorizerWidgetOptions =
         categorizerLogic.defaultWidgetOptions;
 

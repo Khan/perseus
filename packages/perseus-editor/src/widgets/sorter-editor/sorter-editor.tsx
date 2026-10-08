@@ -18,6 +18,8 @@ import {TypedSingleSelect} from "../../components/typed-single-select";
 import CardEditor from "./card-editor";
 import styles from "./sorter-editor.module.css";
 
+import type {WidgetEditorRefHandle} from "../types";
+
 // There's nothing to sort with fewer than two cards.
 const minCards = 2;
 
@@ -42,6 +44,7 @@ type Props = PerseusSorterWidgetOptions & {
 /**
  * Imperative API that WidgetEditor calls
  */
+// TODO: Remove and use WidgetEditorRefHandle
 type SorterEditorHandle = {
     serialize: () => PerseusSorterWidgetOptions;
     getSaveWarnings: () => string[];
