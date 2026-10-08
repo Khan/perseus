@@ -30,8 +30,6 @@ const defaultImageWidget = generateImageWidget({
     options: generateImageOptions(),
 });
 
-// Converted images go through applyDefaultsToWidget, which marks them graded
-// and locks in the image widget's first supported alignment.
 function generateConvertedImageWidget(
     options: Partial<PerseusImageWidgetOptions>,
 ) {
