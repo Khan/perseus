@@ -93,19 +93,7 @@ const MockWidgetComponent = forwardRef<Widget, Props>(
     },
 );
 
-/**
- * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState
- */
-function getUserInputFromSerializedState(
-    serializedState: any,
-): PerseusMockWidgetUserInput {
-    return {
-        currentValue: serializedState.currentValue,
-    };
-}
-
-function getStartUserInput(options: PerseusMockWidgetUserInput) {
+function getStartUserInput() {
     return {
         currentValue: "",
     };
@@ -123,5 +111,4 @@ export default {
     widget: MockWidgetComponent,
     isLintable: true,
     getStartUserInput,
-    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof MockWidgetComponent>;
