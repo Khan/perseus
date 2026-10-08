@@ -11,31 +11,14 @@ import styles from "./label-image-editor.module.css";
 import QuestionMarkers from "./question-markers";
 import SelectImage from "./select-image";
 
-import type {PreferredPopoverDirection} from "./behavior";
 import type {APIOptions} from "@khanacademy/perseus";
 import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
-interface Props {
+export interface Props extends PerseusLabelImageWidgetOptions {
     apiOptions: APIOptions;
-    // List of answer choices to label question image with.
-    choices: string[];
-    // The question image properties.
-    imageAlt: string;
-    imageUrl: string;
-    imageWidth: number;
-    imageHeight: number;
-    // The list of label markers on the question image.
-    markers: PerseusLabelImageWidgetOptions["markers"];
-    // Whether multiple answer choices may be selected for markers.
-    multipleAnswers: boolean;
-    // Whether to hide answer choices from user instructions.
-    hideChoicesFromInstructions: boolean;
-    // Callback for when a widget prop is changed.
-    onChange: (options: any) => void;
-    preferredPopoverDirection: PreferredPopoverDirection;
+    onChange: (options: PerseusLabelImageWidgetOptions) => void;
 }
 
-// JSDoc will be shown in Storybook widget editor description
 /**
  * Direct image labeling widget editor.
  *
@@ -72,6 +55,21 @@ class LabelImageEditor extends React.Component<Props> {
         if (newIndices.length && this._questionMarkers) {
             this._questionMarkers.openDropdownForMarkerIndices(newIndices);
         }
+    }
+
+    handleChange(changes: Partial<PerseusLabelImageWidgetOptions>) {
+        this.props.onChange({
+            choices: this.props.choices,
+            imageUrl: this.props.imageUrl,
+            imageAlt: this.props.imageAlt,
+            imageHeight: this.props.imageHeight,
+            imageWidth: this.props.imageWidth,
+            markers: this.props.markers,
+            hideChoicesFromInstructions: this.props.hideChoicesFromInstructions,
+            multipleAnswers: this.props.multipleAnswers,
+            preferredPopoverDirection: this.props.preferredPopoverDirection,
+            ...changes,
+        });
     }
 
     // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
@@ -133,8 +131,8 @@ class LabelImageEditor extends React.Component<Props> {
         return EditorJsonify.serialize.call(this);
     }
 
-    handleImageChange: (url: string) => void = (url: string) => {
-        this.props.onChange({
+    handleImageChange = (url: string) => {
+        this.handleChange({
             imageUrl: url,
             // Initially reset image size when URL is changed so it can be later
             // measured.
@@ -154,7 +152,7 @@ class LabelImageEditor extends React.Component<Props> {
                     return;
                 }
 
-                this.props.onChange({
+                this.handleChange({
                     /**
                      * Sending `imageUrl` up again
                      * (even though we did so at the beginning of handleImageChange)
@@ -171,19 +169,17 @@ class LabelImageEditor extends React.Component<Props> {
     };
 
     handleAltChange: (alt: string) => void = (alt: string) => {
-        this.props.onChange({imageAlt: alt});
+        this.handleChange({imageAlt: alt});
     };
 
-    handleChoicesChange: (choices: ReadonlyArray<string>) => void = (
-        choices: ReadonlyArray<string>,
-    ) => {
-        this.props.onChange({choices});
+    handleChoicesChange = (choices: string[]) => {
+        this.handleChange({choices});
     };
 
     handleMarkersChange: (
         markers: PerseusLabelImageWidgetOptions["markers"],
     ) => void = (markers: PerseusLabelImageWidgetOptions["markers"]) => {
-        this.props.onChange({markers});
+        this.handleChange({markers});
     };
 
     handleBehaviorChange: (options?: any) => void = (options: any) => {

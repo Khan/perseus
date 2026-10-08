@@ -1,5 +1,21 @@
 # @khanacademy/math-input
 
+## 30.0.3
+
+### Patch Changes
+
+-   [#4306](https://github.com/Khan/perseus/pull/4306) [`4da9528`](https://github.com/Khan/perseus/commit/4da95281f38eca305b8e82ea6a21ae60248a76b1) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove color from keypad buttons because of a11y violation
+
+-   [#4324](https://github.com/Khan/perseus/pull/4324) [`dad705c`](https://github.com/Khan/perseus/commit/dad705c9e4002211d0d4ce5cc7854586a3c2d354) Thanks [@jandrade](https://github.com/jandrade)! - Updates WB peer deps, including `@khanacademy/wonder-blocks-popover` 7.0.0, which is now built on `@khanacademy/wonder-blocks-floating`. Tests and snapshots are updated for the new Popover.
+
+## 30.0.2
+
+### Patch Changes
+
+-   Updated dependencies [[`999df5b`](https://github.com/Khan/perseus/commit/999df5bcd7958788e486b5cf72fb8fba1a612b1a), [`b50edb9`](https://github.com/Khan/perseus/commit/b50edb961335264c17acc1fe8176597b54796854), [`b7087f8`](https://github.com/Khan/perseus/commit/b7087f8b69deb2c7f9e023f8d6a4d31cfe7d06b7), [`97c15c4`](https://github.com/Khan/perseus/commit/97c15c4c4d951dc6ee05ad10cafb6ec0d08b3a51)]:
+    -   @khanacademy/perseus-core@41.0.0
+    -   @khanacademy/keypad-context@6.0.2
+
 ## 30.0.1
 
 ### Patch Changes
