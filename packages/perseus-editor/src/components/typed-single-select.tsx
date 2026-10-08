@@ -21,7 +21,7 @@ type SelectOption =
     | false
     // FUTURE: add `rightAccessory`, `labelAsText`, or other options as needed
     // to configure the underlying Option component.
-    | {label: string; leftAccessory?: React.ReactNode};
+    | {label: string; leftAccessory?: React.ReactNode; ariaLabel?: string};
 
 /**
  * An object representing the options of a `<select>` element in HTML.
@@ -77,6 +77,7 @@ export function TypedSingleSelect<ValueT extends string>(props: Props<ValueT>) {
                             value={value}
                             label={option.label}
                             leftAccessory={option.leftAccessory}
+                            aria-label={option.ariaLabel}
                         />
                     );
                 }
