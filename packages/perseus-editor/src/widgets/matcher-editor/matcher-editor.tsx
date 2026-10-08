@@ -8,8 +8,6 @@ import * as React from "react";
 import InfoTip from "../../components/info-tip";
 import TextListEditor from "../../components/text-list-editor";
 
-import type {WidgetEditorRefHandle} from "../types";
-
 interface Props extends PerseusMatcherWidgetOptions {
     onChange: (options: PerseusMatcherWidgetOptions) => void;
 }
@@ -18,10 +16,7 @@ interface Props extends PerseusMatcherWidgetOptions {
 /**
  * An editor for adding a matcher widget that allows users to match items from two different sets.
  */
-class MatcherEditor
-    extends React.Component<Props>
-    implements WidgetEditorRefHandle
-{
+class MatcherEditor extends React.Component<Props> {
     static defaultProps: PerseusMatcherWidgetOptions =
         matcherLogic.defaultWidgetOptions;
 

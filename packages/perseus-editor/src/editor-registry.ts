@@ -2,7 +2,7 @@ import {createWidgetRegistry} from "@khanacademy/perseus-core";
 
 import DeprecatedStandinEditor from "./widgets/deprecated-standin-editor";
 
-import type {WidgetEditor} from "./widgets/types";
+type WidgetEditor = any;
 
 const editors = createWidgetRegistry<WidgetEditor>(
     "Perseus widget editor registry",

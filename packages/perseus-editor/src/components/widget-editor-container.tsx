@@ -14,7 +14,6 @@ import SectionControlButton from "./section-control-button";
 import ToggleableCaret from "./toggleable-caret";
 import WidgetEditorSettings from "./widget-editor-settings";
 
-import type {WidgetEditorRefHandle} from "../widgets/types";
 import type {APIOptions} from "@khanacademy/perseus";
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
 
@@ -56,7 +55,10 @@ export function _upgradeWidgetInfo(widgetInfo: PerseusWidget): PerseusWidget {
 // with all available transforms applied, but the results of those
 // transforms will not be propogated upwards until serialization.
 class WidgetEditorContainer extends React.Component<Props, State> {
-    widgetSpecificEditor: React.RefObject<WidgetEditorRefHandle>;
+    widgetSpecificEditor: React.RefObject<{
+        serialize(): unknown;
+        getSaveWarnings?: () => unknown;
+    }>;
 
     constructor(props: Props) {
         super(props);

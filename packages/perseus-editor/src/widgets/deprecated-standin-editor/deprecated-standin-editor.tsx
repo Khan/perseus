@@ -2,12 +2,7 @@ import * as React from "react";
 
 import EditorJsonify from "../../mixins/editor-jsonify";
 
-import type {WidgetEditorRefHandle} from "../types";
-
-class DeprecatedStandinEditor
-    extends React.Component
-    implements WidgetEditorRefHandle
-{
+class DeprecatedStandinEditor extends React.Component {
     serialize(): any {
         return EditorJsonify.serialize.call(this);
     }

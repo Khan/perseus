@@ -603,11 +603,16 @@ class Editor extends React.Component<Props, State> {
         return safeWidgetMapping;
     };
 
-    _addWidgetToContent(
+    // @ts-expect-error: Types of parameter 'widgetType' and 'widgetType' are incompatible. Type 'string' is not assignable to type '"cs-program" | "iframe" | "table" | "video" | "image" | "deprecated-standin" | "categorizer" | "definition" | "dropdown" | "explanation" | "expression" | "graded-group" | "graded-group-set" | ... 20 more ... | "radio"'.
+    _addWidgetToContent: (
+        oldContent: string,
+        cursorRange: ReadonlyArray<number>,
+        widgetType: string,
+    ) => void = (
         oldContent: string,
         cursorRange: ReadonlyArray<number>,
         widgetType: PerseusWidget["type"],
-    ) {
+    ) => {
         // Note: we have to use _.map here instead of Array::map
         // because the results of a .match might be null if no
         // widgets were found.
@@ -681,7 +686,7 @@ class Editor extends React.Component<Props, State> {
         // newly-inserted widget syntax (and any added newlines).
         this._pendingCursorPos = newContent.length - postlude.length;
         this.handleChange({content: newContent, widgets: newWidgets});
-    }
+    };
 
     _addWidget: (widgetType: string) => void = (widgetType: string) => {
         const textarea = this.textarea.current;
@@ -756,7 +761,7 @@ class Editor extends React.Component<Props, State> {
         this.handleChange({content: newContent});
     };
 
-    getSaveWarnings: () => string[] = () => {
+    getSaveWarnings: () => any = () => {
         const widgetIds = _.intersection(
             this.widgetIds,
             Object.keys(this.refs),

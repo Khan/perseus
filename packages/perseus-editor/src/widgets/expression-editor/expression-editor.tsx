@@ -19,7 +19,6 @@ import InfoTip from "../../components/info-tip";
 
 import styles from "./expression-editor.module.css";
 
-import type {WidgetEditorRefHandle} from "../types";
 import type {APIOptions} from "@khanacademy/perseus";
 import type {
     PerseusExpressionWidgetOptions,
@@ -67,10 +66,7 @@ interface State {
 /**
  * An editor for adding an expression widget that allows users to enter mathematical expressions.
  */
-class ExpressionEditor
-    extends React.Component<Props, State>
-    implements WidgetEditorRefHandle
-{
+class ExpressionEditor extends React.Component<Props, State> {
     static defaultProps = {
         ...expressionLogic.defaultWidgetOptions,
     };

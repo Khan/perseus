@@ -52,6 +52,10 @@ export const DeprecatedWidgetTypes = [
     "unit-input",
 ] as const;
 
+type DeprecatedWidgets = {
+    [K in (typeof DeprecatedWidgetTypes)[number]]: DeprecatedStandinWidget<K>;
+};
+
 export type Coord = [x: number, y: number];
 export type Interval = [min: number, max: number];
 export type Vector2 = Coord; // Same name as Mafs
@@ -114,11 +118,6 @@ export type ShowAxisTicks = {
  */
 export type MakeWidgetMap<TRegistry> = {
     [Property in keyof TRegistry as `${Property & string} ${number}`]: TRegistry[Property];
-};
-
-// Deprecated widgets
-type DeprecatedWidgets = {
-    [K in (typeof DeprecatedWidgetTypes)[number]]: DeprecatedStandinWidget<K>;
 };
 
 /**

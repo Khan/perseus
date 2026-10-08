@@ -7,7 +7,6 @@ import Editor from "../../editor";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {InitializeWidgetOptionsParams} from "../../editor";
-import type {WidgetEditorRefHandle} from "../types";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {PerseusDefinitionWidgetOptions} from "@khanacademy/perseus-core";
 
@@ -23,10 +22,7 @@ interface Props extends PerseusDefinitionWidgetOptions {
  * An editor for adding an interactive definition widget that allows content
  * editors to embed clickable terms with expandable explanations within content.
  */
-class DefinitionEditor
-    extends React.Component<Props>
-    implements WidgetEditorRefHandle
-{
+class DefinitionEditor extends React.Component<Props> {
     static defaultProps: PerseusDefinitionWidgetOptions =
         definitionLogic.defaultWidgetOptions;
 

@@ -16,7 +16,6 @@ import _ from "underscore";
 import GraphSettings from "../../components/graph-settings";
 import InfoTip from "../../components/info-tip";
 
-import type {WidgetEditorRefHandle} from "../types";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
     GrapherAnswerTypes,
@@ -34,10 +33,7 @@ interface Props extends PerseusGrapherWidgetOptions {
     apiOptions: APIOptionsWithDefaults;
 }
 
-class GrapherEditor
-    extends React.Component<Props>
-    implements WidgetEditorRefHandle
-{
+class GrapherEditor extends React.Component<Props> {
     static defaultProps: PerseusGrapherWidgetOptions =
         grapherLogic.defaultWidgetOptions;
 

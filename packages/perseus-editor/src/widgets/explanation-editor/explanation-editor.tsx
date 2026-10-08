@@ -6,7 +6,6 @@ import _ from "underscore";
 import Editor from "../../editor";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
-import type {WidgetEditorRefHandle} from "../types";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {PerseusExplanationWidgetOptions} from "@khanacademy/perseus-core";
 
@@ -21,10 +20,7 @@ interface Props extends PerseusExplanationWidgetOptions {
 /**
  * An editor for adding an explanation widget that provides supplementary information to users.
  */
-class ExplanationEditor
-    extends React.Component<Props>
-    implements WidgetEditorRefHandle
-{
+class ExplanationEditor extends React.Component<Props> {
     static defaultProps: PerseusExplanationWidgetOptions =
         explanationLogic.defaultWidgetOptions;
 

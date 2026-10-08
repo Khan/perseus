@@ -15,7 +15,6 @@ import _ from "underscore";
 import InfoTip from "../../components/info-tip";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
-import type {WidgetEditorRefHandle} from "../types";
 import type {APIOptions} from "@khanacademy/perseus";
 
 interface Props extends PerseusDropdownWidgetOptions {
@@ -27,10 +26,7 @@ interface Props extends PerseusDropdownWidgetOptions {
 /**
  * An editor for adding a dropdown widget that allows users to select an option from a predefined list.
  */
-class DropdownEditor
-    extends React.Component<Props>
-    implements WidgetEditorRefHandle
-{
+class DropdownEditor extends React.Component<Props> {
     static defaultProps: PerseusDropdownWidgetOptions =
         dropdownLogic.defaultWidgetOptions;
 

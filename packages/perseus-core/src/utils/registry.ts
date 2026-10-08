@@ -11,7 +11,7 @@ type RegistryOptions<T> = {
 
 class Registry<T> {
     private name: string;
-    private contents: Record<string, T> = {};
+    private contents = new Map<string, T>();
     private aliasKeys: ReadonlySet<string>;
     private aliasValue: T | undefined;
     private anythingRegistered = false;
@@ -30,15 +30,14 @@ class Registry<T> {
 
     has(key: string): boolean {
         this.throwIfUnregistered();
-        return (
-            this.aliasKeys.has(key) ||
-            Object.prototype.hasOwnProperty.call(this.contents, key)
-        );
+        return this.aliasKeys.has(key) || this.contents.has(key);
     }
 
     get(key: string): T | undefined {
         this.throwIfUnregistered();
-        return this.aliasKeys.has(key) ? this.aliasValue : this.contents[key];
+        return this.aliasKeys.has(key)
+            ? this.aliasValue
+            : this.contents.get(key);
     }
 
     /**
@@ -47,7 +46,7 @@ class Registry<T> {
      */
     keys(): Array<string> {
         this.throwIfUnregistered();
-        return [...this.aliasKeys, ...Object.keys(this.contents)];
+        return [...this.aliasKeys, ...this.contents.keys()];
     }
 
     /**
@@ -56,7 +55,7 @@ class Registry<T> {
      */
     entries(): Array<[string, T]> {
         this.throwIfUnregistered();
-        return Object.entries(this.contents);
+        return [...this.contents.entries()];
     }
 
     set(key: string, value: T): void {
@@ -66,7 +65,7 @@ class Registry<T> {
             );
         }
         this.anythingRegistered = true;
-        this.contents[key] = value;
+        this.contents.set(key, value);
     }
 }
 

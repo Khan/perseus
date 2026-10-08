@@ -8,8 +8,12 @@ import LabeledSwitch from "./labeled-switch";
 
 import "./widget-editor-settings.css";
 
-import type {BestPracticesLink} from "../widgets/types";
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
+
+interface BestPracticesLink {
+    url: string;
+    label: string;
+}
 
 interface WidgetEditorSettingsProps {
     bestPractices?: BestPracticesLink;

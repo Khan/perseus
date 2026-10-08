@@ -7,8 +7,6 @@ import {LabeledTextField} from "@khanacademy/wonder-blocks-form";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
-import type {WidgetEditorRefHandle} from "../types";
-
 type Props = PerseusPhetSimulationWidgetOptions & {
     onChange: (arg1: {
         url?: Props["url"];
@@ -21,10 +19,7 @@ type Props = PerseusPhetSimulationWidgetOptions & {
  * An editor for adding a PhET simulation widget that allows users to interact
  * with physics simulations.
  */
-class PhetSimulationEditor
-    extends React.Component<Props>
-    implements WidgetEditorRefHandle
-{
+class PhetSimulationEditor extends React.Component<Props> {
     static defaultProps: PerseusPhetSimulationWidgetOptions =
         phetSimulationLogic.defaultWidgetOptions;
 

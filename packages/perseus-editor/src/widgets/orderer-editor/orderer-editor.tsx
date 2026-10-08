@@ -9,8 +9,6 @@ import * as React from "react";
 import InfoTip from "../../components/info-tip";
 import TextListEditor from "../../components/text-list-editor";
 
-import type {WidgetEditorRefHandle} from "../types";
-
 const NORMAL = "normal";
 const AUTO = "auto";
 const HORIZONTAL = "horizontal";
@@ -23,10 +21,7 @@ type Props = PerseusOrdererWidgetOptions & {
     ) => void;
 };
 
-class OrdererEditor
-    extends React.Component<Props>
-    implements WidgetEditorRefHandle
-{
+class OrdererEditor extends React.Component<Props> {
     static defaultProps: PerseusOrdererWidgetOptions =
         ordererLogic.defaultWidgetOptions;
 

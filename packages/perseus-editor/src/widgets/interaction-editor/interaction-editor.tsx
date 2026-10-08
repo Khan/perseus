@@ -15,7 +15,6 @@ import ParametricEditor from "./parametric-editor";
 import PointEditor from "./point-editor";
 import RectangleEditor from "./rectangle-editor";
 
-import type {WidgetEditorRefHandle} from "../types";
 import type {
     PerseusInteractionWidgetOptions,
     PerseusInteractionElement,
@@ -38,10 +37,7 @@ type State = any;
  * labels, and rectangles. This editor allows content creators to configure those elements
  * and their properties.
  */
-class InteractionEditor
-    extends React.Component<Props, State>
-    implements WidgetEditorRefHandle
-{
+class InteractionEditor extends React.Component<Props, State> {
     static defaultProps: PerseusInteractionWidgetOptions =
         interactionLogic.defaultWidgetOptions;
 

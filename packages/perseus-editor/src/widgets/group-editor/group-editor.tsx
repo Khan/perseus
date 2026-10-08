@@ -4,7 +4,6 @@ import invariant from "tiny-invariant";
 
 import Editor from "../../editor";
 
-import type {WidgetEditorRefHandle} from "../types";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
     PerseusGroupWidgetOptions,
@@ -16,18 +15,15 @@ interface Props extends PerseusGroupWidgetOptions {
     apiOptions: APIOptionsWithDefaults;
 }
 
-class GroupEditor
-    extends React.Component<Props>
-    implements WidgetEditorRefHandle
-{
+class GroupEditor extends React.Component<Props> {
     static defaultProps: PerseusGroupWidgetOptions =
         groupLogic.defaultWidgetOptions;
 
     editor = React.createRef<Editor>();
 
-    getSaveWarnings(): string[] {
-        return this.editor.current?.getSaveWarnings() ?? [];
-    }
+    getSaveWarnings: () => ReadonlyArray<any> = () => {
+        return this.editor.current?.getSaveWarnings();
+    };
 
     serialize(): PerseusRenderer {
         invariant(

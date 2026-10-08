@@ -9,8 +9,6 @@ import BlurInput from "../../components/blur-input";
 import {PairsEditor} from "../../components/pairs-editor";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
-import type {WidgetEditorRefHandle} from "../types";
-
 interface IframeEditorProps extends PerseusIFrameWidgetOptions {
     onChange: (options: PerseusIFrameWidgetOptions) => void;
 }
@@ -18,10 +16,7 @@ interface IframeEditorProps extends PerseusIFrameWidgetOptions {
 /**
  * This is the main editor for this widget, to specify all the options.
  */
-class IframeEditor
-    extends React.Component<IframeEditorProps>
-    implements WidgetEditorRefHandle
-{
+class IframeEditor extends React.Component<IframeEditorProps> {
     static defaultProps: PerseusIFrameWidgetOptions =
         iframeLogic.defaultWidgetOptions;
 

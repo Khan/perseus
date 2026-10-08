@@ -31,7 +31,6 @@ import {getStartCoords, shouldShowStartCoordsUI} from "./start-coords/util";
 import {reshapePointLabelsForGraphType} from "./utils/reshape-point-labels";
 
 import type {InteractiveGraphSettingsData} from "./components/interactive-graph-settings";
-import type {WidgetEditorRefHandle} from "../types";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
     PerseusInteractiveGraphUserInput,
@@ -66,10 +65,7 @@ export interface Props extends PerseusInteractiveGraphWidgetOptions {
  *
  * Used in the exercise editor.
  */
-class InteractiveGraphEditor
-    extends React.Component<Props, State>
-    implements WidgetEditorRefHandle
-{
+class InteractiveGraphEditor extends React.Component<Props, State> {
     static bestPractices = {
         // TODO: replace with real best practices
         // see: https://github.com/Khan/perseus/pull/3466#discussion_r3157121327

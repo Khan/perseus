@@ -7,7 +7,6 @@ import _ from "underscore";
 import InfoTip from "../../components/info-tip";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
-import type {WidgetEditorRefHandle} from "../types";
 import type {PerseusMeasurerWidgetOptions} from "@khanacademy/perseus-core";
 
 const {NumberInput, RangeInput} = components;
@@ -22,10 +21,7 @@ interface Props extends PerseusMeasurerWidgetOptions {
     onChange: (options: PerseusMeasurerWidgetOptions) => void;
 }
 
-class MeasurerEditor
-    extends React.Component<Props>
-    implements WidgetEditorRefHandle
-{
+class MeasurerEditor extends React.Component<Props> {
     static defaultProps: PerseusMeasurerWidgetOptions =
         measurerLogic.defaultWidgetOptions;
 

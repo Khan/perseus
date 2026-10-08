@@ -26,7 +26,6 @@ import EditorJsonify from "../../mixins/editor-jsonify";
 import styles from "./numeric-input-editor.module.css";
 
 import type {ChangeFn} from "../../mixins/changeable";
-import type {WidgetEditorRefHandle} from "../types";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 
 const {NumberInput, TextInput} = components;
@@ -75,10 +74,7 @@ interface State {
  * An editor for adding a numeric input widget that allows users to enter
  * numerical values with specific validation rules.
  */
-class NumericInputEditor
-    extends React.Component<Props, State>
-    implements WidgetEditorRefHandle
-{
+class NumericInputEditor extends React.Component<Props, State> {
     static displayName = "NumericInputEditor";
 
     static defaultProps = {
