@@ -62,7 +62,6 @@ interface State {
     functionsInternal: string;
 }
 
-// JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for adding an expression widget that allows users to enter mathematical expressions.
  */

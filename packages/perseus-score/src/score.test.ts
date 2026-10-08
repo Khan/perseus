@@ -554,6 +554,46 @@ describe("scorePerseusItem", () => {
             },
         });
     });
+
+    it("ignores deprecated widgets", () => {
+        function deprecatedWidget<T extends string>(type: T) {
+            return {
+                type,
+                version: {major: 0, minor: 0},
+                options: {},
+            };
+        }
+
+        const item: PerseusRenderer = {
+            content:
+                "[[☃ transformer 1]][[☃ lights-puzzle 1]][[☃ reaction-diagram 1]][[☃ sequence 1]][[☃ simulator 1]][[☃ unit-input 1]][[☃ passage 1]][[☃ passage-ref 1]][[☃ passage-ref-target 1]][[☃ molecule-renderer 1]]",
+            widgets: {
+                "transformer 1": deprecatedWidget("transformer"),
+                "lights-puzzle 1": deprecatedWidget("lights-puzzle"),
+                "sequence 1": deprecatedWidget("sequence"),
+                "simulator 1": deprecatedWidget("simulator"),
+                "passage 1": deprecatedWidget("passage"),
+                "passage-ref 1": deprecatedWidget("passage-ref"),
+                "passage-ref-target 1": deprecatedWidget("passage-ref-target"),
+                "molecule-renderer 1": deprecatedWidget("molecule-renderer"),
+            },
+            images: {},
+        };
+
+        const userInputMap: UserInputMap = {};
+
+        // Act
+        const score = scorePerseusItem(item, userInputMap, "en");
+
+        // Assert
+        expect(score).toEqual({
+            type: "points",
+            earned: 0,
+            total: 0,
+            message: null,
+            widgetScores: {},
+        });
+    });
 });
 
 describe("onlyInvalidScores", () => {

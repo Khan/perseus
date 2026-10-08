@@ -42,7 +42,6 @@ import {parseWidget} from "./widget";
 import {parseWidgetIdComponents} from "./widget-id-components";
 
 import type {
-    DeprecatedStandinWidget,
     PerseusWidgetsMap,
     // TODO(LEMS-4224): don't import from outside of the parser
     // eslint-disable-next-line import/no-restricted-paths
@@ -158,7 +157,7 @@ const parseWidgetsMapEntry: (
         case "molecule-renderer":
             return parseAndAssign(
                 `molecule-renderer ${n}`,
-                parseDeprecatedWidget,
+                parseDeprecatedWidget("molecule-renderer"),
             );
         case "number-line":
             return parseAndAssign(`number-line ${n}`, parseNumberLineWidget);
@@ -192,21 +191,39 @@ const parseWidgetsMapEntry: (
         case "sequence":
             // sequence is a deprecated widget type, and the corresponding
             // widget component no longer exists.
-            return parseAndAssign(`sequence ${n}`, parseDeprecatedWidget);
+            return parseAndAssign(
+                `sequence ${n}`,
+                parseDeprecatedWidget("sequence"),
+            );
         case "lights-puzzle":
-            return parseAndAssign(`lights-puzzle ${n}`, parseDeprecatedWidget);
+            return parseAndAssign(
+                `lights-puzzle ${n}`,
+                parseDeprecatedWidget("lights-puzzle"),
+            );
         case "simulator":
-            return parseAndAssign(`simulator ${n}`, parseDeprecatedWidget);
+            return parseAndAssign(
+                `simulator ${n}`,
+                parseDeprecatedWidget("simulator"),
+            );
         case "transformer":
-            return parseAndAssign(`transformer ${n}`, parseDeprecatedWidget);
+            return parseAndAssign(
+                `transformer ${n}`,
+                parseDeprecatedWidget("transformer"),
+            );
         case "passage":
-            return parseAndAssign(`passage ${n}`, parseDeprecatedWidget);
+            return parseAndAssign(
+                `passage ${n}`,
+                parseDeprecatedWidget("passage"),
+            );
         case "passage-ref":
-            return parseAndAssign(`passage-ref ${n}`, parseDeprecatedWidget);
+            return parseAndAssign(
+                `passage-ref ${n}`,
+                parseDeprecatedWidget("passage-ref"),
+            );
         case "passage-ref-target":
             return parseAndAssign(
                 `passage-ref-target ${n}`,
-                parseDeprecatedWidget,
+                parseDeprecatedWidget("passage-ref-target"),
             );
 
         default:
@@ -219,9 +236,10 @@ const parseWidgetsMapEntry: (
     }
 };
 
-const parseDeprecatedWidget: Parser<DeprecatedStandinWidget> = parseWidget(
-    // Ignore the incoming widget type and hardcode "deprecated-standin"
-    (_, ctx) => ctx.success("deprecated-standin" as const),
-    // Allow any widget options
-    looseObject({}),
-);
+function parseDeprecatedWidget<Type extends string>(type: Type) {
+    return parseWidget(
+        constant(type),
+        // Allow any widget options
+        looseObject({}),
+    );
+}
