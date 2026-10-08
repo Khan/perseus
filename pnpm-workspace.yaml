@@ -85,7 +85,6 @@ catalogs:
         "@khanacademy/wonder-blocks-layout": ^3.1.62
         "@khanacademy/wonder-blocks-link": ^10.4.1
         "@khanacademy/wonder-blocks-modal": ^8.9.0
-        "@khanacademy/wonder-blocks-pill": ^3.1.78
         "@khanacademy/wonder-blocks-popover": ^7.0.0
         "@khanacademy/wonder-blocks-progress-spinner": ^3.1.62
         "@khanacademy/wonder-blocks-search-field": ^5.1.85
@@ -128,7 +127,6 @@ catalogs:
         "@khanacademy/wonder-blocks-layout": 3.1.62
         "@khanacademy/wonder-blocks-link": 10.4.1
         "@khanacademy/wonder-blocks-modal": 8.9.0
-        "@khanacademy/wonder-blocks-pill": 3.1.78
         "@khanacademy/wonder-blocks-popover": 7.0.0
         "@khanacademy/wonder-blocks-progress-spinner": 3.1.62
         "@khanacademy/wonder-blocks-search-field": 5.1.85
