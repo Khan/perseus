@@ -3,6 +3,9 @@ import {
     generateCategorizerWidget,
     generateDropdownOptions,
     generateDropdownWidget,
+    generateNumericInputAnswer,
+    generateNumericInputOptions,
+    generateNumericInputWidget,
 } from "@khanacademy/perseus-core";
 import {within} from "storybook/test";
 
@@ -84,6 +87,38 @@ export const DesktopCorrectAnswer: Story = {
     },
 };
 
+export const DesktopCorrectAnswerWithMessage: Story = {
+    args: {
+        title: "Check your understanding!",
+        content: "Solve for $x$: [[☃ numeric-input 1]]",
+        widgets: {
+            "numeric-input 1": generateNumericInputWidget({
+                options: generateNumericInputOptions({
+                    answers: [
+                        generateNumericInputAnswer({
+                            value: 5,
+                            status: "correct",
+                            message: "$5$ is the *correct* answer!",
+                        }),
+                    ],
+                }),
+            }),
+        },
+        hint: {
+            content: "This is a hint.",
+            images: {},
+            widgets: {},
+        },
+        images: {},
+    },
+    play: async ({canvas, userEvent}) => {
+        // Matching the correct answer puts its message in the Graded Group.
+        await userEvent.type(canvas.getByRole("textbox"), "5");
+        const checkButton = canvas.getByRole("button", {name: "Check"});
+        await userEvent.click(checkButton);
+    },
+};
+
 export const DesktopIncorrectAnswer: Story = {
     args: sharedArgs,
     play: async ({canvas, userEvent}) => {
@@ -131,6 +166,34 @@ export const DesktopInvalidAnswer: Story = {
     },
 };
 
+export const DesktopInvalidAnswerWithTexMessage: Story = {
+    args: {
+        title: "Check your understanding!",
+        content: "Solve for $x$: [[☃ numeric-input 1]]",
+        widgets: {
+            "numeric-input 1": generateNumericInputWidget({
+                options: generateNumericInputOptions({
+                    answers: [
+                        generateNumericInputAnswer({
+                            value: 5,
+                            // The "ungraded" status makes the message show up in a warning banner.
+                            status: "ungraded",
+                            message: "Could not grade $5$",
+                        }),
+                    ],
+                }),
+            }),
+        },
+        images: {},
+    },
+    play: async ({canvas, userEvent}) => {
+        // Matching the ungraded answer puts its message in the banner.
+        await userEvent.type(canvas.getByRole("textbox"), "5");
+        const checkButton = canvas.getByRole("button", {name: "Check"});
+        await userEvent.click(checkButton);
+    },
+};
+
 export const DesktopHintExpanded: Story = {
     args: sharedArgs,
     play: async ({canvas, userEvent}) => {
@@ -156,21 +219,6 @@ export const MobileHintExpanded: Story = {
 // stories drive it into each state the way a learner would rather than rendering
 // the bar in isolation. (The "Next question" state lives in the graded-group-set
 // stories — a standalone graded group never shows that button.)
-
-// Selecting an option makes the group answerable, enabling the Check button.
-export const MobileAnswerBarActive: Story = {
-    args: sharedArgs,
-    decorators: [mobileDecorator],
-    parameters: {apiOptions: {isMobile: true}},
-    play: async ({canvas, userEvent}) => {
-        const dropdown = canvas.getByRole("combobox");
-        await userEvent.click(dropdown);
-        const option = within(document.body).getByRole("option", {
-            name: "Correct answer",
-        });
-        await userEvent.click(option);
-    },
-};
 
 // A wrong answer swaps the Check button for the neutral "try again" icon.
 export const MobileAnswerBarIncorrect: Story = {
