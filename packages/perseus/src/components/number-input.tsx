@@ -26,7 +26,6 @@ interface Props {
     size?: any;
     allowPiTruncation?: any;
     useArrowKeys: any;
-    onKeyDown?: any; // FIXME: remove onKeyDown; no one passes it
     className?: any;
 }
 
@@ -203,10 +202,6 @@ class NumberInput extends React.Component<Props, any> {
     };
 
     _onKeyDown: (arg1: React.KeyboardEvent) => void = (e) => {
-        if (this.props.onKeyDown) {
-            this.props.onKeyDown(e);
-        }
-
         if (
             !this.props.useArrowKeys ||
             !["ArrowUp", "ArrowDown"].includes(e.key)
