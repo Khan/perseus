@@ -31,7 +31,7 @@ describe("createWidgetRegistry", () => {
     });
 
     it.each([...DeprecatedWidgetTypes, "deprecated-standin"])(
-        "throws when registering %s",
+        "throws when registering deprecated widget: %s",
         (type) => {
             const registry = createRegistry();
 

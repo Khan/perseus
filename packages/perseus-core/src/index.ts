@@ -171,8 +171,12 @@ export {default as splitPerseusItem} from "./utils/split-perseus-item";
 export {splitPerseusItemJSON} from "./utils/split-perseus-item";
 /** @hidden */
 export {createWidgetRegistry} from "./widgets/create-widget-registry";
-/** @hidden */
-export type {WidgetRegistry} from "./widgets/create-widget-registry";
+/**
+ * Type-only, so that callers can name a registry's type but must create one
+ * with `createWidgetRegistry`, which handles deprecated widget types.
+ * @hidden
+ */
+export type {default as Registry} from "./utils/registry";
 
 export type * from "./widgets/logic-export.types";
 
