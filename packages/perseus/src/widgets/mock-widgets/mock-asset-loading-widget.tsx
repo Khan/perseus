@@ -12,7 +12,7 @@ export type MockAssetLoadingWidgetHandle = Widget & {
  * This is a Mock Asset Loading Perseus widget, which is used specifically for
  * our server-item-renderer tests to test the asset loading callbacks.
  */
-export const MockAssetLoadingWidget = forwardRef<
+const MockAssetLoadingWidget = forwardRef<
     MockAssetLoadingWidgetHandle,
     Record<any, any>
 >(function MockAssetLoadingWidget(props, ref) {
