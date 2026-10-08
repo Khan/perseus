@@ -14,6 +14,22 @@ const {firstNumericalParse, captureScratchpadTouchStart} = Util;
 const toNumericString = KhanMath.toNumericString;
 const getNumericFormat = KhanMath.getNumericFormat;
 
+interface Props {
+    value: any;
+    format?: any;
+    placeholder?: any;
+    onChange: any;
+    onFormatChange?: any;
+    checkValidity: any;
+    onFocus: any;
+    onBlur: any;
+    size?: any;
+    allowPiTruncation?: any;
+    useArrowKeys: any;
+    onKeyDown?: any; // FIXME: remove onKeyDown; no one passes it
+    className?: any;
+}
+
 /**
  * An input box that accepts only numeric strings
  *
@@ -33,7 +49,7 @@ const getNumericFormat = KhanMath.getNumericFormat;
  *
  * Optionally takes a `size` (`"mini"`, `"small"`,` `"normal"`)
  */
-class NumberInput extends React.Component<any, any> {
+class NumberInput extends React.Component<Props, any> {
     inputRef = React.createRef<HTMLInputElement>();
 
     static propTypes = {
@@ -44,11 +60,12 @@ class NumberInput extends React.Component<any, any> {
         onFormatChange: PropTypes.func,
         checkValidity: PropTypes.func,
         size: PropTypes.oneOf(["mini", "small", "normal"]),
+        // FIXME: delete label
         label: PropTypes.oneOf(["put your labels outside your inputs!"]),
         allowPiTruncation: PropTypes.bool,
     };
 
-    static defaultProps: any = {
+    static defaultProps = {
         value: null,
         placeholder: null,
         format: null,
