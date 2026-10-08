@@ -12,7 +12,6 @@ describe("createWidgetRegistry", () => {
     it.each(DeprecatedWidgetTypes)(
         "resolves deprecated widget type %s to the standin",
         (type) => {
-            // Arrange, Act
             const registry = createRegistry();
 
             expect(registry.get(type)).toBe("standin");
@@ -20,14 +19,12 @@ describe("createWidgetRegistry", () => {
     );
 
     it("resolves deprecated-standin to the standin", () => {
-        // Arrange, Act
         const registry = createRegistry();
 
         expect(registry.get("deprecated-standin")).toBe("standin");
     });
 
     it("resolves registered widget types to their implementation", () => {
-        // Arrange, Act
         const registry = createRegistry();
 
         expect(registry.get("radio")).toBe("radio-impl");
@@ -36,10 +33,8 @@ describe("createWidgetRegistry", () => {
     it.each([...DeprecatedWidgetTypes, "deprecated-standin"])(
         "throws when registering %s",
         (type) => {
-            // Arrange
             const registry = createRegistry();
 
-            // Act, Assert
             expect(() => registry.set(type, "nope")).toThrow(
                 "cannot be registered",
             );
