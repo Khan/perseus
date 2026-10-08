@@ -1,5 +1,30 @@
 # @khanacademy/perseus
 
+## 90.1.0
+
+### Minor Changes
+
+-   [#4257](https://github.com/Khan/perseus/pull/4257) [`0cdddbe`](https://github.com/Khan/perseus/commit/0cdddbe4b300e802ce502d6d191b3fd1674c57f3) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - updates explain button for graded group
+
+### Patch Changes
+
+-   [#4276](https://github.com/Khan/perseus/pull/4276) [`fb84fc6`](https://github.com/Khan/perseus/commit/fb84fc6a6d62d69d74692de31b35db04d699c11e) Thanks [@nishasy](https://github.com/nishasy)! - [Graded Group a11y] Announce correctness state when Check/Try Again button is pressed
+
+-   [#4276](https://github.com/Khan/perseus/pull/4276) [`fb84fc6`](https://github.com/Khan/perseus/commit/fb84fc6a6d62d69d74692de31b35db04d699c11e) Thanks [@nishasy](https://github.com/nishasy)! - [Graded Group] | (DX) | Streamline "invalid" logic in Graded Group widget
+
+-   [#4334](https://github.com/Khan/perseus/pull/4334) [`7eaf83b`](https://github.com/Khan/perseus/commit/7eaf83b740701e960fc6c99a7e32326ce60ec37c) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Adds required span when radio is required - exercises and gg
+
+-   [#4315](https://github.com/Khan/perseus/pull/4315) [`2c1f469`](https://github.com/Khan/perseus/commit/2c1f4693c8f35fcca92319462fd4be4f76888cb4) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Fix focus after navigating to next question in graded group set
+
+-   [#4331](https://github.com/Khan/perseus/pull/4331) [`b4d9f41`](https://github.com/Khan/perseus/commit/b4d9f41ab606e7c980eacfe3183d1e6ef64f12da) Thanks [@benchristel](https://github.com/benchristel)! - There was a bug where inline math was incorrectly wrapped in a `<div>` element when `inline: true` was passed to the Renderer and the `perseus-renderer-upgrade` feature flag was on. This has been fixed.
+
+-   [#4325](https://github.com/Khan/perseus/pull/4325) [`e0dad22`](https://github.com/Khan/perseus/commit/e0dad2234fdd98388cee00abc2772fec18c58ed2) Thanks [@nishasy](https://github.com/nishasy)! - [Graded Group a11y] Fix KAC alignment issues in Graded Group answer bar
+
+-   [#4232](https://github.com/Khan/perseus/pull/4232) [`d6995fd`](https://github.com/Khan/perseus/commit/d6995fd3d08526d5881d752ce31ecbe0475c6d13) Thanks [@nishasy](https://github.com/nishasy)! - [Graded Group] Consolidate mobile and desktop styles
+
+-   Updated dependencies [[`0b744b8`](https://github.com/Khan/perseus/commit/0b744b812341c31a2b21f7294d1dc6e465b3ef6d)]:
+    -   @khanacademy/perseus-linter@6.1.0
+
 ## 90.0.2
 
 ### Patch Changes
