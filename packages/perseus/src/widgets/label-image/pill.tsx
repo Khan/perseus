@@ -42,13 +42,6 @@ type Props = AriaProps & {
      */
     kind?: PillKind;
     /**
-     * The size of the pill. Defaults to "small".
-     * Size of pill. A small pill has more of a classic “badge”
-     * look and fully fits within a line of body text inline,
-     * whereas a large pill contains normal body font size.
-     */
-    size?: PillSize;
-    /**
      * The role the pill should have depending on its behavior.
      * By default, it has none. If pill is Clickable, this is automatically
      * set to “button".
@@ -79,31 +72,14 @@ type Props = AriaProps & {
 
 const PillInner = (props: {
     children: string | React.ReactElement<React.ComponentProps<Typography>>;
-    size: PillSize;
 }) => {
-    const {children, size} = props;
+    const {children} = props;
 
     if (typeof children !== "string") {
         return children;
     }
 
-    if (size === "small") {
-        return (
-            <BodyText size="xsmall" tag="span">
-                {props.children}
-            </BodyText>
-        );
-    }
-
-    if (size === "large") {
-        return <BodyText tag="span">{children}</BodyText>;
-    }
-
-    return (
-        <BodyText size="small" tag="span">
-            {children}
-        </BodyText>
-    );
+    return <BodyText tag="span">{children}</BodyText>;
 };
 
 /**
@@ -118,7 +94,6 @@ const Pill = React.forwardRef(function Pill(
         id,
         children,
         kind = "neutral",
-        size = "medium",
         role,
         onClick,
         style,
@@ -127,18 +102,7 @@ const Pill = React.forwardRef(function Pill(
         ...ariaProps
     } = props;
 
-    let wrapperSizeStyle;
-
-    switch (size) {
-        case "small":
-            wrapperSizeStyle = pillStyles.wrapperSmall;
-            break;
-        case "large":
-            wrapperSizeStyle = pillStyles.wrapperLarge;
-            break;
-        default:
-            wrapperSizeStyle = pillStyles.wrapperMedium;
-    }
+    const wrapperSizeStyle = pillStyles.wrapperLarge;
 
     const colorStyles = _generateColorStyles(!!onClick, kind);
 
@@ -160,7 +124,7 @@ const Pill = React.forwardRef(function Pill(
                 tabIndex={tabIndex}
                 {...ariaProps}
             >
-                {() => <PillInner size={size}>{children}</PillInner>}
+                {() => <PillInner>{children}</PillInner>}
             </Clickable>
         );
     }
@@ -174,7 +138,7 @@ const Pill = React.forwardRef(function Pill(
             ref={ref as React.ForwardedRef<HTMLElement>}
             {...ariaProps}
         >
-            <PillInner size={size}>{children}</PillInner>
+            <PillInner>{children}</PillInner>
         </View>
     );
 });
@@ -183,17 +147,6 @@ const pillStyles = StyleSheet.create({
     wrapper: {
         display: "inline-flex",
         width: "fit-content",
-    },
-    wrapperSmall: {
-        paddingInline: sizing.size_080,
-        borderRadius: border.radius.radius_040,
-        height: sizing.size_200,
-    },
-    wrapperMedium: {
-        paddingInline: sizing.size_080,
-        borderRadius: border.radius.radius_040,
-        // Minimum tap area recommendation for a11y
-        height: sizing.size_240,
     },
     wrapperLarge: {
         paddingInline: sizing.size_120,
