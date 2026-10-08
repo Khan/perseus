@@ -1,5 +1,11 @@
 # @khanacademy/perseus-linter
 
+## 6.1.0
+
+### Minor Changes
+
+-   [#4326](https://github.com/Khan/perseus/pull/4326) [`0b744b8`](https://github.com/Khan/perseus/commit/0b744b812341c31a2b21f7294d1dc6e465b3ef6d) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Add a linter warning for Explanation widgets inside a Graded Group or Graded Group Set
+
 ## 6.0.3
 
 ### Patch Changes
