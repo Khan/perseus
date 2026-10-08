@@ -1,7 +1,7 @@
 type RegistryOptions<T> = {
     /**
      * A fixed set of keys that always resolve to `value`. Aliased keys can't
-     * be registered over.
+     * be registered.
      */
     aliases?: {
         keys: ReadonlyArray<string>;
