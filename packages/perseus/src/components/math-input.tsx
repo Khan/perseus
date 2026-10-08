@@ -282,14 +282,14 @@ class InnerMathInput extends React.Component<InnerProps, State> {
         return this.__mathField;
     };
 
-    updateAriaRequired: () => void = () => {
+    updateAriaRequired(): void {
         const textarea = this.__mathFieldWrapperRef?.querySelector("textarea");
         if (this.props.ariaRequired) {
             textarea?.setAttribute("aria-required", "true");
         } else {
             textarea?.removeAttribute("aria-required");
         }
-    };
+    }
 
     focus: () => void = () => {
         this.mathField()?.focus();
