@@ -15,14 +15,14 @@ import WidgetEditorSettings from "./widget-editor-settings";
 import type {APIOptions} from "@khanacademy/perseus";
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
 
-type Props = {
+interface Props {
     id: string;
     onChange: (widgetInfo: PerseusWidget) => void;
     onRemove: () => unknown;
     apiOptions: APIOptions;
     widgetIsOpen?: boolean;
     widgetInfo: PerseusWidget;
-};
+}
 
 type State = {
     showWidget: boolean;
@@ -52,7 +52,7 @@ export function _upgradeWidgetInfo(widgetInfo: PerseusWidget): PerseusWidget {
 // upgrade transforms. Widget editors will always be rendered
 // with all available transforms applied, but the results of those
 // transforms will not be propogated upwards until serialization.
-class WidgetEditor extends React.Component<Props, State> {
+class WidgetEditorContainer extends React.Component<Props, State> {
     widgetSpecificEditor: React.RefObject<{
         serialize(): unknown;
         getSaveWarnings?: () => unknown;
@@ -243,4 +243,4 @@ class WidgetEditor extends React.Component<Props, State> {
     }
 }
 
-export default WidgetEditor;
+export default WidgetEditorContainer;
