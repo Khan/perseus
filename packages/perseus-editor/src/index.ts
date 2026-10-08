@@ -28,4 +28,4 @@ import {registerEditors} from "./editor-registry";
 registerEditors(AllEditors);
 Widgets.registerWidgets(widgets);
 
-export {AllEditors, widgets};
+export {AllEditors};
