@@ -35,7 +35,6 @@ interface Props {
     preferredPopoverDirection: PreferredPopoverDirection;
 }
 
-// JSDoc will be shown in Storybook widget editor description
 /**
  * Direct image labeling widget editor.
  *
