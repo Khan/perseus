@@ -37,3 +37,6 @@ pnpm storybook
   regression tests (`*-regression.stories.tsx`), a11y docs, and dev utilities
   should include `"!manifest"` in their tags to keep them out of the component
   manifest. Actual widget/component stories should NOT have this tag.
+  Exception: the "Using Perseus in a New Experience" recipe page
+  (`__docs__/using-perseus/`) is deliberately in the manifest so AI tools
+  can find it.

@@ -40,6 +40,7 @@ configureSort({
     storyOrder: {
         introduction: null,
         "getting started": null,
+        "using perseus in a new experience": null,
         "api documentation": null,
         widgetGallery: null,
         theming: null,

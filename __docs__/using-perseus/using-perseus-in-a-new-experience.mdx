@@ -1,0 +1,280 @@
+import {Meta, Source} from "@storybook/addon-docs/blocks";
+
+import perseusHost from "./snippets/perseus-host.tsx?raw";
+import numericInputItem from "./snippets/minimal-numeric-input-item.json?raw";
+import radioItem from "./snippets/minimal-radio-item.json?raw";
+import tier1Local from "./snippets/tier-1-local.tsx?raw";
+import tier2Server from "./snippets/tier-2-server.ts?raw";
+import tier2Client from "./snippets/tier-2-client.tsx?raw";
+
+<Meta
+    title="Using Perseus in a New Experience"
+    parameters={{docs: {toc: {headingSelector: "h2, h3"}}}}
+/>
+
+# Using Perseus in a New Experience
+
+> **⚠️ SPOILER:** You don't need to roll your own question UI to save time.
+
+Perseus renders any question with the same accessible widgets as the rest of
+Khan Academy, and handles checking, feedback and revealing answers. Your UI
+keeps the parts that belong to it, like the Check button. Three pieces work
+together:
+
+-   **`usePerseusQuestion({item, onCheck})`** holds the question's state. You
+    decide where scoring happens through the required `onCheck`, so you can
+    start in the browser and move scoring to a server later without changing
+    the UI.
+-   **`<PerseusQuestion question={question} />`** renders the item.
+-   **`<PerseusQuestionFeedback question={question} />`** (optional) shows the
+    result ("Correct!", "Your answer is empty.") in a screen-reader live
+    region. Put it next to your button, or leave it out if your UI gives its
+    own feedback.
+
+Your Check button calls `question.check()` and uses `question.isChecking`
+(spinner) and `question.isFinished` (disabled). See
+[section 4](#4-your-check-button-and-feedback) for what learners see in each
+state.
+
+Note: `ServerItemRenderer` means "can be rendered on the server", not "scores
+on the server". Scoring is always up to you.
+
+## 1. One-time setup
+
+Your app needs both of these providers around any Perseus content:
+
+-   **`DependenciesContext`**: without it, `generateUrl` and `useVideo` throw
+    as soon as an item contains an image or video.
+-   **`PerseusI18nContextProvider`**: without it, Perseus throws on first
+    render. (It works in tests and Storybook only because they provide English
+    strings by default.)
+
+You also need to call `init()` (registers the widgets), call
+`Dependencies.setDependencies()` (TeX, logging, locale), wrap content in a
+`framework-perseus` element and load Perseus's styles.
+
+<Source code={perseusHost} language="tsx" />
+
+## 2. What an item is
+
+An item is JSON. Each widget appears in `content` as a placeholder such as
+`[[☃ numeric-input 1]]`, and the same string (`"numeric-input 1"`) is its key
+in `widgets`, with a matching `type`. The parser fills in no defaults, so start
+from a complete template:
+
+<Source code={numericInputItem} language="json" />
+
+<Source code={radioItem} language="json" />
+
+Always run items through `parseAndMigratePerseusItem` from
+`@khanacademy/perseus-core`. It returns a failure for invalid items and throws
+a `SyntaxError` for malformed JSON, so wrap it in `try`/`catch` (especially for
+generated content).
+
+If you pass an answerless item to `usePerseusQuestion`, it must be
+`splitPerseusItem(fullItem)`. That way, revealing the solutions later keeps the
+learner's input.
+
+## 3. Choose where scoring happens
+
+### a. In the browser (lowest lift)
+
+Good for prototypes and low-stakes practice, such as a Khanmigo activity.
+The answers are in the browser, so don't use this where scores need to be
+trusted.
+
+<Source code={tier1Local} language="tsx" />
+
+### b. On your own backend
+
+Your server keeps the full item, sends the browser the answerless version,
+and returns the solutions only once they're earned. Returning `solutions`
+reveals the answers and finishes the question, even when it's incorrect, so
+your server can also decide when a learner is out of attempts.
+
+<Source code={tier2Server} language="ts" />
+
+<Source code={tier2Client} language="tsx" />
+
+If `onCheck` throws or rejects, `PerseusQuestionFeedback` shows a retryable
+"couldn't check your answer" message.
+
+### c. On the Khan Academy backend
+
+For content from the KA content library that should count toward mastery,
+scoring goes through the existing KA backend. The client side is the same as
+tier b: only the `onCheck` implementation changes.
+
+> **TODO:** Link to the KA backend scoring docs and their owner. Until then,
+> ask the Perseus team how to wire `onCheck` to the KA backend.
+
+<details>
+<summary>Under the hood: without the component</summary>
+
+`usePerseusQuestion` and `PerseusQuestion` are a thin layer over
+`ServerItemRenderer`. If you need full
+control, this is the core of what it does:
+
+```tsx
+const rendererRef = React.useRef<ServerItemRendererComponent>(null);
+
+function check() {
+    const userInput = rendererRef.current?.getUserInput();
+    const score = scorePerseusItem(item.question, userInput, "en");
+    // Show feedback, reveal solutions with showSolutions="all", etc.
+}
+
+<ServerItemRenderer
+    ref={rendererRef}
+    item={item}
+    problemNum={0}
+    dependencies={useDependencies()}
+    showSolutions="none"
+/>;
+```
+
+You then own announcing the result to screen readers, re-announcing repeated
+results, locking the question when it's finished and handling errors.
+
+</details>
+
+## 4. Your Check button and feedback
+
+### The Check button
+
+The button is yours, so it can match the rest of your UI. Wire it up like this:
+
+-   `onClick` calls `question.check()`. It's safe to call at any time: it does
+    nothing while a check is running or once the question is finished.
+-   `spinner={question.isChecking}` while `onCheck` runs.
+-   `disabled={question.isFinished}` once the learner is correct or the
+    solutions are revealed. Keep it enabled after a wrong answer, empty input
+    or a failed check, so the learner can try again.
+
+Two accessibility details are easy to miss:
+
+-   **Keep an accessible name while the spinner shows.** A spinner replaces the
+    visible label, so set `aria-label` (for example, to "Check").
+-   **Don't drop focus when the button disables.** A native
+    `<button disabled>` loses keyboard focus, and the learner ends up back at
+    the top of the page. Wonder Blocks' `Button` uses `aria-disabled`
+    instead, which keeps focus on the button. Use it, or do the same yourself.
+
+### What `PerseusQuestionFeedback` shows
+
+<table>
+    <caption>
+        What learners get for each <code>question.status.type</code>
+    </caption>
+    <thead>
+        <tr>
+            <th scope="col">Status</th>
+            <th scope="col">Learners see and hear</th>
+            <th scope="col">Your button</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">
+                <code>answering</code>
+            </th>
+            <td>Nothing yet</td>
+            <td>Enabled</td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <code>checking</code>
+            </th>
+            <td>
+                Nothing (the old result clears, so the next one is announced)
+            </td>
+            <td>Spinner</td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <code>invalid</code>
+            </th>
+            <td>
+                “Keep trying” and why, such as “Your answer is empty.” or “…it
+                needs to be simplified.”
+            </td>
+            <td>Enabled</td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <code>incorrect</code>
+            </th>
+            <td>
+                ✗ “Incorrect”, plus “Try again” unless the question is finished
+            </td>
+            <td>
+                Enabled, or disabled if <code>onCheck</code> returned{" "}
+                <code>solutions</code>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <code>correct</code>
+            </th>
+            <td>
+                ✓ “Correct!” The question locks, with solutions shown if{" "}
+                <code>onCheck</code> returned them
+            </td>
+            <td>Disabled</td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <code>error</code>
+            </th>
+            <td>
+                “Oops!” and “We couldn’t check your answer. Please try again.” (
+                <code>onCheck</code> threw or rejected)
+            </td>
+            <td>Enabled</td>
+        </tr>
+    </tbody>
+</table>
+
+`invalid` means the input isn't ready to score yet. It isn't a wrong answer,
+so it gets no ✗ and no red. An invalid score with no message means the input
+is empty.
+
+The accessibility work is built in:
+
+-   It's a native `<output>` live region that stays on the page even when
+    empty, so screen readers announce every result, including the same result
+    twice in a row.
+-   The text carries the meaning. The ✓ and ✗ icons are hidden from screen
+    readers, and color only reinforces the text.
+-   Every message comes from Perseus's translated strings.
+-   It's inline content, so it can sit in a row next to your button.
+
+Put it close to your Check button, so sighted learners see the result where
+they acted. Render one per question.
+
+### Giving your own feedback
+
+Leave out `PerseusQuestionFeedback` when your UI already responds, for
+example a tutor that replies in chat, or a custom celebration. React to the
+score inside `onCheck` (see the comment in the tier a snippet), or read
+`question.status` when rendering.
+
+If you show result text yourself, you take on what `PerseusQuestionFeedback`
+would have done:
+
+-   Announce results to screen readers: a live region that stays mounted, or
+    your chat's own announcements, including repeats of the same result.
+-   Handle `invalid`. With no message, tell the learner their answer is
+    empty. Otherwise, turn the code into words with `mapErrorToString` from
+    `@khanacademy/perseus/strings`.
+-   Handle `error`, and let the learner try again.
+
+## 5. When to talk to the Perseus team
+
+-   You need a widget, feedback pattern or option that `usePerseusQuestion`
+    doesn't have yet (hints, attempt limits, a Next button, per-widget feedback).
+-   You're rendering generated or untrusted content.
+-   Scores will count toward mastery or be shown to teachers.
+
+Otherwise, you should be able to ship without us. Start from the stories under
+**Renderers / Perseus Question**.

@@ -1,0 +1,8 @@
+/* <output> is inline by default and may only hold phrasing content, so the
+   row layout of the icon and messages comes from here instead. */
+.result {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--wb-sizing-size_080);
+}

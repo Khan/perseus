@@ -1,0 +1,19 @@
+{
+    "question": {
+        "content": "Which number is even?\n\n[[☃ radio 1]]",
+        "images": {},
+        "widgets": {
+            "radio 1": {
+                "type": "radio",
+                "options": {
+                    "choices": [
+                        {"content": "$4$", "correct": true},
+                        {"content": "$5$"},
+                        {"content": "$7$"}
+                    ]
+                }
+            }
+        }
+    },
+    "hints": []
+}

@@ -41,13 +41,15 @@ const config: KnipConfig = {
     // start with `import`. It first removes fenced code blocks, because the
     // docs show sample imports (e.g. of @khanacademy/perseus-score) that
     // aren't real. An import split over several lines would break this;
-    // none of our .mdx files has one.
+    // none of our .mdx files has one. It also strips Vite's `?raw` suffix
+    // (used to show snippet files as source), so knip can resolve the file.
     compilers: {
         mdx: (text: string) =>
             text
                 .replace(/```[\s\S]*?```/g, "")
                 .match(/^import\s.+$/gm)
-                ?.join("\n") ?? "",
+                ?.join("\n")
+                .replace(/\?raw(["'])/g, "$1") ?? "",
     },
     workspaces: {
         ".": {

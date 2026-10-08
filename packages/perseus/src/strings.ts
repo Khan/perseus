@@ -35,6 +35,7 @@ export type PerseusStrings = {
     keepTrying: string;
     tryAgain: string;
     check: string;
+    checkAnswerError: string;
     correctExcited: string;
     nextQuestion: string;
     skipToTitle: ({title}: {title: string}) => string;
@@ -970,6 +971,11 @@ export const strings = {
     keepTrying: "Keep trying",
     tryAgain: "Try again",
     check: "Check",
+    checkAnswerError: {
+        context:
+            "Message shown after a learner presses Check when their answer could not be checked, for example because of a network problem.",
+        message: "We couldn't check your answer. Please try again.",
+    },
     correctExcited: "Correct!",
     nextQuestion: "Next question",
     skipToTitle: "Skip to %(title)s",
@@ -1919,6 +1925,7 @@ export const mockStrings: PerseusStrings = {
     keepTrying: "Keep trying",
     tryAgain: "Try again",
     check: "Check",
+    checkAnswerError: "We couldn't check your answer. Please try again.",
     correctExcited: "Correct!",
     nextQuestion: "Next question",
     skipToTitle: ({title}) => `Skip to ${title}`,

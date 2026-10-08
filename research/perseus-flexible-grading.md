@@ -458,6 +458,44 @@ These were found during exploration. Hardening them in Perseus would also benefi
 
 ---
 
+## 10. Spike results (2026-10-08)
+
+> **Update:** the spike package has moved to the `spike/perseus-experience` branch (commit `902d1503b0`) and is superseded by the much smaller `PerseusQuestion` component in `@khanacademy/perseus` plus the "Using Perseus in a New Experience" recipe page.
+
+Spikes 1 and 2 are built in `packages/perseus-experience` (private, additive; no other package changed). Spike 3 is covered by exclusion only. Spike 4 needs design and was not started.
+
+| Spike | Status | Evidence |
+|---|---|---|
+| 1. Local end to end | ✅ Done | Storybook: *Experience / Graded Item Experience* (`LocalGrader`, `PerWidgetFeedback`, `IngestionFailure`); `graded-item-experience.test.tsx` |
+| 2. Remote grader against a stub | ✅ Done | `createGradingHandler` + `createInProcessFetch` (600 ms simulated latency) in the `RemoteGrader` story; `graders.test.ts` |
+| 3. Security hardening | ◐ Exclusion only | Widget allowlist (deep, including unregistered types) and URL host allowlist in `prepareGeneratedItem`. The in-Perseus fixes in §4.4 are still open (§8) |
+| 4. Feedback UX design pass | ⏸ Not started | Option 2 from §7 (per-widget summary list) is implemented as a placeholder for design to react to |
+
+### What the spikes confirmed
+
+- **Switching modes really is a config swap.** The same test suite runs unchanged against local, remote and KA-backend graders (`describe.each` in `graders.test.ts`, and both local and remote in the component tests), and they return identical `GradeResult`s. The design rule in §3.2 holds.
+- **`perseus-score` runs fine behind a JSON boundary.** The in-process transport round-trips request and response through `JSON.stringify`/`parse`. Nothing in `PerseusScore`/`widgetScores` breaks.
+- **Answers stay off the wire in mode B until reveal.** The client sends `{userInput, ctx}` (plus the *answerless* item only when there's no `itemId`). The full item is fetched only once the learner is correct or out of attempts (tested).
+- **Swapping `item` without remounting keeps the learner's input**, as the debug harness relies on. Reveal is therefore a prop change, not a reset.
+- **"No mastery from mode A" can be enforced in code.** `useGradedItem` throws if `countsTowardMastery` is paired with a grader whose `requiresAnswersOnClient` is true.
+
+### New findings
+
+1. **Blocking on lint WARNING rejects every Markdown image.** The `image-markdown` rule (severity 2) flags all `![alt](url)` content in favor of the image widget. With §4.3's default (`blockOnLintSeverity: 2`), generated items can't contain images unless the `image` widget is allowlisted. Options: allowlist `image` (needs host allowlist and alt text, both already enforced), or block on ERROR plus a curated list of WARNING rules.
+2. **Allowlists must run before parse/migrate**, on the raw object. Otherwise a migration could, in principle, rewrite a disallowed widget or URL into an allowed shape. `prepareGeneratedItem` does it in that order.
+3. **A deep, schema-agnostic widget scan is needed.** Perseus's `traverse` only descends into widgets that are registered and declare `traverseChildWidgets`. The ingestion scan instead walks every `widgets` map at any depth, which catches unknown types inside `group`.
+4. **Check isn't gated yet.** The spike keeps Check enabled and relies on `invalid` scores ("Keep trying" plus the mapped error). Invalid input doesn't count as an attempt and fires no callbacks. Both renderers do call `apiOptions.answerableCallback` (`renderer.new.tsx:332, 392`), so gating Check on it is a cheap follow-up. It is a UX choice for design, since a disabled Check with no explanation can confuse learners.
+5. **WB `Button`'s `disabled` uses `aria-disabled`,** so focus isn't lost while grading. Focus moves to Next only when Check disappears (item finished).
+6. **i18n gap.** The wrapper reuses `PerseusStrings` where they exist (`check`, `correctExcited`, `incorrect`, `tryAgain`, `keepTrying`, `nextQuestion`). Three strings are English-only TODOs: the grader-error message, "Here's the answer.", and the per-answer summary.
+
+### Not yet verified
+
+- Mobile keypad inside the wrapper (it is wired through `KeypadContext.Consumer` but untested).
+- Manual screen-reader QA (§6.6). Automated coverage is only RTL role/name queries plus Storybook's a11y addon; there is still no jest-axe.
+- A real network backend (Node/HTTP) for mode B; only the in-process stub was exercised.
+
+---
+
 ## Appendix A: key files and APIs
 
 | API | File |

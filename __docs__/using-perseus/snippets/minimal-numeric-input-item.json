@@ -1,0 +1,17 @@
+{
+    "question": {
+        "content": "What is $2 + 2$?\n\n[[☃ numeric-input 1]]",
+        "images": {},
+        "widgets": {
+            "numeric-input 1": {
+                "type": "numeric-input",
+                "options": {
+                    "labelText": "Sum",
+                    "size": "normal",
+                    "answers": [{"value": 4, "status": "correct"}]
+                }
+            }
+        }
+    },
+    "hints": []
+}

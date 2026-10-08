@@ -18,6 +18,11 @@ export {apiVersion} from "./perseus-version";
  */
 export {default as ArticleRenderer} from "./article-renderer";
 export {default as ServerItemRenderer} from "./server-item-renderer";
+export {
+    PerseusQuestion,
+    PerseusQuestionFeedback,
+} from "./perseus-question/perseus-question";
+export {usePerseusQuestion} from "./perseus-question/use-perseus-question";
 export {default as HintsRenderer} from "./hints-renderer";
 export {default as HintRenderer} from "./hint-renderer";
 export {default as Renderer} from "./renderer";
@@ -176,6 +181,16 @@ export {extractWidgetIds} from "./util/extract-widget-ids";
  */
 export type {ILogger, LogErrorOptions} from "./logging/log";
 export type {ServerItemRenderer as ServerItemRendererComponent} from "./server-item-renderer";
+export type {
+    PerseusQuestionProps,
+    PerseusQuestionFeedbackProps,
+} from "./perseus-question/perseus-question";
+export type {
+    PerseusQuestionResult,
+    PerseusQuestionState,
+    PerseusQuestionStatus,
+    UsePerseusQuestionOptions,
+} from "./perseus-question/use-perseus-question";
 export type {
     APIOptions,
     /** @hidden */
