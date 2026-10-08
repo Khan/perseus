@@ -63,6 +63,9 @@ describe("Registry", () => {
             const registry = new Registry<string>("Aliased", {
                 aliases: {keys: ["old-a", "old-b"], value: "standin"},
             });
+            // The Registry complains if nothing is registered before use. The
+            // constructor and alias setup doesn't count, so we add a single
+            // entry here.
             registry.set("radio", "hello");
             return registry;
         }
