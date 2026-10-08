@@ -63,7 +63,6 @@ export const AnswerPill = (props: {
         >
             {({ref, style: popperStyle}) => (
                 <Pill
-                    kind="accent"
                     id={pillId}
                     onClick={correct ? undefined : onClick}
                     ref={ref}

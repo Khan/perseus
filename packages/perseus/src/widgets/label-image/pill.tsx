@@ -1,12 +1,7 @@
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {focusStyles} from "@khanacademy/wonder-blocks-styles";
-import {
-    semanticColor,
-    border,
-    color,
-    sizing,
-} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, border, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
@@ -36,11 +31,6 @@ type Props = AriaProps & {
      * The text to display within the pill.
      */
     children: string | React.ReactElement<React.ComponentProps<Typography>>;
-    /**
-     * Determines the color of the pill. Defaults to "neutral".
-     * Neutral pills are gray, accent pills are blue.
-     */
-    kind?: PillKind;
     /**
      * The role the pill should have depending on its behavior.
      * By default, it has none. If pill is Clickable, this is automatically
@@ -90,21 +80,12 @@ const Pill = React.forwardRef(function Pill(
     props: Props,
     ref: React.ForwardedRef<HTMLElement | HTMLButtonElement>,
 ) {
-    const {
-        id,
-        children,
-        kind = "neutral",
-        role,
-        onClick,
-        style,
-        tabIndex,
-        testId,
-        ...ariaProps
-    } = props;
+    const {id, children, role, onClick, style, tabIndex, testId, ...ariaProps} =
+        props;
 
     const wrapperSizeStyle = pillStyles.wrapperLarge;
 
-    const colorStyles = _generateColorStyles(!!onClick, kind);
+    const colorStyles = _generateColorStyles(!!onClick);
 
     const defaultStyles = [
         pillStyles.wrapper,
@@ -120,6 +101,7 @@ const Pill = React.forwardRef(function Pill(
                 onClick={onClick}
                 style={[defaultStyles, colorStyles.clickableWrapper, style]}
                 testId={testId}
+                // eslint-disable-next-line no-restricted-syntax
                 ref={ref as React.ForwardedRef<HTMLButtonElement>}
                 tabIndex={tabIndex}
                 {...ariaProps}
@@ -135,6 +117,7 @@ const Pill = React.forwardRef(function Pill(
             role={role}
             style={[defaultStyles, style]}
             testId={testId}
+            // eslint-disable-next-line no-restricted-syntax
             ref={ref as React.ForwardedRef<HTMLElement>}
             {...ariaProps}
         >
@@ -158,65 +141,23 @@ const pillStyles = StyleSheet.create({
 
 const styles: Record<string, any> = {};
 
-const _generateColorStyles = (clickable: boolean, kind: PillKind) => {
-    const pillType = `${kind}-${clickable.toString()}`;
+const _generateColorStyles = (clickable: boolean) => {
+    const pillType = `${clickable.toString()}`;
     if (styles[pillType]) {
         return styles[pillType];
     }
 
-    let backgroundColor;
-    let textColor;
-
-    switch (kind) {
-        case "accent":
-            // Use action tokens for accent so it is similar to the button
-            // primary progressive background and foreground colors
-            backgroundColor =
-                semanticColor.action.primary.progressive.default.background;
-            textColor =
-                semanticColor.action.primary.progressive.default.foreground;
-            break;
-        case "info":
-            backgroundColor = semanticColor.feedback.info.subtle.background;
-            textColor = semanticColor.feedback.info.subtle.text;
-            break;
-        case "success":
-            backgroundColor = semanticColor.feedback.success.subtle.background;
-            textColor = semanticColor.feedback.success.subtle.text;
-            break;
-        case "warning":
-            backgroundColor = semanticColor.feedback.warning.subtle.background;
-            textColor = semanticColor.feedback.warning.subtle.text;
-            break;
-        case "critical":
-            backgroundColor = semanticColor.feedback.critical.subtle.background;
-            textColor = semanticColor.feedback.critical.subtle.text;
-            break;
-        case "transparent":
-            backgroundColor = semanticColor.core.transparent;
-            textColor = semanticColor.core.foreground.neutral.strong;
-            break;
-        case "neutral":
-        default:
-            // NOTE(WB-1950): Will remove use of status token once the `neutral` kind is removed in favour of Badge
-            backgroundColor = semanticColor.status.neutral.background;
-            textColor = semanticColor.core.foreground.neutral.strong;
-    }
+    const backgroundColor =
+        semanticColor.action.primary.progressive.default.background;
+    const textColor =
+        semanticColor.action.primary.progressive.default.foreground;
 
     const pressColor =
-        kind === "transparent" || kind === "neutral"
-            ? color.offBlack16 // NOTE(WB-1950): Neutral pills will be replaced with Badge and the transparent kind will be removed
-            : kind === "accent"
-              ? semanticColor.action.primary.progressive.press.background
-              : // NOTE(WB-1950): This will be simplified once we split this into Badge and Pill.
-                `color-mix(in srgb, ${color.offBlack32}, ${backgroundColor})`;
+        semanticColor.action.primary.progressive.press.background;
 
     const theme = {
         default: {
-            border:
-                kind === "transparent"
-                    ? `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`
-                    : "none",
+            border: "none",
             background: backgroundColor,
             foreground: textColor,
         },
