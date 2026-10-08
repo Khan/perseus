@@ -3,6 +3,7 @@ import React, {useEffect, useId, useRef, useState} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 import ScrollableView from "../../components/scrollable-view";
+import a11yStyles from "../../styles/a11y.module.css";
 import {getBackgroundColor} from "../../util/colors";
 
 import Choice from "./choice";
@@ -26,6 +27,7 @@ export interface RadioComponentProps {
     // Review mode is used when the user has successfully answered the question
     // and is now reviewing their answer.
     reviewMode: boolean;
+    isRequired?: boolean;
 }
 
 /**
@@ -73,6 +75,7 @@ const RadioComponent = ({
     numCorrect,
     onChoiceChange,
     reviewMode,
+    isRequired = false,
 }: RadioComponentProps): React.ReactElement => {
     const {strings} = usePerseusI18n();
     const legendId = useId();
@@ -131,6 +134,12 @@ const RadioComponent = ({
                     className={styles.instructions}
                 >
                     {instructions}
+                    {isRequired && (
+                        <span className={a11yStyles.srOnly}>
+                            {" "}
+                            {strings.required}
+                        </span>
+                    )}
                 </legend>
                 <ScrollableView id={scrollId} overflowX="auto">
                     {/* eslint-disable-next-line jsx-a11y/no-redundant-roles */}

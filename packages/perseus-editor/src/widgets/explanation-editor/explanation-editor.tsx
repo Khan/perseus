@@ -16,7 +16,6 @@ interface Props extends PerseusExplanationWidgetOptions {
     onChange: (options: PerseusExplanationWidgetOptions) => void;
 }
 
-// JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for adding an explanation widget that provides supplementary information to users.
  */

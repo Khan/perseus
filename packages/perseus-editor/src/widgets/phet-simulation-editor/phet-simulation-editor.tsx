@@ -14,7 +14,6 @@ type Props = PerseusPhetSimulationWidgetOptions & {
     }) => void;
 };
 
-// JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for adding a PhET simulation widget that allows users to interact
  * with physics simulations.

@@ -44,7 +44,6 @@ type Props = {
     showTooltips: boolean;
 } & ChangeableProps;
 
-// JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for adding a number line widget that allows users to mark
  * positions, intervals, and points on a number line.
