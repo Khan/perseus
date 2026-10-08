@@ -1,5 +1,23 @@
 # @khanacademy/perseus
 
+## 90.2.0
+
+### Minor Changes
+
+-   [#4260](https://github.com/Khan/perseus/pull/4260) [`a36956f`](https://github.com/Khan/perseus/commit/a36956faf71532f640cb268fc29785bb8b59dbe2) Thanks [@benchristel](https://github.com/benchristel)! - Paragraphs are now correctly styled and use accessible `<p>` elements when the perseus-renderer-upgrade feature flag is on.
+
+### Patch Changes
+
+-   [#4339](https://github.com/Khan/perseus/pull/4339) [`7285d58`](https://github.com/Khan/perseus/commit/7285d58eb81ff71a8a0c6fd5d62d7082c3b8e0e1) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert the Mock widget (testing widget) to a functional component
+
+-   Updated dependencies [[`1c610e4`](https://github.com/Khan/perseus/commit/1c610e4bd481bb5c5cb76801a3093b86c7068640)]:
+    -   @khanacademy/perseus-core@41.1.0
+    -   @khanacademy/keypad-context@6.0.3
+    -   @khanacademy/kmath@3.0.4
+    -   @khanacademy/math-input@30.0.4
+    -   @khanacademy/perseus-linter@6.1.1
+    -   @khanacademy/perseus-score@9.0.4
+
 ## 90.1.0
 
 ### Minor Changes

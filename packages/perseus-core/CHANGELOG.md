@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 41.1.0
+
+### Minor Changes
+
+-   [#4336](https://github.com/Khan/perseus/pull/4336) [`1c610e4`](https://github.com/Khan/perseus/commit/1c610e4bd481bb5c5cb76801a3093b86c7068640) Thanks [@benchristel](https://github.com/benchristel)! - There's a new `PerseusNumberLineLabelStyle` type which enumerates the values accepted by the `labelStyle` option of the Number Line widget.
+
 ## 41.0.0
 
 ### Major Changes
