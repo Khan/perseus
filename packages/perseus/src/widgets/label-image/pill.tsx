@@ -4,19 +4,17 @@ import {semanticColor, border, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import type {StyleType, AriaProps} from "@khanacademy/wonder-blocks-core";
-import type {Typography} from "@khanacademy/wonder-blocks-typography";
-import type {StyleDeclaration} from "aphrodite";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
-type Props = AriaProps & {
+type Props = {
     /**
      * The unique identifier for the pill.
      */
     id?: string;
     /**
-     * The text to display within the pill.
+     * The content to display within the pill.
      */
-    children: React.ReactElement<React.ComponentProps<Typography>>;
+    children: React.ReactNode;
     /**
      * Called when the pill is clicked.
      */
@@ -28,30 +26,17 @@ type Props = AriaProps & {
 };
 
 const Pill = React.forwardRef(function Pill(
-    props: Props,
+    {id, children, onClick, style}: Props,
     ref: React.ForwardedRef<HTMLElement | HTMLButtonElement>,
 ) {
-    const {id, children, role, onClick, style, ...ariaProps} = props;
-
-    const wrapperSizeStyle = pillStyles.wrapperLarge;
-
-    const colorStyles = _generateColorStyles(!!onClick);
-
-    const defaultStyles = [
-        pillStyles.wrapper,
-        colorStyles.pill,
-        wrapperSizeStyle,
-    ];
-
     if (onClick) {
         return (
             <Clickable
                 id={id}
                 onClick={onClick}
-                style={[defaultStyles, colorStyles.clickableWrapper, style]}
+                style={[styles.pill, styles.clickable, style]}
                 // eslint-disable-next-line no-restricted-syntax
                 ref={ref as React.ForwardedRef<HTMLButtonElement>}
-                {...ariaProps}
             >
                 {() => children}
             </Clickable>
@@ -61,81 +46,45 @@ const Pill = React.forwardRef(function Pill(
     return (
         <View
             id={id}
-            role={role}
-            style={[defaultStyles, style]}
+            style={[styles.pill, style]}
             // eslint-disable-next-line no-restricted-syntax
             ref={ref as React.ForwardedRef<HTMLElement>}
-            {...ariaProps}
         >
             {children}
         </View>
     );
 });
 
-const pillStyles = StyleSheet.create({
-    wrapper: {
+const styles = StyleSheet.create({
+    pill: {
         display: "inline-flex",
         width: "fit-content",
-    },
-    wrapperLarge: {
+        alignItems: "center",
+        justifyContent: "center",
         paddingInline: sizing.size_120,
         paddingBlock: sizing.size_060,
         borderRadius: border.radius.radius_240,
-        height: sizing.size_320,
+        color: semanticColor.core.foreground.knockout.default,
+        backgroundColor: semanticColor.core.background.instructive.strong,
+    },
+    clickable: {
+        outline: "none",
+        ":hover": {
+            outline: `${border.width.medium} solid ${semanticColor.core.border.instructive.default}`,
+            outlineOffset: sizing.size_020,
+        },
+        ":active": {
+            backgroundColor:
+                semanticColor.action.primary.progressive.press.background,
+            outline: `${border.width.medium} solid ${semanticColor.core.border.instructive.strong}`,
+            outlineOffset: sizing.size_020,
+        },
+        ":focus-visible": {
+            boxShadow: `0 0 0 ${border.width.medium} ${semanticColor.focus.inner}`,
+            outline: `${border.width.medium} solid ${semanticColor.focus.outer}`,
+            outlineOffset: border.width.medium,
+        },
     },
 });
-
-const styles: Record<string, any> = {};
-
-/**
- * A global focus style that can be applied to interactive elements.
- *
- * This style injects a combination of `outline` and `box-shadow` to indicate
- * the element is focused. This is used for accessibility purposes as it allows
- * the element to present a focus state on Windows High Contrast mode.
- */
-const focus = {
-    ":focus-visible": {
-        boxShadow: `0 0 0 ${border.width.medium} ${semanticColor.focus.inner}`,
-        outline: `${border.width.medium} solid ${semanticColor.focus.outer}`,
-        outlineOffset: border.width.medium,
-    },
-};
-
-const _generateColorStyles = (clickable: boolean) => {
-    const pillType = `${clickable.toString()}`;
-    if (styles[pillType]) {
-        return styles[pillType];
-    }
-
-    const colorStyles: StyleDeclaration = {
-        pill: {
-            backgroundColor:
-                semanticColor.action.primary.progressive.default.background,
-            outline: "none",
-            color: semanticColor.action.primary.progressive.default.foreground,
-            alignItems: "center",
-            justifyContent: "center",
-        },
-        clickableWrapper: {
-            outline: "none",
-
-            ":hover": {
-                outline: `${border.width.medium} solid ${semanticColor.core.border.instructive.default}`,
-                outlineOffset: sizing.size_020,
-            },
-            ":active": {
-                backgroundColor:
-                    semanticColor.action.primary.progressive.press.background,
-                outline: `${border.width.medium} solid ${semanticColor.core.border.instructive.strong}`,
-                outlineOffset: sizing.size_020,
-            },
-            ...focus,
-        },
-    };
-
-    styles[pillType] = StyleSheet.create(colorStyles);
-    return styles[pillType];
-};
 
 export default Pill;

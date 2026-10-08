@@ -69,7 +69,6 @@ export const AnswerPill = (props: {
                     style={[
                         style,
                         popperStyle,
-                        styles.pill,
                         correct && styles.correct,
                         incorrect && styles.incorrect,
                         (focused || hovered) && BringToFront,
@@ -88,12 +87,5 @@ const styles = StyleSheet.create({
     },
     incorrect: {
         backgroundColor: semanticColor.core.background.neutral.default,
-    },
-    pill: {
-        // Reset the Pill's default height in order to account
-        // for multi-line pills.
-        height: "auto",
-        color: semanticColor.core.foreground.knockout.default,
-        backgroundColor: semanticColor.core.background.instructive.strong,
     },
 });
