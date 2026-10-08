@@ -2,34 +2,36 @@
  * Renders the answer bar for graded groups. [STATELESS]
  */
 import Button from "@khanacademy/wonder-blocks-button";
-import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
+import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
+import {border, semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
+import arrowCounterIcon from "@phosphor-icons/core/bold/arrow-counter-clockwise-bold.svg";
+import warningIcon from "@phosphor-icons/core/bold/warning-bold.svg";
+import starIcon from "@phosphor-icons/core/fill/star-fill.svg";
 import * as React from "react";
+import {flushSync} from "react-dom";
 
-import {PerseusI18nContext} from "../../components/i18n-context";
-import InlineIcon from "../../components/inline-icon";
-import {iconStar, iconTryAgain} from "../../icon-paths";
-import {phoneMargin, negativePhoneMargin} from "../../styles/constants";
+import {usePerseusI18n} from "../../components/i18n-context";
+import Renderer from "../../renderer";
 
-import type {APIOptions} from "../../types";
+import type {APIOptions, TrackingGradedGroupExtraArguments} from "../../types";
 
-export type ANSWER_BAR_STATES =
-    // The 'Check' button is active whenever the question is answerable or any
-    // of the input widgets have been modified after getting the answer wrong.
-    | "ACTIVE"
-    // The 'Check' button is disabled and there is no message.  This is the initial state and also occurs when
-    // some of the widgets haven't been filled in after the answer bar has already become
-    // visible.
-    | "INACTIVE"
-    // This happens immediately after clicking 'Check' with a wrong answer.
-    // The 'Check' button is disabled and the 'Try Again' message is displayed.
-    | "INCORRECT"
-    // Final state.  This occurs after the user submits the correct answer.
-    // The widgets in this grade-group are disabled.
-    | "CORRECT";
+// The result of clicking 'Check'. ("correct", "incorrect", "invalid")
+export type GradingStatus = TrackingGradedGroupExtraArguments["status"];
+
+export type AnswerBarState =
+    // The initial state, and the state the group returns to whenever an input
+    // widget is modified after checking. The 'Check' button is offered and
+    // there is no result.
+    | "active"
+    // Immediately after clicking 'Check', the answer bar shows the result
+    // until the user changes their answer.
+    | GradingStatus;
 
 type Props = {
-    answerBarState: ANSWER_BAR_STATES;
+    answerBarState: AnswerBarState;
     apiOptions: APIOptions;
+    // A string explaining why the answer is invalid / couldn't be checked.
+    invalidMessage?: string;
     onCheckAnswer: () => unknown;
     // The function to call when clicking "Next question" after correctly
     // answering one graded group out of a set. If this is null, the
@@ -37,108 +39,131 @@ type Props = {
     onNextQuestion?: () => unknown;
 };
 
-class GradedGroupAnswerBar extends React.Component<Props> {
-    static contextType = PerseusI18nContext;
-    declare context: React.ContextType<typeof PerseusI18nContext>;
+function GradedGroupAnswerBar({
+    apiOptions,
+    answerBarState,
+    invalidMessage,
+    onCheckAnswer,
+    onNextQuestion,
+}: Props) {
+    const {strings} = usePerseusI18n();
+    const {keepTrying, check, correctExcited, nextQuestion} = strings;
 
-    render(): React.ReactNode {
-        const {apiOptions, answerBarState, onCheckAnswer, onNextQuestion} =
-            this.props;
-        const {keepTrying, tryAgain, check, correctExcited, nextQuestion} =
-            this.context.strings;
+    const resultRef = React.useRef<HTMLOutputElement>(null);
 
-        const answerBarStyle = {
-            ...styles.answerBar,
-            // Center the "Correct!" message only when there's no next question
-            justifyContent:
-                answerBarState === "CORRECT" && !onNextQuestion
-                    ? "center"
-                    : "space-between",
-        } as const;
+    // Move focus to the status message every time the user checks their answer,
+    // so that the message is read by the screen reader. We want this on every
+    // check, even if the answer/result hasn't changed.
+    // Moving focus here also keeps it off the body when a correct answer
+    // unmounts the "Check" button.
+    const handleCheckAnswer = () => {
+        // React waits until the handler finishes before updating
+        // the page, so the status message wouldn't exist yet for us to
+        // focus. `flushSync` makes React show it right away.
+        flushSync(onCheckAnswer);
+        resultRef.current?.focus();
+    };
 
-        const message =
-            answerBarState === "INCORRECT" ? (
-                <span style={styles.text}>
-                    <span style={styles.tryAgainIcon}>
-                        <InlineIcon {...iconTryAgain} />
-                    </span>
-                    <span style={{marginInlineStart: 8}}>{keepTrying}</span>
-                </span>
-            ) : (
-                <span />
-            ); // empty span keeps the button on the right side
+    const stateInfoMap = {
+        correct: {
+            icon: starIcon,
+            iconColor: semanticColor.core.foreground.success.default,
+            text: correctExcited,
+        },
+        incorrect: {
+            icon: arrowCounterIcon,
+            iconColor: semanticColor.core.foreground.neutral.subtle,
+            text: keepTrying,
+        },
+        invalid: {
+            icon: warningIcon,
+            iconColor: semanticColor.core.border.warning.strong,
+            text: invalidMessage,
+            // This one explains what went wrong rather than announcing a
+            // result, so it isn't emphasized like the other two.
+        },
+        active: null,
+    } as const;
+    const stateInfo = stateInfoMap[answerBarState];
 
-        if (answerBarState !== "CORRECT") {
-            const buttonLabel =
-                answerBarState === "INCORRECT" ? tryAgain : check;
+    const action =
+        // If the answer is correct, show the "Next Question" button,
+        // if applicable (i.e. in a Graded Group Set).
+        answerBarState === "correct"
+            ? onNextQuestion && {
+                  label: nextQuestion,
+                  onClick: onNextQuestion,
+                  // The "Next question" button is never disabled
+                  // after correctly answering a question.
+                  disabled: false,
+              }
+            : {
+                  // Otherwise, show the "Check" button
+                  label: check,
+                  onClick: handleCheckAnswer,
+                  disabled: apiOptions.readOnly,
+              };
 
-            return (
-                <div style={answerBarStyle}>
-                    {message}
-                    <Button
-                        disabled={
-                            apiOptions.readOnly || answerBarState !== "ACTIVE"
-                        }
-                        onClick={onCheckAnswer}
-                    >
-                        {buttonLabel}
-                    </Button>
-                </div>
-            );
-        }
-        return (
-            <div style={answerBarStyle}>
-                <span style={styles.text}>
-                    <span
-                        style={{
-                            color: semanticColor.core.foreground.success
-                                .default,
-                        }}
-                    >
-                        <InlineIcon {...iconStar} style={{marginBlockEnd: 5}} />
-                    </span>
-                    <span
-                        role="alert"
-                        aria-label={correctExcited}
-                        style={{marginInlineStart: 8}}
-                    >
-                        {correctExcited}
-                    </span>
-                </span>
-                {onNextQuestion && (
-                    <Button onClick={onNextQuestion}>{nextQuestion}</Button>
+    return (
+        <div style={styles.answerBar}>
+            {/* Render the <span> whether `stateInfo` is available or not,
+                so that `space-between` keeps the button at the inline-end of
+                the bar while there's no result to sit at the inline-start. */}
+            <span style={styles.message}>
+                {stateInfo && (
+                    <>
+                        <PhosphorIcon
+                            icon={stateInfo.icon}
+                            color={stateInfo.iconColor}
+                        />
+                        {/* <output> is the native element for the result of a
+                            user action, and it means screen readers don't read
+                            "group" like they would for a span.
+
+                            Focus moves here on every check, which is what
+                            reads the result out to a screen reader. */}
+                        <output ref={resultRef} tabIndex={-1}>
+                            <Renderer
+                                content={stateInfo.text}
+                                strings={strings}
+                                apiOptions={apiOptions}
+                            />
+                        </output>
+                    </>
                 )}
-            </div>
-        );
-    }
+            </span>
+            {action && (
+                <Button disabled={action.disabled} onClick={action.onClick}>
+                    {action.label}
+                </Button>
+            )}
+        </div>
+    );
 }
 
 const styles = {
     answerBar: {
         display: "flex",
+        // Put the "Check" button on the next line if there isn't enough
+        // space for the status message (i.e. in mobile).
+        flexWrap: "wrap",
         alignItems: "center",
-        height: 68, // so that we don't have calculate the vertical padding
-        marginLeft: negativePhoneMargin,
-        marginRight: negativePhoneMargin,
-        marginBottom: negativePhoneMargin,
-        marginTop: phoneMargin,
-        paddingLeft: phoneMargin,
-        paddingRight: 10,
+        // Keep the result at the inline-start of the bar and the button at
+        // the inline-end.
+        justifyContent: "space-between",
+        // Keep a space between the message and the "Check" button,
+        // whether the button is on the right of the message or below.
+        gap: sizing.size_080,
+        marginBlockStart: sizing.size_120,
+        paddingBlockStart: sizing.size_120,
         borderTop: `${border.width.thin} solid ${semanticColor.core.border.neutral.default}`,
         backgroundColor: semanticColor.core.background.base.subtle,
     },
 
-    tryAgainIcon: {
-        color: semanticColor.core.foreground.neutral.subtle,
-        transform: "scale(-1,1) rotate(-268deg)",
-    },
-
-    text: {
+    message: {
         display: "flex",
-        flexDirection: "row",
         alignItems: "center",
-        fontWeight: font.weight.bold,
-        fontSize: font.body.size.medium,
+        gap: sizing.size_080,
     },
 } as const;
 
