@@ -202,12 +202,20 @@ export const DesktopHintExpanded: Story = {
     },
 };
 
+// Render mobile stories in a small (320px) viewport to match a phone-sized
+// screen. `mobileDecorator` and `isMobile` switch Perseus to its mobile layout,
+// but don't change the width of the page.
+const smallViewportGlobals = {
+    viewport: {value: "mobile1", isRotated: false},
+};
+
 export const MobileHintExpanded: Story = {
     args: sharedArgs,
     decorators: [mobileDecorator],
     parameters: {
         apiOptions: {isMobile: true},
     },
+    globals: smallViewportGlobals,
     play: async ({canvas, userEvent}) => {
         const explainButton = canvas.getByRole("button", {name: "Explain"});
         await userEvent.click(explainButton);
@@ -221,10 +229,11 @@ export const MobileHintExpanded: Story = {
 // stories — a standalone graded group never shows that button.)
 
 // A wrong answer swaps the Check button for the neutral "try again" icon.
-export const MobileAnswerBarIncorrect: Story = {
+export const MobileIncorrectAnswer: Story = {
     args: sharedArgs,
     decorators: [mobileDecorator],
     parameters: {apiOptions: {isMobile: true}},
+    globals: smallViewportGlobals,
     play: async ({canvas, userEvent}) => {
         const dropdown = canvas.getByRole("combobox");
         await userEvent.click(dropdown);
@@ -238,10 +247,11 @@ export const MobileAnswerBarIncorrect: Story = {
 };
 
 // A correct answer shows the success star in the answer bar.
-export const MobileAnswerBarCorrect: Story = {
+export const MobileCorrectAnswer: Story = {
     args: sharedArgs,
     decorators: [mobileDecorator],
     parameters: {apiOptions: {isMobile: true}},
+    globals: smallViewportGlobals,
     play: async ({canvas, userEvent}) => {
         const dropdown = canvas.getByRole("combobox");
         await userEvent.click(dropdown);
@@ -249,6 +259,24 @@ export const MobileAnswerBarCorrect: Story = {
             name: "Correct answer",
         });
         await userEvent.click(correctOption);
+        const checkButton = canvas.getByRole("button", {name: "Check"});
+        await userEvent.click(checkButton);
+    },
+};
+
+// An incomplete answer shows the warning icon and the invalid message, and
+// keeps the Check button so the learner can try again. In a narrow screen,
+// the Check button reflows underneath the message.
+export const MobileInvalidAnswer: Story = {
+    args: categorizerArgs,
+    decorators: [mobileDecorator],
+    parameters: {apiOptions: {isMobile: true}},
+    globals: smallViewportGlobals,
+    play: async ({canvas, userEvent}) => {
+        // Categorize only the first row, leaving the second blank.
+        // This is considered an "invalid" state.
+        const [firstRowTrue] = canvas.getAllByRole("button", {name: "True"});
+        await userEvent.click(firstRowTrue);
         const checkButton = canvas.getByRole("button", {name: "Check"});
         await userEvent.click(checkButton);
     },

@@ -507,23 +507,27 @@ exports[`graded group set widget should snapshot 1`] = `
                 </div>
               </div>
               <div
-                style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--wb-sizing-size_080); margin-block-start: var(--wb-sizing-size_120); padding-block-start: var(--wb-sizing-size_120);"
+                class="answer-bar-container"
               >
-                <span
-                  style="display: flex; align-items: center; gap: var(--wb-sizing-size_080);"
-                />
-                <button
-                  aria-disabled="false"
-                  class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn"
-                  data-kind="primary"
-                  type="button"
+                <div
+                  class="answer-bar"
                 >
                   <span
-                    class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+                    class="message"
+                  />
+                  <button
+                    aria-disabled="false"
+                    class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn"
+                    data-kind="primary"
+                    type="button"
                   >
-                    Check
-                  </span>
-                </button>
+                    <span
+                      class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+                    >
+                      Check
+                    </span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>

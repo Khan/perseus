@@ -3,7 +3,7 @@
  */
 import Button from "@khanacademy/wonder-blocks-button";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
-import {border, semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import arrowCounterIcon from "@phosphor-icons/core/bold/arrow-counter-clockwise-bold.svg";
 import warningIcon from "@phosphor-icons/core/bold/warning-bold.svg";
 import starIcon from "@phosphor-icons/core/fill/star-fill.svg";
@@ -12,6 +12,8 @@ import {flushSync} from "react-dom";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 import Renderer from "../../renderer";
+
+import styles from "./graded-group-answer-bar.module.css";
 
 import type {APIOptions, TrackingGradedGroupExtraArguments} from "../../types";
 
@@ -105,66 +107,49 @@ function GradedGroupAnswerBar({
               };
 
     return (
-        <div style={styles.answerBar}>
-            {/* Render the <span> whether `stateInfo` is available or not,
-                so that `space-between` keeps the button at the inline-end of
-                the bar while there's no result to sit at the inline-start. */}
-            <span style={styles.message}>
-                {stateInfo && (
-                    <>
-                        <PhosphorIcon
-                            icon={stateInfo.icon}
-                            color={stateInfo.iconColor}
-                        />
-                        {/* <output> is the native element for the result of a
-                            user action, and it means screen readers don't read
-                            "group" like they would for a span.
-
-                            Focus moves here on every check, which is what
-                            reads the result out to a screen reader. */}
-                        <output ref={resultRef} tabIndex={-1}>
-                            <Renderer
-                                content={stateInfo.text}
-                                strings={strings}
-                                apiOptions={apiOptions}
+        // The wrapper is the query container for the answer bar's
+        // `@container` rule. An element can't query its own size.
+        <div className={styles.answerBarContainer}>
+            <div className={styles.answerBar}>
+                {/* Render the <span> whether `stateInfo` is available or not,
+                    so that `space-between` keeps the button at the inline-end
+                    of the bar while there's no result to sit at the
+                    inline-start. */}
+                <span className={styles.message}>
+                    {stateInfo && (
+                        <>
+                            <PhosphorIcon
+                                icon={stateInfo.icon}
+                                color={stateInfo.iconColor}
                             />
-                        </output>
-                    </>
+                            {/* <output> is the native element for the result
+                                of a user action, and it means screen readers
+                                don't read "group" like they would for a span.
+
+                                Focus moves here on every check, which is what
+                                reads the result out to a screen reader. */}
+                            <output
+                                ref={resultRef}
+                                tabIndex={-1}
+                                className={styles.result}
+                            >
+                                <Renderer
+                                    content={stateInfo.text}
+                                    strings={strings}
+                                    apiOptions={apiOptions}
+                                />
+                            </output>
+                        </>
+                    )}
+                </span>
+                {action && (
+                    <Button disabled={action.disabled} onClick={action.onClick}>
+                        {action.label}
+                    </Button>
                 )}
-            </span>
-            {action && (
-                <Button disabled={action.disabled} onClick={action.onClick}>
-                    {action.label}
-                </Button>
-            )}
+            </div>
         </div>
     );
 }
-
-const styles = {
-    answerBar: {
-        display: "flex",
-        // Put the "Check" button on the next line if there isn't enough
-        // space for the status message (i.e. in mobile).
-        flexWrap: "wrap",
-        alignItems: "center",
-        // Keep the result at the inline-start of the bar and the button at
-        // the inline-end.
-        justifyContent: "space-between",
-        // Keep a space between the message and the "Check" button,
-        // whether the button is on the right of the message or below.
-        gap: sizing.size_080,
-        marginBlockStart: sizing.size_120,
-        paddingBlockStart: sizing.size_120,
-        borderTop: `${border.width.thin} solid ${semanticColor.core.border.neutral.default}`,
-        backgroundColor: semanticColor.core.background.base.subtle,
-    },
-
-    message: {
-        display: "flex",
-        alignItems: "center",
-        gap: sizing.size_080,
-    },
-} as const;
 
 export default GradedGroupAnswerBar;
