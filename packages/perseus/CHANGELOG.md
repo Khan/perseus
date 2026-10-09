@@ -1,5 +1,31 @@
 # @khanacademy/perseus
 
+## 91.0.0
+
+### Major Changes
+
+-   [#4359](https://github.com/Khan/perseus/pull/4359) [`721c495`](https://github.com/Khan/perseus/commit/721c4951e8aa5e2034aaa0d9a01a397672a775b8) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove unused dynamic `getWidget()` function from `WidgetExports<T>`
+
+### Patch Changes
+
+-   [#4349](https://github.com/Khan/perseus/pull/4349) [`89a477b`](https://github.com/Khan/perseus/commit/89a477bfc510eafd65573ed92bbb31cca984d36d) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert MockAssetLoading widget to a functional component
+
+-   [#4355](https://github.com/Khan/perseus/pull/4355) [`7f11f79`](https://github.com/Khan/perseus/commit/7f11f79706ba358bf6d884d1c147ff77c168917c) Thanks [@benchristel](https://github.com/benchristel)! - Fix a bug where inline markdown (e.g. in dropdown options) was incorrectly wrapped in a div element.
+
+-   [#4352](https://github.com/Khan/perseus/pull/4352) [`962b3fe`](https://github.com/Khan/perseus/commit/962b3fe3e41184c0e44d530dbe2ee301ad0dbbbc) Thanks [@nishasy](https://github.com/nishasy)! - [Label Image] Create local Pill component instead of using deprecated WB Pill
+
+-   [#4342](https://github.com/Khan/perseus/pull/4342) [`c1ad2d7`](https://github.com/Khan/perseus/commit/c1ad2d7e37a583ecc64c8a0d6d3a3561b2b9b804) Thanks [@nishasy](https://github.com/nishasy)! - [Dropdown] | (a11y) | Add aria-required to Dropdown
+
+-   [#4330](https://github.com/Khan/perseus/pull/4330) [`0c210d9`](https://github.com/Khan/perseus/commit/0c210d90f5d653349fde675b66b5c9f267916bb8) Thanks [@nishasy](https://github.com/nishasy)! - [Label Image] | (a11y) | Add aria-required to Label Image
+
+-   Updated dependencies [[`c7b27f6`](https://github.com/Khan/perseus/commit/c7b27f6ea6d51e3d06d48f7eb07fb0e69a42d1c4)]:
+    -   @khanacademy/perseus-core@41.2.0
+    -   @khanacademy/keypad-context@6.0.4
+    -   @khanacademy/kmath@3.0.5
+    -   @khanacademy/math-input@30.0.5
+    -   @khanacademy/perseus-linter@6.1.2
+    -   @khanacademy/perseus-score@9.0.5
+
 ## 90.2.0
 
 ### Minor Changes

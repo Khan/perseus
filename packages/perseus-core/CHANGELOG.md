@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 41.2.0
+
+### Minor Changes
+
+-   [#4356](https://github.com/Khan/perseus/pull/4356) [`c7b27f6`](https://github.com/Khan/perseus/commit/c7b27f6ea6d51e3d06d48f7eb07fb0e69a42d1c4) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - adds removeOrphanedWidgetsFromPerseusRenderer to export list
+
 ## 41.1.0
 
 ### Minor Changes
