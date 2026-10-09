@@ -666,7 +666,7 @@ describe("renderer", () => {
             expect(container).toMatchSnapshot();
         });
 
-        it.skip("should not wrap math in divs in inline mode", async () => {
+        it("should not wrap math in divs in inline mode", async () => {
             // Arrange
             const question: PerseusRenderer = {
                 content: "This is some inline math: $1 + 2$",
