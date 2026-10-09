@@ -115,11 +115,6 @@ export const getWidget = (
         return null;
     }
 
-    // Allow widgets to specify a widget directly or via a function
-    if (widget.getWidget) {
-        return widget.getWidget();
-    }
-
     return widget.widget;
 };
 
