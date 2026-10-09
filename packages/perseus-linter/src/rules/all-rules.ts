@@ -41,6 +41,7 @@ import RadioWidgetError from "./radio-widget-error";
 import SorterWidgetError from "./sorter-widget-error";
 import SorterWidgetWarning from "./sorter-widget-warning";
 import StaticWidgetInQuestionStem from "./static-widget-in-question-stem";
+import TableMissingCaption from "./table-missing-caption";
 import TableMissingCells from "./table-missing-cells";
 import UnbalancedCodeDelimiters from "./unbalanced-code-delimiters";
 import UnescapedDollar from "./unescaped-dollar";
@@ -71,6 +72,7 @@ export default [
     MathTextEmpty,
     NestedLists,
     StaticWidgetInQuestionStem,
+    TableMissingCaption,
     TableMissingCells,
     UnescapedDollar,
     WidgetInTable,

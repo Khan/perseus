@@ -120,15 +120,46 @@ const mathMatch = (source: any, state: any): any =>
 const blockMathMatch = (source: any, state: any): any =>
     mathMatcher(source, state, true);
 
+// Strip the leading `^` off one of simple-markdown's table regexes so it can
+// be embedded partway through the titled-table regex below.
+const tableRegexSource = (rule: any): string =>
+    rule.match.regex.source.substring(1);
+
+// A titled table is a `|| Title ||` line followed immediately by a table. The
+// table may be written in either of the two formats simple-markdown supports:
+//
+//   nptable (no surrounding pipes)   table (surrounding pipes)
+//   Header 1 | Header 2              |Header 1|Header 2|
+//   - | -                            |-|-|
+//   stuff | stuff                    |stuff|stuff|
+//
+// The two formats have mutually exclusive delimiter rows (nptable's must start
+// with `-` or `:`, table's must start with `|`), so the alternation below can
+// only match one branch. nptable comes first to preserve the matching
+// behavior titled tables had when it was the only supported format.
+//
+// Capture groups: [1] is the title, [2]-[5] are the nptable branch (whole
+// match plus its three groups) and [6]-[9] are the table branch. Only one
+// branch's groups are defined on any given match, which is how the parse
+// function below knows which simple-markdown parser to hand the captures to.
 const TITLED_TABLE_REGEX = new RegExp(
     "^\\|\\| +(.*) +\\|\\| *\\n" +
+        "(?:" +
         "(" +
-        // The simple-markdown nptable regex, without
-        // the leading `^`
-        // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
-        SimpleMarkdown.defaultRules.nptable.match.regex.source.substring(1) +
+        tableRegexSource(SimpleMarkdown.defaultRules.nptable) +
+        ")" +
+        "|" +
+        "(" +
+        tableRegexSource(SimpleMarkdown.defaultRules.table) +
+        ")" +
         ")",
 );
+
+// Indexes into a TITLED_TABLE_REGEX match for each table format's captures.
+const NPTABLE_CAPTURE_START = 2;
+const TABLE_CAPTURE_START = 6;
+// Each branch contributes its whole match plus three capture groups.
+const TABLE_CAPTURE_LENGTH = 4;
 
 const crowdinJiptMatcher = SimpleMarkdown.blockRegex(/^(crwdns.*)\n\s*\n/);
 
@@ -176,14 +207,25 @@ export const pureMarkdownRules = {
         parse: (capture: any, parse: any, state: any): any => {
             const title = SimpleMarkdown.parseInline(parse, capture[1], state);
 
-            // Remove our [0] and [1] captures, and pass the rest to
-            // the nptable parser
-            const tableCapture = capture.slice(2);
-            const table = SimpleMarkdown.defaultRules.nptable.parse(
-                tableCapture,
-                parse,
-                state,
+            // Whichever branch of the alternation matched, hand its captures
+            // to the matching simple-markdown parser. The two parsers differ
+            // in whether they trim the pipes surrounding each row, so using
+            // the wrong one would leave empty leading/trailing cells.
+            const isNpTable = capture[NPTABLE_CAPTURE_START] !== undefined;
+            const start = isNpTable
+                ? NPTABLE_CAPTURE_START
+                : TABLE_CAPTURE_START;
+            const tableRule = isNpTable
+                ? SimpleMarkdown.defaultRules.nptable
+                : SimpleMarkdown.defaultRules.table;
+
+            // Re-base the branch's captures to [0]-[3], which is the shape
+            // the table parsers expect.
+            const tableCapture = capture.slice(
+                start,
+                start + TABLE_CAPTURE_LENGTH,
             );
+            const table = tableRule.parse(tableCapture, parse, state);
             return {
                 title: title,
                 table: table,
