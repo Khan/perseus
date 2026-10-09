@@ -13,6 +13,11 @@ const QuestionParagraph = (props: Props): React.ReactNode => {
         ? "deprecated-perseus-container " + props.className
         : "deprecated-perseus-container";
     const isJipt = props.translationIndex != null;
+
+    if (props.inline && !props.className && !isJipt) {
+        return props.children;
+    }
+
     // For perseus-article just-in-place-translation (jipt), we need
     // to attach some metadata to top-level QuestionParagraphs:
     return (
