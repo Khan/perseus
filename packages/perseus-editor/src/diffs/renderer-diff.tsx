@@ -2,45 +2,13 @@
  * A side by side diff view for Perseus renderers.
  */
 
-import {Widgets} from "@khanacademy/perseus";
-import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 import * as React from "react";
-import _ from "underscore";
 
+import {filterWidgetInfo, getDiffedWidgetIds} from "./shared/diffed-widgets";
 import TextDiff from "./text-diff";
 import WidgetDiff from "./widget-diff";
 
 import type {PerseusRenderer, PerseusWidget} from "@khanacademy/perseus-core";
-
-// In diffs, only show the widgetInfo props that can change
-const filterWidgetInfo = function (
-    widgetInfo: PerseusWidget | undefined,
-    showAlignmentOptions: boolean,
-) {
-    if (widgetInfo == null) {
-        return undefined;
-    }
-
-    const {alignment, options, type} = widgetInfo;
-
-    const filteredWidgetInfo = {options} as const;
-
-    // Show alignment options iff multiple valid ones exist for this widget
-    if (
-        showAlignmentOptions &&
-        CoreWidgetRegistry.getSupportedAlignments(type).length > 1
-    ) {
-        // @ts-expect-error - TS2339 - Property 'alignment' does not exist on type '{ readonly options: any; }'.
-        filteredWidgetInfo.alignment = alignment;
-    }
-
-    if (Widgets.supportsStaticMode(type)) {
-        // @ts-expect-error - TS2339 - Property 'static' does not exist on type '{ readonly options: any; }'.
-        filteredWidgetInfo.static = widgetInfo?.static ?? undefined;
-    }
-
-    return filteredWidgetInfo;
-};
 
 type Props = {
     // The "after" props of the renderer. Will be displayed on the right.
@@ -89,15 +57,9 @@ class RendererDiff extends React.Component<Props> {
             );
         }
 
-        const beforeWidgets: string[] = Object.keys(
-            before?.widgets ?? {},
-        ).filter((widget) => before?.content.includes(widget));
-        const afterWidgets: string[] = Object.keys(after?.widgets ?? {}).filter(
-            (widget) => after?.content.includes(widget),
-        );
+        const widgets = getDiffedWidgetIds(before, after);
 
-        if (beforeWidgets.length > 0 || afterWidgets.length > 0) {
-            const widgets = _.union(beforeWidgets, afterWidgets);
+        if (widgets.length > 0) {
             widgetsDiff = widgets.map((widget) => (
                 <WidgetDiff
                     before={

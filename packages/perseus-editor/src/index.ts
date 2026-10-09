@@ -5,6 +5,8 @@ export {default as DeviceFramer} from "./components/device-framer";
 export {default as ViewportResizer} from "./components/viewport-resizer";
 export {default as ArticleDiff} from "./diffs/article-diff";
 export {default as ItemDiff} from "./diffs/item-diff";
+export {getChangedItemSections} from "./diffs/item-diff-sections";
+export type {ChangedItemSection} from "./diffs/item-diff-sections";
 export {default as EditorPage} from "./editor-page";
 export {default as Editor} from "./editor";
 export {default as ContentPreview} from "./content-preview";
