@@ -49,7 +49,7 @@ export {itemHasRationales} from "./utils/item-has-rationales";
 export {itemHasHints} from "./utils/item-has-hints";
 /** @hidden */
 export {makeSafeUrl} from "./utils/make-safe-url";
-export {removeOrphanedWidgetsFromPerseusItem} from "./utils/remove-orphaned-widgets";
+export {removeOrphanedWidgetsFromPerseusItem, removeOrphanedWidgets} from "./utils/remove-orphaned-widgets";
 
 export {
     parseAndMigratePerseusItem,
