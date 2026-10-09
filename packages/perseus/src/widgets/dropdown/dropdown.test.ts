@@ -215,10 +215,8 @@ describe("Dropdown widget", () => {
     });
 
     describe("required state", () => {
-        const generateRenderer = ({
-            isStatic = false,
-        }: {isStatic?: boolean} = {}): PerseusRenderer =>
-            generateTestPerseusRenderer({
+        function generateRenderer(isStatic: boolean = false): PerseusRenderer {
+            return generateTestPerseusRenderer({
                 content: "[[☃ dropdown 1]]",
                 widgets: {
                     "dropdown 1": generateDropdownWidget({
@@ -233,6 +231,7 @@ describe("Dropdown widget", () => {
                     }),
                 },
             });
+        }
 
         it("renders the dropdown as required when scorable and interactive", () => {
             // Arrange, Act
@@ -269,7 +268,7 @@ describe("Dropdown widget", () => {
 
         it("does not render the dropdown as required when static", () => {
             // Arrange, Act
-            renderQuestion(generateRenderer({isStatic: true}), {
+            renderQuestion(generateRenderer(true), {
                 apiOptions: {readOnly: false},
                 extraProps: {isScorable: true, reviewMode: false},
             });
