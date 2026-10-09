@@ -48,6 +48,14 @@ const Dropdown = forwardRef<Widget, Props>(function Dropdown(props, ref) {
     const isStatic = props.static ?? false;
     const dependencies = useDependencies();
 
+    // A selection is required to move on from the question, but only when
+    // the learner can actually interact with the dropdown.
+    const isRequired =
+        props.isScorable &&
+        !props.reviewMode &&
+        !isStatic &&
+        !apiOptions.readOnly;
+
     // Fire analytics event on mount
     // We intentionally use an empty dependency array here because this analytics
     // event should only fire once when the component mounts, not when props change.
@@ -199,6 +207,10 @@ const Dropdown = forwardRef<Widget, Props>(function Dropdown(props, ref) {
                 onChange={(value) => handleChange(parseInt(value))}
                 selectedValue={String(userInput.value)}
                 disabled={Boolean(apiOptions.readOnly || isStatic)}
+                // We use `aria-required` rather than WB's `required` prop, since
+                // `required` also enables WB's validation, which renders an error
+                // message when the dropdown is closed without a selection.
+                aria-required={isRequired}
                 aria-label={ariaLabel || visibleLabel || strings.selectAnAnswer}
                 showOpenerLabelAsText={false}
             >

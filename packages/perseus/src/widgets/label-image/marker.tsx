@@ -13,7 +13,6 @@ import {
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import {PerseusI18nContext} from "../../components/i18n-context";
 import Icon from "../../components/icon";
 import {iconCheck, iconChevronDown, iconMinus} from "../../icon-paths";
 
@@ -25,7 +24,6 @@ import type {CSSProperties} from "aphrodite";
 type Props = {
     selected?: string[];
     showCorrectness?: "correct" | "incorrect";
-    label: string;
     // Whether this marker has been selected by user.
     showSelected: boolean;
     // Whether this marker should pulsate to draw user attention.
@@ -50,9 +48,6 @@ function shouldReduceMotion(): boolean {
 const MARKER_SIZE = 24;
 
 export default class Marker extends React.Component<Props> {
-    static contextType = PerseusI18nContext;
-    declare context: React.ContextType<typeof PerseusI18nContext>;
-
     // The marker icon element.
     _icon: HTMLElement | null | undefined;
     _mounted: boolean = false;
@@ -146,7 +141,6 @@ export default class Marker extends React.Component<Props> {
             answerStyles,
             hovered,
             focused,
-            label,
         } = this.props;
 
         // We cannot make dropdown openers untabbable, so we isolate tabbing
@@ -161,11 +155,6 @@ export default class Marker extends React.Component<Props> {
                         styles.marker,
                         active && !markerDisabled && styles.markerActive,
                     ]}
-                    aria-label={
-                        markerDisabled
-                            ? this.context.strings.correctExcited
-                            : label
-                    }
                 >
                     {this.renderIcon()}
                 </View>

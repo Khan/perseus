@@ -28,13 +28,12 @@ import {
 } from "../testing/test-dependencies";
 import {registerWidget} from "../widgets";
 import {MockWidget} from "../widgets/mock-widgets";
-import MockAssetLoadingWidgetExport, {
-    mockedAssetItem,
-} from "../widgets/mock-widgets/mock-asset-loading-widget";
+import MockAssetLoadingWidgetExport from "../widgets/mock-widgets/mock-asset-loading-widget";
 
+import {mockedAssetItem} from "./test-items/mock-asset-loading-item";
 import {renderQuestion} from "./test-utils";
 
-import type {MockAssetLoadingWidget} from "../widgets/mock-widgets/mock-asset-loading-widget";
+import type {MockAssetLoadingWidgetHandle} from "../widgets/mock-widgets/mock-asset-loading-widget";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -243,8 +242,8 @@ describe("server item renderer", () => {
         // setAssetStatus() is not part of the Widget interface, it's specific
         // this test.
         // eslint-disable-next-line no-restricted-syntax
-        const widget = mockedWidget as MockAssetLoadingWidget;
-        act(() => widget.setAssetStatus?.("ABC", true));
+        const widget = mockedWidget as MockAssetLoadingWidgetHandle;
+        act(() => widget.setAssetStatus("ABC", true));
 
         // Assert
         expect(onRendered).toHaveBeenCalledWith(true);
