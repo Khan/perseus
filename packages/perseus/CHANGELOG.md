@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 91.0.1
+
+### Patch Changes
+
+-   [#4357](https://github.com/Khan/perseus/pull/4357) [`ef8308b`](https://github.com/Khan/perseus/commit/ef8308b767f84b55d0c73c9c82040486a6649d13) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Bugfix - Extra space at top of articles
+
 ## 91.0.0
 
 ### Major Changes
