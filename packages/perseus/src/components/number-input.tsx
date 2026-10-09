@@ -15,7 +15,7 @@ const toNumericString = KhanMath.toNumericString;
 const getNumericFormat = KhanMath.getNumericFormat;
 
 interface Props {
-    value: any;
+    value: number | null;
     format?: any;
     placeholder?: any;
     onChange: any;
@@ -199,7 +199,7 @@ class NumberInput extends React.Component<Props, any> {
         }
     };
 
-    _setValue: (arg1: number, arg2: MathFormat) => void = (val, format) => {
+    _setValue(val: number | null, format: MathFormat) {
         this._getInput().value = toNumericString(val, format);
     };
 

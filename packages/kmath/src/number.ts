@@ -9,7 +9,7 @@ export function is(x: any): boolean {
     return typeof x === "number" && !Number.isNaN(x);
 }
 
-export function equal(x: number, y: number, tolerance?: number): boolean {
+export function equal(x: number | null, y: number | null, tolerance?: number): boolean {
     // Checking for undefined makes this function behave nicely
     // when called with vectors of different lengths
     if (x == null || y == null) {
