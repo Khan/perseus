@@ -21,8 +21,8 @@ interface Props {
     onChange: any;
     onFormatChange?: any;
     checkValidity: any;
-    onFocus: any;
-    onBlur: any;
+    onFocus?: any;
+    onBlur?: any;
     size?: any;
     allowPiTruncation?: any;
     useArrowKeys: any;
@@ -51,16 +51,17 @@ interface Props {
 class NumberInput extends React.Component<Props, any> {
     inputRef = React.createRef<HTMLInputElement>();
 
-    static propTypes = {
-        value: PropTypes.number,
-        format: PropTypes.string,
-        placeholder: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        onChange: PropTypes.func.isRequired,
-        onFormatChange: PropTypes.func,
-        checkValidity: PropTypes.func,
-        size: PropTypes.oneOf(["mini", "small", "normal"]),
-        allowPiTruncation: PropTypes.bool,
-    };
+    // FIXME: delete propTypes
+    // static propTypes = {
+    //     value: PropTypes.number,
+    //     format: PropTypes.string,
+    //     placeholder: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    //     onChange: PropTypes.func.isRequired,
+    //     onFormatChange: PropTypes.func,
+    //     checkValidity: PropTypes.func,
+    //     size: PropTypes.oneOf(["mini", "small", "normal"]),
+    //     allowPiTruncation: PropTypes.bool,
+    // };
 
     static defaultProps = {
         value: null,
