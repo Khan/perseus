@@ -15,31 +15,33 @@
     line-height: 30px;
     margin-bottom: var(--wb-sizing-size_320);
 }
-.framework-perseus.perseus-article:not(.perseus-mobile) h2 {
-    font-family: inherit;
-    font-size: 30px;
-    font-weight: var(--wb-font-weight-bold);
-    line-height: 1.1;
-    margin-bottom: var(--wb-sizing-size_160);
-    margin-top: var(--wb-sizing-size_480);
-}
-.framework-perseus.perseus-article:not(.perseus-mobile) h3 {
-    font-family: inherit;
-    font-size: 26px;
-    font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: var(--wb-sizing-size_160);
-    margin-top: var(--wb-sizing-size_320);
-}
-.framework-perseus.perseus-article:not(.perseus-mobile) h4,
-.framework-perseus.perseus-article:not(.perseus-mobile) h5,
-.framework-perseus.perseus-article:not(.perseus-mobile) h6 {
-    font-family: inherit;
-    font-size: 22px;
-    font-weight: 700;
-    line-height: 25px;
-    margin-bottom: var(--wb-sizing-size_160);
-    margin-top: var(--wb-sizing-size_320);
+@layer perseus-legacy {
+    .framework-perseus.perseus-article:not(.perseus-mobile) h2 {
+        font-family: inherit;
+        font-size: 30px;
+        font-weight: var(--wb-font-weight-bold);
+        line-height: 1.1;
+        margin-bottom: var(--wb-sizing-size_160);
+        margin-top: var(--wb-sizing-size_480);
+    }
+    .framework-perseus.perseus-article:not(.perseus-mobile) h3 {
+        font-family: inherit;
+        font-size: 26px;
+        font-weight: 700;
+        line-height: 1.1;
+        margin-bottom: var(--wb-sizing-size_160);
+        margin-top: var(--wb-sizing-size_320);
+    }
+    .framework-perseus.perseus-article:not(.perseus-mobile) h4,
+    .framework-perseus.perseus-article:not(.perseus-mobile) h5,
+    .framework-perseus.perseus-article:not(.perseus-mobile) h6 {
+        font-family: inherit;
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 25px;
+        margin-bottom: var(--wb-sizing-size_160);
+        margin-top: var(--wb-sizing-size_320);
+    }
 }
 .framework-perseus.perseus-article:not(.perseus-mobile) blockquote {
     padding: 0 var(--wb-sizing-size_320);
