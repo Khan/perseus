@@ -1,0 +1,43 @@
+/* OVERRIDES
+   Articles give Renderer paragraphs margins, which make the status message
+   area taller than its text. This causes the alignment with the icon
+   to be messed up in the Graded Group answer bar.
+   Resetting the style here to fix the alignemnt.
+ */
+.result :global(.perseus-renderer) * {
+    margin-block: 0;
+}
+
+/* Query container wrapper so that the answer bar can use a container query. */
+.answer-bar-container {
+    container-type: inline-size;
+}
+
+.answer-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* Keep a space between the message and the "Check" button, whether the
+       button is on the right of the message or below. */
+    gap: var(--wb-sizing-size_080);
+    margin-block-start: var(--wb-sizing-size_120);
+    padding-block-start: var(--wb-sizing-size_120);
+    border-top: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-default);
+    background-color: var(--wb-semanticColor-core-background-base-subtle);
+}
+
+/* Small screens or smaller, matching `pureSmMin` in styles/media-queries.ts.
+   There isn't room for the message and the button side by side, so put
+   the button on the next line when needed. */
+@container (width < 568px) {
+    .answer-bar {
+        flex-wrap: wrap;
+    }
+}
+
+.message {
+    display: flex;
+    align-items: center;
+    gap: var(--wb-sizing-size_080);
+}

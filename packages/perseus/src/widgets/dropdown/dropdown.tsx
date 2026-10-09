@@ -148,12 +148,14 @@ const Dropdown = forwardRef<Widget, Props>(function Dropdown(props, ref) {
             value="0"
             disabled
             label={
-                <Renderer
-                    content={placeholder}
-                    strings={strings}
-                    apiOptions={{flags: apiOptions.flags}}
-                    inline={inline}
-                />
+                <div className="perseus-in-wb-popover">
+                    <Renderer
+                        content={placeholder}
+                        strings={strings}
+                        apiOptions={{flags: apiOptions.flags}}
+                        inline={inline}
+                    />
+                </div>
             }
             labelAsText={placeholder}
         />,
@@ -162,12 +164,14 @@ const Dropdown = forwardRef<Widget, Props>(function Dropdown(props, ref) {
                 key={String(i + 1)}
                 value={String(i + 1)}
                 label={
-                    <Renderer
-                        content={choice.content}
-                        strings={strings}
-                        apiOptions={{flags: apiOptions.flags}}
-                        inline={inline}
-                    />
+                    <div className="perseus-in-wb-popover">
+                        <Renderer
+                            content={choice.content}
+                            strings={strings}
+                            apiOptions={{flags: apiOptions.flags}}
+                            inline={inline}
+                        />
+                    </div>
                 }
                 labelAsText={choice.content}
             />

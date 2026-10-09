@@ -19,7 +19,6 @@ export interface Props extends PerseusLabelImageWidgetOptions {
     onChange: (options: PerseusLabelImageWidgetOptions) => void;
 }
 
-// JSDoc will be shown in Storybook widget editor description
 /**
  * Direct image labeling widget editor.
  *

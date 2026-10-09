@@ -28,7 +28,6 @@ interface Props extends PerseusInteractionWidgetOptions {
 
 type State = any;
 
-// JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for the interaction widget that allows users to engage with interactive content.
  *

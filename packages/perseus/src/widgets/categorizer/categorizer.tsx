@@ -104,6 +104,7 @@ const Categorizer = forwardRef<Widget, Props>(function Categorizer(props, ref) {
                                     content={category}
                                     linterContext={linterContext}
                                     strings={strings}
+                                    apiOptions={apiOptions}
                                 />
                             </th>
                         );
@@ -122,6 +123,7 @@ const Categorizer = forwardRef<Widget, Props>(function Categorizer(props, ref) {
                                     content={item}
                                     linterContext={linterContext}
                                     strings={strings}
+                                    apiOptions={apiOptions}
                                 />
                             </td>
                             {categories.map((catName, catNum) => {

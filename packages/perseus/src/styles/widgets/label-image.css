@@ -1,4 +1,7 @@
-.framework-perseus .perseus-label-image-widget-instructions div.paragraph {
+.framework-perseus .perseus-label-image-widget-instructions div.paragraph,
+.framework-perseus
+    .perseus-label-image-widget-instructions
+    :is(div, p).deprecated-perseus-container {
     margin: 0;
 }
 @media (max-width: 767px) {
@@ -20,7 +23,12 @@
     .perseus-label-image-widget-instructions
     .perseus-renderer
     .paragraph
-    > .paragraph {
+    > .paragraph,
+.framework-perseus:not(.perseus-article).perseus-mobile
+    .perseus-label-image-widget-instructions
+    .perseus-renderer
+    .deprecated-perseus-container
+    > .deprecated-perseus-container {
     color: initial !important;
     font-size: initial !important;
     line-height: initial !important;

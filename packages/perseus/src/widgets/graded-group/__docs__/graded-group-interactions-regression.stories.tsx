@@ -1,6 +1,11 @@
 import {
+    generateCategorizerOptions,
+    generateCategorizerWidget,
     generateDropdownOptions,
     generateDropdownWidget,
+    generateNumericInputAnswer,
+    generateNumericInputOptions,
+    generateNumericInputWidget,
 } from "@khanacademy/perseus-core";
 import {within} from "storybook/test";
 
@@ -58,10 +63,10 @@ const sharedArgs = {
 } satisfies Partial<PerseusGradedGroupWidgetOptions>;
 
 // A group with no scorable widget scores as correct on Check (zero widgets =
-// 0/0 points), and the desktop Check button is always enabled — so the correct
-// state needs no widget, keeping the snapshot to graded-group's own chrome.
-// Contains a hint so the Explain link gives some buffer space below the Check
-// button; otherwise Chromatic cuts off the bottom of the button.
+// 0/0 points), and starts out answerable because there is nothing to fill in —
+// so the correct state needs no widget, keeping the snapshot to graded-group's
+// own chrome. Contains a hint so the Explain link gives some buffer space below
+// the Check button; otherwise Chromatic cuts off the bottom of the button.
 const textOnlyArgs = {
     title: "Check your understanding!",
     content: "This group is marked correct when checked.",
@@ -82,6 +87,38 @@ export const DesktopCorrectAnswer: Story = {
     },
 };
 
+export const DesktopCorrectAnswerWithMessage: Story = {
+    args: {
+        title: "Check your understanding!",
+        content: "Solve for $x$: [[☃ numeric-input 1]]",
+        widgets: {
+            "numeric-input 1": generateNumericInputWidget({
+                options: generateNumericInputOptions({
+                    answers: [
+                        generateNumericInputAnswer({
+                            value: 5,
+                            status: "correct",
+                            message: "$5$ is the *correct* answer!",
+                        }),
+                    ],
+                }),
+            }),
+        },
+        hint: {
+            content: "This is a hint.",
+            images: {},
+            widgets: {},
+        },
+        images: {},
+    },
+    play: async ({canvas, userEvent}) => {
+        // Matching the correct answer puts its message in the Graded Group.
+        await userEvent.type(canvas.getByRole("textbox"), "5");
+        const checkButton = canvas.getByRole("button", {name: "Check"});
+        await userEvent.click(checkButton);
+    },
+};
+
 export const DesktopIncorrectAnswer: Story = {
     args: sharedArgs,
     play: async ({canvas, userEvent}) => {
@@ -96,9 +133,62 @@ export const DesktopIncorrectAnswer: Story = {
     },
 };
 
+const categorizerArgs = {
+    title: "Check your understanding!",
+    content: "[[☃ categorizer 1]]",
+    widgets: {
+        "categorizer 1": generateCategorizerWidget({
+            options: generateCategorizerOptions({
+                items: ["Categorize this row", "Leave this row blank"],
+                categories: ["True", "False"],
+                values: [0, 1],
+                randomizeItems: false,
+            }),
+        }),
+    },
+    hint: {
+        content: "This is a hint.",
+        images: {},
+        widgets: {},
+    },
+    images: {},
+} satisfies Partial<PerseusGradedGroupWidgetOptions>;
+
 export const DesktopInvalidAnswer: Story = {
-    args: sharedArgs,
+    args: categorizerArgs,
     play: async ({canvas, userEvent}) => {
+        // Categorize only the first row, leaving the second blank.
+        // This is considered an "invalid" state.
+        const [firstRowTrue] = canvas.getAllByRole("button", {name: "True"});
+        await userEvent.click(firstRowTrue);
+        const checkButton = canvas.getByRole("button", {name: "Check"});
+        await userEvent.click(checkButton);
+    },
+};
+
+export const DesktopInvalidAnswerWithTexMessage: Story = {
+    args: {
+        title: "Check your understanding!",
+        content: "Solve for $x$: [[☃ numeric-input 1]]",
+        widgets: {
+            "numeric-input 1": generateNumericInputWidget({
+                options: generateNumericInputOptions({
+                    answers: [
+                        generateNumericInputAnswer({
+                            value: 5,
+                            // The "ungraded" status makes the message show up in a warning banner.
+                            status: "ungraded",
+                            message: "Could not grade $5$",
+                        }),
+                    ],
+                }),
+            }),
+        },
+        images: {},
+    },
+    play: async ({canvas, userEvent}) => {
+        // Matching the ungraded answer puts its message in the banner.
+        await userEvent.type(canvas.getByRole("textbox"), "5");
         const checkButton = canvas.getByRole("button", {name: "Check"});
         await userEvent.click(checkButton);
     },
@@ -112,12 +202,20 @@ export const DesktopHintExpanded: Story = {
     },
 };
 
+// Render mobile stories in a small (320px) viewport to match a phone-sized
+// screen. `mobileDecorator` and `isMobile` switch Perseus to its mobile layout,
+// but don't change the width of the page.
+const smallViewportGlobals = {
+    viewport: {value: "mobile1", isRotated: false},
+};
+
 export const MobileHintExpanded: Story = {
     args: sharedArgs,
     decorators: [mobileDecorator],
     parameters: {
         apiOptions: {isMobile: true},
     },
+    globals: smallViewportGlobals,
     play: async ({canvas, userEvent}) => {
         const explainButton = canvas.getByRole("button", {name: "Explain"});
         await userEvent.click(explainButton);
@@ -130,26 +228,12 @@ export const MobileHintExpanded: Story = {
 // the bar in isolation. (The "Next question" state lives in the graded-group-set
 // stories — a standalone graded group never shows that button.)
 
-// Selecting an option makes the group answerable, enabling the Check button.
-export const MobileAnswerBarActive: Story = {
-    args: sharedArgs,
-    decorators: [mobileDecorator],
-    parameters: {apiOptions: {isMobile: true}},
-    play: async ({canvas, userEvent}) => {
-        const dropdown = canvas.getByRole("combobox");
-        await userEvent.click(dropdown);
-        const option = within(document.body).getByRole("option", {
-            name: "Correct answer",
-        });
-        await userEvent.click(option);
-    },
-};
-
 // A wrong answer swaps the Check button for the neutral "try again" icon.
-export const MobileAnswerBarIncorrect: Story = {
+export const MobileIncorrectAnswer: Story = {
     args: sharedArgs,
     decorators: [mobileDecorator],
     parameters: {apiOptions: {isMobile: true}},
+    globals: smallViewportGlobals,
     play: async ({canvas, userEvent}) => {
         const dropdown = canvas.getByRole("combobox");
         await userEvent.click(dropdown);
@@ -163,10 +247,11 @@ export const MobileAnswerBarIncorrect: Story = {
 };
 
 // A correct answer shows the success star in the answer bar.
-export const MobileAnswerBarCorrect: Story = {
+export const MobileCorrectAnswer: Story = {
     args: sharedArgs,
     decorators: [mobileDecorator],
     parameters: {apiOptions: {isMobile: true}},
+    globals: smallViewportGlobals,
     play: async ({canvas, userEvent}) => {
         const dropdown = canvas.getByRole("combobox");
         await userEvent.click(dropdown);
@@ -174,6 +259,24 @@ export const MobileAnswerBarCorrect: Story = {
             name: "Correct answer",
         });
         await userEvent.click(correctOption);
+        const checkButton = canvas.getByRole("button", {name: "Check"});
+        await userEvent.click(checkButton);
+    },
+};
+
+// An incomplete answer shows the warning icon and the invalid message, and
+// keeps the Check button so the learner can try again. In a narrow screen,
+// the Check button reflows underneath the message.
+export const MobileInvalidAnswer: Story = {
+    args: categorizerArgs,
+    decorators: [mobileDecorator],
+    parameters: {apiOptions: {isMobile: true}},
+    globals: smallViewportGlobals,
+    play: async ({canvas, userEvent}) => {
+        // Categorize only the first row, leaving the second blank.
+        // This is considered an "invalid" state.
+        const [firstRowTrue] = canvas.getAllByRole("button", {name: "True"});
+        await userEvent.click(firstRowTrue);
         const checkButton = canvas.getByRole("button", {name: "Check"});
         await userEvent.click(checkButton);
     },

@@ -27,7 +27,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
             class="container_mg08ap"
           >
             <div
-              class="perseus-graded-group"
+              class="perseus-graded-group gradedGroup_mg08ap"
             >
               <div
                 class="title_15to8kx"
@@ -69,13 +69,13 @@ exports[`graded-group-set should render all graded groups 1`] = `
                         autocorrect="off"
                         class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
                         data-testid="input-with-examples"
-                        id=":r0:"
+                        id=":r1:"
                         tabindex="0"
                         type="text"
                         value=""
                       />
                       <span
-                        id="aria-for-:r0:"
+                        id="aria-for-:r1:"
                         style="display: none;"
                       />
                     </div>
@@ -99,26 +99,382 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 </div>
               </div>
               <button
-                aria-disabled="false"
-                class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_u9mtba"
-                data-kind="secondary"
-                type="button"
-              >
-                <span
-                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
-                >
-                  Check
-                </span>
-              </button>
-              <button
-                class="showHintLink_1rvdp1e"
-                tabindex="0"
+                aria-controls=":r0:"
+                aria-expanded="false"
+                class="explainToggle_1rvdp1e"
               >
                 Explain
               </button>
+              <div
+                class="hint hint-collapsed"
+                id=":r0:"
+              >
+                <div
+                  class="hint-wrapper"
+                >
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        There are many ways to solve this problem. Let's see two student solutions.
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="1"
+                    >
+                      <h3>
+                        Student A's solution:
+                      </h3>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="2"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        I thought in terms of tenths.
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph perseus-paragraph-centered"
+                      data-perseus-paragraph-index="3"
+                    >
+                      <div
+                        class="perseus-block-math"
+                      >
+                        <div
+                          class="perseus-block-math-inner"
+                          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+                        >
+                          <span
+                            class="mock-TeX"
+                          >
+                            \\phantom{=}0.5 + 0.4
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="4"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        <span
+                          style="white-space: nowrap;"
+                        >
+                          <span />
+                          <span
+                            class="mock-TeX"
+                          >
+                            =5
+                          </span>
+                          <span />
+                        </span>
+                         tenths 
+                        <span
+                          style="white-space: nowrap;"
+                        >
+                          <span />
+                          <span
+                            class="mock-TeX"
+                          >
+                            + ~4
+                          </span>
+                          <span />
+                        </span>
+                         tenths
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="5"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        <span
+                          style="white-space: nowrap;"
+                        >
+                          <span />
+                          <span
+                            class="mock-TeX"
+                          >
+                            =9
+                          </span>
+                          <span />
+                        </span>
+                         tenths
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph perseus-paragraph-centered"
+                      data-perseus-paragraph-index="6"
+                    >
+                      <div
+                        class="perseus-block-math"
+                      >
+                        <div
+                          class="perseus-block-math-inner"
+                          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+                        >
+                          <span
+                            class="mock-TeX"
+                          >
+                            =0.9
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="7"
+                    >
+                      <h3>
+                        Student B's solution:
+                      </h3>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="8"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        I used tenths grids.
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="9"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        <div
+                          class="perseus-widget-container widget-block"
+                        >
+                          <figure
+                            class="perseus-image-widget"
+                            style="max-inline-size: 180px;"
+                          >
+                            <div
+                              class="fixed-to-responsive svg-image"
+                              data-scale="1"
+                              style="max-width: 180px; max-height: 132px;"
+                            >
+                              <span
+                                style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
+                              >
+                                <div
+                                  class="default_7zhre1-o_O-spinnerContainer_agrn11"
+                                >
+                                  <svg
+                                    height="48"
+                                    viewBox="0 0 48 48"
+                                    width="48"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      class="loadingSpinner_1dvgeb3-o_O-inlineStyles_1uct99t"
+                                      d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                                      fill-rule="nonzero"
+                                    />
+                                  </svg>
+                                </div>
+                              </span>
+                              <button
+                                aria-label="Make image bigger."
+                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_g025ss"
+                                type="button"
+                              />
+                            </div>
+                          </figure>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="10"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        <div
+                          class="perseus-widget-container widget-block"
+                        >
+                          <figure
+                            class="perseus-image-widget"
+                            style="max-inline-size: 180px;"
+                          >
+                            <div
+                              class="fixed-to-responsive svg-image"
+                              data-scale="1"
+                              style="max-width: 180px; max-height: 132px;"
+                            >
+                              <span
+                                style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
+                              >
+                                <div
+                                  class="default_7zhre1-o_O-spinnerContainer_agrn11"
+                                >
+                                  <svg
+                                    height="48"
+                                    viewBox="0 0 48 48"
+                                    width="48"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      class="loadingSpinner_1dvgeb3-o_O-inlineStyles_1uct99t"
+                                      d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                                      fill-rule="nonzero"
+                                    />
+                                  </svg>
+                                </div>
+                              </span>
+                              <button
+                                aria-label="Make image bigger."
+                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_g025ss"
+                                type="button"
+                              />
+                            </div>
+                          </figure>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="11"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        <div
+                          class="perseus-widget-container widget-block"
+                        >
+                          <figure
+                            class="perseus-image-widget"
+                            style="max-inline-size: 234px;"
+                          >
+                            <div
+                              class="fixed-to-responsive svg-image"
+                              data-scale="1"
+                              style="max-width: 234px; max-height: 132px;"
+                            >
+                              <span
+                                style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
+                              >
+                                <div
+                                  class="default_7zhre1-o_O-spinnerContainer_agrn11"
+                                >
+                                  <svg
+                                    height="48"
+                                    viewBox="0 0 48 48"
+                                    width="48"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      class="loadingSpinner_1dvgeb3-o_O-inlineStyles_1uct99t"
+                                      d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                                      fill-rule="nonzero"
+                                    />
+                                  </svg>
+                                </div>
+                              </span>
+                              <button
+                                aria-label="Make image bigger."
+                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_g025ss"
+                                type="button"
+                              />
+                            </div>
+                          </figure>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph perseus-paragraph-centered"
+                      data-perseus-paragraph-index="12"
+                    >
+                      <div
+                        class="perseus-block-math"
+                      >
+                        <div
+                          class="perseus-block-math-inner"
+                          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+                        >
+                          <span
+                            class="mock-TeX"
+                          >
+                            \\blueD{0.5} + \\greenD{0.4} = 0.9
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="13"
+                    >
+                      <h3>
+                        The answer:
+                      </h3>
+                    </div>
+                    <div
+                      class="paragraph perseus-paragraph-centered"
+                      data-perseus-paragraph-index="14"
+                    >
+                      <div
+                        class="perseus-block-math"
+                      >
+                        <div
+                          class="perseus-block-math-inner"
+                          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+                        >
+                          <span
+                            class="mock-TeX"
+                          >
+                            0.5 + 0.4 = 0.9
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="answer-bar-container"
+              >
+                <div
+                  class="answer-bar"
+                >
+                  <span
+                    class="message"
+                  />
+                  <button
+                    aria-disabled="false"
+                    class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn"
+                    data-kind="primary"
+                    type="button"
+                  >
+                    <span
+                      class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+                    >
+                      Check
+                    </span>
+                  </button>
+                </div>
+              </div>
             </div>
             <div
-              class="perseus-graded-group"
+              class="perseus-graded-group gradedGroup_mg08ap"
             >
               <div
                 class="title_15to8kx"
@@ -160,13 +516,13 @@ exports[`graded-group-set should render all graded groups 1`] = `
                         autocorrect="off"
                         class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
                         data-testid="input-with-examples"
-                        id=":r3:"
+                        id=":r8:"
                         tabindex="0"
                         type="text"
                         value=""
                       />
                       <span
-                        id="aria-for-:r3:"
+                        id="aria-for-:r8:"
                         style="display: none;"
                       />
                     </div>
@@ -190,26 +546,382 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 </div>
               </div>
               <button
-                aria-disabled="false"
-                class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_u9mtba"
-                data-kind="secondary"
-                type="button"
-              >
-                <span
-                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
-                >
-                  Check
-                </span>
-              </button>
-              <button
-                class="showHintLink_1rvdp1e"
-                tabindex="0"
+                aria-controls=":r7:"
+                aria-expanded="false"
+                class="explainToggle_1rvdp1e"
               >
                 Explain
               </button>
+              <div
+                class="hint hint-collapsed"
+                id=":r7:"
+              >
+                <div
+                  class="hint-wrapper"
+                >
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        There are many ways to solve this problem. Let's see two student solutions.
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="1"
+                    >
+                      <h3>
+                        Student A's solution:
+                      </h3>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="2"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        I thought in terms of tenths.
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph perseus-paragraph-centered"
+                      data-perseus-paragraph-index="3"
+                    >
+                      <div
+                        class="perseus-block-math"
+                      >
+                        <div
+                          class="perseus-block-math-inner"
+                          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+                        >
+                          <span
+                            class="mock-TeX"
+                          >
+                            \\phantom{=}0.6 + 0.4
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="4"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        <span
+                          style="white-space: nowrap;"
+                        >
+                          <span />
+                          <span
+                            class="mock-TeX"
+                          >
+                            =6
+                          </span>
+                          <span />
+                        </span>
+                         tenths 
+                        <span
+                          style="white-space: nowrap;"
+                        >
+                          <span />
+                          <span
+                            class="mock-TeX"
+                          >
+                            + ~4
+                          </span>
+                          <span />
+                        </span>
+                         tenths
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="5"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        <span
+                          style="white-space: nowrap;"
+                        >
+                          <span />
+                          <span
+                            class="mock-TeX"
+                          >
+                            =10
+                          </span>
+                          <span />
+                        </span>
+                         tenths
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph perseus-paragraph-centered"
+                      data-perseus-paragraph-index="6"
+                    >
+                      <div
+                        class="perseus-block-math"
+                      >
+                        <div
+                          class="perseus-block-math-inner"
+                          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+                        >
+                          <span
+                            class="mock-TeX"
+                          >
+                            =1
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="7"
+                    >
+                      <h3>
+                        Student B's solution:
+                      </h3>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="8"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        I used tenths grids.
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="9"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        <div
+                          class="perseus-widget-container widget-block"
+                        >
+                          <figure
+                            class="perseus-image-widget"
+                            style="max-inline-size: 180px;"
+                          >
+                            <div
+                              class="fixed-to-responsive svg-image"
+                              data-scale="1"
+                              style="max-width: 180px; max-height: 132px;"
+                            >
+                              <span
+                                style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
+                              >
+                                <div
+                                  class="default_7zhre1-o_O-spinnerContainer_agrn11"
+                                >
+                                  <svg
+                                    height="48"
+                                    viewBox="0 0 48 48"
+                                    width="48"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      class="loadingSpinner_1dvgeb3-o_O-inlineStyles_1uct99t"
+                                      d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                                      fill-rule="nonzero"
+                                    />
+                                  </svg>
+                                </div>
+                              </span>
+                              <button
+                                aria-label="Make image bigger."
+                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_g025ss"
+                                type="button"
+                              />
+                            </div>
+                          </figure>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="10"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        <div
+                          class="perseus-widget-container widget-block"
+                        >
+                          <figure
+                            class="perseus-image-widget"
+                            style="max-inline-size: 180px;"
+                          >
+                            <div
+                              class="fixed-to-responsive svg-image"
+                              data-scale="1"
+                              style="max-width: 180px; max-height: 132px;"
+                            >
+                              <span
+                                style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
+                              >
+                                <div
+                                  class="default_7zhre1-o_O-spinnerContainer_agrn11"
+                                >
+                                  <svg
+                                    height="48"
+                                    viewBox="0 0 48 48"
+                                    width="48"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      class="loadingSpinner_1dvgeb3-o_O-inlineStyles_1uct99t"
+                                      d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                                      fill-rule="nonzero"
+                                    />
+                                  </svg>
+                                </div>
+                              </span>
+                              <button
+                                aria-label="Make image bigger."
+                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_g025ss"
+                                type="button"
+                              />
+                            </div>
+                          </figure>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="11"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        <div
+                          class="perseus-widget-container widget-block"
+                        >
+                          <figure
+                            class="perseus-image-widget"
+                            style="max-inline-size: 234px;"
+                          >
+                            <div
+                              class="fixed-to-responsive svg-image"
+                              data-scale="1"
+                              style="max-width: 234px; max-height: 132px;"
+                            >
+                              <span
+                                style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
+                              >
+                                <div
+                                  class="default_7zhre1-o_O-spinnerContainer_agrn11"
+                                >
+                                  <svg
+                                    height="48"
+                                    viewBox="0 0 48 48"
+                                    width="48"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      class="loadingSpinner_1dvgeb3-o_O-inlineStyles_1uct99t"
+                                      d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                                      fill-rule="nonzero"
+                                    />
+                                  </svg>
+                                </div>
+                              </span>
+                              <button
+                                aria-label="Make image bigger."
+                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_g025ss"
+                                type="button"
+                              />
+                            </div>
+                          </figure>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph perseus-paragraph-centered"
+                      data-perseus-paragraph-index="12"
+                    >
+                      <div
+                        class="perseus-block-math"
+                      >
+                        <div
+                          class="perseus-block-math-inner"
+                          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+                        >
+                          <span
+                            class="mock-TeX"
+                          >
+                            \\blueD{0.6} + \\greenD{0.4} = 1
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="13"
+                    >
+                      <h3>
+                        The answer:
+                      </h3>
+                    </div>
+                    <div
+                      class="paragraph perseus-paragraph-centered"
+                      data-perseus-paragraph-index="14"
+                    >
+                      <div
+                        class="perseus-block-math"
+                      >
+                        <div
+                          class="perseus-block-math-inner"
+                          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+                        >
+                          <span
+                            class="mock-TeX"
+                          >
+                            0.6 + 0.4 = 1
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="answer-bar-container"
+              >
+                <div
+                  class="answer-bar"
+                >
+                  <span
+                    class="message"
+                  />
+                  <button
+                    aria-disabled="false"
+                    class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn"
+                    data-kind="primary"
+                    type="button"
+                  >
+                    <span
+                      class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+                    >
+                      Check
+                    </span>
+                  </button>
+                </div>
+              </div>
             </div>
             <div
-              class="perseus-graded-group"
+              class="perseus-graded-group gradedGroup_mg08ap"
             >
               <div
                 class="title_15to8kx"
@@ -251,13 +963,13 @@ exports[`graded-group-set should render all graded groups 1`] = `
                         autocorrect="off"
                         class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
                         data-testid="input-with-examples"
-                        id=":r6:"
+                        id=":rf:"
                         tabindex="0"
                         type="text"
                         value=""
                       />
                       <span
-                        id="aria-for-:r6:"
+                        id="aria-for-:rf:"
                         style="display: none;"
                       />
                     </div>
@@ -281,23 +993,373 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 </div>
               </div>
               <button
-                aria-disabled="false"
-                class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_u9mtba"
-                data-kind="secondary"
-                type="button"
-              >
-                <span
-                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
-                >
-                  Check
-                </span>
-              </button>
-              <button
-                class="showHintLink_1rvdp1e"
-                tabindex="0"
+                aria-controls=":re:"
+                aria-expanded="false"
+                class="explainToggle_1rvdp1e"
               >
                 Explain
               </button>
+              <div
+                class="hint hint-collapsed"
+                id=":re:"
+              >
+                <div
+                  class="hint-wrapper"
+                >
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        There are many ways to solve this problem. Let's see two student solutions.
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="1"
+                    >
+                      <h3>
+                        Student A's solution:
+                      </h3>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="2"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        I thought in terms of tenths.
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph perseus-paragraph-centered"
+                      data-perseus-paragraph-index="3"
+                    >
+                      <div
+                        class="perseus-block-math"
+                      >
+                        <div
+                          class="perseus-block-math-inner"
+                          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+                        >
+                          <span
+                            class="mock-TeX"
+                          >
+                            \\phantom{=}0.8 + 0.4
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="4"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        <span
+                          style="white-space: nowrap;"
+                        >
+                          <span />
+                          <span
+                            class="mock-TeX"
+                          >
+                            =8
+                          </span>
+                          <span />
+                        </span>
+                         tenths 
+                        <span
+                          style="white-space: nowrap;"
+                        >
+                          <span />
+                          <span
+                            class="mock-TeX"
+                          >
+                            + ~4
+                          </span>
+                          <span />
+                        </span>
+                         tenths
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="5"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        <span
+                          style="white-space: nowrap;"
+                        >
+                          <span />
+                          <span
+                            class="mock-TeX"
+                          >
+                            =12
+                          </span>
+                          <span />
+                        </span>
+                         tenths
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph perseus-paragraph-centered"
+                      data-perseus-paragraph-index="6"
+                    >
+                      <div
+                        class="perseus-block-math"
+                      >
+                        <div
+                          class="perseus-block-math-inner"
+                          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+                        >
+                          <span
+                            class="mock-TeX"
+                          >
+                            =1.2
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="7"
+                    >
+                      <h3>
+                        Student B's solution:
+                      </h3>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="8"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        I used tenths grids.
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="9"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        <div
+                          class="perseus-widget-container widget-block"
+                        >
+                          <figure
+                            class="perseus-image-widget"
+                            style="max-inline-size: 180px;"
+                          >
+                            <div
+                              class="fixed-to-responsive svg-image"
+                              data-scale="1"
+                              style="max-width: 180px; max-height: 132px;"
+                            >
+                              <span
+                                style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
+                              >
+                                <div
+                                  class="default_7zhre1-o_O-spinnerContainer_agrn11"
+                                >
+                                  <svg
+                                    height="48"
+                                    viewBox="0 0 48 48"
+                                    width="48"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      class="loadingSpinner_1dvgeb3-o_O-inlineStyles_1uct99t"
+                                      d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                                      fill-rule="nonzero"
+                                    />
+                                  </svg>
+                                </div>
+                              </span>
+                              <button
+                                aria-label="Make image bigger."
+                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_g025ss"
+                                type="button"
+                              />
+                            </div>
+                          </figure>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="10"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        <div
+                          class="perseus-widget-container widget-block"
+                        >
+                          <figure
+                            class="perseus-image-widget"
+                            style="max-inline-size: 180px;"
+                          >
+                            <div
+                              class="fixed-to-responsive svg-image"
+                              data-scale="1"
+                              style="max-width: 180px; max-height: 132px;"
+                            >
+                              <span
+                                style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
+                              >
+                                <div
+                                  class="default_7zhre1-o_O-spinnerContainer_agrn11"
+                                >
+                                  <svg
+                                    height="48"
+                                    viewBox="0 0 48 48"
+                                    width="48"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      class="loadingSpinner_1dvgeb3-o_O-inlineStyles_1uct99t"
+                                      d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                                      fill-rule="nonzero"
+                                    />
+                                  </svg>
+                                </div>
+                              </span>
+                              <button
+                                aria-label="Make image bigger."
+                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_g025ss"
+                                type="button"
+                              />
+                            </div>
+                          </figure>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="11"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        <div
+                          class="perseus-widget-container widget-block"
+                        >
+                          <figure
+                            class="perseus-image-widget"
+                            style="max-inline-size: 354px;"
+                          >
+                            <div
+                              class="fixed-to-responsive svg-image"
+                              data-scale="1"
+                              style="max-width: 354px; max-height: 132px;"
+                            >
+                              <span
+                                style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
+                              >
+                                <div
+                                  class="default_7zhre1-o_O-spinnerContainer_agrn11"
+                                >
+                                  <svg
+                                    height="48"
+                                    viewBox="0 0 48 48"
+                                    width="48"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      class="loadingSpinner_1dvgeb3-o_O-inlineStyles_1uct99t"
+                                      d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                                      fill-rule="nonzero"
+                                    />
+                                  </svg>
+                                </div>
+                              </span>
+                              <button
+                                aria-label="Make image bigger."
+                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_g025ss"
+                                type="button"
+                              />
+                            </div>
+                          </figure>
+                        </div>
+                        
+
+                        <span
+                          style="white-space: nowrap;"
+                        >
+                          <span />
+                          <span
+                            class="mock-TeX"
+                          >
+                            \\blueD{0.8} + \\greenD{0.4} = 1.2
+                          </span>
+                          <span />
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="12"
+                    >
+                      <h3>
+                        The answer:
+                      </h3>
+                    </div>
+                    <div
+                      class="paragraph perseus-paragraph-centered"
+                      data-perseus-paragraph-index="13"
+                    >
+                      <div
+                        class="perseus-block-math"
+                      >
+                        <div
+                          class="perseus-block-math-inner"
+                          style="overflow-x: auto; overflow-y: hidden; padding-top: 10px; padding-bottom: 10px; margin-top: -10px; margin-bottom: -10px;"
+                        >
+                          <span
+                            class="mock-TeX"
+                          >
+                             0.8+0.4=1.2 
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="answer-bar-container"
+              >
+                <div
+                  class="answer-bar"
+                >
+                  <span
+                    class="message"
+                  />
+                  <button
+                    aria-disabled="false"
+                    class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn"
+                    data-kind="primary"
+                    type="button"
+                  >
+                    <span
+                      class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+                    >
+                      Check
+                    </span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
