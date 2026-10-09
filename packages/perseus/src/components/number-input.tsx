@@ -17,7 +17,7 @@ const getNumericFormat = KhanMath.getNumericFormat;
 interface Props {
     value: number | null;
     format?: MathFormat | "non-reduced" | null;
-    placeholder?: any;
+    placeholder?: string | number | null;
     onChange: any;
     onFormatChange?: any;
     checkValidity: any;
@@ -115,7 +115,7 @@ class NumberInput extends React.Component<Props, any> {
     parseInputValue: (arg1: any) => any = (value) => {
         if (value === "") {
             const placeholder = this.props.placeholder;
-            return _.isFinite(placeholder) ? +placeholder : null;
+            return _.isFinite(placeholder) ? Number(placeholder) : null;
         }
         const result = firstNumericalParse(value);
         return _.isFinite(result) ? result : this.props.value;
@@ -221,12 +221,14 @@ class NumberInput extends React.Component<Props, any> {
             checkValidity,
             useArrowKeys,
             allowPiTruncation,
+            placeholder,
             ...restProps
         } = this.props;
 
         return (
             <input
                 {...restProps}
+                placeholder={placeholder != null ? String(placeholder) : undefined}
                 className={classes}
                 type="text"
                 ref={this.inputRef}
