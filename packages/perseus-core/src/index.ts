@@ -51,7 +51,7 @@ export {itemHasHints} from "./utils/item-has-hints";
 export {makeSafeUrl} from "./utils/make-safe-url";
 export {
     removeOrphanedWidgetsFromPerseusItem,
-    removeOrphanedWidgets,
+    removeOrphanedWidgetsFromPerseusRenderer,
 } from "./utils/remove-orphaned-widgets";
 
 export {
