@@ -889,11 +889,16 @@ class Renderer
             className = null;
         } else {
             className = classNames({
-                "perseus-paragraph-centered": !this._foundTextNodes,
+                // TODO(LEMS-4463): perseus-paragraph-centered is not referenced
+                //  by any CSS. Its only effect is to force QuestionParagraph
+                //  to wrap its children in a div. Find another way to achieve
+                //  this that doesn't involve a dummy class.
+                "perseus-paragraph-centered":
+                    !this._foundTextNodes && !this.props.inline,
                 // There is only one node being rendered,
                 // and it's a full-width widget.
                 "perseus-paragraph-full-width":
-                    state.foundFullWidth && ast.content?.length === 1,
+                    state.foundFullWidth && ast.type === "widget",
             });
         }
 
@@ -903,6 +908,7 @@ class Renderer
                 className={className}
                 translationIndex={this.translationIndex}
                 paragraphIndex={state.paragraphIndex}
+                inline={this.props.inline}
             >
                 <ErrorBoundary>{output}</ErrorBoundary>
             </QuestionParagraph>

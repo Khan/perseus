@@ -1,5 +1,61 @@
 # @khanacademy/perseus
 
+## 90.2.0
+
+### Minor Changes
+
+-   [#4260](https://github.com/Khan/perseus/pull/4260) [`a36956f`](https://github.com/Khan/perseus/commit/a36956faf71532f640cb268fc29785bb8b59dbe2) Thanks [@benchristel](https://github.com/benchristel)! - Paragraphs are now correctly styled and use accessible `<p>` elements when the perseus-renderer-upgrade feature flag is on.
+
+### Patch Changes
+
+-   [#4339](https://github.com/Khan/perseus/pull/4339) [`7285d58`](https://github.com/Khan/perseus/commit/7285d58eb81ff71a8a0c6fd5d62d7082c3b8e0e1) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert the Mock widget (testing widget) to a functional component
+
+-   Updated dependencies [[`1c610e4`](https://github.com/Khan/perseus/commit/1c610e4bd481bb5c5cb76801a3093b86c7068640)]:
+    -   @khanacademy/perseus-core@41.1.0
+    -   @khanacademy/keypad-context@6.0.3
+    -   @khanacademy/kmath@3.0.4
+    -   @khanacademy/math-input@30.0.4
+    -   @khanacademy/perseus-linter@6.1.1
+    -   @khanacademy/perseus-score@9.0.4
+
+## 90.1.0
+
+### Minor Changes
+
+-   [#4257](https://github.com/Khan/perseus/pull/4257) [`0cdddbe`](https://github.com/Khan/perseus/commit/0cdddbe4b300e802ce502d6d191b3fd1674c57f3) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - updates explain button for graded group
+
+### Patch Changes
+
+-   [#4276](https://github.com/Khan/perseus/pull/4276) [`fb84fc6`](https://github.com/Khan/perseus/commit/fb84fc6a6d62d69d74692de31b35db04d699c11e) Thanks [@nishasy](https://github.com/nishasy)! - [Graded Group a11y] Announce correctness state when Check/Try Again button is pressed
+
+-   [#4276](https://github.com/Khan/perseus/pull/4276) [`fb84fc6`](https://github.com/Khan/perseus/commit/fb84fc6a6d62d69d74692de31b35db04d699c11e) Thanks [@nishasy](https://github.com/nishasy)! - [Graded Group] | (DX) | Streamline "invalid" logic in Graded Group widget
+
+-   [#4334](https://github.com/Khan/perseus/pull/4334) [`7eaf83b`](https://github.com/Khan/perseus/commit/7eaf83b740701e960fc6c99a7e32326ce60ec37c) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Adds required span when radio is required - exercises and gg
+
+-   [#4315](https://github.com/Khan/perseus/pull/4315) [`2c1f469`](https://github.com/Khan/perseus/commit/2c1f4693c8f35fcca92319462fd4be4f76888cb4) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Fix focus after navigating to next question in graded group set
+
+-   [#4331](https://github.com/Khan/perseus/pull/4331) [`b4d9f41`](https://github.com/Khan/perseus/commit/b4d9f41ab606e7c980eacfe3183d1e6ef64f12da) Thanks [@benchristel](https://github.com/benchristel)! - There was a bug where inline math was incorrectly wrapped in a `<div>` element when `inline: true` was passed to the Renderer and the `perseus-renderer-upgrade` feature flag was on. This has been fixed.
+
+-   [#4325](https://github.com/Khan/perseus/pull/4325) [`e0dad22`](https://github.com/Khan/perseus/commit/e0dad2234fdd98388cee00abc2772fec18c58ed2) Thanks [@nishasy](https://github.com/nishasy)! - [Graded Group a11y] Fix KAC alignment issues in Graded Group answer bar
+
+-   [#4232](https://github.com/Khan/perseus/pull/4232) [`d6995fd`](https://github.com/Khan/perseus/commit/d6995fd3d08526d5881d752ce31ecbe0475c6d13) Thanks [@nishasy](https://github.com/nishasy)! - [Graded Group] Consolidate mobile and desktop styles
+
+-   Updated dependencies [[`0b744b8`](https://github.com/Khan/perseus/commit/0b744b812341c31a2b21f7294d1dc6e465b3ef6d)]:
+    -   @khanacademy/perseus-linter@6.1.0
+
+## 90.0.2
+
+### Patch Changes
+
+-   [#4323](https://github.com/Khan/perseus/pull/4323) [`320349f`](https://github.com/Khan/perseus/commit/320349fec03f44be8c9989097ccd7caed5411edf) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Remove the vestigial `clearfix` CSS class
+
+-   [#4324](https://github.com/Khan/perseus/pull/4324) [`dad705c`](https://github.com/Khan/perseus/commit/dad705c9e4002211d0d4ce5cc7854586a3c2d354) Thanks [@jandrade](https://github.com/jandrade)! - Updates WB peer deps, including `@khanacademy/wonder-blocks-popover` 7.0.0, which is now built on `@khanacademy/wonder-blocks-floating`. Tests and snapshots are updated for the new Popover.
+
+-   [#4329](https://github.com/Khan/perseus/pull/4329) [`e0c0fe5`](https://github.com/Khan/perseus/commit/e0c0fe5742b5e4a75611878a46358ef00aa5b6df) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert iFrame into a functional component
+
+-   Updated dependencies [[`4da9528`](https://github.com/Khan/perseus/commit/4da95281f38eca305b8e82ea6a21ae60248a76b1), [`dad705c`](https://github.com/Khan/perseus/commit/dad705c9e4002211d0d4ce5cc7854586a3c2d354)]:
+    -   @khanacademy/math-input@30.0.3
+
 ## 90.0.1
 
 ### Patch Changes

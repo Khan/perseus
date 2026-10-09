@@ -1,4 +1,6 @@
 import {
+    generateDropdownOptions,
+    generateDropdownWidget,
     generateGradedGroupOptions,
     generateGradedGroupSetWidget,
     generateImageOptions,
@@ -285,3 +287,51 @@ export const twoGroupArgs: Partial<PerseusGradedGroupSetWidgetOptions> = {
         }),
     ],
 };
+
+export const twoGroupAnswerableArgs: Partial<PerseusGradedGroupSetWidgetOptions> =
+    {
+        gradedGroups: [
+            generateGradedGroupOptions({
+                title: "Check your understanding 1",
+                content: "[[☃ dropdown 1]]",
+                widgets: {
+                    "dropdown 1": generateDropdownWidget({
+                        options: generateDropdownOptions({
+                            placeholder: "Select an answer",
+                            choices: [
+                                {content: "Correct answer", correct: true},
+                                {content: "Incorrect answer", correct: false},
+                            ],
+                        }),
+                    }),
+                },
+                hint: {
+                    content: "This is a hint.",
+                    images: {},
+                    widgets: {},
+                },
+                images: {},
+            }),
+            generateGradedGroupOptions({
+                title: "Check your understanding 2",
+                content: "[[☃ dropdown 1]]",
+                widgets: {
+                    "dropdown 1": generateDropdownWidget({
+                        options: generateDropdownOptions({
+                            placeholder: "Select an answer",
+                            choices: [
+                                {content: "Correct answer", correct: true},
+                                {content: "Incorrect answer", correct: false},
+                            ],
+                        }),
+                    }),
+                },
+                hint: {
+                    content: "This is a hint.",
+                    images: {},
+                    widgets: {},
+                },
+                images: {},
+            }),
+        ],
+    };

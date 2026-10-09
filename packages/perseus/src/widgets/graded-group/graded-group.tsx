@@ -1,28 +1,25 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import Button from "@khanacademy/wonder-blocks-button";
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import {border, font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
-import {useState, useRef, useImperativeHandle, forwardRef} from "react";
+import {useState, useRef, useId, useImperativeHandle, forwardRef} from "react";
 import _ from "underscore";
 
 import {usePerseusI18n} from "../../components/i18n-context";
-import InlineIcon from "../../components/inline-icon";
 import {useDependencies} from "../../dependencies";
-import {iconOk, iconRemove} from "../../icon-paths";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {mapErrorToString} from "../../strings";
 import {phoneMargin, negativePhoneMargin} from "../../styles/constants";
 import UserInputManager from "../../user-input-manager";
-import a11y from "../../util/a11y";
 import {getPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
 
 import GradedGroupAnswerBar from "./graded-group-answer-bar";
+import cssModuleStyles from "./graded-group.module.css";
 
-import type {ANSWER_BAR_STATES} from "./graded-group-answer-bar";
+import type {AnswerBarState, GradingStatus} from "./graded-group-answer-bar";
 import type {
     FocusPath,
     TrackingGradedGroupExtraArguments,
@@ -34,33 +31,7 @@ import type {
     PerseusGradedGroupWidgetOptions,
     PerseusRenderer,
     PerseusScore,
-    UserInputMap,
 } from "@khanacademy/perseus-core";
-
-const GRADING_STATUSES = {
-    ungraded: "ungraded" as const,
-    correct: "correct" as const,
-    incorrect: "incorrect" as const,
-    invalid: "invalid" as const,
-} as const;
-
-// Update answer bar state based on current state and whether the question is
-// answerable (all parts have been filled out) or not.
-const getNextState = (
-    currentState: ANSWER_BAR_STATES,
-    answerable,
-): ANSWER_BAR_STATES => {
-    switch (currentState) {
-        case "ACTIVE":
-            return !answerable ? "INACTIVE" : currentState;
-        case "INACTIVE":
-            return answerable ? "ACTIVE" : currentState;
-        case "INCORRECT":
-            return answerable ? "ACTIVE" : "INACTIVE";
-        default:
-            return currentState;
-    }
-};
 
 type Props = WidgetProps<
     PerseusGradedGroupWidgetOptions,
@@ -91,16 +62,15 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
         const {strings} = usePerseusI18n();
         const dependencies = useDependencies();
 
-        const [status, setStatus] = useState<keyof typeof GRADING_STATUSES>(
-            GRADING_STATUSES.ungraded,
-        );
         const [showHint, setShowHint] = useState(false);
         const [message, setMessage] = useState("");
+
         const [answerBarState, setAnswerBarState] =
-            useState<ANSWER_BAR_STATES>("INACTIVE");
+            useState<AnswerBarState>("active");
 
         const rendererRef = useRef<Renderer | null>(null);
         const hintRendererRef = useRef<Renderer | null>(null);
+        const hintId = useId();
 
         useOnMountEffect(() => {
             dependencies.analytics.onAnalyticsEvent({
@@ -120,8 +90,6 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
             },
 
             getPromptJSON(): GradedGroupPromptJSON {
-                // If the hint isn't expanded, we can't get the prompt JSON from the rendered widgets.
-                // We'll just pass in the hint content as a string instead.
                 const hint = hintRendererRef.current?.getPromptJSON() || {
                     content: props.options.hint?.content || "",
                     widgets: {},
@@ -147,17 +115,13 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
             },
         }));
 
-        function handleUserInput(
-            _userInput: UserInputMap,
-            widgetsEmpty: boolean,
-        ): void {
+        function handleAnswerChange(): void {
             // Reset grading display when user changes answer
-            setStatus(GRADING_STATUSES.ungraded);
             setMessage("");
 
-            const answerable = !widgetsEmpty;
-            const nextState = getNextState(answerBarState, answerable);
-            setAnswerBarState(nextState);
+            setAnswerBarState((state) =>
+                state === "correct" ? state : "active",
+            );
         }
 
         function checkAnswer() {
@@ -170,12 +134,12 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                 DEFAULT_INVALID_MESSAGE_2,
             } = strings;
 
-            const status =
+            const status: GradingStatus =
                 score.type === "points"
                     ? score.total === score.earned
-                        ? GRADING_STATUSES.correct
-                        : GRADING_STATUSES.incorrect
-                    : GRADING_STATUSES.invalid;
+                        ? "correct"
+                        : "incorrect"
+                    : "invalid";
             const message =
                 score.type === "points"
                     ? score.message || ""
@@ -183,10 +147,8 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                       ? `${INVALID_MESSAGE_PREFIX} ${mapErrorToString(score.message, strings)}`
                       : `${INVALID_MESSAGE_PREFIX} ${DEFAULT_INVALID_MESSAGE_1}${DEFAULT_INVALID_MESSAGE_2}`;
 
-            setStatus(status);
             setMessage(message);
-            // TODO(kevinb) handle 'invalid' status
-            setAnswerBarState(status === "correct" ? "CORRECT" : "INCORRECT");
+            setAnswerBarState(status);
 
             props.trackInteraction({
                 status: status,
@@ -206,51 +168,18 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
             },
         });
 
-        let gradeStatus: string | null = null;
-        let icon: React.ReactElement | null = null;
-        if (status === GRADING_STATUSES.correct) {
-            icon = (
-                <InlineIcon
-                    {...iconOk}
-                    style={{
-                        color: semanticColor.core.foreground.success.default,
-                    }}
-                />
-            );
-            gradeStatus = strings.correct;
-        } else if (status === GRADING_STATUSES.incorrect) {
-            icon = (
-                <InlineIcon
-                    {...iconRemove}
-                    style={{
-                        color: semanticColor.core.foreground.critical.default,
-                    }}
-                />
-            );
-            gradeStatus = strings.incorrect;
-        }
-
-        const mobileClass = props.inGradedGroupSet
-            ? css(styles.gradedGroupInSet)
-            : css(styles.gradedGroup);
-
-        const classes = classNames({
-            [mobileClass]: apiOptions.isMobile,
-            "perseus-graded-group": true,
-            "answer-correct": apiOptions.isMobile
-                ? false
-                : status === GRADING_STATUSES.correct,
-            "answer-incorrect": apiOptions.isMobile
-                ? false
-                : status === GRADING_STATUSES.incorrect,
-        });
+        const classes = classNames(
+            "perseus-graded-group",
+            props.inGradedGroupSet
+                ? css(styles.gradedGroupInSet)
+                : css(styles.gradedGroup),
+        );
 
         // Disabled widgets after the answer has been answered correctly to
         // prevent a situation where the answer has been marked correct but
         // looks incorrect because a user has modified it afterwards.
-        const isCorrect = answerBarState === "CORRECT";
-        const readOnly =
-            apiOptions.readOnly || (apiOptions.isMobile && isCorrect);
+        const isCorrect = answerBarState === "correct";
+        const readOnly = apiOptions.readOnly || isCorrect;
 
         // We only want to show the solutions and rationale if the answer is correct
         const showSolutions = isCorrect ? "all" : "none";
@@ -264,10 +193,7 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                 )}
                 <UserInputManager
                     widgets={props.options.widgets}
-                    handleUserInput={(
-                        userInput: UserInputMap,
-                        widgetsEmpty: boolean,
-                    ) => handleUserInput(userInput, widgetsEmpty)}
+                    handleUserInput={handleAnswerChange}
                     problemNum={props.problemNum ?? 0}
                 >
                     {({userInput, handleUserInput}) => (
@@ -289,132 +215,95 @@ export const GradedGroup = forwardRef<GradedGroupHandle, Props>(
                     )}
                 </UserInputManager>
 
-                {!apiOptions.isMobile && (
+                {answerBarState !== "invalid" && (
+                    <div role="status" aria-live="polite">
+                        <Renderer
+                            content={message}
+                            strings={strings}
+                            apiOptions={apiOptions}
+                        />
+                    </div>
+                )}
+
+                {props.options.answerArea &&
+                    apiOptions.renderExtras?.(
+                        props.options.answerArea,
+                        props.widgetId,
+                    )}
+
+                {props.options.hint?.content && (
                     <>
-                        {icon != null && (
-                            <div className="group-icon">{icon}</div>
-                        )}
-
-                        {gradeStatus && (
-                            <div
-                                className={css(a11y.srOnly)}
-                                role="alert"
-                                aria-label={gradeStatus}
-                            >
-                                {gradeStatus}
-                            </div>
-                        )}
-
-                        {/* Using Renderer so TeX expressions in
-                           answer messages are displayed as formatted math */}
-                        <div role="status" aria-live="polite">
-                            <Renderer content={message} strings={strings} />
-                        </div>
-
-                        {props.options.answerArea &&
-                            apiOptions.renderExtras?.(
-                                props.options.answerArea,
-                                props.widgetId,
-                            )}
-
-                        <Button
-                            kind="secondary"
-                            disabled={props.apiOptions.readOnly}
-                            onClick={checkAnswer}
+                        {/* Not using WB Button here bc the styles won't work. */}
+                        <button
+                            aria-expanded={showHint}
+                            aria-controls={hintId}
+                            className={css(styles.explainToggle)}
+                            onClick={() => setShowHint(!showHint)}
                         >
-                            {strings.check}
-                        </Button>
+                            {showHint
+                                ? strings.hideExplanation
+                                : strings.explain}
+                        </button>
 
-                        {isCorrect && props.onNextQuestion && (
-                            <Button
-                                kind="secondary"
-                                disabled={props.apiOptions.readOnly}
-                                onClick={props.onNextQuestion}
-                                style={{marginInlineStart: 5}}
-                            >
-                                {strings.nextQuestion}
-                            </Button>
-                        )}
+                        <div
+                            id={hintId}
+                            className={classNames(
+                                cssModuleStyles.hint,
+                                showHint
+                                    ? cssModuleStyles.hintExpanded
+                                    : cssModuleStyles.hintCollapsed,
+                            )}
+                        >
+                            <div className={cssModuleStyles.hintWrapper}>
+                                <UserInputManager
+                                    widgets={props.options.hint.widgets}
+                                    problemNum={props.problemNum ?? 0}
+                                >
+                                    {({
+                                        userInput,
+                                        handleUserInput,
+                                        initializeUserInput,
+                                    }) => {
+                                        // we did a check above to make sure hints exists
+                                        // TODO(benchristel): extract a renderHint
+                                        //  function; then we can remove this cast.
+                                        // eslint-disable-next-line no-restricted-syntax
+                                        const {content, widgets, images} = props
+                                            .options.hint as PerseusRenderer;
+                                        return (
+                                            <Renderer
+                                                content={content}
+                                                widgets={widgets}
+                                                images={images}
+                                                userInput={userInput}
+                                                handleUserInput={
+                                                    handleUserInput
+                                                }
+                                                initializeUserInput={
+                                                    initializeUserInput
+                                                }
+                                                ref={hintRendererRef}
+                                                apiOptions={apiOptions}
+                                                linterContext={
+                                                    props.linterContext
+                                                }
+                                                strings={strings}
+                                                showSolutions={showSolutions}
+                                            />
+                                        );
+                                    }}
+                                </UserInputManager>
+                            </div>
+                        </div>
                     </>
                 )}
-
-                {props.options.hint?.content &&
-                    (showHint ? (
-                        <div>
-                            {/* Not using Button here bc the styles won't work. */}
-                            <button
-                                // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
-                                tabIndex="0"
-                                className={css(styles.explanationTitle)}
-                                onClick={() => setShowHint(false)}
-                                onKeyPress={(e) => {
-                                    // preventDefault stops the screen from scrolling down on keypress
-                                    e.preventDefault();
-                                    setShowHint(false);
-                                }}
-                            >
-                                {strings.hideExplanation}
-                            </button>
-
-                            <UserInputManager
-                                widgets={props.options.hint.widgets}
-                                problemNum={props.problemNum ?? 0}
-                            >
-                                {({
-                                    userInput,
-                                    handleUserInput,
-                                    initializeUserInput,
-                                }) => {
-                                    // we did a check above to make sure hints exists
-                                    // TODO(benchristel): extract a renderHint
-                                    //  function; then we can remove this cast.
-                                    // eslint-disable-next-line no-restricted-syntax
-                                    const {content, widgets, images} = props
-                                        .options.hint as PerseusRenderer;
-                                    return (
-                                        <Renderer
-                                            content={content}
-                                            widgets={widgets}
-                                            images={images}
-                                            userInput={userInput}
-                                            handleUserInput={handleUserInput}
-                                            initializeUserInput={
-                                                initializeUserInput
-                                            }
-                                            ref={hintRendererRef}
-                                            apiOptions={apiOptions}
-                                            linterContext={props.linterContext}
-                                            strings={strings}
-                                            showSolutions={showSolutions}
-                                        />
-                                    );
-                                }}
-                            </UserInputManager>
-                        </div>
-                    ) : (
-                        // Not using Button here bc the styles won't work.
-                        <button
-                            // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'number | undefined'.
-                            tabIndex="0"
-                            onClick={() => setShowHint(true)}
-                            onKeyPress={(e) => {
-                                // preventDefault stops the screen from scrolling down on keypress
-                                e.preventDefault();
-                                setShowHint(true);
-                            }}
-                            className={css(styles.showHintLink)}
-                        >
-                            {strings.explain}
-                        </button>
-                    ))}
-                {apiOptions.isMobile && (
-                    <GradedGroupAnswerBar
-                        apiOptions={apiOptions}
-                        answerBarState={answerBarState}
-                        onCheckAnswer={checkAnswer}
-                        onNextQuestion={props.onNextQuestion}
-                    />
-                )}
+                <GradedGroupAnswerBar
+                    apiOptions={apiOptions}
+                    invalidMessage={message}
+                    answerBarState={answerBarState}
+                    onCheckAnswer={checkAnswer}
+                    onNextQuestion={props.onNextQuestion}
+                />
             </div>
         );
     },
@@ -440,7 +329,7 @@ const styles = StyleSheet.create({
         width: "auto",
     },
 
-    showHintLink: {
+    explainToggle: {
         backgroundColor: "unset",
         fontSize: font.body.size.small,
         padding: 0,
@@ -448,19 +337,6 @@ const styles = StyleSheet.create({
         marginBlockStart: 20,
         color: semanticColor.core.foreground.instructive.default,
         cursor: "pointer",
-        display: "block",
-        clear: "both",
-    },
-
-    explanationTitle: {
-        backgroundColor: "unset",
-        marginBlockStart: 20,
-        color: semanticColor.core.foreground.instructive.default,
-        marginBlockEnd: 10,
-        cursor: "pointer",
-        fontSize: font.body.size.small,
-        padding: 0,
-        border: "none",
         display: "block",
         clear: "both",
     },

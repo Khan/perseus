@@ -5,31 +5,27 @@ type Props = {
     translationIndex?: number;
     paragraphIndex?: number;
     children?: React.ReactNode;
+    inline?: boolean;
 };
 
-const QuestionParagraph = ({
-    className,
-    translationIndex,
-    paragraphIndex,
-    children,
-}: Props): React.ReactNode => {
-    const isJIPT = translationIndex != null;
-    const resolvedClassName =
-        className && className.trim().length > 0 ? className : undefined;
-
-    if (!isJIPT && resolvedClassName == null) {
-        return children;
-    }
-
+const QuestionParagraph = (props: Props): React.ReactNode => {
+    const className = props.className
+        ? "deprecated-perseus-container " + props.className
+        : "deprecated-perseus-container";
+    const isJipt = props.translationIndex != null;
     // For perseus-article just-in-place-translation (jipt), we need
     // to attach some metadata to top-level QuestionParagraphs:
     return (
         <div
-            className={resolvedClassName}
-            data-perseus-component-index={translationIndex}
-            data-perseus-paragraph-index={isJIPT ? paragraphIndex : undefined}
+            className={props.inline ? props.className ?? undefined : className}
+            data-perseus-component-index={
+                isJipt ? props.translationIndex : undefined
+            }
+            data-perseus-paragraph-index={
+                isJipt ? props.paragraphIndex : undefined
+            }
         >
-            {children}
+            {props.children}
         </div>
     );
 };

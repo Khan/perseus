@@ -124,43 +124,17 @@ describe("GradedGroupSet AI utils", () => {
         });
     });
 
-    it("should get prompt json which matches the state of the UI when the hint is collapsed", async () => {
+    it("returns the same prompt json whether the hint is collapsed or expanded", async () => {
         // Arrange
         const {renderer} = renderQuestion(article1);
+        const collapsedJSON = renderer.getPromptJSON();
 
         // Act
-        const json = renderer.getPromptJSON();
+        await userEvent.click(screen.getByRole("button", {name: "Explain"}));
+        act(() => jest.runOnlyPendingTimers());
 
         // Assert
-        expect(json).toEqual({
-            content:
-                "#Section 1: Adding tenths less than one\n\n[[☃ graded-group-set 1]]\n\n\nBeautiful, let's move on to problems with whole numbers and tenths.",
-            widgets: {
-                "graded-group-set 1": {
-                    type: "graded-group-set",
-                    options: {
-                        groupCount: 3,
-                        currentGroup: {
-                            content: "$0.5 + 0.4 =$   [[☃ numeric-input 1]]",
-                            widgets: {
-                                "numeric-input 1": {
-                                    type: "numeric-input",
-                                    label: "",
-                                    userInput: {value: ""},
-                                },
-                            },
-                            title: "",
-                            type: "graded-group",
-                            hint: {
-                                content:
-                                    "There are many ways to solve this problem. Let's see two student solutions.\n\n###Student A's solution:\n\nI thought in terms of tenths.\n\n$\\phantom{=}0.5 + 0.4$\n\n$=5$ tenths $+ ~4$ tenths\n\n$=9$ tenths\n\n$=0.9$\n\n###Student B's solution:\n\nI used tenths grids.\n\n[[☃ image 1]]\n\n[[☃ image 2]]\n\n[[☃ image 3]]\n\n$\\blueD{0.5} + \\greenD{0.4} = 0.9$\n\n###The answer:\n\n$0.5 + 0.4 = 0.9$",
-                                widgets: {},
-                            },
-                        },
-                    },
-                },
-            },
-        });
+        expect(renderer.getPromptJSON()).toEqual(collapsedJSON);
     });
 
     it("should get prompt json which matches the state of the UI when the hint is expanded", async () => {

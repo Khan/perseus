@@ -1,4 +1,3 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {components} from "@khanacademy/perseus";
 import {measurerLogic} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
@@ -6,10 +5,8 @@ import * as React from "react";
 import _ from "underscore";
 
 import InfoTip from "../../components/info-tip";
-import {deprecatedChangeableChange} from "../../mixins/changeable";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
-import type {ChangeableProps} from "../../mixins/changeable";
 import type {PerseusMeasurerWidgetOptions} from "@khanacademy/perseus-core";
 
 const {NumberInput, RangeInput} = components;
@@ -20,7 +17,9 @@ const defaultImage = {
     left: 0,
 } as const;
 
-interface Props extends PerseusMeasurerWidgetOptions, ChangeableProps {}
+interface Props extends PerseusMeasurerWidgetOptions {
+    onChange: (options: PerseusMeasurerWidgetOptions) => void;
+}
 
 class MeasurerEditor extends React.Component<Props> {
     static defaultProps: PerseusMeasurerWidgetOptions =
@@ -28,9 +27,19 @@ class MeasurerEditor extends React.Component<Props> {
 
     className = "perseus-widget-measurer";
 
-    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return deprecatedChangeableChange.apply(this, args);
-    };
+    handleChange(changes: Partial<PerseusMeasurerWidgetOptions>) {
+        this.props.onChange({
+            image: this.props.image,
+            showProtractor: this.props.showProtractor,
+            showRuler: this.props.showRuler,
+            rulerLabel: this.props.rulerLabel,
+            rulerTicks: this.props.rulerTicks,
+            rulerPixels: this.props.rulerPixels,
+            rulerLength: this.props.rulerLength,
+            box: this.props.box,
+            ...changes,
+        });
+    }
 
     _changeUrl: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
         this._changeImage("url", e.target.value);
@@ -47,8 +56,7 @@ class MeasurerEditor extends React.Component<Props> {
     _changeImage: (arg1: string, arg2: any) => void = (subProp, newValue) => {
         const image = _.clone(this.props.image);
         image[subProp] = newValue;
-        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
-        this.change("image", image);
+        this.handleChange({image});
     };
 
     renderLabelChoices: (
@@ -117,8 +125,7 @@ class MeasurerEditor extends React.Component<Props> {
                 <div>
                     Containing area [width, height]:{" "}
                     <RangeInput
-                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                        onChange={this.change("box")}
+                        onChange={(box) => this.handleChange({box})}
                         value={this.props.box}
                         useArrowKeys={true}
                     />
@@ -129,7 +136,7 @@ class MeasurerEditor extends React.Component<Props> {
                             label="Show ruler"
                             checked={this.props.showRuler}
                             onChange={(value) => {
-                                this.props.onChange({showRuler: value});
+                                this.handleChange({showRuler: value});
                             }}
                         />
                     </div>
@@ -138,7 +145,7 @@ class MeasurerEditor extends React.Component<Props> {
                             label="Show protractor"
                             checked={this.props.showProtractor}
                             onChange={(value) => {
-                                this.props.onChange({showProtractor: value});
+                                this.handleChange({showProtractor: value});
                             }}
                         />
                     </div>
@@ -151,11 +158,9 @@ class MeasurerEditor extends React.Component<Props> {
                                 Ruler label:{" "}
                                 <select
                                     onChange={(e) =>
-                                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
-                                        this.change(
-                                            "rulerLabel",
-                                            e.target.value,
-                                        )
+                                        this.handleChange({
+                                            rulerLabel: e.target.value,
+                                        })
                                     }
                                     value={this.props.rulerLabel}
                                 >
@@ -185,11 +190,9 @@ class MeasurerEditor extends React.Component<Props> {
                                 Ruler ticks:{" "}
                                 <select
                                     onChange={(e) =>
-                                        // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
-                                        this.change(
-                                            "rulerTicks",
-                                            +e.target.value,
-                                        )
+                                        this.handleChange({
+                                            rulerTicks: +e.target.value,
+                                        })
                                     }
                                     value={this.props.rulerTicks}
                                 >
@@ -208,8 +211,9 @@ class MeasurerEditor extends React.Component<Props> {
                                 Ruler pixels per unit:{" "}
                                 <NumberInput
                                     placeholder={40}
-                                    // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                                    onChange={this.change("rulerPixels")}
+                                    onChange={(rulerPixels) =>
+                                        this.handleChange({rulerPixels})
+                                    }
                                     value={this.props.rulerPixels}
                                     useArrowKeys={true}
                                 />
@@ -220,8 +224,9 @@ class MeasurerEditor extends React.Component<Props> {
                                 Ruler length in units:{" "}
                                 <NumberInput
                                     placeholder={10}
-                                    // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                                    onChange={this.change("rulerLength")}
+                                    onChange={(rulerLength) =>
+                                        this.handleChange({rulerLength})
+                                    }
                                     value={this.props.rulerLength}
                                     useArrowKeys={true}
                                 />

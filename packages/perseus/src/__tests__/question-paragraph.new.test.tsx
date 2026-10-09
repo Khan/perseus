@@ -4,36 +4,7 @@ import * as React from "react";
 import QuestionParagraph from "../question-paragraph.new";
 
 describe("QuestionParagraph", () => {
-    it("renders children without a wrapper when JIPT information and className are absent", () => {
-        // Arrange, Act
-        const {container} = render(
-            <QuestionParagraph>
-                <span data-testid="child">Hello</span>
-            </QuestionParagraph>,
-        );
-
-        // Assert
-        const child = screen.getByTestId("child");
-        expect(child).toBeInTheDocument();
-        // eslint-disable-next-line testing-library/no-node-access
-        expect(child.parentElement).toBe(container);
-    });
-
-    it("renders children without a wrapper when className is empty and JIPT information is absent", () => {
-        // Arrange, Act
-        const {container} = render(
-            <QuestionParagraph className="   ">
-                <span data-testid="child">Hello</span>
-            </QuestionParagraph>,
-        );
-
-        // Assert
-        const child = screen.getByTestId("child");
-        // eslint-disable-next-line testing-library/no-node-access
-        expect(child.parentElement).toBe(container);
-    });
-
-    it("wraps children in a <div> when a className is provided", () => {
+    it("wraps children in a <div>", () => {
         // Arrange, Act
         render(
             <QuestionParagraph className="my-class">
@@ -46,6 +17,7 @@ describe("QuestionParagraph", () => {
         const wrapper = screen.getByTestId("child").parentElement;
         expect(wrapper?.tagName).toBe("DIV");
         expect(wrapper).toHaveClass("my-class");
+        expect(wrapper).toHaveClass("deprecated-perseus-container");
     });
 
     it("wraps children in a <div> when JIPT information is provided", () => {

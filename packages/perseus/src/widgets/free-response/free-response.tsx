@@ -77,7 +77,11 @@ export const FreeResponse = forwardRef<Widget, Props>(function FreeResponse(
             <LabeledField
                 label={
                     <View className="free-response-question">
-                        <Renderer content={question} strings={strings} />
+                        <Renderer
+                            content={question}
+                            strings={strings}
+                            apiOptions={apiOptions}
+                        />
                     </View>
                 }
                 field={

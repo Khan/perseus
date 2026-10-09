@@ -2,13 +2,15 @@
     .free-response .free-response-question {
         /* Remove the top margin from the first paragraph, so there isn't forced
            spacing above the question. */
-        :nth-child(1 of .paragraph) {
+        :nth-child(1 of .paragraph),
+        :nth-child(1 of .deprecated-perseus-container) {
             margin-top: 0;
         }
 
         /* Remove the bottom margin from the last paragraph, so there isn't a
            large space between the question and the textarea. */
-        :nth-last-child(1 of .paragraph) {
+        :nth-last-child(1 of .paragraph),
+        :nth-last-child(1 of .deprecated-perseus-container) {
             margin-bottom: 0;
         }
     }
