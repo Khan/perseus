@@ -1,5 +1,5 @@
 import {
-    removeOrphanedWidgets,
+    removeOrphanedWidgetsFromPerseusRenderer,
     removeOrphanedWidgetsFromPerseusItem,
 } from "./remove-orphaned-widgets";
 
@@ -42,7 +42,7 @@ describe("removeOrphanedWidgetsFromPerseusItem", () => {
     });
 });
 
-describe("removeOrphanedWidgets", () => {
+describe("removeOrphanedWidgetsFromPerseusRenderer", () => {
     it("removes an orphaned widget", () => {
         const renderer: PerseusRenderer = {
             content: "",
@@ -58,7 +58,7 @@ describe("removeOrphanedWidgets", () => {
             },
         };
 
-        const result = removeOrphanedWidgets(renderer);
+        const result = removeOrphanedWidgetsFromPerseusRenderer(renderer);
 
         // Assert: the radio widget is removed because it's not referenced.
         expect(result.widgets).toEqual({});
@@ -79,7 +79,7 @@ describe("removeOrphanedWidgets", () => {
             },
         };
 
-        removeOrphanedWidgets(renderer);
+        removeOrphanedWidgetsFromPerseusRenderer(renderer);
 
         // Assert: the original renderer is unmodified.
         expect(renderer.widgets).toHaveProperty("radio 1");
@@ -100,7 +100,7 @@ describe("removeOrphanedWidgets", () => {
             },
         };
 
-        const result = removeOrphanedWidgets(renderer);
+        const result = removeOrphanedWidgetsFromPerseusRenderer(renderer);
 
         expect(result.widgets).toHaveProperty("radio 1");
     });
@@ -127,12 +127,12 @@ describe("removeOrphanedWidgets", () => {
             },
         };
 
-        const result1 = removeOrphanedWidgets(renderer);
+        const result1 = removeOrphanedWidgetsFromPerseusRenderer(renderer);
 
         expect(result1.widgets).toHaveProperty("radio 1");
         expect(result1.widgets).not.toHaveProperty("radio 2");
 
-        const result2 = removeOrphanedWidgets(result1);
+        const result2 = removeOrphanedWidgetsFromPerseusRenderer(result1);
 
         expect(result2.widgets).toHaveProperty("radio 1");
         expect(result2.widgets).not.toHaveProperty("radio 2");
