@@ -1,5 +1,21 @@
 # @khanacademy/perseus-editor
 
+## 44.0.7
+
+### Patch Changes
+
+-   [#4346](https://github.com/Khan/perseus/pull/4346) [`70e99d6`](https://github.com/Khan/perseus/commit/70e99d606687c1651e19745fec6c2c9092526f42) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in OrdererEditor
+
+-   [#4340](https://github.com/Khan/perseus/pull/4340) [`46022c3`](https://github.com/Khan/perseus/commit/46022c31c4cb8fd912805d614d160361aff5c24b) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in NumericInputEditor
+
+-   Updated dependencies [[`89a477b`](https://github.com/Khan/perseus/commit/89a477bfc510eafd65573ed92bbb31cca984d36d), [`7f11f79`](https://github.com/Khan/perseus/commit/7f11f79706ba358bf6d884d1c147ff77c168917c), [`721c495`](https://github.com/Khan/perseus/commit/721c4951e8aa5e2034aaa0d9a01a397672a775b8), [`c7b27f6`](https://github.com/Khan/perseus/commit/c7b27f6ea6d51e3d06d48f7eb07fb0e69a42d1c4), [`962b3fe`](https://github.com/Khan/perseus/commit/962b3fe3e41184c0e44d530dbe2ee301ad0dbbbc), [`c1ad2d7`](https://github.com/Khan/perseus/commit/c1ad2d7e37a583ecc64c8a0d6d3a3561b2b9b804), [`0c210d9`](https://github.com/Khan/perseus/commit/0c210d90f5d653349fde675b66b5c9f267916bb8)]:
+    -   @khanacademy/perseus@91.0.0
+    -   @khanacademy/perseus-core@41.2.0
+    -   @khanacademy/keypad-context@6.0.4
+    -   @khanacademy/kmath@3.0.5
+    -   @khanacademy/math-input@30.0.5
+    -   @khanacademy/perseus-linter@6.1.2
+
 ## 44.0.6
 
 ### Patch Changes
