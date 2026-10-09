@@ -18,6 +18,7 @@ type Props = {
     onKeyDown?: () => void;
     style?: StyleType;
     "aria-describedby"?: string;
+    "aria-required"?: boolean;
 };
 
 type DefaultProps = {
@@ -122,6 +123,7 @@ class TextInput extends React.Component<Props> {
                 type="text"
                 aria-label={ariaLabel}
                 aria-describedby={this.props["aria-describedby"]}
+                aria-required={this.props["aria-required"]}
                 onChange={(value) => this.props.onChange(value)}
                 placeholder={placeholder}
                 testId={"input-with-examples"}

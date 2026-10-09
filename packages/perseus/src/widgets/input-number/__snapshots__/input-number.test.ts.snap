@@ -168,6 +168,7 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
           <div>
             <div
               aria-label="Math input box Tap with one or two fingers to open keyboard"
+              aria-required="false"
               class="default_7zhre1-o_O-input_1aqkxd0"
               role="textbox"
             >

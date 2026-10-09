@@ -108,6 +108,11 @@ const NumericInput = forwardRef<Widget, Props>(
 
         const {answers, labelText, size, textAlign} = props.options;
         const answerForms = normalizeCorrectAnswerForms(answers);
+        const isRequired =
+            props.isScorable &&
+            !props.reviewMode &&
+            !props.static &&
+            !props.apiOptions.readOnly;
 
         const handleChange = (newValue: string): void => {
             props.handleUserInput({currentValue: newValue});
@@ -169,6 +174,7 @@ const NumericInput = forwardRef<Widget, Props>(
                         onChange={handleChange}
                         onFocus={handleFocus}
                         onBlur={handleBlur}
+                        ariaRequired={isRequired}
                     />
                 </div>
             );
@@ -186,6 +192,7 @@ const NumericInput = forwardRef<Widget, Props>(
                 onBlur={handleBlur}
                 id={props.widgetId}
                 disabled={props.apiOptions.readOnly}
+                required={isRequired}
                 style={legacyStylesToUse}
                 className={classesToUse.join(" ")}
             />
