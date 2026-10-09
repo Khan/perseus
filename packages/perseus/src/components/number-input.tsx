@@ -16,7 +16,7 @@ const getNumericFormat = KhanMath.getNumericFormat;
 
 interface Props {
     value: number | null;
-    format?: any;
+    format?: MathFormat | "non-reduced" | null;
     placeholder?: any;
     onChange: any;
     onFormatChange?: any;
