@@ -260,11 +260,10 @@ class Editor extends React.Component<Props, State> {
         });
     }
 
-    getWidgetEditor(
-        id: string,
-        type: PerseusWidget["type"],
-    ): undefined | React.ReactNode {
-        if (!WidgetEditorRegistry.getEditor(type)) {
+    getWidgetEditor(id: string): undefined | React.ReactNode {
+        // Widget syntax with no widget data (e.g. typed by hand) has nothing
+        // to edit; the underlay marks it as an error instead.
+        if (this.props.widgets[id] == null) {
             return;
         }
         return (
@@ -603,7 +602,7 @@ class Editor extends React.Component<Props, State> {
         return safeWidgetMapping;
     };
 
-    // @ts-expect-error: Types of parameter 'widgetType' and 'widgetType' are incompatible. Type 'string' is not assignable to type '"cs-program" | "iframe" | "table" | "video" | "image" | "deprecated-standin" | "categorizer" | "definition" | "dropdown" | "explanation" | "expression" | "graded-group" | "graded-group-set" | ... 20 more ... | "radio"'.
+    // @ts-expect-error: Types of parameter 'widgetType' and 'widgetType' are incompatible. Type 'string' is not assignable to type '"cs-program" | "iframe" | "table" | "video" | "image" | "categorizer" | "definition" | "dropdown" | "explanation" | "expression" | "graded-group" | "graded-group-set" | ... 20 more ... | "radio"'.
     _addWidgetToContent: (
         oldContent: string,
         cursorRange: ReadonlyArray<number>,
@@ -875,14 +874,12 @@ class Editor extends React.Component<Props, State> {
                     const match = Util.rWidgetParts.exec(pieces[i]);
                     if (match != null) {
                         const id = match[1];
-                        // eslint-disable-next-line no-restricted-syntax
-                        const type = match[2] as PerseusWidget["type"];
 
                         const selected = false;
 
                         const duplicate = id in widgets;
 
-                        widgets[id] = this.getWidgetEditor(id, type);
+                        widgets[id] = this.getWidgetEditor(id);
                         const classes =
                             (duplicate || !widgets[id] ? "error " : "") +
                             (selected ? "selected " : "");

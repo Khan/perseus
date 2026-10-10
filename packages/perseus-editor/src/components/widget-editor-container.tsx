@@ -12,6 +12,7 @@ import * as WidgetEditorRegistry from "../widget-editor-registry";
 
 import SectionControlButton from "./section-control-button";
 import ToggleableCaret from "./toggleable-caret";
+import UnsupportedWidgetEditor from "./unsupported-widget-editor";
 import WidgetEditorSettings from "./widget-editor-settings";
 
 import type {APIOptions} from "@khanacademy/perseus";
@@ -141,12 +142,11 @@ class WidgetEditorContainer extends React.Component<Props, State> {
             alignment: widgetInfo.alignment,
             static: widgetInfo.static,
             graded: widgetInfo.graded,
-            // The inner widget editor (`this.widget.current`) can be absent
-            // even while this WidgetEditor is mounted — e.g. when the widget's
-            // type has no registered editor, so `Ed` never renders (see the
-            // `{Ed && ...}` guard in render()). In that case fall back to the
-            // last-known options rather than dereferencing a null ref, which
-            // previously crashed the editor when toggling JSON mode.
+            // The inner widget editor's ref can be empty while this
+            // WidgetEditor is mounted (e.g. before `Ed` has mounted). In that
+            // case fall back to the last-known options rather than
+            // dereferencing a null ref, which previously crashed the editor
+            // when toggling JSON mode.
             options:
                 this.widgetSpecificEditor.current?.serialize() ??
                 widgetInfo.options,
@@ -159,7 +159,9 @@ class WidgetEditorContainer extends React.Component<Props, State> {
         const isEditingDisabled =
             this.props.apiOptions.editingDisabled ?? false;
 
-        const Ed = WidgetEditorRegistry.getEditor(widgetInfo.type);
+        const Ed =
+            WidgetEditorRegistry.getEditor(widgetInfo.type) ??
+            UnsupportedWidgetEditor;
         let supportedAlignments: ReadonlyArray<Alignment>;
 
         if (this.props.apiOptions.showAlignmentOptions) {
@@ -229,16 +231,14 @@ class WidgetEditorContainer extends React.Component<Props, State> {
                         (this.state.showWidget ? "enter" : "leave")
                     }
                 >
-                    {Ed && (
-                        <Ed
-                            ref={this.widgetSpecificEditor}
-                            onChange={this._handleWidgetChange}
-                            static={widgetInfo.static}
-                            graded={widgetInfo.graded}
-                            apiOptions={this.props.apiOptions}
-                            {...widgetInfo.options}
-                        />
-                    )}
+                    <Ed
+                        ref={this.widgetSpecificEditor}
+                        onChange={this._handleWidgetChange}
+                        static={widgetInfo.static}
+                        graded={widgetInfo.graded}
+                        apiOptions={this.props.apiOptions}
+                        {...widgetInfo.options}
+                    />
                 </div>
             </div>
         );
