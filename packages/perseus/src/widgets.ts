@@ -1,6 +1,4 @@
-import {createWidgetRegistry} from "@khanacademy/perseus-core";
-
-import DeprecatedStandin from "./widgets/deprecated-standin";
+import {Registry} from "@khanacademy/perseus-core";
 
 import type {Tracking, WidgetExports} from "./types";
 import type * as React from "react";
@@ -8,10 +6,7 @@ import type * as React from "react";
 const DEFAULT_TRACKING = "";
 const DEFAULT_LINTABLE = false;
 
-const widgets = createWidgetRegistry<WidgetExports>(
-    "Perseus widget registry",
-    DeprecatedStandin,
-);
+const widgets = new Registry<WidgetExports>("Perseus widget registry");
 
 // Widgets must be registered to avoid circular dependencies with the
 // core Editor and Renderer components.

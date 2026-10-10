@@ -6,13 +6,15 @@
 // TODO(LEMS-4304): feature flag cleanup - rename this file to widget-container.tsx.
 // This file is the new widget container that will replace the old container.
 
-import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
+import {CoreWidgetRegistry, Errors} from "@khanacademy/perseus-core";
 import classNames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
+import UnsupportedWidget from "./components/unsupported-widget";
 import {DependenciesContext} from "./dependencies";
 import ErrorBoundary from "./error-boundary";
+import {Log} from "./logging/log";
 import {containerSizeClass, getClassFromWidth} from "./util/sizing-utils";
 import {getWidgetSubType} from "./widget-type-utils";
 import * as Widgets from "./widgets";
@@ -38,6 +40,20 @@ class WidgetContainer extends React.Component<Props, State> {
     };
 
     componentDidMount() {
+        // Content can name a widget type this build doesn't have, either
+        // because the widget was removed or because we never knew it. Learners
+        // get `UnsupportedWidget` instead; the log tells us which content to
+        // fix. The type can't change after mounting (see
+        // UNSAFE_componentWillReceiveProps), so once per mount is enough.
+        if (Widgets.getWidget(this.props.type) == null) {
+            Log.error("Widget type not registered", Errors.NotAllowed, {
+                loggedMetadata: {
+                    type: this.props.type,
+                    widgetId: this.props.id,
+                },
+            });
+        }
+
         // Only relay size class changes for mobile right now.  We may want to
         // this for desktop as well at some point in the future.
         if (this.props.widgetProps.apiOptions.isMobile) {
@@ -82,11 +98,11 @@ class WidgetContainer extends React.Component<Props, State> {
 
         const WidgetType = Widgets.getWidget(type);
         if (WidgetType == null) {
-            // This is for the good of all people!!
-            // eslint-disable-next-line no-console
-            console.warn(`Widget type '${type}' not found!`);
-            // Just give up on invalid widget types
-            return <div className={className} />;
+            return (
+                <div className={className}>
+                    <UnsupportedWidget />
+                </div>
+            );
         }
 
         const subType =

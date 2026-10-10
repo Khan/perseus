@@ -31,7 +31,7 @@ export type PerseusStrings = {
     USER_INPUT_TOO_LONG: string;
     hints: string;
     getAnotherHint: string;
-    deprecatedStandin: string;
+    unsupportedWidget: string;
     keepTrying: string;
     tryAgain: string;
     check: string;
@@ -966,7 +966,7 @@ export const strings = {
     ERROR_MESSAGE: "Sorry, I don't understand that!",
     hints: "Hints",
     getAnotherHint: "Get another hint",
-    deprecatedStandin:
+    unsupportedWidget:
         "Sorry, this part of the question is no longer available. 😅 Don't worry, you won't be graded on this part. Keep going!",
     keepTrying: "Keep trying",
     tryAgain: "Try again",
@@ -1916,7 +1916,7 @@ export const mockStrings: PerseusStrings = {
     ERROR_MESSAGE: "Sorry, I don't understand that!",
     hints: "Hints",
     getAnotherHint: "Get another hint",
-    deprecatedStandin:
+    unsupportedWidget:
         "Sorry, this part of the question is no longer available. 😅 Don't worry, you won't be graded on this part. Keep going!",
     keepTrying: "Keep trying",
     tryAgain: "Try again",

@@ -6,6 +6,7 @@
 // TODO(LEMS-4304): feature flag cleanup - remove this file
 // This file is the original widget-container test file that is being replaced by the new test file.
 
+import {Errors} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
@@ -67,9 +68,11 @@ const getBaseProps = (
 });
 
 describe("widget-container", () => {
-    it("should render nothing when requested widget not registered", () => {
+    it("renders the unsupported-widget notice when the widget isn't registered", () => {
         // Arrange
-        const warnMock = jest.spyOn(console, "warn").mockImplementation();
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
 
         // Act
         render(
@@ -81,8 +84,42 @@ describe("widget-container", () => {
         );
 
         // Assert
-        expect(warnMock).toHaveBeenCalledWith(
-            "Widget type 'invalid-widget' not found!",
+        expect(
+            screen.getByText(
+                /this part of the question is no longer available/,
+            ),
+        ).toBeInTheDocument();
+    });
+
+    it("logs an unregistered widget's type and id once per mount", () => {
+        // Arrange
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+        const logErrorSpy = jest.spyOn(testDependencies.Log, "error");
+        const container = (
+            <WidgetContainer
+                type="invalid-widget"
+                id="invalid-widget 1"
+                widgetProps={getBaseProps()}
+            />
+        );
+
+        // Act
+        const {rerender} = render(container);
+        rerender(container);
+
+        // Assert
+        expect(logErrorSpy).toHaveBeenCalledTimes(1);
+        expect(logErrorSpy).toHaveBeenCalledWith(
+            "Widget type not registered",
+            Errors.NotAllowed,
+            {
+                loggedMetadata: {
+                    type: "invalid-widget",
+                    widgetId: "invalid-widget 1",
+                },
+            },
         );
     });
 
