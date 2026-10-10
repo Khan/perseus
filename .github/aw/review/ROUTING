@@ -1,0 +1,104 @@
+# Machine-readable routing for the PR-reviewer workflow. Parsed deterministically by
+# the shared router (Khan/actions workflows/review/lib; format spec in that repo's
+# workflows/review/README.md). One rule per line:
+#   <pattern> [lens=<lens>,...] [tier=trivial|low|medium|high] [direction-dependent]
+# Later tier rules override earlier ones (gitignore-style; last match wins); lenses
+# union across matching rules. This file complements risk-classification.md (the
+# model-facing prose). A pattern with no `/` matches its basename in ANY directory;
+# a leading `/` anchors to the repo root.
+
+# Enabled opt-in whole-change reviewers. This mirrors Khan/webapp's eval-justified
+# roster minus `documentation`, which webapp enables only to feed its autofix
+# workflow (perseus has no autofix, so its label would have no consumer here).
+enable holistic,completeness,test-adequacy,first-principles,conventions
+
+# Re-review depth: repeat rounds run the whole roster but stage only over hunks
+# that are new since the last reviewed fingerprint (divergence tripwire re-arms a
+# full round). Perseus PRs commonly get several review-response pushes; full-depth
+# every push would re-review unchanged code each time.
+re-review scoped
+
+# Broad defaults first; exceptions re-raise below (last match wins).
+packages/**                          tier=medium
+# utils/ holds the scripts CI runs to gate PRs and publish to npm, so not low.
+utils/**                             tier=medium
+config/**                            tier=low
+.storybook/**                        tier=low
+.changeset/**                        tier=low
+static/**                            tier=low
+types/**                             tier=low
+**/*.md                              tier=trivial
+# Sample question corpus for the local analysis scripts in data/; not shipped.
+data/questions/                      tier=trivial
+pnpm-lock.yaml                       tier=trivial
+# Changeset entries re-raised over **/*.md: the semver bump level decides what ships
+# to consumers, and CI only checks that an entry exists.
+.changeset/*.md                      tier=low
+
+# Executable prose re-raised over the broad **/*.md trivial rule: skills and agent
+# memory files steer coding agents running as engineers with their credentials.
+# Hooks are higher still: they auto-execute on every agent tool call.
+SKILL.md                             tier=medium
+CLAUDE.md                            tier=medium
+AGENTS.md                            tier=medium
+/accessibility-instructions.md       tier=medium
+.claude/hooks/**                     lens=security-auth tier=high
+.claude/settings.json                lens=security-auth tier=high
+# Mints the PAT the hooks above consume.
+.claude/setup-git-token.mjs          lens=security-auth tier=high
+.codex/hooks/**                      lens=security-auth tier=high
+.codex/hooks.json                    lens=security-auth tier=high
+.cursor/hooks/**                     lens=security-auth tier=high
+.cursor/hooks.json                   lens=security-auth tier=high
+.mcp.json                            lens=security-auth tier=high
+
+# High-risk surfaces (see risk-classification.md for the reasoning).
+# Answer scoring: silent mis-scoring of learners is the worst failure in the repo.
+packages/perseus-score/src/**        tier=high
+# The content contract: schema + parsers; compat with published content is the risk.
+packages/perseus-core/src/data-schema.ts        tier=high
+packages/perseus-core/src/parse-perseus-json/** tier=high
+# Vendored forks and pnpm dependency patches: hand-patched, no upstream review.
+vendor/**                            tier=high
+patches/**                           tier=high
+# Publish configuration decides what ships to npm and how consumers resolve it.
+.changeset/config.json               tier=high
+packages/*/package.json              tier=high
+# Root package.json contains deps that run on everyone's workstation so a real
+# security risk
+/package.json                        lens=security-auth tier=high
+
+# CI supply chain: workflow files spawn the security-auth lens for the shared
+# workflow-security hunts (pwn-request, over-scoped-secret). Public repo.
+.github/workflows/**                 lens=security-auth tier=high
+.github/actions/**                   lens=security-auth tier=high
+# (No `**/action.yaml` rule: every composite action here uses `action.yml`.)
+**/action.yml                        lens=security-auth tier=high
+
+# The reviewer's own config: a PR tampering with review routing/config must not be
+# reviewed at a reduced budget. NOT direction-dependent: that flag makes the router
+# offer every matching rule's tier as a candidate, and the `.md` files here also match
+# `**/*.md`, so Trivial was on the menu (this PR's own config.md, risk-classification.md
+# and skills.md were classified Trivial and skipped on the first run).
+.github/aw/review/**                 lens=security-auth tier=high
+# Third-party action SHA pins for the reviewer workflow: supply chain, same as workflows.
+.github/aw/actions-lock.json         lens=security-auth tier=high
+# A linguist-generated line here hides a path from review entirely, so this file is
+# reviewer control input too.
+/.gitattributes                      lens=security-auth tier=high
+
+# Test and dev surfaces drop back down. This block sits LAST on purpose: it has to
+# come after the high-tier src rules above, or a test file inside perseus-score/src
+# or parse-perseus-json would resolve high (last match wins).
+**/__tests__/**                      tier=low
+**/__testutils__/**                  tier=low
+**/__docs__/**                       tier=low
+**/*.test.ts                         tier=low
+**/*.test.tsx                        tier=low
+**/*.testdata.ts                     tier=low
+**/*.typetest.ts                     tier=low
+**/*.stories.tsx                     tier=low
+**/__snapshots__/**                  tier=trivial
+# Frozen parser-regression fixtures: protect-regression-data.yml blocks any edit to
+# existing files, so a diff here is either a new fixture or a CI failure.
+packages/perseus-core/src/parse-perseus-json/regression-tests/*-data/**  tier=trivial
