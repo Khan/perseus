@@ -13,7 +13,7 @@ function scoreSorter(
     userInput: PerseusSorterUserInput,
     rubric: PerseusSorterWidgetOptions,
 ): PerseusScore {
-    // These sorters render as the deprecated standin, so the learner was never
+    // These sorters render as `UnsupportedWidget`, so the learner was never
     // shown anything to answer. Award the point so they aren't blocked.
     if (exceedsCardLimit(rubric.correct)) {
         return {
