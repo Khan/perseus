@@ -1,5 +1,4 @@
 import {
-    DeprecatedWidgetTypes,
     generateDropdownOptions,
     generateDropdownWidget,
 } from "@khanacademy/perseus-core";
@@ -556,23 +555,16 @@ describe("scorePerseusItem", () => {
         });
     });
 
-    it("ignores deprecated widgets", () => {
-        function deprecatedWidget<T extends string>(type: T) {
-            return {
-                type,
-                version: {major: 0, minor: 0},
-                options: {},
-            };
-        }
-
+    it("ignores widgets with no registered scorer", () => {
+        // Arrange
+        // Removed widget types and ones Perseus has never known are scored the
+        // same way. PerseusWidgetsMap can't name the never-known ones.
+        const types = ["transformer", "sequence", "never-a-widget", "made-up"];
         const item: PerseusRenderer = {
-            content: DeprecatedWidgetTypes.map((t) => `[[☃ ${t} 1]]`).join(""),
+            content: types.map((t) => `[[☃ ${t} 1]]`).join(""),
             // eslint-disable-next-line no-restricted-syntax
             widgets: Object.fromEntries(
-                DeprecatedWidgetTypes.map((t) => [
-                    `${t} 1`,
-                    deprecatedWidget(t),
-                ]),
+                types.map((t) => [`${t} 1`, {type: t, options: {}}]),
             ) as any,
             images: {},
         };

@@ -1,5 +1,5 @@
 import {
-    createWidgetRegistry,
+    Registry,
     type WidgetScorerFunction,
     type WidgetValidatorFunction,
 } from "@khanacademy/perseus-core";
@@ -43,12 +43,9 @@ type ScoringLogic = {
     validator?: WidgetValidatorFunction;
 };
 
-// Deprecated widgets resolve to `null`: they have no scorer or validator, so
-// they're unscoreable and don't count towards an item's score.
-const widgets = createWidgetRegistry<ScoringLogic | null>(
-    "Score widget registry",
-    null,
-);
+// A widget type with no registered scorer, whether removed or never known, is
+// unscoreable and doesn't count towards an item's score.
+const widgets = new Registry<ScoringLogic>("Score widget registry");
 
 export function registerWidget(
     type: string,

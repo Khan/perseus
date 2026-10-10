@@ -1,10 +1,7 @@
 import isWidgetScoreable from "./is-widget-scoreable";
 import {getTestDropdownWidget} from "./test-helpers";
 
-import type {
-    DeprecatedStandinWidget,
-    PhetSimulationWidget,
-} from "@khanacademy/perseus-core";
+import type {PhetSimulationWidget} from "@khanacademy/perseus-core";
 
 describe("isWidgetScoreable", () => {
     it("returns false for undefined widget", () => {
@@ -82,13 +79,14 @@ describe("isWidgetScoreable", () => {
         expect(isWidgetScoreable(widget)).toBe(false);
     });
 
-    it("returns false for a deprecated widget", () => {
-        const widget = {
-            type: "transformer",
-            graded: true,
-            static: false,
-            options: {},
-        } satisfies DeprecatedStandinWidget<"transformer">;
-        expect(isWidgetScoreable(widget)).toBe(false);
-    });
+    it.each(["transformer", "sequence", "never-a-widget"])(
+        "returns false for %s, which has no registered scorer",
+        (type) => {
+            const widget = {type, graded: true, static: false, options: {}};
+
+            // PerseusWidget can't name a type Perseus has never known.
+            // eslint-disable-next-line no-restricted-syntax
+            expect(isWidgetScoreable(widget as any)).toBe(false);
+        },
+    );
 });
