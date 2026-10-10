@@ -173,8 +173,6 @@ export {default as splitPerseusItem} from "./utils/split-perseus-item";
 /** @hidden */
 export {splitPerseusItemJSON} from "./utils/split-perseus-item";
 /** @hidden */
-export {createWidgetRegistry} from "./widgets/create-widget-registry";
-/** @hidden */
 export {default as Registry} from "./utils/registry";
 
 export type * from "./widgets/logic-export.types";

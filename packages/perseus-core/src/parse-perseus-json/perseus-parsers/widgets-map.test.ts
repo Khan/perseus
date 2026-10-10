@@ -97,16 +97,20 @@ describe("parseWidgetsMap", () => {
         );
     });
 
-    it("accepts an unknown widget type", () => {
-        // The widget may have been dynamically registered, so we allow it.
-        const widgetsMap: unknown = {
-            "transmogrifier 1": {type: "transmogrifier"},
-        };
+    // An unknown widget may have been dynamically registered, and a deprecated
+    // one can still appear in old content, so we accept both.
+    it.each(["transmogrifier", "transformer", "sequence"])(
+        "accepts a %s widget, which Perseus doesn't implement",
+        (type) => {
+            const widgetsMap: unknown = {
+                [`${type} 1`]: {type, options: {}},
+            };
 
-        const result = parse(widgetsMap, parseWidgetsMap);
+            const result = parse(widgetsMap, parseWidgetsMap);
 
-        expect(result).toEqual(success(widgetsMap));
-    });
+            expect(result).toEqual(success(widgetsMap));
+        },
+    );
 
     it("accepts a fill-in-the-blank widget", () => {
         const widgetsMap: unknown = {

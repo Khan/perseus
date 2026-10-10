@@ -33,11 +33,10 @@
 import type {KeypadKey} from "./keypad";
 
 /**
- * The list of widget types that are deprecated. Widgets in this list are no
- * longer supported or rendered.
- *
- * If these show up in any Perseus content, we display the
- * {@link DeprecatedStandinWidget} instead.
+ * Widget types that Perseus no longer supports. Content can still contain
+ * them, so the parser accepts them with any options. Nothing else treats them
+ * specially: like any widget type without a registered implementation, they
+ * render as a notice and aren't scored.
  */
 export const DeprecatedWidgetTypes = [
     "lights-puzzle",
@@ -53,7 +52,7 @@ export const DeprecatedWidgetTypes = [
 ] as const;
 
 type DeprecatedWidgets = {
-    [K in (typeof DeprecatedWidgetTypes)[number]]: DeprecatedStandinWidget<K>;
+    [K in (typeof DeprecatedWidgetTypes)[number]]: DeprecatedWidget<K>;
 };
 
 export type Coord = [x: number, y: number];
@@ -133,10 +132,8 @@ export type MakeWidgetMap<TRegistry> = {
  * `@khanacademy/perseus` (for UI support) and `@khanacademy/perseus-score`
  * (for scoring support)).
  *
- * Importantly, the key should be the name that is used in widget IDs. For most
- * widgets that is the same as the widget option's `type` field. In cases where
- * a widget has been deprecated and replaced with the deprecated-standin
- * widget, it should be the original widget type!
+ * Importantly, the key should be the name that is used in widget IDs, which is
+ * the same as the widget option's `type` field.
  *
  * If you define the widget outside of this package, you can still add the new
  * widget to this interface by writing the following in that package that
@@ -150,7 +147,7 @@ export type MakeWidgetMap<TRegistry> = {
  *         "new-awesomeness": MyAwesomeNewWidget;
  *
  *         // A deprecated widget
- *         "super-old-widget": DeprecatedStandinWidget;
+ *         "super-old-widget": DeprecatedWidget<"super-old-widget">;
  *     }
  * }
  *
@@ -528,7 +525,7 @@ export type InputNumberWidget = WidgetOptions<'input-number', PerseusInputNumber
 // prettier-ignore
 export type VideoWidget = WidgetOptions<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
-export type DeprecatedStandinWidget<Type extends string> = WidgetOptions<Type, object>;
+export type DeprecatedWidget<Type extends string> = WidgetOptions<Type, object>;
 
 /**
  * A background image applied to various widgets.

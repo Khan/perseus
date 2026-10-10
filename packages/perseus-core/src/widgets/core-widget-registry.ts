@@ -1,12 +1,11 @@
 import {Errors} from "../error/errors";
 import {PerseusError} from "../error/perseus-error";
+import Registry from "../utils/registry";
 
 import blankWidgetLogic from "./blank";
 import categorizerWidgetLogic from "./categorizer";
-import {createWidgetRegistry} from "./create-widget-registry";
 import csProgramWidgetLogic from "./cs-program";
 import definitionWidgetLogic from "./definition";
-import deprecatedStandinWidgetLogic from "./deprecated-standin";
 import dropdownWidgetLogic from "./dropdown";
 import explanationWidgetLogic from "./explanation";
 import expressionWidgetLogic from "./expression";
@@ -45,10 +44,7 @@ import type {
     Alignment,
 } from "../data-schema";
 
-const widgets = createWidgetRegistry<WidgetLogic<any, any>>(
-    "Core widget registry",
-    deprecatedStandinWidgetLogic,
-);
+const widgets = new Registry<WidgetLogic<any, any>>("Core widget registry");
 
 export function registerWidget(type: string, logic: WidgetLogic<any, any>) {
     widgets.set(type, logic);
