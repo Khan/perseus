@@ -114,11 +114,13 @@ describe("renderer", () => {
             expect(container).toMatchSnapshot("incorrect answer");
         });
 
-        it("renders a placeholder for a deprecated widget", () => {
+        it("renders a placeholder for a removed widget type", () => {
             // Arrange
             const question: PerseusRenderer = {
                 content: "[[☃ sequence 1]]",
                 images: {},
+                // PerseusWidgetsMap can't name a removed widget type.
+                // eslint-disable-next-line no-restricted-syntax
                 widgets: {
                     "sequence 1": {
                         type: "sequence",
@@ -134,14 +136,14 @@ describe("renderer", () => {
                             ],
                         },
                     },
-                },
+                } as any,
             };
 
             // Act
             const {container} = renderQuestion(question);
 
             // Assert
-            expect(container).toMatchSnapshot("deprecated widget");
+            expect(container).toMatchSnapshot("removed widget");
         });
 
         it("renders a responsive markdown image", () => {

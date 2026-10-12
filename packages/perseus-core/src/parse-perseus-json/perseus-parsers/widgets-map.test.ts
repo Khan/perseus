@@ -2,8 +2,6 @@
 // import from the rest of perseus-core. Tests can override that restriction,
 // while main files cannot — hence the disables on the imports below.
 
-// eslint-disable-next-line import/no-restricted-paths
-import {DeprecatedWidgetTypes} from "../../data-schema";
 import {
     generateDefinitionOptions,
     generateDefinitionWidget,
@@ -97,13 +95,13 @@ describe("parseWidgetsMap", () => {
         );
     });
 
-    // An unknown widget may have been dynamically registered, and a deprecated
-    // one can still appear in old content, so we accept both.
+    // An unknown widget may have been dynamically registered, and a removed
+    // one can still appear in old content, so we accept any options for both.
     it.each(["transmogrifier", "transformer", "sequence"])(
         "accepts a %s widget, which Perseus doesn't implement",
         (type) => {
             const widgetsMap: unknown = {
-                [`${type} 1`]: {type, options: {}},
+                [`${type} 1`]: {type, options: "not an object"},
             };
 
             const result = parse(widgetsMap, parseWidgetsMap);
@@ -913,23 +911,4 @@ describe("parseWidgetsMap", () => {
 
         expect(result).toEqual(success(widgetsMap));
     });
-
-    // Unknown widget types accept any options, so rejecting non-object options
-    // shows that these types are parsed as deprecated widgets.
-    it.each(DeprecatedWidgetTypes)(
-        "rejects a %s widget whose options aren't an object",
-        (type) => {
-            const widgetsMap: unknown = {
-                [`${type} 1`]: {
-                    type,
-                    version: {major: 0, minor: 0},
-                    options: "not an object",
-                },
-            };
-
-            const result = parse(widgetsMap, parseWidgetsMap);
-
-            expect(result).toEqual(anyFailure);
-        },
-    );
 });

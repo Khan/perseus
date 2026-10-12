@@ -10,5 +10,5 @@ Treat removed widget types like any other widget type Perseus doesn't implement.
 Breaking changes:
 
 - `@khanacademy/perseus`: removed `Widgets.replaceWidget`, `replaceDeprecatedWidgets`, `registerEditors`, `getEditor`, `replaceEditor` and `replaceDeprecatedEditors`. The `deprecatedStandin` string is now `unsupportedWidget`.
-- `@khanacademy/perseus-core`: `DeprecatedStandinWidget` is now `DeprecatedWidget`, and the `deprecated-standin` widget logic is gone.
+- `@khanacademy/perseus-core`: removed `DeprecatedStandinWidget` and the deprecated widget types from `PerseusWidgetTypes`, and the `deprecated-standin` widget logic is gone. The parser now accepts removed widget types the same way as any unknown type, with any options.
 - `@khanacademy/perseus-editor`: no longer re-exports `widgets` from `@khanacademy/perseus`.

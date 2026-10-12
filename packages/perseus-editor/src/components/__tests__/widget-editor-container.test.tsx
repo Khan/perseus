@@ -190,11 +190,13 @@ describe("WidgetEditor", () => {
     });
 
     describe("a widget type with no registered editor", () => {
-        const widgetInfo: PerseusWidget = {
+        // A removed widget type. PerseusWidget can't name it.
+        // eslint-disable-next-line no-restricted-syntax
+        const widgetInfo = {
             type: "transformer",
             graded: true,
             options: {tools: ["translation"], drawSolutionShape: true},
-        };
+        } as unknown as PerseusWidget;
 
         it("renders the unsupported-widget editor", () => {
             // Arrange, Act

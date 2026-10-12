@@ -32,29 +32,6 @@
 // be independent of everything else.
 import type {KeypadKey} from "./keypad";
 
-/**
- * Widget types that Perseus no longer supports. Content can still contain
- * them, so the parser accepts them with any options. Nothing else treats them
- * specially: like any widget type without a registered implementation, they
- * render as a notice and aren't scored.
- */
-export const DeprecatedWidgetTypes = [
-    "lights-puzzle",
-    "molecule-renderer",
-    "passage-ref-target",
-    "passage-ref",
-    "passage",
-    "reaction-diagram",
-    "sequence",
-    "simulator",
-    "transformer",
-    "unit-input",
-] as const;
-
-type DeprecatedWidgets = {
-    [K in (typeof DeprecatedWidgetTypes)[number]]: DeprecatedWidget<K>;
-};
-
 export type Coord = [x: number, y: number];
 export type Interval = [min: number, max: number];
 export type Vector2 = Coord; // Same name as Mafs
@@ -145,17 +122,11 @@ export type MakeWidgetMap<TRegistry> = {
  *     interface PerseusWidgetTypes {
  *         // A new widget
  *         "new-awesomeness": MyAwesomeNewWidget;
- *
- *         // A deprecated widget
- *         "super-old-widget": DeprecatedWidget<"super-old-widget">;
  *     }
  * }
  *
  * // The new widget's options definition
  * type MyAwesomeNewWidget = WidgetOptions<'new-awesomeness', MyAwesomeNewWidgetOptions>;
- *
- * // The deprecated widget's options definition
- * type SuperOldWidget = WidgetOptions<'super-old-widget', object>;
  * ```
  *
  * This interface can be extended through the magic of TypeScript "Declaration
@@ -163,7 +134,7 @@ export type MakeWidgetMap<TRegistry> = {
  *
  * @see {@link https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation}
  */
-export interface PerseusWidgetTypes extends DeprecatedWidgets {
+export interface PerseusWidgetTypes {
     blank: BlankWidget;
     categorizer: CategorizerWidget;
     "cs-program": CSProgramWidget;
@@ -524,8 +495,6 @@ export type TableWidget = WidgetOptions<'table', PerseusTableWidgetOptions>;
 export type InputNumberWidget = WidgetOptions<'input-number', PerseusInputNumberWidgetOptions>;
 // prettier-ignore
 export type VideoWidget = WidgetOptions<'video', PerseusVideoWidgetOptions>;
-//prettier-ignore
-export type DeprecatedWidget<Type extends string> = WidgetOptions<Type, object>;
 
 /**
  * A background image applied to various widgets.
