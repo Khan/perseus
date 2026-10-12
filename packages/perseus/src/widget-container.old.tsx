@@ -96,6 +96,14 @@ class WidgetContainerOld extends React.Component<Props, State> {
         const type = this.props.type;
         const userAgent = navigator.userAgent;
 
+        let alignment = this.props.widgetProps.alignment;
+        if (alignment == null || alignment === "default") {
+            alignment = CoreWidgetRegistry.getDefaultAlignment(type);
+        }
+
+        // This will set the WidgetContainer's alignment
+        className += CoreWidgetRegistry.getAlignmentClassName(type, alignment);
+
         const WidgetType = Widgets.getWidget(type);
         if (WidgetType == null) {
             return (
@@ -107,14 +115,6 @@ class WidgetContainerOld extends React.Component<Props, State> {
 
         const subType =
             getWidgetSubType(type, this.props.widgetProps.options) ?? "null";
-
-        let alignment = this.props.widgetProps.alignment;
-        if (alignment == null || alignment === "default") {
-            alignment = CoreWidgetRegistry.getDefaultAlignment(type);
-        }
-
-        // This will set the WidgetContainer's alignment
-        className += CoreWidgetRegistry.getAlignmentClassName(type, alignment);
 
         const apiOptions = this.props.widgetProps.apiOptions;
 

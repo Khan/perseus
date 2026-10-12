@@ -96,18 +96,6 @@ class WidgetContainer extends React.Component<Props, State> {
         const type = this.props.type;
         const userAgent = navigator.userAgent;
 
-        const WidgetType = Widgets.getWidget(type);
-        if (WidgetType == null) {
-            return (
-                <div className={className}>
-                    <UnsupportedWidget />
-                </div>
-            );
-        }
-
-        const subType =
-            getWidgetSubType(type, this.props.widgetProps.options) ?? "null";
-
         let alignment = this.props.widgetProps.alignment;
         if (alignment == null || alignment === "default") {
             alignment = CoreWidgetRegistry.getDefaultAlignment(type);
@@ -115,6 +103,20 @@ class WidgetContainer extends React.Component<Props, State> {
 
         // This will set the WidgetContainer's alignment
         className += CoreWidgetRegistry.getAlignmentClassName(type, alignment);
+
+        const WidgetType = Widgets.getWidget(type);
+        if (WidgetType == null) {
+            return (
+                <div className="deprecated-perseus-container">
+                    <div className={className}>
+                        <UnsupportedWidget />
+                    </div>
+                </div>
+            );
+        }
+
+        const subType =
+            getWidgetSubType(type, this.props.widgetProps.options) ?? "null";
 
         // Inline widgets should not be in a <div> because that could break
         // ancestor elements (like <p>) that can't contain block elements
