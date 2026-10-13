@@ -3,30 +3,54 @@ import {getEntryPoints} from "./get-entry-points";
 describe("getEntryPoints", () => {
     const sourceOnlyPackage = {exports: {".": "./src/index.ts"}};
 
-    it.each<[string, unknown]>([
-        ["package metadata is not an object", null],
-        ["source exports map is missing", {}],
-        ["source exports map is not an object", {exports: []}],
-        ["a source export path is not a string", {exports: {".": 42}}],
-        ["publishConfig is missing", sourceOnlyPackage],
-        [
-            "publishConfig is not an object",
-            {...sourceOnlyPackage, publishConfig: []},
-        ],
-        [
-            "published exports map is missing",
-            {...sourceOnlyPackage, publishConfig: {}},
-        ],
-        [
-            "published exports map is not an object",
-            {...sourceOnlyPackage, publishConfig: {exports: []}},
-        ],
-        [
-            "a published export path is not a string",
-            {...sourceOnlyPackage, publishConfig: {exports: {".": false}}},
-        ],
-    ])("throws when %s", (_description, packageJson) => {
-        expect(() => getEntryPoints(packageJson)).toThrow(TypeError);
+    it("throws when package metadata is not an object", () => {
+        expect(() => getEntryPoints(null)).toThrow(TypeError);
+    });
+
+    it("throws when source exports map is missing", () => {
+        expect(() => getEntryPoints({})).toThrow(TypeError);
+    });
+
+    it("throws when source exports map is not an object", () => {
+        expect(() => getEntryPoints({exports: []})).toThrow(TypeError);
+    });
+
+    it("throws when a source export path is not a string", () => {
+        expect(() => getEntryPoints({exports: {".": 42}})).toThrow(TypeError);
+    });
+
+    it("throws when publishConfig is missing", () => {
+        expect(() => getEntryPoints(sourceOnlyPackage)).toThrow(TypeError);
+    });
+
+    it("throws when publishConfig is not an object", () => {
+        expect(() =>
+            getEntryPoints({...sourceOnlyPackage, publishConfig: []}),
+        ).toThrow(TypeError);
+    });
+
+    it("throws when published exports map is missing", () => {
+        expect(() =>
+            getEntryPoints({...sourceOnlyPackage, publishConfig: {}}),
+        ).toThrow(TypeError);
+    });
+
+    it("throws when published exports map is not an object", () => {
+        expect(() =>
+            getEntryPoints({
+                ...sourceOnlyPackage,
+                publishConfig: {exports: []},
+            }),
+        ).toThrow(TypeError);
+    });
+
+    it("throws when a published export path is not a string", () => {
+        expect(() =>
+            getEntryPoints({
+                ...sourceOnlyPackage,
+                publishConfig: {exports: {".": false}},
+            }),
+        ).toThrow(TypeError);
     });
 
     it("returns one entry per sub-path that maps a source file to a published JS file", () => {
