@@ -180,7 +180,15 @@ network:
 
 # Pin the orchestrator to a specific model version rather than a floating tier alias, so
 # the review doesn't silently change behavior when a new Opus ships. If we use Opus, we
-# use Opus 4.8. Sub-agents pin their own versions in their frontmatter below.
+# use Opus 5.5. Sub-agents pin their own versions in their frontmatter below.
+#
+# EFFORT CAVEAT for Opus 5.5: its API default effort is `medium`, one level
+# below Opus 5's `high`, and gh-aw exposes no effort field, so the move to 5.5
+# lowers the ORCHESTRATOR's effective effort (and every sub-agent's under
+# `dispatch agent`, where gh-aw spawns them) until gh-aw ships a way to set
+# it. Scripted dispatch (the default) is unaffected: lib/dispatch-runner.ts
+# pins `effort: "high"` on every sub-agent it spawns. The `# effort:`
+# annotations below and the README roster table record intent, not a setting.
 #
 # The `env:` overrides gh-aw's 60s Bash tool timeout defaults (compile-verified:
 # these replace the generated values on the engine execution step). Needed by the
@@ -202,7 +210,17 @@ network:
 # two never collapse into the same kill line.
 engine:
   id: claude
-  model: claude-opus-5
+  model: claude-opus-5-5
+  # Claude Code CLI floor for the model pin above. gh-aw v0.85.4 installs
+  # @anthropic-ai/claude-code@2.1.222, which the API rejects for
+  # claude-opus-5-5 with `400 ... does not support this model; version
+  # 2.1.280 or newer is required` before any work happens
+  # (Khan/agent-settings run 35762500247). Scripted dispatch's sub-agents
+  # carry the same floor through the agent SDK in package.json, which bundles
+  # its own CLI. Remove this pin once a gh-aw release defaults at or above the
+  # floor the engine model needs; keeping it then would freeze the CLI the
+  # way a forward `sandbox.agent.version` pin would freeze the firewall.
+  version: "2.1.280"
   env:
     BASH_DEFAULT_TIMEOUT_MS: "60000"
     BASH_MAX_TIMEOUT_MS: "3600000"
@@ -254,7 +272,7 @@ pre-agent-steps:
     uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
     with:
       repository: Khan/actions
-      ref: review-v1.24.0
+      ref: review-v1.26.0
       path: gh-aw-review-lib
       persist-credentials: false
 
@@ -354,7 +372,7 @@ pre-agent-steps:
 # (and it strips the queue in the same code path).
 post-steps:
   # POST-AGENT EXECUTION RULE: nothing the agent can write may execute on
-  # the host after its turn. Both steps below run from the pre-staged copy
+  # the host after its turn. Every step below runs from the pre-staged copy
   # under $RUNNER_TEMP (the pre-agent copy step above; the agent cannot
   # write it), never from the agent-writable workspace checkout. The copy
   # is present whenever the agent ran at all (its step failing reds the job
@@ -373,6 +391,30 @@ post-steps:
         exit 1
       fi
       echo "::warning title=dispatch-conformance gate::gate could not run (infra failure; review not blocked)"
+      exit 0
+  # The per-review cost report (workflows/review/lib/cost-report.ts): every
+  # model call the run made, per sub-agent, priced at Khan's rate from the
+  # tokens the dispatcher recorded, with the prose judge and the orchestrator
+  # (the api-proxy total minus what the dispatcher accounted for) as their own
+  # rows, reconciled against gh-aw's ai_credits. It lands as a collapsed
+  # block in the review body (edited into the validated queue the same way
+  # the gate strips it, code-rendered from numbers and review.md-defined
+  # names, every cell and note escaped), in the step summary, and as
+  # /tmp/gh-aw/agent/cost-report.json beside the gate's report in the agent
+  # artifact (the review's own out/ upload runs during the agent step, so a
+  # file written there now would never leave the runner). Runs here and
+  # not in the agent step because two inputs only exist afterwards: the
+  # proxy's token-usage.jsonl and agent_usage.json, both written between the
+  # agent step and these post-steps. `if: always()` so a gate-blocked run
+  # still gets the summary and artifact (the queue has no review to edit
+  # then). Fail-open in both the CLI and this wrapper: a review without its
+  # price tag beats a review that did not post.
+  - name: Review cost report
+    if: always()
+    run: |
+      if ! (cd "${RUNNER_TEMP}/gh-aw-review-lib-postagent" && npx -y tsx workflows/review/lib/cost-report-cli.ts); then
+        echo "::warning title=review cost report::step could not run (review posts without it)"
+      fi
       exit 0
   # The reduced-depth clearance: when the plan CLI staged
   # out/dismiss-decision.json (a flip-gated/fast round over a prior
@@ -458,10 +500,11 @@ post-steps:
 # Do NOT collapse these to a bare `claude-opus-4` prefix: prefix matching would
 # also capture opus-4-0/4-1, which list at 3x the 4-5+ rate.
 models:
-  # claude-opus-5 (the engine and roster pin) is NOT in the firewall
-  # api-proxy's curated AI-credits pricing table at v0.27.42, the release
-  # gh-aw v0.83.4 defaults to (that table carries claude-opus-4-5 through 4-8
-  # and claude-fable-5, and stops there). The proxy's AI-credits guard rejects
+  # claude-opus-5-5 (the engine and roster pin) is NOT in the firewall
+  # api-proxy's curated AI-credits pricing table at v0.27.44, the release
+  # gh-aw v0.85.4 defaults to (that table reaches claude-opus-5 and stops
+  # there; v0.27.42, the gh-aw v0.83.4 default, stopped at claude-opus-4-8
+  # and claude-fable-5). The proxy's AI-credits guard rejects
   # an un-priced model with a 400 BEFORE the request reaches the model, so
   # without this fallback every dispatch fails on the stable toolchain: the
   # #266 failure that killed the first-principles dispatch on every run,
@@ -469,33 +512,32 @@ models:
   # agents. Units differ from the overlay below and the two are not
   # interchangeable: `default-ai-credits-pricing` is $/1M tokens and feeds
   # the credit guard; `providers` is $/token. Rates here are Anthropic LIST
-  # (Opus 5 lists at exactly Opus 4.8's price), deliberately not Khan's 50%
-  # rate: in the only window where this fallback binds (stable gh-aw v0.83.x,
-  # firewall v0.27.42, which drops the `providers` block silently) every
-  # other model bills at list from the curated table, so list keeps Opus 5
+  # (Opus 5.5 lists BELOW Opus 5, at $4/$20 per MTok), deliberately not
+  # Khan's 50% rate: in the only window where this fallback binds (a gh-aw
+  # old enough to drop the `providers` block silently) every
+  # other model bills at list from the curated table, so list keeps Opus 5.5
   # denominated consistently with the rest of the roster. Two caveats: the
-  # default-pricing path does not bill cache writes ($6.25/M real), so credit
+  # default-pricing path does not bill cache writes ($5/M real), so credit
   # accounting under-counts that component while it binds; and the fallback
   # applies to ANY un-priced model, so a typo'd model id bills at Opus rates
   # instead of failing loudly.
   #
-  # REMOVE THIS FALLBACK when a gh-aw release defaults the firewall to
-  # v0.27.43 or later: that release carries a curated claude-opus-5 entry at
-  # the same list rates and bills cache writes, and the recompile also makes
-  # the `providers` overlay below live (the higher-precedence source). Do NOT
-  # reach for `sandbox.agent.version: v0.27.43` to get there early; a version
-  # is pinned here only to hold a release BACK, never to move one forward.
-  # That condition is met as of gh-aw v0.85.4 (firewall v0.27.44), so this
-  # fallback is now inert (the live `providers` overlay outranks it) and
-  # removable; kept for the moment so the pricing change ships separately
-  # from unrelated work.
+  # REMOVE THIS FALLBACK when a gh-aw release defaults the firewall to a
+  # version whose curated table carries claude-opus-5-5 and bills its cache
+  # writes. The `providers` overlay below is live as of gh-aw v0.85.4
+  # (firewall v0.27.44, at or above the v0.27.43 `apiProxy.providers`
+  # floor) and outranks both sources, so the fallback is already inert for
+  # every model listed there; it still binds for an un-priced model the
+  # overlay misses, and for every model if a recompile on an older gh-aw
+  # drops the overlay. Do NOT reach for `sandbox.agent.version` to move the
+  # firewall forward; a version is pinned here only to hold a release BACK.
   #
   # MINIMUM COMPILER: gh-aw >= v0.83.0 for `models.default-ai-credits-pricing`.
   # $/1M tokens. `input` and `output` are the only rates the schema accepts,
   # so the cache rates are the proxy's derivations, not ours.
   default-ai-credits-pricing:
-    input: 5.0
-    output: 25.0
+    input: 4.0
+    output: 20.0
   providers:
     anthropic:
       models:
@@ -508,7 +550,18 @@ models:
             output: "1.25e-05"
             cache_read: "2.5e-07"
             cache_write: "3.125e-06"
-        # Current engine and roster model.
+        # Current engine and roster model. Opus 5.5 lists BELOW Opus 5
+        # ($4/$20 per MTok, cache reads $0.20, i.e. 0.05x input rather than
+        # the usual 0.1x), so these are not a copy of the Opus 5 block
+        # below: re-halve them separately when list moves.
+        claude-opus-5-5:
+          cost:
+            input: "2e-06"
+            output: "1e-05"
+            cache_read: "1e-07"
+            cache_write: "2.5e-06"
+        # The engine and roster model until the move to Opus 5.5; still an
+        # `engine:` override candidate.
         claude-opus-5:
           cost:
             input: "2.5e-06"
@@ -578,7 +631,7 @@ max-ai-credits: 2500
 max-turn-cache-misses: 25
 env:
   REVIEW_MAX_AI_CREDITS: "2500"
-source: Khan/actions/workflows/review/review.md@review-v1.24.0
+source: Khan/actions/workflows/review/review.md@review-v1.26.0
 ---
 
 # PR Reviewer
@@ -630,7 +683,9 @@ budget on content you never act on.
 - `prior-reviews.json` — every prior `github-actions[bot]` review body,
   whatever its state (a dismissed or comment-only review still carries its
   fingerprint stamp, which is why states are not filtered). The stamp is a
-  collapsed `<details>` block, not an HTML comment: the sanitizer deletes
+  `<sub>` line inside the body's `review details` tail fold (a collapsed
+  `<details>` block of its own on bodies from older releases; both parse),
+  never an HTML comment: the sanitizer deletes
   comments, which is why the original comment-form stamp never posted and
   every run planned full depth (webapp#41742). Bodies from before that fix carry
   no stamp; the plan CLI then falls back to the Step 9 cache-memory record
@@ -848,11 +903,16 @@ the scoped contents and refreshed its annotated sibling, so the whole-change
 surfaces you and the sub-agents read are pre-shrunk to the unseen hunks.
 Read the plan; it is deterministic and final: never deepen or shallow it yourself,
 and never run the CLI yourself. A comment-triggered run whose `/review` a
-human posted always plans `full` (reason `manual-review-request`), whatever
-the mode dial says; a `/review` posted by our automation (a Bot-type account,
-or a `REVIEW_AUTOMATION_LOGINS` login, default `khan-actions-bot`, whose shim
-fires one per push in Khan/webapp) follows
-the mode dial like the push it stands in for. Its three guards are code, not your
+human posted plans `full` (reason `manual-review-request`), whatever the
+mode dial says, unless the comment named a depth (`/review scoped`, or its
+synonyms `delta`, `diff`, `diff-only`; also `flip-gated`, `fast`), which sets
+the dial for this one run (`manualDepth` in the plan, reason
+`manual-depth-<depth>`) when it is at or deeper than the configured mode
+(an ask below the dial plans full, reason `manual-depth-below-dial`) and
+still passes through the same guards; a `/review` posted by our automation
+(a Bot-type account, or a `REVIEW_AUTOMATION_LOGINS` login, default
+`khan-actions-bot`, whose shim fires one per push in Khan/webapp) follows
+the mode dial like the push it stands in for, token or not. Its three guards are code, not your
 judgment: the one anchoring full review is taken at ready-for-review, a fingerprint
 overflow or a missing input forces `full`, and the divergence tripwire re-arms
 `full` when too much of the diff is unreviewed. The dispatcher implements each depth (the
@@ -928,9 +988,9 @@ cd gh-aw-review-lib && npx -y tsx workflows/review/lib/submission.ts
    (`rereview.json`), computes the verdict (Step 4's mechanical rule plus the
    reduced-depth flip floor), renders every inline comment (each with its
    collapsed per-comment attribution footer naming the producing reviewer
-   and any merged duplicates) and the full review body (note lines, the
-   collapsed version/config footer, and the fingerprint stamp included),
-   and writes
+   and any merged duplicates) and the full review body (note lines plus the
+   single collapsed `review details` fold carrying the observations, the
+   version/config line, and the fingerprint stamp), and writes
    `/tmp/gh-aw/review/submission-plan.json`. At full depth it also
    stages `/tmp/gh-aw/review/risks-patterns-key.txt`, the code-computed
    canonical signature Step 7 compares (never compose your own signature in
@@ -1034,10 +1094,10 @@ the remainder plus
 any sub-medium-confidence claims into a single collapsed section in the
 review body (always the body: the autofix's body-sourced work list reads the
 section back off posted reviews), so the plan never exceeds what the
-engine will emit. At two or more entries the collapsed section's summary line
-names its top-ranked entry, so an approving review cannot hide its best
-finding behind a bare count; a one-entry section renders `<details open>`
-with a count-only summary, the entry visible without a click. Emit the
+engine will emit. The section renders under a bold
+`**Lower-confidence observations (N):**` heading inside the body's single
+collapsed `review details` fold, ranked so the tail's best finding is the
+first bullet a reader sees on expanding it. Emit the
 plan's `comments` verbatim — one
 `create-pull-request-review-comment` per entry, all in one batched turn;
 never add, drop, reword, or re-anchor one.
@@ -1046,7 +1106,8 @@ never add, drop, reword, or re-anchor one.
 
 The review body and event are composed by the plan CLI (Step 3): the verdict
 head, the code-rendered re-review accountability section, every `Note:` line,
-the collapsed version/config footer, and the collapsed fingerprint stamp are all
+and ONE collapsed `review details` fold carrying the lower-confidence
+observations, the version/config line, and the fingerprint stamp line are all
 already in the plan's `body`. Submit
 with **one** `submit-pull-request-review` call carrying the plan's `event` and
 `body` verbatim — except when the plan's `skipSubmission` is `true` (Step 3),
@@ -1194,7 +1255,7 @@ fully explained by a common pattern above:
 </details>
 
 <details><summary><sub>review details</sub></summary>
-<sub>review-v1.24.0 | schema 2 | depth full | re-review scoped blocking-only | enable holistic,completeness</sub>
+<sub>review-v1.26.0 | schema 2 | depth full | re-review scoped blocking-only | enable holistic,completeness</sub>
 </details>
 ````
 
@@ -1472,9 +1533,10 @@ entry; `failure_scenario` names the concrete failing scenario (specific
 inputs/state, then the wrong outcome) — it is the specific claim the
 claim-validator attacks, so make it checkable; `producing_hunt` names the hunt
 that produced the finding; `model_authored_prose` carries the entire human-read
-comment, and the optional `summary` is its one-line stand-alone opener (the
-visible line when long prose posts collapsed; absent, the prose's first
-sentence serves). Omit `suggested_patch`/`pre_merge_obligation` unless they apply; a skill
+comment, and the optional `summary` is the visible line when long prose posts
+collapsed (absent, the prose's first sentence serves): it is the only text a
+reader sees without a click, so name the defect or the ask outright, one short
+sentence by default, two when it takes both. Omit `suggested_patch`/`pre_merge_obligation` unless they apply; a skill
 finding also carries `rule_quote` (the Lens-owned skills section above), which the
 orchestrator renders into the posted comment.
 
@@ -1491,12 +1553,13 @@ return `{"findings": [], "hunts": [...]}` with the hunt states still recorded.
 ---
 name: correctness-reviewer
 description: Classifies each changed file's risk and reviews the diff for correctness defects; returns JSON.
-model: claude-opus-5
+model: claude-opus-5-5
 # effort: high — launch default (whole-change reviewer). gh-aw has no per-agent
 # effort field yet; the per-role model/effort table lives in the README.
-# Opus 5: bug-finding recall is this workflow's load-bearing metric; the
-# 2026-07-20 A/B recall gain that lived on Fable 5 is carried by Opus 5 at
-# Opus 4.8's per-token price. See the roster table in the README.
+# Opus 5.5: bug-finding recall is this workflow's load-bearing metric; the
+# 2026-07-20 A/B recall gain that lived on Fable 5 is carried by the Opus
+# line, now below Opus 4.8's per-token price. See the roster table in the
+# README.
 ---
 You are a correctness-focused code reviewer. You have **no GitHub access** — read the
 diff and file list from disk and return your result as JSON only.
@@ -1664,7 +1727,7 @@ Return ONLY this JSON object (no prose, no code fence):
     "label": "issue (blocking)|todo (blocking)|suggestion (non-blocking)|nitpick (non-blocking)|question (non-blocking)|thought (non-blocking)|note (non-blocking)",
     "importance": "medium (optional; omit unless the finding meets the medium bar)",
     "failure_scenario": "one sentence: the concrete inputs/state and the wrong outcome they produce",
-    "subject": "one line that stands alone: the defect or the ask, never a pointer into the discussion", "discussion": "optional: one claim with its evidence chain complete enough to check (name the exact tool, file, or line), at most one question; long discussions post collapsed behind the subject, so keep the checkable detail rather than compressing it out, and state each point once; name the mechanism plainly, no metaphor", "suggestion": "optional fix code"
+    "subject": "the only text visible when the discussion folds: the defect and the ask, one short sentence by default, two when it takes both (a question's subject contains the question); never a pointer into the discussion", "discussion": "optional: one claim with its evidence chain complete enough to check (name the exact tool, file, or line), at most one question; long discussions post collapsed behind the subject, so keep the checkable detail rather than compressing it out, and state each point once; name the mechanism plainly, no metaphor", "suggestion": "optional fix code"
   }]
 }
 
@@ -1708,7 +1771,7 @@ before (run 29943085279 carried its one-line fix under `suggested_patch`):
 ---
 name: skill-auditor
 description: Evaluates the diff against the repo's best-practice skills and returns findings as JSON.
-model: claude-opus-5
+model: claude-opus-5-5
 # effort: high — launch default (whole-change reviewer).
 ---
 You audit a PR diff for best-practice "skill" violations. You have **no GitHub
@@ -1807,7 +1870,7 @@ Return ONLY this JSON object (no prose, no code fence):
     "label": "issue (blocking, best-practice)|suggestion (non-blocking, best-practice)",
     "importance": "medium (optional; omit unless the finding meets the medium bar)",
     "failure_scenario": "one sentence: the concrete consequence of the breach (what goes wrong, for whom)",
-    "subject": "one line naming the skill area, standing alone", "discussion": "the rule violated and the fix, quoting both; otherwise one claim with its evidence chain complete enough to check, at most one question; long discussions post collapsed behind the subject; name the mechanism plainly, no metaphor", "suggestion": "optional fix code"
+    "subject": "the only text visible when the discussion folds: the defect and the ask, one short sentence by default, two when it takes both (name the skill area); never a pointer into the discussion", "discussion": "the rule violated and the fix, quoting both; otherwise one claim with its evidence chain complete enough to check, at most one question; long discussions post collapsed behind the subject; name the mechanism plainly, no metaphor", "suggestion": "optional fix code"
   }],
   "out_of_lane_observations": [{
     "path": "...", "line": 0,
@@ -1885,7 +1948,7 @@ Return ONLY this JSON object (no prose, no code fence):
 ---
 name: thread-reconciler
 description: Decides which of the workflow's earlier review threads the current code has addressed; returns thread ids.
-model: claude-opus-5
+model: claude-opus-5-5
 # effort: medium — launch default (reconciliation).
 ---
 You decide which earlier review threads the current code has resolved. You have **no
@@ -2026,7 +2089,7 @@ nothing duplicates:
 ---
 name: claim-validator
 description: Re-checks each candidate review comment against the actual code and the repo's best-practice skills, and drops or corrects the ones that are wrong; returns JSON.
-model: claude-opus-5
+model: claude-opus-5-5
 # effort: xhigh — launch default (claim-validator). Deliberately NOT moved to
 # Fable 5 with the correctness reviewer: in the 2026-07-20 pooled A/B the
 # Fable validator did not offset the higher flag rate (noise 43% -> 49%, one
@@ -2258,7 +2321,7 @@ Every input `id` must appear exactly once.
 ---
 name: holistic
 description: Reviews the change as a whole — is the overall approach sound and coherent — and returns findings as JSON.
-model: claude-opus-5
+model: claude-opus-5-5
 # effort: high — launch default (whole-change reviewer).
 ---
 You are the **holistic** reviewer. Your single mandate is to **judge the
@@ -2323,7 +2386,7 @@ Return ONLY this JSON object (no prose, no code fence):
     "label": "issue (blocking)|todo (blocking)|suggestion (non-blocking)|nitpick (non-blocking)|question (non-blocking)|thought (non-blocking)|note (non-blocking)",
     "importance": "medium (optional; omit unless the finding meets the medium bar)",
     "failure_scenario": "one sentence: the concrete inputs/state and the wrong outcome they produce",
-    "subject": "one line that stands alone: the defect or the ask, never a pointer into the discussion", "discussion": "optional: one claim with its evidence chain complete enough to check (name the exact tool, file, or line), at most one question; long discussions post collapsed behind the subject, so keep the checkable detail rather than compressing it out, and state each point once; name the mechanism plainly, no metaphor", "suggestion": "optional fix code"
+    "subject": "the only text visible when the discussion folds: the defect and the ask, one short sentence by default, two when it takes both (a question's subject contains the question); never a pointer into the discussion", "discussion": "optional: one claim with its evidence chain complete enough to check (name the exact tool, file, or line), at most one question; long discussions post collapsed behind the subject, so keep the checkable detail rather than compressing it out, and state each point once; name the mechanism plainly, no metaphor", "suggestion": "optional fix code"
   }]
 }
 
@@ -2349,7 +2412,7 @@ If the change hangs together, return {"findings": []}.
 ---
 name: completeness
 description: Checks the change against its stated intent (PR description + linked ticket/doc) and returns findings as JSON.
-model: claude-opus-5
+model: claude-opus-5-5
 # effort: high — launch default (whole-change reviewer).
 ---
 You are the **completeness** reviewer. Your single mandate is to **check
@@ -2409,7 +2472,7 @@ Return ONLY this JSON object (no prose, no code fence):
     "label": "issue (blocking)|todo (blocking)|suggestion (non-blocking)|nitpick (non-blocking)|question (non-blocking)|thought (non-blocking)|note (non-blocking)",
     "importance": "medium (optional; omit unless the finding meets the medium bar)",
     "failure_scenario": "one sentence: the concrete inputs/state and the wrong outcome they produce",
-    "subject": "one line that stands alone: the defect or the ask, never a pointer into the discussion", "discussion": "optional: one claim with its evidence chain complete enough to check (name the exact tool, file, or line), at most one question; long discussions post collapsed behind the subject, so keep the checkable detail rather than compressing it out, and state each point once; name the mechanism plainly, no metaphor", "suggestion": "optional fix code"
+    "subject": "the only text visible when the discussion folds: the defect and the ask, one short sentence by default, two when it takes both (a question's subject contains the question); never a pointer into the discussion", "discussion": "optional: one claim with its evidence chain complete enough to check (name the exact tool, file, or line), at most one question; long discussions post collapsed behind the subject, so keep the checkable detail rather than compressing it out, and state each point once; name the mechanism plainly, no metaphor", "suggestion": "optional fix code"
   }]
 }
 
@@ -2435,7 +2498,7 @@ If the change matches its intent, return {"findings": []}.
 ---
 name: test-adequacy
 description: Evaluates whether the changed behavior is adequately tested and returns findings as JSON.
-model: claude-opus-5
+model: claude-opus-5-5
 # effort: high — launch default (whole-change reviewer).
 ---
 You are the **test-adequacy** reviewer. Your job is to judge whether the **changed
@@ -2485,7 +2548,7 @@ Return ONLY this JSON object (no prose, no code fence):
     "label": "todo (blocking)|issue (blocking)|suggestion (non-blocking)|nitpick (non-blocking)|question (non-blocking)|thought (non-blocking)|note (non-blocking)",
     "importance": "medium (optional; omit unless the finding meets the medium bar)",
     "failure_scenario": "one sentence: the untested path and the regression that slips through it",
-    "subject": "one line that stands alone: the defect or the ask, never a pointer into the discussion", "discussion": "optional: one claim with its evidence chain complete enough to check (name the exact tool, file, or line), at most one question; long discussions post collapsed behind the subject, so keep the checkable detail rather than compressing it out, and state each point once; name the mechanism plainly, no metaphor", "suggestion": "optional test code"
+    "subject": "the only text visible when the discussion folds: the defect and the ask, one short sentence by default, two when it takes both (a question's subject contains the question); never a pointer into the discussion", "discussion": "optional: one claim with its evidence chain complete enough to check (name the exact tool, file, or line), at most one question; long discussions post collapsed behind the subject, so keep the checkable detail rather than compressing it out, and state each point once; name the mechanism plainly, no metaphor", "suggestion": "optional test code"
   }]
 }
 
@@ -2511,10 +2574,10 @@ If the changed behavior is adequately tested, return {"findings": []}.
 ---
 name: first-principles
 description: A diverse-perspective, advisory-only sanity check on whether the change should exist as written; returns findings as JSON.
-model: claude-opus-5
+model: claude-opus-5-5
 # effort: high — launch default. Ran on Fable 5 (claude-fable-5) from day one,
 # partly to be the one non-Opus reviewer; the correctness reviewer joined it
-# after the 2026-07-20 A/B, and it moved to Opus 5 with the roster.
+# after the 2026-07-20 A/B, and it moved to Opus 5 (then 5.5) with the roster.
 # Advisory-only, never blocks.
 ---
 You are the **first-principles** reviewer. Your single mandate is to review the
@@ -2601,7 +2664,7 @@ Return ONLY this JSON object (no prose, no code fence):
     "path": "...", "line": 0,
     "label": "thought (non-blocking)|suggestion (non-blocking)|question (non-blocking)|note (non-blocking)",
     "failure_scenario": "one sentence: the concrete cost of leaving this unaddressed",
-    "subject": "one line that stands alone: the defect or the ask, never a pointer into the discussion", "discussion": "optional: one claim with its evidence chain complete enough to check (name the exact tool, file, or line), at most one question; long discussions post collapsed behind the subject, so keep the checkable detail rather than compressing it out, and state each point once; name the mechanism plainly, no metaphor", "suggestion": "optional alternative"
+    "subject": "the only text visible when the discussion folds: the defect and the ask, one short sentence by default, two when it takes both (a question's subject contains the question); never a pointer into the discussion", "discussion": "optional: one claim with its evidence chain complete enough to check (name the exact tool, file, or line), at most one question; long discussions post collapsed behind the subject, so keep the checkable detail rather than compressing it out, and state each point once; name the mechanism plainly, no metaphor", "suggestion": "optional alternative"
   }]
 }
 Never emit a blocking label. `failure_scenario` is required on every finding: since
@@ -2614,7 +2677,7 @@ If you have nothing worth raising, return {"findings": []}.
 ---
 name: conventions
 description: Advisory, opt-in check of repo-specific conventions; returns findings as JSON.
-model: claude-opus-5
+model: claude-opus-5-5
 # effort: medium — launch default (advisory, opt-in targeted check).
 ---
 You are the **conventions** reviewer. You check the change against this repository's
@@ -2668,7 +2731,7 @@ Return ONLY this JSON object (no prose, no code fence):
     "path": "...", "line": 0,
     "label": "suggestion (non-blocking)|nitpick (non-blocking)|note (non-blocking)|question (non-blocking)",
     "failure_scenario": "one sentence: the concrete cost of the deviation if it stays",
-    "subject": "one line that stands alone: the defect or the ask, never a pointer into the discussion", "discussion": "quote the existing usage and the deviating line; otherwise one claim with its evidence chain complete enough to check, at most one question; long discussions post collapsed behind the subject; name the mechanism plainly, no metaphor", "suggestion": "optional fix code"
+    "subject": "the only text visible when the discussion folds: the defect and the ask, one short sentence by default, two when it takes both (a question's subject contains the question); never a pointer into the discussion", "discussion": "quote the existing usage and the deviating line; otherwise one claim with its evidence chain complete enough to check, at most one question; long discussions post collapsed behind the subject; name the mechanism plainly, no metaphor", "suggestion": "optional fix code"
   }]
 }
 Never emit a blocking label. `failure_scenario` is required on every finding: the
@@ -2682,7 +2745,7 @@ If nothing deviates from repo conventions, return
 ---
 name: documentation
 description: Advisory, opt-in check that code comments, prose docs, and the PR title/description document intent rather than restate code, and read plainly; returns findings as JSON.
-model: claude-opus-5
+model: claude-opus-5-5
 # effort: medium — launch default (advisory, opt-in targeted check). Sibling of
 # `conventions`: same shape, same cost profile, different subject matter.
 ---
@@ -2897,7 +2960,7 @@ Return ONLY this JSON object (no prose, no code fence):
     "path": "...", "line": 0,
     "label": "suggestion (non-blocking, documentation)",
     "failure_scenario": "one sentence: the concrete cost to the next reader if this stays",
-    "subject": "one line that stands alone: the defect or the ask, never a pointer into the discussion", "discussion": "quote the comment and the code line; otherwise one claim with its evidence chain complete enough to check, at most one question; long discussions post collapsed behind the subject; name the mechanism plainly, no metaphor", "suggestion": "optional replacement text"
+    "subject": "the only text visible when the discussion folds: the defect and the ask, one short sentence by default, two when it takes both; never a pointer into the discussion", "discussion": "quote the comment and the code line; otherwise one claim with its evidence chain complete enough to check, at most one question; long discussions post collapsed behind the subject; name the mechanism plainly, no metaphor", "suggestion": "optional replacement text"
   }]
 }
 `label` is that one value on every finding; never emit any other label, blocking or
@@ -2911,7 +2974,7 @@ translate). If nothing in the change fails the policy, return {"findings": []}.
 ---
 name: security-auth
 description: Specialist security & auth lens — reviews touched files for authorization, secrets, injection, and unsafe-deserialization defects; returns structured findings as JSON.
-model: claude-opus-5
+model: claude-opus-5-5
 # effort: xhigh — launch default. The security & auth lens is the one specialist
 # lens pinned to xhigh (per-role table in the README). gh-aw has no
 # per-agent effort field yet; this annotation and the README table are the authoritative
@@ -3020,7 +3083,7 @@ Conventional-Comment `label` is emitted (the orchestrator computes it from
     "failure_scenario": "one sentence: the concrete inputs/state and the wrong outcome they produce",
     "producing_hunt": "authz-on-new-endpoint",
     "model_authored_prose": "the comment the author will read: one claim with its evidence chain complete enough to check, at most one question; long prose posts collapsed behind the summary line; name the mechanism plainly, no metaphor",
-    "summary": "optional one line that stands alone: the defect or the ask (the visible line when the prose folds; never a pointer into the prose)",
+    "summary": "optional: the visible line when long prose folds, so it names the defect or the ask outright, one short sentence by default, two when it takes both; never a pointer into the prose",
     "suggested_patch": "optional replacement/patch text",
     "pre_merge_obligation": "optional: a condition that must hold before merge",
     "rule_quote": "optional: for a skill finding, the exact rule text, verbatim"
@@ -3033,7 +3096,7 @@ Conventional-Comment `label` is emitted (the orchestrator computes it from
 ---
 name: ai-safety-moderation
 description: Specialist AI safety & moderation lens — reviews AI/generation paths for missing moderation, prompt-injection surfaces, and PII exposure; returns structured findings as JSON.
-model: claude-opus-5
+model: claude-opus-5-5
 # effort: high — launch default (specialist lens).
 ---
 You are the **AI safety & moderation** specialist lens. You review only AI/model and
@@ -3092,7 +3155,7 @@ Conventional-Comment `label` is emitted (the orchestrator computes it from
     "failure_scenario": "one sentence: the concrete inputs/state and the wrong outcome they produce",
     "producing_hunt": "unmoderated-model-output",
     "model_authored_prose": "the comment the author will read: one claim with its evidence chain complete enough to check, at most one question; long prose posts collapsed behind the summary line; name the mechanism plainly, no metaphor",
-    "summary": "optional one line that stands alone: the defect or the ask (the visible line when the prose folds; never a pointer into the prose)",
+    "summary": "optional: the visible line when long prose folds, so it names the defect or the ask outright, one short sentence by default, two when it takes both; never a pointer into the prose",
     "suggested_patch": "optional", "pre_merge_obligation": "optional",
     "rule_quote": "optional: for a skill finding, the exact rule text, verbatim"
   }],
@@ -3104,7 +3167,7 @@ Conventional-Comment `label` is emitted (the orchestrator computes it from
 ---
 name: mass-comms-coppa
 description: Specialist mass-comms & COPPA lens — reviews bulk-communication paths for audience/consent/age-gating defects; returns structured findings as JSON.
-model: claude-opus-5
+model: claude-opus-5-5
 # effort: high — launch default (specialist lens).
 ---
 You are the **mass-comms & COPPA** specialist lens. You review only bulk-communication
@@ -3161,7 +3224,7 @@ Conventional-Comment `label` is emitted (the orchestrator computes it from
     "failure_scenario": "one sentence: the concrete inputs/state and the wrong outcome they produce",
     "producing_hunt": "bulk-send-without-audience-filter",
     "model_authored_prose": "the comment the author will read: one claim with its evidence chain complete enough to check, at most one question; long prose posts collapsed behind the summary line; name the mechanism plainly, no metaphor",
-    "summary": "optional one line that stands alone: the defect or the ask (the visible line when the prose folds; never a pointer into the prose)",
+    "summary": "optional: the visible line when long prose folds, so it names the defect or the ask outright, one short sentence by default, two when it takes both; never a pointer into the prose",
     "suggested_patch": "optional", "pre_merge_obligation": "optional",
     "rule_quote": "optional: for a skill finding, the exact rule text, verbatim"
   }],
@@ -3173,7 +3236,7 @@ Conventional-Comment `label` is emitted (the orchestrator computes it from
 ---
 name: caching-resource
 description: Specialist caching & resource lens — reviews caching and resource-management paths for key-scoping, invalidation, and exhaustion defects; returns structured findings as JSON.
-model: claude-opus-5
+model: claude-opus-5-5
 # effort: high — launch default (specialist lens).
 ---
 You are the **caching & resource** specialist lens. You review only caching and
@@ -3237,7 +3300,7 @@ Conventional-Comment `label` is emitted (the orchestrator computes it from
     "failure_scenario": "one sentence: the concrete inputs/state and the wrong outcome they produce",
     "producing_hunt": "cache-key-missing-identifier",
     "model_authored_prose": "the comment the author will read: one claim with its evidence chain complete enough to check, at most one question; long prose posts collapsed behind the summary line; name the mechanism plainly, no metaphor",
-    "summary": "optional one line that stands alone: the defect or the ask (the visible line when the prose folds; never a pointer into the prose)",
+    "summary": "optional: the visible line when long prose folds, so it names the defect or the ask outright, one short sentence by default, two when it takes both; never a pointer into the prose",
     "suggested_patch": "optional", "pre_merge_obligation": "optional",
     "rule_quote": "optional: for a skill finding, the exact rule text, verbatim"
   }],
@@ -3249,7 +3312,7 @@ Conventional-Comment `label` is emitted (the orchestrator computes it from
 ---
 name: data-migrations
 description: Specialist data & migrations lens — reviews schema/migration/backfill changes for compatibility and safety defects; returns structured findings as JSON.
-model: claude-opus-5
+model: claude-opus-5-5
 # effort: high — launch default (specialist lens).
 ---
 You are the **data & migrations** specialist lens. You review only schema changes,
@@ -3308,7 +3371,7 @@ Conventional-Comment `label` is emitted (the orchestrator computes it from
     "failure_scenario": "one sentence: the concrete inputs/state and the wrong outcome they produce",
     "producing_hunt": "non-nullable-column-without-default",
     "model_authored_prose": "the comment the author will read: one claim with its evidence chain complete enough to check, at most one question; long prose posts collapsed behind the summary line; name the mechanism plainly, no metaphor",
-    "summary": "optional one line that stands alone: the defect or the ask (the visible line when the prose folds; never a pointer into the prose)",
+    "summary": "optional: the visible line when long prose folds, so it names the defect or the ask outright, one short sentence by default, two when it takes both; never a pointer into the prose",
     "suggested_patch": "optional", "pre_merge_obligation": "optional",
     "rule_quote": "optional: for a skill finding, the exact rule text, verbatim"
   }],
@@ -3320,7 +3383,7 @@ Conventional-Comment `label` is emitted (the orchestrator computes it from
 ---
 name: concurrency-async
 description: Specialist concurrency & async lens — reviews concurrent/async code for races, unawaited work, and idempotency defects; returns structured findings as JSON.
-model: claude-opus-5
+model: claude-opus-5-5
 # effort: high — launch default (specialist lens).
 ---
 You are the **concurrency & async** specialist lens. You review only concurrent and
@@ -3378,7 +3441,7 @@ Conventional-Comment `label` is emitted (the orchestrator computes it from
     "failure_scenario": "one sentence: the concrete inputs/state and the wrong outcome they produce",
     "producing_hunt": "unawaited-async",
     "model_authored_prose": "the comment the author will read: one claim with its evidence chain complete enough to check, at most one question; long prose posts collapsed behind the summary line; name the mechanism plainly, no metaphor",
-    "summary": "optional one line that stands alone: the defect or the ask (the visible line when the prose folds; never a pointer into the prose)",
+    "summary": "optional: the visible line when long prose folds, so it names the defect or the ask outright, one short sentence by default, two when it takes both; never a pointer into the prose",
     "suggested_patch": "optional", "pre_merge_obligation": "optional",
     "rule_quote": "optional: for a skill finding, the exact rule text, verbatim"
   }],
@@ -3390,7 +3453,7 @@ Conventional-Comment `label` is emitted (the orchestrator computes it from
 ---
 name: api-federation-compat
 description: Specialist API & federation compatibility lens — reviews public API and GraphQL/federation changes for breaking-change defects; returns structured findings as JSON.
-model: claude-opus-5
+model: claude-opus-5-5
 # effort: high — launch default (specialist lens).
 ---
 You are the **API & federation compatibility** specialist lens. You review only changes to
@@ -3448,7 +3511,7 @@ Conventional-Comment `label` is emitted (the orchestrator computes it from
     "failure_scenario": "one sentence: the concrete inputs/state and the wrong outcome they produce",
     "producing_hunt": "breaking-field-removal-or-retype",
     "model_authored_prose": "the comment the author will read: one claim with its evidence chain complete enough to check, at most one question; long prose posts collapsed behind the summary line; name the mechanism plainly, no metaphor",
-    "summary": "optional one line that stands alone: the defect or the ask (the visible line when the prose folds; never a pointer into the prose)",
+    "summary": "optional: the visible line when long prose folds, so it names the defect or the ask outright, one short sentence by default, two when it takes both; never a pointer into the prose",
     "suggested_patch": "optional", "pre_merge_obligation": "optional",
     "rule_quote": "optional: for a skill finding, the exact rule text, verbatim"
   }],
@@ -3460,7 +3523,7 @@ Conventional-Comment `label` is emitted (the orchestrator computes it from
 ---
 name: cross-deploy-serialization
 description: Specialist cross-deploy serialization lens — reviews persisted/queued/cached serialized shapes for rolling-deploy compatibility defects; returns structured findings as JSON.
-model: claude-opus-5
+model: claude-opus-5-5
 # effort: high — launch default (specialist lens).
 ---
 You are the **cross-deploy serialization** specialist lens. You review only changes to
@@ -3522,7 +3585,7 @@ Conventional-Comment `label` is emitted (the orchestrator computes it from
     "failure_scenario": "one sentence: the concrete inputs/state and the wrong outcome they produce",
     "producing_hunt": "serialized-shape-change",
     "model_authored_prose": "the comment the author will read: one claim with its evidence chain complete enough to check, at most one question; long prose posts collapsed behind the summary line; name the mechanism plainly, no metaphor",
-    "summary": "optional one line that stands alone: the defect or the ask (the visible line when the prose folds; never a pointer into the prose)",
+    "summary": "optional: the visible line when long prose folds, so it names the defect or the ask outright, one short sentence by default, two when it takes both; never a pointer into the prose",
     "suggested_patch": "optional", "pre_merge_obligation": "optional",
     "rule_quote": "optional: for a skill finding, the exact rule text, verbatim"
   }],
@@ -3534,7 +3597,7 @@ Conventional-Comment `label` is emitted (the orchestrator computes it from
 ---
 name: deploy-infra-config
 description: Specialist deploy & infra config lens — reviews deployment, infra-as-code, and config/flag changes for rollout-safety defects; returns structured findings as JSON.
-model: claude-opus-5
+model: claude-opus-5-5
 # effort: high — launch default (specialist lens).
 ---
 You are the **deploy & infra config** specialist lens. You review only deployment
@@ -3594,7 +3657,7 @@ Conventional-Comment `label` is emitted (the orchestrator computes it from
     "failure_scenario": "one sentence: the concrete inputs/state and the wrong outcome they produce",
     "producing_hunt": "flag-default-unsafe",
     "model_authored_prose": "the comment the author will read: one claim with its evidence chain complete enough to check, at most one question; long prose posts collapsed behind the summary line; name the mechanism plainly, no metaphor",
-    "summary": "optional one line that stands alone: the defect or the ask (the visible line when the prose folds; never a pointer into the prose)",
+    "summary": "optional: the visible line when long prose folds, so it names the defect or the ask outright, one short sentence by default, two when it takes both; never a pointer into the prose",
     "suggested_patch": "optional", "pre_merge_obligation": "optional",
     "rule_quote": "optional: for a skill finding, the exact rule text, verbatim"
   }],
@@ -3606,7 +3669,7 @@ Conventional-Comment `label` is emitted (the orchestrator computes it from
 ---
 name: money-payments
 description: Specialist money & payments lens — reviews monetary and payment code for precision, idempotency, and currency defects; returns structured findings as JSON.
-model: claude-opus-5
+model: claude-opus-5-5
 # effort: high — launch default (specialist lens).
 ---
 You are the **money & payments** specialist lens. You review only monetary computation and
@@ -3664,7 +3727,7 @@ Conventional-Comment `label` is emitted (the orchestrator computes it from
     "failure_scenario": "one sentence: the concrete inputs/state and the wrong outcome they produce",
     "producing_hunt": "float-money",
     "model_authored_prose": "the comment the author will read: one claim with its evidence chain complete enough to check, at most one question; long prose posts collapsed behind the summary line; name the mechanism plainly, no metaphor",
-    "summary": "optional one line that stands alone: the defect or the ask (the visible line when the prose folds; never a pointer into the prose)",
+    "summary": "optional: the visible line when long prose folds, so it names the defect or the ask outright, one short sentence by default, two when it takes both; never a pointer into the prose",
     "suggested_patch": "optional", "pre_merge_obligation": "optional",
     "rule_quote": "optional: for a skill finding, the exact rule text, verbatim"
   }],
@@ -3676,7 +3739,7 @@ Conventional-Comment `label` is emitted (the orchestrator computes it from
 ---
 name: content-i18n
 description: Specialist content & i18n lens — reviews user-facing content for localization and internationalization defects; returns structured findings as JSON.
-model: claude-opus-5
+model: claude-opus-5-5
 # effort: high — launch default (specialist lens).
 ---
 You are the **content & i18n** specialist lens. You review only user-facing content for
@@ -3737,7 +3800,7 @@ Conventional-Comment `label` is emitted (the orchestrator computes it from
     "failure_scenario": "one sentence: the concrete inputs/state and the wrong outcome they produce",
     "producing_hunt": "hardcoded-user-facing-string",
     "model_authored_prose": "the comment the author will read: one claim with its evidence chain complete enough to check, at most one question; long prose posts collapsed behind the summary line; name the mechanism plainly, no metaphor",
-    "summary": "optional one line that stands alone: the defect or the ask (the visible line when the prose folds; never a pointer into the prose)",
+    "summary": "optional: the visible line when long prose folds, so it names the defect or the ask outright, one short sentence by default, two when it takes both; never a pointer into the prose",
     "suggested_patch": "optional", "pre_merge_obligation": "optional",
     "rule_quote": "optional: for a skill finding, the exact rule text, verbatim"
   }],
