@@ -110,6 +110,13 @@ export type MafsGraphProps = {
     static: boolean | null | undefined;
     widgetId: string;
     ungradedDescriptionId?: string;
+    /**
+     * Whether the learner must interact with the graph to move on from the
+     * question. Announced to screen readers as part of the graph instructions,
+     * since none of the graph's roles (`figure`, `button`) support
+     * `aria-required`.
+     */
+    isRequired?: boolean;
 };
 
 export const MafsGraph = (props: MafsGraphProps) => {
@@ -123,6 +130,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
         fullGraphAriaDescription,
         widgetId,
         ungradedDescriptionId,
+        isRequired,
     } = props;
     const {type} = state;
     const [width, height] = props.box;
@@ -323,6 +331,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             {isUnlimitedGraphState(state)
                                 ? strings.srUnlimitedGraphInstructions
                                 : strings.srGraphInstructions}
+                            {isRequired && ` ${strings.required}`}
                         </View>
                     )}
                     {fullGraphAriaDescription && (
