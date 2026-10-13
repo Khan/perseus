@@ -8,6 +8,7 @@ import postcssImport from "postcss-import";
 import {jsTarget, cssTarget} from "./browser-targets";
 import {createCssAssetPlugin} from "./plugins/css-assets";
 import {createVersionPlugin} from "./plugins/inject-package-version";
+import {createExternal} from "./utils/create-external";
 import {isCssFile} from "./utils/css-files";
 import {getEntryPoints} from "./utils/get-entry-points";
 import {makeScopedClassName} from "./utils/make-scoped-class-name";
@@ -24,28 +25,6 @@ export type BuildOptions = {
     environment?: string;
     watch?: boolean;
 };
-
-function isPackageImport(id: string, packageName: string) {
-    return id === packageName || id.startsWith(`${packageName}/`);
-}
-
-// Builds a function that returns `true` if the module should be treated as
-// external and not bundled (we don't want to bundle any packages that are
-// listed as a dependency or peerDependency!)
-function createExternal(pkgJson: ReturnType<typeof parseBuildPackageMetadata>) {
-    const bundledDependencies = new Set(["jsdiff", "raphael"]);
-    const externalDependencies = [
-        ...Object.keys(pkgJson.dependencies ?? {}),
-        ...Object.keys(pkgJson.peerDependencies ?? {}),
-    ].filter((name) => !bundledDependencies.has(name));
-
-    return (id: string) =>
-        // Always bundle CSS, including dependencies' stylesheets such as
-        // mafs/core.css, so it all lands in dist/index.css.
-        !isCssFile(id) &&
-        (id.startsWith("@phosphor-icons/core/") ||
-            externalDependencies.some((name) => isPackageImport(id, name)));
-}
 
 export function createPackageConfig(
     pkgName: string,
