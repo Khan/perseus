@@ -118,7 +118,13 @@ export function createPackageConfig(
             sourcemap: true,
             minify: "oxc",
             watch: options.watch ? {} : null,
+            // Controls how our build tooling transpiles the javascript (and
+            // css if `cssTarget` is missing!) to ensure its compatible with
+            // our minimum supported browser targets.
             target: jsTarget,
+            // Controls how the build tooling processes CSS. This ensures the
+            // CSS we bundle is compatible with our minimum supported browser
+            // targets.
             cssTarget,
             lib: {
                 entry: entries,
