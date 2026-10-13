@@ -1,7 +1,6 @@
 // `import/no-restricted-paths` keeps the parsers self-contained: they may not
 // import from the rest of perseus-core. Tests can override that restriction,
 // while main files cannot — hence the disables on the imports below.
-
 import {
     generateDefinitionOptions,
     generateDefinitionWidget,
