@@ -1,4 +1,3 @@
-import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import {fileURLToPath} from "node:url";
@@ -9,7 +8,9 @@ import postcssImport from "postcss-import";
 import {jsTarget, cssTarget} from "./browser-targets";
 import {createCssAssetPlugin} from "./plugins/css-assets";
 import {createVersionPlugin} from "./plugins/inject-package-version";
+import {isCssFile} from "./utils/css-files";
 import {getEntryPoints} from "./utils/get-entry-points";
+import {makeScopedClassName} from "./utils/make-scoped-class-name";
 import {parseBuildPackageMetadata} from "./utils/package-json-parser";
 
 import type {InlineConfig} from "vite";
@@ -24,30 +25,8 @@ export type BuildOptions = {
     watch?: boolean;
 };
 
-function isCssFile(name: string): boolean {
-    return name.endsWith(".css");
-}
-
-function isModuleCssFile(name: string): boolean {
-    return name.endsWith(".module.css");
-}
-
 function isPackageImport(id: string, packageName: string) {
     return id === packageName || id.startsWith(`${packageName}/`);
-}
-
-function makeScopedClassName(name: string, filename: string) {
-    if (!isModuleCssFile(filename)) {
-        return name;
-    }
-
-    const hash = crypto
-        .createHash("sha256")
-        .update(`${filename}:${name}`)
-        .digest("base64")
-        .replace(/[/+=]/g, "-")
-        .slice(0, 8);
-    return `perseus_${hash}`;
 }
 
 // Builds a function that returns `true` if the module should be treated as
