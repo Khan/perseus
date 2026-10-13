@@ -112,9 +112,7 @@ export type MafsGraphProps = {
     ungradedDescriptionId?: string;
     /**
      * Whether the learner must interact with the graph to move on from the
-     * question. Announced to screen readers as part of the graph instructions,
-     * since none of the graph's roles (`figure`, `button`) support
-     * `aria-required`.
+     * question. Announced to screen readers as part of the graph instructions.
      */
     isRequired?: boolean;
 };
