@@ -54,22 +54,4 @@ describe("createExternal", () => {
 
         expect(isExternal("abc/styles.css")).toBe(false);
     });
-
-    it("returns true for @phosphor-icons/core sub-paths even when not a dependency", () => {
-        const isExternal = createExternal({
-            dependencies: {},
-            peerDependencies: {},
-        });
-
-        expect(isExternal("@phosphor-icons/core/regular/x.svg")).toBe(true);
-    });
-
-    it("returns false for @phosphor-icons/core stylesheets", () => {
-        const isExternal = createExternal({
-            dependencies: {},
-            peerDependencies: {},
-        });
-
-        expect(isExternal("@phosphor-icons/core/styles.css")).toBe(false);
-    });
 });

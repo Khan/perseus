@@ -18,10 +18,8 @@ function isPackageImport(id: string, packageName: string) {
  * `import` statements in the output, so the consumer's bundler resolves them
  * (and can dedupe them) instead of each Perseus package shipping its own copy.
  *
- * Exceptions:
- * - CSS is always bundled, including dependencies' stylesheets such as
- *   `mafs/core.css`, so it all lands in `dist/index.css`.
- * - `@phosphor-icons/core/*` is always external.
+ * CSS is always bundled, including dependencies' stylesheets such as
+ * `mafs/core.css`, so it all lands in `dist/index.css`.
  *
  * @returns a function that returns `true` when the module `id` should be left
  * external.
@@ -39,6 +37,5 @@ export function createExternal(
 
     return (id: string) =>
         !isCssFile(id) &&
-        (id.startsWith("@phosphor-icons/core/") ||
-            externalDependencies.some((name) => isPackageImport(id, name)));
+        externalDependencies.some((name) => isPackageImport(id, name));
 }
