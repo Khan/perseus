@@ -19,7 +19,7 @@ interface Props {
     format?: MathFormat | "non-reduced" | null;
     placeholder?: string | number | null;
     onChange: any;
-    onFormatChange?: any;
+    onFormatChange?: (value: number | null, format: MathFormat) => void;
     checkValidity: any;
     onFocus?: any;
     onBlur?: any;
@@ -67,7 +67,6 @@ class NumberInput extends React.Component<Props, any> {
         value: null,
         placeholder: null,
         format: null,
-        onFormatChange: () => null,
         checkValidity: () => true,
         useArrowKeys: false,
     };
@@ -152,7 +151,7 @@ class NumberInput extends React.Component<Props, any> {
 
         this.props.onChange(value);
         if (format) {
-            this.props.onFormatChange(value, format);
+            this.props.onFormatChange?.(value, format);
             this.setState({format: format});
         }
     };

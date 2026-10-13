@@ -524,6 +524,10 @@ class NumericInputEditor extends React.Component<Props, State> {
                                                 forms = ["proper", "improper"];
                                             }
                                             this.updateAnswer(i, {
+                                                // TODO(benchristel): newValue
+                                                //  is already number | null;
+                                                //  firstNumericalParse is
+                                                //  redundant.
                                                 value: firstNumericalParse(
                                                     newValue,
                                                 ),
@@ -532,6 +536,10 @@ class NumericInputEditor extends React.Component<Props, State> {
                                         }}
                                         onChange={(newValue) => {
                                             this.updateAnswer(i, {
+                                                // TODO(benchristel): newValue
+                                                //  is already number | null;
+                                                //  firstNumericalParse is
+                                                //  redundant.
                                                 value: firstNumericalParse(
                                                     newValue,
                                                 ),

@@ -38,11 +38,11 @@ const answerFormButtons: ReadonlyArray<{
 export function maybeParsePercentInput(
     inputValue: string | number,
     normalizedAnswerExpected: boolean,
-): string | number {
+): string {
     // If the input value is not a string ending with "%", then there's
     // nothing more to do. The value will be graded as inputted by user.
     if (!(typeof inputValue === "string" && inputValue.endsWith("%"))) {
-        return inputValue;
+        return String(inputValue);
     }
 
     const value = parseFloat(inputValue.slice(0, -1));
@@ -58,11 +58,11 @@ export function maybeParsePercentInput(
     // scale the user typed value. We assume this is the correct thing
     // to do since the input value ends with "%".
     if (normalizedAnswerExpected) {
-        return value / 100;
+        return String(value / 100);
     }
 
-    // Otherwise, we return input value (number) stripped of the "%".
-    return value;
+    // Otherwise, we return the numeric value stripped of the "%".
+    return String(value);
 }
 
 function scoreNumericInput(
