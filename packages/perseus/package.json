@@ -9,8 +9,7 @@
         "exports": {
             ".": "./dist/index.js",
             "./strings": "./dist/strings.js",
-            "./styles.css": "./dist/index.css",
-            "./testing": "./dist/testing.js"
+            "./styles.css": "./dist/index.css"
         }
     },
     "repository": {
