@@ -178,8 +178,8 @@ export interface PerseusWidgetTypes {
  * reading/parsing the widget id to derive any information from it, except in
  * the case of this map.
  *
- * See {@link PerseusWidgetTypes} additional widgets can be added to this map type
- * by augmenting the PerseusWidgetTypes with new widget types!
+ * @see {@link PerseusWidgetTypes} additional widgets can be added to this map
+ * type by augmenting the PerseusWidgetTypes with new widget types!
  */
 export type PerseusWidgetsMap = MakeWidgetMap<PerseusWidgetTypes>;
 
