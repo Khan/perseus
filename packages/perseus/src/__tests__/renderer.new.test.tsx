@@ -143,6 +143,29 @@ describe("renderer", () => {
             // Assert
             expect(container).toMatchSnapshot("deprecated widget");
         });
+
+        it("renders a responsive markdown image", () => {
+            // Arrange
+            const question = {
+                content:
+                    "One image with dimensions that isn't in a table:" +
+                    "![This image has dimensions](https://ka-perseus-images.s3.amazonaws.com/29e9aa32de3731b09e245e416cbf4e3fb2e89b58.svg)",
+                images: {
+                    "https://ka-perseus-images.s3.amazonaws.com/29e9aa32de3731b09e245e416cbf4e3fb2e89b58.svg":
+                        {height: 410, width: 420},
+                },
+                widgets: {},
+            } as const;
+            const {container} = renderQuestion(question);
+
+            // Act
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Assert
+            expect(container).toMatchSnapshot();
+        });
     });
 
     describe("linting (TranslationLinter)", () => {
