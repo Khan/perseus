@@ -97,7 +97,6 @@ class WidgetContainer extends React.Component<Props, State> {
                         <UnsupportedWidget
                             type={type}
                             widgetId={this.props.id}
-                            reason="unregistered"
                         />
                     </div>
                 </div>
