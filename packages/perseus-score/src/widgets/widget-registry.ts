@@ -43,8 +43,8 @@ type ScoringLogic = {
     validator?: WidgetValidatorFunction;
 };
 
-// A widget type with no registered scorer, whether removed or never known, is
-// unscoreable and doesn't count towards an item's score.
+// A widget type with no registered scorer is unscoreable and doesn't count
+// towards an item's score.
 const widgets = new Registry<ScoringLogic>("Score widget registry");
 
 export function registerWidget(

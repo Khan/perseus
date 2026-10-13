@@ -84,7 +84,7 @@ describe("isWidgetScoreable", () => {
         (type) => {
             const widget = {type, graded: true, static: false, options: {}};
 
-            // PerseusWidget can't name a type Perseus has never known.
+            // PerseusWidget can't name an unknown widget type.
             // eslint-disable-next-line no-restricted-syntax
             expect(isWidgetScoreable(widget as any)).toBe(false);
         },

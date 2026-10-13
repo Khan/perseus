@@ -190,7 +190,7 @@ describe("WidgetEditor", () => {
     });
 
     describe("a widget type with no registered editor", () => {
-        // A removed widget type. PerseusWidget can't name it.
+        // An unknown widget type. PerseusWidget can't name it.
         // eslint-disable-next-line no-restricted-syntax
         const widgetInfo = {
             type: "transformer",

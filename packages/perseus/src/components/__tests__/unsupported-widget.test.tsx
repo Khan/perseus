@@ -8,9 +8,9 @@ import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
 import type {PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
-// A removed widget type and one Perseus has never known. Neither has a
-// registered widget, so both render and score the same way. The cast is needed
-// because PerseusWidgetsMap can't name a type Perseus has never known.
+// Unknown widget types have no registered widget, so they all render and score
+// the same way. The cast is needed because PerseusWidgetsMap can't name an
+// unknown widget type.
 // eslint-disable-next-line no-restricted-syntax
 const widgets = {
     "transformer 1": {type: "transformer", options: {}},

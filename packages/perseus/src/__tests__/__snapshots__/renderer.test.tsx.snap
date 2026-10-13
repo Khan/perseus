@@ -611,7 +611,7 @@ exports[`renderer snapshots initial render: initial render 1`] = `
 </div>
 `;
 
-exports[`renderer snapshots renders a placeholder for a removed widget type: removed widget 1`] = `
+exports[`renderer snapshots renders a placeholder for an unknown widget type: unknown widget 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"

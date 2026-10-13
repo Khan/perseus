@@ -557,15 +557,13 @@ describe("scorePerseusItem", () => {
 
     it("ignores widgets with no registered scorer", () => {
         // Arrange
-        // Removed widget types and ones Perseus has never known are scored the
-        // same way. PerseusWidgetsMap can't name the never-known ones.
-        const types = ["transformer", "sequence", "never-a-widget", "made-up"];
         const item: PerseusRenderer = {
-            content: types.map((t) => `[[☃ ${t} 1]]`).join(""),
+            content: `[[☃ transformer 1]] [[☃ never-a-widget 1]]`,
             // eslint-disable-next-line no-restricted-syntax
-            widgets: Object.fromEntries(
-                types.map((t) => [`${t} 1`, {type: t, options: {}}]),
-            ) as any,
+            widgets: {
+                "transformer 1": {type: "transformer", options: {}},
+                "never-a-widget 1": {type: "never-a-widget", options: {}},
+            } as any,
             images: {},
         };
 

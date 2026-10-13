@@ -40,10 +40,9 @@ class WidgetContainerOld extends React.Component<Props, State> {
     };
 
     componentDidMount() {
-        // Content can name a widget type this build doesn't have, either
-        // because the widget was removed or because we never knew it. Learners
-        // get `UnsupportedWidget` instead; the log tells us which content to
-        // fix. The type can't change after mounting (see
+        // Content can name a widget type this build doesn't implement.
+        // Learners get `UnsupportedWidget` instead; the log tells us which
+        // content to fix. The type can't change after mounting (see
         // UNSAFE_componentWillReceiveProps), so once per mount is enough.
         if (Widgets.getWidget(this.props.type) == null) {
             Log.error("Widget type not registered", Errors.NotAllowed, {

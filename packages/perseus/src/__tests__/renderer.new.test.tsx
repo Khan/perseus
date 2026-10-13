@@ -114,12 +114,12 @@ describe("renderer", () => {
             expect(container).toMatchSnapshot("incorrect answer");
         });
 
-        it("renders a placeholder for a removed widget type", () => {
+        it("renders a placeholder for an unknown widget type", () => {
             // Arrange
             const question: PerseusRenderer = {
                 content: "[[☃ sequence 1]]",
                 images: {},
-                // PerseusWidgetsMap can't name a removed widget type.
+                // PerseusWidgetsMap can't name an unknown widget type.
                 // eslint-disable-next-line no-restricted-syntax
                 widgets: {
                     "sequence 1": {
@@ -143,7 +143,7 @@ describe("renderer", () => {
             const {container} = renderQuestion(question);
 
             // Assert
-            expect(container).toMatchSnapshot("removed widget");
+            expect(container).toMatchSnapshot("unknown widget");
         });
 
         it("renders a responsive markdown image", () => {

@@ -4,7 +4,7 @@ import EditorJsonify from "../mixins/editor-jsonify";
 
 /**
  * Shown in place of a widget editor when no editor is registered for the
- * widget's type: one that has been removed, or one Perseus has never known.
+ * widget's type.
  *
  * It serializes the widget's options unchanged, so saving keeps the content
  * as it was.

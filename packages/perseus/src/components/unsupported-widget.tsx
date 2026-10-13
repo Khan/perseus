@@ -5,8 +5,8 @@ import * as React from "react";
 import {usePerseusI18n} from "./i18n-context";
 
 /**
- * Shown in place of a widget that this build of Perseus can't render: one
- * that has been removed, or one it has never known about.
+ * Shown in place of a widget whose type this build of Perseus doesn't
+ * implement.
  */
 export default function UnsupportedWidget() {
     const {strings} = usePerseusI18n();

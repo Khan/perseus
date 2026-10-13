@@ -8,7 +8,7 @@ import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-
 import type {PerseusWidgetsMap} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-// PerseusWidgetsMap can't name a widget type Perseus has never known.
+// PerseusWidgetsMap can't name an unknown widget type.
 // eslint-disable-next-line no-restricted-syntax
 const widgets = {
     "transformer 1": {type: "transformer", options: {}},
@@ -25,16 +25,14 @@ export default meta;
 type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 
 /**
- * Content that names a widget this build doesn't have, whether removed
- * (`transformer`) or never known (`never-a-widget`), shows this notice in
- * its place.
+ * Content that names a widget type this build doesn't implement shows this
+ * notice in its place.
  */
-export const RemovedAndUnknownWidgets: Story = {
+export const UnknownWidgets: Story = {
     args: {
         item: generateTestPerseusItem({
             question: generateTestPerseusRenderer({
-                content:
-                    "A removed widget:\n\n[[☃ transformer 1]]\n\nA widget Perseus has never known:\n\n[[☃ never-a-widget 1]]",
+                content: "[[☃ transformer 1]]\n\n[[☃ never-a-widget 1]]",
                 widgets,
             }),
         }),
