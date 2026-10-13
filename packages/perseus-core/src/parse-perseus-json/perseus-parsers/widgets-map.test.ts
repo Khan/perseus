@@ -95,8 +95,10 @@ describe("parseWidgetsMap", () => {
         );
     });
 
-    // An unknown widget may have been dynamically registered, and a removed
-    // one can still appear in old content, so we accept any options for both.
+    // Perseus treats widgets it doesn't know about consistently: accepting
+    // their options in whatever shape they are. Unknown widgets could be ones
+    // that have been deprecated and removed or widgets that have been
+    // dynamically registered or simply bad data.
     it.each(["transmogrifier", "transformer", "sequence"])(
         "accepts a %s widget, which Perseus doesn't implement",
         (type) => {
