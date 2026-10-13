@@ -10,9 +10,9 @@ import {
 
 import type {PerseusWidget, PerseusWidgetsMap} from "../data-schema";
 
-export const applyDefaultsToWidget = (
-    oldWidgetInfo: PerseusWidget,
-): PerseusWidget => {
+export const applyDefaultsToWidget = <W extends PerseusWidget>(
+    oldWidgetInfo: W,
+): W => {
     const type = oldWidgetInfo.type;
 
     const latestVersion = getCurrentVersion(type);
