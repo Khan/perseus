@@ -142,6 +142,11 @@
 }
 .framework-perseus.perseus-mobile
     .perseus-renderer
+    > .deprecated-perseus-container:has(> span.deprecated-perseus-container) {
+    margin-block-end: 22px;
+}
+.framework-perseus.perseus-mobile
+    .perseus-renderer
     > .deprecated-perseus-container:not(:first-child) {
     margin-top: var(--wb-sizing-size_240);
     margin-bottom: var(--wb-sizing-size_240);
