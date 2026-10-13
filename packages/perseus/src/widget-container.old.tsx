@@ -6,7 +6,7 @@
 // TODO(LEMS-4304): feature flag cleanup - remove this file
 // This file is the original file that is being replaced by the new widget-container.
 
-import {CoreWidgetRegistry, Errors} from "@khanacademy/perseus-core";
+import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 import classNames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -14,7 +14,6 @@ import ReactDOM from "react-dom";
 import UnsupportedWidget from "./components/unsupported-widget";
 import {DependenciesContext} from "./dependencies";
 import ErrorBoundary from "./error-boundary";
-import {Log} from "./logging/log";
 import {containerSizeClass, getClassFromWidth} from "./util/sizing-utils";
 import {getWidgetSubType} from "./widget-type-utils";
 import * as Widgets from "./widgets";
@@ -40,19 +39,6 @@ class WidgetContainerOld extends React.Component<Props, State> {
     };
 
     componentDidMount() {
-        // Content can name a widget type this build doesn't implement.
-        // Learners get `UnsupportedWidget` instead; the log tells us which
-        // content to fix. The type can't change after mounting (see
-        // UNSAFE_componentWillReceiveProps), so once per mount is enough.
-        if (Widgets.getWidget(this.props.type) == null) {
-            Log.error("Widget type not registered", Errors.NotAllowed, {
-                loggedMetadata: {
-                    type: this.props.type,
-                    widgetId: this.props.id,
-                },
-            });
-        }
-
         // Only relay size class changes for mobile right now.  We may want to
         // this for desktop as well at some point in the future.
         if (this.props.widgetProps.apiOptions.isMobile) {
@@ -107,7 +93,11 @@ class WidgetContainerOld extends React.Component<Props, State> {
         if (WidgetType == null) {
             return (
                 <div className={className}>
-                    <UnsupportedWidget />
+                    <UnsupportedWidget
+                        type={type}
+                        widgetId={this.props.id}
+                        reason="unregistered"
+                    />
                 </div>
             );
         }

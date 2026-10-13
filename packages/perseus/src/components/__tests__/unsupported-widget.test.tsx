@@ -1,10 +1,11 @@
-import {generateTestPerseusRenderer} from "@khanacademy/perseus-core";
-import {screen} from "@testing-library/react";
+import {Errors, generateTestPerseusRenderer} from "@khanacademy/perseus-core";
+import {render, screen} from "@testing-library/react";
+import * as React from "react";
 
-import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import UnsupportedWidget from "../unsupported-widget";
 
 import type {PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
@@ -47,5 +48,35 @@ describe("UnsupportedWidget", () => {
 
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly({shouldHavePoints: false});
+    });
+
+    it("logs the widget's type, ID and reason once per mount", () => {
+        // Arrange
+        const logErrorSpy = jest.spyOn(testDependencies.Log, "error");
+        const widget = (
+            <UnsupportedWidget
+                type="transformer"
+                widgetId="transformer 1"
+                reason="unregistered"
+            />
+        );
+
+        // Act
+        const {rerender} = render(widget);
+        rerender(widget);
+
+        // Assert
+        expect(logErrorSpy).toHaveBeenCalledTimes(1);
+        expect(logErrorSpy).toHaveBeenCalledWith(
+            "Unsupported widget rendered",
+            Errors.NotAllowed,
+            {
+                loggedMetadata: {
+                    type: "transformer",
+                    widgetId: "transformer 1",
+                    reason: "unregistered",
+                },
+            },
+        );
     });
 });

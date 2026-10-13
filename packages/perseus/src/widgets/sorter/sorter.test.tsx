@@ -1,4 +1,5 @@
 import {
+    Errors,
     generateSorterOptions,
     generateSorterWidget,
     generateTestPerseusItem,
@@ -404,6 +405,27 @@ describe("sorter widget", () => {
 
             // Assert
             expect(screen.getByText(unsupportedWidgetText)).toBeInTheDocument();
+        });
+
+        it("logs the sorter as unsupported above the card limit", () => {
+            // Arrange
+            const logErrorSpy = jest.spyOn(testDependencies.Log, "error");
+
+            // Act
+            renderQuestion(generateSorterQuestion(SORTER_MAX_CARDS + 1));
+
+            // Assert
+            expect(logErrorSpy).toHaveBeenCalledWith(
+                "Unsupported widget rendered",
+                Errors.NotAllowed,
+                {
+                    loggedMetadata: {
+                        type: "sorter",
+                        widgetId: "sorter 1",
+                        reason: "exceeds-card-limit",
+                    },
+                },
+            );
         });
 
         it("does not render the unsupported-widget notice at the card limit", () => {

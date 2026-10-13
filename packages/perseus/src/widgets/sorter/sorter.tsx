@@ -96,7 +96,13 @@ const Sorter = forwardRef<SorterHandle, Props>(function Sorter(props, ref) {
     // sorters are unusable, so learners get `UnsupportedWidget` while authors
     // keep the full editor to fix them with.
     if (exceedsCardLimit(options.correct)) {
-        return <UnsupportedWidget />;
+        return (
+            <UnsupportedWidget
+                type="sorter"
+                widgetId={widgetId}
+                reason="exceeds-card-limit"
+            />
+        );
     }
 
     return (

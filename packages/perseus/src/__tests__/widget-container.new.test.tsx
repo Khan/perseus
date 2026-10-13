@@ -6,7 +6,6 @@
 // TODO(LEMS-4304): feature flag cleanup - rename this file to widget-container.test.tsx.
 // This file is the new widget container test file that will replace the old container tests.
 
-import {Errors} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
@@ -90,38 +89,6 @@ describe("widget-container", () => {
                 /this part of the question is no longer available/,
             ),
         ).toBeInTheDocument();
-    });
-
-    it("logs an unregistered widget's type and id once per mount", () => {
-        // Arrange
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-        const logErrorSpy = jest.spyOn(testDependencies.Log, "error");
-        const container = (
-            <WidgetContainer
-                type="invalid-widget"
-                id="invalid-widget 1"
-                widgetProps={getBaseProps()}
-            />
-        );
-
-        // Act
-        const {rerender} = render(container);
-        rerender(container);
-
-        // Assert
-        expect(logErrorSpy).toHaveBeenCalledTimes(1);
-        expect(logErrorSpy).toHaveBeenCalledWith(
-            "Widget type not registered",
-            Errors.NotAllowed,
-            {
-                loggedMetadata: {
-                    type: "invalid-widget",
-                    widgetId: "invalid-widget 1",
-                },
-            },
-        );
     });
 
     it("should render the requested widget", () => {
