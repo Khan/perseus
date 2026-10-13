@@ -9,18 +9,13 @@ import UnsupportedWidget from "../unsupported-widget";
 
 import type {PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
-// Unknown widget types have no registered widget, so they all render and score
-// the same way. The cast is needed because PerseusWidgetsMap can't name an
-// unknown widget type.
-// eslint-disable-next-line no-restricted-syntax
-const widgets = {
-    "transformer 1": {type: "transformer", options: {}},
-    "never-a-widget 1": {type: "never-a-widget", options: {}},
-} as unknown as PerseusWidgetsMap;
-
 const question = generateTestPerseusRenderer({
     content: "[[☃ transformer 1]] [[☃ never-a-widget 1]]",
-    widgets,
+    // eslint-disable-next-line no-restricted-syntax
+    widgets: {
+        "transformer 1": {type: "transformer", options: {}},
+        "never-a-widget 1": {type: "never-a-widget", options: {}},
+    } as unknown as PerseusWidgetsMap,
 });
 
 describe("UnsupportedWidget", () => {
@@ -50,23 +45,17 @@ describe("UnsupportedWidget", () => {
         expect(score).toHaveBeenAnsweredCorrectly({shouldHavePoints: false});
     });
 
-    it("logs the widget's type, ID and reason once per mount", () => {
+    it("logs the widget's type, ID and reason", () => {
         // Arrange
         const logErrorSpy = jest.spyOn(testDependencies.Log, "error");
         const widget = (
-            <UnsupportedWidget
-                type="transformer"
-                widgetId="transformer 1"
-                reason="unregistered"
-            />
+            <UnsupportedWidget type="transformer" widgetId="transformer 1" />
         );
 
         // Act
-        const {rerender} = render(widget);
-        rerender(widget);
+        render(widget);
 
         // Assert
-        expect(logErrorSpy).toHaveBeenCalledTimes(1);
         expect(logErrorSpy).toHaveBeenCalledWith(
             "Unsupported widget rendered",
             Errors.NotAllowed,
@@ -74,9 +63,25 @@ describe("UnsupportedWidget", () => {
                 loggedMetadata: {
                     type: "transformer",
                     widgetId: "transformer 1",
-                    reason: "unregistered",
+                    reason: "widget-not-registered",
                 },
             },
         );
+    });
+
+    it("does not log more than once per componetn instance", () => {
+        // Arrange
+        const logErrorSpy = jest.spyOn(testDependencies.Log, "error");
+        const widget = (
+            <UnsupportedWidget type="transformer" widgetId="transformer 1" />
+        );
+
+        const {rerender} = render(widget);
+
+        // Act
+        rerender(widget);
+
+        // Assert
+        expect(logErrorSpy).toHaveBeenCalledTimes(1);
     });
 });

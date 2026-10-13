@@ -93,11 +93,7 @@ class WidgetContainerOld extends React.Component<Props, State> {
         if (WidgetType == null) {
             return (
                 <div className={className}>
-                    <UnsupportedWidget
-                        type={type}
-                        widgetId={this.props.id}
-                        reason="unregistered"
-                    />
+                    <UnsupportedWidget type={type} widgetId={this.props.id} />
                 </div>
             );
         }
