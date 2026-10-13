@@ -10,8 +10,8 @@ export function is(x: any): boolean {
 }
 
 export function equal(
-    x: number | null,
-    y: number | null,
+    x: number | null | undefined,
+    y: number | null | undefined,
     tolerance?: number,
 ): boolean {
     // Checking for undefined makes this function behave nicely

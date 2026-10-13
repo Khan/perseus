@@ -17,8 +17,8 @@ interface Props {
     value: number | null;
     format?: MathFormat | "non-reduced" | null;
     placeholder?: string | number | null;
-    onChange: any;
-    onFormatChange?: (value: number | null, format: MathFormat) => void;
+    onChange: (value: number) => void;
+    onFormatChange?: (value: number, format: MathFormat) => void;
     checkValidity: any;
     onFocus?: any;
     onBlur?: any;
@@ -78,7 +78,7 @@ class NumberInput extends React.Component<Props, any> {
         // If the value is a multiple of pi, but it is not in the pi format,
         // then convert it to the pi format and show it as a multiple of pi.
         const value = this.getValue();
-        if (this.props.allowPiTruncation && value !== null && value !== 0) {
+        if (this.props.allowPiTruncation && value != null && value !== 0) {
             if (this.state.format !== "pi" && isPiMultiple(value)) {
                 this._setValue(value / Math.PI, "pi");
                 this.setState({format: "pi"});
@@ -106,11 +106,11 @@ class NumberInput extends React.Component<Props, any> {
     /* Return the current "value" of this input
      * If empty, it returns the placeholder (if it is a number) or null
      */
-    getValue: () => any = () => {
+    getValue(): number | null | undefined {
         return this.parseInputValue(this._getInput().value);
     };
 
-    parseInputValue: (arg1: any) => any = (value) => {
+    parseInputValue(value: string): number | null | undefined {
         if (value === "") {
             const placeholder = this.props.placeholder;
             return _.isFinite(placeholder) ? Number(placeholder) : null;
@@ -141,11 +141,13 @@ class NumberInput extends React.Component<Props, any> {
         return _.isFinite(val) && checkValidity(val);
     };
 
-    _handleChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
-        e,
-    ) => {
+    _handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const text = e.target.value;
         const value = this.parseInputValue(text);
+        if (value == null) {
+            return;
+        }
+
         const format = getNumericFormat(text);
 
         this.props.onChange(value);
@@ -183,7 +185,7 @@ class NumberInput extends React.Component<Props, any> {
         }
 
         let val = this.getValue();
-        if (val !== Math.floor(val)) {
+        if (val == null || val !== Math.floor(val)) {
             return; // bail if not an integer
         }
 
