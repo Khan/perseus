@@ -56,12 +56,6 @@ export function createPackageConfig(
         root: rootDir,
         // Keep CSS asset URLs relative so consuming bundlers can relocate them.
         base: "./",
-        resolve: {
-            alias: {
-                jsdiff: path.join(rootDir, "vendor/jsdiff"),
-                raphael: path.join(rootDir, "vendor/raphael"),
-            },
-        },
         define,
         plugins: [
             react(),

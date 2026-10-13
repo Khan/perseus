@@ -55,18 +55,6 @@ describe("createExternal", () => {
         expect(isExternal("abc/styles.css")).toBe(false);
     });
 
-    it.each(["jsdiff", "raphael"])(
-        "returns false for vendored dependency %s",
-        (name) => {
-            const isExternal = createExternal({
-                dependencies: {[name]: "1.0.0"},
-                peerDependencies: {},
-            });
-
-            expect(isExternal(name)).toBe(false);
-        },
-    );
-
     it("returns true for @phosphor-icons/core sub-paths even when not a dependency", () => {
         const isExternal = createExternal({
             dependencies: {},

@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 /* eslint-disable import/no-commonjs */
-const fs = require("fs");
 const path = require("path");
 
 const fg = require("fast-glob");
@@ -12,14 +11,6 @@ const pkgNames = fg
 const pkgAliases = pkgNames.map((pkgName) => {
     return [`@khanacademy/${pkgName}`, `./packages/${pkgName}/src/index.js`];
 });
-
-const vendorAliases = fs
-    .readdirSync(path.join(__dirname, "vendor"))
-    .map((name) => {
-        return [name, `./vendor/${name}`];
-    });
-
-const allAliases = [...pkgAliases, ...vendorAliases];
 
 function banImportExtension(extension) {
     const message = `Unexpected use of file extension (.${extension}) in import`;
@@ -198,7 +189,7 @@ module.exports = {
                 moduleDirectory: ["node_modules"],
             },
             alias: {
-                map: allAliases,
+                map: pkgAliases,
                 extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
             },
         },
