@@ -29,6 +29,95 @@ describe("CombinedHintsEditor", () => {
         );
     });
 
+    it("numbers each hint title by its position", () => {
+        // Arrange, Act
+        render(
+            <CombinedHintsEditor
+                deviceType="phone"
+                previewURL="about:blank"
+                highlightLint={false}
+                hints={[
+                    {content: "First", widgets: {}, images: {}},
+                    {content: "Second", widgets: {}, images: {}},
+                    {content: "Third", widgets: {}, images: {}},
+                ]}
+            />,
+        );
+
+        // Assert
+        expect(screen.getByText("Hint 1")).toBeInTheDocument();
+        expect(screen.getByText("Hint 2")).toBeInTheDocument();
+        expect(screen.getByText("Hint 3")).toBeInTheDocument();
+    });
+
+    it("includes the hint number in each hint's button labels", () => {
+        // Arrange, Act
+        render(
+            <CombinedHintsEditor
+                deviceType="phone"
+                previewURL="about:blank"
+                highlightLint={false}
+                hints={[
+                    {content: "First", widgets: {}, images: {}},
+                    {content: "Second", widgets: {}, images: {}},
+                ]}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Move hint 2 up"}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Move hint 2 down"}),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("button", {name: "Remove hint 2"}),
+        ).toBeInTheDocument();
+    });
+
+    it("renumbers hints after they are reordered", async () => {
+        // Arrange
+        const first = {content: "First", widgets: {}, images: {}};
+        const second = {content: "Second", widgets: {}, images: {}};
+        const onChangeMock = jest.fn();
+        const {rerender} = render(
+            <CombinedHintsEditor
+                deviceType="phone"
+                previewURL="about:blank"
+                highlightLint={false}
+                hints={[first, second]}
+                onChange={onChangeMock}
+            />,
+        );
+
+        // Act
+        await userEvent.click(
+            screen.getByRole("button", {name: "Move hint 1 down"}),
+        );
+        rerender(
+            <CombinedHintsEditor
+                deviceType="phone"
+                previewURL="about:blank"
+                highlightLint={false}
+                hints={onChangeMock.mock.calls[0][0].hints}
+                onChange={onChangeMock}
+            />,
+        );
+
+        // Assert
+        const titles = screen.getAllByText(/^Hint \d$/);
+        const textboxes = screen.getAllByRole("textbox");
+        expect(titles.map((title) => title.textContent)).toEqual([
+            "Hint 1",
+            "Hint 2",
+        ]);
+        expect(textboxes.map((textbox) => textbox.textContent)).toEqual([
+            "Second",
+            "First",
+        ]);
+    });
+
     it("should confirm before removing a hint", async () => {
         // Arrange
         const comfirmSpy = jest.spyOn(window, "confirm").mockReturnValue(false);
@@ -45,7 +134,9 @@ describe("CombinedHintsEditor", () => {
         );
 
         // Act
-        await userEvent.click(screen.getAllByText("Remove this hint")[0]);
+        await userEvent.click(
+            screen.getByRole("button", {name: "Remove hint 1"}),
+        );
 
         // Assert
         expect(comfirmSpy).toHaveBeenCalled();
@@ -69,7 +160,9 @@ describe("CombinedHintsEditor", () => {
         );
 
         // Act
-        await userEvent.click(screen.getAllByText("Remove this hint")[0]);
+        await userEvent.click(
+            screen.getByRole("button", {name: "Remove hint 1"}),
+        );
 
         // Assert
         expect(onChangeMock).not.toHaveBeenCalled();
@@ -93,7 +186,9 @@ describe("CombinedHintsEditor", () => {
         );
 
         // Act
-        await userEvent.click(screen.getAllByText("Remove this hint")[0]);
+        await userEvent.click(
+            screen.getByRole("button", {name: "Remove hint 1"}),
+        );
 
         // Assert
         expect(onChangeMock).toHaveBeenCalledWith({
@@ -114,9 +209,9 @@ describe("CombinedHintsEditor", () => {
             />,
         );
 
-        const removeButton = screen.getAllByRole("button", {
-            name: "Remove this hint",
-        })[0];
+        const removeButton = screen.getByRole("button", {
+            name: "Remove hint 1",
+        });
         const addButton = screen.getByRole("button", {name: "Add a hint"});
 
         expect(removeButton).toHaveAttribute("aria-disabled", "true");
