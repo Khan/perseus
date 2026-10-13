@@ -14,9 +14,11 @@ The machine-readable path map lives in ROUTING; this file is the model-facing pr
 ### Generated files are automatically Trivial
 
 Files matching `linguist-generated` patterns in `.gitattributes`
-(`.github/workflows/*.lock.yml`, `agentics-maintenance.yml`), `pnpm-lock.yaml`, and
-`**/__snapshots__/**`. A generated file edited *without* its source changing is a red
-flag — classify by the manual edit.
+(`.github/workflows/*.lock.yml`, `agentics-maintenance.yml`). The router
+short-circuits generated files (tier Trivial, no lenses, contents not analysed), so a
+hand-edit to one reaches no reviewer here. If a generated file changed but its source
+did not (e.g. `review.lock.yml` without `review.md`), say so in the review: a human
+has to check that change, because nothing in CI recompiles the lock and compares.
 
 ### High Risk
 
@@ -33,7 +35,10 @@ CI supply chain:
   CI's schema-comparison gate flags that the schema *changed* (via the `schema-change`
   label); it cannot judge whether the change is backward-compatible with existing
   published content. A parser change that rejects (or reinterprets) previously-valid
-  content breaks live exercises.
+  content breaks live exercises. The regression harness under
+  `parse-perseus-json/regression-tests/` and its snapshot record the parser's output
+  over every frozen fixture: a changed snapshot means that output changed, so check
+  each changed entry is an intended behavior change, not a regression.
 - **Vendored libraries** — `vendor/**` (raphael, jsdiff). Forked, hand-patched, no
   upstream review; edits here are rare and deserve full scrutiny.
 - **GitHub Actions workflows and the reviewer's own config** — `.github/workflows/**`,
@@ -62,16 +67,19 @@ invisible to a sighted mouse-using reviewer, so treat a11y-relevant diffs (focus
 management, ARIA attributes, keyboard handlers, semantic HTML swaps) as the top of
 this tier.
 
+Also Medium: `utils/` scripts. They are not shipped, but CI runs them to gate PRs and
+to publish to npm, so a broken one can wave a bad PR through or break a release.
+
 ### Low Risk
 
 Repo-local dev surfaces: tests (`**/__tests__/**`, `*.test.*`, `*.testdata.*`,
-`__testutils__`), Storybook stories and `__docs__`, `.storybook/`, `config/`,
-`utils/` scripts, changeset entry files (`.changeset/*.md` — but see the changeset
-deep-check below).
+`__testutils__`) and their snapshots (except the parser regression snapshot,
+High above), Storybook stories and `__docs__`, `.storybook/`, `config/`, changeset
+entry files (`.changeset/*.md` — but see the changeset deep-check below).
 
 ### Trivial
 
-Prose docs (READMEs, changelogs), snapshots, `data/questions/**` (a sample question
+Prose docs (READMEs, changelogs), `data/questions/**` (a sample question
 corpus for the local analysis scripts in `data/`, not shipped), and the frozen
 parser-regression fixtures under
 `packages/perseus-core/src/parse-perseus-json/regression-tests/` (CI blocks any edit

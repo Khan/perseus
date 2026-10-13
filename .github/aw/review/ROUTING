@@ -30,7 +30,6 @@ types/**                             tier=low
 **/*.md                              tier=trivial
 # Sample question corpus for the local analysis scripts in data/; not shipped.
 data/questions/                      tier=trivial
-pnpm-lock.yaml                       tier=trivial
 # Changeset entries re-raised over **/*.md: the semver bump level decides what ships
 # to consumers, and CI only checks that an entry exists.
 .changeset/*.md                      tier=low
@@ -67,6 +66,13 @@ packages/*/package.json              tier=high
 # Root package.json contains deps that run on everyone's workstation so a real
 # security risk
 /package.json                        lens=security-auth tier=high
+# The lockfile is what actually installs: a swapped `resolved` URL, an integrity
+# change without a version change, or a new install-script dependency shows up here
+# even when no package.json changes. Never hand-edited, so any odd diff is a flag.
+/pnpm-lock.yaml                      lens=security-auth tier=high
+# Holds the minimumReleaseAge supply-chain guard, overrides, and the dependency
+# version catalogs: one edit can disable a defense or move versions repo-wide.
+/pnpm-workspace.yaml                 lens=security-auth tier=high
 
 # CI supply chain: workflow files spawn the security-auth lens for the shared
 # workflow-security hunts (pwn-request, over-scoped-secret). Public repo.
@@ -86,6 +92,8 @@ packages/*/package.json              tier=high
 # A linguist-generated line here hides a path from review entirely, so this file is
 # reviewer control input too.
 /.gitattributes                      lens=security-auth tier=high
+# With "Require review from Code Owners" on, this decides who must approve a merge.
+/.github/CODEOWNERS                  lens=security-auth tier=high
 
 # Test and dev surfaces drop back down. This block sits LAST on purpose: it has to
 # come after the high-tier src rules above, or a test file inside perseus-score/src
@@ -98,7 +106,12 @@ packages/*/package.json              tier=high
 **/*.testdata.ts                     tier=low
 **/*.typetest.ts                     tier=low
 **/*.stories.tsx                     tier=low
-**/__snapshots__/**                  tier=trivial
+**/__snapshots__/**                  tier=low
+**/*.snap                            tier=low
+# The parser regression harness and its recorded output over every frozen fixture:
+# a change here means parser behavior on published content changed.
+packages/perseus-core/src/parse-perseus-json/regression-tests/__snapshots__/**  tier=high
+packages/perseus-core/src/parse-perseus-json/regression-tests/*.test.ts         tier=high
 # Frozen parser-regression fixtures: protect-regression-data.yml blocks any edit to
 # existing files, so a diff here is either a new fixture or a CI failure.
 packages/perseus-core/src/parse-perseus-json/regression-tests/*-data/**  tier=trivial
