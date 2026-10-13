@@ -43,7 +43,9 @@ describe("InputWithExamples", () => {
 
         // The tooltip content is rendered in the tooltip, not the aria text
         expect(
-            screen.getByText("example 1 example 2", {selector: ".paragraph"}),
+            screen.getByText("example 1 example 2", {
+                selector: ".deprecated-perseus-container",
+            }),
         ).toBeInTheDocument();
     });
 

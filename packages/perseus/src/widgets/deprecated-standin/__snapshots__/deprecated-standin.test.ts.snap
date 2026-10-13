@@ -6,23 +6,29 @@ exports[`Deprecated Standin widget should have a default snapshot: first render 
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         Read the excerpt and answer the question below. 
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         The Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with 
+      </p>
+    </div>
+    <div
+      class="deprecated-perseus-container"
+    >
+      <div
+        class="deprecated-perseus-container"
+      >
         <div
           class="perseus-widget-container widget-block"
         >
@@ -59,8 +65,16 @@ exports[`Deprecated Standin widget should have a default snapshot: first render 
             </div>
           </div>
         </div>
-        , upon these conditions.
       </div>
+    </div>
+    <div
+      class="deprecated-perseus-container"
+    >
+      <p
+        class="deprecated-perseus-container"
+      >
+        , upon these conditions.
+      </p>
     </div>
   </div>
 </div>

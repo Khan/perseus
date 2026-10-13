@@ -6,20 +6,18 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <strong>
           Classify each graph according to the kind of relationship it suggests.
         </strong>
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph perseus-paragraph-centered"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container perseus-paragraph-centered"
     >
       <div
         class="perseus-block-math"
@@ -42,11 +40,10 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
       </div>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="2"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -69,14 +66,13 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                       class="perseus-renderer perseus-renderer-responsive"
                     >
                       <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                        class="deprecated-perseus-container"
                       >
-                        <div
-                          class="paragraph"
+                        <p
+                          class="deprecated-perseus-container"
                         >
                           No relationship
-                        </div>
+                        </p>
                       </div>
                     </div>
                   </th>
@@ -87,14 +83,13 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                       class="perseus-renderer perseus-renderer-responsive"
                     >
                       <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                        class="deprecated-perseus-container"
                       >
-                        <div
-                          class="paragraph"
+                        <p
+                          class="deprecated-perseus-container"
                         >
                           Positive linear relationship
-                        </div>
+                        </p>
                       </div>
                     </div>
                   </th>
@@ -105,14 +100,13 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                       class="perseus-renderer perseus-renderer-responsive"
                     >
                       <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                        class="deprecated-perseus-container"
                       >
-                        <div
-                          class="paragraph"
+                        <p
+                          class="deprecated-perseus-container"
                         >
                           Negative linear relationship
-                        </div>
+                        </p>
                       </div>
                     </div>
                   </th>
@@ -123,14 +117,13 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                       class="perseus-renderer perseus-renderer-responsive"
                     >
                       <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                        class="deprecated-perseus-container"
                       >
-                        <div
-                          class="paragraph"
+                        <p
+                          class="deprecated-perseus-container"
                         >
                           Nonlinear relationship
-                        </div>
+                        </p>
                       </div>
                     </div>
                   </th>
@@ -143,11 +136,10 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                       class="perseus-renderer perseus-renderer-responsive"
                     >
                       <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                        class="deprecated-perseus-container"
                       >
-                        <div
-                          class="paragraph"
+                        <p
+                          class="deprecated-perseus-container"
                         >
                           Graph 
                           <span
@@ -161,7 +153,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                             </span>
                             <span />
                           </span>
-                        </div>
+                        </p>
                       </div>
                     </div>
                   </td>
@@ -228,11 +220,10 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                       class="perseus-renderer perseus-renderer-responsive"
                     >
                       <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                        class="deprecated-perseus-container"
                       >
-                        <div
-                          class="paragraph"
+                        <p
+                          class="deprecated-perseus-container"
                         >
                           Graph 
                           <span
@@ -246,7 +237,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                             </span>
                             <span />
                           </span>
-                        </div>
+                        </p>
                       </div>
                     </div>
                   </td>
@@ -314,23 +305,21 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
       </div>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="3"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <strong>
           Graph 1.
         </strong>
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph perseus-paragraph-centered"
-      data-perseus-paragraph-index="4"
+      class="deprecated-perseus-container perseus-paragraph-centered"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <div
           class="fixed-to-responsive svg-image"
@@ -363,26 +352,24 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
             type="button"
           />
         </div>
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="5"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <strong>
           Graph 2.
         </strong>
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph perseus-paragraph-centered"
-      data-perseus-paragraph-index="6"
+      class="deprecated-perseus-container perseus-paragraph-centered"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <div
           class="fixed-to-responsive svg-image"
@@ -416,7 +403,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
           />
         </div>
           
-      </div>
+      </p>
     </div>
   </div>
 </div>
@@ -428,20 +415,18 @@ exports[`categorizer widget should snapshot: first render 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <strong>
           Classify each graph according to the kind of relationship it suggests.
         </strong>
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph perseus-paragraph-centered"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container perseus-paragraph-centered"
     >
       <div
         class="perseus-block-math"
@@ -459,11 +444,10 @@ exports[`categorizer widget should snapshot: first render 1`] = `
       </div>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="2"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -486,14 +470,13 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                       class="perseus-renderer perseus-renderer-responsive"
                     >
                       <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                        class="deprecated-perseus-container"
                       >
-                        <div
-                          class="paragraph"
+                        <p
+                          class="deprecated-perseus-container"
                         >
                           No relationship
-                        </div>
+                        </p>
                       </div>
                     </div>
                   </th>
@@ -504,14 +487,13 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                       class="perseus-renderer perseus-renderer-responsive"
                     >
                       <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                        class="deprecated-perseus-container"
                       >
-                        <div
-                          class="paragraph"
+                        <p
+                          class="deprecated-perseus-container"
                         >
                           Positive linear relationship
-                        </div>
+                        </p>
                       </div>
                     </div>
                   </th>
@@ -522,14 +504,13 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                       class="perseus-renderer perseus-renderer-responsive"
                     >
                       <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                        class="deprecated-perseus-container"
                       >
-                        <div
-                          class="paragraph"
+                        <p
+                          class="deprecated-perseus-container"
                         >
                           Negative linear relationship
-                        </div>
+                        </p>
                       </div>
                     </div>
                   </th>
@@ -540,14 +521,13 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                       class="perseus-renderer perseus-renderer-responsive"
                     >
                       <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                        class="deprecated-perseus-container"
                       >
-                        <div
-                          class="paragraph"
+                        <p
+                          class="deprecated-perseus-container"
                         >
                           Nonlinear relationship
-                        </div>
+                        </p>
                       </div>
                     </div>
                   </th>
@@ -560,11 +540,10 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                       class="perseus-renderer perseus-renderer-responsive"
                     >
                       <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                        class="deprecated-perseus-container"
                       >
-                        <div
-                          class="paragraph"
+                        <p
+                          class="deprecated-perseus-container"
                         >
                           Graph 
                           <span
@@ -578,7 +557,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                             </span>
                             <span />
                           </span>
-                        </div>
+                        </p>
                       </div>
                     </div>
                   </td>
@@ -693,11 +672,10 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                       class="perseus-renderer perseus-renderer-responsive"
                     >
                       <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                        class="deprecated-perseus-container"
                       >
-                        <div
-                          class="paragraph"
+                        <p
+                          class="deprecated-perseus-container"
                         >
                           Graph 
                           <span
@@ -711,7 +689,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                             </span>
                             <span />
                           </span>
-                        </div>
+                        </p>
                       </div>
                     </div>
                   </td>
@@ -827,23 +805,21 @@ exports[`categorizer widget should snapshot: first render 1`] = `
       </div>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="3"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <strong>
           Graph 1.
         </strong>
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph perseus-paragraph-centered"
-      data-perseus-paragraph-index="4"
+      class="deprecated-perseus-container perseus-paragraph-centered"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <div
           class="fixed-to-responsive svg-image"
@@ -876,26 +852,24 @@ exports[`categorizer widget should snapshot: first render 1`] = `
             type="button"
           />
         </div>
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="5"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <strong>
           Graph 2.
         </strong>
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph perseus-paragraph-centered"
-      data-perseus-paragraph-index="6"
+      class="deprecated-perseus-container perseus-paragraph-centered"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <div
           class="fixed-to-responsive svg-image"
@@ -929,7 +903,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
           />
         </div>
           
-      </div>
+      </p>
     </div>
   </div>
 </div>

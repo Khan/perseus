@@ -6,11 +6,10 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <strong>
           Graph 
@@ -27,14 +26,13 @@ exports[`grapher widget should snapshot linear graph question: initial render 1`
           </span>
           .
         </strong>
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -1364,11 +1362,10 @@ exports[`grapher widget should snapshot question with multiple graph types: init
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         Let 
         <span
@@ -1395,14 +1392,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
           <span />
         </span>
         .  
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         The graph of 
         <span
@@ -1417,14 +1413,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
           <span />
         </span>
          is shown below.
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="2"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <strong>
           Use the interactive graph to sketch a graph of 
@@ -1441,14 +1436,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
           </span>
           . 
         </strong>
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="3"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"

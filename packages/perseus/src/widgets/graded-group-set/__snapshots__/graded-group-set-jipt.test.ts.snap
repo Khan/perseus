@@ -6,19 +6,17 @@ exports[`graded-group-set should render all graded groups 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
       <h1>
         Section 1: Adding tenths less than one
       </h1>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -38,11 +36,10 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 class="perseus-renderer perseus-renderer-responsive"
               >
                 <div
-                  class="paragraph"
-                  data-perseus-paragraph-index="0"
+                  class="deprecated-perseus-container"
                 >
-                  <div
-                    class="paragraph"
+                  <p
+                    class="deprecated-perseus-container"
                   >
                     <span
                       style="white-space: nowrap;"
@@ -56,30 +53,34 @@ exports[`graded-group-set should render all graded groups 1`] = `
                       <span />
                     </span>
                        
-                    <div
-                      class="perseus-widget-container widget-inline-block"
+                    <span
+                      class="deprecated-perseus-container"
                     >
-                      <input
-                        aria-disabled="false"
-                        aria-invalid="false"
-                        aria-label="Your answer:"
-                        aria-required="true"
-                        autocapitalize="off"
-                        autocomplete="off"
-                        autocorrect="off"
-                        class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
-                        data-testid="input-with-examples"
-                        id=":r1:"
-                        tabindex="0"
-                        type="text"
-                        value=""
-                      />
                       <span
-                        id="aria-for-:r1:"
-                        style="display: none;"
-                      />
-                    </div>
-                  </div>
+                        class="perseus-widget-container widget-inline-block"
+                      >
+                        <input
+                          aria-disabled="false"
+                          aria-invalid="false"
+                          aria-label="Your answer:"
+                          aria-required="true"
+                          autocapitalize="off"
+                          autocomplete="off"
+                          autocorrect="off"
+                          class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
+                          data-testid="input-with-examples"
+                          id=":r1:"
+                          tabindex="0"
+                          type="text"
+                          value=""
+                        />
+                        <span
+                          id="aria-for-:r1:"
+                          style="display: none;"
+                        />
+                      </span>
+                    </span>
+                  </p>
                 </div>
               </div>
               <div
@@ -90,8 +91,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph perseus-paragraph-centered"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container perseus-paragraph-centered"
                   >
                     
 
@@ -116,36 +116,32 @@ exports[`graded-group-set should render all graded groups 1`] = `
                     class="perseus-renderer perseus-renderer-responsive"
                   >
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="0"
+                      class="deprecated-perseus-container"
                     >
-                      <div
-                        class="paragraph"
+                      <p
+                        class="deprecated-perseus-container"
                       >
                         There are many ways to solve this problem. Let's see two student solutions.
-                      </div>
+                      </p>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="1"
+                      class="deprecated-perseus-container"
                     >
                       <h3>
                         Student A's solution:
                       </h3>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="2"
+                      class="deprecated-perseus-container"
                     >
-                      <div
-                        class="paragraph"
+                      <p
+                        class="deprecated-perseus-container"
                       >
                         I thought in terms of tenths.
-                      </div>
+                      </p>
                     </div>
                     <div
-                      class="paragraph perseus-paragraph-centered"
-                      data-perseus-paragraph-index="3"
+                      class="deprecated-perseus-container perseus-paragraph-centered"
                     >
                       <div
                         class="perseus-block-math"
@@ -163,11 +159,10 @@ exports[`graded-group-set should render all graded groups 1`] = `
                       </div>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="4"
+                      class="deprecated-perseus-container"
                     >
-                      <div
-                        class="paragraph"
+                      <p
+                        class="deprecated-perseus-container"
                       >
                         <span
                           style="white-space: nowrap;"
@@ -193,14 +188,13 @@ exports[`graded-group-set should render all graded groups 1`] = `
                           <span />
                         </span>
                          tenths
-                      </div>
+                      </p>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="5"
+                      class="deprecated-perseus-container"
                     >
-                      <div
-                        class="paragraph"
+                      <p
+                        class="deprecated-perseus-container"
                       >
                         <span
                           style="white-space: nowrap;"
@@ -214,11 +208,10 @@ exports[`graded-group-set should render all graded groups 1`] = `
                           <span />
                         </span>
                          tenths
-                      </div>
+                      </p>
                     </div>
                     <div
-                      class="paragraph perseus-paragraph-centered"
-                      data-perseus-paragraph-index="6"
+                      class="deprecated-perseus-container perseus-paragraph-centered"
                     >
                       <div
                         class="perseus-block-math"
@@ -236,29 +229,26 @@ exports[`graded-group-set should render all graded groups 1`] = `
                       </div>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="7"
+                      class="deprecated-perseus-container"
                     >
                       <h3>
                         Student B's solution:
                       </h3>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="8"
+                      class="deprecated-perseus-container"
                     >
-                      <div
-                        class="paragraph"
+                      <p
+                        class="deprecated-perseus-container"
                       >
                         I used tenths grids.
-                      </div>
+                      </p>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="9"
+                      class="deprecated-perseus-container"
                     >
                       <div
-                        class="paragraph"
+                        class="deprecated-perseus-container"
                       >
                         <div
                           class="perseus-widget-container widget-block"
@@ -303,11 +293,10 @@ exports[`graded-group-set should render all graded groups 1`] = `
                       </div>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="10"
+                      class="deprecated-perseus-container"
                     >
                       <div
-                        class="paragraph"
+                        class="deprecated-perseus-container"
                       >
                         <div
                           class="perseus-widget-container widget-block"
@@ -352,11 +341,10 @@ exports[`graded-group-set should render all graded groups 1`] = `
                       </div>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="11"
+                      class="deprecated-perseus-container"
                     >
                       <div
-                        class="paragraph"
+                        class="deprecated-perseus-container"
                       >
                         <div
                           class="perseus-widget-container widget-block"
@@ -401,8 +389,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                       </div>
                     </div>
                     <div
-                      class="paragraph perseus-paragraph-centered"
-                      data-perseus-paragraph-index="12"
+                      class="deprecated-perseus-container perseus-paragraph-centered"
                     >
                       <div
                         class="perseus-block-math"
@@ -420,16 +407,14 @@ exports[`graded-group-set should render all graded groups 1`] = `
                       </div>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="13"
+                      class="deprecated-perseus-container"
                     >
                       <h3>
                         The answer:
                       </h3>
                     </div>
                     <div
-                      class="paragraph perseus-paragraph-centered"
-                      data-perseus-paragraph-index="14"
+                      class="deprecated-perseus-container perseus-paragraph-centered"
                     >
                       <div
                         class="perseus-block-math"
@@ -485,11 +470,10 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 class="perseus-renderer perseus-renderer-responsive"
               >
                 <div
-                  class="paragraph"
-                  data-perseus-paragraph-index="0"
+                  class="deprecated-perseus-container"
                 >
-                  <div
-                    class="paragraph"
+                  <p
+                    class="deprecated-perseus-container"
                   >
                     <span
                       style="white-space: nowrap;"
@@ -503,30 +487,34 @@ exports[`graded-group-set should render all graded groups 1`] = `
                       <span />
                     </span>
                        
-                    <div
-                      class="perseus-widget-container widget-inline-block"
+                    <span
+                      class="deprecated-perseus-container"
                     >
-                      <input
-                        aria-disabled="false"
-                        aria-invalid="false"
-                        aria-label="Your answer:"
-                        aria-required="true"
-                        autocapitalize="off"
-                        autocomplete="off"
-                        autocorrect="off"
-                        class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
-                        data-testid="input-with-examples"
-                        id=":r8:"
-                        tabindex="0"
-                        type="text"
-                        value=""
-                      />
                       <span
-                        id="aria-for-:r8:"
-                        style="display: none;"
-                      />
-                    </div>
-                  </div>
+                        class="perseus-widget-container widget-inline-block"
+                      >
+                        <input
+                          aria-disabled="false"
+                          aria-invalid="false"
+                          aria-label="Your answer:"
+                          aria-required="true"
+                          autocapitalize="off"
+                          autocomplete="off"
+                          autocorrect="off"
+                          class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
+                          data-testid="input-with-examples"
+                          id=":r8:"
+                          tabindex="0"
+                          type="text"
+                          value=""
+                        />
+                        <span
+                          id="aria-for-:r8:"
+                          style="display: none;"
+                        />
+                      </span>
+                    </span>
+                  </p>
                 </div>
               </div>
               <div
@@ -537,8 +525,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph perseus-paragraph-centered"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container perseus-paragraph-centered"
                   >
                     
 
@@ -563,36 +550,32 @@ exports[`graded-group-set should render all graded groups 1`] = `
                     class="perseus-renderer perseus-renderer-responsive"
                   >
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="0"
+                      class="deprecated-perseus-container"
                     >
-                      <div
-                        class="paragraph"
+                      <p
+                        class="deprecated-perseus-container"
                       >
                         There are many ways to solve this problem. Let's see two student solutions.
-                      </div>
+                      </p>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="1"
+                      class="deprecated-perseus-container"
                     >
                       <h3>
                         Student A's solution:
                       </h3>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="2"
+                      class="deprecated-perseus-container"
                     >
-                      <div
-                        class="paragraph"
+                      <p
+                        class="deprecated-perseus-container"
                       >
                         I thought in terms of tenths.
-                      </div>
+                      </p>
                     </div>
                     <div
-                      class="paragraph perseus-paragraph-centered"
-                      data-perseus-paragraph-index="3"
+                      class="deprecated-perseus-container perseus-paragraph-centered"
                     >
                       <div
                         class="perseus-block-math"
@@ -610,11 +593,10 @@ exports[`graded-group-set should render all graded groups 1`] = `
                       </div>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="4"
+                      class="deprecated-perseus-container"
                     >
-                      <div
-                        class="paragraph"
+                      <p
+                        class="deprecated-perseus-container"
                       >
                         <span
                           style="white-space: nowrap;"
@@ -640,14 +622,13 @@ exports[`graded-group-set should render all graded groups 1`] = `
                           <span />
                         </span>
                          tenths
-                      </div>
+                      </p>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="5"
+                      class="deprecated-perseus-container"
                     >
-                      <div
-                        class="paragraph"
+                      <p
+                        class="deprecated-perseus-container"
                       >
                         <span
                           style="white-space: nowrap;"
@@ -661,11 +642,10 @@ exports[`graded-group-set should render all graded groups 1`] = `
                           <span />
                         </span>
                          tenths
-                      </div>
+                      </p>
                     </div>
                     <div
-                      class="paragraph perseus-paragraph-centered"
-                      data-perseus-paragraph-index="6"
+                      class="deprecated-perseus-container perseus-paragraph-centered"
                     >
                       <div
                         class="perseus-block-math"
@@ -683,29 +663,26 @@ exports[`graded-group-set should render all graded groups 1`] = `
                       </div>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="7"
+                      class="deprecated-perseus-container"
                     >
                       <h3>
                         Student B's solution:
                       </h3>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="8"
+                      class="deprecated-perseus-container"
                     >
-                      <div
-                        class="paragraph"
+                      <p
+                        class="deprecated-perseus-container"
                       >
                         I used tenths grids.
-                      </div>
+                      </p>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="9"
+                      class="deprecated-perseus-container"
                     >
                       <div
-                        class="paragraph"
+                        class="deprecated-perseus-container"
                       >
                         <div
                           class="perseus-widget-container widget-block"
@@ -750,11 +727,10 @@ exports[`graded-group-set should render all graded groups 1`] = `
                       </div>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="10"
+                      class="deprecated-perseus-container"
                     >
                       <div
-                        class="paragraph"
+                        class="deprecated-perseus-container"
                       >
                         <div
                           class="perseus-widget-container widget-block"
@@ -799,11 +775,10 @@ exports[`graded-group-set should render all graded groups 1`] = `
                       </div>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="11"
+                      class="deprecated-perseus-container"
                     >
                       <div
-                        class="paragraph"
+                        class="deprecated-perseus-container"
                       >
                         <div
                           class="perseus-widget-container widget-block"
@@ -848,8 +823,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                       </div>
                     </div>
                     <div
-                      class="paragraph perseus-paragraph-centered"
-                      data-perseus-paragraph-index="12"
+                      class="deprecated-perseus-container perseus-paragraph-centered"
                     >
                       <div
                         class="perseus-block-math"
@@ -867,16 +841,14 @@ exports[`graded-group-set should render all graded groups 1`] = `
                       </div>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="13"
+                      class="deprecated-perseus-container"
                     >
                       <h3>
                         The answer:
                       </h3>
                     </div>
                     <div
-                      class="paragraph perseus-paragraph-centered"
-                      data-perseus-paragraph-index="14"
+                      class="deprecated-perseus-container perseus-paragraph-centered"
                     >
                       <div
                         class="perseus-block-math"
@@ -932,11 +904,10 @@ exports[`graded-group-set should render all graded groups 1`] = `
                 class="perseus-renderer perseus-renderer-responsive"
               >
                 <div
-                  class="paragraph"
-                  data-perseus-paragraph-index="0"
+                  class="deprecated-perseus-container"
                 >
-                  <div
-                    class="paragraph"
+                  <p
+                    class="deprecated-perseus-container"
                   >
                     <span
                       style="white-space: nowrap;"
@@ -950,30 +921,34 @@ exports[`graded-group-set should render all graded groups 1`] = `
                       <span />
                     </span>
                        
-                    <div
-                      class="perseus-widget-container widget-inline-block"
+                    <span
+                      class="deprecated-perseus-container"
                     >
-                      <input
-                        aria-disabled="false"
-                        aria-invalid="false"
-                        aria-label="Your answer:"
-                        aria-required="true"
-                        autocapitalize="off"
-                        autocomplete="off"
-                        autocorrect="off"
-                        class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
-                        data-testid="input-with-examples"
-                        id=":rf:"
-                        tabindex="0"
-                        type="text"
-                        value=""
-                      />
                       <span
-                        id="aria-for-:rf:"
-                        style="display: none;"
-                      />
-                    </div>
-                  </div>
+                        class="perseus-widget-container widget-inline-block"
+                      >
+                        <input
+                          aria-disabled="false"
+                          aria-invalid="false"
+                          aria-label="Your answer:"
+                          aria-required="true"
+                          autocapitalize="off"
+                          autocomplete="off"
+                          autocorrect="off"
+                          class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-inlineStyles_1beb5ob perseus-input input-with-examples"
+                          data-testid="input-with-examples"
+                          id=":rf:"
+                          tabindex="0"
+                          type="text"
+                          value=""
+                        />
+                        <span
+                          id="aria-for-:rf:"
+                          style="display: none;"
+                        />
+                      </span>
+                    </span>
+                  </p>
                 </div>
               </div>
               <div
@@ -984,8 +959,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph perseus-paragraph-centered"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container perseus-paragraph-centered"
                   >
                     
 
@@ -1010,36 +984,32 @@ exports[`graded-group-set should render all graded groups 1`] = `
                     class="perseus-renderer perseus-renderer-responsive"
                   >
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="0"
+                      class="deprecated-perseus-container"
                     >
-                      <div
-                        class="paragraph"
+                      <p
+                        class="deprecated-perseus-container"
                       >
                         There are many ways to solve this problem. Let's see two student solutions.
-                      </div>
+                      </p>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="1"
+                      class="deprecated-perseus-container"
                     >
                       <h3>
                         Student A's solution:
                       </h3>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="2"
+                      class="deprecated-perseus-container"
                     >
-                      <div
-                        class="paragraph"
+                      <p
+                        class="deprecated-perseus-container"
                       >
                         I thought in terms of tenths.
-                      </div>
+                      </p>
                     </div>
                     <div
-                      class="paragraph perseus-paragraph-centered"
-                      data-perseus-paragraph-index="3"
+                      class="deprecated-perseus-container perseus-paragraph-centered"
                     >
                       <div
                         class="perseus-block-math"
@@ -1057,11 +1027,10 @@ exports[`graded-group-set should render all graded groups 1`] = `
                       </div>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="4"
+                      class="deprecated-perseus-container"
                     >
-                      <div
-                        class="paragraph"
+                      <p
+                        class="deprecated-perseus-container"
                       >
                         <span
                           style="white-space: nowrap;"
@@ -1087,14 +1056,13 @@ exports[`graded-group-set should render all graded groups 1`] = `
                           <span />
                         </span>
                          tenths
-                      </div>
+                      </p>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="5"
+                      class="deprecated-perseus-container"
                     >
-                      <div
-                        class="paragraph"
+                      <p
+                        class="deprecated-perseus-container"
                       >
                         <span
                           style="white-space: nowrap;"
@@ -1108,11 +1076,10 @@ exports[`graded-group-set should render all graded groups 1`] = `
                           <span />
                         </span>
                          tenths
-                      </div>
+                      </p>
                     </div>
                     <div
-                      class="paragraph perseus-paragraph-centered"
-                      data-perseus-paragraph-index="6"
+                      class="deprecated-perseus-container perseus-paragraph-centered"
                     >
                       <div
                         class="perseus-block-math"
@@ -1130,29 +1097,26 @@ exports[`graded-group-set should render all graded groups 1`] = `
                       </div>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="7"
+                      class="deprecated-perseus-container"
                     >
                       <h3>
                         Student B's solution:
                       </h3>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="8"
+                      class="deprecated-perseus-container"
                     >
-                      <div
-                        class="paragraph"
+                      <p
+                        class="deprecated-perseus-container"
                       >
                         I used tenths grids.
-                      </div>
+                      </p>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="9"
+                      class="deprecated-perseus-container"
                     >
                       <div
-                        class="paragraph"
+                        class="deprecated-perseus-container"
                       >
                         <div
                           class="perseus-widget-container widget-block"
@@ -1197,11 +1161,10 @@ exports[`graded-group-set should render all graded groups 1`] = `
                       </div>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="10"
+                      class="deprecated-perseus-container"
                     >
                       <div
-                        class="paragraph"
+                        class="deprecated-perseus-container"
                       >
                         <div
                           class="perseus-widget-container widget-block"
@@ -1246,11 +1209,10 @@ exports[`graded-group-set should render all graded groups 1`] = `
                       </div>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="11"
+                      class="deprecated-perseus-container"
                     >
                       <div
-                        class="paragraph"
+                        class="deprecated-perseus-container"
                       >
                         <div
                           class="perseus-widget-container widget-block"
@@ -1292,8 +1254,14 @@ exports[`graded-group-set should render all graded groups 1`] = `
                             </div>
                           </figure>
                         </div>
-                        
-
+                      </div>
+                    </div>
+                    <div
+                      class="deprecated-perseus-container perseus-paragraph-centered"
+                    >
+                      <p
+                        class="deprecated-perseus-container"
+                      >
                         <span
                           style="white-space: nowrap;"
                         >
@@ -1305,19 +1273,17 @@ exports[`graded-group-set should render all graded groups 1`] = `
                           </span>
                           <span />
                         </span>
-                      </div>
+                      </p>
                     </div>
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="12"
+                      class="deprecated-perseus-container"
                     >
                       <h3>
                         The answer:
                       </h3>
                     </div>
                     <div
-                      class="paragraph perseus-paragraph-centered"
-                      data-perseus-paragraph-index="13"
+                      class="deprecated-perseus-container perseus-paragraph-centered"
                     >
                       <div
                         class="perseus-block-math"
@@ -1366,14 +1332,13 @@ exports[`graded-group-set should render all graded groups 1`] = `
       </div>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="2"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         Beautiful, let's move on to problems with whole numbers and tenths.
-      </div>
+      </p>
     </div>
   </div>
 </div>
