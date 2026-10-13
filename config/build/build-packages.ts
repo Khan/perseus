@@ -3,11 +3,9 @@ import {parseArgs} from "node:util";
 
 import {build} from "vite";
 
-import {
-    createPackageConfig,
-    getPackageNames,
-    type BuildOptions,
-} from "./vite.config";
+import {createPackageConfig, getPackageNames} from "./vite.config";
+
+import type {BuildOptions} from "./types";
 
 const {values} = parseArgs({
     options: {

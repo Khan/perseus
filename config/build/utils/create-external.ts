@@ -1,6 +1,6 @@
 import {isCssFile} from "./css-files";
 
-import type {parseBuildPackageMetadata} from "./package-json-parser";
+import type {PackageJson} from "../types";
 
 /**
  * Returns `true` if `id` imports `packageName` itself or one of its sub-paths
@@ -25,10 +25,7 @@ function isPackageImport(id: string, packageName: string) {
  * external.
  */
 export function createExternal(
-    pkgJson: Pick<
-        ReturnType<typeof parseBuildPackageMetadata>,
-        "dependencies" | "peerDependencies"
-    >,
+    pkgJson: Pick<PackageJson, "dependencies" | "peerDependencies">,
 ) {
     const externalDependencies = [
         ...Object.keys(pkgJson.dependencies),

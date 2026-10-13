@@ -12,8 +12,9 @@ import {createExternal} from "./utils/create-external";
 import {isCssFile} from "./utils/css-files";
 import {getEntryPoints} from "./utils/get-entry-points";
 import {makeScopedClassName} from "./utils/make-scoped-class-name";
-import {parseBuildPackageMetadata} from "./utils/package-json-parser";
+import {parsePackageJson} from "./utils/parse-package-json";
 
+import type {BuildOptions} from "./types";
 import type {InlineConfig} from "vite";
 
 const rootDir = path.resolve(
@@ -21,21 +22,17 @@ const rootDir = path.resolve(
     "../..",
 );
 
-export type BuildOptions = {
-    environment?: string;
-    watch?: boolean;
-};
-
 export function createPackageConfig(
     pkgName: string,
     options: BuildOptions = {},
 ): InlineConfig {
     const packageDir = path.join(rootDir, "packages", pkgName);
-    const rawPackageJson: unknown = JSON.parse(
-        fs.readFileSync(path.join(packageDir, "package.json"), "utf8"),
+    const packageJson = parsePackageJson(
+        JSON.parse(
+            fs.readFileSync(path.join(packageDir, "package.json"), "utf8"),
+        ),
     );
-    const packageJson = parseBuildPackageMetadata(rawPackageJson);
-    const packageEntryPoints = getEntryPoints(rawPackageJson);
+    const packageEntryPoints = getEntryPoints(packageJson);
     const entries = Object.fromEntries(
         Object.keys(packageEntryPoints).map((name) => [
             name,

@@ -1,4 +1,4 @@
-import {parseRecord, parseStringRecord} from "./package-json-parser";
+import type {PackageJson} from "../types";
 
 /**
  * Find the entry points that we _build_ for a package.
@@ -8,35 +8,25 @@ import {parseRecord, parseStringRecord} from "./package-json-parser";
  * source without a build.
  *
  * `.publishConfig.exports` defines what the `.exports` object looks like in the
- * published package. That means that exports that are not TypeScript source
- * code, only need to appear in `.publishConfig.exports` as they are created in
- * other ways than Rollup treating them as entry points. For example, the CSS
- * for each package is built using a Rollup plugin and the output filename is
- * defined in the plugin's configuration - and that output file must appear in
- * the package's `.publishConfig.exports`
+ * published package. Exports that aren't TypeScript source only need to appear
+ * in `.publishConfig.exports`, because the build creates them some other way
+ * than as entry points. For example, Vite writes each package's CSS to
+ * `dist/index.css` (see `build.lib.cssFileName` in vite.config.ts), and that
+ * file must appear in the package's `.publishConfig.exports`.
  *
+ * @param packageJson The package's validated `package.json` (see
+ * `parsePackageJson`).
  * @returns a map of the sub-path exports names to their package-relative
  * source files.
  *
  * See: https://nodejs.org/api/packages.html#subpath-exports
  */
-export function getEntryPoints(pkgJson: unknown): Record<string, string> {
-    const packageJson = parseRecord(pkgJson, "package.json");
-    const sourceExports = parseStringRecord(
-        packageJson.exports,
-        "package.json.exports",
-    );
-    const publishConfig = parseRecord(
-        packageJson.publishConfig,
-        "package.json.publishConfig",
-    );
-    const publishedExports = parseStringRecord(
-        publishConfig.exports,
-        "package.json.publishConfig.exports",
-    );
+export function getEntryPoints(
+    packageJson: Pick<PackageJson, "exports" | "publishedExports">,
+): Record<string, string> {
     const entryPoints: Record<string, string> = {};
-    for (const [subPath, sourceFile] of Object.entries(sourceExports)) {
-        const publishedFile = publishedExports[subPath];
+    for (const [subPath, sourceFile] of Object.entries(packageJson.exports)) {
+        const publishedFile = packageJson.publishedExports[subPath];
         if (
             !sourceFile.startsWith("./src/") ||
             publishedFile === undefined ||
