@@ -80,6 +80,7 @@ import type {
     ShowSolutions,
     UserInput,
     UserInputMap,
+    PerseusImageDetail,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {ASTNode, SingleASTNode} from "@khanacademy/simple-markdown";
@@ -828,6 +829,33 @@ class Renderer
         }
     }
 
+    /**
+     * Gets the dimensions of a markdown image from the `images` field of the
+     * renderer data. Note: markdown images are deprecated; new content should
+     * use the Image widget instead.
+     */
+    getImageDimensions(url: string): PerseusImageDetail | null {
+        // We do a _.has check here to avoid weird things like
+        // 'toString' or '__proto__' as a url.
+        return _.has(this.props.images, url) ? this.props.images[url] : null;
+    }
+
+    /**
+     * Returns whether the AST node contains a markdown image with specified
+     * dimensions. Such images need to be rendered responsively: they should
+     * shrink to fit in the viewport while maintaining their aspect ratio.
+     */
+    hasResponsiveImage(node: SingleASTNode): boolean {
+        if (Array.isArray(node.content)) {
+            return node.content.some((child) => this.hasResponsiveImage(child));
+        }
+
+        return (
+            node.type === "image" &&
+            this.getImageDimensions(node.target) != null
+        );
+    }
+
     // wrap top-level elements in a QuestionParagraph, mostly
     // for appropriate spacing and other css
     outputMarkdown = (ast: ASTNode, state: WidgetState): React.ReactNode => {
@@ -959,7 +987,7 @@ class Renderer
         if (node.type === "paragraph") {
             const content = nestedOutput(node.content, state);
 
-            if (isContentGraphie(node)) {
+            if (isContentGraphie(node) || this.hasResponsiveImage(node)) {
                 return (
                     <div className="deprecated-perseus-container">
                         {content}
@@ -1138,15 +1166,6 @@ class Renderer
                 return imagePlaceholder;
             }
 
-            // We need to add width and height to images from our
-            // props.images mapping.
-
-            // We do a _.has check here to avoid weird things like
-            // 'toString' or '__proto__' as a url.
-            const extraAttrs = _.has(this.props.images, node.target)
-                ? this.props.images[node.target]
-                : null;
-
             // The width of a table column is determined by the widest table
             // cell within that column, but responsive images constrain
             // themselves to the width of their parent containers. Thus,
@@ -1166,7 +1185,7 @@ class Renderer
                                 title={node.title}
                                 responsive={responsive}
                                 onUpdate={this.props.onRender}
-                                {...extraAttrs}
+                                {...this.getImageDimensions(node.target)}
                             />
                         )}
                     </AssetContext.Consumer>

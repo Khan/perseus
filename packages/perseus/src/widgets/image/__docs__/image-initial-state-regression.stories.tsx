@@ -482,17 +482,19 @@ export const LongDescriptionRightToLeft: Story = {
 
 export const ResponsiveMarkdownImage: Story = {
     render() {
-        return <QuestionRendererForStories
-            question={generateTestPerseusRenderer({
-                content: `This is a paragraph containing a responsive image: ![Fresco painting](${frescoImage.url}) Some text after the image.`,
-                widgets: {},
-                images: {
-                    [frescoImage.url]: {width: 688, height: 386},
-                }
-            })}
-        />
-    }
-}
+        return (
+            <QuestionRendererForStories
+                question={generateTestPerseusRenderer({
+                    content: `This is a paragraph containing a responsive image: ![Fresco painting](${frescoImage.url}) Some text after the image.`,
+                    widgets: {},
+                    images: {
+                        [frescoImage.url]: {width: 688, height: 386},
+                    },
+                })}
+            />
+        );
+    },
+};
 
 /**
  * Image widgets within a markdown table.
