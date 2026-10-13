@@ -63,7 +63,10 @@ function GradedGroupAnswerBar({
         // the page, so the status message wouldn't exist yet for us to
         // focus. `flushSync` makes React show it right away.
         flushSync(onCheckAnswer);
-        resultRef.current?.focus();
+        // Wait a frame so Chrome/TalkBack finish handling the removed or
+        // relabeled button before focus moves; otherwise TalkBack's own focus
+        // recovery can swallow the move.
+        requestAnimationFrame(() => resultRef.current?.focus());
     };
 
     const stateInfoMap = {

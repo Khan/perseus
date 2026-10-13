@@ -9,7 +9,7 @@ import {
     generateTestPerseusRenderer,
     type PerseusArticle,
 } from "@khanacademy/perseus-core";
-import {act, screen, within} from "@testing-library/react";
+import {act, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderArticle} from "../../__tests__/article-renderer.test";
@@ -207,8 +207,11 @@ describe("graded-group", () => {
         await userEvent.click(screen.getByText("Correct answer"));
         await checkAnswer(userEvent);
 
-        // Assert
-        expect(getStatusWithText("Correct!")).toHaveFocus();
+        // Assert - focus moves on the next frame, after the answer bar
+        // has updated.
+        await waitFor(() =>
+            expect(getStatusWithText("Correct!")).toHaveFocus(),
+        );
     });
 
     it("moves focus to the result when the answer is incorrect", async () => {
@@ -222,8 +225,11 @@ describe("graded-group", () => {
         await userEvent.click(screen.getByText("Incorrect answer"));
         await checkAnswer(userEvent);
 
-        // Assert
-        expect(getStatusWithText("Keep trying")).toHaveFocus();
+        // Assert - focus moves on the next frame, after the answer bar
+        // has updated.
+        await waitFor(() =>
+            expect(getStatusWithText("Keep trying")).toHaveFocus(),
+        );
     });
 
     it("moves focus back to the result when the answer is checked again without being changed", async () => {
@@ -240,8 +246,11 @@ describe("graded-group", () => {
         // the only thing that can announce it a second time.
         await checkAnswer(userEvent);
 
-        // Assert
-        expect(getStatusWithText("Keep trying")).toHaveFocus();
+        // Assert - focus moves on the next frame, after the answer bar
+        // has updated.
+        await waitFor(() =>
+            expect(getStatusWithText("Keep trying")).toHaveFocus(),
+        );
     });
 
     it("shows why the answer could not be graded in the answer bar", async () => {
