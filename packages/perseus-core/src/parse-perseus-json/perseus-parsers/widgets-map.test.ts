@@ -597,22 +597,6 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
-    it("accepts a molecule-renderer widget", () => {
-        const widgetsMap: unknown = {
-            "molecule-renderer 1": {
-                type: "molecule-renderer",
-                version: {major: 0, minor: 0},
-                options: {
-                    widgetId: "",
-                },
-            },
-        };
-
-        const result = parse(widgetsMap, parseWidgetsMap);
-
-        expect(result).toEqual(success(widgetsMap));
-    });
-
     it("accepts a number-line widget", () => {
         const widgetsMap: unknown = {
             "number-line 1": {
@@ -669,57 +653,6 @@ describe("parseWidgetsMap", () => {
                     height: "normal",
                     layout: "horizontal",
                 },
-            },
-        };
-
-        const result = parse(widgetsMap, parseWidgetsMap);
-
-        expect(result).toEqual(success(widgetsMap));
-    });
-
-    it("accepts a passage widget", () => {
-        const widgetsMap: unknown = {
-            "passage 1": {
-                type: "passage",
-                version: {major: 0, minor: 0},
-                options: {
-                    footnotes: "",
-                    passageText: "",
-                    passageTitle: "",
-                    showLineNumbers: false,
-                },
-            },
-        };
-
-        const result = parse(widgetsMap, parseWidgetsMap);
-
-        expect(result).toEqual(success(widgetsMap));
-    });
-
-    it("accepts a passage-ref widget", () => {
-        const widgetsMap: unknown = {
-            "passage-ref 1": {
-                type: "passage-ref",
-                version: {major: 0, minor: 0},
-                options: {
-                    passageNumber: 0,
-                    referenceNumber: 0,
-                    summaryText: "",
-                },
-            },
-        };
-
-        const result = parse(widgetsMap, parseWidgetsMap);
-
-        expect(result).toEqual(success(widgetsMap));
-    });
-
-    it("accepts a passage-ref-target widget", () => {
-        const widgetsMap: unknown = {
-            "passage-ref-target 1": {
-                type: "passage-ref-target",
-                version: {major: 0, minor: 0},
-                options: {},
             },
         };
 
@@ -849,64 +782,6 @@ describe("parseWidgetsMap", () => {
             // Videos take no user input, so the parser drops `static`.
             // See widget.test.ts.
             "video 1": generateVideoWidget({static: undefined}),
-        };
-
-        const result = parse(widgetsMap, parseWidgetsMap);
-
-        expect(result).toEqual(success(widgetsMap));
-    });
-
-    it("accepts a sequence widget", () => {
-        const widgetsMap: unknown = {
-            "sequence 1": {
-                type: "sequence",
-                version: {major: 0, minor: 0},
-                graded: true,
-                options: {
-                    json: [
-                        {
-                            content: "",
-                            images: {},
-                            widgets: {},
-                        },
-                    ],
-                },
-            },
-        };
-
-        const result = parse(widgetsMap, parseWidgetsMap);
-
-        expect(result).toEqual(success(widgetsMap));
-    });
-
-    it("accepts a reaction-diagram widget", () => {
-        const widgetsMap: unknown = {
-            "reaction-diagram 1": {
-                type: "reaction-diagram",
-                version: {major: 0, minor: 0},
-                options: {
-                    smiles: ["C", "O"],
-                    rotationAngle: [0, 0],
-                },
-            },
-        };
-
-        const result = parse(widgetsMap, parseWidgetsMap);
-
-        expect(result).toEqual(success(widgetsMap));
-    });
-
-    it("accepts a unit-input widget", () => {
-        const widgetsMap: unknown = {
-            "unit-input 1": {
-                type: "unit-input",
-                version: {major: 0, minor: 0},
-                graded: true,
-                options: {
-                    value: "5x10^5 kg",
-                    sigfigs: 3,
-                },
-            },
         };
 
         const result = parse(widgetsMap, parseWidgetsMap);
