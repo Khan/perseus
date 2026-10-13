@@ -1,4 +1,4 @@
-import {parseRecord, parseStringRecord} from "./package-json";
+import {parseRecord, parseStringRecord} from "./package-json-parser";
 
 /**
  * Find the entry points that we _build_ for a package.

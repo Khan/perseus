@@ -7,10 +7,10 @@ import react from "@vitejs/plugin-react";
 import postcssImport from "postcss-import";
 
 import {jsTarget, cssTarget} from "./browser-targets";
-import {getEntryPoints} from "./get-entry-points";
-import {parseBuildPackageMetadata} from "./package-json";
 import {createCssAssetPlugin} from "./plugins/css-assets";
 import {createVersionPlugin} from "./plugins/inject-package-version";
+import {getEntryPoints} from "./utils/get-entry-points";
+import {parseBuildPackageMetadata} from "./utils/package-json-parser";
 
 import type {InlineConfig} from "vite";
 
