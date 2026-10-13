@@ -1,5 +1,8 @@
 import {
+    generateLabelImageOptions,
+    generateLabelImageWidget,
     generateTestPerseusItem,
+    generateTestPerseusRenderer,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
@@ -21,6 +24,7 @@ import type {OptionalAnswersMarkerType} from "../label-image";
 import type {
     InteractiveMarkerType,
     PerseusLabelImageUserInputMarker,
+    PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -949,6 +953,130 @@ describe("LabelImage", function () {
 
             // Assert
             expect(score).toHaveInvalidInput();
+        });
+    });
+
+    const generateSingleMarkerRenderer = ({
+        isStatic = false,
+    }: {isStatic?: boolean} = {}): PerseusRenderer =>
+        generateTestPerseusRenderer({
+            content: "[[☃ label-image 1]]",
+            widgets: {
+                "label-image 1": generateLabelImageWidget({
+                    static: isStatic,
+                    options: generateLabelImageOptions({
+                        choices: ["Cars", "Trucks"],
+                        imageUrl: "https://example.com/image.png",
+                        imageWidth: 400,
+                        imageHeight: 300,
+                        markers: [
+                            {
+                                label: "The first marker.",
+                                answers: ["Cars"],
+                                x: 25,
+                                y: 50,
+                            },
+                        ],
+                    }),
+                }),
+            },
+        });
+
+    describe("accessible name", () => {
+        const question = generateSingleMarkerRenderer();
+
+        it("names the marker combobox with the marker label", () => {
+            // Arrange, Act
+            renderQuestion(question);
+
+            // Assert
+            expect(
+                screen.getByRole("combobox", {
+                    name: "The first marker.",
+                }),
+            ).toBeInTheDocument();
+        });
+
+        it("names the marker combobox as correct when answered correctly", () => {
+            // Arrange, Act
+            renderQuestion(question, {extraProps: {reviewMode: true}});
+
+            // Assert
+            expect(
+                screen.getByRole("combobox", {name: "Correct!"}),
+            ).toBeInTheDocument();
+        });
+    });
+
+    describe("required state", () => {
+        it("renders the marker as required when scorable and interactive", () => {
+            // Arrange, Act
+            renderQuestion(generateSingleMarkerRenderer(), {
+                apiOptions: {readOnly: false},
+                extraProps: {isScorable: true, reviewMode: false},
+            });
+
+            // Assert
+            expect(screen.getByRole("combobox")).toBeRequired();
+        });
+
+        it("does not render the marker as required when not scorable", () => {
+            // Arrange, Act
+            renderQuestion(generateSingleMarkerRenderer(), {
+                apiOptions: {readOnly: false},
+                extraProps: {isScorable: false, reviewMode: false},
+            });
+
+            // Assert
+            expect(screen.getByRole("combobox")).not.toBeRequired();
+        });
+
+        it("does not render the marker as required in review mode", () => {
+            // Arrange, Act
+            renderQuestion(generateSingleMarkerRenderer(), {
+                apiOptions: {readOnly: false},
+                extraProps: {isScorable: true, reviewMode: true},
+            });
+
+            // Assert
+            expect(screen.getByRole("combobox")).not.toBeRequired();
+        });
+
+        it("does not render the marker as required when showing solutions", () => {
+            // Arrange, Act
+            renderQuestion(generateSingleMarkerRenderer(), {
+                apiOptions: {readOnly: false},
+                extraProps: {
+                    isScorable: true,
+                    reviewMode: false,
+                    showSolutions: "all",
+                },
+            });
+
+            // Assert
+            expect(screen.getByRole("combobox")).not.toBeRequired();
+        });
+
+        it("does not render the marker as required when static", () => {
+            // Arrange, Act
+            renderQuestion(generateSingleMarkerRenderer({isStatic: true}), {
+                apiOptions: {readOnly: false},
+                extraProps: {isScorable: true, reviewMode: false},
+            });
+
+            // Assert
+            expect(screen.getByRole("combobox")).not.toBeRequired();
+        });
+
+        it("does not render the marker as required when read-only", () => {
+            // Arrange, Act
+            renderQuestion(generateSingleMarkerRenderer(), {
+                apiOptions: {readOnly: true},
+                extraProps: {isScorable: true, reviewMode: false},
+            });
+
+            // Assert
+            expect(screen.getByRole("combobox")).not.toBeRequired();
         });
     });
 

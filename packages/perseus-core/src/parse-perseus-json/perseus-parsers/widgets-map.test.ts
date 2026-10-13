@@ -590,7 +590,7 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
-    it("converts a molecule-renderer widget to the deprecated-standin widget", () => {
+    it("accepts a molecule-renderer widget", () => {
         const widgetsMap: unknown = {
             "molecule-renderer 1": {
                 type: "molecule-renderer",
@@ -601,19 +601,9 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const expected: PerseusWidgetsMap = {
-            "molecule-renderer 1": {
-                type: "deprecated-standin",
-                version: {major: 0, minor: 0},
-                options: {
-                    widgetId: "",
-                },
-            },
-        };
-
         const result = parse(widgetsMap, parseWidgetsMap);
 
-        expect(result).toEqual(success(expected));
+        expect(result).toEqual(success(widgetsMap));
     });
 
     it("accepts a number-line widget", () => {
@@ -680,7 +670,7 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
-    it("converts a passage widget to the deprecated-standin widget", () => {
+    it("accepts a passage widget", () => {
         const widgetsMap: unknown = {
             "passage 1": {
                 type: "passage",
@@ -694,25 +684,12 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const expected: PerseusWidgetsMap = {
-            "passage 1": {
-                type: "deprecated-standin",
-                version: {major: 0, minor: 0},
-                options: {
-                    footnotes: "",
-                    passageText: "",
-                    passageTitle: "",
-                    showLineNumbers: false,
-                },
-            },
-        };
-
         const result = parse(widgetsMap, parseWidgetsMap);
 
-        expect(result).toEqual(success(expected));
+        expect(result).toEqual(success(widgetsMap));
     });
 
-    it("converts a passage-ref widget to the deprecated-standin widget", () => {
+    it("accepts a passage-ref widget", () => {
         const widgetsMap: unknown = {
             "passage-ref 1": {
                 type: "passage-ref",
@@ -725,24 +702,12 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const expected: PerseusWidgetsMap = {
-            "passage-ref 1": {
-                type: "deprecated-standin",
-                version: {major: 0, minor: 0},
-                options: {
-                    passageNumber: 0,
-                    referenceNumber: 0,
-                    summaryText: "",
-                },
-            },
-        };
-
         const result = parse(widgetsMap, parseWidgetsMap);
 
-        expect(result).toEqual(success(expected));
+        expect(result).toEqual(success(widgetsMap));
     });
 
-    it("converts a passage-ref-target widget to the deprecated-standin widget", () => {
+    it("accepts a passage-ref-target widget", () => {
         const widgetsMap: unknown = {
             "passage-ref-target 1": {
                 type: "passage-ref-target",
@@ -751,17 +716,9 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const expected: PerseusWidgetsMap = {
-            "passage-ref-target 1": {
-                type: "deprecated-standin",
-                version: {major: 0, minor: 0},
-                options: {},
-            },
-        };
-
         const result = parse(widgetsMap, parseWidgetsMap);
 
-        expect(result).toEqual(success(expected));
+        expect(result).toEqual(success(widgetsMap));
     });
 
     it("accepts a phet-simulation widget", () => {
@@ -892,7 +849,7 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
-    it("converts a sequence widget to the deprecated-standin widget", () => {
+    it("accepts a sequence widget", () => {
         const widgetsMap: unknown = {
             "sequence 1": {
                 type: "sequence",
@@ -910,25 +867,8 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const expected: PerseusWidgetsMap = {
-            "sequence 1": {
-                type: "deprecated-standin",
-                version: {major: 0, minor: 0},
-                graded: true,
-                options: {
-                    json: [
-                        {
-                            content: "",
-                            images: {},
-                            widgets: {},
-                        },
-                    ],
-                },
-            },
-        };
-
         const result = parse(widgetsMap, parseWidgetsMap);
 
-        expect(result).toEqual(success(expected));
+        expect(result).toEqual(success(widgetsMap));
     });
 });

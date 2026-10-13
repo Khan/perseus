@@ -22,7 +22,6 @@ interface Props extends PerseusDropdownWidgetOptions {
     apiOptions?: APIOptions;
 }
 
-// JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for adding a dropdown widget that allows users to select an option from a predefined list.
  */
@@ -155,7 +154,6 @@ class DropdownEditor extends React.Component<Props> {
                         </p>
                     </InfoTip>
                 </div>
-                <div className="clearfix" />
                 <BodyText>Choices</BodyText>
                 <ul className="dropdown-choices">
                     {this.props.choices.map((choice, i) => {

@@ -1,5 +1,6 @@
 import AbsoluteUrl from "./absolute-url";
 import DoubleSpacingAfterTerminal from "./double-spacing-after-terminal";
+import ExplanationInGradedGroup from "./explanation-in-graded-group";
 import ExpressionWidget from "./expression-widget";
 import ExpressionWidgetError from "./expression-widget-error";
 import ExtraContentSpacing from "./extra-content-spacing";
@@ -92,4 +93,5 @@ export default [
     InteractiveGraphWidgetError,
     SorterWidgetError,
     SorterWidgetWarning,
+    ExplanationInGradedGroup,
 ];

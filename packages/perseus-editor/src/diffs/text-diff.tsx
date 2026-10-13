@@ -163,7 +163,7 @@ class TextDiff extends React.Component<TextDiffProps, TextDiffState> {
             <div>
                 <div className="diff-header">{this.props.title}</div>
                 <div className="diff-header">{this.props.title}</div>
-                <div className="diff-body ui-helper-clearfix">
+                <div className="diff-body">
                     {[BEFORE, AFTER].map((side, index) => {
                         return (
                             <div className={"diff-row " + side} key={index}>

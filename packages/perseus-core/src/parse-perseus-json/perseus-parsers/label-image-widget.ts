@@ -2,13 +2,23 @@ import {
     array,
     boolean,
     constant,
+    enumeration,
     number,
     object,
+    optional,
     string,
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
+
+const parsePreferredPopoverDirection = enumeration(
+    "NONE",
+    "UP",
+    "DOWN",
+    "LEFT",
+    "RIGHT",
+);
 
 export const parseLabelImageWidget = parseWidget(
     constant("label-image"),
@@ -28,5 +38,6 @@ export const parseLabelImageWidget = parseWidget(
         ),
         hideChoicesFromInstructions: boolean,
         multipleAnswers: boolean,
+        preferredPopoverDirection: optional(parsePreferredPopoverDirection),
     }),
 );

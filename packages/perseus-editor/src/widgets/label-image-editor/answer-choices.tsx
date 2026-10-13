@@ -29,11 +29,11 @@ interface AnswerProps {
     editingDisabled: boolean;
 }
 
-export interface AnswerChoicesProps {
+interface AnswerChoicesProps {
     // The list of possible answers in a specific order.
     choices: ReadonlyArray<string>;
     // Callback for when answers change.
-    onChange: (choices: ReadonlyArray<string>) => void;
+    onChange: (choices: string[]) => void;
     // Whether the editor is disabled. Can be set via API options
     // to make the editor read-only when needed.
     editingDisabled: boolean;

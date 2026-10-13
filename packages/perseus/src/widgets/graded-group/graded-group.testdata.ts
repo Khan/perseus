@@ -1,4 +1,6 @@
 import {
+    generateDropdownOptions,
+    generateDropdownWidget,
     generateGradedGroupOptions,
     generateGradedGroupWidget,
     generateRadioChoice,
@@ -150,6 +152,37 @@ export const groupedMultipleSelectRationaleQuestion: PerseusRenderer =
                         content: "This is an example hint.",
                         images: {},
                         widgets: {},
+                    },
+                }),
+            }),
+        },
+    });
+
+export const gradedGroupWithDropdownQuestion: PerseusRenderer =
+    generateTestPerseusRenderer({
+        content: "[[☃ graded-group 1]]",
+        widgets: {
+            "graded-group 1": generateGradedGroupWidget({
+                options: generateGradedGroupOptions({
+                    title: "Check your understanding!",
+                    content: "[[☃ dropdown 1]]",
+                    widgets: {
+                        "dropdown 1": generateDropdownWidget({
+                            options: generateDropdownOptions({
+                                placeholder: "Select an answer",
+                                choices: [
+                                    {content: "Correct answer", correct: true},
+                                    {
+                                        content: "Incorrect answer",
+                                        correct: false,
+                                    },
+                                    {
+                                        content: "Another incorrect answer",
+                                        correct: false,
+                                    },
+                                ],
+                            }),
+                        }),
                     },
                 }),
             }),

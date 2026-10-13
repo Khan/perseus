@@ -22,7 +22,6 @@ type Props = PerseusFreeResponseWidgetOptions & {
     onChange: (options: PerseusFreeResponseWidgetOptions) => void;
 };
 
-// JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for adding a free response widget that allows users to enter open-ended text answers.
  */

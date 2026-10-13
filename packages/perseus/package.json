@@ -3,7 +3,7 @@
     "description": "Core Perseus API (includes renderers and widgets)",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "89.0.0",
+    "version": "91.0.0",
     "publishConfig": {
         "access": "public",
         "exports": {
@@ -68,7 +68,6 @@
         "@khanacademy/wonder-blocks-layout": "catalog:devDeps",
         "@khanacademy/wonder-blocks-link": "catalog:devDeps",
         "@khanacademy/wonder-blocks-modal": "catalog:devDeps",
-        "@khanacademy/wonder-blocks-pill": "catalog:devDeps",
         "@khanacademy/wonder-blocks-popover": "catalog:devDeps",
         "@khanacademy/wonder-blocks-progress-spinner": "catalog:devDeps",
         "@khanacademy/wonder-blocks-switch": "catalog:devDeps",
@@ -104,7 +103,6 @@
         "@khanacademy/wonder-blocks-layout": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-link": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-modal": "catalog:peerDeps",
-        "@khanacademy/wonder-blocks-pill": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-popover": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-progress-spinner": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-switch": "catalog:peerDeps",
@@ -125,6 +123,6 @@
     },
     "keywords": [],
     "khan": {
-        "catalogHash": "5534417e736ba3ce"
+        "catalogHash": "7484f91061a1760b"
     }
 }

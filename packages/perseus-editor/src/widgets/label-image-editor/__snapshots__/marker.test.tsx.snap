@@ -8,122 +8,146 @@ exports[`Marker component rendering renders an empty marker 1`] = `
       aria-expanded="true"
       aria-label="Edit marker: Marker 1"
       class="marker_cvqkp3-o_O-markerSelected_y0aq99"
+      data-floating-ui-inert=""
+      data-wb-floating-reference=":r2:"
       id=":r0:-anchor"
       style="left: 50%; top: 50%;"
       type="button"
     />
+    <span
+      aria-hidden="true"
+      data-floating-ui-inert=""
+      style="border: 0px; height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: fixed; white-space: nowrap; width: 1px; top: 0px; left: 0px;"
+      tabindex="-1"
+    />
+    <span
+      data-floating-ui-focus-guard=""
+      data-type="outside"
+      role="button"
+      style="border: 0px; height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: fixed; white-space: nowrap; width: 1px; top: 0px; left: 0px;"
+      tabindex="0"
+    />
+    <span
+      aria-owns=":r3:"
+      data-floating-ui-inert=""
+      style="clip-path: inset(50%); position: fixed; top: 0px; left: 0px;"
+    />
+    <span
+      data-floating-ui-focus-guard=""
+      data-type="outside"
+      role="button"
+      style="border: 0px; height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: fixed; white-space: nowrap; width: 1px; top: 0px; left: 0px;"
+      tabindex="0"
+    />
   </div>
-  <div>
+  <div
+    data-floating-ui-portal=""
+    id=":r3:"
+  >
+    <span
+      data-floating-ui-focus-guard=""
+      data-type="inside"
+      role="button"
+      style="border: 0px; height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: fixed; white-space: nowrap; width: 1px; top: 0px; left: 0px;"
+      tabindex="0"
+    />
     <div
-      aria-describedby=":r0:-content"
-      aria-labelledby=":r0:-title"
-      class="default_7zhre1-o_O-hide_16igwdi-o_O-content-top_1jtvojh-o_O-inlineStyles_i5mxc2"
+      class="floating_k5d5c7-o_O-inlineStyles_1ln3bd5"
+      data-floating-ui-focusable=""
       data-placement="top"
-      id=":r0:"
-      role="dialog"
+      tabindex="-1"
     >
       <div
-        class="default_7zhre1-o_O-content_11mqw8v-o_O-dropdownBody_1gyjybc"
-      >
-        <div
-          class="labelContainer_veipjp"
-        >
-          <input
-            aria-disabled="false"
-            aria-invalid="false"
-            aria-required="false"
-            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
-            id=":r1:"
-            placeholder="ARIA label (for screen readers)"
-            tabindex="0"
-            type="text"
-            value="Marker 1"
-          />
-        </div>
-        <hr
-          class="dividerHorizontal_10sn35t"
-        />
-        <div
-          aria-label="Answer choices"
-          aria-multiselectable="true"
-          class="default_7zhre1-o_O-listbox_1413512"
-          id=":r2:"
-          role="listbox"
-          tabindex="0"
-        />
-        <hr
-          class="dividerHorizontal_10sn35t"
-        />
-        <button
-          aria-disabled="false"
-          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_ojsq95"
-          data-kind="tertiary"
-          tabindex="0"
-          type="button"
-        >
-          <span
-            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
-          >
-            Delete marker
-          </span>
-        </button>
-      </div>
-      <div
-        class="default_7zhre1-o_O-tailContainer_m1n018-o_O-inlineStyles_17q6yl"
+        aria-describedby=":r0:-content"
+        aria-labelledby=":r0:-title"
+        class="default_7zhre1"
         data-placement="top"
+        id=":r0:"
+        role="dialog"
       >
-        <svg
-          aria-hidden="true"
-          class="arrow_oo4scr"
-          height="12"
-          style="margin-left: 8px; margin-right: 8px; padding-bottom: 8px;"
-          width="24"
+        <div
+          class="default_7zhre1-o_O-content_1hryeiy-o_O-dropdownBody_1gyjybc"
         >
-          <filter
-            height="200%"
-            id="tooltip-dropshadow-top-2"
-            width="200%"
-            x="-50%"
-            y="-50%"
+          <div
+            class="labelContainer_veipjp"
           >
-            <fegaussianblur
-              in="SourceAlpha"
-              stdDeviation="3"
+            <input
+              aria-disabled="false"
+              aria-invalid="false"
+              aria-required="false"
+              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
+              id=":r4:"
+              placeholder="ARIA label (for screen readers)"
+              type="text"
+              value="Marker 1"
             />
-            <fecomponenttransfer>
-              <fefunca
-                slope="0.3"
-                type="linear"
-              />
-            </fecomponenttransfer>
-          </filter>
-          <g
-            transform="translate(0,5.5)"
+          </div>
+          <hr
+            class="dividerHorizontal_10sn35t"
+          />
+          <div
+            aria-label="Answer choices"
+            aria-multiselectable="true"
+            class="default_7zhre1-o_O-listbox_1413512"
+            id=":r5:"
+            role="listbox"
+            tabindex="0"
+          />
+          <hr
+            class="dividerHorizontal_10sn35t"
+          />
+          <button
+            aria-disabled="false"
+            class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_ojsq95"
+            data-kind="tertiary"
+            type="button"
           >
-            <polyline
-              fill="var(--wb-semanticColor-core-shadow-transparent-mid)"
-              filter="url(#tooltip-dropshadow-top-2)"
-              points="0,0 12,12 24,0"
-              stroke="var(--wb-semanticColor-core-shadow-transparent-mid)"
-            />
-          </g>
-          <polyline
-            fill="var(--wb-semanticColor-core-background-base-default)"
-            points="0,0 12,12 24,0"
-            stroke="var(--wb-semanticColor-core-background-base-default)"
-          />
-          <polyline
-            fill="var(--wb-semanticColor-core-background-base-default)"
-            points="0,0 12,12 24,0"
-            stroke="var(--wb-semanticColor-core-border-neutral-subtle)"
-          />
-          <polyline
-            points="0,-0.5 24,-0.5"
-            stroke="var(--wb-semanticColor-core-background-base-default)"
-          />
-        </svg>
+            <span
+              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+            >
+              Delete marker
+            </span>
+          </button>
+        </div>
       </div>
+      <svg
+        aria-hidden="true"
+        fill="var(--wb-semanticColor-core-background-base-default)"
+        height="20"
+        style="position: absolute; pointer-events: none; top: 100%; filter: drop-shadow(0 4px 2px var(--wb-semanticColor-core-shadow-transparent-mid));"
+        viewBox="0 0 20 20"
+        width="22"
+      >
+        <path
+          clip-path="url(#:r6:)"
+          d="M0,0 H20 L10,10 Q10,10 10,10 Z"
+          fill="none"
+          stroke="var(--wb-semanticColor-core-border-neutral-subtle)"
+          stroke-width="3"
+        />
+        <path
+          d="M0,0 H20 L10,10 Q10,10 10,10 Z"
+          stroke="var(--wb-semanticColor-core-background-base-default)"
+        />
+        <clippath
+          id=":r6:"
+        >
+          <rect
+            height="20"
+            width="22"
+            x="-1"
+            y="1"
+          />
+        </clippath>
+      </svg>
     </div>
+    <span
+      data-floating-ui-focus-guard=""
+      data-type="inside"
+      role="button"
+      style="border: 0px; height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: fixed; white-space: nowrap; width: 1px; top: 0px; left: 0px;"
+      tabindex="0"
+    />
   </div>
 </body>
 `;
@@ -132,179 +156,203 @@ exports[`Marker component rendering renders with answers and choices 1`] = `
 <body>
   <div>
     <button
-      aria-controls=":r3:"
+      aria-controls=":r7:"
       aria-expanded="true"
       aria-label="Edit marker: Marker 1"
       class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8-o_O-markerSelected_y0aq99"
-      id=":r3:-anchor"
+      data-floating-ui-inert=""
+      data-wb-floating-reference=":r9:"
+      id=":r7:-anchor"
       style="left: 50%; top: 50%;"
       type="button"
     />
+    <span
+      aria-hidden="true"
+      data-floating-ui-inert=""
+      style="border: 0px; height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: fixed; white-space: nowrap; width: 1px; top: 0px; left: 0px;"
+      tabindex="-1"
+    />
+    <span
+      data-floating-ui-focus-guard=""
+      data-type="outside"
+      role="button"
+      style="border: 0px; height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: fixed; white-space: nowrap; width: 1px; top: 0px; left: 0px;"
+      tabindex="0"
+    />
+    <span
+      aria-owns=":ra:"
+      data-floating-ui-inert=""
+      style="clip-path: inset(50%); position: fixed; top: 0px; left: 0px;"
+    />
+    <span
+      data-floating-ui-focus-guard=""
+      data-type="outside"
+      role="button"
+      style="border: 0px; height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: fixed; white-space: nowrap; width: 1px; top: 0px; left: 0px;"
+      tabindex="0"
+    />
   </div>
-  <div>
+  <div
+    data-floating-ui-portal=""
+    id=":ra:"
+  >
+    <span
+      data-floating-ui-focus-guard=""
+      data-type="inside"
+      role="button"
+      style="border: 0px; height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: fixed; white-space: nowrap; width: 1px; top: 0px; left: 0px;"
+      tabindex="0"
+    />
     <div
-      aria-describedby=":r3:-content"
-      aria-labelledby=":r3:-title"
-      class="default_7zhre1-o_O-hide_16igwdi-o_O-content-top_1jtvojh-o_O-inlineStyles_i5mxc2"
+      class="floating_k5d5c7-o_O-inlineStyles_1ln3bd5"
+      data-floating-ui-focusable=""
       data-placement="top"
-      id=":r3:"
-      role="dialog"
+      tabindex="-1"
     >
       <div
-        class="default_7zhre1-o_O-content_11mqw8v-o_O-dropdownBody_1gyjybc"
-      >
-        <div
-          class="labelContainer_veipjp"
-        >
-          <input
-            aria-disabled="false"
-            aria-invalid="false"
-            aria-required="false"
-            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
-            id=":r4:"
-            placeholder="ARIA label (for screen readers)"
-            tabindex="0"
-            type="text"
-            value="Marker 1"
-          />
-        </div>
-        <hr
-          class="dividerHorizontal_10sn35t"
-        />
-        <div
-          aria-label="Answer choices"
-          aria-multiselectable="true"
-          class="default_7zhre1-o_O-listbox_1413512"
-          id=":r5:"
-          role="listbox"
-          tabindex="0"
-        >
-          <button
-            aria-disabled="false"
-            aria-selected="false"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-wrapper_su0a8m-o_O-innerWrapper_mnq6zz-o_O-clickable_1krawm8-o_O-optionItem_yre2rc-o_O-listboxOptionItem_1si2p3p-o_O-inlineStyles_3hmsj"
-            id=":r5:-option-0"
-            role="option"
-            tabindex="-1"
-            type="button"
-          >
-            <div
-              class="default_7zhre1-o_O-accessory_9jq3ey-o_O-accessoryLeft_ddq71i-o_O-inlineStyles_3hmsj"
-            >
-              <div
-                class="default_7zhre1-o_O-checkbox_tyfhob checkbox"
-              />
-            </div>
-            <div
-              class="default_7zhre1-o_O-content_1j3eb01-o_O-inlineStyles_iqfeo"
-            >
-              <div
-                class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-label_1oxsvo1"
-              >
-                Choice 1
-              </div>
-            </div>
-          </button>
-          <button
-            aria-disabled="false"
-            aria-selected="false"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-wrapper_su0a8m-o_O-innerWrapper_mnq6zz-o_O-clickable_1krawm8-o_O-optionItem_yre2rc-o_O-listboxOptionItem_1si2p3p-o_O-inlineStyles_3hmsj"
-            id=":r5:-option-1"
-            role="option"
-            tabindex="-1"
-            type="button"
-          >
-            <div
-              class="default_7zhre1-o_O-accessory_9jq3ey-o_O-accessoryLeft_ddq71i-o_O-inlineStyles_3hmsj"
-            >
-              <div
-                class="default_7zhre1-o_O-checkbox_tyfhob checkbox"
-              />
-            </div>
-            <div
-              class="default_7zhre1-o_O-content_1j3eb01-o_O-inlineStyles_iqfeo"
-            >
-              <div
-                class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-label_1oxsvo1"
-              >
-                Choice 2
-              </div>
-            </div>
-          </button>
-        </div>
-        <hr
-          class="dividerHorizontal_10sn35t"
-        />
-        <button
-          aria-disabled="false"
-          class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_ojsq95"
-          data-kind="tertiary"
-          tabindex="0"
-          type="button"
-        >
-          <span
-            class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
-          >
-            Delete marker
-          </span>
-        </button>
-      </div>
-      <div
-        class="default_7zhre1-o_O-tailContainer_m1n018-o_O-inlineStyles_17q6yl"
+        aria-describedby=":r7:-content"
+        aria-labelledby=":r7:-title"
+        class="default_7zhre1"
         data-placement="top"
+        id=":r7:"
+        role="dialog"
       >
-        <svg
-          aria-hidden="true"
-          class="arrow_oo4scr"
-          height="12"
-          style="margin-left: 8px; margin-right: 8px; padding-bottom: 8px;"
-          width="24"
+        <div
+          class="default_7zhre1-o_O-content_1hryeiy-o_O-dropdownBody_1gyjybc"
         >
-          <filter
-            height="200%"
-            id="tooltip-dropshadow-top-5"
-            width="200%"
-            x="-50%"
-            y="-50%"
+          <div
+            class="labelContainer_veipjp"
           >
-            <fegaussianblur
-              in="SourceAlpha"
-              stdDeviation="3"
+            <input
+              aria-disabled="false"
+              aria-invalid="false"
+              aria-required="false"
+              class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
+              id=":rb:"
+              placeholder="ARIA label (for screen readers)"
+              type="text"
+              value="Marker 1"
             />
-            <fecomponenttransfer>
-              <fefunca
-                slope="0.3"
-                type="linear"
-              />
-            </fecomponenttransfer>
-          </filter>
-          <g
-            transform="translate(0,5.5)"
+          </div>
+          <hr
+            class="dividerHorizontal_10sn35t"
+          />
+          <div
+            aria-label="Answer choices"
+            aria-multiselectable="true"
+            class="default_7zhre1-o_O-listbox_1413512"
+            id=":rc:"
+            role="listbox"
+            tabindex="0"
           >
-            <polyline
-              fill="var(--wb-semanticColor-core-shadow-transparent-mid)"
-              filter="url(#tooltip-dropshadow-top-5)"
-              points="0,0 12,12 24,0"
-              stroke="var(--wb-semanticColor-core-shadow-transparent-mid)"
-            />
-          </g>
-          <polyline
-            fill="var(--wb-semanticColor-core-background-base-default)"
-            points="0,0 12,12 24,0"
-            stroke="var(--wb-semanticColor-core-background-base-default)"
+            <button
+              aria-disabled="false"
+              aria-selected="false"
+              class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-wrapper_su0a8m-o_O-innerWrapper_mnq6zz-o_O-clickable_1krawm8-o_O-optionItem_yre2rc-o_O-listboxOptionItem_1si2p3p-o_O-inlineStyles_3hmsj"
+              id=":rc:-option-0"
+              role="option"
+              tabindex="-1"
+              type="button"
+            >
+              <div
+                class="default_7zhre1-o_O-accessory_9jq3ey-o_O-accessoryLeft_ddq71i-o_O-inlineStyles_3hmsj"
+              >
+                <div
+                  class="default_7zhre1-o_O-checkbox_tyfhob checkbox"
+                />
+              </div>
+              <div
+                class="default_7zhre1-o_O-content_1j3eb01-o_O-inlineStyles_iqfeo"
+              >
+                <div
+                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-label_1oxsvo1"
+                >
+                  Choice 1
+                </div>
+              </div>
+            </button>
+            <button
+              aria-disabled="false"
+              aria-selected="false"
+              class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-wrapper_su0a8m-o_O-innerWrapper_mnq6zz-o_O-clickable_1krawm8-o_O-optionItem_yre2rc-o_O-listboxOptionItem_1si2p3p-o_O-inlineStyles_3hmsj"
+              id=":rc:-option-1"
+              role="option"
+              tabindex="-1"
+              type="button"
+            >
+              <div
+                class="default_7zhre1-o_O-accessory_9jq3ey-o_O-accessoryLeft_ddq71i-o_O-inlineStyles_3hmsj"
+              >
+                <div
+                  class="default_7zhre1-o_O-checkbox_tyfhob checkbox"
+                />
+              </div>
+              <div
+                class="default_7zhre1-o_O-content_1j3eb01-o_O-inlineStyles_iqfeo"
+              >
+                <div
+                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-label_1oxsvo1"
+                >
+                  Choice 2
+                </div>
+              </div>
+            </button>
+          </div>
+          <hr
+            class="dividerHorizontal_10sn35t"
           />
-          <polyline
-            fill="var(--wb-semanticColor-core-background-base-default)"
-            points="0,0 12,12 24,0"
-            stroke="var(--wb-semanticColor-core-border-neutral-subtle)"
-          />
-          <polyline
-            points="0,-0.5 24,-0.5"
-            stroke="var(--wb-semanticColor-core-background-base-default)"
-          />
-        </svg>
+          <button
+            aria-disabled="false"
+            class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_ojsq95"
+            data-kind="tertiary"
+            type="button"
+          >
+            <span
+              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+            >
+              Delete marker
+            </span>
+          </button>
+        </div>
       </div>
+      <svg
+        aria-hidden="true"
+        fill="var(--wb-semanticColor-core-background-base-default)"
+        height="20"
+        style="position: absolute; pointer-events: none; top: 100%; filter: drop-shadow(0 4px 2px var(--wb-semanticColor-core-shadow-transparent-mid));"
+        viewBox="0 0 20 20"
+        width="22"
+      >
+        <path
+          clip-path="url(#:rd:)"
+          d="M0,0 H20 L10,10 Q10,10 10,10 Z"
+          fill="none"
+          stroke="var(--wb-semanticColor-core-border-neutral-subtle)"
+          stroke-width="3"
+        />
+        <path
+          d="M0,0 H20 L10,10 Q10,10 10,10 Z"
+          stroke="var(--wb-semanticColor-core-background-base-default)"
+        />
+        <clippath
+          id=":rd:"
+        >
+          <rect
+            height="20"
+            width="22"
+            x="-1"
+            y="1"
+          />
+        </clippath>
+      </svg>
     </div>
+    <span
+      data-floating-ui-focus-guard=""
+      data-type="inside"
+      role="button"
+      style="border: 0px; height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: fixed; white-space: nowrap; width: 1px; top: 0px; left: 0px;"
+      tabindex="0"
+    />
   </div>
 </body>
 `;

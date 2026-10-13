@@ -100,13 +100,15 @@ describe("OrdererEditor", () => {
         await userEvent.type(otherCard, "Emu");
 
         // Assert
-        expect(onChangeMock).toHaveBeenLastCalledWith({
-            otherOptions: [generateOrdererOption("Emu")],
-            options: [
-                generateOrdererOption("Cat"),
-                generateOrdererOption("Emu"),
-            ],
-        });
+        expect(onChangeMock).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                otherOptions: [generateOrdererOption("Emu")],
+                options: [
+                    generateOrdererOption("Cat"),
+                    generateOrdererOption("Emu"),
+                ],
+            }),
+        );
     });
 
     it("serializes content correctly", () => {
@@ -187,13 +189,13 @@ describe("OrdererEditor", () => {
         );
 
         // Act
-        await userEvent.selectOptions(
-            screen.getByRole("combobox", {name: "Layout:"}),
-            "vertical",
-        );
+        await userEvent.click(screen.getByRole("combobox", {name: "Layout:"}));
+        await userEvent.click(screen.getByRole("option", {name: "Vertical"}));
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({layout: "vertical"});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({layout: "vertical"}),
+        );
     });
 
     it("calls onChange with the new height when the height is changed", async () => {
@@ -207,12 +209,12 @@ describe("OrdererEditor", () => {
         );
 
         // Act
-        await userEvent.selectOptions(
-            screen.getByRole("combobox", {name: "Height:"}),
-            "auto",
-        );
+        await userEvent.click(screen.getByRole("combobox", {name: "Height:"}));
+        await userEvent.click(screen.getByRole("option", {name: "Automatic"}));
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({height: "auto"});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({height: "auto"}),
+        );
     });
 });

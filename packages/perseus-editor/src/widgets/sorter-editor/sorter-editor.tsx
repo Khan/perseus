@@ -47,7 +47,6 @@ type SorterEditorHandle = {
     getSaveWarnings: () => string[];
 };
 
-// JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for adding a sorter widget that allows users to arrange items in a specific order.
  */

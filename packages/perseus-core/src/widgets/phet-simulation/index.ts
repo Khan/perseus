@@ -6,10 +6,11 @@ const defaultWidgetOptions: PerseusPhetSimulationWidgetOptions = {
     description: "",
 };
 
-const phetSimulationWidgetLogic: WidgetLogic = {
-    name: "phet-simulation",
-    defaultWidgetOptions,
-    accessible: true,
-};
+const phetSimulationWidgetLogic: WidgetLogic<PerseusPhetSimulationWidgetOptions> =
+    {
+        name: "phet-simulation",
+        defaultWidgetOptions,
+        accessible: true,
+    };
 
 export default phetSimulationWidgetLogic;

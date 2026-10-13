@@ -177,14 +177,14 @@ export interface PerseusWidgetTypes {
     video: VideoWidget;
 
     // Deprecated widgets
-    "molecule-renderer": DeprecatedStandinWidget;
-    "passage-ref-target": DeprecatedStandinWidget;
-    "passage-ref": DeprecatedStandinWidget;
-    passage: DeprecatedStandinWidget;
-    "lights-puzzle": DeprecatedStandinWidget;
-    sequence: DeprecatedStandinWidget;
-    simulator: DeprecatedStandinWidget;
-    transformer: DeprecatedStandinWidget;
+    "molecule-renderer": DeprecatedStandinWidget<"molecule-renderer">;
+    "passage-ref-target": DeprecatedStandinWidget<"passage-ref-target">;
+    "passage-ref": DeprecatedStandinWidget<"passage-ref">;
+    passage: DeprecatedStandinWidget<"passage">;
+    "lights-puzzle": DeprecatedStandinWidget<"lights-puzzle">;
+    sequence: DeprecatedStandinWidget<"sequence">;
+    simulator: DeprecatedStandinWidget<"simulator">;
+    transformer: DeprecatedStandinWidget<"transformer">;
 }
 
 /**
@@ -516,7 +516,7 @@ export type InputNumberWidget = WidgetOptions<'input-number', PerseusInputNumber
 // prettier-ignore
 export type VideoWidget = WidgetOptions<'video', PerseusVideoWidgetOptions>;
 //prettier-ignore
-export type DeprecatedStandinWidget = WidgetOptions<'deprecated-standin', object>;
+export type DeprecatedStandinWidget<Type extends string> = WidgetOptions<Type, object>;
 
 /**
  * A background image applied to various widgets.
@@ -1561,6 +1561,13 @@ export type PerseusGraphCorrectType =
     | LogarithmGraphCorrect
     | VectorGraphCorrect;
 
+export type PreferredPopoverDirection =
+    | "NONE"
+    | "UP"
+    | "DOWN"
+    | "LEFT"
+    | "RIGHT";
+
 /** Options for the label-image widget. Asks learners to label image parts. */
 export type PerseusLabelImageWidgetOptions = {
     /** Translatable Text; TeX representation of choices */
@@ -1579,6 +1586,8 @@ export type PerseusLabelImageWidgetOptions = {
     hideChoicesFromInstructions: boolean;
     /** Allow multiple answers per marker */
     multipleAnswers: boolean;
+    /** Determines the placement of the list of choices for each marker */
+    preferredPopoverDirection?: PreferredPopoverDirection;
 };
 
 export type PerseusLabelImageMarker = {
@@ -1758,6 +1767,12 @@ export type PerseusNumericInputAnswer = {
     simplify: PerseusNumericInputSimplify;
 };
 
+export type PerseusNumberLineLabelStyle =
+    | "decimal"
+    | "improper"
+    | "mixed"
+    | "non-reduced";
+
 /** Options for the number-line widget. A draggable point on a number line. */
 export type PerseusNumberLineWidgetOptions = {
     /**
@@ -1776,18 +1791,28 @@ export type PerseusNumberLineWidgetOptions = {
      * This controls the styling of the labels for the two main labels as well
      * as all the tick mark labels, if applicable.
      */
-    labelStyle: "decimal" | "improper" | "mixed" | "non-reduced";
+    labelStyle: PerseusNumberLineLabelStyle;
     /** Show label ticks */
     labelTicks: boolean;
-    /** Show tick controller */
+    /**
+     * Whether the learner should be able to set the number of divisions.
+     */
     isTickCtrl: boolean;
     isInequality: boolean;
-    /** The range of divisions within the line */
+    /**
+     * The range of possible values for numDivisions, in the format [min, max].
+     */
     divisionRange: number[];
     /**
-     * This controls the number (and position) of the tick marks. The number of
-     * divisions is constrained to the division range. Note: The user will be
-     * able to specify the number of divisions in a number input.
+     * The number of divisions of the number line. Divisions are the spaces
+     * between tick marks.
+     *
+     * When `isTickCtrl` is true, the learner can change the number of
+     * divisions, constrained by `divisionRange`. In that case, `numDivisions`
+     * specifies the initial value.
+     *
+     * Exactly one of tickStep and numDivisions must be set; the missing value
+     * will be calculated from the other.
      */
     numDivisions?: number | null;
     /**
@@ -1797,12 +1822,10 @@ export type PerseusNumberLineWidgetOptions = {
      */
     snapDivisions: number;
     /**
-     * This controls the number (and position) of the tick marks; you can
-     * either set the number of divisions (2 divisions would split the entire
-     * range in two halves), or the tick step (the distance between ticks) and
-     * the other value will be updated accordingly. Note: There is no check to
-     * see if labels coordinate with the tick marks, which may be confusing for
-     * users if the blue labels and black ticks are off-step.
+     * The distance between tick marks on the number line.
+     *
+     * Exactly one of tickStep and numDivisions must be set; the missing value
+     * will be calculated from the other.
      */
     tickStep?: number | null;
     /**
@@ -1981,7 +2004,10 @@ export type PerseusInteractionWidgetOptions = {
 };
 
 export type PerseusInteractionGraph = {
-    /** "canvas", "graph" */
+    /**
+     * "canvas", "graph"
+     * @deprecated - not used
+     */
     editableSettings?: Array<"canvas" | "graph">;
     /** The Grid Canvas size. e.g. [400, 140] */
     box: Size;

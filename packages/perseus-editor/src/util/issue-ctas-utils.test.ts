@@ -6,6 +6,7 @@ import {
     generateRadioOptions,
     generateRadioWidget,
     generateTestPerseusRenderer,
+    imageLogic,
 } from "@khanacademy/perseus-core";
 
 import {
@@ -163,15 +164,59 @@ describe("convertImageMarkdownToImageWidget", () => {
         expect(onEditorChange).toHaveBeenCalledWith({
             content: "[[☃ image 1]]",
             widgets: {
-                "image 1": generateImageWidget({
-                    options: generateImageOptions({
-                        backgroundImage: earthMoonImage,
+                "image 1": {
+                    type: "image",
+                    version: {major: 0, minor: 0},
+                    graded: true,
+                    static: false,
+                    alignment: "block",
+                    options: {
+                        title: "",
+                        caption: "",
                         alt: "some alt text",
-                    }),
-                }),
+                        longDescription: "",
+                        decorative: false,
+                        backgroundImage: {
+                            url: earthMoonImage.url,
+                            width: 400,
+                            height: 225,
+                        },
+                        scale: 1,
+                        box: [400, 400],
+                        labels: [],
+                        range: [
+                            [0, 10],
+                            [0, 10],
+                        ],
+                    },
+                },
             },
             images: {},
         });
+    });
+
+    it("creates image widgets at the image widget's current version", async () => {
+        // Arrange
+        const question = {
+            content: `![some alt text](${earthMoonImage.url})`,
+            widgets: {},
+            images: {},
+        };
+        const onEditorChange = jest.fn();
+
+        // Act
+        await convertImageMarkdownToImageWidget(question, onEditorChange);
+
+        // Assert
+        // The conversion hard-codes version 0.0. If this fails, the image
+        // widget has a newer version: update the conversion's version and
+        // options together.
+        expect(
+            onEditorChange.mock.calls[0][0].widgets["image 1"].version,
+            // We default the version here because currently the `imageLogic`
+            // doesn't define a version. The system falls back to `0.0` in that
+            // case.
+        ).toEqual(imageLogic.version ?? {major: 0, minor: 0});
     });
 
     it("converts image markdown to image widget with surrounding text", async () => {
@@ -190,8 +235,8 @@ describe("convertImageMarkdownToImageWidget", () => {
         expect(onEditorChange).toHaveBeenCalledWith({
             content: "Hello [[☃ image 1]] World",
             widgets: {
-                "image 1": generateImageWidget({
-                    options: generateImageOptions({
+                "image 1": expect.objectContaining({
+                    options: expect.objectContaining({
                         backgroundImage: earthMoonImage,
                         alt: "some alt text",
                     }),
@@ -230,8 +275,8 @@ describe("convertImageMarkdownToImageWidget", () => {
                         alt: "some alt text",
                     }),
                 }),
-                "image 2": generateImageWidget({
-                    options: generateImageOptions({
+                "image 2": expect.objectContaining({
+                    options: expect.objectContaining({
                         backgroundImage: earthMoonImage,
                         alt: "some alt text",
                     }),
@@ -257,14 +302,14 @@ describe("convertImageMarkdownToImageWidget", () => {
         expect(onEditorChange).toHaveBeenCalledWith({
             content: `[[☃ image 1]] [[☃ image 2]]`,
             widgets: {
-                "image 1": generateImageWidget({
-                    options: generateImageOptions({
+                "image 1": expect.objectContaining({
+                    options: expect.objectContaining({
                         backgroundImage: earthMoonImage,
                         alt: "alt 1",
                     }),
                 }),
-                "image 2": generateImageWidget({
-                    options: generateImageOptions({
+                "image 2": expect.objectContaining({
+                    options: expect.objectContaining({
                         backgroundImage: earthMoonImage,
                         alt: "alt 2",
                     }),
@@ -315,14 +360,14 @@ describe("convertImageMarkdownToImageWidget", () => {
                         alt: "alt 3",
                     }),
                 }),
-                "image 1": generateImageWidget({
-                    options: generateImageOptions({
+                "image 1": expect.objectContaining({
+                    options: expect.objectContaining({
                         backgroundImage: earthMoonImage,
                         alt: "markdown 1",
                     }),
                 }),
-                "image 4": generateImageWidget({
-                    options: generateImageOptions({
+                "image 4": expect.objectContaining({
+                    options: expect.objectContaining({
                         backgroundImage: earthMoonImage,
                         alt: "markdown 2",
                     }),
@@ -355,8 +400,8 @@ describe("convertImageMarkdownToImageWidget", () => {
         expect(onEditorChange).toHaveBeenCalledWith({
             content: `[[☃ image 2]] [[☃ image 1]] **bold** *italic* \n\n| col 1 | col 2 |\n| --- | --- |\n| row 1 | row 2 |`,
             widgets: {
-                "image 2": generateImageWidget({
-                    options: generateImageOptions({
+                "image 2": expect.objectContaining({
+                    options: expect.objectContaining({
                         backgroundImage: earthMoonImage,
                         alt: "markdown 1",
                     }),
@@ -389,14 +434,14 @@ describe("convertImageMarkdownToImageWidget", () => {
         expect(onEditorChange).toHaveBeenCalledWith({
             content: `| col 1 | col 2 |\n| --- | --- |\n| [[☃ image 1]] | [[☃ image 2]] |`,
             widgets: {
-                "image 1": generateImageWidget({
-                    options: generateImageOptions({
+                "image 1": expect.objectContaining({
+                    options: expect.objectContaining({
                         backgroundImage: earthMoonImage,
                         alt: "markdown 1",
                     }),
                 }),
-                "image 2": generateImageWidget({
-                    options: generateImageOptions({
+                "image 2": expect.objectContaining({
+                    options: expect.objectContaining({
                         backgroundImage: {
                             url: frescoImage.url,
                             width: 400, // mocked
@@ -476,8 +521,8 @@ describe("convertImageMarkdownToImageWidget", () => {
                         ],
                     }),
                 }),
-                "image 1": generateImageWidget({
-                    options: generateImageOptions({
+                "image 1": expect.objectContaining({
+                    options: expect.objectContaining({
                         backgroundImage: earthMoonImage,
                         alt: "markdown 1",
                     }),

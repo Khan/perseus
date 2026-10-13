@@ -1,32 +1,27 @@
-import {action} from "storybook/actions";
+import * as React from "react";
+
+import {question1} from "../../../../perseus/src/widgets/number-line/number-line.testdata";
+import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
+import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 
 import NumberLineEditor from "./number-line-editor";
 
-import type {StoryObj} from "@storybook/react-vite";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const meta = {
+// This is to address timing - Perseus widget editor registry accessed before initialization!
+registerAllWidgetsAndEditorsForTesting();
+
+const meta: Meta = {
     title: "Widgets/Number Line/Editor Demo",
     component: NumberLineEditor,
-    tags: ["!dev"],
+    tags: ["!autodocs"],
 };
 export default meta;
 
-type Story = StoryObj<typeof meta>;
-export const Default: Story = {
-    args: {
-        labelRange: [0, 0],
-        initialX: 0,
-        tickStep: 1,
-        labelStyle: "decimal",
-        labelTicks: true,
-        snapDivisions: 2,
-        range: [-4, 4],
-        static: false,
-        correctRel: "eq",
-        numDivisions: 5,
-        divisionRange: [1, 12],
-        correctX: -2.5,
-        showTooltips: false,
-        onChange: action("onChange"),
-    },
+type Story = StoryObj<typeof EditorPageWithStorybookPreview>;
+
+export const EditorDemo: Story = {
+    render: (): React.ReactElement => (
+        <EditorPageWithStorybookPreview question={question1} />
+    ),
 };

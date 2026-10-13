@@ -18,7 +18,6 @@ interface Props extends PerseusCategorizerWidgetOptions {
     onChange: (options: PerseusCategorizerWidgetOptions) => void;
 }
 
-// JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for adding a categorizer widget that allows users to sort items into categories.
  */

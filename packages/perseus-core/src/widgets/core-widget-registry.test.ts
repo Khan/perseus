@@ -61,6 +61,7 @@ describe("core-widget-registry", () => {
         beforeEach(() => {
             registerWidget(mockWidgetType, {
                 name: mockWidgetType,
+                defaultWidgetOptions: {},
                 traverseChildWidgets: realTraverseChildWidgets,
             });
         });
@@ -111,14 +112,17 @@ describe("core-widget-registry", () => {
         beforeEach(() => {
             registerWidget("_inline-widget_", {
                 name: "_inline-widget_",
+                defaultWidgetOptions: {},
                 defaultAlignment: "inline-block",
             });
             registerWidget("_block-widget_", {
                 name: "_block-widget_",
+                defaultWidgetOptions: {},
                 defaultAlignment: "block",
             });
             registerWidget("_no-alignment-widget_", {
                 name: "_no-alignment-widget_",
+                defaultWidgetOptions: {},
             });
         });
 

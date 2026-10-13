@@ -214,6 +214,81 @@ describe("Dropdown widget", () => {
         expect(button).not.toHaveFocus();
     });
 
+    describe("required state", () => {
+        function generateRenderer(isStatic: boolean = false): PerseusRenderer {
+            return generateTestPerseusRenderer({
+                content: "[[☃ dropdown 1]]",
+                widgets: {
+                    "dropdown 1": generateDropdownWidget({
+                        static: isStatic,
+                        options: generateDropdownOptions({
+                            placeholder: "Choose an answer",
+                            choices: [
+                                {content: "True", correct: true},
+                                {content: "False", correct: false},
+                            ],
+                        }),
+                    }),
+                },
+            });
+        }
+
+        it("renders the dropdown as required when scorable and interactive", () => {
+            // Arrange, Act
+            renderQuestion(generateRenderer(), {
+                apiOptions: {readOnly: false},
+                extraProps: {isScorable: true, reviewMode: false},
+            });
+
+            // Assert
+            expect(screen.getByRole("combobox")).toBeRequired();
+        });
+
+        it("does not render the dropdown as required when not scorable", () => {
+            // Arrange, Act
+            renderQuestion(generateRenderer(), {
+                apiOptions: {readOnly: false},
+                extraProps: {isScorable: false, reviewMode: false},
+            });
+
+            // Assert
+            expect(screen.getByRole("combobox")).not.toBeRequired();
+        });
+
+        it("does not render the dropdown as required in review mode", () => {
+            // Arrange, Act
+            renderQuestion(generateRenderer(), {
+                apiOptions: {readOnly: false},
+                extraProps: {isScorable: true, reviewMode: true},
+            });
+
+            // Assert
+            expect(screen.getByRole("combobox")).not.toBeRequired();
+        });
+
+        it("does not render the dropdown as required when static", () => {
+            // Arrange, Act
+            renderQuestion(generateRenderer(true), {
+                apiOptions: {readOnly: false},
+                extraProps: {isScorable: true, reviewMode: false},
+            });
+
+            // Assert
+            expect(screen.getByRole("combobox")).not.toBeRequired();
+        });
+
+        it("does not render the dropdown as required when read-only", () => {
+            // Arrange, Act
+            renderQuestion(generateRenderer(), {
+                apiOptions: {readOnly: true},
+                extraProps: {isScorable: true, reviewMode: false},
+            });
+
+            // Assert
+            expect(screen.getByRole("combobox")).not.toBeRequired();
+        });
+    });
+
     describe("interactive: full vs answerless", () => {
         beforeAll(() => {
             registerAllWidgetsForTesting();

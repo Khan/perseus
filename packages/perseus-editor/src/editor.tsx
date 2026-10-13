@@ -16,7 +16,7 @@ import * as React from "react";
 import _ from "underscore";
 
 import DragTarget from "./components/drag-target";
-import WidgetEditor from "./components/widget-editor";
+import WidgetEditorContainer from "./components/widget-editor-container";
 import WidgetSelect from "./components/widget-select";
 import {
     getPerseusClipboardData,
@@ -267,7 +267,7 @@ class Editor extends React.Component<Props, State> {
             return;
         }
         return (
-            <WidgetEditor
+            <WidgetEditorContainer
                 widgetInfo={this.props.widgets[id]}
                 ref={id}
                 id={id}

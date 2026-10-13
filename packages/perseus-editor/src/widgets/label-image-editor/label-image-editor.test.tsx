@@ -7,10 +7,10 @@ import {testDependencies} from "../../testing/test-dependencies";
 
 import LabelImageEditor from "./label-image-editor";
 
-import type {PreferredPopoverDirection} from "./behavior";
+import type {Props} from "./label-image-editor";
 import type {UserEvent} from "@testing-library/user-event";
 
-const defaultProps = {
+const defaultProps: Props = {
     apiOptions: ApiOptions.defaults,
     choices: ["Choice 1", "Choice 2", "Choice 3"],
     imageAlt: "Test image alt text",
@@ -33,8 +33,7 @@ const defaultProps = {
     ],
     multipleAnswers: false,
     hideChoicesFromInstructions: false,
-    // eslint-disable-next-line no-restricted-syntax
-    preferredPopoverDirection: "NONE" as PreferredPopoverDirection,
+    preferredPopoverDirection: "NONE",
     onChange: jest.fn(),
 };
 
@@ -104,7 +103,9 @@ describe("label-image-editor", () => {
         await userEvent.type(altInput, "a");
 
         // Check onChange was called
-        expect(onChangeMock).toHaveBeenCalledWith({imageAlt: "a"});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({imageAlt: "a"}),
+        );
     });
 
     it("should not render alt text field when no image is selected", () => {

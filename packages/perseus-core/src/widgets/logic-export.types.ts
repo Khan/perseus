@@ -55,10 +55,7 @@ export type PublicWidgetOptionsFunction =
     | typeof getSorterPublicWidgetOptions
     | typeof getTablePublicWidgetOptions;
 
-export type WidgetLogic<
-    TWidgetOptions = never,
-    TPublicWidgetOptions = never,
-> = {
+export type WidgetLogic<TWidgetOptions, TPublicWidgetOptions = never> = {
     name: string;
     /**
      * The widget version. Any time the _major_ version changes, the widget
@@ -70,7 +67,7 @@ export type WidgetLogic<
      * This key defaults to `{major: 0, minor: 0}` if not provided.
      */
     version?: Version;
-    defaultWidgetOptions?: any;
+    defaultWidgetOptions: TWidgetOptions;
     supportedAlignments?: ReadonlyArray<Alignment>;
     defaultAlignment?: Alignment;
     accessible?: boolean | ((options: TWidgetOptions) => boolean);

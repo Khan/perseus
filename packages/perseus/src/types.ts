@@ -413,8 +413,6 @@ export type WidgetExports<
     name: string;
     displayName: string;
 
-    // Widgets should provide _one_ of these two properties only!
-    getWidget?: () => T;
     widget: T;
 
     /** Supresses widget from showing up in the dropdown in the content editor */
