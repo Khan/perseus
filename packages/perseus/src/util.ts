@@ -241,7 +241,9 @@ function splitBlockWidgetsFromParagraphs(ast: ASTNode): ASTNode {
 /**
  * Return the first valid interpretation of 'text' as a number.
  */
-function firstNumericalParse(text: string | number | null): number | null | undefined {
+function firstNumericalParse(
+    text: string | number | null,
+): number | null | undefined {
     let first: number | undefined;
     const val = KhanAnswerTypes.predicate.createValidatorFunctional(
         function (ans) {

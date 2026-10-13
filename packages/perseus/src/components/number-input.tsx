@@ -1,7 +1,6 @@
 import {number as knumber, KhanMath} from "@khanacademy/kmath";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -201,7 +200,7 @@ class NumberInput extends React.Component<Props, any> {
 
     _setValue(val: number | null, format: MathFormat) {
         this._getInput().value = toNumericString(val, format);
-    };
+    }
 
     render(): React.ReactNode {
         let classes = classNames({
@@ -227,7 +226,9 @@ class NumberInput extends React.Component<Props, any> {
         return (
             <input
                 {...restProps}
-                placeholder={placeholder != null ? String(placeholder) : undefined}
+                placeholder={
+                    placeholder != null ? String(placeholder) : undefined
+                }
                 className={classes}
                 type="text"
                 ref={this.inputRef}

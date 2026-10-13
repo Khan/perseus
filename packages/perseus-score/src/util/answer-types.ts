@@ -1,8 +1,9 @@
 import * as KAS from "@khanacademy/kas";
 import {KhanMath} from "@khanacademy/kmath";
-import type {MathFormat} from "@khanacademy/perseus-core";
 import {ErrorCodes, Errors, PerseusError} from "@khanacademy/perseus-core";
 import _ from "underscore";
+
+import type {MathFormat} from "@khanacademy/perseus-core";
 
 const MAXERROR_EPSILON = Math.pow(2, -42);
 

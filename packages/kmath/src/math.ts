@@ -224,7 +224,10 @@ const KhanMath = {
     },
 
     // Returns a string of the number in a specified format
-    toNumericString: function (number: number | null, format?: MathFormat): string {
+    toNumericString: function (
+        number: number | null,
+        format?: MathFormat,
+    ): string {
         if (number == null) {
             return "";
         }
