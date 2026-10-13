@@ -44,7 +44,7 @@ import {ApiOptions, ClassNames as ApiClassNames} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown.new";
 import QuestionParagraph from "./question-paragraph.new";
 import TranslationLinter from "./translation-linter";
-import Util from "./util";
+import Util, {isContentGraphie, noParagraphForInlineWidget} from "./util";
 import {containerSizeClass} from "./util/sizing-utils";
 import preprocessTex from "./util/tex-preprocess";
 import WidgetContainer from "./widget-container.new";
@@ -956,6 +956,26 @@ class Renderer
         const apiOptions = this.getApiOptions();
         const imagePlaceholder = apiOptions.imagePlaceholder;
 
+        if (node.type === "paragraph") {
+            const content = nestedOutput(node.content, state);
+
+            if (isContentGraphie(node)) {
+                return (
+                    <div className="deprecated-perseus-container">
+                        {content}
+                    </div>
+                );
+            }
+
+            if (noParagraphForInlineWidget(node)) {
+                // Some widgets can appear inline with text, but
+                // shouldn't be contained by a <p> element, so just render the
+                // content and let the parent handle layout, etc.
+                return content;
+            }
+
+            return <p className="deprecated-perseus-container">{content}</p>;
+        }
         if (node.type === "widget") {
             const widgetPlaceholder = apiOptions.widgetPlaceholder;
 
