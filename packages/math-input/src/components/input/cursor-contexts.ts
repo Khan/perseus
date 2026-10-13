@@ -30,4 +30,13 @@ export enum CursorContext {
     // the case when the only math between the cursor and the fraction to its
     // write is non-leaf math (numbers and variables).
     BEFORE_FRACTION = "BEFORE_FRACTION",
+
+    // The cursor is within a square root.
+    IN_SQUARE_ROOT = "IN_SQUARE_ROOT",
+
+    // The cursor is within the index of a radical (e.g., the 3 of a cube root).
+    IN_RADICAL_INDEX = "IN_RADICAL_INDEX",
+
+    // The cursor is within the radicand of a radical with a custom index.
+    IN_RADICAL = "IN_RADICAL",
 }

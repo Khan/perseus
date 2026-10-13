@@ -89,6 +89,46 @@ describe("MathQuill Helpers", () => {
             expect(context).toBe(CursorContext.IN_SUB_SCRIPT);
         });
 
+        it("returns IN_SQUARE_ROOT when in square root", () => {
+            // Arrange
+            const mount = document.createElement("div");
+            const mathField = createMathField(mount, "en", mockStrings);
+            mathField.cmd("sqrt");
+
+            // Act
+            const context = getCursorContext(mathField);
+
+            // Assert
+            expect(context).toBe(CursorContext.IN_SQUARE_ROOT);
+        });
+
+        it("returns IN_RADICAL_INDEX when in radical index", () => {
+            // Arrange
+            const mount = document.createElement("div");
+            const mathField = createMathField(mount, "en", mockStrings);
+            mathField.cmd("nthroot");
+
+            // Act
+            const context = getCursorContext(mathField);
+
+            // Assert
+            expect(context).toBe(CursorContext.IN_RADICAL_INDEX);
+        });
+
+        it("returns IN_RADICAL when in radicand", () => {
+            // Arrange
+            const mount = document.createElement("div");
+            const mathField = createMathField(mount, "en", mockStrings);
+            mathField.cmd("nthroot");
+            mathField.keystroke("Right");
+
+            // Act
+            const context = getCursorContext(mathField);
+
+            // Assert
+            expect(context).toBe(CursorContext.IN_RADICAL);
+        });
+
         it("returns IN_SUPER_SCRIPT when in superscript", () => {
             // Arrange
             const mount = document.createElement("div");

@@ -10,7 +10,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
     >
       <div
         class="tabs_tb5n2j"
-        id=":r7:"
+        id=":ra:"
       >
         <div
           class="tablistWrapper_ao9331"
@@ -18,7 +18,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
           <div
             aria-label="Keypad"
             class="tablist_5vqrl0-o_O-inlineStyles_h8bg75"
-            id=":r7:-tablist"
+            id=":ra:-tablist"
             role="tablist"
           >
             <button
@@ -1041,7 +1041,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
     >
       <div
         class="tabs_tb5n2j"
-        id=":r6:"
+        id=":r9:"
       >
         <div
           class="tablistWrapper_ao9331"
@@ -1049,7 +1049,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
           <div
             aria-label="Keypad"
             class="tablist_5vqrl0-o_O-inlineStyles_h8bg75"
-            id=":r6:-tablist"
+            id=":r9:-tablist"
             role="tablist"
           >
             <button

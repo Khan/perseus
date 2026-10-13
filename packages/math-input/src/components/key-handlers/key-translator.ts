@@ -91,6 +91,9 @@ export const getKeyTranslator = (
     JUMP_INTO_NUMERATOR: handleJumpOut,
     JUMP_OUT_NUMERATOR: handleJumpOut,
     JUMP_OUT_DENOMINATOR: handleJumpOut,
+    JUMP_OUT_SQUARE_ROOT: handleJumpOut,
+    JUMP_OUT_RADICAL_INDEX: handleJumpOut,
+    JUMP_OUT_RADICAL: handleJumpOut,
 
     LEFT: handleArrow,
     RIGHT: handleArrow,
