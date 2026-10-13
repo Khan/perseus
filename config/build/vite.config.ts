@@ -24,8 +24,20 @@ export type BuildOptions = {
     watch?: boolean;
 };
 
+function isCssFile(name: string): boolean {
+    return name.endsWith(".css");
+}
+
+function isModuleCssFile(name: string): boolean {
+    return name.endsWith(".module.css");
+}
+
+function isPackageImport(id: string, packageName: string) {
+    return id === packageName || id.startsWith(`${packageName}/`);
+}
+
 function makeScopedClassName(name: string, filename: string) {
-    if (!filename.endsWith(".module.css")) {
+    if (!isModuleCssFile(filename)) {
         return name;
     }
 
@@ -36,10 +48,6 @@ function makeScopedClassName(name: string, filename: string) {
         .replace(/[/+=]/g, "-")
         .slice(0, 8);
     return `perseus_${hash}`;
-}
-
-function isPackageImport(id: string, packageName: string) {
-    return id === packageName || id.startsWith(`${packageName}/`);
 }
 
 // Builds a function that returns `true` if the module should be treated as
@@ -55,7 +63,7 @@ function createExternal(pkgJson: ReturnType<typeof parseBuildPackageMetadata>) {
     return (id: string) =>
         // Always bundle CSS, including dependencies' stylesheets such as
         // mafs/core.css, so it all lands in dist/index.css.
-        !id.endsWith(".css") &&
+        !isCssFile(id) &&
         (id.startsWith("@phosphor-icons/core/") ||
             externalDependencies.some((name) => isPackageImport(id, name)));
 }
@@ -138,7 +146,7 @@ export function createPackageConfig(
                     entryFileNames: "[name].js",
                     chunkFileNames: "chunk-[name]-[hash].js",
                     assetFileNames: (assetInfo) =>
-                        assetInfo.names.some((name) => name.endsWith(".css"))
+                        assetInfo.names.some(isCssFile)
                             ? "[name][extname]"
                             : "assets/[name][extname]",
                     // @khanacademy/kas has functionality that reflects on its
