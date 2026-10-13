@@ -3,7 +3,6 @@
 # matches. Each rule below lists @Khan/perseus too, so the team is never dropped.
 * @Khan/perseus
 
-# AI Utils are owned by Practice (formerly Tutor Platform)
 widget-ai-utils/* @Khan/practice @Khan/perseus
 
 # For the Color Sync renderer updates
