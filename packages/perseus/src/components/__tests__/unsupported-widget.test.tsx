@@ -23,12 +23,6 @@ const question = generateTestPerseusRenderer({
 });
 
 describe("UnsupportedWidget", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
     it("renders in place of each widget that isn't registered", () => {
         // Arrange, Act
         renderQuestion(question);
