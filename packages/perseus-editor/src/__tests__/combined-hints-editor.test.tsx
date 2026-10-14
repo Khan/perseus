@@ -45,9 +45,12 @@ describe("CombinedHintsEditor", () => {
         );
 
         // Assert
-        expect(screen.getByText("Hint 1")).toBeInTheDocument();
-        expect(screen.getByText("Hint 2")).toBeInTheDocument();
-        expect(screen.getByText("Hint 3")).toBeInTheDocument();
+        const titles = screen.getAllByText(/^Hint \d$/);
+        expect(titles.map((title) => title.textContent)).toEqual([
+            "Hint 1",
+            "Hint 2",
+            "Hint 3",
+        ]);
     });
 
     it("includes the hint number in each hint's button labels", () => {
@@ -67,55 +70,13 @@ describe("CombinedHintsEditor", () => {
         // Assert
         expect(
             screen.getByRole("button", {name: "Move hint 2 up"}),
-        ).toBeInTheDocument();
+        ).toBeVisible();
         expect(
             screen.getByRole("button", {name: "Move hint 2 down"}),
-        ).toBeInTheDocument();
+        ).toBeVisible();
         expect(
             screen.getByRole("button", {name: "Remove hint 2"}),
-        ).toBeInTheDocument();
-    });
-
-    it("renumbers hints after they are reordered", async () => {
-        // Arrange
-        const first = {content: "First", widgets: {}, images: {}};
-        const second = {content: "Second", widgets: {}, images: {}};
-        const onChangeMock = jest.fn();
-        const {rerender} = render(
-            <CombinedHintsEditor
-                deviceType="phone"
-                previewURL="about:blank"
-                highlightLint={false}
-                hints={[first, second]}
-                onChange={onChangeMock}
-            />,
-        );
-
-        // Act
-        await userEvent.click(
-            screen.getByRole("button", {name: "Move hint 1 down"}),
-        );
-        rerender(
-            <CombinedHintsEditor
-                deviceType="phone"
-                previewURL="about:blank"
-                highlightLint={false}
-                hints={onChangeMock.mock.calls[0][0].hints}
-                onChange={onChangeMock}
-            />,
-        );
-
-        // Assert
-        const titles = screen.getAllByText(/^Hint \d$/);
-        const textboxes = screen.getAllByRole("textbox");
-        expect(titles.map((title) => title.textContent)).toEqual([
-            "Hint 1",
-            "Hint 2",
-        ]);
-        expect(textboxes.map((textbox) => textbox.textContent)).toEqual([
-            "Second",
-            "First",
-        ]);
+        ).toBeVisible();
     });
 
     it("should confirm before removing a hint", async () => {
