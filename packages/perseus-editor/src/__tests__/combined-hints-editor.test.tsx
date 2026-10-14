@@ -19,16 +19,6 @@ describe("CombinedHintsEditor", () => {
         });
     });
 
-    it("should render", () => {
-        render(
-            <CombinedHintsEditor
-                deviceType="phone"
-                previewURL="about:blank"
-                highlightLint={false}
-            />,
-        );
-    });
-
     it("numbers each hint title by its position", () => {
         // Arrange, Act
         render(
