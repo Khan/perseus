@@ -142,11 +142,6 @@ class WidgetEditorContainer extends React.Component<Props, State> {
             alignment: widgetInfo.alignment,
             static: widgetInfo.static,
             graded: widgetInfo.graded,
-            // The inner widget editor's ref can be empty while this
-            // WidgetEditor is mounted (e.g. before `Ed` has mounted). In that
-            // case fall back to the last-known options rather than
-            // dereferencing a null ref, which previously crashed the editor
-            // when toggling JSON mode.
             options:
                 this.widgetSpecificEditor.current?.serialize() ??
                 widgetInfo.options,
