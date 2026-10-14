@@ -82,11 +82,9 @@ describe("isWidgetScoreable", () => {
     it.each(["transformer", "sequence", "never-a-widget"])(
         "returns false for %s, which has no registered scorer",
         (type) => {
-            const widget = {type, graded: true, static: false, options: {}};
+            const widget: any = {type, graded: true, static: false, options: {}};
 
-            // PerseusWidget can't name an unknown widget type.
-            // eslint-disable-next-line no-restricted-syntax
-            expect(isWidgetScoreable(widget as any)).toBe(false);
+            expect(isWidgetScoreable(widget)).toBe(false);
         },
     );
 });
