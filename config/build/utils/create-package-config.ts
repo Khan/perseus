@@ -1,31 +1,34 @@
 import fs from "node:fs";
 import path from "node:path";
-import {fileURLToPath} from "node:url";
 
 import react from "@vitejs/plugin-react";
+import ancesdir from "ancesdir";
 import postcssImport from "postcss-import";
 
-import {jsTarget, cssTarget} from "./browser-targets";
-import {createCssAssetPlugin} from "./plugins/css-assets";
-import {createVersionPlugin} from "./plugins/inject-package-version";
-import {createExternal} from "./utils/create-external";
-import {isCssFile} from "./utils/css-files";
-import {getEntryPoints} from "./utils/get-entry-points";
-import {makeScopedClassName} from "./utils/make-scoped-class-name";
-import {parsePackageJson} from "./utils/parse-package-json";
+import {jsTarget, cssTarget} from "../browser-targets";
+import {createCssAssetPlugin} from "../plugins/css-assets";
+import {createVersionPlugin} from "../plugins/inject-package-version";
 
-import type {BuildOptions} from "./types";
+import {createExternal} from "./create-external";
+import {isCssFile} from "./css-files";
+import {getEntryPoints} from "./get-entry-points";
+import {makeScopedClassName} from "./make-scoped-class-name";
+import {parsePackageJson} from "./parse-package-json";
+
+import type {BuildOptions} from "../types";
 import type {InlineConfig} from "vite";
 
-const rootDir = path.resolve(
-    path.dirname(fileURLToPath(import.meta.url)),
-    "../..",
-);
-
+/**
+ * Builds the Vite config for building one package in `packages/`.
+ *
+ * @param pkgName The package's directory name in `packages/`.
+ * @param options Options from `build-packages.ts`'s command-line flags.
+ */
 export function createPackageConfig(
     pkgName: string,
     options: BuildOptions = {},
 ): InlineConfig {
+    const rootDir = ancesdir(import.meta.dirname, "pnpm-workspace.yaml");
     const packageDir = path.join(rootDir, "packages", pkgName);
     const packageJson = parsePackageJson(
         JSON.parse(
@@ -107,12 +110,4 @@ export function createPackageConfig(
             },
         },
     };
-}
-
-export function getPackageNames() {
-    return fs
-        .readdirSync(path.join(rootDir, "packages"))
-        .filter((name) =>
-            fs.existsSync(path.join(rootDir, "packages", name, "package.json")),
-        );
 }

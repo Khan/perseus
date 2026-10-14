@@ -11,8 +11,8 @@ import type {PackageJson} from "../types";
  * published package. Exports that aren't TypeScript source only need to appear
  * in `.publishConfig.exports`, because the build creates them some other way
  * than as entry points. For example, Vite writes each package's CSS to
- * `dist/index.css` (see `build.lib.cssFileName` in vite.config.ts), and that
- * file must appear in the package's `.publishConfig.exports`.
+ * `dist/index.css` (see `build.lib.cssFileName` in create-package-config.ts),
+ * and that file must appear in the package's `.publishConfig.exports`.
  *
  * @param packageJson The package's validated `package.json` (see
  * `parsePackageJson`).

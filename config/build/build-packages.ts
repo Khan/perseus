@@ -3,7 +3,8 @@ import {parseArgs} from "node:util";
 
 import {build} from "vite";
 
-import {createPackageConfig, getPackageNames} from "./vite.config";
+import {createPackageConfig} from "./utils/create-package-config";
+import {getPackageNames} from "./utils/get-package-names";
 
 import type {BuildOptions} from "./types";
 
