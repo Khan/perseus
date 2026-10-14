@@ -263,8 +263,7 @@ class Editor extends React.Component<Props, State> {
     getWidgetEditor(id: string): undefined | React.ReactNode {
         // The content can reference a widget ID that has no entry in
         // `widgets`, e.g. when an author types `[[☃ radio 1]]` by hand.
-        // There's nothing to edit, so we render no editor. The caller then
-        // highlights that reference in the content as an error.
+        // There's nothing to edit, so we render no editor.
         if (this.props.widgets[id] == null) {
             return;
         }
