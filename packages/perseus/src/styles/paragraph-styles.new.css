@@ -7,6 +7,13 @@
     margin: 0 auto;
     max-width: 688px;
 }
+/* Needed to restore bottom margin on the container <div> when an inline widget
+    is the child element (i.e. Explanation) */
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-renderer
+    > .deprecated-perseus-container:has(> span.deprecated-perseus-container) {
+    margin-block-end: var(--wb-sizing-size_320);
+}
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer
     > .deprecated-perseus-container
@@ -132,6 +139,11 @@
     .perseus-renderer
     > .deprecated-perseus-container {
     margin: 0 auto;
+}
+.framework-perseus.perseus-mobile
+    .perseus-renderer
+    > .deprecated-perseus-container:has(> span.deprecated-perseus-container) {
+    margin-block-end: 22px;
 }
 .framework-perseus.perseus-mobile
     .perseus-renderer
