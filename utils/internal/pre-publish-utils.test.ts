@@ -86,7 +86,7 @@ describe("checkExports", () => {
             name: "@khanacademy/kmath",
             exports: {
                 ".": "./src/index.ts",
-                "./strings": "./src/strings.ts",
+                "./testing": "./src/testing.ts",
             },
             publishConfig: {exports: {".": "./dist/index.js"}},
         });
