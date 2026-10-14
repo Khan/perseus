@@ -22,6 +22,8 @@ type DebugAccordionUIProps = {
     score: PerseusScore | undefined;
     userInput: UserInputMap | undefined;
     perseusItem: PerseusItem;
+    // Whether this accordion section should be expanded on initial load.
+    expanded?: boolean;
     updateJson: (json: string) => boolean;
 };
 
@@ -138,6 +140,7 @@ export const DebugAccordionUI = ({
     score,
     userInput,
     perseusItem,
+    expanded,
     updateJson,
 }: DebugAccordionUIProps): React.ReactElement => {
     /**
@@ -169,9 +172,15 @@ export const DebugAccordionUI = ({
         return [...scoreSection, jsonSection];
     };
 
+    const sections = getAccordionSections();
+
     return (
-        <Accordion style={{margin: `${sizing.size_160} 0`}}>
-            {getAccordionSections()}
+        <Accordion
+            style={{margin: `${sizing.size_160} 0`}}
+            // If we want to expand a section, expand the JSON section.
+            initialExpandedIndex={expanded ? sections.length - 1 : undefined}
+        >
+            {sections}
         </Accordion>
     );
 };
