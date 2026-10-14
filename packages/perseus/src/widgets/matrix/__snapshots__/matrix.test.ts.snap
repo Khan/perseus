@@ -6,11 +6,10 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <strong>
           Perform the row operation, 
@@ -27,11 +26,10 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
           </span>
           , on the following matrix.
         </strong>
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph perseus-paragraph-centered"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container perseus-paragraph-centered"
     >
       <div
         class="perseus-block-math"
@@ -57,11 +55,10 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
       </div>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="2"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -299,11 +296,10 @@ exports[`matrix widget should snapshot: first render 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <strong>
           Perform the row operation, 
@@ -320,11 +316,10 @@ exports[`matrix widget should snapshot: first render 1`] = `
           </span>
           , on the following matrix.
         </strong>
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph perseus-paragraph-centered"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container perseus-paragraph-centered"
     >
       <div
         class="perseus-block-math"
@@ -345,11 +340,10 @@ exports[`matrix widget should snapshot: first render 1`] = `
       </div>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="2"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"

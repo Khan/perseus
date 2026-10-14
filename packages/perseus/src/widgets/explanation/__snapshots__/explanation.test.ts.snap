@@ -6,15 +6,14 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
-      >
-        Here's the explanation
+      Here's the explanation
 
-        <div
+      <span
+        class="deprecated-perseus-container"
+      >
+        <span
           class="perseus-widget-container widget-inline"
         >
           <button
@@ -51,22 +50,21 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
                 class="perseus-renderer perseus-renderer-responsive"
               >
                 <div
-                  class="paragraph"
-                  data-perseus-paragraph-index="0"
+                  class="deprecated-perseus-container"
                 >
-                  <div
-                    class="paragraph"
+                  <p
+                    class="deprecated-perseus-container"
                   >
                     This is an explanation
-                  </div>
+                  </p>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        
+        </span>
+      </span>
+      
 Did you get that?
-      </div>
     </div>
   </div>
 </div>
@@ -78,15 +76,14 @@ exports[`Explanation should snapshot: initial render 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
-      >
-        Here's the explanation
+      Here's the explanation
 
-        <div
+      <span
+        class="deprecated-perseus-container"
+      >
+        <span
           class="perseus-widget-container widget-inline"
         >
           <button
@@ -123,22 +120,21 @@ exports[`Explanation should snapshot: initial render 1`] = `
                 class="perseus-renderer perseus-renderer-responsive"
               >
                 <div
-                  class="paragraph"
-                  data-perseus-paragraph-index="0"
+                  class="deprecated-perseus-container"
                 >
-                  <div
-                    class="paragraph"
+                  <p
+                    class="deprecated-perseus-container"
                   >
                     This is an explanation
-                  </div>
+                  </p>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        
+        </span>
+      </span>
+      
 Did you get that?
-      </div>
     </div>
   </div>
 </div>

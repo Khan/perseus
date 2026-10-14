@@ -6,11 +6,10 @@ exports[`Radio Widget multi-choice question should snapshot the same when invali
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <strong>
           Select all input values for which 
@@ -27,14 +26,13 @@ exports[`Radio Widget multi-choice question should snapshot the same when invali
           </span>
           .
         </strong>
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -87,8 +85,7 @@ exports[`Radio Widget multi-choice question should snapshot the same when invali
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph perseus-paragraph-centered"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container perseus-paragraph-centered"
                         >
                           <div
                             class="perseus-block-math"
@@ -136,8 +133,7 @@ exports[`Radio Widget multi-choice question should snapshot the same when invali
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph perseus-paragraph-centered"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container perseus-paragraph-centered"
                         >
                           <div
                             class="perseus-block-math"
@@ -185,8 +181,7 @@ exports[`Radio Widget multi-choice question should snapshot the same when invali
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph perseus-paragraph-centered"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container perseus-paragraph-centered"
                         >
                           <div
                             class="perseus-block-math"
@@ -241,11 +236,10 @@ exports[`Radio Widget multi-choice question should snapshot the same when invali
       </div>
     </div>
     <div
-      class="paragraph perseus-paragraph-centered"
-      data-perseus-paragraph-index="2"
+      class="deprecated-perseus-container perseus-paragraph-centered"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
          
         <div
@@ -284,11 +278,10 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         Which of the following values of 
         <span
@@ -315,14 +308,13 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
           <span />
         </span>
          ?
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -375,11 +367,10 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             <span
                               style="white-space: nowrap;"
@@ -404,7 +395,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                               </span>
                               <span />
                             </span>
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -437,8 +428,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph perseus-paragraph-centered"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container perseus-paragraph-centered"
                         >
                           <div
                             class="perseus-block-math"
@@ -486,8 +476,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph perseus-paragraph-centered"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container perseus-paragraph-centered"
                         >
                           <div
                             class="perseus-block-math"
@@ -535,11 +524,10 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             No value of 
                             <span
@@ -554,7 +542,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                               <span />
                             </span>
                              satisfies the equation.
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -576,11 +564,10 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         Which of the following values of 
         <span
@@ -607,14 +594,13 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
           <span />
         </span>
          ?
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -667,11 +653,10 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             <span
                               style="white-space: nowrap;"
@@ -696,7 +681,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                               </span>
                               <span />
                             </span>
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -729,8 +714,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph perseus-paragraph-centered"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container perseus-paragraph-centered"
                         >
                           <div
                             class="perseus-block-math"
@@ -778,8 +762,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph perseus-paragraph-centered"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container perseus-paragraph-centered"
                         >
                           <div
                             class="perseus-block-math"
@@ -827,11 +810,10 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             No value of 
                             <span
@@ -846,7 +828,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                               <span />
                             </span>
                              satisfies the equation.
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -868,11 +850,10 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         Which of the following values of 
         <span
@@ -899,14 +880,13 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
           <span />
         </span>
          ?
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -959,11 +939,10 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             <span
                               style="white-space: nowrap;"
@@ -988,7 +967,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                               </span>
                               <span />
                             </span>
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -1021,8 +1000,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph perseus-paragraph-centered"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container perseus-paragraph-centered"
                         >
                           <div
                             class="perseus-block-math"
@@ -1070,8 +1048,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph perseus-paragraph-centered"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container perseus-paragraph-centered"
                         >
                           <div
                             class="perseus-block-math"
@@ -1119,11 +1096,10 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             No value of 
                             <span
@@ -1138,7 +1114,7 @@ exports[`Radio Widget single-choice question reviewMode: false should snapshot t
                               <span />
                             </span>
                              satisfies the equation.
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -1160,11 +1136,10 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         Which of the following values of 
         <span
@@ -1191,14 +1166,13 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
           <span />
         </span>
          ?
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -1251,11 +1225,10 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             <span
                               style="white-space: nowrap;"
@@ -1280,7 +1253,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               </span>
                               <span />
                             </span>
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -1313,8 +1286,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph perseus-paragraph-centered"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container perseus-paragraph-centered"
                         >
                           <div
                             class="perseus-block-math"
@@ -1362,8 +1334,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph perseus-paragraph-centered"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container perseus-paragraph-centered"
                         >
                           <div
                             class="perseus-block-math"
@@ -1411,11 +1382,10 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             No value of 
                             <span
@@ -1430,7 +1400,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               <span />
                             </span>
                              satisfies the equation.
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -1452,11 +1422,10 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         Which of the following values of 
         <span
@@ -1483,14 +1452,13 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
           <span />
         </span>
          ?
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -1543,11 +1511,10 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             <span
                               style="white-space: nowrap;"
@@ -1572,7 +1539,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               </span>
                               <span />
                             </span>
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -1605,8 +1572,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph perseus-paragraph-centered"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container perseus-paragraph-centered"
                         >
                           <div
                             class="perseus-block-math"
@@ -1654,8 +1620,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph perseus-paragraph-centered"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container perseus-paragraph-centered"
                         >
                           <div
                             class="perseus-block-math"
@@ -1703,11 +1668,10 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             No value of 
                             <span
@@ -1722,7 +1686,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               <span />
                             </span>
                              satisfies the equation.
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -1744,11 +1708,10 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         Which of the following values of 
         <span
@@ -1775,14 +1738,13 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
           <span />
         </span>
          ?
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -1836,11 +1798,10 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             <span
                               style="white-space: nowrap;"
@@ -1865,7 +1826,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               </span>
                               <span />
                             </span>
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -1877,11 +1838,10 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             The square root operation (
                             <span
@@ -1928,7 +1888,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               <span />
                             </span>
                             .
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -1962,8 +1922,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph perseus-paragraph-centered"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container perseus-paragraph-centered"
                         >
                           <div
                             class="perseus-block-math"
@@ -1990,11 +1949,10 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             While 
                             <span
@@ -2025,7 +1983,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               only
                             </em>
                              the positive square root when performed on a number.
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -2063,8 +2021,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph perseus-paragraph-centered"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container perseus-paragraph-centered"
                         >
                           <div
                             class="perseus-block-math"
@@ -2091,11 +2048,10 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             <span
                               style="white-space: nowrap;"
@@ -2121,7 +2077,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               <span />
                             </span>
                             .
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -2155,11 +2111,10 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             No value of 
                             <span
@@ -2174,7 +2129,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               <span />
                             </span>
                              satisfies the equation.
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -2186,11 +2141,10 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             <span
                               style="white-space: nowrap;"
@@ -2204,7 +2158,7 @@ exports[`Radio Widget single-choice question reviewMode: true should snapshot th
                               <span />
                             </span>
                              satisfies the equation.
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </div>

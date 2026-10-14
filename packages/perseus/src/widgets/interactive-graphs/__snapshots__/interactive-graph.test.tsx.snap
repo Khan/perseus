@@ -6,11 +6,10 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -1106,11 +1105,10 @@ exports[`Interactive Graph question Should render blank predictably: first rende
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <strong>
           Sides shown
@@ -1153,6 +1151,14 @@ exports[`Interactive Graph question Should render blank predictably: first rende
         </span>
         . 
 
+      </p>
+    </div>
+    <div
+      class="deprecated-perseus-container"
+    >
+      <div
+        class="deprecated-perseus-container"
+      >
         <div
           class="perseus-widget-container widget-block"
         >
@@ -1538,7 +1544,6 @@ exports[`Interactive Graph question Should render blank predictably: first rende
             </div>
           </div>
         </div>
-         
       </div>
     </div>
   </div>
@@ -1551,11 +1556,10 @@ exports[`Interactive Graph question Should render blank predictably: first rende
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <strong>
           Plot the image of triangle 
@@ -1584,14 +1588,13 @@ exports[`Interactive Graph question Should render blank predictably: first rende
           </span>
           .
         </strong>
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -1980,18 +1983,16 @@ exports[`Interactive Graph question Should render blank predictably: first rende
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         We want to find the zeros of this polynomial:
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph perseus-paragraph-centered"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container perseus-paragraph-centered"
     >
       <div
         class="perseus-block-math"
@@ -2009,11 +2010,10 @@ exports[`Interactive Graph question Should render blank predictably: first rende
       </div>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="2"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <strong>
           Plot all the zeros (
@@ -2030,14 +2030,13 @@ exports[`Interactive Graph question Should render blank predictably: first rende
           </span>
           -intercepts) of the polynomial in the interactive graph.
         </strong>
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="3"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -2206,11 +2205,10 @@ exports[`Interactive Graph question Should render blank predictably: first rende
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         The graph below contains quadrilateral 
         <span
@@ -2237,14 +2235,13 @@ exports[`Interactive Graph question Should render blank predictably: first rende
           <span />
         </span>
         .  
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <strong>
           Draw the image of quadrilateral 
@@ -2286,14 +2283,13 @@ exports[`Interactive Graph question Should render blank predictably: first rende
           .
         </strong>
           
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="2"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -2481,11 +2477,10 @@ exports[`Interactive Graph question Should render user input predictably: with u
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <strong>
           Sides shown
@@ -2528,6 +2523,14 @@ exports[`Interactive Graph question Should render user input predictably: with u
         </span>
         . 
 
+      </p>
+    </div>
+    <div
+      class="deprecated-perseus-container"
+    >
+      <div
+        class="deprecated-perseus-container"
+      >
         <div
           class="perseus-widget-container widget-block"
         >
@@ -2886,7 +2889,6 @@ exports[`Interactive Graph question Should render user input predictably: with u
             </div>
           </div>
         </div>
-         
       </div>
     </div>
   </div>
@@ -2899,11 +2901,10 @@ exports[`Interactive Graph question Should render user input predictably: with u
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <strong>
           Plot the image of triangle 
@@ -2932,14 +2933,13 @@ exports[`Interactive Graph question Should render user input predictably: with u
           </span>
           .
         </strong>
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -3328,18 +3328,16 @@ exports[`Interactive Graph question Should render user input predictably: with u
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         We want to find the zeros of this polynomial:
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph perseus-paragraph-centered"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container perseus-paragraph-centered"
     >
       <div
         class="perseus-block-math"
@@ -3357,11 +3355,10 @@ exports[`Interactive Graph question Should render user input predictably: with u
       </div>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="2"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <strong>
           Plot all the zeros (
@@ -3378,14 +3375,13 @@ exports[`Interactive Graph question Should render user input predictably: with u
           </span>
           -intercepts) of the polynomial in the interactive graph.
         </strong>
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="3"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -3655,11 +3651,10 @@ exports[`Interactive Graph question Should render user input predictably: with u
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         The graph below contains quadrilateral 
         <span
@@ -3686,14 +3681,13 @@ exports[`Interactive Graph question Should render user input predictably: with u
           <span />
         </span>
         .  
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <strong>
           Draw the image of quadrilateral 
@@ -3735,14 +3729,13 @@ exports[`Interactive Graph question Should render user input predictably: with u
           .
         </strong>
           
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="2"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"

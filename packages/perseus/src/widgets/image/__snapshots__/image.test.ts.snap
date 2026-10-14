@@ -6,11 +6,10 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-wrap-left"
@@ -26,14 +25,13 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
                 class="perseus-renderer perseus-renderer-responsive"
               >
                 <div
-                  class="paragraph"
-                  data-perseus-paragraph-index="0"
+                  class="deprecated-perseus-container"
                 >
-                  <div
-                    class="paragraph"
+                  <p
+                    class="deprecated-perseus-container"
                   >
                     widget title
-                  </div>
+                  </p>
                 </div>
               </div>
             </div>
@@ -64,14 +62,13 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       widget caption
-                    </div>
+                    </p>
                   </div>
                 </div>
               </figcaption>
@@ -90,11 +87,10 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-wrap-right"
@@ -110,14 +106,13 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
                 class="perseus-renderer perseus-renderer-responsive"
               >
                 <div
-                  class="paragraph"
-                  data-perseus-paragraph-index="0"
+                  class="deprecated-perseus-container"
                 >
-                  <div
-                    class="paragraph"
+                  <p
+                    class="deprecated-perseus-container"
                   >
                     widget title
-                  </div>
+                  </p>
                 </div>
               </div>
             </div>
@@ -148,14 +143,13 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       widget caption
-                    </div>
+                    </p>
                   </div>
                 </div>
               </figcaption>
@@ -264,8 +258,7 @@ exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
     class="perseus-renderer perseus-renderer-responsive perseus-renderer-two-columns"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
       <div
         class="perseus-two-columns"
@@ -276,90 +269,92 @@ exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
           <div
             class="perseus-column-content"
           >
-            <div
-              class="paragraph"
+            <p
+              class="deprecated-perseus-container"
             >
               <div
-                class="perseus-widget-container widget-block"
+                class="deprecated-perseus-container"
               >
-                <figure
-                  class="perseus-image-widget"
-                  style="max-inline-size: 420px;"
+                <div
+                  class="perseus-widget-container widget-block"
                 >
-                  <div
-                    class="perseus-image-title title-container"
+                  <figure
+                    class="perseus-image-widget"
+                    style="max-inline-size: 420px;"
                   >
                     <div
-                      class="perseus-renderer perseus-renderer-responsive"
-                    >
-                      <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
-                      >
-                        <div
-                          class="paragraph"
-                        >
-                          Image Title
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="fixed-to-responsive svg-image"
-                    data-scale="1"
-                    style="max-width: 420px; max-height: 345px;"
-                  >
-                    <span
-                      style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
-                    >
-                      <div
-                        class="default_7zhre1-o_O-spinnerContainer_agrn11"
-                      >
-                        <svg
-                          height="48"
-                          viewBox="0 0 48 48"
-                          width="48"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            class="loadingSpinner_1dvgeb3-o_O-inlineStyles_1uct99t"
-                            d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
-                            fill-rule="nonzero"
-                          />
-                        </svg>
-                      </div>
-                    </span>
-                    <button
-                      aria-label="Make image bigger."
-                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_g025ss"
-                      type="button"
-                    />
-                  </div>
-                  <div
-                    class="info-area-container"
-                  >
-                    <figcaption
-                      class="perseus-image-caption"
+                      class="perseus-image-title title-container"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
-                            Image Caption
-                          </div>
+                            Image Title
+                          </p>
                         </div>
                       </div>
-                    </figcaption>
-                  </div>
-                </figure>
+                    </div>
+                    <div
+                      class="fixed-to-responsive svg-image"
+                      data-scale="1"
+                      style="max-width: 420px; max-height: 345px;"
+                    >
+                      <span
+                        style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
+                      >
+                        <div
+                          class="default_7zhre1-o_O-spinnerContainer_agrn11"
+                        >
+                          <svg
+                            height="48"
+                            viewBox="0 0 48 48"
+                            width="48"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              class="loadingSpinner_1dvgeb3-o_O-inlineStyles_1uct99t"
+                              d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                              fill-rule="nonzero"
+                            />
+                          </svg>
+                        </div>
+                      </span>
+                      <button
+                        aria-label="Make image bigger."
+                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_g025ss"
+                        type="button"
+                      />
+                    </div>
+                    <div
+                      class="info-area-container"
+                    >
+                      <figcaption
+                        class="perseus-image-caption"
+                      >
+                        <div
+                          class="perseus-renderer perseus-renderer-responsive"
+                        >
+                          <div
+                            class="deprecated-perseus-container"
+                          >
+                            <p
+                              class="deprecated-perseus-container"
+                            >
+                              Image Caption
+                            </p>
+                          </div>
+                        </div>
+                      </figcaption>
+                    </div>
+                  </figure>
+                </div>
               </div>
-            </div>
+            </p>
           </div>
         </div>
         <div
@@ -368,8 +363,8 @@ exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
           <div
             class="perseus-column-content"
           >
-            <div
-              class="paragraph"
+            <p
+              class="deprecated-perseus-container"
             >
               A quilter wants to make the design shown at left using the Golden Ratio. Specifically, he wants the ratio of the triangle heights 
               <span
@@ -432,7 +427,7 @@ exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
                 <span />
               </span>
               ?
-            </div>
+            </p>
           </div>
         </div>
       </div>
@@ -447,11 +442,10 @@ exports[`image widget - isMobile(true) custom alignment should render image with
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-wrap-left"
@@ -467,14 +461,13 @@ exports[`image widget - isMobile(true) custom alignment should render image with
                 class="perseus-renderer perseus-renderer-responsive"
               >
                 <div
-                  class="paragraph"
-                  data-perseus-paragraph-index="0"
+                  class="deprecated-perseus-container"
                 >
-                  <div
-                    class="paragraph"
+                  <p
+                    class="deprecated-perseus-container"
                   >
                     widget title
-                  </div>
+                  </p>
                 </div>
               </div>
             </div>
@@ -505,14 +498,13 @@ exports[`image widget - isMobile(true) custom alignment should render image with
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       widget caption
-                    </div>
+                    </p>
                   </div>
                 </div>
               </figcaption>
@@ -531,11 +523,10 @@ exports[`image widget - isMobile(true) custom alignment should render image with
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-wrap-right"
@@ -551,14 +542,13 @@ exports[`image widget - isMobile(true) custom alignment should render image with
                 class="perseus-renderer perseus-renderer-responsive"
               >
                 <div
-                  class="paragraph"
-                  data-perseus-paragraph-index="0"
+                  class="deprecated-perseus-container"
                 >
-                  <div
-                    class="paragraph"
+                  <p
+                    class="deprecated-perseus-container"
                   >
                     widget title
-                  </div>
+                  </p>
                 </div>
               </div>
             </div>
@@ -589,14 +579,13 @@ exports[`image widget - isMobile(true) custom alignment should render image with
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       widget caption
-                    </div>
+                    </p>
                   </div>
                 </div>
               </figcaption>
@@ -705,8 +694,7 @@ exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
     class="perseus-renderer perseus-renderer-responsive perseus-renderer-two-columns"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
       <div
         class="perseus-two-columns"
@@ -717,90 +705,92 @@ exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
           <div
             class="perseus-column-content"
           >
-            <div
-              class="paragraph"
+            <p
+              class="deprecated-perseus-container"
             >
               <div
-                class="perseus-widget-container widget-block"
+                class="deprecated-perseus-container"
               >
-                <figure
-                  class="perseus-image-widget"
-                  style="max-inline-size: 420px;"
+                <div
+                  class="perseus-widget-container widget-block"
                 >
-                  <div
-                    class="perseus-image-title title-container"
+                  <figure
+                    class="perseus-image-widget"
+                    style="max-inline-size: 420px;"
                   >
                     <div
-                      class="perseus-renderer perseus-renderer-responsive"
-                    >
-                      <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
-                      >
-                        <div
-                          class="paragraph"
-                        >
-                          Image Title
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="fixed-to-responsive svg-image"
-                    data-scale="1"
-                    style="max-width: 420px; max-height: 345px;"
-                  >
-                    <span
-                      style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
-                    >
-                      <div
-                        class="default_7zhre1-o_O-spinnerContainer_agrn11"
-                      >
-                        <svg
-                          height="48"
-                          viewBox="0 0 48 48"
-                          width="48"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            class="loadingSpinner_1dvgeb3-o_O-inlineStyles_1uct99t"
-                            d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
-                            fill-rule="nonzero"
-                          />
-                        </svg>
-                      </div>
-                    </span>
-                    <button
-                      aria-label="Make image bigger."
-                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_g025ss"
-                      type="button"
-                    />
-                  </div>
-                  <div
-                    class="info-area-container"
-                  >
-                    <figcaption
-                      class="perseus-image-caption"
+                      class="perseus-image-title title-container"
                     >
                       <div
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
-                            Image Caption
-                          </div>
+                            Image Title
+                          </p>
                         </div>
                       </div>
-                    </figcaption>
-                  </div>
-                </figure>
+                    </div>
+                    <div
+                      class="fixed-to-responsive svg-image"
+                      data-scale="1"
+                      style="max-width: 420px; max-height: 345px;"
+                    >
+                      <span
+                        style="inset-block-start: 0; inset-inline-start: 0; width: 100%; height: 100%; position: absolute; min-inline-size: 20px; display: flex; justify-content: center; align-content: center;"
+                      >
+                        <div
+                          class="default_7zhre1-o_O-spinnerContainer_agrn11"
+                        >
+                          <svg
+                            height="48"
+                            viewBox="0 0 48 48"
+                            width="48"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              class="loadingSpinner_1dvgeb3-o_O-inlineStyles_1uct99t"
+                              d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                              fill-rule="nonzero"
+                            />
+                          </svg>
+                        </div>
+                      </span>
+                      <button
+                        aria-label="Make image bigger."
+                        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_g025ss"
+                        type="button"
+                      />
+                    </div>
+                    <div
+                      class="info-area-container"
+                    >
+                      <figcaption
+                        class="perseus-image-caption"
+                      >
+                        <div
+                          class="perseus-renderer perseus-renderer-responsive"
+                        >
+                          <div
+                            class="deprecated-perseus-container"
+                          >
+                            <p
+                              class="deprecated-perseus-container"
+                            >
+                              Image Caption
+                            </p>
+                          </div>
+                        </div>
+                      </figcaption>
+                    </div>
+                  </figure>
+                </div>
               </div>
-            </div>
+            </p>
           </div>
         </div>
         <div
@@ -809,8 +799,8 @@ exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
           <div
             class="perseus-column-content"
           >
-            <div
-              class="paragraph"
+            <p
+              class="deprecated-perseus-container"
             >
               A quilter wants to make the design shown at left using the Golden Ratio. Specifically, he wants the ratio of the triangle heights 
               <span
@@ -873,7 +863,7 @@ exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
                 <span />
               </span>
               ?
-            </div>
+            </p>
           </div>
         </div>
       </div>

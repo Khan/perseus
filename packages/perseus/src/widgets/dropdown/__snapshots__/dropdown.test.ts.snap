@@ -6,14 +6,13 @@ exports[`Dropdown widget should snapshot when opened: dropdown open 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      The total number of boxes the forklift can carry is 
+      <span
+        class="deprecated-perseus-container"
       >
-        The total number of boxes the forklift can carry is 
-        <div
+        <span
           class="perseus-widget-container widget-inline-block"
         >
           <div
@@ -44,14 +43,13 @@ exports[`Dropdown widget should snapshot when opened: dropdown open 1`] = `
                       class="perseus-renderer perseus-renderer-responsive"
                     >
                       <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                        class="deprecated-perseus-container"
                       >
-                        <div
-                          class="paragraph"
+                        <p
+                          class="deprecated-perseus-container"
                         >
                           greater/less than or equal to
-                        </div>
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -63,21 +61,21 @@ exports[`Dropdown widget should snapshot when opened: dropdown open 1`] = `
               </button>
             </div>
           </div>
-        </div>
-         
-        <span
-          style="white-space: nowrap;"
-        >
-          <span />
-          <span
-            class="mock-TeX"
-          >
-            60
-          </span>
-          <span />
         </span>
-        .
-      </div>
+      </span>
+       
+      <span
+        style="white-space: nowrap;"
+      >
+        <span />
+        <span
+          class="mock-TeX"
+        >
+          60
+        </span>
+        <span />
+      </span>
+      .
     </div>
   </div>
 </div>
@@ -89,14 +87,13 @@ exports[`Dropdown widget should snapshot: initial render 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      The total number of boxes the forklift can carry is 
+      <span
+        class="deprecated-perseus-container"
       >
-        The total number of boxes the forklift can carry is 
-        <div
+        <span
           class="perseus-widget-container widget-inline-block"
         >
           <div
@@ -127,14 +124,13 @@ exports[`Dropdown widget should snapshot: initial render 1`] = `
                       class="perseus-renderer perseus-renderer-responsive"
                     >
                       <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                        class="deprecated-perseus-container"
                       >
-                        <div
-                          class="paragraph"
+                        <p
+                          class="deprecated-perseus-container"
                         >
                           greater/less than or equal to
-                        </div>
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -146,21 +142,21 @@ exports[`Dropdown widget should snapshot: initial render 1`] = `
               </button>
             </div>
           </div>
-        </div>
-         
-        <span
-          style="white-space: nowrap;"
-        >
-          <span />
-          <span
-            class="mock-TeX"
-          >
-            60
-          </span>
-          <span />
         </span>
-        .
-      </div>
+      </span>
+       
+      <span
+        style="white-space: nowrap;"
+      >
+        <span />
+        <span
+          class="mock-TeX"
+        >
+          60
+        </span>
+        <span />
+      </span>
+      .
     </div>
   </div>
 </div>
