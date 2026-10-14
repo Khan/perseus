@@ -32,7 +32,8 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
           class="perseus-widget-container widget-block"
         >
           <div
-            class="perseus-graded-group gradedGroup_mg08ap"
+            class="perseus-graded-group"
+            style="border-block-start: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-block-end: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); background-color: var(--wb-semanticColor-core-background-base-subtle); margin-inline-start: -16px; margin-inline-end: -16px; padding-block-end: 16px; padding-inline-start: 16px; padding-inline-end: 16px; padding-block-start: 10px; width: auto;"
           >
             <div
               style="font-size: var(--wb-font-heading-size-small); color: var(--wb-semanticColor-core-foreground-neutral-default); text-transform: uppercase; margin-block-end: 11px; letter-spacing: 0.8px;"
@@ -430,7 +431,7 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                   class="paragraph perseus-paragraph-centered"
                   data-perseus-paragraph-index="0"
                 >
-
+                  
 
                 </div>
               </div>
@@ -438,7 +439,7 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
             <button
               aria-controls=":r2f:"
               aria-expanded="false"
-              class="explainToggle_1rvdp1e"
+              style="background-color: unset; font-size: var(--wb-font-body-size-small); padding: 0px; border: none; margin-block-start: 20px; color: var(--wb-semanticColor-core-foreground-instructive-default); cursor: pointer; display: block; clear: both;"
             >
               Explain
             </button>
@@ -519,15 +520,16 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                           class="categorizer-container static-mode "
                         >
                           <table
-                            class="categorizer-table mobileTable_1ktoh91"
+                            class="categorizer-table"
+                            data-style-media-screen-and-max-width-767px="min-inline-size: auto;"
                           >
                             <thead>
                               <tr>
                                 <td
-                                  class="emptyHeaderCell_1fhroad"
+                                  style="background-color: inherit; border-block-end: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-border-neutral-subtle);"
                                 />
                                 <th
-                                  class="header_whrfk4"
+                                  style="text-align: center; vertical-align: bottom;"
                                 >
                                   <div
                                     class="perseus-renderer perseus-renderer-responsive"
@@ -545,7 +547,7 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   </div>
                                 </th>
                                 <th
-                                  class="header_whrfk4"
+                                  style="text-align: center; vertical-align: bottom;"
                                 >
                                   <div
                                     class="perseus-renderer perseus-renderer-responsive"
@@ -583,14 +585,16 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="True"
                                     role="button"
                                   >
                                     <span
-                                      class="radioSpan_2k8t20-o_O-checkedRadioSpan_tt866m-o_O-staticCheckedRadioSpan_1r6gi5o"
+                                      data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
+                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer; color: var(--wb-semanticColor-core-foreground-disabled-strong);"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -609,14 +613,16 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="False"
                                     role="button"
                                   >
                                     <span
-                                      class="radioSpan_2k8t20"
+                                      data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
+                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer;"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -653,14 +659,16 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="True"
                                     role="button"
                                   >
                                     <span
-                                      class="radioSpan_2k8t20"
+                                      data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
+                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer;"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -679,14 +687,16 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="False"
                                     role="button"
                                   >
                                     <span
-                                      class="radioSpan_2k8t20-o_O-checkedRadioSpan_tt866m-o_O-staticCheckedRadioSpan_1r6gi5o"
+                                      data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
+                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer; color: var(--wb-semanticColor-core-foreground-disabled-strong);"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -723,14 +733,16 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="True"
                                     role="button"
                                   >
                                     <span
-                                      class="radioSpan_2k8t20-o_O-checkedRadioSpan_tt866m-o_O-staticCheckedRadioSpan_1r6gi5o"
+                                      data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
+                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer; color: var(--wb-semanticColor-core-foreground-disabled-strong);"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -749,14 +761,16 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="False"
                                     role="button"
                                   >
                                     <span
-                                      class="radioSpan_2k8t20"
+                                      data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
+                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer;"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -793,14 +807,16 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="True"
                                     role="button"
                                   >
                                     <span
-                                      class="radioSpan_2k8t20-o_O-checkedRadioSpan_tt866m-o_O-staticCheckedRadioSpan_1r6gi5o"
+                                      data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
+                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer; color: var(--wb-semanticColor-core-foreground-disabled-strong);"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -819,14 +835,16 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="False"
                                     role="button"
                                   >
                                     <span
-                                      class="radioSpan_2k8t20"
+                                      data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
+                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer;"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -868,12 +886,17 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                 />
                 <button
                   aria-disabled="false"
-                  class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn"
                   data-kind="primary"
+                  data-style-active="background: var(--wb-semanticColor-action-primary-progressive-press-background); border-radius: var(--wb-c-button-root-border-radius-press); color: var(--wb-semanticColor-action-primary-progressive-press-foreground); outline: var(--wb-c-button-root-border-width-primary-press) solid var(--wb-semanticColor-action-primary-progressive-press-border); outline-offset: var(--wb-c-button-root-border-offset-primary);"
+                  data-style-focus="-webkit-tap-highlight-color: rgba(0,0,0,0);"
+                  data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                  data-style-media-hover-hover-hover="background: var(--wb-semanticColor-action-primary-progressive-hover-background); border-radius: var(--wb-c-button-root-border-radius-hover); color: var(--wb-semanticColor-action-primary-progressive-hover-foreground); outline: var(--wb-c-button-root-border-width-primary-hover) solid var(--wb-semanticColor-action-primary-progressive-hover-border); outline-offset: var(--wb-c-button-root-border-offset-primary);"
+                  data-style-moz-focus-inner="border: 0px;"
+                  style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: center; padding: 0px; border: none; cursor: pointer; outline: none; text-decoration: none; box-sizing: border-box; touch-action: manipulation; user-select: none; height: var(--wb-c-button-root-sizing-height-medium); padding-block: 0px; border-radius: var(--wb-c-button-root-border-radius-default); padding-inline: var(--wb-c-button-root-layout-padding-inline-primary-medium); border-style: solid; border-width: var(--wb-c-button-root-border-width-primary-default); border-color: var(--wb-semanticColor-action-primary-progressive-default-border); background: var(--wb-semanticColor-action-primary-progressive-default-background); color: var(--wb-semanticColor-action-primary-progressive-default-foreground); transition: border-radius 0.1s ease-in-out;"
                   type="button"
                 >
                   <span
-                    class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+                    style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: inline-block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-c-button-root-font-weight-default); line-height: var(--wb-c-button-root-font-lineHeight-default); align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;"
                   >
                     Check
                   </span>
@@ -920,7 +943,8 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
           class="perseus-widget-container widget-block"
         >
           <div
-            class="perseus-graded-group gradedGroup_mg08ap"
+            class="perseus-graded-group"
+            style="border-block-start: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-block-end: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); background-color: var(--wb-semanticColor-core-background-base-subtle); margin-inline-start: -16px; margin-inline-end: -16px; padding-block-end: 16px; padding-inline-start: 16px; padding-inline-end: 16px; padding-block-start: 10px; width: auto;"
           >
             <div
               style="font-size: var(--wb-font-heading-size-small); color: var(--wb-semanticColor-core-foreground-neutral-default); text-transform: uppercase; margin-block-end: 11px; letter-spacing: 0.8px;"
@@ -1231,7 +1255,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                   class="paragraph perseus-paragraph-centered"
                   data-perseus-paragraph-index="0"
                 >
-
+                  
 
                 </div>
               </div>
@@ -1239,7 +1263,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
             <button
               aria-controls=":r2e:"
               aria-expanded="false"
-              class="explainToggle_1rvdp1e"
+              style="background-color: unset; font-size: var(--wb-font-body-size-small); padding: 0px; border: none; margin-block-start: 20px; color: var(--wb-semanticColor-core-foreground-instructive-default); cursor: pointer; display: block; clear: both;"
             >
               Explain
             </button>
@@ -1317,18 +1341,20 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                         style="position: relative; overflow: visible;"
                       >
                         <div
-                          class="categorizer-container static-mode fullBleedContainer_1pirxou"
+                          class="categorizer-container static-mode"
+                          data-style-media-screen-and-max-width-1023px="margin-inline-start: -16px; margin-inline-end: -16px; overflow-x: auto;"
                         >
                           <table
-                            class="categorizer-table mobileTable_1ktoh91"
+                            class="categorizer-table"
+                            data-style-media-screen-and-max-width-767px="min-inline-size: auto;"
                           >
                             <thead>
                               <tr>
                                 <td
-                                  class="emptyHeaderCell_1fhroad"
+                                  style="background-color: inherit; border-block-end: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-border-neutral-subtle);"
                                 />
                                 <th
-                                  class="header_whrfk4"
+                                  style="text-align: center; vertical-align: bottom;"
                                 >
                                   <div
                                     class="perseus-renderer perseus-renderer-responsive"
@@ -1346,7 +1372,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   </div>
                                 </th>
                                 <th
-                                  class="header_whrfk4"
+                                  style="text-align: center; vertical-align: bottom;"
                                 >
                                   <div
                                     class="perseus-renderer perseus-renderer-responsive"
@@ -1384,7 +1410,8 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="True"
@@ -1392,22 +1419,27 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   >
                                     <input
                                       checked=""
-                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u-o_O-responsiveRadioInputStatic_c2zd4f"
+                                      data-style-checked="background-color: var(--wb-semanticColor-core-foreground-disabled-strong); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-disabled-strong); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
+                                      data-style-ms-check="display: none;"
                                       name="perseus_radio_10_0"
+                                      style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
                                       type="radio"
                                     />
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="False"
                                     role="button"
                                   >
                                     <input
-                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u-o_O-responsiveRadioInputStatic_c2zd4f"
+                                      data-style-checked="background-color: var(--wb-semanticColor-core-foreground-disabled-strong); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-disabled-strong); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
+                                      data-style-ms-check="display: none;"
                                       name="perseus_radio_10_0"
+                                      style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
                                       type="radio"
                                     />
                                   </div>
@@ -1431,21 +1463,25 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="True"
                                     role="button"
                                   >
                                     <input
-                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u-o_O-responsiveRadioInputStatic_c2zd4f"
+                                      data-style-checked="background-color: var(--wb-semanticColor-core-foreground-disabled-strong); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-disabled-strong); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
+                                      data-style-ms-check="display: none;"
                                       name="perseus_radio_10_1"
+                                      style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
                                       type="radio"
                                     />
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="False"
@@ -1453,8 +1489,10 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   >
                                     <input
                                       checked=""
-                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u-o_O-responsiveRadioInputStatic_c2zd4f"
+                                      data-style-checked="background-color: var(--wb-semanticColor-core-foreground-disabled-strong); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-disabled-strong); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
+                                      data-style-ms-check="display: none;"
                                       name="perseus_radio_10_1"
+                                      style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
                                       type="radio"
                                     />
                                   </div>
@@ -1478,7 +1516,8 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="True"
@@ -1486,22 +1525,27 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   >
                                     <input
                                       checked=""
-                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u-o_O-responsiveRadioInputStatic_c2zd4f"
+                                      data-style-checked="background-color: var(--wb-semanticColor-core-foreground-disabled-strong); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-disabled-strong); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
+                                      data-style-ms-check="display: none;"
                                       name="perseus_radio_10_2"
+                                      style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
                                       type="radio"
                                     />
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="False"
                                     role="button"
                                   >
                                     <input
-                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u-o_O-responsiveRadioInputStatic_c2zd4f"
+                                      data-style-checked="background-color: var(--wb-semanticColor-core-foreground-disabled-strong); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-disabled-strong); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
+                                      data-style-ms-check="display: none;"
                                       name="perseus_radio_10_2"
+                                      style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
                                       type="radio"
                                     />
                                   </div>
@@ -1525,7 +1569,8 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="True"
@@ -1533,22 +1578,27 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   >
                                     <input
                                       checked=""
-                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u-o_O-responsiveRadioInputStatic_c2zd4f"
+                                      data-style-checked="background-color: var(--wb-semanticColor-core-foreground-disabled-strong); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-disabled-strong); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
+                                      data-style-ms-check="display: none;"
                                       name="perseus_radio_10_3"
+                                      style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
                                       type="radio"
                                     />
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="False"
                                     role="button"
                                   >
                                     <input
-                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u-o_O-responsiveRadioInputStatic_c2zd4f"
+                                      data-style-checked="background-color: var(--wb-semanticColor-core-foreground-disabled-strong); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-disabled-strong); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
+                                      data-style-ms-check="display: none;"
                                       name="perseus_radio_10_3"
+                                      style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
                                       type="radio"
                                     />
                                   </div>
@@ -1577,12 +1627,17 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                 />
                 <button
                   aria-disabled="false"
-                  class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn"
                   data-kind="primary"
+                  data-style-active="background: var(--wb-semanticColor-action-primary-progressive-press-background); border-radius: var(--wb-c-button-root-border-radius-press); color: var(--wb-semanticColor-action-primary-progressive-press-foreground); outline: var(--wb-c-button-root-border-width-primary-press) solid var(--wb-semanticColor-action-primary-progressive-press-border); outline-offset: var(--wb-c-button-root-border-offset-primary);"
+                  data-style-focus="-webkit-tap-highlight-color: rgba(0,0,0,0);"
+                  data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                  data-style-media-hover-hover-hover="background: var(--wb-semanticColor-action-primary-progressive-hover-background); border-radius: var(--wb-c-button-root-border-radius-hover); color: var(--wb-semanticColor-action-primary-progressive-hover-foreground); outline: var(--wb-c-button-root-border-width-primary-hover) solid var(--wb-semanticColor-action-primary-progressive-hover-border); outline-offset: var(--wb-c-button-root-border-offset-primary);"
+                  data-style-moz-focus-inner="border: 0px;"
+                  style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: center; padding: 0px; border: none; cursor: pointer; outline: none; text-decoration: none; box-sizing: border-box; touch-action: manipulation; user-select: none; height: var(--wb-c-button-root-sizing-height-medium); padding-block: 0px; border-radius: var(--wb-c-button-root-border-radius-default); padding-inline: var(--wb-c-button-root-layout-padding-inline-primary-medium); border-style: solid; border-width: var(--wb-c-button-root-border-width-primary-default); border-color: var(--wb-semanticColor-action-primary-progressive-default-border); background: var(--wb-semanticColor-action-primary-progressive-default-background); color: var(--wb-semanticColor-action-primary-progressive-default-foreground); transition: border-radius 0.1s ease-in-out;"
                   type="button"
                 >
                   <span
-                    class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+                    style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: inline-block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-c-button-root-font-weight-default); line-height: var(--wb-c-button-root-font-lineHeight-default); align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;"
                   >
                     Check
                   </span>

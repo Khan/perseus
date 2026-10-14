@@ -12,7 +12,7 @@ exports[`Definition widget should have a default snapshot: first render 1`] = `
       <div
         class="paragraph"
       >
-        Read the excerpt and answer the question below.
+        Read the excerpt and answer the question below. 
       </div>
     </div>
     <div
@@ -22,7 +22,7 @@ exports[`Definition widget should have a default snapshot: first render 1`] = `
       <div
         class="paragraph"
       >
-        The Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with
+        The Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with 
         <div
           class="perseus-widget-container perseus-widget__definition widget-inline"
         >
@@ -30,10 +30,11 @@ exports[`Definition widget should have a default snapshot: first render 1`] = `
             aria-controls=":r0:"
             aria-expanded="false"
             aria-label="Definition of: the Pequots"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_uraxz"
+            data-style-before="content: ''; position: absolute; inset-block-start: 50%; inset-inline-start: 50%; transform: translate(-50%, -50%); block-size: 100%; inline-size: 100%; min-block-size: var(--wb-sizing-size_240); min-inline-size: var(--wb-sizing-size_240);"
+            data-style-moz-focus-inner="border: 0px;"
             data-wb-floating-reference=":r2:"
             id=":r0:-anchor"
-            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
+            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; position: relative;"
             type="button"
           >
             <span
@@ -63,7 +64,7 @@ exports[`Definition widget should have an open state snapshot: open state 1`] = 
       <div
         class="paragraph"
       >
-        Read the excerpt and answer the question below.
+        Read the excerpt and answer the question below. 
       </div>
     </div>
     <div
@@ -73,7 +74,7 @@ exports[`Definition widget should have an open state snapshot: open state 1`] = 
       <div
         class="paragraph"
       >
-        The Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with
+        The Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with 
         <div
           class="perseus-widget-container perseus-widget__definition widget-inline"
         >
@@ -81,10 +82,12 @@ exports[`Definition widget should have an open state snapshot: open state 1`] = 
             aria-controls=":r6:"
             aria-expanded="true"
             aria-label="Definition of: the Pequots"
-            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_uraxz"
             data-floating-ui-inert=""
+            data-style-before="content: ''; position: absolute; inset-block-start: 50%; inset-inline-start: 50%; transform: translate(-50%, -50%); block-size: 100%; inline-size: 100%; min-block-size: var(--wb-sizing-size_240); min-inline-size: var(--wb-sizing-size_240);"
+            data-style-moz-focus-inner="border: 0px;"
             data-wb-floating-reference=":r8:"
             id=":r6:-anchor"
+            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; position: relative;"
             type="button"
           >
             <span

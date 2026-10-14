@@ -50,7 +50,9 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
               />
               <button
                 aria-label="Make image bigger."
-                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_g025ss"
+                data-style-before="content: ''; position: absolute; inset-block-start: 50%; inset-inline-start: 50%; transform: translate(-50%, -50%); block-size: 100%; inline-size: 100%; min-block-size: var(--wb-sizing-size_240); min-inline-size: var(--wb-sizing-size_240);"
+                data-style-moz-focus-inner="border: 0px;"
+                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: hidden; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: zoom-in; position: absolute; height: 100%;"
                 type="button"
               />
             </div>
@@ -134,7 +136,9 @@ exports[`image widget - isMobile(false) custom alignment should render image wit
               />
               <button
                 aria-label="Make image bigger."
-                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_g025ss"
+                data-style-before="content: ''; position: absolute; inset-block-start: 50%; inset-inline-start: 50%; transform: translate(-50%, -50%); block-size: 100%; inline-size: 100%; min-block-size: var(--wb-sizing-size_240); min-inline-size: var(--wb-sizing-size_240);"
+                data-style-moz-focus-inner="border: 0px;"
+                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: hidden; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: zoom-in; position: absolute; height: 100%;"
                 type="button"
               />
             </div>
@@ -332,7 +336,9 @@ exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
                     </span>
                     <button
                       aria-label="Make image bigger."
-                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_g025ss"
+                      data-style-before="content: ''; position: absolute; inset-block-start: 50%; inset-inline-start: 50%; transform: translate(-50%, -50%); block-size: 100%; inline-size: 100%; min-block-size: var(--wb-sizing-size_240); min-inline-size: var(--wb-sizing-size_240);"
+                      data-style-moz-focus-inner="border: 0px;"
+                      style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: hidden; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: zoom-in; position: absolute; height: 100%;"
                       type="button"
                     />
                   </div>
@@ -372,7 +378,7 @@ exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
             <div
               class="paragraph"
             >
-              A quilter wants to make the design shown at left using the Golden Ratio. Specifically, he wants the ratio of the triangle heights
+              A quilter wants to make the design shown at left using the Golden Ratio. Specifically, he wants the ratio of the triangle heights 
               <span
                 style="white-space: nowrap;"
               >
@@ -384,7 +390,7 @@ exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
                 </span>
                 <span />
               </span>
-               and
+               and 
               <span
                 style="white-space: nowrap;"
               >
@@ -396,7 +402,7 @@ exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
                 </span>
                 <span />
               </span>
-               to each equal
+               to each equal 
               <span
                 style="white-space: nowrap;"
               >
@@ -408,7 +414,7 @@ exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
                 </span>
                 <span />
               </span>
-              . If the quilter makes the triangle height
+              . If the quilter makes the triangle height 
               <span
                 style="white-space: nowrap;"
               >
@@ -420,7 +426,7 @@ exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
                 </span>
                 <span />
               </span>
-              , approximately how tall should he make triangle height
+              , approximately how tall should he make triangle height 
               <span
                 style="white-space: nowrap;"
               >
@@ -492,7 +498,9 @@ exports[`image widget - isMobile(true) custom alignment should render image with
               />
               <button
                 aria-label="Make image bigger."
-                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_g025ss"
+                data-style-before="content: ''; position: absolute; inset-block-start: 50%; inset-inline-start: 50%; transform: translate(-50%, -50%); block-size: 100%; inline-size: 100%; min-block-size: var(--wb-sizing-size_240); min-inline-size: var(--wb-sizing-size_240);"
+                data-style-moz-focus-inner="border: 0px;"
+                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: hidden; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: zoom-in; position: absolute; height: 100%;"
                 type="button"
               />
             </div>
@@ -576,7 +584,9 @@ exports[`image widget - isMobile(true) custom alignment should render image with
               />
               <button
                 aria-label="Make image bigger."
-                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_g025ss"
+                data-style-before="content: ''; position: absolute; inset-block-start: 50%; inset-inline-start: 50%; transform: translate(-50%, -50%); block-size: 100%; inline-size: 100%; min-block-size: var(--wb-sizing-size_240); min-inline-size: var(--wb-sizing-size_240);"
+                data-style-moz-focus-inner="border: 0px;"
+                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: hidden; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: zoom-in; position: absolute; height: 100%;"
                 type="button"
               />
             </div>
@@ -774,7 +784,9 @@ exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
                     </span>
                     <button
                       aria-label="Make image bigger."
-                      class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_g025ss"
+                      data-style-before="content: ''; position: absolute; inset-block-start: 50%; inset-inline-start: 50%; transform: translate(-50%, -50%); block-size: 100%; inline-size: 100%; min-block-size: var(--wb-sizing-size_240); min-inline-size: var(--wb-sizing-size_240);"
+                      data-style-moz-focus-inner="border: 0px;"
+                      style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: hidden; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: zoom-in; position: absolute; height: 100%;"
                       type="button"
                     />
                   </div>
@@ -814,7 +826,7 @@ exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
             <div
               class="paragraph"
             >
-              A quilter wants to make the design shown at left using the Golden Ratio. Specifically, he wants the ratio of the triangle heights
+              A quilter wants to make the design shown at left using the Golden Ratio. Specifically, he wants the ratio of the triangle heights 
               <span
                 style="white-space: nowrap;"
               >
@@ -826,7 +838,7 @@ exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
                 </span>
                 <span />
               </span>
-               and
+               and 
               <span
                 style="white-space: nowrap;"
               >
@@ -838,7 +850,7 @@ exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
                 </span>
                 <span />
               </span>
-               to each equal
+               to each equal 
               <span
                 style="white-space: nowrap;"
               >
@@ -850,7 +862,7 @@ exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
                 </span>
                 <span />
               </span>
-              . If the quilter makes the triangle height
+              . If the quilter makes the triangle height 
               <span
                 style="white-space: nowrap;"
               >
@@ -862,7 +874,7 @@ exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
                 </span>
                 <span />
               </span>
-              , approximately how tall should he make triangle height
+              , approximately how tall should he make triangle height 
               <span
                 style="white-space: nowrap;"
               >

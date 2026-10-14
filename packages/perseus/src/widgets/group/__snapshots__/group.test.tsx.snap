@@ -49,7 +49,9 @@ exports[`group widget should snapshot: initial render 1`] = `
                 </span>
                 <button
                   aria-label="Make image bigger."
-                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_g025ss"
+                  data-style-before="content: ''; position: absolute; inset-block-start: 50%; inset-inline-start: 50%; transform: translate(-50%, -50%); block-size: 100%; inline-size: 100%; min-block-size: var(--wb-sizing-size_240); min-inline-size: var(--wb-sizing-size_240);"
+                  data-style-moz-focus-inner="border: 0px;"
+                  style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: hidden; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: zoom-in; position: absolute; height: 100%;"
                   type="button"
                 />
               </div>
@@ -82,7 +84,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                         class="paragraph"
                       >
                         <strong>
-                          In one week, how many more hours are in the periods with a
+                          In one week, how many more hours are in the periods with a 
                           <span
                             style="white-space: nowrap;"
                           >
@@ -404,7 +406,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                         class="paragraph"
                       >
                         <strong>
-                          What is
+                          What is 
                           <span
                             style="white-space: nowrap;"
                           >
@@ -418,7 +420,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                           </span>
                            rounded to the nearest ten?
                         </strong>
-
+                           
                       </div>
                     </div>
                     <div
@@ -466,7 +468,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                         class="paragraph"
                       >
                         <strong>
-                          What is
+                          What is 
                           <span
                             style="white-space: nowrap;"
                           >
@@ -480,7 +482,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                           </span>
                            rounded to the nearest hundred?
                         </strong>
-
+                           
                       </div>
                     </div>
                     <div
@@ -562,7 +564,9 @@ exports[`group widget should snapshot: initial render 1`] = `
                               </span>
                               <button
                                 aria-label="Make image bigger."
-                                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_g025ss"
+                                data-style-before="content: ''; position: absolute; inset-block-start: 50%; inset-inline-start: 50%; transform: translate(-50%, -50%); block-size: 100%; inline-size: 100%; min-block-size: var(--wb-sizing-size_240); min-inline-size: var(--wb-sizing-size_240);"
+                                data-style-moz-focus-inner="border: 0px;"
+                                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: hidden; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: zoom-in; position: absolute; height: 100%;"
                                 type="button"
                               />
                             </div>
