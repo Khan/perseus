@@ -7,7 +7,7 @@ const path = require("path");
 
 const ancesdir = require("ancesdir");
 
-const root = ancesdir(__dirname);
+const root = ancesdir(__dirname, "pnpm-workspace.yaml");
 
 // NOTE: We need to use this plugin in order to turn the module exports
 // into module.exports. This will make it so that we can mock exports
