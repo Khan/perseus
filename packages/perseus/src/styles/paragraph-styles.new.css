@@ -12,7 +12,7 @@
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer
     > .deprecated-perseus-container:has(> span.deprecated-perseus-container) {
-    margin-block-end: 22px;
+    margin-block-end: var(--wb-sizing-size_320);
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer
