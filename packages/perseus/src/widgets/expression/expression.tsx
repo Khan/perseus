@@ -132,6 +132,11 @@ export const Expression = forwardRef<Widget, Props>(
 
         const {strings} = usePerseusI18n();
         const {analytics} = useDependencies();
+        const isRequired =
+            props.isScorable &&
+            !props.reviewMode &&
+            !props.static &&
+            !apiOptions.readOnly;
         // KeypadContext provides setKeypadActive which is passed to focus() to notify
         // the mobile keypad system when an input becomes active. This is only used on
         // mobile (when apiOptions.customKeypad is true) but is safe to call on desktop.
@@ -308,6 +313,7 @@ export const Expression = forwardRef<Widget, Props>(
                     <KeypadInputWithInterface
                         ref={inputRef}
                         ariaLabel={ariaLabel || strings.mathInputBox}
+                        ariaRequired={isRequired}
                         value={userInput}
                         keypadElement={keypadElement}
                         onChange={changeAndTrack}
@@ -335,6 +341,7 @@ export const Expression = forwardRef<Widget, Props>(
                         onFocus={handleFocus}
                         onBlur={handleBlur}
                         ariaLabel={ariaLabel || strings.mathInputBox}
+                        ariaRequired={isRequired}
                         extraKeys={keypadConfiguration.extraKeys}
                         onAnalyticsEvent={
                             analytics?.onAnalyticsEvent ?? (async () => {})
