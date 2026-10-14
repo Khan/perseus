@@ -11,16 +11,15 @@ import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import {act, screen} from "@testing-library/react";
 import * as React from "react";
 
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
-import {wait} from "../../testing/wait";
-import {scorePerseusItemTesting} from "../../util/test-utils";
-import {renderQuestion} from "../__testutils__/renderQuestion";
-
-import {basicQuestion} from "./sorter.testdata";
+import * as Dependencies from "../../../dependencies";
+import {testDependencies} from "../../../testing/test-dependencies";
+import {wait} from "../../../testing/wait";
+import {scorePerseusItemTesting} from "../../../util/test-utils";
+import {renderQuestion} from "../../__testutils__/renderQuestion";
+import {basicQuestion} from "../sorter.testdata";
 
 import type {SorterHandle} from "./sorter";
-import type {APIOptions} from "../../types";
+import type {APIOptions} from "../../../types";
 
 /*
  * Sortable settles its cards from a requestAnimationFrame callback, which can

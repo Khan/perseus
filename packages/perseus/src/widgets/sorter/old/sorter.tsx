@@ -6,14 +6,14 @@ import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {forwardRef, useImperativeHandle, useRef} from "react";
 
-import Sortable from "../../components/sortable";
-import {useDependencies} from "../../dependencies";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
-import deprecatedStandin from "../deprecated-standin";
+import Sortable from "../../../components/sortable";
+import {useDependencies} from "../../../dependencies";
+import {getPromptJSON as _getPromptJSON} from "../../../widget-ai-utils/sorter/sorter-ai-utils";
+import deprecatedStandin from "../../deprecated-standin";
 
-import type {SortableOption} from "../../components/sortable";
-import type {Widget, WidgetProps} from "../../types";
-import type {SorterPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
+import type {SortableOption} from "../../../components/sortable";
+import type {Widget, WidgetProps} from "../../../types";
+import type {SorterPromptJSON} from "../../../widget-ai-utils/sorter/sorter-ai-utils";
 import type {
     PerseusSorterWidgetOptions,
     PerseusSorterUserInput,
