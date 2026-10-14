@@ -28,6 +28,7 @@ type Props = {
     onFocus?: () => void;
     onBlur?: () => void;
     disabled?: boolean;
+    required?: boolean;
     style?: StyleType;
     id: string;
     linterContext?: LinterContextProps;
@@ -46,6 +47,7 @@ const InputWithExamples = forwardRef<Focusable, Props>(
             onFocus = () => {},
             onBlur = () => {},
             disabled = false,
+            required = false,
             linterContext = PerseusLinter.linterContextDefault,
             className = "",
             ...props
@@ -108,6 +110,7 @@ const InputWithExamples = forwardRef<Focusable, Props>(
                 id: id,
                 // If we have examples, we want to provide the aria-describedby attribute
                 "aria-describedby": shouldShowExamples ? ariaId : undefined,
+                "aria-required": required,
                 ref: inputRef,
                 className: getInputClassName(),
                 labelText: props.labelText,
