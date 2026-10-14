@@ -116,7 +116,7 @@ describe("renderer", () => {
             const question: PerseusRenderer = {
                 content: "[[☃ sequence 1]]",
                 images: {},
-                // PerseusWidgetsMap can't name an unknown widget type.
+                // PerseusWidgetsMap can't contain an unknown widget type, so we have to cast to `any`.
                 // eslint-disable-next-line no-restricted-syntax
                 widgets: {
                     "sequence 1": {
