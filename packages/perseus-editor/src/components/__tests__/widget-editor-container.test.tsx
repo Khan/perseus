@@ -190,7 +190,7 @@ describe("WidgetEditor", () => {
     });
 
     describe("a widget type with no registered editor", () => {
-        // An unknown widget type. PerseusWidget can't name it.
+        // An unknown widget type. We need to cast because it's not assignable to PerseusWidget.
         // eslint-disable-next-line no-restricted-syntax
         const widgetInfo = {
             type: "transformer",
