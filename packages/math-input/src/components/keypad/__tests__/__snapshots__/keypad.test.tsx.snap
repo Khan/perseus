@@ -97,7 +97,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                   >
                     <path
                       d="M0 0h28v11.457H0z"
-                      fill="#fff"
                       transform="translate(2 10.271)"
                     />
                   </clippath>
@@ -192,9 +191,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             >
               <button
                 aria-label="1"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -225,9 +222,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             >
               <button
                 aria-label="2"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -258,9 +253,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             >
               <button
                 aria-label="3"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -291,9 +284,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             >
               <button
                 aria-label="4"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -324,9 +315,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             >
               <button
                 aria-label="5"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -357,9 +346,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             >
               <button
                 aria-label="6"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -390,9 +377,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             >
               <button
                 aria-label="7"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -423,9 +408,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             >
               <button
                 aria-label="8"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -456,9 +439,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             >
               <button
                 aria-label="9"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -489,9 +470,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             >
               <button
                 aria-label="0"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -522,9 +501,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             >
               <button
                 aria-label="Decimal"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -556,9 +533,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             >
               <button
                 aria-label="Negative"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -591,9 +566,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             >
               <button
                 aria-label="Percent"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -626,9 +599,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             >
               <button
                 aria-label="Fraction, excluding the current expression"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -661,9 +632,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             >
               <button
                 aria-label="Plus"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -702,9 +671,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             >
               <button
                 aria-label="Minus"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -737,9 +704,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             >
               <button
                 aria-label="Multiply"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -771,7 +736,6 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                         >
                           <path
                             d="M0 0h3v3H0z"
-                            fill="#fff"
                             transform="translate(18.5 18.5)"
                           />
                         </clippath>
@@ -787,9 +751,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             >
               <button
                 aria-label="Left parenthesis"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -822,9 +784,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             >
               <button
                 aria-label="Right parenthesis"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -857,9 +817,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             >
               <button
                 aria-label="Delete"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -898,9 +856,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               >
                 <button
                   aria-label="Up arrow"
-                  data-style-focus="outline: none;"
-                  data-style-moz-focus-inner="border: 0px;"
-                  style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_13937mo-o_O-inlineStyles_uraxz"
                   type="button"
                 >
                   <div
@@ -945,9 +901,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               >
                 <button
                   aria-label="Right arrow"
-                  data-style-focus="outline: none;"
-                  data-style-moz-focus-inner="border: 0px;"
-                  style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_13937mo-o_O-inlineStyles_uraxz"
                   type="button"
                 >
                   <div
@@ -992,9 +946,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               >
                 <button
                   aria-label="Down arrow"
-                  data-style-focus="outline: none;"
-                  data-style-moz-focus-inner="border: 0px;"
-                  style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_13937mo-o_O-inlineStyles_uraxz"
                   type="button"
                 >
                   <div
@@ -1039,9 +991,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               >
                 <button
                   aria-label="Left arrow"
-                  data-style-focus="outline: none;"
-                  data-style-moz-focus-inner="border: 0px;"
-                  style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                  class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_13937mo-o_O-inlineStyles_uraxz"
                   type="button"
                 >
                   <div
@@ -1209,7 +1159,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                   >
                     <path
                       d="M0 0h28v11.457H0z"
-                      fill="#fff"
                       transform="translate(2 10.271)"
                     />
                   </clippath>
@@ -1304,9 +1253,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             >
               <button
                 aria-label="1"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -1337,9 +1284,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             >
               <button
                 aria-label="2"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -1370,9 +1315,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             >
               <button
                 aria-label="3"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -1403,9 +1346,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             >
               <button
                 aria-label="4"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -1436,9 +1377,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             >
               <button
                 aria-label="5"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -1469,9 +1408,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             >
               <button
                 aria-label="6"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -1502,9 +1439,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             >
               <button
                 aria-label="7"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -1535,9 +1470,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             >
               <button
                 aria-label="8"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -1568,9 +1501,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             >
               <button
                 aria-label="9"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -1601,9 +1532,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             >
               <button
                 aria-label="0"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -1634,9 +1563,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             >
               <button
                 aria-label="Decimal"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -1668,9 +1595,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             >
               <button
                 aria-label="Negative"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -1703,9 +1628,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             >
               <button
                 aria-label="Percent"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -1738,9 +1661,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             >
               <button
                 aria-label="Fraction, excluding the current expression"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -1773,9 +1694,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             >
               <button
                 aria-label="Plus"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -1814,9 +1733,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             >
               <button
                 aria-label="Minus"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -1849,9 +1766,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             >
               <button
                 aria-label="Multiply"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -1883,7 +1798,6 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                         >
                           <path
                             d="M0 0h3v3H0z"
-                            fill="#fff"
                             transform="translate(18.5 18.5)"
                           />
                         </clippath>
@@ -1899,9 +1813,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             >
               <button
                 aria-label="Left parenthesis"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -1934,9 +1846,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             >
               <button
                 aria-label="Right parenthesis"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div
@@ -1969,9 +1879,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             >
               <button
                 aria-label="Delete"
-                data-style-focus="outline: none;"
-                data-style-moz-focus-inner="border: 0px;"
-                style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; height: 100%;"
+                class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-clickable_rukhmf-o_O-inlineStyles_uraxz"
                 type="button"
               >
                 <div

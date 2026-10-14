@@ -1,13 +1,8 @@
 import * as React from "react";
-import {action} from "storybook/actions";
 
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
-import {
-    multiChoiceQuestion,
-    singleSelectQuestion,
-} from "../../__testdata__/radio.testdata";
+import {singleSelectQuestion as question} from "../../__testdata__/radio.testdata";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
-import {PROD_EDITOR_WIDTH} from "../storybook-constants";
 
 import RadioEditor from "./radio-editor";
 
@@ -23,23 +18,10 @@ const meta: Meta = {
 } satisfies Meta<typeof RadioEditor>;
 export default meta;
 
-type Story = StoryObj<typeof meta>;
-export const Default: Story = {
-    args: {
-        onChange: action("onChange"),
-        apiOptions: Object.freeze({}),
-        static: false,
-    },
+type Story = StoryObj<typeof EditorPageWithStorybookPreview>;
+
+export const EditorDemo: Story = {
+    render: (): React.ReactElement => (
+        <EditorPageWithStorybookPreview question={question} />
+    ),
 };
-
-export const SingleChoice = (): React.ReactElement => (
-    <div style={{width: PROD_EDITOR_WIDTH}}>
-        <EditorPageWithStorybookPreview question={singleSelectQuestion} />
-    </div>
-);
-
-export const MultiChoice = (): React.ReactElement => (
-    <div style={{width: PROD_EDITOR_WIDTH}}>
-        <EditorPageWithStorybookPreview question={multiChoiceQuestion} />
-    </div>
-);

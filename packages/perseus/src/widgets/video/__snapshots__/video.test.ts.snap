@@ -54,10 +54,7 @@ exports[`video widget should snapshot on mobile: first mobile render 1`] = `
                 style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 10px; -ms-flex-basis: 10px; -ms-flex-preferred-size: 10px; -webkit-flex-basis: 10px; flex-basis: 10px; flex-shrink: 0;"
               />
               <a
-                class="visited-no-recolor"
-                data-style-active="color: var(--wb-semanticColor-link-press); text-decoration: underline currentcolor solid; text-underline-offset: var(--wb-font-textDecoration-underlineOffset);"
-                data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium); border-radius: var(--wb-border-radius-radius_010);"
-                data-style-hover="text-decoration: underline currentcolor solid; color: var(--wb-semanticColor-link-hover); text-underline-offset: var(--wb-font-textDecoration-underlineOffset);"
+                class="shared_1y1t15t-o_O-rest_19jgcvc-o_O-inlineStyles_uraxz visited-no-recolor"
                 href="/transcript/videoNotFound"
                 rel="noopener noreferrer"
                 style="font-family: var(--wb-c-link-root-font-family); font-weight: var(--wb-c-link-root-font-weight); cursor: pointer; text-decoration: none; outline: none; align-items: center; color: var(--wb-semanticColor-link-rest);"
@@ -128,10 +125,7 @@ exports[`video widget should snapshot: first render 1`] = `
                 style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 10px; -ms-flex-basis: 10px; -ms-flex-preferred-size: 10px; -webkit-flex-basis: 10px; flex-basis: 10px; flex-shrink: 0;"
               />
               <a
-                class="visited-no-recolor"
-                data-style-active="color: var(--wb-semanticColor-link-press); text-decoration: underline currentcolor solid; text-underline-offset: var(--wb-font-textDecoration-underlineOffset);"
-                data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium); border-radius: var(--wb-border-radius-radius_010);"
-                data-style-hover="text-decoration: underline currentcolor solid; color: var(--wb-semanticColor-link-hover); text-underline-offset: var(--wb-font-textDecoration-underlineOffset);"
+                class="shared_1y1t15t-o_O-rest_19jgcvc-o_O-inlineStyles_uraxz visited-no-recolor"
                 href="/transcript/videoNotFound"
                 rel="noopener noreferrer"
                 style="font-family: var(--wb-c-link-root-font-family); font-weight: var(--wb-c-link-root-font-weight); cursor: pointer; text-decoration: none; outline: none; align-items: center; color: var(--wb-semanticColor-link-rest);"

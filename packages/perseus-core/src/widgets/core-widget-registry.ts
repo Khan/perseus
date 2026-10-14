@@ -10,6 +10,7 @@ import deprecatedStandinWidgetLogic from "./deprecated-standin";
 import dropdownWidgetLogic from "./dropdown";
 import explanationWidgetLogic from "./explanation";
 import expressionWidgetLogic from "./expression";
+import fillInTheBlankWidgetLogic from "./fill-in-the-blank";
 import gradedGroupWidgetLogic from "./graded-group";
 import gradedGroupSetWidgetLogic from "./graded-group-set";
 import grapherWidgetLogic from "./grapher";
@@ -154,6 +155,20 @@ export const getDefaultAlignment = (type: string): Alignment => {
 };
 
 /**
+ * Returns true if the widget should render inline with surrounding content.
+ * Uses the widget's default alignment when no alignment is given.
+ */
+export const isInlineWidget = (
+    type: string,
+    alignment?: Alignment,
+): boolean => {
+    if (alignment == null || alignment === "default") {
+        alignment = getDefaultAlignment(type);
+    }
+    return alignment.startsWith("inline");
+};
+
+/**
  * Returns the CSS class name corresponding to the specified widget alignment.
  * Uses explicit mapping to make it easy to locate related CSS style definitions.
  */
@@ -200,6 +215,7 @@ export function registerCoreWidgets() {
         dropdownWidgetLogic,
         explanationWidgetLogic,
         expressionWidgetLogic,
+        fillInTheBlankWidgetLogic,
         gradedGroupWidgetLogic,
         gradedGroupSetWidgetLogic,
         grapherWidgetLogic,

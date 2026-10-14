@@ -60,7 +60,7 @@ export default {
             // Store the formula that we're using
             elem.setAttribute("data-math-formula", text);
 
-            const {TeX} = await getDependencies();
+            const {TeX} = getDependencies();
             // We use createElement instead of JSX here because we can't name this file tex.tsx;
             // that name is already taken.
             reactRender(

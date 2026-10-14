@@ -26,19 +26,37 @@ type RenderResult = ReturnType<typeof render>;
 
 type ExtraProps = Omit<PropsFor<typeof Perseus.Renderer>, "strings">;
 
+type RenderQuestionOptions = {
+    apiOptions?: APIOptions;
+    extraProps?: ExtraProps;
+    initialUserInput?: UserInputMap;
+    dependencies?: Partial<PerseusDependenciesV2>;
+    locale?: string;
+};
+
 export const renderQuestion = (
     question: PerseusRenderer,
-    apiOptions: APIOptions = Object.freeze({}),
-    extraProps?: ExtraProps,
-    initialUserInput?: UserInputMap,
-    dependencies: PerseusDependenciesV2 = testDependenciesV2,
-    locale: string = "en",
+    options: RenderQuestionOptions = {},
 ): {
     container: HTMLElement;
     renderer: Perseus.Renderer;
     rerender: (question: PerseusRenderer, extraProps?: ExtraProps) => void;
     unmount: RenderResult["unmount"];
 } => {
+    const {
+        apiOptions = Object.freeze({}),
+        extraProps,
+        initialUserInput,
+        dependencies = testDependenciesV2,
+        locale = "en",
+    } = options;
+
+    // Provide default dependencies and then let the parameter override
+    const depsV2 = {
+        ...testDependenciesV2,
+        ...dependencies,
+    };
+
     setDependencies(testDependencies);
     registerAllWidgetsForTesting();
 
@@ -46,11 +64,10 @@ export const renderQuestion = (
     const {container, rerender, unmount} = render(
         <RenderStateRoot>
             <PerseusI18nContextProvider strings={mockStrings} locale={locale}>
-                <DependenciesContext.Provider value={dependencies}>
+                <DependenciesContext.Provider value={depsV2}>
                     <RendererWrapper
                         ref={(node) => (renderer = node)}
-                        // eslint-disable-next-line no-restricted-syntax
-                        question={question as any}
+                        question={question}
                         apiOptions={apiOptions}
                         initialUserInput={initialUserInput}
                         extraProps={{
@@ -72,7 +89,7 @@ export const renderQuestion = (
     ) => {
         rerender(
             <RenderStateRoot>
-                <DependenciesContext.Provider value={testDependenciesV2}>
+                <DependenciesContext.Provider value={depsV2}>
                     <RendererWrapper
                         ref={(node) => (renderer = node)}
                         question={question}

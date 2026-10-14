@@ -1,5 +1,9 @@
 import {Dependencies} from "@khanacademy/perseus";
-import {generateSorterOptions, sorterLogic} from "@khanacademy/perseus-core";
+import {
+    generateSorterOptions,
+    sorterLogic,
+    SORTER_MAX_HORIZONTAL_CARDS,
+} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -99,6 +103,56 @@ describe("sorter-editor", () => {
 
         // Assert
         expect(onChangeMock).toHaveBeenCalledWith({layout: "horizontal"});
+    });
+
+    describe("layout warning", () => {
+        const warningText = `Sorter widget with more than ${SORTER_MAX_HORIZONTAL_CARDS} options will display vertically, even if the layout is set to horizontal.`;
+
+        function cards(count: number): string[] {
+            return Array.from({length: count}, (_, i) => `Card ${i + 1}`);
+        }
+
+        it("warns when a horizontal sorter has more cards than the maximum", () => {
+            // Arrange
+            const options = generateSorterOptions({
+                correct: cards(SORTER_MAX_HORIZONTAL_CARDS + 1),
+                layout: "horizontal",
+            });
+
+            // Act
+            render(<SorterEditor onChange={() => {}} {...options} />);
+
+            // Assert
+            expect(screen.getByRole("alert")).toHaveTextContent(warningText);
+        });
+
+        it("does not warn when a horizontal sorter has exactly the maximum number of cards", () => {
+            // Arrange
+            const options = generateSorterOptions({
+                correct: cards(SORTER_MAX_HORIZONTAL_CARDS),
+                layout: "horizontal",
+            });
+
+            // Act
+            render(<SorterEditor onChange={() => {}} {...options} />);
+
+            // Assert
+            expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+        });
+
+        it("does not warn when the layout is already vertical", () => {
+            // Arrange
+            const options = generateSorterOptions({
+                correct: cards(SORTER_MAX_HORIZONTAL_CARDS + 1),
+                layout: "vertical",
+            });
+
+            // Act
+            render(<SorterEditor onChange={() => {}} {...options} />);
+
+            // Assert
+            expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+        });
     });
 
     it("should be possible to change padding", async () => {

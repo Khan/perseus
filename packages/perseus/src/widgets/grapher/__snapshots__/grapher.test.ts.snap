@@ -2383,7 +2383,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                           <ellipse
                             cx="24"
                             cy="24"
-                            fill="#000000"
+                            fill="none"
                             opacity="0"
                             rx="24"
                             ry="24"
@@ -2414,7 +2414,7 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                           <ellipse
                             cx="24"
                             cy="24"
-                            fill="#000000"
+                            fill="none"
                             opacity="0"
                             rx="24"
                             ry="24"
@@ -2431,7 +2431,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{1}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2440,7 +2446,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{2}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2449,7 +2461,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{3}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2458,7 +2476,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{4}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2467,7 +2491,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{5}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2476,7 +2506,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{6}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2485,7 +2521,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{7}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2494,7 +2536,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{8}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2503,7 +2551,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{9}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2512,7 +2566,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{\\llap{-}2}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2521,7 +2581,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{\\llap{-}3}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2530,7 +2596,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{\\llap{-}4}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2539,7 +2611,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{\\llap{-}5}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2548,7 +2626,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{\\llap{-}6}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2557,7 +2641,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{\\llap{-}7}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2566,7 +2656,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{\\llap{-}8}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2575,7 +2671,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{\\llap{-}9}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2584,7 +2686,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{1}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2593,7 +2701,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{2}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2602,7 +2716,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{3}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2611,7 +2731,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{4}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2620,7 +2746,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{5}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2629,7 +2761,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{6}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2638,7 +2776,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{7}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2647,7 +2791,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{8}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2656,7 +2806,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{9}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2665,7 +2821,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{\\llap{-}2}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2674,7 +2836,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{\\llap{-}3}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2683,7 +2851,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{\\llap{-}4}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2692,7 +2866,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{\\llap{-}5}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2701,7 +2881,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{\\llap{-}6}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2710,7 +2896,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{\\llap{-}7}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2719,7 +2911,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{\\llap{-}8}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2728,7 +2926,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          \\small{\\llap{-}9}
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2737,7 +2941,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          y
+                        </span>
+                      </span>
                     </span>
                     <span
                       class="graphie-label"
@@ -2746,7 +2956,13 @@ exports[`grapher widget should snapshot question with multiple graph types: init
                     >
                       <span
                         class="tex-holder"
-                      />
+                      >
+                        <span
+                          class="mock-TeX"
+                        >
+                          x
+                        </span>
+                      </span>
                     </span>
                   </div>
                 </div>

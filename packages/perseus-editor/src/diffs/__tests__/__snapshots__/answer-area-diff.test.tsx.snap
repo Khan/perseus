@@ -13,7 +13,7 @@ exports[`AnswerAreaDiff renders an answer area in the diff view 1`] = `
     Answer Area
   </div>
   <div
-    class="diff-body ui-helper-clearfix"
+    class="diff-body"
   >
     <div>
       <div>
@@ -228,7 +228,7 @@ exports[`AnswerAreaDiff renders with both 'before' and 'after' undefined 1`] = `
     Answer Area
   </div>
   <div
-    class="diff-body ui-helper-clearfix"
+    class="diff-body"
   >
     <div />
   </div>
@@ -248,7 +248,7 @@ exports[`AnswerAreaDiff renders with missing 'after' props 1`] = `
     Answer Area
   </div>
   <div
-    class="diff-body ui-helper-clearfix"
+    class="diff-body"
   >
     <div>
       <div>
@@ -485,7 +485,7 @@ exports[`AnswerAreaDiff renders with missing 'before' props 1`] = `
     Answer Area
   </div>
   <div
-    class="diff-body ui-helper-clearfix"
+    class="diff-body"
   >
     <div>
       <div>

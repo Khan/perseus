@@ -1,13 +1,11 @@
 import {KeypadContext} from "@khanacademy/keypad-context";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
-import Switch from "@khanacademy/wonder-blocks-switch";
-import deviceMobile from "@phosphor-icons/core/regular/device-mobile.svg";
 import * as React from "react";
 
 import ArticleRenderer from "../article-renderer";
 
 import SplitView from "./split-view";
+import {StorybookViewOptionsContext} from "./storybook-view-options-context";
 import {storybookDependenciesV2} from "./test-dependencies";
 import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
 import {useStorybookApiOptions} from "./use-storybook-api-options";
@@ -37,9 +35,14 @@ export const ArticleRendererWithDebugUI = ({
 }: Props): React.ReactElement => {
     const ref = React.useRef<ArticleRenderer>(null);
     const baseOptions = useStorybookApiOptions(apiOptions);
-    const [isMobile, setIsMobile] = React.useState(
-        apiOptions.isMobile ?? false,
+    const {isMobile: mobileOverride} = React.useContext(
+        StorybookViewOptionsContext,
     );
+
+    // The toolbar's "story default" leaves per-story apiOptions in charge so
+    // that mobile stories stay mobile.
+    const isMobile = mobileOverride ?? apiOptions.isMobile ?? false;
+
     const options = React.useMemo(
         () => ({
             ...baseOptions,
@@ -61,13 +64,6 @@ export const ArticleRendererWithDebugUI = ({
                     }}
                 >
                     {title}
-                    <View style={{marginInlineStart: "auto"}}>
-                        <Switch
-                            icon={<PhosphorIcon icon={deviceMobile} />}
-                            checked={isMobile}
-                            onChange={setIsMobile}
-                        />
-                    </View>
                 </View>
             }
             renderer={

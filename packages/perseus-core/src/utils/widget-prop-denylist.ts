@@ -39,8 +39,10 @@ const denylist = [
     "linterContext",
     "handleUserInput",
     "analytics",
+    "dependencies",
     "showSolutions",
     "reviewMode",
+    "isScorable",
     "widgetIndex",
     "graded",
 ];

@@ -930,20 +930,6 @@ export const segmentWithLockedFunction = (
     });
 };
 
-export const segmentWithLockedFunctionAndAsymmetricRange = (
-    equation: string = "x^2",
-    options?: Partial<Omit<LockedFunctionType, "type">>,
-): PerseusRenderer => {
-    return generateInteractiveGraphQuestion({
-        correct: generateIGSegmentGraph(),
-        range: [
-            [-5, 5],
-            [-10, 10],
-        ],
-        lockedFigures: [generateIGLockedFunction({equation, ...options})],
-    });
-};
-
 export const segmentWithLockedLabels: PerseusRenderer =
     generateInteractiveGraphQuestion({
         correct: generateIGSegmentGraph(),

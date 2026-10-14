@@ -33,6 +33,8 @@ type AnswerChoicesProps = {
     onToggle: (opened: boolean) => unknown;
     // Whether the answer choices are disabled.
     disabled: boolean;
+    // Whether a selection is required to move on from the question.
+    "aria-required"?: boolean;
 };
 
 const AnswerChoices = (props: AnswerChoicesProps) => {
@@ -70,6 +72,10 @@ const AnswerChoices = (props: AnswerChoicesProps) => {
         opener,
         onToggle,
         disabled,
+        // We use `aria-required` rather than WB's `required` prop, since
+        // `required` also enables WB's validation, which renders an error
+        // message when the dropdown is closed without a selection.
+        "aria-required": props["aria-required"],
     };
 
     return props.multipleSelect ? (

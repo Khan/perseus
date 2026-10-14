@@ -3,9 +3,15 @@
     "description": "Core Perseus API (includes renderers and widgets)",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "87.1.1",
+    "version": "91.0.0",
     "publishConfig": {
-        "access": "public"
+        "access": "public",
+        "exports": {
+            ".": "./dist/index.js",
+            "./strings": "./dist/strings.js",
+            "./styles.css": "./dist/index.css",
+            "./testing": "./dist/testing.js"
+        }
     },
     "repository": {
         "type": "git",
@@ -15,23 +21,11 @@
     "bugs": {
         "url": "https://github.com/Khan/perseus/issues"
     },
-    "module": "dist/es/index.js",
-    "main": "dist/index.js",
-    "source": "src/index.ts",
+    "type": "module",
     "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "source": "./src/index.ts",
-            "import": "./dist/es/index.js",
-            "require": "./dist/index.js"
-        },
-        "./strings": {
-            "types": "./dist/strings.d.ts",
-            "source": "./src/strings.ts",
-            "import": "./dist/es/strings.js",
-            "require": "./dist/strings.js"
-        },
-        "./styles.css": "./dist/index.css"
+        ".": "./src/index.ts",
+        "./strings": "./src/strings.ts",
+        "./testing": "./src/testing.ts"
     },
     "files": [
         "dist"
@@ -74,7 +68,6 @@
         "@khanacademy/wonder-blocks-layout": "catalog:devDeps",
         "@khanacademy/wonder-blocks-link": "catalog:devDeps",
         "@khanacademy/wonder-blocks-modal": "catalog:devDeps",
-        "@khanacademy/wonder-blocks-pill": "catalog:devDeps",
         "@khanacademy/wonder-blocks-popover": "catalog:devDeps",
         "@khanacademy/wonder-blocks-progress-spinner": "catalog:devDeps",
         "@khanacademy/wonder-blocks-switch": "catalog:devDeps",
@@ -110,7 +103,6 @@
         "@khanacademy/wonder-blocks-layout": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-link": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-modal": "catalog:peerDeps",
-        "@khanacademy/wonder-blocks-pill": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-popover": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-progress-spinner": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-switch": "catalog:peerDeps",
@@ -131,6 +123,6 @@
     },
     "keywords": [],
     "khan": {
-        "catalogHash": "4d0d17f2aff2db67"
+        "catalogHash": "7484f91061a1760b"
     }
 }

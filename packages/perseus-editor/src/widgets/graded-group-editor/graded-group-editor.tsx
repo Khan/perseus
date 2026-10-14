@@ -1,4 +1,3 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {components} from "@khanacademy/perseus";
 import {
     gradedGroupLogic,
@@ -11,11 +10,9 @@ import * as React from "react";
 
 import Editor from "../../editor";
 import ExtrasEditor from "../../extras-editor";
-import {deprecatedChangeableChange} from "../../mixins/changeable";
 
 import styles from "./graded-group-editor.module.css";
 
-import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
     PerseusGradedGroupWidgetOptions,
@@ -24,8 +21,9 @@ import type {
 
 const {TextInput} = components;
 
-interface Props extends PerseusGradedGroupWidgetOptions, ChangeableProps {
+interface Props extends PerseusGradedGroupWidgetOptions {
     apiOptions?: APIOptionsWithDefaults;
+    onChange: (options: PerseusGradedGroupWidgetOptions) => void;
 }
 
 class GradedGroupEditor extends React.Component<Props> {
@@ -35,19 +33,25 @@ class GradedGroupEditor extends React.Component<Props> {
     editor = React.createRef<Editor>();
     hintEditor = React.createRef<Editor>();
 
-    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return deprecatedChangeableChange.apply(this, args);
-    };
+    handleChange(changes: Partial<PerseusGradedGroupWidgetOptions>) {
+        this.props.onChange({
+            title: this.props.title,
+            hint: this.props.hint,
+            content: this.props.content,
+            widgets: this.props.widgets,
+            images: this.props.images,
+            answerArea: this.props.answerArea,
+            ...changes,
+        });
+    }
 
     handleAddHint: () => void = () => {
         const hint: PerseusRenderer = {content: "", images: {}, widgets: {}};
-        this.props.onChange({hint}, () => {
-            this.hintEditor.current?.focus();
-        });
+        this.handleChange({hint});
     };
 
     handleRemoveHint: () => void = () => {
-        this.props.onChange({hint: null});
+        this.handleChange({hint: null});
     };
 
     getSaveWarnings: () => any = () => {
@@ -78,8 +82,7 @@ class GradedGroupEditor extends React.Component<Props> {
                         <TextInput
                             value={this.props.title}
                             className={styles.input}
-                            // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
-                            onChange={this.change("title")}
+                            onChange={(title) => this.handleChange({title})}
                         />
                     </label>
                 </div>
@@ -90,7 +93,7 @@ class GradedGroupEditor extends React.Component<Props> {
                     apiOptions={this.props.apiOptions}
                     images={this.props.images}
                     widgetEnabled={true}
-                    onChange={this.props.onChange}
+                    onChange={(renderer) => this.handleChange(renderer)}
                     warnNoPrompt={true}
                     warnNoWidgets={true}
                 />
@@ -115,14 +118,8 @@ class GradedGroupEditor extends React.Component<Props> {
                             apiOptions={this.props.apiOptions}
                             images={this.props.hint.images}
                             widgetEnabled={true}
-                            onChange={(props) => {
-                                // Copy all props over from the existing hint
-                                // and then add new props.
-                                // @ts-expect-error - TS2554 - Expected 3 arguments, but got 2.
-                                this.change(
-                                    "hint",
-                                    Object.assign({}, this.props.hint, props),
-                                );
+                            onChange={(hint) => {
+                                this.handleChange({hint});
                             }}
                         />
                         <Button
@@ -143,7 +140,7 @@ class GradedGroupEditor extends React.Component<Props> {
                     apiOptions={this.props.apiOptions}
                     editingDisabled={editingDisabled}
                     onChange={(changes) => {
-                        this.props.onChange({
+                        this.handleChange({
                             answerArea: {
                                 ...getDefaultAnswerArea(),
                                 ...this.props.answerArea,

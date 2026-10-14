@@ -4,10 +4,8 @@ import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../../editor";
-import {deprecatedChangeableChange} from "../../mixins/changeable";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
-import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {PerseusMatrixWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -19,20 +17,27 @@ const Matrix = MatrixWidget.widget;
 // have to cap it at some point.
 const MAX_BOARD_SIZE = 6;
 
-interface Props extends PerseusMatrixWidgetOptions, ChangeableProps {
+interface Props extends PerseusMatrixWidgetOptions {
     apiOptions: APIOptionsWithDefaults;
+    onChange: (options: PerseusMatrixWidgetOptions) => void;
 }
 
 class MatrixEditor extends React.Component<Props> {
     static defaultProps: PerseusMatrixWidgetOptions =
         matrixLogic.defaultWidgetOptions;
 
-    change: (arg1: any, arg2?: any, arg3?: any) => any = (...args) => {
+    handleChange(changes: Partial<PerseusMatrixWidgetOptions>) {
         if (this.props.apiOptions.editingDisabled) {
             return;
         }
-        return deprecatedChangeableChange.apply(this, args);
-    };
+        this.props.onChange({
+            prefix: this.props.prefix,
+            suffix: this.props.suffix,
+            answers: this.props.answers,
+            matrixBoardSize: this.props.matrixBoardSize,
+            ...changes,
+        });
+    }
 
     onMatrixBoardSizeChange: (arg1: [number, number]) => void = (range) => {
         const matrixSize = getMatrixSize(this.props.answers);
@@ -48,7 +53,7 @@ class MatrixEditor extends React.Component<Props> {
                     });
                 },
             );
-            this.props.onChange({
+            this.handleChange({
                 matrixBoardSize: range,
                 answers: answers,
             });
@@ -68,16 +73,15 @@ class MatrixEditor extends React.Component<Props> {
             // The widget renders learner input, which is string[][], while the
             // editor stores the correct answers as number[][]. We show the
             // answers in the preview, so they have to be stringified.
-            // Empty cells come back from JSON as null (a sparse row like
-            // [, , 5] serializes to [null, null, 5]), and those need to stay
-            // empty rather than becoming the text "null".
             userInput: {
-                answers: answers.map((row) =>
-                    row.map((cell) => (cell == null ? "" : String(cell))),
-                ),
+                answers: answers.map((row) => row.map(stringifyCell)),
             },
             handleUserInput: (userInput) => {
-                this.change({answers: userInput.answers});
+                this.handleChange({
+                    answers: userInput.answers.map((row) =>
+                        row.map(parseFloat),
+                    ),
+                });
             },
             ...this.props,
             options: {
@@ -111,7 +115,7 @@ class MatrixEditor extends React.Component<Props> {
                         content={this.props.prefix}
                         widgetEnabled={false}
                         onChange={(newProps) => {
-                            this.change({prefix: newProps.content});
+                            this.handleChange({prefix: newProps.content});
                         }}
                     />
                 </div>
@@ -124,13 +128,25 @@ class MatrixEditor extends React.Component<Props> {
                         content={this.props.suffix}
                         widgetEnabled={false}
                         onChange={(newProps) => {
-                            this.change({suffix: newProps.content});
+                            this.handleChange({suffix: newProps.content});
                         }}
                     />
                 </div>
             </div>
         );
     }
+}
+
+function stringifyCell(value: number | null | undefined): string {
+    // Empty cells (from a sparse row like `[, , 5]`), Infinity, and NaN all
+    // get converted to null when Perseus data is JSON-stringified. These
+    // values need to stay empty cells rather than becoming the text "null".
+    // `Number.isFinite()` is false for null, undefined, NaN, and Infinity, so
+    // it covers all the cases.
+    if (Number.isFinite(value)) {
+        return String(value);
+    }
+    return "";
 }
 
 export default MatrixEditor;

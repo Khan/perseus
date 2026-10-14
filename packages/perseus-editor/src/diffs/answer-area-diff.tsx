@@ -21,7 +21,7 @@ export class AnswerAreaDiff extends React.Component<AnswerAreaDiffProps> {
             <>
                 <div className="diff-header">{title}</div>
                 <div className="diff-header">{title}</div>
-                <div className="diff-body ui-helper-clearfix">
+                <div className="diff-body">
                     <DiffEntry entry={diff} />
                 </div>
             </>

@@ -1,50 +1,49 @@
 import {components, Dependencies} from "@khanacademy/perseus";
 import * as React from "react";
 
-import {deprecatedChangeableChange} from "../../mixins/changeable";
-
 import ConstraintEditor from "./constraint-editor";
 import MathquillInput from "./mathquill-input";
 
-import type {ChangeableProps, ChangeFn} from "../../mixins/changeable";
+import type {PerseusInteractionMovablePointElementOptions} from "@khanacademy/perseus-core";
 
 const {NumberInput} = components;
 
-type Props = ChangeableProps & {
-    startX: string;
-    startY: string;
-    constraint: string;
-    snap: number;
-    constraintFn: string;
-    varSubscript: number;
-};
-
-type DefaultProps = {
-    startX: Props["startX"];
-    startY: Props["startY"];
-    constraint: Props["constraint"];
-    snap: Props["snap"];
-    constraintFn: Props["constraintFn"];
-};
+interface Props extends PerseusInteractionMovablePointElementOptions {
+    onChange: (options: PerseusInteractionMovablePointElementOptions) => void;
+}
 
 // Editor for interactive movable points
 class MovablePointEditor extends React.Component<Props> {
-    static defaultProps: DefaultProps = {
+    static defaultProps: PerseusInteractionMovablePointElementOptions = {
         startX: "0",
         startY: "0",
         constraint: "none",
         snap: 0.5,
         constraintFn: "0",
-        // @ts-expect-error - TS2561
         constraintXMin: "-10",
         constraintXMax: "10",
         constraintYMin: "-10",
         constraintYMax: "10",
+        varSubscript: 0,
     };
 
-    change: ChangeFn = (...args) => {
-        return deprecatedChangeableChange.apply(this, args);
-    };
+    handleChange(
+        options: Partial<PerseusInteractionMovablePointElementOptions>,
+    ) {
+        this.props.onChange({
+            startX: this.props.startX,
+            startY: this.props.startY,
+            constraint: this.props.constraint,
+            snap: this.props.snap,
+            constraintFn: this.props.constraintFn,
+            constraintXMin: this.props.constraintXMin,
+            constraintXMax: this.props.constraintXMax,
+            constraintYMin: this.props.constraintYMin,
+            constraintYMax: this.props.constraintYMax,
+            varSubscript: this.props.varSubscript,
+            ...options,
+        });
+    }
 
     render(): React.ReactNode {
         const {TeX} = Dependencies.getDependencies();
@@ -55,12 +54,12 @@ class MovablePointEditor extends React.Component<Props> {
                     Start: <TeX>\Large(</TeX>
                     <MathquillInput
                         value={this.props.startX}
-                        onChange={this.change("startX")}
+                        onChange={(startX) => this.handleChange({startX})}
                     />
                     <TeX>,</TeX>{" "}
                     <MathquillInput
                         value={this.props.startY}
-                        onChange={this.change("startY")}
+                        onChange={(startY) => this.handleChange({startY})}
                     />
                     <TeX>\Large)</TeX>
                 </div>
@@ -69,10 +68,15 @@ class MovablePointEditor extends React.Component<Props> {
                     <NumberInput
                         value={this.props.varSubscript}
                         placeholder={0}
-                        onChange={this.change("varSubscript")}
+                        onChange={(varSubscript) =>
+                            this.handleChange({varSubscript})
+                        }
                     />
                 </div>
-                <ConstraintEditor {...this.props} />
+                <ConstraintEditor
+                    {...this.props}
+                    onChange={(constraint) => this.handleChange(constraint)}
+                />
             </div>
         );
     }

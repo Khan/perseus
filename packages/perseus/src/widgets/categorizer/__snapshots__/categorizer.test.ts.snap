@@ -151,7 +151,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                         <div
                           class="paragraph"
                         >
-                          Graph 
+                          Graph
                           <span
                             style="white-space: nowrap;"
                           >
@@ -248,7 +248,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
                         <div
                           class="paragraph"
                         >
-                          Graph 
+                          Graph
                           <span
                             style="white-space: nowrap;"
                           >
@@ -386,8 +386,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
           </span>
           <button
             aria-label="Make image bigger."
-            data-style-moz-focus-inner="border: 0px;"
-            style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: hidden; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: zoom-in; position: absolute; height: 100%;"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_g025ss"
             type="button"
           />
         </div>
@@ -440,12 +439,11 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
           </span>
           <button
             aria-label="Make image bigger."
-            data-style-moz-focus-inner="border: 0px;"
-            style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: hidden; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: zoom-in; position: absolute; height: 100%;"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_g025ss"
             type="button"
           />
         </div>
-          
+
       </div>
     </div>
   </div>
@@ -597,7 +595,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                         <div
                           class="paragraph"
                         >
-                          Graph 
+                          Graph
                           <span
                             style="white-space: nowrap;"
                           >
@@ -738,7 +736,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
                         <div
                           class="paragraph"
                         >
-                          Graph 
+                          Graph
                           <span
                             style="white-space: nowrap;"
                           >
@@ -920,8 +918,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
           </span>
           <button
             aria-label="Make image bigger."
-            data-style-moz-focus-inner="border: 0px;"
-            style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: hidden; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: zoom-in; position: absolute; height: 100%;"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_g025ss"
             type="button"
           />
         </div>
@@ -974,12 +971,11 @@ exports[`categorizer widget should snapshot: first render 1`] = `
           </span>
           <button
             aria-label="Make image bigger."
-            data-style-moz-focus-inner="border: 0px;"
-            style="margin: 0px; border: none; padding: 0px; width: 100%; overflow: hidden; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: zoom-in; position: absolute; height: 100%;"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_g025ss"
             type="button"
           />
         </div>
-          
+
       </div>
     </div>
   </div>

@@ -67,7 +67,6 @@ describe("numeric-input-editor", () => {
 
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({size: "normal"}),
-            undefined,
         );
     });
 
@@ -85,7 +84,6 @@ describe("numeric-input-editor", () => {
 
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({size: "small"}),
-            undefined,
         );
     });
 
@@ -120,7 +118,9 @@ describe("numeric-input-editor", () => {
             ).getByRole("radio", {name: "Coefficient"}),
         );
 
-        expect(onChangeMock).toHaveBeenCalledWith({coefficient: true});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({coefficient: true}),
+        );
     });
 
     it("should be possible to select strictly match only these formats", async () => {
@@ -134,19 +134,21 @@ describe("numeric-input-editor", () => {
             ).getByRole("radio", {name: "Required"}),
         );
 
-        expect(onChangeMock).toHaveBeenCalledWith({
-            answers: [
-                {
-                    answerForms: [],
-                    maxError: null,
-                    message: "",
-                    simplify: "required",
-                    status: "correct",
-                    strict: true,
-                    value: null,
-                },
-            ],
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                answers: [
+                    {
+                        answerForms: [],
+                        maxError: null,
+                        message: "",
+                        simplify: "required",
+                        status: "correct",
+                        strict: true,
+                        value: null,
+                    },
+                ],
+            }),
+        );
     });
 
     it("should be possible to update label text", async () => {
@@ -162,7 +164,6 @@ describe("numeric-input-editor", () => {
 
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({labelText: "a"}),
-            undefined,
         );
     });
 

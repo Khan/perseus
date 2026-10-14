@@ -1,0 +1,237 @@
+import {ApiOptions, Dependencies} from "@khanacademy/perseus";
+import {
+    CoreWidgetRegistry,
+    generateDefinitionOptions,
+    generateImageWidget,
+    generateRadioWidget,
+} from "@khanacademy/perseus-core";
+import {render, screen} from "@testing-library/react";
+import {userEvent as userEventLib} from "@testing-library/user-event";
+import * as React from "react";
+
+import {testDependencies} from "../../testing/test-dependencies";
+import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
+import WidgetEditorContainer, {
+    _upgradeWidgetInfo,
+} from "../widget-editor-container";
+
+import type {
+    PerseusDefinitionWidgetOptions,
+    PerseusWidget,
+} from "@khanacademy/perseus-core";
+import type {UserEvent} from "@testing-library/user-event";
+
+describe("WidgetEditor", () => {
+    beforeAll(() => {
+        registerAllWidgetsAndEditorsForTesting();
+    });
+
+    let userEvent: UserEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+    });
+
+    describe("alignment dropdown", () => {
+        it("should NOT display alignment dropdown when showAlignmentOptions is false", () => {
+            // Arrange
+            // Mock getSupportedAlignments to return multiple alignments
+            // This ensures the test is checking showAlignmentOptions, not alignment count
+            jest.spyOn(
+                CoreWidgetRegistry,
+                "getSupportedAlignments",
+            ).mockReturnValue(["block", "inline", "full-width"]);
+
+            render(
+                <WidgetEditorContainer
+                    id="radio 1"
+                    widgetInfo={generateRadioWidget()}
+                    onChange={() => {}}
+                    onRemove={() => {}}
+                    apiOptions={{
+                        ...ApiOptions.defaults,
+                        showAlignmentOptions: false,
+                    }}
+                />,
+            );
+
+            // Assert
+            // Even though getSupportedAlignments returns multiple alignments,
+            // the dropdown should NOT be shown because showAlignmentOptions is false
+            expect(
+                screen.queryByRole("combobox", {name: "Alignment"}),
+            ).not.toBeInTheDocument();
+        });
+
+        it("should display alignment dropdown when widget supports multiple alignments", () => {
+            // Arrange
+            // Mock getSupportedAlignments to return multiple alignments
+            jest.spyOn(
+                CoreWidgetRegistry,
+                "getSupportedAlignments",
+            ).mockReturnValue(["block", "inline", "full-width"]);
+
+            render(
+                <WidgetEditorContainer
+                    id="image 1"
+                    widgetInfo={generateImageWidget()}
+                    onChange={() => {}}
+                    onRemove={() => {}}
+                    apiOptions={{
+                        ...ApiOptions.defaults,
+                        showAlignmentOptions: true,
+                    }}
+                />,
+            );
+
+            // Assert
+            const dropdown = screen.getByRole("combobox", {
+                name: "Alignment",
+            });
+            expect(dropdown).toBeInTheDocument();
+        });
+
+        it("should NOT display alignment dropdown when widget supports only one alignment", () => {
+            // Arrange
+            // Mock getSupportedAlignments to return a single alignment
+            jest.spyOn(
+                CoreWidgetRegistry,
+                "getSupportedAlignments",
+            ).mockReturnValue(["default"]);
+
+            render(
+                <WidgetEditorContainer
+                    id="radio 1"
+                    widgetInfo={generateRadioWidget()}
+                    onChange={() => {}}
+                    onRemove={() => {}}
+                    apiOptions={{
+                        ...ApiOptions.defaults,
+                        showAlignmentOptions: true,
+                    }}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.queryByRole("combobox", {name: "Alignment"}),
+            ).not.toBeInTheDocument();
+        });
+
+        it("should call onChange when alignment is changed", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            jest.spyOn(
+                CoreWidgetRegistry,
+                "getSupportedAlignments",
+            ).mockReturnValue(["block", "inline", "full-width"]);
+
+            render(
+                <WidgetEditorContainer
+                    id="image 1"
+                    widgetInfo={generateImageWidget()}
+                    onChange={onChangeMock}
+                    onRemove={() => {}}
+                    apiOptions={{
+                        ...ApiOptions.defaults,
+                        showAlignmentOptions: true,
+                    }}
+                />,
+            );
+
+            // Act
+            const dropdown = screen.getByRole("combobox", {
+                name: "Alignment",
+            });
+            await userEvent.click(dropdown);
+            const option = screen.getByRole("option", {name: "inline"});
+            await userEvent.click(option);
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    alignment: "inline",
+                }),
+            );
+        });
+
+        it("should disable alignment dropdown when editing is disabled", () => {
+            // Arrange
+            jest.spyOn(
+                CoreWidgetRegistry,
+                "getSupportedAlignments",
+            ).mockReturnValue(["block", "inline", "full-width"]);
+
+            render(
+                <WidgetEditorContainer
+                    id="image 1"
+                    widgetInfo={generateImageWidget()}
+                    onChange={() => {}}
+                    onRemove={() => {}}
+                    apiOptions={{
+                        ...ApiOptions.defaults,
+                        showAlignmentOptions: true,
+                        editingDisabled: true,
+                    }}
+                />,
+            );
+
+            // Assert
+            const dropdown = screen.getByRole("combobox", {
+                name: "Alignment",
+            });
+            expect(dropdown).toHaveAttribute("aria-disabled", "true");
+        });
+    });
+
+    describe("_upgradeWidgetInfo", () => {
+        it("runs data through the denylist", () => {
+            const options: PerseusDefinitionWidgetOptions = {
+                togglePrompt: "Neat prompt",
+                definition: "Cool definition",
+            };
+
+            const widgetInfo: PerseusWidget = {
+                type: "definition",
+                options,
+            };
+
+            // problemNum is in the denylist,
+            // so we want to make sure it's removed
+            const dirtyInfo: any = {...widgetInfo, problemNum: 42};
+
+            const output = _upgradeWidgetInfo(dirtyInfo);
+
+            // make sure we filter as expected
+            // eslint-disable-next-line no-restricted-syntax
+            expect((output as any).onChange).toBeUndefined();
+            // eslint-disable-next-line no-restricted-syntax
+            expect((output as any).onRemove).toBeUndefined();
+            // eslint-disable-next-line no-restricted-syntax
+            expect((output as any).apiOptions).toBeUndefined();
+            // eslint-disable-next-line no-restricted-syntax
+            expect((output as any).problemNum).toBeUndefined();
+
+            // make sure we're not filtering too much
+            expect(output.type).toBe("definition");
+            expect(output.options).toEqual(options);
+        });
+
+        it("passes graded through", () => {
+            const widgetInfo: PerseusWidget = {
+                type: "definition",
+                graded: true,
+                options: generateDefinitionOptions(),
+            };
+
+            const output = _upgradeWidgetInfo(widgetInfo);
+
+            expect(output.graded).toBe(true);
+        });
+    });
+});

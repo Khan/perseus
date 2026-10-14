@@ -2,8 +2,8 @@ import {buildPointAriaLabel} from "../components/build-point-aria-label";
 
 import {srFormatNumber} from "./format-number";
 
+import type {PerseusStrings} from "../../../../strings";
 import type {PointGraphState} from "../../types";
-import type {PerseusStrings} from "@khanacademy/perseus/strings";
 
 // Exported for testing
 export function describePointGraph(

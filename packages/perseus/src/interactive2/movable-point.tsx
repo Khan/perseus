@@ -227,7 +227,11 @@ export class MovablePoint {
                     radii,
                     options,
                 );
-                state.mouseTarget.attr({fill: "#000", opacity: 0.0});
+                state.mouseTarget.attr({
+                    // `fill` must be set for clicks to register.
+                    fill: "transparent",
+                    opacity: 0.0,
+                });
             }
         }
 

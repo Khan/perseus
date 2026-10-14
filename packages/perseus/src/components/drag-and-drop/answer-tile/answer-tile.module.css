@@ -21,8 +21,7 @@
     font-family: var(--wb-font-family-sans);
     font-size: var(--wb-font-body-size-medium);
     font-weight: var(--wb-font-weight-semi);
-    /* The design pairs the medium body size with the large line height. */
-    line-height: var(--wb-font-body-lineHeight-large);
+    line-height: var(--wb-font-body-lineHeight-medium);
     word-break: break-word;
 
     border: var(--wb-border-width-thin) solid

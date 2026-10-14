@@ -1,9 +1,10 @@
+import {SORTER_MAX_CARDS} from "@khanacademy/perseus-core";
+
 import Rule from "../rule";
 
 import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
 
 // Exported for tests
-export const sorterMaxCards = 10;
 export const sorterMaxIdealCards = 5;
 export const sorterMaxHorizontalCards = 5;
 
@@ -32,9 +33,9 @@ export default Rule.makeRule({
         const options: PerseusSorterWidgetOptions = widget.options;
         const {layout, correct = []} = options;
 
-        if (correct.length > sorterMaxCards) {
+        if (correct.length > SORTER_MAX_CARDS) {
             warnings.push(
-                `Sorter cannot have more than ${sorterMaxCards} cards.`,
+                `Sorter cannot have more than ${SORTER_MAX_CARDS} cards.`,
             );
         }
 

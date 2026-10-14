@@ -5,14 +5,16 @@ import LabeledSwitch from "../../../components/labeled-switch";
 
 import styles from "./dark-mode-toggle.module.css";
 
-import type {Props as ImageEditorProps} from "../image-editor";
-import type {PerseusImageBackground} from "@khanacademy/perseus-core";
+import type {
+    PerseusImageBackground,
+    PerseusImageWidgetOptions,
+} from "@khanacademy/perseus-core";
 
 interface Props {
     backgroundImage: PerseusImageBackground;
     editingDisabled?: boolean;
     onShowToggle: (theme?: string) => void;
-    onSuppressToggle: ImageEditorProps["onChange"];
+    onSuppressToggle: (changes: Partial<PerseusImageWidgetOptions>) => void;
 }
 
 export default function DarkModeToggle({

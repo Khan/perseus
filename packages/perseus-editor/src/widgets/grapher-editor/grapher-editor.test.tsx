@@ -8,6 +8,7 @@ import {testDependencies} from "../../testing/test-dependencies";
 
 import GrapherEditor from "./grapher-editor";
 
+import type {PerseusGrapherWidgetOptions} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
@@ -38,7 +39,7 @@ describe("grapher-editor", () => {
 
     it("preserves existing graph properties when GraphSettings onChange is called", async () => {
         const onChangeMock = jest.fn();
-        const graph = {
+        const graph: PerseusGrapherWidgetOptions["graph"] = {
             ...grapherLogic.defaultWidgetOptions.graph,
             box: [400, 400],
             gridStep: [1, 1],

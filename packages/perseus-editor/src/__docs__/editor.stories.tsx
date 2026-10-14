@@ -1,15 +1,8 @@
 import {ApiOptions} from "@khanacademy/perseus";
-import {
-    generateInteractiveGraphWidget,
-    type PerseusRenderer,
-} from "@khanacademy/perseus-core";
-import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
-import {action} from "storybook/actions";
 
 import {Editor} from "..";
 import {question1} from "../__testdata__/numeric-input.testdata";
-import SplitView from "../testing/split-view";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 // This is to address timing - Perseus widget editor registry accessed before initialization!
@@ -17,6 +10,7 @@ registerAllWidgetsAndEditorsForTesting();
 
 export default {
     title: "Editors/Editor",
+    tags: ["!autodocs"],
 };
 
 export const Demo = (): React.ReactElement => {
@@ -34,70 +28,5 @@ export const Demo = (): React.ReactElement => {
             warnNoWidgets={true}
             onChange={(props) => {}}
         />
-    );
-};
-
-export const DemoInteractiveGraph = (): React.ReactElement => {
-    const editorRef = React.useRef<Editor>(null);
-    const [options, setOptions] = React.useState({});
-    const [content, setContent] = React.useState(
-        "[[\u2603 interactive-graph 1]]",
-    );
-    const [images, setImages] = React.useState<PerseusRenderer["images"]>({});
-    const [widgets, setWidgets] = React.useState<PerseusRenderer["widgets"]>({
-        "interactive-graph 1": generateInteractiveGraphWidget(),
-    });
-
-    return (
-        // Many of the editor components use scoped CSS that requires this
-        // class to be above it.
-        // TODO: Refactor to aphrodite styles instead of scoped CSS in Less.
-        <div className="framework-perseus">
-            <SplitView
-                rendererTitle="Editor"
-                renderer={
-                    <View style={{width: "360px", margin: "20px"}}>
-                        <Editor
-                            ref={editorRef}
-                            apiOptions={ApiOptions.defaults}
-                            content={content}
-                            placeholder=""
-                            widgets={widgets}
-                            images={images}
-                            disabled={false}
-                            widgetEnabled={true}
-                            showWordCount={true}
-                            warnNoPrompt={false}
-                            warnNoWidgets={true}
-                            onChange={
-                                // eslint-disable-next-line no-restricted-syntax
-                                ((props: Partial<PerseusRenderer>) => {
-                                    action("onChange")(props);
-                                    if (props.content) {
-                                        setContent(props.content);
-                                    } else if (props.widgets) {
-                                        setWidgets(props.widgets);
-                                    } else if (props.images) {
-                                        setImages(props.images);
-                                    }
-                                    // We need to wait for one tick so that the editor
-                                    // has been re-rendered with the changed props. If
-                                    // we don't wait, we get the values from the n-1
-                                    // render and miss the latest change.
-                                    setTimeout(() => {
-                                        setOptions(
-                                            editorRef.current?.serialize() ||
-                                                {},
-                                        );
-                                    }, 0);
-                                }) as any
-                            }
-                        />
-                    </View>
-                }
-                JSONTitle="Serialized Widget Options"
-                jsonObject={options}
-            />
-        </div>
     );
 };

@@ -41,7 +41,6 @@ describe("definition-editor", () => {
 
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({togglePrompt: "a"}),
-            undefined,
         );
     });
 });

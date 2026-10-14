@@ -10,9 +10,11 @@ import {
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 import {action} from "storybook/actions";
 
+import ViewportResizer from "../components/viewport-resizer";
 import EditorPage from "../editor-page";
 
 import {usePreviewUrl} from "./use-preview-url";
@@ -65,14 +67,30 @@ function EditorPageWithStorybookPreview(props: Props) {
 
     return (
         <View>
+            <View
+                style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: sizing.size_120,
+                }}
+            >
+                <label>
+                    Developer JSON mode:
+                    <input
+                        type="checkbox"
+                        checked={jsonMode}
+                        onChange={(e) => setJsonMode(e.target.checked)}
+                    />
+                </label>
+                <ViewportResizer
+                    deviceType={previewDevice}
+                    onViewportSizeChanged={setPreviewDevice}
+                />
+            </View>
             <EditorPage
                 apiOptions={apiOptions}
                 previewDevice={previewDevice}
-                onPreviewDeviceChange={(newDevice) =>
-                    setPreviewDevice(newDevice)
-                }
                 dependencies={testDependenciesV2}
-                developerMode={true}
                 jsonMode={jsonMode}
                 answerArea={answerArea}
                 question={question}
@@ -81,19 +99,9 @@ function EditorPageWithStorybookPreview(props: Props) {
                 itemId="1"
                 onChange={(changed) => {
                     onChangeAction(changed);
-
-                    if (changed.jsonMode != null) {
-                        setJsonMode(changed.jsonMode);
-                    }
-                    if (changed.answerArea != null) {
-                        setAnswerArea(changed.answerArea);
-                    }
-                    if (changed.question != null) {
-                        setQuestion(changed.question);
-                    }
-                    if (changed.hints != null) {
-                        setHints(changed.hints);
-                    }
+                    setAnswerArea(changed.answerArea ?? answerArea);
+                    setQuestion(changed.question);
+                    setHints(changed.hints);
                 }}
                 additionalTemplates={{
                     "Side by Side": "Left hand side\n=====\nRight hand side",

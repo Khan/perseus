@@ -49,7 +49,10 @@ export {itemHasRationales} from "./utils/item-has-rationales";
 export {itemHasHints} from "./utils/item-has-hints";
 /** @hidden */
 export {makeSafeUrl} from "./utils/make-safe-url";
-export {removeOrphanedWidgetsFromPerseusItem} from "./utils/remove-orphaned-widgets";
+export {
+    removeOrphanedWidgetsFromPerseusItem,
+    removeOrphanedWidgetsFromPerseusRenderer,
+} from "./utils/remove-orphaned-widgets";
 
 export {
     parseAndMigratePerseusItem,
@@ -96,6 +99,8 @@ export {default as explanationLogic} from "./widgets/explanation";
 export {default as expressionLogic} from "./widgets/expression";
 /** @hidden */
 export {default as deriveExtraKeys} from "./widgets/expression/derive-extra-keys";
+/** @hidden */
+export {default as fillInTheBlankLogic} from "./widgets/fill-in-the-blank";
 /** @hidden */
 export {default as gradedGroupLogic} from "./widgets/graded-group";
 /** @hidden */
@@ -213,7 +218,10 @@ export {getLabelImagePublicWidgetOptions} from "./widgets/label-image/label-imag
 /** @hidden */
 export {
     getSorterPublicWidgetOptions,
+    exceedsCardLimit,
     shuffleSorter,
+    SORTER_MAX_HORIZONTAL_CARDS,
+    SORTER_MAX_CARDS,
 } from "./widgets/sorter/sorter-util";
 /** @hidden */
 export type {BlankPublicWidgetOptions} from "./widgets/blank/blank-util";
@@ -304,6 +312,12 @@ export {
     generateExpressionAnswerForm,
     generateExpressionWidget,
 } from "./utils/generators/expression-widget-generator";
+/** @hidden */
+export {
+    generateAnswerTile,
+    generateFillInTheBlankOptions,
+    generateFillInTheBlankWidget,
+} from "./utils/generators/fill-in-the-blank-widget-generator";
 /** @hidden */
 export {
     generateFreeResponseOptions,

@@ -16,7 +16,7 @@ import {
 import _ from "underscore";
 
 // Used to type the `change` method on all widgets.
-export type ChangeFn = (
+type ChangeFn = (
     newPropsOrSinglePropName:
         | string
         | {

@@ -66,6 +66,9 @@ export default function LinterLink({
 
     return (
         <Tooltip
+            // Place the tooltip left of the lint dot so that it can be
+            // seen within the iframe without being cut off by the edge.
+            placement="left"
             // The anchor is an <a href>, which is already keyboard
             // focusable, so the tooltip doesn't need to add a tabindex.
             forceAnchorFocusivity={false}
@@ -98,15 +101,26 @@ export default function LinterLink({
                         : dotOutlineIcon
                 }
                 style={style}
+                target="_blank"
             />
         </Tooltip>
     );
 }
 
+/**
+ * How wide the tooltip bubble is allowed to get so it doesn't get cut off
+ * by the edge of the preview iframe.
+ */
+// TODO: When we are able to remove the need for an iframe preview
+// (ie. we use container queries), remove this calculated sizing.
+const tooltipMaxWidth = "min(320px, calc(100vw - 120px))";
+
 const styles = StyleSheet.create({
     // A lint message can contain several paragraphs. Wonder Blocks resets the
     // margins on BodyText, so we space them out ourselves.
     tooltipParagraph: {
+        maxInlineSize: tooltipMaxWidth,
+
         ":not(:first-child)": {
             marginBlockStart: sizing.size_080,
         },

@@ -13,13 +13,9 @@ import {
 } from "@khanacademy/perseus-core";
 import {screen} from "@testing-library/react";
 
-import {ApiOptions} from "../../perseus-api";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import type {APIOptions} from "../../types";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
-
-const blankOptions: APIOptions = Object.freeze(ApiOptions.defaults);
 
 const questionGenerators: Record<
     string,
@@ -89,7 +85,7 @@ describe.each`
                 isStatic: staticMode,
                 correct: generateIGSegmentGraph({numSegments: 1}),
             });
-        renderQuestion(segmentQuestion, blankOptions);
+        renderQuestion(segmentQuestion);
 
         // Act
         // Segment contains two points and the line segment in between.
@@ -111,7 +107,7 @@ describe.each`
                 isStatic: staticMode,
                 correct: generateIGLinearGraph(),
             });
-        renderQuestion(linearQuestion, blankOptions);
+        renderQuestion(linearQuestion);
 
         // Act
         // Linear graph contains two points, and inner segment,
@@ -139,7 +135,7 @@ describe.each`
                 isStatic: staticMode,
                 correct: generateIGLinearSystemGraph(),
             });
-        renderQuestion(linearSystemQuestion, blankOptions);
+        renderQuestion(linearSystemQuestion);
 
         // Act
         // Linear graph contains two lines with two points, and inner segment,
@@ -170,7 +166,7 @@ describe.each`
             isStatic: staticMode,
             correct: generateIGRayGraph(),
         });
-        renderQuestion(rayQuestion, blankOptions);
+        renderQuestion(rayQuestion);
 
         // Act
         // Linear graph contains two points, and inner segment,
@@ -195,7 +191,7 @@ describe.each`
                 isStatic: staticMode,
                 correct: generateIGCircleGraph(),
             });
-        renderQuestion(circleQuestion, blankOptions);
+        renderQuestion(circleQuestion);
 
         // Act
         // Circle graph contains the circle itself, a center drag handle,
@@ -242,7 +238,7 @@ describe.each`
                 isStatic: staticMode,
                 correct: generateIGSinusoidGraph(),
             });
-        renderQuestion(sinusoidQuestion, blankOptions);
+        renderQuestion(sinusoidQuestion);
 
         // Act
         // Sinusoid graph contains the sinusoid plot itself and two points.
@@ -268,7 +264,7 @@ describe.each`
                 correct: generateIGPointGraph({numPoints: 1}),
             },
         );
-        renderQuestion(pointQuestion, blankOptions);
+        renderQuestion(pointQuestion);
 
         // Act
         // Point graph contains a single point.
@@ -286,7 +282,7 @@ describe.each`
                 // Defaults to 3 sides
                 correct: generateIGPolygonGraph(),
             });
-        renderQuestion(polygonQuestion, blankOptions);
+        renderQuestion(polygonQuestion);
 
         // Act
         // Polygon graph contains the polygon and the three points.
@@ -313,7 +309,7 @@ describe.each`
                 correct: generateIGAngleGraph(),
             },
         );
-        renderQuestion(angleQuestion, blankOptions);
+        renderQuestion(angleQuestion);
 
         // Act
         // Angle graph contains 3 points, two inner segments,
@@ -361,7 +357,7 @@ describe.each`
                 }),
             },
         );
-        renderQuestion(angleQuestion, blankOptions);
+        renderQuestion(angleQuestion);
 
         // Act
         // Angle graph contains 3 points, two inner segments,
@@ -416,7 +412,7 @@ describe.each`
             const question = questionGenerators[graphType](staticMode);
 
             // Act
-            renderQuestion(question, blankOptions);
+            renderQuestion(question);
             const interactiveElements = screen.getAllByRole("button");
 
             // Assert

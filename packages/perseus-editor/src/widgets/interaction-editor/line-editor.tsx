@@ -8,35 +8,17 @@ import ColorPicker from "./color-picker";
 import DashPicker from "./dash-picker";
 import MathquillInput from "./mathquill-input";
 
-import type {ChangeableProps} from "../../mixins/changeable";
+import type {PerseusInteractionLineElementOptions} from "@khanacademy/perseus-core";
 
 const {NumberInput} = components;
 
-type Props = ChangeableProps & {
-    startX: string;
-    startY: string;
-    endX: string;
-    endY: string;
-    color: string;
-    strokeDasharray: string;
-    arrows: string;
-    strokeWidth: number;
-};
-
-type DefaultProps = {
-    startX: Props["startX"];
-    startY: Props["startY"];
-    endX: Props["endX"];
-    endY: Props["endY"];
-    color: Props["color"];
-    strokeDasharray: Props["strokeDasharray"];
-    arrows: Props["arrows"];
-    strokeWidth: Props["strokeWidth"];
-};
+interface Props extends PerseusInteractionLineElementOptions {
+    onChange: (options: PerseusInteractionLineElementOptions) => void;
+}
 
 // Editor for non-interactive line segments
 class LineEditor extends React.Component<Props> {
-    static defaultProps: DefaultProps = {
+    static defaultProps: PerseusInteractionLineElementOptions = {
         startX: "-5",
         startY: "5",
         endX: "5",
@@ -46,6 +28,20 @@ class LineEditor extends React.Component<Props> {
         arrows: "",
         strokeWidth: 2,
     };
+
+    handleChange(changes: Partial<PerseusInteractionLineElementOptions>) {
+        this.props.onChange({
+            startX: this.props.startX,
+            startY: this.props.startY,
+            endX: this.props.endX,
+            endY: this.props.endY,
+            color: this.props.color,
+            strokeDasharray: this.props.strokeDasharray,
+            arrows: this.props.arrows,
+            strokeWidth: this.props.strokeWidth,
+            ...changes,
+        });
+    }
 
     change: (arg1: any, arg2?: any, arg3?: any) => any = (...args) => {
         return deprecatedChangeableChange.apply(this, args);

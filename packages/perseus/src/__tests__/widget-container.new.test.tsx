@@ -59,6 +59,7 @@ const getBaseProps = (
     onBlur: () => {},
     findWidgets: () => [],
     reviewMode: false,
+    isScorable: false,
     handleUserInput: () => {},
     userInput: {},
     linterContext: linterContextDefault,

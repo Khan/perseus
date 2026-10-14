@@ -1,5 +1,297 @@
 # @khanacademy/perseus
 
+## 91.0.0
+
+### Major Changes
+
+-   [#4359](https://github.com/Khan/perseus/pull/4359) [`721c495`](https://github.com/Khan/perseus/commit/721c4951e8aa5e2034aaa0d9a01a397672a775b8) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove unused dynamic `getWidget()` function from `WidgetExports<T>`
+
+### Patch Changes
+
+-   [#4349](https://github.com/Khan/perseus/pull/4349) [`89a477b`](https://github.com/Khan/perseus/commit/89a477bfc510eafd65573ed92bbb31cca984d36d) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert MockAssetLoading widget to a functional component
+
+-   [#4355](https://github.com/Khan/perseus/pull/4355) [`7f11f79`](https://github.com/Khan/perseus/commit/7f11f79706ba358bf6d884d1c147ff77c168917c) Thanks [@benchristel](https://github.com/benchristel)! - Fix a bug where inline markdown (e.g. in dropdown options) was incorrectly wrapped in a div element.
+
+-   [#4352](https://github.com/Khan/perseus/pull/4352) [`962b3fe`](https://github.com/Khan/perseus/commit/962b3fe3e41184c0e44d530dbe2ee301ad0dbbbc) Thanks [@nishasy](https://github.com/nishasy)! - [Label Image] Create local Pill component instead of using deprecated WB Pill
+
+-   [#4342](https://github.com/Khan/perseus/pull/4342) [`c1ad2d7`](https://github.com/Khan/perseus/commit/c1ad2d7e37a583ecc64c8a0d6d3a3561b2b9b804) Thanks [@nishasy](https://github.com/nishasy)! - [Dropdown] | (a11y) | Add aria-required to Dropdown
+
+-   [#4330](https://github.com/Khan/perseus/pull/4330) [`0c210d9`](https://github.com/Khan/perseus/commit/0c210d90f5d653349fde675b66b5c9f267916bb8) Thanks [@nishasy](https://github.com/nishasy)! - [Label Image] | (a11y) | Add aria-required to Label Image
+
+-   Updated dependencies [[`c7b27f6`](https://github.com/Khan/perseus/commit/c7b27f6ea6d51e3d06d48f7eb07fb0e69a42d1c4)]:
+    -   @khanacademy/perseus-core@41.2.0
+    -   @khanacademy/keypad-context@6.0.4
+    -   @khanacademy/kmath@3.0.5
+    -   @khanacademy/math-input@30.0.5
+    -   @khanacademy/perseus-linter@6.1.2
+    -   @khanacademy/perseus-score@9.0.5
+
+## 90.2.0
+
+### Minor Changes
+
+-   [#4260](https://github.com/Khan/perseus/pull/4260) [`a36956f`](https://github.com/Khan/perseus/commit/a36956faf71532f640cb268fc29785bb8b59dbe2) Thanks [@benchristel](https://github.com/benchristel)! - Paragraphs are now correctly styled and use accessible `<p>` elements when the perseus-renderer-upgrade feature flag is on.
+
+### Patch Changes
+
+-   [#4339](https://github.com/Khan/perseus/pull/4339) [`7285d58`](https://github.com/Khan/perseus/commit/7285d58eb81ff71a8a0c6fd5d62d7082c3b8e0e1) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert the Mock widget (testing widget) to a functional component
+
+-   Updated dependencies [[`1c610e4`](https://github.com/Khan/perseus/commit/1c610e4bd481bb5c5cb76801a3093b86c7068640)]:
+    -   @khanacademy/perseus-core@41.1.0
+    -   @khanacademy/keypad-context@6.0.3
+    -   @khanacademy/kmath@3.0.4
+    -   @khanacademy/math-input@30.0.4
+    -   @khanacademy/perseus-linter@6.1.1
+    -   @khanacademy/perseus-score@9.0.4
+
+## 90.1.0
+
+### Minor Changes
+
+-   [#4257](https://github.com/Khan/perseus/pull/4257) [`0cdddbe`](https://github.com/Khan/perseus/commit/0cdddbe4b300e802ce502d6d191b3fd1674c57f3) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - updates explain button for graded group
+
+### Patch Changes
+
+-   [#4276](https://github.com/Khan/perseus/pull/4276) [`fb84fc6`](https://github.com/Khan/perseus/commit/fb84fc6a6d62d69d74692de31b35db04d699c11e) Thanks [@nishasy](https://github.com/nishasy)! - [Graded Group a11y] Announce correctness state when Check/Try Again button is pressed
+
+-   [#4276](https://github.com/Khan/perseus/pull/4276) [`fb84fc6`](https://github.com/Khan/perseus/commit/fb84fc6a6d62d69d74692de31b35db04d699c11e) Thanks [@nishasy](https://github.com/nishasy)! - [Graded Group] | (DX) | Streamline "invalid" logic in Graded Group widget
+
+-   [#4334](https://github.com/Khan/perseus/pull/4334) [`7eaf83b`](https://github.com/Khan/perseus/commit/7eaf83b740701e960fc6c99a7e32326ce60ec37c) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Adds required span when radio is required - exercises and gg
+
+-   [#4315](https://github.com/Khan/perseus/pull/4315) [`2c1f469`](https://github.com/Khan/perseus/commit/2c1f4693c8f35fcca92319462fd4be4f76888cb4) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Fix focus after navigating to next question in graded group set
+
+-   [#4331](https://github.com/Khan/perseus/pull/4331) [`b4d9f41`](https://github.com/Khan/perseus/commit/b4d9f41ab606e7c980eacfe3183d1e6ef64f12da) Thanks [@benchristel](https://github.com/benchristel)! - There was a bug where inline math was incorrectly wrapped in a `<div>` element when `inline: true` was passed to the Renderer and the `perseus-renderer-upgrade` feature flag was on. This has been fixed.
+
+-   [#4325](https://github.com/Khan/perseus/pull/4325) [`e0dad22`](https://github.com/Khan/perseus/commit/e0dad2234fdd98388cee00abc2772fec18c58ed2) Thanks [@nishasy](https://github.com/nishasy)! - [Graded Group a11y] Fix KAC alignment issues in Graded Group answer bar
+
+-   [#4232](https://github.com/Khan/perseus/pull/4232) [`d6995fd`](https://github.com/Khan/perseus/commit/d6995fd3d08526d5881d752ce31ecbe0475c6d13) Thanks [@nishasy](https://github.com/nishasy)! - [Graded Group] Consolidate mobile and desktop styles
+
+-   Updated dependencies [[`0b744b8`](https://github.com/Khan/perseus/commit/0b744b812341c31a2b21f7294d1dc6e465b3ef6d)]:
+    -   @khanacademy/perseus-linter@6.1.0
+
+## 90.0.2
+
+### Patch Changes
+
+-   [#4323](https://github.com/Khan/perseus/pull/4323) [`320349f`](https://github.com/Khan/perseus/commit/320349fec03f44be8c9989097ccd7caed5411edf) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Remove the vestigial `clearfix` CSS class
+
+-   [#4324](https://github.com/Khan/perseus/pull/4324) [`dad705c`](https://github.com/Khan/perseus/commit/dad705c9e4002211d0d4ce5cc7854586a3c2d354) Thanks [@jandrade](https://github.com/jandrade)! - Updates WB peer deps, including `@khanacademy/wonder-blocks-popover` 7.0.0, which is now built on `@khanacademy/wonder-blocks-floating`. Tests and snapshots are updated for the new Popover.
+
+-   [#4329](https://github.com/Khan/perseus/pull/4329) [`e0c0fe5`](https://github.com/Khan/perseus/commit/e0c0fe5742b5e4a75611878a46358ef00aa5b6df) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert iFrame into a functional component
+
+-   Updated dependencies [[`4da9528`](https://github.com/Khan/perseus/commit/4da95281f38eca305b8e82ea6a21ae60248a76b1), [`dad705c`](https://github.com/Khan/perseus/commit/dad705c9e4002211d0d4ce5cc7854586a3c2d354)]:
+    -   @khanacademy/math-input@30.0.3
+
+## 90.0.1
+
+### Patch Changes
+
+-   [#4309](https://github.com/Khan/perseus/pull/4309) [`2613f46`](https://github.com/Khan/perseus/commit/2613f468c669c8d5fe4636fd8387f57120185181) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert DeprecatedStandin to functional
+
+-   [#4313](https://github.com/Khan/perseus/pull/4313) [`dcf68d6`](https://github.com/Khan/perseus/commit/dcf68d6f83d64574560b949cfa04ed965a00e979) Thanks [@handeyeco](https://github.com/handeyeco)! - Convert FreeResponse to a functional component
+
+-   [#4304](https://github.com/Khan/perseus/pull/4304) [`c3afabc`](https://github.com/Khan/perseus/commit/c3afabcef1903e8cb1fa0a57abbaea4c7d4f9548) Thanks [@nishasy](https://github.com/nishasy)! - Remove unused testdata file
+
+-   [#4302](https://github.com/Khan/perseus/pull/4302) [`b50edb9`](https://github.com/Khan/perseus/commit/b50edb961335264c17acc1fe8176597b54796854) Thanks [@handeyeco](https://github.com/handeyeco)! - Stop serializing dependencies
+
+-   [#4298](https://github.com/Khan/perseus/pull/4298) [`7512252`](https://github.com/Khan/perseus/commit/751225261589bd3877db9f3ea4237620cb712555) Thanks [@nishasy](https://github.com/nishasy)! - Clean up testdata, remove exports that are no longer needed
+
+-   [#4312](https://github.com/Khan/perseus/pull/4312) [`b7087f8`](https://github.com/Khan/perseus/commit/b7087f8b69deb2c7f9e023f8d6a4d31cfe7d06b7) Thanks [@benchristel](https://github.com/benchristel)! - Bugfix: The Label Image widget now respects its `preferredPopoverDirection` setting. This was broken around March 5, 2026, when the Perseus parser started discarding unrecognized object properties.
+
+-   Updated dependencies [[`999df5b`](https://github.com/Khan/perseus/commit/999df5bcd7958788e486b5cf72fb8fba1a612b1a), [`b50edb9`](https://github.com/Khan/perseus/commit/b50edb961335264c17acc1fe8176597b54796854), [`b7087f8`](https://github.com/Khan/perseus/commit/b7087f8b69deb2c7f9e023f8d6a4d31cfe7d06b7), [`97c15c4`](https://github.com/Khan/perseus/commit/97c15c4c4d951dc6ee05ad10cafb6ec0d08b3a51)]:
+    -   @khanacademy/perseus-core@41.0.0
+    -   @khanacademy/keypad-context@6.0.2
+    -   @khanacademy/kmath@3.0.3
+    -   @khanacademy/math-input@30.0.2
+    -   @khanacademy/perseus-linter@6.0.3
+    -   @khanacademy/perseus-score@9.0.3
+
+## 90.0.0
+
+### Major Changes
+
+-   [#4285](https://github.com/Khan/perseus/pull/4285) [`a4372f8`](https://github.com/Khan/perseus/commit/a4372f860833f4954b32d007f26bbf8720c7db94) Thanks [@handeyeco](https://github.com/handeyeco)! - Revert ServerItemRenderer encapsulation (Perseus#4126)
+
+### Patch Changes
+
+-   [#4275](https://github.com/Khan/perseus/pull/4275) [`4608173`](https://github.com/Khan/perseus/commit/46081733b9995aa840286b16e82216e45e0a0be6) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - create new util for alignment, propagate through perseus and fix markdown so linter errors doesn't cause wrapping in preview
+
+-   [#4295](https://github.com/Khan/perseus/pull/4295) [`f4ebbe8`](https://github.com/Khan/perseus/commit/f4ebbe83e76699e2d5446c8a1ace829f6e895263) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove ApiOptions.PropTypes which was unused
+
+-   [#4291](https://github.com/Khan/perseus/pull/4291) [`460483d`](https://github.com/Khan/perseus/commit/460483d3ad269330fd9dae3d9198cabc6df16245) Thanks [@handeyeco](https://github.com/handeyeco)! - Add a new optional `isScorable` flag to Renderer, which is used by ServerItemRenderer and GradedGroup to mark inputs as `aria-required`.
+
+-   Updated dependencies [[`4608173`](https://github.com/Khan/perseus/commit/46081733b9995aa840286b16e82216e45e0a0be6), [`460483d`](https://github.com/Khan/perseus/commit/460483d3ad269330fd9dae3d9198cabc6df16245), [`a4372f8`](https://github.com/Khan/perseus/commit/a4372f860833f4954b32d007f26bbf8720c7db94)]:
+    -   @khanacademy/perseus-core@40.1.0
+    -   @khanacademy/keypad-context@6.0.1
+    -   @khanacademy/kmath@3.0.2
+    -   @khanacademy/math-input@30.0.1
+    -   @khanacademy/perseus-linter@6.0.2
+    -   @khanacademy/perseus-score@9.0.2
+
+## 89.0.0
+
+### Major Changes
+
+-   [#4126](https://github.com/Khan/perseus/pull/4126) [`bf02601`](https://github.com/Khan/perseus/commit/bf02601f17fc0c11844b0d077b60cafd2c8e1a37) Thanks [@handeyeco](https://github.com/handeyeco)! - Encapsulate ServerItemRenderer to only allow explicitly declared imperative APIS
+
+### Patch Changes
+
+-   [#4126](https://github.com/Khan/perseus/pull/4126) [`bf02601`](https://github.com/Khan/perseus/commit/bf02601f17fc0c11844b0d077b60cafd2c8e1a37) Thanks [@handeyeco](https://github.com/handeyeco)! - Change KeypadContext API so that rather than exposing a raw `renderer` we abstract functionality behind `blurRenderer`
+
+-   Updated dependencies [[`bf02601`](https://github.com/Khan/perseus/commit/bf02601f17fc0c11844b0d077b60cafd2c8e1a37), [`bf02601`](https://github.com/Khan/perseus/commit/bf02601f17fc0c11844b0d077b60cafd2c8e1a37)]:
+    -   @khanacademy/perseus-core@40.0.1
+    -   @khanacademy/keypad-context@6.0.0
+    -   @khanacademy/math-input@30.0.0
+    -   @khanacademy/kmath@3.0.1
+    -   @khanacademy/perseus-linter@6.0.1
+    -   @khanacademy/perseus-score@9.0.1
+
+## 88.0.0
+
+### Major Changes
+
+-   [#4242](https://github.com/Khan/perseus/pull/4242) [`324add8`](https://github.com/Khan/perseus/commit/324add8b5e2cf5752fd3bee882caffbcbd84238c) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Ship ES modules only. Every package now declares `"type": "module"`, drops
+    the legacy `main` and `module` fields, and no longer offers a `require`
+    condition, so `require()` of a
+    package or any of its sub-paths fails at resolution time. Bundles moved from
+    `dist/es/*.js` to `dist/*.js`.
+
+    `import` specifiers are unchanged — `@khanacademy/perseus`,
+    `@khanacademy/perseus/strings`, `@khanacademy/perseus/styles.css` and the rest
+    all still resolve. CJS consumers need to either move to `import`, or use a
+    dynamic `await import()` from an async context.
+
+### Patch Changes
+
+-   [#4273](https://github.com/Khan/perseus/pull/4273) [`7d7705a`](https://github.com/Khan/perseus/commit/7d7705a43b13dd31ca52cf331c1cc04a9eed3fcc) Thanks [@beaesguerra](https://github.com/beaesguerra)! - Update WB dependencies
+
+-   Updated dependencies [[`324add8`](https://github.com/Khan/perseus/commit/324add8b5e2cf5752fd3bee882caffbcbd84238c), [`7d7705a`](https://github.com/Khan/perseus/commit/7d7705a43b13dd31ca52cf331c1cc04a9eed3fcc)]:
+    -   @khanacademy/kas@3.0.0
+    -   @khanacademy/keypad-context@5.0.0
+    -   @khanacademy/kmath@3.0.0
+    -   @khanacademy/math-input@29.0.0
+    -   @khanacademy/perseus-core@40.0.0
+    -   @khanacademy/perseus-linter@6.0.0
+    -   @khanacademy/perseus-score@9.0.0
+    -   @khanacademy/perseus-utils@3.0.0
+    -   @khanacademy/pure-markdown@3.0.0
+    -   @khanacademy/simple-markdown@4.0.0
+
+## 87.3.0
+
+### Minor Changes
+
+-   [#4220](https://github.com/Khan/perseus/pull/4220) [`82c5bd1`](https://github.com/Khan/perseus/commit/82c5bd1167b98f894436b9de4ea4621e245fab76) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Replaces Sorter with Deprecated Stand in when cards > 10
+
+### Patch Changes
+
+-   [#4274](https://github.com/Khan/perseus/pull/4274) [`188c0bf`](https://github.com/Khan/perseus/commit/188c0bf711c16f0d7ef4aa98d7cecf3bc82cf471) Thanks [@benchristel](https://github.com/benchristel)! - Bugfix: Inline Renderers no longer break up text into separate elements at punctuation marks when the `perseus-renderer-upgrade` feature flag is on. The previous buggy behavior confused screenreaders, especially in cases where words contained an apostrophe. E.g. `"don't"` would become something like `<span>don</span><span>'t</span>`.
+
+-   [#4196](https://github.com/Khan/perseus/pull/4196) [`e86d317`](https://github.com/Khan/perseus/commit/e86d317c25e791739ff7c9cae6cbb1c0331cfd3d) Thanks [@nishasy](https://github.com/nishasy)! - [Sorter] Render horizontal sorters as vertical if they have too many cards
+
+-   Updated dependencies [[`82c5bd1`](https://github.com/Khan/perseus/commit/82c5bd1167b98f894436b9de4ea4621e245fab76), [`e86d317`](https://github.com/Khan/perseus/commit/e86d317c25e791739ff7c9cae6cbb1c0331cfd3d)]:
+    -   @khanacademy/perseus-score@8.13.0
+    -   @khanacademy/perseus-core@39.2.3
+    -   @khanacademy/keypad-context@4.0.1
+    -   @khanacademy/kmath@2.4.54
+    -   @khanacademy/math-input@28.0.1
+    -   @khanacademy/perseus-linter@5.4.4
+
+## 87.2.2
+
+### Patch Changes
+
+-   [#4133](https://github.com/Khan/perseus/pull/4133) [`54959a3`](https://github.com/Khan/perseus/commit/54959a308d6bd9cc41fbb06feb6dbb7029d5371b) Thanks [@handeyeco](https://github.com/handeyeco)! - Change KeypadContext API so that rather than exposing a raw `renderer` we abstract functionality behind `blurRenderer`
+
+-   Updated dependencies [[`6b422ce`](https://github.com/Khan/perseus/commit/6b422ce7aeb04b9928fd21dabf42d2edbe048886), [`54959a3`](https://github.com/Khan/perseus/commit/54959a308d6bd9cc41fbb06feb6dbb7029d5371b)]:
+    -   @khanacademy/perseus-core@39.2.2
+    -   @khanacademy/keypad-context@4.0.0
+    -   @khanacademy/math-input@28.0.0
+    -   @khanacademy/kmath@2.4.53
+    -   @khanacademy/perseus-linter@5.4.3
+    -   @khanacademy/perseus-score@8.12.26
+
+## 87.2.1
+
+### Patch Changes
+
+-   [#4167](https://github.com/Khan/perseus/pull/4167) [`b718fbc`](https://github.com/Khan/perseus/commit/b718fbc8ff3f3588cbc113cd7d45de0b207bd660) Thanks [@Myranae](https://github.com/Myranae)! - Internal color cleanup. The only visible change is that the shadow under the mobile keypad's cursor handle may appear very slightly darker.
+
+-   [#4235](https://github.com/Khan/perseus/pull/4235) [`7929ab8`](https://github.com/Khan/perseus/commit/7929ab847c9e4a36da08da51c22619bc2bae123a) Thanks [@benchristel](https://github.com/benchristel)! - Internal: remove deprecated `serialize()` methods from hint editors.
+
+-   Updated dependencies [[`b718fbc`](https://github.com/Khan/perseus/commit/b718fbc8ff3f3588cbc113cd7d45de0b207bd660), [`284ac95`](https://github.com/Khan/perseus/commit/284ac95dce32e3d3ddbe2287106ad253b16ffadb)]:
+    -   @khanacademy/math-input@27.0.17
+    -   @khanacademy/perseus-core@39.2.1
+    -   @khanacademy/keypad-context@3.2.93
+    -   @khanacademy/kmath@2.4.52
+    -   @khanacademy/perseus-linter@5.4.2
+    -   @khanacademy/perseus-score@8.12.25
+
+## 87.2.0
+
+### Minor Changes
+
+-   [#4208](https://github.com/Khan/perseus/pull/4208) [`9f6043b`](https://github.com/Khan/perseus/commit/9f6043b0c8230c353304c7455f70d5e4724c4659) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add a placeholder Fill in the Blank content editor behind a feature flag
+
+-   [#4203](https://github.com/Khan/perseus/pull/4203) [`834d458`](https://github.com/Khan/perseus/commit/834d458ee5aee90ad705b81dc1323c417854d0ac) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Register the Fill in the Blank widget with a placeholder render- [#4203](https://github.com/Khan/perseus/issues/4203)
+
+-   [#4181](https://github.com/Khan/perseus/pull/4181) [`995aa68`](https://github.com/Khan/perseus/commit/995aa68d04bdc95f7b463406d797ed6a24107cad) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add the new Fill in the Blank widget's schema and logic to perseus-core
+
+### Patch Changes
+
+-   [#4227](https://github.com/Khan/perseus/pull/4227) [`c927205`](https://github.com/Khan/perseus/commit/c9272053e926d8c78f2b07c64855ec6a27674839) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dependencies
+
+-   Updated dependencies [[`e114416`](https://github.com/Khan/perseus/commit/e11441600e2b4c9efe6ec008d387ee245f11470d), [`995aa68`](https://github.com/Khan/perseus/commit/995aa68d04bdc95f7b463406d797ed6a24107cad), [`c927205`](https://github.com/Khan/perseus/commit/c9272053e926d8c78f2b07c64855ec6a27674839)]:
+    -   @khanacademy/perseus-linter@5.4.1
+    -   @khanacademy/perseus-core@39.2.0
+    -   @khanacademy/math-input@27.0.16
+    -   @khanacademy/keypad-context@3.2.92
+    -   @khanacademy/kmath@2.4.51
+    -   @khanacademy/perseus-score@8.12.24
+
+## 87.1.4
+
+### Patch Changes
+
+-   [#4210](https://github.com/Khan/perseus/pull/4210) [`3c0fe3a`](https://github.com/Khan/perseus/commit/3c0fe3a57b4e1d2a77a894848ec3884ce444355c) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove the unused `zoomToFullSizeOnMobile` prop from `SvgImage`
+
+-   [#4219](https://github.com/Khan/perseus/pull/4219) [`43887dc`](https://github.com/Khan/perseus/commit/43887dc4b4ca3133b00e78db16810249c70ce66c) Thanks [@jandrade](https://github.com/jandrade)! - Bumps Wonder Blocks dependencies: IconButton now requires aria-label (major), Accordion, Clickable and Link improvments
+
+-   Updated dependencies [[`43887dc`](https://github.com/Khan/perseus/commit/43887dc4b4ca3133b00e78db16810249c70ce66c)]:
+    -   @khanacademy/math-input@27.0.15
+
+## 87.1.3
+
+### Patch Changes
+
+-   [#4206](https://github.com/Khan/perseus/pull/4206) [`c2a9d3e`](https://github.com/Khan/perseus/commit/c2a9d3ea577927464c53b0e027d707d41c06f78e) Thanks [@jandrade](https://github.com/jandrade)! - Updates the DnD component to use a valid WB lineHeight token
+
+-   [#4200](https://github.com/Khan/perseus/pull/4200) [`22dc543`](https://github.com/Khan/perseus/commit/22dc5433c41fa04ebe4a718804aaec1ee7201e6a) Thanks [@nishasy](https://github.com/nishasy)! - Fix tooltips getting cut off in the editor preview
+
+-   [#4206](https://github.com/Khan/perseus/pull/4206) [`c2a9d3e`](https://github.com/Khan/perseus/commit/c2a9d3ea577927464c53b0e027d707d41c06f78e) Thanks [@jandrade](https://github.com/jandrade)! - Updates WB peer deps
+
+-   Updated dependencies [[`c2a9d3e`](https://github.com/Khan/perseus/commit/c2a9d3ea577927464c53b0e027d707d41c06f78e), [`dc12384`](https://github.com/Khan/perseus/commit/dc123845614fae331d8517a524212fc1dbbe110f)]:
+    -   @khanacademy/math-input@27.0.14
+    -   @khanacademy/perseus-linter@5.4.0
+    -   @khanacademy/perseus-core@39.1.0
+    -   @khanacademy/keypad-context@3.2.91
+    -   @khanacademy/kmath@2.4.50
+    -   @khanacademy/perseus-score@8.12.23
+
+## 87.1.2
+
+### Patch Changes
+
+-   [#4183](https://github.com/Khan/perseus/pull/4183) [`724a9cc`](https://github.com/Khan/perseus/commit/724a9ccf02d007a0667ea0cc4feb7782c45773f3) Thanks [@nishasy](https://github.com/nishasy)! - Editor tooltip and spacing improvements
+
+-   Updated dependencies [[`cf56830`](https://github.com/Khan/perseus/commit/cf568308a7ac5601af0afbc386832000c7f8cae5)]:
+    -   @khanacademy/perseus-core@39.0.0
+    -   @khanacademy/keypad-context@3.2.90
+    -   @khanacademy/kmath@2.4.49
+    -   @khanacademy/math-input@27.0.13
+    -   @khanacademy/perseus-linter@5.3.1
+    -   @khanacademy/perseus-score@8.12.22
+
 ## 87.1.1
 
 ### Patch Changes

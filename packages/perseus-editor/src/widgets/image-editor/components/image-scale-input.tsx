@@ -11,8 +11,10 @@ import ScrolllessNumberTextField from "../../../components/scrollless-number-tex
 import styles from "../image-editor.module.css";
 import {isInvalidDimension, wbFieldStyles} from "../utils";
 
-import type {Props as ImageEditorProps} from "../image-editor";
-import type {PerseusImageBackground} from "@khanacademy/perseus-core";
+import type {
+    PerseusImageBackground,
+    PerseusImageWidgetOptions,
+} from "@khanacademy/perseus-core";
 
 // 1024 * 1024 = 1,048,576
 const LARGE_DIMENSION_THRESHOLD = 1048576;
@@ -21,7 +23,7 @@ interface Props {
     backgroundImage: PerseusImageBackground;
     scale: number;
     editingDisabled?: boolean;
-    onChange: ImageEditorProps["onChange"];
+    onChange: (changes: Partial<PerseusImageWidgetOptions>) => void;
 }
 
 export default function ImageScaleInput({

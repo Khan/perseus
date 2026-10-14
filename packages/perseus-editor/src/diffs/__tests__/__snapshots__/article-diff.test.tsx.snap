@@ -18,7 +18,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
           Section 1
         </div>
         <div
-          class="diff-body ui-helper-clearfix"
+          class="diff-body"
         >
           <div
             class="diff-row before"
@@ -69,7 +69,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
         expression 1
       </div>
       <div
-        class="diff-body ui-helper-clearfix"
+        class="diff-body"
       >
         <div>
           <div>
@@ -365,7 +365,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
           Section 2
         </div>
         <div
-          class="diff-body ui-helper-clearfix"
+          class="diff-body"
         >
           <div
             class="diff-row before"
@@ -416,7 +416,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
         expression 2
       </div>
       <div
-        class="diff-body ui-helper-clearfix"
+        class="diff-body"
       >
         <div>
           <div>
@@ -712,7 +712,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
           Section 3
         </div>
         <div
-          class="diff-body ui-helper-clearfix"
+          class="diff-body"
         >
           <div
             class="diff-row before"
@@ -763,7 +763,7 @@ exports[`ArticleDiff renders an article in the diff view 1`] = `
         expression 3
       </div>
       <div
-        class="diff-body ui-helper-clearfix"
+        class="diff-body"
       >
         <div>
           <div>

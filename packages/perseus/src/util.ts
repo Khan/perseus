@@ -96,9 +96,7 @@ const snowman = "\u2603";
 
 const isBlockWidgetNode = (node: SingleASTNode): boolean =>
     node?.type === "widget" &&
-    !CoreWidgetRegistry.getDefaultAlignment(node.widgetType).startsWith(
-        "inline",
-    );
+    !CoreWidgetRegistry.isInlineWidget(node.widgetType);
 
 const isParagraphWithBlockWidget = (node: SingleASTNode): boolean =>
     node?.type === "paragraph" &&
@@ -114,6 +112,14 @@ const inlineWidgetsToExclude = (node: SingleASTNode): boolean => {
     return (
         node?.type === "widget" && widgetsToExclude.includes(node.widgetType)
     );
+};
+
+const nodeIsGraphie = (node: SingleASTNode): boolean => {
+    return node.type === "image" && node.target.startsWith("web+graphie:");
+};
+
+export const isContentGraphie = (node: SingleASTNode): boolean => {
+    return Array.isArray(node.content) && node.content.some(nodeIsGraphie);
 };
 
 /**
@@ -161,6 +167,29 @@ const mergeInlineNodes = (
         blockNodes.push({...referenceNode, content: trimmedContentNodes});
     }
 };
+
+/**
+ * Combines adjacent text nodes in an ASTNode array into a single text node.
+ * Does not recurse.
+ */
+function joinAdjacentTextNodes(ast: ASTNode): ASTNode {
+    if (!Array.isArray(ast)) {
+        return ast;
+    }
+
+    const joined: SingleASTNode[] = [];
+
+    for (const node of ast) {
+        const lastIndex = joined.length - 1;
+        if (node.type === "text" && joined[lastIndex]?.type === "text") {
+            joined[lastIndex].content += node.content;
+        } else {
+            joined.push(node);
+        }
+    }
+
+    return joined;
+}
 
 /**
  * Handle situations in the markdown where a block-level widget doesn't have the
@@ -706,6 +735,7 @@ const Util = {
     getDataUrl: getDataUrl,
     textarea,
     unescapeMathMode,
+    joinAdjacentTextNodes,
 } as const;
 
 export default Util;

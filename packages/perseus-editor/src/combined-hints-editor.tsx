@@ -1,4 +1,3 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
 /**
  * Collection of classes for rendering the hint editor area,
  * hint editor boxes, and hint previews
@@ -13,7 +12,6 @@ import arrowCircleUpIcon from "@phosphor-icons/core/bold/arrow-circle-up-bold.sv
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
-import invariant from "tiny-invariant";
 import _ from "underscore";
 
 import DeviceFramer from "./components/device-framer";
@@ -23,7 +21,6 @@ import PreviewWithIframe from "./preview-with-iframe";
 import type {
     APIOptions,
     ImageDict,
-    ChangeHandler,
     DeviceType,
     ImageUploader,
 } from "@khanacademy/perseus";
@@ -38,18 +35,18 @@ type HintEditorProps = {
     apiOptions?: APIOptions;
     className: string;
     imageUploader?: ImageUploader;
-    showMoveButtons?: boolean;
-    showRemoveButton?: boolean;
-    showTitle?: boolean;
-    content?: string | null | undefined;
-    replace?: boolean | null | undefined;
-    widgets?: PerseusWidgetsMap | null | undefined;
-    images?: ImageDict | null | undefined;
+    showMoveButtons: boolean;
+    showRemoveButton: boolean;
+    showTitle: boolean;
+    content: string;
+    replace: boolean;
+    widgets: PerseusWidgetsMap;
+    images: ImageDict;
     isLast: boolean;
     isFirst: boolean;
     onMove: (direction: number) => unknown;
     onRemove: () => unknown;
-    onChange: ChangeHandler;
+    onChange: (hint: Hint) => void;
     __type?: "hint";
     widgetIsOpen?: boolean;
 };
@@ -66,6 +63,8 @@ class HintEditor extends React.Component<HintEditorProps> {
     static defaultProps: {
         className: string;
         content: string;
+        images: ImageDict;
+        widgets: PerseusWidgetsMap;
         replace: boolean;
         showMoveButtons: boolean;
         showRemoveButton: boolean;
@@ -73,6 +72,8 @@ class HintEditor extends React.Component<HintEditorProps> {
     } = {
         className: "",
         content: "",
+        images: {},
+        widgets: {},
         replace: false,
         showMoveButtons: true,
         showTitle: true,
@@ -81,11 +82,15 @@ class HintEditor extends React.Component<HintEditorProps> {
 
     editor = React.createRef<Editor>();
 
-    handleReplaceChanged: (e: React.ChangeEvent<HTMLInputElement>) => void = (
-        e: React.ChangeEvent<HTMLInputElement>,
-    ) => {
-        this.props.onChange({replace: e.target.checked});
-    };
+    handleChange(updates: Partial<Hint>) {
+        this.props.onChange({
+            content: this.props.content,
+            images: this.props.images,
+            widgets: this.props.widgets,
+            replace: this.props.replace,
+            ...updates,
+        });
+    }
 
     focus: () => void = () => {
         this.editor.current?.focus();
@@ -94,17 +99,6 @@ class HintEditor extends React.Component<HintEditorProps> {
     getSaveWarnings: () => any = () => {
         return this.editor.current?.getSaveWarnings();
     };
-
-    serialize(): Hint {
-        invariant(
-            this.editor.current,
-            "cannot serialize HintEditor with no Editor",
-        );
-        return {
-            ...this.editor.current.serialize(),
-            replace: this.props.replace ?? undefined,
-        };
-    }
 
     render(): React.ReactNode {
         return (
@@ -118,12 +112,12 @@ class HintEditor extends React.Component<HintEditorProps> {
                     // re-rendered by React.
                     key={this.props.itemId}
                     apiOptions={this.props.apiOptions}
-                    widgets={this.props.widgets || undefined}
-                    content={this.props.content || undefined}
+                    widgets={this.props.widgets}
+                    content={this.props.content}
                     images={this.props.images}
                     placeholder="Type your hint here..."
                     imageUploader={this.props.imageUploader}
-                    onChange={this.props.onChange}
+                    onChange={(renderer) => this.handleChange(renderer)}
                     widgetIsOpen={this.props.widgetIsOpen}
                 />
 
@@ -147,6 +141,7 @@ class HintEditor extends React.Component<HintEditorProps> {
                             <>
                                 <IconButton
                                     icon={arrowCircleDownIcon}
+                                    aria-label="Move hint down"
                                     size="small"
                                     kind="tertiary"
                                     onClick={_.partial(this.props.onMove, 1)}
@@ -154,6 +149,7 @@ class HintEditor extends React.Component<HintEditorProps> {
                                 />
                                 <IconButton
                                     icon={arrowCircleUpIcon}
+                                    aria-label="Move hint up"
                                     size="small"
                                     kind="tertiary"
                                     onClick={_.partial(this.props.onMove, -1)}
@@ -163,8 +159,8 @@ class HintEditor extends React.Component<HintEditorProps> {
                         )}
                         <Checkbox
                             checked={this.props.replace}
-                            onChange={(newCheckedState) => {
-                                this.props.onChange({replace: newCheckedState});
+                            onChange={(replace) => {
+                                this.handleChange({replace});
                             }}
                             label="Replace previous hint"
                             style={{display: "inline-block"}}
@@ -204,7 +200,7 @@ type CombinedHintEditorProps = {
     previewURL: string;
     onMove: (direction: number) => unknown;
     onRemove: () => unknown;
-    onChange: ChangeHandler;
+    onChange: (hint: Hint) => void;
     widgetIsOpen?: boolean;
 };
 
@@ -215,14 +211,6 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
     getSaveWarnings = () => {
         return this.editor.current?.getSaveWarnings();
     };
-
-    serialize(): Hint {
-        invariant(
-            this.editor.current,
-            "cannot serialize CombinedHintEditor with no HintEditor",
-        );
-        return this.editor.current.serialize();
-    }
 
     focus = () => {
         this.editor.current?.focus();
@@ -320,11 +308,10 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
         onChange: () => {},
     };
 
-    handleHintChange(i: number, newProps: CombinedHintsEditorProps): void {
+    handleHintChange(i: number, hint: Hint): void {
         const hints = [...this.props.hints];
-        hints[i] = _.extend({}, this.serializeHint(i), newProps);
-
-        this.props.onChange({hints: hints});
+        hints[i] = hint;
+        this.props.onChange({hints});
     }
 
     handleHintRemove(i: number): void {
@@ -364,15 +351,6 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
             .value();
     };
 
-    serialize(): Hint[] {
-        return this.props.hints.map((_, i) => this.serializeHint(i));
-    }
-
-    serializeHint(index: number): Hint {
-        // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
-        return this.refs["hintEditor" + index].serialize();
-    }
-
     render(): React.ReactNode {
         const {itemId, hints} = this.props;
         const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
@@ -387,10 +365,9 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
                         hint={hint}
                         pos={i}
                         imageUploader={this.props.imageUploader}
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation. | TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        onChange={this.handleHintChange.bind(this, i)}
-                        onRemove={this.handleHintRemove.bind(this, i)}
-                        onMove={this.handleHintMove.bind(this, i)}
+                        onChange={(hint) => this.handleHintChange(i, hint)}
+                        onRemove={() => this.handleHintRemove(i)}
+                        onMove={(dir) => this.handleHintMove(i, dir)}
                         deviceType={this.props.deviceType}
                         apiOptions={this.props.apiOptions}
                         highlightLint={this.props.highlightLint}

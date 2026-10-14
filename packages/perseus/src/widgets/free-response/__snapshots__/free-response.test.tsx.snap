@@ -20,7 +20,8 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
             style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; gap: 8px;"
           >
             <div
-              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
+              class="default_7zhre1"
+              id=":r2:-labeled-field"
             >
               <div
                 style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; justify-content: space-between; gap: var(--wb-c-labeled-field-root-layout-spacingBetweenHelperText);"
@@ -112,7 +113,8 @@ exports[`free-response widget should snapshot: first render 1`] = `
             style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; gap: 8px;"
           >
             <div
-              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
+              class="default_7zhre1"
+              id=":r0:-labeled-field"
             >
               <div
                 style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; justify-content: space-between; gap: var(--wb-c-labeled-field-root-layout-spacingBetweenHelperText);"

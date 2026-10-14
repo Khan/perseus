@@ -92,9 +92,11 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toHaveBeenCalledWith({
-            times: true,
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                times: true,
+            }),
+        );
     });
 
     it("should be possible to change function variables", async () => {
@@ -110,14 +112,18 @@ describe("expression-editor", () => {
         // make sure we can add things
         await userEvent.type(input, "x y z");
 
-        expect(onChangeMock).toHaveBeenLastCalledWith({
-            functions: ["x", "y", "z"],
-        });
+        expect(onChangeMock).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                functions: ["x", "y", "z"],
+            }),
+        );
 
         // make sure we can remove things
         await userEvent.type(input, "{backspace}");
 
-        expect(onChangeMock).toHaveBeenLastCalledWith({functions: ["x", "y"]});
+        expect(onChangeMock).toHaveBeenLastCalledWith(
+            expect.objectContaining({functions: ["x", "y"]}),
+        );
     });
 
     it("should toggle division checkbox", async () => {
@@ -132,9 +138,11 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toHaveBeenCalledWith({
-            buttonSets: ["basic+div"],
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                buttonSets: ["basic+div"],
+            }),
+        );
     });
 
     it("should toggle trig checkbox", async () => {
@@ -149,9 +157,11 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toHaveBeenCalledWith({
-            buttonSets: ["basic", "trig"],
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                buttonSets: ["basic", "trig"],
+            }),
+        );
     });
 
     it("should toggle prealgebra checkbox", async () => {
@@ -166,9 +176,11 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toHaveBeenCalledWith({
-            buttonSets: ["basic", "prealgebra"],
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                buttonSets: ["basic", "prealgebra"],
+            }),
+        );
     });
 
     it("should toggle logarithms checkbox", async () => {
@@ -182,9 +194,11 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toHaveBeenCalledWith({
-            buttonSets: ["basic", "logarithms"],
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                buttonSets: ["basic", "logarithms"],
+            }),
+        );
     });
 
     it("should toggle basic relations checkbox", async () => {
@@ -198,9 +212,11 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toHaveBeenCalledWith({
-            buttonSets: ["basic", "basic relations"],
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                buttonSets: ["basic", "basic relations"],
+            }),
+        );
     });
 
     it("should toggle advanced relations checkbox", async () => {
@@ -215,9 +231,11 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toHaveBeenCalledWith({
-            buttonSets: ["basic", "advanced relations"],
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                buttonSets: ["basic", "advanced relations"],
+            }),
+        );
     });
 
     it("should toggle scientific checkbox", async () => {
@@ -232,9 +250,11 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toHaveBeenCalledWith({
-            buttonSets: ["basic", "scientific"],
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                buttonSets: ["basic", "scientific"],
+            }),
+        );
     });
 
     it("should be possible to add an answer", async () => {
@@ -251,17 +271,19 @@ describe("expression-editor", () => {
         );
 
         expect(crypto.randomUUID).toHaveBeenCalled();
-        expect(onChangeMock).toHaveBeenCalledWith({
-            answerForms: [
-                {
-                    considered: "correct",
-                    form: false,
-                    key: "0-0-0-0-0",
-                    simplify: false,
-                    value: "",
-                },
-            ],
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                answerForms: [
+                    {
+                        considered: "correct",
+                        form: false,
+                        key: "0-0-0-0-0",
+                        simplify: false,
+                        value: "",
+                    },
+                ],
+            }),
+        );
     });
 
     it("should be possible to update answer", async () => {
@@ -296,18 +318,20 @@ describe("expression-editor", () => {
         );
         act(() => jest.runOnlyPendingTimers());
 
-        expect(onChangeMock).toHaveBeenCalledWith({
-            answerForms: [
-                {
-                    considered: "correct",
-                    form: false,
-                    key: "0-0-0-0-0",
-                    simplify: false,
-                    value: "9",
-                },
-            ],
-            extraKeys: ["PI"],
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                answerForms: [
+                    {
+                        considered: "correct",
+                        form: false,
+                        key: "0-0-0-0-0",
+                        simplify: false,
+                        value: "9",
+                    },
+                ],
+                extraKeys: ["PI"],
+            }),
+        );
     });
 
     it("should be possible to toggle same form", async () => {
@@ -335,18 +359,20 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toHaveBeenCalledWith({
-            answerForms: [
-                {
-                    considered: "correct",
-                    form: true,
-                    key: "0-0-0-0-0",
-                    simplify: false,
-                    value: "",
-                },
-            ],
-            extraKeys: ["PI"],
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                answerForms: [
+                    {
+                        considered: "correct",
+                        form: true,
+                        key: "0-0-0-0-0",
+                        simplify: false,
+                        value: "",
+                    },
+                ],
+                extraKeys: ["PI"],
+            }),
+        );
     });
 
     it("should be possible to toggle expanded and simplified", async () => {
@@ -374,18 +400,20 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toHaveBeenCalledWith({
-            answerForms: [
-                {
-                    considered: "correct",
-                    form: false,
-                    key: "0-0-0-0-0",
-                    simplify: true,
-                    value: "",
-                },
-            ],
-            extraKeys: ["PI"],
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                answerForms: [
+                    {
+                        considered: "correct",
+                        form: false,
+                        key: "0-0-0-0-0",
+                        simplify: true,
+                        value: "",
+                    },
+                ],
+                extraKeys: ["PI"],
+            }),
+        );
     });
 
     it("should be possible to delete answer", async () => {
@@ -419,9 +447,11 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toHaveBeenCalledWith({
-            answerForms: [],
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                answerForms: [],
+            }),
+        );
     });
 
     it("serializes", () => {

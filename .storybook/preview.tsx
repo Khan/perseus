@@ -1,5 +1,9 @@
 import * as React from "react";
 import {DocsContainer} from "@storybook/addon-docs/blocks";
+import {
+    defaultStringsEn,
+    WonderBlocksConfigProvider,
+} from "@khanacademy/wonder-blocks-config";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {
     THEME_DATA_ATTRIBUTE,
@@ -24,6 +28,7 @@ import {
     defaultFeatureFlags,
 } from "../packages/perseus/src/testing/feature-flags-context";
 import type {PerseusFeatureFlag} from "../packages/perseus/src/testing/feature-flags-context";
+import {StorybookViewOptionsContext} from "../packages/perseus/src/testing/storybook-view-options-context";
 
 import type {Decorator, Preview, StoryContext} from "@storybook/react-vite";
 import type {PerseusDependencies} from "../packages/perseus/src/types";
@@ -38,6 +43,11 @@ const storybookTestDependencies: PerseusDependencies = {
 // have the same styles as prod when viewed within Storybook.
 import "./styles/shared.css";
 
+// Wonder Blocks components read their built-in strings (e.g. accessible
+// labels) from this config. Storybook only renders in English, so we use the
+// default English strings that Wonder Blocks ships with.
+const wonderBlocksI18n = {strings: defaultStringsEn, locale: "en"};
+
 // IMPORTANT: This code runs ONCE per story file, not per story within that file.
 // If you want code to run once per story, see `StorybookWrapper`.
 
@@ -46,18 +56,20 @@ setDependencies(storybookTestDependencies);
 const withPerseusDecorator: Decorator = (Story) => {
     return (
         <RenderStateRoot>
-            <DependenciesContext.Provider value={storybookDependenciesV2}>
-                {/* Most of our components have an expectation to be rendered
-                    inside of a .framework-perseus container. We want to make sure
-                    we can include it here, since it can also affect the styling.
+            <WonderBlocksConfigProvider i18n={wonderBlocksI18n}>
+                <DependenciesContext.Provider value={storybookDependenciesV2}>
+                    {/* Most of our components have an expectation to be rendered
+                        inside of a .framework-perseus container. We want to make sure
+                        we can include it here, since it can also affect the styling.
 
-                    Include box-sizing-border-box-reset to reflect the global styles
-                    from prod.
-                */}
-                <div className="framework-perseus box-sizing-border-box-reset">
-                    <Story />
-                </div>
-            </DependenciesContext.Provider>
+                        Include box-sizing-border-box-reset to reflect the global styles
+                        from prod.
+                    */}
+                    <div className="framework-perseus box-sizing-border-box-reset">
+                        <Story />
+                    </div>
+                </DependenciesContext.Provider>
+            </WonderBlocksConfigProvider>
         </RenderStateRoot>
     );
 };
@@ -74,6 +86,20 @@ const withFeatureFlags: Decorator = (Story, context: StoryContext) => {
         <StorybookFeatureFlagsContext.Provider value={flags}>
             <Story />
         </StorybookFeatureFlagsContext.Provider>
+    );
+};
+
+const withViewOptions: Decorator = (Story, context: StoryContext) => {
+    const {mobile, direction} = context.globals;
+    const viewOptions = {
+        isMobile: mobile === "story" ? undefined : mobile === "on",
+        isRtl: direction === "rtl",
+    };
+
+    return (
+        <StorybookViewOptionsContext.Provider value={viewOptions}>
+            <Story />
+        </StorybookViewOptionsContext.Provider>
     );
 };
 
@@ -162,17 +188,61 @@ const supportedThemes = {
     },
 } satisfies NonNullable<Preview["globalTypes"]>["theme"];
 
+// Hosts set `isMobile` from device detection, not from how wide the window
+// is, and it covers tablets as well as phones -- so this is deliberately
+// separate from the viewport picker rather than derived from it.
+//
+// Tri-state because stories pin mobile through their own apiOptions, and
+// "story" has to leave those in charge.
+const mobileLayout = {
+    description:
+        "Treat the host as a phone or tablet (Perseus isMobile). Pair " +
+        "with a phone Viewport for the full experience.",
+    toolbar: {
+        title: "Device phone/tablet",
+        icon: "mobile",
+        items: [
+            {value: "story", title: "Story default"},
+            {value: "on", title: "Phone/tablet", right: "+ Viewport"},
+            {value: "off", title: "Desktop"},
+        ],
+        dynamicTitle: true,
+    },
+} satisfies NonNullable<Preview["globalTypes"]>["mobile"];
+
+const textDirection = {
+    description: "Text direction for rendered items",
+    toolbar: {
+        title: "Direction",
+        icon: "paragraph",
+        items: [
+            {value: "ltr", title: "Left to right"},
+            {value: "rtl", title: "Right to left"},
+        ],
+        dynamicTitle: true,
+    },
+} satisfies NonNullable<Preview["globalTypes"]>["direction"];
+
 const preview: Preview = {
     // These decorators apply to all stories, both inside and outside the
     // fixture framework.
-    decorators: [withPerseusDecorator, withThemeSwitcher, withFeatureFlags],
+    decorators: [
+        withPerseusDecorator,
+        withThemeSwitcher,
+        withFeatureFlags,
+        withViewOptions,
+    ],
     initialGlobals: {
         featureFlags: [],
+        mobile: "story",
+        direction: "ltr",
     },
     globalTypes: {
         // Added theme globalTypes to be consistent with WonderBlocks supported
         // themes, that will allow the user to select a theme from the toolbar.
         theme: supportedThemes,
+        mobile: mobileLayout,
+        direction: textDirection,
     },
     // These parameters apply to all stories, both inside and outside the fixture
     // framework.

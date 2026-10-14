@@ -86,7 +86,6 @@ const TabIconLabel = function ({tintColor, type}: Props): React.ReactElement {
                     <defs>
                         <clipPath id="a">
                             <path
-                                fill="#fff"
                                 d="M0 0h28v11.457H0z"
                                 transform="translate(2 10.271)"
                             />

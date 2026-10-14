@@ -23,7 +23,7 @@ class WidgetDiff extends React.Component<WidgetDiffProps> {
             <>
                 <div className="diff-header">{title}</div>
                 <div className="diff-header">{title}</div>
-                <div className="diff-body ui-helper-clearfix">
+                <div className="diff-body">
                     {type === "image" && (
                         <ImageWidgetDiff
                             // eslint-disable-next-line no-restricted-syntax

@@ -20,6 +20,7 @@ registerAllWidgetsAndEditorsForTesting();
 
 export default {
     title: "Editors/ArticleEditor",
+    tags: ["!autodocs"],
 };
 
 export const Demo = (): React.ReactElement => {

@@ -5,6 +5,7 @@ import DeprecatedStandinEditor from "./widgets/deprecated-standin-editor";
 import DropdownEditor from "./widgets/dropdown-editor";
 import ExplanationEditor from "./widgets/explanation-editor";
 import ExpressionEditor from "./widgets/expression-editor";
+import FillInTheBlankEditor from "./widgets/fill-in-the-blank-editor";
 import FreeResponseEditor from "./widgets/free-response-editor";
 import GradedGroupEditor from "./widgets/graded-group-editor";
 import GradedGroupSetEditor from "./widgets/graded-group-set-editor";
@@ -46,6 +47,7 @@ export default {
     dropdown: DropdownEditor,
     explanation: ExplanationEditor,
     expression: ExpressionEditor,
+    "fill-in-the-blank": FillInTheBlankEditor,
     "free-response": FreeResponseEditor,
     "graded-group": GradedGroupEditor,
     "graded-group-set": GradedGroupSetEditor,

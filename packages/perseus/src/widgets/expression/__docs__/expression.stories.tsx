@@ -1,4 +1,8 @@
+import * as React from "react";
+
+import WrappedServerItemRenderer from "../../../server-item-renderer";
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import {storybookDependenciesV2} from "../../../testing/test-dependencies";
 import {
     expressionItemKitchenSink,
     expressionItemMixedAnswerStates,
@@ -11,8 +15,11 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
     title: "Widgets/Expression",
-    component: ServerItemRendererWithDebugUI,
+    component: WrappedServerItemRenderer,
     tags: ["!dev"],
+    args: {
+        dependencies: storybookDependenciesV2,
+    },
     parameters: {
         docs: {
             description: {
@@ -25,7 +32,7 @@ const meta: Meta = {
 };
 export default meta;
 
-type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
+type Story = StoryObj<typeof WrappedServerItemRenderer>;
 
 /** This story shows how the expression widget looks when the keypad is
  * configured with _every_ option it supports.  */
@@ -36,15 +43,21 @@ export const DesktopKitchenSink: Story = {
 };
 
 export const MultipleEquivalentAnswers: Story = {
-    args: {
-        item: expressionItemMultipleEquivalentAnswers,
-    },
+    // Uses the debug UI so the answer can be checked against the
+    // configured answer forms.
+    render: () => (
+        <ServerItemRendererWithDebugUI
+            item={expressionItemMultipleEquivalentAnswers}
+        />
+    ),
 };
 
 export const MixedAnswerStates: Story = {
-    args: {
-        item: expressionItemMixedAnswerStates,
-    },
+    // Uses the debug UI so the answer can be checked against the
+    // configured answer forms.
+    render: () => (
+        <ServerItemRendererWithDebugUI item={expressionItemMixedAnswerStates} />
+    ),
 };
 
 export const FractionInput: Story = {

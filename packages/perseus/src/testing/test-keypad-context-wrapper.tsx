@@ -28,10 +28,10 @@ const Footer = ({
     return (
         <View style={styles.keypadContainer}>
             <KeypadContext.Consumer>
-                {({setKeypadElement, renderer}) => (
+                {({setKeypadElement, blurRenderer}) => (
                     <MobileKeypad
                         onElementMounted={setKeypadElement}
-                        onDismiss={() => renderer?.blur()}
+                        onDismiss={blurRenderer}
                         style={keypadStyle}
                         onAnalyticsEvent={async (e) => {
                             action("onAnalyticsEvent")(e);

@@ -10,10 +10,7 @@ import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
-import {
-    testDependencies,
-    testDependenciesV2,
-} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import {
     getAnswerfulItem,
     getAnswerlessItem,
@@ -24,7 +21,6 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 import InputNumber from "./input-number";
 import {question3 as question} from "./input-number.testdata";
 
-import type {PerseusDependenciesV2} from "../../types";
 import type {MathFormat, PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -96,13 +92,12 @@ describe("input-number", function () {
             // Arrange
 
             const onAnalyticsEventSpy = jest.fn();
-            const depsV2: PerseusDependenciesV2 = {
-                ...testDependenciesV2,
+            const dependencies = {
                 analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
             };
 
             // Act
-            renderQuestion(question, undefined, undefined, undefined, depsV2);
+            renderQuestion(question, {dependencies});
 
             // Assert
             expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
@@ -538,9 +533,11 @@ describe("rendering", () => {
 
     it("supports mobile rendering", () => {
         const {container} = renderQuestion(question, {
-            // Setting this triggers mobile rendering
-            // it would be nice if this was more clear in the code
-            customKeypad: true,
+            apiOptions: {
+                // Setting this triggers mobile rendering
+                // it would be nice if this was more clear in the code
+                customKeypad: true,
+            },
         });
 
         expect(container).toMatchSnapshot("mobile render");

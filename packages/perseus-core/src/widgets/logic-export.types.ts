@@ -2,6 +2,7 @@ import type {getCategorizerPublicWidgetOptions} from "./categorizer/categorizer-
 import type {getCSProgramPublicWidgetOptions} from "./cs-program/cs-program-util";
 import type {getDropdownPublicWidgetOptions} from "./dropdown/dropdown-util";
 import type {getExpressionPublicWidgetOptions} from "./expression/expression-util";
+import type {getFillInTheBlankPublicWidgetOptions} from "./fill-in-the-blank/fill-in-the-blank-util";
 import type {getFreeResponsePublicWidgetOptions} from "./free-response/free-response-util";
 import type {getGrapherPublicWidgetOptions} from "./grapher/grapher-util";
 import type {getGroupPublicWidgetOptions} from "./group/group-util";
@@ -36,6 +37,7 @@ export type PublicWidgetOptionsFunction =
     | typeof getCSProgramPublicWidgetOptions
     | typeof getDropdownPublicWidgetOptions
     | typeof getExpressionPublicWidgetOptions
+    | typeof getFillInTheBlankPublicWidgetOptions
     | typeof getFreeResponsePublicWidgetOptions
     | typeof getGrapherPublicWidgetOptions
     | typeof getGroupPublicWidgetOptions
@@ -53,10 +55,7 @@ export type PublicWidgetOptionsFunction =
     | typeof getSorterPublicWidgetOptions
     | typeof getTablePublicWidgetOptions;
 
-export type WidgetLogic<
-    TWidgetOptions = never,
-    TPublicWidgetOptions = never,
-> = {
+export type WidgetLogic<TWidgetOptions, TPublicWidgetOptions = never> = {
     name: string;
     /**
      * The widget version. Any time the _major_ version changes, the widget
@@ -68,7 +67,7 @@ export type WidgetLogic<
      * This key defaults to `{major: 0, minor: 0}` if not provided.
      */
     version?: Version;
-    defaultWidgetOptions?: any;
+    defaultWidgetOptions: TWidgetOptions;
     supportedAlignments?: ReadonlyArray<Alignment>;
     defaultAlignment?: Alignment;
     accessible?: boolean | ((options: TWidgetOptions) => boolean);

@@ -38,12 +38,11 @@ import type {
     LabelImagePublicWidgetOptions,
     ShowSolutions,
     PerseusLabelImageUserInputMarker,
+    PreferredPopoverDirection,
 } from "@khanacademy/perseus-core";
 import type {InteractiveMarkerScore} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
-
-type PreferredPopoverDirection = "NONE" | "UP" | "DOWN" | "LEFT" | "RIGHT";
 
 /**
  * Represents a direction vector.
@@ -78,14 +77,6 @@ export type OptionalAnswersMarkerType = Omit<
 type Options = Omit<PerseusLabelImageWidgetOptions, "markers"> & {
     // The list of label markers on the question image.
     markers: ReadonlyArray<OptionalAnswersMarkerType>;
-    // Preferred placement for the popover (a preference, not a guarantee).
-    // The editor offers a control for this, but it is absent from
-    // PerseusLabelImageWidgetOptions and from parseLabelImageWidget, so the
-    // parser drops it from persisted content — only unparsed callers (e.g.
-    // Storybook) ever supply it.
-    // TODO(benchristel): parse preferredPopoverDirection so it has the
-    //  intended effect in production (or remove it if it's not needed).
-    preferredPopoverDirection?: PreferredPopoverDirection;
 };
 
 type Props = WidgetProps<Options, PerseusLabelImageUserInput> & {
@@ -561,6 +552,14 @@ export class LabelImage
             // Disable marker interaction once the question has been answered or skipped.
             const disabled = shouldShowFeedback;
 
+            // Markers must be labeled to move on from the question, but only
+            // when the learner can actually interact with them.
+            const isRequired =
+                this.props.isScorable &&
+                !disabled &&
+                !this.props.static &&
+                !this.props.apiOptions.readOnly;
+
             // Determine whether the marker is currently being interacted with.
             const isActiveAnswerChoice = activeMarkerIndex === index;
 
@@ -622,15 +621,23 @@ export class LabelImage
                         }
                         // cannot change answer choices once question is answered
                         disabled={disabled}
+                        aria-required={isRequired}
                         opener={({opened}) => (
                             <Clickable
                                 role="button"
                                 aria-expanded={opened}
+                                // The opener is the element WB exposes to
+                                // assistive tech (as a combobox), so it must
+                                // carry the accessible name.
+                                aria-label={
+                                    showCorrectness === "correct"
+                                        ? this.context.strings.correctExcited
+                                        : marker.label
+                                }
                                 key={`marker-${marker.x}.${marker.y}`}
                             >
                                 {({hovered, focused, pressed}) => (
                                     <Marker
-                                        label={marker.label}
                                         showCorrectness={showCorrectness}
                                         showSelected={opened}
                                         showPulsate={!markersInteracted}
@@ -694,7 +701,11 @@ export class LabelImage
                                 className={css(styles.instructionsChoice)}
                                 key={index}
                             >
-                                <Renderer content={choice} strings={strings} />
+                                <Renderer
+                                    content={choice}
+                                    strings={strings}
+                                    apiOptions={this.props.apiOptions}
+                                />
                             </div>
                         ))}
                     </div>

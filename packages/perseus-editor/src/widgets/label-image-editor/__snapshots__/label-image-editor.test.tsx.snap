@@ -79,19 +79,23 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
           style="display: block; max-inline-size: 100%;"
         />
         <button
-          aria-controls=":rc:"
+          aria-controls=":r14:"
           aria-expanded="false"
           aria-label="Edit marker: First marker"
-          id=":rc:-anchor"
-          style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 25%; top: 25%;"
+          class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
+          data-wb-floating-reference=":r16:"
+          id=":r14:-anchor"
+          style="left: 25%; top: 25%;"
           type="button"
         />
         <button
-          aria-controls=":rd:"
+          aria-controls=":r17:"
           aria-expanded="false"
           aria-label="Edit marker: Second marker"
-          id=":rd:-anchor"
-          style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 50%; top: 50%;"
+          class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
+          data-wb-floating-reference=":r19:"
+          id=":r17:-anchor"
+          style="left: 50%; top: 50%;"
           type="button"
         />
       </div>
@@ -111,9 +115,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="remove-button"
-            data-style-moz-focus-inner="border: 0px;"
-            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_uraxz remove-button"
             type="button"
           >
             <span
@@ -141,9 +143,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="remove-button"
-            data-style-moz-focus-inner="border: 0px;"
-            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_uraxz remove-button"
             type="button"
           >
             <span
@@ -171,9 +171,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="remove-button"
-            data-style-moz-focus-inner="border: 0px;"
-            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_uraxz remove-button"
             type="button"
           >
             <span
@@ -198,9 +196,7 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
       </ul>
       <button
         aria-disabled="false"
-        class="add-answer"
-        data-style-moz-focus-inner="border: 0px;"
-        style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
+        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_uraxz add-answer"
         type="button"
       >
         <span
@@ -321,27 +317,27 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
             <option
               value="NONE"
             >
-               No Preference 
+               No Preference
             </option>
             <option
               value="UP"
             >
-               Up 
+               Up
             </option>
             <option
               value="DOWN"
             >
-               Down 
+               Down
             </option>
             <option
               value="LEFT"
             >
-               Left 
+               Left
             </option>
             <option
               value="RIGHT"
             >
-               Right 
+               Right
             </option>
           </select>
         </li>
@@ -430,19 +426,23 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
           style="display: block; max-inline-size: 100%;"
         />
         <button
-          aria-controls=":re:"
+          aria-controls=":r1a:"
           aria-expanded="false"
           aria-label="Edit marker: First marker"
-          id=":re:-anchor"
-          style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 25%; top: 25%;"
+          class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
+          data-wb-floating-reference=":r1c:"
+          id=":r1a:-anchor"
+          style="left: 25%; top: 25%;"
           type="button"
         />
         <button
-          aria-controls=":rf:"
+          aria-controls=":r1d:"
           aria-expanded="false"
           aria-label="Edit marker: Second marker"
-          id=":rf:-anchor"
-          style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 50%; top: 50%;"
+          class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
+          data-wb-floating-reference=":r1f:"
+          id=":r1d:-anchor"
+          style="left: 50%; top: 50%;"
           type="button"
         />
       </div>
@@ -462,9 +462,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="remove-button"
-            data-style-moz-focus-inner="border: 0px;"
-            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_uraxz remove-button"
             type="button"
           >
             <span
@@ -492,9 +490,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="remove-button"
-            data-style-moz-focus-inner="border: 0px;"
-            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_uraxz remove-button"
             type="button"
           >
             <span
@@ -522,9 +518,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="remove-button"
-            data-style-moz-focus-inner="border: 0px;"
-            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_uraxz remove-button"
             type="button"
           >
             <span
@@ -549,9 +543,7 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
       </ul>
       <button
         aria-disabled="false"
-        class="add-answer"
-        data-style-moz-focus-inner="border: 0px;"
-        style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
+        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_uraxz add-answer"
         type="button"
       >
         <span
@@ -672,27 +664,27 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
             <option
               value="NONE"
             >
-               No Preference 
+               No Preference
             </option>
             <option
               value="UP"
             >
-               Up 
+               Up
             </option>
             <option
               value="DOWN"
             >
-               Down 
+               Down
             </option>
             <option
               value="LEFT"
             >
-               Left 
+               Left
             </option>
             <option
               value="RIGHT"
             >
-               Right 
+               Right
             </option>
           </select>
         </li>
@@ -781,19 +773,23 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
           style="display: block; max-inline-size: 100%;"
         />
         <button
-          aria-controls=":ri:"
+          aria-controls=":r1m:"
           aria-expanded="false"
           aria-label="Edit marker: First marker"
-          id=":ri:-anchor"
-          style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 25%; top: 25%;"
+          class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
+          data-wb-floating-reference=":r1o:"
+          id=":r1m:-anchor"
+          style="left: 25%; top: 25%;"
           type="button"
         />
         <button
-          aria-controls=":rj:"
+          aria-controls=":r1p:"
           aria-expanded="false"
           aria-label="Edit marker: Second marker"
-          id=":rj:-anchor"
-          style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 50%; top: 50%;"
+          class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
+          data-wb-floating-reference=":r1r:"
+          id=":r1p:-anchor"
+          style="left: 50%; top: 50%;"
           type="button"
         />
       </div>
@@ -813,9 +809,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="remove-button"
-            data-style-moz-focus-inner="border: 0px;"
-            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_uraxz remove-button"
             type="button"
           >
             <span
@@ -843,9 +837,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="remove-button"
-            data-style-moz-focus-inner="border: 0px;"
-            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_uraxz remove-button"
             type="button"
           >
             <span
@@ -873,9 +865,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="remove-button"
-            data-style-moz-focus-inner="border: 0px;"
-            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_uraxz remove-button"
             type="button"
           >
             <span
@@ -900,9 +890,7 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
       </ul>
       <button
         aria-disabled="false"
-        class="add-answer"
-        data-style-moz-focus-inner="border: 0px;"
-        style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
+        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_uraxz add-answer"
         type="button"
       >
         <span
@@ -1023,27 +1011,27 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
             <option
               value="NONE"
             >
-               No Preference 
+               No Preference
             </option>
             <option
               value="UP"
             >
-               Up 
+               Up
             </option>
             <option
               value="DOWN"
             >
-               Down 
+               Down
             </option>
             <option
               value="LEFT"
             >
-               Left 
+               Left
             </option>
             <option
               value="RIGHT"
             >
-               Right 
+               Right
             </option>
           </select>
         </li>
@@ -1132,19 +1120,23 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
           style="display: block; max-inline-size: 100%;"
         />
         <button
-          aria-controls=":rg:"
+          aria-controls=":r1g:"
           aria-expanded="false"
           aria-label="Edit marker: First marker"
-          id=":rg:-anchor"
-          style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 25%; top: 25%;"
+          class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
+          data-wb-floating-reference=":r1i:"
+          id=":r1g:-anchor"
+          style="left: 25%; top: 25%;"
           type="button"
         />
         <button
-          aria-controls=":rh:"
+          aria-controls=":r1j:"
           aria-expanded="false"
           aria-label="Edit marker: Second marker"
-          id=":rh:-anchor"
-          style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 50%; top: 50%;"
+          class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
+          data-wb-floating-reference=":r1l:"
+          id=":r1j:-anchor"
+          style="left: 50%; top: 50%;"
           type="button"
         />
       </div>
@@ -1164,9 +1156,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="remove-button"
-            data-style-moz-focus-inner="border: 0px;"
-            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_uraxz remove-button"
             type="button"
           >
             <span
@@ -1194,9 +1184,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="remove-button"
-            data-style-moz-focus-inner="border: 0px;"
-            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_uraxz remove-button"
             type="button"
           >
             <span
@@ -1224,9 +1212,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="remove-button"
-            data-style-moz-focus-inner="border: 0px;"
-            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_uraxz remove-button"
             type="button"
           >
             <span
@@ -1251,9 +1237,7 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
       </ul>
       <button
         aria-disabled="false"
-        class="add-answer"
-        data-style-moz-focus-inner="border: 0px;"
-        style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
+        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_uraxz add-answer"
         type="button"
       >
         <span
@@ -1374,27 +1358,27 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
             <option
               value="NONE"
             >
-               No Preference 
+               No Preference
             </option>
             <option
               value="UP"
             >
-               Up 
+               Up
             </option>
             <option
               value="DOWN"
             >
-               Down 
+               Down
             </option>
             <option
               value="LEFT"
             >
-               Left 
+               Left
             </option>
             <option
               value="RIGHT"
             >
-               Right 
+               Right
             </option>
           </select>
         </li>
@@ -1483,19 +1467,23 @@ exports[`label-image-editor popover direction snapshots should render with UP po
           style="display: block; max-inline-size: 100%;"
         />
         <button
-          aria-controls=":ra:"
+          aria-controls=":ru:"
           aria-expanded="false"
           aria-label="Edit marker: First marker"
-          id=":ra:-anchor"
-          style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 25%; top: 25%;"
+          class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
+          data-wb-floating-reference=":r10:"
+          id=":ru:-anchor"
+          style="left: 25%; top: 25%;"
           type="button"
         />
         <button
-          aria-controls=":rb:"
+          aria-controls=":r11:"
           aria-expanded="false"
           aria-label="Edit marker: Second marker"
-          id=":rb:-anchor"
-          style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 50%; top: 50%;"
+          class="marker_cvqkp3-o_O-markerWithAnswers_1gtt1k8"
+          data-wb-floating-reference=":r13:"
+          id=":r11:-anchor"
+          style="left: 50%; top: 50%;"
           type="button"
         />
       </div>
@@ -1515,9 +1503,7 @@ exports[`label-image-editor popover direction snapshots should render with UP po
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="remove-button"
-            data-style-moz-focus-inner="border: 0px;"
-            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_uraxz remove-button"
             type="button"
           >
             <span
@@ -1545,9 +1531,7 @@ exports[`label-image-editor popover direction snapshots should render with UP po
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="remove-button"
-            data-style-moz-focus-inner="border: 0px;"
-            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_uraxz remove-button"
             type="button"
           >
             <span
@@ -1575,9 +1559,7 @@ exports[`label-image-editor popover direction snapshots should render with UP po
           <button
             aria-disabled="false"
             aria-label="Remove answer"
-            class="remove-button"
-            data-style-moz-focus-inner="border: 0px;"
-            style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
+            class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_uraxz remove-button"
             type="button"
           >
             <span
@@ -1602,9 +1584,7 @@ exports[`label-image-editor popover direction snapshots should render with UP po
       </ul>
       <button
         aria-disabled="false"
-        class="add-answer"
-        data-style-moz-focus-inner="border: 0px;"
-        style="margin: 0px; border: none; padding: 0px; width: auto; overflow: visible; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer;"
+        class="button_vr44p2-o_O-reset_1ejugoq-o_O-link_13xlah4-o_O-inlineStyles_uraxz add-answer"
         type="button"
       >
         <span
@@ -1725,27 +1705,27 @@ exports[`label-image-editor popover direction snapshots should render with UP po
             <option
               value="NONE"
             >
-               No Preference 
+               No Preference
             </option>
             <option
               value="UP"
             >
-               Up 
+               Up
             </option>
             <option
               value="DOWN"
             >
-               Down 
+               Down
             </option>
             <option
               value="LEFT"
             >
-               Left 
+               Left
             </option>
             <option
               value="RIGHT"
             >
-               Right 
+               Right
             </option>
           </select>
         </li>

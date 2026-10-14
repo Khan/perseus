@@ -10,17 +10,13 @@ import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
-import {
-    testDependencies,
-    testDependenciesV2,
-} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {basicDropdown} from "./dropdown.testdata";
 
-import type {PerseusDependenciesV2} from "../../types";
 import type {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -122,13 +118,12 @@ describe("Dropdown widget", () => {
     it("should send analytics event when widget is rendered", async () => {
         // Arrange
         const onAnalyticsEventSpy = jest.fn();
-        const depsV2: PerseusDependenciesV2 = {
-            ...testDependenciesV2,
+        const dependencies = {
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
         };
 
         // Act
-        renderQuestion(basicDropdown, undefined, undefined, undefined, depsV2);
+        renderQuestion(basicDropdown, {dependencies});
 
         // Assert
         expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
@@ -164,7 +159,9 @@ describe("Dropdown widget", () => {
 
     it("should not claim to focus when the dropdown is read-only", async () => {
         // Arrange
-        const {renderer} = renderQuestion(basicDropdown, {readOnly: true});
+        const {renderer} = renderQuestion(basicDropdown, {
+            apiOptions: {readOnly: true},
+        });
 
         // Act
         const focused = renderer.focus();
@@ -215,6 +212,81 @@ describe("Dropdown widget", () => {
         // Assert
         expect(focused).toBeFalsy();
         expect(button).not.toHaveFocus();
+    });
+
+    describe("required state", () => {
+        function generateRenderer(isStatic: boolean = false): PerseusRenderer {
+            return generateTestPerseusRenderer({
+                content: "[[☃ dropdown 1]]",
+                widgets: {
+                    "dropdown 1": generateDropdownWidget({
+                        static: isStatic,
+                        options: generateDropdownOptions({
+                            placeholder: "Choose an answer",
+                            choices: [
+                                {content: "True", correct: true},
+                                {content: "False", correct: false},
+                            ],
+                        }),
+                    }),
+                },
+            });
+        }
+
+        it("renders the dropdown as required when scorable and interactive", () => {
+            // Arrange, Act
+            renderQuestion(generateRenderer(), {
+                apiOptions: {readOnly: false},
+                extraProps: {isScorable: true, reviewMode: false},
+            });
+
+            // Assert
+            expect(screen.getByRole("combobox")).toBeRequired();
+        });
+
+        it("does not render the dropdown as required when not scorable", () => {
+            // Arrange, Act
+            renderQuestion(generateRenderer(), {
+                apiOptions: {readOnly: false},
+                extraProps: {isScorable: false, reviewMode: false},
+            });
+
+            // Assert
+            expect(screen.getByRole("combobox")).not.toBeRequired();
+        });
+
+        it("does not render the dropdown as required in review mode", () => {
+            // Arrange, Act
+            renderQuestion(generateRenderer(), {
+                apiOptions: {readOnly: false},
+                extraProps: {isScorable: true, reviewMode: true},
+            });
+
+            // Assert
+            expect(screen.getByRole("combobox")).not.toBeRequired();
+        });
+
+        it("does not render the dropdown as required when static", () => {
+            // Arrange, Act
+            renderQuestion(generateRenderer(true), {
+                apiOptions: {readOnly: false},
+                extraProps: {isScorable: true, reviewMode: false},
+            });
+
+            // Assert
+            expect(screen.getByRole("combobox")).not.toBeRequired();
+        });
+
+        it("does not render the dropdown as required when read-only", () => {
+            // Arrange, Act
+            renderQuestion(generateRenderer(), {
+                apiOptions: {readOnly: true},
+                extraProps: {isScorable: true, reviewMode: false},
+            });
+
+            // Assert
+            expect(screen.getByRole("combobox")).not.toBeRequired();
+        });
     });
 
     describe("interactive: full vs answerless", () => {
