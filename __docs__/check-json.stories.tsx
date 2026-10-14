@@ -25,5 +25,7 @@ export const CheckJson: Story = {
                 content: "Update JSON below to render a Perseus item.",
             }),
         }),
+        // Load the debug accordion in the open state.
+        expanded: true,
     },
 };
