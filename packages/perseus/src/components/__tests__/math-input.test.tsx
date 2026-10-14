@@ -1,4 +1,4 @@
-import {act, render, screen} from "@testing-library/react";
+import {act, render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -115,145 +115,155 @@ describe("Perseus' MathInput", () => {
         expect(mockOnChange).toHaveBeenLastCalledWith("12345");
     });
 
-    it("is possible to use buttons", async () => {
-        // Arrange
-        const mockOnChange = jest.fn();
-        render(
-            <MathInput
-                onChange={mockOnChange}
-                keypadButtonSets={allButtonSets}
-                onAnalyticsEvent={() => Promise.resolve()}
-                convertDotToTimes={false}
-                value=""
-            />,
-        );
-        act(() => jest.runOnlyPendingTimers());
+    describe("keypad", () => {
+        beforeEach(() => {
+            // floating-ui positions the keypad popover asynchronously after it
+            // opens. With real timers, waiting for the popover gives that
+            // update a chance to settle inside act(); Jest's fake timers
+            // would leave it pending until after the test finishes.
+            jest.useRealTimers();
+            userEvent = userEventLib.setup();
+        });
 
-        // Act
-        await userEvent.click(
-            screen.getByRole("button", {name: /open math keypad/}),
-        );
-        await userEvent.click(screen.getByRole("button", {name: "1"}));
-        await userEvent.click(screen.getByRole("button", {name: "Plus"}));
-        await userEvent.click(screen.getByRole("button", {name: "2"}));
-        await userEvent.click(screen.getByRole("button", {name: "Minus"}));
-        await userEvent.click(screen.getByRole("button", {name: "3"}));
-        act(() => jest.runOnlyPendingTimers());
+        it("is possible to use buttons", async () => {
+            // Arrange
+            const mockOnChange = jest.fn();
+            render(
+                <MathInput
+                    onChange={mockOnChange}
+                    keypadButtonSets={allButtonSets}
+                    onAnalyticsEvent={() => Promise.resolve()}
+                    convertDotToTimes={false}
+                    value=""
+                />,
+            );
 
-        // Assert
-        expect(mockOnChange).toHaveBeenLastCalledWith("1+2-3");
-    });
+            // Act
+            await userEvent.click(
+                screen.getByRole("button", {name: /open math keypad/}),
+            );
+            await userEvent.click(screen.getByRole("button", {name: "1"}));
+            await userEvent.click(screen.getByRole("button", {name: "Plus"}));
+            await userEvent.click(screen.getByRole("button", {name: "2"}));
+            await userEvent.click(screen.getByRole("button", {name: "Minus"}));
+            await userEvent.click(screen.getByRole("button", {name: "3"}));
 
-    it("is possible to use the scientific keypad", async () => {
-        // Arrange
-        const mockOnChange = jest.fn();
-        render(
-            <MathInput
-                onChange={mockOnChange}
-                keypadButtonSets={{scientific: true}}
-                onAnalyticsEvent={() => Promise.resolve()}
-                convertDotToTimes={false}
-                value=""
-            />,
-        );
-        act(() => jest.runOnlyPendingTimers());
+            // Assert
+            await waitFor(() =>
+                expect(mockOnChange).toHaveBeenLastCalledWith("1+2-3"),
+            );
+        });
 
-        // Act
-        await userEvent.click(
-            screen.getByRole("button", {name: /open math keypad/}),
-        );
-        await userEvent.click(screen.getByRole("button", {name: "2"}));
-        await userEvent.click(
-            screen.getByRole("button", {name: "Custom exponent"}),
-        );
-        await userEvent.click(screen.getByRole("button", {name: "2"}));
-        act(() => jest.runOnlyPendingTimers());
+        it("is possible to use the scientific keypad", async () => {
+            // Arrange
+            const mockOnChange = jest.fn();
+            render(
+                <MathInput
+                    onChange={mockOnChange}
+                    keypadButtonSets={{scientific: true}}
+                    onAnalyticsEvent={() => Promise.resolve()}
+                    convertDotToTimes={false}
+                    value=""
+                />,
+            );
 
-        // Assert
-        expect(mockOnChange).toHaveBeenLastCalledWith("2^{2}");
-    });
+            // Act
+            await userEvent.click(
+                screen.getByRole("button", {name: /open math keypad/}),
+            );
+            await userEvent.click(screen.getByRole("button", {name: "2"}));
+            await userEvent.click(
+                screen.getByRole("button", {name: "Custom exponent"}),
+            );
+            await userEvent.click(screen.getByRole("button", {name: "2"}));
 
-    it("is possible to use buttons with legacy props", async () => {
-        // Arrange
-        const mockOnChange = jest.fn();
-        render(
-            <MathInput
-                onChange={mockOnChange}
-                buttonSets={["basic+div"]}
-                onAnalyticsEvent={() => Promise.resolve()}
-                convertDotToTimes={false}
-                value=""
-            />,
-        );
-        act(() => jest.runOnlyPendingTimers());
+            // Assert
+            await waitFor(() =>
+                expect(mockOnChange).toHaveBeenLastCalledWith("2^{2}"),
+            );
+        });
 
-        // Act
-        // focusing the input triggers the popover
-        await userEvent.click(
-            screen.getByRole("button", {name: /open math keypad/}),
-        );
-        await userEvent.click(screen.getByRole("button", {name: "1"}));
-        await userEvent.click(screen.getByRole("button", {name: "Plus"}));
-        await userEvent.click(screen.getByRole("button", {name: "2"}));
-        await userEvent.click(screen.getByRole("button", {name: "Divide"}));
-        await userEvent.click(screen.getByRole("button", {name: "3"}));
-        act(() => jest.runOnlyPendingTimers());
+        it("is possible to use buttons with legacy props", async () => {
+            // Arrange
+            const mockOnChange = jest.fn();
+            render(
+                <MathInput
+                    onChange={mockOnChange}
+                    buttonSets={["basic+div"]}
+                    onAnalyticsEvent={() => Promise.resolve()}
+                    convertDotToTimes={false}
+                    value=""
+                />,
+            );
 
-        // Assert
-        expect(mockOnChange).toHaveBeenLastCalledWith("1+2\\div3");
-    });
+            // Act
+            // focusing the input triggers the popover
+            await userEvent.click(
+                screen.getByRole("button", {name: /open math keypad/}),
+            );
+            await userEvent.click(screen.getByRole("button", {name: "1"}));
+            await userEvent.click(screen.getByRole("button", {name: "Plus"}));
+            await userEvent.click(screen.getByRole("button", {name: "2"}));
+            await userEvent.click(screen.getByRole("button", {name: "Divide"}));
+            await userEvent.click(screen.getByRole("button", {name: "3"}));
 
-    it("returns focus to input after button click", async () => {
-        // Arrange
-        render(
-            <MathInput
-                onChange={() => {}}
-                keypadButtonSets={allButtonSets}
-                onAnalyticsEvent={() => Promise.resolve()}
-                convertDotToTimes={false}
-                value=""
-            />,
-        );
-        act(() => jest.runOnlyPendingTimers());
+            // Assert
+            await waitFor(() =>
+                expect(mockOnChange).toHaveBeenLastCalledWith("1+2\\div3"),
+            );
+        });
 
-        // Act
-        // focusing the input triggers the popover
-        await userEvent.click(
-            screen.getByRole("button", {name: /open math keypad/}),
-        );
-        await userEvent.click(screen.getByRole("button", {name: "1"}));
+        it("returns focus to input after button click", async () => {
+            // Arrange
+            render(
+                <MathInput
+                    onChange={() => {}}
+                    keypadButtonSets={allButtonSets}
+                    onAnalyticsEvent={() => Promise.resolve()}
+                    convertDotToTimes={false}
+                    value=""
+                />,
+            );
 
-        // Assert
-        expect(screen.getByRole("textbox", {name: /Math input/})).toHaveFocus();
-    });
+            // Act
+            // focusing the input triggers the popover
+            await userEvent.click(
+                screen.getByRole("button", {name: /open math keypad/}),
+            );
+            await userEvent.click(screen.getByRole("button", {name: "1"}));
 
-    it("does not return focus to input after button press via keyboard", async () => {
-        // Arrange
-        render(
-            <MathInput
-                onChange={() => {}}
-                keypadButtonSets={allButtonSets}
-                onAnalyticsEvent={() => Promise.resolve()}
-                convertDotToTimes={false}
-                value=""
-            />,
-        );
-        act(() => jest.runOnlyPendingTimers());
+            // Assert
+            expect(
+                screen.getByRole("textbox", {name: /Math input/}),
+            ).toHaveFocus();
+        });
 
-        // Act
-        // focusing the input triggers the popover
-        await userEvent.click(
-            screen.getByRole("button", {name: /open math keypad/}),
-        );
-        await userEvent.tab(); // to "123" tab
-        await userEvent.tab(); // to "1" button
-        await userEvent.keyboard("{enter}");
-        act(() => jest.runOnlyPendingTimers());
+        it("does not return focus to input after button press via keyboard", async () => {
+            // Arrange
+            render(
+                <MathInput
+                    onChange={() => {}}
+                    keypadButtonSets={allButtonSets}
+                    onAnalyticsEvent={() => Promise.resolve()}
+                    convertDotToTimes={false}
+                    value=""
+                />,
+            );
 
-        // Assert
-        expect(
-            screen.getByRole("textbox", {name: "Math input:"}),
-        ).not.toHaveFocus();
+            // Act
+            // focusing the input triggers the popover
+            await userEvent.click(
+                screen.getByRole("button", {name: /open math keypad/}),
+            );
+            await userEvent.tab(); // to "123" tab
+            await userEvent.tab(); // to "1" button
+            await userEvent.keyboard("{enter}");
+
+            // Assert
+            expect(
+                screen.getByRole("textbox", {name: "Math input:"}),
+            ).not.toHaveFocus();
+        });
     });
 
     it("does not focus on the keypad button when it is clicked with the mouse", async () => {

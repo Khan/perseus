@@ -7,9 +7,9 @@
  *  but could also be used for embedding viz's hosted elsewhere.
  */
 
-import * as React from "react";
+import React, {forwardRef, useEffect, useImperativeHandle} from "react";
 
-import {PerseusI18nContext} from "../../components/i18n-context";
+import {usePerseusI18n} from "../../components/i18n-context";
 import {getDependencies} from "../../dependencies";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/iframe/iframe-ai-utils";
@@ -25,134 +25,130 @@ const {updateQueryString} = Util;
 
 type Props = WidgetProps<PerseusIFrameWidgetOptions, PerseusIFrameUserInput>;
 
-type DefaultProps = {
-    userInput: Props["userInput"];
-};
-
 /* This renders the iframe and handles validation via window.postMessage */
-class Iframe extends React.Component<Props> implements Widget {
-    static contextType = PerseusI18nContext;
-    declare context: React.ContextType<typeof PerseusI18nContext>;
+const Iframe = forwardRef<Widget, Props>(function Iframe(props, ref) {
+    const {strings, locale} = usePerseusI18n();
+    const {InitialRequestUrl} = getDependencies();
+    const {allowFullScreen} = props.options;
 
-    static defaultProps: DefaultProps = {
-        userInput: {
-            status: "incomplete",
-            // optional message
-            message: null,
+    useEffect(() => {
+        function handleMessageEvent(e: MessageEvent) {
+            // We receive data from the iframe that contains {passed: true/false}
+            //  and use that to set the status
+            // It could also contain an optional message
+            let data: Record<string, any> = {};
+            try {
+                data = JSON.parse(e.data);
+            } catch {
+                return;
+            }
+
+            if (data.testsPassed === undefined) {
+                return;
+            }
+
+            props.handleUserInput({
+                status: data.testsPassed ? "correct" : "incorrect",
+                message: data.message,
+            });
+        }
+
+        window.addEventListener("message", handleMessageEvent);
+        return () => {
+            window.removeEventListener("message", handleMessageEvent);
+        };
+    }, [props]);
+
+    useImperativeHandle(ref, () => ({
+        getPromptJSON(): UnsupportedWidgetPromptJSON {
+            return _getPromptJSON();
         },
-    };
 
-    componentDidMount() {
-        window.addEventListener("message", this.handleMessageEvent);
+        /**
+         * @deprecated and likely very broken API
+         * [LEMS-3185] do not trust serializedState
+         */
+        getSerializedState(): any {
+            const {userInput, alignment, options, ...rest} = props;
+            const defaults = {allowTopNavigation: false};
+            return {...defaults, ...options, ...rest};
+        },
+    }));
+
+    const style = getIframeStyle(props.options);
+    const url = getIframeUrl(props.options, locale, InitialRequestUrl.origin);
+
+    // We sandbox the iframe so that we allowlist only the functionality
+    //  that we need. This makes it a bit safer in case some content
+    //  creator "went wild".
+    // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
+    return (
+        <iframe
+            title={strings.embeddedContent}
+            sandbox="allow-same-origin allow-scripts allow-top-navigation"
+            style={style}
+            src={url}
+            allowFullScreen={allowFullScreen}
+        />
+    );
+});
+
+function getIframeUrl(
+    options: PerseusIFrameWidgetOptions,
+    locale: string,
+    origin: string,
+): string {
+    let url = options.url;
+
+    // If the URL doesnt start with http, it must be a program ID
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (url && url.length && url.indexOf("http") !== 0) {
+        url =
+            "https://www.khanacademy.org/computer-programming/program/" +
+            url +
+            "/embedded?buttons=no&embed=yes&editor=no&author=no";
+        url = updateQueryString(url, "width", `${options.width}`);
+        url = updateQueryString(url, "height", `${options.height}`);
+        // Origin is used by output.js in deciding to send messages
+        url = updateQueryString(url, "origin", origin);
     }
 
-    componentWillUnmount() {
-        window.removeEventListener("message", this.handleMessageEvent);
+    // Forward content locale to KA program URLs so they render in the
+    // correct language, overriding any existing ?lang= param.
+    if (locale && url?.includes("khanacademy.org")) {
+        url = updateQueryString(url, "lang", locale);
     }
 
-    getPromptJSON(): UnsupportedWidgetPromptJSON {
-        return _getPromptJSON();
-    }
-
-    /**
-     * @deprecated and likely very broken API
-     * [LEMS-3185] do not trust serializedState
-     */
-    getSerializedState(): any {
-        const {userInput, alignment, options, ...rest} = this.props;
-        const defaults = {allowTopNavigation: false};
-        return {...defaults, ...options, ...rest};
-    }
-
-    handleMessageEvent: (arg1: MessageEvent) => void = (e) => {
-        // We receive data from the iframe that contains {passed: true/false}
-        //  and use that to set the status
-        // It could also contain an optional message
-        let data: Record<string, any> = {};
-        try {
-            data = JSON.parse(e.data);
-        } catch {
-            return;
-        }
-
-        if (data.testsPassed === undefined) {
-            return;
-        }
-
-        const status = data.testsPassed ? "correct" : "incorrect";
-        this.props.handleUserInput({
-            status: status,
-            message: data.message,
-        });
-    };
-
-    render(): React.ReactNode {
-        const {width, height, allowFullScreen} = this.props.options;
-
-        const style = {
-            width: String(width),
-            height: String(height),
-        } as const;
-
-        const {InitialRequestUrl} = getDependencies();
-
-        // Add "px" to unitless numbers
-        Object.entries(style).forEach(([key, value]: [any, any]) => {
-            if (!value.endsWith("%") && !value.endsWith("px")) {
-                style[key] = value + "px";
+    // Turn array of [{name: "", value: ""}] into object
+    if (options.settings) {
+        const settings: Record<string, any> = {};
+        options.settings.forEach((setting) => {
+            if (setting.name && setting.value) {
+                settings[setting.name] = setting.value;
             }
         });
-
-        let url = this.props.options.url;
-
-        // If the URL doesnt start with http, it must be a program ID
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (url && url.length && url.indexOf("http") !== 0) {
-            url =
-                "https://www.khanacademy.org/computer-programming/program/" +
-                url +
-                "/embedded?buttons=no&embed=yes&editor=no&author=no";
-            url = updateQueryString(url, "width", `${width}`);
-            url = updateQueryString(url, "height", `${height}`);
-            // Origin is used by output.js in deciding to send messages
-            url = updateQueryString(url, "origin", InitialRequestUrl.origin);
-        }
-
-        // Forward content locale to KA program URLs so they render in the
-        // correct language, overriding any existing ?lang= param.
-        if (this.context?.locale && url?.includes("khanacademy.org")) {
-            url = updateQueryString(url, "lang", this.context.locale);
-        }
-
-        // Turn array of [{name: "", value: ""}] into object
-        if (this.props.options.settings) {
-            const settings: Record<string, any> = {};
-            this.props.options.settings.forEach((setting) => {
-                if (setting.name && setting.value) {
-                    settings[setting.name] = setting.value;
-                }
-            });
-            // This becomes available to programs as Program.settings()
-            url = updateQueryString(url, "settings", JSON.stringify(settings));
-        }
-
-        let sandboxProperties = "allow-same-origin allow-scripts";
-        sandboxProperties += " allow-top-navigation";
-
-        // We sandbox the iframe so that we allowlist only the functionality
-        //  that we need. This makes it a bit safer in case some content
-        //  creator "went wild".
-        // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
-        return (
-            <iframe
-                title={this.context.strings.embeddedContent}
-                sandbox={sandboxProperties}
-                style={style}
-                src={url}
-                allowFullScreen={allowFullScreen}
-            />
-        );
+        // This becomes available to programs as Program.settings()
+        url = updateQueryString(url, "settings", JSON.stringify(settings));
     }
+
+    return url;
+}
+
+function getIframeStyle(options: PerseusIFrameWidgetOptions): {
+    width: string;
+    height: string;
+} {
+    return {
+        width: toCssSize(String(options.width)),
+        height: toCssSize(String(options.height)),
+    };
+}
+
+function toCssSize(value: string): string {
+    if (value.endsWith("%") || value.endsWith("px")) {
+        return value;
+    }
+    return `${value}px`;
 }
 
 /**

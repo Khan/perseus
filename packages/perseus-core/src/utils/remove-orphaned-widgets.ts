@@ -16,8 +16,8 @@ export function removeOrphanedWidgetsFromPerseusItem(
 ): PerseusItem {
     return {
         ...item,
-        question: removeOrphanedWidgets(item.question),
-        hints: item.hints.map(removeOrphanedWidgets),
+        question: removeOrphanedWidgetsFromPerseusRenderer(item.question),
+        hints: item.hints.map(removeOrphanedWidgetsFromPerseusRenderer),
     };
 }
 
@@ -26,7 +26,7 @@ export function removeOrphanedWidgetsFromPerseusItem(
  * referenced by placeholders in the `content` string. Idempotent. Does not
  * mutate its argument.
  */
-export function removeOrphanedWidgets(
+export function removeOrphanedWidgetsFromPerseusRenderer(
     renderer: PerseusRenderer,
 ): PerseusRenderer {
     const referencedWidgetIds = getWidgetIdsFromContent(renderer.content);

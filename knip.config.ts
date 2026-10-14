@@ -24,6 +24,31 @@ const basePackageConfig = {
 };
 
 const config: KnipConfig = {
+    // .pi/ holds local agent tooling that git ignores, but knip still picks
+    // up its files.
+    ignore: [".pi/**"],
+    // Knip only parses JS and TS files. To follow imports in other file
+    // types, it runs a "compiler" that turns a file into JS/TS source it can
+    // parse. See: https://knip.dev/features/compilers
+    //
+    // Storybook docs pages (.mdx) import components, stories, and packages,
+    // so without this knip reports those as unused. Knip has a built-in MDX
+    // compiler, but in this version it only turns on when an MDX package
+    // (e.g. @mdx-js/mdx) is a direct dependency, and none is here. (Knip 6
+    // can turn it on with `mdx: true` instead.)
+    //
+    // Knip only needs the import statements, so this returns the lines that
+    // start with `import`. It first removes fenced code blocks, because the
+    // docs show sample imports (e.g. of @khanacademy/perseus-score) that
+    // aren't real. An import split over several lines would break this;
+    // none of our .mdx files has one.
+    compilers: {
+        mdx: (text: string) =>
+            text
+                .replace(/```[\s\S]*?```/g, "")
+                .match(/^import\s.+$/gm)
+                ?.join("\n") ?? "",
+    },
     workspaces: {
         ".": {
             project: ["{config,utils}/**/*.{ts,tsx,js,jsx}"],
@@ -42,6 +67,9 @@ const config: KnipConfig = {
                 "src/parse-perseus-json/regression-tests/{article,item,user-input,renderer}-data/**",
                 // CLI used for testing against production data.
                 "src/parse-perseus-json/exhaustive-test-tool/index.ts",
+                // Bundled by the item-splitting check in
+                // .github/workflows/pr-comparison-checks.yml; nothing imports it.
+                "src/index.item-splitting.ts",
             ],
         },
     },

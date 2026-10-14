@@ -209,63 +209,54 @@ class ArticleRenderer
             const sectionSeed = this.props.seed + sectionIndex;
 
             return (
-                <div key={sectionIndex} className="clearfix">
-                    <UserInputManager
-                        widgets={section.widgets}
-                        problemNum={sectionSeed}
-                    >
-                        {({
-                            userInput,
-                            handleUserInput,
-                            initializeUserInput,
-                        }) => (
-                            <Renderer
-                                {...section}
-                                problemNum={sectionSeed}
-                                userInput={userInput}
-                                handleUserInput={handleUserInput}
-                                initializeUserInput={initializeUserInput}
-                                ref={(elem) => {
-                                    if (elem) {
-                                        this.sectionRenderers[sectionIndex] =
-                                            elem;
-                                    }
-                                }}
-                                key={sectionIndex}
-                                keypadElement={this.props.keypadElement}
-                                apiOptions={{
-                                    ...apiOptions,
-                                    onFocusChange: (
-                                        newFocusPath,
-                                        oldFocusPath,
-                                    ) => {
-                                        // Prefix the paths with the relevant section index,
-                                        // so as to allow us to distinguish between
-                                        // equivalently-named inputs across Renderers.
-                                        this._handleFocusChange(
-                                            newFocusPath &&
-                                                [sectionIndex].concat(
-                                                    // eslint-disable-next-line no-restricted-syntax
-                                                    newFocusPath as any,
-                                                ),
-                                            oldFocusPath &&
-                                                [sectionIndex].concat(
-                                                    // eslint-disable-next-line no-restricted-syntax
-                                                    oldFocusPath as any,
-                                                ),
-                                        );
-                                    },
-                                }}
-                                linterContext={PerseusLinter.pushContextStack(
-                                    this.props.linterContext,
-                                    "article",
-                                )}
-                                legacyPerseusLint={this.props.legacyPerseusLint}
-                                strings={this.context.strings}
-                            />
-                        )}
-                    </UserInputManager>
-                </div>
+                <UserInputManager
+                    key={sectionIndex}
+                    widgets={section.widgets}
+                    problemNum={sectionSeed}
+                >
+                    {({userInput, handleUserInput, initializeUserInput}) => (
+                        <Renderer
+                            {...section}
+                            problemNum={sectionSeed}
+                            userInput={userInput}
+                            handleUserInput={handleUserInput}
+                            initializeUserInput={initializeUserInput}
+                            ref={(elem) => {
+                                if (elem) {
+                                    this.sectionRenderers[sectionIndex] = elem;
+                                }
+                            }}
+                            key={sectionIndex}
+                            keypadElement={this.props.keypadElement}
+                            apiOptions={{
+                                ...apiOptions,
+                                onFocusChange: (newFocusPath, oldFocusPath) => {
+                                    // Prefix the paths with the relevant section index,
+                                    // so as to allow us to distinguish between
+                                    // equivalently-named inputs across Renderers.
+                                    this._handleFocusChange(
+                                        newFocusPath &&
+                                            [sectionIndex].concat(
+                                                // eslint-disable-next-line no-restricted-syntax
+                                                newFocusPath as any,
+                                            ),
+                                        oldFocusPath &&
+                                            [sectionIndex].concat(
+                                                // eslint-disable-next-line no-restricted-syntax
+                                                oldFocusPath as any,
+                                            ),
+                                    );
+                                },
+                            }}
+                            linterContext={PerseusLinter.pushContextStack(
+                                this.props.linterContext,
+                                "article",
+                            )}
+                            legacyPerseusLint={this.props.legacyPerseusLint}
+                            strings={this.context.strings}
+                        />
+                    )}
+                </UserInputManager>
             );
         });
 

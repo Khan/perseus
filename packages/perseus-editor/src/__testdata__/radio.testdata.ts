@@ -46,45 +46,6 @@ export const singleSelectQuestion: PerseusRenderer =
         },
     });
 
-export const multiChoiceQuestion: PerseusRenderer = generateTestPerseusRenderer(
-    {
-        content:
-            "**Select all input values for which $g(x)=2$.**\n\n[[\u2603 radio 1]]\n\n ![web graph](web+graphie://ka-perseus-graphie.s3.amazonaws.com/4613e0d9c906b3053fb5523eed83d4f779fdf6bb)",
-        widgets: {
-            "radio 1": generateRadioWidget({
-                options: generateRadioOptions({
-                    choices: [
-                        {
-                            id: "choice-1",
-                            content: "$x=-6$",
-                            correct: false,
-                        },
-                        {
-                            id: "choice-2",
-                            content: "$x=4$",
-                            correct: false,
-                        },
-                        {
-                            id: "choice-3",
-                            content: "$x=7$",
-                            correct: false,
-                            isNoneOfTheAbove: false,
-                        },
-                        {
-                            id: "choice-4",
-                            content: "There is no such input value.",
-                            correct: true,
-                            isNoneOfTheAbove: true,
-                        },
-                    ],
-                    hasNoneOfTheAbove: true,
-                    multipleSelect: true,
-                }),
-            }),
-        },
-    },
-);
-
 export const withLintErrors: PerseusRenderer = generateTestPerseusRenderer({
     content: `# H1s bad
 

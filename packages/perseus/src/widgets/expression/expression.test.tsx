@@ -7,7 +7,7 @@ import {
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
-import {act, screen} from "@testing-library/react";
+import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
@@ -531,9 +531,7 @@ describe("Expression Widget", function () {
         it("prevents focus callback errors after the component is unmounted", () => {
             const {renderer, unmount} = renderQuestion(
                 expressionItemMultipleEquivalentAnswers.question,
-                {
-                    customKeypad: true,
-                },
+                {apiOptions: {customKeypad: true}},
             );
             const expression = renderer.findWidgets("expression 1")[0];
             unmount();
@@ -579,9 +577,11 @@ describe("Expression Widget", function () {
         it("supports mobile rendering", async () => {
             // arrange and act
             renderQuestion(expressionItemMultipleEquivalentAnswers.question, {
-                // Setting this triggers mobile rendering
-                // it would be nice if this was more clear in the code
-                customKeypad: true,
+                apiOptions: {
+                    // Setting this triggers mobile rendering
+                    // it would be nice if this was more clear in the code
+                    customKeypad: true,
+                },
             });
 
             // Assert
@@ -660,9 +660,12 @@ describe("Expression Widget", function () {
 
         let userEvent: UserEvent;
         beforeEach(() => {
-            userEvent = userEventLib.setup({
-                advanceTimers: jest.advanceTimersByTime,
-            });
+            // floating-ui positions the keypad popover asynchronously after it
+            // opens. With real timers, waiting for the popover gives that
+            // update a chance to settle inside act(); Jest's fake timers
+            // would leave it pending until after the test finishes.
+            jest.useRealTimers();
+            userEvent = userEventLib.setup();
 
             jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
                 testDependencies,
@@ -725,17 +728,17 @@ describe("Expression Widget", function () {
                     screen.getByRole("tab", {name: "Extras"}),
                 );
                 await userEvent.click(screen.getByRole("button", {name: "i"}));
-                act(() => jest.runOnlyPendingTimers());
 
-                const userInput = renderer.getUserInputMap();
-                const score = scorePerseusItem(
-                    getFullItem().question,
-                    userInput,
-                    "en",
+                // Assert - The math input reports changes on a debounce.
+                await waitFor(() =>
+                    expect(
+                        scorePerseusItem(
+                            getFullItem().question,
+                            renderer.getUserInputMap(),
+                            "en",
+                        ),
+                    ).toHaveBeenAnsweredCorrectly(),
                 );
-
-                // Assert
-                expect(score).toHaveBeenAnsweredCorrectly();
             },
         );
     });

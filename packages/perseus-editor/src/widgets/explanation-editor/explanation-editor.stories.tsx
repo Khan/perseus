@@ -1,5 +1,4 @@
 import * as React from "react";
-import {action} from "storybook/actions";
 
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
 import {question} from "../../__testdata__/explanation.testdata";
@@ -15,20 +14,14 @@ registerAllWidgetsAndEditorsForTesting();
 const meta: Meta = {
     title: "Widgets/Explanation/Editor Demo",
     component: ExplanationEditor,
-    tags: ["!dev"],
+    tags: ["!autodocs"],
 } satisfies Meta<typeof ExplanationEditor>;
 export default meta;
 
-type Story = StoryObj<typeof meta>;
-export const Default: Story = {
-    args: {
-        onChange: action("onChange"),
-    },
-};
+type Story = StoryObj<typeof EditorPageWithStorybookPreview>;
 
-export const WithinEditorPage: StoryObj<typeof EditorPageWithStorybookPreview> =
-    {
-        render: (): React.ReactElement => (
-            <EditorPageWithStorybookPreview question={question} />
-        ),
-    };
+export const EditorDemo: Story = {
+    render: (): React.ReactElement => (
+        <EditorPageWithStorybookPreview question={question} />
+    ),
+};

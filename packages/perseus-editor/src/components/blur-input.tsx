@@ -25,6 +25,13 @@ type State = {
  * Enough melodrama. Its an input that only sends changes
  * to its parent on blur.
  */
+// TODO(benchristel): this is not an ideal user experience, because changes you
+//  make to the input aren't reflected anywhere else until you blur the input.
+//  This means you can't preview intermediate changes without moving focus away
+//  from the thing you want to change! Instead, we should take the approach used
+//  in ScrolllessNumberTextField: take the input's value from state while it's
+//  focused, and from props while it's not focused, and call onChange on every
+//  input event.
 class BlurInput extends React.Component<Props, State> {
     input = React.createRef<HTMLInputElement>();
 

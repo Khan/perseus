@@ -3,10 +3,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
 import {Log} from "../../logging/log";
-import {
-    testDependencies,
-    testDependenciesV2,
-} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import {
     getAnswerfulItem,
     getAnswerlessItem,
@@ -16,7 +13,7 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1, tickCtrl} from "./number-line.testdata";
 
-import type {APIOptions, PerseusDependenciesV2} from "../../types";
+import type {APIOptions} from "../../types";
 import type {PerseusNumberLineWidgetOptions} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -54,7 +51,7 @@ describe("number-line widget", () => {
 
         it("default", () => {
             // Act
-            const {container} = renderQuestion(question1, apiOptions);
+            const {container} = renderQuestion(question1, {apiOptions});
 
             // Assert
             expect(container).toMatchSnapshot("first render");
@@ -69,7 +66,9 @@ describe("number-line widget", () => {
             };
 
             // Act
-            const {container} = renderQuestion(question1, mobileApiOptions);
+            const {container} = renderQuestion(question1, {
+                apiOptions: mobileApiOptions,
+            });
 
             // Assert
             // Note: MovablePoint colors appear as fill/stroke="none" in this
@@ -87,7 +86,7 @@ describe("number-line widget", () => {
             });
 
             // Act
-            let {container} = renderQuestion(question, apiOptions);
+            let {container} = renderQuestion(question, {apiOptions});
 
             // Assert
             expect(container).toMatchSnapshot(
@@ -101,7 +100,7 @@ describe("number-line widget", () => {
             });
 
             // Act
-            container = renderQuestion(question, apiOptions).container;
+            container = renderQuestion(question, {apiOptions}).container;
 
             // Assert
             expect(container).toMatchSnapshot("show label ticks off (labels)");
@@ -115,7 +114,7 @@ describe("number-line widget", () => {
             });
 
             // Act
-            const {container} = renderQuestion(question, apiOptions);
+            const {container} = renderQuestion(question, {apiOptions});
 
             // Assert
             expect(container).toMatchSnapshot("show highlighted labels");
@@ -129,7 +128,7 @@ describe("number-line widget", () => {
             });
 
             // Act
-            const {container} = renderQuestion(question, apiOptions);
+            const {container} = renderQuestion(question, {apiOptions});
 
             // Assert
             expect(container).toMatchSnapshot("show inserted labels");
@@ -142,7 +141,7 @@ describe("number-line widget", () => {
             });
 
             // Act
-            let {container} = renderQuestion(question, apiOptions);
+            let {container} = renderQuestion(question, {apiOptions});
 
             // Assert
             expect(container).toMatchSnapshot("right endpoint highlighted");
@@ -153,7 +152,7 @@ describe("number-line widget", () => {
             });
 
             // Act
-            container = renderQuestion(question, apiOptions).container;
+            container = renderQuestion(question, {apiOptions}).container;
 
             // Assert
             expect(container).toMatchSnapshot("left endpoint highlighted");
@@ -173,7 +172,7 @@ describe("number-line widget", () => {
             });
 
             // Act
-            const {container} = renderQuestion(question, apiOptions);
+            const {container} = renderQuestion(question, {apiOptions});
 
             // Assert
             expect(container).toMatchSnapshot("show fractions");
@@ -183,13 +182,12 @@ describe("number-line widget", () => {
     it("should send analytics event when widget is rendered", () => {
         // Arrange
         const onAnalyticsEventSpy = jest.fn();
-        const depsV2: PerseusDependenciesV2 = {
-            ...testDependenciesV2,
+        const dependencies = {
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
         };
 
         // Act
-        renderQuestion(question1, undefined, undefined, undefined, depsV2);
+        renderQuestion(question1, {dependencies});
 
         // Assert
         expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
@@ -281,7 +279,9 @@ describe("number-line widget", () => {
                 "number-line",
                 getInequalityOptions(),
             );
-            const {container} = renderQuestion(item.question, {isMobile: true});
+            const {container} = renderQuestion(item.question, {
+                apiOptions: {isMobile: true},
+            });
             // The shadow lives in an inline `filter` style on the point's
             // wrapper; there's no accessible handle for it.
             const shadowed = () =>
@@ -384,7 +384,7 @@ describe("number-line widget", () => {
             const apiOptions: APIOptions = {
                 isMobile: false,
             };
-            const {renderer} = renderQuestion(question, apiOptions);
+            const {renderer} = renderQuestion(question, {apiOptions});
 
             // Act
             const [numberLine] = renderer.findWidgets("number-line 1");
@@ -401,7 +401,7 @@ describe("number-line widget", () => {
             const apiOptions: APIOptions = {
                 isMobile: false,
             };
-            const {renderer} = renderQuestion(question, apiOptions);
+            const {renderer} = renderQuestion(question, {apiOptions});
 
             // Act
             const [numberLine] = renderer.findWidgets("number-line 1");
@@ -420,7 +420,7 @@ describe("number-line widget", () => {
             const apiOptions: APIOptions = {
                 isMobile: false,
             };
-            const {renderer} = renderQuestion(question, apiOptions);
+            const {renderer} = renderQuestion(question, {apiOptions});
 
             // Act
             const score = scorePerseusItemTesting(

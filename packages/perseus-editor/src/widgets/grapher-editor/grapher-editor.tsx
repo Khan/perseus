@@ -10,6 +10,7 @@ import {
     grapherLogic,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
+import invariant from "tiny-invariant";
 import _ from "underscore";
 
 import GraphSettings from "../../components/graph-settings";
@@ -19,37 +20,50 @@ import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
     GrapherAnswerTypes,
     PerseusGrapherWidgetOptions,
+    GrapherFunctionType,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {MultiButtonGroup} = components;
 const Grapher = GrapherWidget.widget;
-const {chooseType, defaultPlotProps, getEquationString, typeToButton} =
-    GrapherUtil;
+const {defaultPlotProps, getEquationString, typeToButton} = GrapherUtil;
 
-type Props = {
-    onChange: (newProps: Record<string, unknown>) => void;
-    graph: PerseusGrapherWidgetOptions["graph"];
-    correct: GrapherAnswerTypes;
-    availableTypes: PerseusGrapherWidgetOptions["availableTypes"];
+interface Props extends PerseusGrapherWidgetOptions {
+    onChange: (options: PerseusGrapherWidgetOptions) => void;
     apiOptions: APIOptionsWithDefaults;
-};
+}
 
 class GrapherEditor extends React.Component<Props> {
     static defaultProps: PerseusGrapherWidgetOptions =
         grapherLogic.defaultWidgetOptions;
 
-    handleAvailableTypesChange = (newAvailableTypes: Array<any>) => {
+    handleChange(changes: Partial<PerseusGrapherWidgetOptions>) {
+        this.props.onChange({
+            availableTypes: this.props.availableTypes,
+            correct: this.props.correct,
+            graph: this.props.graph,
+            ...changes,
+        });
+    }
+
+    handleAvailableTypesChange = (newAvailableTypes: GrapherFunctionType[]) => {
+        // We set `allowEmpty={false}` on the MultiButtonGroup, so
+        // `newAvailableTypes` will always have at least one element.
+        invariant(
+            newAvailableTypes.length > 0,
+            "newAvailableTypes cannot be empty",
+        );
+
         let correct = this.props.correct;
 
         // If the currently 'correct' type is removed from the list of types,
         // we need to change it to avoid impossible questions.
-        if (!newAvailableTypes.includes(this.props.correct.type)) {
+        if (correct == null || !newAvailableTypes.includes(correct.type)) {
             const graph = this.props.graph;
-            const newType = chooseType(newAvailableTypes);
+            const newType = newAvailableTypes[0];
             correct = defaultPlotProps(newType, graph);
         }
-        this.props.onChange({
+        this.handleChange({
             availableTypes: newAvailableTypes,
             correct: correct,
         });
@@ -78,13 +92,13 @@ class GrapherEditor extends React.Component<Props> {
                 userInput: this.props.correct,
                 handleUserInput: (userInput) => {
                     let correct = this.props.correct;
-                    if (correct.type === userInput?.type) {
-                        correct = _.extend({}, correct, userInput);
+                    if (correct?.type === userInput.type) {
+                        correct = {...correct, ...userInput};
                     } else {
                         // Clear options from previous graph
                         correct = userInput;
                     }
-                    this.props.onChange({correct: correct});
+                    this.handleChange({correct});
                 },
                 trackInteraction: function () {},
                 // Set the "correct answer" graph to static when editing is disabled
@@ -139,7 +153,7 @@ class GrapherEditor extends React.Component<Props> {
                     onChange={(newProps) =>
                         // Spread existing graph props to preserve properties not included
                         // in the GraphSettings onChange payload (e.g. box, markings).
-                        this.props.onChange({
+                        this.handleChange({
                             graph: {...this.props.graph, ...newProps},
                         })
                     }

@@ -5,7 +5,6 @@ import {
     type PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
-import {action} from "storybook/actions";
 
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
@@ -20,7 +19,7 @@ registerAllWidgetsAndEditorsForTesting();
 const meta: Meta = {
     title: "Widgets/Expression/Editor Demo",
     component: ExpressionEditor,
-    tags: ["!dev"],
+    tags: ["!autodocs"],
 } satisfies Meta<typeof ExpressionEditor>;
 export default meta;
 
@@ -44,16 +43,10 @@ const question: PerseusRenderer = {
     },
 };
 
-type Story = StoryObj<typeof meta>;
-export const Default: Story = {
-    args: {
-        onChange: action("onChange"),
-    },
-};
+type Story = StoryObj<typeof EditorPageWithStorybookPreview>;
 
-export const WithinEditorPage: StoryObj<typeof EditorPageWithStorybookPreview> =
-    {
-        render: (): React.ReactElement => (
-            <EditorPageWithStorybookPreview question={question} />
-        ),
-    };
+export const EditorDemo: Story = {
+    render: (): React.ReactElement => (
+        <EditorPageWithStorybookPreview question={question} />
+    ),
+};

@@ -1,7 +1,10 @@
 import {
     sorterLogic,
+    SORTER_MAX_HORIZONTAL_CARDS,
+    SORTER_MAX_CARDS,
     type PerseusSorterWidgetOptions,
 } from "@khanacademy/perseus-core";
+import Banner from "@khanacademy/wonder-blocks-banner";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
@@ -14,10 +17,6 @@ import {TypedSingleSelect} from "../../components/typed-single-select";
 
 import CardEditor from "./card-editor";
 import styles from "./sorter-editor.module.css";
-
-// Ideally Content Creators would keep it <=7
-// but 10 is our hard limit
-const maxCards = 10;
 
 // There's nothing to sort with fewer than two cards.
 const minCards = 2;
@@ -48,7 +47,6 @@ type SorterEditorHandle = {
     getSaveWarnings: () => string[];
 };
 
-// JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for adding a sorter widget that allows users to arrange items in a specific order.
  */
@@ -96,7 +94,7 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
         };
 
         const onAddCard = () => {
-            if (correct.length >= maxCards) {
+            if (correct.length >= SORTER_MAX_CARDS) {
                 return;
             }
             onChange({correct: [...correct, ""]});
@@ -156,34 +154,46 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                         kind="tertiary"
                         startIcon={plusCircle}
                         className={styles.addCard}
-                        disabled={correct.length >= maxCards}
+                        disabled={correct.length >= SORTER_MAX_CARDS}
                         onClick={onAddCard}
                     >
                         Add a card
                     </Button>
                 </View>
-                <View>
-                    <LabeledField
-                        label="Layout"
-                        field={
-                            <TypedSingleSelect
-                                options={layoutOptions}
-                                selectedValue={layout}
-                                onChange={(newLayout) =>
-                                    onChange({layout: newLayout})
-                                }
-                            />
-                        }
-                    />
-                    <InfoTip>
-                        <p>
-                            Use the horizontal layout for short text and small
-                            images. The vertical layout is best for longer text
-                            and larger images.
-                        </p>
-                    </InfoTip>
-                </View>
-                <div>
+                <LabeledField
+                    label="Layout"
+                    field={
+                        <TypedSingleSelect
+                            options={layoutOptions}
+                            selectedValue={layout}
+                            onChange={(newLayout) =>
+                                onChange({layout: newLayout})
+                            }
+                        />
+                    }
+                    contextLabel={
+                        <InfoTip>
+                            <p>
+                                Use the horizontal layout for short text and
+                                small images. The vertical layout is best for
+                                longer text and larger images.
+                            </p>
+                        </InfoTip>
+                    }
+                    styles={{
+                        contextLabel: {
+                            marginInlineEnd: "auto",
+                        },
+                    }}
+                />
+                {layout === "horizontal" &&
+                    correct.length > SORTER_MAX_HORIZONTAL_CARDS && (
+                        <Banner
+                            kind="warning"
+                            text={`Sorter widget with more than ${SORTER_MAX_HORIZONTAL_CARDS} options will display vertically, even if the layout is set to horizontal.`}
+                        />
+                    )}
+                <div className={styles.row}>
                     <Checkbox
                         label="Padding"
                         checked={padding}

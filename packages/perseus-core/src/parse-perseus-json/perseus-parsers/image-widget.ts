@@ -43,4 +43,7 @@ export const parseImageWidget = parseWidget(
         ),
         box: defaulted(pairOfNumbers, (): [number, number] => [400, 400]),
     }),
+    // Images take no user input, so there's no answer to fill in and nothing
+    // to make immutable. Any `static` in the data is dropped.
+    {supportsStatic: false},
 );

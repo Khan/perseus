@@ -1,5 +1,113 @@
 # @khanacademy/perseus-core
 
+## 41.2.0
+
+### Minor Changes
+
+-   [#4356](https://github.com/Khan/perseus/pull/4356) [`c7b27f6`](https://github.com/Khan/perseus/commit/c7b27f6ea6d51e3d06d48f7eb07fb0e69a42d1c4) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - adds removeOrphanedWidgetsFromPerseusRenderer to export list
+
+## 41.1.0
+
+### Minor Changes
+
+-   [#4336](https://github.com/Khan/perseus/pull/4336) [`1c610e4`](https://github.com/Khan/perseus/commit/1c610e4bd481bb5c5cb76801a3093b86c7068640) Thanks [@benchristel](https://github.com/benchristel)! - There's a new `PerseusNumberLineLabelStyle` type which enumerates the values accepted by the `labelStyle` option of the Number Line widget.
+
+## 41.0.0
+
+### Major Changes
+
+-   [#4314](https://github.com/Khan/perseus/pull/4314) [`999df5b`](https://github.com/Khan/perseus/commit/999df5bcd7958788e486b5cf72fb8fba1a612b1a) Thanks [@benchristel](https://github.com/benchristel)! - The `type` property of deprecated widgets is now preserved, rather than forced to `"deprecated-standin"`, during parsing. Breaking change: the `DeprecatedStandinWidget` type now has a required type parameter for the value of the `type` property.
+
+### Patch Changes
+
+-   [#4302](https://github.com/Khan/perseus/pull/4302) [`b50edb9`](https://github.com/Khan/perseus/commit/b50edb961335264c17acc1fe8176597b54796854) Thanks [@handeyeco](https://github.com/handeyeco)! - Stop serializing dependencies
+
+-   [#4312](https://github.com/Khan/perseus/pull/4312) [`b7087f8`](https://github.com/Khan/perseus/commit/b7087f8b69deb2c7f9e023f8d6a4d31cfe7d06b7) Thanks [@benchristel](https://github.com/benchristel)! - Bugfix: The Label Image widget now respects its `preferredPopoverDirection` setting. This was broken around March 5, 2026, when the Perseus parser started discarding unrecognized object properties.
+
+-   [#4305](https://github.com/Khan/perseus/pull/4305) [`97c15c4`](https://github.com/Khan/perseus/commit/97c15c4c4d951dc6ee05ad10cafb6ec0d08b3a51) Thanks [@handeyeco](https://github.com/handeyeco)! - Properly type `defaultWidgetOptions` in `WidgetLogic`
+
+## 40.1.0
+
+### Minor Changes
+
+-   [#4275](https://github.com/Khan/perseus/pull/4275) [`4608173`](https://github.com/Khan/perseus/commit/46081733b9995aa840286b16e82216e45e0a0be6) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - create new util for alignment, propagate through perseus and fix markdown so linter errors doesn't cause wrapping in preview
+
+### Patch Changes
+
+-   [#4291](https://github.com/Khan/perseus/pull/4291) [`460483d`](https://github.com/Khan/perseus/commit/460483d3ad269330fd9dae3d9198cabc6df16245) Thanks [@handeyeco](https://github.com/handeyeco)! - Add a new optional `isScorable` flag to Renderer, which is used by ServerItemRenderer and GradedGroup to mark inputs as `aria-required`.
+
+-   [#4285](https://github.com/Khan/perseus/pull/4285) [`a4372f8`](https://github.com/Khan/perseus/commit/a4372f860833f4954b32d007f26bbf8720c7db94) Thanks [@handeyeco](https://github.com/handeyeco)! - Revert ServerItemRenderer encapsulation (Perseus#4126)
+
+## 40.0.1
+
+### Patch Changes
+
+-   [#4126](https://github.com/Khan/perseus/pull/4126) [`bf02601`](https://github.com/Khan/perseus/commit/bf02601f17fc0c11844b0d077b60cafd2c8e1a37) Thanks [@handeyeco](https://github.com/handeyeco)! - Encapsulate ServerItemRenderer to only allow explicitly declared imperative APIS
+
+## 40.0.0
+
+### Major Changes
+
+-   [#4242](https://github.com/Khan/perseus/pull/4242) [`324add8`](https://github.com/Khan/perseus/commit/324add8b5e2cf5752fd3bee882caffbcbd84238c) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Ship ES modules only. Every package now declares `"type": "module"`, drops
+    the legacy `main` and `module` fields, and no longer offers a `require`
+    condition, so `require()` of a
+    package or any of its sub-paths fails at resolution time. Bundles moved from
+    `dist/es/*.js` to `dist/*.js`.
+
+    `import` specifiers are unchanged — `@khanacademy/perseus`,
+    `@khanacademy/perseus/strings`, `@khanacademy/perseus/styles.css` and the rest
+    all still resolve. CJS consumers need to either move to `import`, or use a
+    dynamic `await import()` from an async context.
+
+### Patch Changes
+
+-   Updated dependencies [[`324add8`](https://github.com/Khan/perseus/commit/324add8b5e2cf5752fd3bee882caffbcbd84238c)]:
+    -   @khanacademy/kas@3.0.0
+    -   @khanacademy/perseus-utils@3.0.0
+    -   @khanacademy/pure-markdown@3.0.0
+
+## 39.2.3
+
+### Patch Changes
+
+-   [#4196](https://github.com/Khan/perseus/pull/4196) [`e86d317`](https://github.com/Khan/perseus/commit/e86d317c25e791739ff7c9cae6cbb1c0331cfd3d) Thanks [@nishasy](https://github.com/nishasy)! - [Sorter] Render horizontal sorters as vertical if they have too many cards
+
+## 39.2.2
+
+### Patch Changes
+
+-   [#4258](https://github.com/Khan/perseus/pull/4258) [`6b422ce`](https://github.com/Khan/perseus/commit/6b422ce7aeb04b9928fd21dabf42d2edbe048886) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in GrapherEditor.
+
+## 39.2.1
+
+### Patch Changes
+
+-   [#4225](https://github.com/Khan/perseus/pull/4225) [`284ac95`](https://github.com/Khan/perseus/commit/284ac95dce32e3d3ddbe2287106ad253b16ffadb) Thanks [@nishasy](https://github.com/nishasy)! - Use parser to set `static` to undefined for visual-only widgets
+
+## 39.2.0
+
+### Minor Changes
+
+-   [#4181](https://github.com/Khan/perseus/pull/4181) [`995aa68`](https://github.com/Khan/perseus/commit/995aa68d04bdc95f7b463406d797ed6a24107cad) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add the new Fill in the Blank widget's schema and logic to perseus-core
+
+## 39.1.0
+
+### Minor Changes
+
+-   [#4204](https://github.com/Khan/perseus/pull/4204) [`dc12384`](https://github.com/Khan/perseus/commit/dc123845614fae331d8517a524212fc1dbbe110f) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Makes max sorter card count a const in perseus core and consumes it
+
+## 39.0.0
+
+### Major Changes
+
+-   [#4194](https://github.com/Khan/perseus/pull/4194) [`cf56830`](https://github.com/Khan/perseus/commit/cf568308a7ac5601af0afbc386832000c7f8cae5) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove the `@khanacademy/perseus-core/item-splitting` entry point.
+
+    This entry point (`/item-splitting`) was incorrectly added to support a CI
+    check that detects important item splitting changes. It doesn't need to be an
+    export to do this though, so this change removes it.
+
+    Import `splitPerseusItem` from `@khanacademy/perseus-core` instead.
+
 ## 38.1.1
 
 ### Patch Changes

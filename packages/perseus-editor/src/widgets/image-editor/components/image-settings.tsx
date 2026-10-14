@@ -14,7 +14,8 @@ import DarkModeToggle from "./dark-mode-toggle";
 import DecorativeToggle from "./decorative-toggle";
 import ImageScaleInput from "./image-scale-input";
 
-import type {Props} from "../image-editor";
+import type {APIOptions} from "@khanacademy/perseus";
+import type {PerseusImageWidgetOptions} from "@khanacademy/perseus-core";
 
 const MIN_ALT_TEXT_LENGTH = 8;
 const MAX_ALT_TEXT_LENGTH = 125;
@@ -22,6 +23,11 @@ const altTextTooLongError =
     "Keep alt succinct at roughly 125 characters in length. Please pair the alt with a long description if you need significantly more text to sufficiently describe the image.";
 const altTextTooShortError =
     "Add more detail to describe your image. While alt text should be brief, it must also describe the image well.";
+
+interface Props extends PerseusImageWidgetOptions {
+    apiOptions: APIOptions;
+    onChange: (changes: Partial<PerseusImageWidgetOptions>) => void;
+}
 
 export default function ImageSettings({
     alt,

@@ -82,6 +82,7 @@ import type {
     UserInputMap,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import type {ASTNode, SingleASTNode} from "@khanacademy/simple-markdown";
 
 import "./styles/perseus-renderer.new.css";
 
@@ -142,6 +143,12 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     reviewMode?: boolean | null | undefined;
 
     /**
+     * Meant to differentiate between "scorable" contexts (exercises, GradedGroup)
+     * and non-"scorable" contexts (articles, hints)
+     */
+    isScorable?: boolean;
+
+    /**
      * If set to "all", all rationales or solutions will be shown. If set to
      * "selected", soltions will only be shown for selected choices. If set to
      * "none", solutions will not be shown-- equivalent to `undefined`.
@@ -188,6 +195,7 @@ type DefaultProps = Required<
         | "onRender"
         | "showSolutions"
         | "reviewMode"
+        | "isScorable"
         | "widgets"
     >
 >;
@@ -278,6 +286,7 @@ class Renderer
         findExternalWidgets: () => [],
         alwaysUpdate: false,
         reviewMode: false,
+        isScorable: false,
         linterContext: PerseusLinter.linterContextDefault,
     };
 
@@ -564,6 +573,7 @@ class Renderer
             onBlur: _.partial(this._onWidgetBlur, widgetId),
             findWidgets: this.findWidgets,
             reviewMode: this.props.reviewMode ?? false,
+            isScorable: this.props.isScorable ?? false,
             // Default containerSizeClass; overridden in WidgetContainer based
             // on the measured size of the DOM element.
             containerSizeClass: containerSizeClass.MEDIUM,
@@ -820,11 +830,7 @@ class Renderer
 
     // wrap top-level elements in a QuestionParagraph, mostly
     // for appropriate spacing and other css
-    // @ts-expect-error - TS2322 - Type '(ast: any, state: WidgetState) => never[] | JSX.Element' is not assignable to type '(ast: any, state: WidgetState) => ReactElement<any, string | JSXElementConstructor<any>>'.
-    outputMarkdown: (ast: any, state: WidgetState) => React.ReactElement = (
-        ast: any,
-        state: WidgetState,
-    ) => {
+    outputMarkdown = (ast: ASTNode, state: WidgetState): React.ReactNode => {
         if (Array.isArray(ast)) {
             // This is duplicated from simple-markdown
             // TODO(aria): Don't duplicate this logic
@@ -883,11 +889,16 @@ class Renderer
             className = null;
         } else {
             className = classNames({
-                "perseus-paragraph-centered": !this._foundTextNodes,
+                // TODO(LEMS-4463): perseus-paragraph-centered is not referenced
+                //  by any CSS. Its only effect is to force QuestionParagraph
+                //  to wrap its children in a div. Find another way to achieve
+                //  this that doesn't involve a dummy class.
+                "perseus-paragraph-centered":
+                    !this._foundTextNodes && !this.props.inline,
                 // There is only one node being rendered,
                 // and it's a full-width widget.
                 "perseus-paragraph-full-width":
-                    state.foundFullWidth && ast.content?.length === 1,
+                    state.foundFullWidth && ast.type === "widget",
             });
         }
 
@@ -897,6 +908,7 @@ class Renderer
                 className={className}
                 translationIndex={this.translationIndex}
                 paragraphIndex={state.paragraphIndex}
+                inline={this.props.inline}
             >
                 <ErrorBoundary>{output}</ErrorBoundary>
             </QuestionParagraph>
@@ -904,10 +916,7 @@ class Renderer
     };
 
     // output non-top-level nodes or arrays
-    outputNested: (ast: any, state: WidgetState) => React.ReactElement = (
-        ast: any,
-        state: WidgetState,
-    ) => {
+    outputNested = (ast: ASTNode, state: WidgetState): React.ReactNode => {
         if (Array.isArray(ast)) {
             // This is duplicated from simple-markdown
             // TODO(aria): Don't duplicate this logic
@@ -922,10 +931,6 @@ class Renderer
                 const nodeOut = this.outputNested(ast[i], state);
                 const isString = typeof nodeOut === "string";
                 if (typeof nodeOut === "string" && lastWasString) {
-                    /**
-                     * We know that last was string, but TypeScript can't see this
-                     * refinement.
-                     */
                     result[result.length - 1] += nodeOut;
                 } else {
                     result.push(nodeOut);
@@ -940,20 +945,14 @@ class Renderer
     };
 
     // output individual AST nodes [not arrays]
-    outputNode: (
-        node: any,
-        nestedOutput: any,
+    outputNode = (
+        node: SingleASTNode,
+        nestedOutput: (
+            ast: SingleASTNode,
+            state: WidgetState,
+        ) => React.ReactNode,
         state: WidgetState,
-    ) =>
-        | any
-        | null
-        | React.ReactElement<React.ComponentProps<"div">>
-        | React.ReactElement<React.ComponentProps<"span">>
-        | React.ReactNode = (
-        node: any,
-        nestedOutput: any,
-        state: WidgetState,
-    ) => {
+    ): React.ReactNode => {
         const apiOptions = this.getApiOptions();
         const imagePlaceholder = apiOptions.imagePlaceholder;
 
@@ -1147,9 +1146,6 @@ class Renderer
                                 title={node.title}
                                 responsive={responsive}
                                 onUpdate={this.props.onRender}
-                                zoomToFullSizeOnMobile={
-                                    apiOptions.isMobile && apiOptions.isArticle
-                                }
                                 {...extraAttrs}
                             />
                         )}
@@ -1624,9 +1620,12 @@ class Renderer
         }
 
         // Render the linted markdown parse tree with React components
-        const markdownContents = this.outputMarkdown(parsedMarkdown, {
-            baseElements: apiOptions.baseElements,
-        });
+        const markdownContents = this.outputMarkdown(
+            Util.joinAdjacentTextNodes(parsedMarkdown),
+            {
+                baseElements: apiOptions.baseElements,
+            },
+        );
 
         const className = classNames({
             [ApiClassNames.RENDERER]: true,

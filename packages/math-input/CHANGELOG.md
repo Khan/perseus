@@ -1,5 +1,145 @@
 # @khanacademy/math-input
 
+## 30.0.5
+
+### Patch Changes
+
+-   Updated dependencies [[`c7b27f6`](https://github.com/Khan/perseus/commit/c7b27f6ea6d51e3d06d48f7eb07fb0e69a42d1c4)]:
+    -   @khanacademy/perseus-core@41.2.0
+    -   @khanacademy/keypad-context@6.0.4
+
+## 30.0.4
+
+### Patch Changes
+
+-   Updated dependencies [[`1c610e4`](https://github.com/Khan/perseus/commit/1c610e4bd481bb5c5cb76801a3093b86c7068640)]:
+    -   @khanacademy/perseus-core@41.1.0
+    -   @khanacademy/keypad-context@6.0.3
+
+## 30.0.3
+
+### Patch Changes
+
+-   [#4306](https://github.com/Khan/perseus/pull/4306) [`4da9528`](https://github.com/Khan/perseus/commit/4da95281f38eca305b8e82ea6a21ae60248a76b1) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove color from keypad buttons because of a11y violation
+
+-   [#4324](https://github.com/Khan/perseus/pull/4324) [`dad705c`](https://github.com/Khan/perseus/commit/dad705c9e4002211d0d4ce5cc7854586a3c2d354) Thanks [@jandrade](https://github.com/jandrade)! - Updates WB peer deps, including `@khanacademy/wonder-blocks-popover` 7.0.0, which is now built on `@khanacademy/wonder-blocks-floating`. Tests and snapshots are updated for the new Popover.
+
+## 30.0.2
+
+### Patch Changes
+
+-   Updated dependencies [[`999df5b`](https://github.com/Khan/perseus/commit/999df5bcd7958788e486b5cf72fb8fba1a612b1a), [`b50edb9`](https://github.com/Khan/perseus/commit/b50edb961335264c17acc1fe8176597b54796854), [`b7087f8`](https://github.com/Khan/perseus/commit/b7087f8b69deb2c7f9e023f8d6a4d31cfe7d06b7), [`97c15c4`](https://github.com/Khan/perseus/commit/97c15c4c4d951dc6ee05ad10cafb6ec0d08b3a51)]:
+    -   @khanacademy/perseus-core@41.0.0
+    -   @khanacademy/keypad-context@6.0.2
+
+## 30.0.1
+
+### Patch Changes
+
+-   Updated dependencies [[`4608173`](https://github.com/Khan/perseus/commit/46081733b9995aa840286b16e82216e45e0a0be6), [`460483d`](https://github.com/Khan/perseus/commit/460483d3ad269330fd9dae3d9198cabc6df16245), [`a4372f8`](https://github.com/Khan/perseus/commit/a4372f860833f4954b32d007f26bbf8720c7db94)]:
+    -   @khanacademy/perseus-core@40.1.0
+    -   @khanacademy/keypad-context@6.0.1
+
+## 30.0.0
+
+### Major Changes
+
+-   [#4126](https://github.com/Khan/perseus/pull/4126) [`bf02601`](https://github.com/Khan/perseus/commit/bf02601f17fc0c11844b0d077b60cafd2c8e1a37) Thanks [@handeyeco](https://github.com/handeyeco)! - Change KeypadContext API so that rather than exposing a raw `renderer` we abstract functionality behind `blurRenderer`
+
+### Patch Changes
+
+-   Updated dependencies [[`bf02601`](https://github.com/Khan/perseus/commit/bf02601f17fc0c11844b0d077b60cafd2c8e1a37), [`bf02601`](https://github.com/Khan/perseus/commit/bf02601f17fc0c11844b0d077b60cafd2c8e1a37)]:
+    -   @khanacademy/perseus-core@40.0.1
+    -   @khanacademy/keypad-context@6.0.0
+
+## 29.0.0
+
+### Major Changes
+
+-   [#4242](https://github.com/Khan/perseus/pull/4242) [`324add8`](https://github.com/Khan/perseus/commit/324add8b5e2cf5752fd3bee882caffbcbd84238c) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Ship ES modules only. Every package now declares `"type": "module"`, drops
+    the legacy `main` and `module` fields, and no longer offers a `require`
+    condition, so `require()` of a
+    package or any of its sub-paths fails at resolution time. Bundles moved from
+    `dist/es/*.js` to `dist/*.js`.
+
+    `import` specifiers are unchanged — `@khanacademy/perseus`,
+    `@khanacademy/perseus/strings`, `@khanacademy/perseus/styles.css` and the rest
+    all still resolve. CJS consumers need to either move to `import`, or use a
+    dynamic `await import()` from an async context.
+
+### Patch Changes
+
+-   [#4273](https://github.com/Khan/perseus/pull/4273) [`7d7705a`](https://github.com/Khan/perseus/commit/7d7705a43b13dd31ca52cf331c1cc04a9eed3fcc) Thanks [@beaesguerra](https://github.com/beaesguerra)! - Update WB dependencies
+
+-   Updated dependencies [[`324add8`](https://github.com/Khan/perseus/commit/324add8b5e2cf5752fd3bee882caffbcbd84238c)]:
+    -   @khanacademy/keypad-context@5.0.0
+    -   @khanacademy/perseus-core@40.0.0
+    -   @khanacademy/perseus-utils@3.0.0
+
+## 28.0.1
+
+### Patch Changes
+
+-   Updated dependencies [[`e86d317`](https://github.com/Khan/perseus/commit/e86d317c25e791739ff7c9cae6cbb1c0331cfd3d)]:
+    -   @khanacademy/perseus-core@39.2.3
+    -   @khanacademy/keypad-context@4.0.1
+
+## 28.0.0
+
+### Major Changes
+
+-   [#4133](https://github.com/Khan/perseus/pull/4133) [`54959a3`](https://github.com/Khan/perseus/commit/54959a308d6bd9cc41fbb06feb6dbb7029d5371b) Thanks [@handeyeco](https://github.com/handeyeco)! - Change KeypadContext API so that rather than exposing a raw `renderer` we abstract functionality behind `blurRenderer`
+
+### Patch Changes
+
+-   Updated dependencies [[`6b422ce`](https://github.com/Khan/perseus/commit/6b422ce7aeb04b9928fd21dabf42d2edbe048886), [`54959a3`](https://github.com/Khan/perseus/commit/54959a308d6bd9cc41fbb06feb6dbb7029d5371b)]:
+    -   @khanacademy/perseus-core@39.2.2
+    -   @khanacademy/keypad-context@4.0.0
+
+## 27.0.17
+
+### Patch Changes
+
+-   [#4167](https://github.com/Khan/perseus/pull/4167) [`b718fbc`](https://github.com/Khan/perseus/commit/b718fbc8ff3f3588cbc113cd7d45de0b207bd660) Thanks [@Myranae](https://github.com/Myranae)! - Internal color cleanup. The only visible change is that the shadow under the mobile keypad's cursor handle may appear very slightly darker.
+
+-   Updated dependencies [[`284ac95`](https://github.com/Khan/perseus/commit/284ac95dce32e3d3ddbe2287106ad253b16ffadb)]:
+    -   @khanacademy/perseus-core@39.2.1
+    -   @khanacademy/keypad-context@3.2.93
+
+## 27.0.16
+
+### Patch Changes
+
+-   [#4227](https://github.com/Khan/perseus/pull/4227) [`c927205`](https://github.com/Khan/perseus/commit/c9272053e926d8c78f2b07c64855ec6a27674839) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Sync dependencies
+
+-   Updated dependencies [[`995aa68`](https://github.com/Khan/perseus/commit/995aa68d04bdc95f7b463406d797ed6a24107cad)]:
+    -   @khanacademy/perseus-core@39.2.0
+    -   @khanacademy/keypad-context@3.2.92
+
+## 27.0.15
+
+### Patch Changes
+
+-   [#4219](https://github.com/Khan/perseus/pull/4219) [`43887dc`](https://github.com/Khan/perseus/commit/43887dc4b4ca3133b00e78db16810249c70ce66c) Thanks [@jandrade](https://github.com/jandrade)! - Bumps Wonder Blocks dependencies: IconButton now requires aria-label (major), Accordion, Clickable and Link improvments
+
+## 27.0.14
+
+### Patch Changes
+
+-   [#4206](https://github.com/Khan/perseus/pull/4206) [`c2a9d3e`](https://github.com/Khan/perseus/commit/c2a9d3ea577927464c53b0e027d707d41c06f78e) Thanks [@jandrade](https://github.com/jandrade)! - Updates WB peer deps
+
+-   Updated dependencies [[`dc12384`](https://github.com/Khan/perseus/commit/dc123845614fae331d8517a524212fc1dbbe110f)]:
+    -   @khanacademy/perseus-core@39.1.0
+    -   @khanacademy/keypad-context@3.2.91
+
+## 27.0.13
+
+### Patch Changes
+
+-   Updated dependencies [[`cf56830`](https://github.com/Khan/perseus/commit/cf568308a7ac5601af0afbc386832000c7f8cae5)]:
+    -   @khanacademy/perseus-core@39.0.0
+    -   @khanacademy/keypad-context@3.2.90
+
 ## 27.0.12
 
 ### Patch Changes

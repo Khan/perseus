@@ -21,8 +21,8 @@ import type * as React from "react";
 export type FocusPath = ReadonlyArray<string> | null | undefined;
 
 export type Dimensions = {
-    width?: number;
-    height?: number;
+    width: number;
+    height: number;
 };
 
 export type DeviceType = "phone" | "tablet" | "desktop";
@@ -413,8 +413,6 @@ export type WidgetExports<
     name: string;
     displayName: string;
 
-    // Widgets should provide _one_ of these two properties only!
-    getWidget?: () => T;
     widget: T;
 
     /** Supresses widget from showing up in the dropdown in the content editor */
@@ -489,6 +487,7 @@ export type WidgetProps<
     onBlur: (blurPath: FocusPath) => void;
     findWidgets: FindWidgetsFunction;
     reviewMode: boolean;
+    isScorable: boolean;
     showSolutions?: ShowSolutions;
     handleUserInput: (
         newUserInput: TUserInput,

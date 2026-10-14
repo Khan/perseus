@@ -2,7 +2,7 @@ import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import ArticleRenderer from "../../../article-renderer";
-import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import WrappedServerItemRenderer from "../../../server-item-renderer";
 import {storybookDependenciesV2} from "../../../testing/test-dependencies";
 import {article, question} from "../definition.testdata";
 
@@ -10,8 +10,11 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
     title: "Widgets/Definition",
-    component: ServerItemRendererWithDebugUI,
+    component: WrappedServerItemRenderer,
     tags: ["!dev"],
+    args: {
+        dependencies: storybookDependenciesV2,
+    },
     parameters: {
         docs: {
             description: {
@@ -25,7 +28,7 @@ const meta: Meta = {
 };
 export default meta;
 
-type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
+type Story = StoryObj<typeof WrappedServerItemRenderer>;
 
 export const Exercise: Story = {
     args: {

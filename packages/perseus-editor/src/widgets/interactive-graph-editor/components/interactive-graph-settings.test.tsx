@@ -120,7 +120,6 @@ describe("InteractiveGraphSettings", () => {
         // Assert
         expect(onChange).toHaveBeenCalledWith(
             expect.objectContaining({markings: "grid"}),
-            undefined,
         );
     });
 
@@ -156,7 +155,6 @@ describe("InteractiveGraphSettings", () => {
                         url: "https://example.com/image.png",
                     }),
                 }),
-                undefined,
             ),
         );
     });
@@ -192,7 +190,6 @@ describe("InteractiveGraphSettings", () => {
                 expect.objectContaining({
                     valid: "Image must be smaller than 450px x 450px.",
                 }),
-                undefined,
             ),
         );
     });
@@ -227,7 +224,6 @@ describe("InteractiveGraphSettings", () => {
                         url: null,
                     }),
                 }),
-                undefined,
             ),
         );
     });
@@ -319,7 +315,6 @@ describe("InteractiveGraphSettings", () => {
         // Assert
         expect(onChange).toHaveBeenCalledWith(
             expect.objectContaining({showProtractor: false}),
-            undefined,
         );
     });
 
@@ -355,7 +350,6 @@ describe("InteractiveGraphSettings", () => {
                     ],
                     valid: true,
                 }),
-                undefined,
             ),
         );
     });
@@ -387,7 +381,6 @@ describe("InteractiveGraphSettings", () => {
                     ],
                     valid: true,
                 }),
-                undefined,
             ),
         );
     });
@@ -419,7 +412,6 @@ describe("InteractiveGraphSettings", () => {
                     ],
                     valid: "Range must have a higher number on the right",
                 }),
-                undefined,
             ),
         );
     });
@@ -448,7 +440,6 @@ describe("InteractiveGraphSettings", () => {
                     step: [2, 1],
                     valid: true,
                 }),
-                undefined,
             ),
         );
     });
@@ -477,7 +468,6 @@ describe("InteractiveGraphSettings", () => {
                     step: [1, 1],
                     valid: "Step is too large, there must be at least 3 ticks.",
                 }),
-                undefined,
             ),
         );
     });
@@ -510,7 +500,6 @@ describe("InteractiveGraphSettings", () => {
                     step: [1, 1],
                     valid: "Step is too small, there can be at most 20 ticks.",
                 }),
-                undefined,
             ),
         );
     });
@@ -540,7 +529,6 @@ describe("InteractiveGraphSettings", () => {
                     snapStep: [2, 1],
                     valid: true,
                 }),
-                undefined,
             ),
         );
     });
@@ -570,7 +558,6 @@ describe("InteractiveGraphSettings", () => {
                     snapStep: [1, 1],
                     valid: "Snap step is too large, there must be at least 5 ticks.",
                 }),
-                undefined,
             ),
         );
     });
@@ -600,7 +587,6 @@ describe("InteractiveGraphSettings", () => {
                     gridStep: [2, 1],
                     valid: true,
                 }),
-                undefined,
             ),
         );
     });
@@ -630,7 +616,6 @@ describe("InteractiveGraphSettings", () => {
                     gridStep: [1, 1],
                     valid: "Grid step is too large, there must be at least 3 ticks.",
                 }),
-                undefined,
             ),
         );
     });
@@ -659,7 +644,6 @@ describe("InteractiveGraphSettings", () => {
                 expect.objectContaining({
                     labels: ["time", "$y$"],
                 }),
-                undefined,
             ),
         );
     });
@@ -688,7 +672,6 @@ describe("InteractiveGraphSettings", () => {
                 expect.objectContaining({
                     labels: ["$x$", "count"],
                 }),
-                undefined,
             ),
         );
     });
@@ -743,7 +726,6 @@ describe("InteractiveGraphSettings", () => {
                         gridStep: expectedGridStep,
                         snapStep: expectedSnapStep,
                     }),
-                    undefined,
                 ),
             );
         },
@@ -844,7 +826,6 @@ describe("InteractiveGraphSettings", () => {
                                 [axis]: false,
                             },
                         }),
-                        undefined,
                     ),
                 );
             },
@@ -888,7 +869,6 @@ describe("InteractiveGraphSettings", () => {
                     expect.objectContaining({
                         showAxisTicks: {x: false, y: true},
                     }),
-                    undefined,
                 ),
             );
         });
@@ -913,7 +893,6 @@ describe("InteractiveGraphSettings", () => {
                     expect.objectContaining({
                         showAxisTicks: {x: true, y: false},
                     }),
-                    undefined,
                 ),
             );
         });

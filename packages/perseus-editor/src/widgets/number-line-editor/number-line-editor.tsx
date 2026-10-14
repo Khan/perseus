@@ -1,50 +1,25 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {number as knumber} from "@khanacademy/kmath";
 import {components} from "@khanacademy/perseus";
-import {
-    numberLineLogic,
-    type PerseusNumberLineWidgetOptions,
-} from "@khanacademy/perseus-core";
+import {numberLineLogic} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";
 
 import InfoTip from "../../components/info-tip";
+import {TypedSingleSelect} from "../../components/typed-single-select";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
-import type {ChangeableProps} from "../../mixins/changeable";
+import type {PerseusNumberLineWidgetOptions} from "@khanacademy/perseus-core";
 
 const {ButtonGroup, NumberInput, RangeInput} = components;
 
-type Range = [number, number];
-
-const bound = (x: number, gt: number, lt: number): number =>
-    Math.min(Math.max(x, gt), lt);
-
 const EN_DASH = "\u2013";
 
-type Props = {
-    range: number[];
-
-    labelRange: ReadonlyArray<number>;
-    labelStyle: string;
-    labelTicks: boolean;
-
-    divisionRange: ReadonlyArray<number>;
-    numDivisions: number;
-    snapDivisions: number;
-
-    tickStep: number;
-    correctRel: "lt" | "gt" | "le" | "ge" | "eq";
-    correctX: number;
-    initialX: number;
-    isTickCtrl?: boolean;
-
+interface Props extends PerseusNumberLineWidgetOptions {
     static?: boolean;
-    showTooltips: boolean;
-} & ChangeableProps;
+    onChange: (options: PerseusNumberLineWidgetOptions) => void;
+}
 
-// JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for adding a number line widget that allows users to mark
  * positions, intervals, and points on a number line.
@@ -53,16 +28,27 @@ class NumberLineEditor extends React.Component<Props> {
     static defaultProps: PerseusNumberLineWidgetOptions =
         numberLineLogic.defaultWidgetOptions;
 
-    onRangeChange: (arg1: Range) => void = (range) => {
-        // Changing the range constrains the initial position, as well as the
-        // position of the answer and labels. Atm, it just marks them as
-        // invalid and prevents the number line from showing; it was annoying
-        // to change it for them, because if they're typing in fractions,
-        // it registers one-at-a-time and messes things up.
-        this.props.onChange({range: range});
-    };
+    handleChange(changes: Partial<PerseusNumberLineWidgetOptions>) {
+        this.props.onChange({
+            range: this.props.range,
+            labelRange: this.props.labelRange,
+            labelStyle: this.props.labelStyle,
+            labelTicks: this.props.labelTicks,
+            isTickCtrl: this.props.isTickCtrl,
+            isInequality: this.props.isInequality,
+            divisionRange: this.props.divisionRange,
+            numDivisions: this.props.numDivisions,
+            snapDivisions: this.props.snapDivisions,
+            tickStep: this.props.tickStep,
+            correctRel: this.props.correctRel,
+            correctX: this.props.correctX,
+            initialX: this.props.initialX,
+            showTooltips: this.props.showTooltips,
+            ...changes,
+        });
+    }
 
-    onLabelRangeChange: (arg1: number, arg2: number) => void = (i, num) => {
+    handleLabelRangeChange(i: number, num: number) {
         let labelRange = this.props.labelRange.slice();
         const otherNum = labelRange[1 - i];
 
@@ -75,28 +61,10 @@ class NumberLineEditor extends React.Component<Props> {
             labelRange = [Math.min(num, otherNum), Math.max(num, otherNum)];
         }
 
-        this.props.onChange({labelRange: labelRange});
-    };
+        this.handleChange({labelRange});
+    }
 
-    onDivisionRangeChange: (arg1: Range) => void = (divisionRange) => {
-        let numDivisions = this.props.numDivisions;
-        numDivisions = bound(numDivisions, divisionRange[0], divisionRange[1]);
-        this.props.onChange({
-            divisionRange: divisionRange,
-            numDivisions: numDivisions,
-        });
-    };
-
-    onNumChange: (
-        arg1: "correctX" | "initialX" | "snapDivisions",
-        arg2: number,
-    ) => void = (key, value) => {
-        const opts: Record<string, any> = {};
-        opts[key] = value;
-        this.props.onChange(opts);
-    };
-
-    onNumDivisionsChange: (arg1: number) => void = (numDivisions) => {
+    onNumDivisionsChange = (numDivisions: number) => {
         const divRange = this.props.divisionRange.slice();
 
         // Don't allow a fraction for the number of divisions
@@ -114,7 +82,7 @@ class NumberLineEditor extends React.Component<Props> {
                 Math.max(divRange[0], numDivisions),
             );
 
-            this.props.onChange({
+            this.handleChange({
                 tickStep: null,
                 divisionRange: divRange,
                 numDivisions: numDivisions,
@@ -122,26 +90,17 @@ class NumberLineEditor extends React.Component<Props> {
         }
     };
 
-    onTickStepChange: (arg1: number) => void = (tickStep) => {
-        this.props.onChange({
+    onTickStepChange = (tickStep: number) => {
+        this.handleChange({
             numDivisions: null,
             tickStep: tickStep,
         });
     };
 
-    onChangeRelation: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
-        e,
-    ) => {
-        const value = e.target.value;
-        this.props.onChange({
+    onChangeRelation = (value: "eq" | "lt" | "gt" | "le" | "ge"): void => {
+        this.handleChange({
             correctRel: value,
             isInequality: value !== "eq",
-        });
-    };
-
-    onLabelStyleChange: (arg1: any) => void = (labelStyle) => {
-        this.props.onChange({
-            labelStyle: labelStyle,
         });
     };
 
@@ -162,14 +121,18 @@ class NumberLineEditor extends React.Component<Props> {
         const snapDivisions = this.props.snapDivisions;
         const tickStep = this.props.tickStep;
         const isTickCtrl = this.props.isTickCtrl;
+        const numDivisionsInputPlaceholder = tickStep ? width / tickStep : null;
 
-        let step;
+        let step: number | null;
         if (!isTickCtrl) {
             // this will help constrain the answer to what is reachable
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            step = tickStep
-                ? tickStep / snapDivisions
-                : width / numDivisions / snapDivisions;
+            if (tickStep) {
+                step = tickStep / snapDivisions;
+            } else if (numDivisions) {
+                step = width / numDivisions / snapDivisions;
+            } else {
+                step = null;
+            }
         } else {
             // but if tickCtrl is on, the range of what is reachable is
             // rather large, and it becomes obnoxious to check for this
@@ -203,32 +166,24 @@ class NumberLineEditor extends React.Component<Props> {
             <div className="perseus-widget-number-line-editor">
                 <div className="perseus-widget-row">
                     Correct x{" "}
-                    <select
-                        value={this.props.correctRel}
-                        // @ts-expect-error - TS2322 - Type '(arg1: ChangeEvent<HTMLInputElement>) => void' is not assignable to type 'ChangeEventHandler<HTMLSelectElement>'.
-                        onChange={this.onChangeRelation}
+                    <TypedSingleSelect
                         aria-label="Select relationship"
-                    >
-                        <option value="eq" aria-label="Equal">
-                            =
-                        </option>
-                        <option value="lt" aria-label="Less than">
-                            &lt;
-                        </option>
-                        <option value="gt" aria-label="Greater than">
-                            &gt;
-                        </option>
-                        <option value="le" aria-label="Less than or equal">
-                            &le;
-                        </option>
-                        <option value="ge" aria-label="Greater than or equal">
-                            &ge;
-                        </option>
-                    </select>{" "}
+                        required={true}
+                        selectedValue={this.props.correctRel}
+                        onChange={this.onChangeRelation}
+                        style={{display: "inline"}}
+                        options={{
+                            eq: {label: "=", ariaLabel: "Equal"},
+                            lt: {label: "<", ariaLabel: "Less than"},
+                            gt: {label: ">", ariaLabel: "Greater than"},
+                            le: {label: "<=", ariaLabel: "Less than or equal"},
+                            ge: {label: ">=", ariaLabel: "Greater than or equal"}, // prettier-ignore
+                        }}
+                    />{" "}
                     <NumberInput
                         value={this.props.correctX}
                         format={this.props.labelStyle}
-                        onChange={this.onNumChange.bind(this, "correctX")}
+                        onChange={(correctX) => this.handleChange({correctX})}
                         checkValidity={(val) =>
                             val >= range[0] &&
                             val <= range[1] &&
@@ -262,10 +217,9 @@ class NumberLineEditor extends React.Component<Props> {
                             <NumberInput
                                 value={this.props.initialX}
                                 format={this.props.labelStyle}
-                                onChange={this.onNumChange.bind(
-                                    this,
-                                    "initialX",
-                                )}
+                                onChange={(initialX) =>
+                                    this.handleChange({initialX})
+                                }
                                 placeholder={range[0]}
                                 checkValidity={(val) => {
                                     return val >= range[0] && val <= range[1];
@@ -278,7 +232,7 @@ class NumberLineEditor extends React.Component<Props> {
 
                     <RangeInput
                         value={range}
-                        onChange={this.onRangeChange}
+                        onChange={(range) => this.handleChange({range})}
                         format={this.props.labelStyle}
                         useArrowKeys={true}
                     />
@@ -307,7 +261,9 @@ class NumberLineEditor extends React.Component<Props> {
                             checkValidity={(val) =>
                                 val >= range[0] && val <= range[1]
                             }
-                            onChange={this.onLabelRangeChange.bind(this, 0)}
+                            onChange={(min) =>
+                                this.handleLabelRangeChange(0, min)
+                            }
                             useArrowKeys={true}
                         />
                         <span> &amp; </span>
@@ -318,7 +274,9 @@ class NumberLineEditor extends React.Component<Props> {
                             checkValidity={(val) =>
                                 val >= range[0] && val <= range[1]
                             }
-                            onChange={this.onLabelRangeChange.bind(this, 1)}
+                            onChange={(max) =>
+                                this.handleLabelRangeChange(1, max)
+                            }
                             useArrowKeys={true}
                         />
                         <InfoTip>
@@ -338,7 +296,9 @@ class NumberLineEditor extends React.Component<Props> {
                     <ButtonGroup
                         value={this.props.labelStyle}
                         buttons={labelStyleEditorButtons}
-                        onChange={this.onLabelStyleChange}
+                        onChange={(labelStyle) =>
+                            this.handleChange({labelStyle})
+                        }
                     />
                     <InfoTip>
                         <p>
@@ -357,7 +317,7 @@ class NumberLineEditor extends React.Component<Props> {
                                 label="Show tick controller"
                                 checked={!!this.props.isTickCtrl}
                                 onChange={(value) => {
-                                    this.props.onChange({isTickCtrl: value});
+                                    this.handleChange({isTickCtrl: value});
                                 }}
                             />
                         </div>
@@ -367,7 +327,7 @@ class NumberLineEditor extends React.Component<Props> {
                             label="Show label ticks"
                             checked={this.props.labelTicks}
                             onChange={(value) => {
-                                this.props.onChange({labelTicks: value});
+                                this.handleChange({labelTicks: value});
                             }}
                         />
                     </div>
@@ -379,7 +339,7 @@ class NumberLineEditor extends React.Component<Props> {
                             label="Show tooltips"
                             checked={this.props.showTooltips}
                             onChange={(value) => {
-                                this.props.onChange({showTooltips: value});
+                                this.handleChange({showTooltips: value});
                             }}
                         />
                     )}
@@ -390,7 +350,6 @@ class NumberLineEditor extends React.Component<Props> {
                             <label>
                                 Start num divisions at{" "}
                                 <NumberInput
-                                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                                     value={this.props.numDivisions || null}
                                     format="decimal"
                                     onChange={this.onNumDivisionsChange}
@@ -400,7 +359,7 @@ class NumberLineEditor extends React.Component<Props> {
                                             val <= divisionRange[1]
                                         );
                                     }}
-                                    placeholder={width / this.props.tickStep}
+                                    placeholder={numDivisionsInputPlaceholder}
                                     useArrowKeys={true}
                                 />
                             </label>
@@ -427,7 +386,6 @@ class NumberLineEditor extends React.Component<Props> {
                             <label>
                                 Num divisions:{" "}
                                 <NumberInput
-                                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                                     value={this.props.numDivisions || null}
                                     format="decimal"
                                     onChange={this.onNumDivisionsChange}
@@ -437,14 +395,13 @@ class NumberLineEditor extends React.Component<Props> {
                                             val <= divisionRange[1]
                                         );
                                     }}
-                                    placeholder={width / this.props.tickStep}
+                                    placeholder={numDivisionsInputPlaceholder}
                                     useArrowKeys={true}
                                 />
                             </label>{" "}
                             <label>
                                 or tick step:{" "}
                                 <NumberInput
-                                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                                     value={this.props.tickStep || null}
                                     format={this.props.labelStyle}
                                     onChange={this.onTickStepChange}
@@ -452,7 +409,9 @@ class NumberLineEditor extends React.Component<Props> {
                                         return val > 0 && val <= width;
                                     }}
                                     placeholder={
-                                        width / this.props.numDivisions
+                                        numDivisions
+                                            ? width / numDivisions
+                                            : null
                                     }
                                     useArrowKeys={true}
                                 />
@@ -483,10 +442,9 @@ class NumberLineEditor extends React.Component<Props> {
                             value={snapDivisions}
                             checkValidity={(val) => val > 0}
                             format={this.props.labelStyle}
-                            onChange={this.onNumChange.bind(
-                                this,
-                                "snapDivisions",
-                            )}
+                            onChange={(snapDivisions) =>
+                                this.handleChange({snapDivisions})
+                            }
                             useArrowKeys={true}
                         />
                     </label>

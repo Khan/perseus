@@ -5,6 +5,7 @@
  ***********************************************************************/
 // TODO(LEMS-4304): feature flag cleanup - rename this file to perseus-markdown.tsx.
 // This file is the new perseus markdown that will replace the old perseus markdown.
+import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 import {pureMarkdownRules, traverseContent} from "@khanacademy/pure-markdown";
 import SimpleMarkdown from "@khanacademy/simple-markdown";
 import * as React from "react";
@@ -12,7 +13,7 @@ import _ from "underscore";
 
 import Lint from "./components/lint";
 import {getDependencies} from "./dependencies";
-import {noParagraphForInlineWidget} from "./util";
+import {isContentGraphie, noParagraphForInlineWidget} from "./util";
 
 /**
  * These rules are the same as the pure-markdown rules, but with some
@@ -279,14 +280,24 @@ const rules = {
     paragraph: {
         ...pureMarkdownRules.paragraph,
         react: (node, output, state) => {
+            const content = output(node.content, state);
+
+            if (isContentGraphie(node)) {
+                return (
+                    <div className="deprecated-perseus-container">
+                        {content}
+                    </div>
+                );
+            }
+
             if (noParagraphForInlineWidget(node)) {
                 // Some widgets can appear inline with text, but
                 // shouldn't be contained by a <p> element, so just render the
                 // content and let the parent handle layout, etc.
-                return output(node.content, state);
-            } else {
-                return <p>{output(node.content, state)}</p>;
+                return content;
             }
+
+            return <p className="deprecated-perseus-container">{content}</p>;
         },
     },
 } as const;
@@ -295,6 +306,11 @@ const rules = {
 // and false otherwise. We need this so that lint nodes can figure out whether
 // they should behave as an inline wrapper or a block wrapper
 function isInline(node: any) {
+    // Match how WidgetContainer decides between <span> and <div>, so that
+    // lint on an inline widget doesn't push it onto its own line.
+    if (node?.type === "widget") {
+        return CoreWidgetRegistry.isInlineWidget(node.widgetType);
+    }
     // eslint-disable-next-line no-prototype-builtins
     return !!(node && node.type && inlineNodeTypes.hasOwnProperty(node.type));
 }

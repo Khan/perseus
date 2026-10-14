@@ -3,10 +3,7 @@ import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
-import {
-    testDependencies,
-    testDependenciesV2,
-} from "../../testing/test-dependencies";
+import {testDependencies} from "../../testing/test-dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {
@@ -14,7 +11,6 @@ import {
     groupSetRadioRationaleQuestion,
 } from "./graded-group-set.testdata";
 
-import type {PerseusDependenciesV2} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("graded group set widget", () => {
@@ -49,13 +45,12 @@ describe("graded group set widget", () => {
     it("should send analytics event when widget is rendered", () => {
         // Arrange
         const onAnalyticsEventSpy = jest.fn();
-        const depsV2: PerseusDependenciesV2 = {
-            ...testDependenciesV2,
+        const dependencies = {
             analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
         };
 
         // Act
-        renderQuestion(article1, undefined, undefined, undefined, depsV2);
+        renderQuestion(article1, {dependencies});
 
         // Assert
         expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
@@ -115,7 +110,7 @@ describe("graded group set widget", () => {
         await userEvent.click(screen.getByRole("button", {name: "Check"}));
 
         // Assert
-        expect(screen.getByRole("alert")).toHaveTextContent("Incorrect");
+        expect(screen.getByText("Keep trying")).toBeVisible();
         expect(
             screen.queryByRole("button", {name: "Next question"}),
         ).toBeNull();
@@ -135,6 +130,22 @@ describe("graded group set widget", () => {
 
         // Assert
         expect(screen.getByText("Problem 1b")).toBeVisible();
+    });
+
+    it("moves focus to the current pip after advancing with 'Next question'", async () => {
+        // Arrange
+        renderQuestion(article1);
+        await userEvent.type(screen.getByRole("textbox"), "0.9");
+        await userEvent.click(screen.getByRole("button", {name: "Check"}));
+        act(() => screen.getByRole("button", {name: "Next question"}).focus());
+
+        // Act
+        await userEvent.keyboard("{Enter}");
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Problem 1b", current: true}),
+        ).toHaveFocus();
     });
 
     it("should not allow advancing past the last group", async () => {
@@ -159,7 +170,7 @@ describe("graded group set widget", () => {
         await userEvent.click(screen.getByRole("button", {name: "Check"}));
 
         // Assert
-        expect(screen.getByRole("alert")).toHaveTextContent("Correct");
+        expect(screen.getByText("Correct!")).toBeVisible();
         expect(
             screen.queryByRole("button", {name: "Next question"}),
         ).not.toBeInTheDocument();
@@ -278,7 +289,7 @@ describe("graded group set widget", () => {
             name: "Explain",
         });
         explainButton.focus();
-        await userEvent.type(explainButton, "{enter}");
+        await userEvent.keyboard("{Enter}");
 
         // Assert
         expect(
@@ -316,7 +327,7 @@ describe("graded group set widget", () => {
             name: "Hide explanation",
         });
         hideExplanationButton.focus();
-        await userEvent.type(hideExplanationButton, "{enter}");
+        await userEvent.keyboard("{Enter}");
 
         // Assert
         expect(screen.getByRole("button", {name: "Explain"})).toBeVisible();
@@ -336,7 +347,7 @@ describe("graded group set widget", () => {
         await userEvent.click(screen.getByRole("button", {name: "Check"}));
 
         // Assert
-        expect(screen.getByRole("alert", {name: "Correct"})).toBeVisible();
+        expect(screen.getByText("Correct!")).toBeVisible();
         // Verify the rationale for the correct answer is shown
         expect(screen.getByText("This is the correct answer.")).toBeVisible();
     });
@@ -352,7 +363,7 @@ describe("graded group set widget", () => {
         await userEvent.click(screen.getByRole("button", {name: "Check"}));
 
         // Assert
-        expect(screen.getByRole("alert", {name: "Incorrect"})).toBeVisible();
+        expect(screen.getByText("Keep trying")).toBeVisible();
         // Verify that rationales are not shown
         expect(
             screen.queryByText("This is not the correct answer."),

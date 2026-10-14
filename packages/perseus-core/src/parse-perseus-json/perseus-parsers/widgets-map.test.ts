@@ -1,10 +1,11 @@
+// `import/no-restricted-paths` keeps the parsers self-contained: they may not
+// import from the rest of perseus-core. Tests can override that restriction,
+// while main files cannot — hence the disables on the imports below.
 import {
     generateDefinitionOptions,
     generateDefinitionWidget,
-    // Tests are fine to import, main files aren't
     // eslint-disable-next-line import/no-restricted-paths
 } from "../../utils/generators/definition-widget-generator";
-// Tests are fine to import, main files aren't
 // eslint-disable-next-line import/no-restricted-paths
 import {generateVideoWidget} from "../../utils/generators/video-widget-generator";
 import {anyFailure} from "../general-purpose-parsers/test-helpers";
@@ -13,7 +14,6 @@ import {failure, success} from "../result";
 
 import {parseWidgetsMap} from "./widgets-map";
 
-// Tests are fine to import, main files aren't
 // eslint-disable-next-line import/no-restricted-paths
 import type {PerseusWidgetsMap} from "../../data-schema";
 
@@ -105,6 +105,56 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
+    it("accepts a fill-in-the-blank widget", () => {
+        const widgetsMap: unknown = {
+            "fill-in-the-blank 1": {
+                type: "fill-in-the-blank",
+                version: {major: 0, minor: 0},
+                options: {
+                    content: "The [[☃ blank 1]] drum is a tall drum.",
+                    widgets: {
+                        "blank 1": {
+                            type: "blank",
+                            version: {major: 0, minor: 0},
+                            options: {
+                                displayType: "normal",
+                                correctId: "tile-1",
+                            },
+                        },
+                    },
+                    tiles: [{id: "tile-1", content: "djembe", label: "djembe"}],
+                    maxUsesPerTile: 1,
+                    randomize: false,
+                },
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(success(widgetsMap));
+    });
+
+    it("routes a fill-in-the-blank widget to its own parser", () => {
+        const widgetsMap: unknown = {
+            "fill-in-the-blank 1": {
+                type: "fill-in-the-blank",
+                version: {major: 0, minor: 0},
+                options: {
+                    content: "The [[☃ blank 1]] drum is a tall drum.",
+                    widgets: {},
+                    // The missing `label` is the only defect.
+                    tiles: [{id: "tile-1", content: "djembe"}],
+                    maxUsesPerTile: 1,
+                    randomize: false,
+                },
+            },
+        };
+
+        const result = parse(widgetsMap, parseWidgetsMap);
+
+        expect(result).toEqual(anyFailure);
+    });
+
     it("accepts a categorizer widget", () => {
         const widgetsMap: unknown = {
             "categorizer 1": {
@@ -147,6 +197,9 @@ describe("parseWidgetsMap", () => {
     it("accepts a definition widget", () => {
         const widgetsMap: PerseusWidgetsMap = {
             "definition 1": generateDefinitionWidget({
+                // Definitions take no user input, so the parser drops
+                // `static`. See widget.test.ts.
+                static: undefined,
                 options: generateDefinitionOptions({
                     togglePrompt: "",
                     definition: "",
@@ -537,7 +590,7 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
-    it("converts a molecule-renderer widget to the deprecated-standin widget", () => {
+    it("accepts a molecule-renderer widget", () => {
         const widgetsMap: unknown = {
             "molecule-renderer 1": {
                 type: "molecule-renderer",
@@ -548,19 +601,9 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const expected: PerseusWidgetsMap = {
-            "molecule-renderer 1": {
-                type: "deprecated-standin",
-                version: {major: 0, minor: 0},
-                options: {
-                    widgetId: "",
-                },
-            },
-        };
-
         const result = parse(widgetsMap, parseWidgetsMap);
 
-        expect(result).toEqual(success(expected));
+        expect(result).toEqual(success(widgetsMap));
     });
 
     it("accepts a number-line widget", () => {
@@ -627,7 +670,7 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
-    it("converts a passage widget to the deprecated-standin widget", () => {
+    it("accepts a passage widget", () => {
         const widgetsMap: unknown = {
             "passage 1": {
                 type: "passage",
@@ -641,25 +684,12 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const expected: PerseusWidgetsMap = {
-            "passage 1": {
-                type: "deprecated-standin",
-                version: {major: 0, minor: 0},
-                options: {
-                    footnotes: "",
-                    passageText: "",
-                    passageTitle: "",
-                    showLineNumbers: false,
-                },
-            },
-        };
-
         const result = parse(widgetsMap, parseWidgetsMap);
 
-        expect(result).toEqual(success(expected));
+        expect(result).toEqual(success(widgetsMap));
     });
 
-    it("converts a passage-ref widget to the deprecated-standin widget", () => {
+    it("accepts a passage-ref widget", () => {
         const widgetsMap: unknown = {
             "passage-ref 1": {
                 type: "passage-ref",
@@ -672,24 +702,12 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const expected: PerseusWidgetsMap = {
-            "passage-ref 1": {
-                type: "deprecated-standin",
-                version: {major: 0, minor: 0},
-                options: {
-                    passageNumber: 0,
-                    referenceNumber: 0,
-                    summaryText: "",
-                },
-            },
-        };
-
         const result = parse(widgetsMap, parseWidgetsMap);
 
-        expect(result).toEqual(success(expected));
+        expect(result).toEqual(success(widgetsMap));
     });
 
-    it("converts a passage-ref-target widget to the deprecated-standin widget", () => {
+    it("accepts a passage-ref-target widget", () => {
         const widgetsMap: unknown = {
             "passage-ref-target 1": {
                 type: "passage-ref-target",
@@ -698,17 +716,9 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const expected: PerseusWidgetsMap = {
-            "passage-ref-target 1": {
-                type: "deprecated-standin",
-                version: {major: 0, minor: 0},
-                options: {},
-            },
-        };
-
         const result = parse(widgetsMap, parseWidgetsMap);
 
-        expect(result).toEqual(success(expected));
+        expect(result).toEqual(success(widgetsMap));
     });
 
     it("accepts a phet-simulation widget", () => {
@@ -829,7 +839,9 @@ describe("parseWidgetsMap", () => {
 
     it("accepts a video widget", () => {
         const widgetsMap: unknown = {
-            "video 1": generateVideoWidget(),
+            // Videos take no user input, so the parser drops `static`.
+            // See widget.test.ts.
+            "video 1": generateVideoWidget({static: undefined}),
         };
 
         const result = parse(widgetsMap, parseWidgetsMap);
@@ -837,7 +849,7 @@ describe("parseWidgetsMap", () => {
         expect(result).toEqual(success(widgetsMap));
     });
 
-    it("converts a sequence widget to the deprecated-standin widget", () => {
+    it("accepts a sequence widget", () => {
         const widgetsMap: unknown = {
             "sequence 1": {
                 type: "sequence",
@@ -855,25 +867,8 @@ describe("parseWidgetsMap", () => {
             },
         };
 
-        const expected: PerseusWidgetsMap = {
-            "sequence 1": {
-                type: "deprecated-standin",
-                version: {major: 0, minor: 0},
-                graded: true,
-                options: {
-                    json: [
-                        {
-                            content: "",
-                            images: {},
-                            widgets: {},
-                        },
-                    ],
-                },
-            },
-        };
-
         const result = parse(widgetsMap, parseWidgetsMap);
 
-        expect(result).toEqual(success(expected));
+        expect(result).toEqual(success(widgetsMap));
     });
 });

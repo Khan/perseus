@@ -6,7 +6,8 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
+import WrappedServerItemRenderer from "../../../server-item-renderer";
+import {storybookDependenciesV2} from "../../../testing/test-dependencies";
 import {getWidget} from "../../../widgets";
 import {questionWithZoom} from "../image.testdata";
 
@@ -27,11 +28,12 @@ const meta: Meta<typeof ImageWidget> = {
             },
         },
     },
-    // Render a ServerItemRendererWithDebugUI, but allow the image widget
+    // Render a ServerItemRenderer, but allow the image widget
     // props to be passed in as args.
     decorators: [
         (_, {args}) => (
-            <ServerItemRendererWithDebugUI
+            <WrappedServerItemRenderer
+                dependencies={storybookDependenciesV2}
                 item={generateTestPerseusItem({
                     question: generateTestPerseusRenderer({
                         content: "[[☃ image 1]]",

@@ -5,6 +5,7 @@ import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
 import {forwardRef, useImperativeHandle, useRef, useState} from "react";
+import {flushSync} from "react-dom";
 import invariant from "tiny-invariant";
 
 import {getDependencies, useDependencies} from "../../dependencies";
@@ -24,6 +25,7 @@ type IndicatorsProps = {
     currentGroupIndex: number;
     gradedGroups: ReadonlyArray<PerseusGradedGroupWidgetOptions>;
     onChangeGroupIndex: (groupNumber: number) => void;
+    currentPipRef: React.Ref<HTMLButtonElement>;
 };
 
 function Indicators(props: IndicatorsProps) {
@@ -52,6 +54,7 @@ function Indicators(props: IndicatorsProps) {
                     // runtime, so index keys are stable.
                     <li className={css(styles.indicator)} key={i}>
                         <Clickable
+                            ref={isCurrent ? props.currentPipRef : undefined}
                             role="button"
                             aria-label={title}
                             aria-current={isCurrent}
@@ -83,6 +86,7 @@ const GradedGroupSet = forwardRef<Widget, Props>(
     function GradedGroupSet(props, ref) {
         const dependencies = useDependencies();
         const childGroup = useRef<GradedGroupHandle | null>(null);
+        const currentPipRef = useRef<HTMLButtonElement>(null);
 
         const [currentGroupIndex, setCurrentGroupIndex] = useState(0);
 
@@ -159,7 +163,10 @@ const GradedGroupSet = forwardRef<Widget, Props>(
         const atEnd = currentGroupIndex >= numGroups - 1;
         const handleNextQuestion = atEnd
             ? undefined
-            : () => setCurrentGroupIndex(currentGroupIndex + 1);
+            : () => {
+                  flushSync(() => setCurrentGroupIndex(currentGroupIndex + 1));
+                  currentPipRef.current?.focus();
+              };
 
         return (
             <div className={css(styles.container)}>
@@ -172,6 +179,7 @@ const GradedGroupSet = forwardRef<Widget, Props>(
                         currentGroupIndex={currentGroupIndex}
                         gradedGroups={gradedGroups}
                         onChangeGroupIndex={setCurrentGroupIndex}
+                        currentPipRef={currentPipRef}
                     />
                 </div>
                 <GradedGroup

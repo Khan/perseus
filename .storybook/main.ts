@@ -16,12 +16,14 @@ const cssWrapper = {
             if (!excludedCssFiles.some((file) => pathname.endsWith(file))) {
                 // Exclude any CSS file that already has a layer statement,
                 //    unless it is specifying a sub-layer.
+                // This runs on every CSS file, including the ~150KB
+                // inlined token sheet, so it must stay linear-time.
                 if (
                     !code.includes("@layer") ||
-                    /(?=.*@layer)(?=.*\bperseus-legacy\b)/s.test(code)
+                    /\bperseus-legacy\b/.test(code)
                 ) {
                     const layerStatements =
-                        "@layer reset, shared, legacy;\n@layer shared";
+                        "@layer reset, shared, shared.base, legacy;\n@layer shared";
                     return {
                         code: `${layerStatements} { ${code} }`,
                         map: null,
@@ -29,25 +31,6 @@ const cssWrapper = {
                 }
             }
         }
-    },
-};
-
-// Workaround for Storybook v10 + pnpm + Vite issue where the
-// MDX React shim is resolved as a file:// URL that Rollup can't
-// handle. Converts it to a regular path.
-// See: https://github.com/storybookjs/storybook/issues/21716 and
-// https://github.com/storybookjs/storybook/issues/33118
-const fixMdxReactShim = {
-    name: "fix-mdx-react-shim",
-    enforce: "pre" as const,
-    resolveId(source: string) {
-        if (
-            source.startsWith("file://") &&
-            source.includes("mdx-react-shim.js")
-        ) {
-            return new URL(source).pathname;
-        }
-        return null;
     },
 };
 
@@ -88,30 +71,9 @@ configureSort({
 });
 
 const config: StorybookConfig = {
-    // TODO(ivy): Simplify code below once improvements are done
-    // stories: ["../src/**/*.stories.@(ts|tsx|mdx)"]
     stories: [
-        // This is a special story that can render arbitrary Perseus
-        // content. It is hosted by the preview iframe in stories for
-        // the editors.
-        "../packages/perseus-editor/src/testing/preview.stories.tsx",
-
-        // This will be used for the main documentation pages
+        "../packages/*/src/**/*.@(stories.ts|stories.tsx|mdx)",
         "../__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
-
-        // Docs for Perseus editor. Widget editor stories are colocated with the
-        // editor they document; other stories still live in `__docs__`
-        // directories. This glob covers both.
-        "../packages/perseus-editor/src/**/*.@(stories.ts|stories.tsx|mdx)",
-
-        // Docs for Perseus widgets, components, and renderers
-        // Exclude notes directories (used for internal documentation (AI context), not stories)
-        "!../**/notes/**",
-        "../packages/perseus/src/**/__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
-        "../packages/perseus/src/widgets/**/**/*.@(stories.ts|stories.tsx|mdx)",
-
-        // Docs for Math Input
-        "../packages/math-input/src/**/*.stories.tsx",
     ],
     addons: [
         "@storybook/addon-a11y",
@@ -168,7 +130,7 @@ const config: StorybookConfig = {
                     return !file.endsWith(".svg");
                 },
             },
-            plugins: [fixMdxReactShim, cssWrapper],
+            plugins: [cssWrapper],
         });
     },
     staticDirs: [

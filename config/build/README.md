@@ -1,3 +1,13 @@
-# persus-build
+# perseus-build
 
-This is not a real package. It is used to ensure publishing bumps the version numbers in all of the actual packages if any of the build settings change. This is necessary since build settings can affect the built versions of the code which should result in a minor version bump even if the source for a particular package hasn't changed.
+This is not a real package. It ensures that publishing bumps every package's
+version when build settings change, because those changes can affect published
+output without changing package source code.
+
+## Package builds
+
+Perseus packages ship only ECMAScript modules (ESM). Rollup builds each
+package's public entry points together and saves the output in `dist/`, so entry
+points can share code.
+
+See `rollup.config.js` and `get-entry-points.js` for implementation details.

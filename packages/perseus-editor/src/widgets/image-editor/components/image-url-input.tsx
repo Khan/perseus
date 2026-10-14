@@ -5,7 +5,10 @@ import React from "react";
 
 import {wbFieldStylesWithDescription} from "../utils";
 
-import type {Props} from "../image-editor";
+import type {
+    PerseusImageBackground,
+    PerseusImageWidgetOptions,
+} from "@khanacademy/perseus-core";
 
 // Match any image URL (including "web+graphie" links) that is hosted by KA.
 // We're somewhat generous in our AWS URL matching
@@ -21,6 +24,11 @@ const INTERNALLY_HOSTED_DOMAINS =
 const INTERNALLY_HOSTED_URL_RE = new RegExp(
     "^(https?|web\\+graphie)://[^/]*" + INTERNALLY_HOSTED_DOMAINS,
 );
+
+interface Props {
+    backgroundImage: PerseusImageBackground;
+    onChange: (changes: Partial<PerseusImageWidgetOptions>) => void;
+}
 
 export default function ImageUrlInput({backgroundImage, onChange}: Props) {
     const uniqueId = React.useId();

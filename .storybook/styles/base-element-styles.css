@@ -1,4 +1,4 @@
-@layer shared {
+@layer shared.base {
     /* This will mimic the production base element styles. */
     article {
         padding: 0 var(--wb-sizing-size_200);

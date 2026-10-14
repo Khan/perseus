@@ -27,61 +27,11 @@
  * These are css class names that will continue to preserve their
  * semantic meaning across the same perseus api major version.
  */
-import PropTypes from "prop-types";
 import * as React from "react";
 
 import type {APIOptionsWithDefaults} from "./types";
 
 export const ApiOptions = {
-    propTypes: PropTypes.shape({
-        isArticle: PropTypes.bool.isRequired,
-
-        onFocusChange: PropTypes.func.isRequired,
-        showAlignmentOptions: PropTypes.bool.isRequired,
-        readOnly: PropTypes.bool.isRequired,
-
-        answerableCallback: PropTypes.func,
-        getAnotherHint: PropTypes.func,
-        interactionCallback: PropTypes.func,
-
-        // If imagePlaceholder or widgetPlaceholder are set, perseus will
-        // render the placeholder instead of the image or widget node.
-        imagePlaceholder: PropTypes.node,
-        widgetPlaceholder: PropTypes.node,
-
-        // Base React elements that can be used in place of the standard DOM
-        // DOM elements. For example, when provided, <Link /> will be used
-        // in place of <a />. This allows clients to provide pre-styled
-        // components or components with custom behavior.
-        baseElements: PropTypes.shape({
-            // The <Link /> component provided here must adhere to the same
-            // interface as React's base <a /> component.
-            Link: PropTypes.func,
-        }),
-
-        // Function that takes an object argument. The object should
-        // include type and id, both strings, at least and can optionally
-        // include a boolean "correct" value. This is used for keeping
-        // track of widget interactions.
-        trackInteraction: PropTypes.func,
-
-        // A boolean that indicates whether or not a custom keypad is
-        // being used.  For mobile web this will be the ProvidedKeypad
-        // component.  In this situation we use the MathInput component
-        // from the math-input repo instead of the existing perseus math
-        // input components.
-        customKeypad: PropTypes.bool,
-
-        // Indicates whether or not to use mobile styling.
-        isMobile: PropTypes.bool,
-
-        // Indicates whether or not to use mobile app styling.
-        isMobileApp: PropTypes.bool,
-
-        // The color used for the hint progress indicator (eg. 1 / 3)
-        hintProgressColor: PropTypes.string,
-    }).isRequired,
-
     // eslint-disable-next-line no-restricted-syntax
     defaults: {
         isArticle: false,

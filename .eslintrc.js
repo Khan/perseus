@@ -3,9 +3,11 @@
 const fs = require("fs");
 const path = require("path");
 
-const pkgNames = fs
-    .readdirSync(path.join(__dirname, "packages"))
-    .filter((name) => name !== ".DS_Store");
+const fg = require("fast-glob");
+
+const pkgNames = fg
+    .globSync(path.join(__dirname, "packages/*/package.json"))
+    .map((pkgJsonPath) => path.basename(path.dirname(pkgJsonPath)));
 
 const pkgAliases = pkgNames.map((pkgName) => {
     return [`@khanacademy/${pkgName}`, `./packages/${pkgName}/src/index.js`];
@@ -46,6 +48,84 @@ function banImportExtension(extension) {
     ];
 }
 
+/**
+ * Import restrictions shared by the base config and the per-package
+ * overrides below. An override *replaces* `no-restricted-imports` rather
+ * than merging with it, so anything adding restrictions must carry these.
+ */
+const restrictedImportPaths = [
+    /** Wonder Blocks Restricted Imports */
+    {
+        name: "@khanacademy/wonder-blocks-tokens",
+        importNames: ["color"],
+        message:
+            "Please use semanticColor instead. See https://khanacademy.atlassian.net/wiki/spaces/WB/pages/4049666283/Core or https://khan.github.io/wonder-blocks/?path=/docs/foundations-using-color--docs&globals=theme:thunderblocks",
+    },
+    {
+        name: "@khanacademy/wonder-blocks-tabs",
+        importNames: ["NavigationTabs", "Tabs"],
+        message:
+            "Use WB ResponsiveNavigationTabs or ResponsiveTabs for responsive behaviour. They render NavigationTabs or Tabs by default and switch to a dropdown when space is limited - test both layouts. See https://khan.github.io/wonder-blocks/?path=/docs/packages-tabs-overview--docs. \n\nIf responsiveness isn't needed, ignore this rule for that import.",
+    },
+    {
+        name: "@khanacademy/wonder-blocks-typography",
+        importNames: [
+            "Title",
+            "HeadingLarge",
+            "HeadingMedium",
+            "HeadingSmall",
+            "HeadingXSmall",
+            "Tagline",
+        ],
+        message:
+            "Please use the WB Heading component instead. See https://khan.github.io/wonder-blocks/?path=/docs/packages-typography-heading-new--docs",
+    },
+    {
+        name: "@khanacademy/wonder-blocks-typography",
+        importNames: [
+            "Body",
+            "LabelLarge",
+            "LabelMedium",
+            "LabelSmall",
+            "LabelXSmall",
+            "Caption",
+            "Footnote",
+        ],
+        message:
+            "Please use the WB BodyText component instead. See https://khan.github.io/wonder-blocks/?path=/docs/packages-typography-bodytext-new--docs",
+    },
+];
+
+/**
+ * Forbid a package from importing itself by name.
+ *
+ * A self-import resolves through the package's own `exports` map, so Rollup
+ * treats it as a second entry into the package and inlines another copy of
+ * whatever it pulls in. Nothing errors, so the duplication is invisible — and
+ * for a module holding state (a registry, a singleton) the two copies diverge.
+ */
+const noSelfPackageImports = pkgNames.map((pkgName) => ({
+    files: [`packages/${pkgName}/**`],
+    rules: {
+        "no-restricted-imports": [
+            "error",
+            {
+                paths: restrictedImportPaths,
+                patterns: [
+                    {
+                        group: [
+                            `@khanacademy/${pkgName}`,
+                            `@khanacademy/${pkgName}/*`,
+                        ],
+                        message:
+                            "Reach this package's own modules by relative path.",
+                    },
+                ],
+            },
+        ],
+    },
+}));
+
 module.exports = {
     extends: [
         "@khanacademy",
@@ -60,7 +140,6 @@ module.exports = {
     ],
     parser: "@typescript-eslint/parser",
     plugins: [
-        "cypress",
         "disable",
         "import",
         "jest",
@@ -107,7 +186,6 @@ module.exports = {
         },
     },
     env: {
-        "cypress/globals": true,
         "jest/globals": false,
         node: true,
         browser: true,
@@ -126,6 +204,7 @@ module.exports = {
         SpreadType: false,
     },
     overrides: [
+        ...noSelfPackageImports,
         {
             files: [
                 "*.cypress.tsx",
@@ -145,6 +224,22 @@ module.exports = {
                 "max-lines": "off",
                 "import/no-extraneous-dependencies": "off",
                 "import/no-relative-packages": "off",
+            },
+        },
+        {
+            files: [
+                "*.cypress.ts",
+                "*.cypress.tsx",
+                "config/cypress/support.ts",
+                "packages/perseus/src/testing/render-question-with-cypress.tsx",
+            ],
+            extends: ["plugin:cypress/recommended"],
+            rules: {
+                "cypress/assertion-before-screenshot": "error",
+                "cypress/no-async-before": "error",
+                "cypress/no-debug": "error",
+                "cypress/no-force": "error",
+                "cypress/no-pause": "error",
             },
         },
         {
@@ -209,7 +304,7 @@ module.exports = {
             files: ["*.ts", "*.tsx"],
             parser: "@typescript-eslint/parser",
             parserOptions: {
-                project: ["tsconfig.json"],
+                project: ["tsconfig.json", "config/cypress/tsconfig.json"],
             },
             rules: {
                 "@typescript-eslint/strict-boolean-expressions": [
@@ -223,7 +318,7 @@ module.exports = {
                     },
                 ],
             },
-            excludedFiles: ["*.d.ts", "*.config.ts", "**/*.cypress.ts"],
+            excludedFiles: ["*.d.ts"],
         },
     ],
     reportUnusedDisableDirectives: true,
@@ -384,48 +479,7 @@ module.exports = {
         "no-restricted-imports": [
             "error",
             {
-                paths: [
-                    /** Wonder Blocks Restricted Imports */
-                    {
-                        name: "@khanacademy/wonder-blocks-tokens",
-                        importNames: ["color"],
-                        message:
-                            "Please use semanticColor instead. See https://khanacademy.atlassian.net/wiki/spaces/WB/pages/4049666283/Core or https://khan.github.io/wonder-blocks/?path=/docs/foundations-using-color--docs&globals=theme:thunderblocks",
-                    },
-                    {
-                        name: "@khanacademy/wonder-blocks-tabs",
-                        importNames: ["NavigationTabs", "Tabs"],
-                        message:
-                            "Use WB ResponsiveNavigationTabs or ResponsiveTabs for responsive behaviour. They render NavigationTabs or Tabs by default and switch to a dropdown when space is limited - test both layouts. See https://khan.github.io/wonder-blocks/?path=/docs/packages-tabs-overview--docs. \n\nIf responsiveness isn't needed, ignore this rule for that import.",
-                    },
-                    {
-                        name: "@khanacademy/wonder-blocks-typography",
-                        importNames: [
-                            "Title",
-                            "HeadingLarge",
-                            "HeadingMedium",
-                            "HeadingSmall",
-                            "HeadingXSmall",
-                            "Tagline",
-                        ],
-                        message:
-                            "Please use the WB Heading component instead. See https://khan.github.io/wonder-blocks/?path=/docs/packages-typography-heading-new--docs",
-                    },
-                    {
-                        name: "@khanacademy/wonder-blocks-typography",
-                        importNames: [
-                            "Body",
-                            "LabelLarge",
-                            "LabelMedium",
-                            "LabelSmall",
-                            "LabelXSmall",
-                            "Caption",
-                            "Footnote",
-                        ],
-                        message:
-                            "Please use the WB BodyText component instead. See https://khan.github.io/wonder-blocks/?path=/docs/packages-typography-bodytext-new--docs",
-                    },
-                ],
+                paths: restrictedImportPaths,
             },
         ],
 

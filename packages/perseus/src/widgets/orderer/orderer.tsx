@@ -10,6 +10,7 @@ import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
 
 import type {
+    APIOptions,
     PerseusDependenciesV2,
     Widget,
     WidgetExports,
@@ -65,6 +66,7 @@ type Position = {
 };
 
 type CardProps = {
+    apiOptions: APIOptions;
     content: string;
     fakeRef?: string;
     mouse?: Position;
@@ -292,6 +294,7 @@ class Card extends React.Component<CardProps, CardState> {
                         {...rendererProps}
                         linterContext={this.props.linterContext}
                         strings={this.context.strings}
+                        apiOptions={this.props.apiOptions}
                     />
                 </div>
             </div>
@@ -586,11 +589,22 @@ class Orderer
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState(): any {
-        const {userInput, options, ...rest} = this.props;
+        const {alignment, options, userInput} = this.props;
         return {
-            ...options,
-            ...rest,
+            alignment,
+            static: this.props.static,
+            options: options.options,
             current: userInput.current.map((e) => ({content: e})),
+            height: options.height,
+            layout: options.layout,
+
+            // props use answerless types, but this can serialize answerful too
+            otherOptions:
+                "otherOptions" in options ? options.otherOptions : undefined,
+            correctOptions:
+                "correctOptions" in options
+                    ? options.correctOptions
+                    : undefined,
         };
     }
 
@@ -599,6 +613,7 @@ class Orderer
         const dragging = this.state.dragging && (
             <Card
                 ref="dragging"
+                apiOptions={this.props.apiOptions}
                 floating={true}
                 content={this.state.dragContent}
                 startOffset={this.state.offsetPos}
@@ -616,6 +631,7 @@ class Orderer
         // This is the card that is currently animating
         const animating = this.state.animating && (
             <Card
+                apiOptions={this.props.apiOptions}
                 floating={true}
                 animating={true}
                 content={this.state.dragContent}
@@ -634,6 +650,7 @@ class Orderer
                 <Card
                     key={`sortableCard${i}`}
                     ref={"sortable" + i}
+                    apiOptions={this.props.apiOptions}
                     fakeRef={"sortable" + i}
                     floating={false}
                     content={opt}
@@ -678,6 +695,7 @@ class Orderer
                     return (
                         <Card
                             ref={"bank" + i}
+                            apiOptions={this.props.apiOptions}
                             floating={false}
                             content={opt.content}
                             stack={true}

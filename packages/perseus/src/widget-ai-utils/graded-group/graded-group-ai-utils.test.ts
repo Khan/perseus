@@ -190,48 +190,17 @@ describe("GradedGroup AI utils", () => {
             },
         });
     });
-    it("should get prompt json which matches the state of the UI when the hint is collapsed", async () => {
+    it("returns the same prompt json whether the hint is collapsed or expanded", async () => {
         // Arrange
         const {renderer} = renderQuestion(question);
+        const collapsedJSON = renderer.getPromptJSON();
 
         // Act
-        const json = renderer.getPromptJSON();
+        await userEvent.click(screen.getByRole("button", {name: "Explain"}));
+        act(() => jest.runOnlyPendingTimers());
 
         // Assert
-        expect(json).toEqual({
-            content:
-                "---\n\n##Check your understanding!\n\n[[☃ graded-group 1]]\n\n",
-            widgets: {
-                "graded-group 1": {
-                    type: "graded-group",
-                    title: "Metabolic strategies of bacteria",
-                    content:
-                        "1. **Which of the following statements about metabolic strategies of bacteria are true?**\n\n [[☃ categorizer 1]]",
-                    widgets: {
-                        "categorizer 1": {
-                            type: "categorizer",
-                            options: {
-                                items: [
-                                    "Some bacteria conduct photosynthesis and produce oxygen, much like plants.",
-                                    "Bacteria are always autotrophic but they may get energy from either light or chemical sources.",
-                                    "Some chemosynthetic bacteria introduce energy and fixed carbon into communities where photosynthesis is not possible (e.g., deep-sea vents).",
-                                    "Some bacteria live symbiotically inside of host organisms and provide the host with nutrients.",
-                                ],
-                                categories: ["True", "False"],
-                            },
-                            userInput: {
-                                itemToCategoryMapping: [],
-                            },
-                        },
-                    },
-                    hint: {
-                        content:
-                            "Some bacteria synthesize their own fuel molecules/fix their own carbon (autotrophic), while others take in fixed carbon from their environments (heterotrophic).\n\nSome autotrophs use light energy to synthesize their own fuel molecules, while others extract energy from chemical sources.\n\nBacteria that extract energy from chemical sources and use it to fix carbon are called chemosynthetic organisms.  These bacteria may be essential to communities where light is not available, like those around deep-sea vents. They can form the base of the food chain (act as primary producers) in these ecosystems.\n\nSome bacteria have symbiotic (mutually beneficial) relationships with other organisms, living inside these organisms and providing them with nutrients.\n\n**The following statements about the metabolic strategies of bacteria are true:**\n\n[[☃ categorizer 1]]",
-                        widgets: {},
-                    },
-                },
-            },
-        });
+        expect(renderer.getPromptJSON()).toEqual(collapsedJSON);
     });
 
     it("should get prompt json which matches the state of the UI when the hint is expanded", async () => {

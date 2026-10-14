@@ -538,12 +538,13 @@ class Grapher extends React.Component<Props> implements Widget {
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState() {
-        const {userInput, options, ...rest} = this.props;
-        const {correct, ...optionsRest} = options;
+        const {alignment, options, userInput} = this.props;
         return {
-            ...optionsRest,
-            ...rest,
-            plot: this.props.userInput,
+            static: this.props.static,
+            alignment,
+            availableTypes: options.availableTypes,
+            graph: options.graph,
+            plot: userInput,
         };
     }
 

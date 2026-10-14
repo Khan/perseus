@@ -45,6 +45,7 @@ const sharedArgs = {
                 choices: [
                     {content: "Correct answer", correct: true},
                     {content: "Incorrect answer", correct: false},
+                    {content: "Another incorrect answer", correct: false},
                 ],
             }),
         }),

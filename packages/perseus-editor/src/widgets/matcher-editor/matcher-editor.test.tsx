@@ -39,7 +39,9 @@ describe("matcher-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toHaveBeenCalledWith({orderMatters: true});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({orderMatters: true}),
+        );
     });
 
     it("should be possible to change padding", async () => {
@@ -49,7 +51,9 @@ describe("matcher-editor", () => {
 
         await userEvent.click(screen.getByRole("checkbox", {name: "Padding:"}));
 
-        expect(onChangeMock).toHaveBeenCalledWith({padding: false});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({padding: false}),
+        );
     });
 
     it("renders an input for each card and label", () => {
@@ -93,7 +97,9 @@ describe("matcher-editor", () => {
         await userEvent.type(leftCard, "Emu");
 
         // Assert
-        expect(onChangeMock).toHaveBeenLastCalledWith({left: ["Cat", "Emu"]});
+        expect(onChangeMock).toHaveBeenLastCalledWith(
+            expect.objectContaining({left: ["Cat", "Emu"]}),
+        );
     });
 
     it("calls onChange with the updated cards when a right card is edited", async () => {
@@ -115,9 +121,11 @@ describe("matcher-editor", () => {
         await userEvent.type(rightCard, "Purr");
 
         // Assert
-        expect(onChangeMock).toHaveBeenLastCalledWith({
-            right: ["Meow", "Purr"],
-        });
+        expect(onChangeMock).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                right: ["Meow", "Purr"],
+            }),
+        );
     });
 
     it("calls onChange with the updated labels when the first label is edited", async () => {
@@ -136,9 +144,11 @@ describe("matcher-editor", () => {
         await userEvent.type(firstLabel, "Beast");
 
         // Assert
-        expect(onChangeMock).toHaveBeenLastCalledWith({
-            labels: ["Beast", "Sound"],
-        });
+        expect(onChangeMock).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                labels: ["Beast", "Sound"],
+            }),
+        );
     });
 
     it("calls onChange with the updated labels when the second label is edited", async () => {
@@ -157,9 +167,11 @@ describe("matcher-editor", () => {
         await userEvent.type(secondLabel, "Noise");
 
         // Assert
-        expect(onChangeMock).toHaveBeenLastCalledWith({
-            labels: ["Animal", "Noise"],
-        });
+        expect(onChangeMock).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                labels: ["Animal", "Noise"],
+            }),
+        );
     });
 
     it("serializes the cards, labels, and options", () => {

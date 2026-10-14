@@ -356,8 +356,6 @@ interface UserInputRegistry {
     table: PerseusTableUserInput;
 }
 
-//    | PerseusMockWidgetUserInput
-
 /** A union type of all the widget user input types */
 export type UserInput = UserInputRegistry[keyof UserInputRegistry];
 

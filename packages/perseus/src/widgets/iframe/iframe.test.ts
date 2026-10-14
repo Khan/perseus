@@ -23,7 +23,7 @@ describe("iframe widget", () => {
         };
 
         // Act
-        const {container} = renderQuestion(question1, apiOptions);
+        const {container} = renderQuestion(question1, {apiOptions});
 
         // Assert
         expect(container).toMatchSnapshot("first render");
@@ -36,7 +36,7 @@ describe("iframe widget", () => {
         };
 
         // Act
-        const {container} = renderQuestion(question1, apiOptions);
+        const {container} = renderQuestion(question1, {apiOptions});
 
         // Assert
         expect(container).toMatchSnapshot("first mobile render");

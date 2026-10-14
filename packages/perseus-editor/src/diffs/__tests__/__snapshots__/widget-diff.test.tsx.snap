@@ -13,7 +13,7 @@ exports[`WidgetDiff renders a widget in the diff view 1`] = `
     Radio
   </div>
   <div
-    class="diff-body ui-helper-clearfix"
+    class="diff-body"
   >
     <div>
       <div>
@@ -344,7 +344,7 @@ exports[`WidgetDiff renders with both 'before' and 'after' undefined 1`] = `
     Radio
   </div>
   <div
-    class="diff-body ui-helper-clearfix"
+    class="diff-body"
   >
     <div />
   </div>
@@ -364,7 +364,7 @@ exports[`WidgetDiff renders with missing 'after' props 1`] = `
     Radio
   </div>
   <div
-    class="diff-body ui-helper-clearfix"
+    class="diff-body"
   >
     <div>
       <div>
@@ -902,7 +902,7 @@ exports[`WidgetDiff renders with missing 'before' props 1`] = `
     Radio
   </div>
   <div
-    class="diff-body ui-helper-clearfix"
+    class="diff-body"
   >
     <div>
       <div>

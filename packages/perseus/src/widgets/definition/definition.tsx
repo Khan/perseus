@@ -52,11 +52,13 @@ const Definition = forwardRef<Widget, Props>(function Definition(props, ref) {
                             style={stylesLegacy.tooltipBody}
                             closeButtonVisible={true}
                         >
-                            <Renderer
-                                apiOptions={props.apiOptions}
-                                content={props.options.definition}
-                                strings={strings}
-                            />
+                            <div className="perseus-in-wb-popover">
+                                <Renderer
+                                    apiOptions={props.apiOptions}
+                                    content={props.options.definition}
+                                    strings={strings}
+                                />
+                            </div>
                         </PopoverContentCore>
                     }
                     opened={activeDefinitionId === props.widgetId}

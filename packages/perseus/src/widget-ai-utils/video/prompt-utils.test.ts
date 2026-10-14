@@ -35,7 +35,9 @@ describe("Video AI utils", () => {
 
     it("should get prompt json which matches the state of the UI", async () => {
         // Arrange
-        const {renderer} = renderQuestion(question, {isMobile: false});
+        const {renderer} = renderQuestion(question, {
+            apiOptions: {isMobile: false},
+        });
         const widget = renderer.getWidgetInstance("video 1");
 
         // Act

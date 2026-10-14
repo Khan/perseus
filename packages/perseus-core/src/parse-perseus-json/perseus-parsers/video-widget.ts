@@ -7,4 +7,6 @@ export const parseVideoWidget = parseWidget(
     object({
         location: string,
     }),
+    // Videos take no user input, so `static` has no answer to reveal.
+    {supportsStatic: false},
 );

@@ -122,6 +122,8 @@ class NumberInput extends React.Component<any, any> {
         this._handleBlur();
     };
 
+    // TODO(benchristel): setSelectionRange appears to be unused. Confirm and
+    //  delete.
     setSelectionRange: (arg1: number, arg2: number) => void = (
         selectionStart,
         selectionEnd,
@@ -129,10 +131,14 @@ class NumberInput extends React.Component<any, any> {
         this._getInput().setSelectionRange(selectionStart, selectionEnd);
     };
 
+    // TODO(benchristel): getSelectionStart appears to be unused. Confirm and
+    //  delete.
     getSelectionStart: () => number | null = () => {
         return this._getInput().selectionStart;
     };
 
+    // TODO(benchristel): getSelectionEnd appears to be unused. Confirm and
+    //  delete.
     getSelectionEnd: () => number | null = () => {
         return this._getInput().selectionEnd;
     };

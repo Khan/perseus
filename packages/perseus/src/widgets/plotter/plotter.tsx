@@ -972,7 +972,12 @@ class Plotter extends React.Component<Props, State> implements Widget {
                 c.picBoxHeight,
             );
             $(mouseRect[0])
-                .css({fill: "#000", opacity: 0.0, cursor: "pointer"})
+                .css({
+                    // `fill` must be set for clicks to register.
+                    fill: "transparent",
+                    opacity: 0.0,
+                    cursor: "pointer",
+                })
                 .on("vmousedown", function (e) {
                     e.preventDefault();
                     // @ts-expect-error - TS2339 - Property 'whichPicClicked' does not exist on type 'Plotter'.
@@ -1112,11 +1117,26 @@ class Plotter extends React.Component<Props, State> implements Widget {
      * [LEMS-3185] do not trust serializedState
      */
     getSerializedState() {
-        const {userInput, options, ...rest} = this.props;
+        const {alignment, options, userInput} = this.props;
         return {
-            ...options,
-            ...rest,
-            values: this.props.userInput,
+            alignment,
+            static: this.props.static,
+            scaleY: options.scaleY,
+            maxY: options.maxY,
+            snapsPerLine: options.snapsPerLine,
+            starting: options.starting,
+            type: options.type,
+            labels: options.labels,
+            categories: options.categories,
+            picSize: options.picSize,
+            picBoxHeight: options.picBoxHeight,
+            plotDimensions: options.plotDimensions,
+            labelInterval: options.labelInterval,
+            picUrl: options.picUrl,
+            values: userInput,
+
+            // props use answerless types, but this can serialize answerful too
+            correct: "correct" in options ? options.correct : undefined,
         };
     }
 

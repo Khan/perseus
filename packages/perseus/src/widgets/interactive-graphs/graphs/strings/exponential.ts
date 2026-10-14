@@ -6,9 +6,9 @@ import {getCustomPointLabel} from "../components/build-point-aria-label";
 import {srFormatNumber} from "./format-number";
 
 import type {I18nContextType} from "../../../../components/i18n-context";
+import type {PerseusStrings} from "../../../../strings";
 import type {ExponentialGraphState} from "../../types";
 import type {ExponentialCoefficient} from "@khanacademy/kmath";
-import type {PerseusStrings} from "@khanacademy/perseus/strings";
 
 const {getExponentialCoefficients} = coefficients;
 

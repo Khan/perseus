@@ -16,7 +16,7 @@ export type ImageProps = {
     title?: string;
     ["aria-hidden"]?: boolean;
     tabIndex?: number;
-    style?: Dimensions;
+    style?: Partial<Dimensions>;
 };
 
 type Props = {

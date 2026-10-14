@@ -68,6 +68,7 @@ type Props = {
      * - `always` means that the keypad **appears on toggle, *on* by default.**
      * - `never` means that the keypad is **never shown**.
      */
+    // TODO(LEMS-4612): buttonsVisible is never passed in prod. Remove it.
     buttonsVisible?: ButtonsVisibleType;
     onAnalyticsEvent: AnalyticsEventHandlerFn;
 };

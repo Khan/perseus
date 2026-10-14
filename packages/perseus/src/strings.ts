@@ -93,6 +93,7 @@ export type PerseusStrings = {
     chooseNumAnswers: ({numCorrect}: {numCorrect: string}) => string;
     chooseAllAnswers: string;
     chooseOneAnswer: string;
+    required: string;
     choiceCheckedCorrect: ({letter}: {letter: string}) => string;
     choiceCorrect: ({letter}: {letter: string}) => string;
     choiceCheckedIncorrect: ({letter}: {letter: string}) => string;
@@ -1038,6 +1039,7 @@ export const strings = {
     chooseNumAnswers: "Choose %(numCorrect)s answers:",
     chooseAllAnswers: "Choose all answers that apply:",
     chooseOneAnswer: "Choose 1 answer:",
+    required: "Required",
     choiceCheckedCorrect: "(Choice %(letter)s, Checked, Correct)",
     choiceCorrect: "(Choice %(letter)s, Correct)",
     choiceCheckedIncorrect: "(Choice %(letter)s, Checked, Incorrect)",
@@ -1981,6 +1983,7 @@ export const mockStrings: PerseusStrings = {
     chooseNumAnswers: ({numCorrect}) => `Choose ${numCorrect} answers:`,
     chooseAllAnswers: "Choose all answers that apply:",
     chooseOneAnswer: "Choose 1 answer:",
+    required: "Required",
     choiceCheckedCorrect: ({letter}) => `(Choice ${letter}, Checked, Correct)`,
     choiceCorrect: ({letter}) => `(Choice ${letter}, Correct)`,
     choiceCheckedIncorrect: ({letter}) =>

@@ -373,6 +373,7 @@ export class ServerItemRenderer
                                     );
                                 }}
                                 initializeUserInput={initializeUserInput}
+                                isScorable
                             />
                         );
                     }}
