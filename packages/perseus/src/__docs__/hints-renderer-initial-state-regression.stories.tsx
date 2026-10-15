@@ -20,7 +20,6 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import React from "react";
 
 import {themeModes} from "../../../../.storybook/modes";
-import HintsRenderer from "../hints-renderer";
 import {ApiOptions} from "../perseus-api";
 import {storybookDependenciesV2} from "../testing/test-dependencies";
 import {mobileDecorator} from "../widgets/__testutils__/story-decorators";
@@ -28,14 +27,15 @@ import {ipsumExample} from "../widgets/explanation/explanation.testdata";
 import {earthMoonImage} from "../widgets/image/utils";
 
 import {bibliotronExerciseDecorator} from "./hints-renderer-decorator";
+import {HintsRendererForStories} from "./hints-renderer-for-stories";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const defaultApiOptions = ApiOptions.defaults;
 
-const meta: Meta<typeof HintsRenderer> = {
+const meta: Meta<typeof HintsRendererForStories> = {
     title: "Renderers/Hints Renderer/Visual Regression Tests/Initial State",
-    component: HintsRenderer,
+    component: HintsRendererForStories,
     tags: ["!autodocs", "!manifest"],
     decorators: [
         (Story) => {
@@ -61,7 +61,7 @@ const meta: Meta<typeof HintsRenderer> = {
 
 export default meta;
 
-type Story = StoryObj<typeof HintsRenderer>;
+type Story = StoryObj<typeof HintsRendererForStories>;
 
 const desktopDecorators = [bibliotronExerciseDecorator];
 const mobileDecorators = [mobileDecorator, ...desktopDecorators];
