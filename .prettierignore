@@ -29,6 +29,7 @@
 LICENSE
 pnpm-lock.yaml
 pnpm-workspace.yaml
+.github/workflows/*.lock.yml
 
 # Agent settings - most of which are generated
 .claude/

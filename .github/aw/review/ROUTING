@@ -1,0 +1,172 @@
+# Machine-readable routing for the PR-reviewer workflow. Parsed deterministically by
+# the shared router (Khan/actions workflows/review/lib; format spec in that repo's
+# workflows/review/README.md). One rule per line:
+#   <pattern> [lens=<lens>,...] [tier=trivial|low|medium|high] [direction-dependent]
+# Later tier rules override earlier ones (gitignore-style; last match wins); lenses
+# union across matching rules. This file complements risk-classification.md (the
+# model-facing prose). A pattern with no `/` matches its basename in ANY directory;
+# a leading `/` anchors to the repo root.
+
+# Enabled opt-in whole-change reviewers. This mirrors Khan/webapp's eval-justified
+# roster minus `documentation`, which webapp enables only to feed its autofix
+# workflow (perseus has no autofix, so its label would have no consumer here).
+enable holistic,completeness,test-adequacy,first-principles,conventions
+
+# Re-review depth: repeat rounds run the whole roster but stage only over hunks
+# that are new since the last reviewed fingerprint (divergence tripwire re-arms a
+# full round). Perseus PRs commonly get several review-response pushes; full-depth
+# every push would re-review unchanged code each time.
+re-review scoped
+
+# COVERAGE: every tracked file must match an explicit `tier=` rule; nothing may
+# fall to the router's silent default. Each top-level directory and root file has
+# a rule in the two blocks below, and anything more specific overrides it later.
+# A new top-level path needs a line here. To list files that match no rule, run
+# from a Khan/actions checkout at the pinned tag:
+#   git -C <perseus> ls-files | npx -y tsx workflows/review/lib/check-consumer-config.ts \
+#       --repo <perseus> --files-from - --strict
+
+# Broad defaults first; exceptions re-raise below (last match wins).
+packages/**                          tier=medium
+# utils/ holds the scripts CI runs to gate PRs and publish to npm, so not low.
+utils/**                             tier=medium
+config/**                            tier=low
+.storybook/**                        tier=low
+.changeset/**                        tier=low
+static/**                            tier=low
+types/**                             tier=low
+# Local analysis scripts over a sample question corpus; not shipped.
+data/**                              tier=low
+docs/**                              tier=trivial
+**/*.md                              tier=trivial
+# Sample question corpus for the local analysis scripts in data/; not shipped.
+data/questions/                      tier=trivial
+# Changeset entries re-raised over **/*.md: the semver bump level decides what ships
+# to consumers, and CI only checks that an entry exists.
+.changeset/*.md                      tier=low
+
+# Build and CI-gate config. Medium for the same reason as utils/: a mistake here
+# changes what ships or waves a bad PR through, without failing anything.
+# Rollup config that builds every published bundle (`publish:ci` runs `pnpm build`).
+config/build/**                      tier=medium
+# Jest setup and matchers every test run loads.
+config/test/**                       tier=medium
+# Builds the published .d.ts files (`build:types`, also run by `publish:ci`).
+/tsconfig-build.json                 tier=medium
+/tsconfig.json                       tier=medium
+/tsconfig-common.json                tier=medium
+/jest.config.js                      tier=medium
+/jest-css-modules-transform-config.js tier=medium
+/.swcrc                              tier=medium
+/.eslintrc.js                        tier=medium
+/.eslintignore                       tier=medium
+/knip.config.ts                      tier=medium
+/tstyche.json                        tier=medium
+
+# Local-only tooling and repo metadata: nothing CI gates on or that ships.
+/.editorconfig                       tier=low
+/.gitignore                          tier=low
+/.prettierignore                     tier=low
+/.prettierrc.js                      tier=low
+/.rgignore                           tier=low
+/.nycrc.json                         tier=low
+/wallaby.js                          tier=low
+/cypress.config.ts                   tier=low
+/vite.config.ts                      tier=low
+/typedoc.config.cjs                  tier=low
+/LICENSE                             tier=low
+/.github/NOTIFIED                    tier=low
+/logo.png                            tier=trivial
+/sample.png                          tier=trivial
+
+# Config that runs code on a contributor's machine. The dev container pulls its
+# image and runs postCreateCommand when the repo is opened in a container or
+# Codespace. VS Code workspace tasks can auto-run on folder open. fixie runs its
+# `verify`/`fix` commands.
+/.devcontainer/**                    lens=security-auth tier=high
+/.vscode/**                          lens=security-auth tier=medium
+/.fixie/**                           lens=security-auth tier=medium
+# Decides which dependency PRs open automatically and can add registries.
+/.github/dependabot.yml              lens=security-auth tier=medium
+
+# Executable prose re-raised over the broad **/*.md trivial rule: skills and agent
+# memory files steer coding agents running as engineers with their credentials.
+# (Skills live in .agents/skills/; .claude/skills is a symlink to it.)
+SKILL.md                             tier=medium
+CLAUDE.md                            tier=medium
+AGENTS.md                            tier=medium
+/accessibility-instructions.md       tier=medium
+# No rules for .claude/, .codex/ or .cursor/: the agent-settings managed block in
+# .gitattributes marks them linguist-generated, and the router skips generated
+# files before reading any rule here. Their hooks and settings are reviewed at
+# their source in Khan/agent-settings (configs/, repos/perseus/).
+# .mcp.json is co-owned and not generated, so it is reviewed here.
+.mcp.json                            lens=security-auth tier=high
+
+# High-risk surfaces (see risk-classification.md for the reasoning).
+# Answer scoring: silent mis-scoring of learners is the worst failure in the repo.
+packages/perseus-score/src/**        tier=high
+# The content contract: schema + parsers; compat with published content is the risk.
+packages/perseus-core/src/data-schema.ts        tier=high
+packages/perseus-core/src/parse-perseus-json/** tier=high
+# Vendored forks and pnpm dependency patches: hand-patched, no upstream review.
+vendor/**                            tier=high
+patches/**                           tier=high
+# Publish configuration decides what ships to npm and how consumers resolve it.
+.changeset/config.json               tier=high
+packages/*/package.json              tier=high
+# Root package.json contains deps that run on everyone's workstation so a real
+# security risk
+/package.json                        lens=security-auth tier=high
+# The lockfile is what actually installs: a swapped `resolved` URL, an integrity
+# change without a version change, or a new install-script dependency shows up here
+# even when no package.json changes. Never hand-edited, so any odd diff is a flag.
+/pnpm-lock.yaml                      lens=security-auth tier=high
+# Holds the minimumReleaseAge supply-chain guard, overrides, and the dependency
+# version catalogs: one edit can disable a defense or move versions repo-wide.
+/pnpm-workspace.yaml                 lens=security-auth tier=high
+
+# CI supply chain: workflow files spawn the security-auth lens for the shared
+# workflow-security hunts (pwn-request, over-scoped-secret). Public repo.
+.github/workflows/**                 lens=security-auth tier=high
+.github/actions/**                   lens=security-auth tier=high
+# (No `**/action.yaml` rule: every composite action here uses `action.yml`.)
+**/action.yml                        lens=security-auth tier=high
+# The CI egress-firewall allowlists (`conf-files:` in the workflows, including
+# publish.yml): adding a domain opens a new outbound path from jobs with secrets.
+/.github/*.conf                      lens=security-auth tier=high
+
+# The reviewer's own config: a PR tampering with review routing/config must not be
+# reviewed at a reduced budget. NOT direction-dependent: that flag makes the router
+# offer every matching rule's tier as a candidate, and the `.md` files here also match
+# `**/*.md`, so Trivial was on the menu (this PR's own config.md, risk-classification.md
+# and skills.md were classified Trivial and skipped on the first run).
+.github/aw/review/**                 lens=security-auth tier=high
+# Third-party action SHA pins for the reviewer workflow: supply chain, same as workflows.
+.github/aw/actions-lock.json         lens=security-auth tier=high
+# A linguist-generated line here hides a path from review entirely, so this file is
+# reviewer control input too.
+/.gitattributes                      lens=security-auth tier=high
+# With "Require review from Code Owners" on, this decides who must approve a merge.
+/.github/CODEOWNERS                  lens=security-auth tier=high
+
+# Test and dev surfaces drop back down. This block sits LAST on purpose: it has to
+# come after the high-tier src rules above, or a test file inside perseus-score/src
+# or parse-perseus-json would resolve high (last match wins).
+**/__tests__/**                      tier=low
+**/__testutils__/**                  tier=low
+**/__docs__/**                       tier=low
+**/*.test.ts                         tier=low
+**/*.test.tsx                        tier=low
+**/*.testdata.ts                     tier=low
+**/*.typetest.ts                     tier=low
+**/*.stories.tsx                     tier=low
+**/__snapshots__/**                  tier=low
+**/*.snap                            tier=low
+# The parser regression harness and its recorded output over every frozen fixture:
+# a change here means parser behavior on published content changed.
+packages/perseus-core/src/parse-perseus-json/regression-tests/__snapshots__/**  tier=high
+packages/perseus-core/src/parse-perseus-json/regression-tests/*.test.ts         tier=high
+# Frozen parser-regression fixtures: protect-regression-data.yml blocks any edit to
+# existing files, so a diff here is either a new fixture or a CI failure.
+packages/perseus-core/src/parse-perseus-json/regression-tests/*-data/**  tier=trivial
