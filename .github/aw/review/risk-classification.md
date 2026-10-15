@@ -13,12 +13,17 @@ The machine-readable path map lives in ROUTING; this file is the model-facing pr
 
 ### Generated files are automatically Trivial
 
-Files matching `linguist-generated` patterns in `.gitattributes`
-(`.github/workflows/*.lock.yml`, `agentics-maintenance.yml`). The router
+Files matching `linguist-generated` patterns in `.gitattributes`:
+`.github/workflows/*.lock.yml` and `agentics-maintenance.yml` (from `gh aw
+compile`), and the agent config the `Khan/agent-settings` installer writes
+(`.claude/**`, `.codex/**`, `.cursor/**`, `.opencode/**`, `.pi/**`,
+`.github/workflows/validate-workflows.yml`). The router
 short-circuits generated files (tier Trivial, no lenses, contents not analysed), so a
 hand-edit to one reaches no reviewer here. If a generated file changed but its source
-did not (e.g. `review.lock.yml` without `review.md`), say so in the review: a human
-has to check that change, because nothing in CI recompiles the lock and compares.
+did not, say so in the review: a human has to check that change. For
+`review.lock.yml` the source is `review.md`, and nothing in CI recompiles the
+lock and compares. For agent config the source is Khan/agent-settings, so a
+hand-edit here is unreviewed and the next install overwrites it.
 
 ### High Risk
 
@@ -50,11 +55,12 @@ CI supply chain:
   consumers resolve it.
 - **Hand-patched dependencies** — `patches/**` (pnpm patches), same category as
   `vendor/**`.
-- **Agent hooks and settings** — Code and server config the coding-agent
-  harnesses execute on every session or tool call, as the engineer, with their
-  credentials. Agent *prose* (`SKILL.md`, `CLAUDE.md`, `AGENTS.md`,
-  `accessibility-instructions.md`) steers agents rather than executing, and
-  sits in Medium.
+- **Agent server config** — `.mcp.json`, which the coding-agent harnesses
+  load on every session, as the engineer, with their credentials. (The hooks
+  and settings under `.claude/`, `.codex/` and `.cursor/` are just as
+  sensitive but are generated; see Generated files above.) Agent *prose*
+  (`SKILL.md`, `CLAUDE.md`, `AGENTS.md`, `accessibility-instructions.md`)
+  steers agents rather than executing, and sits in Medium.
 
 ### Medium Risk
 

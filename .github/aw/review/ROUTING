@@ -36,20 +36,16 @@ data/questions/                      tier=trivial
 
 # Executable prose re-raised over the broad **/*.md trivial rule: skills and agent
 # memory files steer coding agents running as engineers with their credentials.
-# Hooks are higher still: they auto-execute on every agent tool call.
+# (Skills live in .agents/skills/; .claude/skills is a symlink to it.)
 SKILL.md                             tier=medium
 CLAUDE.md                            tier=medium
 AGENTS.md                            tier=medium
 /accessibility-instructions.md       tier=medium
-.claude/hooks/**                     lens=security-auth tier=high
-.claude/settings.json                lens=security-auth tier=high
-# Mints the PAT the hooks above consume.
-.claude/setup-git-token.mjs          lens=security-auth tier=high
-.codex/config.toml                   lens=security-auth tier=high
-.codex/hooks/**                      lens=security-auth tier=high
-.codex/hooks.json                    lens=security-auth tier=high
-.cursor/hooks/**                     lens=security-auth tier=high
-.cursor/hooks.json                   lens=security-auth tier=high
+# No rules for .claude/, .codex/ or .cursor/: the agent-settings managed block in
+# .gitattributes marks them linguist-generated, and the router skips generated
+# files before reading any rule here. Their hooks and settings are reviewed at
+# their source in Khan/agent-settings (configs/, repos/perseus/).
+# .mcp.json is co-owned and not generated, so it is reviewed here.
 .mcp.json                            lens=security-auth tier=high
 
 # High-risk surfaces (see risk-classification.md for the reasoning).
