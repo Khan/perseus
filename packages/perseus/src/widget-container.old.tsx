@@ -11,7 +11,7 @@ import classNames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-import UnsupportedWidget from "./components/unsupported-widget";
+import UnsupportedWidgetMessage from "./components/unsupported-widget-message";
 import {DependenciesContext} from "./dependencies";
 import ErrorBoundary from "./error-boundary";
 import {containerSizeClass, getClassFromWidth} from "./util/sizing-utils";
@@ -93,7 +93,10 @@ class WidgetContainerOld extends React.Component<Props, State> {
         if (WidgetType == null) {
             return (
                 <div className={className}>
-                    <UnsupportedWidget type={type} widgetId={this.props.id} />
+                    <UnsupportedWidgetMessage
+                        type={type}
+                        widgetId={this.props.id}
+                    />
                 </div>
             );
         }

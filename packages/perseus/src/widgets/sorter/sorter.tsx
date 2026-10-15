@@ -7,7 +7,7 @@ import * as React from "react";
 import {forwardRef, useImperativeHandle, useRef} from "react";
 
 import Sortable from "../../components/sortable";
-import UnsupportedWidget from "../../components/unsupported-widget";
+import UnsupportedWidgetMessage from "../../components/unsupported-widget-message";
 import {useDependencies} from "../../dependencies";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 
@@ -93,11 +93,11 @@ const Sorter = forwardRef<SorterHandle, Props>(function Sorter(props, ref) {
     }
 
     // Legacy content predates the card limit the editor now enforces. These
-    // sorters are unusable, so learners get `UnsupportedWidget` while authors
-    // keep the full editor to fix them with.
+    // sorters are unusable, so learners get `UnsupportedWidgetMessage` while
+    // authors keep the full editor to fix them with.
     if (exceedsCardLimit(options.correct)) {
         return (
-            <UnsupportedWidget
+            <UnsupportedWidgetMessage
                 type="sorter"
                 widgetId={widgetId}
                 reason="exceeds-card-limit"

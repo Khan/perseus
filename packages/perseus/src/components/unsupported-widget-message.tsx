@@ -19,7 +19,7 @@ type Props = {
  * Shown in place of a widget that learners can't use. Each one is logged
  * once, when it mounts, so we can find and fix the content.
  */
-export default function UnsupportedWidget({
+export default function UnsupportedWidgetMessage({
     type,
     widgetId,
     reason = "widget-not-registered",

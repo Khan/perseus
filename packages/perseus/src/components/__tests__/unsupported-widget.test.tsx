@@ -5,7 +5,7 @@ import * as React from "react";
 import {testDependencies} from "../../testing/test-dependencies";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
-import UnsupportedWidget from "../unsupported-widget";
+import UnsupportedWidgetMessage from "../unsupported-widget-message";
 
 import type {PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
@@ -18,7 +18,7 @@ const question = generateTestPerseusRenderer({
     } as unknown as PerseusWidgetsMap,
 });
 
-describe("UnsupportedWidget", () => {
+describe("UnsupportedWidgetMessage", () => {
     it("renders in place of each widget that isn't registered", () => {
         // Arrange, Act
         renderQuestion(question);
@@ -49,7 +49,10 @@ describe("UnsupportedWidget", () => {
         // Arrange
         const logErrorSpy = jest.spyOn(testDependencies.Log, "error");
         const widget = (
-            <UnsupportedWidget type="transformer" widgetId="transformer 1" />
+            <UnsupportedWidgetMessage
+                type="transformer"
+                widgetId="transformer 1"
+            />
         );
 
         // Act
@@ -73,7 +76,10 @@ describe("UnsupportedWidget", () => {
         // Arrange
         const logErrorSpy = jest.spyOn(testDependencies.Log, "error");
         const widget = (
-            <UnsupportedWidget type="transformer" widgetId="transformer 1" />
+            <UnsupportedWidgetMessage
+                type="transformer"
+                widgetId="transformer 1"
+            />
         );
 
         const {rerender} = render(widget);
