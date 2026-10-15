@@ -829,33 +829,6 @@ class Renderer
         }
     }
 
-    /**
-     * Gets the dimensions of a markdown image from the `images` field of the
-     * renderer data. Note: markdown images are deprecated; new content should
-     * use the Image widget instead.
-     */
-    getImageDimensions(url: string): PerseusImageDetail | null {
-        // We do a _.has check here to avoid weird things like
-        // 'toString' or '__proto__' as a url.
-        return _.has(this.props.images, url) ? this.props.images[url] : null;
-    }
-
-    /**
-     * Returns whether the AST node contains a markdown image with specified
-     * dimensions. Such images need to be rendered responsively: they should
-     * shrink to fit in the viewport while maintaining their aspect ratio.
-     */
-    hasResponsiveImage(node: SingleASTNode): boolean {
-        if (Array.isArray(node.content)) {
-            return node.content.some((child) => this.hasResponsiveImage(child));
-        }
-
-        return (
-            node.type === "image" &&
-            this.getImageDimensions(node.target) != null
-        );
-    }
-
     // wrap top-level elements in a QuestionParagraph, mostly
     // for appropriate spacing and other css
     outputMarkdown = (ast: ASTNode, state: WidgetState): React.ReactNode => {
@@ -987,7 +960,10 @@ class Renderer
         if (node.type === "paragraph") {
             const content = nestedOutput(node.content, state);
 
-            if (isContentGraphie(node) || this.hasResponsiveImage(node)) {
+            if (
+                isContentGraphie(node) ||
+                hasResponsiveImage(node, this.props)
+            ) {
                 return (
                     <div className="deprecated-perseus-container">
                         {content}
@@ -1185,7 +1161,7 @@ class Renderer
                                 title={node.title}
                                 responsive={responsive}
                                 onUpdate={this.props.onRender}
-                                {...this.getImageDimensions(node.target)}
+                                {...getImageDimensions(node.target, this.props)}
                             />
                         )}
                     </AssetContext.Consumer>
@@ -1678,6 +1654,30 @@ class Renderer
             </DefinitionProvider>
         );
     }
+}
+
+function getImageDimensions(
+    url: string,
+    {images}: Props,
+): PerseusImageDetail | null {
+    // We do a _.has check here to avoid weird things like
+    // 'toString' or '__proto__' as a url.
+    return _.has(images, url) ? images[url] : null;
+}
+
+/**
+ * Returns whether the AST node contains a markdown image with specified
+ * dimensions. Such images need to be rendered responsively: they should
+ * shrink to fit in the viewport while maintaining their aspect ratio.
+ */
+function hasResponsiveImage(node: SingleASTNode, props: Props): boolean {
+    if (Array.isArray(node.content)) {
+        return node.content.some((child) => hasResponsiveImage(child, props));
+    }
+
+    return (
+        node.type === "image" && getImageDimensions(node.target, props) != null
+    );
 }
 
 const styles = {
