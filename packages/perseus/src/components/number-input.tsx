@@ -130,11 +130,15 @@ class NumberInput extends React.Component<Props, State> {
     }
 
     /* Set text input focus to this input */
+    // TODO(benchristel): focus() is only called by the TableEditor. Perhaps
+    //  it could be removed.
     focus: () => void = () => {
         this._getInput().focus();
         this._handleFocus();
     };
 
+    // TODO(benchristel): blur() doesn't seem to be called. Confirm and delete
+    //  it.
     blur: () => void = () => {
         this._getInput().blur();
         this._handleBlur();
