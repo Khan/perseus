@@ -1,5 +1,17 @@
 # @khanacademy/math-input
 
+## 30.1.0
+
+### Minor Changes
+
+-   [#4292](https://github.com/Khan/perseus/pull/4292) [`cf403f3`](https://github.com/Khan/perseus/commit/cf403f3426dc2b36db48ecdb14c8f5c6c7df7203) Thanks [@handeyeco](https://github.com/handeyeco)! - Consume `isScorable` in NumericInput to mark inputs as `aria-required` when in the context of ServerItemRenderer and GradedGroup.
+
+### Patch Changes
+
+-   Updated dependencies [[`f450f74`](https://github.com/Khan/perseus/commit/f450f74509e0e757ba73c3449bf66ceb654c7e0d)]:
+    -   @khanacademy/perseus-core@41.2.1
+    -   @khanacademy/keypad-context@6.0.5
+
 ## 30.0.5
 
 ### Patch Changes

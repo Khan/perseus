@@ -1,5 +1,35 @@
 # @khanacademy/perseus
 
+## 91.1.0
+
+### Minor Changes
+
+-   [#4292](https://github.com/Khan/perseus/pull/4292) [`cf403f3`](https://github.com/Khan/perseus/commit/cf403f3426dc2b36db48ecdb14c8f5c6c7df7203) Thanks [@handeyeco](https://github.com/handeyeco)! - Consume `isScorable` in NumericInput to mark inputs as `aria-required` when in the context of ServerItemRenderer and GradedGroup.
+
+### Patch Changes
+
+-   [#4358](https://github.com/Khan/perseus/pull/4358) [`0820d05`](https://github.com/Khan/perseus/commit/0820d05f39cb115c23b2ec43ab8204558f05653a) Thanks [@nishasy](https://github.com/nishasy)! - [Graded Group a11y] Wait a frame so Android/talkback announces Correct state
+
+-   [#4357](https://github.com/Khan/perseus/pull/4357) [`ef8308b`](https://github.com/Khan/perseus/commit/ef8308b767f84b55d0c73c9c82040486a6649d13) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Bugfix - Extra space at top of articles
+
+-   [#4338](https://github.com/Khan/perseus/pull/4338) [`aa883b6`](https://github.com/Khan/perseus/commit/aa883b652e999736627ccdbaf80b1c0aadcf77c6) Thanks [@handeyeco](https://github.com/handeyeco)! - Mark FreeResponse as required when in a scorable context
+
+-   [#4362](https://github.com/Khan/perseus/pull/4362) [`da98ab1`](https://github.com/Khan/perseus/commit/da98ab194f8874569836f760c032a1930e323f77) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] | (a11y) | Add "required" SR text to Interactive Graph
+
+-   [#4371](https://github.com/Khan/perseus/pull/4371) [`8458e06`](https://github.com/Khan/perseus/commit/8458e06dfabebd0cb1e7d417c2d425edcdba750c) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Bugfix - Markdown tables with image widgets had a bottom margin causing extra spacing
+
+-   [#4347](https://github.com/Khan/perseus/pull/4347) [`dcffbc6`](https://github.com/Khan/perseus/commit/dcffbc6f32e296f263d5019ff189a4a16e6c7bcc) Thanks [@handeyeco](https://github.com/handeyeco)! - Add aria-required to Expression where appropriate
+
+-   [#4367](https://github.com/Khan/perseus/pull/4367) [`2858e40`](https://github.com/Khan/perseus/commit/2858e40c4bfe9c7a2674f34a53e038250e086bbc) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Bugfix - Missing margin below Explanation widget when on a line by itself
+
+-   Updated dependencies [[`cf403f3`](https://github.com/Khan/perseus/commit/cf403f3426dc2b36db48ecdb14c8f5c6c7df7203), [`f450f74`](https://github.com/Khan/perseus/commit/f450f74509e0e757ba73c3449bf66ceb654c7e0d)]:
+    -   @khanacademy/math-input@30.1.0
+    -   @khanacademy/perseus-core@41.2.1
+    -   @khanacademy/keypad-context@6.0.5
+    -   @khanacademy/kmath@3.0.6
+    -   @khanacademy/perseus-linter@6.1.3
+    -   @khanacademy/perseus-score@9.0.6
+
 ## 91.0.0
 
 ### Major Changes
