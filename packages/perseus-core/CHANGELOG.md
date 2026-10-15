@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 41.2.1
+
+### Patch Changes
+
+-   [#4351](https://github.com/Khan/perseus/pull/4351) [`f450f74`](https://github.com/Khan/perseus/commit/f450f74509e0e757ba73c3449bf66ceb654c7e0d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Build image widgets converted from image markdown with the production widget defaults instead of the test generators, and type `applyDefaultsToWidget`'s result as the widget type it was given
+
 ## 41.2.0
 
 ### Minor Changes
