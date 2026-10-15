@@ -19,7 +19,7 @@ interface Props {
     placeholder?: string | number | null;
     onChange: (value: number) => void;
     onFormatChange?: (value: number, format: MathFormat) => void;
-    checkValidity: any;
+    checkValidity: (value: number) => boolean;
     onFocus?: any;
     onBlur?: any;
     size?: any;
@@ -108,7 +108,7 @@ class NumberInput extends React.Component<Props, any> {
      */
     getValue(): number | null | undefined {
         return this.parseInputValue(this._getInput().value);
-    };
+    }
 
     parseInputValue(value: string): number | null | undefined {
         if (value === "") {
@@ -117,7 +117,7 @@ class NumberInput extends React.Component<Props, any> {
         }
         const result = firstNumericalParse(value);
         return _.isFinite(result) ? result : this.props.value;
-    };
+    }
 
     /* Set text input focus to this input */
     focus: () => void = () => {
@@ -138,7 +138,7 @@ class NumberInput extends React.Component<Props, any> {
         const val = firstNumericalParse(value);
         const checkValidity = this.props.checkValidity;
 
-        return _.isFinite(val) && checkValidity(val);
+        return val != null && _.isFinite(val) && checkValidity(val);
     };
 
     _handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {

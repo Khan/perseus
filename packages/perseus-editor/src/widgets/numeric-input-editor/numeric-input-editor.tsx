@@ -555,7 +555,9 @@ class NumericInputEditor extends React.Component<Props, State> {
                                     placeholder={0}
                                     value={answers[i]["maxError"]}
                                     format={_.last(answer.answerForms || [])}
-                                    onChange={(maxError) => this.updateAnswer(i, {maxError})}
+                                    onChange={(maxError) =>
+                                        this.updateAnswer(i, {maxError})
+                                    }
                                 />
                             </div>
                             <View className={styles.field}>
