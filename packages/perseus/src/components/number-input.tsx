@@ -15,37 +15,55 @@ const getNumericFormat = KhanMath.getNumericFormat;
 
 interface Props {
     value: number | null;
+    /**
+     * The number format to use for display before the user edits the value.
+     * After the first edit, the format is detected from the input.
+     */
     format?: MathFormat | "non-reduced" | null;
+    /**
+     * A value to display when the input is empty. If the placeholder is
+     * numeric and finite, it is also emitted via `onChange` when the input is
+     * cleared.
+     */
     placeholder?: string | number | null;
+    /**
+     * Called when the user changes the value of the input to a valid number.
+     */
     onChange: (value: number) => void;
+    /**
+     * Called when the detected format of the user input changes.
+     */
     onFormatChange?: (value: number, format: MathFormat) => void;
+    /**
+     * Validates input. If `checkValidity` returns false, the new value will
+     * not be emitted via `onChange`, and the input will display an error state.
+     */
     checkValidity: (value: number) => boolean;
     onFocus?: () => void;
     onBlur?: () => void;
+    /** Determines the width of the input */
     size?: "mini" | "small" | "normal";
+    /**
+     * When true, values that approximate an integer or fraction multiple of
+     * pi will be displayed in a format like "3π", "1/2π", etc.
+     */
     allowPiTruncation?: boolean;
+    /**
+     * Whether the up and down arrow keys should increment/decrement the value
+     */
     useArrowKeys: boolean;
     className?: string;
 }
 
 /**
- * An input box that accepts only numeric strings
+ * An input box that accepts only numeric strings. While the input is focused,
+ * it acts as an uncontrolled component: you can type anything, but only valid
+ * numbers are emitted from `onChange`. While not focused, the input acts as
+ * controlled, simply displaying its `value` prop.
  *
- * Calls `onChange(value, format)` for valid numbers.
- *
- * Reverts to the current value `onBlur` or on [ENTER],
- *   but maintains the format (i.e. 3/2, 1 1/2, 150%)
- *
- * Accepts empty input and sends it to `onChange` as `null` if no numeric
- * placeholder is set.
- *
- * If given a `checkValidity` function, will turn the background/outline red
- * when invalid.
- *
- * If `useArrowKeys` is set to `true`, up/down arrows will increment/decrement
- * integers.
- *
- * Optionally takes a `size` (`"mini"`, `"small"`,` `"normal"`)
+ * Accepts numbers in a variety of formats, including fractions, mixed numbers,
+ * percents, and multiples of pi. The format is auto-detected on user input.
+ * The input value is displayed in the most recently detected format.
  */
 class NumberInput extends React.Component<Props, any> {
     inputRef = React.createRef<HTMLInputElement>();
