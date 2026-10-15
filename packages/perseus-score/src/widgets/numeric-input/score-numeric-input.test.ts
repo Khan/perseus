@@ -803,7 +803,7 @@ describe("maybeParsePercentInput utility function", () => {
     it("returns a percent if the input is a percent", () => {
         const result = maybeParsePercentInput("3%", false);
 
-        expect(result).toBe("3");
+        expect(result).toBe(3);
     });
 
     it("returns the input if its not valid", () => {
@@ -815,6 +815,6 @@ describe("maybeParsePercentInput utility function", () => {
     it("normalizes values", () => {
         const result = maybeParsePercentInput("20%", true);
 
-        expect(result).toBe("0.2");
+        expect(result).toBe(0.2);
     });
 });

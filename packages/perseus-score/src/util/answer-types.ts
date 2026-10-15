@@ -108,7 +108,7 @@ const KhanAnswerTypes = {
         createValidatorFunctional: function (
             predicate: Predicate,
             rawOptions: PredicateValidatorOptions,
-        ): (guess: string) => Score {
+        ): (guess: string | number) => Score {
             // Extract the options from the given solution object
             const options = {
                 simplify: "required",
@@ -559,7 +559,7 @@ const KhanAnswerTypes = {
             } as const;
 
             // validator function
-            return function (guess: string): Score {
+            return function (guess: string | number): Score {
                 // The fallback variable is used in place of the answer, if no
                 // answer is provided (i.e. the field is left blank)
                 const fallback =
@@ -672,7 +672,7 @@ const KhanAnswerTypes = {
         createValidatorFunctional: function (
             correctAnswer: string,
             options: PredicateValidatorOptions,
-        ): (guess: string) => Score {
+        ): (guess: string | number) => Score {
             const correctFloat = parseFloat(correctAnswer);
             return KhanAnswerTypes.predicate.createValidatorFunctional(
                 (guess, maxError) => Math.abs(guess - correctFloat) < maxError,
