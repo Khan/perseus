@@ -43,6 +43,7 @@ configureSort({
         introduction: null,
         "getting started": null,
         "api documentation": null,
+        "check json": null,
         widgetGallery: null,
         theming: null,
         renderers: {

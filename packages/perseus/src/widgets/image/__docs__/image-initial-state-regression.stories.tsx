@@ -483,36 +483,50 @@ export const LongDescriptionRightToLeft: Story = {
 /**
  * Image widgets within a markdown table.
  */
+const markdownTableWithImageWidgetsQuestion = generateTestPerseusRenderer({
+    content:
+        "| col 1 | col 2 | col 3 |\n| --- | --- | --- |\n| [[☃ image 1]] | [[☃ image 2]] | [[☃ image 3]] |",
+    widgets: {
+        "image 1": generateImageWidget({
+            options: generateImageOptions({
+                backgroundImage: frescoImage,
+                alt: "Fresco painting",
+            }),
+        }),
+        "image 2": generateImageWidget({
+            options: generateImageOptions({
+                backgroundImage: scienceImage,
+                alt: "Earth and Moon",
+            }),
+        }),
+        "image 3": generateImageWidget({
+            options: generateImageOptions({
+                backgroundImage: graphieImage,
+                alt: graphieImageAlt,
+            }),
+        }),
+    },
+});
+
 export const MarkdownTableWithImageWidgets: Story = {
     render: function Render() {
         return (
             // Limit width so zoom becomes possible.
             <div style={{width: 600}}>
                 <QuestionRendererForStories
-                    question={generateTestPerseusRenderer({
-                        content:
-                            "| col 1 | col 2 | col 3 |\n| --- | --- | --- |\n| [[☃ image 1]] | [[☃ image 2]] | [[☃ image 3]] |",
-                        widgets: {
-                            "image 1": generateImageWidget({
-                                options: generateImageOptions({
-                                    backgroundImage: frescoImage,
-                                    alt: "Fresco painting",
-                                }),
-                            }),
-                            "image 2": generateImageWidget({
-                                options: generateImageOptions({
-                                    backgroundImage: scienceImage,
-                                    alt: "Earth and Moon",
-                                }),
-                            }),
-                            "image 3": generateImageWidget({
-                                options: generateImageOptions({
-                                    backgroundImage: graphieImage,
-                                    alt: graphieImageAlt,
-                                }),
-                            }),
-                        },
-                    })}
+                    question={markdownTableWithImageWidgetsQuestion}
+                />
+            </div>
+        );
+    },
+};
+
+export const MarkdownTableWithImageWidgetsInArticle: Story = {
+    render: function Render() {
+        return (
+            <div className="framework-perseus perseus-article">
+                <QuestionRendererForStories
+                    question={markdownTableWithImageWidgetsQuestion}
                 />
             </div>
         );

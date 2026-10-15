@@ -8,7 +8,6 @@ import * as React from "react";
 
 import {earthMoonImage} from "../../../../perseus/src/widgets/image/utils";
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import {PROD_EDITOR_WIDTH} from "../storybook-constants";
 
 import LabelImageEditor from "./label-image-editor";
@@ -34,9 +33,6 @@ const withinEditorPageDecorator = (_, {args, parameters}) => {
         </div>
     );
 };
-
-// This is to address timing - Perseus widget editor registry accessed before initialization!
-registerAllWidgetsAndEditorsForTesting();
 
 const meta: Meta = {
     title: "Widgets/Label Image/Editor Demo",

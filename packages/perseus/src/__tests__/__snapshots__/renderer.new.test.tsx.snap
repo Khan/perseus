@@ -477,7 +477,15 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                     <div
                       class="perseus-renderer perseus-renderer-responsive"
                     >
-                      less than or equal to
+                      <div
+                        class="deprecated-perseus-container"
+                      >
+                        <p
+                          class="deprecated-perseus-container"
+                        >
+                          less than or equal to
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </span>
@@ -556,7 +564,15 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                     <div
                       class="perseus-renderer perseus-renderer-responsive"
                     >
-                      greater than or equal to
+                      <div
+                        class="deprecated-perseus-container"
+                      >
+                        <p
+                          class="deprecated-perseus-container"
+                        >
+                          greater than or equal to
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </span>
@@ -635,7 +651,15 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                     <div
                       class="perseus-renderer perseus-renderer-responsive"
                     >
-                      greater/less than or equal to
+                      <div
+                        class="deprecated-perseus-container"
+                      >
+                        <p
+                          class="deprecated-perseus-container"
+                        >
+                          greater/less than or equal to
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </span>
