@@ -22,7 +22,7 @@ import {
     getPerseusClipboardData,
     setPerseusClipboardData,
 } from "./util/clipboard";
-import * as WidgetEditorRegistry from "./widget-editor-registry";
+import {getEditor} from "./widget-editor-registry";
 
 import type {APIOptions, ImageUploader} from "@khanacademy/perseus";
 import type {
@@ -659,7 +659,7 @@ class Editor extends React.Component<Props, State> {
         const newContent = newPrelude + widgetContent + newPostlude;
 
         const newWidgets = {...this.props.widgets};
-        const widgetEditor = WidgetEditorRegistry.getEditor(widgetType);
+        const widgetEditor = getEditor(widgetType);
         const initializeWidgetOptionsParams: InitializeWidgetOptionsParams = {
             selectedText,
         };
