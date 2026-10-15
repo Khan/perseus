@@ -416,7 +416,7 @@ describe("sorter widget", () => {
             ).not.toBeInTheDocument();
         });
 
-        it("dispatches not-supported analytics event when above the card limit", () => {
+        it("dispatches unsupported widget analytics event when above the card limit", () => {
             // Arrange
             const onAnalyticsEventSpy = jest.fn();
             const dependencies = {
