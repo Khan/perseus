@@ -1,4 +1,3 @@
-import {isFeatureOn} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
@@ -135,13 +134,6 @@ const Dropdown = forwardRef<Widget, Props>(function Dropdown(props, ref) {
         },
     }));
 
-    // TODO(LEMS-4304): feature flag cleanup - remove this FF check and replace
-    // with references to the variable with "true"
-    const inline = isFeatureOn(
-        {apiOptions: props.apiOptions},
-        "perseus-renderer-upgrade",
-    );
-
     const children = [
         <OptionItem
             key="placeholder"
@@ -153,7 +145,6 @@ const Dropdown = forwardRef<Widget, Props>(function Dropdown(props, ref) {
                         content={placeholder}
                         strings={strings}
                         apiOptions={{flags: apiOptions.flags}}
-                        inline={inline}
                     />
                 </div>
             }
@@ -169,7 +160,6 @@ const Dropdown = forwardRef<Widget, Props>(function Dropdown(props, ref) {
                             content={choice.content}
                             strings={strings}
                             apiOptions={{flags: apiOptions.flags}}
-                            inline={inline}
                         />
                     </div>
                 }
