@@ -23,9 +23,9 @@ interface Props {
     onFocus?: () => void;
     onBlur?: () => void;
     size?: "mini" | "small" | "normal";
-    allowPiTruncation?: any;
-    useArrowKeys: any;
-    className?: any;
+    allowPiTruncation?: boolean;
+    useArrowKeys: boolean;
+    className?: string;
 }
 
 /**
