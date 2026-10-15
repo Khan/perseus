@@ -247,11 +247,12 @@ function splitBlockWidgetsFromParagraphs(ast: ASTNode): ASTNode {
 }
 
 /**
- * Return the first valid interpretation of 'text' as a number, in the form
- * {value: 2.3, exact: true}.
+ * Return the first valid interpretation of 'text' as a number.
  */
-function firstNumericalParse(text: string): ParsedValue | null | undefined {
-    let first;
+function firstNumericalParse(
+    text: string | number | null,
+): number | null | undefined {
+    let first: number | undefined;
     const val = KhanAnswerTypes.predicate.createValidatorFunctional(
         function (ans) {
             first = ans;
@@ -264,7 +265,7 @@ function firstNumericalParse(text: string): ParsedValue | null | undefined {
         },
     );
 
-    val(text);
+    val(String(text));
     return first;
 }
 

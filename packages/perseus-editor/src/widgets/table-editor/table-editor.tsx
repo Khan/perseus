@@ -120,7 +120,7 @@ class TableEditor extends React.Component<Props> {
                             ref={this.numberOfColumns}
                             value={this.props.columns}
                             onChange={(val) => {
-                                if (val) {
+                                if (val !== 0) {
                                     this.onSizeInput(this.props.rows, val);
                                 }
                             }}
@@ -135,7 +135,7 @@ class TableEditor extends React.Component<Props> {
                             ref="numberOfRows"
                             value={this.props.rows}
                             onChange={(val) => {
-                                if (val) {
+                                if (val !== 0) {
                                     this.onSizeInput(val, this.props.columns);
                                 }
                             }}

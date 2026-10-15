@@ -154,4 +154,46 @@ describe("NumberInput", function () {
         expect(input).not.toHaveValue("π");
         expect(input).toHaveValue(Math.PI.toString());
     });
+
+    it("displays a placeholder string in an empty input", () => {
+        render(
+            <NumberInput
+                value={Math.PI}
+                onChange={jest.fn()}
+                placeholder="hold my place"
+            />,
+        );
+
+        const input: HTMLInputElement = screen.getByRole("textbox");
+
+        expect(input.placeholder).toBe("hold my place");
+    });
+
+    it("displays a placeholder number in an empty input", () => {
+        render(
+            <NumberInput
+                value={Math.PI}
+                onChange={jest.fn()}
+                placeholder={42}
+            />,
+        );
+
+        const input: HTMLInputElement = screen.getByRole("textbox");
+
+        expect(input.placeholder).toBe("42");
+    });
+
+    it("displays nothing given a null placeholder", () => {
+        render(
+            <NumberInput
+                value={Math.PI}
+                onChange={jest.fn()}
+                placeholder={null}
+            />,
+        );
+
+        const input: HTMLInputElement = screen.getByRole("textbox");
+
+        expect(input.placeholder).toBe("");
+    });
 });

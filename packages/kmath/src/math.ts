@@ -199,7 +199,7 @@ const KhanMath = {
     // Returns the format (string) of a given numeric string
     // Note: purposively more inclusive than answer-types' predicate.forms
     // That is, it is not necessarily true that interpreted input are numeric
-    getNumericFormat: function (text: string): MathFormat | null | undefined {
+    getNumericFormat: function (text: string): MathFormat | null {
         text = text.trim();
         text = text.replace(/\u2212/, "-").replace(/([+-])\s+/g, "$1");
         if (text.match(/^[+-]?\d+$/)) {
@@ -224,7 +224,10 @@ const KhanMath = {
     },
 
     // Returns a string of the number in a specified format
-    toNumericString: function (number: number, format?: MathFormat): string {
+    toNumericString: function (
+        number: number | null,
+        format?: MathFormat,
+    ): string {
         if (number == null) {
             return "";
         }
