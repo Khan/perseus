@@ -23,13 +23,15 @@ exports[`Numeric input widget styles differently on mobile: mobile render 1`] = 
           </span>
           <span />
         </span>
-         
+
         <div
           class="perseus-widget-container widget-inline-block"
         >
           <div>
             <div
               aria-label="Math input box Tap with one or two fingers to open keyboard"
+              aria-required="false"
+              class="default_7zhre1-o_O-input_1aqkxd0"
               role="textbox"
               style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline-block; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; vertical-align: middle; max-inline-size: 128px;"
             >
@@ -58,7 +60,7 @@ exports[`Numeric input widget styles differently on mobile: mobile render 1`] = 
             </div>
           </div>
         </div>
-         
+
       </div>
     </div>
   </div>
@@ -88,7 +90,7 @@ exports[`numeric-input widget Should render predictably: after interaction 1`] =
           </span>
           <span />
         </span>
-         
+
         <div
           class="perseus-widget-container widget-inline-block"
         >
@@ -117,7 +119,7 @@ exports[`numeric-input widget Should render predictably: after interaction 1`] =
             style="display: none;"
           />
         </div>
-         
+
       </div>
     </div>
   </div>
@@ -147,7 +149,7 @@ exports[`numeric-input widget Should render predictably: first render 1`] = `
           </span>
           <span />
         </span>
-         
+
         <div
           class="perseus-widget-container widget-inline-block"
         >
@@ -176,7 +178,7 @@ exports[`numeric-input widget Should render predictably: first render 1`] = `
             style="display: none;"
           />
         </div>
-         
+
       </div>
     </div>
   </div>
@@ -206,7 +208,7 @@ exports[`numeric-input widget Should render tooltip as list when multiple format
           </span>
           <span />
         </span>
-         
+
         <div
           class="perseus-widget-container widget-inline-block"
         >
@@ -235,13 +237,13 @@ exports[`numeric-input widget Should render tooltip as list when multiple format
             id="aria-for-:ri:"
             style="display: none;"
           >
-            Your answer can be 
+            Your answer can be
                    a simplified proper fraction (like 1/2 or 3/4), or
 a simplified improper fraction (like 5/4 or 9/8), or
 a mixed number (like 1 and 3/4 or 2 and 5/6)
           </span>
         </div>
-         
+
       </div>
     </div>
   </div>
@@ -271,7 +273,7 @@ exports[`numeric-input widget Should render tooltip using only correct answer fo
           </span>
           <span />
         </span>
-         
+
         <div
           class="perseus-widget-container widget-inline-block"
         >
@@ -300,11 +302,11 @@ exports[`numeric-input widget Should render tooltip using only correct answer fo
             id="aria-for-:rl:"
             style="display: none;"
           >
-            Your answer should be 
+            Your answer should be
                    a simplified proper fraction (like 1/2 or 3/4)
           </span>
         </div>
-         
+
       </div>
     </div>
   </div>
@@ -334,7 +336,7 @@ exports[`numeric-input widget Should render tooltip when format option is given:
           </span>
           <span />
         </span>
-         
+
         <div
           class="perseus-widget-container widget-inline-block"
         >
@@ -363,11 +365,11 @@ exports[`numeric-input widget Should render tooltip when format option is given:
             id="aria-for-:rc:"
             style="display: none;"
           >
-            Your answer should be 
+            Your answer should be
                    a simplified proper fraction (like 1/2 or 3/4)
           </span>
         </div>
-         
+
       </div>
     </div>
   </div>

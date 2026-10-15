@@ -1028,7 +1028,6 @@ table: [[☃ table 1]]
                           <input
                             aria-disabled="false"
                             aria-invalid="false"
-                            aria-required="false"
                             autocapitalize="off"
                             autocomplete="off"
                             autocorrect="off"
@@ -2331,7 +2330,6 @@ table: [[☃ table 1]]
                           <input
                             aria-disabled="false"
                             aria-invalid="false"
-                            aria-required="false"
                             autocapitalize="off"
                             autocomplete="off"
                             autocorrect="off"
@@ -2356,7 +2354,6 @@ table: [[☃ table 1]]
                           <input
                             aria-disabled="false"
                             aria-invalid="false"
-                            aria-required="false"
                             autocapitalize="off"
                             autocomplete="off"
                             autocorrect="off"
@@ -2863,7 +2860,6 @@ table: [[☃ table 1]]
                           <input
                             aria-disabled="false"
                             aria-invalid="false"
-                            aria-required="false"
                             autocapitalize="off"
                             autocomplete="off"
                             autocorrect="off"
@@ -3323,7 +3319,6 @@ table: [[☃ table 1]]
                                         aria-disabled="false"
                                         aria-invalid="false"
                                         aria-label="aria label"
-                                        aria-required="false"
                                         autocapitalize="off"
                                         autocomplete="off"
                                         autocorrect="off"
@@ -4246,7 +4241,6 @@ table: [[☃ table 1]]
                             <input
                               aria-disabled="false"
                               aria-invalid="false"
-                              aria-required="false"
                               autocapitalize="off"
                               autocomplete="off"
                               autocorrect="off"
@@ -4706,7 +4700,6 @@ table: [[☃ table 1]]
                                           aria-disabled="false"
                                           aria-invalid="false"
                                           aria-label="aria label"
-                                          aria-required="false"
                                           autocapitalize="off"
                                           autocomplete="off"
                                           autocorrect="off"
@@ -7790,7 +7783,6 @@ table: [[☃ table 1]]
                                         aria-disabled="false"
                                         aria-invalid="false"
                                         aria-label="aria label"
-                                        aria-required="false"
                                         autocapitalize="off"
                                         autocomplete="off"
                                         autocorrect="off"
@@ -9217,7 +9209,6 @@ table: [[☃ table 1]]
                               aria-disabled="false"
                               aria-invalid="false"
                               aria-label="aria label"
-                              aria-required="false"
                               autocapitalize="off"
                               autocomplete="off"
                               autocorrect="off"
@@ -14612,7 +14603,6 @@ table: [[☃ table 1]]
                                 <input
                                   aria-disabled="true"
                                   aria-invalid="false"
-                                  aria-required="false"
                                   autocapitalize="off"
                                   autocomplete="off"
                                   autocorrect="off"
@@ -14635,7 +14625,6 @@ table: [[☃ table 1]]
                                 <input
                                   aria-disabled="true"
                                   aria-invalid="false"
-                                  aria-required="false"
                                   autocapitalize="off"
                                   autocomplete="off"
                                   autocorrect="off"
@@ -14662,7 +14651,6 @@ table: [[☃ table 1]]
                                 <input
                                   aria-disabled="true"
                                   aria-invalid="false"
-                                  aria-required="false"
                                   autocapitalize="off"
                                   autocomplete="off"
                                   autocorrect="off"
@@ -14685,7 +14673,6 @@ table: [[☃ table 1]]
                                 <input
                                   aria-disabled="true"
                                   aria-invalid="false"
-                                  aria-required="false"
                                   autocapitalize="off"
                                   autocomplete="off"
                                   autocorrect="off"
@@ -15644,7 +15631,6 @@ table: [[☃ table 1]]
                               aria-disabled="false"
                               aria-invalid="false"
                               aria-label="aria label"
-                              aria-required="false"
                               autocapitalize="off"
                               autocomplete="off"
                               autocorrect="off"
