@@ -30,7 +30,12 @@ LICENSE
 pnpm-lock.yaml
 pnpm-workspace.yaml
 
+# Agent settings - most of which are generated
 .claude/
+.codex/
+.cursor/
+.opencode/
+
 coverage/
 docs/
 dist/

@@ -1,0 +1,26 @@
+## Command sandbox
+
+AI-issued Bash commands run inside an OS-level sandbox with these limits:
+
+Network:
+- Allowed domains: localhost, github.com, api.github.com, productionresultssa0.blob.core.windows.net, productionresultssa1.blob.core.windows.net, productionresultssa2.blob.core.windows.net, productionresultssa3.blob.core.windows.net, productionresultssa4.blob.core.windows.net, productionresultssa5.blob.core.windows.net, productionresultssa6.blob.core.windows.net, productionresultssa7.blob.core.windows.net, productionresultssa8.blob.core.windows.net, productionresultssa9.blob.core.windows.net, productionresultssa10.blob.core.windows.net, productionresultssa11.blob.core.windows.net, productionresultssa12.blob.core.windows.net, productionresultssa13.blob.core.windows.net, productionresultssa14.blob.core.windows.net, productionresultssa15.blob.core.windows.net, productionresultssa16.blob.core.windows.net, productionresultssa17.blob.core.windows.net, productionresultssa18.blob.core.windows.net, productionresultssa19.blob.core.windows.net, registry.npmjs.org, npm.pkg.github.com, download.cypress.io, cdn.cypress.io
+- Denied domains: (none)
+
+Filesystem:
+- Writable paths: ., /tmp, /private/tmp, ~/.npm, ~/.local/share/mise, ~/.local/state/mise, ~/.cache/node/corepack, ~/Library/pnpm, ~/Library/Caches/pnpm
+- Read-denied paths: .env, ~/.ssh, ~/.aws, ~/.gnupg, ~/.netrc, ~/.config/ka-agent-gh-token, ~/.config/ka-olc, ~/.config/gh, ~/.claude/.credentials.json, ~/.codex/auth.json, ~/.pi/agent/auth.json
+- Write-denied paths: .claude, .codex, .cursor, .opencode, .pi, .agents, .git/hooks, .git/config, AGENTS.md, .env, .mcp.json, .mcp, .agent-settings-assets-manifest.json
+
+Environment:
+- Variables: (none)
+
+Unsandboxed commands (run outside the sandbox): pbcopy
+
+When choosing commands, stay within these limits. If a command fails
+because of a sandbox restriction, explain the restriction and choose a
+compliant alternative. Do not retry the blocked action or attempt to
+bypass the sandbox.
+
+This boundary applies to Bash processes. OpenCode's built-in file tools
+are governed separately by OpenCode permissions and are not executed
+inside the OS sandbox.
