@@ -452,5 +452,6 @@
     > .deprecated-perseus-container:has(
         > .perseus-widget-container.widget-block
     ) {
-    margin-block: 0;
+    /* !important used to override higher specificity on another rule */
+    margin-block: 0 !important;
 }
