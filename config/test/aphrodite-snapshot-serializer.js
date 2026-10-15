@@ -124,7 +124,8 @@ const isEmptyValue = (value) =>
 /**
  * Jest prints string attributes wrapped in `"` without escaping them, so a
  * value such as `font-family: "Times New Roman"` would end the attribute
- * early and print a broken snapshot.
+ * early and print a broken snapshot. This function sanitizes the output
+ * by swapping `"` for `'`.
  */
 const escapeAttributeValue = (value) => value.replace(/"/g, "'");
 
