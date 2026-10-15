@@ -140,7 +140,7 @@ class NumberInput extends React.Component<Props, State> {
         this._handleBlur();
     };
 
-    _checkValidity: (arg1: any) => boolean = (value) => {
+    _checkValidity(value: number | null): boolean {
         if (value == null) {
             return true;
         }
@@ -149,7 +149,7 @@ class NumberInput extends React.Component<Props, State> {
         const checkValidity = this.props.checkValidity;
 
         return val != null && _.isFinite(val) && checkValidity(val);
-    };
+    }
 
     _handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const text = e.target.value;
