@@ -1,0 +1,8 @@
+# BEGIN agent-settings generated files (managed by khan/agent-settings; do not edit)
+.claude/** linguist-generated=true
+.codex/** linguist-generated=true
+.cursor/** linguist-generated=true
+.opencode/** linguist-generated=true
+.pi/** linguist-generated=true
+.github/workflows/validate-workflows.yml linguist-generated=true
+# END agent-settings generated files

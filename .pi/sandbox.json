@@ -1,5 +1,6 @@
 {
     "enabled": true,
+    "failClosed": true,
     "network": {
         "allowedDomains": [
             "localhost",
@@ -25,8 +26,33 @@
             "~/Library/pnpm",
             "~/Library/Caches/pnpm"
         ],
-        "denyRead": [],
-        "denyWrite": []
+        "denyRead": [
+            ".env",
+            "~/.ssh",
+            "~/.aws",
+            "~/.gnupg",
+            "~/.netrc",
+            "~/.config/ka-agent-gh-token",
+            "~/.config/ka-olc",
+            "~/.claude/.credentials.json",
+            "~/.codex/auth.json",
+            "~/.pi/agent/auth.json"
+        ],
+        "denyWrite": [
+            ".claude",
+            ".codex",
+            ".cursor",
+            ".opencode",
+            ".pi",
+            ".agents",
+            ".git/hooks",
+            ".git/config",
+            "AGENTS.md",
+            ".env",
+            ".mcp.json",
+            ".mcp",
+            ".agent-settings-assets-manifest.json"
+        ]
     },
     "excludedCommands": [
         "pbcopy"
