@@ -1,5 +1,5 @@
 import {KhanMath} from "@khanacademy/kmath";
-import {components, Util} from "@khanacademy/perseus";
+import {components} from "@khanacademy/perseus";
 import {
     numericInputLogic,
     type PerseusNumericInputWidgetOptions,
@@ -29,7 +29,6 @@ import type {ChangeFn} from "../../mixins/changeable";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 
 const {NumberInput, TextInput} = components;
-const {firstNumericalParse} = Util;
 
 const answerFormButtons = [
     {title: "Integers", value: "integer", content: "6"},
@@ -524,25 +523,13 @@ class NumericInputEditor extends React.Component<Props, State> {
                                                 forms = ["proper", "improper"];
                                             }
                                             this.updateAnswer(i, {
-                                                // TODO(benchristel): newValue
-                                                //  is already number | null;
-                                                //  firstNumericalParse is
-                                                //  redundant.
-                                                value: firstNumericalParse(
-                                                    newValue,
-                                                ),
+                                                value: newValue,
                                                 answerForms: forms,
                                             });
                                         }}
                                         onChange={(newValue) => {
                                             this.updateAnswer(i, {
-                                                // TODO(benchristel): newValue
-                                                //  is already number | null;
-                                                //  firstNumericalParse is
-                                                //  redundant.
-                                                value: firstNumericalParse(
-                                                    newValue,
-                                                ),
+                                                value: newValue,
                                             });
                                         }}
                                     />
