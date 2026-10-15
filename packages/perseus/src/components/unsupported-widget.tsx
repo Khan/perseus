@@ -35,8 +35,7 @@ export default function UnsupportedWidget({
     return (
         <div
             style={{
-                paddingBlockStart: sizing.size_080,
-                paddingBlockEnd: sizing.size_080,
+                paddingBlock: sizing.size_080,
             }}
         >
             <Banner text={strings.unsupportedWidget} kind="info" />
