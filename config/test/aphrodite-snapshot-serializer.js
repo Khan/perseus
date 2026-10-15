@@ -121,6 +121,14 @@ const isNestedBlockKey = (key) => key.startsWith(":") || key.startsWith("@");
 const isEmptyValue = (value) =>
     value == null || typeof value === "boolean" || value === "";
 
+/**
+ * Jest prints string attributes wrapped in `"` without escaping them, so a
+ * value such as `font-family: "Times New Roman"` would end the attribute
+ * early and print a broken snapshot. This function sanitizes the output
+ * by swapping `"` for `'`.
+ */
+const escapeAttributeValue = (value) => value.replace(/"/g, "'");
+
 /** Renders `{"0%": {...}, "100%": {...}}` as `0% { ... } 100% { ... }`. */
 function renderKeyframes(keyframes) {
     return Object.entries(keyframes)
@@ -216,20 +224,28 @@ function expandStylesInElement(node) {
         const existing = node.getAttribute("style");
         node.setAttribute(
             "style",
-            [context.declarations.join(" "), existing]
-                .filter(Boolean)
-                .join(" "),
+            escapeAttributeValue(
+                [context.declarations.join(" "), existing]
+                    .filter(Boolean)
+                    .join(" "),
+            ),
         );
     }
 
     for (const [suffix, declarations] of context.nested) {
         if (declarations.length > 0) {
-            node.setAttribute(`data-style-${suffix}`, declarations.join(" "));
+            node.setAttribute(
+                `data-style-${suffix}`,
+                escapeAttributeValue(declarations.join(" ")),
+            );
         }
     }
 
     for (const [property, keyframes] of context.keyframes) {
-        node.setAttribute(`data-keyframes-${property}`, keyframes);
+        node.setAttribute(
+            `data-keyframes-${property}`,
+            escapeAttributeValue(keyframes),
+        );
     }
 }
 

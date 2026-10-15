@@ -272,6 +272,27 @@ describe("aphrodite-snapshot-serializer", () => {
         `);
     });
 
+    it("prints double quotes in style values as single quotes", () => {
+        // Arrange
+        const styles = StyleSheet.create({
+            box: {
+                fontFamily: '"Times New Roman", serif',
+                ":hover": {fontFamily: '"Comic Sans MS"'},
+            },
+        });
+
+        // Act
+        const element = elementWithClass(css(styles.box));
+
+        // Assert
+        expect(element).toMatchInlineSnapshot(`
+            <div
+              data-style-hover="font-family: 'Comic Sans MS';"
+              style="font-family: 'Times New Roman', serif;"
+            />
+        `);
+    });
+
     it("expands Aphrodite classes on descendants", () => {
         // Arrange
         const styles = StyleSheet.create({
