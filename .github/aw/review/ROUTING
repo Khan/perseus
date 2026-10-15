@@ -45,6 +45,7 @@ AGENTS.md                            tier=medium
 .claude/settings.json                lens=security-auth tier=high
 # Mints the PAT the hooks above consume.
 .claude/setup-git-token.mjs          lens=security-auth tier=high
+.codex/config.toml                   lens=security-auth tier=high
 .codex/hooks/**                      lens=security-auth tier=high
 .codex/hooks.json                    lens=security-auth tier=high
 .cursor/hooks/**                     lens=security-auth tier=high
