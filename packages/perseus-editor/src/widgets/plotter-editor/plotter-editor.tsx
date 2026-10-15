@@ -61,8 +61,8 @@ type State = {
     editing: EditingState;
     pic: any;
     loadedUrl: string | null;
-    minX: number | null;
-    maxX: number | null;
+    minX: number;
+    maxX: number;
     tickStep: number | null;
 };
 
@@ -79,8 +79,8 @@ class PlotterEditor extends React.Component<Props, State> {
         editing: this.props.static ? STARTING : CORRECT,
         pic: null,
         loadedUrl: null,
-        minX: null,
-        maxX: null,
+        minX: 0,
+        maxX: 10,
         tickStep: null,
     };
 
@@ -231,8 +231,8 @@ class PlotterEditor extends React.Component<Props, State> {
 
     setCategoriesFromScale: () => void = () => {
         const scale = this.state.tickStep || 1;
-        const min = this.state.minX || 0;
-        const max = this.state.maxX || 0;
+        const min = this.state.minX;
+        const max = this.state.maxX;
         const length = Math.floor((max - min) / scale) * scale;
 
         let categories;
