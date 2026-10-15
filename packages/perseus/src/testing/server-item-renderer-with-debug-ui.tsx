@@ -23,6 +23,8 @@ type Props = {
     linterContext?: LinterContextProps;
     reviewMode?: boolean;
     showSolutions?: ShowSolutions;
+    // Whether this accordion section should be expanded on initial load.
+    expanded?: boolean;
 };
 
 /**
@@ -34,6 +36,7 @@ export const ServerItemRendererWithDebugUI = ({
     linterContext,
     reviewMode = false,
     showSolutions,
+    expanded = false,
 }: Props): React.ReactElement => {
     const mergedApiOptions = useStorybookApiOptions(apiOptions);
     const {isMobile: mobileOverride, isRtl} = React.useContext(
@@ -101,6 +104,7 @@ export const ServerItemRendererWithDebugUI = ({
                         score={state.score}
                         userInput={state.userInput}
                         perseusItem={state.perseusItem}
+                        expanded={expanded}
                         updateJson={updateJson}
                     />
                 </View>

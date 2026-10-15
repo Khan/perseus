@@ -89,7 +89,6 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -106,7 +105,6 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -123,7 +121,6 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -140,7 +137,6 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -161,7 +157,6 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -178,7 +173,6 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -195,7 +189,6 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -212,7 +205,6 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -233,7 +225,6 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -250,7 +241,6 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -267,7 +257,6 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -284,7 +273,6 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -389,7 +377,6 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -406,7 +393,6 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -423,7 +409,6 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -440,7 +425,6 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -461,7 +445,6 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -478,7 +461,6 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -495,7 +477,6 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -512,7 +493,6 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -533,7 +513,6 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -550,7 +529,6 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -567,7 +545,6 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
@@ -584,7 +561,6 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"

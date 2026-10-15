@@ -1,5 +1,10 @@
+import * as React from "react";
+
 import {themeModes} from "../../../../../../.storybook/modes";
-import {question1, wideButton} from "../explanation.testdata";
+import ArticleRenderer from "../../../article-renderer";
+import {storybookDependenciesV2} from "../../../testing/test-dependencies";
+import {useStorybookApiOptions} from "../../../testing/use-storybook-api-options";
+import {question1, stacked, wideButton} from "../explanation.testdata";
 
 import {explanationRendererDecorator} from "./explanation-renderer-decorator";
 
@@ -55,4 +60,16 @@ export const WideButton: Story = {
     parameters: {
         content: wideButton.content,
     },
+};
+
+export const StackedInArticle = (): React.ReactNode => {
+    const apiOptions = useStorybookApiOptions();
+    return (
+        <ArticleRenderer
+            json={stacked}
+            seed={0}
+            dependencies={storybookDependenciesV2}
+            apiOptions={apiOptions}
+        />
+    );
 };
