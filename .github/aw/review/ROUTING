@@ -77,6 +77,9 @@ packages/*/package.json              tier=high
 .github/actions/**                   lens=security-auth tier=high
 # (No `**/action.yaml` rule: every composite action here uses `action.yml`.)
 **/action.yml                        lens=security-auth tier=high
+# The CI egress-firewall allowlists (`conf-files:` in the workflows, including
+# publish.yml): adding a domain opens a new outbound path from jobs with secrets.
+/.github/*.conf                      lens=security-auth tier=high
 
 # The reviewer's own config: a PR tampering with review routing/config must not be
 # reviewed at a reduced budget. NOT direction-dependent: that flag makes the router
