@@ -19,7 +19,7 @@ interface Props {
      * The number format to use for display before the user edits the value.
      * After the first edit, the format is detected from the input.
      */
-    format?: MathFormat | "non-reduced" | null;
+    format?: MathFormat | null;
     /**
      * A value to display when the input is empty. If the placeholder is
      * numeric and finite, it is also emitted via `onChange` when the input is
@@ -55,6 +55,10 @@ interface Props {
     className?: string;
 }
 
+interface State {
+    format: MathFormat | undefined;
+}
+
 /**
  * An input box that accepts only numeric strings. While the input is focused,
  * it acts as an uncontrolled component: you can type anything, but only valid
@@ -65,7 +69,7 @@ interface Props {
  * percents, and multiples of pi. The format is auto-detected on user input.
  * The input value is displayed in the most recently detected format.
  */
-class NumberInput extends React.Component<Props, any> {
+class NumberInput extends React.Component<Props, State> {
     inputRef = React.createRef<HTMLInputElement>();
 
     static defaultProps = {
@@ -76,8 +80,8 @@ class NumberInput extends React.Component<Props, any> {
         useArrowKeys: false,
     };
 
-    state: any = {
-        format: this.props.format,
+    state: State = {
+        format: this.props.format ?? undefined,
     };
 
     componentDidMount() {
@@ -206,7 +210,7 @@ class NumberInput extends React.Component<Props, any> {
         }
     };
 
-    _setValue(val: number | null, format: MathFormat) {
+    _setValue(val: number | null, format: MathFormat | undefined) {
         this._getInput().value = toNumericString(val, format);
     }
 
