@@ -234,10 +234,7 @@ describe("WidgetEditor", () => {
             const serialized = ref.current?.serialize();
 
             // Assert
-            expect(serialized).toMatchObject({
-                type: "transformer",
-                options: widgetInfo.options,
-            });
+            expect(serialized).toMatchObject(widgetInfo);
         });
     });
 

@@ -17,7 +17,7 @@ class UnsupportedWidgetEditor extends React.Component {
     render(): React.ReactNode {
         return (
             <div>
-                <p>Perseus doesn&apos;t support this widget type.</p>
+                <p>Perseus doesn't support this widget type.</p>
                 <p>
                     Learners will see a message and they will not be graded on
                     this part. Please replace this widget with a supported one.

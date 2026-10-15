@@ -69,7 +69,7 @@ describe("UnsupportedWidget", () => {
         );
     });
 
-    it("does not log more than once per componetn instance", () => {
+    it("does not log more than once per component instance", () => {
         // Arrange
         const logErrorSpy = jest.spyOn(testDependencies.Log, "error");
         const widget = (
