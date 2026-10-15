@@ -407,6 +407,16 @@ describe("sorter widget", () => {
             expect(screen.getByText(unsupportedWidgetText)).toBeInTheDocument();
         });
 
+        it("does not render the unsupported-widget notice at the card limit", () => {
+            // Arrange, Act
+            renderQuestion(generateSorterQuestion(SORTER_MAX_CARDS));
+
+            // Assert
+            expect(
+                screen.queryByText(unsupportedWidgetText),
+            ).not.toBeInTheDocument();
+        });
+
         it("logs the sorter as unsupported above the card limit", () => {
             // Arrange
             const logErrorSpy = jest.spyOn(testDependencies.Log, "error");
@@ -426,16 +436,6 @@ describe("sorter widget", () => {
                     },
                 },
             );
-        });
-
-        it("does not render the unsupported-widget notice at the card limit", () => {
-            // Arrange, Act
-            renderQuestion(generateSorterQuestion(SORTER_MAX_CARDS));
-
-            // Assert
-            expect(
-                screen.queryByText(unsupportedWidgetText),
-            ).not.toBeInTheDocument();
         });
 
         it("is scored as correct without the learner answering", () => {
