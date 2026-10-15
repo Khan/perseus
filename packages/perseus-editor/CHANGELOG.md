@@ -1,5 +1,23 @@
 # @khanacademy/perseus-editor
 
+## 44.0.9
+
+### Patch Changes
+
+-   [#4262](https://github.com/Khan/perseus/pull/4262) [`2d8bbca`](https://github.com/Khan/perseus/commit/2d8bbca1b09a2be0721306773497fbbace8c826e) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Upgraded tooling - pnpm v12
+
+-   [#4368](https://github.com/Khan/perseus/pull/4368) [`8a9b9b0`](https://github.com/Khan/perseus/commit/8a9b9b0d43a013c945d980ea1714b5b154246a41) Thanks [@beaesguerra](https://github.com/beaesguerra)! - Update Wonder Blocks dependencies (i18n strings for tabs, functional component refactors)
+
+-   Updated dependencies [[`2d8bbca`](https://github.com/Khan/perseus/commit/2d8bbca1b09a2be0721306773497fbbace8c826e), [`8a9b9b0`](https://github.com/Khan/perseus/commit/8a9b9b0d43a013c945d980ea1714b5b154246a41), [`4bae42b`](https://github.com/Khan/perseus/commit/4bae42bea39c8788188226c5c3654ae83647a5eb)]:
+    -   @khanacademy/kas@3.0.1
+    -   @khanacademy/keypad-context@6.0.6
+    -   @khanacademy/kmath@3.0.7
+    -   @khanacademy/math-input@30.1.1
+    -   @khanacademy/perseus@91.1.1
+    -   @khanacademy/perseus-core@41.2.2
+    -   @khanacademy/perseus-linter@6.1.4
+    -   @khanacademy/perseus-utils@3.0.1
+
 ## 44.0.8
 
 ### Patch Changes

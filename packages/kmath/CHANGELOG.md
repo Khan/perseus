@@ -1,5 +1,15 @@
 # @khanacademy/kmath
 
+## 3.0.7
+
+### Patch Changes
+
+-   [#4262](https://github.com/Khan/perseus/pull/4262) [`2d8bbca`](https://github.com/Khan/perseus/commit/2d8bbca1b09a2be0721306773497fbbace8c826e) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Upgraded tooling - pnpm v12
+
+-   Updated dependencies [[`2d8bbca`](https://github.com/Khan/perseus/commit/2d8bbca1b09a2be0721306773497fbbace8c826e)]:
+    -   @khanacademy/perseus-core@41.2.2
+    -   @khanacademy/perseus-utils@3.0.1
+
 ## 3.0.6
 
 ### Patch Changes

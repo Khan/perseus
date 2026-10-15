@@ -1,5 +1,16 @@
 # @khanacademy/perseus-core
 
+## 41.2.2
+
+### Patch Changes
+
+-   [#4262](https://github.com/Khan/perseus/pull/4262) [`2d8bbca`](https://github.com/Khan/perseus/commit/2d8bbca1b09a2be0721306773497fbbace8c826e) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Upgraded tooling - pnpm v12
+
+-   Updated dependencies [[`2d8bbca`](https://github.com/Khan/perseus/commit/2d8bbca1b09a2be0721306773497fbbace8c826e)]:
+    -   @khanacademy/kas@3.0.1
+    -   @khanacademy/perseus-utils@3.0.1
+    -   @khanacademy/pure-markdown@3.0.1
+
 ## 41.2.1
 
 ### Patch Changes
