@@ -1,5 +1,18 @@
 # @khanacademy/math-input
 
+## 30.1.1
+
+### Patch Changes
+
+-   [#4262](https://github.com/Khan/perseus/pull/4262) [`2d8bbca`](https://github.com/Khan/perseus/commit/2d8bbca1b09a2be0721306773497fbbace8c826e) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Upgraded tooling - pnpm v12
+
+-   [#4368](https://github.com/Khan/perseus/pull/4368) [`8a9b9b0`](https://github.com/Khan/perseus/commit/8a9b9b0d43a013c945d980ea1714b5b154246a41) Thanks [@beaesguerra](https://github.com/beaesguerra)! - Update Wonder Blocks dependencies (i18n strings for tabs, functional component refactors)
+
+-   Updated dependencies [[`2d8bbca`](https://github.com/Khan/perseus/commit/2d8bbca1b09a2be0721306773497fbbace8c826e)]:
+    -   @khanacademy/keypad-context@6.0.6
+    -   @khanacademy/perseus-core@41.2.2
+    -   @khanacademy/perseus-utils@3.0.1
+
 ## 30.1.0
 
 ### Minor Changes
