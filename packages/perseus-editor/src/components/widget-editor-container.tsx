@@ -154,7 +154,7 @@ class WidgetEditorContainer extends React.Component<Props, State> {
         const isEditingDisabled =
             this.props.apiOptions.editingDisabled ?? false;
 
-        const Ed =
+        const WidgetEditor =
             WidgetEditorRegistry.getEditor(widgetInfo.type) ??
             UnsupportedWidgetEditor;
         let supportedAlignments: ReadonlyArray<Alignment>;
@@ -207,7 +207,7 @@ class WidgetEditorContainer extends React.Component<Props, State> {
                 </div>
                 {this.state.showWidget && (
                     <WidgetEditorSettings
-                        bestPractices={Ed?.bestPractices}
+                        bestPractices={WidgetEditor?.bestPractices}
                         supportsStaticMode={!!supportsStaticMode}
                         isStatic={!!widgetInfo.static}
                         onStaticChange={this._setStatic}
@@ -226,7 +226,7 @@ class WidgetEditorContainer extends React.Component<Props, State> {
                         (this.state.showWidget ? "enter" : "leave")
                     }
                 >
-                    <Ed
+                    <WidgetEditor
                         ref={this.widgetSpecificEditor}
                         onChange={this._handleWidgetChange}
                         static={widgetInfo.static}
