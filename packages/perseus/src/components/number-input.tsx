@@ -20,8 +20,8 @@ interface Props {
     onChange: (value: number) => void;
     onFormatChange?: (value: number, format: MathFormat) => void;
     checkValidity: (value: number) => boolean;
-    onFocus?: any;
-    onBlur?: any;
+    onFocus?: () => void;
+    onBlur?: () => void;
     size?: any;
     allowPiTruncation?: any;
     useArrowKeys: any;
