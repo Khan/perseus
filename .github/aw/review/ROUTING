@@ -18,6 +18,14 @@ enable holistic,completeness,test-adequacy,first-principles,conventions
 # every push would re-review unchanged code each time.
 re-review scoped
 
+# COVERAGE: every tracked file must match an explicit `tier=` rule; nothing may
+# fall to the router's silent default. Each top-level directory and root file has
+# a rule in the two blocks below, and anything more specific overrides it later.
+# A new top-level path needs a line here. To list files that match no rule, run
+# from a Khan/actions checkout at the pinned tag:
+#   git -C <perseus> ls-files | npx -y tsx workflows/review/lib/check-consumer-config.ts \
+#       --repo <perseus> --files-from - --strict
+
 # Broad defaults first; exceptions re-raise below (last match wins).
 packages/**                          tier=medium
 # utils/ holds the scripts CI runs to gate PRs and publish to npm, so not low.
@@ -27,12 +35,59 @@ config/**                            tier=low
 .changeset/**                        tier=low
 static/**                            tier=low
 types/**                             tier=low
+# Local analysis scripts over a sample question corpus; not shipped.
+data/**                              tier=low
+docs/**                              tier=trivial
 **/*.md                              tier=trivial
 # Sample question corpus for the local analysis scripts in data/; not shipped.
 data/questions/                      tier=trivial
 # Changeset entries re-raised over **/*.md: the semver bump level decides what ships
 # to consumers, and CI only checks that an entry exists.
 .changeset/*.md                      tier=low
+
+# Build and CI-gate config. Medium for the same reason as utils/: a mistake here
+# changes what ships or waves a bad PR through, without failing anything.
+# Rollup config that builds every published bundle (`publish:ci` runs `pnpm build`).
+config/build/**                      tier=medium
+# Jest setup and matchers every test run loads.
+config/test/**                       tier=medium
+# Builds the published .d.ts files (`build:types`, also run by `publish:ci`).
+/tsconfig-build.json                 tier=medium
+/tsconfig.json                       tier=medium
+/tsconfig-common.json                tier=medium
+/jest.config.js                      tier=medium
+/jest-css-modules-transform-config.js tier=medium
+/.swcrc                              tier=medium
+/.eslintrc.js                        tier=medium
+/.eslintignore                       tier=medium
+/knip.config.ts                      tier=medium
+/tstyche.json                        tier=medium
+
+# Local-only tooling and repo metadata: nothing CI gates on or that ships.
+/.editorconfig                       tier=low
+/.gitignore                          tier=low
+/.prettierignore                     tier=low
+/.prettierrc.js                      tier=low
+/.rgignore                           tier=low
+/.nycrc.json                         tier=low
+/wallaby.js                          tier=low
+/cypress.config.ts                   tier=low
+/vite.config.ts                      tier=low
+/typedoc.config.cjs                  tier=low
+/LICENSE                             tier=low
+/.github/NOTIFIED                    tier=low
+/logo.png                            tier=trivial
+/sample.png                          tier=trivial
+
+# Config that runs code on a contributor's machine. The dev container pulls its
+# image and runs postCreateCommand when the repo is opened in a container or
+# Codespace. VS Code workspace tasks can auto-run on folder open. fixie runs its
+# `verify`/`fix` commands.
+/.devcontainer/**                    lens=security-auth tier=high
+/.vscode/**                          lens=security-auth tier=medium
+/.fixie/**                           lens=security-auth tier=medium
+# Decides which dependency PRs open automatically and can add registries.
+/.github/dependabot.yml              lens=security-auth tier=medium
 
 # Executable prose re-raised over the broad **/*.md trivial rule: skills and agent
 # memory files steer coding agents running as engineers with their credentials.
