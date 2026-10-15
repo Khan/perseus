@@ -22,7 +22,7 @@ interface Props {
     checkValidity: (value: number) => boolean;
     onFocus?: () => void;
     onBlur?: () => void;
-    size?: any;
+    size?: "mini" | "small" | "normal";
     allowPiTruncation?: any;
     useArrowKeys: any;
     className?: any;
@@ -222,6 +222,7 @@ class NumberInput extends React.Component<Props, any> {
             useArrowKeys,
             allowPiTruncation,
             placeholder,
+            size,
             ...restProps
         } = this.props;
 
