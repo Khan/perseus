@@ -109,8 +109,10 @@ export type MakeWidgetMap<TRegistry> = {
  * `@khanacademy/perseus` (for UI support) and `@khanacademy/perseus-score`
  * (for scoring support)).
  *
- * Importantly, the key should be the name that is used in widget IDs, which is
- * the same as the widget option's `type` field.
+ * TODO(jeremy): Move away from widget IDs that embed the widget type (to GUIDs or something).
+ * Today, the key should match the widget's `type` field. Also (sadly) it needs
+ * to match the prefix of widget IDs for the widget type also in order to allow
+ * us to properly type (and narrow) the PerseusWidgetsMap entries.
  *
  * If you define the widget outside of this package, you can still add the new
  * widget to this interface by writing the following in that package that
