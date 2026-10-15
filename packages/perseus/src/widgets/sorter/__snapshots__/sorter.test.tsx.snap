@@ -19,11 +19,12 @@ exports[`sorter widget layout keeps a horizontal sorter horizontal at exactly th
             class="perseus-clearfix"
           >
             <ul
-              class="sortable_a2rat1 perseus-sortable"
+              class="perseus-sortable"
+              style="box-sizing: border-box; float: inline-start; padding: 0px; margin: 0px;"
             >
               <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
-                style="position: static; margin: 0px 5px 0px 0px;"
+                class="perseus-sortable-draggable"
+                style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ew-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; float: inline-start; position: static; margin: 0px 5px 0px 0px;"
               >
                 <div
                   class="perseus-renderer perseus-renderer-responsive"
@@ -41,8 +42,8 @@ exports[`sorter widget layout keeps a horizontal sorter horizontal at exactly th
                 </div>
               </li>
               <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
-                style="position: static; margin: 0px 5px 0px 0px;"
+                class="perseus-sortable-draggable"
+                style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ew-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; float: inline-start; position: static; margin: 0px 5px 0px 0px;"
               >
                 <div
                   class="perseus-renderer perseus-renderer-responsive"
@@ -60,8 +61,8 @@ exports[`sorter widget layout keeps a horizontal sorter horizontal at exactly th
                 </div>
               </li>
               <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
-                style="position: static; margin: 0px 5px 0px 0px;"
+                class="perseus-sortable-draggable"
+                style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ew-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; float: inline-start; position: static; margin: 0px 5px 0px 0px;"
               >
                 <div
                   class="perseus-renderer perseus-renderer-responsive"
@@ -79,8 +80,8 @@ exports[`sorter widget layout keeps a horizontal sorter horizontal at exactly th
                 </div>
               </li>
               <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
-                style="position: static; margin: 0px 5px 0px 0px;"
+                class="perseus-sortable-draggable"
+                style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ew-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; float: inline-start; position: static; margin: 0px 5px 0px 0px;"
               >
                 <div
                   class="perseus-renderer perseus-renderer-responsive"
@@ -98,8 +99,8 @@ exports[`sorter widget layout keeps a horizontal sorter horizontal at exactly th
                 </div>
               </li>
               <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
-                style="position: static; margin: 0px;"
+                class="perseus-sortable-draggable"
+                style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ew-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; float: inline-start; position: static; margin: 0px;"
               >
                 <div
                   class="perseus-renderer perseus-renderer-responsive"
@@ -144,11 +145,12 @@ exports[`sorter widget layout lays out a horizontal sorter vertically when it ha
             class="perseus-clearfix"
           >
             <ul
-              class="sortable_a2rat1 perseus-sortable"
+              class="perseus-sortable"
+              style="box-sizing: border-box; float: inline-start; padding: 0px; margin: 0px;"
             >
               <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
-                style="position: static; margin: 0px 0px 5px 0px;"
+                class="perseus-sortable-draggable"
+                style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ns-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; position: static; margin: 0px 0px 5px 0px;"
               >
                 <div
                   class="perseus-renderer perseus-renderer-responsive"
@@ -166,8 +168,8 @@ exports[`sorter widget layout lays out a horizontal sorter vertically when it ha
                 </div>
               </li>
               <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
-                style="position: static; margin: 0px 0px 5px 0px;"
+                class="perseus-sortable-draggable"
+                style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ns-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; position: static; margin: 0px 0px 5px 0px;"
               >
                 <div
                   class="perseus-renderer perseus-renderer-responsive"
@@ -185,8 +187,8 @@ exports[`sorter widget layout lays out a horizontal sorter vertically when it ha
                 </div>
               </li>
               <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
-                style="position: static; margin: 0px 0px 5px 0px;"
+                class="perseus-sortable-draggable"
+                style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ns-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; position: static; margin: 0px 0px 5px 0px;"
               >
                 <div
                   class="perseus-renderer perseus-renderer-responsive"
@@ -204,8 +206,8 @@ exports[`sorter widget layout lays out a horizontal sorter vertically when it ha
                 </div>
               </li>
               <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
-                style="position: static; margin: 0px 0px 5px 0px;"
+                class="perseus-sortable-draggable"
+                style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ns-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; position: static; margin: 0px 0px 5px 0px;"
               >
                 <div
                   class="perseus-renderer perseus-renderer-responsive"
@@ -223,8 +225,8 @@ exports[`sorter widget layout lays out a horizontal sorter vertically when it ha
                 </div>
               </li>
               <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
-                style="position: static; margin: 0px 0px 5px 0px;"
+                class="perseus-sortable-draggable"
+                style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ns-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; position: static; margin: 0px 0px 5px 0px;"
               >
                 <div
                   class="perseus-renderer perseus-renderer-responsive"
@@ -242,8 +244,8 @@ exports[`sorter widget layout lays out a horizontal sorter vertically when it ha
                 </div>
               </li>
               <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
-                style="position: static; margin: 0px;"
+                class="perseus-sortable-draggable"
+                style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ns-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; position: static; margin: 0px;"
               >
                 <div
                   class="perseus-renderer perseus-renderer-responsive"
@@ -288,11 +290,12 @@ exports[`sorter widget layout lays out the cards horizontally when the layout is
             class="perseus-clearfix"
           >
             <ul
-              class="sortable_a2rat1 perseus-sortable"
+              class="perseus-sortable"
+              style="box-sizing: border-box; float: inline-start; padding: 0px; margin: 0px;"
             >
               <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
-                style="position: static; margin: 0px 5px 0px 0px;"
+                class="perseus-sortable-draggable"
+                style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ew-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; float: inline-start; position: static; margin: 0px 5px 0px 0px;"
               >
                 <div
                   class="perseus-renderer perseus-renderer-responsive"
@@ -310,8 +313,8 @@ exports[`sorter widget layout lays out the cards horizontally when the layout is
                 </div>
               </li>
               <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
-                style="position: static; margin: 0px 5px 0px 0px;"
+                class="perseus-sortable-draggable"
+                style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ew-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; float: inline-start; position: static; margin: 0px 5px 0px 0px;"
               >
                 <div
                   class="perseus-renderer perseus-renderer-responsive"
@@ -329,8 +332,8 @@ exports[`sorter widget layout lays out the cards horizontally when the layout is
                 </div>
               </li>
               <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
-                style="position: static; margin: 0px 5px 0px 0px;"
+                class="perseus-sortable-draggable"
+                style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ew-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; float: inline-start; position: static; margin: 0px 5px 0px 0px;"
               >
                 <div
                   class="perseus-renderer perseus-renderer-responsive"
@@ -348,8 +351,8 @@ exports[`sorter widget layout lays out the cards horizontally when the layout is
                 </div>
               </li>
               <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-horizontalCard_56iph8 perseus-sortable-draggable"
-                style="position: static; margin: 0px;"
+                class="perseus-sortable-draggable"
+                style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ew-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; float: inline-start; position: static; margin: 0px;"
               >
                 <div
                   class="perseus-renderer perseus-renderer-responsive"
@@ -394,11 +397,12 @@ exports[`sorter widget layout lays out the cards vertically when the layout is v
             class="perseus-clearfix"
           >
             <ul
-              class="sortable_a2rat1 perseus-sortable"
+              class="perseus-sortable"
+              style="box-sizing: border-box; float: inline-start; padding: 0px; margin: 0px;"
             >
               <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
-                style="position: static; margin: 0px 0px 5px 0px;"
+                class="perseus-sortable-draggable"
+                style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ns-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; position: static; margin: 0px 0px 5px 0px;"
               >
                 <div
                   class="perseus-renderer perseus-renderer-responsive"
@@ -416,8 +420,8 @@ exports[`sorter widget layout lays out the cards vertically when the layout is v
                 </div>
               </li>
               <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
-                style="position: static; margin: 0px 0px 5px 0px;"
+                class="perseus-sortable-draggable"
+                style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ns-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; position: static; margin: 0px 0px 5px 0px;"
               >
                 <div
                   class="perseus-renderer perseus-renderer-responsive"
@@ -435,8 +439,8 @@ exports[`sorter widget layout lays out the cards vertically when the layout is v
                 </div>
               </li>
               <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
-                style="position: static; margin: 0px 0px 5px 0px;"
+                class="perseus-sortable-draggable"
+                style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ns-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; position: static; margin: 0px 0px 5px 0px;"
               >
                 <div
                   class="perseus-renderer perseus-renderer-responsive"
@@ -454,8 +458,8 @@ exports[`sorter widget layout lays out the cards vertically when the layout is v
                 </div>
               </li>
               <li
-                class="card_11zdkra-o_O-draggable_12to336-o_O-verticalCard_1kh3yx7 perseus-sortable-draggable"
-                style="position: static; margin: 0px;"
+                class="perseus-sortable-draggable"
+                style="box-sizing: border-box; background: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-radius: var(--wb-border-radius-radius_040); cursor: ns-resize; min-inline-size: 25px; min-block-size: 44px; padding: 10px; list-style-type: none; user-select: none; touch-action: none; text-align: center; max-inline-size: 100%; position: static; margin: 0px;"
               >
                 <div
                   class="perseus-renderer perseus-renderer-responsive"
@@ -500,7 +504,7 @@ exports[`sorter widget snapshot should snapshot on mobile: first mobile render 1
             class="perseus-clearfix"
           >
             <div
-              class="default_7zhre1-o_O-spinnerContainer_agrn11"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; justify-content: center;"
             >
               <svg
                 height="96"
@@ -509,9 +513,10 @@ exports[`sorter widget snapshot should snapshot on mobile: first mobile render 1
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  class="loadingSpinner_1dvgeb3-o_O-inlineStyles_1uct99t"
                   d="M88.38 46.91a3.818 3.818 0 1 1 7.602 0h.006c.008.362.012.725.012 1.09 0 26.51-21.49 48-48 48S0 74.51 0 48 21.49 0 48 0c.365 0 .728.004 1.09.012v.005a3.818 3.818 0 1 1 0 7.602v.032c-.362-.01-.725-.015-1.09-.015C25.708 7.636 7.636 25.708 7.636 48c0 22.292 18.072 40.364 40.364 40.364 22.292 0 40.364-18.072 40.364-40.364 0-.365-.005-.728-.015-1.09h.032z"
+                  data-keyframes-animation-name="0% { transform: rotate(0deg); } 50% { transform: rotate(180deg); } 100% { transform: rotate(360deg); }"
                   fill-rule="nonzero"
+                  style="transform-origin: 50% 50%; animation-duration: 1.1s; animation-iteration-count: infinite; animation-timing-function: linear; fill: var(--wb-semanticColor-core-foreground-neutral-subtle);"
                 />
               </svg>
             </div>
@@ -551,7 +556,7 @@ exports[`sorter widget snapshot should snapshot: first render 1`] = `
             class="perseus-clearfix"
           >
             <div
-              class="default_7zhre1-o_O-spinnerContainer_agrn11"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; justify-content: center;"
             >
               <svg
                 height="96"
@@ -560,9 +565,10 @@ exports[`sorter widget snapshot should snapshot: first render 1`] = `
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  class="loadingSpinner_1dvgeb3-o_O-inlineStyles_1uct99t"
                   d="M88.38 46.91a3.818 3.818 0 1 1 7.602 0h.006c.008.362.012.725.012 1.09 0 26.51-21.49 48-48 48S0 74.51 0 48 21.49 0 48 0c.365 0 .728.004 1.09.012v.005a3.818 3.818 0 1 1 0 7.602v.032c-.362-.01-.725-.015-1.09-.015C25.708 7.636 7.636 25.708 7.636 48c0 22.292 18.072 40.364 40.364 40.364 22.292 0 40.364-18.072 40.364-40.364 0-.365-.005-.728-.015-1.09h.032z"
+                  data-keyframes-animation-name="0% { transform: rotate(0deg); } 50% { transform: rotate(180deg); } 100% { transform: rotate(360deg); }"
                   fill-rule="nonzero"
+                  style="transform-origin: 50% 50%; animation-duration: 1.1s; animation-iteration-count: infinite; animation-timing-function: linear; fill: var(--wb-semanticColor-core-foreground-neutral-subtle);"
                 />
               </svg>
             </div>
