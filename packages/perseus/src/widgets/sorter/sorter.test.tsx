@@ -1,5 +1,4 @@
 import {
-    Errors,
     generateSorterOptions,
     generateSorterWidget,
     generateTestPerseusItem,
@@ -417,25 +416,28 @@ describe("sorter widget", () => {
             ).not.toBeInTheDocument();
         });
 
-        it("logs the sorter as unsupported above the card limit", () => {
+        it("dispatches not-supported analytics event when above the card limit", () => {
             // Arrange
-            const logErrorSpy = jest.spyOn(testDependencies.Log, "error");
+            const onAnalyticsEventSpy = jest.fn();
+            const dependencies = {
+                analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+            };
 
             // Act
-            renderQuestion(generateSorterQuestion(SORTER_MAX_CARDS + 1));
+            renderQuestion(generateSorterQuestion(SORTER_MAX_CARDS + 1), {
+                dependencies,
+            });
 
             // Assert
-            expect(logErrorSpy).toHaveBeenCalledWith(
-                "Unsupported widget rendered",
-                Errors.NotAllowed,
-                {
-                    loggedMetadata: {
-                        type: "sorter",
-                        widgetId: "sorter 1",
-                        reason: "exceeds-card-limit",
-                    },
+            expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+                type: "perseus:widget:unsupported",
+                payload: {
+                    widgetType: "sorter",
+                    widgetSubType: "null",
+                    widgetId: "sorter 1",
+                    reason: "exceeds-card-limit",
                 },
-            );
+            });
         });
 
         it("is scored as correct without the learner answering", () => {

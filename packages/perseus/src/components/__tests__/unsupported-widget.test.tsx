@@ -1,8 +1,9 @@
-import {Errors, generateTestPerseusRenderer} from "@khanacademy/perseus-core";
+import {generateTestPerseusRenderer} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
-import {testDependencies} from "../../testing/test-dependencies";
+import {DependenciesContext} from "../../dependencies";
+import {testDependenciesV2} from "../../testing/test-dependencies";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 import UnsupportedWidgetMessage from "../unsupported-widget-message";
@@ -47,47 +48,55 @@ describe("UnsupportedWidgetMessage", () => {
 
     it("logs the widget's type, ID and reason", () => {
         // Arrange
-        const logErrorSpy = jest.spyOn(testDependencies.Log, "error");
-        const widget = (
-            <UnsupportedWidgetMessage
-                type="transformer"
-                widgetId="transformer 1"
-            />
-        );
+        const onAnalyticsEventSpy = jest.fn();
+        const dependencies = {
+            ...testDependenciesV2,
+            analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+        };
 
         // Act
-        render(widget);
+        render(
+            <DependenciesContext.Provider value={dependencies}>
+                <UnsupportedWidgetMessage
+                    widgetType="transformer"
+                    widgetSubType="null"
+                    widgetId="transformer 1"
+                />
+            </DependenciesContext.Provider>,
+        );
 
         // Assert
-        expect(logErrorSpy).toHaveBeenCalledWith(
-            "Unsupported widget rendered",
-            Errors.NotAllowed,
-            {
-                loggedMetadata: {
-                    type: "transformer",
-                    widgetId: "transformer 1",
-                    reason: "widget-not-registered",
-                },
+        expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+            type: "perseus:widget:unsupported",
+            payload: {
+                widgetType: "transformer",
+                widgetSubType: "null",
+                widgetId: "transformer 1",
+                reason: "widget-not-registered",
             },
-        );
+        });
     });
 
     it("does not log more than once per component instance", () => {
         // Arrange
-        const logErrorSpy = jest.spyOn(testDependencies.Log, "error");
-        const widget = (
-            <UnsupportedWidgetMessage
-                type="transformer"
-                widgetId="transformer 1"
-            />
-        );
-
-        const {rerender} = render(widget);
+        const onAnalyticsEventSpy = jest.fn();
+        const dependencies = {
+            ...testDependenciesV2,
+            analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+        };
 
         // Act
-        rerender(widget);
+        render(
+            <DependenciesContext.Provider value={dependencies}>
+                <UnsupportedWidgetMessage
+                    widgetType="transformer"
+                    widgetSubType="null"
+                    widgetId="transformer 1"
+                />
+            </DependenciesContext.Provider>,
+        );
 
         // Assert
-        expect(logErrorSpy).toHaveBeenCalledTimes(1);
+        expect(onAnalyticsEventSpy).toHaveBeenCalledTimes(1);
     });
 });
