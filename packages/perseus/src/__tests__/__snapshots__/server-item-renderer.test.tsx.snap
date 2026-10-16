@@ -39,15 +39,19 @@ exports[`server item renderer should snapshot: initial render 1`] = `
               class="perseus-widget-container widget-block"
             >
               <div
-                class="default_7zhre1-o_O-widgetContainer_137u7ef"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; color: red;"
               >
                 <input
                   aria-disabled="false"
                   aria-invalid="false"
                   aria-label="Mock Widget"
                   aria-required="false"
-                  class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b"
+                  data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                  data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                  data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                  data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                   id="mock-widget 1"
+                  style="width: 100%; height: var(--wb-c-form-field-sizing-height); border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 0px; display: block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground);"
                   type="text"
                   value=""
                 />
@@ -58,7 +62,7 @@ exports[`server item renderer should snapshot: initial render 1`] = `
       </div>
     </div>
     <div
-      class="hintsContainer_j8rqa3"
+      style="margin-inline-start: 50px;"
     >
       <div
         class=""

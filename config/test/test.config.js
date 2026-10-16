@@ -62,6 +62,7 @@ module.exports = {
         "<rootDir>/config/test/test-setup.ts",
         "<rootDir>/config/test/custom-matchers.ts",
         "<rootDir>/config/test/crypto-polyfill.js",
+        "<rootDir>/config/test/aphrodite-snapshot-serializer.js",
     ],
     moduleNameMapper: {
         // Load a .js file with no exports whenever a .css file is requested.
