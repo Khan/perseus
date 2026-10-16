@@ -1,0 +1,120 @@
+import {
+    exceedsCardLimit,
+    SORTER_MAX_HORIZONTAL_CARDS,
+} from "@khanacademy/perseus-core";
+import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
+import * as React from "react";
+import {forwardRef, useImperativeHandle, useRef} from "react";
+
+import Sortable from "../../../components/sortable";
+import {useDependencies} from "../../../dependencies";
+import {getPromptJSON as _getPromptJSON} from "../../../widget-ai-utils/sorter/sorter-ai-utils";
+import deprecatedStandin from "../../deprecated-standin";
+
+import type {SortableOption} from "../../../components/sortable";
+import type {Widget, WidgetProps} from "../../../types";
+import type {SorterPromptJSON} from "../../../widget-ai-utils/sorter/sorter-ai-utils";
+import type {
+    PerseusSorterWidgetOptions,
+    PerseusSorterUserInput,
+} from "@khanacademy/perseus-core";
+
+const DeprecatedStandin = deprecatedStandin.widget;
+
+type Props = WidgetProps<PerseusSorterWidgetOptions, PerseusSorterUserInput>;
+
+export interface SorterHandle extends Widget {
+    /**
+     * Programatic API for moving options. This is used by testing.
+     *
+     * @deprecated prefer user interaction testing over backdoor
+     * state manipulation
+     */
+    moveOptionToIndex: (option: SortableOption, index: number) => void;
+}
+
+const Sorter = forwardRef<SorterHandle, Props>(function Sorter(props, ref) {
+    const dependencies = useDependencies();
+    const sortable = useRef<Sortable>(null);
+
+    const {options, userInput, widgetId, linterContext, apiOptions} = props;
+    const {correct, padding} = options;
+
+    // If there are more than the max limit of horizontal cards, force
+    // the layout direction to be vertical.
+    const layout =
+        correct.length > SORTER_MAX_HORIZONTAL_CARDS
+            ? "vertical"
+            : options.layout;
+
+    useOnMountEffect(() => {
+        dependencies.analytics.onAnalyticsEvent({
+            type: "perseus:widget:rendered:ti",
+            payload: {
+                widgetSubType: "null",
+                widgetType: "sorter",
+                widgetId: widgetId,
+            },
+        });
+    });
+
+    useImperativeHandle(ref, () => ({
+        moveOptionToIndex: (option, index) => {
+            sortable.current?.moveOptionToIndex(option, index);
+        },
+
+        getPromptJSON: (): SorterPromptJSON => _getPromptJSON(props.userInput),
+
+        /**
+         * @deprecated and likely very broken API
+         * [LEMS-3185] do not trust serializedState
+         */
+        getSerializedState: (): any => {
+            const {userInput, options, ...rest} = props;
+            return {
+                ...rest,
+                ...options,
+                changed: userInput.changed,
+                options: userInput.options,
+            };
+        },
+    }));
+
+    function handleChange() {
+        props.handleUserInput({
+            /**
+             * This is kind of a problem. Sortable maintains an internal state
+             * but we also want the user input state to include the same state.
+             * This is to help keep the two in sync for now.
+             */
+            options: sortable.current?.getOptions() ?? [],
+            changed: true,
+        });
+
+        props.trackInteraction();
+    }
+
+    // Legacy content predates the card limit the editor now enforces. These
+    // sorters are unusable, so learners get the standin while authors keep the
+    // full editor to fix them with.
+    if (exceedsCardLimit(options.correct)) {
+        return <DeprecatedStandin />;
+    }
+
+    return (
+        <div className="perseus-clearfix">
+            <Sortable
+                apiOptions={apiOptions}
+                options={userInput.options}
+                layout={layout}
+                margin={apiOptions.isMobile ? 8 : 5}
+                padding={padding}
+                onChange={handleChange}
+                linterContext={linterContext}
+                ref={sortable}
+            />
+        </div>
+    );
+});
+
+export default Sorter;
