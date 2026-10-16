@@ -19,14 +19,54 @@ describe("CombinedHintsEditor", () => {
         });
     });
 
-    it("should render", () => {
+    it("numbers each hint title by its position", () => {
+        // Arrange, Act
         render(
             <CombinedHintsEditor
                 deviceType="phone"
                 previewURL="about:blank"
                 highlightLint={false}
+                hints={[
+                    {content: "First", widgets: {}, images: {}},
+                    {content: "Second", widgets: {}, images: {}},
+                    {content: "Third", widgets: {}, images: {}},
+                ]}
             />,
         );
+
+        // Assert
+        const titles = screen.getAllByText(/^Hint \d$/);
+        expect(titles.map((title) => title.textContent)).toEqual([
+            "Hint 1",
+            "Hint 2",
+            "Hint 3",
+        ]);
+    });
+
+    it("includes the hint number in each hint's button labels", () => {
+        // Arrange, Act
+        render(
+            <CombinedHintsEditor
+                deviceType="phone"
+                previewURL="about:blank"
+                highlightLint={false}
+                hints={[
+                    {content: "First", widgets: {}, images: {}},
+                    {content: "Second", widgets: {}, images: {}},
+                ]}
+            />,
+        );
+
+        // Assert
+        expect(
+            screen.getByRole("button", {name: "Move hint 2 up"}),
+        ).toBeVisible();
+        expect(
+            screen.getByRole("button", {name: "Move hint 2 down"}),
+        ).toBeVisible();
+        expect(
+            screen.getByRole("button", {name: "Remove hint 2"}),
+        ).toBeVisible();
     });
 
     it("should confirm before removing a hint", async () => {
@@ -45,7 +85,9 @@ describe("CombinedHintsEditor", () => {
         );
 
         // Act
-        await userEvent.click(screen.getAllByText("Remove this hint")[0]);
+        await userEvent.click(
+            screen.getByRole("button", {name: "Remove hint 1"}),
+        );
 
         // Assert
         expect(comfirmSpy).toHaveBeenCalled();
@@ -69,7 +111,9 @@ describe("CombinedHintsEditor", () => {
         );
 
         // Act
-        await userEvent.click(screen.getAllByText("Remove this hint")[0]);
+        await userEvent.click(
+            screen.getByRole("button", {name: "Remove hint 1"}),
+        );
 
         // Assert
         expect(onChangeMock).not.toHaveBeenCalled();
@@ -93,7 +137,9 @@ describe("CombinedHintsEditor", () => {
         );
 
         // Act
-        await userEvent.click(screen.getAllByText("Remove this hint")[0]);
+        await userEvent.click(
+            screen.getByRole("button", {name: "Remove hint 1"}),
+        );
 
         // Assert
         expect(onChangeMock).toHaveBeenCalledWith({
@@ -114,9 +160,9 @@ describe("CombinedHintsEditor", () => {
             />,
         );
 
-        const removeButton = screen.getAllByRole("button", {
-            name: "Remove this hint",
-        })[0];
+        const removeButton = screen.getByRole("button", {
+            name: "Remove hint 1",
+        });
         const addButton = screen.getByRole("button", {name: "Add a hint"});
 
         expect(removeButton).toHaveAttribute("aria-disabled", "true");

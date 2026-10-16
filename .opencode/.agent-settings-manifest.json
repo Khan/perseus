@@ -1,0 +1,11 @@
+{
+    "version": 1,
+    "files": [
+        ".gitignore",
+        "instructions/sandbox.md",
+        "opencode.json",
+        "package.json",
+        "plugins/sandbox.js",
+        "sandbox.json"
+    ]
+}

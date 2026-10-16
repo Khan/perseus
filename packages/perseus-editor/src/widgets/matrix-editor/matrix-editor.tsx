@@ -97,7 +97,10 @@ class MatrixEditor extends React.Component<Props> {
                     {" "}
                     Max matrix size:{" "}
                     <RangeInput
-                        value={this.props.matrixBoardSize}
+                        value={[
+                            this.props.matrixBoardSize[0],
+                            this.props.matrixBoardSize[1],
+                        ]}
                         onChange={this.onMatrixBoardSizeChange}
                         useArrowKeys={true}
                     />

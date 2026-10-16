@@ -1,5 +1,41 @@
 # @khanacademy/perseus-editor
 
+## 44.0.9
+
+### Patch Changes
+
+-   [#4262](https://github.com/Khan/perseus/pull/4262) [`2d8bbca`](https://github.com/Khan/perseus/commit/2d8bbca1b09a2be0721306773497fbbace8c826e) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Upgraded tooling - pnpm v12
+
+-   [#4368](https://github.com/Khan/perseus/pull/4368) [`8a9b9b0`](https://github.com/Khan/perseus/commit/8a9b9b0d43a013c945d980ea1714b5b154246a41) Thanks [@beaesguerra](https://github.com/beaesguerra)! - Update Wonder Blocks dependencies (i18n strings for tabs, functional component refactors)
+
+-   Updated dependencies [[`2d8bbca`](https://github.com/Khan/perseus/commit/2d8bbca1b09a2be0721306773497fbbace8c826e), [`8a9b9b0`](https://github.com/Khan/perseus/commit/8a9b9b0d43a013c945d980ea1714b5b154246a41), [`4bae42b`](https://github.com/Khan/perseus/commit/4bae42bea39c8788188226c5c3654ae83647a5eb)]:
+    -   @khanacademy/kas@3.0.1
+    -   @khanacademy/keypad-context@6.0.6
+    -   @khanacademy/kmath@3.0.7
+    -   @khanacademy/math-input@30.1.1
+    -   @khanacademy/perseus@91.1.1
+    -   @khanacademy/perseus-core@41.2.2
+    -   @khanacademy/perseus-linter@6.1.4
+    -   @khanacademy/perseus-utils@3.0.1
+
+## 44.0.8
+
+### Patch Changes
+
+-   [#4292](https://github.com/Khan/perseus/pull/4292) [`cf403f3`](https://github.com/Khan/perseus/commit/cf403f3426dc2b36db48ecdb14c8f5c6c7df7203) Thanks [@handeyeco](https://github.com/handeyeco)! - Consume `isScorable` in NumericInput to mark inputs as `aria-required` when in the context of ServerItemRenderer and GradedGroup.
+
+-   [#4351](https://github.com/Khan/perseus/pull/4351) [`f450f74`](https://github.com/Khan/perseus/commit/f450f74509e0e757ba73c3449bf66ceb654c7e0d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Build image widgets converted from image markdown with the production widget defaults instead of the test generators, and type `applyDefaultsToWidget`'s result as the widget type it was given
+
+-   [#4364](https://github.com/Khan/perseus/pull/4364) [`f423fe5`](https://github.com/Khan/perseus/commit/f423fe5d9b5f585a13706b1aaf5b6acdcf2f08b7) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Adds position to hint label
+
+-   Updated dependencies [[`0820d05`](https://github.com/Khan/perseus/commit/0820d05f39cb115c23b2ec43ab8204558f05653a), [`ef8308b`](https://github.com/Khan/perseus/commit/ef8308b767f84b55d0c73c9c82040486a6649d13), [`aa883b6`](https://github.com/Khan/perseus/commit/aa883b652e999736627ccdbaf80b1c0aadcf77c6), [`da98ab1`](https://github.com/Khan/perseus/commit/da98ab194f8874569836f760c032a1930e323f77), [`cf403f3`](https://github.com/Khan/perseus/commit/cf403f3426dc2b36db48ecdb14c8f5c6c7df7203), [`8458e06`](https://github.com/Khan/perseus/commit/8458e06dfabebd0cb1e7d417c2d425edcdba750c), [`dcffbc6`](https://github.com/Khan/perseus/commit/dcffbc6f32e296f263d5019ff189a4a16e6c7bcc), [`f450f74`](https://github.com/Khan/perseus/commit/f450f74509e0e757ba73c3449bf66ceb654c7e0d), [`2858e40`](https://github.com/Khan/perseus/commit/2858e40c4bfe9c7a2674f34a53e038250e086bbc)]:
+    -   @khanacademy/perseus@91.1.0
+    -   @khanacademy/math-input@30.1.0
+    -   @khanacademy/perseus-core@41.2.1
+    -   @khanacademy/keypad-context@6.0.5
+    -   @khanacademy/kmath@3.0.6
+    -   @khanacademy/perseus-linter@6.1.3
+
 ## 44.0.7
 
 ### Patch Changes
