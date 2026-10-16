@@ -33,7 +33,7 @@ import InteractionTracker from "./interaction-tracker";
 import JiptParagraphs from "./jipt-paragraphs";
 import {Log} from "./logging/log";
 import {ApiOptions, ClassNames as ApiClassNames} from "./perseus-api";
-import PerseusMarkdown from "./perseus-markdown.new";
+import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
 import TranslationLinter from "./translation-linter";
 import Util, {isContentGraphie, noParagraphForInlineWidget} from "./util";
