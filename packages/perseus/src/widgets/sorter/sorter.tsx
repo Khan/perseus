@@ -98,7 +98,8 @@ const Sorter = forwardRef<SorterHandle, Props>(function Sorter(props, ref) {
     if (exceedsCardLimit(options.correct)) {
         return (
             <UnsupportedWidgetMessage
-                type="sorter"
+                widgetType="sorter"
+                widgetSubType="null"
                 widgetId={widgetId}
                 reason="exceeds-card-limit"
             />
