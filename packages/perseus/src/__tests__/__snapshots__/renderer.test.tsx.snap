@@ -6,8 +6,7 @@ exports[`renderer rendering should render a table when isMobile: false 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
       <table>
         <thead>
@@ -76,8 +75,7 @@ exports[`renderer rendering should render a table when isMobile: true 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
       <div
         style="margin-left: -16px; margin-right: -16px;"
@@ -160,18 +158,16 @@ exports[`renderer rendering should render block math 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         This is some block math
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph perseus-paragraph-centered"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container perseus-paragraph-centered"
     >
       <div
         class="perseus-block-math"
@@ -189,14 +185,13 @@ exports[`renderer rendering should render block math 1`] = `
       </div>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="2"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         And a footer.
-      </div>
+      </p>
     </div>
   </div>
 </div>
@@ -208,18 +203,16 @@ exports[`renderer rendering should render block math on mobile 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         This is some block math
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph perseus-paragraph-centered"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container perseus-paragraph-centered"
     >
       <div
         class="perseus-block-math"
@@ -242,14 +235,13 @@ exports[`renderer rendering should render block math on mobile 1`] = `
       </div>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="2"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         And a footer.
-      </div>
+      </p>
     </div>
   </div>
 </div>
@@ -261,8 +253,7 @@ exports[`renderer rendering should render columns 1`] = `
     class="perseus-renderer perseus-renderer-responsive perseus-renderer-two-columns"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
       <div
         class="perseus-two-columns"
@@ -273,11 +264,11 @@ exports[`renderer rendering should render columns 1`] = `
           <div
             class="perseus-column-content"
           >
-            <div
-              class="paragraph"
+            <p
+              class="deprecated-perseus-container"
             >
               Stuff in column 1
-            </div>
+            </p>
           </div>
         </div>
         <div
@@ -286,11 +277,11 @@ exports[`renderer rendering should render columns 1`] = `
           <div
             class="perseus-column-content"
           >
-            <div
-              class="paragraph"
+            <p
+              class="deprecated-perseus-container"
             >
               Stuff in column 2
-            </div>
+            </p>
           </div>
         </div>
       </div>
@@ -305,11 +296,10 @@ exports[`renderer rendering should render the math 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         This is some inline math: 
         <span
@@ -323,7 +313,7 @@ exports[`renderer rendering should render the math 1`] = `
           </span>
           <span />
         </span>
-      </div>
+      </p>
     </div>
   </div>
 </div>
@@ -335,14 +325,13 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      The total number of boxes the forklift can carry is 
+      <span
+        class="deprecated-perseus-container"
       >
-        The total number of boxes the forklift can carry is 
-        <div
+        <span
           class="perseus-widget-container widget-inline-block"
         >
           <div
@@ -384,14 +373,13 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                       class="perseus-renderer perseus-renderer-responsive"
                     >
                       <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                        class="deprecated-perseus-container"
                       >
-                        <div
-                          class="paragraph"
+                        <p
+                          class="deprecated-perseus-container"
                         >
                           less than or equal to
-                        </div>
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -403,21 +391,21 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
               </button>
             </div>
           </div>
-        </div>
-         
-        <span
-          style="white-space: nowrap;"
-        >
-          <span />
-          <span
-            class="mock-TeX"
-          >
-            60
-          </span>
-          <span />
         </span>
-        .
-      </div>
+      </span>
+       
+      <span
+        style="white-space: nowrap;"
+      >
+        <span />
+        <span
+          class="mock-TeX"
+        >
+          60
+        </span>
+        <span />
+      </span>
+      .
     </div>
   </div>
 </div>
@@ -429,14 +417,13 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      The total number of boxes the forklift can carry is 
+      <span
+        class="deprecated-perseus-container"
       >
-        The total number of boxes the forklift can carry is 
-        <div
+        <span
           class="perseus-widget-container widget-inline-block"
         >
           <div
@@ -478,14 +465,13 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                       class="perseus-renderer perseus-renderer-responsive"
                     >
                       <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                        class="deprecated-perseus-container"
                       >
-                        <div
-                          class="paragraph"
+                        <p
+                          class="deprecated-perseus-container"
                         >
                           greater than or equal to
-                        </div>
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -497,21 +483,21 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
               </button>
             </div>
           </div>
-        </div>
-         
-        <span
-          style="white-space: nowrap;"
-        >
-          <span />
-          <span
-            class="mock-TeX"
-          >
-            60
-          </span>
-          <span />
         </span>
-        .
-      </div>
+      </span>
+       
+      <span
+        style="white-space: nowrap;"
+      >
+        <span />
+        <span
+          class="mock-TeX"
+        >
+          60
+        </span>
+        <span />
+      </span>
+      .
     </div>
   </div>
 </div>
@@ -523,14 +509,13 @@ exports[`renderer snapshots initial render: initial render 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      The total number of boxes the forklift can carry is 
+      <span
+        class="deprecated-perseus-container"
       >
-        The total number of boxes the forklift can carry is 
-        <div
+        <span
           class="perseus-widget-container widget-inline-block"
         >
           <div
@@ -572,14 +557,13 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                       class="perseus-renderer perseus-renderer-responsive"
                     >
                       <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                        class="deprecated-perseus-container"
                       >
-                        <div
-                          class="paragraph"
+                        <p
+                          class="deprecated-perseus-container"
                         >
                           greater/less than or equal to
-                        </div>
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -591,21 +575,21 @@ exports[`renderer snapshots initial render: initial render 1`] = `
               </button>
             </div>
           </div>
-        </div>
-         
-        <span
-          style="white-space: nowrap;"
-        >
-          <span />
-          <span
-            class="mock-TeX"
-          >
-            60
-          </span>
-          <span />
         </span>
-        .
-      </div>
+      </span>
+       
+      <span
+        style="white-space: nowrap;"
+      >
+        <span />
+        <span
+          class="mock-TeX"
+        >
+          60
+        </span>
+        <span />
+      </span>
+      .
     </div>
   </div>
 </div>
@@ -617,11 +601,10 @@ exports[`renderer snapshots renders a placeholder for an unknown widget type: un
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"

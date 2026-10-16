@@ -738,14 +738,13 @@ table: [[☃ table 1]]
                                   class="perseus-renderer perseus-renderer-responsive"
                                 >
                                   <div
-                                    class="paragraph"
-                                    data-perseus-paragraph-index="0"
+                                    class="deprecated-perseus-container"
                                   >
-                                    <div
-                                      class="paragraph"
+                                    <p
+                                      class="deprecated-perseus-container"
                                     >
                                       Fruits
-                                    </div>
+                                    </p>
                                   </div>
                                 </div>
                               </th>
@@ -756,14 +755,13 @@ table: [[☃ table 1]]
                                   class="perseus-renderer perseus-renderer-responsive"
                                 >
                                   <div
-                                    class="paragraph"
-                                    data-perseus-paragraph-index="0"
+                                    class="deprecated-perseus-container"
                                   >
-                                    <div
-                                      class="paragraph"
+                                    <p
+                                      class="deprecated-perseus-container"
                                     >
                                       Vegetables
-                                    </div>
+                                    </p>
                                   </div>
                                 </div>
                               </th>
@@ -776,14 +774,13 @@ table: [[☃ table 1]]
                                   class="perseus-renderer perseus-renderer-responsive"
                                 >
                                   <div
-                                    class="paragraph"
-                                    data-perseus-paragraph-index="0"
+                                    class="deprecated-perseus-container"
                                   >
-                                    <div
-                                      class="paragraph"
+                                    <p
+                                      class="deprecated-perseus-container"
                                     >
                                       Apple
-                                    </div>
+                                    </p>
                                   </div>
                                 </div>
                               </td>
@@ -850,14 +847,13 @@ table: [[☃ table 1]]
                                   class="perseus-renderer perseus-renderer-responsive"
                                 >
                                   <div
-                                    class="paragraph"
-                                    data-perseus-paragraph-index="0"
+                                    class="deprecated-perseus-container"
                                   >
-                                    <div
-                                      class="paragraph"
+                                    <p
+                                      class="deprecated-perseus-container"
                                     >
                                       Carrot
-                                    </div>
+                                    </p>
                                   </div>
                                 </div>
                               </td>
@@ -924,14 +920,13 @@ table: [[☃ table 1]]
                                   class="perseus-renderer perseus-renderer-responsive"
                                 >
                                   <div
-                                    class="paragraph"
-                                    data-perseus-paragraph-index="0"
+                                    class="deprecated-perseus-container"
                                   >
-                                    <div
-                                      class="paragraph"
+                                    <p
+                                      class="deprecated-perseus-container"
                                     >
                                       Orange
-                                    </div>
+                                    </p>
                                   </div>
                                 </div>
                               </td>
