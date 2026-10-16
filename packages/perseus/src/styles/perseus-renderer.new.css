@@ -18,8 +18,7 @@
 @import "widgets/matrix.css";
 @import "widgets/measurer.css" layer(perseus-legacy);
 @import "widgets/numeric.css" layer(perseus-legacy);
-@import "widgets/orderer.css" layer(perseus-legacy);
-@import "widgets/orderer.new.css";
+@import "widgets/orderer.css";
 @import "widgets/plotter.css" layer(perseus-legacy);
 @import "widgets/sortable.css" layer(perseus-legacy);
 @import "widgets/sortable.new.css";
