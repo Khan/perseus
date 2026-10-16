@@ -38,7 +38,7 @@ type Renderer = RendererNew;
 
 const Renderer = React.forwardRef<RendererNew, Props>(
     function Renderer(props, ref) {
-        return <RendererNew ref={ref} {...props} />
+        return <RendererNew ref={ref} {...props} />;
     },
 );
 
