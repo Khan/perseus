@@ -122,7 +122,7 @@ export const deprecatedChangeableChange: ChangeFn = function (
     throw new PerseusError(
         "Invalid types sent to this.change(): " +
             // eslint-disable-next-line prefer-rest-params
-            _.toArray(arguments).join() +
+            Array.from(arguments).join() +
             "\n" +
             USAGE,
         Errors.Internal,
