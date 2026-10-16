@@ -1,5 +1,3 @@
-import _ from "underscore";
-
 import WrappedDrawing from "./wrapped-drawing";
 
 import type {Coord} from "./types";
@@ -18,7 +16,7 @@ class WrappedPath extends WrappedDrawing {
     constructor(graphie: any, points: ReadonlyArray<Coord>, options: any) {
         const initialPoint = graphie.scalePoint(points[0]);
         super(graphie, initialPoint);
-        options = _.extend({}, DEFAULT_OPTIONS, options);
+        options = {...DEFAULT_OPTIONS, ...options};
 
         const fixedPath = graphie.fixedPath(
             points,
