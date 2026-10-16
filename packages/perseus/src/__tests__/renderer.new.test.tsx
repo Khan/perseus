@@ -114,11 +114,13 @@ describe("renderer", () => {
             expect(container).toMatchSnapshot("incorrect answer");
         });
 
-        it("renders a placeholder for a deprecated widget", () => {
+        it("renders a placeholder for an unknown widget type", () => {
             // Arrange
             const question: PerseusRenderer = {
                 content: "[[☃ sequence 1]]",
                 images: {},
+                // PerseusWidgetsMap can't contain an unknown widget type, so we have to cast to `any`.
+                // eslint-disable-next-line no-restricted-syntax
                 widgets: {
                     "sequence 1": {
                         type: "sequence",
@@ -134,14 +136,14 @@ describe("renderer", () => {
                             ],
                         },
                     },
-                },
+                } as any,
             };
 
             // Act
             const {container} = renderQuestion(question);
 
             // Assert
-            expect(container).toMatchSnapshot("deprecated widget");
+            expect(container).toMatchSnapshot("unknown widget");
         });
 
         it("renders a responsive markdown image", () => {

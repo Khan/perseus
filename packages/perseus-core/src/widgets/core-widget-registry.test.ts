@@ -95,7 +95,8 @@ describe("core-widget-registry", () => {
             const widget: PerseusWidget = {
                 // eslint-disable-next-line no-restricted-syntax
                 type: mockWidgetType as any,
-                options: {foo: 1},
+                // eslint-disable-next-line no-restricted-syntax
+                options: {foo: 1} as any,
             };
             const traverseRenderer = jest.fn();
 
