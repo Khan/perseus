@@ -58,14 +58,14 @@ var TOLERANCE = 9; // decimal places
 // NOTE(kevinb): _.partition exists in a more recent version of underscore.
 // To avoid having to update underscore I've added a hacky version of this
 // method here.
-function partition<T, V extends _.Collection<T>>(
-    list: V,
-    iteratee: _.CollectionIterator<T, boolean>,
-): [_.TypeOfCollection<V>[], _.TypeOfCollection<V>[]] {
-    const a: _.TypeOfCollection<V>[] = [];
-    const b: _.TypeOfCollection<V>[] = [];
-    _.forEach(list, (elem, key, ctx) => {
-        if (iteratee(elem, key, ctx)) {
+function partition<T>(
+    list: T[],
+    iteratee: (elem: T, index: number, list: T[]) => boolean,
+): [T[], T[]] {
+    const a: T[] = [];
+    const b: T[] = [];
+    list.forEach((elem, index, ctx) => {
+        if (iteratee(elem, index, ctx)) {
             a.push(elem);
         } else {
             b.push(elem);
@@ -3692,7 +3692,8 @@ function floatGenerator(min: number, max: number): () => number {
 }
 
 function intGenerator(min: number, max: number): () => number {
-    return () => _.random(min, max);
+    // eslint-disable-next-line no-restricted-properties
+    return () => Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 // If possible, replace unit prefixes with a multiplication.

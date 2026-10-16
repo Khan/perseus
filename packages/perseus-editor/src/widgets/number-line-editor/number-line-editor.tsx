@@ -240,9 +240,9 @@ class NumberLineEditor extends React.Component<Props> {
                     )}
 
                     <RangeInput
-                        value={range}
+                        value={[range[0], range[1]]}
                         onChange={(range) => this.handleChange({range})}
-                        format={this.props.labelStyle}
+                        format={this.getNumberInputFormat()}
                         useArrowKeys={true}
                     />
                     <InfoTip>
