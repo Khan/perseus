@@ -198,11 +198,9 @@ jobs:
               run: pnpm pre-publish-check
 
             # Version Packages PRs change no source files, so the `lint` job
-            # skips most of its checks for them. This job runs every check
-            # from `lint` unconditionally so that `main` is fully verified
-            # before we publish. Keep this list in sync with `lint`, and don't
-            # add step-level `if:` conditions here. This job is a required
-            # status check on `main`.
+            # (above) skips most of its checks for them. These steps run the
+            # same checks unconditionally to verify `main` before publishing.
+            # Keep them in sync with `lint`, and keep them unconditional.
             - parallel:
                   - name: Check formatting
                     run: pnpm prettier --check .
@@ -231,8 +229,8 @@ jobs:
             # Full ESLint runs outside the parallel block for the same reason
             # as in the `lint` job (exit code 137, presumed OOM).
             - name: Eslint all files
-              # No matter the outcome of all the above checks, we still want to
-              # run the linter so we surface lint issues as well!
+              # Exception to "keep them unconditional": run ESLint even if an
+              # earlier check failed, so one run reports every failure.
               if: always()
               run: pnpm lint
 
