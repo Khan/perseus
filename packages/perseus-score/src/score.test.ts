@@ -555,28 +555,15 @@ describe("scorePerseusItem", () => {
         });
     });
 
-    it("ignores deprecated widgets", () => {
-        function deprecatedWidget<T extends string>(type: T) {
-            return {
-                type,
-                version: {major: 0, minor: 0},
-                options: {},
-            };
-        }
-
+    it("ignores widgets with no registered scorer", () => {
+        // Arrange
         const item: PerseusRenderer = {
-            content:
-                "[[☃ transformer 1]][[☃ lights-puzzle 1]][[☃ reaction-diagram 1]][[☃ sequence 1]][[☃ simulator 1]][[☃ unit-input 1]][[☃ passage 1]][[☃ passage-ref 1]][[☃ passage-ref-target 1]][[☃ molecule-renderer 1]]",
+            content: `[[☃ transformer 1]] [[☃ never-a-widget 1]]`,
+            // eslint-disable-next-line no-restricted-syntax
             widgets: {
-                "transformer 1": deprecatedWidget("transformer"),
-                "lights-puzzle 1": deprecatedWidget("lights-puzzle"),
-                "sequence 1": deprecatedWidget("sequence"),
-                "simulator 1": deprecatedWidget("simulator"),
-                "passage 1": deprecatedWidget("passage"),
-                "passage-ref 1": deprecatedWidget("passage-ref"),
-                "passage-ref-target 1": deprecatedWidget("passage-ref-target"),
-                "molecule-renderer 1": deprecatedWidget("molecule-renderer"),
-            },
+                "transformer 1": {type: "transformer", options: {}},
+                "never-a-widget 1": {type: "never-a-widget", options: {}},
+            } as any,
             images: {},
         };
 

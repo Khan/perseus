@@ -7,7 +7,6 @@ import {
 import scoreCategorizer from "./categorizer/score-categorizer";
 import validateCategorizer from "./categorizer/validate-categorizer";
 import scoreCSProgram from "./cs-program/score-cs-program";
-import scoreDeprecatedStandin from "./deprecated-standin/score-deprecated-standin";
 import scoreDropdown from "./dropdown/score-dropdown";
 import validateDropdown from "./dropdown/validate-dropdown";
 import scoreExpression from "./expression/score-expression";
@@ -64,6 +63,8 @@ export const getWidgetValidator = (
     return widgets.get(type)?.validator ?? null;
 };
 
+// A widget type with no registered scorer is unscoreable and doesn't count
+// towards an item's score.
 export const getWidgetScorer = (type: string): WidgetScorerFunction | null => {
     return widgets.get(type)?.scorer ?? null;
 };
@@ -77,8 +78,6 @@ registerWidget(
 );
 // eslint-disable-next-line no-restricted-syntax
 registerWidget("cs-program", scoreCSProgram as any);
-// eslint-disable-next-line no-restricted-syntax
-registerWidget("deprecated-standin", scoreDeprecatedStandin as any);
 // eslint-disable-next-line no-restricted-syntax
 registerWidget("dropdown", scoreDropdown as any, validateDropdown as any);
 // eslint-disable-next-line no-restricted-syntax

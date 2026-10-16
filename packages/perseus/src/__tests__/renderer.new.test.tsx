@@ -114,11 +114,13 @@ describe("renderer", () => {
             expect(container).toMatchSnapshot("incorrect answer");
         });
 
-        it("renders a placeholder for a deprecated widget", () => {
+        it("renders a placeholder for an unknown widget type", () => {
             // Arrange
             const question: PerseusRenderer = {
                 content: "[[☃ sequence 1]]",
                 images: {},
+                // PerseusWidgetsMap can't contain an unknown widget type, so we have to cast to `any`.
+                // eslint-disable-next-line no-restricted-syntax
                 widgets: {
                     "sequence 1": {
                         type: "sequence",
@@ -134,14 +136,37 @@ describe("renderer", () => {
                             ],
                         },
                     },
-                },
+                } as any,
             };
 
             // Act
             const {container} = renderQuestion(question);
 
             // Assert
-            expect(container).toMatchSnapshot("deprecated widget");
+            expect(container).toMatchSnapshot("unknown widget");
+        });
+
+        it("renders a responsive markdown image", () => {
+            // Arrange
+            const question = {
+                content:
+                    "One image with dimensions that isn't in a table:" +
+                    "![This image has dimensions](https://ka-perseus-images.s3.amazonaws.com/29e9aa32de3731b09e245e416cbf4e3fb2e89b58.svg)",
+                images: {
+                    "https://ka-perseus-images.s3.amazonaws.com/29e9aa32de3731b09e245e416cbf4e3fb2e89b58.svg":
+                        {height: 410, width: 420},
+                },
+                widgets: {},
+            } as const;
+            const {container} = renderQuestion(question);
+
+            // Act
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Assert
+            expect(container).toMatchSnapshot();
         });
     });
 

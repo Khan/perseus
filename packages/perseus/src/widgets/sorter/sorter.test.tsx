@@ -1,4 +1,5 @@
 import {
+    Errors,
     generateSorterOptions,
     generateSorterWidget,
     generateTestPerseusItem,
@@ -379,7 +380,7 @@ describe("sorter widget", () => {
     });
 
     describe("legacy sorters with too many cards", () => {
-        const deprecatedStandinText =
+        const unsupportedWidgetText =
             "Sorry, this part of the question is no longer available. 😅 Don't worry, you won't be graded on this part. Keep going!";
 
         function generateSorterQuestion(cardCount: number) {
@@ -398,22 +399,43 @@ describe("sorter widget", () => {
             });
         }
 
-        it("renders the deprecated standin above the card limit", () => {
+        it("renders the unsupported-widget notice above the card limit", () => {
             // Arrange, Act
             renderQuestion(generateSorterQuestion(SORTER_MAX_CARDS + 1));
 
             // Assert
-            expect(screen.getByText(deprecatedStandinText)).toBeInTheDocument();
+            expect(screen.getByText(unsupportedWidgetText)).toBeInTheDocument();
         });
 
-        it("does not render the deprecated standin at the card limit", () => {
+        it("does not render the unsupported-widget notice at the card limit", () => {
             // Arrange, Act
             renderQuestion(generateSorterQuestion(SORTER_MAX_CARDS));
 
             // Assert
             expect(
-                screen.queryByText(deprecatedStandinText),
+                screen.queryByText(unsupportedWidgetText),
             ).not.toBeInTheDocument();
+        });
+
+        it("logs the sorter as unsupported above the card limit", () => {
+            // Arrange
+            const logErrorSpy = jest.spyOn(testDependencies.Log, "error");
+
+            // Act
+            renderQuestion(generateSorterQuestion(SORTER_MAX_CARDS + 1));
+
+            // Assert
+            expect(logErrorSpy).toHaveBeenCalledWith(
+                "Unsupported widget rendered",
+                Errors.NotAllowed,
+                {
+                    loggedMetadata: {
+                        type: "sorter",
+                        widgetId: "sorter 1",
+                        reason: "exceeds-card-limit",
+                    },
+                },
+            );
         });
 
         it("is scored as correct without the learner answering", () => {

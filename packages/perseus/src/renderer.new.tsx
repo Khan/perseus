@@ -44,7 +44,7 @@ import {ApiOptions, ClassNames as ApiClassNames} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown.new";
 import QuestionParagraph from "./question-paragraph.new";
 import TranslationLinter from "./translation-linter";
-import Util from "./util";
+import Util, {isContentGraphie, noParagraphForInlineWidget} from "./util";
 import {containerSizeClass} from "./util/sizing-utils";
 import preprocessTex from "./util/tex-preprocess";
 import WidgetContainer from "./widget-container.new";
@@ -80,6 +80,7 @@ import type {
     ShowSolutions,
     UserInput,
     UserInputMap,
+    PerseusImageDetail,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {ASTNode, SingleASTNode} from "@khanacademy/simple-markdown";
@@ -956,6 +957,29 @@ class Renderer
         const apiOptions = this.getApiOptions();
         const imagePlaceholder = apiOptions.imagePlaceholder;
 
+        if (node.type === "paragraph") {
+            const content = nestedOutput(node.content, state);
+
+            if (
+                isContentGraphie(node) ||
+                hasResponsiveImage(node, this.props)
+            ) {
+                return (
+                    <div className="deprecated-perseus-container">
+                        {content}
+                    </div>
+                );
+            }
+
+            if (noParagraphForInlineWidget(node)) {
+                // Some widgets can appear inline with text, but
+                // shouldn't be contained by a <p> element, so just render the
+                // content and let the parent handle layout, etc.
+                return content;
+            }
+
+            return <p className="deprecated-perseus-container">{content}</p>;
+        }
         if (node.type === "widget") {
             const widgetPlaceholder = apiOptions.widgetPlaceholder;
 
@@ -1118,15 +1142,6 @@ class Renderer
                 return imagePlaceholder;
             }
 
-            // We need to add width and height to images from our
-            // props.images mapping.
-
-            // We do a _.has check here to avoid weird things like
-            // 'toString' or '__proto__' as a url.
-            const extraAttrs = _.has(this.props.images, node.target)
-                ? this.props.images[node.target]
-                : null;
-
             // The width of a table column is determined by the widest table
             // cell within that column, but responsive images constrain
             // themselves to the width of their parent containers. Thus,
@@ -1146,7 +1161,7 @@ class Renderer
                                 title={node.title}
                                 responsive={responsive}
                                 onUpdate={this.props.onRender}
-                                {...extraAttrs}
+                                {...getImageDimensions(node.target, this.props)}
                             />
                         )}
                     </AssetContext.Consumer>
@@ -1639,6 +1654,30 @@ class Renderer
             </DefinitionProvider>
         );
     }
+}
+
+function getImageDimensions(
+    url: string,
+    {images}: Props,
+): PerseusImageDetail | null {
+    // We do a _.has check here to avoid weird things like
+    // 'toString' or '__proto__' as a url.
+    return _.has(images, url) ? images[url] : null;
+}
+
+/**
+ * Returns whether the AST node contains a markdown image with specified
+ * dimensions. Such images need to be rendered responsively: they should
+ * shrink to fit in the viewport while maintaining their aspect ratio.
+ */
+function hasResponsiveImage(node: SingleASTNode, props: Props): boolean {
+    if (Array.isArray(node.content)) {
+        return node.content.some((child) => hasResponsiveImage(child, props));
+    }
+
+    return (
+        node.type === "image" && getImageDimensions(node.target, props) != null
+    );
 }
 
 const styles = {
