@@ -16,7 +16,7 @@ class WrappedPath extends WrappedDrawing {
     visibleShape: VisibleShape;
 
     constructor(graphie: any, points: ReadonlyArray<Coord>, options: any) {
-        const initialPoint = graphie.scalePoint(_.head(points));
+        const initialPoint = graphie.scalePoint(points[0]);
         super(graphie, initialPoint);
         options = _.extend({}, DEFAULT_OPTIONS, options);
 
