@@ -29,7 +29,7 @@ import {mockImageLoading} from "../testing/image-loader-utils";
 import {clone} from "../testing/object-utils";
 import {testDependencies} from "../testing/test-dependencies";
 import {registerWidget} from "../widgets";
-import {renderQuestion} from "../widgets/__testutils__/renderQuestion.new";
+import {renderQuestion} from "../widgets/__testutils__/render-question";
 import {simpleGroupQuestion} from "../widgets/group/group.testdata";
 import MockWidgetExport from "../widgets/mock-widgets/mock-widget";
 

@@ -11,7 +11,7 @@ import * as Dependencies from "../../../dependencies";
 import {clone} from "../../../testing/object-utils";
 import {testDependencies} from "../../../testing/test-dependencies";
 import {scorePerseusItemTesting} from "../../../util/test-utils";
-import {renderQuestion} from "../../__testutils__/renderQuestion";
+import {renderQuestion} from "../../__testutils__/render-question";
 
 import {
     questionAndAnswer,

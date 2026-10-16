@@ -15,7 +15,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import {renderArticle} from "../../__tests__/article-renderer.test";
 import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
-import {renderQuestion} from "../__testutils__/renderQuestion";
+import {renderQuestion} from "../__testutils__/render-question";
 
 import {
     question1,

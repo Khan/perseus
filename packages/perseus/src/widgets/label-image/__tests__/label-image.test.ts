@@ -15,7 +15,7 @@ import {
     testDependenciesV2,
 } from "../../../testing/test-dependencies";
 import {scorePerseusItemTesting} from "../../../util/test-utils";
-import {renderQuestion} from "../../__testutils__/renderQuestion";
+import {renderQuestion} from "../../__testutils__/render-question";
 import {LabelImage, getComputedSelectedState} from "../label-image";
 
 import {shortTextQuestion, textQuestion} from "./label-image.testdata";
