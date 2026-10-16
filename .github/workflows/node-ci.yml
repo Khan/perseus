@@ -179,7 +179,7 @@ jobs:
 
     pre_publish_check:
         name: Pre-publish check
-        if: github.head_ref == 'changeset-release/main'
+        if: github.head_ref == 'changeset-release/main' || github.event_name == 'workflow_dispatch'
         runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && 'ubuntu-latest' || 'ephemeral-runner' }}
         steps:
             - name: Checking out latest commit
