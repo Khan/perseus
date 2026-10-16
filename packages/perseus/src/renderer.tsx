@@ -1,11 +1,3 @@
-/***********************************************************************
- *                                                                     *
- * WARNING!!!! THERE ARE ACTIVE CHANGES HAPPENING IN THE RENDERER!     *
- *                                                                     *
- ***********************************************************************/
-// TODO(LEMS-4304): feature flag cleanup - rename this file to renderer.tsx.
-// This file is the new renderer that will replace the old renderer.
-
 /* eslint-disable max-lines */
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {
