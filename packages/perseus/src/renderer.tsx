@@ -42,7 +42,7 @@ import JiptParagraphs from "./jipt-paragraphs";
 import {Log} from "./logging/log";
 import {ApiOptions, ClassNames as ApiClassNames} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown.new";
-import QuestionParagraph from "./question-paragraph.new";
+import QuestionParagraph from "./question-paragraph";
 import TranslationLinter from "./translation-linter";
 import Util, {isContentGraphie, noParagraphForInlineWidget} from "./util";
 import {containerSizeClass} from "./util/sizing-utils";
