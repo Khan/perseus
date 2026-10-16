@@ -3692,7 +3692,8 @@ function floatGenerator(min: number, max: number): () => number {
 }
 
 function intGenerator(min: number, max: number): () => number {
-    return () => _.random(min, max);
+    // eslint-disable-next-line no-restricted-properties
+    return () => Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 // If possible, replace unit prefixes with a multiplication.
