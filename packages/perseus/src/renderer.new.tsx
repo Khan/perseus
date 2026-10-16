@@ -85,6 +85,7 @@ import type {
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {ASTNode, SingleASTNode} from "@khanacademy/simple-markdown";
 
+import "./styles/perseus-renderer.css";
 import "./styles/perseus-renderer.new.css";
 
 const rContainsNonWhitespace = /\S/;
