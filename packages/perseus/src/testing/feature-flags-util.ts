@@ -10,7 +10,7 @@ const DEFAULT_FEATURE_FLAGS: Record<
     "perseus-test-flag-1": false,
     "perseus-test-flag-2": false,
     // Real production flags.
-    "perseus-renderer-upgrade": false,
+    "perseus-renderer-upgrade": true,
     "desmos-calculator": false,
     "article-extras": false,
     // ...add new flags here

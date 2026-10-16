@@ -13,6 +13,7 @@ import {usePerseusI18n} from "../../components/i18n-context";
 import {useDependencies} from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
+import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
@@ -144,7 +145,7 @@ const Dropdown = forwardRef<Widget, Props>(function Dropdown(props, ref) {
                     <Renderer
                         content={placeholder}
                         strings={strings}
-                        apiOptions={{flags: apiOptions.flags}}
+                        apiOptions={{flags: getFeatureFlags(apiOptions.flags)}}
                     />
                 </div>
             }
@@ -159,7 +160,9 @@ const Dropdown = forwardRef<Widget, Props>(function Dropdown(props, ref) {
                         <Renderer
                             content={choice.content}
                             strings={strings}
-                            apiOptions={{flags: apiOptions.flags}}
+                            apiOptions={{
+                                flags: getFeatureFlags(apiOptions.flags),
+                            }}
                         />
                     </div>
                 }

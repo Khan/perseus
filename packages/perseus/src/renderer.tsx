@@ -1,6 +1,5 @@
 // TODO(LEMS-4304): feature flag cleanup - remove this file in favor of
 // making renderer.new.tsx the default renderer.
-import {isFeatureOn} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import RendererNew from "./renderer.new";
@@ -42,10 +41,7 @@ type Renderer =
 
 const Renderer = React.forwardRef<Renderer, Props>(
     function Renderer(props, ref) {
-        const rendererFF = isFeatureOn(
-            {apiOptions: props.apiOptions},
-            "perseus-renderer-upgrade",
-        );
+        const rendererFF = true;
 
         return rendererFF ? (
             <RendererNew ref={ref} {...props} />
