@@ -223,8 +223,11 @@ jobs:
                   - name: Build docs
                     run: pnpm build:docs
 
+                  # Fewer workers leave memory for the other checks in this
+                  # block; with the default, sometimes the runner kills Jest
+                  # workers (SIGKILL, presumed OOM).
                   - name: Jest
-                    run: pnpm jest
+                    run: pnpm jest --maxWorkers=50%
 
             # Full ESLint runs outside the parallel block for the same reason
             # as in the `lint` job (exit code 137, presumed OOM).
