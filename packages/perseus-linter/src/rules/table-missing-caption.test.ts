@@ -27,17 +27,20 @@ describe("table-missing-caption", () => {
         expect(warnings?.[0]?.message).toBe(MISSING_CAPTION_MESSAGE);
     });
 
-    it("warns when a caption contains only whitespace", () => {
-        // Arrange, Act
-        const warnings = testRule(
-            tableMissingCaptionRule,
-            captionedTable("   "),
-            undefined,
-        );
+    it.each(["", " ", "   "])(
+        "warns when a caption is empty or only contains whitespace: %j",
+        (title) => {
+            // Arrange, Act
+            const warnings = testRule(
+                tableMissingCaptionRule,
+                captionedTable(title),
+                undefined,
+            );
 
-        expect(warnings).toHaveLength(1);
-        expect(warnings?.[0]?.message).toBe(EMPTY_CAPTION_MESSAGE);
-    });
+            expect(warnings).toHaveLength(1);
+            expect(warnings?.[0]?.message).toBe(EMPTY_CAPTION_MESSAGE);
+        },
+    );
 
     it("passes when a table has a caption", () => {
         // Arrange, Act, Assert

@@ -564,6 +564,23 @@ describe("pure markdown", () => {
                 // Assert
                 expect(fromPipes).toEqual(fromNoPipes);
             });
+
+            it.each(["||||", "|| ||"])(
+                "parses a titled table with an empty title: %j",
+                (titleLine) => {
+                    // Arrange, Act
+                    const parsed: any = parse(
+                        titleLine + "\n" + "header 1 | header 2\n- | -\n",
+                    );
+
+                    // Assert
+                    expect(parsed[0]).toMatchObject({
+                        type: "titledTable",
+                        title: [],
+                        table: {type: "table"},
+                    });
+                },
+            );
         });
     });
 });

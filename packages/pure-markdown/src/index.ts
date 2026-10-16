@@ -137,7 +137,7 @@ const tableRegexSource = (rule: any): string =>
 // title and the table in separate capture groups to ensure the table parser
 // receives the correct captures for its format.
 const TITLED_TABLE_REGEX = new RegExp(
-    "^\\|\\| +(.*) +\\|\\| *\\n" +
+    "^\\|\\|(?: +(.*) +| *)\\|\\| *\\n" +
         "(?:" +
         "(" +
         tableRegexSource(SimpleMarkdown.defaultRules.nptable) +
@@ -193,7 +193,12 @@ export const pureMarkdownRules = {
         // eslint-disable-next-line no-restricted-syntax
         match: SimpleMarkdown.blockRegex(TITLED_TABLE_REGEX) as any,
         parse: (capture: any, parse: any, state: any): any => {
-            const title = SimpleMarkdown.parseInline(parse, capture[1], state);
+            // capture[1] is undefined when the title is empty.
+            const title = SimpleMarkdown.parseInline(
+                parse,
+                capture[1] ?? "",
+                state,
+            );
 
             // Hand the raw table text back to the block parser so
             // simple-markdown picks the right table rule (nptable or table).
