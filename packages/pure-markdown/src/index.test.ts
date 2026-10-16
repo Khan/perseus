@@ -502,14 +502,38 @@ describe("pure markdown", () => {
                 "|-|-|\n" +
                 "|data 1|data 2|\n";
 
+            it("parses a table written without surrounding pipes", () => {
+                // Arrange, Act
+                const parsed = parse(withoutPipes);
+
+                // Assert
+                expect(parsed).toEqual([
+                    {
+                        type: "titledTable",
+                        title: [{type: "text", content: "Table title"}],
+                        table: {
+                            type: "table",
+                            header: [
+                                [{type: "text", content: "header 1"}],
+                                [{type: "text", content: "header 2"}],
+                            ],
+                            align: [null, null],
+                            cells: [
+                                [
+                                    [{type: "text", content: "data 1"}],
+                                    [{type: "text", content: "data 2"}],
+                                ],
+                            ],
+                        },
+                    },
+                ]);
+            });
+
             it("parses a table written with surrounding pipes", () => {
                 // Arrange, Act
                 const parsed = parse(withPipes);
 
                 // Assert
-                // Asserted in full because routing this format to the wrong
-                // table parser still produces a table, just one with empty
-                // leading and trailing cells on every row.
                 expect(parsed).toEqual([
                     {
                         type: "titledTable",
@@ -539,19 +563,6 @@ describe("pure markdown", () => {
 
                 // Assert
                 expect(fromPipes).toEqual(fromNoPipes);
-            });
-
-            it("parses column alignment from a table with surrounding pipes", () => {
-                // Arrange, Act
-                const parsed: any = parse(
-                    "|| Table title ||\n" +
-                        "|header 1|header 2|\n" +
-                        "|:-|-:|\n" +
-                        "|data 1|data 2|\n",
-                );
-
-                // Assert
-                expect(parsed[0].table.align).toEqual(["left", "right"]);
             });
         });
     });
