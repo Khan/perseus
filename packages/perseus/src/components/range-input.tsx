@@ -4,8 +4,10 @@ import NumberInput from "./number-input";
 
 import type {MathFormat} from "@khanacademy/perseus-core";
 
+type Pair<T> = [T, T];
+
 interface Props {
-    value: [number, number];
+    value: Pair<number>;
     /**
      * The number format to use for display before the user edits the value.
      * After the first edit, the format is detected from the input.
@@ -16,16 +18,16 @@ interface Props {
      * numeric and finite, it is also emitted via `onChange` when the
      * corresponding input is cleared.
      */
-    placeholder: [number | string | null, number | string | null];
+    placeholder?: Pair<number | string | null>;
     /**
      * Called when the user changes the value of the input to a valid number.
      */
-    onChange: (value: [number, number]) => void;
+    onChange: (value: Pair<number>) => void;
     /**
      * Validates input. If `checkValidity` returns false, the new value will
      * not be emitted via `onChange`, and the input will display an error state.
      */
-    checkValidity: (value: [number, number]) => boolean;
+    checkValidity?: (value: Pair<number>) => boolean;
     /**
      * When true, values that approximate an integer or fraction multiple of
      * pi will be displayed in a format like "3π", "1/2π", etc.
@@ -47,46 +49,44 @@ interface Props {
 /**
  * A minor abstraction on top of `NumberInput` for ranges
  */
-class RangeInput extends React.Component<Props> {
-    static defaultProps = {
-        placeholder: [null, null],
-        checkValidity: () => true,
-    };
+function RangeInput(props: Props) {
+    const {
+        value,
+        placeholder = [null, null],
+        checkValidity = () => true,
+        allowPiTruncation,
+        ...restOfProps
+    } = props;
 
-    onChange = (i: number, newVal: number) => {
-        const value = this.props.value;
+    const onChange = (i: number) => (newVal: number) => {
+        const value = props.value;
         if (i === 0) {
-            this.props.onChange([newVal, value[1]]);
+            props.onChange([newVal, value[1]]);
         } else {
-            this.props.onChange([value[0], newVal]);
+            props.onChange([value[0], newVal]);
         }
     };
 
-    render(): React.ReactNode {
-        const {value, checkValidity, placeholder, allowPiTruncation} =
-            this.props;
-
-        return (
-            <div className="range-input">
-                <NumberInput
-                    {...this.props}
-                    value={value[0]}
-                    checkValidity={(val) => checkValidity([val, value[1]])}
-                    onChange={this.onChange.bind(this, 0)}
-                    placeholder={placeholder[0]}
-                    allowPiTruncation={allowPiTruncation}
-                />
-                <NumberInput
-                    {...this.props}
-                    value={value[1]}
-                    checkValidity={(val) => checkValidity([value[0], val])}
-                    onChange={this.onChange.bind(this, 1)}
-                    placeholder={placeholder[1]}
-                    allowPiTruncation={allowPiTruncation}
-                />
-            </div>
-        );
-    }
+    return (
+        <div className="range-input">
+            <NumberInput
+                {...restOfProps}
+                value={value[0]}
+                checkValidity={(val) => checkValidity([val, value[1]])}
+                onChange={onChange(0)}
+                placeholder={placeholder[0]}
+                allowPiTruncation={allowPiTruncation}
+            />
+            <NumberInput
+                {...restOfProps}
+                value={value[1]}
+                checkValidity={(val) => checkValidity([value[0], val])}
+                onChange={onChange(1)}
+                placeholder={placeholder[1]}
+                allowPiTruncation={allowPiTruncation}
+            />
+        </div>
+    );
 }
 
 export default RangeInput;
