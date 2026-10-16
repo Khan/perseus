@@ -55,7 +55,13 @@ const config: KnipConfig = {
             entry: [
                 // CLI tools
                 "utils/**/*.{ts,tsx,js,jsx}",
+                // Cypress loads this file through its supportFile setting.
+                "config/cypress/support.ts",
             ],
+        },
+        "config/build": {
+            // Run by the `build` script in the root package.json.
+            entry: ["build-packages.ts"],
         },
         "packages/*": basePackageConfig,
         "packages/perseus-core": {
@@ -76,10 +82,10 @@ const config: KnipConfig = {
     // These are packages that are listed in package.json files but not
     // directly imported in our code.
     ignoreDependencies: [
-        // perseus-build-settings is listed as a dependency so package
+        // @internal/build-settings is listed as a dependency so package
         // versions will get automatically bumped when there is a change to
         // our build tooling.
-        "perseus-build-settings",
+        "@internal/build-settings",
         // @swc-node/register is used in the shabang of executable TypeScript
         // files.
         "@swc-node/register",
@@ -91,11 +97,10 @@ const config: KnipConfig = {
         "swc_mut_cjs_exports",
         // @swc/helpers is referenced via externalHelpers in .swcrc, not imported directly.
         "@swc/helpers",
-        // We use esbuild for the item-splitting change check in a Github action.
-        "esbuild",
     ],
     // Scripts we use in `package.json`
     ignoreBinaries: [
+        "config/build/build-packages.ts",
         "utils/changed-files.sh",
         "utils/lint.sh",
         "utils/pre-publish-check-ci.ts",
