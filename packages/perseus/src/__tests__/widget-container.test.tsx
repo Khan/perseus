@@ -17,7 +17,7 @@ import {
     testDependenciesV2,
 } from "../testing/test-dependencies";
 import {containerSizeClass} from "../util/sizing-utils";
-import WidgetContainer from "../widget-container.new";
+import WidgetContainer from "../widget-container";
 import {registerWidget} from "../widgets";
 import Explanation from "../widgets/explanation";
 import Image from "../widgets/image";

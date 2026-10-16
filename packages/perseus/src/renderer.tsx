@@ -47,7 +47,7 @@ import TranslationLinter from "./translation-linter";
 import Util, {isContentGraphie, noParagraphForInlineWidget} from "./util";
 import {containerSizeClass} from "./util/sizing-utils";
 import preprocessTex from "./util/tex-preprocess";
-import WidgetContainer from "./widget-container.new";
+import WidgetContainer from "./widget-container";
 import * as Widgets from "./widgets";
 
 import type {DependenciesContext} from "./dependencies";
