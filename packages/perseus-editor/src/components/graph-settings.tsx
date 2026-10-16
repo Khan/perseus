@@ -36,7 +36,7 @@ type Props = {
     editableSettings: ReadonlyArray<
         "canvas" | "graph" | "snap" | "image" | "measure"
     >;
-    box: readonly number[];
+    box: [number, number];
     labels: readonly string[];
     range: Coords;
     step: [number, number];
@@ -73,9 +73,9 @@ type DefaultProps = {
 
 type State = {
     labelsTextbox: readonly string[];
-    gridStepTextbox: number[];
-    snapStepTextbox: number[];
-    stepTextbox: number[];
+    gridStepTextbox: [number, number];
+    snapStepTextbox: [number, number];
+    stepTextbox: [number, number];
     rangeTextbox: [number, number][];
     backgroundImage: PerseusImageBackground;
 };
@@ -363,9 +363,9 @@ class GraphSettings extends React.Component<Props, State> {
     changeRange(i: number, values: [number, number]) {
         const ranges = this.state.rangeTextbox.slice();
         ranges[i] = values;
-        const step = this.state.stepTextbox.slice();
-        const gridStep = this.state.gridStepTextbox.slice();
-        const snapStep = this.state.snapStepTextbox.slice();
+        const step = copyPair(this.state.stepTextbox);
+        const gridStep = copyPair(this.state.gridStepTextbox);
+        const snapStep = copyPair(this.state.snapStepTextbox);
         const scale = Util.scaleFromExtent(ranges[i], this.props.box[i]);
         if (this.validRange(ranges[i]) === true) {
             step[i] = Util.tickStepFromExtent(ranges[i], this.props.box[i]);
@@ -387,21 +387,19 @@ class GraphSettings extends React.Component<Props, State> {
         );
     }
 
-    changeStep(step: number[]) {
+    changeStep(step: [number, number]) {
         this.setState({stepTextbox: step}, this.changeGraph);
     }
 
-    changeSnapStep(snapStep: number[]) {
+    changeSnapStep(snapStep: [number, number]) {
         this.setState({snapStepTextbox: snapStep}, this.changeGraph);
     }
 
-    changeGridStep(gridStep: number[]) {
+    changeGridStep(gridStep: [number, number]) {
         this.setState(
             {
                 gridStepTextbox: gridStep,
-                snapStepTextbox: gridStep.map(function (step) {
-                    return step / 2;
-                }),
+                snapStepTextbox: [gridStep[0] / 2, gridStep[1] / 2],
             },
             this.changeGraph,
         );
@@ -707,6 +705,10 @@ class GraphSettings extends React.Component<Props, State> {
             </div>
         );
     }
+}
+
+function copyPair<T>(pair: readonly [T, T]): [T, T] {
+    return [pair[0], pair[1]];
 }
 
 export default GraphSettings;

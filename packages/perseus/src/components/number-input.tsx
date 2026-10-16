@@ -53,6 +53,7 @@ interface Props {
      */
     useArrowKeys: boolean;
     className?: string;
+    id?: string;
 }
 
 interface State {
