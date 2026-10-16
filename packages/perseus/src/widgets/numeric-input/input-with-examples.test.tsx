@@ -41,7 +41,9 @@ describe("InputWithExamples", () => {
         const input = screen.getByRole("textbox");
         await userEvent.click(input);
 
-        expect(screen.getByRole("tooltip")).toHaveTextContent("example 1 example 2");
+        expect(screen.getByRole("tooltip")).toHaveTextContent(
+            "example 1 example 2",
+        );
     });
 
     it("does not display examples tooltip when shouldShowExamples is false", async () => {
