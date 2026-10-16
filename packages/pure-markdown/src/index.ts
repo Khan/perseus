@@ -133,9 +133,22 @@ const tableRegexSource = (rule: any): string =>
 //   - | -                            |-|-|
 //   stuff | stuff                    |stuff|stuff|
 //
-// This function returns a regex that matches a titled table, capturing the
-// title and the table in separate capture groups to ensure the table parser
-// receives the correct captures for its format.
+// This regex matches a titled table, capturing the title and the table text
+// in separate capture groups. For example, matching:
+//
+//   || Rainfall ||
+//   |Month|Inches|
+//   |-|-|
+//   |May|3|
+//
+// gives:
+//   capture[1] = "Rainfall"
+//   capture[2] = undefined (the nptable format didn't match)
+//   capture[6] = "|Month|Inches|\n|-|-|\n|May|3|\n"
+//
+// The same table written without surrounding pipes would fill capture[2]
+// instead of capture[6]. An empty title ("||||" or "|| ||") leaves capture[1]
+// undefined.
 const TITLED_TABLE_REGEX = new RegExp(
     "^\\|\\|(?: +(.*) +| *)\\|\\| *\\n" +
         "(?:" +
