@@ -1,7 +1,5 @@
 import Rule from "../rule";
 
-// Exported so tests can assert on which problem was reported without being
-// coupled to the exact wording, which is still going through copy review.
 export const MISSING_CAPTION_MESSAGE = `Table is missing a caption:
 Screen reader users rely on a caption to understand what a table contains
 before navigating its cells. Add one by putting a line of the form

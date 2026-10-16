@@ -133,15 +133,9 @@ const tableRegexSource = (rule: any): string =>
 //   - | -                            |-|-|
 //   stuff | stuff                    |stuff|stuff|
 //
-// The two formats have mutually exclusive delimiter rows (nptable's must start
-// with `-` or `:`, table's must start with `|`), so the alternation below can
-// only match one branch. nptable comes first to preserve the matching
-// behavior titled tables had when it was the only supported format.
-//
-// Capture groups: [1] is the title, [2]-[5] are the nptable branch (whole
-// match plus its three groups) and [6]-[9] are the table branch. Only one
-// branch's groups are defined on any given match, which is how the parse
-// function below knows which simple-markdown parser to hand the captures to.
+// This function returns a regex that matches a titled table, capturing the
+// title and the table in separate capture groups to ensure the table parser
+// receives the correct captures for its format.
 const TITLED_TABLE_REGEX = new RegExp(
     "^\\|\\| +(.*) +\\|\\| *\\n" +
         "(?:" +
@@ -155,11 +149,9 @@ const TITLED_TABLE_REGEX = new RegExp(
         ")",
 );
 
-// Indexes into a TITLED_TABLE_REGEX match for each table format's captures.
+// Indexes into a TITLED_TABLE_REGEX match for each table format's full text.
 const NPTABLE_CAPTURE_START = 2;
 const TABLE_CAPTURE_START = 6;
-// Each branch contributes its whole match plus three capture groups.
-const TABLE_CAPTURE_LENGTH = 4;
 
 const crowdinJiptMatcher = SimpleMarkdown.blockRegex(/^(crwdns.*)\n\s*\n/);
 
@@ -193,12 +185,8 @@ export const pureMarkdownRules = {
             id: capture[1],
         }),
     },
-    // This is pretty much horrible, but we have a regex here to capture an
-    // entire table + a title. capture[1] is the title. capture[2] of the
-    // regex is a copy of the simple-markdown nptable regex. Then we turn
-    // our capture[2] into tableCapture[0], and any further captures in
-    // our table regex into tableCapture[1..], and we pass tableCapture to
-    // our nptable regex
+    // A table preceded by a `|| Title ||` line. capture[1] is the title, and
+    // the table text is re-parsed by the normal block parser.
     titledTable: {
         // process immediately before nptables
         order: SimpleMarkdown.defaultRules.nptable.order - 0.5,
@@ -207,25 +195,11 @@ export const pureMarkdownRules = {
         parse: (capture: any, parse: any, state: any): any => {
             const title = SimpleMarkdown.parseInline(parse, capture[1], state);
 
-            // Whichever branch of the alternation matched, hand its captures
-            // to the matching simple-markdown parser. The two parsers differ
-            // in whether they trim the pipes surrounding each row, so using
-            // the wrong one would leave empty leading/trailing cells.
-            const isNpTable = capture[NPTABLE_CAPTURE_START] !== undefined;
-            const start = isNpTable
-                ? NPTABLE_CAPTURE_START
-                : TABLE_CAPTURE_START;
-            const tableRule = isNpTable
-                ? SimpleMarkdown.defaultRules.nptable
-                : SimpleMarkdown.defaultRules.table;
-
-            // Re-base the branch's captures to [0]-[3], which is the shape
-            // the table parsers expect.
-            const tableCapture = capture.slice(
-                start,
-                start + TABLE_CAPTURE_LENGTH,
-            );
-            const table = tableRule.parse(tableCapture, parse, state);
+            // Hand the raw table text back to the block parser so
+            // simple-markdown picks the right table rule (nptable or table).
+            const tableText =
+                capture[NPTABLE_CAPTURE_START] ?? capture[TABLE_CAPTURE_START];
+            const table = parse(tableText, state)[0];
             return {
                 title: title,
                 table: table,
