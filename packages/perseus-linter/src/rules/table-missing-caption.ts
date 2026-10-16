@@ -2,13 +2,14 @@ import Rule from "../rule";
 
 export const MISSING_CAPTION_MESSAGE = `Table is missing a caption:
 Screen reader users rely on a caption to understand what a table contains
-before navigating its cells. Add one by putting a line of the form
-|| Your caption here || directly above the table.`;
+before navigating its cells. Add one by putting a line of the form:
+|| Your caption here || directly above the table or using our Titled Table
+template below.`;
 
 export const EMPTY_CAPTION_MESSAGE = `Table caption is empty:
 This table has a caption line, but there is no text between the || markers,
-so screen reader users hear an empty caption. Describe what the table
-contains, for example || Average rainfall by month ||.`;
+so screen reader users hear an empty caption. Please add the appropriate
+title for your table.`;
 
 /**
  * Recursively collect the text of a parsed inline markdown node (or array of
