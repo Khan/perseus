@@ -73,6 +73,8 @@ jobs:
                   exclude_extensions: .test.ts, .test.tsx, .stories.ts, .stories.tsx, .mdx
                   exclude_globs: "**/__tests__/*, **/__docs__/*"
 
+    # When adding or removing a check here, also update `pre_publish_check`,
+    # which runs every check unconditionally for Version Packages PRs.
     lint:
         name: Lint, Typecheck, Format, and Test
         runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && 'ubuntu-latest' || 'ephemeral-runner' }}
@@ -166,8 +168,9 @@ jobs:
                         limited: pnpm jest --passWithNoTests --findRelatedTests {}
 
             # We run full ESLint runs outside the above parallel block, because
-            # full runs often error with exit code 137 (which means Github
-            # killed the instance - we presume an OOM).
+            # when we run a full ESLint run alongside other tasks it often
+            # errors with exit code 137 (which means Github killed the instance
+            # - we presume an OOM).
             - name: Eslint all files
               # We run the lint even on failure so that the action provides as
               # much info as possible.
@@ -193,6 +196,45 @@ jobs:
 
             - name: Pre-publish check
               run: pnpm pre-publish-check
+
+            # Version Packages PRs change no source files, so the `lint` job
+            # skips most of its checks for them. This job runs every check
+            # from `lint` unconditionally so that `main` is fully verified
+            # before we publish. Keep this list in sync with `lint`, and don't
+            # add step-level `if:` conditions here. This job is a required
+            # status check on `main`.
+            - parallel:
+                  - name: Check formatting
+                    run: pnpm prettier --check .
+
+                  - name: Check for dead code
+                    run: pnpm knip
+
+                  - name: Checks that STOPSHIP is not used in any files.
+                    run: ./utils/stopship-check.sh
+
+                  - name: Typecheck
+                    run: pnpm typecheck
+
+                  - name: Typetest
+                    run: pnpm tstyche
+
+                  - name: Build types
+                    run: pnpm build:types
+
+                  - name: Build docs
+                    run: pnpm build:docs
+
+                  - name: Jest
+                    run: pnpm jest
+
+            # Full ESLint runs outside the parallel block for the same reason
+            # as in the `lint` job (exit code 137, presumed OOM).
+            - name: Eslint all files
+              # No matter the outcome of all the above checks, we still want to
+              # run the linter so we surface lint issues as well!
+              if: always()
+              run: pnpm lint
 
     cypress:
         name: Cypress
