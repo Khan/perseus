@@ -41,10 +41,7 @@ describe("InputWithExamples", () => {
         const input = screen.getByRole("textbox");
         await userEvent.click(input);
 
-        // The tooltip content is rendered in the tooltip, not the aria text
-        expect(
-            screen.getByText("example 1 example 2", {selector: ".paragraph"}),
-        ).toBeInTheDocument();
+        expect(screen.getByRole("tooltip")).toHaveTextContent("example 1 example 2");
     });
 
     it("does not display examples tooltip when shouldShowExamples is false", async () => {
