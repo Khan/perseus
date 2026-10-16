@@ -12,7 +12,6 @@ interface Props extends PerseusMatcherWidgetOptions {
     onChange: (options: PerseusMatcherWidgetOptions) => void;
 }
 
-// JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for adding a matcher widget that allows users to match items from two different sets.
  */

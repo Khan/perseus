@@ -21,31 +21,38 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
             aria-controls=":r1:"
             aria-disabled="false"
             aria-expanded="true"
-            class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_nj32ps-o_O-small_tjsyec-o_O-inlineStyles_1neckqf"
             data-kind="tertiary"
+            data-style-active="background: var(--wb-semanticColor-action-tertiary-progressive-press-background); border-radius: var(--wb-c-button-root-border-radius-press); color: var(--wb-semanticColor-action-tertiary-progressive-press-foreground); border-color: var(--wb-semanticColor-action-tertiary-progressive-press-border); box-shadow: inset 0 0 0 var(--wb-c-button-root-border-width-tertiary-press) var(--wb-semanticColor-action-tertiary-progressive-press-border); text-underline-offset: var(--wb-c-button-root-font-offset-default); text-decoration: var(--wb-c-button-root-font-decoration-press) var(--wb-c-button-root-sizing-underline-press);"
+            data-style-focus="-webkit-tap-highlight-color: rgba(0,0,0,0);"
+            data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+            data-style-media-hover-hover-hover="background: var(--wb-semanticColor-action-tertiary-progressive-hover-background); border-radius: var(--wb-c-button-root-border-radius-hover); color: var(--wb-semanticColor-action-tertiary-progressive-hover-foreground); border-color: var(--wb-semanticColor-action-tertiary-progressive-hover-border); box-shadow: inset 0 0 0 var(--wb-c-button-root-border-width-tertiary-hover) var(--wb-semanticColor-action-tertiary-progressive-hover-border); text-underline-offset: var(--wb-c-button-root-font-offset-default); text-decoration: var(--wb-c-button-root-font-decoration-hover) var(--wb-c-button-root-sizing-underline-hover);"
+            data-style-moz-focus-inner="border: 0px;"
+            style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: center; padding: 0px; border: none; cursor: pointer; outline: none; text-decoration: none; box-sizing: border-box; touch-action: manipulation; user-select: none; height: auto; padding-block: 0px; border-radius: var(--wb-c-button-root-border-radius-default); padding-inline: var(--wb-c-button-root-layout-padding-inline-tertiary-small); border-style: solid; border-width: var(--wb-c-button-root-border-width-tertiary-default); border-color: var(--wb-semanticColor-action-tertiary-progressive-default-border); background: var(--wb-semanticColor-action-tertiary-progressive-default-background); color: var(--wb-semanticColor-action-tertiary-progressive-default-foreground); transition: border-radius 0.1s ease-in-out; line-height: inherit; margin-left: -0.2rem; margin-right: 0.2rem; padding-left: 0.2rem;"
             type="button"
           >
             <span
-              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-text_1kowsup-o_O-smallText_v9nlfb-o_O-inlineStyles_19pdhar"
+              style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: inline-block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-heading-size-medium); font-weight: var(--wb-c-button-root-font-weight-default); line-height: inherit; align-items: center; white-space: normal; overflow: hidden; text-overflow: ellipsis; pointer-events: none; margin-right: -0.6rem; text-align: left;"
             >
               Hide explanation!
             </span>
             <div
-              class="default_7zhre1-o_O-endIcon_zk6zd4-o_O-iconWrapper_bqwm7d-o_O-endIconWrapper_weejk7-o_O-endIconWrapperTertiary_9p0zpt"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: var(--wb-c-button-icon-padding); position: relative; z-index: 0; min-block-size: 0px; min-inline-size: auto; margin-inline-start: var(--wb-c-button-icon-margin-inline-inner); margin-inline-end: 0px;"
             >
               <span
-                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_1hkg79p"
+                style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-c-button-icon-sizing-small); height: var(--wb-c-button-icon-sizing-small); background-color: currentColor; mask-image: url(caret-up.svg);"
               />
             </div>
           </button>
           <div
             aria-hidden="false"
-            class="default_7zhre1-o_O-inlineStyles_6oikar content content-expanded transition-expanded"
+            class="content content-expanded transition-expanded"
             data-testid="content-container"
             id=":r1:"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline-grid; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; border-left: 0px solid var(--wb-semanticColor-core-border-neutral-subtle); border-left-width: 5px; grid-template-columns: 1fr; grid-template-rows: 1fr; margin-bottom: 1.4rem; margin-left: -2.3rem; margin-top: 1.4rem; min-width: 100%; padding-bottom: 1rem; padding-left: 2.3rem; visibility: visible;"
           >
             <div
-              class="default_7zhre1-o_O-inlineStyles_y9ev9r content-wrapper"
+              class="content-wrapper"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; overflow: hidden;"
             >
               <div
                 class="perseus-renderer perseus-renderer-responsive"
@@ -93,31 +100,38 @@ exports[`Explanation should snapshot: initial render 1`] = `
             aria-controls=":r0:"
             aria-disabled="false"
             aria-expanded="false"
-            class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_nj32ps-o_O-small_tjsyec-o_O-inlineStyles_1neckqf"
             data-kind="tertiary"
+            data-style-active="background: var(--wb-semanticColor-action-tertiary-progressive-press-background); border-radius: var(--wb-c-button-root-border-radius-press); color: var(--wb-semanticColor-action-tertiary-progressive-press-foreground); border-color: var(--wb-semanticColor-action-tertiary-progressive-press-border); box-shadow: inset 0 0 0 var(--wb-c-button-root-border-width-tertiary-press) var(--wb-semanticColor-action-tertiary-progressive-press-border); text-underline-offset: var(--wb-c-button-root-font-offset-default); text-decoration: var(--wb-c-button-root-font-decoration-press) var(--wb-c-button-root-sizing-underline-press);"
+            data-style-focus="-webkit-tap-highlight-color: rgba(0,0,0,0);"
+            data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+            data-style-media-hover-hover-hover="background: var(--wb-semanticColor-action-tertiary-progressive-hover-background); border-radius: var(--wb-c-button-root-border-radius-hover); color: var(--wb-semanticColor-action-tertiary-progressive-hover-foreground); border-color: var(--wb-semanticColor-action-tertiary-progressive-hover-border); box-shadow: inset 0 0 0 var(--wb-c-button-root-border-width-tertiary-hover) var(--wb-semanticColor-action-tertiary-progressive-hover-border); text-underline-offset: var(--wb-c-button-root-font-offset-default); text-decoration: var(--wb-c-button-root-font-decoration-hover) var(--wb-c-button-root-sizing-underline-hover);"
+            data-style-moz-focus-inner="border: 0px;"
+            style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: center; padding: 0px; border: none; cursor: pointer; outline: none; text-decoration: none; box-sizing: border-box; touch-action: manipulation; user-select: none; height: auto; padding-block: 0px; border-radius: var(--wb-c-button-root-border-radius-default); padding-inline: var(--wb-c-button-root-layout-padding-inline-tertiary-small); border-style: solid; border-width: var(--wb-c-button-root-border-width-tertiary-default); border-color: var(--wb-semanticColor-action-tertiary-progressive-default-border); background: var(--wb-semanticColor-action-tertiary-progressive-default-background); color: var(--wb-semanticColor-action-tertiary-progressive-default-foreground); transition: border-radius 0.1s ease-in-out; line-height: inherit; margin-left: -0.2rem; margin-right: 0.2rem; padding-left: 0.2rem;"
             type="button"
           >
             <span
-              class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextSmallMediumWeight_1qmn0hf-o_O-text_1kowsup-o_O-smallText_v9nlfb-o_O-inlineStyles_19pdhar"
+              style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: inline-block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-heading-size-medium); font-weight: var(--wb-c-button-root-font-weight-default); line-height: inherit; align-items: center; white-space: normal; overflow: hidden; text-overflow: ellipsis; pointer-events: none; margin-right: -0.6rem; text-align: left;"
             >
               Explanation
             </span>
             <div
-              class="default_7zhre1-o_O-endIcon_zk6zd4-o_O-iconWrapper_bqwm7d-o_O-endIconWrapper_weejk7-o_O-endIconWrapperTertiary_9p0zpt"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: var(--wb-c-button-icon-padding); position: relative; z-index: 0; min-block-size: 0px; min-inline-size: auto; margin-inline-start: var(--wb-c-button-icon-margin-inline-inner); margin-inline-end: 0px;"
             >
               <span
-                class="svg_1q6jc65-o_O-small_6q1hy-o_O-inlineStyles_1dxyeu2"
+                style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-c-button-icon-sizing-small); height: var(--wb-c-button-icon-sizing-small); background-color: currentColor; mask-image: url(caret-down.svg);"
               />
             </div>
           </button>
           <div
             aria-hidden="true"
-            class="default_7zhre1-o_O-inlineStyles_18lfa5c content content-collapsed transition-collapsed"
+            class="content content-collapsed transition-collapsed"
             data-testid="content-container"
             id=":r0:"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline-grid; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; border-left: 0px solid var(--wb-semanticColor-core-border-neutral-subtle); grid-template-columns: 0fr; grid-template-rows: 0fr; margin-bottom: 0; margin-top: 0; min-width: 0; padding-bottom: 0; visibility: hidden;"
           >
             <div
-              class="default_7zhre1-o_O-inlineStyles_y9ev9r content-wrapper"
+              class="content-wrapper"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; overflow: hidden;"
             >
               <div
                 class="perseus-renderer perseus-renderer-responsive"

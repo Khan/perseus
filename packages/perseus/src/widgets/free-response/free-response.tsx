@@ -33,10 +33,21 @@ type Props = WidgetProps<
 // TODO(agoforth): Create a custom validator for the widget that will cause
 //   renderer.emptyWidgets() to work when there is no user input.
 export const FreeResponse = forwardRef<Widget, Props>(function FreeResponse(
-    {options, userInput, handleUserInput},
+    {
+        options,
+        userInput,
+        handleUserInput,
+        isScorable,
+        reviewMode,
+        static: isStatic,
+        apiOptions,
+    },
     _ref,
 ) {
     const {strings} = usePerseusI18n();
+
+    const isRequired =
+        isScorable && !reviewMode && !isStatic && !apiOptions.readOnly;
 
     const {allowUnlimitedCharacters, characterLimit, question, placeholder} =
         options;
@@ -66,11 +77,16 @@ export const FreeResponse = forwardRef<Widget, Props>(function FreeResponse(
             <LabeledField
                 label={
                     <View className="free-response-question">
-                        <Renderer content={question} strings={strings} />
+                        <Renderer
+                            content={question}
+                            strings={strings}
+                            apiOptions={apiOptions}
+                        />
                     </View>
                 }
                 field={
                     <TextArea
+                        aria-required={isRequired}
                         error={isOverLimit}
                         onChange={(newValue: string) =>
                             handleUserInput({currentValue: newValue})

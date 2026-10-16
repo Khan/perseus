@@ -11,6 +11,7 @@ import {testDependencies} from "../../testing/test-dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import type {APIOptions} from "../../types";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("free-response widget", () => {
@@ -222,5 +223,85 @@ describe("free-response widget", () => {
                 currentValue: "test-answer",
             },
         });
+    });
+});
+
+describe("required state", () => {
+    const generateRenderer = (isStatic: boolean): PerseusRenderer =>
+        generateTestPerseusRenderer({
+            content: "[[☃ free-response 1]]",
+            widgets: {
+                "free-response 1": generateFreeResponseWidget({
+                    static: isStatic,
+                    options: generateFreeResponseOptions({
+                        question: "test-question",
+                    }),
+                }),
+            },
+        });
+
+    it("renders the textarea as required when scorable and interactive", () => {
+        // Arrange, Act
+        renderQuestion(generateRenderer(false), {
+            apiOptions: {readOnly: false},
+            extraProps: {isScorable: true, reviewMode: false},
+        });
+
+        // Assert
+        expect(
+            screen.getByRole("textbox", {name: "test-question"}),
+        ).toBeRequired();
+    });
+
+    it("does not render the textarea as required when not scorable", () => {
+        // Arrange, Act
+        renderQuestion(generateRenderer(false), {
+            apiOptions: {readOnly: false},
+            extraProps: {isScorable: false, reviewMode: false},
+        });
+
+        // Assert
+        expect(
+            screen.getByRole("textbox", {name: "test-question"}),
+        ).not.toBeRequired();
+    });
+
+    it("does not render the textarea as required in review mode", () => {
+        // Arrange, Act
+        renderQuestion(generateRenderer(false), {
+            apiOptions: {readOnly: false},
+            extraProps: {isScorable: true, reviewMode: true},
+        });
+
+        // Assert
+        expect(
+            screen.getByRole("textbox", {name: "test-question"}),
+        ).not.toBeRequired();
+    });
+
+    it("does not render the textarea as required when static", () => {
+        // Arrange, Act
+        renderQuestion(generateRenderer(true), {
+            apiOptions: {readOnly: false},
+            extraProps: {isScorable: true, reviewMode: false},
+        });
+
+        // Assert
+        expect(
+            screen.getByRole("textbox", {name: "test-question"}),
+        ).not.toBeRequired();
+    });
+
+    it("does not render the textarea as required when read-only", () => {
+        // Arrange, Act
+        renderQuestion(generateRenderer(false), {
+            apiOptions: {readOnly: true},
+            extraProps: {isScorable: true, reviewMode: false},
+        });
+
+        // Assert
+        expect(
+            screen.getByRole("textbox", {name: "test-question"}),
+        ).not.toBeRequired();
     });
 });

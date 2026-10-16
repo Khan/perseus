@@ -1,5 +1,34 @@
 # @khanacademy/perseus-core
 
+## 41.2.2
+
+### Patch Changes
+
+-   [#4262](https://github.com/Khan/perseus/pull/4262) [`2d8bbca`](https://github.com/Khan/perseus/commit/2d8bbca1b09a2be0721306773497fbbace8c826e) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Upgraded tooling - pnpm v12
+
+-   Updated dependencies [[`2d8bbca`](https://github.com/Khan/perseus/commit/2d8bbca1b09a2be0721306773497fbbace8c826e)]:
+    -   @khanacademy/kas@3.0.1
+    -   @khanacademy/perseus-utils@3.0.1
+    -   @khanacademy/pure-markdown@3.0.1
+
+## 41.2.1
+
+### Patch Changes
+
+-   [#4351](https://github.com/Khan/perseus/pull/4351) [`f450f74`](https://github.com/Khan/perseus/commit/f450f74509e0e757ba73c3449bf66ceb654c7e0d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Build image widgets converted from image markdown with the production widget defaults instead of the test generators, and type `applyDefaultsToWidget`'s result as the widget type it was given
+
+## 41.2.0
+
+### Minor Changes
+
+-   [#4356](https://github.com/Khan/perseus/pull/4356) [`c7b27f6`](https://github.com/Khan/perseus/commit/c7b27f6ea6d51e3d06d48f7eb07fb0e69a42d1c4) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - adds removeOrphanedWidgetsFromPerseusRenderer to export list
+
+## 41.1.0
+
+### Minor Changes
+
+-   [#4336](https://github.com/Khan/perseus/pull/4336) [`1c610e4`](https://github.com/Khan/perseus/commit/1c610e4bd481bb5c5cb76801a3093b86c7068640) Thanks [@benchristel](https://github.com/benchristel)! - There's a new `PerseusNumberLineLabelStyle` type which enumerates the values accepted by the `labelStyle` option of the Number Line widget.
+
 ## 41.0.0
 
 ### Major Changes

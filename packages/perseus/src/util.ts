@@ -114,6 +114,14 @@ const inlineWidgetsToExclude = (node: SingleASTNode): boolean => {
     );
 };
 
+const nodeIsGraphie = (node: SingleASTNode): boolean => {
+    return node.type === "image" && node.target.startsWith("web+graphie:");
+};
+
+export const isContentGraphie = (node: SingleASTNode): boolean => {
+    return Array.isArray(node.content) && node.content.some(nodeIsGraphie);
+};
+
 /**
  * Some widgets render as inline content but CANNOT safely live
  * inside a paragraph (`<p>`). When this function returns true, the
@@ -239,11 +247,12 @@ function splitBlockWidgetsFromParagraphs(ast: ASTNode): ASTNode {
 }
 
 /**
- * Return the first valid interpretation of 'text' as a number, in the form
- * {value: 2.3, exact: true}.
+ * Return the first valid interpretation of 'text' as a number.
  */
-function firstNumericalParse(text: string): ParsedValue | null | undefined {
-    let first;
+function firstNumericalParse(
+    text: string | number | null,
+): number | null | undefined {
+    let first: number | undefined;
     const val = KhanAnswerTypes.predicate.createValidatorFunctional(
         function (ans) {
             first = ans;
@@ -256,7 +265,7 @@ function firstNumericalParse(text: string): ParsedValue | null | undefined {
         },
     );
 
-    val(text);
+    val(String(text));
     return first;
 }
 

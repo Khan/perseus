@@ -1,5 +1,46 @@
 # @khanacademy/math-input
 
+## 30.1.1
+
+### Patch Changes
+
+-   [#4262](https://github.com/Khan/perseus/pull/4262) [`2d8bbca`](https://github.com/Khan/perseus/commit/2d8bbca1b09a2be0721306773497fbbace8c826e) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Upgraded tooling - pnpm v12
+
+-   [#4368](https://github.com/Khan/perseus/pull/4368) [`8a9b9b0`](https://github.com/Khan/perseus/commit/8a9b9b0d43a013c945d980ea1714b5b154246a41) Thanks [@beaesguerra](https://github.com/beaesguerra)! - Update Wonder Blocks dependencies (i18n strings for tabs, functional component refactors)
+
+-   Updated dependencies [[`2d8bbca`](https://github.com/Khan/perseus/commit/2d8bbca1b09a2be0721306773497fbbace8c826e)]:
+    -   @khanacademy/keypad-context@6.0.6
+    -   @khanacademy/perseus-core@41.2.2
+    -   @khanacademy/perseus-utils@3.0.1
+
+## 30.1.0
+
+### Minor Changes
+
+-   [#4292](https://github.com/Khan/perseus/pull/4292) [`cf403f3`](https://github.com/Khan/perseus/commit/cf403f3426dc2b36db48ecdb14c8f5c6c7df7203) Thanks [@handeyeco](https://github.com/handeyeco)! - Consume `isScorable` in NumericInput to mark inputs as `aria-required` when in the context of ServerItemRenderer and GradedGroup.
+
+### Patch Changes
+
+-   Updated dependencies [[`f450f74`](https://github.com/Khan/perseus/commit/f450f74509e0e757ba73c3449bf66ceb654c7e0d)]:
+    -   @khanacademy/perseus-core@41.2.1
+    -   @khanacademy/keypad-context@6.0.5
+
+## 30.0.5
+
+### Patch Changes
+
+-   Updated dependencies [[`c7b27f6`](https://github.com/Khan/perseus/commit/c7b27f6ea6d51e3d06d48f7eb07fb0e69a42d1c4)]:
+    -   @khanacademy/perseus-core@41.2.0
+    -   @khanacademy/keypad-context@6.0.4
+
+## 30.0.4
+
+### Patch Changes
+
+-   Updated dependencies [[`1c610e4`](https://github.com/Khan/perseus/commit/1c610e4bd481bb5c5cb76801a3093b86c7068640)]:
+    -   @khanacademy/perseus-core@41.1.0
+    -   @khanacademy/keypad-context@6.0.3
+
 ## 30.0.3
 
 ### Patch Changes

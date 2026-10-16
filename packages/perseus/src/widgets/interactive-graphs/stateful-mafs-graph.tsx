@@ -52,6 +52,7 @@ export type StatefulMafsGraphProps = {
     widgetId: string;
     graded?: boolean | null;
     ungradedDescriptionId?: string;
+    isRequired?: boolean;
 };
 
 export type StatefulMafsGraphType = {

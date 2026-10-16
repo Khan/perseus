@@ -22,7 +22,7 @@ class RangeInput extends React.Component<any> {
         placeholder: [null, null],
     };
 
-    onChange: (arg1: number, arg2: string) => void = (i, newVal) => {
+    onChange = (i: number, newVal: number) => {
         const value = this.props.value;
         if (i === 0) {
             this.props.onChange([newVal, value[1]]);

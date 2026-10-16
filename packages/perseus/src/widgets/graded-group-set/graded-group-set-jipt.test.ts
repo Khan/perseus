@@ -18,6 +18,15 @@ describe("graded-group-set", () => {
                 useJIPT: true,
             },
         });
+
+        // Mocked for loading graphie in svg-image
+        // eslint-disable-next-line no-restricted-syntax
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                text: () => "",
+                ok: true,
+            }),
+        ) as jest.Mock;
     });
 
     it("should render all graded groups", () => {

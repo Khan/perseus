@@ -1,0 +1,15 @@
+{
+    "$schema": "https://opencode.ai/config.json",
+    "instructions": [
+        ".opencode/instructions/sandbox.md"
+    ],
+    "share": "disabled",
+    "permission": {
+        "external_directory": "ask",
+        "edit": {
+            "*": "allow",
+            ".agent-settings-assets-manifest.json": "deny",
+            ".opencode/**": "deny"
+        }
+    }
+}

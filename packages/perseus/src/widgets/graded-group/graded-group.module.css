@@ -1,0 +1,35 @@
+.hint {
+    display: grid;
+}
+
+.hint-collapsed {
+    grid-template-rows: 0fr;
+    margin-block-start: 0;
+    visibility: hidden;
+}
+
+.hint-expanded {
+    grid-template-rows: 1fr;
+    margin-block-start: 10px;
+    visibility: visible;
+}
+
+.hint-wrapper {
+    overflow: hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .hint-collapsed {
+        /* step-end keeps the content visible until it finishes collapsing. */
+        transition:
+            all 0.25s step-end,
+            grid-template-rows 0.25s,
+            margin-block-start 0.25s;
+    }
+
+    .hint-expanded {
+        transition:
+            grid-template-rows 0.5s,
+            margin-block-start 0.5s;
+    }
+}

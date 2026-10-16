@@ -5,6 +5,7 @@ import {
 import * as React from "react";
 
 import WrappedServerItemRenderer from "../../../server-item-renderer";
+import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 import {storybookDependenciesV2} from "../../../testing/test-dependencies";
 import {
     textQuestion,
@@ -110,6 +111,16 @@ export const LabelWidgetAnswerless = (args: StoryArgs): React.ReactElement => {
     return (
         <WrappedServerItemRenderer
             dependencies={storybookDependenciesV2}
+            item={generateTestPerseusItem({
+                question: applyStoryArgs(textQuestion, args),
+            })}
+        />
+    );
+};
+
+export const LabelImageGraded = (args: StoryArgs): React.ReactElement => {
+    return (
+        <ServerItemRendererWithDebugUI
             item={generateTestPerseusItem({
                 question: applyStoryArgs(textQuestion, args),
             })}

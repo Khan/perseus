@@ -7,7 +7,6 @@ import type {MathFormat} from "@khanacademy/perseus-core";
 
 const MAXERROR_EPSILON = Math.pow(2, -42);
 
-type Guess = any;
 type Predicate = (guess: number, maxError: number) => boolean;
 type TransformedFraction = {
     value: number;
@@ -19,7 +18,7 @@ export type Score = {
     correct: boolean;
     message: string | null | undefined;
     suppressAlmostThere?: boolean | null | undefined;
-    guess: Guess;
+    guess: any;
     // It would be nice if we could ungraded required
     ungraded?: boolean;
 };
@@ -109,7 +108,7 @@ const KhanAnswerTypes = {
         createValidatorFunctional: function (
             predicate: Predicate,
             rawOptions: PredicateValidatorOptions,
-        ): (guess: Guess) => Score {
+        ): (guess: string | number) => Score {
             // Extract the options from the given solution object
             const options = {
                 simplify: "required",
@@ -560,7 +559,7 @@ const KhanAnswerTypes = {
             } as const;
 
             // validator function
-            return function (guess: Guess): Score {
+            return function (guess: string | number): Score {
                 // The fallback variable is used in place of the answer, if no
                 // answer is provided (i.e. the field is left blank)
                 const fallback =
@@ -673,7 +672,7 @@ const KhanAnswerTypes = {
         createValidatorFunctional: function (
             correctAnswer: string,
             options: PredicateValidatorOptions,
-        ): (arg1: Guess) => Score {
+        ): (guess: string | number) => Score {
             const correctFloat = parseFloat(correctAnswer);
             return KhanAnswerTypes.predicate.createValidatorFunctional(
                 (guess, maxError) => Math.abs(guess - correctFloat) < maxError,
@@ -758,8 +757,8 @@ const KhanAnswerTypes = {
         createValidatorFunctional: function (
             solution: any,
             options: any,
-        ): (arg1: Guess) => Score {
-            return function (guess: Guess): Score {
+        ): (guess: string) => Score {
+            return function (guess: string): Score {
                 const score: Score = {
                     empty: false,
                     correct: false,

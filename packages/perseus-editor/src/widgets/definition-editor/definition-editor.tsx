@@ -17,7 +17,6 @@ interface Props extends PerseusDefinitionWidgetOptions {
     onChange: (options: PerseusDefinitionWidgetOptions) => void;
 }
 
-// JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for adding an interactive definition widget that allows content
  * editors to embed clickable terms with expandable explanations within content.

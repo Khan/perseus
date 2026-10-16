@@ -68,7 +68,6 @@ type State = {
 
 const formatNumber = (num) => "$" + knumber.round(num, 2) + "$";
 
-// JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for adding a plotter widget that allows users to create and customize data visualizations.
  */

@@ -1,7 +1,7 @@
 import {PerseusMarkdown, Util} from "@khanacademy/perseus";
 import {
-    generateImageOptions,
-    generateImageWidget,
+    applyDefaultsToWidget,
+    imageLogic,
     type PerseusRenderer,
     type PerseusWidgetsMap,
 } from "@khanacademy/perseus-core";
@@ -78,15 +78,23 @@ export async function convertImageMarkdownToImageWidget(
         const imageSize = await Util.getImageSizeModern(imageUrl);
         const [width, height] = imageSize;
 
-        newWidgets[`image ${imageIndex}`] = generateImageWidget({
-            options: generateImageOptions({
+        // applyDefaultsToWidget fills in the remaining widget fields (such as
+        // alignment) the same way the editor does for any other widget.
+        newWidgets[`image ${imageIndex}`] = applyDefaultsToWidget({
+            type: "image",
+            // The options below are shaped for version 0.0 of the image
+            // widget. If the image widget gets a new major version, update
+            // this version and the options together.
+            version: {major: 0, minor: 0},
+            options: {
+                ...imageLogic.defaultWidgetOptions,
                 backgroundImage: {
                     url: imageUrl,
                     width,
                     height,
                 },
                 alt: imageAlt,
-            }),
+            },
         });
 
         replacements.push({

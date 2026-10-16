@@ -32,6 +32,7 @@ import type {
 
 type HintEditorProps = {
     itemId?: string;
+    position: number;
     apiOptions?: APIOptions;
     className: string;
     imageUploader?: ImageUploader;
@@ -101,9 +102,12 @@ class HintEditor extends React.Component<HintEditorProps> {
     };
 
     render(): React.ReactNode {
+        const hintNumber = this.props.position + 1;
         return (
             <div className={"perseus-hint-editor " + this.props.className}>
-                {this.props.showTitle && <div className="pod-title">Hint</div>}
+                {this.props.showTitle && (
+                    <div className="pod-title">Hint {hintNumber}</div>
+                )}
                 <Editor
                     ref={this.editor}
                     // Using the AssessmentItem content ID as the key
@@ -141,7 +145,7 @@ class HintEditor extends React.Component<HintEditorProps> {
                             <>
                                 <IconButton
                                     icon={arrowCircleDownIcon}
-                                    aria-label="Move hint down"
+                                    aria-label={`Move hint ${hintNumber} down`}
                                     size="small"
                                     kind="tertiary"
                                     onClick={_.partial(this.props.onMove, 1)}
@@ -149,7 +153,7 @@ class HintEditor extends React.Component<HintEditorProps> {
                                 />
                                 <IconButton
                                     icon={arrowCircleUpIcon}
-                                    aria-label="Move hint up"
+                                    aria-label={`Move hint ${hintNumber} up`}
                                     size="small"
                                     kind="tertiary"
                                     onClick={_.partial(this.props.onMove, -1)}
@@ -177,7 +181,7 @@ class HintEditor extends React.Component<HintEditorProps> {
                             // Have the "Remove" button align to the right.
                             style={{marginInlineStart: "auto", display: "flex"}}
                         >
-                            Remove this hint
+                            {`Remove hint ${hintNumber}`}
                         </Button>
                     )}
                 </div>
@@ -229,6 +233,7 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
                 <div className="perseus-editor-left-cell">
                     <HintEditor
                         ref={this.editor}
+                        position={this.props.pos}
                         itemId={this.props.itemId}
                         isFirst={this.props.isFirst}
                         isLast={this.props.isLast}

@@ -1,4 +1,3 @@
-import {isFeatureOn} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
@@ -47,6 +46,14 @@ const Dropdown = forwardRef<Widget, Props>(function Dropdown(props, ref) {
     } = props;
     const isStatic = props.static ?? false;
     const dependencies = useDependencies();
+
+    // A selection is required to move on from the question, but only when
+    // the learner can actually interact with the dropdown.
+    const isRequired =
+        props.isScorable &&
+        !props.reviewMode &&
+        !isStatic &&
+        !apiOptions.readOnly;
 
     // Fire analytics event on mount
     // We intentionally use an empty dependency array here because this analytics
@@ -127,25 +134,19 @@ const Dropdown = forwardRef<Widget, Props>(function Dropdown(props, ref) {
         },
     }));
 
-    // TODO(LEMS-4304): feature flag cleanup - remove this FF check and replace
-    // with references to the variable with "true"
-    const inline = isFeatureOn(
-        {apiOptions: props.apiOptions},
-        "perseus-renderer-upgrade",
-    );
-
     const children = [
         <OptionItem
             key="placeholder"
             value="0"
             disabled
             label={
-                <Renderer
-                    content={placeholder}
-                    strings={strings}
-                    apiOptions={{flags: apiOptions.flags}}
-                    inline={inline}
-                />
+                <div className="perseus-in-wb-popover">
+                    <Renderer
+                        content={placeholder}
+                        strings={strings}
+                        apiOptions={{flags: apiOptions.flags}}
+                    />
+                </div>
             }
             labelAsText={placeholder}
         />,
@@ -154,12 +155,13 @@ const Dropdown = forwardRef<Widget, Props>(function Dropdown(props, ref) {
                 key={String(i + 1)}
                 value={String(i + 1)}
                 label={
-                    <Renderer
-                        content={choice.content}
-                        strings={strings}
-                        apiOptions={{flags: apiOptions.flags}}
-                        inline={inline}
-                    />
+                    <div className="perseus-in-wb-popover">
+                        <Renderer
+                            content={choice.content}
+                            strings={strings}
+                            apiOptions={{flags: apiOptions.flags}}
+                        />
+                    </div>
                 }
                 labelAsText={choice.content}
             />
@@ -195,6 +197,10 @@ const Dropdown = forwardRef<Widget, Props>(function Dropdown(props, ref) {
                 onChange={(value) => handleChange(parseInt(value))}
                 selectedValue={String(userInput.value)}
                 disabled={Boolean(apiOptions.readOnly || isStatic)}
+                // We use `aria-required` rather than WB's `required` prop, since
+                // `required` also enables WB's validation, which renders an error
+                // message when the dropdown is closed without a selection.
+                aria-required={isRequired}
                 aria-label={ariaLabel || visibleLabel || strings.selectAnAnswer}
                 showOpenerLabelAsText={false}
             >

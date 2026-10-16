@@ -31,7 +31,6 @@ export function validateOptions(
     return errors;
 }
 
-// JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for adding a Python program widget that allows users to write, edit and execute Python code.
  */

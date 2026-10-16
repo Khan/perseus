@@ -85,6 +85,9 @@ describe("Widget", () => {
   Prefer verbs like `returns`, `renders`, `disables`, `throws` over vague phrases like "should handle".
   A failing test title should tell you which requirement broke without reading the test body.
   ❌ `"should handle empty input"` → ✅ `"returns null when input is empty"`
+- Only mock dependencies (`jest.spyOn(Dependencies, "getDependencies")` /
+  `jest.spyOn(Dependencies, "useDependencies")`) when the code under test actually
+  reads them. Don't copy the `beforeEach` block from other test files by default.
 
 ## Accessibility
 

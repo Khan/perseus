@@ -11,7 +11,9 @@ import * as React from "react";
 
 import {testDependencies} from "../../testing/test-dependencies";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
-import WidgetEditor, {_upgradeWidgetInfo} from "../widget-editor";
+import WidgetEditorContainer, {
+    _upgradeWidgetInfo,
+} from "../widget-editor-container";
 
 import type {
     PerseusDefinitionWidgetOptions,
@@ -46,7 +48,7 @@ describe("WidgetEditor", () => {
             ).mockReturnValue(["block", "inline", "full-width"]);
 
             render(
-                <WidgetEditor
+                <WidgetEditorContainer
                     id="radio 1"
                     widgetInfo={generateRadioWidget()}
                     onChange={() => {}}
@@ -75,7 +77,7 @@ describe("WidgetEditor", () => {
             ).mockReturnValue(["block", "inline", "full-width"]);
 
             render(
-                <WidgetEditor
+                <WidgetEditorContainer
                     id="image 1"
                     widgetInfo={generateImageWidget()}
                     onChange={() => {}}
@@ -103,7 +105,7 @@ describe("WidgetEditor", () => {
             ).mockReturnValue(["default"]);
 
             render(
-                <WidgetEditor
+                <WidgetEditorContainer
                     id="radio 1"
                     widgetInfo={generateRadioWidget()}
                     onChange={() => {}}
@@ -130,7 +132,7 @@ describe("WidgetEditor", () => {
             ).mockReturnValue(["block", "inline", "full-width"]);
 
             render(
-                <WidgetEditor
+                <WidgetEditorContainer
                     id="image 1"
                     widgetInfo={generateImageWidget()}
                     onChange={onChangeMock}
@@ -166,7 +168,7 @@ describe("WidgetEditor", () => {
             ).mockReturnValue(["block", "inline", "full-width"]);
 
             render(
-                <WidgetEditor
+                <WidgetEditorContainer
                     id="image 1"
                     widgetInfo={generateImageWidget()}
                     onChange={() => {}}

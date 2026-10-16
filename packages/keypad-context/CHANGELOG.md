@@ -1,5 +1,35 @@
 # @khanacademy/keypad-context
 
+## 6.0.6
+
+### Patch Changes
+
+-   [#4262](https://github.com/Khan/perseus/pull/4262) [`2d8bbca`](https://github.com/Khan/perseus/commit/2d8bbca1b09a2be0721306773497fbbace8c826e) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Upgraded tooling - pnpm v12
+
+-   Updated dependencies [[`2d8bbca`](https://github.com/Khan/perseus/commit/2d8bbca1b09a2be0721306773497fbbace8c826e)]:
+    -   @khanacademy/perseus-core@41.2.2
+
+## 6.0.5
+
+### Patch Changes
+
+-   Updated dependencies [[`f450f74`](https://github.com/Khan/perseus/commit/f450f74509e0e757ba73c3449bf66ceb654c7e0d)]:
+    -   @khanacademy/perseus-core@41.2.1
+
+## 6.0.4
+
+### Patch Changes
+
+-   Updated dependencies [[`c7b27f6`](https://github.com/Khan/perseus/commit/c7b27f6ea6d51e3d06d48f7eb07fb0e69a42d1c4)]:
+    -   @khanacademy/perseus-core@41.2.0
+
+## 6.0.3
+
+### Patch Changes
+
+-   Updated dependencies [[`1c610e4`](https://github.com/Khan/perseus/commit/1c610e4bd481bb5c5cb76801a3093b86c7068640)]:
+    -   @khanacademy/perseus-core@41.1.0
+
 ## 6.0.2
 
 ### Patch Changes

@@ -10,7 +10,6 @@ import {action} from "storybook/actions";
 
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
 import {getFeatureFlags} from "../../testing/feature-flags-util";
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import {PROD_EDITOR_WIDTH} from "../storybook-constants";
 
 import FillInTheBlankEditor from "./fill-in-the-blank-editor";
@@ -43,9 +42,6 @@ const withinEditorPageDecorator = (_, {args, parameters}) => {
         </div>
     );
 };
-
-// This is to address timing - Perseus widget editor registry accessed before initialization!
-registerAllWidgetsAndEditorsForTesting();
 
 const meta: Meta = {
     title: "Widgets/Fill in the Blank/Editor Demo",

@@ -1,5 +1,5 @@
 import {KhanMath} from "@khanacademy/kmath";
-import {components, Util} from "@khanacademy/perseus";
+import {components} from "@khanacademy/perseus";
 import {
     numericInputLogic,
     type PerseusNumericInputWidgetOptions,
@@ -20,16 +20,13 @@ import {
 } from "../../components/segmented-control";
 import {TypedSingleSelect} from "../../components/typed-single-select";
 import Editor from "../../editor";
-import {deprecatedChangeableChange} from "../../mixins/changeable";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
 import styles from "./numeric-input-editor.module.css";
 
-import type {ChangeFn} from "../../mixins/changeable";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 
 const {NumberInput, TextInput} = components;
-const {firstNumericalParse} = Util;
 
 const answerFormButtons = [
     {title: "Integers", value: "integer", content: "6"},
@@ -56,11 +53,10 @@ const initAnswer = (status: string) => {
     };
 };
 
-// The "static" property is not used in this widget (per the type definition comments)
-type Props = Omit<PerseusNumericInputWidgetOptions, "static"> & {
-    onChange: (results: any) => any;
+interface Props extends PerseusNumericInputWidgetOptions {
+    onChange: (options: PerseusNumericInputWidgetOptions) => void;
     apiOptions: APIOptionsWithDefaults;
-};
+}
 
 interface State {
     lastStatus: string;
@@ -69,7 +65,6 @@ interface State {
     showAnswers: boolean;
 }
 
-// JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for adding a numeric input widget that allows users to enter
  * numerical values with specific validation rules.
@@ -91,9 +86,16 @@ class NumericInputEditor extends React.Component<Props, State> {
         };
     }
 
-    change: ChangeFn = (...args) => {
-        return deprecatedChangeableChange.apply(this, args);
-    };
+    handleChange(changes: Partial<PerseusNumericInputWidgetOptions>) {
+        this.props.onChange({
+            answers: this.props.answers,
+            labelText: this.props.labelText,
+            size: this.props.size,
+            coefficient: this.props.coefficient,
+            textAlign: this.props.textAlign,
+            ...changes,
+        });
+    }
 
     onToggleAnswers = (answerIndex: number) => {
         const showAnswerDetails = this.state.showAnswerDetails.slice();
@@ -130,27 +132,8 @@ class NumericInputEditor extends React.Component<Props, State> {
         if (choiceIndex >= 0 && choiceIndex < this.props.answers.length) {
             const answers = this.props.answers.slice(0);
             answers.splice(choiceIndex, 1);
-            this.props.onChange({answers: answers});
+            this.handleChange({answers: answers});
         }
-    };
-
-    onSpace = (e, callback, ...args) => {
-        if (e.key === " ") {
-            e.preventDefault(); // prevent page shifting
-            callback.apply(this, args);
-        }
-    };
-
-    onStatusChange = (choiceIndex) => {
-        const statuses = ["wrong", "ungraded", "correct"];
-        const answers = this.props.answers;
-        const i = statuses.indexOf(answers[choiceIndex].status);
-        const newStatus = statuses[(i + 1) % statuses.length];
-
-        this.updateAnswer(choiceIndex, {
-            status: newStatus,
-            simplify: newStatus === "correct" ? "required" : "accepted",
-        });
     };
 
     onEvaluationChange = (choiceIndex, newStatus) => {
@@ -186,7 +169,7 @@ class NumericInputEditor extends React.Component<Props, State> {
         }
 
         answers[choiceIndex] = _.extend({}, answers[choiceIndex], update);
-        this.props.onChange({answers: answers});
+        this.handleChange({answers: answers});
     };
 
     addAnswer = () => {
@@ -194,7 +177,7 @@ class NumericInputEditor extends React.Component<Props, State> {
         const answers = this.props.answers.concat(lastAnswer);
         const showAnswerDetails = this.state.showAnswerDetails.concat(true);
         this.setState({showAnswerDetails: showAnswerDetails});
-        this.props.onChange({answers: answers});
+        this.handleChange({answers: answers});
     };
 
     // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
@@ -363,7 +346,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                     aria-label="Width"
                     disabled={editingDisabled}
                     selectedValue={this.props.size}
-                    onChange={(value) => this.change("size")(value)}
+                    onChange={(size) => this.handleChange({size})}
                     options={[
                         {value: "normal", label: "Normal (80px)"},
                         {value: "small", label: "Small (40px)"},
@@ -386,7 +369,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                 <TextInput
                     labelText="aria label"
                     value={this.props.labelText}
-                    onChange={this.change("labelText")}
+                    onChange={(labelText) => this.handleChange({labelText})}
                 />
             </View>
         );
@@ -409,7 +392,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                         this.props.coefficient ? "coefficient" : "standard"
                     }
                     onChange={(value) =>
-                        this.props.onChange({
+                        this.handleChange({
                             coefficient: value === "coefficient",
                         })
                     }
@@ -525,17 +508,13 @@ class NumericInputEditor extends React.Component<Props, State> {
                                                 forms = ["proper", "improper"];
                                             }
                                             this.updateAnswer(i, {
-                                                value: firstNumericalParse(
-                                                    newValue,
-                                                ),
+                                                value: newValue,
                                                 answerForms: forms,
                                             });
                                         }}
                                         onChange={(newValue) => {
                                             this.updateAnswer(i, {
-                                                value: firstNumericalParse(
-                                                    newValue,
-                                                ),
+                                                value: newValue,
                                             });
                                         }}
                                     />
@@ -548,7 +527,9 @@ class NumericInputEditor extends React.Component<Props, State> {
                                     placeholder={0}
                                     value={answers[i]["maxError"]}
                                     format={_.last(answer.answerForms || [])}
-                                    onChange={this.updateAnswer(i, "maxError")}
+                                    onChange={(maxError) =>
+                                        this.updateAnswer(i, {maxError})
+                                    }
                                 />
                             </div>
                             <View className={styles.field}>
@@ -611,7 +592,7 @@ class NumericInputEditor extends React.Component<Props, State> {
                             <TypedSingleSelect
                                 selectedValue={this.props.textAlign}
                                 onChange={(value) => {
-                                    this.props.onChange({textAlign: value});
+                                    this.handleChange({textAlign: value});
                                 }}
                                 options={{
                                     left: "Left",
