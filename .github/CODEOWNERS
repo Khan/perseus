@@ -4,12 +4,3 @@
 * @Khan/perseus
 
 widget-ai-utils/* @Khan/practice @Khan/perseus
-
-# For the Color Sync renderer updates
-packages/perseus/src/perseus-markdown.new.tsx @nishasy @mark-fitzgerald @Khan/perseus
-packages/perseus/src/perseus-markdown.tsx @nishasy @mark-fitzgerald @Khan/perseus
-packages/perseus/src/renderer.tsx @nishasy @mark-fitzgerald @Khan/perseus
-packages/perseus/src/renderer.old.tsx @nishasy @mark-fitzgerald @Khan/perseus
-packages/perseus/src/renderer.tsx @nishasy @mark-fitzgerald @Khan/perseus
-packages/perseus/src/styles/perseus-renderer.new.css @nishasy @mark-fitzgerald @Khan/perseus
-packages/perseus/src/styles/perseus-renderer.css @nishasy @mark-fitzgerald @Khan/perseus
