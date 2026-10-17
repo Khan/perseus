@@ -1,7 +1,7 @@
 @layer libraries, perseus-legacy;
 
 @import "./util.css" layer(perseus-legacy);
-@import "./styles.new.css" layer(perseus-legacy);
+@import "./styles.new.css";
 @import "./paragraph-styles.new.css" layer(perseus-legacy);
 @import "./perseus-renderer-part-1.css" layer(perseus-legacy);
 @import "widgets/categorizer.css" layer(perseus-legacy);
