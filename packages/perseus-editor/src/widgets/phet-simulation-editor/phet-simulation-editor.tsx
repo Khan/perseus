@@ -7,12 +7,9 @@ import {LabeledTextField} from "@khanacademy/wonder-blocks-form";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
-type Props = PerseusPhetSimulationWidgetOptions & {
-    onChange: (arg1: {
-        url?: Props["url"];
-        description?: Props["description"];
-    }) => void;
-};
+interface Props extends PerseusPhetSimulationWidgetOptions {
+    onChange: (options: PerseusPhetSimulationWidgetOptions) => void;
+}
 
 /**
  * An editor for adding a PhET simulation widget that allows users to interact
@@ -21,6 +18,14 @@ type Props = PerseusPhetSimulationWidgetOptions & {
 class PhetSimulationEditor extends React.Component<Props> {
     static defaultProps: PerseusPhetSimulationWidgetOptions =
         phetSimulationLogic.defaultWidgetOptions;
+
+    handleChange(changes: Partial<PerseusPhetSimulationWidgetOptions>) {
+        this.props.onChange({
+            url: this.props.url,
+            description: this.props.description,
+            ...changes,
+        });
+    }
 
     serialize(): PerseusPhetSimulationWidgetOptions {
         return {
@@ -47,7 +52,7 @@ class PhetSimulationEditor extends React.Component<Props> {
                 <LabeledTextField
                     label={"URL"}
                     value={this.props.url}
-                    onChange={(url: string) => this.props.onChange({url})}
+                    onChange={(url: string) => this.handleChange({url})}
                     style={{
                         marginBlockEnd: spacing.large_24,
                     }}
@@ -56,7 +61,7 @@ class PhetSimulationEditor extends React.Component<Props> {
                     label={"Description"}
                     value={this.props.description}
                     onChange={(description: string) =>
-                        this.props.onChange({description})
+                        this.handleChange({description})
                     }
                 />
             </div>
