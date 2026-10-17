@@ -6,11 +6,10 @@ exports[`Numeric input widget styles differently on mobile: mobile render 1`] = 
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <span
           style="white-space: nowrap;"
@@ -24,43 +23,47 @@ exports[`Numeric input widget styles differently on mobile: mobile render 1`] = 
           <span />
         </span>
          
-        <div
-          class="perseus-widget-container widget-inline-block"
+        <span
+          class="deprecated-perseus-container"
         >
-          <div>
-            <div
-              aria-label="Math input box Tap with one or two fingers to open keyboard"
-              aria-required="false"
-              role="textbox"
-              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline-block; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; vertical-align: middle; max-inline-size: 128px;"
-            >
+          <span
+            class="perseus-widget-container widget-inline-block"
+          >
+            <div>
               <div
-                class="keypad-input"
-                tabindex="0"
+                aria-label="Math input box Tap with one or two fingers to open keyboard"
+                aria-required="false"
+                role="textbox"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline-block; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; vertical-align: middle; max-inline-size: 128px;"
               >
                 <div
-                  class="mq-editable-field mq-math-mode"
-                  style="min-height: 44px; min-width: 64px; max-width: 128px; box-sizing: border-box; position: relative; border-style: solid; border-radius: 4px; border-width: 1px;"
+                  class="keypad-input"
+                  tabindex="0"
                 >
-                  <span
-                    class="mq-textarea"
+                  <div
+                    class="mq-editable-field mq-math-mode"
+                    style="min-height: 44px; min-width: 64px; max-width: 128px; box-sizing: border-box; position: relative; border-style: solid; border-radius: 4px; border-width: 1px;"
                   >
                     <span
-                      aria-label="Math Input:"
+                      class="mq-textarea"
+                    >
+                      <span
+                        aria-label="Math Input:"
+                      />
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      class="mq-root-block mq-empty"
+                      style="padding: 10px 13px 8px 13px; font-size: 18pt;"
                     />
-                  </span>
-                  <span
-                    aria-hidden="true"
-                    class="mq-root-block mq-empty"
-                    style="padding: 10px 13px 8px 13px; font-size: 18pt;"
-                  />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </span>
+        </span>
          
-      </div>
+      </p>
     </div>
   </div>
 </div>
@@ -72,11 +75,10 @@ exports[`numeric-input widget Should render predictably: after interaction 1`] =
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <span
           style="white-space: nowrap;"
@@ -90,36 +92,40 @@ exports[`numeric-input widget Should render predictably: after interaction 1`] =
           <span />
         </span>
          
-        <div
-          class="perseus-widget-container widget-inline-block"
+        <span
+          class="deprecated-perseus-container"
         >
-          <input
-            aria-disabled="false"
-            aria-invalid="false"
-            aria-label="Your answer:"
-            aria-required="false"
-            autocapitalize="off"
-            autocomplete="off"
-            autocorrect="off"
-            class="perseus-input perseus-focused input-with-examples is-focused"
-            data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
-            data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
-            data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
-            data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
-            data-testid="input-with-examples"
-            id=":r6:"
-            style="width: 8rem; height: 3.2rem; border-radius: 0.3rem; box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 0px; display: inline-block; font-family: Symbola, 'Times New Roman', serif; font-size: 1.8rem; font-weight: var(--wb-font-weight-medium); line-height: 1.8rem; background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); border-width: var(--wb-border-width-medium); direction: ltr; padding: 0.4rem; text-align: left;"
-            tabindex="0"
-            type="text"
-            value="1252"
-          />
           <span
-            id="aria-for-:r6:"
-            style="display: none;"
-          />
-        </div>
+            class="perseus-widget-container widget-inline-block"
+          >
+            <input
+              aria-disabled="false"
+              aria-invalid="false"
+              aria-label="Your answer:"
+              aria-required="false"
+              autocapitalize="off"
+              autocomplete="off"
+              autocorrect="off"
+              class="perseus-input perseus-focused input-with-examples is-focused"
+              data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+              data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+              data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+              data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
+              data-testid="input-with-examples"
+              id=":r6:"
+              style="width: 8rem; height: 3.2rem; border-radius: 0.3rem; box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 0px; display: inline-block; font-family: Symbola, 'Times New Roman', serif; font-size: 1.8rem; font-weight: var(--wb-font-weight-medium); line-height: 1.8rem; background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); border-width: var(--wb-border-width-medium); direction: ltr; padding: 0.4rem; text-align: left;"
+              tabindex="0"
+              type="text"
+              value="1252"
+            />
+            <span
+              id="aria-for-:r6:"
+              style="display: none;"
+            />
+          </span>
+        </span>
          
-      </div>
+      </p>
     </div>
   </div>
 </div>
@@ -131,11 +137,10 @@ exports[`numeric-input widget Should render predictably: first render 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <span
           style="white-space: nowrap;"
@@ -149,36 +154,40 @@ exports[`numeric-input widget Should render predictably: first render 1`] = `
           <span />
         </span>
          
-        <div
-          class="perseus-widget-container widget-inline-block"
+        <span
+          class="deprecated-perseus-container"
         >
-          <input
-            aria-disabled="false"
-            aria-invalid="false"
-            aria-label="Your answer:"
-            aria-required="false"
-            autocapitalize="off"
-            autocomplete="off"
-            autocorrect="off"
-            class="perseus-input input-with-examples"
-            data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
-            data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
-            data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
-            data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
-            data-testid="input-with-examples"
-            id=":r6:"
-            style="width: 8rem; height: 3.2rem; border-radius: 0.3rem; box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 0px; display: inline-block; font-family: Symbola, 'Times New Roman', serif; font-size: 1.8rem; font-weight: var(--wb-font-weight-medium); line-height: 1.8rem; background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); border-width: var(--wb-border-width-thin); direction: ltr; padding: 0.4rem 0.5rem; text-align: left;"
-            tabindex="0"
-            type="text"
-            value=""
-          />
           <span
-            id="aria-for-:r6:"
-            style="display: none;"
-          />
-        </div>
+            class="perseus-widget-container widget-inline-block"
+          >
+            <input
+              aria-disabled="false"
+              aria-invalid="false"
+              aria-label="Your answer:"
+              aria-required="false"
+              autocapitalize="off"
+              autocomplete="off"
+              autocorrect="off"
+              class="perseus-input input-with-examples"
+              data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+              data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+              data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+              data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
+              data-testid="input-with-examples"
+              id=":r6:"
+              style="width: 8rem; height: 3.2rem; border-radius: 0.3rem; box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 0px; display: inline-block; font-family: Symbola, 'Times New Roman', serif; font-size: 1.8rem; font-weight: var(--wb-font-weight-medium); line-height: 1.8rem; background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); border-width: var(--wb-border-width-thin); direction: ltr; padding: 0.4rem 0.5rem; text-align: left;"
+              tabindex="0"
+              type="text"
+              value=""
+            />
+            <span
+              id="aria-for-:r6:"
+              style="display: none;"
+            />
+          </span>
+        </span>
          
-      </div>
+      </p>
     </div>
   </div>
 </div>
@@ -190,11 +199,10 @@ exports[`numeric-input widget Should render tooltip as list when multiple format
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <span
           style="white-space: nowrap;"
@@ -208,42 +216,46 @@ exports[`numeric-input widget Should render tooltip as list when multiple format
           <span />
         </span>
          
-        <div
-          class="perseus-widget-container widget-inline-block"
+        <span
+          class="deprecated-perseus-container"
         >
-          <input
-            aria-describedby="aria-for-:ri:"
-            aria-disabled="false"
-            aria-invalid="false"
-            aria-label="Your answer:"
-            aria-required="false"
-            autocapitalize="off"
-            autocomplete="off"
-            autocorrect="off"
-            class="perseus-input input-with-examples"
-            data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
-            data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
-            data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
-            data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
-            data-testid="input-with-examples"
-            id=":ri:"
-            style="width: 8rem; height: 3.2rem; border-radius: 0.3rem; box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 0px; display: inline-block; font-family: Symbola, 'Times New Roman', serif; font-size: 1.8rem; font-weight: var(--wb-font-weight-medium); line-height: 1.8rem; background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); border-width: var(--wb-border-width-thin); direction: ltr; padding: 0.4rem 0.5rem; text-align: left;"
-            tabindex="0"
-            type="text"
-            value=""
-          />
           <span
-            id="aria-for-:ri:"
-            style="display: none;"
+            class="perseus-widget-container widget-inline-block"
           >
-            Your answer can be 
+            <input
+              aria-describedby="aria-for-:ri:"
+              aria-disabled="false"
+              aria-invalid="false"
+              aria-label="Your answer:"
+              aria-required="false"
+              autocapitalize="off"
+              autocomplete="off"
+              autocorrect="off"
+              class="perseus-input input-with-examples"
+              data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+              data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+              data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+              data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
+              data-testid="input-with-examples"
+              id=":ri:"
+              style="width: 8rem; height: 3.2rem; border-radius: 0.3rem; box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 0px; display: inline-block; font-family: Symbola, 'Times New Roman', serif; font-size: 1.8rem; font-weight: var(--wb-font-weight-medium); line-height: 1.8rem; background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); border-width: var(--wb-border-width-thin); direction: ltr; padding: 0.4rem 0.5rem; text-align: left;"
+              tabindex="0"
+              type="text"
+              value=""
+            />
+            <span
+              id="aria-for-:ri:"
+              style="display: none;"
+            >
+              Your answer can be 
                    a simplified proper fraction (like 1/2 or 3/4), or
 a simplified improper fraction (like 5/4 or 9/8), or
 a mixed number (like 1 and 3/4 or 2 and 5/6)
+            </span>
           </span>
-        </div>
+        </span>
          
-      </div>
+      </p>
     </div>
   </div>
 </div>
@@ -255,11 +267,10 @@ exports[`numeric-input widget Should render tooltip using only correct answer fo
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <span
           style="white-space: nowrap;"
@@ -273,40 +284,44 @@ exports[`numeric-input widget Should render tooltip using only correct answer fo
           <span />
         </span>
          
-        <div
-          class="perseus-widget-container widget-inline-block"
+        <span
+          class="deprecated-perseus-container"
         >
-          <input
-            aria-describedby="aria-for-:rl:"
-            aria-disabled="false"
-            aria-invalid="false"
-            aria-label="What's the answer?"
-            aria-required="false"
-            autocapitalize="off"
-            autocomplete="off"
-            autocorrect="off"
-            class="perseus-input input-with-examples"
-            data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
-            data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
-            data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
-            data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
-            data-testid="input-with-examples"
-            id=":rl:"
-            style="width: 8rem; height: 3.2rem; border-radius: 0.3rem; box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 0px; display: inline-block; font-family: Symbola, 'Times New Roman', serif; font-size: 1.8rem; font-weight: var(--wb-font-weight-medium); line-height: 1.8rem; background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); border-width: var(--wb-border-width-thin); direction: ltr; padding: 0.4rem 0.5rem; text-align: left;"
-            tabindex="0"
-            type="text"
-            value=""
-          />
           <span
-            id="aria-for-:rl:"
-            style="display: none;"
+            class="perseus-widget-container widget-inline-block"
           >
-            Your answer should be 
+            <input
+              aria-describedby="aria-for-:rl:"
+              aria-disabled="false"
+              aria-invalid="false"
+              aria-label="What's the answer?"
+              aria-required="false"
+              autocapitalize="off"
+              autocomplete="off"
+              autocorrect="off"
+              class="perseus-input input-with-examples"
+              data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+              data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+              data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+              data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
+              data-testid="input-with-examples"
+              id=":rl:"
+              style="width: 8rem; height: 3.2rem; border-radius: 0.3rem; box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 0px; display: inline-block; font-family: Symbola, 'Times New Roman', serif; font-size: 1.8rem; font-weight: var(--wb-font-weight-medium); line-height: 1.8rem; background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); border-width: var(--wb-border-width-thin); direction: ltr; padding: 0.4rem 0.5rem; text-align: left;"
+              tabindex="0"
+              type="text"
+              value=""
+            />
+            <span
+              id="aria-for-:rl:"
+              style="display: none;"
+            >
+              Your answer should be 
                    a simplified proper fraction (like 1/2 or 3/4)
+            </span>
           </span>
-        </div>
+        </span>
          
-      </div>
+      </p>
     </div>
   </div>
 </div>
@@ -318,11 +333,10 @@ exports[`numeric-input widget Should render tooltip when format option is given:
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <span
           style="white-space: nowrap;"
@@ -336,40 +350,44 @@ exports[`numeric-input widget Should render tooltip when format option is given:
           <span />
         </span>
          
-        <div
-          class="perseus-widget-container widget-inline-block"
+        <span
+          class="deprecated-perseus-container"
         >
-          <input
-            aria-describedby="aria-for-:rc:"
-            aria-disabled="false"
-            aria-invalid="false"
-            aria-label="Your answer:"
-            aria-required="false"
-            autocapitalize="off"
-            autocomplete="off"
-            autocorrect="off"
-            class="perseus-input input-with-examples"
-            data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
-            data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
-            data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
-            data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
-            data-testid="input-with-examples"
-            id=":rc:"
-            style="width: 8rem; height: 3.2rem; border-radius: 0.3rem; box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 0px; display: inline-block; font-family: Symbola, 'Times New Roman', serif; font-size: 1.8rem; font-weight: var(--wb-font-weight-medium); line-height: 1.8rem; background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); border-width: var(--wb-border-width-thin); direction: ltr; padding: 0.4rem 0.5rem; text-align: left;"
-            tabindex="0"
-            type="text"
-            value=""
-          />
           <span
-            id="aria-for-:rc:"
-            style="display: none;"
+            class="perseus-widget-container widget-inline-block"
           >
-            Your answer should be 
+            <input
+              aria-describedby="aria-for-:rc:"
+              aria-disabled="false"
+              aria-invalid="false"
+              aria-label="Your answer:"
+              aria-required="false"
+              autocapitalize="off"
+              autocomplete="off"
+              autocorrect="off"
+              class="perseus-input input-with-examples"
+              data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+              data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+              data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+              data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
+              data-testid="input-with-examples"
+              id=":rc:"
+              style="width: 8rem; height: 3.2rem; border-radius: 0.3rem; box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 0px; display: inline-block; font-family: Symbola, 'Times New Roman', serif; font-size: 1.8rem; font-weight: var(--wb-font-weight-medium); line-height: 1.8rem; background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); border-width: var(--wb-border-width-thin); direction: ltr; padding: 0.4rem 0.5rem; text-align: left;"
+              tabindex="0"
+              type="text"
+              value=""
+            />
+            <span
+              id="aria-for-:rc:"
+              style="display: none;"
+            >
+              Your answer should be 
                    a simplified proper fraction (like 1/2 or 3/4)
+            </span>
           </span>
-        </div>
+        </span>
          
-      </div>
+      </p>
     </div>
   </div>
 </div>

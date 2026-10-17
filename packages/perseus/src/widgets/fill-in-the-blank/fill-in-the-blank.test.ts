@@ -3,7 +3,7 @@ import {screen} from "@testing-library/react";
 import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import * as Widgets from "../../widgets";
-import {renderQuestion} from "../__testutils__/renderQuestion";
+import {renderQuestion} from "../__testutils__/render-question";
 
 import {basicFillInTheBlankQuestion} from "./fill-in-the-blank.testdata";
 

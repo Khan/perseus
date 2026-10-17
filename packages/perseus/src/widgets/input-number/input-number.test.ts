@@ -16,7 +16,7 @@ import {
     getAnswerlessItem,
     scorePerseusItemTesting,
 } from "../../util/test-utils";
-import {renderQuestion} from "../__testutils__/renderQuestion";
+import {renderQuestion} from "../__testutils__/render-question";
 
 import InputNumber from "./input-number";
 import {question3 as question} from "./input-number.testdata";

@@ -6,23 +6,21 @@ exports[`matcher widget can reorder options: moved items 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <strong>
           Match each claim with its supporting evidence.
         </strong>
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -42,16 +40,15 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                     class="perseus-renderer perseus-renderer-responsive"
                   >
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="0"
+                      class="deprecated-perseus-container"
                     >
-                      <div
-                        class="paragraph"
+                      <p
+                        class="deprecated-perseus-container"
                       >
                         <strong>
                           Claims
                         </strong>
-                      </div>
+                      </p>
                     </div>
                   </div>
                 </th>
@@ -62,16 +59,15 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                     class="perseus-renderer perseus-renderer-responsive"
                   >
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="0"
+                      class="deprecated-perseus-container"
                     >
-                      <div
-                        class="paragraph"
+                      <p
+                        class="deprecated-perseus-container"
                       >
                         <strong>
                           Evidence
                         </strong>
-                      </div>
+                      </p>
                     </div>
                   </div>
                 </th>
@@ -94,14 +90,13 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             Average global temperatures will rise 
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -113,14 +108,13 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             Our Sun will run out of fuel and die in around 5 billion years 
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -132,14 +126,13 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             Plate tectonics will rearrange the continents: the Pacific will narrow, bringing Australia closer to the Americas, and the Atlantic will expand to form the largest of the oceans 
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -151,14 +144,13 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             Our Sun will run out of hydrogen, swell into a red giant, gobble up the inner rocky planets, and then collapse and die 
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -170,14 +162,13 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             In 3 to 4 billion years, our galaxy will begin a slow collision with its closest large neighbor, Andromeda 
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -198,14 +189,13 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             Rapid escalation of greenhouse gas emissions
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -217,14 +207,13 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             The current trajectory of the Milky Way galaxy and those in its immediate proximity
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -236,14 +225,13 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             Medium-sized stars typically exist for roughly 10 billion years
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -255,14 +243,13 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             The life cycle of medium-sized stars includes a red giant stage and ends in a whimper as a white dwarf
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -274,14 +261,13 @@ exports[`matcher widget can reorder options: moved items 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             The current trajectory of the Earth’s tectonic plate movement
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -303,23 +289,21 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <strong>
           Match each claim with its supporting evidence.
         </strong>
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -339,16 +323,15 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                     class="perseus-renderer perseus-renderer-responsive"
                   >
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="0"
+                      class="deprecated-perseus-container"
                     >
-                      <div
-                        class="paragraph"
+                      <p
+                        class="deprecated-perseus-container"
                       >
                         <strong>
                           Claims
                         </strong>
-                      </div>
+                      </p>
                     </div>
                   </div>
                 </th>
@@ -359,16 +342,15 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                     class="perseus-renderer perseus-renderer-responsive"
                   >
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="0"
+                      class="deprecated-perseus-container"
                     >
-                      <div
-                        class="paragraph"
+                      <p
+                        class="deprecated-perseus-container"
                       >
                         <strong>
                           Evidence
                         </strong>
-                      </div>
+                      </p>
                     </div>
                   </div>
                 </th>
@@ -391,14 +373,13 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             Our Sun will run out of fuel and die in around 5 billion years 
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -410,14 +391,13 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             Plate tectonics will rearrange the continents: the Pacific will narrow, bringing Australia closer to the Americas, and the Atlantic will expand to form the largest of the oceans 
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -429,14 +409,13 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             Our Sun will run out of hydrogen, swell into a red giant, gobble up the inner rocky planets, and then collapse and die 
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -448,14 +427,13 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             Average global temperatures will rise 
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -467,14 +445,13 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             In 3 to 4 billion years, our galaxy will begin a slow collision with its closest large neighbor, Andromeda 
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -495,14 +472,13 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             The current trajectory of the Milky Way galaxy and those in its immediate proximity
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -514,14 +490,13 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             Medium-sized stars typically exist for roughly 10 billion years
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -533,14 +508,13 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             The life cycle of medium-sized stars includes a red giant stage and ends in a whimper as a white dwarf
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -552,14 +526,13 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             The current trajectory of the Earth’s tectonic plate movement
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -571,14 +544,13 @@ exports[`matcher widget should snapshot on mobile: first mobile render 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             Rapid escalation of greenhouse gas emissions
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -600,23 +572,21 @@ exports[`matcher widget should snapshot: first render 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <strong>
           Match each claim with its supporting evidence.
         </strong>
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -636,16 +606,15 @@ exports[`matcher widget should snapshot: first render 1`] = `
                     class="perseus-renderer perseus-renderer-responsive"
                   >
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="0"
+                      class="deprecated-perseus-container"
                     >
-                      <div
-                        class="paragraph"
+                      <p
+                        class="deprecated-perseus-container"
                       >
                         <strong>
                           Claims
                         </strong>
-                      </div>
+                      </p>
                     </div>
                   </div>
                 </th>
@@ -656,16 +625,15 @@ exports[`matcher widget should snapshot: first render 1`] = `
                     class="perseus-renderer perseus-renderer-responsive"
                   >
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="0"
+                      class="deprecated-perseus-container"
                     >
-                      <div
-                        class="paragraph"
+                      <p
+                        class="deprecated-perseus-container"
                       >
                         <strong>
                           Evidence
                         </strong>
-                      </div>
+                      </p>
                     </div>
                   </div>
                 </th>
@@ -688,14 +656,13 @@ exports[`matcher widget should snapshot: first render 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             Our Sun will run out of fuel and die in around 5 billion years 
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -707,14 +674,13 @@ exports[`matcher widget should snapshot: first render 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             Plate tectonics will rearrange the continents: the Pacific will narrow, bringing Australia closer to the Americas, and the Atlantic will expand to form the largest of the oceans 
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -726,14 +692,13 @@ exports[`matcher widget should snapshot: first render 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             Our Sun will run out of hydrogen, swell into a red giant, gobble up the inner rocky planets, and then collapse and die 
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -745,14 +710,13 @@ exports[`matcher widget should snapshot: first render 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             Average global temperatures will rise 
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -764,14 +728,13 @@ exports[`matcher widget should snapshot: first render 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             In 3 to 4 billion years, our galaxy will begin a slow collision with its closest large neighbor, Andromeda 
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -792,14 +755,13 @@ exports[`matcher widget should snapshot: first render 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             The current trajectory of the Milky Way galaxy and those in its immediate proximity
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -811,14 +773,13 @@ exports[`matcher widget should snapshot: first render 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             Medium-sized stars typically exist for roughly 10 billion years
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -830,14 +791,13 @@ exports[`matcher widget should snapshot: first render 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             The life cycle of medium-sized stars includes a red giant stage and ends in a whimper as a white dwarf
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -849,14 +809,13 @@ exports[`matcher widget should snapshot: first render 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             The current trajectory of the Earth’s tectonic plate movement
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -868,14 +827,13 @@ exports[`matcher widget should snapshot: first render 1`] = `
                         class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
+                          class="deprecated-perseus-container"
                         >
-                          <div
-                            class="paragraph"
+                          <p
+                            class="deprecated-perseus-container"
                           >
                             Rapid escalation of greenhouse gas emissions
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </li>

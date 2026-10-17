@@ -1,4 +1,4 @@
-import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {renderQuestion} from "../../widgets/__testutils__/render-question";
 
 import {getPromptJSON} from "./python-ai-utils";
 

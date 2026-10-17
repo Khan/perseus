@@ -76,27 +76,27 @@
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
     > .perseus-renderer:first-child
-    > .paragraph:first-child
+    > .deprecated-perseus-container:first-child
     h1:first-child,
 .framework-perseus.perseus-article:not(.perseus-mobile)
     > .perseus-renderer:first-child
-    > .paragraph:first-child
+    > .deprecated-perseus-container:first-child
     h2:first-child,
 .framework-perseus.perseus-article:not(.perseus-mobile)
     > .perseus-renderer:first-child
-    > .paragraph:first-child
+    > .deprecated-perseus-container:first-child
     h3:first-child,
 .framework-perseus.perseus-article:not(.perseus-mobile)
     > .perseus-renderer:first-child
-    > .paragraph:first-child
+    > .deprecated-perseus-container:first-child
     h4:first-child,
 .framework-perseus.perseus-article:not(.perseus-mobile)
     > .perseus-renderer:first-child
-    > .paragraph:first-child
+    > .deprecated-perseus-container:first-child
     h5:first-child,
 .framework-perseus.perseus-article:not(.perseus-mobile)
     > .perseus-renderer:first-child
-    > .paragraph:first-child
+    > .deprecated-perseus-container:first-child
     h6:first-child {
     margin-top: 0;
 }
@@ -104,7 +104,7 @@
     margin: 0 calc(-1 * var(--wb-sizing-size_160)) var(--wb-sizing-size_320)
         calc(-1 * var(--wb-sizing-size_160));
 }
-.framework-perseus.perseus-mobile.perseus-article > .perseus-renderer {
+.framework-perseus.perseus-mobile > .perseus-renderer {
     margin-bottom: var(--wb-sizing-size_320);
 }
 .framework-perseus.perseus-mobile .perseus-block-math {

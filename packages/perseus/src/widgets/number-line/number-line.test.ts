@@ -9,7 +9,7 @@ import {
     getAnswerlessItem,
     scorePerseusItemTesting,
 } from "../../util/test-utils";
-import {renderQuestion} from "../__testutils__/renderQuestion";
+import {renderQuestion} from "../__testutils__/render-question";
 
 import {question1, tickCtrl} from "./number-line.testdata";
 

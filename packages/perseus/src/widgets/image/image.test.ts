@@ -11,7 +11,7 @@ import * as Dependencies from "../../dependencies";
 import {mockImageLoading} from "../../testing/image-loader-utils";
 import {testDependencies} from "../../testing/test-dependencies";
 import {scorePerseusItemTesting} from "../../util/test-utils";
-import {renderQuestion} from "../__testutils__/renderQuestion";
+import {renderQuestion} from "../__testutils__/render-question";
 
 import {question} from "./image.testdata";
 import {

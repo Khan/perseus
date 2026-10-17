@@ -6,11 +6,10 @@ exports[`sorter widget layout keeps a horizontal sorter horizontal at exactly th
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -30,14 +29,13 @@ exports[`sorter widget layout keeps a horizontal sorter horizontal at exactly th
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Card 5
-                    </div>
+                    </p>
                   </div>
                 </div>
               </li>
@@ -49,14 +47,13 @@ exports[`sorter widget layout keeps a horizontal sorter horizontal at exactly th
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Card 1
-                    </div>
+                    </p>
                   </div>
                 </div>
               </li>
@@ -68,14 +65,13 @@ exports[`sorter widget layout keeps a horizontal sorter horizontal at exactly th
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Card 3
-                    </div>
+                    </p>
                   </div>
                 </div>
               </li>
@@ -87,14 +83,13 @@ exports[`sorter widget layout keeps a horizontal sorter horizontal at exactly th
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Card 2
-                    </div>
+                    </p>
                   </div>
                 </div>
               </li>
@@ -106,14 +101,13 @@ exports[`sorter widget layout keeps a horizontal sorter horizontal at exactly th
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Card 4
-                    </div>
+                    </p>
                   </div>
                 </div>
               </li>
@@ -132,11 +126,10 @@ exports[`sorter widget layout lays out a horizontal sorter vertically when it ha
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -156,14 +149,13 @@ exports[`sorter widget layout lays out a horizontal sorter vertically when it ha
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Card 5
-                    </div>
+                    </p>
                   </div>
                 </div>
               </li>
@@ -175,14 +167,13 @@ exports[`sorter widget layout lays out a horizontal sorter vertically when it ha
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Card 4
-                    </div>
+                    </p>
                   </div>
                 </div>
               </li>
@@ -194,14 +185,13 @@ exports[`sorter widget layout lays out a horizontal sorter vertically when it ha
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Card 1
-                    </div>
+                    </p>
                   </div>
                 </div>
               </li>
@@ -213,14 +203,13 @@ exports[`sorter widget layout lays out a horizontal sorter vertically when it ha
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Card 6
-                    </div>
+                    </p>
                   </div>
                 </div>
               </li>
@@ -232,14 +221,13 @@ exports[`sorter widget layout lays out a horizontal sorter vertically when it ha
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Card 2
-                    </div>
+                    </p>
                   </div>
                 </div>
               </li>
@@ -251,14 +239,13 @@ exports[`sorter widget layout lays out a horizontal sorter vertically when it ha
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Card 3
-                    </div>
+                    </p>
                   </div>
                 </div>
               </li>
@@ -277,11 +264,10 @@ exports[`sorter widget layout lays out the cards horizontally when the layout is
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -301,14 +287,13 @@ exports[`sorter widget layout lays out the cards horizontally when the layout is
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Card 4
-                    </div>
+                    </p>
                   </div>
                 </div>
               </li>
@@ -320,14 +305,13 @@ exports[`sorter widget layout lays out the cards horizontally when the layout is
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Card 2
-                    </div>
+                    </p>
                   </div>
                 </div>
               </li>
@@ -339,14 +323,13 @@ exports[`sorter widget layout lays out the cards horizontally when the layout is
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Card 1
-                    </div>
+                    </p>
                   </div>
                 </div>
               </li>
@@ -358,14 +341,13 @@ exports[`sorter widget layout lays out the cards horizontally when the layout is
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Card 3
-                    </div>
+                    </p>
                   </div>
                 </div>
               </li>
@@ -384,11 +366,10 @@ exports[`sorter widget layout lays out the cards vertically when the layout is v
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -408,14 +389,13 @@ exports[`sorter widget layout lays out the cards vertically when the layout is v
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Card 4
-                    </div>
+                    </p>
                   </div>
                 </div>
               </li>
@@ -427,14 +407,13 @@ exports[`sorter widget layout lays out the cards vertically when the layout is v
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Card 2
-                    </div>
+                    </p>
                   </div>
                 </div>
               </li>
@@ -446,14 +425,13 @@ exports[`sorter widget layout lays out the cards vertically when the layout is v
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Card 1
-                    </div>
+                    </p>
                   </div>
                 </div>
               </li>
@@ -465,14 +443,13 @@ exports[`sorter widget layout lays out the cards vertically when the layout is v
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Card 3
-                    </div>
+                    </p>
                   </div>
                 </div>
               </li>
@@ -491,11 +468,10 @@ exports[`sorter widget snapshot should snapshot on mobile: first mobile render 1
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -543,11 +519,10 @@ exports[`sorter widget snapshot should snapshot: first render 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"

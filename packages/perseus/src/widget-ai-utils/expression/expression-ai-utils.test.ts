@@ -5,7 +5,7 @@ import {
 } from "@khanacademy/perseus-core";
 import {act} from "@testing-library/react";
 
-import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {renderQuestion} from "../../widgets/__testutils__/render-question";
 
 import {getPromptJSON} from "./expression-ai-utils";
 

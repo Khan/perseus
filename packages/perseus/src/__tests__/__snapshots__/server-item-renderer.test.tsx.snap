@@ -8,11 +8,10 @@ exports[`server item renderer should snapshot: initial render 1`] = `
         class="perseus-renderer perseus-renderer-responsive"
       >
         <div
-          class="paragraph"
-          data-perseus-paragraph-index="0"
+          class="deprecated-perseus-container"
         >
-          <div
-            class="paragraph"
+          <p
+            class="deprecated-perseus-container"
           >
             Enter the number 
             <span
@@ -35,6 +34,14 @@ exports[`server item renderer should snapshot: initial render 1`] = `
               <span />
             </span>
              in the box: 
+          </p>
+        </div>
+        <div
+          class="deprecated-perseus-container"
+        >
+          <div
+            class="deprecated-perseus-container"
+          >
             <div
               class="perseus-widget-container widget-block"
             >
@@ -86,14 +93,13 @@ exports[`server item renderer should snapshot: initial render 1`] = `
             class="perseus-renderer perseus-renderer-responsive"
           >
             <div
-              class="paragraph"
-              data-perseus-paragraph-index="0"
+              class="deprecated-perseus-container"
             >
-              <div
-                class="paragraph"
+              <p
+                class="deprecated-perseus-container"
               >
                 Hint #1
-              </div>
+              </p>
             </div>
           </div>
         </div>
@@ -116,14 +122,13 @@ exports[`server item renderer should snapshot: initial render 1`] = `
             class="perseus-renderer perseus-renderer-responsive"
           >
             <div
-              class="paragraph"
-              data-perseus-paragraph-index="0"
+              class="deprecated-perseus-container"
             >
-              <div
-                class="paragraph"
+              <p
+                class="deprecated-perseus-container"
               >
                 Hint #2
-              </div>
+              </p>
             </div>
           </div>
         </div>
@@ -146,14 +151,13 @@ exports[`server item renderer should snapshot: initial render 1`] = `
             class="perseus-renderer perseus-renderer-responsive"
           >
             <div
-              class="paragraph"
-              data-perseus-paragraph-index="0"
+              class="deprecated-perseus-container"
             >
-              <div
-                class="paragraph"
+              <p
+                class="deprecated-perseus-container"
               >
                 Hint #3
-              </div>
+              </p>
             </div>
           </div>
         </div>
