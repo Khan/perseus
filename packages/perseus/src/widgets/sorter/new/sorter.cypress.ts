@@ -30,12 +30,23 @@ function dragTileToBlank(tile: string, blankIndex: number): void {
     cy.contains(BANK_TILES, tile).realMouseMove(20, 20, {position: "center"});
     cy.get(BLANKS).eq(blankIndex).realMouseMove(0, 0, {position: "center"});
     cy.get(BLANKS).eq(blankIndex).realMouseUp({position: "center"});
+    cy.get(BLANKS).eq(blankIndex).should("contain.text", tile);
 }
 
 describe("Sorter widget (drag-and-drop)", () => {
     beforeEach(() => {
         Perseus.init();
         Perseus.Dependencies.setDependencies(cypressTestDependencies);
+        cy.wrap(
+            Cypress.automation("remote:debugger:protocol", {
+                command: "Emulation.setEmulatedMedia",
+                params: {
+                    features: [
+                        {name: "prefers-reduced-motion", value: "reduce"},
+                    ],
+                },
+            }),
+        );
     });
 
     it("places a card in a blank when it is dragged onto the blank", () => {
