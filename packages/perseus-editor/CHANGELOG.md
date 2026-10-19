@@ -1,5 +1,14 @@
 # @khanacademy/perseus-editor
 
+## 45.0.2
+
+### Patch Changes
+
+-   [#4395](https://github.com/Khan/perseus/pull/4395) [`0b37bda`](https://github.com/Khan/perseus/commit/0b37bdaa052abd0b1f7e6b45af9c601ccaed8a7c) Thanks [@benchristel](https://github.com/benchristel)! - Internal: pass all widget options to RadioEditor's onChange callback
+
+-   Updated dependencies [[`9c48aaa`](https://github.com/Khan/perseus/commit/9c48aaacedc824d06434e645c27e9e2e6fc2df19)]:
+    -   @khanacademy/perseus@92.0.2
+
 ## 45.0.1
 
 ### Patch Changes

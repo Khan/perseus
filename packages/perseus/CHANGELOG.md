@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 92.0.2
+
+### Patch Changes
+
+-   [#4403](https://github.com/Khan/perseus/pull/4403) [`9c48aaa`](https://github.com/Khan/perseus/commit/9c48aaacedc824d06434e645c27e9e2e6fc2df19) Thanks [@benchristel](https://github.com/benchristel)! - Bugfix: Previously, `<p>` elements created by the Renderer didn't have React keys. Now they do..
+
 ## 92.0.1
 
 ### Patch Changes
