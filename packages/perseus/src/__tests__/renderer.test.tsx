@@ -283,6 +283,46 @@ describe("renderer", () => {
             // render widget's that don't have options defined.
             expect(widgets).toStrictEqual([null]);
         });
+
+        it("renders a blockquote without logging an error", () => {
+            const consoleError = jest.spyOn(console, "error");
+
+            const question = {
+                content: ">A",
+                images: {},
+                widgets: {},
+            };
+
+            renderQuestion(question);
+
+            // Act
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Assert
+            expect(consoleError).not.toHaveBeenCalled();
+        });
+
+        it("renders a blockquote with multiple paragraphs without logging an error", () => {
+            const consoleError = jest.spyOn(console, "error");
+
+            const question = {
+                content: ">A\n>\n>B",
+                images: {},
+                widgets: {},
+            };
+
+            renderQuestion(question);
+
+            // Act
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Assert
+            expect(consoleError).not.toHaveBeenCalled();
+        });
     });
 
     describe("rendering", () => {
