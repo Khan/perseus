@@ -44,22 +44,21 @@ function placementsFromOrder(order: string[]): TilePlacements {
 }
 
 const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
-    const dependencies = useDependencies();
-
     const {options, userInput, widgetId, handleUserInput, trackInteraction} =
         props;
 
-    const blankIds = options.correct.map((_, index) => getBlankId(index));
+    const dependencies = useDependencies();
 
+    // TODO: this is a hack while supporting both the new/old Sorter,
+    // since the old Sorter doesn't have a separation between
+    // choice bank and user input. This copies the original shuffled
+    // order for the choice bank.
     const [bankOrder] = useState(() => userInput.options);
+
+    // Where the learner has put cards (what user input is derived from)
     const [placements, setPlacements] = useState<TilePlacements>(() =>
         userInput.changed ? placementsFromOrder(userInput.options) : {},
     );
-
-    const layout =
-        options.correct.length > SORTER_MAX_HORIZONTAL_CARDS
-            ? "vertical"
-            : options.layout;
 
     useOnMountEffect(() => {
         dependencies.analytics.onAnalyticsEvent({
@@ -72,6 +71,12 @@ const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
         });
     });
 
+    const blankIds = options.correct.map((_, index) => getBlankId(index));
+    const layout =
+        options.correct.length > SORTER_MAX_HORIZONTAL_CARDS
+            ? "vertical"
+            : options.layout;
+
     function getTileLabel(tileId: string): string {
         return tileId;
     }
@@ -80,7 +85,7 @@ const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
         return tempDndStrings.blankLabel({num: blankIds.indexOf(blankId) + 1});
     }
 
-    function handlePlacementsChange(next: TilePlacements) {
+    function onPlacementsChange(next: TilePlacements) {
         setPlacements(next);
 
         const isComplete = blankIds.every((blankId) => next[blankId] != null);
@@ -103,12 +108,12 @@ const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
         firstBankMenuRef,
         placedMenuRef,
     } = useTileMoveActions({
-        placements,
-        onPlacementsChange: handlePlacementsChange,
         tileUsage: "single",
-        getTileLabel,
-        getBlankLabel,
         blankIds,
+        placements,
+        onPlacementsChange,
+        getBlankLabel,
+        getTileLabel,
     });
 
     useImperativeHandle(ref, () => ({
