@@ -1,5 +1,20 @@
 # @khanacademy/perseus-editor
 
+## 45.0.1
+
+### Patch Changes
+
+-   [#4391](https://github.com/Khan/perseus/pull/4391) [`81f0df2`](https://github.com/Khan/perseus/commit/81f0df299f6d921b35c3c6b369d93e2ad6356f17) Thanks [@benchristel](https://github.com/benchristel)! - Internal: pass all widget options to onChange in PhetSimulationEditor
+
+-   [#4390](https://github.com/Khan/perseus/pull/4390) [`71349cd`](https://github.com/Khan/perseus/commit/71349cd6bae041d6986f012c8c4c209c2f837695) Thanks [@benchristel](https://github.com/benchristel)! - Remove feature flag for markdown renderer and consolidate associated stylesheets
+
+-   [#4394](https://github.com/Khan/perseus/pull/4394) [`89e7e2c`](https://github.com/Khan/perseus/commit/89e7e2cc5e586e4bd97cde13f3744dbfaf20fd77) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid the use of the deprecated ChangeableProps in PythonProgramEditor
+
+-   [#4393](https://github.com/Khan/perseus/pull/4393) [`029bbe8`](https://github.com/Khan/perseus/commit/029bbe8aa52ca9df0df54df21104b5758f92b6f5) Thanks [@benchristel](https://github.com/benchristel)! - Internal: avoid using the `any` type for `onChange` in PlotterEditor, and pass all widget options to onChange.
+
+-   Updated dependencies [[`ef74f9e`](https://github.com/Khan/perseus/commit/ef74f9e88cdf82af0690bf8a8191d713c54f45cd), [`71349cd`](https://github.com/Khan/perseus/commit/71349cd6bae041d6986f012c8c4c209c2f837695)]:
+    -   @khanacademy/perseus@92.0.1
+
 ## 45.0.0
 
 ### Major Changes

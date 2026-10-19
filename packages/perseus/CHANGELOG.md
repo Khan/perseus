@@ -1,5 +1,13 @@
 # @khanacademy/perseus
 
+## 92.0.1
+
+### Patch Changes
+
+-   [#4310](https://github.com/Khan/perseus/pull/4310) [`ef74f9e`](https://github.com/Khan/perseus/commit/ef74f9e88cdf82af0690bf8a8191d713c54f45cd) Thanks [@nishasy](https://github.com/nishasy)! - [Graded Group a11y] Update invalid string copy
+
+-   [#4390](https://github.com/Khan/perseus/pull/4390) [`71349cd`](https://github.com/Khan/perseus/commit/71349cd6bae041d6986f012c8c4c209c2f837695) Thanks [@benchristel](https://github.com/benchristel)! - Remove feature flag for markdown renderer and consolidate associated stylesheets
+
 ## 92.0.0
 
 ### Major Changes
