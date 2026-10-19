@@ -38,24 +38,11 @@ const editorDefaults = {
     snapsPerLine: 2,
 } as const;
 
-type Props = {
+interface Props extends PerseusPlotterWidgetOptions {
     apiOptions: APIOptions;
-    type: PerseusPlotterWidgetOptions["type"];
-    labels: Array<string>;
-    categories: PerseusPlotterWidgetOptions["categories"];
-    scaleY: number;
-    maxY: number;
-    snapsPerLine: number;
-    picSize: number;
-    picBoxHeight: number;
-    picUrl?: string | null;
-    plotDimensions: ReadonlyArray<number>;
-    labelInterval: number;
-    starting: ReadonlyArray<number>;
-    correct: ReadonlyArray<number>;
     static: boolean;
-    onChange: any;
-};
+    onChange: (options: PerseusPlotterWidgetOptions) => void;
+}
 
 type State = {
     editing: EditingState;
@@ -99,6 +86,25 @@ class PlotterEditor extends React.Component<Props, State> {
         }
     }
 
+    handleChange(changes: Partial<PerseusPlotterWidgetOptions>) {
+        this.props.onChange({
+            labels: this.props.labels,
+            categories: this.props.categories,
+            type: this.props.type,
+            maxY: this.props.maxY,
+            scaleY: this.props.scaleY,
+            labelInterval: this.props.labelInterval,
+            snapsPerLine: this.props.snapsPerLine,
+            starting: this.props.starting,
+            correct: this.props.correct,
+            picUrl: this.props.picUrl,
+            picSize: this.props.picSize,
+            picBoxHeight: this.props.picBoxHeight,
+            plotDimensions: this.props.plotDimensions,
+            ...changes,
+        });
+    }
+
     fetchPic: (url: string | null | undefined) => void = (url) => {
         if (url == null) {
             // Make sure we don't display a previously-loaded picUrl if we no
@@ -134,7 +140,7 @@ class PlotterEditor extends React.Component<Props, State> {
     };
 
     changeLabelInterval: (arg1: number) => void = (value) => {
-        this.props.onChange({
+        this.handleChange({
             labelInterval: value,
         });
     };
@@ -144,13 +150,13 @@ class PlotterEditor extends React.Component<Props, State> {
         if (type === "histogram") {
             // Switching to histogram, add a label (0) to the left
             categories = [formatNumber(0)].concat(this.props.categories);
-            this.props.onChange({type: type, categories: categories});
+            this.handleChange({type: type, categories: categories});
         } else if (this.props.type === "histogram") {
             // Switching from histogram, remove a label from the left
             categories = this.props.categories.slice(1);
-            this.props.onChange({type: type, categories: categories});
+            this.handleChange({type: type, categories: categories});
         } else {
-            this.props.onChange({type: type});
+            this.handleChange({type: type});
         }
 
         if (categories) {
@@ -163,7 +169,7 @@ class PlotterEditor extends React.Component<Props, State> {
     changeLabel: (arg1: number, arg2: any) => void = (i, e) => {
         const labels = _.clone(this.props.labels);
         labels[i] = e.target.value;
-        this.props.onChange({labels: labels});
+        this.handleChange({labels: labels});
     };
 
     changePicUrl: (arg1: string) => void = (value) => {
@@ -171,7 +177,7 @@ class PlotterEditor extends React.Component<Props, State> {
         // extract the raw image and use that.
         const url = Util.getRealImageUrl(value);
 
-        this.props.onChange({picUrl: url});
+        this.handleChange({picUrl: url});
     };
 
     changeCategories: (arg1: any) => void = (categories) => {
@@ -182,7 +188,7 @@ class PlotterEditor extends React.Component<Props, State> {
         }
         const value = this.props.scaleY;
 
-        this.props.onChange({
+        this.handleChange({
             categories: categories,
             correct: padArray(this.props.correct, n, value),
             starting: padArray(this.props.starting, n, value),
@@ -200,7 +206,7 @@ class PlotterEditor extends React.Component<Props, State> {
 
         const maxY = scale(this.props.maxY);
 
-        this.props.onChange({
+        this.handleChange({
             scaleY: newScale,
             maxY: maxY,
             correct: this.props.correct.map(scale),
@@ -212,14 +218,14 @@ class PlotterEditor extends React.Component<Props, State> {
     };
 
     changeMax: (arg1: any) => void = (e) => {
-        this.props.onChange({
+        this.handleChange({
             // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             maxY: +e.target.value || editorDefaults.maxY,
         });
     };
 
     changeSnaps: (arg1: any) => void = (e) => {
-        this.props.onChange({
+        this.handleChange({
             // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             snapsPerLine: +e.target.value || editorDefaults.snapsPerLine,
         });
@@ -301,7 +307,7 @@ class PlotterEditor extends React.Component<Props, State> {
             trackInteraction: () => {},
             userInput: this.props.correct,
             handleUserInput: (userInput: number[]) => {
-                this.props.onChange({correct: userInput});
+                this.handleChange({correct: userInput});
             },
         };
 
