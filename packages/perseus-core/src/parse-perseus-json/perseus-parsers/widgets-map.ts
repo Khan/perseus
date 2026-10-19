@@ -1,9 +1,4 @@
-import {
-    any,
-    isPlainObject,
-    looseObject,
-    constant,
-} from "../general-purpose-parsers";
+import {any, isPlainObject, constant} from "../general-purpose-parsers";
 import {isFailure} from "../result";
 
 import {parseBlankWidget} from "./blank-widget";
@@ -154,11 +149,6 @@ const parseWidgetsMapEntry: (
             return parseAndAssign(`matrix ${n}`, parseMatrixWidget);
         case "measurer":
             return parseAndAssign(`measurer ${n}`, parseMeasurerWidget);
-        case "molecule-renderer":
-            return parseAndAssign(
-                `molecule-renderer ${n}`,
-                parseDeprecatedWidget("molecule-renderer"),
-            );
         case "number-line":
             return parseAndAssign(`number-line ${n}`, parseNumberLineWidget);
         case "numeric-input":
@@ -188,45 +178,11 @@ const parseWidgetsMapEntry: (
             return parseAndAssign(`table ${n}`, parseTableWidget);
         case "video":
             return parseAndAssign(`video ${n}`, parseVideoWidget);
-        case "sequence":
-            // sequence is a deprecated widget type, and the corresponding
-            // widget component no longer exists.
-            return parseAndAssign(
-                `sequence ${n}`,
-                parseDeprecatedWidget("sequence"),
-            );
-        case "lights-puzzle":
-            return parseAndAssign(
-                `lights-puzzle ${n}`,
-                parseDeprecatedWidget("lights-puzzle"),
-            );
-        case "simulator":
-            return parseAndAssign(
-                `simulator ${n}`,
-                parseDeprecatedWidget("simulator"),
-            );
-        case "transformer":
-            return parseAndAssign(
-                `transformer ${n}`,
-                parseDeprecatedWidget("transformer"),
-            );
-        case "passage":
-            return parseAndAssign(
-                `passage ${n}`,
-                parseDeprecatedWidget("passage"),
-            );
-        case "passage-ref":
-            return parseAndAssign(
-                `passage-ref ${n}`,
-                parseDeprecatedWidget("passage-ref"),
-            );
-        case "passage-ref-target":
-            return parseAndAssign(
-                `passage-ref-target ${n}`,
-                parseDeprecatedWidget("passage-ref-target"),
-            );
-
         default:
+            // A type Perseus doesn't support: be it deprecated (removed), one
+            // it never knew, or one registered dynamically. In these cases we
+            // accept any options; the rest of Perseus treats it as
+            // unsupported.
             return parseAndAssign(
                 // eslint-disable-next-line no-restricted-syntax
                 `${type} ${n}` as any,
@@ -235,11 +191,3 @@ const parseWidgetsMapEntry: (
             );
     }
 };
-
-function parseDeprecatedWidget<Type extends string>(type: Type) {
-    return parseWidget(
-        constant(type),
-        // Allow any widget options
-        looseObject({}),
-    );
-}

@@ -78,4 +78,18 @@ describe("isWidgetScoreable", () => {
         } satisfies PhetSimulationWidget;
         expect(isWidgetScoreable(widget)).toBe(false);
     });
+
+    it.each(["transformer", "sequence", "never-a-widget"])(
+        "returns false for %s, which has no registered scorer",
+        (type) => {
+            const widget: any = {
+                type,
+                graded: true,
+                static: false,
+                options: {},
+            };
+
+            expect(isWidgetScoreable(widget)).toBe(false);
+        },
+    );
 });

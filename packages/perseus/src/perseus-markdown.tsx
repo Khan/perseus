@@ -1,11 +1,3 @@
-/***********************************************************************
- *                                                                     *
- * WARNING!!!! THERE ARE ACTIVE CHANGES HAPPENING IN PERSEUS MARKDOWN! *
- *                                                                     *
- ***********************************************************************/
-// TODO(LEMS-4304): feature flag cleanup - remove this file.
-// This file is the original perseus markdown that is being replaced by the
-// new perseus markdown.
 import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
 import {pureMarkdownRules, traverseContent} from "@khanacademy/pure-markdown";
 import SimpleMarkdown from "@khanacademy/simple-markdown";

@@ -3,7 +3,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
-import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {renderQuestion} from "../../widgets/__testutils__/render-question";
 import {article1} from "../../widgets/graded-group-set/graded-group-set.testdata";
 
 import {getPromptJSON} from "./graded-group-set-ai-utils";

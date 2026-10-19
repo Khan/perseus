@@ -11,7 +11,7 @@ import {
     getAnswerlessItem,
     scorePerseusItemTesting,
 } from "../../util/test-utils";
-import {renderQuestion} from "../__testutils__/renderQuestion";
+import {renderQuestion} from "../__testutils__/render-question";
 
 import matrixExport from "./matrix";
 import {question1} from "./matrix.testdata";

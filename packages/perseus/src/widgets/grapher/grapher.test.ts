@@ -4,7 +4,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
 import {waitForInitialGraphieRender} from "../../testing/wait";
-import {renderQuestion} from "../__testutils__/renderQuestion";
+import {renderQuestion} from "../__testutils__/render-question";
 
 import {
     linearQuestion,

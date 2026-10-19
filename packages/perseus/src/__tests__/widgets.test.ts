@@ -6,17 +6,6 @@ describe("Widget API support", () => {
         registerAllWidgetsForTesting();
     });
 
-    describe("replaceWidget", () => {
-        it("replaces an existing widget", () => {
-            Widgets.replaceWidget("transformer", "radio");
-            expect(Widgets.getWidget("transformer")?.name).toBe("Radio");
-        });
-
-        it("Throws when the replacement isn't available", () => {
-            expect(() => Widgets.replaceWidget("radio", "dog-cat")).toThrow();
-        });
-    });
-
     describe("getPublicWidgets", () => {
         it("gets a widget exports for all public widgets", () => {
             expect(Widgets.getPublicWidgets()).toEqual(

@@ -12,7 +12,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import {scorePerseusItemTesting} from "../../../util/test-utils";
-import {renderQuestion} from "../../__testutils__/renderQuestion";
+import {renderQuestion} from "../../__testutils__/render-question";
 
 import type {APIOptions} from "../../../types";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
@@ -437,7 +437,7 @@ describe("new sorter widget", () => {
     });
 
     describe("legacy sorters with too many cards", () => {
-        const deprecatedStandinText =
+        const unsupportedWidgetText =
             "Sorry, this part of the question is no longer available. 😅 Don't worry, you won't be graded on this part. Keep going!";
 
         function generateCards(cardCount: number): string[] {
@@ -447,7 +447,7 @@ describe("new sorter widget", () => {
             );
         }
 
-        it("renders the deprecated standin above the card limit", () => {
+        it("renders the unsupported-widget notice above the card limit", () => {
             // Arrange, Act
             renderQuestion(
                 generateSorterQuestion(generateCards(SORTER_MAX_CARDS + 1)),
@@ -455,10 +455,10 @@ describe("new sorter widget", () => {
             );
 
             // Assert
-            expect(screen.getByText(deprecatedStandinText)).toBeInTheDocument();
+            expect(screen.getByText(unsupportedWidgetText)).toBeInTheDocument();
         });
 
-        it("does not render the deprecated standin at the card limit", () => {
+        it("does not render the unsupported-widget notice at the card limit", () => {
             // Arrange, Act
             renderQuestion(
                 generateSorterQuestion(generateCards(SORTER_MAX_CARDS)),
@@ -467,8 +467,33 @@ describe("new sorter widget", () => {
 
             // Assert
             expect(
-                screen.queryByText(deprecatedStandinText),
+                screen.queryByText(unsupportedWidgetText),
             ).not.toBeInTheDocument();
+        });
+
+        it("dispatches unsupported widget analytics event when above the card limit", () => {
+            // Arrange
+            const onAnalyticsEventSpy = jest.fn();
+            const dependencies = {
+                analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+            };
+
+            // Act
+            renderQuestion(
+                generateSorterQuestion(generateCards(SORTER_MAX_CARDS + 1)),
+                {apiOptions, dependencies},
+            );
+
+            // Assert
+            expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+                type: "perseus:widget:unsupported",
+                payload: {
+                    widgetType: "sorter",
+                    widgetSubType: "null",
+                    widgetId: "sorter 1",
+                    reason: "exceeds-card-limit",
+                },
+            });
         });
     });
 });

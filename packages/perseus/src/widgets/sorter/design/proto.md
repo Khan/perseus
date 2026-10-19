@@ -45,7 +45,7 @@ Facts about the current implementation that the new one must account for:
 - Scoring (`perseus-score/src/widgets/sorter/score-sorter.ts`) deep-equals
   `userInput.options` against `correct`.
 - Validation (`validate-sorter.ts`) only checks `changed`.
-- Content with more than `SORTER_MAX_CARDS` (10) cards renders `DeprecatedStandin`
+- Content with more than `SORTER_MAX_CARDS` (10) cards renders `UnsupportedWidgetMessage`
   and is auto-awarded the point (`exceedsCardLimit`).
 - More than `SORTER_MAX_HORIZONTAL_CARDS` (5) cards forces the vertical layout.
 - The widget fires a `perseus:widget:rendered:ti` analytics event on mount.
@@ -102,7 +102,7 @@ Test data: `packages/perseus-core/src/utils/generators/sorter-widget-generator.t
 - The new implementation supports `getPromptJSON` and `getSerializedState`.
   It drops `moveOptionToIndex`; tests use user interactions instead.
 - Keep the `perseus:widget:rendered:ti` analytics event.
-- Keep the `exceedsCardLimit` → `DeprecatedStandin` path.
+- Keep the `exceedsCardLimit` → `UnsupportedWidgetMessage` path.
 
 ### Switch
 - The switch is a feature flag, `dnd-widget-sorter`, checked in `sorter.tsx` with

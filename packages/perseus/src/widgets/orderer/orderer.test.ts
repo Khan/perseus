@@ -4,7 +4,7 @@ import {act, screen} from "@testing-library/react";
 import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
 import {getAnswerfulItem, getAnswerlessItem} from "../../util/test-utils";
-import {renderQuestion} from "../__testutils__/renderQuestion";
+import {renderQuestion} from "../__testutils__/render-question";
 
 import {question2} from "./orderer.testdata";
 

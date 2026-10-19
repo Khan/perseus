@@ -14,9 +14,9 @@ import {PerseusDndProvider} from "../../../components/drag-and-drop/perseus-dnd-
 import {tempDndStrings} from "../../../components/drag-and-drop/temp-strings";
 import {isTileInBank} from "../../../components/drag-and-drop/tile-placements";
 import {useTileMoveActions} from "../../../components/drag-and-drop/use-tile-move-actions";
+import UnsupportedWidgetMessage from "../../../components/unsupported-widget-message";
 import {useDependencies} from "../../../dependencies";
 import {getPromptJSON as _getPromptJSON} from "../../../widget-ai-utils/sorter/sorter-ai-utils";
-import deprecatedStandin from "../../deprecated-standin";
 
 import styles from "./sorter.module.css";
 
@@ -28,8 +28,6 @@ import type {
     PerseusSorterWidgetOptions,
     PerseusSorterUserInput,
 } from "@khanacademy/perseus-core";
-
-const DeprecatedStandin = deprecatedStandin.widget;
 
 type Props = WidgetProps<PerseusSorterWidgetOptions, PerseusSorterUserInput>;
 
@@ -140,7 +138,14 @@ const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
     }
 
     if (exceedsCardLimit(options.correct)) {
-        return <DeprecatedStandin />;
+        return (
+            <UnsupportedWidgetMessage
+                widgetType="sorter"
+                widgetSubType="null"
+                widgetId={widgetId}
+                reason="exceeds-card-limit"
+            />
+        );
     }
 
     const bankTiles = bankOrder.filter((tileId) =>

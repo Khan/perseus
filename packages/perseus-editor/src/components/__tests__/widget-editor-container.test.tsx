@@ -189,6 +189,55 @@ describe("WidgetEditor", () => {
         });
     });
 
+    describe("a widget type with no registered editor", () => {
+        // An unknown widget type. We need to cast because it's not assignable to PerseusWidget.
+        // eslint-disable-next-line no-restricted-syntax
+        const widgetInfo = {
+            type: "transformer",
+            graded: true,
+            options: {tools: ["translation"], drawSolutionShape: true},
+        } as unknown as PerseusWidget;
+
+        it("renders the unsupported-widget editor", () => {
+            // Arrange, Act
+            render(
+                <WidgetEditorContainer
+                    id="transformer 1"
+                    widgetInfo={widgetInfo}
+                    onChange={() => {}}
+                    onRemove={() => {}}
+                    apiOptions={ApiOptions.defaults}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByText("Perseus doesn't support this widget type."),
+            ).toBeInTheDocument();
+        });
+
+        it("serializes the widget's options unchanged", () => {
+            // Arrange
+            const ref = React.createRef<WidgetEditorContainer>();
+            render(
+                <WidgetEditorContainer
+                    ref={ref}
+                    id="transformer 1"
+                    widgetInfo={widgetInfo}
+                    onChange={() => {}}
+                    onRemove={() => {}}
+                    apiOptions={ApiOptions.defaults}
+                />,
+            );
+
+            // Act
+            const serialized = ref.current?.serialize();
+
+            // Assert
+            expect(serialized).toMatchObject(widgetInfo);
+        });
+    });
+
     describe("_upgradeWidgetInfo", () => {
         it("runs data through the denylist", () => {
             const options: PerseusDefinitionWidgetOptions = {

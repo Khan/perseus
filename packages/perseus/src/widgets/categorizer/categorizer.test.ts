@@ -10,7 +10,7 @@ import {
     getAnswerlessItem,
     scorePerseusItemTesting,
 } from "../../util/test-utils";
-import {renderQuestion} from "../__testutils__/renderQuestion";
+import {renderQuestion} from "../__testutils__/render-question";
 
 import CategorizerExport from "./categorizer";
 import {question1} from "./categorizer.testdata";

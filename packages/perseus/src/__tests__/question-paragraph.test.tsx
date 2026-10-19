@@ -1,7 +1,7 @@
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
-import QuestionParagraph from "../question-paragraph.new";
+import QuestionParagraph from "../question-paragraph";
 
 describe("QuestionParagraph", () => {
     it("wraps children in a <div>", () => {

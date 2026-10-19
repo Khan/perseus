@@ -39,7 +39,9 @@ describe("phet-simulation editor", () => {
         await userEvent.type(screen.getByLabelText("URL"), "h");
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({url: "h"});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({url: "h"}),
+        );
     });
 
     it("should be possible to change Description", async () => {
@@ -51,6 +53,8 @@ describe("phet-simulation editor", () => {
         await userEvent.type(screen.getByLabelText("Description"), "P");
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({description: "P"});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({description: "P"}),
+        );
     });
 });

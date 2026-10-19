@@ -109,10 +109,10 @@ export type MakeWidgetMap<TRegistry> = {
  * `@khanacademy/perseus` (for UI support) and `@khanacademy/perseus-score`
  * (for scoring support)).
  *
- * Importantly, the key should be the name that is used in widget IDs. For most
- * widgets that is the same as the widget option's `type` field. In cases where
- * a widget has been deprecated and replaced with the deprecated-standin
- * widget, it should be the original widget type!
+ * TODO(jeremy): Move away from widget IDs that embed the widget type (to GUIDs or something).
+ * Today, the key should match the widget's `type` field. Also (sadly) it needs
+ * to match the prefix of widget IDs for the widget type also in order to allow
+ * us to properly type (and narrow) the PerseusWidgetsMap entries.
  *
  * If you define the widget outside of this package, you can still add the new
  * widget to this interface by writing the following in that package that
@@ -124,17 +124,11 @@ export type MakeWidgetMap<TRegistry> = {
  *     interface PerseusWidgetTypes {
  *         // A new widget
  *         "new-awesomeness": MyAwesomeNewWidget;
- *
- *         // A deprecated widget
- *         "super-old-widget": DeprecatedStandinWidget;
  *     }
  * }
  *
  * // The new widget's options definition
  * type MyAwesomeNewWidget = WidgetOptions<'new-awesomeness', MyAwesomeNewWidgetOptions>;
- *
- * // The deprecated widget's options definition
- * type SuperOldWidget = WidgetOptions<'super-old-widget', object>;
  * ```
  *
  * This interface can be extended through the magic of TypeScript "Declaration
@@ -175,16 +169,6 @@ export interface PerseusWidgetTypes {
     sorter: SorterWidget;
     table: TableWidget;
     video: VideoWidget;
-
-    // Deprecated widgets
-    "molecule-renderer": DeprecatedStandinWidget<"molecule-renderer">;
-    "passage-ref-target": DeprecatedStandinWidget<"passage-ref-target">;
-    "passage-ref": DeprecatedStandinWidget<"passage-ref">;
-    passage: DeprecatedStandinWidget<"passage">;
-    "lights-puzzle": DeprecatedStandinWidget<"lights-puzzle">;
-    sequence: DeprecatedStandinWidget<"sequence">;
-    simulator: DeprecatedStandinWidget<"simulator">;
-    transformer: DeprecatedStandinWidget<"transformer">;
 }
 
 /**
@@ -196,20 +180,18 @@ export interface PerseusWidgetTypes {
  * reading/parsing the widget id to derive any information from it, except in
  * the case of this map.
  *
- * @see {@link PerseusWidgetTypes} additional widgets can be added to this map type
- * by augmenting the PerseusWidgetTypes with new widget types!
+ * @see {@link PerseusWidgetTypes} additional widgets can be added to this map
+ * type by augmenting the PerseusWidgetTypes with new widget types!
  */
 export type PerseusWidgetsMap = MakeWidgetMap<PerseusWidgetTypes>;
 
 /**
- * PerseusWidget is a union of all the different types of widget options that
- * Perseus knows about.
+ * {@link PerseusWidget} is a union of all the different types of widget
+ * options that Perseus knows about.
  *
- * Thanks to it being based on PerseusWidgetTypes interface, this union is
- * automatically extended to include widgets used in tests without those widget
- * option types seeping into our production types.
- *
- * @see MockWidget for an example
+ * Thanks to it being based on the {@link PerseusWidgetTypes} interface, this
+ * union is automatically extended to include widgets used in tests without
+ * those widget option types seeping into our production types.
  */
 export type PerseusWidget = PerseusWidgetTypes[keyof PerseusWidgetTypes];
 
@@ -515,8 +497,6 @@ export type TableWidget = WidgetOptions<'table', PerseusTableWidgetOptions>;
 export type InputNumberWidget = WidgetOptions<'input-number', PerseusInputNumberWidgetOptions>;
 // prettier-ignore
 export type VideoWidget = WidgetOptions<'video', PerseusVideoWidgetOptions>;
-//prettier-ignore
-export type DeprecatedStandinWidget<Type extends string> = WidgetOptions<Type, object>;
 
 /**
  * A background image applied to various widgets.

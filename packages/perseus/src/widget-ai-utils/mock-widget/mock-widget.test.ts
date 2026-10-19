@@ -2,7 +2,7 @@ import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {registerWidget} from "../../widgets";
-import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {renderQuestion} from "../../widgets/__testutils__/render-question";
 import MockWidgetExport from "../../widgets/mock-widgets/mock-widget";
 
 import type {MockWidget} from "../../widgets/mock-widgets/mock-widget-types";

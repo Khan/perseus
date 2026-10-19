@@ -1,5 +1,36 @@
 # @khanacademy/perseus-editor
 
+## 45.0.0
+
+### Major Changes
+
+-   [#4350](https://github.com/Khan/perseus/pull/4350) [`574a740`](https://github.com/Khan/perseus/commit/574a7401b35398433ba1cd49aa1f108ed0acbca2) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Treat removed widget types like any other widget type Perseus doesn't implement. There is no longer a `deprecated-standin` widget: for any widget type without a registered implementation, the renderer shows a notice (and logs the type and widget ID), the editor shows a fallback editor that keeps the widget's options, and scoring skips the widget.
+
+    Breaking changes:
+
+    -   `@khanacademy/perseus`: removed `Widgets.replaceWidget`, `replaceDeprecatedWidgets`, `registerEditors`, `getEditor`, `replaceEditor` and `replaceDeprecatedEditors`. The `deprecatedStandin` string is now `unsupportedWidget`.
+    -   `@khanacademy/perseus-core`: removed `DeprecatedStandinWidget` and the deprecated widget types from `PerseusWidgetTypes`, and the `deprecated-standin` widget logic is gone. The parser now accepts removed widget types the same way as any unknown type, with any options.
+    -   `@khanacademy/perseus-editor`: no longer re-exports `widgets` from `@khanacademy/perseus`.
+
+### Patch Changes
+
+-   [#4384](https://github.com/Khan/perseus/pull/4384) [`679dedd`](https://github.com/Khan/perseus/commit/679dedd258d6c16654527c466c9e4b77488dbf76) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Add types to the RangeInput component.
+
+-   [#4193](https://github.com/Khan/perseus/pull/4193) [`eda7ea8`](https://github.com/Khan/perseus/commit/eda7ea8685ab73274101844a6183904df53b0238) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Updating snapshots to contain CSS information.
+
+-   [#4379](https://github.com/Khan/perseus/pull/4379) [`2a931f0`](https://github.com/Khan/perseus/commit/2a931f0e9b28d5ab83822e01c1cc3bb1dadc3225) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Make the NumberInput component typesafe.
+
+-   [#4388](https://github.com/Khan/perseus/pull/4388) [`51932bc`](https://github.com/Khan/perseus/commit/51932bc05dbcd85fa3dd66d00085426f03e17b2b) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove _.forEach, _.random, _.toArray, and _.head from the code
+
+-   Updated dependencies [[`679dedd`](https://github.com/Khan/perseus/commit/679dedd258d6c16654527c466c9e4b77488dbf76), [`574a740`](https://github.com/Khan/perseus/commit/574a7401b35398433ba1cd49aa1f108ed0acbca2), [`eda7ea8`](https://github.com/Khan/perseus/commit/eda7ea8685ab73274101844a6183904df53b0238), [`0c44951`](https://github.com/Khan/perseus/commit/0c44951edd1d95353cc55b9e551bad26e727fc7f), [`0c44951`](https://github.com/Khan/perseus/commit/0c44951edd1d95353cc55b9e551bad26e727fc7f), [`b9604ec`](https://github.com/Khan/perseus/commit/b9604ec7b516de9c963f53c703190d83ead7f1ed), [`2a931f0`](https://github.com/Khan/perseus/commit/2a931f0e9b28d5ab83822e01c1cc3bb1dadc3225), [`51932bc`](https://github.com/Khan/perseus/commit/51932bc05dbcd85fa3dd66d00085426f03e17b2b), [`e2106e2`](https://github.com/Khan/perseus/commit/e2106e284655cc9ab74123818a08600cc044242a)]:
+    -   @khanacademy/perseus@92.0.0
+    -   @khanacademy/perseus-core@42.0.0
+    -   @khanacademy/math-input@30.1.2
+    -   @khanacademy/kmath@3.1.0
+    -   @khanacademy/kas@3.0.2
+    -   @khanacademy/keypad-context@6.0.7
+    -   @khanacademy/perseus-linter@6.1.5
+
 ## 44.0.9
 
 ### Patch Changes

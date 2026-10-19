@@ -19,16 +19,4 @@ describe("widgets pre-registration", () => {
             );
         });
     });
-
-    it("throws when getEditor is called before registerWidget", () => {
-        expect(() => Widgets.getEditor("radio")).toThrow(
-            "Perseus widget editor registry accessed before initialization!",
-        );
-    });
-
-    it("throws when replaceEditor is called before registerWidget", () => {
-        expect(() => Widgets.replaceEditor("radio", "cool")).toThrow(
-            "Perseus widget editor registry accessed before initialization!",
-        );
-    });
 });

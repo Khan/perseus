@@ -6,21 +6,19 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         Akshat works in a hospital lab.
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         To project blood quantities, he wants to know the probability that more than 
         <span
@@ -59,14 +57,13 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
           <span />
         </span>
          of donors have type-A blood.
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="2"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         Akshat uses a computer to produce many samples that simulate the next 
         <span
@@ -125,14 +122,13 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
           without
         </em>
          type-A blood.
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="3"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <strong>
           Based on the samples below, estimate the probability that  more than 
@@ -162,58 +158,60 @@ exports[`rendering supports mobile rendering: mobile render 1`] = `
            donors will have type-A blood.
         </strong>
          If necessary, round your answer to the nearest hundredth. 
-        <div
-          class="perseus-widget-container widget-inline-block"
+        <span
+          class="deprecated-perseus-container"
         >
-          <div>
-            <div
-              aria-label="Math input box Tap with one or two fingers to open keyboard"
-              aria-required="false"
-              role="textbox"
-              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline-block; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; vertical-align: middle; max-inline-size: 128px;"
-            >
+          <span
+            class="perseus-widget-container widget-inline-block"
+          >
+            <div>
               <div
-                class="keypad-input"
-                tabindex="0"
+                aria-label="Math input box Tap with one or two fingers to open keyboard"
+                aria-required="false"
+                role="textbox"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline-block; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; vertical-align: middle; max-inline-size: 128px;"
               >
                 <div
-                  class="mq-editable-field mq-math-mode"
-                  style="min-height: 44px; min-width: 64px; max-width: 128px; box-sizing: border-box; position: relative; border-style: solid; border-radius: 4px; border-width: 1px;"
+                  class="keypad-input"
+                  tabindex="0"
                 >
-                  <span
-                    class="mq-textarea"
+                  <div
+                    class="mq-editable-field mq-math-mode"
+                    style="min-height: 44px; min-width: 64px; max-width: 128px; box-sizing: border-box; position: relative; border-style: solid; border-radius: 4px; border-width: 1px;"
                   >
                     <span
-                      aria-label="Math Input:"
+                      class="mq-textarea"
+                    >
+                      <span
+                        aria-label="Math Input:"
+                      />
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      class="mq-root-block mq-empty"
+                      style="padding: 10px 13px 8px 13px; font-size: 18pt;"
                     />
-                  </span>
-                  <span
-                    aria-hidden="true"
-                    class="mq-root-block mq-empty"
-                    style="padding: 10px 13px 8px 13px; font-size: 18pt;"
-                  />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+          </span>
+        </span>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="4"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <em>
           Note: This a small sample to practice with. A larger sample could give a much better estimate.
         </em>
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="5"
+      class="deprecated-perseus-container"
     >
       <table>
         <thead>
