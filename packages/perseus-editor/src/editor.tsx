@@ -18,6 +18,7 @@ import _ from "underscore";
 import DragTarget from "./components/drag-target";
 import WidgetEditorContainer from "./components/widget-editor-container";
 import WidgetSelect from "./components/widget-select";
+import {getFeatureFlags} from "./testing/feature-flags-util";
 import {
     getPerseusClipboardData,
     setPerseusClipboardData,
@@ -929,7 +930,7 @@ class Editor extends React.Component<Props, State> {
                         {/* TODO(LEMS-4396): clean up feature flag — `flags`
                             goes away with the last flag-gated widget. */}
                         <WidgetSelect
-                            flags={this.props.apiOptions.flags}
+                            flags={getFeatureFlags(this.props.apiOptions.flags)}
                             onChange={this._addWidget}
                         />
                         {templatesDropDown}
