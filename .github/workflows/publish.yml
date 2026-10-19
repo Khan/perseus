@@ -386,8 +386,6 @@ jobs:
               run: |
                   {
                       echo "line<<WARNING_EOF"
-                      # Leading blank line so the warning starts on its own
-                      # line in the Slack message.
                       echo ""
                       echo "⚠️ npm has not made every package installable yet, so installs may fail for a few more minutes. Details → $RUN_URL"
                       echo "WARNING_EOF"
@@ -494,8 +492,9 @@ jobs:
                       echo ""
                       echo "> [!WARNING]"
                       echo "> npm has not made every package in this snapshot"
-                      echo "> installable yet, so installs may fail for a few"
-                      echo "> more minutes. [Details]($RUN_URL)"
+                      echo "> installable yet, so installs may fail, "
+                      echo "> or install an earlier version of this snapshot,"
+                      echo "> for a few more minutes. [Details]($RUN_URL)"
                       echo ""
                       echo "WARNING_EOF"
                   } >> "$GITHUB_OUTPUT"
