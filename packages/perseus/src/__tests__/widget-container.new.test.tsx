@@ -68,9 +68,11 @@ const getBaseProps = (
 });
 
 describe("widget-container", () => {
-    it("should render nothing when requested widget not registered", () => {
+    it("renders the unsupported-widget notice when the widget isn't registered", () => {
         // Arrange
-        const warnMock = jest.spyOn(console, "warn").mockImplementation();
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
 
         // Act
         render(
@@ -82,9 +84,11 @@ describe("widget-container", () => {
         );
 
         // Assert
-        expect(warnMock).toHaveBeenCalledWith(
-            "Widget type 'invalid-widget' not found!",
-        );
+        expect(
+            screen.getByText(
+                /this part of the question is no longer available/,
+            ),
+        ).toBeInTheDocument();
     });
 
     it("should render the requested widget", () => {

@@ -10,7 +10,6 @@ type WidgetName =
     | "categorizer"
     | "cs-program"
     | "definition"
-    | "deprecated-standin"
     | "dropdown"
     | "explanation"
     | "expression"
@@ -53,7 +52,6 @@ type WidgetEnum =
     | "CATEGORIZER"
     | "CS_PROGRAM"
     | "DEFINITION"
-    | "DEPRECATED_STANDIN"
     | "DROPDOWN"
     | "EXPLANATION"
     | "EXPRESSION"
@@ -97,7 +95,6 @@ const widgetNameToEnum: Record<WidgetName, WidgetEnum> = {
     categorizer: "CATEGORIZER",
     "cs-program": "CS_PROGRAM",
     definition: "DEFINITION",
-    "deprecated-standin": "DEPRECATED_STANDIN",
     dropdown: "DROPDOWN",
     explanation: "EXPLANATION",
     expression: "EXPRESSION",

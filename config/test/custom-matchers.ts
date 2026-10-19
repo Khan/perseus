@@ -42,6 +42,7 @@ expect.extend({
             };
         }
 
+        // TODO: use `isCorrect` function here
         if (score.earned !== score.total) {
             const errMessage = "Problem was answered incorrectly";
 

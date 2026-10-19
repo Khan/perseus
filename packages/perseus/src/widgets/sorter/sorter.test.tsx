@@ -379,7 +379,7 @@ describe("sorter widget", () => {
     });
 
     describe("legacy sorters with too many cards", () => {
-        const deprecatedStandinText =
+        const unsupportedWidgetText =
             "Sorry, this part of the question is no longer available. 😅 Don't worry, you won't be graded on this part. Keep going!";
 
         function generateSorterQuestion(cardCount: number) {
@@ -398,22 +398,46 @@ describe("sorter widget", () => {
             });
         }
 
-        it("renders the deprecated standin above the card limit", () => {
+        it("renders the unsupported-widget notice above the card limit", () => {
             // Arrange, Act
             renderQuestion(generateSorterQuestion(SORTER_MAX_CARDS + 1));
 
             // Assert
-            expect(screen.getByText(deprecatedStandinText)).toBeInTheDocument();
+            expect(screen.getByText(unsupportedWidgetText)).toBeInTheDocument();
         });
 
-        it("does not render the deprecated standin at the card limit", () => {
+        it("does not render the unsupported-widget notice at the card limit", () => {
             // Arrange, Act
             renderQuestion(generateSorterQuestion(SORTER_MAX_CARDS));
 
             // Assert
             expect(
-                screen.queryByText(deprecatedStandinText),
+                screen.queryByText(unsupportedWidgetText),
             ).not.toBeInTheDocument();
+        });
+
+        it("dispatches unsupported widget analytics event when above the card limit", () => {
+            // Arrange
+            const onAnalyticsEventSpy = jest.fn();
+            const dependencies = {
+                analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
+            };
+
+            // Act
+            renderQuestion(generateSorterQuestion(SORTER_MAX_CARDS + 1), {
+                dependencies,
+            });
+
+            // Assert
+            expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+                type: "perseus:widget:unsupported",
+                payload: {
+                    widgetType: "sorter",
+                    widgetSubType: "null",
+                    widgetId: "sorter 1",
+                    reason: "exceeds-card-limit",
+                },
+            });
         });
 
         it("is scored as correct without the learner answering", () => {

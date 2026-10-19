@@ -73,6 +73,8 @@ jobs:
                   exclude_extensions: .test.ts, .test.tsx, .stories.ts, .stories.tsx, .mdx
                   exclude_globs: "**/__tests__/*, **/__docs__/*"
 
+    # When adding or removing a check here, also update `pre_publish_check`,
+    # which runs every check unconditionally for Version Packages PRs.
     lint:
         name: Lint, Typecheck, Format, and Test
         runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && 'ubuntu-latest' || 'ephemeral-runner' }}
@@ -166,8 +168,9 @@ jobs:
                         limited: pnpm jest --passWithNoTests --findRelatedTests {}
 
             # We run full ESLint runs outside the above parallel block, because
-            # full runs often error with exit code 137 (which means Github
-            # killed the instance - we presume an OOM).
+            # when we run a full ESLint run alongside other tasks it often
+            # errors with exit code 137 (which means Github killed the instance
+            # - we presume an OOM).
             - name: Eslint all files
               # We run the lint even on failure so that the action provides as
               # much info as possible.
@@ -176,7 +179,7 @@ jobs:
 
     pre_publish_check:
         name: Pre-publish check
-        if: github.head_ref == 'changeset-release/main'
+        if: github.head_ref == 'changeset-release/main' || github.event_name == 'workflow_dispatch'
         runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && 'ubuntu-latest' || 'ephemeral-runner' }}
         steps:
             - name: Checking out latest commit
@@ -193,6 +196,46 @@ jobs:
 
             - name: Pre-publish check
               run: pnpm pre-publish-check
+
+            # Version Packages PRs change no source files, so the `lint` job
+            # (above) skips most of its checks for them. These steps run the
+            # same checks unconditionally to verify `main` before publishing.
+            # Keep them in sync with `lint`, and keep them unconditional.
+            - parallel:
+                  - name: Check formatting
+                    run: pnpm prettier --check .
+
+                  - name: Check for dead code
+                    run: pnpm knip
+
+                  - name: Checks that STOPSHIP is not used in any files.
+                    run: ./utils/stopship-check.sh
+
+                  - name: Typecheck
+                    run: pnpm typecheck
+
+                  - name: Typetest
+                    run: pnpm tstyche
+
+                  - name: Build types
+                    run: pnpm build:types
+
+                  - name: Build docs
+                    run: pnpm build:docs
+
+                  # Fewer workers leave memory for the other checks in this
+                  # block; with the default, sometimes the runner kills Jest
+                  # workers (SIGKILL, presumed OOM).
+                  - name: Jest
+                    run: pnpm jest --maxWorkers=50%
+
+            # Full ESLint runs outside the parallel block for the same reason
+            # as in the `lint` job (exit code 137, presumed OOM).
+            - name: Eslint all files
+              # Exception to "keep them unconditional": run ESLint even if an
+              # earlier check failed, so one run reports every failure.
+              if: always()
+              run: pnpm lint
 
     cypress:
         name: Cypress

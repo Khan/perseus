@@ -1,7 +1,6 @@
 import CategorizerEditor from "./widgets/categorizer-editor";
 import CSProgramEditor from "./widgets/cs-program-editor";
 import DefinitionEditor from "./widgets/definition-editor";
-import DeprecatedStandinEditor from "./widgets/deprecated-standin-editor";
 import DropdownEditor from "./widgets/dropdown-editor";
 import ExplanationEditor from "./widgets/explanation-editor";
 import ExpressionEditor from "./widgets/expression-editor";
@@ -35,7 +34,7 @@ import VideoEditor from "./widgets/video-editor";
  * Every widget editor, keyed by the type of widget it edits.
  *
  * The keys are widget types as they appear in Perseus content (eg. the
- * `interactive-graph` in the widget's `type`. `Widgets.registerEditors`
+ * `interactive-graph` in the widget's `type`. `registerEditors`
  * registers each editor under its key, and the editor page looks an editor up by
  * the type of the widget it's rendering.
  */
@@ -43,7 +42,6 @@ export default {
     categorizer: CategorizerEditor,
     "cs-program": CSProgramEditor,
     definition: DefinitionEditor,
-    "deprecated-standin": DeprecatedStandinEditor,
     dropdown: DropdownEditor,
     explanation: ExplanationEditor,
     expression: ExpressionEditor,

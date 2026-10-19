@@ -11,6 +11,7 @@ import classNames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
+import UnsupportedWidgetMessage from "./components/unsupported-widget-message";
 import {DependenciesContext} from "./dependencies";
 import ErrorBoundary from "./error-boundary";
 import {containerSizeClass, getClassFromWidth} from "./util/sizing-utils";
@@ -80,18 +81,6 @@ class WidgetContainer extends React.Component<Props, State> {
         const type = this.props.type;
         const userAgent = navigator.userAgent;
 
-        const WidgetType = Widgets.getWidget(type);
-        if (WidgetType == null) {
-            // This is for the good of all people!!
-            // eslint-disable-next-line no-console
-            console.warn(`Widget type '${type}' not found!`);
-            // Just give up on invalid widget types
-            return <div className={className} />;
-        }
-
-        const subType =
-            getWidgetSubType(type, this.props.widgetProps.options) ?? "null";
-
         let alignment = this.props.widgetProps.alignment;
         if (alignment == null || alignment === "default") {
             alignment = CoreWidgetRegistry.getDefaultAlignment(type);
@@ -99,6 +88,24 @@ class WidgetContainer extends React.Component<Props, State> {
 
         // This will set the WidgetContainer's alignment
         className += CoreWidgetRegistry.getAlignmentClassName(type, alignment);
+
+        const subType =
+            getWidgetSubType(type, this.props.widgetProps.options) ?? "null";
+
+        const WidgetType = Widgets.getWidget(type);
+        if (WidgetType == null) {
+            return (
+                <div className="deprecated-perseus-container">
+                    <div className={className}>
+                        <UnsupportedWidgetMessage
+                            widgetType={type}
+                            widgetSubType={subType}
+                            widgetId={this.props.id}
+                        />
+                    </div>
+                </div>
+            );
+        }
 
         // Inline widgets should not be in a <div> because that could break
         // ancestor elements (like <p>) that can't contain block elements

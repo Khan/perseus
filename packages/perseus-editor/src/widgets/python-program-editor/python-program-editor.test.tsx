@@ -40,7 +40,6 @@ describe("python-program-editor", () => {
 
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({programID: "1", height: 400}),
-            undefined,
         );
     });
 
@@ -57,7 +56,6 @@ describe("python-program-editor", () => {
 
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({programID: "", height: 4001}),
-            undefined,
         );
     });
 

@@ -611,7 +611,7 @@ exports[`renderer snapshots initial render: initial render 1`] = `
 </div>
 `;
 
-exports[`renderer snapshots renders a placeholder for a deprecated widget: deprecated widget 1`] = `
+exports[`renderer snapshots renders a placeholder for an unknown widget type: unknown widget 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -627,7 +627,7 @@ exports[`renderer snapshots renders a placeholder for a deprecated widget: depre
           class="perseus-widget-container widget-block"
         >
           <div
-            style="padding-block-start: var(--wb-sizing-size_080); padding-block-end: var(--wb-sizing-size_080);"
+            style="padding-block: var(--wb-sizing-size_080);"
           >
             <div
               role="status"
