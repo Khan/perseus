@@ -128,18 +128,3 @@ export const deprecatedChangeableChange: ChangeFn = function (
         Errors.Internal,
     );
 };
-
-/**
- * TODO(LEMS-3245) remove Changeable
- *
- * @deprecated
- */
-export type ChangeableProps = {
-    onChange: (
-        values: {
-            [key: string]: any;
-        },
-        callback?: (() => unknown) | null | undefined,
-        silent?: boolean,
-    ) => unknown;
-};
