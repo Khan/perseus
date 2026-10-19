@@ -50,10 +50,10 @@ async function defaultRunPnpm(args: ReadonlyArray<string>): Promise<void> {
     }
 }
 
-// Delays between polls. npm makes some versions installable within seconds
-// and others only after several minutes, so we back off instead of sleeping
-// a fixed amount.
-const POLL_DELAYS_MS = [5_000, 10_000, 20_000, 30_000];
+// Each check downloads the package's full install metadata (several MB
+// for @khanacademy/perseus), and npm takes minutes to make a version
+// available, so polling faster than this mostly wastes downloads.
+const POLL_INTERVAL_MS = 30_000;
 
 function formatPackage(pkg: PublishedPackage): string {
     return `${pkg.name}@${pkg.version}`;
@@ -107,7 +107,7 @@ export async function waitForNpmPackages(
     const deadline = Date.now() + timeoutMs;
     let pending = [...packages];
 
-    for (let attempt = 0; ; attempt++) {
+    for (;;) {
         const checked = await Promise.all(
             pending.map((pkg) =>
                 dependencies.checkInstallable(pkg).then(
@@ -128,17 +128,16 @@ export async function waitForNpmPackages(
             return [];
         }
 
-        const delay =
-            POLL_DELAYS_MS[Math.min(attempt, POLL_DELAYS_MS.length - 1)];
-        if (Date.now() + delay > deadline) {
+        if (Date.now() + POLL_INTERVAL_MS > deadline) {
             return pending;
         }
 
         log(
-            `⏳ Waiting ${delay / 1000}s for ${pending.length} package(s): ` +
+            `⏳ Waiting ${POLL_INTERVAL_MS / 1000}s for ` +
+                `${pending.length} package(s): ` +
                 pending.map(formatPackage).join(", "),
         );
-        await new Promise((resolve) => setTimeout(resolve, delay));
+        await new Promise((resolve) => setTimeout(resolve, POLL_INTERVAL_MS));
     }
 }
 
