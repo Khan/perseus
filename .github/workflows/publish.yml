@@ -362,9 +362,10 @@ jobs:
                   SLACK_FOOTER: Perseus Slack Notification
                   MSG_MINIMAL: true
 
-            # npm accepts a publish minutes before it makes the new versions
-            # installable. Wait for that so the Slack announcement below
-            # doesn't send people to versions they can't install yet.
+            # Newly published packages can take several minutes to become
+            # available for install from npm. Wait for them so the Slack
+            # announcement below doesn't send people to versions they can't
+            # install yet.
             - name: Wait for published packages to be installable
               id: wait_for_npm
               if: steps.changesets.outputs.published == 'true'
@@ -468,9 +469,9 @@ jobs:
                   # the npmjs.com side:
                   # https://www.npmjs.com/package/@khanacademy/mathjax-renderer/access
 
-            # npm accepts a publish minutes before it makes the new versions
-            # installable. Wait for that so the PR comment below doesn't send
-            # people to versions they can't install yet.
+            # Newly published packages can take several minutes to become
+            # available for install from npm. Wait for them so the PR comment
+            # below doesn't send people to versions they can't install yet.
             - name: Wait for snapshot packages to be installable
               id: wait-for-npm
               if: steps.publish-snapshot.outputs.published_packages != ''

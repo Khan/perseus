@@ -2,8 +2,8 @@
 /**
  * Waits until every given package version can be installed from npm.
  *
- * npm accepts a publish minutes before it makes the version installable, so
- * we wait before announcing a release or snapshot.
+ * Newly published packages can take several minutes to become available for
+ * install from npm, so we wait before announcing a release or snapshot.
  *
  * Usage: wait-for-npm-packages.ts '<json>'
  *
