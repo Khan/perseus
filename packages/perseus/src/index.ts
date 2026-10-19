@@ -123,7 +123,6 @@ export {
     getValidWidgetIds,
 } from "./util/extract-perseus-data";
 
-// STOPSHIP: Hello
 export {generateTestCategorizerWidget} from "./util/test-utils";
 export {
     getWidgetTypeByWidgetId,
