@@ -2,7 +2,7 @@ import {act} from "@testing-library/react";
 
 import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
-import {renderQuestion} from "../__testutils__/renderQuestion";
+import {renderQuestion} from "../__testutils__/render-question";
 
 import {question1} from "./cs-program.testdata";
 

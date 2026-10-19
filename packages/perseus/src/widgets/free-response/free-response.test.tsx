@@ -8,7 +8,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
-import {renderQuestion} from "../__testutils__/renderQuestion";
+import {renderQuestion} from "../__testutils__/render-question";
 
 import type {APIOptions} from "../../types";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";

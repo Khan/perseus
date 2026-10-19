@@ -56,7 +56,7 @@ function KeypadWithContext() {
         </KeypadContext.Consumer>
     );
 }
-// This looks alot like `widgets/__tests__/renderQuestion.tsx', except we use
+// This looks alot like `widgets/__tests__/render-question.tsx', except we use
 // the ArticleRenderer instead of Renderer
 export const renderArticle = (
     json: PerseusArticle = articleSectionWithExpression,

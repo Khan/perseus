@@ -6,11 +6,10 @@ exports[`interaction widget renders movable point elements with blank constraint
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -878,21 +877,19 @@ exports[`interaction widget should render 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         Drag the dot all the way to the right.
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -1178,17 +1175,16 @@ exports[`interaction widget should render 1`] = `
       </div>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="2"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <em>
           Notice that we add a zero to the empty place value.
         </em>
          
-      </div>
+      </p>
     </div>
   </div>
 </div>
