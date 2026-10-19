@@ -98,7 +98,7 @@ describe("sorter widget", () => {
 
     describe("general behavior", () => {
         // The card contents in their correct order
-        const sortedOrder = ["Zeroth", "First", "Second", "Third", "Fourth"];
+        const sortedOrder = ["First", "Second", "Third", "Fourth", "Fifth"];
         const sorterQuestion = generateTestPerseusRenderer({
             content: "[[☃ sorter 1]]",
             widgets: {
@@ -194,7 +194,7 @@ describe("sorter widget", () => {
             const sorter: SorterHandle = renderer.findWidgets("sorter 1")[0];
 
             // Act
-            act(() => sorter.moveOptionToIndex("Zeroth", 4));
+            act(() => sorter.moveOptionToIndex("First", 4));
 
             // Assert
             expect(trackInteraction).toHaveBeenCalledWith({
@@ -342,7 +342,7 @@ describe("sorter widget", () => {
 
                 // Act
                 // Put the options in the correct order
-                ["Zeroth", "First", "Second", "Third", "Fourth"].forEach(
+                ["First", "Second", "Third", "Fourth", "Fifth"].forEach(
                     (option, index) => {
                         act(() => sorter.moveOptionToIndex(option, index));
                     },
@@ -364,7 +364,7 @@ describe("sorter widget", () => {
                 const sorter = renderer.findWidgets("sorter 1")[0];
 
                 // Act
-                act(() => sorter.moveOptionToIndex("Zeroth", 4));
+                act(() => sorter.moveOptionToIndex("First", 4));
 
                 const score = scorePerseusItemTesting(
                     answerfulItem.question,
