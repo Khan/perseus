@@ -99,8 +99,8 @@ Test data: `packages/perseus-core/src/utils/generators/sorter-widget-generator.t
 - Responsive orientation switching and image height presets are out of scope.
 
 ### Parity with the current widget
-- Keep `SorterHandle` unchanged. The new implementation supports
-  `moveOptionToIndex`, `getPromptJSON`, and `getSerializedState`.
+- The new implementation supports `getPromptJSON` and `getSerializedState`.
+  It drops `moveOptionToIndex`; tests use user interactions instead.
 - Keep the `perseus:widget:rendered:ti` analytics event.
 - Keep the `exceedsCardLimit` → `DeprecatedStandin` path.
 

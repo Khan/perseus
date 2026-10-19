@@ -5,17 +5,14 @@ import {
 import {useOnMountEffect} from "@khanacademy/wonder-blocks-core";
 import classNames from "classnames";
 import * as React from "react";
-import {forwardRef, useImperativeHandle, useRef, useState} from "react";
+import {forwardRef, useImperativeHandle, useState} from "react";
 
 import {AnswerTile} from "../../../components/drag-and-drop/answer-tile";
 import {BlankComponent} from "../../../components/drag-and-drop/blank";
 import {ChoiceBank} from "../../../components/drag-and-drop/choice-bank";
 import {PerseusDndProvider} from "../../../components/drag-and-drop/perseus-dnd-provider";
 import {tempDndStrings} from "../../../components/drag-and-drop/temp-strings";
-import {
-    isTileInBank,
-    placeTile,
-} from "../../../components/drag-and-drop/tile-placements";
+import {isTileInBank} from "../../../components/drag-and-drop/tile-placements";
 import {useTileMoveActions} from "../../../components/drag-and-drop/use-tile-move-actions";
 import {useDependencies} from "../../../dependencies";
 import {getPromptJSON as _getPromptJSON} from "../../../widget-ai-utils/sorter/sorter-ai-utils";
@@ -36,17 +33,6 @@ const DeprecatedStandin = deprecatedStandin.widget;
 
 type Props = WidgetProps<PerseusSorterWidgetOptions, PerseusSorterUserInput>;
 
-export interface SorterHandle extends Widget {
-    /**
-     * Programatic API for placing an option into the blank at `index`.
-     * This is used by testing.
-     *
-     * @deprecated prefer user interaction testing over backdoor
-     * state manipulation
-     */
-    moveOptionToIndex: (option: string, index: number) => void;
-}
-
 function getBlankId(index: number): string {
     return `blank-${index}`;
 }
@@ -59,7 +45,7 @@ function placementsFromOrder(order: string[]): TilePlacements {
     return placements;
 }
 
-const Sorter = forwardRef<SorterHandle, Props>(function Sorter(props, ref) {
+const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
     const dependencies = useDependencies();
 
     const {options, userInput, widgetId, handleUserInput, trackInteraction} =
@@ -127,25 +113,7 @@ const Sorter = forwardRef<SorterHandle, Props>(function Sorter(props, ref) {
         blankIds,
     });
 
-    function moveOptionToIndex(option: string, index: number) {
-        handlePlacementsChange(
-            placeTile(
-                placements,
-                {tileId: option},
-                getBlankId(index),
-                "single",
-            ),
-        );
-    }
-
-    const latestMoveOptionToIndex = useRef(moveOptionToIndex);
-    latestMoveOptionToIndex.current = moveOptionToIndex;
-
     useImperativeHandle(ref, () => ({
-        moveOptionToIndex(option, index) {
-            latestMoveOptionToIndex.current(option, index);
-        },
-
         getPromptJSON(): SorterPromptJSON {
             return _getPromptJSON(props.userInput);
         },

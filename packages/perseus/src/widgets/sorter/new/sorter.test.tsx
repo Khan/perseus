@@ -7,14 +7,13 @@ import {
     SORTER_MAX_HORIZONTAL_CARDS,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {act, screen, within} from "@testing-library/react";
+import {screen, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {getFeatureFlags} from "../../../testing/feature-flags-util";
 import {scorePerseusItemTesting} from "../../../util/test-utils";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
 
-import type {SorterHandle} from "./sorter";
 import type {APIOptions} from "../../../types";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
@@ -357,25 +356,6 @@ describe("new sorter widget", () => {
                     userInput: {values: ["Apple", "Banana"], changed: true},
                 },
             );
-        });
-
-        it("places a card into a blank through the programmatic API", () => {
-            // Arrange
-            const {renderer} = renderQuestion(
-                generateSorterQuestion(["Apple", "Banana"]),
-                {apiOptions},
-            );
-            const sorter: SorterHandle = renderer.findWidgets("sorter 1")[0];
-
-            // Act
-            act(() => sorter.moveOptionToIndex("Apple", 0));
-            act(() => sorter.moveOptionToIndex("Banana", 1));
-
-            // Assert
-            expect(renderer.getUserInputMap()["sorter 1"]).toEqual({
-                options: ["Apple", "Banana"],
-                changed: true,
-            });
         });
     });
 

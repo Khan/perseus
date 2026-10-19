@@ -5,7 +5,7 @@ import {forwardRef} from "react";
 import NewSorter from "./new/sorter";
 import OldSorter from "./old/sorter";
 
-import type {SorterHandle} from "./new/sorter";
+import type {SorterHandle} from "./old/sorter";
 import type {WidgetProps} from "../../types";
 import type {
     PerseusSorterWidgetOptions,
