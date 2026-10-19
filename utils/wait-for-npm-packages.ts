@@ -3,7 +3,8 @@
  * Waits until every given package version can be installed from npm.
  *
  * Newly published packages can take several minutes to become available for
- * install from npm, so we wait before announcing a release or snapshot.
+ * install from npm, so this script spins until it can install the provided
+ * packages.
  *
  * Usage: wait-for-npm-packages.ts '<json>'
  *

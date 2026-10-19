@@ -1,3 +1,11 @@
+import {execFile as execFileCallback} from "node:child_process";
+import fs from "node:fs/promises";
+import os from "node:os";
+import path from "node:path";
+import {promisify} from "node:util";
+
+const execFile = promisify(execFileCallback);
+
 /**
  * A package version that was published to npm.
  *
@@ -9,71 +17,75 @@ export type PublishedPackage = {
     version: string;
 };
 
+/**
+ * Runs pnpm with the given arguments.
+ *
+ * Rejects if pnpm exits non-zero.
+ */
+type RunPnpm = (args: ReadonlyArray<string>) => Promise<void>;
+
 type Dependencies = {
-    fetch: typeof fetch;
-    sleep: (ms: number) => Promise<void>;
-    now: () => number;
+    checkInstallable: (pkg: PublishedPackage) => Promise<void>;
     log: (message: string) => void;
 };
 
-const defaultDependencies: Dependencies = {
-    fetch: (input, init) => fetch(input, init),
-    sleep: (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
-    now: () => Date.now(),
-    log: (message) => console.log(message),
-};
+// A single stalled install shouldn't eat the whole wait budget.
+const PNPM_TIMEOUT_MS = 2 * 60 * 1000;
+
+async function defaultRunPnpm(args: ReadonlyArray<string>): Promise<void> {
+    try {
+        await execFile("pnpm", args, {timeout: PNPM_TIMEOUT_MS});
+    } catch (error) {
+        // pnpm puts the reason (e.g. "No matching version found") on the
+        // first line of stderr. The rest is noise in a polling log.
+        const stderr =
+            error instanceof Error && "stderr" in error
+                ? error.stderr
+                : undefined;
+        const reason =
+            typeof stderr === "string"
+                ? stderr.trim().split("\n")[0]
+                : undefined;
+        throw new Error(reason || String(error));
+    }
+}
 
 // Delays between polls. npm makes some versions installable within seconds
 // and others only after several minutes, so we back off instead of sleeping
 // a fixed amount.
 const POLL_DELAYS_MS = [5_000, 10_000, 20_000, 30_000];
 
-// A single stalled request shouldn't eat the whole wait budget.
-const REQUEST_TIMEOUT_MS = 10_000;
-
 function formatPackage(pkg: PublishedPackage): string {
     return `${pkg.name}@${pkg.version}`;
 }
 
 /**
- * Returns true if npm serves both the metadata and the tarball for the
- * given package version.
+ * Resolves if the given package version can be installed from npm, and
+ * rejects with the reason otherwise.
  *
- * We check the same documents an install reads. The full package document
- * (what `pnpm info` shows) can list a version before an install can
- * resolve it.
+ * We use `pnpm store add` because it resolves and downloads the package the
+ * same way an install does. Other lookups (e.g. `pnpm view`) can list a
+ * version before an install can resolve it.
  */
-export async function isInstallable(
+export async function checkInstallable(
     pkg: PublishedPackage,
-    fetchFn: typeof fetch = defaultDependencies.fetch,
-): Promise<boolean> {
-    // Scoped names need their slash escaped in registry URLs.
-    const url = `https://registry.npmjs.org/${pkg.name.replace("/", "%2f")}`;
-    const metadataResponse = await fetchFn(url, {
-        headers: {
-            // The abbreviated metadata document that installs read.
-            Accept: "application/vnd.npm.install-v1+json",
-            // The registry's CDN can serve a copy from before the publish.
-            "Cache-Control": "no-cache",
-        },
-        signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
-    });
-    if (!metadataResponse.ok) {
-        return false;
+    runPnpm: RunPnpm = defaultRunPnpm,
+): Promise<void> {
+    // A fresh store and cache each time, so a copy of the package metadata
+    // cached before the publish can't hide the new version.
+    const dir = await fs.mkdtemp(path.join(os.tmpdir(), "wait-for-npm-"));
+    try {
+        await runPnpm([
+            "store",
+            "add",
+            formatPackage(pkg),
+            "--store-dir",
+            path.join(dir, "store"),
+            `--config.cache-dir=${path.join(dir, "cache")}`,
+        ]);
+    } finally {
+        await fs.rm(dir, {recursive: true, force: true});
     }
-
-    const metadata = await metadataResponse.json();
-    const tarballUrl = metadata.versions?.[pkg.version]?.dist?.tarball;
-    if (typeof tarballUrl !== "string") {
-        return false;
-    }
-
-    const tarballResponse = await fetchFn(tarballUrl, {
-        method: "HEAD",
-        headers: {"Cache-Control": "no-cache"},
-        signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
-    });
-    return tarballResponse.ok;
 }
 
 /**
@@ -86,26 +98,31 @@ export async function isInstallable(
 export async function waitForNpmPackages(
     packages: ReadonlyArray<PublishedPackage>,
     timeoutMs: number,
-    dependencies: Dependencies = defaultDependencies,
+    dependencies: Dependencies = {
+        checkInstallable: (pkg) => checkInstallable(pkg),
+        log: (message) => console.log(message),
+    },
 ): Promise<PublishedPackage[]> {
-    const {fetch: fetchFn, sleep, now, log} = dependencies;
-    const deadline = now() + timeoutMs;
+    const {log} = dependencies;
+    const deadline = Date.now() + timeoutMs;
     let pending = [...packages];
 
     for (let attempt = 0; ; attempt++) {
-        const results = await Promise.all(
+        const checked = await Promise.all(
             pending.map((pkg) =>
-                // Network errors mean "not yet", not "give up".
-                isInstallable(pkg, fetchFn).catch((error) => {
-                    log(`⚠️ ${formatPackage(pkg)}: ${error}`);
-                    return false;
-                }),
+                dependencies.checkInstallable(pkg).then(
+                    () => ({pkg, installable: true}),
+                    (error) => {
+                        log(`⚠️ ${formatPackage(pkg)}: ${error.message}`);
+                        return {pkg, installable: false};
+                    },
+                ),
             ),
         );
-        for (const pkg of pending.filter((_, i) => results[i])) {
+        for (const {pkg} of checked.filter((c) => c.installable)) {
             log(`✅ ${formatPackage(pkg)} is installable`);
         }
-        pending = pending.filter((_, i) => !results[i]);
+        pending = checked.filter((c) => !c.installable).map((c) => c.pkg);
 
         if (pending.length === 0) {
             return [];
@@ -113,7 +130,7 @@ export async function waitForNpmPackages(
 
         const delay =
             POLL_DELAYS_MS[Math.min(attempt, POLL_DELAYS_MS.length - 1)];
-        if (now() + delay > deadline) {
+        if (Date.now() + delay > deadline) {
             return pending;
         }
 
@@ -121,7 +138,7 @@ export async function waitForNpmPackages(
             `⏳ Waiting ${delay / 1000}s for ${pending.length} package(s): ` +
                 pending.map(formatPackage).join(", "),
         );
-        await sleep(delay);
+        await new Promise((resolve) => setTimeout(resolve, delay));
     }
 }
 
