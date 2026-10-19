@@ -962,7 +962,11 @@ class Renderer
                 return content;
             }
 
-            return <p key={state.key} className="deprecated-perseus-container">{content}</p>;
+            return (
+                <p key={state.key} className="deprecated-perseus-container">
+                    {content}
+                </p>
+            );
         }
         if (node.type === "widget") {
             const widgetPlaceholder = apiOptions.widgetPlaceholder;

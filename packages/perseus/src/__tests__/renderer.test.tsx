@@ -285,15 +285,15 @@ describe("renderer", () => {
         });
 
         it("renders a blockquote without logging an error", () => {
-            jest.spyOn(console, "error")
+            const consoleError = jest.spyOn(console, "error");
 
             const question = {
                 content: ">A",
                 images: {},
                 widgets: {},
-            }
+            };
 
-            const {container} = renderQuestion(question);
+            renderQuestion(question);
 
             // Act
             act(() => {
@@ -301,19 +301,19 @@ describe("renderer", () => {
             });
 
             // Assert
-            expect(console.error).not.toHaveBeenCalled();
+            expect(consoleError).not.toHaveBeenCalled();
         });
 
         it("renders a blockquote with multiple paragraphs without logging an error", () => {
-            jest.spyOn(console, "error")
+            const consoleError = jest.spyOn(console, "error");
 
             const question = {
                 content: ">A\n>\n>B",
                 images: {},
                 widgets: {},
-            }
+            };
 
-            const {container} = renderQuestion(question);
+            renderQuestion(question);
 
             // Act
             act(() => {
@@ -321,7 +321,7 @@ describe("renderer", () => {
             });
 
             // Assert
-            expect(console.error).not.toHaveBeenCalled();
+            expect(consoleError).not.toHaveBeenCalled();
         });
     });
 
