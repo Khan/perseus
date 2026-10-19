@@ -385,15 +385,15 @@ div.graphie {
     margin: 22px 0px;
 }
 .framework-perseus
-.perseus-renderer
-> .deprecated-perseus-container
-> ul:not([data-widget="radio"]),
+    .perseus-renderer
+    > .deprecated-perseus-container
+    > ul:not([data-widget="radio"]),
 .framework-perseus .perseus-renderer > .deprecated-perseus-container > ol {
     margin: 0px 0px var(--wb-sizing-size_220) 0px;
 }
 .framework-perseus
-.deprecated-perseus-container
-ul:not([data-widget="radio"], .indicatorContainer) {
+    .deprecated-perseus-container
+    ul:not([data-widget="radio"], .indicatorContainer) {
     padding-left: var(--wb-sizing-size_360);
     list-style-type: disc;
 }
@@ -402,9 +402,9 @@ ul:not([data-widget="radio"], .indicatorContainer) {
     padding-left: 2em;
 }
 .perseus-article
-.perseus-dropdown
-.perseus-renderer
-.deprecated-perseus-container,
+    .perseus-dropdown
+    .perseus-renderer
+    .deprecated-perseus-container,
 .perseus-article .perseus-dropdown .perseus-renderer .perseus-block-math {
     /* overriding overly broad selectors in .framework-perseus rules */
     margin-bottom: 0 !important;
@@ -413,8 +413,8 @@ ul:not([data-widget="radio"], .indicatorContainer) {
 
 /* Migrated from perseus-renderer-part-2.css */
 .bibliotron-exercise
-.perseus-hint-renderer
-:is(div, p).deprecated-perseus-container {
+    .perseus-hint-renderer
+    :is(div, p).deprecated-perseus-container {
     margin-top: 0px;
     margin-bottom: var(--wb-sizing-size_160);
 }
@@ -424,22 +424,22 @@ ul:not([data-widget="radio"], .indicatorContainer) {
 */
 .framework-perseus .perseus-formats-tooltip .deprecated-perseus-container,
 .framework-perseus
-.tooltipContainer
-.perseus-formats-tooltip
-.deprecated-perseus-container
-ul {
+    .tooltipContainer
+    .perseus-formats-tooltip
+    .deprecated-perseus-container
+    ul {
     margin: 0;
 }
 
 /* Undo <p> resets in popovers, which are outside the .framework-perseus container. */
 .perseus-in-wb-popover:not(.framework-perseus *)
-p.deprecated-perseus-container {
+    p.deprecated-perseus-container {
     margin: 0;
     font-size: initial;
 }
 
 :is(th, td)
-> .deprecated-perseus-container:has(
+    > .deprecated-perseus-container:has(
         > .perseus-widget-container.widget-block
     ) {
     /* !important used to override higher specificity on another rule */
