@@ -325,7 +325,7 @@ describe("graded-group", () => {
 
         // Assert
         expect(
-            screen.queryByText(/We couldn't grade your answer/),
+            screen.queryByText(/We couldn't check your answer/),
         ).not.toBeInTheDocument();
     });
 
