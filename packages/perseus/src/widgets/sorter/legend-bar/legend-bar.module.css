@@ -1,0 +1,14 @@
+/* The bar is drawn as a border so its stroke and color come from WB tokens.
+   Logical properties put a vertical bar on the start side, which is the
+   right side in RTL. */
+.horizontal {
+    inline-size: 100%;
+    border-block-start: var(--wb-border-width-medium) solid
+        var(--wb-semanticColor-core-border-neutral-default);
+}
+
+.vertical {
+    align-self: stretch;
+    border-inline-start: var(--wb-border-width-medium) solid
+        var(--wb-semanticColor-core-border-neutral-default);
+}
