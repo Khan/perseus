@@ -83,10 +83,7 @@ class ButtonGroup<ValueT> extends React.Component<Props<ValueT>> {
                     )}
                     onClick={() => this.toggleSelect(button.value)}
                 >
-                    {
-                        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                        button.content || "" + button.value
-                    }
+                    {button.content}
                 </button>
             );
         });
