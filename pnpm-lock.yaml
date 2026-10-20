@@ -163,13 +163,6 @@ settings:
   excludeLinksFromLockfile: false
 
 catalogs:
-  default:
-    eslint:
-      specifier: ^8.57.1
-      version: 8.57.1
-    typescript:
-      specifier: 5.9.3
-      version: 5.9.3
   devDeps:
     '@khanacademy/mathjax-renderer':
       specifier: 3.2.0
@@ -299,6 +292,13 @@ catalogs:
     tiny-invariant:
       specifier: 1.3.1
       version: 1.3.1
+  toolDeps:
+    eslint:
+      specifier: ^8.57.1
+      version: 8.57.1
+    typescript:
+      specifier: 5.9.3
+      version: 5.9.3
 
 overrides:
   jest-environment-jsdom>jsdom: 20.0.3
@@ -474,7 +474,7 @@ importers:
         specifier: 0.24.0
         version: 0.24.0
       eslint:
-        specifier: 'catalog:'
+        specifier: catalog:toolDeps
         version: 8.57.1(supports-color@8.1.1)
       eslint-config-prettier:
         specifier: ^9.1.0
@@ -615,7 +615,7 @@ importers:
         specifier: ^4.1.2
         version: 4.1.2(typedoc@0.28.17(typescript@5.9.3))
       typescript:
-        specifier: 'catalog:'
+        specifier: catalog:toolDeps
         version: 5.9.3
       typescript-plugin-css-modules:
         specifier: ^5.1.0
@@ -653,10 +653,10 @@ importers:
   config/eslint-plugin:
     dependencies:
       eslint:
-        specifier: 'catalog:'
+        specifier: catalog:toolDeps
         version: 8.57.1(supports-color@8.1.1)
       typescript:
-        specifier: 'catalog:'
+        specifier: catalog:toolDeps
         version: 5.9.3
 
   data:

@@ -3,7 +3,7 @@
     "private": true,
     "main": "index.js",
     "peerDependencies": {
-        "eslint": "catalog:",
-        "typescript": "catalog:"
+        "eslint": "catalog:toolDeps",
+        "typescript": "catalog:toolDeps"
     }
 }

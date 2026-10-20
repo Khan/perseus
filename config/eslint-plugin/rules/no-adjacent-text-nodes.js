@@ -4,7 +4,7 @@
  *
  * React renders each string or number child as its own DOM text node, so
  * `<p>Hello {name}</p>` produces two sibling text nodes. Google Chrome's
- * translate feature replaces every text node it translates with a `<font>`
+ * translate feature wraps every text node it translates within a `<font>`
  * element. React still holds references to the original text nodes, so the
  * next time it needs to remove or insert next to one of them it throws
  * "Failed to execute 'removeChild' on 'Node': The node to be removed is not
@@ -36,8 +36,13 @@ const TEXT_TYPE_FLAGS =
     ts.TypeFlags.StringLike | ts.TypeFlags.NumberLike | ts.TypeFlags.BigIntLike;
 
 /**
- * Returns true if React will render `type` as a text node or as nothing,
- * and as a text node for at least one of its constituents.
+ * Returns true if `type` can render as a text node and can never render as
+ * an element.
+ *
+ * Each member of the type must be text (string, number, bigint) or render
+ * as nothing (null, undefined, boolean, `""`), and at least one member must
+ * be text. For example, `string | undefined` qualifies, but `undefined`
+ * alone does not.
  *
  * Unions that also contain non-text types (for example `ReactNode`, which
  * includes `ReactElement`) are not treated as text. Flagging them would
