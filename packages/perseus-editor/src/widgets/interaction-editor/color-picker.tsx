@@ -32,7 +32,7 @@ type Props = {
 class ColorPicker extends React.Component<Props> {
     static defaultProps: {
         lightColors: boolean;
-        value: any;
+        value: string;
     } = {
         value: KhanColors.BLACK,
         lightColors: false,

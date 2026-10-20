@@ -54,4 +54,47 @@ describe("ButtonGroup", () => {
         // Assert
         expect(onChange).not.toHaveBeenCalled();
     });
+
+    // FIXME: covert the following two tests to tstyche typetests.
+    it("accepts an onChange handler typed by the type argument", async () => {
+        // Arrange
+        type Shape = "circle" | "square";
+        const onChange = jest.fn((shape: Shape) => {});
+        render(
+            <ButtonGroup<Shape>
+                value="circle"
+                buttons={[
+                    {value: "circle", content: "Circle"},
+                    {value: "square", content: "Square"},
+                ]}
+                onChange={onChange}
+            />,
+        );
+
+        // Act
+        await userEvent.click(screen.getByRole("button", {name: "Square"}));
+
+        // Assert
+        expect(onChange).toHaveBeenCalledWith("square");
+    });
+
+    it("rejects button values that don't match the selected value's type", () => {
+        type Shape = "circle" | "square";
+
+        // Arrange, Act
+        render(
+            <ButtonGroup<Shape>
+                value="circle"
+                buttons={[
+                    {value: "circle", content: "Circle"},
+                    // @ts-expect-error - "triangle" is not a Shape
+                    {value: "triangle", content: "Triangle"},
+                ]}
+                onChange={() => {}}
+            />,
+        );
+
+        // Assert
+        expect(screen.getAllByRole("button")).toHaveLength(2);
+    });
 });
