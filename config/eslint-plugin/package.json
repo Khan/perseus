@@ -1,0 +1,9 @@
+{
+    "name": "@internal/eslint-plugin-perseus",
+    "private": true,
+    "main": "index.js",
+    "peerDependencies": {
+        "eslint": "^8.57.1",
+        "typescript": "5.9.3"
+    }
+}

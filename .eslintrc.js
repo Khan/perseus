@@ -306,7 +306,11 @@ module.exports = {
             parserOptions: {
                 project: ["tsconfig.json", "config/cypress/tsconfig.json"],
             },
+            // Rules local to this repo (config/eslint-plugin). Registered
+            // here because they need type information.
+            plugins: ["@internal/perseus"],
             rules: {
+                "@internal/perseus/no-adjacent-text-nodes": "warn",
                 "@typescript-eslint/strict-boolean-expressions": [
                     "error",
                     {
