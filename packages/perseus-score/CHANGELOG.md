@@ -1,5 +1,44 @@
 # @khanacademy/perseus-score
 
+## 9.0.8
+
+### Patch Changes
+
+-   [#4350](https://github.com/Khan/perseus/pull/4350) [`574a740`](https://github.com/Khan/perseus/commit/574a7401b35398433ba1cd49aa1f108ed0acbca2) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Treat removed widget types like any other widget type Perseus doesn't implement. There is no longer a `deprecated-standin` widget: for any widget type without a registered implementation, the renderer shows a notice (and logs the type and widget ID), the editor shows a fallback editor that keeps the widget's options, and scoring skips the widget.
+
+    Breaking changes:
+
+    -   `@khanacademy/perseus`: removed `Widgets.replaceWidget`, `replaceDeprecatedWidgets`, `registerEditors`, `getEditor`, `replaceEditor` and `replaceDeprecatedEditors`. The `deprecatedStandin` string is now `unsupportedWidget`.
+    -   `@khanacademy/perseus-core`: removed `DeprecatedStandinWidget` and the deprecated widget types from `PerseusWidgetTypes`, and the `deprecated-standin` widget logic is gone. The parser now accepts removed widget types the same way as any unknown type, with any options.
+    -   `@khanacademy/perseus-editor`: no longer re-exports `widgets` from `@khanacademy/perseus`.
+
+-   [#4379](https://github.com/Khan/perseus/pull/4379) [`2a931f0`](https://github.com/Khan/perseus/commit/2a931f0e9b28d5ab83822e01c1cc3bb1dadc3225) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Make the NumberInput component typesafe.
+
+-   Updated dependencies [[`574a740`](https://github.com/Khan/perseus/commit/574a7401b35398433ba1cd49aa1f108ed0acbca2), [`0c44951`](https://github.com/Khan/perseus/commit/0c44951edd1d95353cc55b9e551bad26e727fc7f), [`2a931f0`](https://github.com/Khan/perseus/commit/2a931f0e9b28d5ab83822e01c1cc3bb1dadc3225), [`51932bc`](https://github.com/Khan/perseus/commit/51932bc05dbcd85fa3dd66d00085426f03e17b2b)]:
+    -   @khanacademy/perseus-core@42.0.0
+    -   @khanacademy/kmath@3.1.0
+    -   @khanacademy/kas@3.0.2
+
+## 9.0.7
+
+### Patch Changes
+
+-   [#4262](https://github.com/Khan/perseus/pull/4262) [`2d8bbca`](https://github.com/Khan/perseus/commit/2d8bbca1b09a2be0721306773497fbbace8c826e) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Upgraded tooling - pnpm v12
+
+-   Updated dependencies [[`2d8bbca`](https://github.com/Khan/perseus/commit/2d8bbca1b09a2be0721306773497fbbace8c826e)]:
+    -   @khanacademy/kas@3.0.1
+    -   @khanacademy/kmath@3.0.7
+    -   @khanacademy/perseus-core@41.2.2
+    -   @khanacademy/perseus-utils@3.0.1
+
+## 9.0.6
+
+### Patch Changes
+
+-   Updated dependencies [[`f450f74`](https://github.com/Khan/perseus/commit/f450f74509e0e757ba73c3449bf66ceb654c7e0d)]:
+    -   @khanacademy/perseus-core@41.2.1
+    -   @khanacademy/kmath@3.0.6
+
 ## 9.0.5
 
 ### Patch Changes

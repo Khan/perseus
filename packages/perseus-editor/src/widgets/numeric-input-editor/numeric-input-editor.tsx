@@ -1,5 +1,5 @@
 import {KhanMath} from "@khanacademy/kmath";
-import {components, Util} from "@khanacademy/perseus";
+import {components} from "@khanacademy/perseus";
 import {
     numericInputLogic,
     type PerseusNumericInputWidgetOptions,
@@ -27,7 +27,6 @@ import styles from "./numeric-input-editor.module.css";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 
 const {NumberInput, TextInput} = components;
-const {firstNumericalParse} = Util;
 
 const answerFormButtons = [
     {title: "Integers", value: "integer", content: "6"},
@@ -509,17 +508,13 @@ class NumericInputEditor extends React.Component<Props, State> {
                                                 forms = ["proper", "improper"];
                                             }
                                             this.updateAnswer(i, {
-                                                value: firstNumericalParse(
-                                                    newValue,
-                                                ),
+                                                value: newValue,
                                                 answerForms: forms,
                                             });
                                         }}
                                         onChange={(newValue) => {
                                             this.updateAnswer(i, {
-                                                value: firstNumericalParse(
-                                                    newValue,
-                                                ),
+                                                value: newValue,
                                             });
                                         }}
                                     />
@@ -532,7 +527,9 @@ class NumericInputEditor extends React.Component<Props, State> {
                                     placeholder={0}
                                     value={answers[i]["maxError"]}
                                     format={_.last(answer.answerForms || [])}
-                                    onChange={this.updateAnswer(i, "maxError")}
+                                    onChange={(maxError) =>
+                                        this.updateAnswer(i, {maxError})
+                                    }
                                 />
                             </div>
                             <View className={styles.field}>

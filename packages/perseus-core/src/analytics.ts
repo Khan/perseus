@@ -35,6 +35,23 @@ export type PerseusAnalyticsEvent =
               widgetId: string;
           };
       }
+    | {
+          type: "perseus:widget:unsupported";
+          payload: {
+              widgetSubType: string;
+              widgetType: string;
+              widgetId: string;
+              /**
+               * Additional reason why this widget is not supported. This is
+               * primarily becase we've deprecated the widget or it's bad data
+               * (an invalid widget type), but in some cases we may mark _some_
+               * widget configurations for a supported widget type as not
+               * supported without deprecating the entire widget (eg. sorter
+               * with too many cards; circa Oct 2026).
+               */
+              reason: string;
+          };
+      }
     // TODO(LEMS-2831): Remove this error type in LEMS-2831
     | {
           type: "perseus:label-image:toggle-answers-hidden";

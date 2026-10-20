@@ -6,14 +6,21 @@ exports[`table answerful vs answerless answerful: snapshots 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         The answer is 42
 
+      </p>
+    </div>
+    <div
+      class="deprecated-perseus-container"
+    >
+      <div
+        class="deprecated-perseus-container"
+      >
         <div
           class="perseus-widget-container widget-block"
         >
@@ -27,14 +34,13 @@ exports[`table answerful vs answerless answerful: snapshots 1`] = `
                     class="perseus-renderer perseus-renderer-responsive"
                   >
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="0"
+                      class="deprecated-perseus-container"
                     >
-                      <div
-                        class="paragraph"
+                      <p
+                        class="deprecated-perseus-container"
                       >
                         Column 1
-                      </div>
+                      </p>
                     </div>
                   </div>
                 </th>
@@ -43,14 +49,13 @@ exports[`table answerful vs answerless answerful: snapshots 1`] = `
                     class="perseus-renderer perseus-renderer-responsive"
                   >
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="0"
+                      class="deprecated-perseus-container"
                     >
-                      <div
-                        class="paragraph"
+                      <p
+                        class="deprecated-perseus-container"
                       >
                         Column 2
-                      </div>
+                      </p>
                     </div>
                   </div>
                 </th>
@@ -100,14 +105,21 @@ exports[`table answerful vs answerless answerless: snapshots 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         The answer is 42
 
+      </p>
+    </div>
+    <div
+      class="deprecated-perseus-container"
+    >
+      <div
+        class="deprecated-perseus-container"
+      >
         <div
           class="perseus-widget-container widget-block"
         >
@@ -121,14 +133,13 @@ exports[`table answerful vs answerless answerless: snapshots 1`] = `
                     class="perseus-renderer perseus-renderer-responsive"
                   >
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="0"
+                      class="deprecated-perseus-container"
                     >
-                      <div
-                        class="paragraph"
+                      <p
+                        class="deprecated-perseus-container"
                       >
                         Column 1
-                      </div>
+                      </p>
                     </div>
                   </div>
                 </th>
@@ -137,14 +148,13 @@ exports[`table answerful vs answerless answerless: snapshots 1`] = `
                     class="perseus-renderer perseus-renderer-responsive"
                   >
                     <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="0"
+                      class="deprecated-perseus-container"
                     >
-                      <div
-                        class="paragraph"
+                      <p
+                        class="deprecated-perseus-container"
                       >
                         Column 2
-                      </div>
+                      </p>
                     </div>
                   </div>
                 </th>

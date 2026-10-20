@@ -1,5 +1,110 @@
 # @khanacademy/perseus
 
+## 92.0.2
+
+### Patch Changes
+
+-   [#4403](https://github.com/Khan/perseus/pull/4403) [`9c48aaa`](https://github.com/Khan/perseus/commit/9c48aaacedc824d06434e645c27e9e2e6fc2df19) Thanks [@benchristel](https://github.com/benchristel)! - Bugfix: Previously, `<p>` elements created by the Renderer didn't have React keys. Now they do..
+
+## 92.0.1
+
+### Patch Changes
+
+-   [#4310](https://github.com/Khan/perseus/pull/4310) [`ef74f9e`](https://github.com/Khan/perseus/commit/ef74f9e88cdf82af0690bf8a8191d713c54f45cd) Thanks [@nishasy](https://github.com/nishasy)! - [Graded Group a11y] Update invalid string copy
+
+-   [#4390](https://github.com/Khan/perseus/pull/4390) [`71349cd`](https://github.com/Khan/perseus/commit/71349cd6bae041d6986f012c8c4c209c2f837695) Thanks [@benchristel](https://github.com/benchristel)! - Remove feature flag for markdown renderer and consolidate associated stylesheets
+
+## 92.0.0
+
+### Major Changes
+
+-   [#4350](https://github.com/Khan/perseus/pull/4350) [`574a740`](https://github.com/Khan/perseus/commit/574a7401b35398433ba1cd49aa1f108ed0acbca2) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Treat removed widget types like any other widget type Perseus doesn't implement. There is no longer a `deprecated-standin` widget: for any widget type without a registered implementation, the renderer shows a notice (and logs the type and widget ID), the editor shows a fallback editor that keeps the widget's options, and scoring skips the widget.
+
+    Breaking changes:
+
+    -   `@khanacademy/perseus`: removed `Widgets.replaceWidget`, `replaceDeprecatedWidgets`, `registerEditors`, `getEditor`, `replaceEditor` and `replaceDeprecatedEditors`. The `deprecatedStandin` string is now `unsupportedWidget`.
+    -   `@khanacademy/perseus-core`: removed `DeprecatedStandinWidget` and the deprecated widget types from `PerseusWidgetTypes`, and the `deprecated-standin` widget logic is gone. The parser now accepts removed widget types the same way as any unknown type, with any options.
+    -   `@khanacademy/perseus-editor`: no longer re-exports `widgets` from `@khanacademy/perseus`.
+
+### Minor Changes
+
+-   [#4384](https://github.com/Khan/perseus/pull/4384) [`679dedd`](https://github.com/Khan/perseus/commit/679dedd258d6c16654527c466c9e4b77488dbf76) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Add types to the RangeInput component.
+
+-   [#4379](https://github.com/Khan/perseus/pull/4379) [`2a931f0`](https://github.com/Khan/perseus/commit/2a931f0e9b28d5ab83822e01c1cc3bb1dadc3225) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Make the NumberInput component typesafe.
+
+### Patch Changes
+
+-   [#4193](https://github.com/Khan/perseus/pull/4193) [`eda7ea8`](https://github.com/Khan/perseus/commit/eda7ea8685ab73274101844a6183904df53b0238) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Updating snapshots to contain CSS information.
+
+-   [#4374](https://github.com/Khan/perseus/pull/4374) [`0c44951`](https://github.com/Khan/perseus/commit/0c44951edd1d95353cc55b9e551bad26e727fc7f) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Dispatch `perseus:widget:unsupported` analytics event when encountering an unsupported widget
+
+-   [#4381](https://github.com/Khan/perseus/pull/4381) [`b9604ec`](https://github.com/Khan/perseus/commit/b9604ec7b516de9c963f53c703190d83ead7f1ed) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Bugfix - Categorizer widget had incorrect row height in mobile views
+
+-   [#4388](https://github.com/Khan/perseus/pull/4388) [`51932bc`](https://github.com/Khan/perseus/commit/51932bc05dbcd85fa3dd66d00085426f03e17b2b) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove _.forEach, _.random, _.toArray, and _.head from the code
+
+-   [#4361](https://github.com/Khan/perseus/pull/4361) [`e2106e2`](https://github.com/Khan/perseus/commit/e2106e284655cc9ab74123818a08600cc044242a) Thanks [@benchristel](https://github.com/benchristel)! - Bugfix: responsive markdown images (which are rendered using `<div>`s) are no longer wrapped in `<p>` tags. This caused an invalid DOM nesting error.
+
+-   Updated dependencies [[`574a740`](https://github.com/Khan/perseus/commit/574a7401b35398433ba1cd49aa1f108ed0acbca2), [`eda7ea8`](https://github.com/Khan/perseus/commit/eda7ea8685ab73274101844a6183904df53b0238), [`0c44951`](https://github.com/Khan/perseus/commit/0c44951edd1d95353cc55b9e551bad26e727fc7f), [`2a931f0`](https://github.com/Khan/perseus/commit/2a931f0e9b28d5ab83822e01c1cc3bb1dadc3225), [`51932bc`](https://github.com/Khan/perseus/commit/51932bc05dbcd85fa3dd66d00085426f03e17b2b)]:
+    -   @khanacademy/perseus-core@42.0.0
+    -   @khanacademy/perseus-score@9.0.8
+    -   @khanacademy/math-input@30.1.2
+    -   @khanacademy/kmath@3.1.0
+    -   @khanacademy/kas@3.0.2
+    -   @khanacademy/keypad-context@6.0.7
+    -   @khanacademy/perseus-linter@6.1.5
+
+## 91.1.1
+
+### Patch Changes
+
+-   [#4262](https://github.com/Khan/perseus/pull/4262) [`2d8bbca`](https://github.com/Khan/perseus/commit/2d8bbca1b09a2be0721306773497fbbace8c826e) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Upgraded tooling - pnpm v12
+
+-   [#4368](https://github.com/Khan/perseus/pull/4368) [`8a9b9b0`](https://github.com/Khan/perseus/commit/8a9b9b0d43a013c945d980ea1714b5b154246a41) Thanks [@beaesguerra](https://github.com/beaesguerra)! - Update Wonder Blocks dependencies (i18n strings for tabs, functional component refactors)
+
+-   [#4376](https://github.com/Khan/perseus/pull/4376) [`4bae42b`](https://github.com/Khan/perseus/commit/4bae42bea39c8788188226c5c3654ae83647a5eb) Thanks [@benchristel](https://github.com/benchristel)! - Bugfix: dropdown widgets had a too-small font size when the `perseus-renderer-upgrade` feature flag was on. The font size has been fixed.
+
+-   Updated dependencies [[`2d8bbca`](https://github.com/Khan/perseus/commit/2d8bbca1b09a2be0721306773497fbbace8c826e), [`8a9b9b0`](https://github.com/Khan/perseus/commit/8a9b9b0d43a013c945d980ea1714b5b154246a41)]:
+    -   @khanacademy/kas@3.0.1
+    -   @khanacademy/keypad-context@6.0.6
+    -   @khanacademy/kmath@3.0.7
+    -   @khanacademy/math-input@30.1.1
+    -   @khanacademy/perseus-core@41.2.2
+    -   @khanacademy/perseus-linter@6.1.4
+    -   @khanacademy/perseus-score@9.0.7
+    -   @khanacademy/perseus-utils@3.0.1
+    -   @khanacademy/pure-markdown@3.0.1
+    -   @khanacademy/simple-markdown@4.0.1
+
+## 91.1.0
+
+### Minor Changes
+
+-   [#4292](https://github.com/Khan/perseus/pull/4292) [`cf403f3`](https://github.com/Khan/perseus/commit/cf403f3426dc2b36db48ecdb14c8f5c6c7df7203) Thanks [@handeyeco](https://github.com/handeyeco)! - Consume `isScorable` in NumericInput to mark inputs as `aria-required` when in the context of ServerItemRenderer and GradedGroup.
+
+### Patch Changes
+
+-   [#4358](https://github.com/Khan/perseus/pull/4358) [`0820d05`](https://github.com/Khan/perseus/commit/0820d05f39cb115c23b2ec43ab8204558f05653a) Thanks [@nishasy](https://github.com/nishasy)! - [Graded Group a11y] Wait a frame so Android/talkback announces Correct state
+
+-   [#4357](https://github.com/Khan/perseus/pull/4357) [`ef8308b`](https://github.com/Khan/perseus/commit/ef8308b767f84b55d0c73c9c82040486a6649d13) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Bugfix - Extra space at top of articles
+
+-   [#4338](https://github.com/Khan/perseus/pull/4338) [`aa883b6`](https://github.com/Khan/perseus/commit/aa883b652e999736627ccdbaf80b1c0aadcf77c6) Thanks [@handeyeco](https://github.com/handeyeco)! - Mark FreeResponse as required when in a scorable context
+
+-   [#4362](https://github.com/Khan/perseus/pull/4362) [`da98ab1`](https://github.com/Khan/perseus/commit/da98ab194f8874569836f760c032a1930e323f77) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] | (a11y) | Add "required" SR text to Interactive Graph
+
+-   [#4371](https://github.com/Khan/perseus/pull/4371) [`8458e06`](https://github.com/Khan/perseus/commit/8458e06dfabebd0cb1e7d417c2d425edcdba750c) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Bugfix - Markdown tables with image widgets had a bottom margin causing extra spacing
+
+-   [#4347](https://github.com/Khan/perseus/pull/4347) [`dcffbc6`](https://github.com/Khan/perseus/commit/dcffbc6f32e296f263d5019ff189a4a16e6c7bcc) Thanks [@handeyeco](https://github.com/handeyeco)! - Add aria-required to Expression where appropriate
+
+-   [#4367](https://github.com/Khan/perseus/pull/4367) [`2858e40`](https://github.com/Khan/perseus/commit/2858e40c4bfe9c7a2674f34a53e038250e086bbc) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Bugfix - Missing margin below Explanation widget when on a line by itself
+
+-   Updated dependencies [[`cf403f3`](https://github.com/Khan/perseus/commit/cf403f3426dc2b36db48ecdb14c8f5c6c7df7203), [`f450f74`](https://github.com/Khan/perseus/commit/f450f74509e0e757ba73c3449bf66ceb654c7e0d)]:
+    -   @khanacademy/math-input@30.1.0
+    -   @khanacademy/perseus-core@41.2.1
+    -   @khanacademy/keypad-context@6.0.5
+    -   @khanacademy/kmath@3.0.6
+    -   @khanacademy/perseus-linter@6.1.3
+    -   @khanacademy/perseus-score@9.0.6
+
 ## 91.0.0
 
 ### Major Changes

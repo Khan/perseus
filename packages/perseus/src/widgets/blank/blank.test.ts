@@ -1,6 +1,6 @@
 import {screen} from "@testing-library/react";
 
-import {renderQuestion} from "../__testutils__/renderQuestion";
+import {renderQuestion} from "../__testutils__/render-question";
 
 import {basicBlankQuestion, superscriptQuestion} from "./blank.testdata";
 

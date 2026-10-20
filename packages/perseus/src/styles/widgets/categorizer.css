@@ -27,3 +27,8 @@ body.mobile
     color: var(--wb-semanticColor-core-foreground-neutral-default);
     content: "\f111"; /* fa-circle */
 }
+
+/***** New categorizer styles referencing .deprecated-perseus-container *****/
+.categorizer-container :is(div, p).deprecated-perseus-container {
+    margin: 10px 0px;
+}

@@ -6,11 +6,10 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <strong>
           Perform the row operation, 
@@ -27,11 +26,10 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
           </span>
           , on the following matrix.
         </strong>
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph perseus-paragraph-centered"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container perseus-paragraph-centered"
     >
       <div
         class="perseus-block-math"
@@ -57,11 +55,10 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
       </div>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="2"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -89,13 +86,17 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-input_q8esej inside"
+                    class="inside"
+                    data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                    data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                    data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                    data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                     data-testid="input-with-examples"
                     id="input-13"
+                    style="width: 40px; height: 30px; border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 3px; display: inline-block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); padding: 0px; border-width: var(--wb-border-width-medium);"
                     type="text"
                     value=""
                   />
@@ -106,13 +107,17 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-input_13vfcj1 outside"
+                    class="outside"
+                    data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                    data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                    data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                    data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                     data-testid="input-with-examples"
                     id="input-14"
+                    style="width: 40px; height: 30px; border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 3px; display: inline-block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); padding: 0px; border-width: var(--wb-border-width-thin);"
                     type="text"
                     value=""
                   />
@@ -123,13 +128,17 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-input_13vfcj1 outside"
+                    class="outside"
+                    data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                    data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                    data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                    data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                     data-testid="input-with-examples"
                     id="input-15"
+                    style="width: 40px; height: 30px; border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 3px; display: inline-block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); padding: 0px; border-width: var(--wb-border-width-thin);"
                     type="text"
                     value=""
                   />
@@ -140,13 +149,17 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-input_13vfcj1 outside"
+                    class="outside"
+                    data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                    data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                    data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                    data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                     data-testid="input-with-examples"
                     id="input-16"
+                    style="width: 40px; height: 30px; border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 3px; display: inline-block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); padding: 0px; border-width: var(--wb-border-width-thin);"
                     type="text"
                     value=""
                   />
@@ -161,13 +174,17 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-input_13vfcj1 outside"
+                    class="outside"
+                    data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                    data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                    data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                    data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                     data-testid="input-with-examples"
                     id="input-17"
+                    style="width: 40px; height: 30px; border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 3px; display: inline-block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); padding: 0px; border-width: var(--wb-border-width-thin);"
                     type="text"
                     value=""
                   />
@@ -178,13 +195,17 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-input_13vfcj1 outside"
+                    class="outside"
+                    data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                    data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                    data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                    data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                     data-testid="input-with-examples"
                     id="input-18"
+                    style="width: 40px; height: 30px; border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 3px; display: inline-block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); padding: 0px; border-width: var(--wb-border-width-thin);"
                     type="text"
                     value=""
                   />
@@ -195,13 +216,17 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-input_13vfcj1 outside"
+                    class="outside"
+                    data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                    data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                    data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                    data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                     data-testid="input-with-examples"
                     id="input-19"
+                    style="width: 40px; height: 30px; border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 3px; display: inline-block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); padding: 0px; border-width: var(--wb-border-width-thin);"
                     type="text"
                     value=""
                   />
@@ -212,13 +237,17 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-input_13vfcj1 outside"
+                    class="outside"
+                    data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                    data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                    data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                    data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                     data-testid="input-with-examples"
                     id="input-20"
+                    style="width: 40px; height: 30px; border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 3px; display: inline-block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); padding: 0px; border-width: var(--wb-border-width-thin);"
                     type="text"
                     value=""
                   />
@@ -233,13 +262,17 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-input_13vfcj1 outside"
+                    class="outside"
+                    data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                    data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                    data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                    data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                     data-testid="input-with-examples"
                     id="input-21"
+                    style="width: 40px; height: 30px; border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 3px; display: inline-block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); padding: 0px; border-width: var(--wb-border-width-thin);"
                     type="text"
                     value=""
                   />
@@ -250,13 +283,17 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-input_13vfcj1 outside"
+                    class="outside"
+                    data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                    data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                    data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                    data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                     data-testid="input-with-examples"
                     id="input-22"
+                    style="width: 40px; height: 30px; border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 3px; display: inline-block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); padding: 0px; border-width: var(--wb-border-width-thin);"
                     type="text"
                     value=""
                   />
@@ -267,13 +304,17 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-input_13vfcj1 outside"
+                    class="outside"
+                    data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                    data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                    data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                    data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                     data-testid="input-with-examples"
                     id="input-23"
+                    style="width: 40px; height: 30px; border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 3px; display: inline-block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); padding: 0px; border-width: var(--wb-border-width-thin);"
                     type="text"
                     value=""
                   />
@@ -284,13 +325,17 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-input_13vfcj1 outside"
+                    class="outside"
+                    data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                    data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                    data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                    data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                     data-testid="input-with-examples"
                     id="input-24"
+                    style="width: 40px; height: 30px; border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 3px; display: inline-block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); padding: 0px; border-width: var(--wb-border-width-thin);"
                     type="text"
                     value=""
                   />
@@ -311,11 +356,10 @@ exports[`matrix widget should snapshot: first render 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container"
     >
-      <div
-        class="paragraph"
+      <p
+        class="deprecated-perseus-container"
       >
         <strong>
           Perform the row operation, 
@@ -332,11 +376,10 @@ exports[`matrix widget should snapshot: first render 1`] = `
           </span>
           , on the following matrix.
         </strong>
-      </div>
+      </p>
     </div>
     <div
-      class="paragraph perseus-paragraph-centered"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container perseus-paragraph-centered"
     >
       <div
         class="perseus-block-math"
@@ -357,11 +400,10 @@ exports[`matrix widget should snapshot: first render 1`] = `
       </div>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="2"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
@@ -389,13 +431,17 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-input_q8esej inside"
+                    class="inside"
+                    data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                    data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                    data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                    data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                     data-testid="input-with-examples"
                     id="input-1"
+                    style="width: 40px; height: 30px; border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 3px; display: inline-block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); padding: 0px; border-width: var(--wb-border-width-medium);"
                     type="text"
                     value=""
                   />
@@ -406,13 +452,17 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-input_13vfcj1 outside"
+                    class="outside"
+                    data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                    data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                    data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                    data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                     data-testid="input-with-examples"
                     id="input-2"
+                    style="width: 40px; height: 30px; border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 3px; display: inline-block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); padding: 0px; border-width: var(--wb-border-width-thin);"
                     type="text"
                     value=""
                   />
@@ -423,13 +473,17 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-input_13vfcj1 outside"
+                    class="outside"
+                    data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                    data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                    data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                    data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                     data-testid="input-with-examples"
                     id="input-3"
+                    style="width: 40px; height: 30px; border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 3px; display: inline-block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); padding: 0px; border-width: var(--wb-border-width-thin);"
                     type="text"
                     value=""
                   />
@@ -440,13 +494,17 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-input_13vfcj1 outside"
+                    class="outside"
+                    data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                    data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                    data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                    data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                     data-testid="input-with-examples"
                     id="input-4"
+                    style="width: 40px; height: 30px; border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 3px; display: inline-block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); padding: 0px; border-width: var(--wb-border-width-thin);"
                     type="text"
                     value=""
                   />
@@ -461,13 +519,17 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-input_13vfcj1 outside"
+                    class="outside"
+                    data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                    data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                    data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                    data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                     data-testid="input-with-examples"
                     id="input-5"
+                    style="width: 40px; height: 30px; border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 3px; display: inline-block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); padding: 0px; border-width: var(--wb-border-width-thin);"
                     type="text"
                     value=""
                   />
@@ -478,13 +540,17 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-input_13vfcj1 outside"
+                    class="outside"
+                    data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                    data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                    data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                    data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                     data-testid="input-with-examples"
                     id="input-6"
+                    style="width: 40px; height: 30px; border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 3px; display: inline-block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); padding: 0px; border-width: var(--wb-border-width-thin);"
                     type="text"
                     value=""
                   />
@@ -495,13 +561,17 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-input_13vfcj1 outside"
+                    class="outside"
+                    data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                    data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                    data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                    data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                     data-testid="input-with-examples"
                     id="input-7"
+                    style="width: 40px; height: 30px; border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 3px; display: inline-block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); padding: 0px; border-width: var(--wb-border-width-thin);"
                     type="text"
                     value=""
                   />
@@ -512,13 +582,17 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-input_13vfcj1 outside"
+                    class="outside"
+                    data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                    data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                    data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                    data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                     data-testid="input-with-examples"
                     id="input-8"
+                    style="width: 40px; height: 30px; border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 3px; display: inline-block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); padding: 0px; border-width: var(--wb-border-width-thin);"
                     type="text"
                     value=""
                   />
@@ -533,13 +607,17 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-input_13vfcj1 outside"
+                    class="outside"
+                    data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                    data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                    data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                    data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                     data-testid="input-with-examples"
                     id="input-9"
+                    style="width: 40px; height: 30px; border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 3px; display: inline-block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); padding: 0px; border-width: var(--wb-border-width-thin);"
                     type="text"
                     value=""
                   />
@@ -550,13 +628,17 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-input_13vfcj1 outside"
+                    class="outside"
+                    data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                    data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                    data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                    data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                     data-testid="input-with-examples"
                     id="input-10"
+                    style="width: 40px; height: 30px; border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 3px; display: inline-block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); padding: 0px; border-width: var(--wb-border-width-thin);"
                     type="text"
                     value=""
                   />
@@ -567,13 +649,17 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-input_13vfcj1 outside"
+                    class="outside"
+                    data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                    data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                    data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                    data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                     data-testid="input-with-examples"
                     id="input-11"
+                    style="width: 40px; height: 30px; border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 3px; display: inline-block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); padding: 0px; border-width: var(--wb-border-width-thin);"
                     type="text"
                     value=""
                   />
@@ -584,13 +670,17 @@ exports[`matrix widget should snapshot: first render 1`] = `
                   <input
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-required="false"
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
-                    class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_j8cf2b-o_O-input_13vfcj1 outside"
+                    class="outside"
+                    data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                    data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                    data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                    data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
                     data-testid="input-with-examples"
                     id="input-12"
+                    style="width: 40px; height: 30px; border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 3px; display: inline-block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); padding: 0px; border-width: var(--wb-border-width-thin);"
                     type="text"
                     value=""
                   />

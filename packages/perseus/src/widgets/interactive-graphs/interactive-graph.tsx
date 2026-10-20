@@ -100,6 +100,16 @@ class InteractiveGraph extends React.Component<Props> {
             "-",
         )}`;
 
+        // Interacting with the graph is required to move on from the
+        // question, but only when the learner can actually interact with it
+        // and their answer will be graded.
+        const isRequired =
+            this.props.isScorable &&
+            this.props.graded !== false &&
+            !this.props.reviewMode &&
+            !this.props.static &&
+            !this.props.apiOptions?.readOnly;
+
         return (
             <>
                 {showUngradedText && (
@@ -120,6 +130,7 @@ class InteractiveGraph extends React.Component<Props> {
                     ungradedDescriptionId={
                         showUngradedText ? ungradedDescriptionId : undefined
                     }
+                    isRequired={isRequired}
                 />
             </>
         );

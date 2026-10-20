@@ -6,36 +6,34 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph perseus-paragraph-centered"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container perseus-paragraph-centered"
     >
       <hr
         aria-hidden="true"
       />
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container"
     >
       <h2>
         Check your understanding!
       </h2>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="2"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
         >
           <div
-            class="perseus-graded-group gradedGroup_mg08ap"
+            class="perseus-graded-group"
+            style="border-block-start: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-block-end: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); background-color: var(--wb-semanticColor-core-background-base-subtle); margin-inline-start: -16px; margin-inline-end: -16px; padding-block-end: 16px; padding-inline-start: 16px; padding-inline-end: 16px; padding-block-start: 10px; width: auto;"
           >
             <div
-              class="title_15to8kx"
+              style="font-size: var(--wb-font-heading-size-small); color: var(--wb-semanticColor-core-foreground-neutral-default); text-transform: uppercase; margin-block-end: 11px; letter-spacing: 0.8px;"
             >
               Metabolic strategies of bacteria
             </div>
@@ -43,361 +41,375 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
               class="perseus-renderer perseus-renderer-responsive"
             >
               <div
-                class="paragraph"
-                data-perseus-paragraph-index="0"
+                class="deprecated-perseus-container"
               >
                 <ol
                   start="1"
                 >
                   <li>
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       <strong>
                         Which of the following statements about metabolic strategies of bacteria are true?
                       </strong>
-                    </div>
-                    <div
-                      class="paragraph"
+                    </p>
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       <div
-                        class="perseus-widget-container widget-block"
+                        class="deprecated-perseus-container"
                       >
                         <div
-                          class="categorizer-container "
+                          class="perseus-widget-container widget-block"
                         >
-                          <table
-                            class="categorizer-table mobileTable_1ktoh91"
+                          <div
+                            class="categorizer-container "
                           >
-                            <thead>
-                              <tr>
-                                <td
-                                  class="emptyHeaderCell_1fhroad"
-                                />
-                                <th
-                                  class="header_whrfk4"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
+                            <table
+                              class="categorizer-table"
+                              data-style-media-screen-and-max-width-767px="min-inline-size: auto;"
+                            >
+                              <thead>
+                                <tr>
+                                  <td
+                                    style="background-color: inherit; border-block-end: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-border-neutral-subtle);"
+                                  />
+                                  <th
+                                    style="text-align: center; vertical-align: bottom;"
                                   >
                                     <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
+                                      class="perseus-renderer perseus-renderer-responsive"
                                     >
                                       <div
-                                        class="paragraph"
+                                        class="deprecated-perseus-container"
                                       >
-                                        True
+                                        <p
+                                          class="deprecated-perseus-container"
+                                        >
+                                          True
+                                        </p>
                                       </div>
                                     </div>
-                                  </div>
-                                </th>
-                                <th
-                                  class="header_whrfk4"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
+                                  </th>
+                                  <th
+                                    style="text-align: center; vertical-align: bottom;"
                                   >
                                     <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
+                                      class="perseus-renderer perseus-renderer-responsive"
                                     >
                                       <div
-                                        class="paragraph"
+                                        class="deprecated-perseus-container"
                                       >
-                                        False
+                                        <p
+                                          class="deprecated-perseus-container"
+                                        >
+                                          False
+                                        </p>
                                       </div>
                                     </div>
-                                  </div>
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>
+                                    <div
+                                      class="perseus-renderer perseus-renderer-responsive"
+                                    >
+                                      <div
+                                        class="deprecated-perseus-container"
+                                      >
+                                        <p
+                                          class="deprecated-perseus-container"
+                                        >
+                                          Some bacteria conduct photosynthesis and produce oxygen, much like plants.
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td
+                                    class="category"
+                                    style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
                                     <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
+                                      aria-label="True"
+                                      role="button"
                                     >
-                                      <div
-                                        class="paragraph"
+                                      <span
+                                        data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
+                                        style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer;"
                                       >
-                                        Some bacteria conduct photosynthesis and produce oxygen, much like plants.
-                                      </div>
+                                        <svg
+                                          aria-hidden="true"
+                                          height="1em"
+                                          role="img"
+                                          style="vertical-align: middle;"
+                                          viewBox="0 0 100 99.944"
+                                          width="1.0005603137757144em"
+                                        >
+                                          <path
+                                            d="M50.046 8.322q-8.493 0-16.188 3.306-15.561 6.669-22.173 22.23-3.363 7.695-3.363 16.188t3.306 16.188 8.949 13.281q5.586 5.586 13.281 8.892t16.188 3.306 16.188-3.306 13.281-8.892 8.892-13.281 3.306-16.188-3.306-16.188-8.892-13.281-13.281-8.949q-7.695-3.306-16.188-3.306zm0 91.713q-13.623 0-25.137-6.726t-18.183-18.183q-6.726-11.571-6.726-25.137t6.726-25.08 18.24-18.24 25.08-6.669q13.566 0 25.08 6.726 11.514 6.669 18.24 18.183t6.726 25.137-6.726 25.137-18.24 18.126q-11.514 6.726-25.08 6.726z"
+                                            fill="currentColor"
+                                          />
+                                        </svg>
+                                      </span>
                                     </div>
-                                  </div>
-                                </td>
-                                <td
-                                  class="category cell_1wviiqy"
-                                >
-                                  <div
-                                    aria-label="True"
-                                    role="button"
-                                  >
-                                    <span
-                                      class="radioSpan_2k8t20"
-                                    >
-                                      <svg
-                                        aria-hidden="true"
-                                        height="1em"
-                                        role="img"
-                                        style="vertical-align: middle;"
-                                        viewBox="0 0 100 99.944"
-                                        width="1.0005603137757144em"
-                                      >
-                                        <path
-                                          d="M50.046 8.322q-8.493 0-16.188 3.306-15.561 6.669-22.173 22.23-3.363 7.695-3.363 16.188t3.306 16.188 8.949 13.281q5.586 5.586 13.281 8.892t16.188 3.306 16.188-3.306 13.281-8.892 8.892-13.281 3.306-16.188-3.306-16.188-8.892-13.281-13.281-8.949q-7.695-3.306-16.188-3.306zm0 91.713q-13.623 0-25.137-6.726t-18.183-18.183q-6.726-11.571-6.726-25.137t6.726-25.08 18.24-18.24 25.08-6.669q13.566 0 25.08 6.726 11.514 6.669 18.24 18.183t6.726 25.137-6.726 25.137-18.24 18.126q-11.514 6.726-25.08 6.726z"
-                                          fill="currentColor"
-                                        />
-                                      </svg>
-                                    </span>
-                                  </div>
-                                </td>
-                                <td
-                                  class="category cell_1wviiqy"
-                                >
-                                  <div
-                                    aria-label="False"
-                                    role="button"
-                                  >
-                                    <span
-                                      class="radioSpan_2k8t20"
-                                    >
-                                      <svg
-                                        aria-hidden="true"
-                                        height="1em"
-                                        role="img"
-                                        style="vertical-align: middle;"
-                                        viewBox="0 0 100 99.944"
-                                        width="1.0005603137757144em"
-                                      >
-                                        <path
-                                          d="M50.046 8.322q-8.493 0-16.188 3.306-15.561 6.669-22.173 22.23-3.363 7.695-3.363 16.188t3.306 16.188 8.949 13.281q5.586 5.586 13.281 8.892t16.188 3.306 16.188-3.306 13.281-8.892 8.892-13.281 3.306-16.188-3.306-16.188-8.892-13.281-13.281-8.949q-7.695-3.306-16.188-3.306zm0 91.713q-13.623 0-25.137-6.726t-18.183-18.183q-6.726-11.571-6.726-25.137t6.726-25.08 18.24-18.24 25.08-6.669q13.566 0 25.08 6.726 11.514 6.669 18.24 18.183t6.726 25.137-6.726 25.137-18.24 18.126q-11.514 6.726-25.08 6.726z"
-                                          fill="currentColor"
-                                        />
-                                      </svg>
-                                    </span>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
+                                  </td>
+                                  <td
+                                    class="category"
+                                    style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
                                     <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
+                                      aria-label="False"
+                                      role="button"
+                                    >
+                                      <span
+                                        data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
+                                        style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer;"
+                                      >
+                                        <svg
+                                          aria-hidden="true"
+                                          height="1em"
+                                          role="img"
+                                          style="vertical-align: middle;"
+                                          viewBox="0 0 100 99.944"
+                                          width="1.0005603137757144em"
+                                        >
+                                          <path
+                                            d="M50.046 8.322q-8.493 0-16.188 3.306-15.561 6.669-22.173 22.23-3.363 7.695-3.363 16.188t3.306 16.188 8.949 13.281q5.586 5.586 13.281 8.892t16.188 3.306 16.188-3.306 13.281-8.892 8.892-13.281 3.306-16.188-3.306-16.188-8.892-13.281-13.281-8.949q-7.695-3.306-16.188-3.306zm0 91.713q-13.623 0-25.137-6.726t-18.183-18.183q-6.726-11.571-6.726-25.137t6.726-25.08 18.24-18.24 25.08-6.669q13.566 0 25.08 6.726 11.514 6.669 18.24 18.183t6.726 25.137-6.726 25.137-18.24 18.126q-11.514 6.726-25.08 6.726z"
+                                            fill="currentColor"
+                                          />
+                                        </svg>
+                                      </span>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <div
+                                      class="perseus-renderer perseus-renderer-responsive"
                                     >
                                       <div
-                                        class="paragraph"
+                                        class="deprecated-perseus-container"
                                       >
-                                        Bacteria are always autotrophic but they may get energy from either light or chemical sources.
+                                        <p
+                                          class="deprecated-perseus-container"
+                                        >
+                                          Bacteria are always autotrophic but they may get energy from either light or chemical sources.
+                                        </p>
                                       </div>
                                     </div>
-                                  </div>
-                                </td>
-                                <td
-                                  class="category cell_1wviiqy"
-                                >
-                                  <div
-                                    aria-label="True"
-                                    role="button"
-                                  >
-                                    <span
-                                      class="radioSpan_2k8t20"
-                                    >
-                                      <svg
-                                        aria-hidden="true"
-                                        height="1em"
-                                        role="img"
-                                        style="vertical-align: middle;"
-                                        viewBox="0 0 100 99.944"
-                                        width="1.0005603137757144em"
-                                      >
-                                        <path
-                                          d="M50.046 8.322q-8.493 0-16.188 3.306-15.561 6.669-22.173 22.23-3.363 7.695-3.363 16.188t3.306 16.188 8.949 13.281q5.586 5.586 13.281 8.892t16.188 3.306 16.188-3.306 13.281-8.892 8.892-13.281 3.306-16.188-3.306-16.188-8.892-13.281-13.281-8.949q-7.695-3.306-16.188-3.306zm0 91.713q-13.623 0-25.137-6.726t-18.183-18.183q-6.726-11.571-6.726-25.137t6.726-25.08 18.24-18.24 25.08-6.669q13.566 0 25.08 6.726 11.514 6.669 18.24 18.183t6.726 25.137-6.726 25.137-18.24 18.126q-11.514 6.726-25.08 6.726z"
-                                          fill="currentColor"
-                                        />
-                                      </svg>
-                                    </span>
-                                  </div>
-                                </td>
-                                <td
-                                  class="category cell_1wviiqy"
-                                >
-                                  <div
-                                    aria-label="False"
-                                    role="button"
-                                  >
-                                    <span
-                                      class="radioSpan_2k8t20"
-                                    >
-                                      <svg
-                                        aria-hidden="true"
-                                        height="1em"
-                                        role="img"
-                                        style="vertical-align: middle;"
-                                        viewBox="0 0 100 99.944"
-                                        width="1.0005603137757144em"
-                                      >
-                                        <path
-                                          d="M50.046 8.322q-8.493 0-16.188 3.306-15.561 6.669-22.173 22.23-3.363 7.695-3.363 16.188t3.306 16.188 8.949 13.281q5.586 5.586 13.281 8.892t16.188 3.306 16.188-3.306 13.281-8.892 8.892-13.281 3.306-16.188-3.306-16.188-8.892-13.281-13.281-8.949q-7.695-3.306-16.188-3.306zm0 91.713q-13.623 0-25.137-6.726t-18.183-18.183q-6.726-11.571-6.726-25.137t6.726-25.08 18.24-18.24 25.08-6.669q13.566 0 25.08 6.726 11.514 6.669 18.24 18.183t6.726 25.137-6.726 25.137-18.24 18.126q-11.514 6.726-25.08 6.726z"
-                                          fill="currentColor"
-                                        />
-                                      </svg>
-                                    </span>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
+                                  </td>
+                                  <td
+                                    class="category"
+                                    style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
                                     <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
+                                      aria-label="True"
+                                      role="button"
                                     >
-                                      <div
-                                        class="paragraph"
+                                      <span
+                                        data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
+                                        style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer;"
                                       >
-                                        Some chemosynthetic bacteria introduce energy and fixed carbon into communities where photosynthesis is not possible (e.g., deep-sea vents).
-                                      </div>
+                                        <svg
+                                          aria-hidden="true"
+                                          height="1em"
+                                          role="img"
+                                          style="vertical-align: middle;"
+                                          viewBox="0 0 100 99.944"
+                                          width="1.0005603137757144em"
+                                        >
+                                          <path
+                                            d="M50.046 8.322q-8.493 0-16.188 3.306-15.561 6.669-22.173 22.23-3.363 7.695-3.363 16.188t3.306 16.188 8.949 13.281q5.586 5.586 13.281 8.892t16.188 3.306 16.188-3.306 13.281-8.892 8.892-13.281 3.306-16.188-3.306-16.188-8.892-13.281-13.281-8.949q-7.695-3.306-16.188-3.306zm0 91.713q-13.623 0-25.137-6.726t-18.183-18.183q-6.726-11.571-6.726-25.137t6.726-25.08 18.24-18.24 25.08-6.669q13.566 0 25.08 6.726 11.514 6.669 18.24 18.183t6.726 25.137-6.726 25.137-18.24 18.126q-11.514 6.726-25.08 6.726z"
+                                            fill="currentColor"
+                                          />
+                                        </svg>
+                                      </span>
                                     </div>
-                                  </div>
-                                </td>
-                                <td
-                                  class="category cell_1wviiqy"
-                                >
-                                  <div
-                                    aria-label="True"
-                                    role="button"
-                                  >
-                                    <span
-                                      class="radioSpan_2k8t20"
-                                    >
-                                      <svg
-                                        aria-hidden="true"
-                                        height="1em"
-                                        role="img"
-                                        style="vertical-align: middle;"
-                                        viewBox="0 0 100 99.944"
-                                        width="1.0005603137757144em"
-                                      >
-                                        <path
-                                          d="M50.046 8.322q-8.493 0-16.188 3.306-15.561 6.669-22.173 22.23-3.363 7.695-3.363 16.188t3.306 16.188 8.949 13.281q5.586 5.586 13.281 8.892t16.188 3.306 16.188-3.306 13.281-8.892 8.892-13.281 3.306-16.188-3.306-16.188-8.892-13.281-13.281-8.949q-7.695-3.306-16.188-3.306zm0 91.713q-13.623 0-25.137-6.726t-18.183-18.183q-6.726-11.571-6.726-25.137t6.726-25.08 18.24-18.24 25.08-6.669q13.566 0 25.08 6.726 11.514 6.669 18.24 18.183t6.726 25.137-6.726 25.137-18.24 18.126q-11.514 6.726-25.08 6.726z"
-                                          fill="currentColor"
-                                        />
-                                      </svg>
-                                    </span>
-                                  </div>
-                                </td>
-                                <td
-                                  class="category cell_1wviiqy"
-                                >
-                                  <div
-                                    aria-label="False"
-                                    role="button"
-                                  >
-                                    <span
-                                      class="radioSpan_2k8t20"
-                                    >
-                                      <svg
-                                        aria-hidden="true"
-                                        height="1em"
-                                        role="img"
-                                        style="vertical-align: middle;"
-                                        viewBox="0 0 100 99.944"
-                                        width="1.0005603137757144em"
-                                      >
-                                        <path
-                                          d="M50.046 8.322q-8.493 0-16.188 3.306-15.561 6.669-22.173 22.23-3.363 7.695-3.363 16.188t3.306 16.188 8.949 13.281q5.586 5.586 13.281 8.892t16.188 3.306 16.188-3.306 13.281-8.892 8.892-13.281 3.306-16.188-3.306-16.188-8.892-13.281-13.281-8.949q-7.695-3.306-16.188-3.306zm0 91.713q-13.623 0-25.137-6.726t-18.183-18.183q-6.726-11.571-6.726-25.137t6.726-25.08 18.24-18.24 25.08-6.669q13.566 0 25.08 6.726 11.514 6.669 18.24 18.183t6.726 25.137-6.726 25.137-18.24 18.126q-11.514 6.726-25.08 6.726z"
-                                          fill="currentColor"
-                                        />
-                                      </svg>
-                                    </span>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
+                                  </td>
+                                  <td
+                                    class="category"
+                                    style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
                                     <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
+                                      aria-label="False"
+                                      role="button"
+                                    >
+                                      <span
+                                        data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
+                                        style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer;"
+                                      >
+                                        <svg
+                                          aria-hidden="true"
+                                          height="1em"
+                                          role="img"
+                                          style="vertical-align: middle;"
+                                          viewBox="0 0 100 99.944"
+                                          width="1.0005603137757144em"
+                                        >
+                                          <path
+                                            d="M50.046 8.322q-8.493 0-16.188 3.306-15.561 6.669-22.173 22.23-3.363 7.695-3.363 16.188t3.306 16.188 8.949 13.281q5.586 5.586 13.281 8.892t16.188 3.306 16.188-3.306 13.281-8.892 8.892-13.281 3.306-16.188-3.306-16.188-8.892-13.281-13.281-8.949q-7.695-3.306-16.188-3.306zm0 91.713q-13.623 0-25.137-6.726t-18.183-18.183q-6.726-11.571-6.726-25.137t6.726-25.08 18.24-18.24 25.08-6.669q13.566 0 25.08 6.726 11.514 6.669 18.24 18.183t6.726 25.137-6.726 25.137-18.24 18.126q-11.514 6.726-25.08 6.726z"
+                                            fill="currentColor"
+                                          />
+                                        </svg>
+                                      </span>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <div
+                                      class="perseus-renderer perseus-renderer-responsive"
                                     >
                                       <div
-                                        class="paragraph"
+                                        class="deprecated-perseus-container"
                                       >
-                                        Some bacteria live symbiotically inside of host organisms and provide the host with nutrients.
+                                        <p
+                                          class="deprecated-perseus-container"
+                                        >
+                                          Some chemosynthetic bacteria introduce energy and fixed carbon into communities where photosynthesis is not possible (e.g., deep-sea vents).
+                                        </p>
                                       </div>
                                     </div>
-                                  </div>
-                                </td>
-                                <td
-                                  class="category cell_1wviiqy"
-                                >
-                                  <div
-                                    aria-label="True"
-                                    role="button"
+                                  </td>
+                                  <td
+                                    class="category"
+                                    style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
-                                    <span
-                                      class="radioSpan_2k8t20"
+                                    <div
+                                      aria-label="True"
+                                      role="button"
                                     >
-                                      <svg
-                                        aria-hidden="true"
-                                        height="1em"
-                                        role="img"
-                                        style="vertical-align: middle;"
-                                        viewBox="0 0 100 99.944"
-                                        width="1.0005603137757144em"
+                                      <span
+                                        data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
+                                        style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer;"
                                       >
-                                        <path
-                                          d="M50.046 8.322q-8.493 0-16.188 3.306-15.561 6.669-22.173 22.23-3.363 7.695-3.363 16.188t3.306 16.188 8.949 13.281q5.586 5.586 13.281 8.892t16.188 3.306 16.188-3.306 13.281-8.892 8.892-13.281 3.306-16.188-3.306-16.188-8.892-13.281-13.281-8.949q-7.695-3.306-16.188-3.306zm0 91.713q-13.623 0-25.137-6.726t-18.183-18.183q-6.726-11.571-6.726-25.137t6.726-25.08 18.24-18.24 25.08-6.669q13.566 0 25.08 6.726 11.514 6.669 18.24 18.183t6.726 25.137-6.726 25.137-18.24 18.126q-11.514 6.726-25.08 6.726z"
-                                          fill="currentColor"
-                                        />
-                                      </svg>
-                                    </span>
-                                  </div>
-                                </td>
-                                <td
-                                  class="category cell_1wviiqy"
-                                >
-                                  <div
-                                    aria-label="False"
-                                    role="button"
+                                        <svg
+                                          aria-hidden="true"
+                                          height="1em"
+                                          role="img"
+                                          style="vertical-align: middle;"
+                                          viewBox="0 0 100 99.944"
+                                          width="1.0005603137757144em"
+                                        >
+                                          <path
+                                            d="M50.046 8.322q-8.493 0-16.188 3.306-15.561 6.669-22.173 22.23-3.363 7.695-3.363 16.188t3.306 16.188 8.949 13.281q5.586 5.586 13.281 8.892t16.188 3.306 16.188-3.306 13.281-8.892 8.892-13.281 3.306-16.188-3.306-16.188-8.892-13.281-13.281-8.949q-7.695-3.306-16.188-3.306zm0 91.713q-13.623 0-25.137-6.726t-18.183-18.183q-6.726-11.571-6.726-25.137t6.726-25.08 18.24-18.24 25.08-6.669q13.566 0 25.08 6.726 11.514 6.669 18.24 18.183t6.726 25.137-6.726 25.137-18.24 18.126q-11.514 6.726-25.08 6.726z"
+                                            fill="currentColor"
+                                          />
+                                        </svg>
+                                      </span>
+                                    </div>
+                                  </td>
+                                  <td
+                                    class="category"
+                                    style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
-                                    <span
-                                      class="radioSpan_2k8t20"
+                                    <div
+                                      aria-label="False"
+                                      role="button"
                                     >
-                                      <svg
-                                        aria-hidden="true"
-                                        height="1em"
-                                        role="img"
-                                        style="vertical-align: middle;"
-                                        viewBox="0 0 100 99.944"
-                                        width="1.0005603137757144em"
+                                      <span
+                                        data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
+                                        style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer;"
                                       >
-                                        <path
-                                          d="M50.046 8.322q-8.493 0-16.188 3.306-15.561 6.669-22.173 22.23-3.363 7.695-3.363 16.188t3.306 16.188 8.949 13.281q5.586 5.586 13.281 8.892t16.188 3.306 16.188-3.306 13.281-8.892 8.892-13.281 3.306-16.188-3.306-16.188-8.892-13.281-13.281-8.949q-7.695-3.306-16.188-3.306zm0 91.713q-13.623 0-25.137-6.726t-18.183-18.183q-6.726-11.571-6.726-25.137t6.726-25.08 18.24-18.24 25.08-6.669q13.566 0 25.08 6.726 11.514 6.669 18.24 18.183t6.726 25.137-6.726 25.137-18.24 18.126q-11.514 6.726-25.08 6.726z"
-                                          fill="currentColor"
-                                        />
-                                      </svg>
-                                    </span>
-                                  </div>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
+                                        <svg
+                                          aria-hidden="true"
+                                          height="1em"
+                                          role="img"
+                                          style="vertical-align: middle;"
+                                          viewBox="0 0 100 99.944"
+                                          width="1.0005603137757144em"
+                                        >
+                                          <path
+                                            d="M50.046 8.322q-8.493 0-16.188 3.306-15.561 6.669-22.173 22.23-3.363 7.695-3.363 16.188t3.306 16.188 8.949 13.281q5.586 5.586 13.281 8.892t16.188 3.306 16.188-3.306 13.281-8.892 8.892-13.281 3.306-16.188-3.306-16.188-8.892-13.281-13.281-8.949q-7.695-3.306-16.188-3.306zm0 91.713q-13.623 0-25.137-6.726t-18.183-18.183q-6.726-11.571-6.726-25.137t6.726-25.08 18.24-18.24 25.08-6.669q13.566 0 25.08 6.726 11.514 6.669 18.24 18.183t6.726 25.137-6.726 25.137-18.24 18.126q-11.514 6.726-25.08 6.726z"
+                                            fill="currentColor"
+                                          />
+                                        </svg>
+                                      </span>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <div
+                                      class="perseus-renderer perseus-renderer-responsive"
+                                    >
+                                      <div
+                                        class="deprecated-perseus-container"
+                                      >
+                                        <p
+                                          class="deprecated-perseus-container"
+                                        >
+                                          Some bacteria live symbiotically inside of host organisms and provide the host with nutrients.
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td
+                                    class="category"
+                                    style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
+                                  >
+                                    <div
+                                      aria-label="True"
+                                      role="button"
+                                    >
+                                      <span
+                                        data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
+                                        style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer;"
+                                      >
+                                        <svg
+                                          aria-hidden="true"
+                                          height="1em"
+                                          role="img"
+                                          style="vertical-align: middle;"
+                                          viewBox="0 0 100 99.944"
+                                          width="1.0005603137757144em"
+                                        >
+                                          <path
+                                            d="M50.046 8.322q-8.493 0-16.188 3.306-15.561 6.669-22.173 22.23-3.363 7.695-3.363 16.188t3.306 16.188 8.949 13.281q5.586 5.586 13.281 8.892t16.188 3.306 16.188-3.306 13.281-8.892 8.892-13.281 3.306-16.188-3.306-16.188-8.892-13.281-13.281-8.949q-7.695-3.306-16.188-3.306zm0 91.713q-13.623 0-25.137-6.726t-18.183-18.183q-6.726-11.571-6.726-25.137t6.726-25.08 18.24-18.24 25.08-6.669q13.566 0 25.08 6.726 11.514 6.669 18.24 18.183t6.726 25.137-6.726 25.137-18.24 18.126q-11.514 6.726-25.08 6.726z"
+                                            fill="currentColor"
+                                          />
+                                        </svg>
+                                      </span>
+                                    </div>
+                                  </td>
+                                  <td
+                                    class="category"
+                                    style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
+                                  >
+                                    <div
+                                      aria-label="False"
+                                      role="button"
+                                    >
+                                      <span
+                                        data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
+                                        style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer;"
+                                      >
+                                        <svg
+                                          aria-hidden="true"
+                                          height="1em"
+                                          role="img"
+                                          style="vertical-align: middle;"
+                                          viewBox="0 0 100 99.944"
+                                          width="1.0005603137757144em"
+                                        >
+                                          <path
+                                            d="M50.046 8.322q-8.493 0-16.188 3.306-15.561 6.669-22.173 22.23-3.363 7.695-3.363 16.188t3.306 16.188 8.949 13.281q5.586 5.586 13.281 8.892t16.188 3.306 16.188-3.306 13.281-8.892 8.892-13.281 3.306-16.188-3.306-16.188-8.892-13.281-13.281-8.949q-7.695-3.306-16.188-3.306zm0 91.713q-13.623 0-25.137-6.726t-18.183-18.183q-6.726-11.571-6.726-25.137t6.726-25.08 18.24-18.24 25.08-6.669q13.566 0 25.08 6.726 11.514 6.669 18.24 18.183t6.726 25.137-6.726 25.137-18.24 18.126q-11.514 6.726-25.08 6.726z"
+                                            fill="currentColor"
+                                          />
+                                        </svg>
+                                      </span>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </p>
                   </li>
                 </ol>
               </div>
@@ -410,8 +422,7 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                 class="perseus-renderer perseus-renderer-responsive"
               >
                 <div
-                  class="paragraph perseus-paragraph-centered"
-                  data-perseus-paragraph-index="0"
+                  class="deprecated-perseus-container perseus-paragraph-centered"
                 >
                   
 
@@ -421,7 +432,7 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
             <button
               aria-controls=":r2f:"
               aria-expanded="false"
-              class="explainToggle_1rvdp1e"
+              style="background-color: unset; font-size: var(--wb-font-body-size-small); padding: 0px; border: none; margin-block-start: 20px; color: var(--wb-semanticColor-core-foreground-instructive-default); cursor: pointer; display: block; clear: both;"
             >
               Explain
             </button>
@@ -436,63 +447,57 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Some bacteria synthesize their own fuel molecules/fix their own carbon (autotrophic), while others take in fixed carbon from their environments (heterotrophic).
-                    </div>
+                    </p>
                   </div>
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="1"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Some autotrophs use light energy to synthesize their own fuel molecules, while others extract energy from chemical sources.
-                    </div>
+                    </p>
                   </div>
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="2"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Bacteria that extract energy from chemical sources and use it to fix carbon are called chemosynthetic organisms.  These bacteria may be essential to communities where light is not available, like those around deep-sea vents. They can form the base of the food chain (act as primary producers) in these ecosystems.
-                    </div>
+                    </p>
                   </div>
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="3"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Some bacteria have symbiotic (mutually beneficial) relationships with other organisms, living inside these organisms and providing them with nutrients.
-                    </div>
+                    </p>
                   </div>
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="4"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       <strong>
                         The following statements about the metabolic strategies of bacteria are true:
                       </strong>
-                    </div>
+                    </p>
                   </div>
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="5"
+                    class="deprecated-perseus-container"
                   >
                     <div
-                      class="paragraph"
+                      class="deprecated-perseus-container"
                     >
                       <div
                         class="perseus-widget-container widget-block"
@@ -502,46 +507,45 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                           class="categorizer-container static-mode "
                         >
                           <table
-                            class="categorizer-table mobileTable_1ktoh91"
+                            class="categorizer-table"
+                            data-style-media-screen-and-max-width-767px="min-inline-size: auto;"
                           >
                             <thead>
                               <tr>
                                 <td
-                                  class="emptyHeaderCell_1fhroad"
+                                  style="background-color: inherit; border-block-end: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-border-neutral-subtle);"
                                 />
                                 <th
-                                  class="header_whrfk4"
+                                  style="text-align: center; vertical-align: bottom;"
                                 >
                                   <div
                                     class="perseus-renderer perseus-renderer-responsive"
                                   >
                                     <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
+                                      class="deprecated-perseus-container"
                                     >
-                                      <div
-                                        class="paragraph"
+                                      <p
+                                        class="deprecated-perseus-container"
                                       >
                                         True
-                                      </div>
+                                      </p>
                                     </div>
                                   </div>
                                 </th>
                                 <th
-                                  class="header_whrfk4"
+                                  style="text-align: center; vertical-align: bottom;"
                                 >
                                   <div
                                     class="perseus-renderer perseus-renderer-responsive"
                                   >
                                     <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
+                                      class="deprecated-perseus-container"
                                     >
-                                      <div
-                                        class="paragraph"
+                                      <p
+                                        class="deprecated-perseus-container"
                                       >
                                         False
-                                      </div>
+                                      </p>
                                     </div>
                                   </div>
                                 </th>
@@ -554,26 +558,27 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                     class="perseus-renderer perseus-renderer-responsive"
                                   >
                                     <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
+                                      class="deprecated-perseus-container"
                                     >
-                                      <div
-                                        class="paragraph"
+                                      <p
+                                        class="deprecated-perseus-container"
                                       >
                                         Some bacteria conduct photosynthesis and produce oxygen, much like plants.
-                                      </div>
+                                      </p>
                                     </div>
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="True"
                                     role="button"
                                   >
                                     <span
-                                      class="radioSpan_2k8t20-o_O-checkedRadioSpan_tt866m-o_O-staticCheckedRadioSpan_1r6gi5o"
+                                      data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
+                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer; color: var(--wb-semanticColor-core-foreground-disabled-strong);"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -592,14 +597,16 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="False"
                                     role="button"
                                   >
                                     <span
-                                      class="radioSpan_2k8t20"
+                                      data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
+                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer;"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -624,26 +631,27 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                     class="perseus-renderer perseus-renderer-responsive"
                                   >
                                     <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
+                                      class="deprecated-perseus-container"
                                     >
-                                      <div
-                                        class="paragraph"
+                                      <p
+                                        class="deprecated-perseus-container"
                                       >
                                         Bacteria are always autotrophic but they may get energy from either light or chemical sources.
-                                      </div>
+                                      </p>
                                     </div>
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="True"
                                     role="button"
                                   >
                                     <span
-                                      class="radioSpan_2k8t20"
+                                      data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
+                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer;"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -662,14 +670,16 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="False"
                                     role="button"
                                   >
                                     <span
-                                      class="radioSpan_2k8t20-o_O-checkedRadioSpan_tt866m-o_O-staticCheckedRadioSpan_1r6gi5o"
+                                      data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
+                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer; color: var(--wb-semanticColor-core-foreground-disabled-strong);"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -694,26 +704,27 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                     class="perseus-renderer perseus-renderer-responsive"
                                   >
                                     <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
+                                      class="deprecated-perseus-container"
                                     >
-                                      <div
-                                        class="paragraph"
+                                      <p
+                                        class="deprecated-perseus-container"
                                       >
                                         Some chemosynthetic bacteria introduce energy and fixed carbon into communities where photosynthesis is not possible (e.g., deep-sea vents).
-                                      </div>
+                                      </p>
                                     </div>
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="True"
                                     role="button"
                                   >
                                     <span
-                                      class="radioSpan_2k8t20-o_O-checkedRadioSpan_tt866m-o_O-staticCheckedRadioSpan_1r6gi5o"
+                                      data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
+                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer; color: var(--wb-semanticColor-core-foreground-disabled-strong);"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -732,14 +743,16 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="False"
                                     role="button"
                                   >
                                     <span
-                                      class="radioSpan_2k8t20"
+                                      data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
+                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer;"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -764,26 +777,27 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                     class="perseus-renderer perseus-renderer-responsive"
                                   >
                                     <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
+                                      class="deprecated-perseus-container"
                                     >
-                                      <div
-                                        class="paragraph"
+                                      <p
+                                        class="deprecated-perseus-container"
                                       >
                                         Some bacteria live symbiotically inside of host organisms and provide the host with nutrients.
-                                      </div>
+                                      </p>
                                     </div>
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="True"
                                     role="button"
                                   >
                                     <span
-                                      class="radioSpan_2k8t20-o_O-checkedRadioSpan_tt866m-o_O-staticCheckedRadioSpan_1r6gi5o"
+                                      data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
+                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer; color: var(--wb-semanticColor-core-foreground-disabled-strong);"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -802,14 +816,16 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="False"
                                     role="button"
                                   >
                                     <span
-                                      class="radioSpan_2k8t20"
+                                      data-style-hover="color: var(--wb-semanticColor-core-foreground-instructive-subtle);"
+                                      style="font-size: var(--wb-sizing-size_280); padding-inline-end: 3px; cursor: pointer;"
                                     >
                                       <svg
                                         aria-hidden="true"
@@ -851,12 +867,17 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                 />
                 <button
                   aria-disabled="false"
-                  class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn"
                   data-kind="primary"
+                  data-style-active="background: var(--wb-semanticColor-action-primary-progressive-press-background); border-radius: var(--wb-c-button-root-border-radius-press); color: var(--wb-semanticColor-action-primary-progressive-press-foreground); outline: var(--wb-c-button-root-border-width-primary-press) solid var(--wb-semanticColor-action-primary-progressive-press-border); outline-offset: var(--wb-c-button-root-border-offset-primary);"
+                  data-style-focus="-webkit-tap-highlight-color: rgba(0,0,0,0);"
+                  data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                  data-style-media-hover-hover-hover="background: var(--wb-semanticColor-action-primary-progressive-hover-background); border-radius: var(--wb-c-button-root-border-radius-hover); color: var(--wb-semanticColor-action-primary-progressive-hover-foreground); outline: var(--wb-c-button-root-border-width-primary-hover) solid var(--wb-semanticColor-action-primary-progressive-hover-border); outline-offset: var(--wb-c-button-root-border-offset-primary);"
+                  data-style-moz-focus-inner="border: 0px;"
+                  style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: center; padding: 0px; border: none; cursor: pointer; outline: none; text-decoration: none; box-sizing: border-box; touch-action: manipulation; user-select: none; height: var(--wb-c-button-root-sizing-height-medium); padding-block: 0px; border-radius: var(--wb-c-button-root-border-radius-default); padding-inline: var(--wb-c-button-root-layout-padding-inline-primary-medium); border-style: solid; border-width: var(--wb-c-button-root-border-width-primary-default); border-color: var(--wb-semanticColor-action-primary-progressive-default-border); background: var(--wb-semanticColor-action-primary-progressive-default-background); color: var(--wb-semanticColor-action-primary-progressive-default-foreground); transition: border-radius 0.1s ease-in-out;"
                   type="button"
                 >
                   <span
-                    class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+                    style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: inline-block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-c-button-root-font-weight-default); line-height: var(--wb-c-button-root-font-lineHeight-default); align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;"
                   >
                     Check
                   </span>
@@ -877,36 +898,34 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
     class="perseus-renderer perseus-renderer-responsive"
   >
     <div
-      class="paragraph perseus-paragraph-centered"
-      data-perseus-paragraph-index="0"
+      class="deprecated-perseus-container perseus-paragraph-centered"
     >
       <hr
         aria-hidden="true"
       />
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="1"
+      class="deprecated-perseus-container"
     >
       <h2>
         Check your understanding!
       </h2>
     </div>
     <div
-      class="paragraph"
-      data-perseus-paragraph-index="2"
+      class="deprecated-perseus-container"
     >
       <div
-        class="paragraph"
+        class="deprecated-perseus-container"
       >
         <div
           class="perseus-widget-container widget-block"
         >
           <div
-            class="perseus-graded-group gradedGroup_mg08ap"
+            class="perseus-graded-group"
+            style="border-block-start: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); border-block-end: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle); background-color: var(--wb-semanticColor-core-background-base-subtle); margin-inline-start: -16px; margin-inline-end: -16px; padding-block-end: 16px; padding-inline-start: 16px; padding-inline-end: 16px; padding-block-start: 10px; width: auto;"
           >
             <div
-              class="title_15to8kx"
+              style="font-size: var(--wb-font-heading-size-small); color: var(--wb-semanticColor-core-foreground-neutral-default); text-transform: uppercase; margin-block-end: 11px; letter-spacing: 0.8px;"
             >
               Metabolic strategies of bacteria
             </div>
@@ -914,265 +933,288 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
               class="perseus-renderer perseus-renderer-responsive"
             >
               <div
-                class="paragraph"
-                data-perseus-paragraph-index="0"
+                class="deprecated-perseus-container"
               >
                 <ol
                   start="1"
                 >
                   <li>
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       <strong>
                         Which of the following statements about metabolic strategies of bacteria are true?
                       </strong>
-                    </div>
-                    <div
-                      class="paragraph"
+                    </p>
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       <div
-                        class="perseus-widget-container widget-block"
+                        class="deprecated-perseus-container"
                       >
                         <div
-                          class="categorizer-container fullBleedContainer_1pirxou"
+                          class="perseus-widget-container widget-block"
                         >
-                          <table
-                            class="categorizer-table mobileTable_1ktoh91"
+                          <div
+                            class="categorizer-container"
+                            data-style-media-screen-and-max-width-1023px="margin-inline-start: -16px; margin-inline-end: -16px; overflow-x: auto;"
                           >
-                            <thead>
-                              <tr>
-                                <td
-                                  class="emptyHeaderCell_1fhroad"
-                                />
-                                <th
-                                  class="header_whrfk4"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
+                            <table
+                              class="categorizer-table"
+                              data-style-media-screen-and-max-width-767px="min-inline-size: auto;"
+                            >
+                              <thead>
+                                <tr>
+                                  <td
+                                    style="background-color: inherit; border-block-end: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-border-neutral-subtle);"
+                                  />
+                                  <th
+                                    style="text-align: center; vertical-align: bottom;"
                                   >
                                     <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
+                                      class="perseus-renderer perseus-renderer-responsive"
                                     >
                                       <div
-                                        class="paragraph"
+                                        class="deprecated-perseus-container"
                                       >
-                                        True
+                                        <p
+                                          class="deprecated-perseus-container"
+                                        >
+                                          True
+                                        </p>
                                       </div>
                                     </div>
-                                  </div>
-                                </th>
-                                <th
-                                  class="header_whrfk4"
-                                >
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
+                                  </th>
+                                  <th
+                                    style="text-align: center; vertical-align: bottom;"
                                   >
                                     <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
+                                      class="perseus-renderer perseus-renderer-responsive"
                                     >
                                       <div
-                                        class="paragraph"
+                                        class="deprecated-perseus-container"
                                       >
-                                        False
+                                        <p
+                                          class="deprecated-perseus-container"
+                                        >
+                                          False
+                                        </p>
                                       </div>
                                     </div>
-                                  </div>
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>
+                                    <div
+                                      class="perseus-renderer perseus-renderer-responsive"
+                                    >
+                                      <div
+                                        class="deprecated-perseus-container"
+                                      >
+                                        <p
+                                          class="deprecated-perseus-container"
+                                        >
+                                          Some bacteria conduct photosynthesis and produce oxygen, much like plants.
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td
+                                    class="category"
+                                    style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
                                     <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
+                                      aria-label="True"
+                                      role="button"
                                     >
-                                      <div
-                                        class="paragraph"
-                                      >
-                                        Some bacteria conduct photosynthesis and produce oxygen, much like plants.
-                                      </div>
+                                      <input
+                                        data-style-checked="background-color: var(--wb-semanticColor-core-foreground-instructive-default); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-instructive-default); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
+                                        data-style-ms-check="display: none;"
+                                        name="perseus_radio_9_0"
+                                        style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
+                                        type="radio"
+                                      />
                                     </div>
-                                  </div>
-                                </td>
-                                <td
-                                  class="category cell_1wviiqy"
-                                >
-                                  <div
-                                    aria-label="True"
-                                    role="button"
-                                  >
-                                    <input
-                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
-                                      name="perseus_radio_9_0"
-                                      type="radio"
-                                    />
-                                  </div>
-                                </td>
-                                <td
-                                  class="category cell_1wviiqy"
-                                >
-                                  <div
-                                    aria-label="False"
-                                    role="button"
-                                  >
-                                    <input
-                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
-                                      name="perseus_radio_9_0"
-                                      type="radio"
-                                    />
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
+                                  </td>
+                                  <td
+                                    class="category"
+                                    style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
                                     <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
+                                      aria-label="False"
+                                      role="button"
+                                    >
+                                      <input
+                                        data-style-checked="background-color: var(--wb-semanticColor-core-foreground-instructive-default); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-instructive-default); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
+                                        data-style-ms-check="display: none;"
+                                        name="perseus_radio_9_0"
+                                        style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
+                                        type="radio"
+                                      />
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <div
+                                      class="perseus-renderer perseus-renderer-responsive"
                                     >
                                       <div
-                                        class="paragraph"
+                                        class="deprecated-perseus-container"
                                       >
-                                        Bacteria are always autotrophic but they may get energy from either light or chemical sources.
+                                        <p
+                                          class="deprecated-perseus-container"
+                                        >
+                                          Bacteria are always autotrophic but they may get energy from either light or chemical sources.
+                                        </p>
                                       </div>
                                     </div>
-                                  </div>
-                                </td>
-                                <td
-                                  class="category cell_1wviiqy"
-                                >
-                                  <div
-                                    aria-label="True"
-                                    role="button"
-                                  >
-                                    <input
-                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
-                                      name="perseus_radio_9_1"
-                                      type="radio"
-                                    />
-                                  </div>
-                                </td>
-                                <td
-                                  class="category cell_1wviiqy"
-                                >
-                                  <div
-                                    aria-label="False"
-                                    role="button"
-                                  >
-                                    <input
-                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
-                                      name="perseus_radio_9_1"
-                                      type="radio"
-                                    />
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
+                                  </td>
+                                  <td
+                                    class="category"
+                                    style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
                                     <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
+                                      aria-label="True"
+                                      role="button"
                                     >
-                                      <div
-                                        class="paragraph"
-                                      >
-                                        Some chemosynthetic bacteria introduce energy and fixed carbon into communities where photosynthesis is not possible (e.g., deep-sea vents).
-                                      </div>
+                                      <input
+                                        data-style-checked="background-color: var(--wb-semanticColor-core-foreground-instructive-default); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-instructive-default); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
+                                        data-style-ms-check="display: none;"
+                                        name="perseus_radio_9_1"
+                                        style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
+                                        type="radio"
+                                      />
                                     </div>
-                                  </div>
-                                </td>
-                                <td
-                                  class="category cell_1wviiqy"
-                                >
-                                  <div
-                                    aria-label="True"
-                                    role="button"
-                                  >
-                                    <input
-                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
-                                      name="perseus_radio_9_2"
-                                      type="radio"
-                                    />
-                                  </div>
-                                </td>
-                                <td
-                                  class="category cell_1wviiqy"
-                                >
-                                  <div
-                                    aria-label="False"
-                                    role="button"
-                                  >
-                                    <input
-                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
-                                      name="perseus_radio_9_2"
-                                      type="radio"
-                                    />
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div
-                                    class="perseus-renderer perseus-renderer-responsive"
+                                  </td>
+                                  <td
+                                    class="category"
+                                    style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
                                     <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
+                                      aria-label="False"
+                                      role="button"
+                                    >
+                                      <input
+                                        data-style-checked="background-color: var(--wb-semanticColor-core-foreground-instructive-default); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-instructive-default); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
+                                        data-style-ms-check="display: none;"
+                                        name="perseus_radio_9_1"
+                                        style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
+                                        type="radio"
+                                      />
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <div
+                                      class="perseus-renderer perseus-renderer-responsive"
                                     >
                                       <div
-                                        class="paragraph"
+                                        class="deprecated-perseus-container"
                                       >
-                                        Some bacteria live symbiotically inside of host organisms and provide the host with nutrients.
+                                        <p
+                                          class="deprecated-perseus-container"
+                                        >
+                                          Some chemosynthetic bacteria introduce energy and fixed carbon into communities where photosynthesis is not possible (e.g., deep-sea vents).
+                                        </p>
                                       </div>
                                     </div>
-                                  </div>
-                                </td>
-                                <td
-                                  class="category cell_1wviiqy"
-                                >
-                                  <div
-                                    aria-label="True"
-                                    role="button"
+                                  </td>
+                                  <td
+                                    class="category"
+                                    style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
-                                    <input
-                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
-                                      name="perseus_radio_9_3"
-                                      type="radio"
-                                    />
-                                  </div>
-                                </td>
-                                <td
-                                  class="category cell_1wviiqy"
-                                >
-                                  <div
-                                    aria-label="False"
-                                    role="button"
+                                    <div
+                                      aria-label="True"
+                                      role="button"
+                                    >
+                                      <input
+                                        data-style-checked="background-color: var(--wb-semanticColor-core-foreground-instructive-default); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-instructive-default); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
+                                        data-style-ms-check="display: none;"
+                                        name="perseus_radio_9_2"
+                                        style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
+                                        type="radio"
+                                      />
+                                    </div>
+                                  </td>
+                                  <td
+                                    class="category"
+                                    style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                   >
-                                    <input
-                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u"
-                                      name="perseus_radio_9_3"
-                                      type="radio"
-                                    />
-                                  </div>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
+                                    <div
+                                      aria-label="False"
+                                      role="button"
+                                    >
+                                      <input
+                                        data-style-checked="background-color: var(--wb-semanticColor-core-foreground-instructive-default); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-instructive-default); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
+                                        data-style-ms-check="display: none;"
+                                        name="perseus_radio_9_2"
+                                        style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
+                                        type="radio"
+                                      />
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <div
+                                      class="perseus-renderer perseus-renderer-responsive"
+                                    >
+                                      <div
+                                        class="deprecated-perseus-container"
+                                      >
+                                        <p
+                                          class="deprecated-perseus-container"
+                                        >
+                                          Some bacteria live symbiotically inside of host organisms and provide the host with nutrients.
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td
+                                    class="category"
+                                    style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
+                                  >
+                                    <div
+                                      aria-label="True"
+                                      role="button"
+                                    >
+                                      <input
+                                        data-style-checked="background-color: var(--wb-semanticColor-core-foreground-instructive-default); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-instructive-default); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
+                                        data-style-ms-check="display: none;"
+                                        name="perseus_radio_9_3"
+                                        style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
+                                        type="radio"
+                                      />
+                                    </div>
+                                  </td>
+                                  <td
+                                    class="category"
+                                    style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
+                                  >
+                                    <div
+                                      aria-label="False"
+                                      role="button"
+                                    >
+                                      <input
+                                        data-style-checked="background-color: var(--wb-semanticColor-core-foreground-instructive-default); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-instructive-default); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
+                                        data-style-ms-check="display: none;"
+                                        name="perseus_radio_9_3"
+                                        style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
+                                        type="radio"
+                                      />
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </p>
                   </li>
                 </ol>
               </div>
@@ -1185,8 +1227,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                 class="perseus-renderer perseus-renderer-responsive"
               >
                 <div
-                  class="paragraph perseus-paragraph-centered"
-                  data-perseus-paragraph-index="0"
+                  class="deprecated-perseus-container perseus-paragraph-centered"
                 >
                   
 
@@ -1196,7 +1237,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
             <button
               aria-controls=":r2e:"
               aria-expanded="false"
-              class="explainToggle_1rvdp1e"
+              style="background-color: unset; font-size: var(--wb-font-body-size-small); padding: 0px; border: none; margin-block-start: 20px; color: var(--wb-semanticColor-core-foreground-instructive-default); cursor: pointer; display: block; clear: both;"
             >
               Explain
             </button>
@@ -1211,112 +1252,106 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                   class="perseus-renderer perseus-renderer-responsive"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Some bacteria synthesize their own fuel molecules/fix their own carbon (autotrophic), while others take in fixed carbon from their environments (heterotrophic).
-                    </div>
+                    </p>
                   </div>
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="1"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Some autotrophs use light energy to synthesize their own fuel molecules, while others extract energy from chemical sources.
-                    </div>
+                    </p>
                   </div>
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="2"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Bacteria that extract energy from chemical sources and use it to fix carbon are called chemosynthetic organisms.  These bacteria may be essential to communities where light is not available, like those around deep-sea vents. They can form the base of the food chain (act as primary producers) in these ecosystems.
-                    </div>
+                    </p>
                   </div>
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="3"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       Some bacteria have symbiotic (mutually beneficial) relationships with other organisms, living inside these organisms and providing them with nutrients.
-                    </div>
+                    </p>
                   </div>
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="4"
+                    class="deprecated-perseus-container"
                   >
-                    <div
-                      class="paragraph"
+                    <p
+                      class="deprecated-perseus-container"
                     >
                       <strong>
                         The following statements about the metabolic strategies of bacteria are true:
                       </strong>
-                    </div>
+                    </p>
                   </div>
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="5"
+                    class="deprecated-perseus-container"
                   >
                     <div
-                      class="paragraph"
+                      class="deprecated-perseus-container"
                     >
                       <div
                         class="perseus-widget-container widget-block"
                         style="position: relative; overflow: visible;"
                       >
                         <div
-                          class="categorizer-container static-mode fullBleedContainer_1pirxou"
+                          class="categorizer-container static-mode"
+                          data-style-media-screen-and-max-width-1023px="margin-inline-start: -16px; margin-inline-end: -16px; overflow-x: auto;"
                         >
                           <table
-                            class="categorizer-table mobileTable_1ktoh91"
+                            class="categorizer-table"
+                            data-style-media-screen-and-max-width-767px="min-inline-size: auto;"
                           >
                             <thead>
                               <tr>
                                 <td
-                                  class="emptyHeaderCell_1fhroad"
+                                  style="background-color: inherit; border-block-end: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-border-neutral-subtle);"
                                 />
                                 <th
-                                  class="header_whrfk4"
+                                  style="text-align: center; vertical-align: bottom;"
                                 >
                                   <div
                                     class="perseus-renderer perseus-renderer-responsive"
                                   >
                                     <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
+                                      class="deprecated-perseus-container"
                                     >
-                                      <div
-                                        class="paragraph"
+                                      <p
+                                        class="deprecated-perseus-container"
                                       >
                                         True
-                                      </div>
+                                      </p>
                                     </div>
                                   </div>
                                 </th>
                                 <th
-                                  class="header_whrfk4"
+                                  style="text-align: center; vertical-align: bottom;"
                                 >
                                   <div
                                     class="perseus-renderer perseus-renderer-responsive"
                                   >
                                     <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
+                                      class="deprecated-perseus-container"
                                     >
-                                      <div
-                                        class="paragraph"
+                                      <p
+                                        class="deprecated-perseus-container"
                                       >
                                         False
-                                      </div>
+                                      </p>
                                     </div>
                                   </div>
                                 </th>
@@ -1329,19 +1364,19 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                     class="perseus-renderer perseus-renderer-responsive"
                                   >
                                     <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
+                                      class="deprecated-perseus-container"
                                     >
-                                      <div
-                                        class="paragraph"
+                                      <p
+                                        class="deprecated-perseus-container"
                                       >
                                         Some bacteria conduct photosynthesis and produce oxygen, much like plants.
-                                      </div>
+                                      </p>
                                     </div>
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="True"
@@ -1349,22 +1384,27 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   >
                                     <input
                                       checked=""
-                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u-o_O-responsiveRadioInputStatic_c2zd4f"
+                                      data-style-checked="background-color: var(--wb-semanticColor-core-foreground-disabled-strong); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-disabled-strong); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
+                                      data-style-ms-check="display: none;"
                                       name="perseus_radio_10_0"
+                                      style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
                                       type="radio"
                                     />
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="False"
                                     role="button"
                                   >
                                     <input
-                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u-o_O-responsiveRadioInputStatic_c2zd4f"
+                                      data-style-checked="background-color: var(--wb-semanticColor-core-foreground-disabled-strong); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-disabled-strong); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
+                                      data-style-ms-check="display: none;"
                                       name="perseus_radio_10_0"
+                                      style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
                                       type="radio"
                                     />
                                   </div>
@@ -1376,33 +1416,36 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                     class="perseus-renderer perseus-renderer-responsive"
                                   >
                                     <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
+                                      class="deprecated-perseus-container"
                                     >
-                                      <div
-                                        class="paragraph"
+                                      <p
+                                        class="deprecated-perseus-container"
                                       >
                                         Bacteria are always autotrophic but they may get energy from either light or chemical sources.
-                                      </div>
+                                      </p>
                                     </div>
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="True"
                                     role="button"
                                   >
                                     <input
-                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u-o_O-responsiveRadioInputStatic_c2zd4f"
+                                      data-style-checked="background-color: var(--wb-semanticColor-core-foreground-disabled-strong); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-disabled-strong); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
+                                      data-style-ms-check="display: none;"
                                       name="perseus_radio_10_1"
+                                      style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
                                       type="radio"
                                     />
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="False"
@@ -1410,8 +1453,10 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   >
                                     <input
                                       checked=""
-                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u-o_O-responsiveRadioInputStatic_c2zd4f"
+                                      data-style-checked="background-color: var(--wb-semanticColor-core-foreground-disabled-strong); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-disabled-strong); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
+                                      data-style-ms-check="display: none;"
                                       name="perseus_radio_10_1"
+                                      style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
                                       type="radio"
                                     />
                                   </div>
@@ -1423,19 +1468,19 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                     class="perseus-renderer perseus-renderer-responsive"
                                   >
                                     <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
+                                      class="deprecated-perseus-container"
                                     >
-                                      <div
-                                        class="paragraph"
+                                      <p
+                                        class="deprecated-perseus-container"
                                       >
                                         Some chemosynthetic bacteria introduce energy and fixed carbon into communities where photosynthesis is not possible (e.g., deep-sea vents).
-                                      </div>
+                                      </p>
                                     </div>
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="True"
@@ -1443,22 +1488,27 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   >
                                     <input
                                       checked=""
-                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u-o_O-responsiveRadioInputStatic_c2zd4f"
+                                      data-style-checked="background-color: var(--wb-semanticColor-core-foreground-disabled-strong); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-disabled-strong); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
+                                      data-style-ms-check="display: none;"
                                       name="perseus_radio_10_2"
+                                      style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
                                       type="radio"
                                     />
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="False"
                                     role="button"
                                   >
                                     <input
-                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u-o_O-responsiveRadioInputStatic_c2zd4f"
+                                      data-style-checked="background-color: var(--wb-semanticColor-core-foreground-disabled-strong); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-disabled-strong); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
+                                      data-style-ms-check="display: none;"
                                       name="perseus_radio_10_2"
+                                      style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
                                       type="radio"
                                     />
                                   </div>
@@ -1470,19 +1520,19 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                     class="perseus-renderer perseus-renderer-responsive"
                                   >
                                     <div
-                                      class="paragraph"
-                                      data-perseus-paragraph-index="0"
+                                      class="deprecated-perseus-container"
                                     >
-                                      <div
-                                        class="paragraph"
+                                      <p
+                                        class="deprecated-perseus-container"
                                       >
                                         Some bacteria live symbiotically inside of host organisms and provide the host with nutrients.
-                                      </div>
+                                      </p>
                                     </div>
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="True"
@@ -1490,22 +1540,27 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                   >
                                     <input
                                       checked=""
-                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u-o_O-responsiveRadioInputStatic_c2zd4f"
+                                      data-style-checked="background-color: var(--wb-semanticColor-core-foreground-disabled-strong); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-disabled-strong); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
+                                      data-style-ms-check="display: none;"
                                       name="perseus_radio_10_3"
+                                      style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
                                       type="radio"
                                     />
                                   </div>
                                 </td>
                                 <td
-                                  class="category cell_1wviiqy"
+                                  class="category"
+                                  style="text-align: center; padding: 0px; color: var(--wb-semanticColor-core-border-neutral-subtle); vertical-align: middle;"
                                 >
                                   <div
                                     aria-label="False"
                                     role="button"
                                   >
                                     <input
-                                      class="responsiveInput_143q2bv-o_O-responsiveRadioInput_ltxk2u-o_O-responsiveRadioInputStatic_c2zd4f"
+                                      data-style-checked="background-color: var(--wb-semanticColor-core-foreground-disabled-strong); border: none; border-radius: 50%; box-shadow: inset 0px 0px 0px 2px var(--wb-semanticColor-core-background-base-default), 0 0px 0px 2px var(--wb-semanticColor-core-foreground-disabled-strong); margin-block-start: 2px; margin-block-end: 2px; margin-inline-start: 2px; margin-inline-end: 2px; height: 20px; width: 20px;"
+                                      data-style-ms-check="display: none;"
                                       name="perseus_radio_10_3"
+                                      style="display: inline-block; -webkit-appearance: none; appearance: none; background-color: var(--wb-semanticColor-core-background-base-default); border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-background-base-default); box-shadow: 0 0px 0px var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-subtle); outline: none; box-sizing: border-box; flex-shrink: 0; margin-block-end: 1px; margin-inline-start: 1px; margin-inline-end: 1px; margin-block-start: 1px; height: 22px; width: 22px; border-radius: 50%;"
                                       type="radio"
                                     />
                                   </div>
@@ -1534,12 +1589,17 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                 />
                 <button
                   aria-disabled="false"
-                  class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn"
                   data-kind="primary"
+                  data-style-active="background: var(--wb-semanticColor-action-primary-progressive-press-background); border-radius: var(--wb-c-button-root-border-radius-press); color: var(--wb-semanticColor-action-primary-progressive-press-foreground); outline: var(--wb-c-button-root-border-width-primary-press) solid var(--wb-semanticColor-action-primary-progressive-press-border); outline-offset: var(--wb-c-button-root-border-offset-primary);"
+                  data-style-focus="-webkit-tap-highlight-color: rgba(0,0,0,0);"
+                  data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                  data-style-media-hover-hover-hover="background: var(--wb-semanticColor-action-primary-progressive-hover-background); border-radius: var(--wb-c-button-root-border-radius-hover); color: var(--wb-semanticColor-action-primary-progressive-hover-foreground); outline: var(--wb-c-button-root-border-width-primary-hover) solid var(--wb-semanticColor-action-primary-progressive-hover-border); outline-offset: var(--wb-c-button-root-border-offset-primary);"
+                  data-style-moz-focus-inner="border: 0px;"
+                  style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: center; padding: 0px; border: none; cursor: pointer; outline: none; text-decoration: none; box-sizing: border-box; touch-action: manipulation; user-select: none; height: var(--wb-c-button-root-sizing-height-medium); padding-block: 0px; border-radius: var(--wb-c-button-root-border-radius-default); padding-inline: var(--wb-c-button-root-layout-padding-inline-primary-medium); border-style: solid; border-width: var(--wb-c-button-root-border-width-primary-default); border-color: var(--wb-semanticColor-action-primary-progressive-default-border); background: var(--wb-semanticColor-action-primary-progressive-default-background); color: var(--wb-semanticColor-action-primary-progressive-default-foreground); transition: border-radius 0.1s ease-in-out;"
                   type="button"
                 >
                   <span
-                    class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
+                    style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: inline-block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-c-button-root-font-weight-default); line-height: var(--wb-c-button-root-font-lineHeight-default); align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;"
                   >
                     Check
                   </span>

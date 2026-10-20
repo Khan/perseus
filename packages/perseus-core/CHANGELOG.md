@@ -1,5 +1,43 @@
 # @khanacademy/perseus-core
 
+## 42.0.0
+
+### Major Changes
+
+-   [#4350](https://github.com/Khan/perseus/pull/4350) [`574a740`](https://github.com/Khan/perseus/commit/574a7401b35398433ba1cd49aa1f108ed0acbca2) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Treat removed widget types like any other widget type Perseus doesn't implement. There is no longer a `deprecated-standin` widget: for any widget type without a registered implementation, the renderer shows a notice (and logs the type and widget ID), the editor shows a fallback editor that keeps the widget's options, and scoring skips the widget.
+
+    Breaking changes:
+
+    -   `@khanacademy/perseus`: removed `Widgets.replaceWidget`, `replaceDeprecatedWidgets`, `registerEditors`, `getEditor`, `replaceEditor` and `replaceDeprecatedEditors`. The `deprecatedStandin` string is now `unsupportedWidget`.
+    -   `@khanacademy/perseus-core`: removed `DeprecatedStandinWidget` and the deprecated widget types from `PerseusWidgetTypes`, and the `deprecated-standin` widget logic is gone. The parser now accepts removed widget types the same way as any unknown type, with any options.
+    -   `@khanacademy/perseus-editor`: no longer re-exports `widgets` from `@khanacademy/perseus`.
+
+### Minor Changes
+
+-   [#4374](https://github.com/Khan/perseus/pull/4374) [`0c44951`](https://github.com/Khan/perseus/commit/0c44951edd1d95353cc55b9e551bad26e727fc7f) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add `perseus:widget:unsupported` analytics event
+
+### Patch Changes
+
+-   Updated dependencies [[`51932bc`](https://github.com/Khan/perseus/commit/51932bc05dbcd85fa3dd66d00085426f03e17b2b)]:
+    -   @khanacademy/kas@3.0.2
+
+## 41.2.2
+
+### Patch Changes
+
+-   [#4262](https://github.com/Khan/perseus/pull/4262) [`2d8bbca`](https://github.com/Khan/perseus/commit/2d8bbca1b09a2be0721306773497fbbace8c826e) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Upgraded tooling - pnpm v12
+
+-   Updated dependencies [[`2d8bbca`](https://github.com/Khan/perseus/commit/2d8bbca1b09a2be0721306773497fbbace8c826e)]:
+    -   @khanacademy/kas@3.0.1
+    -   @khanacademy/perseus-utils@3.0.1
+    -   @khanacademy/pure-markdown@3.0.1
+
+## 41.2.1
+
+### Patch Changes
+
+-   [#4351](https://github.com/Khan/perseus/pull/4351) [`f450f74`](https://github.com/Khan/perseus/commit/f450f74509e0e757ba73c3449bf66ceb654c7e0d) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Build image widgets converted from image markdown with the production widget defaults instead of the test generators, and type `applyDefaultsToWidget`'s result as the widget type it was given
+
 ## 41.2.0
 
 ### Minor Changes

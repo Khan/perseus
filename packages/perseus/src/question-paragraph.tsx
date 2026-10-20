@@ -2,33 +2,37 @@ import * as React from "react";
 
 type Props = {
     className?: string | null | undefined;
-    translationIndex: number;
+    translationIndex?: number;
     paragraphIndex?: number;
     children?: React.ReactNode;
     inline?: boolean;
 };
 
-class QuestionParagraph extends React.Component<Props> {
-    render(): React.ReactNode {
-        const className = this.props.className
-            ? "paragraph " + this.props.className
-            : "paragraph";
-        // For perseus-article just-in-place-translation (jipt), we need
-        // to attach some metadata to top-level QuestionParagraphs:
-        return (
-            <div
-                className={
-                    this.props.inline
-                        ? this.props.className ?? undefined
-                        : className
-                }
-                data-perseus-component-index={this.props.translationIndex}
-                data-perseus-paragraph-index={this.props.paragraphIndex}
-            >
-                {this.props.children}
-            </div>
-        );
+const QuestionParagraph = (props: Props): React.ReactNode => {
+    const className = props.className
+        ? "deprecated-perseus-container " + props.className
+        : "deprecated-perseus-container";
+    const isJipt = props.translationIndex != null;
+
+    if (props.inline && !props.className && !isJipt) {
+        return props.children;
     }
-}
+
+    // For perseus-article just-in-place-translation (jipt), we need
+    // to attach some metadata to top-level QuestionParagraphs:
+    return (
+        <div
+            className={props.inline ? props.className ?? undefined : className}
+            data-perseus-component-index={
+                isJipt ? props.translationIndex : undefined
+            }
+            data-perseus-paragraph-index={
+                isJipt ? props.paragraphIndex : undefined
+            }
+        >
+            {props.children}
+        </div>
+    );
+};
 
 export default QuestionParagraph;

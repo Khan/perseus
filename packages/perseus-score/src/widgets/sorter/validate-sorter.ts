@@ -17,9 +17,10 @@ function validateSorter(
     userInput: PerseusSorterUserInput,
     rubric: PerseusSorterWidgetOptions,
 ): ValidationResult {
-    // These sorters render as the deprecated standin, so there is nothing for
-    // the learner to change. Treat them as answered so scoring can award the
-    // point instead of blocking the Check button.
+    // Sorter configurations with more cards than we support don't render at
+    // all, so there is nothing for the learner to change. Treat them as
+    // answered so scoring can award the point instead of blocking the Check
+    // button.
     if (exceedsCardLimit(rubric.correct)) {
         return null;
     }

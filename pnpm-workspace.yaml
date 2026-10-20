@@ -56,6 +56,16 @@ overrides:
     # browserslist <= 4.28.6 is vulnerable to GHSA-73wf-gq98-2v4g (DoS /
     # prototype pollution via a poisoned browserslist-stats.json).
     browserslist: ">=4.28.7"
+allowBuilds:
+    '@parcel/watcher': true
+    '@swc/core': true
+    cypress: true
+    esbuild: true
+    # git-hosted dependencies must provide the full URL to the tarball
+    mathquill@https://codeload.github.com/Khan/mathquill/tar.gz/c9e4329b0bc5d9b4c21d765b5768e4e7693515b3: true
+    unrs-resolver: false
+patchedDependencies:
+    postcss-url: patches/postcss-url.patch
 catalogs:
     peerDeps:
         react: ^18.2.0
@@ -73,10 +83,10 @@ catalogs:
         "@khanacademy/wonder-blocks-banner": ^5.1.16
         "@khanacademy/wonder-blocks-button": ^11.7.12
         "@khanacademy/wonder-blocks-clickable": ^8.3.1
-        "@khanacademy/wonder-blocks-config": ^0.2.0
+        "@khanacademy/wonder-blocks-config": ^0.3.0
         "@khanacademy/wonder-blocks-core": ^12.5.0
         "@khanacademy/wonder-blocks-data": ^15.1.0
-        "@khanacademy/wonder-blocks-dropdown": ^10.13.0
+        "@khanacademy/wonder-blocks-dropdown": ^10.13.1
         "@khanacademy/wonder-blocks-floating": ^0.1.0
         "@khanacademy/wonder-blocks-form": ^7.6.15
         "@khanacademy/wonder-blocks-icon-button": ^12.0.1
@@ -85,11 +95,11 @@ catalogs:
         "@khanacademy/wonder-blocks-layout": ^3.1.62
         "@khanacademy/wonder-blocks-link": ^10.4.1
         "@khanacademy/wonder-blocks-modal": ^8.9.0
-        "@khanacademy/wonder-blocks-popover": ^7.0.0
+        "@khanacademy/wonder-blocks-popover": ^7.0.1
         "@khanacademy/wonder-blocks-progress-spinner": ^3.1.62
         "@khanacademy/wonder-blocks-search-field": ^5.1.85
         "@khanacademy/wonder-blocks-switch": ^3.4.14
-        "@khanacademy/wonder-blocks-tabs": ^0.5.35
+        "@khanacademy/wonder-blocks-tabs": ^1.0.0
         "@khanacademy/wonder-blocks-theming": ^4.1.0
         "@khanacademy/wonder-blocks-timing": ^7.1.0
         "@khanacademy/wonder-blocks-tokens": ^18.0.0
@@ -115,10 +125,10 @@ catalogs:
         "@khanacademy/wonder-blocks-banner": 5.1.16
         "@khanacademy/wonder-blocks-button": 11.7.12
         "@khanacademy/wonder-blocks-clickable": 8.3.1
-        "@khanacademy/wonder-blocks-config": 0.2.0
+        "@khanacademy/wonder-blocks-config": 0.3.0
         "@khanacademy/wonder-blocks-core": 12.5.0
         "@khanacademy/wonder-blocks-data": 15.1.0
-        "@khanacademy/wonder-blocks-dropdown": 10.13.0
+        "@khanacademy/wonder-blocks-dropdown": 10.13.1
         "@khanacademy/wonder-blocks-floating": 0.1.0
         "@khanacademy/wonder-blocks-form": 7.6.15
         "@khanacademy/wonder-blocks-icon-button": 12.0.1
@@ -127,11 +137,11 @@ catalogs:
         "@khanacademy/wonder-blocks-layout": 3.1.62
         "@khanacademy/wonder-blocks-link": 10.4.1
         "@khanacademy/wonder-blocks-modal": 8.9.0
-        "@khanacademy/wonder-blocks-popover": 7.0.0
+        "@khanacademy/wonder-blocks-popover": 7.0.1
         "@khanacademy/wonder-blocks-progress-spinner": 3.1.62
         "@khanacademy/wonder-blocks-search-field": 5.1.85
         "@khanacademy/wonder-blocks-switch": 3.4.14
-        "@khanacademy/wonder-blocks-tabs": 0.5.35
+        "@khanacademy/wonder-blocks-tabs": 1.0.0
         "@khanacademy/wonder-blocks-theming": 4.1.0
         "@khanacademy/wonder-blocks-timing": 7.1.0
         "@khanacademy/wonder-blocks-tokens": 18.0.0

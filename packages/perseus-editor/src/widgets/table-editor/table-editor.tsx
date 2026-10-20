@@ -16,7 +16,7 @@ const {NumberInput} = components;
 const Table = TableWidget.widget;
 
 interface Props extends PerseusTableWidgetOptions {
-    onChange: (options: Partial<PerseusTableWidgetOptions>) => void;
+    onChange: (options: PerseusTableWidgetOptions) => void;
     apiOptions?: APIOptionsWithDefaults;
 }
 
@@ -25,6 +25,16 @@ class TableEditor extends React.Component<Props> {
         tableLogic.defaultWidgetOptions;
 
     numberOfColumns = React.createRef<components.NumberInput>();
+
+    handleChange = (changes: Partial<PerseusTableWidgetOptions>) => {
+        this.props.onChange({
+            headers: this.props.headers,
+            rows: this.props.rows,
+            columns: this.props.columns,
+            answers: this.props.answers,
+            ...changes,
+        });
+    };
 
     focus: () => void = () => {
         this.numberOfColumns.current?.focus();
@@ -92,7 +102,7 @@ class TableEditor extends React.Component<Props> {
                 columns: this.props.columns,
                 answers: this.props.answers,
             },
-            onChange: this.props.onChange,
+            onChange: this.handleChange,
             userInput: this.props.answers,
             handleUserInput: (userInput) => {
                 // Disable table input changes when editing is disabled
@@ -101,7 +111,7 @@ class TableEditor extends React.Component<Props> {
                 }
                 // In the editing experience,
                 // user input is actually editing answers
-                this.props.onChange({answers: userInput});
+                this.handleChange({answers: userInput});
             },
             apiOptions: this.props.apiOptions,
             editableHeaders: true,
@@ -120,7 +130,7 @@ class TableEditor extends React.Component<Props> {
                             ref={this.numberOfColumns}
                             value={this.props.columns}
                             onChange={(val) => {
-                                if (val) {
+                                if (val !== 0) {
                                     this.onSizeInput(this.props.rows, val);
                                 }
                             }}
@@ -135,7 +145,7 @@ class TableEditor extends React.Component<Props> {
                             ref="numberOfRows"
                             value={this.props.rows}
                             onChange={(val) => {
-                                if (val) {
+                                if (val !== 0) {
                                     this.onSizeInput(val, this.props.columns);
                                 }
                             }}

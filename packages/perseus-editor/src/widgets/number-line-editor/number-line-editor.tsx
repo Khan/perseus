@@ -9,7 +9,10 @@ import InfoTip from "../../components/info-tip";
 import {TypedSingleSelect} from "../../components/typed-single-select";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
-import type {PerseusNumberLineWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusNumberLineWidgetOptions,
+    MathFormat,
+} from "@khanacademy/perseus-core";
 
 const {ButtonGroup, NumberInput, RangeInput} = components;
 
@@ -108,6 +111,12 @@ class NumberLineEditor extends React.Component<Props> {
         return EditorJsonify.serialize.call(this);
     };
 
+    getNumberInputFormat(): MathFormat {
+        return this.props.labelStyle === "non-reduced"
+            ? "improper"
+            : this.props.labelStyle;
+    }
+
     render(): React.ReactNode {
         const range = this.props.range;
         const labelRange = this.props.labelRange;
@@ -182,7 +191,7 @@ class NumberLineEditor extends React.Component<Props> {
                     />{" "}
                     <NumberInput
                         value={this.props.correctX}
-                        format={this.props.labelStyle}
+                        format={this.getNumberInputFormat()}
                         onChange={(correctX) => this.handleChange({correctX})}
                         checkValidity={(val) =>
                             val >= range[0] &&
@@ -216,7 +225,7 @@ class NumberLineEditor extends React.Component<Props> {
                             Position:{" "}
                             <NumberInput
                                 value={this.props.initialX}
-                                format={this.props.labelStyle}
+                                format={this.getNumberInputFormat()}
                                 onChange={(initialX) =>
                                     this.handleChange({initialX})
                                 }
@@ -231,9 +240,9 @@ class NumberLineEditor extends React.Component<Props> {
                     )}
 
                     <RangeInput
-                        value={range}
+                        value={[range[0], range[1]]}
                         onChange={(range) => this.handleChange({range})}
-                        format={this.props.labelStyle}
+                        format={this.getNumberInputFormat()}
                         useArrowKeys={true}
                     />
                     <InfoTip>
@@ -257,7 +266,7 @@ class NumberLineEditor extends React.Component<Props> {
                         <NumberInput
                             value={labelRange[0]}
                             placeholder={range[0]}
-                            format={this.props.labelStyle}
+                            format={this.getNumberInputFormat()}
                             checkValidity={(val) =>
                                 val >= range[0] && val <= range[1]
                             }
@@ -270,7 +279,7 @@ class NumberLineEditor extends React.Component<Props> {
                         <NumberInput
                             value={labelRange[1]}
                             placeholder={range[1]}
-                            format={this.props.labelStyle}
+                            format={this.getNumberInputFormat()}
                             checkValidity={(val) =>
                                 val >= range[0] && val <= range[1]
                             }
@@ -403,7 +412,7 @@ class NumberLineEditor extends React.Component<Props> {
                                 or tick step:{" "}
                                 <NumberInput
                                     value={this.props.tickStep || null}
-                                    format={this.props.labelStyle}
+                                    format={this.getNumberInputFormat()}
                                     onChange={this.onTickStepChange}
                                     checkValidity={(val) => {
                                         return val > 0 && val <= width;
@@ -441,7 +450,7 @@ class NumberLineEditor extends React.Component<Props> {
                         <NumberInput
                             value={snapDivisions}
                             checkValidity={(val) => val > 0}
-                            format={this.props.labelStyle}
+                            format={this.getNumberInputFormat()}
                             onChange={(snapDivisions) =>
                                 this.handleChange({snapDivisions})
                             }

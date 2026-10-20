@@ -1,7 +1,6 @@
 import {number as knumber, KhanMath} from "@khanacademy/kmath";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
@@ -14,58 +13,83 @@ const {firstNumericalParse, captureScratchpadTouchStart} = Util;
 const toNumericString = KhanMath.toNumericString;
 const getNumericFormat = KhanMath.getNumericFormat;
 
+interface Props {
+    value: number | null;
+    /**
+     * The number format to use for display before the user edits the value.
+     * After the first edit, the format is detected from the input.
+     */
+    format?: MathFormat | null;
+    /**
+     * A value to display when the input is empty. If the placeholder is
+     * numeric and finite, it is also emitted via `onChange` when the input is
+     * cleared.
+     */
+    placeholder?: string | number | null;
+    /**
+     * Called when the user changes the value of the input to a valid number.
+     */
+    onChange: (value: number) => void;
+    /**
+     * Called when the detected format of the user input changes.
+     */
+    onFormatChange?: (value: number, format: MathFormat) => void;
+    /**
+     * Validates input. If `checkValidity` returns false, the new value will
+     * not be emitted via `onChange`, and the input will display an error state.
+     */
+    checkValidity: (value: number) => boolean;
+    onFocus?: () => void;
+    onBlur?: () => void;
+    /** Determines the width of the input */
+    size?: "mini" | "small" | "normal";
+    /**
+     * When true, values that approximate an integer or fraction multiple of
+     * pi will be displayed in a format like "3π", "1/2π", etc.
+     */
+    allowPiTruncation?: boolean;
+    /**
+     * Whether the up and down arrow keys should increment/decrement the value
+     */
+    useArrowKeys: boolean;
+    className?: string;
+    id?: string;
+}
+
+interface State {
+    format: MathFormat | undefined;
+}
+
 /**
- * An input box that accepts only numeric strings
+ * An input box that accepts only numeric strings. While the input is focused,
+ * it acts as an uncontrolled component: you can type anything, but only valid
+ * numbers are emitted from `onChange`. While not focused, the input acts as
+ * controlled, simply displaying its `value` prop.
  *
- * Calls `onChange(value, format)` for valid numbers.
- *
- * Reverts to the current value `onBlur` or on [ENTER],
- *   but maintains the format (i.e. 3/2, 1 1/2, 150%)
- *
- * Accepts empty input and sends it to `onChange` as `null` if no numeric
- * placeholder is set.
- *
- * If given a `checkValidity` function, will turn the background/outline red
- * when invalid.
- *
- * If `useArrowKeys` is set to `true`, up/down arrows will increment/decrement
- * integers.
- *
- * Optionally takes a `size` (`"mini"`, `"small"`,` `"normal"`)
+ * Accepts numbers in a variety of formats, including fractions, mixed numbers,
+ * percents, and multiples of pi. The format is auto-detected on user input.
+ * The input value is displayed in the most recently detected format.
  */
-class NumberInput extends React.Component<any, any> {
+class NumberInput extends React.Component<Props, State> {
     inputRef = React.createRef<HTMLInputElement>();
 
-    static propTypes = {
-        value: PropTypes.number,
-        format: PropTypes.string,
-        placeholder: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        onChange: PropTypes.func.isRequired,
-        onFormatChange: PropTypes.func,
-        checkValidity: PropTypes.func,
-        size: PropTypes.oneOf(["mini", "small", "normal"]),
-        label: PropTypes.oneOf(["put your labels outside your inputs!"]),
-        allowPiTruncation: PropTypes.bool,
-    };
-
-    static defaultProps: any = {
+    static defaultProps = {
         value: null,
         placeholder: null,
         format: null,
-        onFormatChange: () => null,
         checkValidity: () => true,
         useArrowKeys: false,
     };
 
-    state: any = {
-        format: this.props.format,
+    state: State = {
+        format: this.props.format ?? undefined,
     };
 
     componentDidMount() {
         // If the value is a multiple of pi, but it is not in the pi format,
         // then convert it to the pi format and show it as a multiple of pi.
         const value = this.getValue();
-        if (this.props.allowPiTruncation && value !== null && value !== 0) {
+        if (this.props.allowPiTruncation && value != null && value !== 0) {
             if (this.state.format !== "pi" && isPiMultiple(value)) {
                 this._setValue(value / Math.PI, "pi");
                 this.setState({format: "pi"});
@@ -73,7 +97,7 @@ class NumberInput extends React.Component<any, any> {
         }
     }
 
-    componentDidUpdate(prevProps: any) {
+    componentDidUpdate() {
         if (!knumber.equal(this.getValue(), this.props.value)) {
             this._setValue(this.props.value, this.state.format);
         }
@@ -93,57 +117,35 @@ class NumberInput extends React.Component<any, any> {
     /* Return the current "value" of this input
      * If empty, it returns the placeholder (if it is a number) or null
      */
-    getValue: () => any = () => {
+    getValue(): number | null | undefined {
         return this.parseInputValue(this._getInput().value);
-    };
+    }
 
-    /* Return the current string value of this input */
-    getStringValue: () => string = () => {
-        return this._getInput().toString();
-    };
-
-    parseInputValue: (arg1: any) => any = (value) => {
+    parseInputValue(value: string): number | null | undefined {
         if (value === "") {
             const placeholder = this.props.placeholder;
-            return _.isFinite(placeholder) ? +placeholder : null;
+            return _.isFinite(placeholder) ? Number(placeholder) : null;
         }
         const result = firstNumericalParse(value);
         return _.isFinite(result) ? result : this.props.value;
-    };
+    }
 
     /* Set text input focus to this input */
+    // TODO(benchristel): focus() is only called by the TableEditor. Perhaps
+    //  it could be removed.
     focus: () => void = () => {
         this._getInput().focus();
         this._handleFocus();
     };
 
+    // TODO(benchristel): blur() doesn't seem to be called. Confirm and delete
+    //  it.
     blur: () => void = () => {
         this._getInput().blur();
         this._handleBlur();
     };
 
-    // TODO(benchristel): setSelectionRange appears to be unused. Confirm and
-    //  delete.
-    setSelectionRange: (arg1: number, arg2: number) => void = (
-        selectionStart,
-        selectionEnd,
-    ) => {
-        this._getInput().setSelectionRange(selectionStart, selectionEnd);
-    };
-
-    // TODO(benchristel): getSelectionStart appears to be unused. Confirm and
-    //  delete.
-    getSelectionStart: () => number | null = () => {
-        return this._getInput().selectionStart;
-    };
-
-    // TODO(benchristel): getSelectionEnd appears to be unused. Confirm and
-    //  delete.
-    getSelectionEnd: () => number | null = () => {
-        return this._getInput().selectionEnd;
-    };
-
-    _checkValidity: (arg1: any) => boolean = (value) => {
+    _checkValidity(value: number | null): boolean {
         if (value == null) {
             return true;
         }
@@ -151,19 +153,21 @@ class NumberInput extends React.Component<any, any> {
         const val = firstNumericalParse(value);
         const checkValidity = this.props.checkValidity;
 
-        return _.isFinite(val) && checkValidity(val);
-    };
+        return val != null && _.isFinite(val) && checkValidity(val);
+    }
 
-    _handleChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
-        e,
-    ) => {
+    _handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const text = e.target.value;
         const value = this.parseInputValue(text);
+        if (value == null) {
+            return;
+        }
+
         const format = getNumericFormat(text);
 
         this.props.onChange(value);
         if (format) {
-            this.props.onFormatChange(value, format);
+            this.props.onFormatChange?.(value, format);
             this.setState({format: format});
         }
     };
@@ -188,10 +192,6 @@ class NumberInput extends React.Component<any, any> {
     };
 
     _onKeyDown: (arg1: React.KeyboardEvent) => void = (e) => {
-        if (this.props.onKeyDown) {
-            this.props.onKeyDown(e);
-        }
-
         if (
             !this.props.useArrowKeys ||
             !["ArrowUp", "ArrowDown"].includes(e.key)
@@ -200,7 +200,7 @@ class NumberInput extends React.Component<any, any> {
         }
 
         let val = this.getValue();
-        if (val !== Math.floor(val)) {
+        if (val == null || val !== Math.floor(val)) {
             return; // bail if not an integer
         }
 
@@ -215,9 +215,9 @@ class NumberInput extends React.Component<any, any> {
         }
     };
 
-    _setValue: (arg1: number, arg2: MathFormat) => void = (val, format) => {
+    _setValue(val: number | null, format: MathFormat | undefined) {
         this._getInput().value = toNumericString(val, format);
-    };
+    }
 
     render(): React.ReactNode {
         let classes = classNames({
@@ -236,12 +236,17 @@ class NumberInput extends React.Component<any, any> {
             checkValidity,
             useArrowKeys,
             allowPiTruncation,
+            placeholder,
+            size,
             ...restProps
         } = this.props;
 
         return (
             <input
                 {...restProps}
+                placeholder={
+                    placeholder != null ? String(placeholder) : undefined
+                }
                 className={classes}
                 type="text"
                 ref={this.inputRef}

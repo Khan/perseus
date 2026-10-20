@@ -2,17 +2,13 @@ import {components} from "@khanacademy/perseus";
 import {pythonProgramLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {deprecatedChangeableChange} from "../../mixins/changeable";
-
-import type {ChangeableProps} from "../../mixins/changeable";
 import type {PerseusPythonProgramWidgetOptions} from "@khanacademy/perseus-core";
 
 const {NumberInput, TextInput} = components;
 
-type Props = ChangeableProps & {
-    programID: string;
-    height: number;
-};
+interface Props extends PerseusPythonProgramWidgetOptions {
+    onChange: (options: PerseusPythonProgramWidgetOptions) => void;
+}
 
 export function validateOptions(
     height: Props["height"],
@@ -38,10 +34,13 @@ class PythonProgramEditor extends React.Component<Props> {
     static defaultProps: PerseusPythonProgramWidgetOptions =
         pythonProgramLogic.defaultWidgetOptions;
 
-    change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-        // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
-        return deprecatedChangeableChange.apply(this, args);
-    };
+    handleChange(changes: Partial<PerseusPythonProgramWidgetOptions>) {
+        this.props.onChange({
+            programID: this.props.programID,
+            height: this.props.height,
+            ...changes,
+        });
+    }
 
     serialize(): PerseusPythonProgramWidgetOptions {
         return {
@@ -65,7 +64,7 @@ class PythonProgramEditor extends React.Component<Props> {
                     User Program ID:{" "}
                     <TextInput
                         value={this.props.programID}
-                        onChange={this.change("programID")}
+                        onChange={(programID) => this.handleChange({programID})}
                         placeholder="123"
                     />
                 </label>
@@ -74,7 +73,7 @@ class PythonProgramEditor extends React.Component<Props> {
                     Height:{" "}
                     <NumberInput
                         value={this.props.height}
-                        onChange={this.change("height")}
+                        onChange={(height) => this.handleChange({height})}
                         placeholder="400"
                     />
                 </label>

@@ -16,8 +16,12 @@ import {action} from "storybook/actions";
 
 import ViewportResizer from "../components/viewport-resizer";
 import EditorPage from "../editor-page";
+import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
 import {usePreviewUrl} from "./use-preview-url";
+
+// This is to address timing - Perseus widget editor registry accessed before initialization!
+registerAllWidgetsAndEditorsForTesting();
 
 type Props = {
     apiOptions?: APIOptions;

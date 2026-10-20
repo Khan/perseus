@@ -1,5 +1,20 @@
 # @khanacademy/kas
 
+## 3.0.2
+
+### Patch Changes
+
+-   [#4388](https://github.com/Khan/perseus/pull/4388) [`51932bc`](https://github.com/Khan/perseus/commit/51932bc05dbcd85fa3dd66d00085426f03e17b2b) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove _.forEach, _.random, _.toArray, and _.head from the code
+
+## 3.0.1
+
+### Patch Changes
+
+-   [#4262](https://github.com/Khan/perseus/pull/4262) [`2d8bbca`](https://github.com/Khan/perseus/commit/2d8bbca1b09a2be0721306773497fbbace8c826e) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Upgraded tooling - pnpm v12
+
+-   Updated dependencies [[`2d8bbca`](https://github.com/Khan/perseus/commit/2d8bbca1b09a2be0721306773497fbbace8c826e)]:
+    -   @khanacademy/perseus-utils@3.0.1
+
 ## 3.0.0
 
 ### Major Changes

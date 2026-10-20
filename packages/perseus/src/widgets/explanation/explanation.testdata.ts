@@ -128,3 +128,37 @@ USS Trieste | Merced`,
         }),
     },
 });
+
+export const stacked: PerseusRenderer = generateTestPerseusRenderer({
+    content:
+        "[[\u2603 explanation 1]]\n\n[[\u2603 explanation 2]]\n\n[[\u2603 explanation 3]]",
+    widgets: {
+        "explanation 1": generateExplanationWidget({
+            static: false,
+            options: generateExplanationOptions({
+                showPrompt: "Explain Warp Drive Technology",
+                hidePrompt: "Hide explanation!",
+                explanation:
+                    "Exceeding reaction chamber thermal limit. We have begun power-supply calibration. Computer, run a level-two diagnostic on warp-drive systems. Antimatter containment positive. Warp drive within normal parameters.",
+            }),
+        }),
+        "explanation 2": generateExplanationWidget({
+            static: false,
+            options: generateExplanationOptions({
+                showPrompt: "Explain Defense Systems",
+                hidePrompt: "Hide explanation!",
+                explanation:
+                    "Shields up. I recommend we transfer power to phasers and arm the photon torpedoes. Something strange on the detector circuit. The weapons must have disrupted our communicators.",
+            }),
+        }),
+        "explanation 3": generateExplanationWidget({
+            static: false,
+            options: generateExplanationOptions({
+                showPrompt: "Explain the Borg",
+                hidePrompt: "Hide explanation!",
+                explanation:
+                    "Resistance is futile. Recommend we adjust shield harmonics to the upper EM band when proceeding. These appear to be some kind of power-wave-guide conduits which allow them to work collectively as they perform ship functions. Increase deflector modulation to upper frequency band.",
+            }),
+        }),
+    },
+});

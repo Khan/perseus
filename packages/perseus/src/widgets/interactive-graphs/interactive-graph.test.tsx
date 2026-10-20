@@ -25,7 +25,7 @@ import invariant from "tiny-invariant";
 import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
 import {scorePerseusItemTesting} from "../../util/test-utils";
-import {renderQuestion} from "../__testutils__/renderQuestion";
+import {renderQuestion} from "../__testutils__/render-question";
 import {sinusoidQuestion} from "../grapher/grapher.testdata";
 
 import {
@@ -2221,6 +2221,136 @@ describe("Interactive Graph", function () {
                     "Use this graph to check your thinking, but it does not count as your answer.",
                 ),
             ).not.toBeInTheDocument();
+        });
+    });
+
+    describe("required state", () => {
+        it("announces the graph as required after the instructions when scorable and interactive", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateInteractiveGraphQuestion({
+                    graph: generateIGLinearGraph(),
+                }),
+                {
+                    apiOptions: {readOnly: false},
+                    extraProps: {isScorable: true, reviewMode: false},
+                },
+            );
+
+            // Assert
+            expect(screen.getByRole("figure")).toHaveAccessibleDescription(
+                expect.stringContaining(`${commonInstructions} Required`),
+            );
+        });
+
+        it("does not announce the graph as required when not scorable", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateInteractiveGraphQuestion({
+                    graph: generateIGLinearGraph(),
+                }),
+                {
+                    apiOptions: {readOnly: false},
+                    extraProps: {isScorable: false, reviewMode: false},
+                },
+            );
+
+            // Assert
+            expect(screen.getByRole("figure")).not.toHaveAccessibleDescription(
+                /Required/,
+            );
+        });
+
+        it("does not announce the graph as required in review mode", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateInteractiveGraphQuestion({
+                    graph: generateIGLinearGraph(),
+                }),
+                {
+                    apiOptions: {readOnly: false},
+                    extraProps: {isScorable: true, reviewMode: true},
+                },
+            );
+
+            // Assert
+            expect(screen.getByRole("figure")).not.toHaveAccessibleDescription(
+                /Required/,
+            );
+        });
+
+        it("does not announce the graph as required when static", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateInteractiveGraphQuestion({
+                    isStatic: true,
+                    graph: generateIGLinearGraph(),
+                }),
+                {
+                    apiOptions: {readOnly: false},
+                    extraProps: {isScorable: true, reviewMode: false},
+                },
+            );
+
+            // Assert
+            expect(screen.getByRole("figure")).not.toHaveAccessibleDescription(
+                /Required/,
+            );
+        });
+
+        it("does not announce the graph as required when read-only", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateInteractiveGraphQuestion({
+                    graph: generateIGLinearGraph(),
+                }),
+                {
+                    apiOptions: {readOnly: true},
+                    extraProps: {isScorable: true, reviewMode: false},
+                },
+            );
+
+            // Assert
+            expect(screen.getByRole("figure")).not.toHaveAccessibleDescription(
+                /Required/,
+            );
+        });
+
+        it("does not announce the graph as required when ungraded", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateInteractiveGraphQuestion({
+                    graded: false,
+                    graph: generateIGLinearGraph(),
+                }),
+                {
+                    apiOptions: {readOnly: false},
+                    extraProps: {isScorable: true, reviewMode: false},
+                },
+            );
+
+            // Assert
+            expect(screen.getByRole("figure")).not.toHaveAccessibleDescription(
+                /Required/,
+            );
+        });
+
+        it("does not announce the graph as required when the graph type is 'none'", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateInteractiveGraphQuestion({
+                    correct: generateIGNoneGraph(),
+                }),
+                {
+                    apiOptions: {readOnly: false},
+                    extraProps: {isScorable: true, reviewMode: false},
+                },
+            );
+
+            // Assert
+            expect(screen.getByRole("figure")).not.toHaveAccessibleDescription(
+                /Required/,
+            );
         });
     });
 });

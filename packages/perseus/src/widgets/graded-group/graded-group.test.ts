@@ -15,7 +15,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import {renderArticle} from "../../__tests__/article-renderer.test";
 import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
-import {renderQuestion} from "../__testutils__/renderQuestion";
+import {renderQuestion} from "../__testutils__/render-question";
 
 import {
     question1,
@@ -266,7 +266,7 @@ describe("graded-group", () => {
 
         // Assert
         expect(screen.getByRole("status")).toHaveTextContent(
-            "We couldn't grade your answer. Make sure you select something for every row.",
+            "We couldn't check your answer. Select an answer for every row.",
         );
     });
 
@@ -284,7 +284,7 @@ describe("graded-group", () => {
         // Assert
         expect(
             screen.getByText(
-                "We couldn't grade your answer. Make sure you select something for every row.",
+                "We couldn't check your answer. Select an answer for every row.",
             ),
         ).toBeVisible();
     });
@@ -325,7 +325,7 @@ describe("graded-group", () => {
 
         // Assert
         expect(
-            screen.queryByText(/We couldn't grade your answer/),
+            screen.queryByText(/We couldn't check your answer/),
         ).not.toBeInTheDocument();
     });
 

@@ -99,6 +99,7 @@ describe("InteractiveGraphEditor", () => {
         // Act
         const input = screen.getByRole("textbox", {name: "Snap Step 1"});
         await userEvent.clear(input);
+        await userEvent.type(input, "0");
 
         // Assert
         expect(

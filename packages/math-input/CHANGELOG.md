@@ -1,5 +1,40 @@
 # @khanacademy/math-input
 
+## 30.1.2
+
+### Patch Changes
+
+-   [#4193](https://github.com/Khan/perseus/pull/4193) [`eda7ea8`](https://github.com/Khan/perseus/commit/eda7ea8685ab73274101844a6183904df53b0238) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Updating snapshots to contain CSS information.
+
+-   Updated dependencies [[`574a740`](https://github.com/Khan/perseus/commit/574a7401b35398433ba1cd49aa1f108ed0acbca2), [`0c44951`](https://github.com/Khan/perseus/commit/0c44951edd1d95353cc55b9e551bad26e727fc7f)]:
+    -   @khanacademy/perseus-core@42.0.0
+    -   @khanacademy/keypad-context@6.0.7
+
+## 30.1.1
+
+### Patch Changes
+
+-   [#4262](https://github.com/Khan/perseus/pull/4262) [`2d8bbca`](https://github.com/Khan/perseus/commit/2d8bbca1b09a2be0721306773497fbbace8c826e) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Upgraded tooling - pnpm v12
+
+-   [#4368](https://github.com/Khan/perseus/pull/4368) [`8a9b9b0`](https://github.com/Khan/perseus/commit/8a9b9b0d43a013c945d980ea1714b5b154246a41) Thanks [@beaesguerra](https://github.com/beaesguerra)! - Update Wonder Blocks dependencies (i18n strings for tabs, functional component refactors)
+
+-   Updated dependencies [[`2d8bbca`](https://github.com/Khan/perseus/commit/2d8bbca1b09a2be0721306773497fbbace8c826e)]:
+    -   @khanacademy/keypad-context@6.0.6
+    -   @khanacademy/perseus-core@41.2.2
+    -   @khanacademy/perseus-utils@3.0.1
+
+## 30.1.0
+
+### Minor Changes
+
+-   [#4292](https://github.com/Khan/perseus/pull/4292) [`cf403f3`](https://github.com/Khan/perseus/commit/cf403f3426dc2b36db48ecdb14c8f5c6c7df7203) Thanks [@handeyeco](https://github.com/handeyeco)! - Consume `isScorable` in NumericInput to mark inputs as `aria-required` when in the context of ServerItemRenderer and GradedGroup.
+
+### Patch Changes
+
+-   Updated dependencies [[`f450f74`](https://github.com/Khan/perseus/commit/f450f74509e0e757ba73c3449bf66ceb654c7e0d)]:
+    -   @khanacademy/perseus-core@41.2.1
+    -   @khanacademy/keypad-context@6.0.5
+
 ## 30.0.5
 
 ### Patch Changes

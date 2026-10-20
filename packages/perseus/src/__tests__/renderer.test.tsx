@@ -1,6 +1,7 @@
-// TODO(LEMS-4304): feature flag cleanup - remove this file.
 import {describe, beforeAll, beforeEach, afterEach, it} from "@jest/globals";
 import {
+    generateInputNumberWidget,
+    generateRadioWidget,
     generateImageOptions,
     generateTestPerseusItem,
     splitPerseusItem,
@@ -19,7 +20,7 @@ import {
     mockedRandomItem,
 } from "../__testdata__/renderer.testdata";
 import * as Dependencies from "../dependencies";
-import {
+import Renderer, {
     isDifferentQuestion,
     type DifferentQuestionPartialProps,
 } from "../renderer";
@@ -28,7 +29,7 @@ import {mockImageLoading} from "../testing/image-loader-utils";
 import {clone} from "../testing/object-utils";
 import {testDependencies} from "../testing/test-dependencies";
 import {registerWidget} from "../widgets";
-import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
+import {renderQuestion} from "../widgets/__testutils__/render-question";
 import {simpleGroupQuestion} from "../widgets/group/group.testdata";
 import MockWidgetExport from "../widgets/mock-widgets/mock-widget";
 
@@ -111,11 +112,13 @@ describe("renderer", () => {
             expect(container).toMatchSnapshot("incorrect answer");
         });
 
-        it("renders a placeholder for a deprecated widget", () => {
+        it("renders a placeholder for an unknown widget type", () => {
             // Arrange
             const question: PerseusRenderer = {
                 content: "[[☃ sequence 1]]",
                 images: {},
+                // PerseusWidgetsMap can't contain an unknown widget type, so we have to cast to `any`.
+                // eslint-disable-next-line no-restricted-syntax
                 widgets: {
                     "sequence 1": {
                         type: "sequence",
@@ -131,14 +134,37 @@ describe("renderer", () => {
                             ],
                         },
                     },
-                },
+                } as any,
             };
 
             // Act
             const {container} = renderQuestion(question);
 
             // Assert
-            expect(container).toMatchSnapshot("deprecated widget");
+            expect(container).toMatchSnapshot("unknown widget");
+        });
+
+        it("renders a responsive markdown image", () => {
+            // Arrange
+            const question = {
+                content:
+                    "One image with dimensions that isn't in a table:" +
+                    "![This image has dimensions](https://ka-perseus-images.s3.amazonaws.com/29e9aa32de3731b09e245e416cbf4e3fb2e89b58.svg)",
+                images: {
+                    "https://ka-perseus-images.s3.amazonaws.com/29e9aa32de3731b09e245e416cbf4e3fb2e89b58.svg":
+                        {height: 410, width: 420},
+                },
+                widgets: {},
+            } as const;
+            const {container} = renderQuestion(question);
+
+            // Act
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Assert
+            expect(container).toMatchSnapshot();
         });
     });
 
@@ -180,9 +206,7 @@ describe("renderer", () => {
 
         it("should run linter on update", () => {
             // Arrange
-            const {rerender} = renderQuestion(question1, {
-                extraProps,
-            });
+            const {rerender} = renderQuestion(question1, {extraProps});
 
             mockRunLinter.mockClear();
 
@@ -258,6 +282,46 @@ describe("renderer", () => {
             // `dropdown 2` not found, however, because the Renderer doesn't
             // render widget's that don't have options defined.
             expect(widgets).toStrictEqual([null]);
+        });
+
+        it("renders a blockquote without logging an error", () => {
+            const consoleError = jest.spyOn(console, "error");
+
+            const question = {
+                content: ">A",
+                images: {},
+                widgets: {},
+            };
+
+            renderQuestion(question);
+
+            // Act
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Assert
+            expect(consoleError).not.toHaveBeenCalled();
+        });
+
+        it("renders a blockquote with multiple paragraphs without logging an error", () => {
+            const consoleError = jest.spyOn(console, "error");
+
+            const question = {
+                content: ">A\n>\n>B",
+                images: {},
+                widgets: {},
+            };
+
+            renderQuestion(question);
+
+            // Act
+            act(() => {
+                jest.runAllTimers();
+            });
+
+            // Assert
+            expect(consoleError).not.toHaveBeenCalled();
         });
     });
 
@@ -464,7 +528,11 @@ describe("renderer", () => {
             const widgetPlaceholder = <div key="1">This is a placeholder</div>;
 
             // Act
-            renderQuestion(question1, {apiOptions: {widgetPlaceholder}});
+            renderQuestion(question1, {
+                apiOptions: {
+                    widgetPlaceholder,
+                },
+            });
 
             // Assert
             expect(
@@ -506,7 +574,11 @@ describe("renderer", () => {
             );
 
             // Act
-            renderQuestion(question, {apiOptions: {imagePlaceholder}});
+            renderQuestion(question, {
+                apiOptions: {
+                    imagePlaceholder,
+                },
+            });
 
             // Assert
             const renderedPlaceholder = screen.getByText("image placeholder");
@@ -599,7 +671,7 @@ describe("renderer", () => {
                 images: {},
                 widgets: {},
             } as const;
-            const apiOptions = {isMobile: true};
+            const apiOptions = {isMobile: true} as const;
 
             // Act
             const {container} = renderQuestion(question, {apiOptions});
@@ -649,6 +721,26 @@ describe("renderer", () => {
 
             // Act
             const {container} = renderQuestion(question);
+
+            // Assert
+            await waitFor(() => {
+                expect(screen.getByText("1 + 2")).toBeInTheDocument();
+            });
+            expect(container).toMatchSnapshot();
+        });
+
+        it("should not wrap math in divs in inline mode", async () => {
+            // Arrange
+            const question: PerseusRenderer = {
+                content: "This is some inline math: $1 + 2$",
+                images: {},
+                widgets: {},
+            };
+
+            // Act. Note `inline: true`
+            const {container} = renderQuestion(question, {
+                extraProps: {inline: true},
+            });
 
             // Assert
             await waitFor(() => {
@@ -913,7 +1005,9 @@ describe("renderer", () => {
             // Arrange
             const onFocusChange = jest.fn();
             const {renderer} = renderQuestion(question2, {
-                apiOptions: {onFocusChange},
+                apiOptions: {
+                    onFocusChange,
+                },
             });
             act(() => renderer.focusPath(["mock-widget 1"]));
             onFocusChange.mockClear();
@@ -1435,6 +1529,164 @@ describe("renderer", () => {
             const widgetKeys = Object.keys(mockedRandomItem.widgets);
 
             expect(Object.keys(json.widgets)).toEqual(widgetKeys);
+        });
+    });
+
+    describe("in a JIPT context", () => {
+        // JIPT stands for just-in-place-translation.
+        // See: https://khanacademy.atlassian.net/wiki/spaces/LC/pages/4860248066/JIPT+just-in-place+translation+in+Perseus
+
+        let addComponentMock = jest.fn();
+        beforeEach(() => {
+            addComponentMock = jest.fn().mockReturnValue(0);
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+                ...testDependencies,
+                JIPT: {useJIPT: true},
+                rendererTranslationComponents: {
+                    addComponent: addComponentMock,
+                    removeComponentAtIndex() {},
+                },
+            });
+        });
+
+        it("registers itself via rendererTranslationComponents", () => {
+            renderQuestion({
+                content: "crwdns123:0crwdne123",
+                widgets: {},
+                images: {},
+            });
+
+            expect(addComponentMock).toHaveBeenCalledWith(expect.any(Renderer));
+        });
+
+        it("renders `crwdn` placeholders with data-perseus-component-index attributes in an exercise", async () => {
+            // Arrange
+            addComponentMock.mockReturnValue(42);
+
+            // Act
+            const {container} = renderQuestion(
+                {
+                    content: "crwdns123:0crwdne123",
+                    widgets: {},
+                    images: {},
+                },
+                {apiOptions: {isArticle: false}},
+            );
+
+            // Assert
+            expect(container).toMatchSnapshot("exercise with JIPT placeholder");
+        });
+
+        it("renders `crwdn` placeholders with data-perseus-component-index and data-perseus-paragraph-index attributes in an article", async () => {
+            // Arrange
+            addComponentMock.mockReturnValue(42);
+
+            // Act
+            const {container} = renderQuestion(
+                {
+                    content: "crwdns1:0crwdne1\n\ncrwdns2:0crwdne2",
+                    widgets: {},
+                    images: {},
+                },
+                {apiOptions: {isArticle: true}},
+            );
+
+            // Assert
+            expect(container).toMatchSnapshot("article with JIPT placeholders");
+        });
+
+        it("replaces the `crwdn` placeholder with the translated content of an exercise", () => {
+            // Arrange
+            addComponentMock.mockReturnValue(42);
+            const {container} = renderQuestion(
+                {
+                    content: "crwdns123:0crwdne123",
+                    widgets: {},
+                    images: {},
+                },
+                {apiOptions: {isArticle: false}},
+            );
+
+            // Act
+            const renderer: Renderer = addComponentMock.mock.calls[0][0];
+            act(() => {
+                renderer.replaceJiptContent(
+                    "[link](https://khanacademy.org)",
+                    undefined,
+                );
+            });
+
+            // Assert
+            expect(container).toMatchSnapshot("JIPT-translated exercise");
+        });
+
+        it("replaces the `crwdn` placeholder with the translated content of an article", () => {
+            // Arrange
+            addComponentMock.mockReturnValue(42);
+            const {container} = renderQuestion(
+                {
+                    content: "crwdns1:0crwdne1:0\n\ncrwdns2:0crwdne2:0",
+                    widgets: {},
+                    images: {},
+                },
+                {apiOptions: {isArticle: true}},
+            );
+
+            // Act
+            const renderer: Renderer = addComponentMock.mock.calls[0][0];
+            act(() => {
+                renderer.replaceJiptContent("first paragraph", 0);
+            });
+            act(() => {
+                renderer.replaceJiptContent("second paragraph", 1);
+            });
+
+            // Assert
+            expect(container).toMatchSnapshot("JIPT-translated article");
+        });
+    });
+
+    describe("block-level widgets within paragraphs", () => {
+        const content =
+            "**Which picture shows how to measure the pink square?** \n" +
+            "[[☃ radio 1]]\n" +
+            "**The pink square is** [[☃ input-number 2]] ** blue squares tall.**";
+
+        const question: PerseusRenderer = {
+            content: content,
+            images: {},
+            widgets: {
+                "radio 1": generateRadioWidget(),
+                "input-number 2": generateInputNumberWidget(),
+            },
+        };
+
+        it("does not render the block widget inside a <p> element", () => {
+            // Arrange, Act
+            const {container} = renderQuestion(question);
+
+            // Assert
+            // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
+            const blockWidget = container.querySelector(
+                ".perseus-widget-container.widget-block",
+            );
+            expect(blockWidget).not.toBeNull();
+            // eslint-disable-next-line testing-library/no-node-access
+            expect(blockWidget?.closest("p")).toBeNull();
+        });
+
+        it("keeps the inline input-number widget within a <p> element", () => {
+            // Arrange, Act
+            const {container} = renderQuestion(question);
+
+            // Assert
+            // eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
+            const inlineWidget = container.querySelector(
+                ".perseus-widget-container.widget-inline-block",
+            );
+            expect(inlineWidget).not.toBeNull();
+            // eslint-disable-next-line testing-library/no-node-access
+            expect(inlineWidget?.closest("p")).not.toBeNull();
         });
     });
 });

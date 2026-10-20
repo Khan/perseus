@@ -1,11 +1,6 @@
-# AI Utils are owned by Tutor Platform
-widget-ai-utils/* @Khan/tut
+# Khan/perseus is requested on every PR. This must stay the first rule: CODEOWNERS
+# is last-match-wins, so any later rule replaces the owners for the files it
+# matches. Each rule below lists @Khan/perseus too, so the team is never dropped.
+* @Khan/perseus
 
-# For the Color Sync renderer updates
-packages/perseus/src/perseus-markdown.new.tsx @nishasy @markfitzgerald
-packages/perseus/src/perseus-markdown.tsx @nishasy @markfitzgerald
-packages/perseus/src/renderer.new.tsx @nishasy @markfitzgerald
-packages/perseus/src/renderer.old.tsx @nishasy @markfitzgerald
-packages/perseus/src/renderer.tsx @nishasy @markfitzgerald
-packages/perseus/src/styles/perseus-renderer.new.css @nishasy @markfitzgerald
-packages/perseus/src/styles/perseus-renderer.css @nishasy @markfitzgerald
+widget-ai-utils/* @Khan/practice @Khan/perseus
