@@ -35,10 +35,14 @@ function getBlankId(index: number): string {
     return `blank-${index}`;
 }
 
+function getTileId(index: number): string {
+    return `tile-${index}`;
+}
+
 function placementsFromOrder(order: string[]): TilePlacements {
     const placements: Record<string, string> = {};
-    order.forEach((tileId, index) => {
-        placements[getBlankId(index)] = tileId;
+    order.forEach((_, index) => {
+        placements[getBlankId(index)] = getTileId(index);
     });
     return placements;
 }
@@ -77,8 +81,14 @@ const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
             ? "vertical"
             : options.layout;
 
+    const tileIds = bankOrder.map((_, index) => getTileId(index));
+
+    function getTileContent(tileId: string): string {
+        return bankOrder[tileIds.indexOf(tileId)];
+    }
+
     function getTileLabel(tileId: string): string {
-        return tileId;
+        return getTileContent(tileId);
     }
 
     function getBlankLabel(blankId: string): string {
@@ -91,7 +101,9 @@ const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
         const isComplete = blankIds.every((blankId) => next[blankId] != null);
         if (isComplete) {
             handleUserInput({
-                options: blankIds.map((blankId) => next[blankId]),
+                options: blankIds.map((blankId) =>
+                    getTileContent(next[blankId]),
+                ),
                 changed: true,
             });
         } else if (userInput.changed) {
@@ -153,7 +165,7 @@ const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
         );
     }
 
-    const bankTiles = bankOrder.filter((tileId) =>
+    const bankTiles = tileIds.filter((tileId) =>
         isTileInBank(placements, tileId, "single"),
     );
 
@@ -179,7 +191,7 @@ const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
                                         <AnswerTile
                                             tileId={tileId}
                                             fromBlankId={blankId}
-                                            content={tileId}
+                                            content={getTileContent(tileId)}
                                             label={getTileLabel(tileId)}
                                             moveTargets={getMoveTargets(
                                                 blankId,
@@ -211,7 +223,7 @@ const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
                         <AnswerTile
                             key={tileId}
                             tileId={tileId}
-                            content={tileId}
+                            content={getTileContent(tileId)}
                             label={getTileLabel(tileId)}
                             moveTargets={getMoveTargets()}
                             onMove={(targetId) =>

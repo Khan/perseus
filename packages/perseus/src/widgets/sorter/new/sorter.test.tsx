@@ -56,6 +56,20 @@ async function moveTileToBlank(
     );
 }
 
+async function moveFirstBankTileToBlank(
+    user: UserEvent,
+    tile: string,
+    blankNumber: number,
+) {
+    const [bankTile] = within(getChoiceBank()).getAllByRole("button", {
+        name: tile,
+    });
+    await user.click(bankTile);
+    await user.click(
+        screen.getByRole("menuitem", {name: `Move to Blank ${blankNumber}`}),
+    );
+}
+
 async function clearBlank(user: UserEvent, tile: string, blankNumber: number) {
     await user.click(screen.getByRole("button", {name: tile}));
     await user.click(
@@ -256,6 +270,27 @@ describe("new sorter widget", () => {
             ).toBeVisible();
         });
 
+        // There shouldn't be content that has duplicate cards but there's also no limitation
+        // against having duplicate cards; this test makes sure things don't break when
+        // content creators aren't following best practices
+        it("keeps a duplicate card in the choice bank when its twin is placed", async () => {
+            // Arrange
+            renderQuestion(
+                generateSorterQuestion(["Apple", "Apple", "Banana"]),
+                {
+                    apiOptions,
+                },
+            );
+
+            // Act
+            await moveFirstBankTileToBlank(userEvent, "Apple", 1);
+
+            // Assert
+            expect(
+                within(getChoiceBank()).getAllByRole("button", {name: "Apple"}),
+            ).toHaveLength(1);
+        });
+
         it("tracks an interaction when a card is moved", async () => {
             // Arrange
             const trackInteraction = jest.fn();
@@ -315,6 +350,28 @@ describe("new sorter widget", () => {
             // Assert
             expect(renderer.getUserInputMap()["sorter 1"]).toEqual({
                 options: ["Banana", "Apple"],
+                changed: true,
+            });
+        });
+
+        // There shouldn't be content that has duplicate cards but there's also no limitation
+        // against having duplicate cards; this test makes sure things don't break when
+        // content creators aren't following best practices
+        it("marks the input changed when every blank is filled with duplicate cards", async () => {
+            // Arrange
+            const {renderer} = renderQuestion(
+                generateSorterQuestion(["Apple", "Apple", "Banana"]),
+                {apiOptions},
+            );
+
+            // Act
+            await moveFirstBankTileToBlank(userEvent, "Apple", 1);
+            await moveFirstBankTileToBlank(userEvent, "Banana", 2);
+            await moveFirstBankTileToBlank(userEvent, "Apple", 3);
+
+            // Assert
+            expect(renderer.getUserInputMap()["sorter 1"]).toEqual({
+                options: ["Apple", "Banana", "Apple"],
                 changed: true,
             });
         });
