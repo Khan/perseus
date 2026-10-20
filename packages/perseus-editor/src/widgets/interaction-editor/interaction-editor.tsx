@@ -3,7 +3,6 @@ import {interactionLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import GraphSettings from "../../components/graph-settings";
-import EditorJsonify from "../../mixins/editor-jsonify";
 
 import ElementContainer from "./element-container";
 import FunctionEditor from "./function-editor";

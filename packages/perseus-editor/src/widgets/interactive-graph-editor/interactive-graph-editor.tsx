@@ -12,7 +12,6 @@ import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 import invariant from "tiny-invariant";
-import _ from "underscore";
 
 import AngleAnswerOptions from "./components/angle-answer-options";
 import GraphPointsCountSelector from "./components/graph-points-count-selector";
@@ -28,7 +27,7 @@ import VectorAnswerOptions from "./components/vector-answer-options";
 import LabeledRow from "./locked-figures/labeled-row";
 import LockedFiguresSection from "./locked-figures/locked-figures-section";
 import StartCoordsSettings from "./start-coords/start-coords-settings";
-import {getStartCoords, shouldShowStartCoordsUI} from "./start-coords/util";
+import {shouldShowStartCoordsUI} from "./start-coords/util";
 import {reshapePointLabelsForGraphType} from "./utils/reshape-point-labels";
 
 import type {InteractiveGraphSettingsData} from "./components/interactive-graph-settings";

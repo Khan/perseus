@@ -80,7 +80,7 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                     return warnings;
                 },
             }),
-            [correct, layout, padding],
+            [correct],
         );
 
         function handleChange(changes: Partial<PerseusSorterWidgetOptions>) {

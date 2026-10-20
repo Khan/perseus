@@ -20,7 +20,6 @@ import {
 } from "../../components/segmented-control";
 import {TypedSingleSelect} from "../../components/typed-single-select";
 import Editor from "../../editor";
-import EditorJsonify from "../../mixins/editor-jsonify";
 
 import styles from "./numeric-input-editor.module.css";
 

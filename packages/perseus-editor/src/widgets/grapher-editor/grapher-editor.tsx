@@ -12,7 +12,6 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 import invariant from "tiny-invariant";
-import _ from "underscore";
 
 import GraphSettings from "../../components/graph-settings";
 import InfoTip from "../../components/info-tip";

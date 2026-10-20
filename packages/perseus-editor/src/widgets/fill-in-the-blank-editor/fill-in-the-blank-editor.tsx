@@ -34,17 +34,7 @@ type FillInTheBlankEditorHandle = {
 const FillInTheBlankEditor = React.forwardRef<
     FillInTheBlankEditorHandle,
     Props
->(function FillInTheBlankEditor(
-    {
-        content = defaultOptions.content,
-        widgets = defaultOptions.widgets,
-        tiles = defaultOptions.tiles,
-        maxUsesPerTile = defaultOptions.maxUsesPerTile,
-        randomize = defaultOptions.randomize,
-        apiOptions,
-    },
-    ref,
-) {
+>(function FillInTheBlankEditor({apiOptions}, ref) {
     React.useImperativeHandle(
         ref,
         () => ({
@@ -52,7 +42,7 @@ const FillInTheBlankEditor = React.forwardRef<
             // uses the new linter rules for save warnings.
             getSaveWarnings: () => [],
         }),
-        [content, widgets, tiles, maxUsesPerTile, randomize],
+        [],
     );
 
     // TODO(LEMS-4396): clean up feature flag

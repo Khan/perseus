@@ -3,7 +3,6 @@ import {labelImageLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import FormWrappedTextField from "../../components/form-wrapped-text-field";
-import EditorJsonify from "../../mixins/editor-jsonify";
 
 import AnswerChoices from "./answer-choices";
 import Behavior from "./behavior";

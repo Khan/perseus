@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import {
     PerseusMarkdown,
     Util,
@@ -479,7 +478,10 @@ class Editor extends React.Component<Props, State> {
                 textarea.selectionEnd,
             );
 
-            const widgetIds = getWidgetIdsFromContent(selectedText) as Array<keyof PerseusWidgetsMap>;
+            // eslint-disable-next-line no-restricted-syntax
+            const widgetIds = getWidgetIdsFromContent(selectedText) as Array<
+                keyof PerseusWidgetsMap
+            >;
 
             const widgetData = _.pick(this.props.widgets, widgetIds);
             setPerseusClipboardData({

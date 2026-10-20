@@ -8,7 +8,6 @@ import * as React from "react";
 import _ from "underscore";
 
 import TextListEditor from "../../components/text-list-editor";
-import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {WidgetEditorProps} from "../widget-editor-props";
 import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";

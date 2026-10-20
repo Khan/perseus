@@ -4,7 +4,6 @@ import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../../editor";
-import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {WidgetEditorProps} from "../widget-editor-props";
 import type {PerseusExplanationWidgetOptions} from "@khanacademy/perseus-core";

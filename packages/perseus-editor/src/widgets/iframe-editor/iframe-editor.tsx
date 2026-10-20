@@ -7,7 +7,6 @@ import * as React from "react";
 
 import BlurInput from "../../components/blur-input";
 import {PairsEditor} from "../../components/pairs-editor";
-import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {WidgetEditorProps} from "../widget-editor-props";
 

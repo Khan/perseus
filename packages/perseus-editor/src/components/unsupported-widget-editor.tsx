@@ -1,7 +1,5 @@
 import * as React from "react";
 
-import EditorJsonify from "../mixins/editor-jsonify";
-
 /**
  * Shown in place of a widget editor when no editor is registered for the
  * widget's type.

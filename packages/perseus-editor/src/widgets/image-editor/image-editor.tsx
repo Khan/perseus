@@ -5,8 +5,6 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import EditorJsonify from "../../mixins/editor-jsonify";
-
 import ImageSettings from "./components/image-settings";
 import ImageUrlInput from "./components/image-url-input";
 

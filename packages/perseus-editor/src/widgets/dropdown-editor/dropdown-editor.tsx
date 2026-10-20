@@ -13,7 +13,6 @@ import * as React from "react";
 import _ from "underscore";
 
 import InfoTip from "../../components/info-tip";
-import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {WidgetEditorProps} from "../widget-editor-props";
 

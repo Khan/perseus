@@ -1,8 +1,5 @@
 import {ApiOptions, Dependencies} from "@khanacademy/perseus";
-import {
-    generateAnswerTile,
-    generateFillInTheBlankOptions,
-} from "@khanacademy/perseus-core";
+import {generateFillInTheBlankOptions} from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
@@ -12,8 +9,6 @@ import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-wi
 import * as WidgetEditorRegistry from "../../widget-editor-registry";
 
 import FillInTheBlankEditor from "./fill-in-the-blank-editor";
-
-type FillInTheBlankEditorHandle = React.ElementRef<typeof FillInTheBlankEditor>;
 
 describe("fill-in-the-blank-editor", () => {
     beforeAll(() => {

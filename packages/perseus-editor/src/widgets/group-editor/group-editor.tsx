@@ -1,14 +1,10 @@
 import {groupLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
-import invariant from "tiny-invariant";
 
 import Editor from "../../editor";
 
 import type {WidgetEditorProps} from "../widget-editor-props";
-import type {
-    PerseusGroupWidgetOptions,
-    PerseusRenderer,
-} from "@khanacademy/perseus-core";
+import type {PerseusGroupWidgetOptions} from "@khanacademy/perseus-core";
 
 type Props = WidgetEditorProps<PerseusGroupWidgetOptions>;
 

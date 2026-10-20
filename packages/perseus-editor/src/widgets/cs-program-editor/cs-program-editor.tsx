@@ -11,7 +11,6 @@ import BlurInput from "../../components/blur-input";
 import InfoTip from "../../components/info-tip";
 import {PairsEditor} from "../../components/pairs-editor";
 import {deprecatedChangeableChange} from "../../mixins/changeable";
-import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {WidgetEditorProps} from "../widget-editor-props";
 import type {PerseusCSProgramWidgetOptions} from "@khanacademy/perseus-core";
