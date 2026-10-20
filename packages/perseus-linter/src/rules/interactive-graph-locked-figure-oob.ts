@@ -35,7 +35,7 @@ export default Rule.makeRule({
         const warnings: string[] = [];
 
         for (const figure of lockedFigures ?? []) {
-            if (isEntirelyOutsideRange(figure, range)) {
+            if (!hasPointInRange(figure, range)) {
                 const figureType = getPreciseFigureType(figure);
                 const isSinglePoint =
                     figure.type === "point" || figure.type === "label";
@@ -70,16 +70,13 @@ function isInRange([x, y]: Coord, range: GraphRange): boolean {
 
 // Figures are only flagged when every point that defines them is off the
 // graph. Figures with a subset of points inside the graph are not flagged.
-function isEntirelyOutsideRange(
-    figure: LockedFigure,
-    range: GraphRange,
-): boolean {
+function hasPointInRange(figure: LockedFigure, range: GraphRange): boolean {
     // Locked functions aren't checked.
     if (figure.type === "function") {
-        return false;
+        return true;
     }
 
-    return definingPoints(figure).every((point) => !isInRange(point, range));
+    return definingPoints(figure).some((point) => isInRange(point, range));
 }
 
 function definingPoints(
