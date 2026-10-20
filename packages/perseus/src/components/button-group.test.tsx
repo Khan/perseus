@@ -9,7 +9,9 @@ import type {UserEvent} from "@testing-library/user-event";
 const buttons = [
     {value: "linear", content: "Linear"},
     {value: "quadratic", content: "Quadratic"},
-];
+] as const;
+
+type Curve = "linear" | "quadratic";
 
 describe("ButtonGroup", () => {
     let userEvent: UserEvent;
@@ -23,7 +25,7 @@ describe("ButtonGroup", () => {
         // Arrange
         const onChange = jest.fn();
         render(
-            <ButtonGroup
+            <ButtonGroup<Curve>
                 value="linear"
                 buttons={buttons}
                 onChange={onChange}
@@ -41,7 +43,7 @@ describe("ButtonGroup", () => {
         // Arrange
         const onChange = jest.fn();
         render(
-            <ButtonGroup
+            <ButtonGroup<Curve>
                 value="linear"
                 buttons={buttons}
                 onChange={onChange}

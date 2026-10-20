@@ -4,7 +4,7 @@ import * as React from "react";
 
 import type {CSSProperties} from "aphrodite";
 
-interface Props<ValueT> {
+interface Props<ValueT extends string> {
     // the initial value of the button selected, defaults to null
     value: ValueT | null;
     buttons: ReadonlyArray<{
@@ -38,7 +38,9 @@ interface DefaultProps {
 /**
  * ButtonGroup is an aesthetically pleasing group of buttons.
  */
-class ButtonGroup<ValueT> extends React.Component<Props<ValueT>> {
+class ButtonGroup<ValueT extends string> extends React.Component<
+    Props<ValueT>
+> {
     container: HTMLDivElement | null | undefined;
 
     static defaultProps: DefaultProps = {
