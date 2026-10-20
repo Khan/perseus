@@ -1,13 +1,20 @@
 import {fillInTheBlankLogic, isFeatureOn} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import type {WidgetEditorProps} from "../widget-editor-props";
+import type {APIOptions} from "@khanacademy/perseus";
 import type {PerseusFillInTheBlankWidgetOptions} from "@khanacademy/perseus-core";
 
 const defaultOptions: PerseusFillInTheBlankWidgetOptions =
     fillInTheBlankLogic.defaultWidgetOptions;
 
-type Props = WidgetEditorProps<PerseusFillInTheBlankWidgetOptions>;
+// TODO(benchristel): Define Props in terms of WidgetEditorProps. We can't do
+//  this currently because `pnpm build:types` fails with a cryptic error. The
+//  cause seems to be a combination of WidgetEditorProps' use of APIOptions and
+//  the fact that this is a functional component.
+interface Props extends PerseusFillInTheBlankWidgetOptions {
+    onChange: (options: PerseusFillInTheBlankWidgetOptions) => void;
+    apiOptions?: APIOptions;
+}
 
 /**
  * Imperative API that WidgetEditor calls

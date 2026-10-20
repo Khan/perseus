@@ -9,6 +9,8 @@ export type WidgetEditorProps<OptionsT> = OptionsT & {
     //    options are present.
     //  - Tests for widget editors should always pass apiOptions, using
     //    `ApiOptions.defaults` if no values need to be customized.
+    //  - There should be no unnecessary defaults or `apiOptions?.` property
+    //    access in editors.
     apiOptions?: APIOptions;
     static?: boolean;
     onChange: (options: OptionsT) => void;
