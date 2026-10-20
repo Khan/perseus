@@ -4,13 +4,12 @@ import * as React from "react";
 
 import type {CSSProperties} from "aphrodite";
 
-// FIXME: T should be constrained to `extends string`, and renamed to ValueT.
-interface Props<T> {
+interface Props<ValueT> {
     // the initial value of the button selected, defaults to null
-    value: T | null;
+    value: ValueT | null;
     buttons: ReadonlyArray<{
         // the value returned when the button is selected
-        value: NoInfer<T>;
+        value: NoInfer<ValueT>;
         // the content shown within the button, typically a string that gets
         // rendered as the button's display text
         content: React.ReactNode;
@@ -19,7 +18,7 @@ interface Props<T> {
     }>;
     // a function that is provided with the updated value (which it then is
     // responsible for updating)
-    onChange: (value: T) => unknown;
+    onChange: (value: ValueT) => unknown;
 
     /**
      * Customizes the selected button's styling.
@@ -39,8 +38,7 @@ interface DefaultProps {
 /**
  * ButtonGroup is an aesthetically pleasing group of buttons.
  */
-// FIXME: rename type param to ValueT, constrain to `extends string`.
-class ButtonGroup<T> extends React.Component<Props<T>> {
+class ButtonGroup<ValueT> extends React.Component<Props<ValueT>> {
     container: HTMLDivElement | null | undefined;
 
     static defaultProps: DefaultProps = {
@@ -60,7 +58,7 @@ class ButtonGroup<T> extends React.Component<Props<T>> {
         }
     }
 
-    toggleSelect(newValue: T) {
+    toggleSelect(newValue: ValueT) {
         if (this.props.value !== newValue) {
             this.props.onChange(newValue);
         }

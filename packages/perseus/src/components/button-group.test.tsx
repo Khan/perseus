@@ -55,7 +55,6 @@ describe("ButtonGroup", () => {
         expect(onChange).not.toHaveBeenCalled();
     });
 
-    // FIXME: covert the following two tests to tstyche typetests.
     it("accepts an onChange handler typed by the type argument", async () => {
         // Arrange
         type Shape = "circle" | "square";
