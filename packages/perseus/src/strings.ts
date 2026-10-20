@@ -55,8 +55,6 @@ export type PerseusStrings = {
     simplifiedImproperExample: string;
     mixedExample: string;
     decimalExample: string;
-    // TODO: is this still needed?
-    // there's not a way to set this in the editor
     percentExample: string;
     piExample: string;
     yourAnswer: string;
