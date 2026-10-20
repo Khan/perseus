@@ -108,18 +108,21 @@ export async function waitForNpmPackages(
         const checked = await Promise.all(
             pending.map((pkg) =>
                 dependencies.checkInstallable(pkg).then(
-                    () => ({pkg, installable: true}),
-                    (error) => ({pkg, installable: false, message: error.message}),
+                    () => ({pkg, installable: true as const}),
+                    (error) => ({
+                        pkg,
+                        installable: false as const,
+                        message: error.message,
+                    }),
                 ),
             ),
         );
         for (const result of checked) {
             if (result.installable) {
-              log(`✅ ${formatPackage(result.pkg)} is installable`);
+                log(`✅ ${formatPackage(result.pkg)} is installable`);
             } else {
-              log(`⚠️ ${formatPackage(result.pkg)}: ${result.message}`)
+                log(`⚠️ ${formatPackage(result.pkg)}: ${result.message}`);
             }
-            
         }
         pending = checked.filter((c) => !c.installable).map((c) => c.pkg);
 
