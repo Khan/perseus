@@ -32,12 +32,9 @@ const layoutOptions = {
     vertical: "Vertical",
 } as const satisfies Record<PerseusSorterWidgetOptions["layout"], string>;
 
-type Props = PerseusSorterWidgetOptions & {
-    onChange: (
-        newOptions: Partial<PerseusSorterWidgetOptions>,
-        callback?: () => void,
-    ) => void;
-};
+interface Props extends PerseusSorterWidgetOptions {
+    onChange: (options: PerseusSorterWidgetOptions) => void;
+}
 
 /**
  * Imperative API that WidgetEditor calls
@@ -87,17 +84,26 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
             [correct, layout, padding],
         );
 
+        function handleChange(changes: Partial<PerseusSorterWidgetOptions>) {
+            onChange({
+                correct,
+                layout,
+                padding,
+                ...changes,
+            });
+        }
+
         const onCardChange = (index: number, value: string) => {
             const newCorrect = [...correct];
             newCorrect[index] = value;
-            onChange({correct: newCorrect});
+            handleChange({correct: newCorrect});
         };
 
         const onAddCard = () => {
             if (correct.length >= SORTER_MAX_CARDS) {
                 return;
             }
-            onChange({correct: [...correct, ""]});
+            handleChange({correct: [...correct, ""]});
         };
 
         const onMoveCard = (index: number, offset: -1 | 1) => {
@@ -107,11 +113,11 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                 newCorrect[newIndex],
                 newCorrect[index],
             ];
-            onChange({correct: newCorrect});
+            handleChange({correct: newCorrect});
         };
 
         const onDeleteCard = (index: number) => {
-            onChange({
+            handleChange({
                 correct: correct.filter((card, i) => i !== index),
             });
         };
@@ -166,9 +172,7 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                         <TypedSingleSelect
                             options={layoutOptions}
                             selectedValue={layout}
-                            onChange={(newLayout) =>
-                                onChange({layout: newLayout})
-                            }
+                            onChange={(layout) => handleChange({layout})}
                         />
                     }
                     contextLabel={
@@ -197,9 +201,7 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                     <Checkbox
                         label="Padding"
                         checked={padding}
-                        onChange={(value) => {
-                            onChange({padding: value});
-                        }}
+                        onChange={(padding) => handleChange({padding})}
                     />
                     <InfoTip>
                         <p>

@@ -96,13 +96,15 @@ describe("radio-editor", () => {
             });
 
             // Should call onChange with corrected choices
-            expect(onChangeMock).toHaveBeenCalledWith({
-                choices: [
-                    {id: "radio-choice-0", content: "Choice 1"},
-                    {id: "valid-id", content: "Choice 2"},
-                    {id: "radio-choice-2", content: "Choice 3"},
-                ],
-            });
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    choices: [
+                        {id: "radio-choice-0", content: "Choice 1"},
+                        {id: "valid-id", content: "Choice 2"},
+                        {id: "radio-choice-2", content: "Choice 3"},
+                    ],
+                }),
+            );
         });
 
         it("should not call onChange if all choices already have valid IDs", () => {
@@ -134,12 +136,14 @@ describe("radio-editor", () => {
             });
 
             // Should call onChange with corrected choices
-            expect(onChangeMock).toHaveBeenCalledWith({
-                choices: [
-                    {id: "radio-choice-0", content: "Choice 1"},
-                    {id: "radio-choice-1", content: "Choice 2"},
-                ],
-            });
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    choices: [
+                        {id: "radio-choice-0", content: "Choice 1"},
+                        {id: "radio-choice-1", content: "Choice 2"},
+                    ],
+                }),
+            );
         });
     });
 
@@ -176,7 +180,9 @@ describe("radio-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toHaveBeenCalledWith({countChoices: true});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({countChoices: true}),
+        );
     });
 
     it("should toggle randomize order checkbox", async () => {
@@ -190,7 +196,9 @@ describe("radio-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toHaveBeenCalledWith({randomize: true});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({randomize: true}),
+        );
     });
 
     it("should be possible to add answer", async () => {
@@ -219,8 +227,6 @@ describe("radio-editor", () => {
                 ],
                 hasNoneOfTheAbove: false,
             }),
-            // there's some anonymous function that's also passed
-            expect.anything(),
         );
     });
 

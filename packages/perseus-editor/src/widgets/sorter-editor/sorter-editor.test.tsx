@@ -84,7 +84,9 @@ describe("sorter-editor", () => {
         await userEvent.click(screen.getByRole("option", {name: "Vertical"}));
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({layout: "vertical"});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({layout: "vertical"}),
+        );
     });
 
     it("should be possible to change layout to horizontal", async () => {
@@ -102,7 +104,9 @@ describe("sorter-editor", () => {
         await userEvent.click(screen.getByRole("option", {name: "Horizontal"}));
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({layout: "horizontal"});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({layout: "horizontal"}),
+        );
     });
 
     describe("layout warning", () => {
@@ -162,7 +166,9 @@ describe("sorter-editor", () => {
 
         await userEvent.click(screen.getByRole("checkbox", {name: "Padding"}));
 
-        expect(onChangeMock).toHaveBeenCalledWith({padding: false});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({padding: false}),
+        );
     });
 
     it("renders an input for each card in the correct answer", () => {
@@ -194,9 +200,11 @@ describe("sorter-editor", () => {
         await userEvent.type(card, "Emu");
 
         // Assert
-        expect(onChangeMock).toHaveBeenLastCalledWith({
-            correct: ["Cat", "Emu"],
-        });
+        expect(onChangeMock).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+                correct: ["Cat", "Emu"],
+            }),
+        );
     });
 
     it("calls onChange with an empty card appended when the add button is clicked", async () => {
@@ -213,9 +221,11 @@ describe("sorter-editor", () => {
         await userEvent.click(screen.getByRole("button", {name: "Add a card"}));
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({
-            correct: ["Cat", "Dog", ""],
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                correct: ["Cat", "Dog", ""],
+            }),
+        );
     });
 
     it("disables the add button once there are ten cards", () => {
@@ -308,9 +318,11 @@ describe("sorter-editor", () => {
             await userEvent.type(card, "Emu");
 
             // Assert
-            expect(onChangeMock).toHaveBeenLastCalledWith({
-                correct: [...fifteenCards.slice(0, 14), "Emu"],
-            });
+            expect(onChangeMock).toHaveBeenLastCalledWith(
+                expect.objectContaining({
+                    correct: [...fifteenCards.slice(0, 14), "Emu"],
+                }),
+            );
         });
 
         it("removes a card past the limit when its delete button is clicked", async () => {
@@ -329,9 +341,11 @@ describe("sorter-editor", () => {
             );
 
             // Assert
-            expect(onChangeMock).toHaveBeenCalledWith({
-                correct: fifteenCards.slice(0, 14),
-            });
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    correct: fifteenCards.slice(0, 14),
+                }),
+            );
         });
 
         it("serializes all of the cards, including the ones past the limit", () => {
@@ -384,9 +398,11 @@ describe("sorter-editor", () => {
         );
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({
-            correct: ["Cat", "Emu", "Dog"],
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                correct: ["Cat", "Emu", "Dog"],
+            }),
+        );
     });
 
     it("swaps a card with the one below it when move down is clicked", async () => {
@@ -405,9 +421,11 @@ describe("sorter-editor", () => {
         );
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({
-            correct: ["Dog", "Cat", "Emu"],
-        });
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                correct: ["Dog", "Cat", "Emu"],
+            }),
+        );
     });
 
     it("disables move up on the first card and move down on the last card", () => {
@@ -450,7 +468,9 @@ describe("sorter-editor", () => {
         );
 
         // Assert
-        expect(onChangeMock).toHaveBeenCalledWith({correct: ["Cat", "Emu"]});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({correct: ["Cat", "Emu"]}),
+        );
     });
 
     it("renders no cards once the last one is deleted", async () => {

@@ -38,7 +38,7 @@ import VideoEditor from "./widgets/video-editor";
  * registers each editor under its key, and the editor page looks an editor up by
  * the type of the widget it's rendering.
  */
-export default {
+export const AllEditors: Record<string, unknown> = {
     categorizer: CategorizerEditor,
     "cs-program": CSProgramEditor,
     definition: DefinitionEditor,
