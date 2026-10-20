@@ -42,6 +42,7 @@ minimumReleaseAgeExclude:
 packages:
     - __docs__
     - config/build
+    - config/eslint-plugin
     - data
     - dev
     - packages/*
