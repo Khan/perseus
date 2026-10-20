@@ -3,7 +3,7 @@
     "private": true,
     "main": "index.js",
     "peerDependencies": {
-        "eslint": "^8.57.1",
-        "typescript": "5.9.3"
+        "eslint": "catalog:",
+        "typescript": "catalog:"
     }
 }
