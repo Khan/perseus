@@ -141,7 +141,6 @@
         font-family: inherit;
         font-size: 18px;
         line-height: 1.4;
-        color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile blockquote {
         font-family: inherit;
@@ -153,7 +152,6 @@
         font-family: inherit;
         font-size: 18px;
         line-height: 1.4;
-        color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
         font-size: 21px;
@@ -216,7 +214,6 @@
         font-family: inherit;
         font-size: 20px;
         line-height: 1.5;
-        color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile blockquote {
         font-family: inherit;
@@ -228,7 +225,6 @@
         font-family: inherit;
         font-size: 20px;
         line-height: 1.5;
-        color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
         font-size: 23px;
@@ -291,7 +287,6 @@
         font-family: inherit;
         font-size: 22px;
         line-height: 1.4;
-        color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile blockquote {
         font-family: inherit;
@@ -303,7 +298,6 @@
         font-family: inherit;
         font-size: 22px;
         line-height: 1.4;
-        color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
         font-size: 25px;
