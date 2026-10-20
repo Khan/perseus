@@ -74,18 +74,15 @@ export async function checkInstallable(
     // A fresh store and cache each time, so a copy of the package metadata
     // cached before the publish can't hide the new version.
     const dir = await fs.mkdtemp(path.join(os.tmpdir(), "wait-for-npm-"));
-    try {
-        await runPnpm([
-            "store",
-            "add",
-            formatPackage(pkg),
-            "--store-dir",
-            path.join(dir, "store"),
-            `--config.cache-dir=${path.join(dir, "cache")}`,
-        ]);
-    } finally {
-        await fs.rm(dir, {recursive: true, force: true});
-    }
+
+    await runPnpm([
+        "store",
+        "add",
+        formatPackage(pkg),
+        "--store-dir",
+        path.join(dir, "store"),
+        `--config.cache-dir=${path.join(dir, "cache")}`,
+    ]);
 }
 
 /**
