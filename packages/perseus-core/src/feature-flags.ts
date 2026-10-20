@@ -14,7 +14,7 @@ const PerseusFeatureFlags = [
     "desmos-calculator", // TODO(LEMS-4180): clean up feature flag
     "article-extras", // TODO(LEMS-4493): clean up feature flag
     "dnd-widget-fitb", // TODO(LEMS-4396): clean up feature flag
-    "dnd-widget-sorter",
+    "dnd-widget-sorter", // // TODO(LEMS-4676): clean up feature flag
 ] as const;
 
 export default PerseusFeatureFlags;
