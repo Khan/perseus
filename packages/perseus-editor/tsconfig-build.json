@@ -2,10 +2,7 @@
     "extends": "../tsconfig-shared.json",
     "compilerOptions": {
         "outDir": "./dist",
-        "rootDir": "src",
-        "paths": {
-            "jsdiff": ["../../vendor/jsdiff/jsdiff.js"]
-        }
+        "rootDir": "src"
     },
     "references": [
         {"path": "../kas/tsconfig-build.json"},

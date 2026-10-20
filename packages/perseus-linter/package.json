@@ -36,7 +36,7 @@
         "@khanacademy/pure-markdown": "workspace:*"
     },
     "devDependencies": {
-        "perseus-build-settings": "workspace:*"
+        "@internal/build-settings": "workspace:*"
     },
     "keywords": [],
     "khan": {

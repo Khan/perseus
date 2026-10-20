@@ -36,21 +36,24 @@ const POINTS =
 // Drags the legacy Graphie point at `index` (DOM order) to the page
 // coordinates `pos` by replaying the mouse events Graphie listens for.
 function dragPointTo(index: number, pos: {x: number; y: number}): void {
-    // Create an alias for the point we want, Cypress re-queries for it when we
-    // use the alias (which avoids Cypress using an element that might have
-    // been removed from the DOM during a re-render)
-    cy.get(POINTS).eq(index).as("point");
+    // realMouseMove takes coordinates relative to the subject, so convert the
+    // page coordinates to be relative to `body`.
+    const clientX = pos.x - window.scrollX;
+    const clientY = pos.y - window.scrollY;
 
-    /* eslint-disable cypress/no-force */
-    cy.get("@point").trigger("mousedown", {force: true, which: 1, button: 0});
-    cy.get("@point").trigger("mousemove", {
-        force: true,
-        pageX: pos.x,
-        pageY: pos.y,
+    cy.get(POINTS).eq(index).realMouseDown({position: "center"});
+    cy.get("body").then(($body) => {
+        const bodyRect = $body[0].getBoundingClientRect();
+        cy.wrap($body).realMouseMove(
+            clientX - bodyRect.left,
+            clientY - bodyRect.top,
+            {
+                position: "topLeft",
+                scrollBehavior: false,
+            },
+        );
+        cy.wrap($body).realMouseUp();
     });
-    cy.get("@point").trigger("mouseup", {force: true});
-    cy.get("@point").trigger("mouseout", {force: true});
-    /* eslint-enable cypress/no-force */
 }
 
 // --- Interactive Graph (Mafs) keyboard helpers --------------------------

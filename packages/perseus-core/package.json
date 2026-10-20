@@ -35,8 +35,8 @@
         "tiny-invariant": "catalog:prodDeps"
     },
     "devDependencies": {
+        "@internal/build-settings": "workspace:*",
         "@khanacademy/wonder-stuff-core": "catalog:devDeps",
-        "perseus-build-settings": "workspace:*",
         "underscore": "catalog:devDeps"
     },
     "peerDependencies": {

@@ -37,6 +37,7 @@
         "@khanacademy/perseus-utils": "workspace:*"
     },
     "devDependencies": {
+        "@internal/build-settings": "workspace:*",
         "@khanacademy/mathjax-renderer": "catalog:devDeps",
         "@khanacademy/wonder-blocks-clickable": "catalog:devDeps",
         "@khanacademy/wonder-blocks-core": "catalog:devDeps",
@@ -49,7 +50,6 @@
         "@phosphor-icons/core": "catalog:devDeps",
         "aphrodite": "catalog:devDeps",
         "mathquill": "github:Khan/mathquill#v1.0.3",
-        "perseus-build-settings": "workspace:*",
         "prop-types": "catalog:devDeps",
         "react": "catalog:devDeps",
         "react-dom": "catalog:devDeps",

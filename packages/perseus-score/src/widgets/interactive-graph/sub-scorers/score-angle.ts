@@ -32,7 +32,9 @@ export function scoreAngle(
     const areClockwise = clockwise([coords[0], coords[2], coords[1]]);
     const shouldReverseCoords = areClockwise && !allowReflexAngles;
     const guess = shouldReverseCoords
-        ? (coords.slice().reverse() as [Coord, Coord, Coord])
+        ? // `reverse()` widens the tuple to `Coord[]`.
+          // eslint-disable-next-line no-restricted-syntax
+          (coords.slice().reverse() as [Coord, Coord, Coord])
         : coords;
 
     let match: boolean;

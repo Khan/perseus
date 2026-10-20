@@ -145,6 +145,10 @@ jobs:
                     if: steps.js-files.outputs.filtered != '[]'
                     run: pnpm typecheck
 
+                  - name: Typecheck Cypress
+                    if: steps.js-files.outputs.filtered != '[]'
+                    run: pnpm typecheck:cypress
+
                   - name: Typetest
                     if: steps.js-files.outputs.filtered != '[]'
                     run: pnpm tstyche
@@ -214,6 +218,9 @@ jobs:
                   - name: Typecheck
                     run: pnpm typecheck
 
+                  - name: Typecheck Cypress
+                    run: pnpm typecheck:cypress
+
                   - name: Typetest
                     run: pnpm tstyche
 
@@ -274,8 +281,20 @@ jobs:
             - name: Install Cypress
               run: pnpm exec cypress install
 
+            - name: Detect available browsers
+              id: cypress_browser
+              shell: bash
+              run: |
+                  browser=electron
+
+                  if pnpm exec cypress info | grep -Eq '\bchrome\b'; then
+                      browser=chrome
+                  fi
+
+                  echo "browser=$browser" >> "$GITHUB_OUTPUT"
+
             - name: Run tests
-              run: pnpm cypress:ci
+              run: pnpm cypress:ci --browser ${{ steps.cypress_browser.outputs.browser }}
 
             - name: Upload Screenshots
               uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
