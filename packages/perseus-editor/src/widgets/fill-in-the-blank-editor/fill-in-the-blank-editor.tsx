@@ -1,16 +1,13 @@
 import {fillInTheBlankLogic, isFeatureOn} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {PerseusFillInTheBlankWidgetOptions} from "@khanacademy/perseus-core";
 
 const defaultOptions: PerseusFillInTheBlankWidgetOptions =
     fillInTheBlankLogic.defaultWidgetOptions;
 
-type Props = PerseusFillInTheBlankWidgetOptions & {
-    onChange: (newOptions: PerseusFillInTheBlankWidgetOptions) => void;
-    apiOptions?: APIOptionsWithDefaults;
-};
+type Props = WidgetEditorProps<PerseusFillInTheBlankWidgetOptions>;
 
 /**
  * Imperative API that WidgetEditor calls

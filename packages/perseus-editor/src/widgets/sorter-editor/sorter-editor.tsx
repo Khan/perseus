@@ -18,6 +18,8 @@ import {TypedSingleSelect} from "../../components/typed-single-select";
 import CardEditor from "./card-editor";
 import styles from "./sorter-editor.module.css";
 
+import type {WidgetEditorProps} from "../widget-editor-props";
+
 // There's nothing to sort with fewer than two cards.
 const minCards = 2;
 
@@ -32,9 +34,7 @@ const layoutOptions = {
     vertical: "Vertical",
 } as const satisfies Record<PerseusSorterWidgetOptions["layout"], string>;
 
-interface Props extends PerseusSorterWidgetOptions {
-    onChange: (options: PerseusSorterWidgetOptions) => void;
-}
+type Props = WidgetEditorProps<PerseusSorterWidgetOptions>;
 
 /**
  * Imperative API that WidgetEditor calls

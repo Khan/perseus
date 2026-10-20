@@ -4,16 +4,13 @@ import invariant from "tiny-invariant";
 
 import Editor from "../../editor";
 
-import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {
     PerseusGroupWidgetOptions,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
-interface Props extends PerseusGroupWidgetOptions {
-    onChange: (options: PerseusGroupWidgetOptions) => void;
-    apiOptions: APIOptionsWithDefaults;
-}
+type Props = WidgetEditorProps<PerseusGroupWidgetOptions>;
 
 class GroupEditor extends React.Component<Props> {
     static defaultProps: PerseusGroupWidgetOptions =

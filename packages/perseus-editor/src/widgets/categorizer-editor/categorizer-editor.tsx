@@ -1,4 +1,7 @@
-import {Categorizer as CategorizerWidget} from "@khanacademy/perseus";
+import {
+    ApiOptions,
+    Categorizer as CategorizerWidget,
+} from "@khanacademy/perseus";
 import {categorizerLogic} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
@@ -52,7 +55,7 @@ class CategorizerEditor extends React.Component<Props> {
                     values: userInput.values.map((value) => value ?? 0),
                 });
             },
-            apiOptions: this.props.apiOptions,
+            apiOptions: {...ApiOptions.defaults, ...this.props.apiOptions},
             trackInteraction: function () {},
         };
 

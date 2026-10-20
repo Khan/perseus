@@ -1,6 +1,7 @@
-import {type APIOptionsWithDefaults} from "@khanacademy/perseus";
+import type {APIOptions} from "@khanacademy/perseus";
 
 export type WidgetEditorProps<OptionsT> = OptionsT & {
-    apiOptions?: APIOptionsWithDefaults;
+    apiOptions?: APIOptions;
+    static?: boolean;
     onChange: (options: OptionsT) => void;
 };

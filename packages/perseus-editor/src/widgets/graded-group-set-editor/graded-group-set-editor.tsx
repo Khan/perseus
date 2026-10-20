@@ -3,13 +3,10 @@ import * as React from "react";
 
 import GradedGroupEditor from "../graded-group-editor";
 
-import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {PerseusGradedGroupSetWidgetOptions} from "@khanacademy/perseus-core";
 
-interface Props extends PerseusGradedGroupSetWidgetOptions {
-    apiOptions?: APIOptionsWithDefaults;
-    onChange: (options: PerseusGradedGroupSetWidgetOptions) => void;
-}
+type Props = WidgetEditorProps<PerseusGradedGroupSetWidgetOptions>;
 
 class GradedGroupSetEditor extends React.Component<Props> {
     _editors: Array<GradedGroupEditor | null> = [];

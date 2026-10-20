@@ -1,5 +1,6 @@
 import {vector as kvector} from "@khanacademy/kmath";
 import {
+    ApiOptions,
     containerSizeClass,
     getInteractiveBoxFromSizeClass,
     InteractiveGraphWidget,
@@ -31,6 +32,7 @@ import {getStartCoords, shouldShowStartCoordsUI} from "./start-coords/util";
 import {reshapePointLabelsForGraphType} from "./utils/reshape-point-labels";
 
 import type {InteractiveGraphSettingsData} from "./components/interactive-graph-settings";
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
     PerseusInteractiveGraphUserInput,
@@ -49,14 +51,7 @@ interface State {
     valid: true | string;
 }
 
-export interface Props extends PerseusInteractiveGraphWidgetOptions {
-    apiOptions: APIOptionsWithDefaults;
-    onChange: (options: PerseusInteractiveGraphWidgetOptions) => void;
-    // Whether the graph has been set to static mode.
-    // Graphs in static mode are not interactive, and their coords are
-    // set to those of the "correct" graph in the editor.
-    static?: boolean;
-}
+export type Props = WidgetEditorProps<PerseusInteractiveGraphWidgetOptions>;
 
 /**
  * An editor for the InteractiveGraph widget, which allows the user to
@@ -316,6 +311,11 @@ class InteractiveGraphEditor extends React.Component<Props, State> {
 
         const sizeClass = containerSizeClass.SMALL;
 
+        const apiOptionsWithDefaults: APIOptionsWithDefaults = {
+            ...ApiOptions.defaults,
+            ...this.props.apiOptions,
+        };
+
         if (this.state.valid === true) {
             // Default `correct` to `graph` if the type is wrong. This works
             // around a bug in the AX editor.
@@ -399,7 +399,7 @@ class InteractiveGraphEditor extends React.Component<Props, State> {
                     {...graphProps}
                     containerSizeClass={sizeClass}
                     apiOptions={{
-                        ...this.props.apiOptions,
+                        ...apiOptionsWithDefaults,
                         isMobile: false,
                     }}
                 />
@@ -555,12 +555,12 @@ class InteractiveGraphEditor extends React.Component<Props, State> {
                             onChange={(settings) =>
                                 this.handleSettingsChange(settings)
                             }
-                            apiOptions={this.props.apiOptions}
+                            apiOptions={apiOptionsWithDefaults}
                         />
                         <LockedFiguresSection
                             figures={this.props.lockedFigures}
                             onChange={(options) => this.handleChange(options)}
-                            apiOptions={this.props.apiOptions}
+                            apiOptions={apiOptionsWithDefaults}
                         />
                     </View>
                 )}

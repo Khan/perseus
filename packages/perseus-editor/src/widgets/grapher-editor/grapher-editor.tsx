@@ -4,6 +4,7 @@ import {
     GrapherWidget,
     containerSizeClass,
     getInteractiveBoxFromSizeClass,
+    ApiOptions,
 } from "@khanacademy/perseus";
 import {
     GrapherUtil as CoreGrapherUtil,
@@ -16,7 +17,7 @@ import _ from "underscore";
 import GraphSettings from "../../components/graph-settings";
 import InfoTip from "../../components/info-tip";
 
-import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {
     GrapherAnswerTypes,
     PerseusGrapherWidgetOptions,
@@ -28,10 +29,7 @@ const {MultiButtonGroup} = components;
 const Grapher = GrapherWidget.widget;
 const {defaultPlotProps, getEquationString, typeToButton} = GrapherUtil;
 
-interface Props extends PerseusGrapherWidgetOptions {
-    onChange: (options: PerseusGrapherWidgetOptions) => void;
-    apiOptions: APIOptionsWithDefaults;
-}
+type Props = WidgetEditorProps<PerseusGrapherWidgetOptions>;
 
 class GrapherEditor extends React.Component<Props> {
     static defaultProps: PerseusGrapherWidgetOptions =
@@ -82,7 +80,7 @@ class GrapherEditor extends React.Component<Props> {
         let graph;
         if (this.props.graph.valid === true) {
             const graphProps: Partial<PropsFor<typeof Grapher>> = {
-                apiOptions: this.props.apiOptions,
+                apiOptions: {...ApiOptions.defaults, ...this.props.apiOptions},
                 containerSizeClass: sizeClass,
                 options: {
                     graph: this.props.graph,
@@ -102,7 +100,7 @@ class GrapherEditor extends React.Component<Props> {
                 },
                 trackInteraction: function () {},
                 // Set the "correct answer" graph to static when editing is disabled
-                static: this.props.apiOptions.editingDisabled,
+                static: this.props.apiOptions?.editingDisabled,
             };
 
             graph = (

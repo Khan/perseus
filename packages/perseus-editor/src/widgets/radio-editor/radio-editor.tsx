@@ -12,17 +12,14 @@ import {getMovedChoices} from "./utils";
 
 import type {RadioOptionSettingsHandle} from "./radio-option-settings";
 import type {ChoiceMovementType} from "./radio-option-settings-actions";
-import type {APIOptions} from "@khanacademy/perseus";
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {
     PerseusRadioWidgetOptions,
     PerseusRadioChoice,
 } from "@khanacademy/perseus-core";
 
 // Exported for testing
-export interface RadioEditorProps extends PerseusRadioWidgetOptions {
-    apiOptions: APIOptions;
-    onChange: (options: PerseusRadioWidgetOptions) => void;
-}
+export type RadioEditorProps = WidgetEditorProps<PerseusRadioWidgetOptions>;
 
 /**
  * An editor for adding a radio widget that allows users to select a single option from multiple choices.
@@ -317,7 +314,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
     render(): React.ReactNode {
         const numCorrect = deriveNumCorrect(this.props.choices);
         const isEditingDisabled =
-            this.props.apiOptions.editingDisabled ?? false;
+            this.props.apiOptions?.editingDisabled ?? false;
 
         return (
             <div>
