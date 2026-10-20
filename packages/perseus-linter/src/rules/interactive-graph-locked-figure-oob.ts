@@ -23,7 +23,7 @@ export default Rule.makeRule({
             return;
         }
 
-        // If it can't find a definition for the widget it does nothing
+        // If there are no widget options, it does nothing.
         const widget = context?.widgets?.[nodeId];
         if (!widget) {
             return;
