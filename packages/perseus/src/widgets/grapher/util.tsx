@@ -171,7 +171,7 @@ export const DEFAULT_GRAPHER_PROPS: any = {
     availableTypes: [defaultPlot.type],
 };
 
-export const typeToButton = (type: FunctionTypeMappingKeys): any => {
+export const typeToButton = (type: FunctionTypeMappingKeys) => {
     const capitalized = type.charAt(0).toUpperCase() + type.substring(1);
 
     return {
