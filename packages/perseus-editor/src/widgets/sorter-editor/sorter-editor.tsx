@@ -44,7 +44,6 @@ interface Props extends PerseusSorterWidgetOptions {
  * Imperative API that WidgetEditor calls
  */
 type SorterEditorHandle = {
-    serialize: () => PerseusSorterWidgetOptions;
     getSaveWarnings: () => string[];
 };
 
@@ -64,10 +63,6 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
         React.useImperativeHandle(
             ref,
             () => ({
-                serialize: () => {
-                    return {correct, layout, padding};
-                },
-
                 // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend
                 // uses the new linter rules for save warnings.
                 getSaveWarnings: () => {

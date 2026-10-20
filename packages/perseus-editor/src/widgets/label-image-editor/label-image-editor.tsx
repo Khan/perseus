@@ -124,10 +124,6 @@ class LabelImageEditor extends React.Component<Props> {
         return warnings;
     };
 
-    serialize(): any {
-        return EditorJsonify.serialize.call(this);
-    }
-
     handleImageChange = (url: string) => {
         this.handleChange({
             imageUrl: url,

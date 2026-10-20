@@ -10,10 +10,6 @@ import EditorJsonify from "../mixins/editor-jsonify";
  * as it was.
  */
 class UnsupportedWidgetEditor extends React.Component {
-    serialize(): any {
-        return EditorJsonify.serialize.call(this);
-    }
-
     render(): React.ReactNode {
         return (
             <div>

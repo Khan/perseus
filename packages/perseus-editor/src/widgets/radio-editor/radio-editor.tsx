@@ -290,27 +290,6 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         return [];
     };
 
-    serialize(): PerseusRadioWidgetOptions {
-        const {
-            choices,
-            randomize,
-            multipleSelect,
-            countChoices,
-            hasNoneOfTheAbove,
-            deselectEnabled,
-        } = this.props;
-
-        return {
-            choices,
-            randomize,
-            multipleSelect,
-            countChoices,
-            hasNoneOfTheAbove,
-            deselectEnabled,
-            numCorrect: deriveNumCorrect(choices),
-        };
-    }
-
     render(): React.ReactNode {
         const numCorrect = deriveNumCorrect(this.props.choices);
         // TODO(LEMS-4681): Remove default for editingDisabled once all

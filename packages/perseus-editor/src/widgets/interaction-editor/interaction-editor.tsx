@@ -216,10 +216,6 @@ class InteractionEditor extends React.Component<Props, State> {
         this.handleChange({elements: newElements});
     };
 
-    serialize: () => any = () => {
-        return EditorJsonify.serialize.call(this);
-    };
-
     render(): React.ReactNode {
         const {TeX} = Dependencies.getDependencies();
 

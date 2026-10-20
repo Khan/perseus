@@ -83,14 +83,6 @@ class TableEditor extends React.Component<Props> {
         });
     };
 
-    serialize: () => any = () => {
-        const json = _.pick(this.props, "headers", "rows", "columns");
-
-        return _.extend({}, json, {
-            answers: this.props.answers.map(_.clone),
-        });
-    };
-
     render(): React.ReactNode {
         const tableProps: Partial<PropsFor<typeof Table>> = {
             options: {

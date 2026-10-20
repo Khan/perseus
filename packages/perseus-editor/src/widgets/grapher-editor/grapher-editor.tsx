@@ -67,13 +67,6 @@ class GrapherEditor extends React.Component<Props> {
         });
     };
 
-    serialize: () => any = () => {
-        return _.chain(this.props)
-            .pick("correct", "availableTypes")
-            .extend({graph: _.omit(this.props.graph, "box")})
-            .value();
-    };
-
     render(): React.ReactNode {
         const sizeClass = containerSizeClass.SMALL;
         let equationString;

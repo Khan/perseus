@@ -65,10 +65,6 @@ class DropdownEditor extends React.Component<Props> {
         this.handleChange({choices});
     };
 
-    serialize: () => any = () => {
-        return EditorJsonify.serialize.call(this);
-    };
-
     render(): React.ReactNode {
         const dropdownGroupName = _.uniqueId("perseus_dropdown_");
         const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;

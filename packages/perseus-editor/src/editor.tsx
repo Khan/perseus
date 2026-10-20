@@ -479,16 +479,9 @@ class Editor extends React.Component<Props, State> {
                 textarea.selectionEnd,
             );
 
-            const widgetIds: Array<keyof PerseusWidgetsMap> = _.map(
-                // @ts-expect-error - TS2345 - Argument of type 'RegExpMatchArray | null' is not assignable to parameter of type 'Collection<any>'.
-                selectedText.match(rWidgetSplit),
-                (syntax) => {
-                    // @ts-expect-error - TS2531 - Object is possibly 'null'.
-                    return Util.rWidgetParts.exec(syntax)[1];
-                },
-            );
+            const widgetIds = getWidgetIdsFromContent(selectedText) as Array<keyof PerseusWidgetsMap>;
 
-            const widgetData = _.pick(this.serialize().widgets, widgetIds);
+            const widgetData = _.pick(this.props.widgets, widgetIds);
             setPerseusClipboardData({
                 text: selectedText,
                 widgets: widgetData,
@@ -805,32 +798,6 @@ class Editor extends React.Component<Props, State> {
             textarea.focus();
         }
     };
-
-    /**
-     * Returns the current version of the edited {@link PerseusRenderer}.
-     *
-     * @deprecated Use the `Props.onChange` prop instead.
-     */
-    serialize(): PerseusRenderer {
-        // need to serialize the widgets since the state might not be
-        // completely represented in props. ahem //transformer// (and
-        // interactive-graph and plotter).
-        const widgets: Record<string, any> = {};
-        const widgetIds = _.intersection(
-            this.widgetIds,
-            Object.keys(this.refs),
-        );
-        _.each(widgetIds, (id) => {
-            // @ts-expect-error - TS2339 - Property 'serialize' does not exist on type 'ReactInstance'.
-            widgets[id] = this.refs[id].serialize();
-        });
-
-        return {
-            content: this.props.content,
-            images: this.props.images,
-            widgets,
-        };
-    }
 
     render(): React.ReactNode {
         let pieces;

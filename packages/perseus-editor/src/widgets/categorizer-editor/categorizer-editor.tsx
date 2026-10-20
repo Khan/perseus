@@ -35,10 +35,6 @@ class CategorizerEditor extends React.Component<Props> {
         });
     }
 
-    serialize: () => any = () => {
-        return EditorJsonify.serialize.call(this);
-    };
-
     render(): React.ReactNode {
         const categorizerProps: Partial<PropsFor<typeof Categorizer>> = {
             options: {

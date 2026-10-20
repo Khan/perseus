@@ -63,25 +63,6 @@ describe("fill-in-the-blank-editor", () => {
         ).not.toBeInTheDocument();
     });
 
-    it("serializes the options it was given", () => {
-        // Arrange
-        const options = generateFillInTheBlankOptions({
-            content: "A [[☃ blank 1]] is a drum.",
-            tiles: [generateAnswerTile({id: "djembe", content: "djembe"})],
-            maxUsesPerTile: "unlimited",
-            randomize: true,
-        });
-        const ref = React.createRef<FillInTheBlankEditorHandle>();
-        render(
-            <FillInTheBlankEditor {...options} ref={ref} onChange={() => {}} />,
-        );
-
-        // Act
-        const serialized = ref.current?.serialize();
-
-        expect(serialized).toEqual(options);
-    });
-
     it("is registered as the editor for the fill-in-the-blank widget", () => {
         // Arrange, Act
         const editor = WidgetEditorRegistry.getEditor("fill-in-the-blank");

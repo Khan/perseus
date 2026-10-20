@@ -108,10 +108,6 @@ class CSProgramEditor extends React.Component<Props> {
         );
     };
 
-    serialize: () => any = () => {
-        return EditorJsonify.serialize.call(this);
-    };
-
     render(): React.ReactNode {
         return (
             <div>

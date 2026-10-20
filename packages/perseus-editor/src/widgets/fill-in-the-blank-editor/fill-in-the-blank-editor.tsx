@@ -20,7 +20,6 @@ interface Props extends PerseusFillInTheBlankWidgetOptions {
  * Imperative API that WidgetEditor calls
  */
 type FillInTheBlankEditorHandle = {
-    serialize: () => PerseusFillInTheBlankWidgetOptions;
     getSaveWarnings: () => string[];
 };
 
@@ -49,10 +48,6 @@ const FillInTheBlankEditor = React.forwardRef<
     React.useImperativeHandle(
         ref,
         () => ({
-            serialize: () => {
-                return {content, widgets, tiles, maxUsesPerTile, randomize};
-            },
-
             // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend
             // uses the new linter rules for save warnings.
             getSaveWarnings: () => [],

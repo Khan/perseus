@@ -22,14 +22,6 @@ class GroupEditor extends React.Component<Props> {
         return this.editor.current?.getSaveWarnings();
     };
 
-    serialize(): PerseusRenderer {
-        invariant(
-            this.editor.current,
-            "cannot serialize GroupEditor without Editor",
-        );
-        return {...this.editor.current.serialize()};
-    }
-
     render(): React.ReactNode {
         return (
             <div className="perseus-group-editor">

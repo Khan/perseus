@@ -201,10 +201,6 @@ class NumericInputEditor extends React.Component<Props, State> {
         return warnings;
     };
 
-    serialize = () => {
-        return EditorJsonify.serialize.call(this);
-    };
-
     render() {
         const answers = this.props.answers;
         // TODO(LEMS-4681): Replace `?.` with `.` once all apiOptions are passed

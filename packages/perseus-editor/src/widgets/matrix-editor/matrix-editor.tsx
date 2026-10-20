@@ -59,10 +59,6 @@ class MatrixEditor extends React.Component<Props> {
         }
     };
 
-    serialize: () => any = () => {
-        return EditorJsonify.serialize.call(this);
-    };
-
     render(): React.ReactNode {
         const {matrixBoardSize, prefix, suffix, answers} = this.props;
         const matrixProps: Partial<PropsFor<typeof Matrix>> = {

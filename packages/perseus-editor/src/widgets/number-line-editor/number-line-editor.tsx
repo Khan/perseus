@@ -105,10 +105,6 @@ class NumberLineEditor extends React.Component<Props> {
         });
     };
 
-    serialize: () => any = () => {
-        return EditorJsonify.serialize.call(this);
-    };
-
     getNumberInputFormat(): MathFormat {
         return this.props.labelStyle === "non-reduced"
             ? "improper"

@@ -39,10 +39,6 @@ class ImageEditor extends React.Component<Props> {
         });
     };
 
-    serialize() {
-        return EditorJsonify.serialize.call(this);
-    }
-
     render() {
         return (
             <>

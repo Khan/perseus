@@ -32,10 +32,6 @@ class IframeEditor extends React.Component<IframeEditorProps> {
         });
     }
 
-    serialize: () => any = () => {
-        return EditorJsonify.serialize.call(this);
-    };
-
     render(): React.ReactNode {
         return (
             <div>

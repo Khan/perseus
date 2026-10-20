@@ -44,10 +44,6 @@ class DefinitionEditor extends React.Component<Props> {
         });
     }
 
-    serialize: () => any = () => {
-        return EditorJsonify.serialize.call(this);
-    };
-
     render(): React.ReactNode {
         return (
             <div className="perseus-widget-definition-editor">
