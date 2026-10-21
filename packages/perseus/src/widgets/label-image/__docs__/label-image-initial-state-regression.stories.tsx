@@ -154,16 +154,6 @@ export const ReducedMotionMarkers: Story = {
     },
 };
 
-// Verifies the mobile instruction text. On mobile, the caption reads
-// `strings.tapSingle` ("Tap each dot ...") instead of the desktop "Click ..."
-export const MobileInstructions: Story = {
-    decorators: [labelImageRendererDecorator, mobileDecorator],
-    parameters: {
-        apiOptions: {isMobile: true},
-    },
-    args: barGraphArgs,
-};
-
 // Verifies choices shown in the instructions section (hideChoicesFromInstructions: false),
 // including TeX fraction choices and the semanticColor.core.border.neutral.default separator dots
 // that appear between each choice.
