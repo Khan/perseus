@@ -19,6 +19,7 @@ import type {BlankRenderInfo} from "./fill-in-the-blank-context";
 import type {TilePlacements, TileUsage} from "../tile-placements";
 import type {PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
+// STOPSHIP: This is just for prototyping, not for releasing yet.
 export type FillInTheBlankTile = {
     id: string;
     /** Perseus markdown: text, TeX, or an image. "" = an empty tile. */
