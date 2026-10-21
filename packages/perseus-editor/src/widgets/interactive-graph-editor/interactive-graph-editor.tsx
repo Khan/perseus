@@ -245,7 +245,6 @@ class InteractiveGraphEditor extends React.Component<Props, State> {
                     : this.props.graph;
 
             const graphProps = {
-                ref: "graph",
                 options: {
                     range: this.props.range,
                     showAxisArrows: this.props.showAxisArrows,
