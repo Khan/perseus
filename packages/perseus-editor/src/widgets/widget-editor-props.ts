@@ -1,6 +1,6 @@
 import type {APIOptions} from "@khanacademy/perseus";
 
-export type WidgetEditorProps<OptionsT> = OptionsT & {
+export type WidgetEditorProps<TOptions> = TOptions & {
     // TODO(LEMS-4681): Rethink how APIOptions work in the editors:
     //  - This prop type should be APIOptionsWithDefaults, and should be
     //    required.
@@ -13,5 +13,5 @@ export type WidgetEditorProps<OptionsT> = OptionsT & {
     //    access in editors.
     apiOptions?: APIOptions;
     static?: boolean;
-    onChange: (options: OptionsT) => void;
+    onChange: (options: TOptions) => void;
 };
