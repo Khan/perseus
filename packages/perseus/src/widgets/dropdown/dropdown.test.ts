@@ -1,22 +1,54 @@
+// AGENTS.md points to this file as the model widget test, so keep it
+// following the Testing Guidelines there.
 import {
-    generateTestPerseusItem,
-    splitPerseusItem,
     generateDropdownOptions,
     generateDropdownWidget,
+    generateTestPerseusItem,
     generateTestPerseusRenderer,
+    splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../../__testutils__/render-question";
-import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {scorePerseusItemTesting} from "../../util/scoring.testutils";
 
 import {basicDropdown} from "./dropdown.testdata";
 
-import type {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
+
+// Builds a question with one dropdown. Only `correctChoice` is marked
+// correct, so tests state their answer key instead of inheriting one.
+function generateDropdownQuestion({
+    choices,
+    correctChoice,
+    placeholder = "",
+    isStatic = false,
+}: {
+    choices?: ReadonlyArray<string>;
+    correctChoice?: string;
+    placeholder?: string;
+    isStatic?: boolean;
+} = {}): PerseusRenderer {
+    return generateTestPerseusRenderer({
+        content: "[[☃ dropdown 1]]",
+        widgets: {
+            "dropdown 1": generateDropdownWidget({
+                static: isStatic,
+                options: generateDropdownOptions({
+                    placeholder,
+                    ...(choices && {
+                        choices: choices.map((content) => ({
+                            content,
+                            correct: content === correctChoice,
+                        })),
+                    }),
+                }),
+            }),
+        },
+    });
+}
 
 describe("Dropdown widget", () => {
     let userEvent: UserEvent;
@@ -26,76 +58,85 @@ describe("Dropdown widget", () => {
         });
     });
 
-    it("should snapshot", async () => {
-        // Arrange and Act
+    it("matches the snapshot on initial render", () => {
+        // Arrange, Act
         const {container} = renderQuestion(basicDropdown);
 
         // Assert
         expect(container).toMatchSnapshot("initial render");
     });
 
-    it("should snapshot when opened", async () => {
+    it("matches the snapshot when opened", async () => {
         // Arrange
-        const {container} = renderQuestion(basicDropdown);
+        const {container} = renderQuestion(
+            generateDropdownQuestion({choices: ["Apple", "Banana"]}),
+        );
 
         // Act
-        const dropdown = screen.getByRole("combobox");
-        await userEvent.click(dropdown);
+        await userEvent.click(screen.getByRole("combobox"));
 
         // Assert
-        expect(screen.getByText("less than or equal to")).toBeInTheDocument();
+        expect(screen.getByRole("option", {name: "Apple"})).toBeVisible();
         expect(container).toMatchSnapshot("dropdown open");
     });
 
-    it("should show placeholder text", async () => {
-        // Arrange
+    it("shows the placeholder before an answer is selected", () => {
+        // Arrange, Act
+        renderQuestion(generateDropdownQuestion({placeholder: "Pick one"}));
+
+        // Assert
+        expect(screen.getByRole("combobox")).toHaveTextContent("Pick one");
+    });
+
+    it("labels the dropdown for assistive technology", () => {
+        // Arrange, Act
         renderQuestion(basicDropdown);
 
-        // Act
-        const dropdown = screen.getByRole("combobox");
-
         // Assert
-        // get asserts if it doesn't find a single matching element
-        expect(dropdown).toHaveTextContent("greater/less than or equal to");
+        expect(
+            screen.getByRole("combobox", {name: "Select an answer"}),
+        ).toBeInTheDocument();
     });
 
-    it("should be answerable correctly", async () => {
+    it("scores a correct choice as correct", async () => {
         // Arrange
-        const {renderer} = renderQuestion(basicDropdown);
+        const question = generateDropdownQuestion({
+            choices: ["Right", "Wrong"],
+            correctChoice: "Right",
+        });
+        const {renderer} = renderQuestion(question);
 
         // Act
-        const dropdown = screen.getByRole("combobox");
-        await userEvent.click(dropdown);
-        await userEvent.click(screen.getByText("less than or equal to"));
-        const score = scorePerseusItemTesting(
-            basicDropdown,
-            renderer.getUserInputMap(),
-        );
+        await userEvent.click(screen.getByRole("combobox"));
+        await userEvent.click(screen.getByRole("option", {name: "Right"}));
 
         // Assert
-        expect(dropdown).toHaveTextContent("less than or equal to");
-        expect(score).toHaveBeenAnsweredCorrectly();
+        expect(screen.getByRole("combobox")).toHaveTextContent("Right");
+        expect(
+            scorePerseusItemTesting(question, renderer.getUserInputMap()),
+        ).toHaveBeenAnsweredCorrectly();
     });
 
-    it("should be answerable incorrectly", async () => {
+    it("scores an incorrect choice as incorrect", async () => {
         // Arrange
-        const {renderer} = renderQuestion(basicDropdown);
+        const question = generateDropdownQuestion({
+            choices: ["Right", "Wrong"],
+            correctChoice: "Right",
+        });
+        const {renderer} = renderQuestion(question);
 
         // Act
-        const dropdown = screen.getByRole("combobox");
-        await userEvent.click(dropdown);
-        await userEvent.click(screen.getByText("greater than or equal to"));
-        const score = scorePerseusItemTesting(
-            basicDropdown,
-            renderer.getUserInputMap(),
-        );
+        await userEvent.click(screen.getByRole("combobox"));
+        await userEvent.click(screen.getByRole("option", {name: "Wrong"}));
 
         // Assert
-        expect(dropdown).toHaveTextContent("greater than or equal to");
-        expect(score).toHaveBeenAnsweredIncorrectly();
+        expect(screen.getByRole("combobox")).toHaveTextContent("Wrong");
+        expect(
+            scorePerseusItemTesting(question, renderer.getUserInputMap()),
+        ).toHaveBeenAnsweredIncorrectly();
     });
 
-    it("should be invalid on first render", async () => {
+    it("scores as invalid when nothing is selected", () => {
         // Arrange
         const {renderer} = renderQuestion(basicDropdown);
 
@@ -109,18 +150,17 @@ describe("Dropdown widget", () => {
         expect(score).toHaveInvalidInput();
     });
 
-    it("should send analytics event when widget is rendered", async () => {
+    it("sends a widget-rendered analytics event", () => {
         // Arrange
-        const onAnalyticsEventSpy = jest.fn();
-        const dependencies = {
-            analytics: {onAnalyticsEvent: onAnalyticsEventSpy},
-        };
+        const onAnalyticsEvent = jest.fn();
 
         // Act
-        renderQuestion(basicDropdown, {dependencies});
+        renderQuestion(generateDropdownQuestion(), {
+            dependencies: {analytics: {onAnalyticsEvent}},
+        });
 
         // Assert
-        expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+        expect(onAnalyticsEvent).toHaveBeenCalledWith({
             type: "perseus:widget:rendered:ti",
             payload: {
                 widgetSubType: "null",
@@ -130,106 +170,66 @@ describe("Dropdown widget", () => {
         });
     });
 
-    it("should return true when focus() called and focus the dropdown button", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(basicDropdown);
+    describe("focus()", () => {
+        it("focuses the dropdown and returns true", () => {
+            // Arrange
+            const {renderer} = renderQuestion(basicDropdown);
 
-        // Act
-        const focused = renderer.focus();
+            // Act
+            const focused = renderer.focus();
 
-        // Assert
-        expect(focused).toBe(true);
-        const button = screen.getByRole("combobox");
-        expect(button).toHaveFocus();
-    });
-
-    it("has an ARIA label", async () => {
-        // Arrange and Act
-        renderQuestion(basicDropdown);
-
-        // Assert
-        expect(screen.getByLabelText("Select an answer")).toBeInTheDocument();
-    });
-
-    it("should not claim to focus when the dropdown is read-only", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(basicDropdown, {
-            apiOptions: {readOnly: true},
+            // Assert
+            expect(focused).toBe(true);
+            expect(screen.getByRole("combobox")).toHaveFocus();
         });
 
-        // Act
-        const focused = renderer.focus();
+        it("returns false when the dropdown is read-only", () => {
+            // Arrange
+            const {renderer} = renderQuestion(basicDropdown, {
+                apiOptions: {readOnly: true},
+            });
 
-        // Assert
-        expect(focused).toBeFalsy();
-        const button = screen.getByRole("combobox");
-        expect(button).not.toHaveFocus();
-    });
+            // Act
+            const focused = renderer.focus();
 
-    it("should not claim to focus when the dropdown is static", async () => {
-        // Arrange
-        const staticDropdown = generateTestPerseusRenderer({
-            content: "[[☃ dropdown 1]]",
-            widgets: {
-                "dropdown 1": generateDropdownWidget({
-                    static: true,
-                    options: generateDropdownOptions({
-                        placeholder: "Choose an answer",
-                        choices: [
-                            {content: "True", correct: true},
-                            {content: "False", correct: false},
-                        ],
-                    }),
-                }),
-            },
+            // Assert
+            expect(focused).toBeFalsy();
+            expect(screen.getByRole("combobox")).not.toHaveFocus();
         });
-        const {renderer} = renderQuestion(staticDropdown);
 
-        // Act
-        const focused = renderer.focus();
+        it("returns false when the dropdown is static", () => {
+            // Arrange
+            const {renderer} = renderQuestion(
+                generateDropdownQuestion({isStatic: true}),
+            );
 
-        // Assert
-        expect(focused).toBeFalsy();
-        const button = screen.getByRole("combobox");
-        expect(button).not.toHaveFocus();
-    });
+            // Act
+            const focused = renderer.focus();
 
-    it("should not claim to focus when the dropdown button has aria-disabled", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(basicDropdown);
-        const button = screen.getByRole("combobox");
-        button.setAttribute("aria-disabled", "true");
+            // Assert
+            expect(focused).toBeFalsy();
+            expect(screen.getByRole("combobox")).not.toHaveFocus();
+        });
 
-        // Act
-        const focused = renderer.focus();
+        it("returns false when the dropdown has aria-disabled", () => {
+            // Arrange
+            const {renderer} = renderQuestion(basicDropdown);
+            const combobox = screen.getByRole("combobox");
+            combobox.setAttribute("aria-disabled", "true");
 
-        // Assert
-        expect(focused).toBeFalsy();
-        expect(button).not.toHaveFocus();
+            // Act
+            const focused = renderer.focus();
+
+            // Assert
+            expect(focused).toBeFalsy();
+            expect(combobox).not.toHaveFocus();
+        });
     });
 
     describe("required state", () => {
-        function generateRenderer(isStatic: boolean = false): PerseusRenderer {
-            return generateTestPerseusRenderer({
-                content: "[[☃ dropdown 1]]",
-                widgets: {
-                    "dropdown 1": generateDropdownWidget({
-                        static: isStatic,
-                        options: generateDropdownOptions({
-                            placeholder: "Choose an answer",
-                            choices: [
-                                {content: "True", correct: true},
-                                {content: "False", correct: false},
-                            ],
-                        }),
-                    }),
-                },
-            });
-        }
-
-        it("renders the dropdown as required when scorable and interactive", () => {
+        it("is required when scorable and interactive", () => {
             // Arrange, Act
-            renderQuestion(generateRenderer(), {
+            renderQuestion(generateDropdownQuestion(), {
                 apiOptions: {readOnly: false},
                 extraProps: {isScorable: true, reviewMode: false},
             });
@@ -238,9 +238,9 @@ describe("Dropdown widget", () => {
             expect(screen.getByRole("combobox")).toBeRequired();
         });
 
-        it("does not render the dropdown as required when not scorable", () => {
+        it("is not required when not scorable", () => {
             // Arrange, Act
-            renderQuestion(generateRenderer(), {
+            renderQuestion(generateDropdownQuestion(), {
                 apiOptions: {readOnly: false},
                 extraProps: {isScorable: false, reviewMode: false},
             });
@@ -249,9 +249,9 @@ describe("Dropdown widget", () => {
             expect(screen.getByRole("combobox")).not.toBeRequired();
         });
 
-        it("does not render the dropdown as required in review mode", () => {
+        it("is not required in review mode", () => {
             // Arrange, Act
-            renderQuestion(generateRenderer(), {
+            renderQuestion(generateDropdownQuestion(), {
                 apiOptions: {readOnly: false},
                 extraProps: {isScorable: true, reviewMode: true},
             });
@@ -260,9 +260,9 @@ describe("Dropdown widget", () => {
             expect(screen.getByRole("combobox")).not.toBeRequired();
         });
 
-        it("does not render the dropdown as required when static", () => {
+        it("is not required when static", () => {
             // Arrange, Act
-            renderQuestion(generateRenderer(true), {
+            renderQuestion(generateDropdownQuestion({isStatic: true}), {
                 apiOptions: {readOnly: false},
                 extraProps: {isScorable: true, reviewMode: false},
             });
@@ -271,9 +271,9 @@ describe("Dropdown widget", () => {
             expect(screen.getByRole("combobox")).not.toBeRequired();
         });
 
-        it("does not render the dropdown as required when read-only", () => {
+        it("is not required when read-only", () => {
             // Arrange, Act
-            renderQuestion(generateRenderer(), {
+            renderQuestion(generateDropdownQuestion(), {
                 apiOptions: {readOnly: true},
                 extraProps: {isScorable: true, reviewMode: false},
             });
@@ -283,90 +283,29 @@ describe("Dropdown widget", () => {
         });
     });
 
-    describe("interactive: full vs answerless", () => {
-        beforeAll(() => {
-            registerAllWidgetsForTesting();
-        });
-
-        let userEvent: UserEvent;
-        beforeEach(() => {
-            userEvent = userEventLib.setup({
-                advanceTimers: jest.advanceTimersByTime,
+    // Answerless options have the `correct` flags stripped, as when the
+    // client renders a question without access to its answers.
+    it.each(["answerful", "answerless"] as const)(
+        "is answerable when rendered with %s options",
+        async (variant) => {
+            // Arrange
+            const question = generateDropdownQuestion({
+                choices: ["Right", "Wrong"],
+                correctChoice: "Right",
             });
-        });
+            const item = generateTestPerseusItem({question});
+            const itemToRender =
+                variant === "answerless" ? splitPerseusItem(item) : item;
+            const {renderer} = renderQuestion(itemToRender.question);
 
-        function getAnswerfulItem(): PerseusItem {
-            const question: PerseusRenderer = {
-                content: "[[☃ dropdown 1]]",
-                images: {},
-                widgets: {
-                    "dropdown 1": {
-                        type: "dropdown",
-                        options: {
-                            placeholder: "Choose an answer",
-                            choices: [
-                                {
-                                    content: "Correct",
-                                    correct: true,
-                                },
-                                {
-                                    content: "Incorrect",
-                                    correct: false,
-                                },
-                            ],
-                        },
-                    },
-                },
-            };
+            // Act
+            await userEvent.click(screen.getByRole("combobox"));
+            await userEvent.click(screen.getByRole("option", {name: "Right"}));
 
-            return generateTestPerseusItem({question});
-        }
-
-        function getAnswerlessItem(): PerseusItem {
-            return splitPerseusItem(getAnswerfulItem());
-        }
-
-        test.each(["answerless", "answerful"])(
-            "is interactive with widget options: %p",
-            async (e) => {
-                // Arrange
-                const useAnswerless = e === "answerless";
-                const renderItem = useAnswerless
-                    ? getAnswerlessItem()
-                    : getAnswerfulItem();
-
-                // assert that splitting worked as expected
-                if (useAnswerless) {
-                    expect(
-                        renderItem.question.widgets["dropdown 1"].options
-                            .choices[0].correct,
-                    ).toBeUndefined();
-                    expect(
-                        renderItem.question.widgets["dropdown 1"].options
-                            .choices[1].correct,
-                    ).toBeUndefined();
-                }
-
-                // Act
-                const {renderer} = renderQuestion(renderItem.question);
-
-                await userEvent.click(
-                    screen.getByRole("combobox", {name: "Select an answer"}),
-                );
-                await userEvent.click(
-                    screen.getByRole("option", {name: "Correct"}),
-                );
-
-                const userInput = renderer.getUserInputMap();
-                const score = scorePerseusItem(
-                    getAnswerfulItem().question,
-                    userInput,
-                    "en",
-                );
-
-                // Assert
-                expect(score).toHaveBeenAnsweredCorrectly();
-            },
-        );
-    });
+            // Assert
+            expect(
+                scorePerseusItemTesting(question, renderer.getUserInputMap()),
+            ).toHaveBeenAnsweredCorrectly();
+        },
+    );
 });
