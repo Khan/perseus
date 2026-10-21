@@ -39,10 +39,6 @@
 .framework-perseus
     table.perseus-widget-table-of-values.non-markdown
     th
-    .paragraph,
-.framework-perseus
-    table.perseus-widget-table-of-values.non-markdown
-    th
     .deprecated-perseus-container {
     margin: 0;
 }

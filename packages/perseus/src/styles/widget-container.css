@@ -67,30 +67,3 @@
     font-size: var(--wb-sizing-size_140);
     line-height: 19.6px;
 }
-
-/* Specific for perseus-image-widget caption styling within floated widgets */
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-wrap-left
-    .perseus-image-caption
-    .paragraph
-    .paragraph,
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-widget-container.widget-wrap-right
-    .perseus-image-caption
-    .paragraph
-    .paragraph {
-    margin-bottom: 0;
-}
-
-.framework-perseus.perseus-mobile
-    .perseus-widget-container.widget-wrap-left
-    .perseus-image-caption
-    .paragraph
-    .paragraph,
-.framework-perseus.perseus-mobile
-    .perseus-widget-container.widget-wrap-right
-    .perseus-image-caption
-    .paragraph
-    .paragraph {
-    margin-bottom: 0;
-}
