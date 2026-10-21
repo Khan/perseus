@@ -97,14 +97,6 @@
     margin: 0;
 }
 .framework-perseus.perseus-mobile
-    .perseus-article
-    .perseus-renderer
-    > .deprecated-perseus-container {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 700px;
-}
-.framework-perseus.perseus-mobile
     :not(blockquote)
     > :is(div, p).deprecated-perseus-container {
     margin: 0;
@@ -189,11 +181,6 @@
     .framework-perseus.perseus-mobile
         .perseus-renderer
         > .deprecated-perseus-container {
-        max-width: none;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-renderer
-        > .deprecated-perseus-container {
         font-family: inherit;
         font-size: 18px;
         line-height: 1.4;
@@ -237,11 +224,6 @@
     }
 }
 @media (min-width: 767px) and (max-width: 1199px) {
-    .framework-perseus.perseus-mobile
-        .perseus-renderer
-        > .deprecated-perseus-container {
-        max-width: 512px;
-    }
     .framework-perseus.perseus-mobile
         .perseus-renderer
         > .deprecated-perseus-container {

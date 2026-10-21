@@ -8,6 +8,7 @@ import {themeModes} from "../../../../../../.storybook/modes";
 import {ServerItemRenderer} from "../../../server-item-renderer";
 import {testDependenciesV2} from "../../../testing/test-dependencies";
 import {
+    constrainedContainer,
     mobileDecorator,
     narrowViewportDecorator,
     rtlDecorator,
@@ -332,8 +333,8 @@ export const MultiSelectRTL: Story = {
     },
 };
 
-export const SingleSelectWithLongMathjaxMobile: Story = {
-    decorators: [radioRendererDecorator, mobileDecorator],
+export const SingleSelectWithLongMathjax688px: Story = {
+    decorators: [radioRendererDecorator, constrainedContainer({maxWidth: "688px"})],
     args: {
         choices: [
             generateRadioChoice(

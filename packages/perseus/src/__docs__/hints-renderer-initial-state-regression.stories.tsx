@@ -22,8 +22,6 @@ import React from "react";
 import {themeModes} from "../../../../.storybook/modes";
 import {ApiOptions} from "../perseus-api";
 import {storybookDependenciesV2} from "../testing/test-dependencies";
-import {mobileDecorator} from "../widgets/__testutils__/story-decorators";
-import {ipsumExample} from "../widgets/explanation/explanation.testdata";
 import {earthMoonImage} from "../widgets/image/utils";
 
 import {bibliotronExerciseDecorator} from "./hints-renderer-decorator";
@@ -64,21 +62,6 @@ export default meta;
 type Story = StoryObj<typeof HintsRendererForStories>;
 
 const desktopDecorators = [bibliotronExerciseDecorator];
-const mobileDecorators = [mobileDecorator, ...desktopDecorators];
-
-function mobileVersionOf(story: Story): Story {
-    return {
-        ...story,
-        decorators: mobileDecorators,
-        args: {
-            ...story.args,
-            apiOptions: {
-                ...story.args?.apiOptions,
-                isMobile: true,
-            },
-        },
-    };
-}
 
 export const MultipleHintsShown: Story = {
     decorators: desktopDecorators,
@@ -106,9 +89,6 @@ export const MultipleHintsShown: Story = {
         ],
     },
 };
-
-export const MultipleHintsShownMobile: Story =
-    mobileVersionOf(MultipleHintsShown);
 
 export const WithAllInteractiveGraphs: Story = {
     decorators: desktopDecorators,
@@ -180,10 +160,6 @@ export const WithAllInteractiveGraphs: Story = {
     },
 };
 
-export const WithAllInteractiveGraphsMobile: Story = mobileVersionOf(
-    WithAllInteractiveGraphs,
-);
-
 export const ImageWidgetInHint: Story = {
     decorators: desktopDecorators,
     args: {
@@ -208,21 +184,6 @@ export const ImageWidgetInHint: Story = {
     },
 };
 
-export const ImageWidgetInHintMobile: Story =
-    mobileVersionOf(ImageWidgetInHint);
-
-export const ExplanationWidgetInHint: Story = {
-    decorators: desktopDecorators,
-    args: {
-        dependencies: storybookDependenciesV2,
-        hints: [{...ipsumExample, replace: false}],
-    },
-};
-
-export const ExplanationWidgetInHintMobile: Story = mobileVersionOf(
-    ExplanationWidgetInHint,
-);
-
 export const DefinitionWidgetInHint: Story = {
     decorators: desktopDecorators,
     args: {
@@ -246,25 +207,3 @@ export const DefinitionWidgetInHint: Story = {
         ],
     },
 };
-
-export const DefinitionWidgetInHintMobile: Story = mobileVersionOf(
-    DefinitionWidgetInHint,
-);
-
-export const GetAnotherHintButton: Story = {
-    decorators: desktopDecorators,
-    args: {
-        dependencies: storybookDependenciesV2,
-        hints: [
-            generateTestPerseusRenderer({
-                content: "The answer is under the rock by the mailbox.",
-            }),
-            generateTestPerseusRenderer(),
-        ],
-        hintsVisible: 1,
-        apiOptions: {getAnotherHint: () => {}},
-    },
-};
-
-export const GetAnotherHintButtonMobile: Story =
-    mobileVersionOf(GetAnotherHintButton);
