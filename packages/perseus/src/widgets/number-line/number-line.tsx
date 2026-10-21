@@ -650,7 +650,7 @@ const NumberLine = forwardRef<Widget, Props>(function NumberLine(props, ref) {
             : NumberInput;
         tickCtrl = (
             <label>
-                {strings.numDivisions}{" "}
+                {`${strings.numDivisions} `}
                 <Input
                     ref={tickCtrlRef}
                     value={

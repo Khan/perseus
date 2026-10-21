@@ -26,7 +26,7 @@ const basePackageConfig = {
 const config: KnipConfig = {
     // .pi/ holds local agent tooling that git ignores, but knip still picks
     // up its files.
-    ignore: [".pi/**"],
+    ignore: [".pi/**", "config/eslint-plugin/rules/__fixtures__/**"],
     // Knip only parses JS and TS files. To follow imports in other file
     // types, it runs a "compiler" that turns a file into JS/TS source it can
     // parse. See: https://knip.dev/features/compilers
