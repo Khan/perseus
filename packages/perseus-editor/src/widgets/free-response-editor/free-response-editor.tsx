@@ -119,6 +119,8 @@ class FreeResponseEditor extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
+        // TODO(LEMS-4681): Remove editingDisabled default once all apiOptions
+        //  are passed to this component.
         const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
         return (
             <View>

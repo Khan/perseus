@@ -80,6 +80,8 @@ class GrapherEditor extends React.Component<Props> {
         let graph;
         if (this.props.graph.valid === true) {
             const graphProps: Partial<PropsFor<typeof Grapher>> = {
+                // TODO(LEMS-4681): Remove ApiOptions.defaults once all
+                //  apiOptions are passed to this component.
                 apiOptions: {...ApiOptions.defaults, ...this.props.apiOptions},
                 containerSizeClass: sizeClass,
                 options: {
@@ -100,6 +102,8 @@ class GrapherEditor extends React.Component<Props> {
                 },
                 trackInteraction: function () {},
                 // Set the "correct answer" graph to static when editing is disabled
+                // TODO(LEMS-4681): Replace `?.` with `.` once all apiOptions
+                //  are passed to this component.
                 static: this.props.apiOptions?.editingDisabled,
             };
 

@@ -313,6 +313,8 @@ class RadioEditor extends React.Component<RadioEditorProps> {
 
     render(): React.ReactNode {
         const numCorrect = deriveNumCorrect(this.props.choices);
+        // TODO(LEMS-4681): Remove default for editingDisabled once all
+        //  apiOptions are passed to this component.
         const isEditingDisabled =
             this.props.apiOptions?.editingDisabled ?? false;
 

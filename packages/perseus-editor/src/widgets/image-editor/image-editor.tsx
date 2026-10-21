@@ -50,6 +50,8 @@ class ImageEditor extends React.Component<Props> {
                 <ImageSettings
                     {...this.props}
                     apiOptions={{
+                        // TODO(LEMS-4681): Remove ApiOptions.defaults once all
+                        //  apiOptions are passed to this component.
                         ...ApiOptions.defaults,
                         ...this.props.apiOptions,
                     }}

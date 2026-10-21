@@ -295,6 +295,8 @@ class ExpressionEditor extends React.Component<Props, State> {
     };
 
     render(): React.ReactNode {
+        // TODO(LEMS-4681): Remove editingDisabled default once all apiOptions
+        //  are passed to this component.
         const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
         const answerOptions: React.JSX.Element[] = this.props.answerForms.map(
             (ans: AnswerForm, index: number) => {

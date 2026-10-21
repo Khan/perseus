@@ -1,7 +1,7 @@
 import type {APIOptions} from "@khanacademy/perseus";
 
 export type WidgetEditorProps<OptionsT> = OptionsT & {
-    // TODO(benchristel): Rethink how APIOptions work in the editors:
+    // TODO(LEMS-4681): Rethink how APIOptions work in the editors:
     //  - This prop type should be APIOptionsWithDefaults, and should be
     //    required.
     //  - WidgetEditorContainer should merge in ApiOptions.defaults, e.g.

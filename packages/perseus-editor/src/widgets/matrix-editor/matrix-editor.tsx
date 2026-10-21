@@ -24,6 +24,8 @@ class MatrixEditor extends React.Component<Props> {
         matrixLogic.defaultWidgetOptions;
 
     handleChange(changes: Partial<PerseusMatrixWidgetOptions>) {
+        // TODO(LEMS-4681): Replace `?.` with `.` once all apiOptions are
+        //  passed to this component.
         if (this.props.apiOptions?.editingDisabled) {
             return;
         }
@@ -82,6 +84,8 @@ class MatrixEditor extends React.Component<Props> {
             },
             ...this.props,
             apiOptions: {
+                // TODO(LEMS-4681): Remove ApiOptions.defaults once all
+                //  apiOptions are passed to this component.
                 ...ApiOptions.defaults,
                 ...this.props.apiOptions,
             },

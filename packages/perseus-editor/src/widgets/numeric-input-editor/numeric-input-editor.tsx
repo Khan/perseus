@@ -207,6 +207,8 @@ class NumericInputEditor extends React.Component<Props, State> {
 
     render() {
         const answers = this.props.answers;
+        // TODO(LEMS-4681): Replace `?.` with `.` once all apiOptions are passed
+        //  to this component.
         const editingDisabled = this.props.apiOptions?.editingDisabled;
 
         const unsimplifiedAnswers = (i: any) => (

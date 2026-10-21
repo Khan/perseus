@@ -312,6 +312,8 @@ class InteractiveGraphEditor extends React.Component<Props, State> {
         const sizeClass = containerSizeClass.SMALL;
 
         const apiOptionsWithDefaults: APIOptionsWithDefaults = {
+            // TODO(LEMS-4681): Remove ApiOptions.defaults once all apiOptions
+            //  are passed to this component.
             ...ApiOptions.defaults,
             ...this.props.apiOptions,
         };
@@ -346,6 +348,8 @@ class InteractiveGraphEditor extends React.Component<Props, State> {
                         this.props.fullGraphAriaDescription,
                 },
                 // Set the "correct answer" graph to static when editing is disabled
+                // TODO(LEMS-4681): Remove default for editingDisabled once all
+                //  apiOptions are passed to this component.
                 static: this.props.apiOptions?.editingDisabled ?? false,
                 trackInteraction: function () {},
                 userInput:
@@ -399,6 +403,7 @@ class InteractiveGraphEditor extends React.Component<Props, State> {
                     {...graphProps}
                     containerSizeClass={sizeClass}
                     apiOptions={{
+                        // TODO(LEMS-4681): Use apiOptions here.
                         ...apiOptionsWithDefaults,
                         isMobile: false,
                     }}
@@ -555,11 +560,13 @@ class InteractiveGraphEditor extends React.Component<Props, State> {
                             onChange={(settings) =>
                                 this.handleSettingsChange(settings)
                             }
+                            // TODO(LEMS-4681): Use apiOptions here.
                             apiOptions={apiOptionsWithDefaults}
                         />
                         <LockedFiguresSection
                             figures={this.props.lockedFigures}
                             onChange={(options) => this.handleChange(options)}
+                            // TODO(LEMS-4681): Use apiOptions here.
                             apiOptions={apiOptionsWithDefaults}
                         />
                     </View>

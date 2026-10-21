@@ -55,6 +55,8 @@ class CategorizerEditor extends React.Component<Props> {
                     values: userInput.values.map((value) => value ?? 0),
                 });
             },
+            // TODO(LEMS-4681): Remove ApiOptions.defaults once all apiOptions
+            //  are passed to this component.
             apiOptions: {...ApiOptions.defaults, ...this.props.apiOptions},
             trackInteraction: function () {},
         };
