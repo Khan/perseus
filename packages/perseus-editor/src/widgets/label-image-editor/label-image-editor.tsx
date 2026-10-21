@@ -174,10 +174,6 @@ class LabelImageEditor extends React.Component<Props> {
         this.handleChange({markers});
     };
 
-    handleBehaviorChange: (options?: any) => void = (options: any) => {
-        this.props.onChange(options);
-    };
-
     render(): React.ReactNode {
         const {
             choices,
@@ -235,7 +231,7 @@ class LabelImageEditor extends React.Component<Props> {
                     preferredPopoverDirection={preferredPopoverDirection}
                     multipleAnswers={multipleAnswers}
                     hideChoicesFromInstructions={hideChoicesFromInstructions}
-                    onChange={this.handleBehaviorChange}
+                    onChange={(changes) => this.handleChange(changes)}
                 />
             </div>
         );
