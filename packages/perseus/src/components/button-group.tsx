@@ -4,13 +4,12 @@ import * as React from "react";
 
 import type {CSSProperties} from "aphrodite";
 
-interface Props {
+interface Props<ValueT extends string> {
     // the initial value of the button selected, defaults to null
-    // TODO(tamara): use a type parameter instead of `any`
-    value: any;
+    value: ValueT | null;
     buttons: ReadonlyArray<{
         // the value returned when the button is selected
-        value: any;
+        value: NoInfer<ValueT>;
         // the content shown within the button, typically a string that gets
         // rendered as the button's display text
         content: React.ReactNode;
@@ -19,7 +18,7 @@ interface Props {
     }>;
     // a function that is provided with the updated value (which it then is
     // responsible for updating)
-    onChange: (value?: any) => unknown;
+    onChange: (value: ValueT) => unknown;
 
     /**
      * Customizes the selected button's styling.
@@ -33,13 +32,15 @@ interface Props {
 }
 
 interface DefaultProps {
-    value: Props["value"];
+    value: null;
 }
 
 /**
  * ButtonGroup is an aesthetically pleasing group of buttons.
  */
-class ButtonGroup extends React.Component<Props> {
+class ButtonGroup<ValueT extends string> extends React.Component<
+    Props<ValueT>
+> {
     container: HTMLDivElement | null | undefined;
 
     static defaultProps: DefaultProps = {
@@ -59,7 +60,7 @@ class ButtonGroup extends React.Component<Props> {
         }
     }
 
-    toggleSelect(newValue: any) {
+    toggleSelect(newValue: ValueT) {
         if (this.props.value !== newValue) {
             this.props.onChange(newValue);
         }
@@ -84,10 +85,7 @@ class ButtonGroup extends React.Component<Props> {
                     )}
                     onClick={() => this.toggleSelect(button.value)}
                 >
-                    {
-                        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                        button.content || "" + button.value
-                    }
+                    {button.content}
                 </button>
             );
         });

@@ -169,7 +169,7 @@ class NumberLineEditor extends React.Component<Props> {
                 content: "\u2078\u2044\u2084",
                 title: "Non-reduced",
             },
-        ];
+        ] as const;
 
         return (
             <div className="perseus-widget-number-line-editor">

@@ -17,6 +17,7 @@ import ImageUrlEmpty from "./image-url-empty";
 import ImageWidgetAltText from "./image-widget-alt-text";
 import ImageWidgetEmptySize from "./image-widget-empty-size";
 import InaccessibleWidget from "./inaccessible-widget";
+import InteractiveGraphLockedFigureOob from "./interactive-graph-locked-figure-oob";
 import InteractiveGraphWidgetError from "./interactive-graph-widget-error";
 import LabelImageWidgetError from "./label-image-widget-error";
 import LegacyGifUrl from "./legacy-gif-url";
@@ -91,6 +92,7 @@ export default [
     PythonProgramWidgetError,
     LabelImageWidgetError,
     InteractiveGraphWidgetError,
+    InteractiveGraphLockedFigureOob,
     SorterWidgetError,
     SorterWidgetWarning,
     ExplanationInGradedGroup,

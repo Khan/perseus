@@ -9,7 +9,9 @@ import type {UserEvent} from "@testing-library/user-event";
 const buttons = [
     {value: "linear", content: "Linear"},
     {value: "quadratic", content: "Quadratic"},
-];
+] as const;
+
+type Curve = "linear" | "quadratic";
 
 describe("ButtonGroup", () => {
     let userEvent: UserEvent;
@@ -23,7 +25,7 @@ describe("ButtonGroup", () => {
         // Arrange
         const onChange = jest.fn();
         render(
-            <ButtonGroup
+            <ButtonGroup<Curve>
                 value="linear"
                 buttons={buttons}
                 onChange={onChange}
@@ -41,7 +43,7 @@ describe("ButtonGroup", () => {
         // Arrange
         const onChange = jest.fn();
         render(
-            <ButtonGroup
+            <ButtonGroup<Curve>
                 value="linear"
                 buttons={buttons}
                 onChange={onChange}
@@ -53,5 +55,47 @@ describe("ButtonGroup", () => {
 
         // Assert
         expect(onChange).not.toHaveBeenCalled();
+    });
+
+    it("accepts an onChange handler typed by the type argument", async () => {
+        // Arrange
+        type Shape = "circle" | "square";
+        const onChange = jest.fn((shape: Shape) => {});
+        render(
+            <ButtonGroup<Shape>
+                value="circle"
+                buttons={[
+                    {value: "circle", content: "Circle"},
+                    {value: "square", content: "Square"},
+                ]}
+                onChange={onChange}
+            />,
+        );
+
+        // Act
+        await userEvent.click(screen.getByRole("button", {name: "Square"}));
+
+        // Assert
+        expect(onChange).toHaveBeenCalledWith("square");
+    });
+
+    it("rejects button values that don't match the selected value's type", () => {
+        type Shape = "circle" | "square";
+
+        // Arrange, Act
+        render(
+            <ButtonGroup<Shape>
+                value="circle"
+                buttons={[
+                    {value: "circle", content: "Circle"},
+                    // @ts-expect-error - "triangle" is not a Shape
+                    {value: "triangle", content: "Triangle"},
+                ]}
+                onChange={() => {}}
+            />,
+        );
+
+        // Assert
+        expect(screen.getAllByRole("button")).toHaveLength(2);
     });
 });
