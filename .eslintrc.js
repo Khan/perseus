@@ -324,6 +324,21 @@ module.exports = {
             },
             excludedFiles: ["*.d.ts"],
         },
+        {
+            // Rules from config/eslint-plugin only apply to learner-facing
+            // code!
+            files: [
+                "packages/perseus-editor/**/*.ts",
+                "packages/perseus-editor/**/*.tsx",
+                "*.stories.tsx",
+                "*.test.ts",
+                "*.test.tsx",
+                "**/testing/**",
+            ],
+            rules: {
+                "@internal/perseus/no-adjacent-text-nodes": "off",
+            },
+        },
     ],
     reportUnusedDisableDirectives: true,
     rules: {

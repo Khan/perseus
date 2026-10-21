@@ -326,10 +326,11 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             tabIndex={-1}
                             className="mafs-sr-only"
                         >
-                            {isUnlimitedGraphState(state)
-                                ? strings.srUnlimitedGraphInstructions
-                                : strings.srGraphInstructions}
-                            {isRequired && ` ${strings.required}`}
+                            {`${
+                                isUnlimitedGraphState(state)
+                                    ? strings.srUnlimitedGraphInstructions
+                                    : strings.srGraphInstructions
+                            }${isRequired ? ` ${strings.required}` : ""}`}
                         </View>
                     )}
                     {fullGraphAriaDescription && (

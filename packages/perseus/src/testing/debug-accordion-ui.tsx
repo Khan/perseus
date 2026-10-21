@@ -44,7 +44,7 @@ const ScoreHeader = ({score}: {score: PerseusScore}): React.ReactElement => {
         <div
             className={`${styles["status-badge"]} ${success ? styles["status-badge-success"] : styles["status-badge-error"]}`}
         >
-            <BodyText size="small">{label}:</BodyText>
+            <BodyText size="small">{`${label}:`}</BodyText>
             <BodyText
                 size="small"
                 style={{
