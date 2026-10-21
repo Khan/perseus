@@ -16,7 +16,10 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
  * mirror the Figma frames. The `blankSizing` control compares the two
  * width-reveal modes: "grow" and "gate". The `filledBlankStyle` control
  * compares the "hug" treatment on this page with the "fixed" treatment
- * on the Fill in the Blank (Fixed Width) page. Plan and open questions:
+ * on the Fill in the Blank (Fixed Width) page, and with the
+ * "hugWithPadding" treatment on the Fill in the Blank (Hug With
+ * Padding) page, which hugs the value but keeps the menu's space so a
+ * placed tile does not resize on hover. Plan and open questions:
  * widgets/fill-in-the-blank/notes/.
  */
 const meta: Meta<typeof FillInTheBlankDemo> = {
@@ -30,7 +33,7 @@ const meta: Meta<typeof FillInTheBlankDemo> = {
         },
         filledBlankStyle: {
             control: "radio",
-            options: ["hug", "fixed"],
+            options: ["hug", "hugWithPadding", "fixed"],
         },
     },
 };

@@ -51,10 +51,12 @@ export interface FillInTheBlankProps {
     blankSizing?: "grow" | "gate";
     /**
      * How a filled blank sizes itself. "hug": the blank shrinks to its
-     * tile, and the tile grows on hover to show the menu. "fixed": the
+     * tile, and the tile grows on hover to show the menu.
+     * "hugWithPadding": like "hug", but the tile keeps the menu's space
+     * at rest, so showing the menu does not resize it. "fixed": the
      * blank keeps the widest-tile width, and the tile fills it.
      */
-    filledBlankStyle?: "hug" | "fixed";
+    filledBlankStyle?: "hug" | "hugWithPadding" | "fixed";
 }
 
 /**
@@ -178,6 +180,12 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
                     label={tile.label}
                     imageHeight={tile.imageHeight}
                     hidesMenuAtRest={true}
+                    // Sub/superscript tiles rest as compact chips, so
+                    // they do not reserve the menu's space.
+                    reservesMenuSpace={
+                        filledBlankStyle === "hugWithPadding" &&
+                        displayType === "normal"
+                    }
                     compact={displayType !== "normal"}
                     fillsBlank={isFixed && displayType === "normal"}
                     moveTargets={blankIds

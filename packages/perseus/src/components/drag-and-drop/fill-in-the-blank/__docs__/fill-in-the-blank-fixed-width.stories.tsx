@@ -30,7 +30,7 @@ const meta: Meta<typeof FillInTheBlankDemo> = {
         },
         filledBlankStyle: {
             control: "radio",
-            options: ["hug", "fixed"],
+            options: ["hug", "hugWithPadding", "fixed"],
         },
     },
 };
