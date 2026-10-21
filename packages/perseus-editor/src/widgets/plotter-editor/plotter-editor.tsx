@@ -9,7 +9,7 @@ import BlurInput from "../../components/blur-input";
 import InfoTip from "../../components/info-tip";
 import TextListEditor from "../../components/text-list-editor";
 
-import type {APIOptions} from "@khanacademy/perseus";
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -38,11 +38,7 @@ const editorDefaults = {
     snapsPerLine: 2,
 } as const;
 
-interface Props extends PerseusPlotterWidgetOptions {
-    apiOptions: APIOptions;
-    static: boolean;
-    onChange: (options: PerseusPlotterWidgetOptions) => void;
-}
+type Props = WidgetEditorProps<PerseusPlotterWidgetOptions>;
 
 type State = {
     editing: EditingState;
