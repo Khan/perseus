@@ -17,13 +17,6 @@ interface Props extends PerseusFillInTheBlankWidgetOptions {
 }
 
 /**
- * Imperative API that WidgetEditor calls
- */
-type FillInTheBlankEditorHandle = {
-    getSaveWarnings: () => string[];
-};
-
-/**
  * An editor for a Fill in the Blank widget, where the learner drags answer
  * tiles from a choice bank into blanks in a passage.
  *
@@ -31,20 +24,7 @@ type FillInTheBlankEditorHandle = {
  * serializes the options it was given, so a widget authored in JSON mode
  * survives a round trip through the content editor.
  */
-const FillInTheBlankEditor = React.forwardRef<
-    FillInTheBlankEditorHandle,
-    Props
->(function FillInTheBlankEditor({apiOptions}, ref) {
-    React.useImperativeHandle(
-        ref,
-        () => ({
-            // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend
-            // uses the new linter rules for save warnings.
-            getSaveWarnings: () => [],
-        }),
-        [],
-    );
-
+function FillInTheBlankEditor({apiOptions}: Props) {
     // TODO(LEMS-4396): clean up feature flag
     if (!isFeatureOn({apiOptions}, "dnd-widget-fitb")) {
         return null;
@@ -57,7 +37,7 @@ const FillInTheBlankEditor = React.forwardRef<
             widget&rsquo;s options in JSON mode.
         </div>
     );
-});
+}
 
 export default Object.assign(FillInTheBlankEditor, {
     defaultProps: defaultOptions,
