@@ -69,6 +69,13 @@ stay **FITB-specific**, since it's the bay for FITB's *inline* blanks.
   `packages/perseus/src/__docs__/dnd-kit-demo.stories.tsx` — it renders the
   draggable as a native `<button>` (the a11y pattern to follow). Demo cleanup is
   tracked by LEMS-4369.
+- **`@dnd-kit/dom` is a declared dependency** (constraint classes and the
+  Accessibility plugin) and must stay version-locked with `@dnd-kit/react`'s
+  own range on it: two copies in the tree break dnd-kit's class-identity
+  checks at runtime.
+- **Do not use dnd-kit's `handle`**: the pointer sensor binds its listener to
+  `handle ?? element`, so a handle becomes the *only* drag origin. The
+  provider instead varies activation constraints by press target.
 - **Do NOT model new work on legacy DnD** (`sorter`, `orderer`, `matcher`) —
   they use the hand-rolled jQuery `components/sortable.tsx` with no keyboard
   support. Useful only as prior art — except `sorter`, which is the live widget
