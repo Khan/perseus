@@ -12,9 +12,9 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
  * The hug-with-padding variant of Fill in the Blank, for design
  * comparison with the Fill in the Blank and Fill in the Blank (Fixed
  * Width) pages. A filled blank hugs its tile, as on the main page, but
- * the tile keeps the menu's space at its start while the menu is
- * hidden. Hover or focus shows the menu in that space, and the tile
- * does not change size, so the line does not reflow. The stories
+ * while the menu is hidden the tile keeps the menu's space as even
+ * padding around its value. Hover or focus shows the menu, and the
+ * tile does not change size, so the line does not reflow. The stories
  * mirror the Fixed Width page.
  */
 const meta: Meta<typeof FillInTheBlankDemo> = {

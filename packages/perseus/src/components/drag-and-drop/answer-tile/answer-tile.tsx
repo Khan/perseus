@@ -76,8 +76,9 @@ export interface AnswerTileProps {
     hidesMenuAtRest?: boolean;
     /**
      * Set true with `hidesMenuAtRest` to keep the hidden menu's space at
-     * rest. The menu fades in on hover or focus, and the tile does not
-     * change size, so the line of text does not reflow.
+     * rest, as even padding around the content. The tile does not change
+     * size when hover or focus shows the menu, so the line of text does
+     * not reflow.
      */
     reservesMenuSpace?: boolean;
     /**

@@ -85,8 +85,7 @@
     min-inline-size: 0;
 }
 
-.hidesMenuAtRest:not(.reservesMenuSpace):not(:hover):not(:focus-within)
-    .startContainer {
+.hidesMenuAtRest:not(:hover):not(:focus-within) .startContainer {
     min-inline-size: 0;
     inline-size: 0;
     margin-inline-end: 0;
@@ -99,12 +98,15 @@
     padding-inline-end: 0;
 }
 
-/* A placed tile that keeps its menu's space at rest. The menu only
- * fades out, so its box, its gap, and the content's end padding stay,
- * and the tile is the same size at rest and on hover or focus. */
-.hidesMenuAtRest.reservesMenuSpace:not(:hover):not(:focus-within)
-    .startContainer {
-    opacity: 0;
+/* A placed tile that keeps its menu's space at rest, split evenly
+ * around the content: the menu box, its gap, and the content's end
+ * padding. The tile is the same size at rest and on hover or focus,
+ * so the line does not reflow; the value shifts within the tile to
+ * make room for the menu. */
+.hidesMenuAtRest.reservesMenuSpace:not(:hover):not(:focus-within) .content {
+    padding-inline: calc(
+        (var(--wb-sizing-size_240) + 2 * var(--wb-sizing-size_060)) / 2
+    );
 }
 
 /* A tile that fills its blank, content at the start. The menu stays

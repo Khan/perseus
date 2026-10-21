@@ -53,7 +53,7 @@ export interface FillInTheBlankProps {
      * How a filled blank sizes itself. "hug": the blank shrinks to its
      * tile, and the tile grows on hover to show the menu.
      * "hugWithPadding": like "hug", but the tile keeps the menu's space
-     * at rest, so showing the menu does not resize it. "fixed": the
+     * at rest as even padding, so showing the menu does not resize it. "fixed": the
      * blank keeps the widest-tile width, and the tile fills it.
      */
     filledBlankStyle?: "hug" | "hugWithPadding" | "fixed";
