@@ -1,4 +1,4 @@
-import {components, MatrixWidget} from "@khanacademy/perseus";
+import {ApiOptions, components, MatrixWidget} from "@khanacademy/perseus";
 import {getMatrixSize, matrixLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
@@ -6,7 +6,7 @@ import _ from "underscore";
 import Editor from "../../editor";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
-import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {PerseusMatrixWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -17,17 +17,16 @@ const Matrix = MatrixWidget.widget;
 // have to cap it at some point.
 const MAX_BOARD_SIZE = 6;
 
-interface Props extends PerseusMatrixWidgetOptions {
-    apiOptions: APIOptionsWithDefaults;
-    onChange: (options: PerseusMatrixWidgetOptions) => void;
-}
+type Props = WidgetEditorProps<PerseusMatrixWidgetOptions>;
 
 class MatrixEditor extends React.Component<Props> {
     static defaultProps: PerseusMatrixWidgetOptions =
         matrixLogic.defaultWidgetOptions;
 
     handleChange(changes: Partial<PerseusMatrixWidgetOptions>) {
-        if (this.props.apiOptions.editingDisabled) {
+        // TODO(LEMS-4681): Replace `?.` with `.` once all apiOptions are
+        //  passed to this component.
+        if (this.props.apiOptions?.editingDisabled) {
             return;
         }
         this.props.onChange({
@@ -84,6 +83,12 @@ class MatrixEditor extends React.Component<Props> {
                 });
             },
             ...this.props,
+            apiOptions: {
+                // TODO(LEMS-4681): Remove ApiOptions.defaults once all
+                //  apiOptions are passed to this component.
+                ...ApiOptions.defaults,
+                ...this.props.apiOptions,
+            },
             options: {
                 matrixBoardSize,
                 prefix,

@@ -1,9 +1,8 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
-import WrappedServerItemRenderer from "../../server-item-renderer";
-import {storybookDependenciesV2} from "../../testing/test-dependencies";
-
-import {texQuestion} from "./sorter.testdata";
+import WrappedServerItemRenderer from "../../../server-item-renderer";
+import {storybookDependenciesV2} from "../../../testing/test-dependencies";
+import {texQuestion} from "../sorter.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

@@ -1,4 +1,4 @@
-import {components, TableWidget, Util} from "@khanacademy/perseus";
+import {ApiOptions, components, TableWidget, Util} from "@khanacademy/perseus";
 import {
     tableLogic,
     type PerseusTableWidgetOptions,
@@ -9,16 +9,13 @@ import _ from "underscore";
 import InfoTip from "../../components/info-tip";
 import Editor from "../../editor";
 
-import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {NumberInput} = components;
 const Table = TableWidget.widget;
 
-interface Props extends PerseusTableWidgetOptions {
-    onChange: (options: PerseusTableWidgetOptions) => void;
-    apiOptions?: APIOptionsWithDefaults;
-}
+type Props = WidgetEditorProps<PerseusTableWidgetOptions>;
 
 class TableEditor extends React.Component<Props> {
     static defaultProps: PerseusTableWidgetOptions =
@@ -106,6 +103,8 @@ class TableEditor extends React.Component<Props> {
             userInput: this.props.answers,
             handleUserInput: (userInput) => {
                 // Disable table input changes when editing is disabled
+                // TODO(LEMS-4681): Replace `?.` with `.` once all apiOptions
+                //  are passed to this component.
                 if (this.props.apiOptions?.editingDisabled) {
                     return;
                 }
@@ -113,7 +112,9 @@ class TableEditor extends React.Component<Props> {
                 // user input is actually editing answers
                 this.handleChange({answers: userInput});
             },
-            apiOptions: this.props.apiOptions,
+            // TODO(LEMS-4681): Remove ApiOptions.defaults once all apiOptions
+            //  are passed to this component.
+            apiOptions: {...ApiOptions.defaults, ...this.props.apiOptions},
             editableHeaders: true,
             onFocus: () => {},
             onBlur: () => {},

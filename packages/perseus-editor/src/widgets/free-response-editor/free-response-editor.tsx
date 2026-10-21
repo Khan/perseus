@@ -11,16 +11,13 @@ import trashIcon from "@phosphor-icons/core/regular/trash.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-import type {APIOptions} from "@khanacademy/perseus";
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {
     PerseusFreeResponseWidgetOptions,
     PerseusFreeResponseWidgetScoringCriterion,
 } from "@khanacademy/perseus-core";
 
-type Props = PerseusFreeResponseWidgetOptions & {
-    apiOptions: APIOptions;
-    onChange: (options: PerseusFreeResponseWidgetOptions) => void;
-};
+type Props = WidgetEditorProps<PerseusFreeResponseWidgetOptions>;
 
 /**
  * An editor for adding a free response widget that allows users to enter open-ended text answers.
@@ -122,7 +119,9 @@ class FreeResponseEditor extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
-        const editingDisabled = this.props.apiOptions.editingDisabled ?? false;
+        // TODO(LEMS-4681): Remove editingDisabled default once all apiOptions
+        //  are passed to this component.
+        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
         return (
             <View>
                 <LabeledField
