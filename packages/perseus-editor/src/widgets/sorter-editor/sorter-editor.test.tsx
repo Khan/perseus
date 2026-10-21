@@ -527,6 +527,32 @@ describe("sorter-editor", () => {
         });
     });
 
+    it("serializes the legend", () => {
+        // Arrange
+        const editorRef = React.createRef<SorterEditorHandle>();
+        const legend: PerseusSorterWidgetOptions["legend"] = {
+            startCap: "arrow",
+            endCap: "bar",
+            startLabel: "Lowest",
+            endLabel: "Highest",
+            screenReaderLabel: "Interest rates from lowest to highest",
+            position: "above",
+        };
+        render(
+            <SorterEditor
+                ref={editorRef}
+                onChange={() => {}}
+                {...generateSorterOptions({legend})}
+            />,
+        );
+
+        // Act
+        const serialized = editorRef.current?.serialize();
+
+        // Assert
+        expect(serialized?.legend).toEqual(legend);
+    });
+
     // WidgetEditor serializes the editor *during* an edit, to fold the editor's
     // current options into the change it's about to publish. A handle that
     // captured the props it was created with would serialize pre-edit options
