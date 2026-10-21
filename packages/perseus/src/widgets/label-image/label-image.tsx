@@ -691,7 +691,7 @@ export class LabelImage
                 )}
             >
                 <div className={css(styles.instructionsCaption)}>
-                    {`${promptString} ${!hideChoices && choicesString}`}
+                    {`${promptString}${hideChoices ? "" : ` ${choicesString}`}`}
                 </div>
 
                 {!hideChoices && (
