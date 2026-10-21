@@ -179,14 +179,15 @@
     }
 }
 
-/* The renderer puts content in .paragraph divs, and Perseus gives
- * those divs global page styles (article paragraphs set their own font
- * and color). The tile owns its typography, so we remove those styles
- * here. The global sheets sit in the perseus-legacy cascade layer, so
- * this rule wins wherever it is loaded. Color needs an explicit
- * declaration: a scored tile sets its color on the tile, and an
- * inherited value loses to any rule that names the paragraph. */
-.tile .content :global(div.paragraph) {
+/* The renderer wraps content in .deprecated-perseus-container
+ * paragraphs (a div around a p), and Perseus gives those global page
+ * styles: an 18px font and 22px block margins, which make a one-line
+ * tile 84px tall. The tile owns its typography, so we remove those
+ * styles here. The global sheets sit in the perseus-legacy cascade
+ * layer, so this rule wins wherever it is loaded. Color needs an
+ * explicit declaration: a scored tile sets its color on the tile, and
+ * an inherited value loses to any rule that names the paragraph. */
+.tile .content :global(.deprecated-perseus-container) {
     margin: 0;
     font: inherit;
     color: inherit;

@@ -12,25 +12,27 @@
     container-name: fitb-answer-zone;
 }
 
-/* TODO(LEMS-4304): the rules below key on div.paragraph, which only
- * the old renderer emits. The new renderer wraps plain paragraphs in
- * nothing, so under the perseus-renderer-upgrade flag the typography
- * and the 48px line rhythm are lost and need a new hook.
- *
- * Answer-zone text is 16px/24px medium in the token sans font. The
- * doubled class outweighs the global paragraph rule. */
-.answerZone.answerZone :global(div.paragraph) {
+/* Answer-zone text is 16px/24px medium in the token sans font. The
+ * renderer wraps each paragraph in .deprecated-perseus-container
+ * elements, which carry the global paragraph styles. The doubled class
+ * outweighs those. The :not() skips the paragraphs inside placed tiles,
+ * which own their typography. */
+.answerZone.answerZone
+    :global(.deprecated-perseus-container):not(:global([data-blank] *)) {
     font-family: var(--wb-font-family-sans);
     font-size: var(--wb-font-body-size-medium);
     font-weight: var(--wb-font-weight-medium);
-    line-height: var(--wb-font-body-lineHeight-large);
+    line-height: var(--wb-font-body-lineHeight-medium);
 }
 
 /* A line that holds a blank is as tall as the blank (48px), while
- * plain text lines are 22px. Without a shared rhythm the blank crowds
+ * plain text lines are 24px. Without a shared rhythm the blank crowds
  * the lines around it, so a paragraph that holds a blank takes the
  * taller line height. */
-.answerZone.answerZone :global(div.paragraph):has(:global([data-blank])) {
+.answerZone.answerZone
+    :global(.deprecated-perseus-container):not(:global([data-blank] *)):has(
+        :global([data-blank])
+    ) {
     line-height: var(--wb-sizing-size_480);
 }
 
