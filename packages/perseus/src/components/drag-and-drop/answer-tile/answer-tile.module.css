@@ -114,21 +114,61 @@
     padding-inline: calc(var(--answer-tile-menu-space) / 2);
 }
 
-/* The split variant keeps half the menu's space inside the tile and
- * half outside it, each split evenly between the two sides. Hover or
- * focus shows the menu, and the tile grows into its margin, so the
- * line still does not reflow. */
+/* The split variant keeps the menu's space partly outside the tile, as
+ * margin, and partly inside it, as padding, each split evenly between
+ * the two sides: 3/16 of the space per side outside and 5/16 inside,
+ * which still sum to the half per side the menu takes. Hover or focus
+ * shows the menu, and the tile grows into its margin, so the line
+ * still does not reflow. */
 .hidesMenuAtRest.reservesMenuSpace.splitsMenuSpace:not(:hover):not(
         :focus-within
     ) {
-    margin-inline: calc(var(--answer-tile-menu-space) / 4);
+    margin-inline: calc(var(--answer-tile-menu-space) * 3 / 16);
 }
 
 .hidesMenuAtRest.reservesMenuSpace.splitsMenuSpace:not(:hover):not(
         :focus-within
     )
     .content {
-    padding-inline: calc(var(--answer-tile-menu-space) / 4);
+    padding-inline: calc(var(--answer-tile-menu-space) * 5 / 16);
+}
+
+/* A placed tile eases between rest and hover or focus. The list covers
+ * every property any treatment changes: the menu's collapse, the
+ * reserved-space padding and margin, and the compact chip's size and
+ * type. Every property shares one duration and easing, so in the split
+ * variant the margin the tile gives up and the width it gains cancel
+ * at every frame, and the line does not move mid-transition. The menu
+ * box gets a definite hover width: a transition cannot animate to or
+ * from `auto`. */
+.hidesMenuAtRest,
+.hidesMenuAtRest .content,
+.hidesMenuAtRest .startContainer {
+    transition-duration: 250ms;
+    transition-timing-function: ease;
+}
+
+.hidesMenuAtRest {
+    transition-property: margin-inline, min-inline-size, min-block-size,
+        padding-block, padding-inline, font-size, line-height;
+}
+
+.hidesMenuAtRest .content {
+    transition-property: padding-inline;
+}
+
+.hidesMenuAtRest .startContainer {
+    inline-size: var(--wb-sizing-size_240);
+    transition-property: inline-size, min-inline-size, margin-inline-end,
+        opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hidesMenuAtRest,
+    .hidesMenuAtRest .content,
+    .hidesMenuAtRest .startContainer {
+        transition: none;
+    }
 }
 
 /* A tile that fills its blank, content at the start. The menu stays
