@@ -23,14 +23,12 @@ export const mobileArticleDecorator: Decorator = (Story) => (
     </div>
 );
 
-export const constrainedContainer = (
+export const styledContainer = (
     constraint: React.CSSProperties,
 ): Decorator => {
-    const autoCenter =
-        constraint.maxWidth != null ? {marginInline: "auto"} : {};
     return function Constrained(Story) {
         return (
-            <div style={{...autoCenter, ...constraint}}>
+            <div style={constraint}>
                 <Story />
             </div>
         );
