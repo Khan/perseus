@@ -23,9 +23,7 @@ export const mobileArticleDecorator: Decorator = (Story) => (
     </div>
 );
 
-export const styledContainer = (
-    constraint: React.CSSProperties,
-): Decorator => {
+export const styledContainer = (constraint: React.CSSProperties): Decorator => {
     return function Constrained(Story) {
         return (
             <div style={constraint}>
