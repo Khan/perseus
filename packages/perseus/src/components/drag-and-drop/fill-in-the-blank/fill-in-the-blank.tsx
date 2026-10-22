@@ -162,6 +162,8 @@ export function FillInTheBlank({
 
     // React 18 has no `inert` prop, so set it on the element. It keeps
     // the hidden copy's controls out of the tab order and assistive tech.
+    // (The hidden invisible tiles are used to determine the widest tile size,
+    // so they users should not be able to interact with them in any way.)
     const setMeasurementRef = React.useCallback(
         (element: HTMLElement | null) => {
             element?.setAttribute("inert", "");
@@ -186,8 +188,8 @@ export function FillInTheBlank({
                 </FillInTheBlankContext.Provider>
                 <ChoiceBank label={strings.choices}>{bankTiles}</ChoiceBank>
             </PerseusDndProvider>
-            {/* A separate provider keeps the measurement copies out of
-                the real drag-and-drop. */}
+            {/* A separate provider keeps the measurement copies out of the
+                real drag-and-drop. Only used for determining measurements.*/}
             <PerseusDndProvider>
                 <div
                     aria-hidden="true"
