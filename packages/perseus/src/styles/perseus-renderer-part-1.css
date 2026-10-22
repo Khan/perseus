@@ -350,10 +350,6 @@ div.graphie {
     font-weight: bold;
 }
 .framework-perseus :is(div, p).deprecated-perseus-container {
-    font-family: "Lato", sans-serif;
-    font-weight: var(--wb-font-weight-regular);
-    font-size: 18px;
-    line-height: 22px;
     margin: 22px 0px;
 }
 .framework-perseus
