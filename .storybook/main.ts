@@ -20,7 +20,8 @@ const cssWrapper = {
                 // inlined token sheet, so it must stay linear-time.
                 if (
                     !code.includes("@layer") ||
-                    /\bperseus-legacy\b/.test(code)
+                    /\bperseus-legacy\b/.test(code) ||
+                    /\bperseus-base\b/.test(code)
                 ) {
                     const layerStatements =
                         "@layer reset, shared, shared.base, legacy;\n@layer shared";
