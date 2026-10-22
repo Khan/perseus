@@ -21,7 +21,6 @@ body.mobile
     td.category
     input[type="radio"]
     + span:active:before {
-    color: var(--wb-semanticColor-core-foreground-neutral-default);
     content: "\f111"; /* fa-circle */
 }
 
