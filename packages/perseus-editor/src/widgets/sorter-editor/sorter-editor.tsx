@@ -57,6 +57,7 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
             correct = defaultOptions.correct,
             layout = defaultOptions.layout,
             padding = defaultOptions.padding,
+            legend,
             onChange,
         },
         ref,
@@ -65,7 +66,7 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
             ref,
             () => ({
                 serialize: () => {
-                    return {correct, layout, padding};
+                    return {correct, layout, padding, legend};
                 },
 
                 // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend
@@ -85,7 +86,7 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                     return warnings;
                 },
             }),
-            [correct, layout, padding],
+            [correct, layout, padding, legend],
         );
 
         function handleChange(changes: Partial<PerseusSorterWidgetOptions>) {
