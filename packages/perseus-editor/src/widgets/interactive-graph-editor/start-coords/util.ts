@@ -22,13 +22,6 @@ import type {Range, PerseusGraphType, Coord} from "@khanacademy/perseus-core";
 
 const {getClockwiseAngle} = angles;
 
-export function getStartCoords(graph: PerseusGraphType): StartCoords {
-    if ("startCoords" in graph) {
-        return graph.startCoords;
-    }
-    return undefined;
-}
-
 export function getDefaultGraphStartCoords(
     graph: PerseusGraphType,
     range: [x: Range, y: Range],

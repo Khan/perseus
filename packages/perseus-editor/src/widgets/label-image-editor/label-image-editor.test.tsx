@@ -125,34 +125,6 @@ describe("label-image-editor", () => {
         ).not.toBeInTheDocument();
     });
 
-    it("serializes correctly", () => {
-        const editorRef = React.createRef<LabelImageEditor>();
-        const onChangeMock = jest.fn();
-
-        render(
-            <LabelImageEditor
-                ref={editorRef}
-                {...defaultProps}
-                onChange={onChangeMock}
-            />,
-        );
-
-        const serialized = editorRef.current?.serialize();
-
-        expect(serialized).toEqual({
-            choices: defaultProps.choices,
-            imageAlt: defaultProps.imageAlt,
-            imageUrl: defaultProps.imageUrl,
-            imageWidth: defaultProps.imageWidth,
-            imageHeight: defaultProps.imageHeight,
-            markers: defaultProps.markers,
-            multipleAnswers: defaultProps.multipleAnswers,
-            hideChoicesFromInstructions:
-                defaultProps.hideChoicesFromInstructions,
-            preferredPopoverDirection: defaultProps.preferredPopoverDirection,
-        });
-    });
-
     it("should not allow markers to be added when editingDisabled is true", async () => {
         // Arrange
         const onChangeMock = jest.fn();

@@ -41,13 +41,6 @@ class PythonProgramEditor extends React.Component<Props> {
         });
     }
 
-    serialize(): PerseusPythonProgramWidgetOptions {
-        return {
-            programID: this.props.programID,
-            height: this.props.height,
-        };
-    }
-
     // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
     // the new linter rules for save warnings.
     // Remove `validateOptions` since it's already being tested

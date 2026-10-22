@@ -16,7 +16,7 @@ import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 /**
- * WidgetEditor holds the editor by ref and calls `serialize()` on it, so that
+ * WidgetEditor holds the editor by ref and calls `getSaveWarnings()` on it, so that
  * handle is part of the editor's contract with the rest of the system. Deriving
  * the type from the component keeps these tests tied to the contract rather than
  * to how the component happens to be written.
@@ -348,24 +348,6 @@ describe("sorter-editor", () => {
             );
         });
 
-        it("serializes all of the cards, including the ones past the limit", () => {
-            // Arrange
-            const editorRef = React.createRef<SorterEditorHandle>();
-            render(
-                <SorterEditor
-                    ref={editorRef}
-                    onChange={() => {}}
-                    {...generateSorterOptions({correct: fifteenCards})}
-                />,
-            );
-
-            // Act
-            const serialized = editorRef.current?.serialize();
-
-            // Assert
-            expect(serialized?.correct).toEqual(fifteenCards);
-        });
-
         it("disables the add button", () => {
             // Arrange, Act
             render(
@@ -501,76 +483,6 @@ describe("sorter-editor", () => {
         expect(screen.getByDisplayValue("Emu")).toHaveAccessibleName("Card 2");
     });
 
-    it("serializes the correct answer, layout, and padding", () => {
-        // Arrange
-        const editorRef = React.createRef<SorterEditorHandle>();
-        render(
-            <SorterEditor
-                ref={editorRef}
-                onChange={() => {}}
-                {...generateSorterOptions({
-                    correct: ["Cat", "Dog"],
-                    layout: "vertical",
-                    padding: false,
-                })}
-            />,
-        );
-
-        // Act
-        const serialized = editorRef.current?.serialize();
-
-        // Assert
-        expect(serialized).toEqual({
-            correct: ["Cat", "Dog"],
-            layout: "vertical",
-            padding: false,
-        });
-    });
-
-    // WidgetEditor serializes the editor *during* an edit, to fold the editor's
-    // current options into the change it's about to publish. A handle that
-    // captured the props it was created with would serialize pre-edit options
-    // and quietly revert the author's work, so serializing has to see the props
-    // from the latest render, not the first one.
-    it("serializes card edits made after the first render", async () => {
-        // Arrange
-        const editorRef = React.createRef<SorterEditorHandle>();
-        renderControlled(
-            generateSorterOptions({correct: ["Cat", "Dog"]}),
-            undefined,
-            editorRef,
-        );
-
-        // Act
-        const card = screen.getByDisplayValue("Dog");
-        await userEvent.clear(card);
-        await userEvent.type(card, "Emu");
-
-        // Assert
-        expect(editorRef.current?.serialize()).toMatchObject({
-            correct: ["Cat", "Emu"],
-        });
-    });
-
-    it("serializes layout changes made after the first render", async () => {
-        // Arrange
-        const editorRef = React.createRef<SorterEditorHandle>();
-        renderControlled(
-            generateSorterOptions({layout: "horizontal"}),
-            undefined,
-            editorRef,
-        );
-
-        // Act
-        await userEvent.click(screen.getByRole("combobox", {name: "Layout"}));
-        await userEvent.click(screen.getByRole("option", {name: "Vertical"}));
-
-        // Assert
-        expect(editorRef.current?.serialize()).toMatchObject({
-            layout: "vertical",
-        });
-    });
-
     // The editor page reads the default options off the component itself to
     // seed a newly inserted sorter, so they're part of its public surface, not
     // implementation detail.
@@ -651,8 +563,7 @@ describe("sorter-editor", () => {
             ]);
         });
 
-        // The warnings have to reflect the edit in progress, the same way
-        // `serialize` does — WidgetEditor asks for both mid-edit.
+        // The warnings have to reflect the edit in progress.
         it("warns about a card the author has just cleared", async () => {
             // Arrange
             const editorRef = renderForWarnings(["Cat", "Dog"]);

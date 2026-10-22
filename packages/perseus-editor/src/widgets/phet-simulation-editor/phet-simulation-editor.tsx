@@ -27,13 +27,6 @@ class PhetSimulationEditor extends React.Component<Props> {
         });
     }
 
-    serialize(): PerseusPhetSimulationWidgetOptions {
-        return {
-            url: this.props.url,
-            description: this.props.description,
-        };
-    }
-
     // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
     // the new linter rules for save warnings.
     getSaveWarnings: () => ReadonlyArray<string> = () => {
