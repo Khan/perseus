@@ -57,9 +57,6 @@
         white-space: nowrap;
         /* End Fix */
     }
-    .orderer div.paragraph {
-        margin: 0;
-    }
     .orderer .card-wrap {
         width: auto;
         /* Start fix for wrapping issue caused by CSS reset removal */

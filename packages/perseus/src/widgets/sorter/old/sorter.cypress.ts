@@ -1,9 +1,8 @@
-import * as Perseus from "../../index";
-import renderQuestionWithCypress from "../../testing/render-question-with-cypress";
-import {cypressTestDependencies} from "../../testing/test-dependencies";
-import {scorePerseusItemTesting} from "../../util/test-utils";
-
-import {twoCardVerticalQuestion} from "./sorter.testdata";
+import * as Perseus from "../../../index";
+import renderQuestionWithCypress from "../../../testing/render-question-with-cypress";
+import {cypressTestDependencies} from "../../../testing/test-dependencies";
+import {scorePerseusItemTesting} from "../../../util/test-utils";
+import {twoCardVerticalQuestion} from "../sorter.testdata";
 
 // NOTE: These tests use Cypress because
 // - Sortable is currently inaccessible

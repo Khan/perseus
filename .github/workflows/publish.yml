@@ -362,6 +362,35 @@ jobs:
                   SLACK_FOOTER: Perseus Slack Notification
                   MSG_MINIMAL: true
 
+            # Newly published packages can take several minutes to become
+            # available for install from npm. Wait for them so the Slack
+            # announcement below doesn't send people to versions they can't
+            # install yet.
+            - name: Wait for published packages to be installable
+              id: wait_for_npm
+              if: steps.changesets.outputs.published == 'true'
+              # The packages are already published, so a timeout here only
+              # changes the announcement's wording. It shouldn't fail the
+              # release (and trigger the "release failed" Slack).
+              continue-on-error: true
+              timeout-minutes: 20
+              env:
+                  PUBLISHED_PACKAGES: ${{ steps.changesets.outputs.publishedPackages }}
+              run: ./utils/wait-for-npm-packages.ts "$PUBLISHED_PACKAGES"
+
+            - name: Compose npm availability warning
+              id: npm_warning
+              if: steps.wait_for_npm.outcome == 'failure'
+              env:
+                  RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+              run: |
+                  {
+                      echo "line<<WARNING_EOF"
+                      echo ""
+                      echo "⚠️ npm has not made every package installable yet, so installs may fail for a few more minutes. Details → $RUN_URL"
+                      echo "WARNING_EOF"
+                  } >> "$GITHUB_OUTPUT"
+
             - name: Send a Slack notification for web if a publish happens
               if: steps.changesets.outputs.published == 'true'
               uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661 # v2.3.3
@@ -371,7 +400,7 @@ jobs:
                   SLACK_MSG_AUTHOR: ${{ github.event.pull_request.user.login }}
                   SLACK_USERNAME: GithubGoose
                   SLACK_ICON_EMOJI: ":goose:"
-                  SLACK_MESSAGE: "A new version of ${{ github.event.repository.name }} was published! \nRelease notes → https://github.com/${{ github.repository }}/releases/"
+                  SLACK_MESSAGE: "A new version of ${{ github.event.repository.name }} was published! ${{ steps.npm_warning.outputs.line }}\nRelease notes → https://github.com/${{ github.repository }}/releases/"
                   SLACK_TITLE: "New Perseus release!"
                   SLACK_FOOTER: Perseus Slack Notification
                   MSG_MINIMAL: true
@@ -438,6 +467,38 @@ jobs:
                   # the npmjs.com side:
                   # https://www.npmjs.com/package/@khanacademy/mathjax-renderer/access
 
+            # Newly published packages can take several minutes to become
+            # available for install from npm. Wait for them so the PR comment
+            # below doesn't send people to versions they can't install yet.
+            - name: Wait for snapshot packages to be installable
+              id: wait-for-npm
+              if: steps.publish-snapshot.outputs.published_packages != ''
+              # The snapshot is already published, so a timeout here only
+              # changes the comment's wording.
+              continue-on-error: true
+              timeout-minutes: 20
+              env:
+                  PUBLISHED_PACKAGES: ${{ steps.publish-snapshot.outputs.published_packages }}
+              run: ./utils/wait-for-npm-packages.ts "$PUBLISHED_PACKAGES"
+
+            - name: Compose npm availability warning
+              id: npm-warning
+              if: steps.wait-for-npm.outcome == 'failure'
+              env:
+                  RUN_URL: ${{ steps.get-run-url.outputs.run_url }}
+              run: |
+                  {
+                      echo "body<<WARNING_EOF"
+                      echo ""
+                      echo "> [!WARNING]"
+                      echo "> npm has not made every package in this snapshot"
+                      echo "> installable yet, so installs may fail, "
+                      echo "> or install an earlier version of this snapshot,"
+                      echo "> for a few more minutes. [Details]($RUN_URL)"
+                      echo ""
+                      echo "WARNING_EOF"
+                  } >> "$GITHUB_OUTPUT"
+
             - name: Calculate short SHA for this commit
               id: short-sha
               # We capture HEAD after checkout rather than using
@@ -472,7 +533,7 @@ jobs:
                       steps.short-sha.outputs.short_sha }}) and published it to npm. You
                       can install it using the tag `${{
                       steps.publish-snapshot.outputs.npm_snapshot_tag }}`.
-
+                      ${{ steps.npm-warning.outputs.body }}
                       Example:
                       ```sh
                       pnpm add @khanacademy/perseus@${{

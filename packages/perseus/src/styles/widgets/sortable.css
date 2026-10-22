@@ -56,9 +56,6 @@
         box-shadow: var(--wb-boxShadow-mid);
         cursor: grab;
     }
-    .perseus-sortable div.paragraph {
-        margin: 0;
-    }
     .perseus-sortable .perseus-sortable-draggable:before {
         content: "";
         display: inline-block;

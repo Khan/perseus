@@ -4,11 +4,11 @@ import {
 } from "@khanacademy/perseus-core";
 import {act} from "@testing-library/react";
 
-import {renderQuestion} from "../../__tests__/test-utils";
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
-import {deriveUserInputFromSerializedState} from "../../user-input-manager";
-import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
+import {renderQuestion} from "../../../__tests__/test-utils";
+import * as Dependencies from "../../../dependencies";
+import {testDependencies} from "../../../testing/test-dependencies";
+import {deriveUserInputFromSerializedState} from "../../../user-input-manager";
+import {registerAllWidgetsForTesting} from "../../../util/register-all-widgets-for-testing";
 
 import type {SorterHandle} from "./sorter";
 import type {PerseusItem} from "@khanacademy/perseus-core";
