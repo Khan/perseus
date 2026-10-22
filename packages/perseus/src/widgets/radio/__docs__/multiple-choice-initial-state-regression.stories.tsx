@@ -9,7 +9,6 @@ import {ServerItemRenderer} from "../../../server-item-renderer";
 import {testDependenciesV2} from "../../../testing/test-dependencies";
 import {
     constrainedContainer,
-    mobileDecorator,
     narrowViewportDecorator,
     rtlDecorator,
 } from "../../__testutils__/story-decorators";
@@ -334,7 +333,10 @@ export const MultiSelectRTL: Story = {
 };
 
 export const SingleSelectWithLongMathjax688px: Story = {
-    decorators: [radioRendererDecorator, constrainedContainer({maxWidth: "688px"})],
+    decorators: [
+        radioRendererDecorator,
+        constrainedContainer({maxWidth: "688px"}),
+    ],
     args: {
         choices: [
             generateRadioChoice(

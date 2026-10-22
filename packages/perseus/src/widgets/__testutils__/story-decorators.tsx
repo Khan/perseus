@@ -23,13 +23,18 @@ export const mobileArticleDecorator: Decorator = (Story) => (
     </div>
 );
 
-export const constrainedContainer = (constraint: React.CSSProperties): Decorator => {
-    const autoCenter = constraint.maxWidth != null ? {marginInline: "auto"} : {};
-    return (Story) => (
-        <div style={{...autoCenter, ...constraint}}>
-            <Story />
-        </div>
-    );
+export const constrainedContainer = (
+    constraint: React.CSSProperties,
+): Decorator => {
+    const autoCenter =
+        constraint.maxWidth != null ? {marginInline: "auto"} : {};
+    return function Constrained(Story) {
+        return (
+            <div style={{...autoCenter, ...constraint}}>
+                <Story />
+            </div>
+        );
+    };
 };
 
 // Set `dir="rtl"` on both the wrapper and `<html>` so portaled content

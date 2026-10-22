@@ -1,5 +1,4 @@
 import {themeModes} from "../../../../../../.storybook/modes";
-import {mobileDecorator} from "../../__testutils__/story-decorators";
 
 import {numberLineRendererDecorator} from "./number-line-renderer-decorator";
 import {waitForError, waitForNumberLine} from "./number-line-story-helpers";

@@ -2,7 +2,6 @@ import {expect, waitFor} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import {
-    mobileDecorator,
     reducedMotionDecorator,
     rtlDecorator,
 } from "../../__testutils__/story-decorators";
