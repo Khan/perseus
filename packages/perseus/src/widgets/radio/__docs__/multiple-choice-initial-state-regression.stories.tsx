@@ -335,7 +335,7 @@ export const MultiSelectRTL: Story = {
 export const SingleSelectWithLongMathjax688px: Story = {
     decorators: [
         radioRendererDecorator,
-        styledContainer({maxWidth: "688px", marginBlock: "auto"}),
+        styledContainer({maxWidth: "688px", marginInline: "auto"}),
     ],
     args: {
         choices: [
