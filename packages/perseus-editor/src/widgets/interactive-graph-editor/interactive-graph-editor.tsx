@@ -11,7 +11,6 @@ import {interactiveGraphLogic} from "@khanacademy/perseus-core";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
-import invariant from "tiny-invariant";
 
 import AngleAnswerOptions from "./components/angle-answer-options";
 import GraphPointsCountSelector from "./components/graph-points-count-selector";
@@ -275,38 +274,9 @@ class InteractiveGraphEditor extends React.Component<Props, State> {
                         ? {...correct, showPointLabels: false}
                         : correct,
                 handleUserInput: (
-                    newGraph: PerseusInteractiveGraphUserInput,
+                    correct: PerseusInteractiveGraphUserInput,
                 ) => {
-                    let correct = this.props.correct;
-                    // TODO(benchristel): can we improve the type of onChange
-                    // so this invariant isn't necessary?
-                    invariant(newGraph != null);
-                    // Preserve author's showPointLabels: the state echo
-                    // from StatefulMafsGraph would otherwise clobber it
-                    // with the render-time override's `false`.
-                    if (
-                        this.props.static === true &&
-                        newGraph != null &&
-                        "showPointLabels" in newGraph
-                    ) {
-                        newGraph = {
-                            ...newGraph,
-                            showPointLabels:
-                                "showPointLabels" in correct
-                                    ? correct.showPointLabels
-                                    : undefined,
-                        };
-                    }
-                    if (correct.type === newGraph.type) {
-                        correct = mergeGraphs(correct, newGraph);
-                    } else {
-                        // Clear options from previous graph
-                        correct = newGraph;
-                    }
-                    this.handleChange({
-                        correct: correct,
-                        graph: this.props.graph,
-                    });
+                    this.handleChange({correct});
                 },
             } as const;
 
@@ -489,72 +459,6 @@ class InteractiveGraphEditor extends React.Component<Props, State> {
                 )}
             </Id>
         );
-    }
-}
-
-// Merges two graphs that have the same `type`. Properties defined in `b`
-// overwrite properties of the same name in `a`. Throws an exception if the
-// types are different or not recognized.
-function mergeGraphs(
-    a: PerseusGraphType,
-    b: PerseusGraphType,
-): PerseusGraphType {
-    if (a.type !== b.type) {
-        throw new Error(
-            `Cannot merge graphs with different types (${a.type} and ${b.type})`,
-        );
-    }
-    switch (a.type) {
-        case "angle":
-            invariant(b.type === "angle");
-            return {...a, ...b};
-        case "circle":
-            invariant(b.type === "circle");
-            return {...a, ...b};
-        case "linear":
-            invariant(b.type === "linear");
-            return {...a, ...b};
-        case "linear-system":
-            invariant(b.type === "linear-system");
-            return {...a, ...b};
-        case "none":
-            invariant(b.type === "none");
-            return {...a, ...b};
-        case "point":
-            invariant(b.type === "point");
-            return {...a, ...b};
-        case "polygon":
-            invariant(b.type === "polygon");
-            return {...a, ...b};
-        case "quadratic":
-            invariant(b.type === "quadratic");
-            return {...a, ...b};
-        case "ray":
-            invariant(b.type === "ray");
-            return {...a, ...b};
-        case "segment":
-            invariant(b.type === "segment");
-            return {...a, ...b};
-        case "sinusoid":
-            invariant(b.type === "sinusoid");
-            return {...a, ...b};
-        case "absolute-value":
-            invariant(b.type === "absolute-value");
-            return {...a, ...b};
-        case "exponential":
-            invariant(b.type === "exponential");
-            return {...a, ...b};
-        case "tangent":
-            invariant(b.type === "tangent");
-            return {...a, ...b};
-        case "logarithm":
-            invariant(b.type === "logarithm");
-            return {...a, ...b};
-        case "vector":
-            invariant(b.type === "vector");
-            return {...a, ...b};
-        default:
-            throw new UnreachableCaseError(a);
     }
 }
 
