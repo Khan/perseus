@@ -6,15 +6,12 @@ import _ from "underscore";
 import Editor from "../../editor";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
-import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {PerseusExplanationWidgetOptions} from "@khanacademy/perseus-core";
 
 const {TextInput} = components;
 
-interface Props extends PerseusExplanationWidgetOptions {
-    apiOptions?: APIOptionsWithDefaults;
-    onChange: (options: PerseusExplanationWidgetOptions) => void;
-}
+type Props = WidgetEditorProps<PerseusExplanationWidgetOptions>;
 
 /**
  * An editor for adding an explanation widget that provides supplementary information to users.

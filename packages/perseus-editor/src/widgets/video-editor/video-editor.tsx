@@ -6,9 +6,9 @@ import * as React from "react";
 
 import VideoSettings from "./video-settings";
 
-export interface VideoEditorProps extends PerseusVideoWidgetOptions {
-    onChange: (options: PerseusVideoWidgetOptions) => void;
-}
+import type {WidgetEditorProps} from "../widget-editor-props";
+
+export type VideoEditorProps = WidgetEditorProps<PerseusVideoWidgetOptions>;
 
 /**
  * This is the main editor for this widget, to specify all the options.

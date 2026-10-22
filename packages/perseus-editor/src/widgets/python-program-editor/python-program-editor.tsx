@@ -2,13 +2,12 @@ import {components} from "@khanacademy/perseus";
 import {pythonProgramLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {PerseusPythonProgramWidgetOptions} from "@khanacademy/perseus-core";
 
 const {NumberInput, TextInput} = components;
 
-interface Props extends PerseusPythonProgramWidgetOptions {
-    onChange: (options: PerseusPythonProgramWidgetOptions) => void;
-}
+type Props = WidgetEditorProps<PerseusPythonProgramWidgetOptions>;
 
 export function validateOptions(
     height: Props["height"],

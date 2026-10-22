@@ -1,5 +1,5 @@
-import {themeModes} from "../../../../../../.storybook/modes";
-import {mobileDecorator} from "../../__testutils__/story-decorators";
+import {themeModes} from "../../../../../../../.storybook/modes";
+import {mobileDecorator} from "../../../__testutils__/story-decorators";
 
 import {sorterRendererDecorator} from "./sorter-renderer-decorator";
 

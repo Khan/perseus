@@ -15,6 +15,7 @@ import ParametricEditor from "./parametric-editor";
 import PointEditor from "./point-editor";
 import RectangleEditor from "./rectangle-editor";
 
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {
     PerseusInteractionWidgetOptions,
     PerseusInteractionElement,
@@ -22,9 +23,7 @@ import type {
 
 const {unescapeMathMode} = Util;
 
-interface Props extends PerseusInteractionWidgetOptions {
-    onChange: (options: PerseusInteractionWidgetOptions) => void;
-}
+type Props = WidgetEditorProps<PerseusInteractionWidgetOptions>;
 
 type State = any;
 

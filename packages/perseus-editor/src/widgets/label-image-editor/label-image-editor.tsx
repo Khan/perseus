@@ -11,13 +11,10 @@ import styles from "./label-image-editor.module.css";
 import QuestionMarkers from "./question-markers";
 import SelectImage from "./select-image";
 
-import type {APIOptions} from "@khanacademy/perseus";
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
-export interface Props extends PerseusLabelImageWidgetOptions {
-    apiOptions: APIOptions;
-    onChange: (options: PerseusLabelImageWidgetOptions) => void;
-}
+export type Props = WidgetEditorProps<PerseusLabelImageWidgetOptions>;
 
 /**
  * Direct image labeling widget editor.

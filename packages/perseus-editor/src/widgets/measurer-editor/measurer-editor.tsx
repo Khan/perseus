@@ -7,6 +7,7 @@ import _ from "underscore";
 import InfoTip from "../../components/info-tip";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {PerseusMeasurerWidgetOptions} from "@khanacademy/perseus-core";
 
 const {NumberInput, RangeInput} = components;
@@ -17,9 +18,7 @@ const defaultImage = {
     left: 0,
 } as const;
 
-interface Props extends PerseusMeasurerWidgetOptions {
-    onChange: (options: PerseusMeasurerWidgetOptions) => void;
-}
+type Props = WidgetEditorProps<PerseusMeasurerWidgetOptions>;
 
 class MeasurerEditor extends React.Component<Props> {
     static defaultProps: PerseusMeasurerWidgetOptions =

@@ -17,7 +17,7 @@ export const basicQuestion: PerseusRenderer = {
             options: {
                 padding: true,
                 layout: "horizontal",
-                correct: ["Zeroth", "First", "Second", "Third", "Fourth"],
+                correct: ["First", "Second", "Third", "Fourth", "Fifth"],
             },
         },
     },
