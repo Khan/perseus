@@ -9,9 +9,9 @@ import BlurInput from "../../components/blur-input";
 import {PairsEditor} from "../../components/pairs-editor";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
-interface IframeEditorProps extends PerseusIFrameWidgetOptions {
-    onChange: (options: PerseusIFrameWidgetOptions) => void;
-}
+import type {WidgetEditorProps} from "../widget-editor-props";
+
+type IframeEditorProps = WidgetEditorProps<PerseusIFrameWidgetOptions>;
 
 /**
  * This is the main editor for this widget, to specify all the options.

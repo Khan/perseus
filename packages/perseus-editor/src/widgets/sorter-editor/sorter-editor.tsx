@@ -32,6 +32,10 @@ const layoutOptions = {
     vertical: "Vertical",
 } as const satisfies Record<PerseusSorterWidgetOptions["layout"], string>;
 
+// TODO(benchristel): Define Props in terms of WidgetEditorProps. We can't do
+//  this currently because `pnpm build:types` fails with a cryptic error. The
+//  cause seems to be a combination of WidgetEditorProps' use of APIOptions and
+//  the fact that this is a functional component.
 interface Props extends PerseusSorterWidgetOptions {
     onChange: (options: PerseusSorterWidgetOptions) => void;
 }

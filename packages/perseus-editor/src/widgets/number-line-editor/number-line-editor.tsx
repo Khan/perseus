@@ -9,6 +9,7 @@ import InfoTip from "../../components/info-tip";
 import {TypedSingleSelect} from "../../components/typed-single-select";
 import EditorJsonify from "../../mixins/editor-jsonify";
 
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {
     PerseusNumberLineWidgetOptions,
     MathFormat,
@@ -18,10 +19,7 @@ const {ButtonGroup, NumberInput, RangeInput} = components;
 
 const EN_DASH = "\u2013";
 
-interface Props extends PerseusNumberLineWidgetOptions {
-    static?: boolean;
-    onChange: (options: PerseusNumberLineWidgetOptions) => void;
-}
+type Props = WidgetEditorProps<PerseusNumberLineWidgetOptions>;
 
 /**
  * An editor for adding a number line widget that allows users to mark

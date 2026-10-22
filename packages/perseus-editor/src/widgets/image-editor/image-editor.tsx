@@ -1,3 +1,4 @@
+import {ApiOptions} from "@khanacademy/perseus";
 import {
     imageLogic,
     type PerseusImageWidgetOptions,
@@ -9,12 +10,9 @@ import EditorJsonify from "../../mixins/editor-jsonify";
 import ImageSettings from "./components/image-settings";
 import ImageUrlInput from "./components/image-url-input";
 
-import type {APIOptions} from "@khanacademy/perseus";
+import type {WidgetEditorProps} from "../widget-editor-props";
 
-interface Props extends PerseusImageWidgetOptions {
-    apiOptions: APIOptions;
-    onChange: (options: PerseusImageWidgetOptions) => void;
-}
+type Props = WidgetEditorProps<PerseusImageWidgetOptions>;
 
 /**
  * An editor for adding an image widget that allows users to display and configure images within content.
@@ -49,7 +47,16 @@ class ImageEditor extends React.Component<Props> {
         return (
             <>
                 <ImageUrlInput {...this.props} onChange={this.handleChange} />
-                <ImageSettings {...this.props} onChange={this.handleChange} />
+                <ImageSettings
+                    {...this.props}
+                    apiOptions={{
+                        // TODO(LEMS-4681): Remove ApiOptions.defaults once all
+                        //  apiOptions are passed to this component.
+                        ...ApiOptions.defaults,
+                        ...this.props.apiOptions,
+                    }}
+                    onChange={this.handleChange}
+                />
             </>
         );
     }
