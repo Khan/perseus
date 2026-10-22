@@ -106,41 +106,28 @@
     );
 }
 
-/* A placed tile that keeps its menu's space at rest, split evenly
- * around the content. The tile is the same size at rest and on hover
- * or focus, so the line does not reflow; the value shifts within the
- * tile to make room for the menu. */
-.hidesMenuAtRest.reservesMenuSpace:not(:hover):not(:focus-within) .content {
-    padding-inline: calc(var(--answer-tile-menu-space) / 2);
-}
-
-/* The split variant keeps the menu's space partly outside the tile, as
- * margin, and partly inside it, as padding, each split evenly between
- * the two sides: 3/16 of the space per side outside and 5/16 inside,
- * which still sum to the half per side the menu takes. Hover or focus
- * shows the menu, and the tile grows into its margin, so the line
- * still does not reflow. */
-.hidesMenuAtRest.reservesMenuSpace.splitsMenuSpace:not(:hover):not(
-        :focus-within
-    ) {
+/* A placed tile that keeps its menu's space at rest, partly outside
+ * the tile as margin and partly inside it as padding, each split
+ * evenly between the two sides: 3/16 of the space per side outside and
+ * 5/16 inside, which sum to the half per side the menu takes. Hover or
+ * focus shows the menu, and the tile grows into its margin, so the
+ * line does not reflow; the value shifts within the tile to make room
+ * for the menu. */
+.hidesMenuAtRest.reservesMenuSpace:not(:hover):not(:focus-within) {
     margin-inline: calc(var(--answer-tile-menu-space) * 3 / 16);
 }
 
-.hidesMenuAtRest.reservesMenuSpace.splitsMenuSpace:not(:hover):not(
-        :focus-within
-    )
-    .content {
+.hidesMenuAtRest.reservesMenuSpace:not(:hover):not(:focus-within) .content {
     padding-inline: calc(var(--answer-tile-menu-space) * 5 / 16);
 }
 
 /* A placed tile eases between rest and hover or focus. The list covers
- * every property any treatment changes: the menu's collapse, the
- * reserved-space padding and margin, and the compact chip's size and
- * type. Every property shares one duration and easing, so in the split
- * variant the margin the tile gives up and the width it gains cancel
- * at every frame, and the line does not move mid-transition. The menu
- * box gets a definite hover width: a transition cannot animate to or
- * from `auto`. */
+ * every property that changes: the menu's collapse, the reserved
+ * margin and padding, and the compact chip's size and type. Every
+ * property shares one duration and easing, so the margin a tile gives
+ * up and the width it gains cancel at every frame, and the line does
+ * not move mid-transition. The menu box gets a definite hover width:
+ * a transition cannot animate to or from `auto`. */
 .hidesMenuAtRest,
 .hidesMenuAtRest .content,
 .hidesMenuAtRest .startContainer {

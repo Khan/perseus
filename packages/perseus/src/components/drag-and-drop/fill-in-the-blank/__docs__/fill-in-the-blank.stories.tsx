@@ -14,15 +14,10 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
  * Demo of the Fill in the Blank render component, for design review.
  * Drag tiles into the blanks, or use each tile's menu. The examples
  * mirror the Figma frames. The `blankSizing` control compares the two
- * width-reveal modes: "grow" and "gate". The `filledBlankStyle` control
- * compares the "hug" treatment on this page with the "fixed" treatment
- * on the Fill in the Blank (Fixed Width) page, and with the
- * "hugWithPadding" treatment on the Fill in the Blank (Hug With
- * Padding) page, which hugs the value but keeps the menu's space so a
- * placed tile does not resize on hover. The "hugWithSplitPadding"
- * treatment on the Fill in the Blank (Hug With Split Padding) page
- * keeps half that space inside the tile and half as margin outside
- * it. Plan and open questions:
+ * width-reveal modes: "grow" and "gate". A placed tile hugs its value
+ * and keeps its hidden menu's space, partly as padding inside the tile
+ * and partly as margin outside it, so hover or focus shows the menu
+ * without reflowing the line. Plan and open questions:
  * widgets/fill-in-the-blank/notes/.
  */
 const meta: Meta<typeof FillInTheBlankDemo> = {
@@ -33,10 +28,6 @@ const meta: Meta<typeof FillInTheBlankDemo> = {
         blankSizing: {
             control: "radio",
             options: ["grow", "gate"],
-        },
-        filledBlankStyle: {
-            control: "radio",
-            options: ["hug", "hugWithPadding", "hugWithSplitPadding", "fixed"],
         },
     },
 };
@@ -52,7 +43,8 @@ export const Paragraph: Story = {
 
 /**
  * The drums paragraph with every blank answered. Hover or focus a
- * placed tile to show its menu.
+ * placed tile: it grows into its margin to show its menu, and the line
+ * does not move.
  */
 export const ParagraphAnswered: Story = {
     args: {

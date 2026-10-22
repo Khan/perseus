@@ -181,27 +181,4 @@ describe("FillInTheBlank", () => {
             within(bank).queryByRole("button", {name: "djembe"}),
         ).not.toBeInTheDocument();
     });
-
-    it("keeps a filled blank at its measured width when fixed", () => {
-        // Arrange, Act
-        renderFillInTheBlank({
-            tiles: drumTiles,
-            placements: {"blank 1": "djembe"},
-            filledBlankStyle: "fixed",
-        });
-
-        const blank = screen.getAllByTestId("blank-widget")[0];
-        expect(blank.className).toContain("keepsWidth");
-    });
-
-    it("lets a filled blank hug its tile by default", () => {
-        // Arrange, Act
-        renderFillInTheBlank({
-            tiles: drumTiles,
-            placements: {"blank 1": "djembe"},
-        });
-
-        const blank = screen.getAllByTestId("blank-widget")[0];
-        expect(blank.className).not.toContain("keepsWidth");
-    });
 });

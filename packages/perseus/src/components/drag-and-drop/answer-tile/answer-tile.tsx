@@ -75,15 +75,12 @@ export interface AnswerTileProps {
      */
     hidesMenuAtRest?: boolean;
     /**
-     * Use with `hidesMenuAtRest` to keep the hidden menu's space at rest,
-     * so the line of text does not reflow when hover or focus shows the
-     * menu. "padding": the space is even padding inside the tile, and
-     * the tile does not change size. "splitPadding": half the space is
-     * even padding inside the tile and half is even margin outside it,
-     * which the tile grows into when the menu shows. Omit it to collapse
-     * the menu's space at rest.
+     * Set true with `hidesMenuAtRest` to keep the hidden menu's space at
+     * rest, partly as even padding inside the tile and partly as even
+     * margin outside it. Hover or focus shows the menu and the tile
+     * grows into its margin, so the line of text does not reflow.
      */
-    reservedMenuSpace?: "padding" | "splitPadding";
+    reservesMenuSpace?: boolean;
     /**
      * Set true for a placed tile that stretches to fill its blank, with
      * the content at the start. The menu stays visible. The Sorter uses
@@ -126,7 +123,7 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
         tileId,
         fromBlankId,
         hidesMenuAtRest,
-        reservedMenuSpace,
+        reservesMenuSpace,
         fillsBlank,
         onContentRender,
         imageHeight,
@@ -153,12 +150,7 @@ export function AnswerTile(props: AnswerTileProps): React.ReactElement {
         isDraggable && styles.draggable,
         isDragging && styles.dragging,
         hidesMenuAtRest && styles.hidesMenuAtRest,
-        hidesMenuAtRest &&
-            reservedMenuSpace != null &&
-            styles.reservesMenuSpace,
-        hidesMenuAtRest &&
-            reservedMenuSpace === "splitPadding" &&
-            styles.splitsMenuSpace,
+        hidesMenuAtRest && reservesMenuSpace && styles.reservesMenuSpace,
         fillsBlank && styles.fillsBlank,
         compact && styles.compact,
     );

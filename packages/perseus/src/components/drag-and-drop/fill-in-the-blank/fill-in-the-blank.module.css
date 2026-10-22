@@ -37,8 +37,8 @@
 }
 
 /* Without the container name the narrow rules never match. The
- * small-value exception and the fixed-width variant both use it to
- * keep the inline layout at every width. */
+ * small-value exception uses it to keep the inline layout at every
+ * width. */
 .answerZone.noReflow {
     container-name: none;
 }

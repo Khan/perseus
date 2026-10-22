@@ -16,7 +16,6 @@ import {FillInTheBlankContext} from "./fill-in-the-blank-context";
 import styles from "./fill-in-the-blank.module.css";
 
 import type {BlankRenderInfo} from "./fill-in-the-blank-context";
-import type {AnswerTileProps} from "../answer-tile";
 import type {TilePlacements, TileUsage} from "../tile-placements";
 import type {PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
@@ -51,35 +50,7 @@ export interface FillInTheBlankProps {
      * and grow. "gate": the answer zone stays hidden until measured.
      */
     blankSizing?: "grow" | "gate";
-    /**
-     * How a filled blank sizes itself. "hug": the blank shrinks to its
-     * tile, and the tile grows on hover to show the menu.
-     * "hugWithPadding": like "hug", but the tile keeps the menu's space
-     * at rest as even padding, so showing the menu does not resize it.
-     * "hugWithSplitPadding": like "hugWithPadding", but half the menu's
-     * space is padding inside the tile and half is margin outside it,
-     * which the tile grows into when the menu shows. "fixed": the
-     * blank keeps the widest-tile width, and the tile fills it.
-     */
-    filledBlankStyle?: FilledBlankStyle;
 }
-
-type FilledBlankStyle =
-    | "hug"
-    | "hugWithPadding"
-    | "hugWithSplitPadding"
-    | "fixed";
-
-/** How a placed tile in a normal blank keeps its hidden menu's space. */
-const reservedMenuSpaceByStyle: Record<
-    FilledBlankStyle,
-    AnswerTileProps["reservedMenuSpace"]
-> = {
-    hug: undefined,
-    hugWithPadding: "padding",
-    hugWithSplitPadding: "splitPadding",
-    fixed: undefined,
-};
 
 /**
  * FillInTheBlank is the render side of the upcoming Fill in the Blank
@@ -99,7 +70,6 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
         placements,
         onPlacementsChange,
         blankSizing = "grow",
-        filledBlankStyle = "hug",
     } = props;
     const {strings: i18nStrings} = usePerseusI18n();
 
@@ -178,8 +148,6 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
             );
         });
 
-    const isFixed = filledBlankStyle === "fixed";
-
     const getBlankRenderInfo = (
         blankId: string,
         displayType: "normal" | "superscript" | "subscript",
@@ -187,11 +155,7 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
         const tileId = placements[blankId];
         const tile = tileId != null ? tilesById.get(tileId) : undefined;
         if (tile == null) {
-            return {
-                placedTile: null,
-                keepsWidthWhenFilled: isFixed,
-                widestTileWidth: maxWidth,
-            };
+            return {placedTile: null, widestTileWidth: maxWidth};
         }
         return {
             placedTile: (
@@ -204,13 +168,8 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
                     hidesMenuAtRest={true}
                     // Sub/superscript tiles rest as compact chips, so
                     // they do not reserve the menu's space.
-                    reservedMenuSpace={
-                        displayType === "normal"
-                            ? reservedMenuSpaceByStyle[filledBlankStyle]
-                            : undefined
-                    }
+                    reservesMenuSpace={displayType === "normal"}
                     compact={displayType !== "normal"}
-                    fillsBlank={isFixed && displayType === "normal"}
                     moveTargets={blankIds
                         .filter((id) => id !== blankId)
                         .map((id) => ({id, label: blankLabels[id]}))}
@@ -225,7 +184,6 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
                     menuRef={placedMenuRef(blankId)}
                 />
             ),
-            keepsWidthWhenFilled: isFixed,
             widestTileWidth: maxWidth,
         };
     };
@@ -257,8 +215,7 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
                     <div
                         className={classNames(
                             styles.answerZone,
-                            (smallValues || filledBlankStyle === "fixed") &&
-                                styles.noReflow,
+                            smallValues && styles.noReflow,
                         )}
                         style={
                             blankSizing === "gate" && !isMeasured
