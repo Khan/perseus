@@ -1,5 +1,4 @@
 import {themeModes} from "../../../../../../.storybook/modes";
-import {mobileDecorator} from "../../__testutils__/story-decorators";
 import {
     allAvailableTypesQuestion,
     multipleAvailableTypesExponentialQuestion,
@@ -44,33 +43,9 @@ export const DesktopChooseYourOwnFunction: Story = {
     args: {question: allAvailableTypesQuestion},
 };
 
-export const MobileChooseYourOwnFunction: Story = {
-    decorators: [grapherRendererDecorator, mobileDecorator],
-    args: {question: allAvailableTypesQuestion},
-    parameters: {
-        apiOptions: {isMobile: true},
-    },
-};
-
 export const DesktopStatic: Story = {
     decorators: [grapherRendererDecorator],
     args: {question: staticExponentialQuestion},
-};
-
-export const MobileStatic: Story = {
-    decorators: [grapherRendererDecorator, mobileDecorator],
-    args: {question: staticExponentialQuestion},
-    parameters: {
-        apiOptions: {isMobile: true},
-    },
-};
-
-export const MobileQuadratic: Story = {
-    decorators: [grapherRendererDecorator, mobileDecorator],
-    args: {question: quadraticQuestion},
-    parameters: {
-        apiOptions: {isMobile: true},
-    },
 };
 
 // Exponential's default asymptote position is normalized to the middle of

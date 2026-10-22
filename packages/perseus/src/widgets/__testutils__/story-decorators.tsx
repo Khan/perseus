@@ -23,6 +23,16 @@ export const mobileArticleDecorator: Decorator = (Story) => (
     </div>
 );
 
+export const styledContainer = (constraint: React.CSSProperties): Decorator => {
+    return function Constrained(Story) {
+        return (
+            <div style={constraint}>
+                <Story />
+            </div>
+        );
+    };
+};
+
 // Set `dir="rtl"` on both the wrapper and `<html>` so portaled content
 // (e.g. Wonder Blocks modal) inherits RTL.
 // CSS `direction` inherits through the DOM tree, not the React tree, so

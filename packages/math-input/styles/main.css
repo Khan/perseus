@@ -1,4 +1,4 @@
-@layer libraries, perseus-legacy;
+@layer libraries, perseus-legacy, perseus-base;
 
 @import "mathquill/build/mathquill.css" layer(libraries);
 

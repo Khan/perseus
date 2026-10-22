@@ -5,7 +5,6 @@
     font-size: 20px;
     line-height: 30px;
     margin: 0 auto;
-    max-width: 688px;
 }
 /* Needed to restore bottom margin on the container <div> when an inline widget
     is the child element (i.e. Explanation) */
@@ -70,15 +69,6 @@
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .deprecated-perseus-container.perseus-paragraph-full-width {
     margin-bottom: var(--wb-sizing-size_320);
-    margin-left: 0;
-    margin-right: 0;
-    max-width: none;
-}
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .deprecated-perseus-container.perseus-paragraph-full-width
-    > .deprecated-perseus-container {
-    margin: 0;
-    max-width: none;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer
@@ -105,28 +95,6 @@
     font-size: 15px;
     line-height: 1.5;
     margin: 0;
-}
-.framework-perseus.perseus-mobile
-    .perseus-article
-    .perseus-renderer
-    > .deprecated-perseus-container {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 700px;
-}
-.framework-perseus.perseus-mobile
-    .perseus-article
-    .deprecated-perseus-container.perseus-paragraph-full-width {
-    margin-left: 0;
-    margin-right: 0;
-    max-width: none;
-}
-.framework-perseus.perseus-mobile
-    .perseus-article
-    .deprecated-perseus-container.perseus-paragraph-full-width
-    > .deprecated-perseus-container {
-    margin: 0;
-    max-width: none;
 }
 .framework-perseus.perseus-mobile
     :not(blockquote)
@@ -213,11 +181,6 @@
     .framework-perseus.perseus-mobile
         .perseus-renderer
         > .deprecated-perseus-container {
-        max-width: none;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-renderer
-        > .deprecated-perseus-container {
         font-family: inherit;
         font-size: 18px;
         line-height: 1.4;
@@ -261,11 +224,6 @@
     }
 }
 @media (min-width: 767px) and (max-width: 1199px) {
-    .framework-perseus.perseus-mobile
-        .perseus-renderer
-        > .deprecated-perseus-container {
-        max-width: 512px;
-    }
     .framework-perseus.perseus-mobile
         .perseus-renderer
         > .deprecated-perseus-container {
@@ -315,11 +273,6 @@
     .framework-perseus.perseus-mobile
         .perseus-renderer
         > .deprecated-perseus-container {
-        max-width: 688px;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-renderer
-        > .deprecated-perseus-container {
         font-family: inherit;
         font-size: 22px;
         line-height: 1.4;
@@ -361,18 +314,6 @@
         line-height: 1.4;
         text-align: left;
     }
-}
-.framework-perseus.perseus-mobile
-    .deprecated-perseus-container.perseus-paragraph-full-width {
-    margin-left: 0;
-    margin-right: 0;
-    max-width: none;
-}
-.framework-perseus.perseus-mobile
-    .deprecated-perseus-container.perseus-paragraph-full-width
-    > .deprecated-perseus-container {
-    margin: 0;
-    max-width: none;
 }
 .framework-perseus.perseus-mobile
     .perseus-renderer

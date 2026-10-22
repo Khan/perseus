@@ -262,27 +262,6 @@ export const RightToLeftImage: Story = {
     },
 };
 
-export const RightToLeftImageMobile: Story = {
-    decorators: [
-        imageRendererDecorator,
-        mobileDecorator,
-        (Story) => (
-            // eslint-disable-next-line @khanacademy/wonder-blocks/require-logical-properties-for-rtl -- RTL-safe (permanent): regression story intentionally forces RTL to preview mirrored rendering
-            <div style={{direction: "rtl"}}>
-                <Story />
-            </div>
-        ),
-    ],
-    args: {
-        alt: "Fresco of some people",
-        title: "The Offer of the Casa Madre to Victory, 1932",
-        caption:
-            "Carlo Delcroix presenting the Casa Madre (highlighted) to Victory. Antonio Giuseppe Santagata, The Offer of the Casa Madre to Victory, 1932, fresco (apse, assembly hall, Home for Wounded War Veterans, Rome, photo ©ANMIG)",
-        longDescription: frescsoLongDescription,
-        backgroundImage: frescoImage,
-    },
-};
-
 export const DecorativeImage: Story = {
     decorators: [imageRendererDecorator],
     args: {
