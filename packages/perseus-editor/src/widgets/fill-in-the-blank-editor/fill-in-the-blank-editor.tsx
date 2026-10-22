@@ -20,9 +20,7 @@ interface Props extends PerseusFillInTheBlankWidgetOptions {
  * An editor for a Fill in the Blank widget, where the learner drags answer
  * tiles from a choice bank into blanks in a passage.
  *
- * The controls are not built yet (LEMS-4371). Until they are, the editor
- * serializes the options it was given, so a widget authored in JSON mode
- * survives a round trip through the content editor.
+ * The controls are not built yet (LEMS-4371).
  */
 function FillInTheBlankEditor({apiOptions}: Props) {
     // TODO(LEMS-4396): clean up feature flag

@@ -3,9 +3,6 @@ import * as React from "react";
 /**
  * Shown in place of a widget editor when no editor is registered for the
  * widget's type.
- *
- * It serializes the widget's options unchanged, so saving keeps the content
- * as it was.
  */
 class UnsupportedWidgetEditor extends React.Component {
     render(): React.ReactNode {

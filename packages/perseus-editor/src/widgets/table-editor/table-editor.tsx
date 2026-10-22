@@ -75,7 +75,7 @@ class TableEditor extends React.Component<Props> {
         fixColumnSizing(headers);
         _.each(answers, fixColumnSizing);
 
-        this.props.onChange({
+        this.handleChange({
             rows: rows,
             columns: columns,
             answers: answers,
