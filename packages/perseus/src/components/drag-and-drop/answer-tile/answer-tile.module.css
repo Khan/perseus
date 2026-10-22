@@ -98,15 +98,37 @@
     padding-inline-end: 0;
 }
 
-/* A placed tile that keeps its menu's space at rest, split evenly
- * around the content: the menu box, its gap, and the content's end
- * padding. The tile is the same size at rest and on hover or focus,
- * so the line does not reflow; the value shifts within the tile to
- * make room for the menu. */
-.hidesMenuAtRest.reservesMenuSpace:not(:hover):not(:focus-within) .content {
-    padding-inline: calc(
-        (var(--wb-sizing-size_240) + 2 * var(--wb-sizing-size_060)) / 2
+/* The width the menu takes when it shows: the menu box, its gap, and
+ * the content's end padding. */
+.reservesMenuSpace {
+    --answer-tile-menu-space: calc(
+        var(--wb-sizing-size_240) + 2 * var(--wb-sizing-size_060)
     );
+}
+
+/* A placed tile that keeps its menu's space at rest, split evenly
+ * around the content. The tile is the same size at rest and on hover
+ * or focus, so the line does not reflow; the value shifts within the
+ * tile to make room for the menu. */
+.hidesMenuAtRest.reservesMenuSpace:not(:hover):not(:focus-within) .content {
+    padding-inline: calc(var(--answer-tile-menu-space) / 2);
+}
+
+/* The split variant keeps half the menu's space inside the tile and
+ * half outside it, each split evenly between the two sides. Hover or
+ * focus shows the menu, and the tile grows into its margin, so the
+ * line still does not reflow. */
+.hidesMenuAtRest.reservesMenuSpace.splitsMenuSpace:not(:hover):not(
+        :focus-within
+    ) {
+    margin-inline: calc(var(--answer-tile-menu-space) / 4);
+}
+
+.hidesMenuAtRest.reservesMenuSpace.splitsMenuSpace:not(:hover):not(
+        :focus-within
+    )
+    .content {
+    padding-inline: calc(var(--answer-tile-menu-space) / 4);
 }
 
 /* A tile that fills its blank, content at the start. The menu stays

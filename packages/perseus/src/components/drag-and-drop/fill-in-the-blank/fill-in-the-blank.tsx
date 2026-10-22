@@ -16,6 +16,7 @@ import {FillInTheBlankContext} from "./fill-in-the-blank-context";
 import styles from "./fill-in-the-blank.module.css";
 
 import type {BlankRenderInfo} from "./fill-in-the-blank-context";
+import type {AnswerTileProps} from "../answer-tile";
 import type {TilePlacements, TileUsage} from "../tile-placements";
 import type {PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
@@ -54,11 +55,31 @@ export interface FillInTheBlankProps {
      * How a filled blank sizes itself. "hug": the blank shrinks to its
      * tile, and the tile grows on hover to show the menu.
      * "hugWithPadding": like "hug", but the tile keeps the menu's space
-     * at rest as even padding, so showing the menu does not resize it. "fixed": the
+     * at rest as even padding, so showing the menu does not resize it.
+     * "hugWithSplitPadding": like "hugWithPadding", but half the menu's
+     * space is padding inside the tile and half is margin outside it,
+     * which the tile grows into when the menu shows. "fixed": the
      * blank keeps the widest-tile width, and the tile fills it.
      */
-    filledBlankStyle?: "hug" | "hugWithPadding" | "fixed";
+    filledBlankStyle?: FilledBlankStyle;
 }
+
+type FilledBlankStyle =
+    | "hug"
+    | "hugWithPadding"
+    | "hugWithSplitPadding"
+    | "fixed";
+
+/** How a placed tile in a normal blank keeps its hidden menu's space. */
+const reservedMenuSpaceByStyle: Record<
+    FilledBlankStyle,
+    AnswerTileProps["reservedMenuSpace"]
+> = {
+    hug: undefined,
+    hugWithPadding: "padding",
+    hugWithSplitPadding: "splitPadding",
+    fixed: undefined,
+};
 
 /**
  * FillInTheBlank is the render side of the upcoming Fill in the Blank
@@ -183,9 +204,10 @@ export function FillInTheBlank(props: FillInTheBlankProps): React.ReactElement {
                     hidesMenuAtRest={true}
                     // Sub/superscript tiles rest as compact chips, so
                     // they do not reserve the menu's space.
-                    reservesMenuSpace={
-                        filledBlankStyle === "hugWithPadding" &&
+                    reservedMenuSpace={
                         displayType === "normal"
+                            ? reservedMenuSpaceByStyle[filledBlankStyle]
+                            : undefined
                     }
                     compact={displayType !== "normal"}
                     fillsBlank={isFixed && displayType === "normal"}

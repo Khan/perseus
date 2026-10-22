@@ -19,7 +19,10 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
  * on the Fill in the Blank (Fixed Width) page, and with the
  * "hugWithPadding" treatment on the Fill in the Blank (Hug With
  * Padding) page, which hugs the value but keeps the menu's space so a
- * placed tile does not resize on hover. Plan and open questions:
+ * placed tile does not resize on hover. The "hugWithSplitPadding"
+ * treatment on the Fill in the Blank (Hug With Split Padding) page
+ * keeps half that space inside the tile and half as margin outside
+ * it. Plan and open questions:
  * widgets/fill-in-the-blank/notes/.
  */
 const meta: Meta<typeof FillInTheBlankDemo> = {
@@ -33,7 +36,7 @@ const meta: Meta<typeof FillInTheBlankDemo> = {
         },
         filledBlankStyle: {
             control: "radio",
-            options: ["hug", "hugWithPadding", "fixed"],
+            options: ["hug", "hugWithPadding", "hugWithSplitPadding", "fixed"],
         },
     },
 };

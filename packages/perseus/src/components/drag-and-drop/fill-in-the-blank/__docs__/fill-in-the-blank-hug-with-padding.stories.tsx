@@ -31,7 +31,7 @@ const meta: Meta<typeof FillInTheBlankDemo> = {
         },
         filledBlankStyle: {
             control: "radio",
-            options: ["hug", "hugWithPadding", "fixed"],
+            options: ["hug", "hugWithPadding", "hugWithSplitPadding", "fixed"],
         },
     },
 };
