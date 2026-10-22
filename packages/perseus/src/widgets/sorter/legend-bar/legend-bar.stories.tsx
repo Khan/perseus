@@ -11,6 +11,18 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 const meta: Meta<typeof LegendBar> = {
     title: "Widgets/Sorter/Legend Bar",
     component: LegendBar,
+    // Each story's layout is built for one orientation, so switching it
+    // here would break the layout rather than show the other orientation.
+    argTypes: {orientation: {control: false}},
+    // Matches the answer area width in Figma, so both ends of the bar
+    // stay in view.
+    decorators: [
+        (Story) => (
+            <div style={{maxInlineSize: 672}}>
+                <Story />
+            </div>
+        ),
+    ],
 };
 
 export default meta;
@@ -43,52 +55,92 @@ function Blanks(props: {direction: "row" | "column"}) {
     );
 }
 
+const columnStyle: React.CSSProperties = {
+    display: "flex",
+    flexDirection: "column",
+    gap: "var(--wb-sizing-size_240)",
+};
+
+// The padding leaves room for the vertical arrows, which extend past the
+// line on both sides.
+const rowStyle: React.CSSProperties = {
+    display: "flex",
+    gap: "var(--wb-sizing-size_240)",
+    paddingInlineStart: "var(--wb-sizing-size_160)",
+};
+
+function HorizontalBelowLayout(props: React.ComponentProps<typeof LegendBar>) {
+    return (
+        <div style={columnStyle}>
+            <Blanks direction="row" />
+            <LegendBar {...props} />
+        </div>
+    );
+}
+
+function VerticalLayout(props: React.ComponentProps<typeof LegendBar>) {
+    return (
+        <div style={rowStyle}>
+            <LegendBar {...props} />
+            <Blanks direction="column" />
+        </div>
+    );
+}
+
 export const HorizontalAbove: Story = {
-    render: () => (
-        <div
-            style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "var(--wb-sizing-size_240)",
-            }}
-        >
-            <LegendBar orientation="horizontal" />
+    args: {orientation: "horizontal", startCap: "arrow", endCap: "arrow"},
+    render: (args) => (
+        <div style={columnStyle}>
+            <LegendBar {...args} />
             <Blanks direction="row" />
         </div>
     ),
 };
 
 export const HorizontalBelow: Story = {
-    render: () => (
-        <div
-            style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "var(--wb-sizing-size_240)",
-            }}
-        >
-            <Blanks direction="row" />
-            <LegendBar orientation="horizontal" />
+    args: {orientation: "horizontal", startCap: "arrow", endCap: "arrow"},
+    render: (args) => <HorizontalBelowLayout {...args} />,
+};
+
+export const HorizontalBars: Story = {
+    args: {orientation: "horizontal", startCap: "bar", endCap: "bar"},
+    render: (args) => <HorizontalBelowLayout {...args} />,
+};
+
+export const HorizontalMixed: Story = {
+    args: {orientation: "horizontal", startCap: "arrow", endCap: "bar"},
+    render: (args) => <HorizontalBelowLayout {...args} />,
+};
+
+export const HorizontalNoCaps: Story = {
+    args: {orientation: "horizontal", startCap: "none", endCap: "none"},
+    render: (args) => <HorizontalBelowLayout {...args} />,
+};
+
+export const HorizontalRightToLeft: Story = {
+    args: {orientation: "horizontal", startCap: "arrow", endCap: "bar"},
+    render: (args) => (
+        <div dir="rtl">
+            <HorizontalBelowLayout {...args} />
         </div>
     ),
 };
 
 export const Vertical: Story = {
-    render: () => (
-        <div style={{display: "flex", gap: "var(--wb-sizing-size_240)"}}>
-            <LegendBar orientation="vertical" />
-            <Blanks direction="column" />
-        </div>
-    ),
+    args: {orientation: "vertical", startCap: "arrow", endCap: "arrow"},
+    render: (args) => <VerticalLayout {...args} />,
+};
+
+export const VerticalBars: Story = {
+    args: {orientation: "vertical", startCap: "bar", endCap: "bar"},
+    render: (args) => <VerticalLayout {...args} />,
 };
 
 export const VerticalRightToLeft: Story = {
-    render: () => (
+    args: {orientation: "vertical", startCap: "arrow", endCap: "bar"},
+    render: (args) => (
         <div dir="rtl">
-            <div style={{display: "flex", gap: "var(--wb-sizing-size_240)"}}>
-                <LegendBar orientation="vertical" />
-                <Blanks direction="column" />
-            </div>
+            <VerticalLayout {...args} />
         </div>
     ),
 };
