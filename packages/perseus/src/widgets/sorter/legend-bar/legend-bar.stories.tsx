@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import {LegendBar} from "../legend-bar/legend-bar";
+import {LegendBar} from "./legend-bar"
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
