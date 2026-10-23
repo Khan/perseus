@@ -39,8 +39,6 @@
     > .deprecated-perseus-container
     ul:not([data-widget="radio"]) {
     color: var(--wb-semanticColor-core-foreground-neutral-strong);
-    font-size: 20px;
-    line-height: 30px;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-image-caption
@@ -173,37 +171,6 @@
 }
 @media (max-width: 767px) {
     .framework-perseus.perseus-mobile
-        .perseus-renderer
-        > .deprecated-perseus-container {
-        font-family: inherit;
-        font-size: 18px;
-        line-height: 1.4;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-renderer
-        > .deprecated-perseus-container
-        .deprecated-perseus-container {
-        font-family: inherit;
-        font-size: 18px;
-        line-height: 1.4;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-renderer
-        > .deprecated-perseus-container
-        ul:not([data-widget="radio"]) {
-        font-family: inherit;
-        font-size: 18px;
-        line-height: 1.4;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-renderer
-        > .deprecated-perseus-container
-        ol {
-        font-family: inherit;
-        font-size: 18px;
-        line-height: 1.4;
-    }
-    .framework-perseus.perseus-mobile
         .perseus-image-caption
         .deprecated-perseus-container
         .deprecated-perseus-container {
@@ -215,37 +182,6 @@
 }
 @media (min-width: 767px) and (max-width: 1199px) {
     .framework-perseus.perseus-mobile
-        .perseus-renderer
-        > .deprecated-perseus-container {
-        font-family: inherit;
-        font-size: 20px;
-        line-height: 1.5;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-renderer
-        > .deprecated-perseus-container
-        .deprecated-perseus-container {
-        font-family: inherit;
-        font-size: 20px;
-        line-height: 1.5;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-renderer
-        > .deprecated-perseus-container
-        ul:not([data-widget="radio"]) {
-        font-family: inherit;
-        font-size: 20px;
-        line-height: 1.5;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-renderer
-        > .deprecated-perseus-container
-        ol {
-        font-family: inherit;
-        font-size: 20px;
-        line-height: 1.5;
-    }
-    .framework-perseus.perseus-mobile
         .perseus-image-caption
         .deprecated-perseus-container
         .deprecated-perseus-container {
@@ -256,37 +192,6 @@
     }
 }
 @media (min-width: 1200px) {
-    .framework-perseus.perseus-mobile
-        .perseus-renderer
-        > .deprecated-perseus-container {
-        font-family: inherit;
-        font-size: 22px;
-        line-height: 1.4;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-renderer
-        > .deprecated-perseus-container
-        .deprecated-perseus-container {
-        font-family: inherit;
-        font-size: 22px;
-        line-height: 1.4;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-renderer
-        > .deprecated-perseus-container
-        ul:not([data-widget="radio"]) {
-        font-family: inherit;
-        font-size: 22px;
-        line-height: 1.4;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-renderer
-        > .deprecated-perseus-container
-        ol {
-        font-family: inherit;
-        font-size: 22px;
-        line-height: 1.4;
-    }
     .framework-perseus.perseus-mobile
         .perseus-image-caption
         .deprecated-perseus-container
