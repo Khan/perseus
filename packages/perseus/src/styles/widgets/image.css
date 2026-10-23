@@ -57,8 +57,6 @@
 .perseus-image-widget
     figcaption.perseus-image-caption
     :is(div, p).deprecated-perseus-container {
-    font-size: var(--wb-font-body-size-small);
-    line-height: var(--wb-font-body-lineHeight-small);
     padding-right: 12px;
     margin-block: 0;
 }
