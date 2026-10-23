@@ -79,10 +79,18 @@
     cursor: grabbing;
 }
 
-/* A placed tile hugs its value and hides its menu. Hover or focus
- * shows the menu, and the tile grows. */
+/* A placed tile hides its menu at rest but keeps the menu's space, so
+ * showing the menu does not reflow the line. The space is the menu
+ * box, its gap, and the content's end padding. Hover or focus shows the
+ * menu, and the tile grows into its margin. */
+.hidesMenuAtRest {
+    --answer-tile-menu-space: calc(
+        var(--wb-sizing-size_240) + 2 * var(--wb-sizing-size_060)
+    );
+}
+
 .hidesMenuAtRest:not(:hover):not(:focus-within) {
-    min-inline-size: 0;
+    margin-inline: calc(var(--answer-tile-menu-space) * 3 / 16);
 }
 
 .hidesMenuAtRest:not(:hover):not(:focus-within) .startContainer {
@@ -94,7 +102,7 @@
 }
 
 .hidesMenuAtRest:not(:hover):not(:focus-within) .content {
-    padding-inline-end: 0;
+    padding-inline: calc(var(--answer-tile-menu-space) * 5 / 16);
 }
 
 /* A tile that fills its blank, content at the start. The menu stays
