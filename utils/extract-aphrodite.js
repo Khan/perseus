@@ -29,7 +29,6 @@ export default ${objectName};`;
     (async () => {
         try {
             await execAsync(`prettier --write ${aphroditeFilePath}`);
-            await execAsync(`git add ${aphroditeFilePath}`);
         } catch (error) {
             console.log(error);
         }
