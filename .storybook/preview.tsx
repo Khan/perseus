@@ -58,14 +58,9 @@ const withPerseusDecorator: Decorator = (Story) => {
         <RenderStateRoot>
             <WonderBlocksConfigProvider i18n={wonderBlocksI18n}>
                 <DependenciesContext.Provider value={storybookDependenciesV2}>
-                    {/* Most of our components have an expectation to be rendered
-                        inside of a .framework-perseus container. We want to make sure
-                        we can include it here, since it can also affect the styling.
-
-                        Include box-sizing-border-box-reset to reflect the global styles
-                        from prod.
-                    */}
-                    <div className="framework-perseus box-sizing-border-box-reset">
+                    {/* Include box-sizing-border-box-reset to reflect the global styles
+                        from prod. */}
+                    <div className="box-sizing-border-box-reset">
                         <Story />
                     </div>
                 </DependenciesContext.Provider>
