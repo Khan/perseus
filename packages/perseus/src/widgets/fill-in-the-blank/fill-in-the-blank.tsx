@@ -1,7 +1,4 @@
-import {
-    getWidgetIdsFromContentByType,
-    isFeatureOn,
-} from "@khanacademy/perseus-core";
+import {getWidgetIdsFromContentByType} from "@khanacademy/perseus-core";
 import * as React from "react";
 import {forwardRef, useImperativeHandle} from "react";
 

@@ -76,30 +76,6 @@ describe("Fill in the Blank Widget", () => {
         user = userEvent.setup({advanceTimers: jest.advanceTimersByTime});
     });
 
-    // TODO(LEMS-4396): clean up feature flag
-    it("renders the widget when the dnd-widget-fitb flag is on", () => {
-        // Arrange, Act
-        renderQuestion(basicFillInTheBlankQuestion, {apiOptions});
-
-        // The widget's root has no accessible role or name to query by.
-        expect(
-            screen.getByTestId("fill-in-the-blank-widget"),
-        ).toBeInTheDocument();
-    });
-
-    it("renders nothing when the dnd-widget-fitb flag is off", () => {
-        // Arrange, Act
-        renderQuestion(basicFillInTheBlankQuestion, {
-            apiOptions: {
-                flags: getFeatureFlags({"dnd-widget-fitb": false}),
-            },
-        });
-
-        expect(
-            screen.queryByTestId("fill-in-the-blank-widget"),
-        ).not.toBeInTheDocument();
-    });
-
     it("is registered in the widget registry", () => {
         // Arrange, Act
         const widget = Widgets.getWidget("fill-in-the-blank");
