@@ -1,5 +1,11 @@
 # @khanacademy/perseus-linter
 
+## 6.2.1
+
+### Patch Changes
+
+-   [#4421](https://github.com/Khan/perseus/pull/4421) [`f77aa0e`](https://github.com/Khan/perseus/commit/f77aa0eb74afca6d2b815555db675c3d0e48ea77) Thanks [@benchristel](https://github.com/benchristel)! - The expression widget linter now includes the ID of the offending widget in its lint messages.
+
 ## 6.2.0
 
 ### Minor Changes

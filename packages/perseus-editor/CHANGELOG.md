@@ -1,5 +1,16 @@
 # @khanacademy/perseus-editor
 
+## 45.0.4
+
+### Patch Changes
+
+-   [#4409](https://github.com/Khan/perseus/pull/4409) [`7c694d9`](https://github.com/Khan/perseus/commit/7c694d96d400fcddb02c898a8d1c27cc69aa921a) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the imperative `serialize()` methods have been removed from all editor components.
+
+-   Updated dependencies [[`395606a`](https://github.com/Khan/perseus/commit/395606ae8306d741655232b1fbf9b2f5dd781e94), [`6d5198f`](https://github.com/Khan/perseus/commit/6d5198f49957818df3b05801b27b76c6835a069c), [`f90356d`](https://github.com/Khan/perseus/commit/f90356db97c66278c6391f1c99a57d592351baed), [`f77aa0e`](https://github.com/Khan/perseus/commit/f77aa0eb74afca6d2b815555db675c3d0e48ea77)]:
+    -   @khanacademy/perseus@92.1.1
+    -   @khanacademy/math-input@30.1.4
+    -   @khanacademy/perseus-linter@6.2.1
+
 ## 45.0.3
 
 ### Patch Changes

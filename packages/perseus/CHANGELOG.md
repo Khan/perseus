@@ -1,5 +1,19 @@
 # @khanacademy/perseus
 
+## 92.1.1
+
+### Patch Changes
+
+-   [#4420](https://github.com/Khan/perseus/pull/4420) [`395606a`](https://github.com/Khan/perseus/commit/395606ae8306d741655232b1fbf9b2f5dd781e94) Thanks [@benchristel](https://github.com/benchristel)! - Internal: added the `framework-perseus` CSS class to the top-level elements of ServerItemRenderer, matching ArticleRenderer.
+
+-   [#4218](https://github.com/Khan/perseus/pull/4218) [`6d5198f`](https://github.com/Khan/perseus/commit/6d5198f49957818df3b05801b27b76c6835a069c) Thanks [@benchristel](https://github.com/benchristel)! - Math notation rendered by MathJax now inherits its color from its context, so it matches surrounding text.
+
+-   [#4410](https://github.com/Khan/perseus/pull/4410) [`f90356d`](https://github.com/Khan/perseus/commit/f90356db97c66278c6391f1c99a57d592351baed) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Styling] Migrate layout formatting for articles to a centralized renderer stylesheet and adjust how elements are centered on the page.
+
+-   Updated dependencies [[`f90356d`](https://github.com/Khan/perseus/commit/f90356db97c66278c6391f1c99a57d592351baed), [`f77aa0e`](https://github.com/Khan/perseus/commit/f77aa0eb74afca6d2b815555db675c3d0e48ea77)]:
+    -   @khanacademy/math-input@30.1.4
+    -   @khanacademy/perseus-linter@6.2.1
+
 ## 92.1.0
 
 ### Minor Changes
