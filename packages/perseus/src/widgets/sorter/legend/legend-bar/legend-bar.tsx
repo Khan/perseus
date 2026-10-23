@@ -2,7 +2,7 @@ import * as React from "react";
 
 import styles from "./legend-bar.module.css";
 
-type LegendBarOrientation = "horizontal" | "vertical";
+export type LegendBarOrientation = "horizontal" | "vertical";
 
 export interface LegendBarProps {
     orientation: LegendBarOrientation;
