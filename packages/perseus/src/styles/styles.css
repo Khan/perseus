@@ -11,8 +11,6 @@
     overflow: auto;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile) table {
-    font-size: 20px;
-    line-height: 30px;
     margin-bottom: var(--wb-sizing-size_320);
 }
 @layer perseus-legacy {
@@ -137,21 +135,11 @@
         line-height: 1.1;
         color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
-    .framework-perseus.perseus-mobile .default-body-text {
-        font-family: inherit;
-        font-size: 18px;
-        line-height: 1.4;
-    }
     .framework-perseus.perseus-mobile blockquote {
         font-family: inherit;
         font-size: 18px;
         line-height: 1.4;
         color: var(--wb-semanticColor-core-foreground-neutral-subtle);
-    }
-    .framework-perseus.perseus-mobile table {
-        font-family: inherit;
-        font-size: 18px;
-        line-height: 1.4;
     }
     .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
         font-size: 21px;
@@ -210,21 +198,11 @@
         line-height: 1.1;
         color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
-    .framework-perseus.perseus-mobile .default-body-text {
-        font-family: inherit;
-        font-size: 20px;
-        line-height: 1.5;
-    }
     .framework-perseus.perseus-mobile blockquote {
         font-family: inherit;
         font-size: 20px;
         line-height: 1.5;
         color: var(--wb-semanticColor-core-foreground-neutral-subtle);
-    }
-    .framework-perseus.perseus-mobile table {
-        font-family: inherit;
-        font-size: 20px;
-        line-height: 1.5;
     }
     .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
         font-size: 23px;
@@ -283,21 +261,11 @@
         line-height: 1.1;
         color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
-    .framework-perseus.perseus-mobile .default-body-text {
-        font-family: inherit;
-        font-size: 22px;
-        line-height: 1.4;
-    }
     .framework-perseus.perseus-mobile blockquote {
         font-family: inherit;
         font-size: 22px;
         line-height: 1.4;
         color: var(--wb-semanticColor-core-foreground-neutral-subtle);
-    }
-    .framework-perseus.perseus-mobile table {
-        font-family: inherit;
-        font-size: 22px;
-        line-height: 1.4;
     }
     .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
         font-size: 25px;
