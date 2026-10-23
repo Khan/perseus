@@ -2,7 +2,7 @@ import * as React from "react";
 import {forwardRef, useContext, useImperativeHandle} from "react";
 
 import {BlankComponent} from "../../components/drag-and-drop/blank";
-import {FillInTheBlankContext} from "../../components/drag-and-drop/fill-in-the-blank/fill-in-the-blank-context";
+import {FillInTheBlankContext} from "../fill-in-the-blank/fill-in-the-blank-context";
 
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {
