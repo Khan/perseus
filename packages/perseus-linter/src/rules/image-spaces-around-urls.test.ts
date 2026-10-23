@@ -19,6 +19,7 @@ describe("image-spaces-around-urls", () => {
         "![alternative](http://example.com/image.jpg)",
         "![alternative](image.jpg)",
         "![alternative](--image.jpg--)",
+        // TODO(benchristel): this case should pass linting, but fails: "![]()"
     ])("imageSpacesAroundUrlsRule passes with: %s", (str: string) => {
         expectPass(imageSpacesAroundUrlsRule, str);
     });
