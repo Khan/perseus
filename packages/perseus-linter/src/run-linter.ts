@@ -5,6 +5,10 @@ import TreeTransformer from "./tree-transformer";
 import type {LinterWarning} from "./rule";
 import type {TreeNode} from "./tree-transformer";
 
+// TODO(benchristel): This appears to be the only usage of AllRules, which
+//  means that rules with severity `BULK_WARNING` are always filtered out and
+//  have no effect. Can we delete those rules? It looks like they have been
+//  disabled at least since 2022.
 export const allLintRules: ReadonlyArray<any> = AllRules.filter(
     (r) => r.severity < Rule.Severity.BULK_WARNING,
 );
