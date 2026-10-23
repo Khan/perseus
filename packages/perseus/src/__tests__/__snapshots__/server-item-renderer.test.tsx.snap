@@ -2,163 +2,164 @@
 
 exports[`server item renderer should snapshot: initial render 1`] = `
 <div>
-  <div>
-    <div>
+  <div
+    class="perseus"
+  >
+    <div
+      class="perseus-renderer perseus-renderer-responsive"
+    >
       <div
-        class="perseus-renderer perseus-renderer-responsive"
+        class="deprecated-perseus-container"
+      >
+        <p
+          class="deprecated-perseus-container"
+        >
+          Enter the number 
+          <span
+            style="white-space: nowrap;"
+          >
+            <span />
+            <span
+              class="mock-TeX"
+            />
+            <span />
+          </span>
+          3
+          <span
+            style="white-space: nowrap;"
+          >
+            <span />
+            <span
+              class="mock-TeX"
+            />
+            <span />
+          </span>
+           in the box: 
+        </p>
+      </div>
+      <div
+        class="deprecated-perseus-container"
       >
         <div
           class="deprecated-perseus-container"
         >
-          <p
-            class="deprecated-perseus-container"
-          >
-            Enter the number 
-            <span
-              style="white-space: nowrap;"
-            >
-              <span />
-              <span
-                class="mock-TeX"
-              />
-              <span />
-            </span>
-            3
-            <span
-              style="white-space: nowrap;"
-            >
-              <span />
-              <span
-                class="mock-TeX"
-              />
-              <span />
-            </span>
-             in the box: 
-          </p>
-        </div>
-        <div
-          class="deprecated-perseus-container"
-        >
           <div
-            class="deprecated-perseus-container"
+            class="perseus-widget-container widget-block"
           >
             <div
-              class="perseus-widget-container widget-block"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; color: red;"
             >
-              <div
-                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; color: red;"
-              >
-                <input
-                  aria-disabled="false"
-                  aria-invalid="false"
-                  aria-label="Mock Widget"
-                  aria-required="false"
-                  data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
-                  data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
-                  data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
-                  data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
-                  id="mock-widget 1"
-                  style="width: 100%; height: var(--wb-c-form-field-sizing-height); border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 0px; display: block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground);"
-                  type="text"
-                  value=""
-                />
-              </div>
+              <input
+                aria-disabled="false"
+                aria-invalid="false"
+                aria-label="Mock Widget"
+                aria-required="false"
+                data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
+                id="mock-widget 1"
+                style="width: 100%; height: var(--wb-c-form-field-sizing-height); border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 0px; display: block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground);"
+                type="text"
+                value=""
+              />
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+  <div
+    class="perseus"
+    style="margin-inline-start: 50px;"
+  >
     <div
-      style="margin-inline-start: 50px;"
+      class=""
     >
       <div
-        class=""
+        class="hint perseus-hint-renderer"
+        tabindex="-1"
       >
-        <div
-          class="hint perseus-hint-renderer"
-          tabindex="-1"
+        <span
+          class="perseus-sr-only"
         >
-          <span
-            class="perseus-sr-only"
-          >
-            Hint #1
-          </span>
-          <span
-            class="perseus-hint-label"
-            style="display: block;"
-          >
-            1 / 3
-          </span>
+          Hint #1
+        </span>
+        <span
+          class="perseus-hint-label"
+          style="display: block;"
+        >
+          1 / 3
+        </span>
+        <div
+          class="perseus-renderer perseus-renderer-responsive"
+        >
           <div
-            class="perseus-renderer perseus-renderer-responsive"
+            class="deprecated-perseus-container"
           >
-            <div
+            <p
               class="deprecated-perseus-container"
             >
-              <p
-                class="deprecated-perseus-container"
-              >
-                Hint #1
-              </p>
-            </div>
+              Hint #1
+            </p>
           </div>
         </div>
-        <div
-          class="hint perseus-hint-renderer"
-          tabindex="-1"
+      </div>
+      <div
+        class="hint perseus-hint-renderer"
+        tabindex="-1"
+      >
+        <span
+          class="perseus-sr-only"
         >
-          <span
-            class="perseus-sr-only"
-          >
-            Hint #2
-          </span>
-          <span
-            class="perseus-hint-label"
-            style="display: block;"
-          >
-            2 / 3
-          </span>
+          Hint #2
+        </span>
+        <span
+          class="perseus-hint-label"
+          style="display: block;"
+        >
+          2 / 3
+        </span>
+        <div
+          class="perseus-renderer perseus-renderer-responsive"
+        >
           <div
-            class="perseus-renderer perseus-renderer-responsive"
+            class="deprecated-perseus-container"
           >
-            <div
+            <p
               class="deprecated-perseus-container"
             >
-              <p
-                class="deprecated-perseus-container"
-              >
-                Hint #2
-              </p>
-            </div>
+              Hint #2
+            </p>
           </div>
         </div>
-        <div
-          class="hint perseus-hint-renderer last-hint last-rendered"
-          tabindex="-1"
+      </div>
+      <div
+        class="hint perseus-hint-renderer last-hint last-rendered"
+        tabindex="-1"
+      >
+        <span
+          class="perseus-sr-only"
         >
-          <span
-            class="perseus-sr-only"
-          >
-            Hint #3
-          </span>
-          <span
-            class="perseus-hint-label"
-            style="display: block;"
-          >
-            3 / 3
-          </span>
+          Hint #3
+        </span>
+        <span
+          class="perseus-hint-label"
+          style="display: block;"
+        >
+          3 / 3
+        </span>
+        <div
+          class="perseus-renderer perseus-renderer-responsive"
+        >
           <div
-            class="perseus-renderer perseus-renderer-responsive"
+            class="deprecated-perseus-container"
           >
-            <div
+            <p
               class="deprecated-perseus-container"
             >
-              <p
-                class="deprecated-perseus-container"
-              >
-                Hint #3
-              </p>
-            </div>
+              Hint #3
+            </p>
           </div>
         </div>
       </div>
