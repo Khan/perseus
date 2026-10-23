@@ -174,7 +174,7 @@
  * this rule wins wherever it is loaded. Color needs an explicit
  * declaration: a scored tile sets its color on the tile, and an
  * inherited value loses to any rule that names the paragraph. */
-.tile .content :global(div.paragraph) {
+.tile .content :global(.deprecated-perseus-container) {
     margin: 0;
     font: inherit;
     color: inherit;

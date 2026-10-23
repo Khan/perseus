@@ -1,5 +1,11 @@
 # @khanacademy/pure-markdown
 
+## 3.1.0
+
+### Minor Changes
+
+-   [#4341](https://github.com/Khan/perseus/pull/4341) [`1b2519f`](https://github.com/Khan/perseus/commit/1b2519ff904a2e7a8d917bc5cce448c213e12890) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Add a `table-missing-caption` lint rule that warns when a markdown table has no caption, or has a caption line with no text in it. Also fix the `|| Caption ||` syntax so it works above tables written with surrounding pipes, which previously failed to parse as a table at all.
+
 ## 3.0.1
 
 ### Patch Changes

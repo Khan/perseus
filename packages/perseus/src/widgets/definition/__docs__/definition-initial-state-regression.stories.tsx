@@ -4,7 +4,6 @@ import {themeModes} from "../../../../../../.storybook/modes";
 import ArticleRenderer from "../../../article-renderer";
 import {storybookDependenciesV2} from "../../../testing/test-dependencies";
 import {useStorybookApiOptions} from "../../../testing/use-storybook-api-options";
-import {mobileDecorator} from "../../__testutils__/story-decorators";
 import {
     article,
     definitionQuestionContent,
@@ -45,14 +44,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Exercise: Story = {
     decorators: [definitionRendererDecorator],
-    args: definitionQuestionOptions,
-    parameters: {
-        content: definitionQuestionContent,
-    },
-};
-
-export const Mobile: Story = {
-    decorators: [definitionRendererDecorator, mobileDecorator],
     args: definitionQuestionOptions,
     parameters: {
         content: definitionQuestionContent,

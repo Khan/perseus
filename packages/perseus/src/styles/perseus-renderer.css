@@ -1,4 +1,4 @@
-@layer libraries, perseus-legacy;
+@layer libraries, perseus-legacy, perseus-base;
 
 @import "./util.css" layer(perseus-legacy);
 @import "styles.css";

@@ -17,12 +17,6 @@ class VideoEditor extends React.Component<VideoEditorProps> {
     static defaultProps: PerseusVideoWidgetOptions =
         videoLogic.defaultWidgetOptions;
 
-    serialize: () => PerseusVideoWidgetOptions = () => {
-        return {
-            location: this.props.location,
-        };
-    };
-
     render(): React.ReactNode {
         return <VideoSettings {...this.props} />;
     }

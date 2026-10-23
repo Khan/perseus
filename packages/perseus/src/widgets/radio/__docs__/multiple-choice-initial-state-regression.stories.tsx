@@ -8,7 +8,7 @@ import {themeModes} from "../../../../../../.storybook/modes";
 import {ServerItemRenderer} from "../../../server-item-renderer";
 import {testDependenciesV2} from "../../../testing/test-dependencies";
 import {
-    mobileDecorator,
+    styledContainer,
     narrowViewportDecorator,
     rtlDecorator,
 } from "../../__testutils__/story-decorators";
@@ -332,8 +332,11 @@ export const MultiSelectRTL: Story = {
     },
 };
 
-export const SingleSelectWithLongMathjaxMobile: Story = {
-    decorators: [radioRendererDecorator, mobileDecorator],
+export const SingleSelectWithLongMathjax688px: Story = {
+    decorators: [
+        radioRendererDecorator,
+        styledContainer({maxWidth: "688px", marginInline: "auto"}),
+    ],
     args: {
         choices: [
             generateRadioChoice(

@@ -1,4 +1,3 @@
-.framework-perseus .perseus-label-image-widget-instructions div.paragraph,
 .framework-perseus
     .perseus-label-image-widget-instructions
     :is(div, p).deprecated-perseus-container {
@@ -19,11 +18,6 @@
     .perseus-label-image-widget-instructions {
     color: initial;
 }
-.framework-perseus:not(.perseus-article).perseus-mobile
-    .perseus-label-image-widget-instructions
-    .perseus-renderer
-    .paragraph
-    > .paragraph,
 .framework-perseus:not(.perseus-article).perseus-mobile
     .perseus-label-image-widget-instructions
     .perseus-renderer
