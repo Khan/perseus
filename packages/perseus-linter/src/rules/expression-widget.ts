@@ -25,7 +25,7 @@ export default Rule.makeWidgetRule({
     name: "expression-widget",
     widgetType: "expression",
     severity: Rule.Severity.WARNING,
-    lint: function (widget) {
+    lint(widget) {
         const answers = widget.options.answerForms;
         const buttons: string[] = widget.options.buttonSets;
         for (const answer of answers) {
