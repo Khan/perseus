@@ -13,8 +13,6 @@ import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-
 import * as Widgets from "../../widgets";
 import {renderQuestion} from "../__testutils__/render-question";
 
-import {basicFillInTheBlankQuestion} from "./fill-in-the-blank.testdata";
-
 import type {
     PerseusFillInTheBlankUserInput,
     PerseusFillInTheBlankWidgetOptions,
