@@ -4,6 +4,23 @@
     gap: var(--wb-sizing-size_240);
 }
 
+.answerZone {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_240);
+}
+
+/* The padding leaves room for the vertical arrow caps, which extend past
+   the legend bar on both sides. */
+.answerZone.vertical {
+    flex-direction: row;
+    padding-inline-start: var(--wb-sizing-size_160);
+}
+
+.answerZone.vertical .blanks {
+    flex-grow: 1;
+}
+
 .blanks {
     display: flex;
     flex-direction: row;
