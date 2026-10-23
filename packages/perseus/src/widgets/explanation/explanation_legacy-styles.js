@@ -2,6 +2,7 @@
 const styles = {
     buttonStyleOverrides: {
         height: "auto",
+        fontSize: "inherit",
         lineHeight: "inherit",
         marginLeft: "-0.2rem",
         marginRight: "0.2rem",
@@ -9,7 +10,7 @@ const styles = {
     },
     content: {
         borderLeft:
-            "0px solid var(--wb-semanticColor-core-border-neutral-subtle)",
+            "var(--wb-border-width-none) solid var(--wb-semanticColor-core-border-neutral-subtle)",
         display: "inline-grid",
         position: "relative",
     },
@@ -36,17 +37,17 @@ const styles = {
     },
     contentWrapper: {overflow: "hidden"},
     labelStyle: {
-        fontSize: "var(--wb-font-heading-size-medium)",
+        fontSize: "inherit",
         lineHeight: "inherit",
         marginRight: "-0.6rem",
         textAlign: "left",
         whiteSpace: "normal",
     },
-    transitionCollapsed: {
+    transitionCollapsed_mq_prefers_reduced_motion_no_preference: {
         transition:
             "all 0.25s step-end, grid-template-rows 0.25s, margin-top 0.25s, margin-bottom 0.25s, padding-bottom 0.25s",
     },
-    transitionExpanded: {
+    transitionExpanded_mq_prefers_reduced_motion_no_preference: {
         transition:
             "grid-template-rows 0.5s, margin-top 0.5s, margin-bottom 0.5s, padding-bottom 0.5s",
     },
