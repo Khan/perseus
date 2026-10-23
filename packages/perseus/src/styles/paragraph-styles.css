@@ -31,12 +31,6 @@
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer
     > .deprecated-perseus-container
-    mjx-container {
-    font-size: 100%;
-}
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    .perseus-renderer
-    > .deprecated-perseus-container
     ul:not([data-widget="radio"]) {
     color: var(--wb-semanticColor-core-foreground-neutral-strong);
 }
