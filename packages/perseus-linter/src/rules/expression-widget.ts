@@ -21,29 +21,13 @@ const stringToButtonSet = {
  * but mobile learners must use the MathInput keypad)
  */
 // eslint-disable-next-line no-restricted-syntax
-export default Rule.makeRule({
+export default Rule.makeWidgetRule({
     name: "expression-widget",
+    widgetType: "expression" as const,
     severity: Rule.Severity.WARNING,
-    selector: "widget",
-    lint: function (state, content, nodes, match, context) {
-        // This rule only looks at expression widgets
-        if (state.currentNode().widgetType !== "expression") {
-            return;
-        }
-
-        const nodeId = state.currentNode().id;
-        if (!nodeId) {
-            return;
-        }
-
-        // If it can't find a definition for the widget it does nothing
-        const widget = context?.widgets?.[nodeId];
-        if (!widget) {
-            return;
-        }
-
+    lint: function (widget) {
         const answers = widget.options.answerForms;
-        const buttons = widget.options.buttonSets;
+        const buttons: string[] = widget.options.buttonSets;
         for (const answer of answers) {
             for (const [str, set] of Object.entries(stringToButtonSet)) {
                 if (answer.value.includes(str) && !buttons.includes(set)) {
