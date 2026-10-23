@@ -9,8 +9,7 @@
  * outweighs the global .deprecated-perseus-container paragraph styles.
  * The :not() skips paragraphs inside placed tiles, which own their
  * typography. */
-.answerZone.answerZone
-    :global(.deprecated-perseus-container):not(:global([data-blank] *)) {
+.answerZone:not(:global([data-blank] *)) {
     font-family: var(--wb-font-family-sans);
     font-size: var(--wb-font-body-size-medium);
     font-weight: var(--wb-font-weight-medium);
@@ -19,10 +18,7 @@
 
 /* A paragraph that holds a blank takes the blank's 48px height as its
  * line height, so the blank does not crowd the lines around it. */
-.answerZone.answerZone
-    :global(.deprecated-perseus-container):not(:global([data-blank] *)):has(
-        :global([data-blank])
-    ) {
+.answerZone :is(p, [role="paragraph"]):has([data-blank]) {
     line-height: var(--wb-sizing-size_480);
 }
 
