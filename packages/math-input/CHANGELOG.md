@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 30.1.4
+
+### Patch Changes
+
+-   [#4410](https://github.com/Khan/perseus/pull/4410) [`f90356d`](https://github.com/Khan/perseus/commit/f90356db97c66278c6391f1c99a57d592351baed) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Styling] Migrate layout formatting for articles to a centralized renderer stylesheet and adjust how elements are centered on the page.
+
 ## 30.1.3
 
 ### Patch Changes
