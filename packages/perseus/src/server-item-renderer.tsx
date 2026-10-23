@@ -399,10 +399,10 @@ export class ServerItemRenderer
 
         return (
             <DependenciesContext.Provider value={this.props.dependencies}>
-                <div className="perseus">{questionRenderer}</div>
+                <div className="framework-perseus">{questionRenderer}</div>
                 <div
                     className={classNames(
-                        "perseus",
+                        "framework-perseus",
                         // Avoid adding any horizontal padding when applying the
                         // mobile hint styles, which are flush to the left.
                         // NOTE(charlie): We may still want to apply this

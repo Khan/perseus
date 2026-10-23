@@ -197,7 +197,6 @@ class ArticleRenderer
         const classes = classNames(
             "framework-perseus",
             "perseus-article",
-            "perseus",
             // NOTE(charlie): For exercises, this is applied outside of Perseus
             // (in khan/frontend).
             apiOptions.isMobile && ApiClassNames.MOBILE,

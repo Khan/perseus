@@ -3,7 +3,7 @@
 exports[`server item renderer should snapshot: initial render 1`] = `
 <div>
   <div
-    class="perseus"
+    class="framework-perseus"
   >
     <div
       class="perseus-renderer perseus-renderer-responsive"
@@ -70,7 +70,7 @@ exports[`server item renderer should snapshot: initial render 1`] = `
     </div>
   </div>
   <div
-    class="perseus"
+    class="framework-perseus"
     style="margin-inline-start: 50px;"
   >
     <div

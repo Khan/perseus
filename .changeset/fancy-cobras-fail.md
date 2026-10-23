@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Internal: added a `perseus` CSS class which is rendered on the top-level elements of ServerItemRenderer and ArticleRenderer.
+Internal: added the `framework-perseus` CSS class to the top-level elements of ServerItemRenderer, matching ArticleRenderer.
