@@ -1,0 +1,6 @@
+.label {
+    color: var(--wb-semanticColor-core-foreground-neutral-default);
+    font-size: var(--wb-font-body-size-medium);
+    font-weight: var(--wb-font-weight-bold);
+    line-height: var(--wb-font-body-lineHeight-medium);
+}
