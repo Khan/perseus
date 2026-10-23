@@ -216,6 +216,44 @@ describe("new sorter widget", () => {
             // Assert
             expect(getBlankList()).toHaveClass("vertical");
         });
+
+        it("renders a horizontal legend bar when the layout is horizontal", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateSorterQuestion(["Apple", "Banana"], "horizontal"),
+                {apiOptions},
+            );
+
+            // Assert
+            expect(screen.getByTestId("legend-bar")).toHaveClass("horizontal");
+        });
+
+        it("renders a vertical legend bar when the layout is vertical", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateSorterQuestion(["Apple", "Banana"], "vertical"),
+                {apiOptions},
+            );
+
+            // Assert
+            expect(screen.getByTestId("legend-bar")).toHaveClass("vertical");
+        });
+
+        it("renders a vertical legend bar when a horizontal sorter has more cards than the maximum", () => {
+            // Arrange
+            const correct = Array.from(
+                {length: SORTER_MAX_HORIZONTAL_CARDS + 1},
+                (_, index) => `Card ${index}`,
+            );
+
+            // Act
+            renderQuestion(generateSorterQuestion(correct, "horizontal"), {
+                apiOptions,
+            });
+
+            // Assert
+            expect(screen.getByTestId("legend-bar")).toHaveClass("vertical");
+        });
     });
 
     describe("interaction", () => {

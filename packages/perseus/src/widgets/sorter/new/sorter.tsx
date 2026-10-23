@@ -17,6 +17,7 @@ import {useTileMoveActions} from "../../../components/drag-and-drop/use-tile-mov
 import UnsupportedWidgetMessage from "../../../components/unsupported-widget-message";
 import {useDependencies} from "../../../dependencies";
 import {getPromptJSON as _getPromptJSON} from "../../../widget-ai-utils/sorter/sorter-ai-utils";
+import {LegendBar} from "../legend/legend-bar/legend-bar";
 
 import styles from "./sorter.module.css";
 
@@ -172,52 +173,68 @@ const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
     return (
         <PerseusDndProvider onDragEnd={handleDragEnd}>
             <div className={styles.sorter}>
-                <ol
+                <div
                     className={classNames(
-                        styles.blanks,
+                        styles.answerZone,
                         layout === "vertical" && styles.vertical,
                     )}
                 >
-                    {blankIds.map((blankId) => {
-                        const tileId = placements[blankId];
-                        return (
-                            <li key={blankId} className={styles.blankItem}>
-                                <BlankComponent
-                                    blankId={blankId}
-                                    displayType="normal"
-                                    className={styles.blank}
-                                >
-                                    {tileId != null && (
-                                        <AnswerTile
-                                            tileId={tileId}
-                                            fromBlankId={blankId}
-                                            content={getTileContent(tileId)}
-                                            label={getTileLabel(tileId)}
-                                            moveTargets={getMoveTargets(
-                                                blankId,
-                                            )}
-                                            onMove={(targetId) =>
-                                                handleMove(
-                                                    {
-                                                        tileId,
-                                                        fromBlankId: blankId,
-                                                    },
-                                                    targetId,
-                                                )
-                                            }
-                                            clearFromLabel={getBlankLabel(
-                                                blankId,
-                                            )}
-                                            onClear={() => handleClear(blankId)}
-                                            menuRef={placedMenuRef(blankId)}
-                                            fillsBlank={true}
-                                        />
-                                    )}
-                                </BlankComponent>
-                            </li>
-                        );
-                    })}
-                </ol>
+                    {layout === "vertical" && (
+                        <LegendBar orientation="vertical" />
+                    )}
+                    <ol
+                        className={classNames(
+                            styles.blanks,
+                            layout === "vertical" && styles.vertical,
+                        )}
+                    >
+                        {blankIds.map((blankId) => {
+                            const tileId = placements[blankId];
+                            return (
+                                <li key={blankId} className={styles.blankItem}>
+                                    <BlankComponent
+                                        blankId={blankId}
+                                        displayType="normal"
+                                        className={styles.blank}
+                                    >
+                                        {tileId != null && (
+                                            <AnswerTile
+                                                tileId={tileId}
+                                                fromBlankId={blankId}
+                                                content={getTileContent(tileId)}
+                                                label={getTileLabel(tileId)}
+                                                moveTargets={getMoveTargets(
+                                                    blankId,
+                                                )}
+                                                onMove={(targetId) =>
+                                                    handleMove(
+                                                        {
+                                                            tileId,
+                                                            fromBlankId:
+                                                                blankId,
+                                                        },
+                                                        targetId,
+                                                    )
+                                                }
+                                                clearFromLabel={getBlankLabel(
+                                                    blankId,
+                                                )}
+                                                onClear={() =>
+                                                    handleClear(blankId)
+                                                }
+                                                menuRef={placedMenuRef(blankId)}
+                                                fillsBlank={true}
+                                            />
+                                        )}
+                                    </BlankComponent>
+                                </li>
+                            );
+                        })}
+                    </ol>
+                    {layout === "horizontal" && (
+                        <LegendBar orientation="horizontal" />
+                    )}
+                </div>
                 <ChoiceBank label={tempDndStrings.choices}>
                     {bankTiles.map((tileId, index) => (
                         <AnswerTile
