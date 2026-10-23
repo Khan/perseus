@@ -23,7 +23,7 @@ const stringToButtonSet = {
 // eslint-disable-next-line no-restricted-syntax
 export default Rule.makeWidgetRule({
     name: "expression-widget",
-    widgetType: "expression" as const,
+    widgetType: "expression",
     severity: Rule.Severity.WARNING,
     lint: function (widget) {
         const answers = widget.options.answerForms;
