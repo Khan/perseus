@@ -5,7 +5,6 @@
     background-color: var(--wb-semanticColor-core-background-base-subtle);
     border-radius: var(--wb-border-radius-radius_040);
     color: var(--wb-semanticColor-core-foreground-neutral-strong);
-    font-size: 18px;
     padding: 16px;
     white-space: pre;
     overflow: auto;
@@ -136,9 +135,6 @@
         color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile blockquote {
-        font-family: inherit;
-        font-size: 18px;
-        line-height: 1.4;
         color: var(--wb-semanticColor-core-foreground-neutral-subtle);
     }
     .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
@@ -160,8 +156,6 @@
         background-color: var(--wb-semanticColor-core-background-base-subtle);
         border-radius: var(--wb-border-radius-radius_040);
         color: var(--wb-semanticColor-core-foreground-neutral-strong);
-        font-size: 18px;
-        line-height: 1.6;
         padding: var(--wb-sizing-size_160);
         white-space: pre;
         overflow: auto;
@@ -199,9 +193,6 @@
         color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile blockquote {
-        font-family: inherit;
-        font-size: 20px;
-        line-height: 1.5;
         color: var(--wb-semanticColor-core-foreground-neutral-subtle);
     }
     .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
@@ -223,8 +214,6 @@
         background-color: var(--wb-semanticColor-core-background-base-subtle);
         border-radius: var(--wb-border-radius-radius_040);
         color: var(--wb-semanticColor-core-foreground-neutral-strong);
-        font-size: 18px;
-        line-height: 1.6;
         padding: var(--wb-sizing-size_160);
         white-space: pre;
         overflow: auto;
@@ -262,9 +251,6 @@
         color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile blockquote {
-        font-family: inherit;
-        font-size: 22px;
-        line-height: 1.4;
         color: var(--wb-semanticColor-core-foreground-neutral-subtle);
     }
     .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
@@ -286,8 +272,6 @@
         background-color: var(--wb-semanticColor-core-background-base-subtle);
         border-radius: var(--wb-border-radius-radius_040);
         color: var(--wb-semanticColor-core-foreground-neutral-strong);
-        font-size: 18px;
-        line-height: 1.6;
         padding: var(--wb-sizing-size_160);
         white-space: pre;
         overflow: auto;
