@@ -82,7 +82,9 @@ export const ExpressionWidgetAnswerForms = Rule.makeWidgetRule({
             const expression = KAS.parse(form.value, {functions});
             if (!expression.parsed) {
                 issues.push(`Couldn't parse ${form.value}.`);
-            } else if (form.simplify && !expression.expr.isSimplified()) {
+                return;
+            }
+            if (form.simplify && !expression.expr.isSimplified()) {
                 issues.push(
                     `${form.value} isn't simplified, but is required to be.`,
                 );
