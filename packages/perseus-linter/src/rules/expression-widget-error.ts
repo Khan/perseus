@@ -29,37 +29,23 @@ export default Rule.makeRule({
         const issues: Array<any | string> = [];
         const {answerForms, functions} = widget.options;
 
-        if (answerForms.length === 0) {
-            issues.push("No answers specified.");
-        } else {
-            const hasCorrect = answerForms.some((form) => {
-                return form.considered === "correct";
-            });
-            if (!hasCorrect) {
-                issues.push("No correct answer specified.");
-            }
-
-            answerForms.forEach((form, ix) => {
-                if (form.value === "") {
-                    issues.push(`Answer ${ix + 1} is empty.`);
-                } else {
-                    // note we're not using icu for content creators
-                    const expression = KAS.parse(form.value, {
-                        functions: functions,
-                    });
-                    if (!expression.parsed) {
-                        issues.push(`Couldn't parse ${form.value}.`);
-                    } else if (
-                        form.simplify &&
-                        !expression.expr.isSimplified()
-                    ) {
-                        issues.push(
-                            `${form.value} isn't simplified, but is required to be.`,
-                        );
-                    }
+        answerForms.forEach((form, ix) => {
+            if (form.value === "") {
+                issues.push(`Answer ${ix + 1} is empty.`);
+            } else {
+                // note we're not using icu for content creators
+                const expression = KAS.parse(form.value, {
+                    functions: functions,
+                });
+                if (!expression.parsed) {
+                    issues.push(`Couldn't parse ${form.value}.`);
+                } else if (form.simplify && !expression.expr.isSimplified()) {
+                    issues.push(
+                        `${form.value} isn't simplified, but is required to be.`,
+                    );
                 }
-            });
-        }
+            }
+        });
 
         const allWarningsString = issues.join("\n\n");
         return allWarningsString;

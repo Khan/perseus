@@ -1,11 +1,14 @@
 import {expectPass, expectWarning} from "../__tests__/test-utils";
 
-import expressionWidgetButtonsRule from "./expression-widget";
+import {
+    ExpressionWidgetButtons,
+    ExpressionWidgetCorrectAnswer,
+} from "./expression-widget";
 
 describe("expression-widget-buttons", () => {
     it("warns for sqrt without the prealgebra button set", () => {
         expectWarning(
-            expressionWidgetButtonsRule,
+            ExpressionWidgetButtons,
             "[[☃ expression 1]]",
             {
                 widgets: {
@@ -33,7 +36,7 @@ describe("expression-widget-buttons", () => {
     });
 
     it("passes for sqrt with the prealgebra button set", () => {
-        expectPass(expressionWidgetButtonsRule, "[[☃ expression 1]]", {
+        expectPass(ExpressionWidgetButtons, "[[☃ expression 1]]", {
             widgets: {
                 "expression 1": {
                     options: {
@@ -54,7 +57,7 @@ describe("expression-widget-buttons", () => {
     });
 
     it("warns for ^ without the prealgebra button set", () => {
-        expectWarning(expressionWidgetButtonsRule, "[[☃ expression 1]]", {
+        expectWarning(ExpressionWidgetButtons, "[[☃ expression 1]]", {
             widgets: {
                 "expression 1": {
                     options: {
@@ -75,7 +78,7 @@ describe("expression-widget-buttons", () => {
     });
 
     it("passes for ^ with the prealgebra button set", () => {
-        expectPass(expressionWidgetButtonsRule, "[[☃ expression 1]]", {
+        expectPass(ExpressionWidgetButtons, "[[☃ expression 1]]", {
             widgets: {
                 "expression 1": {
                     options: {
@@ -96,7 +99,7 @@ describe("expression-widget-buttons", () => {
     });
 
     it("warns for sin without the trig button set", () => {
-        expectWarning(expressionWidgetButtonsRule, "[[☃ expression 1]]", {
+        expectWarning(ExpressionWidgetButtons, "[[☃ expression 1]]", {
             widgets: {
                 "expression 1": {
                     options: {
@@ -117,7 +120,7 @@ describe("expression-widget-buttons", () => {
     });
 
     it("passes for sin with the trig button set", () => {
-        expectPass(expressionWidgetButtonsRule, "[[☃ expression 1]]", {
+        expectPass(ExpressionWidgetButtons, "[[☃ expression 1]]", {
             widgets: {
                 "expression 1": {
                     options: {
@@ -138,7 +141,7 @@ describe("expression-widget-buttons", () => {
     });
 
     it("warns for log without the logarithms button set", () => {
-        expectWarning(expressionWidgetButtonsRule, "[[☃ expression 1]]", {
+        expectWarning(ExpressionWidgetButtons, "[[☃ expression 1]]", {
             widgets: {
                 "expression 1": {
                     options: {
@@ -159,7 +162,7 @@ describe("expression-widget-buttons", () => {
     });
 
     it("passes for log with the logarithms button set", () => {
-        expectPass(expressionWidgetButtonsRule, "[[☃ expression 1]]", {
+        expectPass(ExpressionWidgetButtons, "[[☃ expression 1]]", {
             widgets: {
                 "expression 1": {
                     options: {
@@ -173,6 +176,68 @@ describe("expression-widget-buttons", () => {
                             },
                         ],
                         buttonSets: ["basic", "logarithms"],
+                    },
+                },
+            },
+        });
+    });
+});
+
+describe("expression-widget-correct-answer", () => {
+    it("warns when no answers are specified", () => {
+        expectWarning(
+            ExpressionWidgetCorrectAnswer,
+            "[[☃ expression 1]]",
+            {
+                widgets: {
+                    "expression 1": {
+                        options: {
+                            answerForms: [],
+                        },
+                    },
+                },
+            },
+            {message: "expression 1: No answers specified."},
+        );
+    });
+
+    it("warns when no correct answer is specified", () => {
+        expectWarning(
+            ExpressionWidgetCorrectAnswer,
+            "[[☃ expression 1]]",
+            {
+                widgets: {
+                    "expression 1": {
+                        options: {
+                            answerForms: [
+                                {
+                                    value: "1",
+                                    form: false,
+                                    simplify: false,
+                                    considered: "wrong",
+                                },
+                            ],
+                        },
+                    },
+                },
+            },
+            {message: "expression 1: No correct answer specified."},
+        );
+    });
+
+    it("passes when there is a correct answer", () => {
+        expectPass(ExpressionWidgetCorrectAnswer, "[[☃ expression 1]]", {
+            widgets: {
+                "expression 1": {
+                    options: {
+                        answerForms: [
+                            {
+                                value: "2",
+                                form: false,
+                                simplify: false,
+                                considered: "correct",
+                            },
+                        ],
                     },
                 },
             },

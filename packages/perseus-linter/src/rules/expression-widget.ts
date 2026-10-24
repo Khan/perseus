@@ -20,7 +20,7 @@ const stringToButtonSet = {
  * available in the keypad (desktop learners can use a keyboard,
  * but mobile learners must use the MathInput keypad)
  */
-export default Rule.makeWidgetRule({
+export const ExpressionWidgetButtons = Rule.makeWidgetRule({
     name: "expression-widget-buttons",
     widgetType: "expression",
     severity: Rule.Severity.WARNING,
@@ -33,6 +33,29 @@ export default Rule.makeWidgetRule({
                     return buttonNotInButtonSet(str, set);
                 }
             }
+        }
+    },
+});
+
+/**
+ * Checks that expression widgets have a correct answer.
+ */
+export const ExpressionWidgetCorrectAnswer = Rule.makeWidgetRule({
+    name: "expression-widget-correct-answer",
+    widgetType: "expression",
+    severity: Rule.Severity.ERROR,
+    lint(widget) {
+        const {answerForms} = widget.options;
+
+        if (answerForms.length === 0) {
+            return "No answers specified.";
+        }
+
+        const hasCorrect = answerForms.some((form) => {
+            return form.considered === "correct";
+        });
+        if (!hasCorrect) {
+            return "No correct answer specified.";
         }
     },
 });

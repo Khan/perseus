@@ -4,7 +4,10 @@ import {
     ExplanationInGradedGroup,
     ExplanationInGradedGroupSet,
 } from "./explanation-in-graded-group";
-import ExpressionWidget from "./expression-widget";
+import {
+    ExpressionWidgetButtons,
+    ExpressionWidgetCorrectAnswer,
+} from "./expression-widget";
 import ExpressionWidgetError from "./expression-widget-error";
 import ExtraContentSpacing from "./extra-content-spacing";
 import FreeResponseWidgetError from "./free-response-widget-error";
@@ -55,7 +58,8 @@ export default [
     AbsoluteUrl,
     DoubleSpacingAfterTerminal,
     ImageUrlEmpty,
-    ExpressionWidget,
+    ExpressionWidgetButtons,
+    ExpressionWidgetCorrectAnswer,
     ExtraContentSpacing,
     HeadingLevel1,
     HeadingLevelSkip,

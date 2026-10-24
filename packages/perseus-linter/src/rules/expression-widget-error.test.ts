@@ -3,37 +3,6 @@ import {expectPass, expectWarning} from "../__tests__/test-utils";
 import expressionWidgetErrorRule from "./expression-widget-error";
 
 describe("expression-widget-error", () => {
-    it("warns when no answers are specified", () => {
-        expectWarning(expressionWidgetErrorRule, "[[☃ expression 1]]", {
-            widgets: {
-                "expression 1": {
-                    options: {
-                        answerForms: [],
-                    },
-                },
-            },
-        });
-    });
-
-    it("warns when no correct answer is specified", () => {
-        expectWarning(expressionWidgetErrorRule, "[[☃ expression 1]]", {
-            widgets: {
-                "expression 1": {
-                    options: {
-                        answerForms: [
-                            {
-                                value: "1",
-                                form: false,
-                                simplify: false,
-                                considered: "wrong",
-                            },
-                        ],
-                    },
-                },
-            },
-        });
-    });
-
     it("warns when an answer is empty", () => {
         expectWarning(expressionWidgetErrorRule, "[[☃ expression 1]]", {
             widgets: {
