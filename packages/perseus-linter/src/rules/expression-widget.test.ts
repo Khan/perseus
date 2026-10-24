@@ -249,10 +249,13 @@ describe("expression-widget-correct-answer", () => {
 describe("expression-widget-answer-forms", () => {
     type Answer = {value: string; simplify?: boolean};
 
-    function expressionWidget(
-        answers: Answer[],
-        {functions = []}: {functions?: string[]} = {},
-    ) {
+    function expressionWidget({
+        functions = [],
+        answers,
+    }: {
+        functions?: string[];
+        answers: Answer[];
+    }) {
         return {
             widgets: {
                 "expression 1": {
@@ -276,7 +279,7 @@ describe("expression-widget-answer-forms", () => {
         expectWarning(
             ExpressionWidgetAnswerForms,
             content,
-            expressionWidget([{value: ""}]),
+            expressionWidget({answers: [{value: ""}]}),
             {message: "expression 1: Answer 1 is empty."},
         );
     });
@@ -285,7 +288,7 @@ describe("expression-widget-answer-forms", () => {
         expectWarning(
             ExpressionWidgetAnswerForms,
             content,
-            expressionWidget([{value: "2"}, {value: ""}]),
+            expressionWidget({answers: [{value: "2"}, {value: ""}]}),
             {message: "expression 1: Answer 2 is empty."},
         );
     });
@@ -294,7 +297,7 @@ describe("expression-widget-answer-forms", () => {
         expectWarning(
             ExpressionWidgetAnswerForms,
             content,
-            expressionWidget([{value: "2.4.r"}]),
+            expressionWidget({answers: [{value: "2.4.r"}]}),
             {message: "expression 1: Couldn't parse 2.4.r."},
         );
     });
@@ -303,7 +306,7 @@ describe("expression-widget-answer-forms", () => {
         expectWarning(
             ExpressionWidgetAnswerForms,
             content,
-            expressionWidget([{value: "2/1", simplify: true}]),
+            expressionWidget({answers: [{value: "2/1", simplify: true}]}),
             {
                 message:
                     "expression 1: 2/1 isn't simplified, but is required to be.",
@@ -315,7 +318,7 @@ describe("expression-widget-answer-forms", () => {
         expectWarning(
             ExpressionWidgetAnswerForms,
             content,
-            expressionWidget([{value: ""}, {value: "2.4.r"}]),
+            expressionWidget({answers: [{value: ""}, {value: "2.4.r"}]}),
             {
                 message:
                     "expression 1: Answer 1 is empty.\n\nCouldn't parse 2.4.r.",
@@ -327,7 +330,7 @@ describe("expression-widget-answer-forms", () => {
         expectPass(
             ExpressionWidgetAnswerForms,
             content,
-            expressionWidget([{value: "2x", simplify: true}]),
+            expressionWidget({answers: [{value: "2x", simplify: true}]}),
         );
     });
 
@@ -335,27 +338,28 @@ describe("expression-widget-answer-forms", () => {
         expectPass(
             ExpressionWidgetAnswerForms,
             content,
-            expressionWidget([{value: "2/1", simplify: false}]),
+            expressionWidget({answers: [{value: "2/1", simplify: false}]}),
         );
     });
 
-    it("parses answers using the widget's functions", () => {
+    it("parses answers using the configured functions list", () => {
         // With f as a function, f(x)/x is simplified; as a variable, the
         // x's would cancel.
         expectPass(
             ExpressionWidgetAnswerForms,
             content,
-            expressionWidget([{value: "f(x)/x", simplify: true}], {
+            expressionWidget({
+                answers: [{value: "f(x)/x", simplify: true}],
                 functions: ["f"],
             }),
         );
     });
 
-    it("treats names not in the widget's functions as variables", () => {
+    it("treats names not in the functions list as variables", () => {
         expectWarning(
             ExpressionWidgetAnswerForms,
             content,
-            expressionWidget([{value: "f(x)/x", simplify: true}]),
+            expressionWidget({answers: [{value: "f(x)/x", simplify: true}]}),
             {
                 message:
                     "expression 1: f(x)/x isn't simplified, but is required to be.",
