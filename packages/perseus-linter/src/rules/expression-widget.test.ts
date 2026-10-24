@@ -1,11 +1,11 @@
 import {expectPass, expectWarning} from "../__tests__/test-utils";
 
-import expressionWidgetRule from "./expression-widget";
+import expressionWidgetButtonsRule from "./expression-widget";
 
-describe("expression-widget", () => {
+describe("expression-widget-buttons", () => {
     it("warns for sqrt without the prealgebra button set", () => {
         expectWarning(
-            expressionWidgetRule,
+            expressionWidgetButtonsRule,
             "[[☃ expression 1]]",
             {
                 widgets: {
@@ -33,7 +33,7 @@ describe("expression-widget", () => {
     });
 
     it("passes for sqrt with the prealgebra button set", () => {
-        expectPass(expressionWidgetRule, "[[☃ expression 1]]", {
+        expectPass(expressionWidgetButtonsRule, "[[☃ expression 1]]", {
             widgets: {
                 "expression 1": {
                     options: {
@@ -54,7 +54,7 @@ describe("expression-widget", () => {
     });
 
     it("warns for ^ without the prealgebra button set", () => {
-        expectWarning(expressionWidgetRule, "[[☃ expression 1]]", {
+        expectWarning(expressionWidgetButtonsRule, "[[☃ expression 1]]", {
             widgets: {
                 "expression 1": {
                     options: {
@@ -75,7 +75,7 @@ describe("expression-widget", () => {
     });
 
     it("passes for ^ with the prealgebra button set", () => {
-        expectPass(expressionWidgetRule, "[[☃ expression 1]]", {
+        expectPass(expressionWidgetButtonsRule, "[[☃ expression 1]]", {
             widgets: {
                 "expression 1": {
                     options: {
@@ -96,7 +96,7 @@ describe("expression-widget", () => {
     });
 
     it("warns for sin without the trig button set", () => {
-        expectWarning(expressionWidgetRule, "[[☃ expression 1]]", {
+        expectWarning(expressionWidgetButtonsRule, "[[☃ expression 1]]", {
             widgets: {
                 "expression 1": {
                     options: {
@@ -117,7 +117,7 @@ describe("expression-widget", () => {
     });
 
     it("passes for sin with the trig button set", () => {
-        expectPass(expressionWidgetRule, "[[☃ expression 1]]", {
+        expectPass(expressionWidgetButtonsRule, "[[☃ expression 1]]", {
             widgets: {
                 "expression 1": {
                     options: {
@@ -138,7 +138,7 @@ describe("expression-widget", () => {
     });
 
     it("warns for log without the logarithms button set", () => {
-        expectWarning(expressionWidgetRule, "[[☃ expression 1]]", {
+        expectWarning(expressionWidgetButtonsRule, "[[☃ expression 1]]", {
             widgets: {
                 "expression 1": {
                     options: {
@@ -159,7 +159,7 @@ describe("expression-widget", () => {
     });
 
     it("passes for log with the logarithms button set", () => {
-        expectPass(expressionWidgetRule, "[[☃ expression 1]]", {
+        expectPass(expressionWidgetButtonsRule, "[[☃ expression 1]]", {
             widgets: {
                 "expression 1": {
                     options: {
