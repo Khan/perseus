@@ -29,6 +29,8 @@ export default Rule.makeRule({
         const issues: Array<any | string> = [];
         const {answerForms, functions} = widget.options;
 
+        // TODO-NEXT: create a separate linter rule for answerForms in
+        //  expression-widget.ts. Follow the patterns in commit 0e1fb3a2bd3a66454d72d79b4b25db75253b5d6e
         answerForms.forEach((form, ix) => {
             if (form.value === "") {
                 issues.push(`Answer ${ix + 1} is empty.`);
