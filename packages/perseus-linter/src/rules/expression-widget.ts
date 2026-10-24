@@ -1,3 +1,5 @@
+import * as KAS from "@khanacademy/kas";
+
 import Rule from "../rule";
 
 function buttonNotInButtonSet(name: string, set: string): string {
@@ -57,5 +59,36 @@ export const ExpressionWidgetCorrectAnswer = Rule.makeWidgetRule({
         if (!hasCorrect) {
             return "No correct answer specified.";
         }
+    },
+});
+
+/**
+ * Checks that each of an expression widget's answers is a parseable
+ * expression, and is simplified if the answer requires simplification.
+ */
+export const ExpressionWidgetAnswerForms = Rule.makeWidgetRule({
+    name: "expression-widget-answer-forms",
+    widgetType: "expression",
+    severity: Rule.Severity.ERROR,
+    lint(widget) {
+        const {answerForms, functions} = widget.options;
+        const issues: string[] = [];
+
+        answerForms.forEach((form, ix) => {
+            if (form.value === "") {
+                issues.push(`Answer ${ix + 1} is empty.`);
+                return;
+            }
+            const expression = KAS.parse(form.value, {functions});
+            if (!expression.parsed) {
+                issues.push(`Couldn't parse ${form.value}.`);
+            } else if (form.simplify && !expression.expr.isSimplified()) {
+                issues.push(
+                    `${form.value} isn't simplified, but is required to be.`,
+                );
+            }
+        });
+
+        return issues.join("\n\n");
     },
 });

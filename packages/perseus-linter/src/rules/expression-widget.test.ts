@@ -1,6 +1,7 @@
 import {expectPass, expectWarning} from "../__tests__/test-utils";
 
 import {
+    ExpressionWidgetAnswerForms,
     ExpressionWidgetButtons,
     ExpressionWidgetCorrectAnswer,
 } from "./expression-widget";
@@ -242,5 +243,123 @@ describe("expression-widget-correct-answer", () => {
                 },
             },
         });
+    });
+});
+
+describe("expression-widget-answer-forms", () => {
+    type Answer = {value: string; simplify?: boolean};
+
+    function expressionWidget(
+        answers: Answer[],
+        {functions = []}: {functions?: string[]} = {},
+    ) {
+        return {
+            widgets: {
+                "expression 1": {
+                    options: {
+                        functions,
+                        answerForms: answers.map(({value, simplify}) => ({
+                            value,
+                            simplify: simplify ?? false,
+                            form: false,
+                            considered: "correct",
+                        })),
+                    },
+                },
+            },
+        };
+    }
+
+    const content = "[[☃ expression 1]]";
+
+    it("warns when an answer is empty", () => {
+        expectWarning(
+            ExpressionWidgetAnswerForms,
+            content,
+            expressionWidget([{value: ""}]),
+            {message: "expression 1: Answer 1 is empty."},
+        );
+    });
+
+    it("numbers empty answers by their position", () => {
+        expectWarning(
+            ExpressionWidgetAnswerForms,
+            content,
+            expressionWidget([{value: "2"}, {value: ""}]),
+            {message: "expression 1: Answer 2 is empty."},
+        );
+    });
+
+    it("warns when value could not be parsed", () => {
+        expectWarning(
+            ExpressionWidgetAnswerForms,
+            content,
+            expressionWidget([{value: "2.4.r"}]),
+            {message: "expression 1: Couldn't parse 2.4.r."},
+        );
+    });
+
+    it("warns when value is not simplified but is required to be", () => {
+        expectWarning(
+            ExpressionWidgetAnswerForms,
+            content,
+            expressionWidget([{value: "2/1", simplify: true}]),
+            {
+                message:
+                    "expression 1: 2/1 isn't simplified, but is required to be.",
+            },
+        );
+    });
+
+    it("combines the messages for multiple bad answers", () => {
+        expectWarning(
+            ExpressionWidgetAnswerForms,
+            content,
+            expressionWidget([{value: ""}, {value: "2.4.r"}]),
+            {
+                message:
+                    "expression 1: Answer 1 is empty.\n\nCouldn't parse 2.4.r.",
+            },
+        );
+    });
+
+    it("passes when a required-simplified value is simplified", () => {
+        expectPass(
+            ExpressionWidgetAnswerForms,
+            content,
+            expressionWidget([{value: "2x", simplify: true}]),
+        );
+    });
+
+    it("passes when an unsimplified value is not required to be simplified", () => {
+        expectPass(
+            ExpressionWidgetAnswerForms,
+            content,
+            expressionWidget([{value: "2/1", simplify: false}]),
+        );
+    });
+
+    it("parses answers using the widget's functions", () => {
+        // With f as a function, f(x)/x is simplified; as a variable, the
+        // x's would cancel.
+        expectPass(
+            ExpressionWidgetAnswerForms,
+            content,
+            expressionWidget([{value: "f(x)/x", simplify: true}], {
+                functions: ["f"],
+            }),
+        );
+    });
+
+    it("treats names not in the widget's functions as variables", () => {
+        expectWarning(
+            ExpressionWidgetAnswerForms,
+            content,
+            expressionWidget([{value: "f(x)/x", simplify: true}]),
+            {
+                message:
+                    "expression 1: f(x)/x isn't simplified, but is required to be.",
+            },
+        );
     });
 });
