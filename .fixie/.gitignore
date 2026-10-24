@@ -2,3 +2,5 @@ commit.txt
 commit-message.txt
 debug.md
 logs
+digs/*
+!digs/museum
