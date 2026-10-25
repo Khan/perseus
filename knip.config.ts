@@ -94,8 +94,3 @@ const config: KnipConfig = {
 };
 
 export default config;
-
-// TODO-NEXT: `knip --production` currently reports a lot of warnings about
-//  unused code and files. Triage these, delete any code that's truly unused
-//  (or only used in its own tests) and mark the rest with `@internal` so knip
-//  ignores them.
