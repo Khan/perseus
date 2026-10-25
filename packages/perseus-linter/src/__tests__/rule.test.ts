@@ -52,6 +52,17 @@ the previous heading was level ${previousHeading.level}`;
         },
     ];
 
+    it("defaults severity to GUIDELINE when none is given", () => {
+        // Arrange, Act
+        const rule = Rule.makeRule({
+            name: "no-severity",
+            selector: "text",
+            message: "msg",
+        });
+
+        expect(rule.severity).toBe(Rule.Severity.GUIDELINE);
+    });
+
     function parseTree() {
         return PureMarkdown.parse(markdown);
     }

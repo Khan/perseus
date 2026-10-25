@@ -244,7 +244,7 @@ export default class Rule {
         }
 
         this.name = name || "unnamed rule";
-        this.severity = severity || Rule.Severity.BULK_WARNING;
+        this.severity = severity || Rule.Severity.GUIDELINE;
         this.selector = selector || Rule.DEFAULT_SELECTOR;
         this.pattern = pattern || null;
 
@@ -476,7 +476,6 @@ ${e.stack}`,
     }
 
     static Severity: {
-        BULK_WARNING: number;
         ERROR: number;
         GUIDELINE: number;
         WARNING: number;
@@ -484,7 +483,6 @@ ${e.stack}`,
         ERROR: 1,
         WARNING: 2,
         GUIDELINE: 3,
-        BULK_WARNING: 4,
     };
 }
 
