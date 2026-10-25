@@ -144,3 +144,31 @@
 - Should `__docs__/` and `data/` at the repo root be configured as explicit
   knip workspaces so their dependencies are tracked correctly?
   - No, that's out of scope.
+
+## Checklist
+
+- [ ] Mark `index.item-splitting.ts` as a production entry (`!`) in `knip.config.ts`
+- [ ] Add `config/build/rollup.config.js` as a root-workspace entry
+- [ ] Add `packages/kas/src/parser-generator.ts` as a kas entry
+- [ ] Add `data/find-questions.ts` as a production entry
+- [ ] Rerun `pnpm knip --production` and record the remaining issues in `.fixie/knip-production.md` for triage
+- [ ] Delete the `blank` scorer, validator, user-input parser, and their tests/typetests
+- [ ] perseus-score: move `util/test-helpers.ts` to a `*.testdata.ts` file and update imports
+- [ ] perseus-core: move `general-purpose-parsers/test-helpers.ts` to a `*.testdata.ts` file and update imports
+- [ ] perseus-core: delete `utils/range.ts` if unused outside its tests (else tag `@internal`)
+- [ ] perseus-core: triage remaining unused exports (Radio parser migrations etc.): `@internal` for tested internals, delete dead code
+- [ ] perseus: move `widgets/table/test-util.ts` and `util/test-utils.ts` to `*.testdata.ts` files
+- [ ] perseus: move test-only fixtures (`mockPerseusI18nContext`, `getBaseMafsGraphPropsForTests`, `mockedJoinLabelsAsSpokenMathForTests`, mock widgets, image fixtures in `image/utils.ts`) into `*.testdata.ts` files
+- [ ] perseus: move story-only helpers (`storybook-constants.ts`, `tinted-background-decorator.tsx`) under `__docs__/` or rename to match non-production patterns
+- [ ] perseus: tag interactive-graph keyboard-constraint functions `@internal`
+- [ ] perseus: tag tested helpers in `numeric-input/utils.ts`, `radio/util.ts`, `colors.ts`, `map-axe-results.ts` `@internal`, or delete ones used only by tests
+- [ ] perseus: handle components/types exported for tests or stories (`LabelImage`, `PhetSimulation`, `CircleGraph`, `FreeResponse`, `Props` types) — unexport or tag `@internal`
+- [ ] perseus: delete dead code (`util/scoring.ts`, `tex-error-view.tsx`, `point-labels.ts`) after checking for non-import usages, along with their tests
+- [ ] perseus-editor: move `register-all-widgets-and-editors-for-testing.ts` to a non-production location and update imports
+- [ ] perseus-editor: triage remaining unused exports
+- [ ] Triage remaining packages (math-input, kas, linter, etc.) reported by knip
+- [ ] Remove unused dependencies from `__docs__/package.json` and `data/package.json`; run `pnpm install`
+- [ ] Confirm `pnpm knip --production` and `pnpm knip` report no issues
+- [ ] Add a `knip:production` script to the root `package.json`
+- [ ] Run `pnpm knip:production` in `node-ci.yml` next to `pnpm knip`
+- [ ] Add changesets for each touched published package
