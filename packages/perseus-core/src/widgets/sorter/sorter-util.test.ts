@@ -1,4 +1,4 @@
-import {range} from "../../utils/range";
+import {range} from "../../utils/range.testutils";
 
 import {getSorterPublicWidgetOptions, shuffleSorter} from "./sorter-util";
 

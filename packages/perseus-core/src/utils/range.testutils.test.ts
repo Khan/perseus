@@ -1,4 +1,4 @@
-import {range} from "./range";
+import {range} from "./range.testutils";
 
 describe("range", () => {
     it("returns an empty array when max < min", () => {
