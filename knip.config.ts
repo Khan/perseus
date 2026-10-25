@@ -13,10 +13,21 @@ import type {KnipConfig} from "knip";
 // See: https://knip.dev/guides/configuring-project-files#unused-files
 // Paths marked with `!` are production files.
 const basePackageConfig = {
-    project: ["src/**/*.{ts,tsx,js,jsx}!"],
+    project: [
+        "src/**/*.{ts,tsx,js,jsx}!",
+        "src/**/*.{cypress,mockData,stories,test,testdata,testutils,typetest}.{ts,tsx,js,jsx}",
+    ],
     entry: [
         "src/index.{ts,tsx}!",
-        "src/**/*.{cypress,test,typetest,stories}.{ts,tsx}",
+        "src/**/*.{cypress,stories,test,typetest}.{ts,tsx}",
+    ],
+};
+
+const basePackageConfigWithTestHelpers = {
+    ...basePackageConfig,
+    project: [
+        ...basePackageConfig.project,
+        "src/**/{__docs__,__testdata__,__testutils__,testing}/**/*.{ts,tsx,js,jsx}",
     ],
 };
 
@@ -46,6 +57,8 @@ const config: KnipConfig = {
             ],
         },
         "packages/*": basePackageConfig,
+        "packages/perseus": basePackageConfigWithTestHelpers,
+        "packages/perseus-editor": basePackageConfigWithTestHelpers,
         "packages/perseus-core": {
             ...basePackageConfig,
             entry: [
@@ -81,3 +94,8 @@ const config: KnipConfig = {
 };
 
 export default config;
+
+// TODO-NEXT: `knip --production` currently reports a lot of warnings about
+//  unused code and files. Triage these, delete any code that's truly unused
+//  (or only used in its own tests) and mark the rest with `@internal` so knip
+//  ignores them.
