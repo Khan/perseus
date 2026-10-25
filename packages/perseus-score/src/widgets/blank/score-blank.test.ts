@@ -1,8 +1,29 @@
-import {generateBlankOptions} from "@khanacademy/perseus-core";
-
-import scoreBlank from "./score-blank";
+import {generateBlankOptions, PerseusBlankWidgetOptions, PerseusScore} from "@khanacademy/perseus-core";
 
 import type {PerseusBlankUserInput} from "@khanacademy/perseus-core";
+import validateBlank from "./validate-blank";
+
+// TODO(benchristel): move to a production file once we're ready to wire this
+//  up to the scoring code. If this is in its own file currently, knip marks
+//  the file as unused.
+function scoreBlank(
+    // NOTE(benchristel): userInput can be undefined if the widget has never
+    // been interacted with.
+    userInput: PerseusBlankUserInput | undefined,
+    rubric: PerseusBlankWidgetOptions,
+): PerseusScore {
+    const validationResult = validateBlank(userInput);
+    if (validationResult != null) {
+        return validationResult;
+    }
+    const isCorrect = userInput?.selected === rubric.correctId;
+    return {
+        type: "points",
+        earned: isCorrect ? 1 : 0,
+        total: 1,
+        message: null,
+    };
+}
 
 describe("scoreBlank", () => {
     it("returns a score of 'invalid' when the user input is undefined", () => {
