@@ -46,9 +46,7 @@ const config: KnipConfig = {
     ignoreExportsUsedInFile: true,
     workspaces: {
         ".": {
-            project: [
-                "{config,utils}/**/*.{ts,tsx,js,jsx,mdx}",
-            ],
+            project: ["{config,utils}/**/*.{ts,tsx,js,jsx,mdx}"],
             entry: [
                 // CLI tools
                 "utils/**/*.{ts,tsx,js,jsx}",

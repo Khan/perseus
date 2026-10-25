@@ -1,8 +1,8 @@
 import {describe, it, expect} from "tstyche";
 
+import {ctx, summon} from "./parser.testutils";
 import {pipeParsers} from "./pipe-parsers";
 import {string} from "./string";
-import {ctx, summon} from "./parser.testutils";
 
 import type {PartialParser, ParseResult} from "../parser-types";
 

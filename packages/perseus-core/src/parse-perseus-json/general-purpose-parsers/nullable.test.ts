@@ -1,8 +1,8 @@
 import {success} from "../result";
 
 import {nullable} from "./nullable";
-import {string} from "./string";
 import {anyFailure, ctx, parseFailureWith} from "./parser.testutils";
+import {string} from "./string";
 
 describe("nullable", () => {
     const nullableString = nullable(string);

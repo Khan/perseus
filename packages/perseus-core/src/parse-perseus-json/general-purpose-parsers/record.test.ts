@@ -2,9 +2,9 @@ import {assertFailure, success} from "../result";
 
 import {defaulted} from "./defaulted";
 import {number} from "./number";
+import {ctx, parseFailureWith} from "./parser.testutils";
 import {record} from "./record";
 import {string} from "./string";
-import {ctx, parseFailureWith} from "./parser.testutils";
 
 import type {Parser} from "../parser-types";
 

@@ -2,9 +2,9 @@ import {success} from "../result";
 
 import {boolean} from "./boolean";
 import {number} from "./number";
+import {anyFailure, ctx, parseFailureWith} from "./parser.testutils";
 import {pipeParsers} from "./pipe-parsers";
 import {string} from "./string";
-import {anyFailure, ctx, parseFailureWith} from "./parser.testutils";
 import {trio} from "./trio";
 
 describe("trio()", () => {

@@ -1,7 +1,7 @@
 import {success} from "../result";
 
-import {string} from "./string";
 import {anyFailure, ctx} from "./parser.testutils";
+import {string} from "./string";
 
 describe("string", () => {
     it("accepts a string", () => {

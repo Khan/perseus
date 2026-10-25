@@ -1,8 +1,8 @@
 import {success} from "../result";
 
 import {optional} from "./optional";
-import {string} from "./string";
 import {anyFailure, ctx, parseFailureWith} from "./parser.testutils";
+import {string} from "./string";
 
 describe("optional()", () => {
     const optionalString = optional(string);

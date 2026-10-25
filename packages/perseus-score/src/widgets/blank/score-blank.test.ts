@@ -1,7 +1,12 @@
-import {generateBlankOptions, PerseusBlankWidgetOptions, PerseusScore} from "@khanacademy/perseus-core";
+import {generateBlankOptions} from "@khanacademy/perseus-core";
 
-import type {PerseusBlankUserInput} from "@khanacademy/perseus-core";
-import validateBlank from "./validate-blank";
+import {validateBlank} from "./validate-blank.test";
+
+import type {
+    PerseusBlankUserInput,
+    PerseusBlankWidgetOptions,
+    PerseusScore,
+} from "@khanacademy/perseus-core";
 
 // TODO(benchristel): move to a production file once we're ready to wire this
 //  up to the scoring code. If this is in its own file currently, knip marks
