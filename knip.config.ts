@@ -23,6 +23,10 @@ const basePackageConfig = {
     ],
 };
 
+// Base configuration for packages that contain non-production directories like
+// __docs__, __testdata__, etc. Knip warns if this configuration is used for
+// a package that has no such directories, which is why it's separate from the
+// basePackageConfig.
 const basePackageConfigWithTestHelpers = {
     ...basePackageConfig,
     project: [
@@ -31,20 +35,35 @@ const basePackageConfigWithTestHelpers = {
     ],
 };
 
+// Configuration for packages that should not be checked by knip. By default,
+// knip will analyze all packages listed in pnpm-workspace.yaml.
+const ignoredPackageConfig = {
+    project: [],
+    entry: [],
+};
+
 const config: KnipConfig = {
     ignoreExportsUsedInFile: true,
     workspaces: {
         ".": {
-            project: ["{config,utils}/**/*.{ts,tsx,js,jsx,mdx}"],
+            project: [
+                "{config,utils}/**/*.{ts,tsx,js,jsx,mdx}",
+                // No production files outside `packages/`.
+                // "!{config,utils}/**/*!"
+            ],
             entry: [
                 // CLI tools
                 "utils/**/*.{ts,tsx,js,jsx}",
             ],
         },
-        "config/build": {
-            // Run by the `build` script in the root package.json.
-            entry: ["build-packages.ts"],
-        },
+        // FUTURE(benchristel): we might want to unignore these packages in the
+        // future. Right now (2026), it's hard to make knip understand the
+        // structure (I think it gets confused because `config/build` is
+        // included in the `project` files for the root (".") workspace, but is
+        // also a package) so checking these packages for unused code isn't
+        // worth it.
+        __docs__: ignoredPackageConfig,
+        "config/build": ignoredPackageConfig,
         "config/cypress": {
             // Cypress loads this file through its supportFile setting.
             entry: ["support.ts"],
@@ -57,6 +76,7 @@ const config: KnipConfig = {
                 "!rules/__fixtures__/**",
             ],
         },
+        data: ignoredPackageConfig,
         "packages/*": basePackageConfig,
         "packages/perseus": basePackageConfigWithTestHelpers,
         "packages/perseus-editor": basePackageConfigWithTestHelpers,
