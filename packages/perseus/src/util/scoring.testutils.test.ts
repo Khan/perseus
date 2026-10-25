@@ -1,4 +1,4 @@
-import {isCorrect} from "./scoring";
+import {isCorrect} from "./scoring.testutils";
 
 describe("isCorrect", () => {
     it("is true given a score with all points earned", () => {
