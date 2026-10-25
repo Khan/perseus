@@ -13,6 +13,8 @@ import type {KnipConfig} from "knip";
 // See: https://knip.dev/guides/configuring-project-files#unused-files
 // Paths marked with `!` are production files.
 const basePackageConfig = {
+    // TODO-NEXT: If an export is only used in tests, knip currently doesn't
+    //  mark it as unused. Figure out why and fix it.
     project: ["src/**/*.{ts,tsx,js,jsx}!"],
     entry: [
         "src/index.{ts,tsx}!",
