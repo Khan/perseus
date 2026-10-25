@@ -1,6 +1,6 @@
 import {getGroupPublicWidgetOptions} from "@khanacademy/perseus-core";
 
-import {getTestDropdownWidget} from "../../util/test-helpers";
+import {getTestDropdownWidget} from "../../util/widgets.testutils";
 
 import validateGroup from "./validate-group";
 

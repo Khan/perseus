@@ -4,7 +4,7 @@ import {array, arrayWithIndex} from "./array";
 import {defaulted} from "./defaulted";
 import {object} from "./object";
 import {string} from "./string";
-import {anyFailure, ctx, parseFailureWith} from "./test-helpers";
+import {anyFailure, ctx, parseFailureWith} from "./parser.testutils";
 
 describe("array", () => {
     const arrayOfStrings = array(string);

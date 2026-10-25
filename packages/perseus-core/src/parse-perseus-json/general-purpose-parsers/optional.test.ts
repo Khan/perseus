@@ -2,7 +2,7 @@ import {success} from "../result";
 
 import {optional} from "./optional";
 import {string} from "./string";
-import {anyFailure, ctx, parseFailureWith} from "./test-helpers";
+import {anyFailure, ctx, parseFailureWith} from "./parser.testutils";
 
 describe("optional()", () => {
     const optionalString = optional(string);

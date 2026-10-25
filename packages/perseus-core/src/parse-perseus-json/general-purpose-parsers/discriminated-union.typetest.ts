@@ -4,7 +4,7 @@ import {constant} from "./constant";
 import {discriminatedUnionOn} from "./discriminated-union";
 import {number} from "./number";
 import {object} from "./object";
-import {ctx} from "./test-helpers";
+import {ctx} from "./parser.testutils";
 
 import type {Parser, ParseResult} from "../parser-types";
 

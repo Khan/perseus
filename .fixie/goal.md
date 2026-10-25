@@ -28,8 +28,8 @@
   5 unused dependencies, 102 unused exports, and 19 unused exported types.
   The categories break down roughly as:
   - **Test helpers in production paths** (e.g.
-    `perseus-score/src/util/test-helpers.ts`,
-    `perseus-core/.../general-purpose-parsers/test-helpers.ts`,
+    `perseus-score/src/util/parser.testutils.ts`,
+    `perseus-core/.../general-purpose-parsers/parser.testutils.ts`,
     `perseus/src/widgets/table/test-util.ts`,
     `perseus/src/util/test-utils.ts`,
     `perseus-editor/src/util/register-all-widgets-and-editors-for-testing.ts`,
@@ -153,8 +153,8 @@
 - [ ] Add `data/find-questions.ts` as a production entry
 - [ ] Rerun `pnpm knip --production` and record the remaining issues in `.fixie/knip-production.md` for triage
 - [ ] Delete the `blank` scorer, validator, user-input parser, and their tests/typetests
-- [ ] perseus-score: move `util/test-helpers.ts` to a `*.testdata.ts` file and update imports
-- [ ] perseus-core: move `general-purpose-parsers/test-helpers.ts` to a `*.testdata.ts` file and update imports
+- [ ] perseus-score: move `util/parser.testutils.ts` to a `*.testdata.ts` file and update imports
+- [ ] perseus-core: move `general-purpose-parsers/parser.testutils.ts` to a `*.testdata.ts` file and update imports
 - [ ] perseus-core: delete `utils/range.ts` if unused outside its tests (else tag `@internal`)
 - [ ] perseus-core: triage remaining unused exports (Radio parser migrations etc.): `@internal` for tested internals, delete dead code
 - [ ] perseus: move `widgets/table/test-util.ts` and `util/test-utils.ts` to `*.testdata.ts` files

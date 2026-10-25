@@ -2,7 +2,7 @@ import {success} from "../result";
 
 import {pipeParsers} from "./pipe-parsers";
 import {string} from "./string";
-import {anyFailure, ctx} from "./test-helpers";
+import {anyFailure, ctx} from "./parser.testutils";
 
 import type {PartialParser} from "../parser-types";
 

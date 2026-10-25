@@ -3,7 +3,7 @@ import {describe, it, expect} from "tstyche";
 import {array} from "./array";
 import {number} from "./number";
 import {string} from "./string";
-import {ctx} from "./test-helpers";
+import {ctx} from "./parser.testutils";
 
 import type {ParseResult} from "../parser-types";
 

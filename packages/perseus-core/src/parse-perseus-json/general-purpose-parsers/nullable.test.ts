@@ -2,7 +2,7 @@ import {success} from "../result";
 
 import {nullable} from "./nullable";
 import {string} from "./string";
-import {anyFailure, ctx, parseFailureWith} from "./test-helpers";
+import {anyFailure, ctx, parseFailureWith} from "./parser.testutils";
 
 describe("nullable", () => {
     const nullableString = nullable(string);

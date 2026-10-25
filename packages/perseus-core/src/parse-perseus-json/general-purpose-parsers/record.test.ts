@@ -4,7 +4,7 @@ import {defaulted} from "./defaulted";
 import {number} from "./number";
 import {record} from "./record";
 import {string} from "./string";
-import {ctx, parseFailureWith} from "./test-helpers";
+import {ctx, parseFailureWith} from "./parser.testutils";
 
 import type {Parser} from "../parser-types";
 

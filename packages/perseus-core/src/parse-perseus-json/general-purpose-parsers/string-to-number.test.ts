@@ -1,7 +1,7 @@
 import {success} from "../result";
 
 import {stringToNumber} from "./string-to-number";
-import {ctx, parseFailureWith} from "./test-helpers";
+import {ctx, parseFailureWith} from "./parser.testutils";
 
 describe("stringToNumber", () => {
     it("accepts a number", () => {
