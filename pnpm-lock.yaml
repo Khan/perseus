@@ -601,7 +601,7 @@ importers:
         version: 2.9.1
 
   __docs__:
-    dependencies:
+    devDependencies:
       '@khanacademy/perseus':
         specifier: workspace:*
         version: link:../packages/perseus
