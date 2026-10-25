@@ -134,13 +134,13 @@
 
 ## Open questions
 
-- Should test-only exports be tagged `@internal`, or should knip be
-  configured with `ignoreExportsUsedInFile`/`--include-entry-exports` style
-  options instead? The TODO says `@internal`; is a single convention for the
-  tag text (e.g. `@internal exported for testing`) wanted?
 - For test-helper files living in production paths, is renaming/moving them
   (to `__testutils__/` or `*.testdata.ts`) preferred over `@internal`?
+  - Yes, move test helpers to `*.testdata.ts`.
 - Is `__docs__/sample-data.ts` used by anything outside the import graph,
   such as Storybook config? Check this before deleting it.
+  - It is used by `__docs__/introduction.mdx`, a Storybook page. Don't
+    delete it.
 - Should `__docs__/` and `data/` at the repo root be configured as explicit
   knip workspaces so their dependencies are tracked correctly?
+  - No, that's out of scope.

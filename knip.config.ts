@@ -32,6 +32,7 @@ const basePackageConfigWithTestHelpers = {
 };
 
 const config: KnipConfig = {
+    ignoreExportsUsedInFile: true,
     workspaces: {
         ".": {
             project: ["{config,utils}/**/*.{ts,tsx,js,jsx,mdx}"],
