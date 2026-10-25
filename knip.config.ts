@@ -85,6 +85,7 @@ const config: KnipConfig = {
                 "!src/parser-generator.ts!",
             ],
         },
+        "packages/math-input": basePackageConfigWithTestHelpers,
         "packages/perseus": basePackageConfigWithTestHelpers,
         "packages/perseus-editor": basePackageConfigWithTestHelpers,
         "packages/perseus-core": {
