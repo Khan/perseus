@@ -128,7 +128,7 @@ import type {PerseusWidgetTypes} from "@khanacademy/perseus-core";
 export type MakeRuleOptions = {
     name: string;
     pattern?: RegExp;
-    severity?: number;
+    severity: number;
     selector?: string;
     locale?: string;
     message?: string;
@@ -146,7 +146,7 @@ export type MakeWidgetRuleOptions<
     TWidgetType extends keyof PerseusWidgetTypes,
 > = {
     name: string;
-    severity?: number;
+    severity: number;
     widgetType: TWidgetType;
     lint: (widgetInfo: PerseusWidgetTypes[TWidgetType]) => string | undefined;
 };
@@ -229,7 +229,7 @@ export default class Rule {
     // this constructor and its arguments
     constructor(
         name: string | null | undefined,
-        severity: number | null | undefined,
+        severity: number,
         selector: Selector | null | undefined,
         pattern: RegExp | null | undefined,
         lint: LintTester | string | undefined,
@@ -244,7 +244,7 @@ export default class Rule {
         }
 
         this.name = name || "unnamed rule";
-        this.severity = severity || Rule.Severity.GUIDELINE;
+        this.severity = severity;
         this.selector = selector || Rule.DEFAULT_SELECTOR;
         this.pattern = pattern || null;
 

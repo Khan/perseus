@@ -1,11 +1,9 @@
-import AllRules from "./rules/all-rules";
+import {allRules} from "./rules/all-rules";
 import TreeTransformer from "./tree-transformer";
 
 import type Rule from "./rule";
 import type {LinterWarning} from "./rule";
 import type {TreeNode} from "./tree-transformer";
-
-export const allLintRules: ReadonlyArray<Rule> = AllRules;
 
 /**
  * Run the Perseus linter over the specified markdown parse tree, with the
@@ -29,7 +27,7 @@ export function runLinter(
     tree: any,
     context: any,
     highlight: boolean,
-    rules: ReadonlyArray<Rule> = allLintRules,
+    rules: ReadonlyArray<Rule> = allRules,
 ): ReadonlyArray<LinterWarning> {
     const warnings: Array<LinterWarning> = [];
     const tt = new TreeTransformer(tree);

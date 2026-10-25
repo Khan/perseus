@@ -50,7 +50,7 @@ import TableMissingCells from "./table-missing-cells";
 import UnbalancedCodeDelimiters from "./unbalanced-code-delimiters";
 import UnescapedDollar from "./unescaped-dollar";
 
-export default [
+export const allRules = [
     AbsoluteUrl,
     ImageUrlEmpty,
     ExpressionWidgetButtons,
