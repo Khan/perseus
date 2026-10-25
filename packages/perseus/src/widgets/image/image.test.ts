@@ -19,8 +19,8 @@ import {
     animatedGifLandscape,
     graphieImage,
     nonAnimatedGif,
-    decodeGifFrames,
-} from "./utils";
+} from "./__testdata__/image.testdata";
+import {decodeGifFrames} from "./utils"
 
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
