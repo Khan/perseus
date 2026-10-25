@@ -48,8 +48,6 @@ const config: KnipConfig = {
         ".": {
             project: [
                 "{config,utils}/**/*.{ts,tsx,js,jsx,mdx}",
-                // No production files outside `packages/`.
-                // "!{config,utils}/**/*!"
             ],
             entry: [
                 // CLI tools
@@ -78,6 +76,15 @@ const config: KnipConfig = {
         },
         data: ignoredPackageConfig,
         "packages/*": basePackageConfig,
+        "packages/kas": {
+            ...basePackageConfig,
+            project: [
+                ...basePackageConfig.project,
+                // The parser generator is a dev tool. Exclude it from the
+                // production project.
+                "!src/parser-generator.ts!",
+            ],
+        },
         "packages/perseus": basePackageConfigWithTestHelpers,
         "packages/perseus-editor": basePackageConfigWithTestHelpers,
         "packages/perseus-core": {
