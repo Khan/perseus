@@ -31,7 +31,7 @@ import {testDependencies} from "../testing/test-dependencies";
 import {registerWidget} from "../widgets";
 import {renderQuestion} from "../widgets/__testutils__/render-question";
 import {simpleGroupQuestion} from "../widgets/group/group.testdata";
-import MockWidgetExport from "../widgets/mock-widgets/mock-widget";
+import MockWidgetExport from "../testing/mock-widgets/mock-widget";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";

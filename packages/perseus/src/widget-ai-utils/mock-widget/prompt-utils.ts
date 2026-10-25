@@ -1,4 +1,4 @@
-import type mockWidget from "../../widgets/mock-widgets/mock-widget";
+import type mockWidget from "../../testing/mock-widgets/mock-widget";
 import type React from "react";
 
 export type MockWidgetPromptJSON = {
