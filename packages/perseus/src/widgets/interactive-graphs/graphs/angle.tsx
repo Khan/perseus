@@ -9,7 +9,7 @@ import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
 import {Angle} from "./components/angle-indicators";
-import {trimRange} from "./components/movable-line";
+import {trimRange} from "./components/movable-line/util";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {SVGLine} from "./components/svg-line";
