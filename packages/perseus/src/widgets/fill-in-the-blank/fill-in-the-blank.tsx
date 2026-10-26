@@ -127,7 +127,7 @@ function FillInTheBlank({
         [userInput, blankIds],
     );
 
-    const {containerRef, remeasure, maxWidth} = useWidestTileWidth();
+    const {containerRef, maxWidth} = useWidestTileWidth();
 
     const {
         handleMove,
@@ -246,8 +246,6 @@ function FillInTheBlank({
                 <div
                     aria-hidden="true"
                     className={styles.measurement}
-                    // Remount, and so remeasure, when the tile set changes.
-                    key={tiles.map((tile) => tile.id).join(" ")}
                     ref={setMeasurementRef}
                 >
                     {tiles.map((tile) => (
@@ -259,7 +257,6 @@ function FillInTheBlank({
                             imageHeight={tile.imageHeight}
                             moveTargets={[]}
                             onMove={() => {}}
-                            onContentRender={remeasure}
                         />
                     ))}
                 </div>
