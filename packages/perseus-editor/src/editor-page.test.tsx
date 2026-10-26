@@ -11,7 +11,7 @@ import {render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {earthMoonImage} from "../../perseus/src/widgets/image/utils";
+import {earthMoonImage} from "../../perseus/src/widgets/image/__testdata__/image.testdata";
 
 import EditorPage from "./editor-page";
 import {

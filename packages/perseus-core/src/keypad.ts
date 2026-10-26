@@ -112,7 +112,7 @@ export const KeypadKeys = [
 
 export type KeypadKey = (typeof KeypadKeys)[number];
 
-export type KeypadType = "FRACTION" | "EXPRESSION";
+type KeypadType = "FRACTION" | "EXPRESSION";
 
 export type KeypadConfiguration = {
     keypadType: KeypadType;

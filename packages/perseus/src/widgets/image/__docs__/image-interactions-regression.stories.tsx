@@ -9,7 +9,7 @@ import {
     svgImage,
     animatedGifPortrait,
     animatedGifPortraitAlt,
-} from "../utils";
+} from "../__testdata__/image.testdata";
 
 import {imageRendererDecorator} from "./image-renderer-decorator";
 

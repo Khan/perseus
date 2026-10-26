@@ -11,7 +11,7 @@ import * as React from "react";
 import {
     earthMoonImage,
     frescoImage,
-} from "../../../../perseus/src/widgets/image/utils";
+} from "../../../../perseus/src/widgets/image/__testdata__/image.testdata";
 import {mockImageLoading} from "../../testing/image-loader-utils";
 import {
     testDependencies,

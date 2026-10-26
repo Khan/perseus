@@ -15,8 +15,8 @@ import {
     earthMoonImage,
     animatedGifLandscape,
     nonAnimatedGif,
-    decodeGifFrames,
-} from "../utils";
+} from "../__testdata__/image.testdata";
+import {decodeGifFrames} from "../utils";
 
 import {ExploreImageModal} from "./explore-image-modal";
 
