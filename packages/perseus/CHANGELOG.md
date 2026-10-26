@@ -1,5 +1,28 @@
 # @khanacademy/perseus
 
+## 92.1.0
+
+### Minor Changes
+
+-   [#4369](https://github.com/Khan/perseus/pull/4369) [`e31cb71`](https://github.com/Khan/perseus/commit/e31cb71241854670efe12d058489d735dda48aed) Thanks [@handeyeco](https://github.com/handeyeco)! - Add new feature flag: dnd-widget-sorter. Behind it is a new implementation of the Sorter widget using dnd-kit.
+
+### Patch Changes
+
+-   [#4413](https://github.com/Khan/perseus/pull/4413) [`0187197`](https://github.com/Khan/perseus/commit/0187197cb8d310301609643de4e63b7fc289fca1) Thanks [@benchristel](https://github.com/benchristel)! - Delete references to the `.paragraph` CSS class, which is now unused.
+
+-   [#4406](https://github.com/Khan/perseus/pull/4406) [`bdfa518`](https://github.com/Khan/perseus/commit/bdfa51839c85a8869f58f96a6ca980a17e6428a3) Thanks [@benchristel](https://github.com/benchristel)! - Internal: ButtonGroup is now generic over the type of its button values, so `onChange` receives a typed value instead of `any`
+
+-   [#4404](https://github.com/Khan/perseus/pull/4404) [`46de488`](https://github.com/Khan/perseus/commit/46de488f6a0f765a127c1921bc13c5c36e4f4471) Thanks [@benchristel](https://github.com/benchristel)! - Internal: clarified comments
+
+-   Updated dependencies [[`e31cb71`](https://github.com/Khan/perseus/commit/e31cb71241854670efe12d058489d735dda48aed), [`1b2519f`](https://github.com/Khan/perseus/commit/1b2519ff904a2e7a8d917bc5cce448c213e12890), [`d12619d`](https://github.com/Khan/perseus/commit/d12619d59d1b368ac1a4d651a2b12e36e4ff4ac6)]:
+    -   @khanacademy/perseus-core@42.0.1
+    -   @khanacademy/perseus-linter@6.2.0
+    -   @khanacademy/pure-markdown@3.1.0
+    -   @khanacademy/keypad-context@6.0.8
+    -   @khanacademy/kmath@3.1.1
+    -   @khanacademy/math-input@30.1.3
+    -   @khanacademy/perseus-score@9.0.9
+
 ## 92.0.2
 
 ### Patch Changes

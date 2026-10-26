@@ -194,13 +194,13 @@ class ArticleRenderer
             isArticle: true,
         } as const;
 
-        const classes = classNames({
-            "framework-perseus": true,
-            "perseus-article": true,
+        const classes = classNames(
+            "framework-perseus",
+            "perseus-article",
             // NOTE(charlie): For exercises, this is applied outside of Perseus
             // (in khan/frontend).
-            [ApiClassNames.MOBILE]: apiOptions.isMobile,
-        });
+            apiOptions.isMobile && ApiClassNames.MOBILE,
+        );
 
         // We're using the index as the key here because we don't have a unique
         // identifier for each section. This should be fine as we never remove

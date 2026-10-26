@@ -13,7 +13,6 @@ import * as React from "react";
 import _ from "underscore";
 
 import InfoTip from "../../components/info-tip";
-import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {WidgetEditorProps} from "../widget-editor-props";
 
@@ -63,10 +62,6 @@ class DropdownEditor extends React.Component<Props> {
         const choices = [...this.props.choices];
         choices.splice(choiceIndex, 1);
         this.handleChange({choices});
-    };
-
-    serialize: () => any = () => {
-        return EditorJsonify.serialize.call(this);
     };
 
     render(): React.ReactNode {

@@ -256,28 +256,6 @@ class PlotterEditor extends React.Component<Props, State> {
         node.value = categories.join(", ");
     };
 
-    serialize: () => any = () => {
-        const json = _.pick(
-            this.props,
-            "correct",
-            "starting",
-            "type",
-            "labels",
-            "categories",
-            "scaleY",
-            "maxY",
-            "snapsPerLine",
-            "labelInterval",
-        );
-
-        if (this.props.type === "pic") {
-            // @ts-expect-error - TS2339 - Property 'picUrl' does not exist on type 'Pick<Readonly<any> & Readonly<{ children?: ReactNode; }>, "type" | "correct" | "labels" | "categories" | "starting" | "scaleY" | "maxY" | "snapsPerLine" | "labelInterval">'.
-            json.picUrl = this.props.picUrl;
-        }
-
-        return json;
-    };
-
     render(): React.ReactNode {
         const setFromScale = ["line", "histogram", "dotplot"].includes(
             this.props.type,

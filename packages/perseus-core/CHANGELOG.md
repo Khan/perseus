@@ -1,5 +1,14 @@
 # @khanacademy/perseus-core
 
+## 42.0.1
+
+### Patch Changes
+
+-   [#4369](https://github.com/Khan/perseus/pull/4369) [`e31cb71`](https://github.com/Khan/perseus/commit/e31cb71241854670efe12d058489d735dda48aed) Thanks [@handeyeco](https://github.com/handeyeco)! - Add new feature flag: dnd-widget-sorter. Behind it is a new implementation of the Sorter widget using dnd-kit.
+
+-   Updated dependencies [[`1b2519f`](https://github.com/Khan/perseus/commit/1b2519ff904a2e7a8d917bc5cce448c213e12890)]:
+    -   @khanacademy/pure-markdown@3.1.0
+
 ## 42.0.0
 
 ### Major Changes

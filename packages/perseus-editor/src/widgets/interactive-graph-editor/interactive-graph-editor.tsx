@@ -12,7 +12,6 @@ import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 import invariant from "tiny-invariant";
-import _ from "underscore";
 
 import AngleAnswerOptions from "./components/angle-answer-options";
 import GraphPointsCountSelector from "./components/graph-points-count-selector";
@@ -28,7 +27,7 @@ import VectorAnswerOptions from "./components/vector-answer-options";
 import LabeledRow from "./locked-figures/labeled-row";
 import LockedFiguresSection from "./locked-figures/locked-figures-section";
 import StartCoordsSettings from "./start-coords/start-coords-settings";
-import {getStartCoords, shouldShowStartCoordsUI} from "./start-coords/util";
+import {shouldShowStartCoordsUI} from "./start-coords/util";
 import {reshapePointLabelsForGraphType} from "./utils/reshape-point-labels";
 
 import type {InteractiveGraphSettingsData} from "./components/interactive-graph-settings";
@@ -148,88 +147,6 @@ class InteractiveGraphEditor extends React.Component<Props, State> {
         this.handleChange({graph: newGraph, correct: newCorrect});
     };
 
-    // serialize() is what makes copy/paste work. All the properties included
-    // in the serialization json are included when, for example, a graph
-    // is copied from the question editor and pasted into the hint editor
-    // (double brackets in the markdown).
-    serialize(): PerseusInteractiveGraphWidgetOptions {
-        const json = _.pick(
-            this.props,
-            "step",
-            "backgroundImage",
-            "markings",
-            "labels",
-            "labelLocation",
-            "showProtractor",
-            "showTooltips",
-            "range",
-            "showAxisArrows",
-            "showAxisTicks",
-            "gridStep",
-            "snapStep",
-            "lockedFigures",
-            "fullGraphAriaLabel",
-            "fullGraphAriaDescription",
-        );
-
-        const graph = this.refs.graph;
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (graph) {
-            // @ts-expect-error TS2339 Property 'getUserInput' does not exist on type 'ReactInstance'. Property 'getUserInput' does not exist on type 'Component<any, {}, any>'.
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            const correct = graph && graph.getUserInput();
-            _.extend(json, {
-                graph: {
-                    type: correct.type,
-                    startCoords: getStartCoords(this.props.graph),
-                    ...("pointLabels" in this.props.graph &&
-                    this.props.graph.pointLabels
-                        ? {pointLabels: this.props.graph.pointLabels}
-                        : {}),
-                    ...("showPointLabels" in this.props.graph &&
-                    this.props.graph.showPointLabels
-                        ? {
-                              showPointLabels: this.props.graph.showPointLabels,
-                          }
-                        : {}),
-                },
-                correct: correct,
-            });
-
-            _.each(
-                [
-                    "allowReflexAngles",
-                    "angleOffsetDeg",
-                    "numPoints",
-                    "numSides",
-                    "numSegments",
-                    "showAngles",
-                    "showSides",
-                    "snapTo",
-                    "snapDegrees",
-                ],
-                function (key) {
-                    if (_.has(correct, key)) {
-                        // @ts-expect-error - TS2339 - Property 'graph' does not exist on type 'Pick<any, "step" | "range" | "backgroundImage" | "snapStep" | "labels" | "showTooltips" | "markings" | "gridStep" | "showProtractor">'.
-                        json.graph[key] = correct[key];
-                    }
-                },
-            );
-        } else {
-            // When the graph is undefined (such as when the settings are invalid).
-            // Fall back to the last-known graph/correct from props.
-            // This preserves the graph rendering in our preview editor and avoids
-            // cascading issues as a result of undefined props being passed to
-            // the interactive graph widget.
-            _.extend(json, {
-                graph: this.props.graph,
-                correct: this.props.correct,
-            });
-        }
-        // @ts-expect-error TS2739 Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "step" | "gridStep" | "snapStep" | "backgroundImage" | "markings" | "labels" | ... 5 more ... | "range">' is missing the following properties from type 'PerseusInteractiveGraphWidgetOptions': graph, correct
-        return json;
-    }
-
     // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
     // the new linter rules for save warnings.
     getSaveWarnings = () => {
@@ -328,7 +245,6 @@ class InteractiveGraphEditor extends React.Component<Props, State> {
                     : this.props.graph;
 
             const graphProps = {
-                ref: "graph",
                 options: {
                     range: this.props.range,
                     showAxisArrows: this.props.showAxisArrows,

@@ -12,7 +12,6 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 import invariant from "tiny-invariant";
-import _ from "underscore";
 
 import GraphSettings from "../../components/graph-settings";
 import InfoTip from "../../components/info-tip";
@@ -65,13 +64,6 @@ class GrapherEditor extends React.Component<Props> {
             availableTypes: newAvailableTypes,
             correct: correct,
         });
-    };
-
-    serialize: () => any = () => {
-        return _.chain(this.props)
-            .pick("correct", "availableTypes")
-            .extend({graph: _.omit(this.props.graph, "box")})
-            .value();
     };
 
     render(): React.ReactNode {

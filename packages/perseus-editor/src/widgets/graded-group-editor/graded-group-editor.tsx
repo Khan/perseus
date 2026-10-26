@@ -55,20 +55,6 @@ class GradedGroupEditor extends React.Component<Props> {
         return this.editor.current?.getSaveWarnings();
     };
 
-    serialize: () => {
-        title: string;
-        hint: any | null | undefined;
-    } = () => {
-        return {
-            title: this.props.title,
-            ...this.editor.current?.serialize(),
-            hint: this.hintEditor.current?.serialize(),
-            ...(this.props.answerArea
-                ? {answerArea: this.props.answerArea}
-                : {}),
-        };
-    };
-
     render(): React.ReactNode {
         const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
         return (
