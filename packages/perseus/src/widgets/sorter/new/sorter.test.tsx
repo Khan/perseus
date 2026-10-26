@@ -15,6 +15,7 @@ import {scorePerseusItemTesting} from "../../../util/test-utils";
 import {renderQuestion} from "../../__testutils__/render-question";
 
 import type {APIOptions} from "../../../types";
+import type {SorterLegend} from "../legend/legend-types";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -33,6 +34,22 @@ function generateSorterQuestion(
                 options: generateSorterOptions({correct, layout}),
             }),
         },
+    });
+}
+
+// The legend isn't in the schema yet, so it's added next to the generated
+// options rather than through generateSorterOptions.
+function generateSorterQuestionWithLegend(
+    legend: SorterLegend,
+    layout: "horizontal" | "vertical" = "horizontal",
+): PerseusRenderer {
+    const options = {
+        ...generateSorterOptions({correct: ["Apple", "Banana"], layout}),
+        legend,
+    };
+    return generateTestPerseusRenderer({
+        content: "[[☃ sorter 1]]",
+        widgets: {"sorter 1": generateSorterWidget({options})},
     });
 }
 
@@ -344,6 +361,43 @@ describe("new sorter widget", () => {
                 type: "sorter",
                 id: "sorter 1",
             });
+        });
+    });
+
+    describe("legend", () => {
+        const legend: SorterLegend = {
+            startCap: "arrow",
+            endCap: "bar",
+            startLabel: "Lowest",
+            endLabel: "Highest",
+            ariaLabel: "Interest rates, from lowest to highest",
+            position: "below",
+        };
+
+        it("renders the legend caps", () => {
+            // Arrange, Act
+            renderQuestion(generateSorterQuestionWithLegend(legend), {
+                apiOptions,
+            });
+
+            // Assert
+            expect(screen.getByTestId("legend-bar-start-cap")).toHaveClass(
+                "arrow",
+            );
+            expect(screen.getByTestId("legend-bar-end-cap")).toHaveClass("bar");
+        });
+
+        it("renders no caps or labels when there is no legend", () => {
+            // Arrange, Act
+            renderQuestion(generateSorterQuestion(["Apple", "Banana"]), {
+                apiOptions,
+            });
+
+            // Assert
+            expect(
+                screen.queryByTestId("legend-bar-start-cap"),
+            ).not.toBeInTheDocument();
+            expect(screen.queryByText("Lowest")).not.toBeInTheDocument();
         });
     });
 

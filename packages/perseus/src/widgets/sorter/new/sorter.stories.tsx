@@ -1,4 +1,9 @@
-import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+import {
+    generateSorterOptions,
+    generateSorterWidget,
+    generateTestPerseusItem,
+    generateTestPerseusRenderer,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
@@ -8,6 +13,7 @@ import {
     twoCardVerticalQuestion,
 } from "../sorter.testdata";
 
+import type {SorterLegend} from "../legend/legend-types";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -52,4 +58,52 @@ export const VerticalLayout: Story = {
     args: {
         item: generateTestPerseusItem({question: twoCardVerticalQuestion}),
     },
+};
+
+type LegendStoryArgs = SorterLegend & {layout: "horizontal" | "vertical"};
+
+function generateItemWithLegend(args: LegendStoryArgs): PerseusItem {
+    const {layout, ...legend} = args;
+    // The legend isn't in the schema yet, so it's added next to the
+    // generated options rather than through generateSorterOptions.
+    const options = {
+        ...generateSorterOptions({
+            correct: ["Car loan", "Student loan", "Credit card"],
+            layout,
+        }),
+        legend,
+    };
+
+    return generateTestPerseusItem({
+        question: generateTestPerseusRenderer({
+            content: "Arrange the loans by interest rate. [[☃ sorter 1]]",
+            widgets: {"sorter 1": generateSorterWidget({options})},
+        }),
+    });
+}
+
+export const Legend: StoryObj<LegendStoryArgs> = {
+    args: {
+        layout: "horizontal",
+        startCap: "arrow",
+        endCap: "arrow",
+        startLabel: "Lowest",
+        endLabel: "Highest",
+        ariaLabel:
+            "Interest rates, from lowest at the start to highest at the end",
+        position: "below",
+    },
+    argTypes: {
+        layout: {control: "inline-radio", options: ["horizontal", "vertical"]},
+        startCap: {control: "inline-radio", options: ["arrow", "bar", "none"]},
+        endCap: {control: "inline-radio", options: ["arrow", "bar", "none"]},
+    },
+    parameters: {
+        controls: {
+            include: ["layout", "startCap", "endCap"],
+        },
+    },
+    render: (args) => (
+        <ServerItemRendererWithDebugUI item={generateItemWithLegend(args)} />
+    ),
 };

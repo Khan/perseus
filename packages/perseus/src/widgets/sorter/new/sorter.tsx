@@ -25,12 +25,18 @@ import type {MoveTarget} from "../../../components/drag-and-drop/dnd-action-menu
 import type {TilePlacements} from "../../../components/drag-and-drop/tile-placements";
 import type {Widget, WidgetProps} from "../../../types";
 import type {SorterPromptJSON} from "../../../widget-ai-utils/sorter/sorter-ai-utils";
+import type {SorterLegend} from "../legend/legend-types";
 import type {
     PerseusSorterWidgetOptions,
     PerseusSorterUserInput,
 } from "@khanacademy/perseus-core";
 
-type Props = WidgetProps<PerseusSorterWidgetOptions, PerseusSorterUserInput>;
+// TODO(anakaren): Drop the `{legend?: SorterLegend}` addition once the legend schema adds it
+// to PerseusSorterWidgetOptions.
+type Props = WidgetProps<
+    PerseusSorterWidgetOptions & {legend?: SorterLegend},
+    PerseusSorterUserInput
+>;
 
 function getBlankId(index: number): string {
     return `blank-${index}`;
@@ -51,6 +57,7 @@ function placementsFromOrder(order: string[]): TilePlacements {
 const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
     const {options, userInput, widgetId, handleUserInput, trackInteraction} =
         props;
+    const {legend} = options;
 
     const dependencies = useDependencies();
 
@@ -180,7 +187,11 @@ const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
                     )}
                 >
                     {layout === "vertical" && (
-                        <LegendBar orientation="vertical" />
+                        <LegendBar
+                            orientation="vertical"
+                            startCap={legend?.startCap}
+                            endCap={legend?.endCap}
+                        />
                     )}
                     <ol
                         className={classNames(
@@ -232,7 +243,11 @@ const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
                         })}
                     </ol>
                     {layout === "horizontal" && (
-                        <LegendBar orientation="horizontal" />
+                        <LegendBar
+                            orientation="horizontal"
+                            startCap={legend?.startCap}
+                            endCap={legend?.endCap}
+                        />
                     )}
                 </div>
                 <ChoiceBank label={tempDndStrings.choices}>
