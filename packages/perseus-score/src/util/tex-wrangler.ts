@@ -149,27 +149,6 @@ function walkTex(
 }
 
 /*
- * Modify a TeX expression, returning another TeX expression. The resulting
- * expression will have its innermost fractions stubbed out with \fracs
- * (as opposed to \dfracs). All other content will remain untouched.
- */
-export function modifyTex(tex: string): string {
-    function isNestedFraction(tex: string) {
-        return tex.indexOf("\\frac") > -1 || tex.indexOf("\\dfrac") > -1;
-    }
-    const handler = function (exp1: string, exp2: string) {
-        let prefix;
-        if (isNestedFraction(exp1) || isNestedFraction(exp2)) {
-            prefix = "\\dfrac";
-        } else {
-            prefix = "\\frac";
-        }
-        return prefix + " {" + exp1 + "}{" + exp2 + "}";
-    };
-    return walkTex(tex, handler);
-}
-
-/*
  * Parse a TeX expression into something interpretable by input-number.
  * The process is concerned with: (1) parsing fractions, i.e., \dfracs; and
  * (2) removing backslash-escaping from certain characters (right now, only

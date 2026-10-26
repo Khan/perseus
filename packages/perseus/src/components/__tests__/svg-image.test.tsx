@@ -9,7 +9,7 @@ import {
 } from "../../testing/test-dependencies";
 import * as GraphieUtils from "../../util/graphie-utils";
 import {typicalCase} from "../../util/graphie-utils.testdata";
-import {graphieImage} from "../../widgets/image/utils";
+import {graphieImage} from "../../widgets/image/__testdata__/image.testdata";
 import SvgImage from "../svg-image";
 
 describe("SvgImage", () => {

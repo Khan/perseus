@@ -11,7 +11,6 @@ import {interactiveGraphLogic} from "@khanacademy/perseus-core";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
-import invariant from "tiny-invariant";
 
 import AngleAnswerOptions from "./components/angle-answer-options";
 import GraphPointsCountSelector from "./components/graph-points-count-selector";
@@ -34,9 +33,9 @@ import type {InteractiveGraphSettingsData} from "./components/interactive-graph-
 import type {WidgetEditorProps} from "../widget-editor-props";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
+    PerseusGraphType,
     PerseusInteractiveGraphUserInput,
     PerseusInteractiveGraphWidgetOptions,
-    PerseusGraphType,
 } from "@khanacademy/perseus-core";
 
 const InteractiveGraph: typeof InteractiveGraphWidget.widget =
@@ -277,36 +276,29 @@ class InteractiveGraphEditor extends React.Component<Props, State> {
                 handleUserInput: (
                     newGraph: PerseusInteractiveGraphUserInput,
                 ) => {
-                    let correct = this.props.correct;
-                    // TODO(benchristel): can we improve the type of onChange
-                    // so this invariant isn't necessary?
-                    invariant(newGraph != null);
-                    // Preserve author's showPointLabels: the state echo
-                    // from StatefulMafsGraph would otherwise clobber it
-                    // with the render-time override's `false`.
+                    // The code below was written under the assumption that
+                    // static graphs can never display visible point labels,
+                    // though I don't think there's any product reason for that
+                    // restriction. If we set `showPointLabels = true` on the
+                    // `correct` field of a static graph, the graph in the
+                    // editor will show the labels while the learner view does
+                    // not. This conditional prevents that inconsistency by
+                    // hiding the labels in the editor.
+                    // TODO(benchristel): let static graphs show point labels,
+                    //  and delete this special-case handling.
                     if (
                         this.props.static === true &&
-                        newGraph != null &&
                         "showPointLabels" in newGraph
                     ) {
                         newGraph = {
                             ...newGraph,
                             showPointLabels:
-                                "showPointLabels" in correct
-                                    ? correct.showPointLabels
+                                "showPointLabels" in this.props.correct
+                                    ? this.props.correct.showPointLabels
                                     : undefined,
                         };
                     }
-                    if (correct.type === newGraph.type) {
-                        correct = mergeGraphs(correct, newGraph);
-                    } else {
-                        // Clear options from previous graph
-                        correct = newGraph;
-                    }
-                    this.handleChange({
-                        correct: correct,
-                        graph: this.props.graph,
-                    });
+                    this.handleChange({correct: newGraph});
                 },
             } as const;
 
@@ -489,72 +481,6 @@ class InteractiveGraphEditor extends React.Component<Props, State> {
                 )}
             </Id>
         );
-    }
-}
-
-// Merges two graphs that have the same `type`. Properties defined in `b`
-// overwrite properties of the same name in `a`. Throws an exception if the
-// types are different or not recognized.
-function mergeGraphs(
-    a: PerseusGraphType,
-    b: PerseusGraphType,
-): PerseusGraphType {
-    if (a.type !== b.type) {
-        throw new Error(
-            `Cannot merge graphs with different types (${a.type} and ${b.type})`,
-        );
-    }
-    switch (a.type) {
-        case "angle":
-            invariant(b.type === "angle");
-            return {...a, ...b};
-        case "circle":
-            invariant(b.type === "circle");
-            return {...a, ...b};
-        case "linear":
-            invariant(b.type === "linear");
-            return {...a, ...b};
-        case "linear-system":
-            invariant(b.type === "linear-system");
-            return {...a, ...b};
-        case "none":
-            invariant(b.type === "none");
-            return {...a, ...b};
-        case "point":
-            invariant(b.type === "point");
-            return {...a, ...b};
-        case "polygon":
-            invariant(b.type === "polygon");
-            return {...a, ...b};
-        case "quadratic":
-            invariant(b.type === "quadratic");
-            return {...a, ...b};
-        case "ray":
-            invariant(b.type === "ray");
-            return {...a, ...b};
-        case "segment":
-            invariant(b.type === "segment");
-            return {...a, ...b};
-        case "sinusoid":
-            invariant(b.type === "sinusoid");
-            return {...a, ...b};
-        case "absolute-value":
-            invariant(b.type === "absolute-value");
-            return {...a, ...b};
-        case "exponential":
-            invariant(b.type === "exponential");
-            return {...a, ...b};
-        case "tangent":
-            invariant(b.type === "tangent");
-            return {...a, ...b};
-        case "logarithm":
-            invariant(b.type === "logarithm");
-            return {...a, ...b};
-        case "vector":
-            invariant(b.type === "vector");
-            return {...a, ...b};
-        default:
-            throw new UnreachableCaseError(a);
     }
 }
 
