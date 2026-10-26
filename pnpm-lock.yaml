@@ -629,7 +629,7 @@ importers:
         version: 5.9.3
 
   data:
-    dependencies:
+    devDependencies:
       '@khanacademy/perseus-core':
         specifier: workspace:*
         version: link:../packages/perseus-core
