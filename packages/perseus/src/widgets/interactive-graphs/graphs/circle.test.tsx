@@ -7,7 +7,7 @@ import * as Dependencies from "../../../dependencies";
 import {testDependencies} from "../../../testing/test-dependencies";
 import {MafsGraph} from "../mafs-graph";
 import * as ReducerGraphConfig from "../reducer/use-graph-config";
-import {getBaseMafsGraphPropsForTests} from "../utils";
+import {getBaseMafsGraphPropsForTests} from "../graph.testutils";
 
 import {CircleGraph, getCircleKeyboardConstraint} from "./circle";
 import * as UseDraggableModule from "./use-draggable";

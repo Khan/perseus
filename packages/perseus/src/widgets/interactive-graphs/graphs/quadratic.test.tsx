@@ -4,7 +4,7 @@ import * as React from "react";
 import * as Dependencies from "../../../dependencies";
 import {testDependencies} from "../../../testing/test-dependencies";
 import {MafsGraph} from "../mafs-graph";
-import {getBaseMafsGraphPropsForTests} from "../utils";
+import {getBaseMafsGraphPropsForTests} from "../graph.testutils";
 
 import {getQuadraticKeyboardConstraint} from "./quadratic";
 

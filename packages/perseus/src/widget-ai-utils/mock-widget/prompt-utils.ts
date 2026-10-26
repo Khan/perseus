@@ -11,6 +11,10 @@ export type MockWidgetPromptJSON = {
     };
 };
 
+/**
+ * @internal
+ * The mock widget is only used in tests.
+ */
 export const getPromptJSON = (
     widgetData: React.ComponentProps<typeof mockWidget.widget>,
 ): MockWidgetPromptJSON => {

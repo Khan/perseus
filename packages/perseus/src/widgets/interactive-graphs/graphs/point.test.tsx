@@ -10,7 +10,7 @@ import {
     ADD_POINT,
     MOVE_POINT,
 } from "../reducer/interactive-graph-action";
-import {getBaseMafsGraphPropsForTests} from "../utils";
+import {getBaseMafsGraphPropsForTests} from "../graph.testutils";
 
 import type {MafsGraphProps} from "../mafs-graph";
 import type {InteractiveGraphState} from "../types";
