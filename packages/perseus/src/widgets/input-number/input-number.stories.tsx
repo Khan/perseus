@@ -6,7 +6,7 @@ import {
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
-import {getAnswerfulItem, getAnswerlessItem} from "../../util/test-utils";
+import {getAnswerfulItem, getAnswerlessItem} from "../../util/scoring.testutils";
 
 import {question1, question2, question3} from "./input-number.testdata";
 
