@@ -1,8 +1,7 @@
 import * as React from "react";
 
-import {LegendLabel} from "./legend-label/legend-label";
-
 import {LegendBar} from "./legend-bar/legend-bar";
+import {LegendLabel} from "./legend-label/legend-label";
 
 import type {PerseusSorterLegendBarCap} from "./legend-bar/legend-bar";
 import type {Meta, StoryObj} from "@storybook/react-vite";
