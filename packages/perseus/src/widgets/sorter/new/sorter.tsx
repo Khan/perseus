@@ -18,6 +18,7 @@ import UnsupportedWidgetMessage from "../../../components/unsupported-widget-mes
 import {useDependencies} from "../../../dependencies";
 import {getPromptJSON as _getPromptJSON} from "../../../widget-ai-utils/sorter/sorter-ai-utils";
 import {LegendBar} from "../legend/legend-bar/legend-bar";
+import {LegendLabel} from "../legend/legend-label/legend-label";
 
 import styles from "./sorter.module.css";
 
@@ -25,12 +26,18 @@ import type {MoveTarget} from "../../../components/drag-and-drop/dnd-action-menu
 import type {TilePlacements} from "../../../components/drag-and-drop/tile-placements";
 import type {Widget, WidgetProps} from "../../../types";
 import type {SorterPromptJSON} from "../../../widget-ai-utils/sorter/sorter-ai-utils";
+import type {SorterLegend} from "../legend/legend-types";
 import type {
     PerseusSorterWidgetOptions,
     PerseusSorterUserInput,
 } from "@khanacademy/perseus-core";
 
-type Props = WidgetProps<PerseusSorterWidgetOptions, PerseusSorterUserInput>;
+// TODO(anakaren): Drop the `{legend?: SorterLegend}` addition once the legend schema adds it
+// to PerseusSorterWidgetOptions.
+type Props = WidgetProps<
+    PerseusSorterWidgetOptions & {legend?: SorterLegend},
+    PerseusSorterUserInput
+>;
 
 function getBlankId(index: number): string {
     return `blank-${index}`;
@@ -51,6 +58,7 @@ function placementsFromOrder(order: string[]): TilePlacements {
 const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
     const {options, userInput, widgetId, handleUserInput, trackInteraction} =
         props;
+    const {legend} = options;
 
     const dependencies = useDependencies();
 
@@ -170,71 +178,93 @@ const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
         isTileInBank(placements, tileId, "single"),
     );
 
+    const blankList = (
+        <ol
+            aria-label={legend?.ariaLabel}
+            className={classNames(
+                styles.blanks,
+                layout === "vertical" && styles.vertical,
+            )}
+        >
+            {blankIds.map((blankId) => {
+                const tileId = placements[blankId];
+                return (
+                    <li key={blankId} className={styles.blankItem}>
+                        <BlankComponent
+                            blankId={blankId}
+                            displayType="normal"
+                            className={styles.blank}
+                        >
+                            {tileId != null && (
+                                <AnswerTile
+                                    tileId={tileId}
+                                    fromBlankId={blankId}
+                                    content={getTileContent(tileId)}
+                                    label={getTileLabel(tileId)}
+                                    moveTargets={getMoveTargets(blankId)}
+                                    onMove={(targetId) =>
+                                        handleMove(
+                                            {tileId, fromBlankId: blankId},
+                                            targetId,
+                                        )
+                                    }
+                                    clearFromLabel={getBlankLabel(blankId)}
+                                    onClear={() => handleClear(blankId)}
+                                    menuRef={placedMenuRef(blankId)}
+                                    fillsBlank={true}
+                                />
+                            )}
+                        </BlankComponent>
+                    </li>
+                );
+            })}
+        </ol>
+    );
+
+    const legendPosition = legend?.position ?? "below";
+
     return (
         <PerseusDndProvider onDragEnd={handleDragEnd}>
             <div className={styles.sorter}>
-                <div
-                    className={classNames(
-                        styles.answerZone,
-                        layout === "vertical" && styles.vertical,
-                    )}
-                >
-                    {layout === "vertical" && (
-                        <LegendBar orientation="vertical" />
-                    )}
-                    <ol
+                {layout === "vertical" ? (
+                    <div
                         className={classNames(
-                            styles.blanks,
-                            layout === "vertical" && styles.vertical,
+                            styles.answerZone,
+                            styles.vertical,
                         )}
                     >
-                        {blankIds.map((blankId) => {
-                            const tileId = placements[blankId];
-                            return (
-                                <li key={blankId} className={styles.blankItem}>
-                                    <BlankComponent
-                                        blankId={blankId}
-                                        displayType="normal"
-                                        className={styles.blank}
-                                    >
-                                        {tileId != null && (
-                                            <AnswerTile
-                                                tileId={tileId}
-                                                fromBlankId={blankId}
-                                                content={getTileContent(tileId)}
-                                                label={getTileLabel(tileId)}
-                                                moveTargets={getMoveTargets(
-                                                    blankId,
-                                                )}
-                                                onMove={(targetId) =>
-                                                    handleMove(
-                                                        {
-                                                            tileId,
-                                                            fromBlankId:
-                                                                blankId,
-                                                        },
-                                                        targetId,
-                                                    )
-                                                }
-                                                clearFromLabel={getBlankLabel(
-                                                    blankId,
-                                                )}
-                                                onClear={() =>
-                                                    handleClear(blankId)
-                                                }
-                                                menuRef={placedMenuRef(blankId)}
-                                                fillsBlank={true}
-                                            />
-                                        )}
-                                    </BlankComponent>
-                                </li>
-                            );
-                        })}
-                    </ol>
-                    {layout === "horizontal" && (
-                        <LegendBar orientation="horizontal" />
-                    )}
-                </div>
+                        <LegendBar
+                            orientation="vertical"
+                            startCap={legend?.startCap}
+                            endCap={legend?.endCap}
+                        />
+                        <div className={styles.verticalColumn}>
+                            {legend?.startLabel && (
+                                <LegendLabel content={legend.startLabel} />
+                            )}
+                            {blankList}
+                            {legend?.endLabel && (
+                                <LegendLabel content={legend.endLabel} />
+                            )}
+                        </div>
+                    </div>
+                ) : (
+                    <div className={styles.answerZone}>
+                        {legendPosition === "above" && (
+                            <HorizontalLegend
+                                legend={legend}
+                                position="above"
+                            />
+                        )}
+                        {blankList}
+                        {legendPosition === "below" && (
+                            <HorizontalLegend
+                                legend={legend}
+                                position="below"
+                            />
+                        )}
+                    </div>
+                )}
                 <ChoiceBank label={tempDndStrings.choices}>
                     {bankTiles.map((tileId, index) => (
                         <AnswerTile
@@ -254,5 +284,41 @@ const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
         </PerseusDndProvider>
     );
 });
+
+// The labels sit on the side of the bar away from the blanks.
+function HorizontalLegend(props: {
+    legend?: SorterLegend;
+    position: "above" | "below";
+}) {
+    const {legend, position} = props;
+    const hasLabels = !!(legend?.startLabel || legend?.endLabel);
+
+    const labels = hasLabels && (
+        <div className={styles.horizontalLabels}>
+            {legend?.startLabel && (
+                <div className={styles.startLabel}>
+                    <LegendLabel content={legend.startLabel} />
+                </div>
+            )}
+            {legend?.endLabel && (
+                <div className={styles.endLabel}>
+                    <LegendLabel content={legend.endLabel} />
+                </div>
+            )}
+        </div>
+    );
+
+    return (
+        <div className={styles.horizontalLegend}>
+            {position === "above" && labels}
+            <LegendBar
+                orientation="horizontal"
+                startCap={legend?.startCap}
+                endCap={legend?.endCap}
+            />
+            {position === "below" && labels}
+        </div>
+    );
+}
 
 export default Sorter;

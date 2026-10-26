@@ -3,16 +3,14 @@ import * as React from "react";
 
 import styles from "./legend-bar.module.css";
 
-type LegendBarOrientation = "horizontal" | "vertical";
+import type {SorterLegendCap} from "../legend-types";
 
-// TODO(anakaren): Use the cap type from the Sorter legend schema in
-// perseus-core once it lands.
-export type PerseusSorterLegendBarCap = "arrow" | "bar" | "none";
+type LegendBarOrientation = "horizontal" | "vertical";
 
 export interface LegendBarProps {
     orientation: LegendBarOrientation;
-    startCap?: PerseusSorterLegendBarCap;
-    endCap?: PerseusSorterLegendBarCap;
+    startCap?: SorterLegendCap;
+    endCap?: SorterLegendCap;
 }
 
 export function LegendBar({
@@ -37,7 +35,7 @@ export function LegendBar({
 }
 
 interface CapProps {
-    type: PerseusSorterLegendBarCap;
+    type: SorterLegendCap;
     side: "start" | "end";
     orientation: LegendBarOrientation;
 }

@@ -7,7 +7,7 @@ import {
     SORTER_MAX_HORIZONTAL_CARDS,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {screen, within} from "@testing-library/react";
+import {isInaccessible, screen, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {getFeatureFlags} from "../../../testing/feature-flags-util";
@@ -15,6 +15,7 @@ import {scorePerseusItemTesting} from "../../../util/test-utils";
 import {renderQuestion} from "../../__testutils__/render-question";
 
 import type {APIOptions} from "../../../types";
+import type {SorterLegend} from "../legend/legend-types";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -33,6 +34,22 @@ function generateSorterQuestion(
                 options: generateSorterOptions({correct, layout}),
             }),
         },
+    });
+}
+
+// The legend isn't in the schema yet, so it's added next to the generated
+// options rather than through generateSorterOptions.
+function generateSorterQuestionWithLegend(
+    legend: SorterLegend,
+    layout: "horizontal" | "vertical" = "horizontal",
+): PerseusRenderer {
+    const options = {
+        ...generateSorterOptions({correct: ["Apple", "Banana"], layout}),
+        legend,
+    };
+    return generateTestPerseusRenderer({
+        content: "[[☃ sorter 1]]",
+        widgets: {"sorter 1": generateSorterWidget({options})},
     });
 }
 
@@ -344,6 +361,123 @@ describe("new sorter widget", () => {
                 type: "sorter",
                 id: "sorter 1",
             });
+        });
+    });
+
+    describe("legend", () => {
+        const legend: SorterLegend = {
+            startCap: "arrow",
+            endCap: "bar",
+            startLabel: "Lowest",
+            endLabel: "Highest",
+            ariaLabel: "Interest rates, from lowest to highest",
+            position: "below",
+        };
+
+        it("names the list of blanks with the legend's aria label", () => {
+            // Arrange, Act
+            renderQuestion(generateSorterQuestionWithLegend(legend), {
+                apiOptions,
+            });
+
+            // Assert
+            expect(
+                screen.getByRole("list", {
+                    name: "Interest rates, from lowest to highest",
+                }),
+            ).toBeInTheDocument();
+        });
+
+        it("renders the legend labels", () => {
+            // Arrange, Act
+            renderQuestion(generateSorterQuestionWithLegend(legend), {
+                apiOptions,
+            });
+
+            // Assert
+            expect(screen.getByText("Lowest")).toBeInTheDocument();
+            expect(screen.getByText("Highest")).toBeInTheDocument();
+        });
+
+        it("hides the legend labels from assistive technology", () => {
+            // Arrange, Act
+            renderQuestion(generateSorterQuestionWithLegend(legend), {
+                apiOptions,
+            });
+
+            // Assert
+            expect(isInaccessible(screen.getByText("Lowest"))).toBe(true);
+            expect(isInaccessible(screen.getByText("Highest"))).toBe(true);
+        });
+
+        it("renders the legend caps", () => {
+            // Arrange, Act
+            renderQuestion(generateSorterQuestionWithLegend(legend), {
+                apiOptions,
+            });
+
+            // Assert
+            expect(screen.getByTestId("legend-bar-start-cap")).toHaveClass(
+                "arrow",
+            );
+            expect(screen.getByTestId("legend-bar-end-cap")).toHaveClass("bar");
+        });
+
+        it("renders the legend labels in the vertical layout", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateSorterQuestionWithLegend(legend, "vertical"),
+                {apiOptions},
+            );
+
+            // Assert
+            expect(screen.getByText("Lowest")).toBeInTheDocument();
+            expect(screen.getByText("Highest")).toBeInTheDocument();
+        });
+
+        it("places the legend labels after the blanks when the position is below", () => {
+            // Arrange, Act
+            renderQuestion(generateSorterQuestionWithLegend(legend), {
+                apiOptions,
+            });
+
+            // Assert
+            expect(
+                getBlankList().compareDocumentPosition(
+                    screen.getByText("Lowest"),
+                ),
+            ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+        });
+
+        it("places the legend labels before the blanks when the position is above", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateSorterQuestionWithLegend({
+                    ...legend,
+                    position: "above",
+                }),
+                {apiOptions},
+            );
+
+            // Assert
+            expect(
+                getBlankList().compareDocumentPosition(
+                    screen.getByText("Lowest"),
+                ),
+            ).toBe(Node.DOCUMENT_POSITION_PRECEDING);
+        });
+
+        it("renders no caps or labels when there is no legend", () => {
+            // Arrange, Act
+            renderQuestion(generateSorterQuestion(["Apple", "Banana"]), {
+                apiOptions,
+            });
+
+            // Assert
+            expect(
+                screen.queryByTestId("legend-bar-start-cap"),
+            ).not.toBeInTheDocument();
+            expect(screen.queryByText("Lowest")).not.toBeInTheDocument();
         });
     });
 

@@ -9,10 +9,15 @@ import {themeModes} from "../../../../../../.storybook/modes";
 import QuestionRendererForStories from "../../__testutils__/question-renderer-for-stories";
 import {rtlDecorator} from "../../__testutils__/story-decorators";
 
+import type {SorterLegend} from "../legend/legend-types";
 import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const meta: Meta<PerseusSorterWidgetOptions> = {
+// TODO(anakaren): Drop the `legend` addition once the legend schema adds it
+// to PerseusSorterWidgetOptions.
+type SorterStoryArgs = PerseusSorterWidgetOptions & {legend?: SorterLegend};
+
+const meta: Meta<SorterStoryArgs> = {
     title: "Widgets/Sorter/Visual Regression Tests/Drag and Drop",
     tags: ["!autodocs", "!manifest"],
     globals: {featureFlags: ["dnd-widget-sorter"]},
@@ -67,5 +72,92 @@ export const HorizontalLegendBarRightToLeft: Story = {
 
 export const VerticalLegendBarRightToLeft: Story = {
     args: {correct: fourCards, layout: "vertical"},
+    decorators: [rtlDecorator],
+};
+
+const scaleLegend: SorterLegend = {
+    startCap: "arrow",
+    endCap: "arrow",
+    startLabel: "Shortest",
+    endLabel: "Longest",
+    ariaLabel: "Distances, from shortest at the start to longest at the end",
+    position: "below",
+};
+
+const timelineCards = ["D-Day", "Battle of the Bulge", "V-E Day", "V-J Day"];
+
+const timelineLegend: SorterLegend = {
+    startCap: "bar",
+    endCap: "bar",
+    startLabel: "1944",
+    endLabel: "1946",
+    ariaLabel:
+        "Events of World War II, from 1944 at the start to 1946 at the end",
+    position: "below",
+};
+
+export const ScaleLegendBelow: Story = {
+    args: {correct: fourCards, layout: "horizontal", legend: scaleLegend},
+};
+
+export const ScaleLegendAbove: Story = {
+    args: {
+        correct: fourCards,
+        layout: "horizontal",
+        legend: {...scaleLegend, position: "above"},
+    },
+};
+
+export const TimelineLegend: Story = {
+    args: {
+        correct: timelineCards,
+        layout: "horizontal",
+        legend: timelineLegend,
+    },
+};
+
+export const MixedLegendCaps: Story = {
+    args: {
+        correct: fourCards,
+        layout: "horizontal",
+        legend: {...scaleLegend, startCap: "arrow", endCap: "bar"},
+    },
+};
+
+export const LongLegendLabels: Story = {
+    args: {
+        correct: fourCards,
+        layout: "horizontal",
+        legend: {
+            ...scaleLegend,
+            startLabel: "Shortest distance traveled in a single day",
+            endLabel: "Longest distance traveled in a single day",
+        },
+    },
+};
+
+export const ScaleLegendRightToLeft: Story = {
+    args: {
+        correct: fourCards,
+        layout: "horizontal",
+        legend: {...scaleLegend, endCap: "bar"},
+    },
+    decorators: [rtlDecorator],
+};
+
+export const VerticalScaleLegend: Story = {
+    args: {correct: fourCards, layout: "vertical", legend: scaleLegend},
+};
+
+export const VerticalTimelineLegend: Story = {
+    args: {correct: timelineCards, layout: "vertical", legend: timelineLegend},
+};
+
+export const VerticalScaleLegendRightToLeft: Story = {
+    args: {
+        correct: fourCards,
+        layout: "vertical",
+        legend: {...scaleLegend, endCap: "bar"},
+    },
     decorators: [rtlDecorator],
 };
