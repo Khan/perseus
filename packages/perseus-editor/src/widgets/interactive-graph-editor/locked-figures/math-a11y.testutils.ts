@@ -1,4 +1,4 @@
-import {LockedLabelType} from "@khanacademy/perseus-core";
+import type {LockedLabelType} from "@khanacademy/perseus-core";
 
 /**
  * Non-async mocked version of joinLabelsAsSpokenMath for tests.
