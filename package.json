@@ -136,7 +136,7 @@
         "tsc": "pnpm typecheck",
         "typecheck": "tsc",
         "typecheck:cypress": "tsc --project config/cypress/tsconfig.json",
-        "knip": "knip --config knip.config.ts",
+        "knip": "./utils/knip.sh",
         "extract-css": "node ./utils/extract-css.js",
         "sync-legacy-styles": "node ./utils/sync-legacy-styles.js",
         "force-update": "touch package.json && pnpm i",
