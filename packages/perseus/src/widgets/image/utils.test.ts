@@ -1,7 +1,7 @@
 import {parseGIF, decompressFrames} from "gifuct-js";
 
-import {decodeGifFrames, isGif, isSvg} from "./utils";
 import {graphieImage} from "./__testdata__/image.testdata";
+import {decodeGifFrames, isGif, isSvg} from "./utils";
 
 import type {ParsedFrame} from "gifuct-js";
 
