@@ -81,7 +81,7 @@
 
 /* A placed tile hugs its value and hides its menu. Hover or focus
  * shows the menu, and the tile grows. */
-.hidesMenuAtRest:not(:hover):not(:focus-within) {
+.hidesMenuAtRest:not(.reservesMenuSpace):not(:hover):not(:focus-within) {
     min-inline-size: 0;
 }
 
@@ -93,8 +93,69 @@
     opacity: 0;
 }
 
-.hidesMenuAtRest:not(:hover):not(:focus-within) .content {
+.hidesMenuAtRest:not(.reservesMenuSpace):not(:hover):not(:focus-within)
+    .content {
     padding-inline-end: 0;
+}
+
+/* The width the menu takes when it shows: the menu box, its gap, and
+ * the content's end padding. */
+.reservesMenuSpace {
+    --answer-tile-menu-space: calc(
+        var(--wb-sizing-size_240) + 2 * var(--wb-sizing-size_060)
+    );
+}
+
+/* A placed tile that keeps its menu's space at rest, partly outside
+ * the tile as margin and partly inside it as padding, each split
+ * evenly between the two sides: 3/16 of the space per side outside and
+ * 5/16 inside, which sum to the half per side the menu takes. Hover or
+ * focus shows the menu, and the tile grows into its margin, so the
+ * line does not reflow; the value shifts within the tile to make room
+ * for the menu. */
+.hidesMenuAtRest.reservesMenuSpace:not(:hover):not(:focus-within) {
+    margin-inline: calc(var(--answer-tile-menu-space) * 3 / 16);
+}
+
+.hidesMenuAtRest.reservesMenuSpace:not(:hover):not(:focus-within) .content {
+    padding-inline: calc(var(--answer-tile-menu-space) * 5 / 16);
+}
+
+/* A placed tile eases between rest and hover or focus. The list covers
+ * every property that changes: the menu's collapse, the reserved
+ * margin and padding, and the compact chip's size and type. Every
+ * property shares one duration and easing, so the margin a tile gives
+ * up and the width it gains cancel at every frame, and the line does
+ * not move mid-transition. The menu box gets a definite hover width:
+ * a transition cannot animate to or from `auto`. */
+.hidesMenuAtRest,
+.hidesMenuAtRest .content,
+.hidesMenuAtRest .startContainer {
+    transition-duration: 250ms;
+    transition-timing-function: ease;
+}
+
+.hidesMenuAtRest {
+    transition-property: margin-inline, min-inline-size, min-block-size,
+        padding-block, padding-inline, font-size, line-height;
+}
+
+.hidesMenuAtRest .content {
+    transition-property: padding-inline;
+}
+
+.hidesMenuAtRest .startContainer {
+    inline-size: var(--wb-sizing-size_240);
+    transition-property: inline-size, min-inline-size, margin-inline-end,
+        opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hidesMenuAtRest,
+    .hidesMenuAtRest .content,
+    .hidesMenuAtRest .startContainer {
+        transition: none;
+    }
 }
 
 /* A tile that fills its blank, content at the start. The menu stays
@@ -167,13 +228,14 @@
     }
 }
 
-/* The renderer puts content in .paragraph divs, and Perseus gives
- * those divs global page styles (article paragraphs set their own font
- * and color). The tile owns its typography, so we remove those styles
- * here. The global sheets sit in the perseus-legacy cascade layer, so
- * this rule wins wherever it is loaded. Color needs an explicit
- * declaration: a scored tile sets its color on the tile, and an
- * inherited value loses to any rule that names the paragraph. */
+/* The renderer wraps content in .deprecated-perseus-container
+ * paragraphs (a div around a p), and Perseus gives those global page
+ * styles: an 18px font and 22px block margins, which make a one-line
+ * tile 84px tall. The tile owns its typography, so we remove those
+ * styles here. The global sheets sit in the perseus-legacy cascade
+ * layer, so this rule wins wherever it is loaded. Color needs an
+ * explicit declaration: a scored tile sets its color on the tile, and
+ * an inherited value loses to any rule that names the paragraph. */
 .tile .content :global(.deprecated-perseus-container) {
     margin: 0;
     font: inherit;
