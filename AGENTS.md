@@ -45,40 +45,22 @@ packages/
 ## Testing Guidelines
 
 ### Test Structure
-1. Follow the AAA pattern: Arrange, Act, Assert
-1.1 If Arrange and Act are one action, combine them to `//Arrange, Act`
-2. Use widget generators to build test data and test data options.
-   You can find generators for all widgets in packages/perseus-core/src/utils/generators.
-   An example usage can be seen here: packages/perseus/src/widgets/expression/expression.testdata.ts.
-   Values that are important to the test — used in assertions or the specific logic being tested —
-   should be explicitly passed as params to the generator, not left as shared defaults.
-   Test assertions shouldn't be coupled to setup they don't control.
-3. Follow the test structure below:
-```typescript
-import {screen} from "@testing-library/react";
-import {userEvent} from "@testing-library/user-event";
-
-import {renderQuestion} from "../__testutils__/renderQuestion";
-import {generateWidgetItem} from "./widget.testdata";
-
-describe("Widget", () => {
-    it("renders the prompt text", () => {
-        // Arrange, Act
-        renderQuestion(generateWidgetItem());
-
-        expect(screen.getByText("What is 2 + 2?")).toBeInTheDocument();
-    });
-
-    it("calls handleUserInput when an answer is selected", async () => {
-        const user = userEvent.setup();
-        const {renderer} = renderQuestion(generateWidgetItem());
-
-        await user.click(screen.getByRole("button", {name: "4"}));
-
-        expect(renderer.getUserInput()).toMatchObject({currentValue: "4"});
-    });
-});
-```
+1. Model new widget tests on
+   `packages/perseus/src/widgets/dropdown/dropdown.test.ts` and its
+   `dropdown.testdata.ts`.
+2. Follow the AAA pattern with `// Arrange`, `// Act` and `// Assert`
+   comments. When Arrange and Act are one step, use `// Arrange, Act`.
+3. Build test data with the generators in
+   `packages/perseus-core/src/utils/generators`. Pass values the test depends
+   on (used in assertions or the logic under test) explicitly instead of
+   relying on shared defaults or testdata the test doesn't control.
+4. Render widget tests with `renderQuestion` from
+   `packages/perseus/src/widgets/__testutils__/render-question.tsx`. It takes
+   a `PerseusRenderer` (`item.question`), provides test dependencies and
+   registers widgets; override a dependency with its `dependencies` option.
+   Read user input with `renderer.getUserInputMap()`. Item-level tests
+   (`ServerItemRenderer`) use `renderQuestion` from
+   `packages/perseus/src/__tests__/test-utils.tsx` instead.
 
 ### Writing Tests
 - Test titles should describe the requirement or observable outcome, not the implementation.
@@ -86,8 +68,11 @@ describe("Widget", () => {
   A failing test title should tell you which requirement broke without reading the test body.
   ❌ `"should handle empty input"` → ✅ `"returns null when input is empty"`
 - Only mock dependencies (`jest.spyOn(Dependencies, "getDependencies")` /
-  `jest.spyOn(Dependencies, "useDependencies")`) when the code under test actually
-  reads them. Don't copy the `beforeEach` block from other test files by default.
+  `jest.spyOn(Dependencies, "useDependencies")`) when the code under test
+  actually reads them. Widget tests rarely need to, because `renderQuestion`
+  already provides them.
+- Test Perseus's behavior, not the libraries it wraps (e.g. Wonder Blocks
+  components). One assertion that a wrapped component did its job is enough.
 
 ## Accessibility
 
