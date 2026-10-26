@@ -1,11 +1,17 @@
 import {
-    CategorizerWidget, generateTestPerseusItem, PerseusItem,
-    PerseusRenderer,
-    PerseusScore,
-    PerseusWidgetTypes, splitPerseusItem,
-    UserInputMap
+    generateTestPerseusItem,
+    splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
+
+import type {
+    CategorizerWidget,
+    PerseusItem,
+    PerseusRenderer,
+    PerseusScore,
+    PerseusWidgetTypes,
+    UserInputMap,
+} from "@khanacademy/perseus-core";
 
 // TODO: Move to `perseus-score`!
 export function isCorrect(score: PerseusScore): boolean {

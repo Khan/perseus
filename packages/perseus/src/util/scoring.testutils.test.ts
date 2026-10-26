@@ -1,11 +1,18 @@
-import {getAnswerfulItem, getAnswerlessItem, isCorrect} from "./scoring.testutils";
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+
+import {
+    getAnswerfulItem,
+    getAnswerlessItem,
+    isCorrect,
+} from "./scoring.testutils";
 import {
     basicObject,
-    customAnswerAreaInfo, customHintsInfo,
+    customAnswerAreaInfo,
+    customHintsInfo,
     customQuestionInfo,
-    expectedAnswerAreaInfoAdded, expectedHintsInfoAdded,
-    expectedQuestionInfoAdded
+    expectedAnswerAreaInfoAdded,
+    expectedHintsInfoAdded,
+    expectedQuestionInfoAdded,
 } from "./scoring.testutils.testdata";
 
 describe("isCorrect", () => {

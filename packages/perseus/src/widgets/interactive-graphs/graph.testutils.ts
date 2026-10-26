@@ -1,4 +1,4 @@
-import {MafsGraphProps} from "./mafs-graph";
+import type {MafsGraphProps} from "./mafs-graph";
 
 export function getBaseMafsGraphPropsForTests(): MafsGraphProps {
     return {

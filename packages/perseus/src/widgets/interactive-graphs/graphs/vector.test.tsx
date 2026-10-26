@@ -7,8 +7,8 @@ import * as React from "react";
 
 import * as Dependencies from "../../../dependencies";
 import {testDependencies} from "../../../testing/test-dependencies";
-import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../graph.testutils";
+import {MafsGraph} from "../mafs-graph";
 
 import {getVectorTipKeyboardConstraint} from "./vector";
 
