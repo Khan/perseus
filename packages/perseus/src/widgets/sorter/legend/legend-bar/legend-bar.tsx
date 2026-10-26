@@ -3,7 +3,7 @@ import * as React from "react";
 
 import styles from "./legend-bar.module.css";
 
-export type LegendBarOrientation = "horizontal" | "vertical";
+type LegendBarOrientation = "horizontal" | "vertical";
 
 // TODO(anakaren): Use the cap type from the Sorter legend schema in
 // perseus-core once it lands.
