@@ -15,8 +15,8 @@ import {useWidestTileWidth} from "../../components/drag-and-drop/use-widest-tile
 import {usePerseusI18n} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 import {sharedInitializeUserInput} from "../../user-input-manager";
+import {BlankContext} from "../blank/blank-context";
 
-import {FillInTheBlankContext} from "./fill-in-the-blank-context";
 import styles from "./fill-in-the-blank.module.css";
 
 import type {
@@ -86,7 +86,7 @@ const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
 /**
  * The widget's render: an answer zone (content with inline blanks) above
  * a choice bank of draggable tiles. It feeds the blank widgets through
- * FillInTheBlankContext.
+ * BlankContext.
  */
 function FillInTheBlank({
     options,
@@ -220,8 +220,8 @@ function FillInTheBlank({
             data-testid="fill-in-the-blank-widget"
         >
             <PerseusDndProvider onDragEnd={handleDragEnd}>
-                <FillInTheBlankContext.Provider
-                    value={{renderPlacedTile, widestTileWidth: maxWidth}}
+                <BlankContext.Provider
+                    value={{renderPlacedTile, minWidth: maxWidth}}
                 >
                     <div className={styles.answerZone}>
                         <Renderer
@@ -237,7 +237,7 @@ function FillInTheBlank({
                             strings={i18nStrings}
                         />
                     </div>
-                </FillInTheBlankContext.Provider>
+                </BlankContext.Provider>
                 <ChoiceBank label={strings.choices}>{bankTiles}</ChoiceBank>
             </PerseusDndProvider>
             {/* A separate provider keeps the measurement copies out of the
