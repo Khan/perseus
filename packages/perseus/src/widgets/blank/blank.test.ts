@@ -32,6 +32,7 @@ describe("Blank Widget", function () {
         // Arrange, Act
         renderQuestion(superscriptQuestion);
 
+        // Assert
         expect(screen.getByTestId("blank-widget").className).toContain(
             "superSub",
         );
@@ -41,6 +42,7 @@ describe("Blank Widget", function () {
         // Arrange, Act
         renderQuestion(basicBlankQuestion);
 
+        // Assert
         expect(screen.getByTestId("blank-widget").className).not.toContain(
             "superSub",
         );
@@ -55,6 +57,7 @@ describe("Blank Widget", function () {
             }),
         });
 
+        // Assert
         expect(screen.getByTestId("blank-widget")).toHaveTextContent(
             "tile in blank 1",
         );
@@ -69,6 +72,7 @@ describe("Blank Widget", function () {
             }),
         });
 
+        // Assert
         expect(screen.getByTestId("blank-widget").style.cssText).toContain(
             "--blank-min-inline-size: 120px",
         );
@@ -78,6 +82,7 @@ describe("Blank Widget", function () {
         // Arrange, Act
         renderQuestion(basicBlankQuestion);
 
+        // Assert
         const blank = screen.getByTestId("blank-widget");
         expect(blank).toBeEmptyDOMElement();
         expect(blank.style.cssText).not.toContain("--blank-min-inline-size");

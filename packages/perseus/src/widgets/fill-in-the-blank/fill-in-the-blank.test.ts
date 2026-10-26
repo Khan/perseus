@@ -78,6 +78,7 @@ describe("Fill in the Blank Widget", () => {
         // Arrange, Act
         const widget = Widgets.getWidget("fill-in-the-blank");
 
+        // Assert
         expect(widget).not.toBeNull();
     });
 
@@ -85,6 +86,7 @@ describe("Fill in the Blank Widget", () => {
         // Arrange, Act
         const publicWidgets = Widgets.getPublicWidgets();
 
+        // Assert
         expect(publicWidgets["fill-in-the-blank"]).toBeUndefined();
     });
 
@@ -92,6 +94,7 @@ describe("Fill in the Blank Widget", () => {
         // Arrange, Act
         renderFillInTheBlank(twoBlanks);
 
+        // Assert
         expect(screen.getAllByTestId("blank-widget")).toHaveLength(2);
     });
 
@@ -99,6 +102,7 @@ describe("Fill in the Blank Widget", () => {
         // Arrange, Act
         renderFillInTheBlank({...twoBlanks, tiles: drumTiles});
 
+        // Assert
         const bank = screen.getByRole("list", {name: "Choices"});
         expect(within(bank).getAllByRole("listitem")).toHaveLength(4);
     });
@@ -110,6 +114,7 @@ describe("Fill in the Blank Widget", () => {
             {"blank 1": {selected: "djembe"}},
         );
 
+        // Assert
         const bank = screen.getByRole("list", {name: "Choices"});
         expect(within(bank).getAllByRole("listitem")).toHaveLength(3);
         for (const name of ["bongo", "hands", "sticks"]) {
@@ -123,13 +128,16 @@ describe("Fill in the Blank Widget", () => {
     });
 
     it("records a tile placed through the actions menu", async () => {
+        // Arrange
         const {renderer} = renderFillInTheBlank({
             ...twoBlanks,
             tiles: drumTiles,
         });
 
+        // Act
         await moveViaMenu(user, "djembe", "Blank 1");
 
+        // Assert
         expect(renderer.getUserInputMap()).toEqual({
             "fill-in-the-blank 1": {
                 "blank 1": {selected: "djembe"},
@@ -139,14 +147,17 @@ describe("Fill in the Blank Widget", () => {
     });
 
     it("removes a placed single-use tile from the choice bank", async () => {
+        // Arrange
         renderFillInTheBlank({
             ...twoBlanks,
             tiles: drumTiles,
             maxUsesPerTile: 1,
         });
 
+        // Act
         await moveViaMenu(user, "djembe", "Blank 1");
 
+        // Assert
         const bank = screen.getByRole("list", {name: "Choices"});
         expect(within(bank).getAllByRole("listitem")).toHaveLength(3);
         expect(
@@ -155,13 +166,16 @@ describe("Fill in the Blank Widget", () => {
     });
 
     it("returns the occupant to the bank when a tile takes its blank", async () => {
+        // Arrange
         const {renderer} = renderFillInTheBlank(
             {...twoBlanks, tiles: drumTiles},
             {"blank 1": {selected: "bongo"}},
         );
 
+        // Act
         await moveViaMenu(user, "djembe", "Blank 1");
 
+        // Assert
         expect(renderer.getUserInputMap()).toMatchObject({
             "fill-in-the-blank 1": {"blank 1": {selected: "djembe"}},
         });
@@ -172,16 +186,19 @@ describe("Fill in the Blank Widget", () => {
     });
 
     it("clears a placed tile through its actions menu", async () => {
+        // Arrange
         const {renderer} = renderFillInTheBlank(
             {...twoBlanks, tiles: drumTiles},
             {"blank 1": {selected: "djembe"}},
         );
 
+        // Act
         await user.click(screen.getByRole("button", {name: "djembe"}));
         await user.click(
             await screen.findByRole("menuitem", {name: "Clear from Blank 1"}),
         );
 
+        // Assert
         expect(renderer.getUserInputMap()).toEqual({
             "fill-in-the-blank 1": {
                 "blank 1": {selected: null},
@@ -191,6 +208,7 @@ describe("Fill in the Blank Widget", () => {
     });
 
     it("moves focus to the placed tile's menu when the bank empties", async () => {
+        // Arrange
         renderFillInTheBlank({
             ...twoBlanks,
             tiles: [
@@ -202,12 +220,15 @@ describe("Fill in the Blank Widget", () => {
             ],
         });
 
+        // Act
         await moveViaMenu(user, "djembe", "Blank 1");
 
+        // Assert
         expect(screen.getByRole("button", {name: "djembe"})).toHaveFocus();
     });
 
     it("keeps a capped multi-use tile in the bank until exhausted", async () => {
+        // Arrange
         renderFillInTheBlank(
             {...twoBlanks, tiles: drumTiles, maxUsesPerTile: 2},
             {"blank 1": {selected: "djembe"}},
@@ -215,11 +236,14 @@ describe("Fill in the Blank Widget", () => {
 
         // One use left: the tile still shows in the bank.
         const bank = screen.getByRole("list", {name: "Choices"});
+
+        // Act
         await user.click(within(bank).getByRole("button", {name: "djembe"}));
         await user.click(
             await screen.findByRole("menuitem", {name: "Move to Blank 2"}),
         );
 
+        // Assert
         expect(
             within(bank).queryByRole("button", {name: "djembe"}),
         ).not.toBeInTheDocument();
