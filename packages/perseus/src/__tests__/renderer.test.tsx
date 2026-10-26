@@ -26,12 +26,12 @@ import Renderer, {
 } from "../renderer";
 import {testWidgetIdExtraction} from "../testing/extract-widget-ids-contract-tests";
 import {mockImageLoading} from "../testing/image-loader-utils";
+import MockWidgetExport from "../testing/mock-widgets/mock-widget";
 import {clone} from "../testing/object-utils";
 import {testDependencies} from "../testing/test-dependencies";
 import {registerWidget} from "../widgets";
 import {renderQuestion} from "../widgets/__testutils__/render-question";
 import {simpleGroupQuestion} from "../widgets/group/group.testdata";
-import MockWidgetExport from "../testing/mock-widgets/mock-widget";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";

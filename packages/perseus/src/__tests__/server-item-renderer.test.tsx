@@ -22,13 +22,13 @@ import {
 import {ENTRANCE_TRANSITION_DURATION_MS} from "../components/zoomable";
 import * as Dependencies from "../dependencies";
 import {ServerItemRenderer} from "../server-item-renderer";
+import {MockWidget} from "../testing/mock-widgets";
+import MockAssetLoadingWidgetExport from "../testing/mock-widgets/mock-asset-loading-widget";
 import {
     testDependencies,
     testDependenciesV2,
 } from "../testing/test-dependencies";
 import {registerWidget} from "../widgets";
-import {MockWidget} from "../testing/mock-widgets";
-import MockAssetLoadingWidgetExport from "../testing/mock-widgets/mock-asset-loading-widget";
 
 import {mockedAssetItem} from "./test-items/mock-asset-loading-item";
 import {renderQuestion} from "./test-utils";
