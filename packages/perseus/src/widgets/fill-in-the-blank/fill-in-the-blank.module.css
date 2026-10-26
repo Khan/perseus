@@ -5,10 +5,7 @@
     gap: var(--wb-sizing-size_640);
 }
 
-/* Answer-zone text is 16px/24px medium sans. The doubled class
- * outweighs the global .deprecated-perseus-container paragraph styles.
- * The :not() skips paragraphs inside placed tiles, which own their
- * typography. */
+/* Answer-zone text is 16px/24px medium sans. */
 .answerZone:not(:global([data-blank] *)) {
     font-family: var(--wb-font-family-sans);
     font-size: var(--wb-font-body-size-medium);
