@@ -310,7 +310,7 @@ module.exports = {
             // here because they need type information.
             plugins: ["@internal/perseus"],
             rules: {
-                "@internal/perseus/no-adjacent-text-nodes": "warn",
+                "@internal/perseus/no-adjacent-text-nodes": "error",
                 "@typescript-eslint/strict-boolean-expressions": [
                     "error",
                     {
