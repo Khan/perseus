@@ -1,4 +1,5 @@
 import {vector as kvector} from "@khanacademy/kmath";
+import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import {
     ApiOptions,
     containerSizeClass,
@@ -7,6 +8,11 @@ import {
     interactiveSizes,
     Util,
 } from "@khanacademy/perseus";
+import type {
+    PerseusGraphType,
+    PerseusInteractiveGraphUserInput,
+    PerseusInteractiveGraphWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {interactiveGraphLogic} from "@khanacademy/perseus-core";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
@@ -17,6 +23,7 @@ import GraphPointsCountSelector from "./components/graph-points-count-selector";
 import GraphTypeSelector from "./components/graph-type-selector";
 import {InteractiveGraphCorrectAnswer} from "./components/interactive-graph-correct-answer";
 import InteractiveGraphDescription from "./components/interactive-graph-description";
+import type {InteractiveGraphSettingsData} from "./components/interactive-graph-settings";
 import InteractiveGraphSettings from "./components/interactive-graph-settings";
 import InteractiveGraphSRTree from "./components/interactive-graph-sr-tree";
 import PolygonAnswerOptions from "./components/polygon-answer-options";
@@ -28,15 +35,7 @@ import LockedFiguresSection from "./locked-figures/locked-figures-section";
 import StartCoordsSettings from "./start-coords/start-coords-settings";
 import {shouldShowStartCoordsUI} from "./start-coords/util";
 import {reshapePointLabelsForGraphType} from "./utils/reshape-point-labels";
-
-import type {InteractiveGraphSettingsData} from "./components/interactive-graph-settings";
 import type {WidgetEditorProps} from "../widget-editor-props";
-import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
-import type {
-    PerseusInteractiveGraphUserInput,
-    PerseusInteractiveGraphWidgetOptions,
-    PerseusGraphType,
-} from "@khanacademy/perseus-core";
 
 const InteractiveGraph: typeof InteractiveGraphWidget.widget =
     InteractiveGraphWidget.widget;
@@ -274,10 +273,32 @@ class InteractiveGraphEditor extends React.Component<Props, State> {
                         ? {...correct, showPointLabels: false}
                         : correct,
                 handleUserInput: (
-                    correct: PerseusInteractiveGraphUserInput,
+                    newGraph: PerseusInteractiveGraphUserInput,
                 ) => {
-                    this.handleChange({correct});
-                },
+                    // The code below was written under the assumption that
+                    // static graphs can never display visible point labels,
+                    // though I don't think there's any product reason for that
+                    // restriction. If we set `showPointLabels = true` on the
+                    // `correct` field of a static graph, the graph in the
+                    // editor will show the labels while the learner view does
+                    // not. This conditional prevents that inconsistency by
+                    // hiding the labels in the editor.
+                    // TODO(benchristel): let static graphs show point labels,
+                    //  and delete this special-case handling.
+                    if (
+                        this.props.static === true &&
+                        "showPointLabels" in newGraph
+                    ) {
+                        newGraph = {
+                            ...newGraph,
+                            showPointLabels:
+                                "showPointLabels" in this.props.correct
+                                    ? this.props.correct.showPointLabels
+                                    : undefined,
+                        };
+                    }
+                    this.handleChange({correct: newGraph});
+                }
             } as const;
 
             graph = (
