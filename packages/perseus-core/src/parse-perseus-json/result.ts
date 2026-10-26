@@ -21,6 +21,7 @@ export function isSuccess<S, F>(result: Result<S, F>): result is Success<S> {
     return result.type === "success";
 }
 
+/** @internal - used in tests */
 export function assertFailure<S, F>(
     result: Result<S, F>,
 ): asserts result is Failure<F> {
@@ -30,6 +31,7 @@ export function assertFailure<S, F>(
     );
 }
 
+/** @internal - used in tests */
 export function assertSuccess<S, F>(
     result: Result<S, F>,
 ): asserts result is Success<S> {
@@ -44,6 +46,8 @@ export function assertSuccess<S, F>(
  * passed to it, and leaves Success results unchanged. `mapFailure` is curried
  * for easy composition with Array.map(), mu-lambda's pipe(), etc.
  * @param f the function to apply to Failure `detail`s.
+ *
+ * @internal - used in tests
  */
 export function mapFailure<S, DetailIn, DetailOut>(
     f: (detail: DetailIn) => DetailOut,
