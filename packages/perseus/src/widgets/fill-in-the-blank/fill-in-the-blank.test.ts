@@ -103,6 +103,25 @@ describe("Fill in the Blank Widget", () => {
         expect(within(bank).getAllByRole("listitem")).toHaveLength(4);
     });
 
+    it("renders only the unplaced tiles in the choice bank", () => {
+        // Arrange, Act
+        renderFillInTheBlank(
+            {...twoBlanks, tiles: drumTiles, maxUsesPerTile: 1},
+            {"blank 1": {selected: "djembe"}},
+        );
+
+        const bank = screen.getByRole("list", {name: "Choices"});
+        expect(within(bank).getAllByRole("listitem")).toHaveLength(3);
+        for (const name of ["bongo", "hands", "sticks"]) {
+            expect(
+                within(bank).getByRole("button", {name}),
+            ).toBeInTheDocument();
+        }
+        expect(
+            within(bank).queryByRole("button", {name: "djembe"}),
+        ).not.toBeInTheDocument();
+    });
+
     it("records a tile placed through the actions menu", async () => {
         const {renderer} = renderFillInTheBlank({
             ...twoBlanks,
