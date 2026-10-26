@@ -145,19 +145,6 @@
 }
 
 .content:has(
-        :global(.paragraph):first-child
-            > :global(.paragraph)
-            :is(
-                img,
-                mjx-mfrac,
-                mjx-msqrt,
-                mjx-mroot,
-                mjx-munder,
-                mjx-mover,
-                mjx-munderover
-            )
-    ),
-.content:has(
         :global(.perseus-renderer > .deprecated-perseus-container:first-child)
             :is(
                 img,
@@ -206,13 +193,11 @@
     gap: var(--wb-sizing-size_120);
 }
 
-.rationale :global(.perseus-renderer .paragraph),
 .rationale :global(.perseus-renderer .deprecated-perseus-container) {
     /* Removes margin that is added by overly-broad styling for .paragraph - the gap in the rule above handles spacing */
     margin: 0;
 }
 
-.rationale :global(.perseus-renderer > .paragraph:not(:has(*))),
 .rationale
     :global(.perseus-renderer > .deprecated-perseus-container:not(:has(*))) {
     /* Ensures that empty paragraphs do not take up space */

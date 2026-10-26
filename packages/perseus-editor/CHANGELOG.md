@@ -1,5 +1,29 @@
 # @khanacademy/perseus-editor
 
+## 45.0.3
+
+### Patch Changes
+
+-   [#4413](https://github.com/Khan/perseus/pull/4413) [`0187197`](https://github.com/Khan/perseus/commit/0187197cb8d310301609643de4e63b7fc289fca1) Thanks [@benchristel](https://github.com/benchristel)! - Delete references to the `.paragraph` CSS class, which is now unused.
+
+-   [#4400](https://github.com/Khan/perseus/pull/4400) [`acdd1b8`](https://github.com/Khan/perseus/commit/acdd1b8514d754c2f8cc9489aeb567410708eda6) Thanks [@benchristel](https://github.com/benchristel)! - Internal: pass all widget options to TableEditor's onChange callback.
+
+-   [#4248](https://github.com/Khan/perseus/pull/4248) [`9edbcbf`](https://github.com/Khan/perseus/commit/9edbcbfadcde33041ada5fc9bbc8343b9247f840) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Extract a generic WidgetEditorProps type for widget editor props.
+
+-   [#4369](https://github.com/Khan/perseus/pull/4369) [`e31cb71`](https://github.com/Khan/perseus/commit/e31cb71241854670efe12d058489d735dda48aed) Thanks [@handeyeco](https://github.com/handeyeco)! - Add new feature flag: dnd-widget-sorter. Behind it is a new implementation of the Sorter widget using dnd-kit.
+
+-   [#4406](https://github.com/Khan/perseus/pull/4406) [`bdfa518`](https://github.com/Khan/perseus/commit/bdfa51839c85a8869f58f96a6ca980a17e6428a3) Thanks [@benchristel](https://github.com/benchristel)! - Internal: ButtonGroup is now generic over the type of its button values, so `onChange` receives a typed value instead of `any`
+
+-   [#4399](https://github.com/Khan/perseus/pull/4399) [`c86b16d`](https://github.com/Khan/perseus/commit/c86b16da8e3a45ed5c9d1ca9cb3c8c65e3534854) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Pass all widget options to SorterEditor's onChange callback.
+
+-   Updated dependencies [[`0187197`](https://github.com/Khan/perseus/commit/0187197cb8d310301609643de4e63b7fc289fca1), [`e31cb71`](https://github.com/Khan/perseus/commit/e31cb71241854670efe12d058489d735dda48aed), [`bdfa518`](https://github.com/Khan/perseus/commit/bdfa51839c85a8869f58f96a6ca980a17e6428a3), [`1b2519f`](https://github.com/Khan/perseus/commit/1b2519ff904a2e7a8d917bc5cce448c213e12890), [`d12619d`](https://github.com/Khan/perseus/commit/d12619d59d1b368ac1a4d651a2b12e36e4ff4ac6), [`46de488`](https://github.com/Khan/perseus/commit/46de488f6a0f765a127c1921bc13c5c36e4f4471)]:
+    -   @khanacademy/perseus@92.1.0
+    -   @khanacademy/perseus-core@42.0.1
+    -   @khanacademy/perseus-linter@6.2.0
+    -   @khanacademy/keypad-context@6.0.8
+    -   @khanacademy/kmath@3.1.1
+    -   @khanacademy/math-input@30.1.3
+
 ## 45.0.2
 
 ### Patch Changes

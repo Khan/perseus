@@ -37,7 +37,7 @@ export type DeviceType = "phone" | "tablet" | "desktop";
  * @deprecated and likely a very broken API
  * [LEMS-3185] do not trust serializedState
  */
-export type SerializedState = Record<string, any>;
+type SerializedState = Record<string, any>;
 
 /**
  * The Widget type represents the common API that the Renderer uses to interact

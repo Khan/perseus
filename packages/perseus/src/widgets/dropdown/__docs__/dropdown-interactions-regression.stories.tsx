@@ -2,10 +2,7 @@ import {generateDropdownOptions} from "@khanacademy/perseus-core";
 import {expect, within} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
-import {
-    mobileDecorator,
-    rtlDecorator,
-} from "../../__testutils__/story-decorators";
+import {rtlDecorator} from "../../__testutils__/story-decorators";
 
 import {dropdownRendererDecorator} from "./dropdown-renderer-decorator";
 
@@ -248,34 +245,6 @@ export const OpenedTallMath: Story = {
     }),
     parameters: {
         content: "The simplified form is [[☃ dropdown 1]].",
-    },
-    play: openDropdown,
-};
-
-export const OpenedMobile: Story = {
-    decorators: [dropdownRendererDecorator, mobileDecorator],
-    args: generateDropdownOptions({
-        placeholder: "Choose the best description",
-        choices: [
-            {
-                content:
-                    "The greatest common factor of the numerator and denominator",
-                correct: true,
-            },
-            {
-                content:
-                    "The least common multiple of both denominators combined",
-                correct: false,
-            },
-            {
-                content:
-                    "The product of the two coefficients divided by their sum",
-                correct: false,
-            },
-        ],
-    }),
-    parameters: {
-        content: "To simplify the fraction, find [[☃ dropdown 1]].",
     },
     play: openDropdown,
 };

@@ -28,7 +28,7 @@ export function isItem(itemDisplay: ItemDisplay): itemDisplay is Item {
     return itemDisplay.status === "item";
 }
 
-export interface InputFieldChangeEvent {
+interface InputFieldChangeEvent {
     target: {
         value: string;
     };

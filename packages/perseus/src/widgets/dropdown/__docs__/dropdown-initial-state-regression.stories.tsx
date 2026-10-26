@@ -1,10 +1,7 @@
 import {generateDropdownOptions} from "@khanacademy/perseus-core";
 
 import {themeModes} from "../../../../../../.storybook/modes";
-import {
-    mobileDecorator,
-    rtlDecorator,
-} from "../../__testutils__/story-decorators";
+import {rtlDecorator} from "../../__testutils__/story-decorators";
 
 import {dropdownRendererDecorator} from "./dropdown-renderer-decorator";
 
@@ -31,23 +28,6 @@ type Story = StoryObj<typeof meta>;
 
 export const BasicDropdown: Story = {
     decorators: [dropdownRendererDecorator],
-    args: generateDropdownOptions({
-        placeholder: "greater/less than or equal to",
-        choices: [
-            {
-                content: "less than or equal to",
-                correct: true,
-            },
-        ],
-    }),
-    parameters: {
-        content:
-            "The total number of boxes the forklift can carry is [[☃ dropdown 1]] $60$.",
-    },
-};
-
-export const BasicDropdownMobile: Story = {
-    decorators: [dropdownRendererDecorator, mobileDecorator],
     args: generateDropdownOptions({
         placeholder: "greater/less than or equal to",
         choices: [

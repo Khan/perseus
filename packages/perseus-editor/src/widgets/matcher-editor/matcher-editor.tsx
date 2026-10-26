@@ -48,16 +48,6 @@ class MatcherEditor extends React.Component<Props> {
         return [];
     };
 
-    serialize = (): PerseusMatcherWidgetOptions => {
-        return {
-            left: this.props.left,
-            right: this.props.right,
-            labels: this.props.labels,
-            orderMatters: this.props.orderMatters,
-            padding: this.props.padding,
-        };
-    };
-
     render(): React.ReactNode {
         return (
             <div className="perseus-matcher-editor">
