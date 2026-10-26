@@ -8,7 +8,7 @@ import LockedEllipseSettings from "./locked-ellipse-settings";
 import {
     mockedGenerateSpokenMathDetailsForTests,
     mockedJoinLabelsAsSpokenMathForTests,
-} from "./util";
+} from "./math-a11y.testutils";
 
 import type {UserEvent} from "@testing-library/user-event";
 

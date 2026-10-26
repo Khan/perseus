@@ -11,6 +11,7 @@ export function generateGrapherWidgetOptions(
     };
 }
 
+/** @internal - used in tests */
 export function generateGrapherGraph(
     overrides: Partial<PerseusGrapherWidgetOptions["graph"]>,
 ): PerseusGrapherWidgetOptions["graph"] {

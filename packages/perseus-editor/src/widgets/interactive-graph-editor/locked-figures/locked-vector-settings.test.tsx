@@ -8,7 +8,7 @@ import LockedVectorSettings from "./locked-vector-settings";
 import {
     mockedGenerateSpokenMathDetailsForTests,
     mockedJoinLabelsAsSpokenMathForTests,
-} from "./util";
+} from "./math-a11y.testutils";
 
 import type {Props} from "./locked-vector-settings";
 import type {UserEvent} from "@testing-library/user-event";
