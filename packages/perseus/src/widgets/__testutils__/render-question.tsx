@@ -32,6 +32,8 @@ type RenderQuestionOptions = {
     initialUserInput?: UserInputMap;
     dependencies?: Partial<PerseusDependenciesV2>;
     locale?: string;
+    /** Wraps the rendered question, e.g. in a context provider. */
+    wrapper?: React.JSXElementConstructor<{children: React.ReactNode}>;
 };
 
 export const renderQuestion = (
@@ -49,6 +51,7 @@ export const renderQuestion = (
         initialUserInput,
         dependencies = testDependenciesV2,
         locale = "en",
+        wrapper,
     } = options;
 
     // Provide default dependencies and then let the parameter override
@@ -78,6 +81,7 @@ export const renderQuestion = (
                 </DependenciesContext.Provider>
             </PerseusI18nContextProvider>
         </RenderStateRoot>,
+        {wrapper},
     );
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!renderer) {
