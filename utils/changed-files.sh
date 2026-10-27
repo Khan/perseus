@@ -2,9 +2,11 @@
 set -e
 
 # Prints a newline-separated list of files changed since the commit referred
-# to by $UPSTREAM. Without $UPSTREAM, compares against, in order: the target
-# of an in-progress rebase, the current branch's upstream, or the point where
-# HEAD forked from main.
+# to by the first item from this list that is non-empty:
+#   1. $UPSTREAM
+#   2. the target of an in-progress rebase
+#   3. the current branch's upstream
+#   4. the point where HEAD forked from main
 
 if [ -z "${UPSTREAM}" ]; then
     # Mid-rebase, HEAD is detached and has no upstream. Git records the commit
@@ -25,11 +27,5 @@ files="$(
     git ls-files --others --exclude-standard
     git diff --name-only --diff-filter=ACMRTUB "$UPSTREAM"
 )"
-
-if [ -z "$files" ]; then
-    # Callers like `pnpm tesc` otherwise pass silently with nothing to check.
-    echo "No changed files since $UPSTREAM" >&2
-    exit 0
-fi
 
 echo "$files"
