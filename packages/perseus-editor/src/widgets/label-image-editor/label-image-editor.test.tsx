@@ -242,11 +242,11 @@ describe("label-image-editor", () => {
         });
 
         it.each`
-            case                          | extension
+            case                           | extension
             ${"images without extensions"} | ${""}
-            ${"JPEGs"}                    | ${".jpeg"}
-            ${"JPGs"}                     | ${".jpg"}
-            ${"GIFs"}                     | ${".gif"}
+            ${"JPEGs"}                     | ${".jpeg"}
+            ${"JPGs"}                      | ${".jpg"}
+            ${"GIFs"}                      | ${".gif"}
         `(
             "disables Suppress Dark Mode Filter toggle for $case",
             ({extension}) => {
