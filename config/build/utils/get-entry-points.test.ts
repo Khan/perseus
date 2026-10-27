@@ -1,25 +1,15 @@
 import {getEntryPoints} from "./get-entry-points";
 
 describe("getEntryPoints", () => {
-    it("returns no entries for a package with no exports map", () => {
-        // Arrange, Act
-        const entryPoints = getEntryPoints({});
-
-        expect(entryPoints).toEqual({});
-    });
-
     it("returns one entry per sub-path that maps a source file to a published JS file", () => {
-        // Arrange, Act
         const entryPoints = getEntryPoints({
             exports: {
                 ".": "./src/index.ts",
                 "./strings": "./src/strings.ts",
             },
-            publishConfig: {
-                exports: {
-                    ".": "./dist/index.js",
-                    "./strings": "./dist/strings.js",
-                },
+            publishedExports: {
+                ".": "./dist/index.js",
+                "./strings": "./dist/strings.js",
             },
         });
 
@@ -30,14 +20,11 @@ describe("getEntryPoints", () => {
     });
 
     it("skips sub-paths that export a built asset", () => {
-        // Arrange, Act
         const entryPoints = getEntryPoints({
             exports: {".": "./src/index.ts"},
-            publishConfig: {
-                exports: {
-                    ".": "./dist/index.js",
-                    "./styles.css": "./dist/index.css",
-                },
+            publishedExports: {
+                ".": "./dist/index.js",
+                "./styles.css": "./dist/index.css",
             },
         });
 
@@ -45,9 +32,18 @@ describe("getEntryPoints", () => {
     });
 
     it("skips sub-paths with no published export", () => {
-        // Arrange, Act
         const entryPoints = getEntryPoints({
             exports: {".": "./src/index.ts"},
+            publishedExports: {"./other": "./dist/other.js"},
+        });
+
+        expect(entryPoints).toEqual({});
+    });
+
+    it("skips sub-paths whose source file is outside src/", () => {
+        const entryPoints = getEntryPoints({
+            exports: {"./package.json": "./package.json"},
+            publishedExports: {"./package.json": "./package.json"},
         });
 
         expect(entryPoints).toEqual({});
