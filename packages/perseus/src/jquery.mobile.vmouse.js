@@ -129,25 +129,6 @@ import $ from "jquery";
             }
         }
 
-        // jQuery used to compute pageX/pageY from clientX/clientY in its mouse
-        // event hook. jQuery 3 dropped that hook, so on platforms that don't
-        // populate pageX/pageY (e.g. jsdom) we have to do the math ourselves.
-        if (event.pageX == null && event.clientX != null) {
-            var eventDoc =
-                    (event.target && event.target.ownerDocument) || document,
-                doc = eventDoc.documentElement,
-                body = eventDoc.body;
-
-            event.pageX =
-                event.clientX +
-                ((doc && doc.scrollLeft) || (body && body.scrollLeft) || 0) -
-                ((doc && doc.clientLeft) || (body && body.clientLeft) || 0);
-            event.pageY =
-                event.clientY +
-                ((doc && doc.scrollTop) || (body && body.scrollTop) || 0) -
-                ((doc && doc.clientTop) || (body && body.clientTop) || 0);
-        }
-
         // make sure that if the mouse and click virtual events are generated
         // without a .which one is defined
         if (t.search(/mouse(down|up)|click/) > -1 && !event.which) {
