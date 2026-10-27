@@ -113,7 +113,38 @@ plan refines that order as follows:
 
 - Use the `jest-fail-on-console` package, or a hand-written spy in
   `test-setup.ts`? The latter avoids a new dependency.
+  - Use a hand-written spy. Here is how it is implemented in Khan
+    Academy's frontend codebase — use this approach if possible.
+    ```ts
+    // We push an error onto the current test's suppressedErrors.
+    // This may seem counterintuitive but according to the jest code,
+    // the suppressedErrors state contains errors from matchers that can fail
+    // tests, and from trying this out, we can see that it does exactly what we
+    // want.
+    //
+    // If we just threw an error, it seems to assign the error to the incorrect
+    // test case, whereas this does not.
+    //
+    // The downside here is that Wallaby passes in spite of this error.
+    // TODO: Work out a way to make this work in Wallaby too.
+    expect
+        .getState()
+        .suppressedErrors.push(
+            new Error(
+                `Unhandled console.${type} call.\n` +
+                "If you expect this call, then suppress it using " +
+                `jest.spyOn(console, "${type}").mockImplementation(); ` +
+                "otherwise, fix the test or code under test to no longer " +
+                `result in this console.${type} call.\n\n` +
+                formattedMessage,
+            ),
+        );
+    ```
 - Should `console.log` also fail tests, or only `error`/`warn`?
+  - Yes, all console interactions should fail tests. `debug` too.
 - Is it acceptable for `isBlockWidgetNode` to honor content alignment, if
   step 2 shows that's the cause? This changes the layout of existing content
   whose alignment disagrees with the widget default (arguably fixing it).
+  - Yes. If the widget would be inline by default but is explicitly configured
+    as a block widget, then `isBlockWidgetNode` should treat it as a block
+    widget.
