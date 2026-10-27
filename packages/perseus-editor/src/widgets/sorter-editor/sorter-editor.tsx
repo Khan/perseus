@@ -99,10 +99,6 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
         React.useImperativeHandle(
             ref,
             () => ({
-                serialize: () => {
-                    return {correct, layout, padding, legend};
-                },
-
                 // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend
                 // uses the new linter rules for save warnings.
                 getSaveWarnings: () => {
@@ -120,7 +116,7 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                     return warnings;
                 },
             }),
-            [correct, layout, padding, legend],
+            [correct],
         );
 
         function handleChange(changes: Partial<PerseusSorterWidgetOptions>) {
