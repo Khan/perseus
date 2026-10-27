@@ -10,10 +10,10 @@
  * 4. Also update the testing/feature-flags-util.ts for testing purpose
  */
 const PerseusFeatureFlags = [
-    "perseus-renderer-upgrade", // TODO(LEMS-4304): clean up feature flag
     "desmos-calculator", // TODO(LEMS-4180): clean up feature flag
     "article-extras", // TODO(LEMS-4493): clean up feature flag
     "dnd-widget-fitb", // TODO(LEMS-4396): clean up feature flag
+    "dnd-widget-sorter", // // TODO(LEMS-4676): clean up feature flag
 ] as const;
 
 export default PerseusFeatureFlags;

@@ -1,7 +1,7 @@
 import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
 import GraphUtils from "../../util/graph-utils";
-import {renderQuestion} from "../__testutils__/renderQuestion";
+import {renderQuestion} from "../__testutils__/render-question";
 
 import {measurerQuestion} from "./measurer.testdata";
 

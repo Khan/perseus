@@ -96,13 +96,15 @@ describe("radio-editor", () => {
             });
 
             // Should call onChange with corrected choices
-            expect(onChangeMock).toHaveBeenCalledWith({
-                choices: [
-                    {id: "radio-choice-0", content: "Choice 1"},
-                    {id: "valid-id", content: "Choice 2"},
-                    {id: "radio-choice-2", content: "Choice 3"},
-                ],
-            });
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    choices: [
+                        {id: "radio-choice-0", content: "Choice 1"},
+                        {id: "valid-id", content: "Choice 2"},
+                        {id: "radio-choice-2", content: "Choice 3"},
+                    ],
+                }),
+            );
         });
 
         it("should not call onChange if all choices already have valid IDs", () => {
@@ -134,12 +136,14 @@ describe("radio-editor", () => {
             });
 
             // Should call onChange with corrected choices
-            expect(onChangeMock).toHaveBeenCalledWith({
-                choices: [
-                    {id: "radio-choice-0", content: "Choice 1"},
-                    {id: "radio-choice-1", content: "Choice 2"},
-                ],
-            });
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    choices: [
+                        {id: "radio-choice-0", content: "Choice 1"},
+                        {id: "radio-choice-1", content: "Choice 2"},
+                    ],
+                }),
+            );
         });
     });
 
@@ -176,7 +180,9 @@ describe("radio-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toHaveBeenCalledWith({countChoices: true});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({countChoices: true}),
+        );
     });
 
     it("should toggle randomize order checkbox", async () => {
@@ -190,7 +196,9 @@ describe("radio-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toHaveBeenCalledWith({randomize: true});
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({randomize: true}),
+        );
     });
 
     it("should be possible to add answer", async () => {
@@ -219,8 +227,6 @@ describe("radio-editor", () => {
                 ],
                 hasNoneOfTheAbove: false,
             }),
-            // there's some anonymous function that's also passed
-            expect.anything(),
         );
     });
 
@@ -318,55 +324,6 @@ describe("radio-editor", () => {
         expect(
             screen.queryByRole("button", {name: "None of the above"}),
         ).not.toBeInTheDocument();
-    });
-
-    it("serializes", () => {
-        const editorRef = React.createRef<RadioEditor>();
-
-        render(
-            <RadioEditor
-                ref={editorRef}
-                onChange={() => {}}
-                apiOptions={ApiOptions.defaults}
-                choices={fourChoices}
-            />,
-            {wrapper: RenderStateRoot},
-        );
-
-        const options = editorRef.current?.serialize();
-
-        expect(options).toEqual({
-            choices: fourChoices,
-            randomize: false,
-            multipleSelect: false,
-            countChoices: false,
-            hasNoneOfTheAbove: false,
-            deselectEnabled: false,
-            numCorrect: 0,
-        });
-    });
-
-    it("derives num correct when serializing", () => {
-        const editorRef = React.createRef<RadioEditor>();
-
-        render(
-            <RadioEditor
-                ref={editorRef}
-                onChange={() => {}}
-                apiOptions={ApiOptions.defaults}
-                choices={[
-                    getCorrectChoice(),
-                    getIncorrectChoice(),
-                    getCorrectChoice(),
-                    getIncorrectChoice(),
-                ]}
-            />,
-            {wrapper: RenderStateRoot},
-        );
-
-        const options = editorRef.current?.serialize();
-
-        expect(options?.numCorrect).toEqual(2);
     });
 
     it("derives num correct when calling onChange", async () => {

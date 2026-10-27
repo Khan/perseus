@@ -19,7 +19,7 @@ import InfoTip from "../../components/info-tip";
 
 import styles from "./expression-editor.module.css";
 
-import type {APIOptions} from "@khanacademy/perseus";
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {
     PerseusExpressionWidgetOptions,
     LegacyButtonSets,
@@ -37,10 +37,7 @@ type EditableExpressionWidgetOptions = Omit<
     "buttonsVisible"
 >;
 
-type Props = {
-    apiOptions: APIOptions;
-    onChange: (newValues: EditableExpressionWidgetOptions) => void;
-} & EditableExpressionWidgetOptions;
+type Props = WidgetEditorProps<EditableExpressionWidgetOptions>;
 
 // types for iterables
 type AnswerForm = PerseusExpressionWidgetOptions["answerForms"][number];
@@ -88,27 +85,6 @@ class ExpressionEditor extends React.Component<Props, State> {
             ariaLabel: this.props.ariaLabel,
             ...changes,
         });
-    }
-
-    serialize(): PerseusExpressionWidgetOptions {
-        const {
-            answerForms,
-            buttonSets,
-            functions,
-            times,
-            visibleLabel,
-            ariaLabel,
-        } = this.props;
-
-        return {
-            answerForms,
-            buttonSets,
-            functions,
-            times,
-            visibleLabel,
-            ariaLabel,
-            extraKeys: deriveExtraKeys(this.props),
-        };
     }
 
     // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
@@ -298,7 +274,9 @@ class ExpressionEditor extends React.Component<Props, State> {
     };
 
     render(): React.ReactNode {
-        const editingDisabled = this.props.apiOptions.editingDisabled ?? false;
+        // TODO(LEMS-4681): Remove editingDisabled default once all apiOptions
+        //  are passed to this component.
+        const editingDisabled = this.props.apiOptions?.editingDisabled ?? false;
         const answerOptions: React.JSX.Element[] = this.props.answerForms.map(
             (ans: AnswerForm, index: number) => {
                 const expressionProps: Partial<

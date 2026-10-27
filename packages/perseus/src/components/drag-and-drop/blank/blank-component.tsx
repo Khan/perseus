@@ -7,7 +7,7 @@ import {readTileDragData} from "../drag-ids";
 import styles from "./blank-component.module.css";
 
 /** How a blank renders: full size, or smaller for exponents/indices. */
-export type BlankDisplayType = "normal" | "superscript" | "subscript";
+type BlankDisplayType = "normal" | "superscript" | "subscript";
 
 export interface BlankComponentProps {
     /**

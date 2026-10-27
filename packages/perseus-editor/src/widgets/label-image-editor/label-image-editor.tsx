@@ -3,7 +3,6 @@ import {labelImageLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import FormWrappedTextField from "../../components/form-wrapped-text-field";
-import EditorJsonify from "../../mixins/editor-jsonify";
 
 import AnswerChoices from "./answer-choices";
 import Behavior from "./behavior";
@@ -11,13 +10,10 @@ import styles from "./label-image-editor.module.css";
 import QuestionMarkers from "./question-markers";
 import SelectImage from "./select-image";
 
-import type {APIOptions} from "@khanacademy/perseus";
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
-export interface Props extends PerseusLabelImageWidgetOptions {
-    apiOptions: APIOptions;
-    onChange: (options: PerseusLabelImageWidgetOptions) => void;
-}
+export type Props = WidgetEditorProps<PerseusLabelImageWidgetOptions>;
 
 /**
  * Direct image labeling widget editor.
@@ -127,10 +123,6 @@ class LabelImageEditor extends React.Component<Props> {
         return warnings;
     };
 
-    serialize(): any {
-        return EditorJsonify.serialize.call(this);
-    }
-
     handleImageChange = (url: string) => {
         this.handleChange({
             imageUrl: url,
@@ -180,10 +172,6 @@ class LabelImageEditor extends React.Component<Props> {
         markers: PerseusLabelImageWidgetOptions["markers"],
     ) => void = (markers: PerseusLabelImageWidgetOptions["markers"]) => {
         this.handleChange({markers});
-    };
-
-    handleBehaviorChange: (options?: any) => void = (options: any) => {
-        this.props.onChange(options);
     };
 
     render(): React.ReactNode {
@@ -243,7 +231,7 @@ class LabelImageEditor extends React.Component<Props> {
                     preferredPopoverDirection={preferredPopoverDirection}
                     multipleAnswers={multipleAnswers}
                     hideChoicesFromInstructions={hideChoicesFromInstructions}
-                    onChange={this.handleBehaviorChange}
+                    onChange={(changes) => this.handleChange(changes)}
                 />
             </div>
         );

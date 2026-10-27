@@ -97,7 +97,7 @@ export const testDependencies: PerseusDependencies = {
 
 // PerseusDependenciesV2 are provided through a React Context. This object
 // exists so that we can easily pass a "known" object into the renderers (see
-// renderQuestion.tsx) and then spy on any functions to do assertions.
+// render-question.tsx) and then spy on any functions to do assertions.
 export const testDependenciesV2: PerseusDependenciesV2 = {
     analytics: {
         onAnalyticsEvent: async () => {},

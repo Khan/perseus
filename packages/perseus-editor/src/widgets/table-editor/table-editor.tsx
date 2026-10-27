@@ -1,4 +1,4 @@
-import {components, TableWidget, Util} from "@khanacademy/perseus";
+import {ApiOptions, components, TableWidget, Util} from "@khanacademy/perseus";
 import {
     tableLogic,
     type PerseusTableWidgetOptions,
@@ -9,22 +9,29 @@ import _ from "underscore";
 import InfoTip from "../../components/info-tip";
 import Editor from "../../editor";
 
-import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {NumberInput} = components;
 const Table = TableWidget.widget;
 
-interface Props extends PerseusTableWidgetOptions {
-    onChange: (options: Partial<PerseusTableWidgetOptions>) => void;
-    apiOptions?: APIOptionsWithDefaults;
-}
+type Props = WidgetEditorProps<PerseusTableWidgetOptions>;
 
 class TableEditor extends React.Component<Props> {
     static defaultProps: PerseusTableWidgetOptions =
         tableLogic.defaultWidgetOptions;
 
     numberOfColumns = React.createRef<components.NumberInput>();
+
+    handleChange = (changes: Partial<PerseusTableWidgetOptions>) => {
+        this.props.onChange({
+            headers: this.props.headers,
+            rows: this.props.rows,
+            columns: this.props.columns,
+            answers: this.props.answers,
+            ...changes,
+        });
+    };
 
     focus: () => void = () => {
         this.numberOfColumns.current?.focus();
@@ -68,19 +75,11 @@ class TableEditor extends React.Component<Props> {
         fixColumnSizing(headers);
         _.each(answers, fixColumnSizing);
 
-        this.props.onChange({
+        this.handleChange({
             rows: rows,
             columns: columns,
             answers: answers,
             headers: headers,
-        });
-    };
-
-    serialize: () => any = () => {
-        const json = _.pick(this.props, "headers", "rows", "columns");
-
-        return _.extend({}, json, {
-            answers: this.props.answers.map(_.clone),
         });
     };
 
@@ -92,18 +91,22 @@ class TableEditor extends React.Component<Props> {
                 columns: this.props.columns,
                 answers: this.props.answers,
             },
-            onChange: this.props.onChange,
+            onChange: this.handleChange,
             userInput: this.props.answers,
             handleUserInput: (userInput) => {
                 // Disable table input changes when editing is disabled
+                // TODO(LEMS-4681): Replace `?.` with `.` once all apiOptions
+                //  are passed to this component.
                 if (this.props.apiOptions?.editingDisabled) {
                     return;
                 }
                 // In the editing experience,
                 // user input is actually editing answers
-                this.props.onChange({answers: userInput});
+                this.handleChange({answers: userInput});
             },
-            apiOptions: this.props.apiOptions,
+            // TODO(LEMS-4681): Remove ApiOptions.defaults once all apiOptions
+            //  are passed to this component.
+            apiOptions: {...ApiOptions.defaults, ...this.props.apiOptions},
             editableHeaders: true,
             onFocus: () => {},
             onBlur: () => {},

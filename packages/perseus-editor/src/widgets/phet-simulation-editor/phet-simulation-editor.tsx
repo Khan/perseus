@@ -7,9 +7,9 @@ import {LabeledTextField} from "@khanacademy/wonder-blocks-form";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
-interface Props extends PerseusPhetSimulationWidgetOptions {
-    onChange: (options: PerseusPhetSimulationWidgetOptions) => void;
-}
+import type {WidgetEditorProps} from "../widget-editor-props";
+
+type Props = WidgetEditorProps<PerseusPhetSimulationWidgetOptions>;
 
 /**
  * An editor for adding a PhET simulation widget that allows users to interact
@@ -25,13 +25,6 @@ class PhetSimulationEditor extends React.Component<Props> {
             description: this.props.description,
             ...changes,
         });
-    }
-
-    serialize(): PerseusPhetSimulationWidgetOptions {
-        return {
-            url: this.props.url,
-            description: this.props.description,
-        };
     }
 
     // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses

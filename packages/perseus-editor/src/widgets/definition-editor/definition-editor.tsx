@@ -4,18 +4,14 @@ import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../../editor";
-import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {InitializeWidgetOptionsParams} from "../../editor";
-import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {PerseusDefinitionWidgetOptions} from "@khanacademy/perseus-core";
 
 const {TextInput} = components;
 
-interface Props extends PerseusDefinitionWidgetOptions {
-    apiOptions?: APIOptionsWithDefaults;
-    onChange: (options: PerseusDefinitionWidgetOptions) => void;
-}
+type Props = WidgetEditorProps<PerseusDefinitionWidgetOptions>;
 
 /**
  * An editor for adding an interactive definition widget that allows content
@@ -46,10 +42,6 @@ class DefinitionEditor extends React.Component<Props> {
             ...changed,
         });
     }
-
-    serialize: () => any = () => {
-        return EditorJsonify.serialize.call(this);
-    };
 
     render(): React.ReactNode {
         return (

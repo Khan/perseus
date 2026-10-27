@@ -1,6 +1,9 @@
 import AbsoluteUrl from "./absolute-url";
 import DoubleSpacingAfterTerminal from "./double-spacing-after-terminal";
-import ExplanationInGradedGroup from "./explanation-in-graded-group";
+import {
+    ExplanationInGradedGroup,
+    ExplanationInGradedGroupSet,
+} from "./explanation-in-graded-group";
 import ExpressionWidget from "./expression-widget";
 import ExpressionWidgetError from "./expression-widget-error";
 import ExtraContentSpacing from "./extra-content-spacing";
@@ -17,6 +20,7 @@ import ImageUrlEmpty from "./image-url-empty";
 import ImageWidgetAltText from "./image-widget-alt-text";
 import ImageWidgetEmptySize from "./image-widget-empty-size";
 import InaccessibleWidget from "./inaccessible-widget";
+import InteractiveGraphLockedFigureOob from "./interactive-graph-locked-figure-oob";
 import InteractiveGraphWidgetError from "./interactive-graph-widget-error";
 import LabelImageWidgetError from "./label-image-widget-error";
 import LegacyGifUrl from "./legacy-gif-url";
@@ -41,6 +45,7 @@ import RadioWidgetError from "./radio-widget-error";
 import SorterWidgetError from "./sorter-widget-error";
 import SorterWidgetWarning from "./sorter-widget-warning";
 import StaticWidgetInQuestionStem from "./static-widget-in-question-stem";
+import TableMissingCaption from "./table-missing-caption";
 import TableMissingCells from "./table-missing-cells";
 import UnbalancedCodeDelimiters from "./unbalanced-code-delimiters";
 import UnescapedDollar from "./unescaped-dollar";
@@ -71,6 +76,7 @@ export default [
     MathTextEmpty,
     NestedLists,
     StaticWidgetInQuestionStem,
+    TableMissingCaption,
     TableMissingCells,
     UnescapedDollar,
     WidgetInTable,
@@ -91,7 +97,9 @@ export default [
     PythonProgramWidgetError,
     LabelImageWidgetError,
     InteractiveGraphWidgetError,
+    InteractiveGraphLockedFigureOob,
     SorterWidgetError,
     SorterWidgetWarning,
     ExplanationInGradedGroup,
+    ExplanationInGradedGroupSet,
 ];

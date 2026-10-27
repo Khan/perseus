@@ -8,9 +8,9 @@ import * as React from "react";
 import InfoTip from "../../components/info-tip";
 import TextListEditor from "../../components/text-list-editor";
 
-interface Props extends PerseusMatcherWidgetOptions {
-    onChange: (options: PerseusMatcherWidgetOptions) => void;
-}
+import type {WidgetEditorProps} from "../widget-editor-props";
+
+type Props = WidgetEditorProps<PerseusMatcherWidgetOptions>;
 
 /**
  * An editor for adding a matcher widget that allows users to match items from two different sets.
@@ -46,16 +46,6 @@ class MatcherEditor extends React.Component<Props> {
             ];
         }
         return [];
-    };
-
-    serialize = (): PerseusMatcherWidgetOptions => {
-        return {
-            left: this.props.left,
-            right: this.props.right,
-            labels: this.props.labels,
-            orderMatters: this.props.orderMatters,
-            padding: this.props.padding,
-        };
     };
 
     render(): React.ReactNode {

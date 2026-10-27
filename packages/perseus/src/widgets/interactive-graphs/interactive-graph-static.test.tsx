@@ -13,7 +13,7 @@ import {
 } from "@khanacademy/perseus-core";
 import {screen} from "@testing-library/react";
 
-import {renderQuestion} from "../__testutils__/renderQuestion";
+import {renderQuestion} from "../__testutils__/render-question";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 

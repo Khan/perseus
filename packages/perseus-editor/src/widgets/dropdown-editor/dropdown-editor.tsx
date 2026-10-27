@@ -13,14 +13,10 @@ import * as React from "react";
 import _ from "underscore";
 
 import InfoTip from "../../components/info-tip";
-import EditorJsonify from "../../mixins/editor-jsonify";
 
-import type {APIOptions} from "@khanacademy/perseus";
+import type {WidgetEditorProps} from "../widget-editor-props";
 
-interface Props extends PerseusDropdownWidgetOptions {
-    onChange: (options: PerseusDropdownWidgetOptions) => void;
-    apiOptions?: APIOptions;
-}
+type Props = WidgetEditorProps<PerseusDropdownWidgetOptions>;
 
 /**
  * An editor for adding a dropdown widget that allows users to select an option from a predefined list.
@@ -66,10 +62,6 @@ class DropdownEditor extends React.Component<Props> {
         const choices = [...this.props.choices];
         choices.splice(choiceIndex, 1);
         this.handleChange({choices});
-    };
-
-    serialize: () => any = () => {
-        return EditorJsonify.serialize.call(this);
     };
 
     render(): React.ReactNode {

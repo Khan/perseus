@@ -1,22 +1,21 @@
-import {Categorizer as CategorizerWidget} from "@khanacademy/perseus";
+import {
+    ApiOptions,
+    Categorizer as CategorizerWidget,
+} from "@khanacademy/perseus";
 import {categorizerLogic} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import _ from "underscore";
 
 import TextListEditor from "../../components/text-list-editor";
-import EditorJsonify from "../../mixins/editor-jsonify";
 
-import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const Categorizer = CategorizerWidget.widget;
 
-interface Props extends PerseusCategorizerWidgetOptions {
-    apiOptions?: APIOptionsWithDefaults;
-    onChange: (options: PerseusCategorizerWidgetOptions) => void;
-}
+type Props = WidgetEditorProps<PerseusCategorizerWidgetOptions>;
 
 /**
  * An editor for adding a categorizer widget that allows users to sort items into categories.
@@ -35,10 +34,6 @@ class CategorizerEditor extends React.Component<Props> {
         });
     }
 
-    serialize: () => any = () => {
-        return EditorJsonify.serialize.call(this);
-    };
-
     render(): React.ReactNode {
         const categorizerProps: Partial<PropsFor<typeof Categorizer>> = {
             options: {
@@ -55,7 +50,9 @@ class CategorizerEditor extends React.Component<Props> {
                     values: userInput.values.map((value) => value ?? 0),
                 });
             },
-            apiOptions: this.props.apiOptions,
+            // TODO(LEMS-4681): Remove ApiOptions.defaults once all apiOptions
+            //  are passed to this component.
+            apiOptions: {...ApiOptions.defaults, ...this.props.apiOptions},
             trackInteraction: function () {},
         };
 

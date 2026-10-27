@@ -119,6 +119,18 @@ env NPM_CONFIG_PROVENANCE=true pnpm changeset publish --no-git-tag --tag "${PR_N
 # `steps.<name-of-step-that-calls-this-script>.outputs.npm_snapshot_tag`
 echo "npm_snapshot_tag=$PR_NUMBER" >> "$GITHUB_OUTPUT"
 
+# Export the published packages (as `[{"name": ..., "version": ...}]`, the
+# same shape as changesets/action's `publishedPackages`) so later steps can
+# wait for npm to make them installable. `changeset version --snapshot` only
+# gives a snapshot version to the packages it published.
+published_packages=$(
+    git diff --name-only -- 'packages/*/package.json' \
+        | xargs jq -c '{name, version}' \
+        | jq -cs --arg pr "-$PR_NUMBER-" \
+            'map(select(.version | contains($pr)))'
+)
+echo "published_packages=$published_packages" >> "$GITHUB_OUTPUT"
+
 # Now throw away all local changes (we've published a snapshot and that's all
 # we needed).
 git reset --hard

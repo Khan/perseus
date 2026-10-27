@@ -12,27 +12,14 @@ import {getMovedChoices} from "./utils";
 
 import type {RadioOptionSettingsHandle} from "./radio-option-settings";
 import type {ChoiceMovementType} from "./radio-option-settings-actions";
-import type {APIOptions} from "@khanacademy/perseus";
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {
     PerseusRadioWidgetOptions,
     PerseusRadioChoice,
 } from "@khanacademy/perseus-core";
 
 // Exported for testing
-export interface RadioEditorProps {
-    apiOptions: APIOptions;
-    countChoices: boolean;
-    choices: PerseusRadioChoice[];
-    randomize: boolean;
-    hasNoneOfTheAbove: boolean;
-    multipleSelect: boolean;
-    deselectEnabled: boolean;
-
-    onChange: (
-        values: Partial<PerseusRadioWidgetOptions>,
-        callback?: (() => void) | null,
-    ) => void;
-}
+export type RadioEditorProps = WidgetEditorProps<PerseusRadioWidgetOptions>;
 
 /**
  * An editor for adding a radio widget that allows users to select a single option from multiple choices.
@@ -55,7 +42,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         // Recalculate numCorrect when multipleSelect and countChoices are enabled
         // This ensures stale values are corrected on load
         if (this.props.multipleSelect && this.props.countChoices) {
-            this.props.onChange({
+            this.handleChange({
                 numCorrect: deriveNumCorrect(this.props.choices),
             });
         }
@@ -70,8 +57,21 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                 ...choice,
                 id: this.ensureValidIds(choice.id, index),
             }));
-            this.props.onChange({choices: updatedChoices});
+            this.handleChange({choices: updatedChoices});
         }
+    }
+
+    handleChange(changes: Partial<PerseusRadioWidgetOptions>) {
+        this.props.onChange({
+            choices: this.props.choices,
+            hasNoneOfTheAbove: this.props.hasNoneOfTheAbove,
+            countChoices: this.props.countChoices,
+            numCorrect: this.props.numCorrect,
+            randomize: this.props.randomize,
+            multipleSelect: this.props.multipleSelect,
+            deselectEnabled: this.props.deselectEnabled,
+            ...changes,
+        });
     }
 
     // Get or create a ref for a choice by its id
@@ -110,7 +110,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         }
 
         // Update with the recalculated numCorrect and choices
-        this.props.onChange({
+        this.handleChange({
             multipleSelect: isMultipleSelect,
             choices,
             numCorrect: deriveNumCorrect(choices),
@@ -123,9 +123,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         options,
     ) => {
         const countChoices = options.countChoices;
-        this.props.onChange({
-            countChoices,
-        });
+        this.handleChange({countChoices});
     };
 
     // Generate consistent choice IDs that match the parser format for existing content
@@ -157,7 +155,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                 };
             });
 
-            this.props.onChange({
+            this.handleChange({
                 choices,
                 numCorrect: deriveNumCorrect(choices),
             });
@@ -165,7 +163,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
 
     // Called when there is a change to which choice(s) are correct to
     // calculate the new list of correct choices.
-    // Calls `onChange` to update the props.
+    // Calls `this.onChange()` to update the props.
     onStatusChange: (choiceIndex: number, correct: boolean) => void = (
         choiceIndex,
         correct,
@@ -198,7 +196,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
             ...choices[choiceIndex],
             content: newContent,
         };
-        this.props.onChange({choices: choices});
+        this.handleChange({choices: choices});
     };
 
     onRationaleChange: (choiceIndex: number, newRationale: string) => void = (
@@ -213,7 +211,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         if (newRationale === "") {
             delete choices[choiceIndex].rationale;
         }
-        this.props.onChange({choices: choices});
+        this.handleChange({choices: choices});
     };
 
     onDelete: (arg1: number) => void = (choiceIndex) => {
@@ -225,7 +223,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
 
         choices.splice(choiceIndex, 1);
 
-        this.props.onChange({
+        this.handleChange({
             choices,
             hasNoneOfTheAbove:
                 this.props.hasNoneOfTheAbove && !deleted.isNoneOfTheAbove,
@@ -250,17 +248,10 @@ class RadioEditor extends React.Component<RadioEditorProps> {
 
         choices.splice(addIndex, 0, newChoice);
 
-        this.props.onChange(
-            {
-                choices: choices,
-                hasNoneOfTheAbove:
-                    noneOfTheAbove || this.props.hasNoneOfTheAbove,
-            },
-            () => {
-                // Focus the newly added choice editor
-                this.getChoiceRef(newChoice.id).current?.focus();
-            },
-        );
+        this.handleChange({
+            choices: choices,
+            hasNoneOfTheAbove: noneOfTheAbove || this.props.hasNoneOfTheAbove,
+        });
     };
 
     handleMove: (choiceIndex: number, movement: ChoiceMovementType) => void = (
@@ -269,12 +260,16 @@ class RadioEditor extends React.Component<RadioEditorProps> {
     ) => {
         const newChoices = getMovedChoices(
             this.props.choices,
-            this.props.hasNoneOfTheAbove,
+            // TODO(LEMS-4672): this `?? false` default is
+            //  dead code, but TypeScript thinks it's needed because
+            //  `radioWidgetLogic.defaultWidgetOptions` has type
+            //  `PerseusRadioWidgetOptions`, which includes undefined.
+            this.props.hasNoneOfTheAbove ?? false,
             choiceIndex,
             movement,
         );
 
-        this.props.onChange({choices: newChoices});
+        this.handleChange({choices: newChoices});
     };
 
     focus: () => boolean = () => {
@@ -295,47 +290,36 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         return [];
     };
 
-    serialize(): PerseusRadioWidgetOptions {
-        const {
-            choices,
-            randomize,
-            multipleSelect,
-            countChoices,
-            hasNoneOfTheAbove,
-            deselectEnabled,
-        } = this.props;
-
-        return {
-            choices,
-            randomize,
-            multipleSelect,
-            countChoices,
-            hasNoneOfTheAbove,
-            deselectEnabled,
-            numCorrect: deriveNumCorrect(choices),
-        };
-    }
-
     render(): React.ReactNode {
         const numCorrect = deriveNumCorrect(this.props.choices);
+        // TODO(LEMS-4681): Remove default for editingDisabled once all
+        //  apiOptions are passed to this component.
         const isEditingDisabled =
-            this.props.apiOptions.editingDisabled ?? false;
+            this.props.apiOptions?.editingDisabled ?? false;
 
         return (
             <div>
                 <div className="perseus-widget-row">
                     <LabeledSwitch
                         label="Randomize order"
-                        checked={this.props.randomize}
+                        // TODO(LEMS-4672): this `?? false` default is
+                        //  dead code, but TypeScript thinks it's needed because
+                        //  `radioWidgetLogic.defaultWidgetOptions` has type
+                        //  `PerseusRadioWidgetOptions`, which includes undefined.
+                        checked={this.props.randomize ?? false}
                         disabled={isEditingDisabled}
                         onChange={(value) => {
-                            this.props.onChange({randomize: value});
+                            this.handleChange({randomize: value});
                         }}
                         style={{marginBlockEnd: sizing.size_060}}
                     />
                     <LabeledSwitch
                         label="Multiple selections"
-                        checked={this.props.multipleSelect}
+                        // TODO(LEMS-4672): this `?? false` default is
+                        //  dead code, but TypeScript thinks it's needed because
+                        //  `radioWidgetLogic.defaultWidgetOptions` has type
+                        //  `PerseusRadioWidgetOptions`, which includes undefined.
+                        checked={this.props.multipleSelect ?? false}
                         disabled={isEditingDisabled}
                         onChange={(value) => {
                             this.onMultipleSelectChange({
@@ -348,7 +332,11 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                         <>
                             <LabeledSwitch
                                 label="Specify number correct"
-                                checked={this.props.countChoices}
+                                // TODO(LEMS-4672): this `?? false` default is
+                                //  dead code, but TypeScript thinks it's needed because
+                                //  `radioWidgetLogic.defaultWidgetOptions` has type
+                                //  `PerseusRadioWidgetOptions`, which includes undefined.
+                                checked={this.props.countChoices ?? false}
                                 disabled={isEditingDisabled}
                                 onChange={(value) => {
                                     this.onCountChoicesChange({
@@ -370,7 +358,11 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                         ref={this.getChoiceRef(choice.id)}
                         index={index}
                         choice={choice}
-                        multipleSelect={this.props.multipleSelect}
+                        // TODO(LEMS-4672): this `?? false` default is
+                        //  dead code, but TypeScript thinks it's needed because
+                        //  `radioWidgetLogic.defaultWidgetOptions` has type
+                        //  `PerseusRadioWidgetOptions`, which includes undefined.
+                        multipleSelect={this.props.multipleSelect ?? false}
                         onStatusChange={this.onStatusChange}
                         onContentChange={this.onContentChange}
                         onRationaleChange={this.onRationaleChange}

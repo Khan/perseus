@@ -32,18 +32,18 @@ const layoutOptions = {
     vertical: "Vertical",
 } as const satisfies Record<PerseusSorterWidgetOptions["layout"], string>;
 
-type Props = PerseusSorterWidgetOptions & {
-    onChange: (
-        newOptions: Partial<PerseusSorterWidgetOptions>,
-        callback?: () => void,
-    ) => void;
-};
+// TODO(benchristel): Define Props in terms of WidgetEditorProps. We can't do
+//  this currently because `pnpm build:types` fails with a cryptic error. The
+//  cause seems to be a combination of WidgetEditorProps' use of APIOptions and
+//  the fact that this is a functional component.
+interface Props extends PerseusSorterWidgetOptions {
+    onChange: (options: PerseusSorterWidgetOptions) => void;
+}
 
 /**
  * Imperative API that WidgetEditor calls
  */
 type SorterEditorHandle = {
-    serialize: () => PerseusSorterWidgetOptions;
     getSaveWarnings: () => string[];
 };
 
@@ -63,10 +63,6 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
         React.useImperativeHandle(
             ref,
             () => ({
-                serialize: () => {
-                    return {correct, layout, padding};
-                },
-
                 // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend
                 // uses the new linter rules for save warnings.
                 getSaveWarnings: () => {
@@ -84,20 +80,29 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                     return warnings;
                 },
             }),
-            [correct, layout, padding],
+            [correct],
         );
+
+        function handleChange(changes: Partial<PerseusSorterWidgetOptions>) {
+            onChange({
+                correct,
+                layout,
+                padding,
+                ...changes,
+            });
+        }
 
         const onCardChange = (index: number, value: string) => {
             const newCorrect = [...correct];
             newCorrect[index] = value;
-            onChange({correct: newCorrect});
+            handleChange({correct: newCorrect});
         };
 
         const onAddCard = () => {
             if (correct.length >= SORTER_MAX_CARDS) {
                 return;
             }
-            onChange({correct: [...correct, ""]});
+            handleChange({correct: [...correct, ""]});
         };
 
         const onMoveCard = (index: number, offset: -1 | 1) => {
@@ -107,11 +112,11 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                 newCorrect[newIndex],
                 newCorrect[index],
             ];
-            onChange({correct: newCorrect});
+            handleChange({correct: newCorrect});
         };
 
         const onDeleteCard = (index: number) => {
-            onChange({
+            handleChange({
                 correct: correct.filter((card, i) => i !== index),
             });
         };
@@ -166,9 +171,7 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                         <TypedSingleSelect
                             options={layoutOptions}
                             selectedValue={layout}
-                            onChange={(newLayout) =>
-                                onChange({layout: newLayout})
-                            }
+                            onChange={(layout) => handleChange({layout})}
                         />
                     }
                     contextLabel={
@@ -197,9 +200,7 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                     <Checkbox
                         label="Padding"
                         checked={padding}
-                        onChange={(value) => {
-                            onChange({padding: value});
-                        }}
+                        onChange={(padding) => handleChange({padding})}
                     />
                     <InfoTip>
                         <p>

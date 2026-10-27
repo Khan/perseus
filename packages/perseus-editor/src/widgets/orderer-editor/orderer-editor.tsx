@@ -10,14 +10,14 @@ import InfoTip from "../../components/info-tip";
 import TextListEditor from "../../components/text-list-editor";
 import {TypedSingleSelect} from "../../components/typed-single-select";
 
+import type {WidgetEditorProps} from "../widget-editor-props";
+
 const NORMAL = "normal";
 const AUTO = "auto";
 const HORIZONTAL = "horizontal";
 const VERTICAL = "vertical";
 
-interface Props extends PerseusOrdererWidgetOptions {
-    onChange: (options: PerseusOrdererWidgetOptions) => void;
-}
+type Props = WidgetEditorProps<PerseusOrdererWidgetOptions>;
 
 class OrdererEditor extends React.Component<Props> {
     static defaultProps: PerseusOrdererWidgetOptions =
@@ -52,19 +52,6 @@ class OrdererEditor extends React.Component<Props> {
             [whichOptions]: changedCards,
             options: mergeCards(correctOptions, otherOptions),
         });
-    };
-
-    serialize = (): PerseusOrdererWidgetOptions => {
-        return {
-            options: mergeCards(
-                this.props.correctOptions,
-                this.props.otherOptions,
-            ),
-            correctOptions: this.props.correctOptions,
-            otherOptions: this.props.otherOptions,
-            height: this.props.height,
-            layout: this.props.layout,
-        };
     };
 
     render(): React.ReactNode {

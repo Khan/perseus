@@ -20,11 +20,10 @@ import {
 } from "../../components/segmented-control";
 import {TypedSingleSelect} from "../../components/typed-single-select";
 import Editor from "../../editor";
-import EditorJsonify from "../../mixins/editor-jsonify";
 
 import styles from "./numeric-input-editor.module.css";
 
-import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
+import type {WidgetEditorProps} from "../widget-editor-props";
 
 const {NumberInput, TextInput} = components;
 
@@ -53,10 +52,7 @@ const initAnswer = (status: string) => {
     };
 };
 
-interface Props extends PerseusNumericInputWidgetOptions {
-    onChange: (options: PerseusNumericInputWidgetOptions) => void;
-    apiOptions: APIOptionsWithDefaults;
-}
+type Props = WidgetEditorProps<PerseusNumericInputWidgetOptions>;
 
 interface State {
     lastStatus: string;
@@ -204,13 +200,11 @@ class NumericInputEditor extends React.Component<Props, State> {
         return warnings;
     };
 
-    serialize = () => {
-        return EditorJsonify.serialize.call(this);
-    };
-
     render() {
         const answers = this.props.answers;
-        const editingDisabled = this.props.apiOptions.editingDisabled;
+        // TODO(LEMS-4681): Replace `?.` with `.` once all apiOptions are passed
+        //  to this component.
+        const editingDisabled = this.props.apiOptions?.editingDisabled;
 
         const unsimplifiedAnswers = (i: any) => (
             <View className={styles.field}>

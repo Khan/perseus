@@ -8,6 +8,7 @@ import {StyleSheet, css} from "aphrodite";
  *
  * This component is compatible with server-rendering of a perseus exercise.
  */
+import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
 
@@ -398,21 +399,18 @@ export class ServerItemRenderer
 
         return (
             <DependenciesContext.Provider value={this.props.dependencies}>
-                <div>
-                    <div>{questionRenderer}</div>
-                    <div
-                        className={
-                            // Avoid adding any horizontal padding when applying the
-                            // mobile hint styles, which are flush to the left.
-                            // NOTE(charlie): We may still want to apply this
-                            // padding for desktop exercises.
-                            apiOptions.isMobile
-                                ? undefined
-                                : css(styles.hintsContainer)
-                        }
-                    >
-                        {hintsRenderer}
-                    </div>
+                <div className="framework-perseus">{questionRenderer}</div>
+                <div
+                    className={classNames(
+                        "framework-perseus",
+                        // Avoid adding any horizontal padding when applying the
+                        // mobile hint styles, which are flush to the left.
+                        // NOTE(charlie): We may still want to apply this
+                        // padding for desktop exercises.
+                        !apiOptions.isMobile && css(styles.hintsContainer),
+                    )}
+                >
+                    {hintsRenderer}
                 </div>
             </DependenciesContext.Provider>
         );
@@ -421,6 +419,8 @@ export class ServerItemRenderer
 
 const styles = StyleSheet.create({
     hintsContainer: {
+        // TODO: move this margin-inline-start to a stylesheet and make sure
+        //  it isn't applied on mobile.
         marginInlineStart: 50,
     },
 });

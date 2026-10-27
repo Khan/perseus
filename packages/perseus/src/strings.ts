@@ -55,8 +55,6 @@ export type PerseusStrings = {
     simplifiedImproperExample: string;
     mixedExample: string;
     decimalExample: string;
-    // TODO: is this still needed?
-    // there's not a way to set this in the editor
     percentExample: string;
     piExample: string;
     yourAnswer: string;
@@ -960,7 +958,7 @@ export const strings = {
     WRONG_CASE_ERROR:
         "Your answer includes use of a variable with the wrong case.",
     WRONG_LETTER_ERROR: "Your answer includes a wrong variable letter.",
-    invalidSelection: "Make sure you select something for every row.",
+    invalidSelection: "Select an answer for every row.",
     INVALID_CHOICE_SELECTION: "Invalid choice selection",
     ERROR_TITLE: "Oops!",
     ERROR_MESSAGE: "Sorry, I don't understand that!",
@@ -981,7 +979,7 @@ export const strings = {
     incorrectSelected: "Incorrect (selected)",
     hideExplanation: "Hide explanation",
     explain: "Explain",
-    INVALID_MESSAGE_PREFIX: "We couldn't grade your answer.",
+    INVALID_MESSAGE_PREFIX: "We couldn't check your answer.",
     DEFAULT_INVALID_MESSAGE_1: "It looks like you left something blank or ",
     DEFAULT_INVALID_MESSAGE_2: "entered in an invalid answer.",
     integerExample: "an integer (like $-3$ or $45$)",
@@ -1910,7 +1908,7 @@ export const mockStrings: PerseusStrings = {
     WRONG_CASE_ERROR:
         "Your answer includes use of a variable with the wrong case.",
     WRONG_LETTER_ERROR: "Your answer includes a wrong variable letter.",
-    invalidSelection: "Make sure you select something for every row.",
+    invalidSelection: "Select an answer for every row.",
     INVALID_CHOICE_SELECTION: "Invalid choice selection",
     ERROR_TITLE: "Oops!",
     ERROR_MESSAGE: "Sorry, I don't understand that!",
@@ -1931,7 +1929,7 @@ export const mockStrings: PerseusStrings = {
     incorrectSelected: "Incorrect (selected)",
     hideExplanation: "Hide explanation",
     explain: "Explain",
-    INVALID_MESSAGE_PREFIX: "We couldn't grade your answer.",
+    INVALID_MESSAGE_PREFIX: "We couldn't check your answer.",
     DEFAULT_INVALID_MESSAGE_1: "It looks like you left something blank or ",
     DEFAULT_INVALID_MESSAGE_2: "entered in an invalid answer.",
     integerExample: "an integer (like $-3$ or $45$)",

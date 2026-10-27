@@ -11,16 +11,16 @@ import * as Dependencies from "../../dependencies";
 import {mockImageLoading} from "../../testing/image-loader-utils";
 import {testDependencies} from "../../testing/test-dependencies";
 import {scorePerseusItemTesting} from "../../util/test-utils";
-import {renderQuestion} from "../__testutils__/renderQuestion";
+import {renderQuestion} from "../__testutils__/render-question";
 
-import {question} from "./image.testdata";
 import {
     earthMoonImage,
     animatedGifLandscape,
     graphieImage,
     nonAnimatedGif,
-    decodeGifFrames,
-} from "./utils";
+} from "./__testdata__/image.testdata";
+import {question} from "./image.testdata";
+import {decodeGifFrames} from "./utils";
 
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";

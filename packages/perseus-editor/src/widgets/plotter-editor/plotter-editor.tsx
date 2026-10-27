@@ -9,7 +9,7 @@ import BlurInput from "../../components/blur-input";
 import InfoTip from "../../components/info-tip";
 import TextListEditor from "../../components/text-list-editor";
 
-import type {APIOptions} from "@khanacademy/perseus";
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -38,11 +38,7 @@ const editorDefaults = {
     snapsPerLine: 2,
 } as const;
 
-interface Props extends PerseusPlotterWidgetOptions {
-    apiOptions: APIOptions;
-    static: boolean;
-    onChange: (options: PerseusPlotterWidgetOptions) => void;
-}
+type Props = WidgetEditorProps<PerseusPlotterWidgetOptions>;
 
 type State = {
     editing: EditingState;
@@ -258,28 +254,6 @@ class PlotterEditor extends React.Component<Props, State> {
 
         // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'value' does not exist on type 'Element | Text'.
         node.value = categories.join(", ");
-    };
-
-    serialize: () => any = () => {
-        const json = _.pick(
-            this.props,
-            "correct",
-            "starting",
-            "type",
-            "labels",
-            "categories",
-            "scaleY",
-            "maxY",
-            "snapsPerLine",
-            "labelInterval",
-        );
-
-        if (this.props.type === "pic") {
-            // @ts-expect-error - TS2339 - Property 'picUrl' does not exist on type 'Pick<Readonly<any> & Readonly<{ children?: ReactNode; }>, "type" | "correct" | "labels" | "categories" | "starting" | "scaleY" | "maxY" | "snapsPerLine" | "labelInterval">'.
-            json.picUrl = this.props.picUrl;
-        }
-
-        return json;
     };
 
     render(): React.ReactNode {

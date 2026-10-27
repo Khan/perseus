@@ -52,6 +52,7 @@ import type {
     PerseusGrapherUserInput,
     GrapherPublicWidgetOptions,
     GrapherFunctionType,
+    FunctionTypeMappingKeys,
     Interval,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -383,7 +384,7 @@ class Grapher extends React.Component<Props> implements Widget {
         this.props.trackInteraction();
     };
 
-    handleActiveTypeChange: (arg1: any) => any = (newType) => {
+    handleActiveTypeChange = (newType: FunctionTypeMappingKeys) => {
         const {graph} = this.props.options;
         const plot = {
             ...this.props.userInput,

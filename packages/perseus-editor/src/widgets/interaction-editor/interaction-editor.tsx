@@ -3,7 +3,6 @@ import {interactionLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import GraphSettings from "../../components/graph-settings";
-import EditorJsonify from "../../mixins/editor-jsonify";
 
 import ElementContainer from "./element-container";
 import FunctionEditor from "./function-editor";
@@ -15,6 +14,7 @@ import ParametricEditor from "./parametric-editor";
 import PointEditor from "./point-editor";
 import RectangleEditor from "./rectangle-editor";
 
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {
     PerseusInteractionWidgetOptions,
     PerseusInteractionElement,
@@ -22,9 +22,7 @@ import type {
 
 const {unescapeMathMode} = Util;
 
-interface Props extends PerseusInteractionWidgetOptions {
-    onChange: (options: PerseusInteractionWidgetOptions) => void;
-}
+type Props = WidgetEditorProps<PerseusInteractionWidgetOptions>;
 
 type State = any;
 
@@ -215,10 +213,6 @@ class InteractionEditor extends React.Component<Props, State> {
         const newElements = this.props.elements.filter((e) => e !== element);
         newElements.splice(index + 1, 0, element);
         this.handleChange({elements: newElements});
-    };
-
-    serialize: () => any = () => {
-        return EditorJsonify.serialize.call(this);
     };
 
     render(): React.ReactNode {

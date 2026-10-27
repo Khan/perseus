@@ -13,7 +13,7 @@ import ExtrasEditor from "../../extras-editor";
 
 import styles from "./graded-group-editor.module.css";
 
-import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {
     PerseusGradedGroupWidgetOptions,
     PerseusRenderer,
@@ -21,10 +21,7 @@ import type {
 
 const {TextInput} = components;
 
-interface Props extends PerseusGradedGroupWidgetOptions {
-    apiOptions?: APIOptionsWithDefaults;
-    onChange: (options: PerseusGradedGroupWidgetOptions) => void;
-}
+type Props = WidgetEditorProps<PerseusGradedGroupWidgetOptions>;
 
 class GradedGroupEditor extends React.Component<Props> {
     static defaultProps: PerseusGradedGroupWidgetOptions =
@@ -56,20 +53,6 @@ class GradedGroupEditor extends React.Component<Props> {
 
     getSaveWarnings: () => any = () => {
         return this.editor.current?.getSaveWarnings();
-    };
-
-    serialize: () => {
-        title: string;
-        hint: any | null | undefined;
-    } = () => {
-        return {
-            title: this.props.title,
-            ...this.editor.current?.serialize(),
-            hint: this.hintEditor.current?.serialize(),
-            ...(this.props.answerArea
-                ? {answerArea: this.props.answerArea}
-                : {}),
-        };
     };
 
     render(): React.ReactNode {

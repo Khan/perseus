@@ -45,14 +45,13 @@ exports[`Sortable renders a spinner while waiting for the TeX renderer to load: 
         class="perseus-renderer perseus-renderer-responsive"
       >
         <div
-          class="paragraph"
-          data-perseus-paragraph-index="0"
+          class="deprecated-perseus-container"
         >
-          <div
-            class="paragraph"
+          <p
+            class="deprecated-perseus-container"
           >
             a
-          </div>
+          </p>
         </div>
       </div>
     </li>
@@ -64,14 +63,13 @@ exports[`Sortable renders a spinner while waiting for the TeX renderer to load: 
         class="perseus-renderer perseus-renderer-responsive"
       >
         <div
-          class="paragraph"
-          data-perseus-paragraph-index="0"
+          class="deprecated-perseus-container"
         >
-          <div
-            class="paragraph"
+          <p
+            class="deprecated-perseus-container"
           >
             b
-          </div>
+          </p>
         </div>
       </div>
     </li>
@@ -83,14 +81,13 @@ exports[`Sortable renders a spinner while waiting for the TeX renderer to load: 
         class="perseus-renderer perseus-renderer-responsive"
       >
         <div
-          class="paragraph"
-          data-perseus-paragraph-index="0"
+          class="deprecated-perseus-container"
         >
-          <div
-            class="paragraph"
+          <p
+            class="deprecated-perseus-container"
           >
             c
-          </div>
+          </p>
         </div>
       </div>
     </li>
@@ -112,14 +109,13 @@ exports[`Sortable should snapshot: first render 1`] = `
         class="perseus-renderer perseus-renderer-responsive"
       >
         <div
-          class="paragraph"
-          data-perseus-paragraph-index="0"
+          class="deprecated-perseus-container"
         >
-          <div
-            class="paragraph"
+          <p
+            class="deprecated-perseus-container"
           >
             a
-          </div>
+          </p>
         </div>
       </div>
     </li>
@@ -131,14 +127,13 @@ exports[`Sortable should snapshot: first render 1`] = `
         class="perseus-renderer perseus-renderer-responsive"
       >
         <div
-          class="paragraph"
-          data-perseus-paragraph-index="0"
+          class="deprecated-perseus-container"
         >
-          <div
-            class="paragraph"
+          <p
+            class="deprecated-perseus-container"
           >
             b
-          </div>
+          </p>
         </div>
       </div>
     </li>
@@ -150,14 +145,13 @@ exports[`Sortable should snapshot: first render 1`] = `
         class="perseus-renderer perseus-renderer-responsive"
       >
         <div
-          class="paragraph"
-          data-perseus-paragraph-index="0"
+          class="deprecated-perseus-container"
         >
-          <div
-            class="paragraph"
+          <p
+            class="deprecated-perseus-container"
           >
             c
-          </div>
+          </p>
         </div>
       </div>
     </li>

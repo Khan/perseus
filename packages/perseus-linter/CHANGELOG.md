@@ -1,5 +1,20 @@
 # @khanacademy/perseus-linter
 
+## 6.2.0
+
+### Minor Changes
+
+-   [#4341](https://github.com/Khan/perseus/pull/4341) [`1b2519f`](https://github.com/Khan/perseus/commit/1b2519ff904a2e7a8d917bc5cce448c213e12890) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Add a `table-missing-caption` lint rule that warns when a markdown table has no caption, or has a caption line with no text in it. Also fix the `|| Caption ||` syntax so it works above tables written with surrounding pipes, which previously failed to parse as a table at all.
+
+### Patch Changes
+
+-   [#4402](https://github.com/Khan/perseus/pull/4402) [`d12619d`](https://github.com/Khan/perseus/commit/d12619d59d1b368ac1a4d651a2b12e36e4ff4ac6) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Add lint warning for locked figures with all defining points out of range
+
+-   Updated dependencies [[`e31cb71`](https://github.com/Khan/perseus/commit/e31cb71241854670efe12d058489d735dda48aed), [`1b2519f`](https://github.com/Khan/perseus/commit/1b2519ff904a2e7a8d917bc5cce448c213e12890)]:
+    -   @khanacademy/perseus-core@42.0.1
+    -   @khanacademy/pure-markdown@3.1.0
+    -   @khanacademy/kmath@3.1.1
+
 ## 6.1.5
 
 ### Patch Changes

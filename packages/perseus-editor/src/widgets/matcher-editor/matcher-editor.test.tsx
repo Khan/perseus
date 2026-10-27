@@ -174,36 +174,6 @@ describe("matcher-editor", () => {
         );
     });
 
-    it("serializes the cards, labels, and options", () => {
-        // Arrange
-        const editorRef = React.createRef<MatcherEditor>();
-        render(
-            <MatcherEditor
-                ref={editorRef}
-                onChange={() => {}}
-                {...generateMatcherOptions({
-                    left: ["Cat", "Dog"],
-                    right: ["Meow", "Woof"],
-                    labels: ["Animal", "Sound"],
-                    orderMatters: true,
-                    padding: false,
-                })}
-            />,
-        );
-
-        // Act
-        const serialized = editorRef.current?.serialize();
-
-        // Assert
-        expect(serialized).toEqual({
-            left: ["Cat", "Dog"],
-            right: ["Meow", "Woof"],
-            labels: ["Animal", "Sound"],
-            orderMatters: true,
-            padding: false,
-        });
-    });
-
     describe("getSaveWarnings", () => {
         it("returns a warning when the two halves have different numbers of cards", () => {
             // Arrange

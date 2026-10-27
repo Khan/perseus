@@ -76,27 +76,27 @@
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
     > .perseus-renderer:first-child
-    > .paragraph:first-child
+    > .deprecated-perseus-container:first-child
     h1:first-child,
 .framework-perseus.perseus-article:not(.perseus-mobile)
     > .perseus-renderer:first-child
-    > .paragraph:first-child
+    > .deprecated-perseus-container:first-child
     h2:first-child,
 .framework-perseus.perseus-article:not(.perseus-mobile)
     > .perseus-renderer:first-child
-    > .paragraph:first-child
+    > .deprecated-perseus-container:first-child
     h3:first-child,
 .framework-perseus.perseus-article:not(.perseus-mobile)
     > .perseus-renderer:first-child
-    > .paragraph:first-child
+    > .deprecated-perseus-container:first-child
     h4:first-child,
 .framework-perseus.perseus-article:not(.perseus-mobile)
     > .perseus-renderer:first-child
-    > .paragraph:first-child
+    > .deprecated-perseus-container:first-child
     h5:first-child,
 .framework-perseus.perseus-article:not(.perseus-mobile)
     > .perseus-renderer:first-child
-    > .paragraph:first-child
+    > .deprecated-perseus-container:first-child
     h6:first-child {
     margin-top: 0;
 }
@@ -104,7 +104,7 @@
     margin: 0 calc(-1 * var(--wb-sizing-size_160)) var(--wb-sizing-size_320)
         calc(-1 * var(--wb-sizing-size_160));
 }
-.framework-perseus.perseus-mobile.perseus-article > .perseus-renderer {
+.framework-perseus.perseus-mobile > .perseus-renderer {
     margin-bottom: var(--wb-sizing-size_320);
 }
 .framework-perseus.perseus-mobile .perseus-block-math {
@@ -141,7 +141,6 @@
         font-family: inherit;
         font-size: 18px;
         line-height: 1.4;
-        color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile blockquote {
         font-family: inherit;
@@ -153,12 +152,10 @@
         font-family: inherit;
         font-size: 18px;
         line-height: 1.4;
-        color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
         font-size: 21px;
         line-height: 1.2;
-        color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
     .framework-perseus.perseus-mobile .perseus-block-math mjx-container {
         font-size: 21px;
@@ -217,7 +214,6 @@
         font-family: inherit;
         font-size: 20px;
         line-height: 1.5;
-        color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile blockquote {
         font-family: inherit;
@@ -229,12 +225,10 @@
         font-family: inherit;
         font-size: 20px;
         line-height: 1.5;
-        color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
         font-size: 23px;
         line-height: 1.3;
-        color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
     .framework-perseus.perseus-mobile .perseus-block-math mjx-container {
         font-size: 30px;
@@ -293,7 +287,6 @@
         font-family: inherit;
         font-size: 22px;
         line-height: 1.4;
-        color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile blockquote {
         font-family: inherit;
@@ -305,12 +298,10 @@
         font-family: inherit;
         font-size: 22px;
         line-height: 1.4;
-        color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
         font-size: 25px;
         line-height: 1.2;
-        color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
     .framework-perseus.perseus-mobile .perseus-block-math mjx-container {
         font-size: 30px;

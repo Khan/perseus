@@ -22,7 +22,7 @@ import "./styles/perseus-editor.css";
 
 // eslint-disable-next-line import/order
 import {Widgets, widgets} from "@khanacademy/perseus";
-import AllEditors from "./all-editors";
+import {AllEditors} from "./all-editors";
 import * as WidgetEditorRegistry from "./widget-editor-registry";
 
 WidgetEditorRegistry.registerEditors(AllEditors);

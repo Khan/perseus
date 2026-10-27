@@ -1,5 +1,6 @@
 import {vector as kvector} from "@khanacademy/kmath";
 import {
+    ApiOptions,
     containerSizeClass,
     getInteractiveBoxFromSizeClass,
     InteractiveGraphWidget,
@@ -10,8 +11,6 @@ import {interactiveGraphLogic} from "@khanacademy/perseus-core";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
-import invariant from "tiny-invariant";
-import _ from "underscore";
 
 import AngleAnswerOptions from "./components/angle-answer-options";
 import GraphPointsCountSelector from "./components/graph-points-count-selector";
@@ -27,15 +26,16 @@ import VectorAnswerOptions from "./components/vector-answer-options";
 import LabeledRow from "./locked-figures/labeled-row";
 import LockedFiguresSection from "./locked-figures/locked-figures-section";
 import StartCoordsSettings from "./start-coords/start-coords-settings";
-import {getStartCoords, shouldShowStartCoordsUI} from "./start-coords/util";
+import {shouldShowStartCoordsUI} from "./start-coords/util";
 import {reshapePointLabelsForGraphType} from "./utils/reshape-point-labels";
 
 import type {InteractiveGraphSettingsData} from "./components/interactive-graph-settings";
+import type {WidgetEditorProps} from "../widget-editor-props";
 import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import type {
+    PerseusGraphType,
     PerseusInteractiveGraphUserInput,
     PerseusInteractiveGraphWidgetOptions,
-    PerseusGraphType,
 } from "@khanacademy/perseus-core";
 
 const InteractiveGraph: typeof InteractiveGraphWidget.widget =
@@ -49,14 +49,7 @@ interface State {
     valid: true | string;
 }
 
-export interface Props extends PerseusInteractiveGraphWidgetOptions {
-    apiOptions: APIOptionsWithDefaults;
-    onChange: (options: PerseusInteractiveGraphWidgetOptions) => void;
-    // Whether the graph has been set to static mode.
-    // Graphs in static mode are not interactive, and their coords are
-    // set to those of the "correct" graph in the editor.
-    static?: boolean;
-}
+export type Props = WidgetEditorProps<PerseusInteractiveGraphWidgetOptions>;
 
 /**
  * An editor for the InteractiveGraph widget, which allows the user to
@@ -153,88 +146,6 @@ class InteractiveGraphEditor extends React.Component<Props, State> {
         this.handleChange({graph: newGraph, correct: newCorrect});
     };
 
-    // serialize() is what makes copy/paste work. All the properties included
-    // in the serialization json are included when, for example, a graph
-    // is copied from the question editor and pasted into the hint editor
-    // (double brackets in the markdown).
-    serialize(): PerseusInteractiveGraphWidgetOptions {
-        const json = _.pick(
-            this.props,
-            "step",
-            "backgroundImage",
-            "markings",
-            "labels",
-            "labelLocation",
-            "showProtractor",
-            "showTooltips",
-            "range",
-            "showAxisArrows",
-            "showAxisTicks",
-            "gridStep",
-            "snapStep",
-            "lockedFigures",
-            "fullGraphAriaLabel",
-            "fullGraphAriaDescription",
-        );
-
-        const graph = this.refs.graph;
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (graph) {
-            // @ts-expect-error TS2339 Property 'getUserInput' does not exist on type 'ReactInstance'. Property 'getUserInput' does not exist on type 'Component<any, {}, any>'.
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            const correct = graph && graph.getUserInput();
-            _.extend(json, {
-                graph: {
-                    type: correct.type,
-                    startCoords: getStartCoords(this.props.graph),
-                    ...("pointLabels" in this.props.graph &&
-                    this.props.graph.pointLabels
-                        ? {pointLabels: this.props.graph.pointLabels}
-                        : {}),
-                    ...("showPointLabels" in this.props.graph &&
-                    this.props.graph.showPointLabels
-                        ? {
-                              showPointLabels: this.props.graph.showPointLabels,
-                          }
-                        : {}),
-                },
-                correct: correct,
-            });
-
-            _.each(
-                [
-                    "allowReflexAngles",
-                    "angleOffsetDeg",
-                    "numPoints",
-                    "numSides",
-                    "numSegments",
-                    "showAngles",
-                    "showSides",
-                    "snapTo",
-                    "snapDegrees",
-                ],
-                function (key) {
-                    if (_.has(correct, key)) {
-                        // @ts-expect-error - TS2339 - Property 'graph' does not exist on type 'Pick<any, "step" | "range" | "backgroundImage" | "snapStep" | "labels" | "showTooltips" | "markings" | "gridStep" | "showProtractor">'.
-                        json.graph[key] = correct[key];
-                    }
-                },
-            );
-        } else {
-            // When the graph is undefined (such as when the settings are invalid).
-            // Fall back to the last-known graph/correct from props.
-            // This preserves the graph rendering in our preview editor and avoids
-            // cascading issues as a result of undefined props being passed to
-            // the interactive graph widget.
-            _.extend(json, {
-                graph: this.props.graph,
-                correct: this.props.correct,
-            });
-        }
-        // @ts-expect-error TS2739 Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "step" | "gridStep" | "snapStep" | "backgroundImage" | "markings" | "labels" | ... 5 more ... | "range">' is missing the following properties from type 'PerseusInteractiveGraphWidgetOptions': graph, correct
-        return json;
-    }
-
     // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
     // the new linter rules for save warnings.
     getSaveWarnings = () => {
@@ -316,6 +227,13 @@ class InteractiveGraphEditor extends React.Component<Props, State> {
 
         const sizeClass = containerSizeClass.SMALL;
 
+        const apiOptionsWithDefaults: APIOptionsWithDefaults = {
+            // TODO(LEMS-4681): Remove ApiOptions.defaults once all apiOptions
+            //  are passed to this component.
+            ...ApiOptions.defaults,
+            ...this.props.apiOptions,
+        };
+
         if (this.state.valid === true) {
             // Default `correct` to `graph` if the type is wrong. This works
             // around a bug in the AX editor.
@@ -326,7 +244,6 @@ class InteractiveGraphEditor extends React.Component<Props, State> {
                     : this.props.graph;
 
             const graphProps = {
-                ref: "graph",
                 options: {
                     range: this.props.range,
                     showAxisArrows: this.props.showAxisArrows,
@@ -346,6 +263,8 @@ class InteractiveGraphEditor extends React.Component<Props, State> {
                         this.props.fullGraphAriaDescription,
                 },
                 // Set the "correct answer" graph to static when editing is disabled
+                // TODO(LEMS-4681): Remove default for editingDisabled once all
+                //  apiOptions are passed to this component.
                 static: this.props.apiOptions?.editingDisabled ?? false,
                 trackInteraction: function () {},
                 userInput:
@@ -357,36 +276,29 @@ class InteractiveGraphEditor extends React.Component<Props, State> {
                 handleUserInput: (
                     newGraph: PerseusInteractiveGraphUserInput,
                 ) => {
-                    let correct = this.props.correct;
-                    // TODO(benchristel): can we improve the type of onChange
-                    // so this invariant isn't necessary?
-                    invariant(newGraph != null);
-                    // Preserve author's showPointLabels: the state echo
-                    // from StatefulMafsGraph would otherwise clobber it
-                    // with the render-time override's `false`.
+                    // The code below was written under the assumption that
+                    // static graphs can never display visible point labels,
+                    // though I don't think there's any product reason for that
+                    // restriction. If we set `showPointLabels = true` on the
+                    // `correct` field of a static graph, the graph in the
+                    // editor will show the labels while the learner view does
+                    // not. This conditional prevents that inconsistency by
+                    // hiding the labels in the editor.
+                    // TODO(benchristel): let static graphs show point labels,
+                    //  and delete this special-case handling.
                     if (
                         this.props.static === true &&
-                        newGraph != null &&
                         "showPointLabels" in newGraph
                     ) {
                         newGraph = {
                             ...newGraph,
                             showPointLabels:
-                                "showPointLabels" in correct
-                                    ? correct.showPointLabels
+                                "showPointLabels" in this.props.correct
+                                    ? this.props.correct.showPointLabels
                                     : undefined,
                         };
                     }
-                    if (correct.type === newGraph.type) {
-                        correct = mergeGraphs(correct, newGraph);
-                    } else {
-                        // Clear options from previous graph
-                        correct = newGraph;
-                    }
-                    this.handleChange({
-                        correct: correct,
-                        graph: this.props.graph,
-                    });
+                    this.handleChange({correct: newGraph});
                 },
             } as const;
 
@@ -399,7 +311,8 @@ class InteractiveGraphEditor extends React.Component<Props, State> {
                     {...graphProps}
                     containerSizeClass={sizeClass}
                     apiOptions={{
-                        ...this.props.apiOptions,
+                        // TODO(LEMS-4681): Use apiOptions here.
+                        ...apiOptionsWithDefaults,
                         isMobile: false,
                     }}
                 />
@@ -555,83 +468,19 @@ class InteractiveGraphEditor extends React.Component<Props, State> {
                             onChange={(settings) =>
                                 this.handleSettingsChange(settings)
                             }
-                            apiOptions={this.props.apiOptions}
+                            // TODO(LEMS-4681): Use apiOptions here.
+                            apiOptions={apiOptionsWithDefaults}
                         />
                         <LockedFiguresSection
                             figures={this.props.lockedFigures}
                             onChange={(options) => this.handleChange(options)}
-                            apiOptions={this.props.apiOptions}
+                            // TODO(LEMS-4681): Use apiOptions here.
+                            apiOptions={apiOptionsWithDefaults}
                         />
                     </View>
                 )}
             </Id>
         );
-    }
-}
-
-// Merges two graphs that have the same `type`. Properties defined in `b`
-// overwrite properties of the same name in `a`. Throws an exception if the
-// types are different or not recognized.
-function mergeGraphs(
-    a: PerseusGraphType,
-    b: PerseusGraphType,
-): PerseusGraphType {
-    if (a.type !== b.type) {
-        throw new Error(
-            `Cannot merge graphs with different types (${a.type} and ${b.type})`,
-        );
-    }
-    switch (a.type) {
-        case "angle":
-            invariant(b.type === "angle");
-            return {...a, ...b};
-        case "circle":
-            invariant(b.type === "circle");
-            return {...a, ...b};
-        case "linear":
-            invariant(b.type === "linear");
-            return {...a, ...b};
-        case "linear-system":
-            invariant(b.type === "linear-system");
-            return {...a, ...b};
-        case "none":
-            invariant(b.type === "none");
-            return {...a, ...b};
-        case "point":
-            invariant(b.type === "point");
-            return {...a, ...b};
-        case "polygon":
-            invariant(b.type === "polygon");
-            return {...a, ...b};
-        case "quadratic":
-            invariant(b.type === "quadratic");
-            return {...a, ...b};
-        case "ray":
-            invariant(b.type === "ray");
-            return {...a, ...b};
-        case "segment":
-            invariant(b.type === "segment");
-            return {...a, ...b};
-        case "sinusoid":
-            invariant(b.type === "sinusoid");
-            return {...a, ...b};
-        case "absolute-value":
-            invariant(b.type === "absolute-value");
-            return {...a, ...b};
-        case "exponential":
-            invariant(b.type === "exponential");
-            return {...a, ...b};
-        case "tangent":
-            invariant(b.type === "tangent");
-            return {...a, ...b};
-        case "logarithm":
-            invariant(b.type === "logarithm");
-            return {...a, ...b};
-        case "vector":
-            invariant(b.type === "vector");
-            return {...a, ...b};
-        default:
-            throw new UnreachableCaseError(a);
     }
 }
 

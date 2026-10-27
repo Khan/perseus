@@ -1,19 +1,12 @@
 import {groupLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
-import invariant from "tiny-invariant";
 
 import Editor from "../../editor";
 
-import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
-import type {
-    PerseusGroupWidgetOptions,
-    PerseusRenderer,
-} from "@khanacademy/perseus-core";
+import type {WidgetEditorProps} from "../widget-editor-props";
+import type {PerseusGroupWidgetOptions} from "@khanacademy/perseus-core";
 
-interface Props extends PerseusGroupWidgetOptions {
-    onChange: (options: PerseusGroupWidgetOptions) => void;
-    apiOptions: APIOptionsWithDefaults;
-}
+type Props = WidgetEditorProps<PerseusGroupWidgetOptions>;
 
 class GroupEditor extends React.Component<Props> {
     static defaultProps: PerseusGroupWidgetOptions =
@@ -24,14 +17,6 @@ class GroupEditor extends React.Component<Props> {
     getSaveWarnings: () => ReadonlyArray<any> = () => {
         return this.editor.current?.getSaveWarnings();
     };
-
-    serialize(): PerseusRenderer {
-        invariant(
-            this.editor.current,
-            "cannot serialize GroupEditor without Editor",
-        );
-        return {...this.editor.current.serialize()};
-    }
 
     render(): React.ReactNode {
         return (
