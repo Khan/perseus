@@ -36,9 +36,7 @@
         --wb-border-width-medium
     ); /* Space between the choices, which is also used to position the divider */
     border-radius: var(--wb-border-radius-radius_080);
-    font-size: var(--wb-font-heading-size-medium);
     font-weight: var(--wb-font-weight-semi);
-    line-height: var(--wb-font-heading-lineHeight-medium);
     margin-block-end: var(--perseus-multiple-choice-divider-space);
     min-height: calc(var(--perseus-multiple-choice-spacing) * 4);
     outline: var(--wb-border-width-medium) solid
