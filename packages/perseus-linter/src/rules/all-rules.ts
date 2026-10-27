@@ -4,8 +4,11 @@ import {
     ExplanationInGradedGroup,
     ExplanationInGradedGroupSet,
 } from "./explanation-in-graded-group";
-import ExpressionWidget from "./expression-widget";
-import ExpressionWidgetError from "./expression-widget-error";
+import {
+    ExpressionWidgetAnswerForms,
+    ExpressionWidgetButtons,
+    ExpressionWidgetCorrectAnswer,
+} from "./expression-widget";
 import ExtraContentSpacing from "./extra-content-spacing";
 import FreeResponseWidgetError from "./free-response-widget-error";
 import HeadingLevel1 from "./heading-level-1";
@@ -55,7 +58,8 @@ export default [
     AbsoluteUrl,
     DoubleSpacingAfterTerminal,
     ImageUrlEmpty,
-    ExpressionWidget,
+    ExpressionWidgetButtons,
+    ExpressionWidgetCorrectAnswer,
     ExtraContentSpacing,
     HeadingLevel1,
     HeadingLevelSkip,
@@ -88,7 +92,7 @@ export default [
     LegacyGifUrl,
     InaccessibleWidget,
     RadioWidgetError,
-    ExpressionWidgetError,
+    ExpressionWidgetAnswerForms,
     FreeResponseWidgetError,
     MatcherWidgetError,
     NumericInputMissingLabel,
