@@ -326,55 +326,6 @@ describe("radio-editor", () => {
         ).not.toBeInTheDocument();
     });
 
-    it("serializes", () => {
-        const editorRef = React.createRef<RadioEditor>();
-
-        render(
-            <RadioEditor
-                ref={editorRef}
-                onChange={() => {}}
-                apiOptions={ApiOptions.defaults}
-                choices={fourChoices}
-            />,
-            {wrapper: RenderStateRoot},
-        );
-
-        const options = editorRef.current?.serialize();
-
-        expect(options).toEqual({
-            choices: fourChoices,
-            randomize: false,
-            multipleSelect: false,
-            countChoices: false,
-            hasNoneOfTheAbove: false,
-            deselectEnabled: false,
-            numCorrect: 0,
-        });
-    });
-
-    it("derives num correct when serializing", () => {
-        const editorRef = React.createRef<RadioEditor>();
-
-        render(
-            <RadioEditor
-                ref={editorRef}
-                onChange={() => {}}
-                apiOptions={ApiOptions.defaults}
-                choices={[
-                    getCorrectChoice(),
-                    getIncorrectChoice(),
-                    getCorrectChoice(),
-                    getIncorrectChoice(),
-                ]}
-            />,
-            {wrapper: RenderStateRoot},
-        );
-
-        const options = editorRef.current?.serialize();
-
-        expect(options?.numCorrect).toEqual(2);
-    });
-
     it("derives num correct when calling onChange", async () => {
         const onChangeMock = jest.fn();
 

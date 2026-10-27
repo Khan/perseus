@@ -22,12 +22,6 @@ class GradedGroupSetEditor extends React.Component<Props> {
         );
     };
 
-    serialize = () => {
-        return {
-            gradedGroups: this.props.gradedGroups,
-        };
-    };
-
     renderGroups: () => React.ReactNode = () => {
         // `defaultProps` only fills in for `undefined`, so content with an
         // explicit `gradedGroups: null` still reaches us as null.

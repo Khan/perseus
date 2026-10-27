@@ -3,7 +3,6 @@ import {labelImageLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import FormWrappedTextField from "../../components/form-wrapped-text-field";
-import EditorJsonify from "../../mixins/editor-jsonify";
 
 import AnswerChoices from "./answer-choices";
 import Behavior from "./behavior";
@@ -124,10 +123,6 @@ class LabelImageEditor extends React.Component<Props> {
         return warnings;
     };
 
-    serialize(): any {
-        return EditorJsonify.serialize.call(this);
-    }
-
     handleImageChange = (url: string) => {
         this.handleChange({
             imageUrl: url,
@@ -177,10 +172,6 @@ class LabelImageEditor extends React.Component<Props> {
         markers: PerseusLabelImageWidgetOptions["markers"],
     ) => void = (markers: PerseusLabelImageWidgetOptions["markers"]) => {
         this.handleChange({markers});
-    };
-
-    handleBehaviorChange: (options?: any) => void = (options: any) => {
-        this.props.onChange(options);
     };
 
     render(): React.ReactNode {
@@ -240,7 +231,7 @@ class LabelImageEditor extends React.Component<Props> {
                     preferredPopoverDirection={preferredPopoverDirection}
                     multipleAnswers={multipleAnswers}
                     hideChoicesFromInstructions={hideChoicesFromInstructions}
-                    onChange={this.handleBehaviorChange}
+                    onChange={(changes) => this.handleChange(changes)}
                 />
             </div>
         );

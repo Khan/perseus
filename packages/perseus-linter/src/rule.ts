@@ -123,11 +123,12 @@ import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import Selector from "./selector";
 
 import type {TraversalState, TreeNode} from "./tree-transformer";
+import type {PerseusWidgetTypes} from "@khanacademy/perseus-core";
 
 export type MakeRuleOptions = {
     name: string;
     pattern?: RegExp;
-    severity?: number;
+    severity: number;
     selector?: string;
     locale?: string;
     message?: string;
@@ -139,6 +140,15 @@ export type MakeRuleOptions = {
         context: LintRuleContextObject,
     ) => LintTesterReturnType;
     applies?: AppliesTester;
+};
+
+export type MakeWidgetRuleOptions<
+    TWidgetType extends keyof PerseusWidgetTypes,
+> = {
+    name: string;
+    severity: number;
+    widgetType: TWidgetType;
+    lint: (widgetInfo: PerseusWidgetTypes[TWidgetType]) => string | undefined;
 };
 
 // This represents the type returned by String.match(). It is an
@@ -219,7 +229,7 @@ export default class Rule {
     // this constructor and its arguments
     constructor(
         name: string | null | undefined,
-        severity: number | null | undefined,
+        severity: number,
         selector: Selector | null | undefined,
         pattern: RegExp | null | undefined,
         lint: LintTester | string | undefined,
@@ -234,7 +244,7 @@ export default class Rule {
         }
 
         this.name = name || "unnamed rule";
-        this.severity = severity || Rule.Severity.BULK_WARNING;
+        this.severity = severity;
         this.selector = selector || Rule.DEFAULT_SELECTOR;
         this.pattern = pattern || null;
 
@@ -265,6 +275,39 @@ export default class Rule {
             Rule.makePattern(options.pattern),
             options.lint || options.message,
             options.applies,
+        );
+    }
+
+    static makeWidgetRule<TWidgetType extends keyof PerseusWidgetTypes>(
+        options: MakeWidgetRuleOptions<TWidgetType>,
+    ): Rule {
+        return new Rule(
+            options.name,
+            options.severity,
+            Selector.parse("widget"),
+            null,
+            (state, content, nodes, match, context) => {
+                // Only apply widget rules if the widget has the correct type.
+                if (state.currentNode().widgetType !== options.widgetType) {
+                    return;
+                }
+
+                const widgetId = state.currentNode().id;
+                if (!widgetId) {
+                    return;
+                }
+
+                const widgetInfo = context?.widgets?.[widgetId];
+                if (!widgetInfo) {
+                    return;
+                }
+
+                const message = options.lint(widgetInfo);
+                if (message) {
+                    return `${widgetId}: ${message}`;
+                }
+            },
+            undefined,
         );
     }
 
@@ -433,7 +476,6 @@ ${e.stack}`,
     }
 
     static Severity: {
-        BULK_WARNING: number;
         ERROR: number;
         GUIDELINE: number;
         WARNING: number;
@@ -441,7 +483,6 @@ ${e.stack}`,
         ERROR: 1,
         WARNING: 2,
         GUIDELINE: 3,
-        BULK_WARNING: 4,
     };
 }
 

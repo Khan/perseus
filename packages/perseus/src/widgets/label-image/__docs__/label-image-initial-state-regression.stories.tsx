@@ -2,7 +2,6 @@ import {expect, waitFor} from "storybook/test";
 
 import {themeModes} from "../../../../../../.storybook/modes";
 import {
-    mobileDecorator,
     reducedMotionDecorator,
     rtlDecorator,
 } from "../../__testutils__/story-decorators";
@@ -152,16 +151,6 @@ export const ReducedMotionMarkers: Story = {
             getFiniteAnimations().map((animation) => animation.finished),
         );
     },
-};
-
-// Verifies the mobile instruction text. On mobile, the caption reads
-// `strings.tapSingle` ("Tap each dot ...") instead of the desktop "Click ..."
-export const MobileInstructions: Story = {
-    decorators: [labelImageRendererDecorator, mobileDecorator],
-    parameters: {
-        apiOptions: {isMobile: true},
-    },
-    args: barGraphArgs,
 };
 
 // Verifies choices shown in the instructions section (hideChoicesFromInstructions: false),

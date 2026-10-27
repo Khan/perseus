@@ -8,7 +8,7 @@ import React from "react";
 
 import {themeModes} from "../../../../.storybook/modes";
 import {storybookDependenciesV2} from "../testing/test-dependencies";
-import {earthMoonImage} from "../widgets/image/utils";
+import {earthMoonImage} from "../widgets/image/__testdata__/image.testdata";
 
 import {bibliotronExerciseDecorator} from "./hints-renderer-decorator";
 import {HintsRendererForStories} from "./hints-renderer-for-stories";

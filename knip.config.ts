@@ -16,45 +16,25 @@ const basePackageConfig = {
     project: ["src/**/*.{ts,tsx,js,jsx}!"],
     entry: [
         "src/index.{ts,tsx}!",
-        "src/**/*.cypress.{ts,tsx}",
-        "src/**/*.test.{ts,tsx}",
-        "src/**/*.typetest.{ts,tsx}",
-        "src/**/*.stories.{ts,tsx}",
+        "src/**/*.{cypress,test,typetest,stories}.{ts,tsx}",
     ],
 };
 
 const config: KnipConfig = {
-    // .pi/ holds local agent tooling that git ignores, but knip still picks
-    // up its files.
-    ignore: [".pi/**"],
-    // Knip only parses JS and TS files. To follow imports in other file
-    // types, it runs a "compiler" that turns a file into JS/TS source it can
-    // parse. See: https://knip.dev/features/compilers
-    //
-    // Storybook docs pages (.mdx) import components, stories, and packages,
-    // so without this knip reports those as unused. Knip has a built-in MDX
-    // compiler, but in this version it only turns on when an MDX package
-    // (e.g. @mdx-js/mdx) is a direct dependency, and none is here. (Knip 6
-    // can turn it on with `mdx: true` instead.)
-    //
-    // Knip only needs the import statements, so this returns the lines that
-    // start with `import`. It first removes fenced code blocks, because the
-    // docs show sample imports (e.g. of @khanacademy/perseus-score) that
-    // aren't real. An import split over several lines would break this;
-    // none of our .mdx files has one.
-    compilers: {
-        mdx: (text: string) =>
-            text
-                .replace(/```[\s\S]*?```/g, "")
-                .match(/^import\s.+$/gm)
-                ?.join("\n") ?? "",
-    },
     workspaces: {
         ".": {
-            project: ["{config,utils}/**/*.{ts,tsx,js,jsx}"],
+            project: ["{config,utils}/**/*.{ts,tsx,js,jsx,mdx}"],
             entry: [
                 // CLI tools
                 "utils/**/*.{ts,tsx,js,jsx}",
+            ],
+        },
+        "config/eslint-plugin": {
+            project: [
+                "**/*.{ts,tsx,js,jsx}",
+                // ESLint rule test fixtures are referenced by path (RuleTester
+                // `filename`), never imported.
+                "!rules/__fixtures__/**",
             ],
         },
         "packages/*": basePackageConfig,
@@ -89,17 +69,8 @@ const config: KnipConfig = {
         // `swcrc.jsc.experimental.plugins.push(["swc_mut_cjs_exports", {}]);`
         // (hence, not imported).
         "swc_mut_cjs_exports",
-        // @swc/helpers is referenced via externalHelpers in .swcrc, not imported directly.
-        "@swc/helpers",
         // We use esbuild for the item-splitting change check in a Github action.
         "esbuild",
-    ],
-    // Scripts we use in `package.json`
-    ignoreBinaries: [
-        "utils/changed-files.sh",
-        "utils/lint.sh",
-        "utils/pre-publish-check-ci.ts",
-        "utils/update-catalog-hashes-cli.ts",
     ],
 };
 

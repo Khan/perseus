@@ -16,7 +16,7 @@ import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 /**
- * WidgetEditor holds the editor by ref and calls `serialize()` on it, so that
+ * WidgetEditor holds the editor by ref and calls `getSaveWarnings()` on it, so that
  * handle is part of the editor's contract with the rest of the system. Deriving
  * the type from the component keeps these tests tied to the contract rather than
  * to how the component happens to be written.
@@ -348,24 +348,6 @@ describe("sorter-editor", () => {
             );
         });
 
-        it("serializes all of the cards, including the ones past the limit", () => {
-            // Arrange
-            const editorRef = React.createRef<SorterEditorHandle>();
-            render(
-                <SorterEditor
-                    ref={editorRef}
-                    onChange={() => {}}
-                    {...generateSorterOptions({correct: fifteenCards})}
-                />,
-            );
-
-            // Act
-            const serialized = editorRef.current?.serialize();
-
-            // Assert
-            expect(serialized?.correct).toEqual(fifteenCards);
-        });
-
         it("disables the add button", () => {
             // Arrange, Act
             render(
@@ -677,8 +659,7 @@ describe("sorter-editor", () => {
             ]);
         });
 
-        // The warnings have to reflect the edit in progress, the same way
-        // `serialize` does — WidgetEditor asks for both mid-edit.
+        // The warnings have to reflect the edit in progress.
         it("warns about a card the author has just cleared", async () => {
             // Arrange
             const editorRef = renderForWarnings(["Cat", "Dog"]);

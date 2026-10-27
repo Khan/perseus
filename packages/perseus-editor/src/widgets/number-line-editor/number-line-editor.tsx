@@ -7,7 +7,6 @@ import _ from "underscore";
 
 import InfoTip from "../../components/info-tip";
 import {TypedSingleSelect} from "../../components/typed-single-select";
-import EditorJsonify from "../../mixins/editor-jsonify";
 
 import type {WidgetEditorProps} from "../widget-editor-props";
 import type {
@@ -103,10 +102,6 @@ class NumberLineEditor extends React.Component<Props> {
             correctRel: value,
             isInequality: value !== "eq",
         });
-    };
-
-    serialize: () => any = () => {
-        return EditorJsonify.serialize.call(this);
     };
 
     getNumberInputFormat(): MathFormat {

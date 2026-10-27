@@ -54,19 +54,6 @@ class OrdererEditor extends React.Component<Props> {
         });
     };
 
-    serialize = (): PerseusOrdererWidgetOptions => {
-        return {
-            options: mergeCards(
-                this.props.correctOptions,
-                this.props.otherOptions,
-            ),
-            correctOptions: this.props.correctOptions,
-            otherOptions: this.props.otherOptions,
-            height: this.props.height,
-            layout: this.props.layout,
-        };
-    };
-
     render(): React.ReactNode {
         return (
             <div>

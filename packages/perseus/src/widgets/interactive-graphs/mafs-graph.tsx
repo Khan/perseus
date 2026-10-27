@@ -240,6 +240,12 @@ export const MafsGraph = (props: MafsGraphProps) => {
     // figures clipped, while preserving author (and screen-reader) order.
     const lockedFigureRuns = getLockedFigureClipRuns(props.lockedFigures);
 
+    const graphTypeInstructions = isUnlimitedGraphState(state)
+        ? strings.srUnlimitedGraphInstructions
+        : strings.srGraphInstructions;
+    const requiredLabel = isRequired ? ` ${strings.required}` : "";
+    const srInstructions = `${graphTypeInstructions}${requiredLabel}`;
+
     return (
         <GraphConfigContext.Provider
             value={{
@@ -326,10 +332,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             tabIndex={-1}
                             className="mafs-sr-only"
                         >
-                            {isUnlimitedGraphState(state)
-                                ? strings.srUnlimitedGraphInstructions
-                                : strings.srGraphInstructions}
-                            {isRequired && ` ${strings.required}`}
+                            {srInstructions}
                         </View>
                     )}
                     {fullGraphAriaDescription && (

@@ -110,7 +110,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         }
 
         // Update with the recalculated numCorrect and choices
-        this.props.onChange({
+        this.handleChange({
             multipleSelect: isMultipleSelect,
             choices,
             numCorrect: deriveNumCorrect(choices),
@@ -163,7 +163,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
 
     // Called when there is a change to which choice(s) are correct to
     // calculate the new list of correct choices.
-    // Calls `onChange` to update the props.
+    // Calls `this.onChange()` to update the props.
     onStatusChange: (choiceIndex: number, correct: boolean) => void = (
         choiceIndex,
         correct,
@@ -289,27 +289,6 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         }
         return [];
     };
-
-    serialize(): PerseusRadioWidgetOptions {
-        const {
-            choices,
-            randomize,
-            multipleSelect,
-            countChoices,
-            hasNoneOfTheAbove,
-            deselectEnabled,
-        } = this.props;
-
-        return {
-            choices,
-            randomize,
-            multipleSelect,
-            countChoices,
-            hasNoneOfTheAbove,
-            deselectEnabled,
-            numCorrect: deriveNumCorrect(choices),
-        };
-    }
 
     render(): React.ReactNode {
         const numCorrect = deriveNumCorrect(this.props.choices);

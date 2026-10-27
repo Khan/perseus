@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-Internal: clarified comments
+Upgraded jQuery to 4.0.0.

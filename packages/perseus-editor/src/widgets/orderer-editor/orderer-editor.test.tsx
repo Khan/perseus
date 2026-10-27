@@ -111,52 +111,6 @@ describe("OrdererEditor", () => {
         );
     });
 
-    it("serializes content correctly", () => {
-        // Arrange
-        const onChangeMock = jest.fn();
-        const editorRef = React.createRef<OrdererEditor>();
-
-        const widgetOptions: PerseusOrdererWidgetOptions = {
-            // While technically an invalid state, it's helpful for emphasizing
-            // that serialize() handles the updating of options correctly
-            options: [],
-            correctOptions: [
-                {content: "Option 1", widgets: {}, images: {}},
-                {content: "Option 3", widgets: {}, images: {}},
-            ],
-            otherOptions: [{content: "Option 2", widgets: {}, images: {}}],
-            height: "normal",
-            layout: "horizontal",
-        };
-
-        render(
-            <OrdererEditor
-                ref={editorRef}
-                onChange={onChangeMock}
-                {...widgetOptions}
-            />,
-        );
-
-        // Act
-        const serialized = editorRef.current?.serialize();
-
-        // Assert
-        expect(serialized).toEqual({
-            options: [
-                generateOrdererOption("Option 1"),
-                generateOrdererOption("Option 2"),
-                generateOrdererOption("Option 3"),
-            ],
-            correctOptions: [
-                {content: "Option 1", widgets: {}, images: {}},
-                {content: "Option 3", widgets: {}, images: {}},
-            ],
-            otherOptions: [{content: "Option 2", widgets: {}, images: {}}],
-            height: "normal",
-            layout: "horizontal",
-        });
-    });
-
     it("renders an input for each correct and other card", () => {
         // Arrange, Act
         render(

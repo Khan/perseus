@@ -87,27 +87,6 @@ class ExpressionEditor extends React.Component<Props, State> {
         });
     }
 
-    serialize(): PerseusExpressionWidgetOptions {
-        const {
-            answerForms,
-            buttonSets,
-            functions,
-            times,
-            visibleLabel,
-            ariaLabel,
-        } = this.props;
-
-        return {
-            answerForms,
-            buttonSets,
-            functions,
-            times,
-            visibleLabel,
-            ariaLabel,
-            extraKeys: deriveExtraKeys(this.props),
-        };
-    }
-
     // TODO(LEMS-3643): Remove `getSaveWarnings` once the frontend uses
     // the new linter rules for save warnings.
     getSaveWarnings: () => any = () => {

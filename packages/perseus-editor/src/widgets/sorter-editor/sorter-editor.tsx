@@ -44,7 +44,6 @@ interface Props extends PerseusSorterWidgetOptions {
  * Imperative API that WidgetEditor calls
  */
 type SorterEditorHandle = {
-    serialize: () => PerseusSorterWidgetOptions;
     getSaveWarnings: () => string[];
 };
 

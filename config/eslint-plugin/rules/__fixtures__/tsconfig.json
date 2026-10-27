@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "jsx": "preserve",
+        "strict": true,
+        "lib": ["ES2020", "DOM"],
+        "types": ["react"],
+        "skipLibCheck": true
+    },
+    "include": ["file.tsx"]
+}

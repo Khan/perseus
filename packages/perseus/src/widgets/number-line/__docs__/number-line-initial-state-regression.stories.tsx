@@ -1,5 +1,4 @@
 import {themeModes} from "../../../../../../.storybook/modes";
-import {mobileDecorator} from "../../__testutils__/story-decorators";
 
 import {numberLineRendererDecorator} from "./number-line-renderer-decorator";
 import {waitForError, waitForNumberLine} from "./number-line-story-helpers";
@@ -192,38 +191,6 @@ export const StaticPoint: Story = {
     } satisfies Partial<PerseusNumberLineWidgetOptions>,
     parameters: {
         static: true,
-    },
-    play: waitForRender,
-};
-
-export const Mobile: Story = {
-    decorators: [numberLineRendererDecorator, mobileDecorator],
-    args: {
-        range: [0, 10],
-        numDivisions: 5,
-    } satisfies Partial<PerseusNumberLineWidgetOptions>,
-    parameters: {
-        apiOptions: {isMobile: true},
-    },
-    play: waitForRender,
-};
-
-export const MobileInequalityClosed: Story = {
-    decorators: [numberLineRendererDecorator, mobileDecorator],
-    args: inequalityArgs,
-    parameters: {
-        apiOptions: {isMobile: true},
-        initialUserInput: inequalityInput("ge"),
-    },
-    play: waitForRender,
-};
-
-export const MobileInequalityOpen: Story = {
-    decorators: [numberLineRendererDecorator, mobileDecorator],
-    args: inequalityArgs,
-    parameters: {
-        apiOptions: {isMobile: true},
-        initialUserInput: inequalityInput("gt"),
     },
     play: waitForRender,
 };

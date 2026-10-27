@@ -23,6 +23,16 @@ export const mobileArticleDecorator: Decorator = (Story) => (
     </div>
 );
 
+export const styledContainer = (constraint: React.CSSProperties): Decorator => {
+    return function Constrained(Story) {
+        return (
+            <div style={constraint}>
+                <Story />
+            </div>
+        );
+    };
+};
+
 // Set `dir="rtl"` on both the wrapper and `<html>` so portaled content
 // (e.g. Wonder Blocks modal) inherits RTL.
 // CSS `direction` inherits through the DOM tree, not the React tree, so
@@ -61,53 +71,53 @@ const articleContent3 =
 
 export const mobileArticleFloatLeftDecorator: Decorator = (Story) => (
     <div className="framework-perseus perseus-mobile perseus-article">
-        <div className="paragraph">
+        <div className="deprecated-perseus-container">
             <div className="perseus-widget-container widget-nohighlight widget-wrap-left">
                 <Story />
             </div>
         </div>
-        <div className="paragraph">{articleContent1}</div>
-        <div className="paragraph">{articleContent2}</div>
-        <div className="paragraph">{articleContent3}</div>
+        <div className="deprecated-perseus-container">{articleContent1}</div>
+        <div className="deprecated-perseus-container">{articleContent2}</div>
+        <div className="deprecated-perseus-container">{articleContent3}</div>
     </div>
 );
 
 export const mobileArticleFloatRightDecorator: Decorator = (Story) => (
     <div className="framework-perseus perseus-mobile perseus-article">
-        <div className="paragraph">
+        <div className="deprecated-perseus-container">
             <div className="perseus-widget-container widget-nohighlight widget-wrap-right">
                 <Story />
             </div>
         </div>
-        <div className="paragraph">{articleContent1}</div>
-        <div className="paragraph">{articleContent2}</div>
-        <div className="paragraph">{articleContent3}</div>
+        <div className="deprecated-perseus-container">{articleContent1}</div>
+        <div className="deprecated-perseus-container">{articleContent2}</div>
+        <div className="deprecated-perseus-container">{articleContent3}</div>
     </div>
 );
 
 export const articleFloatLeftDecorator: Decorator = (Story) => (
     <div className="framework-perseus perseus-article">
-        <div className="paragraph">
+        <div className="deprecated-perseus-container">
             <div className="perseus-widget-container widget-nohighlight widget-wrap-left">
                 <Story />
             </div>
         </div>
-        <div className="paragraph">{articleContent1}</div>
-        <div className="paragraph">{articleContent2}</div>
-        <div className="paragraph">{articleContent3}</div>
+        <div className="deprecated-perseus-container">{articleContent1}</div>
+        <div className="deprecated-perseus-container">{articleContent2}</div>
+        <div className="deprecated-perseus-container">{articleContent3}</div>
     </div>
 );
 
 export const articleFloatRightDecorator: Decorator = (Story) => (
     <div className="framework-perseus perseus-article">
-        <div className="paragraph">
+        <div className="deprecated-perseus-container">
             <div className="perseus-widget-container widget-nohighlight widget-wrap-right">
                 <Story />
             </div>
         </div>
-        <div className="paragraph">{articleContent1}</div>
-        <div className="paragraph">{articleContent2}</div>
-        <div className="paragraph">{articleContent3}</div>
+        <div className="deprecated-perseus-container">{articleContent1}</div>
+        <div className="deprecated-perseus-container">{articleContent2}</div>
+        <div className="deprecated-perseus-container">{articleContent3}</div>
     </div>
 );
 
