@@ -1,5 +1,15 @@
 # @khanacademy/pure-markdown
 
+## 3.1.1
+
+### Patch Changes
+
+-   [#4321](https://github.com/Khan/perseus/pull/4321) [`8d621d5`](https://github.com/Khan/perseus/commit/8d621d5be504f9253064b1f21fe3d3a1270845be) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Build packages with Vite (Rolldown and Oxc) instead of Rollup and SWC. Packages now import `react/jsx-runtime` and `react-dom/client` from their React peer dependencies instead of bundling copies. CSS is now built for Chrome 144 and Safari 16.6, which expands nested rules so they apply in Safari versions before 17.2.
+
+-   Updated dependencies [[`8d621d5`](https://github.com/Khan/perseus/commit/8d621d5be504f9253064b1f21fe3d3a1270845be)]:
+    -   @khanacademy/perseus-utils@3.0.2
+    -   @khanacademy/simple-markdown@4.0.2
+
 ## 3.1.0
 
 ### Minor Changes

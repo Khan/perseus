@@ -1,6 +1,9 @@
 // This file is used by the tsconfig-build.json files in each package.
 /* Visit https://aka.ms/tsconfig to read more about this file */
 {
+    // This is a shared TypeScript build config. As such, we exclude everything
+    // that is test-related (Jest, Cypress, Storybook).
+    //
     // Paths in this file resolve relative to THIS file, not to any file that
     // extends it, so a bare "dist" would mean `packages/dist` and match
     // nothing. Every pattern in this list needs the `**/` prefix to reach each
@@ -8,14 +11,21 @@
     "exclude": [
         "**/dist",
         "**/*.test.*",
+        "**/*.typetest.*",
         "**/__tests__/**",
         "**/*.testdata.*",
         "**/__testdata__/**",
         "**/__testutils__/**",
+        "**/test-helpers.*",
+        "**/testing/**",
         "**/*.stories.*",
         "**/__stories__/**",
         "**/__docs__/**",
         "**/*.cypress.*",
+        // Perseus's `./testing` entry point exists only for cross-package
+        // imports within this repo. It is not published, so a declaration for
+        // it would ship a file nothing can import.
+        "perseus/src/testing.ts",
         // perseus-core's item-splitting entry point exists only for the
         // `check_item_splitting` job in
         // .github/workflows/pr-comparison-checks.yml, which esbuilds it from
@@ -31,7 +41,7 @@
         "composite": true,
         "incremental": true, // Required for composite projects
 
-        // We use rollup + swc to compile our bundles so we
+        // We use Vite to compile our bundles so we
         // only need tsc to output .d.ts files
         "declaration": true,
         "emitDeclarationOnly": true,

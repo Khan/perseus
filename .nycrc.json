@@ -10,5 +10,7 @@
         "**/*.stories.tsx",
         "**/*.test.ts",
         "**/*.test.tsx"
-    ]
+    ],
+    "report-dir": "coverage/cypress",
+    "temp-dir": ".nyc_output"
 }

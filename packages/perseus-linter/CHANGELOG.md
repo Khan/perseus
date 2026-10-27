@@ -1,5 +1,28 @@
 # @khanacademy/perseus-linter
 
+## 7.0.0
+
+### Major Changes
+
+-   [#4430](https://github.com/Khan/perseus/pull/4430) [`2153e64`](https://github.com/Khan/perseus/commit/2153e645f949c5bb156dc534e0ebd7b8850ec00b) Thanks [@benchristel](https://github.com/benchristel)! - Removed `Rule.Severity.BULK_WARNING` and the four lint rules that used it (`double-spacing-after-terminal`, `extra-content-spacing`, `image-in-table`, `widget-in-table`). These rules were always filtered out of the exported rule list, so they never ran. Breaking change: `severity` is now a required parameter of `Rule.makeRule`, `Rule.makeWidgetRule`, and the `Rule` constructor.
+
+### Patch Changes
+
+-   [#4428](https://github.com/Khan/perseus/pull/4428) [`30e081d`](https://github.com/Khan/perseus/commit/30e081d2cf5c9cd180b336c3270aad18f507a25e) Thanks [@benchristel](https://github.com/benchristel)! - Replace the `expression-widget-error` lint rule with `expression-widget-answer-forms`, which checks that each expression widget answer is non-empty, parseable, and simplified when required
+
+-   [#4433](https://github.com/Khan/perseus/pull/4433) [`8fce9ef`](https://github.com/Khan/perseus/commit/8fce9ef1fa6fe741ff131116a0f04372c1ebbdfa) Thanks [@benchristel](https://github.com/benchristel)! - Internal: The explanation-in-graded-group and explanation-in-graded-group-set linter rules are now defined using `Rule.makeWidgetRule`.
+
+-   [#4421](https://github.com/Khan/perseus/pull/4421) [`f77aa0e`](https://github.com/Khan/perseus/commit/f77aa0eb74afca6d2b815555db675c3d0e48ea77) Thanks [@benchristel](https://github.com/benchristel)! - The expression widget linter now includes the ID of the offending widget in its lint messages.
+
+-   [#4321](https://github.com/Khan/perseus/pull/4321) [`8d621d5`](https://github.com/Khan/perseus/commit/8d621d5be504f9253064b1f21fe3d3a1270845be) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Build packages with Vite (Rolldown and Oxc) instead of Rollup and SWC. Packages now import `react/jsx-runtime` and `react-dom/client` from their React peer dependencies instead of bundling copies. CSS is now built for Chrome 144 and Safari 16.6, which expands nested rules so they apply in Safari versions before 17.2.
+
+-   Updated dependencies [[`7e34ae2`](https://github.com/Khan/perseus/commit/7e34ae28f3ab30981d36798780241bedc32eadb1), [`7e34ae2`](https://github.com/Khan/perseus/commit/7e34ae28f3ab30981d36798780241bedc32eadb1), [`ced3262`](https://github.com/Khan/perseus/commit/ced3262bd5fbb41d2979522d87497e45916009d4), [`8d621d5`](https://github.com/Khan/perseus/commit/8d621d5be504f9253064b1f21fe3d3a1270845be)]:
+    -   @khanacademy/perseus-core@42.0.2
+    -   @khanacademy/kas@3.1.0
+    -   @khanacademy/kmath@3.1.2
+    -   @khanacademy/perseus-utils@3.0.2
+    -   @khanacademy/pure-markdown@3.1.1
+
 ## 6.2.0
 
 ### Minor Changes
