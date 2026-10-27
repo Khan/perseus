@@ -483,35 +483,9 @@ describe("sorter-editor", () => {
         expect(screen.getByDisplayValue("Emu")).toHaveAccessibleName("Card 2");
     });
 
-    it("serializes the correct answer, layout, and padding", () => {
+    it("keeps the legend when another option is edited", async () => {
         // Arrange
-        const editorRef = React.createRef<SorterEditorHandle>();
-        render(
-            <SorterEditor
-                ref={editorRef}
-                onChange={() => {}}
-                {...generateSorterOptions({
-                    correct: ["Cat", "Dog"],
-                    layout: "vertical",
-                    padding: false,
-                })}
-            />,
-        );
-
-        // Act
-        const serialized = editorRef.current?.serialize();
-
-        // Assert
-        expect(serialized).toEqual({
-            correct: ["Cat", "Dog"],
-            layout: "vertical",
-            padding: false,
-        });
-    });
-
-    it("serializes the legend", () => {
-        // Arrange
-        const editorRef = React.createRef<SorterEditorHandle>();
+        const onChange = jest.fn();
         const legend: PerseusSorterWidgetOptions["legend"] = {
             startCap: "arrow",
             endCap: "bar",
@@ -520,63 +494,18 @@ describe("sorter-editor", () => {
             ariaLabel: "Interest rates from lowest to highest",
             position: "above",
         };
-        render(
-            <SorterEditor
-                ref={editorRef}
-                onChange={() => {}}
-                {...generateSorterOptions({legend})}
-            />,
-        );
-
-        // Act
-        const serialized = editorRef.current?.serialize();
-
-        // Assert
-        expect(serialized?.legend).toEqual(legend);
-    });
-
-    // WidgetEditor serializes the editor *during* an edit, to fold the editor's
-    // current options into the change it's about to publish. A handle that
-    // captured the props it was created with would serialize pre-edit options
-    // and quietly revert the author's work, so serializing has to see the props
-    // from the latest render, not the first one.
-    it("serializes card edits made after the first render", async () => {
-        // Arrange
-        const editorRef = React.createRef<SorterEditorHandle>();
         renderControlled(
-            generateSorterOptions({correct: ["Cat", "Dog"]}),
-            undefined,
-            editorRef,
+            generateSorterOptions({correct: ["Cat", "Dog"], legend}),
+            onChange,
         );
 
         // Act
-        const card = screen.getByDisplayValue("Dog");
-        await userEvent.clear(card);
-        await userEvent.type(card, "Emu");
+        await userEvent.type(screen.getByDisplayValue("Dog"), "s");
 
         // Assert
-        expect(editorRef.current?.serialize()).toMatchObject({
-            correct: ["Cat", "Emu"],
-        });
-    });
-
-    it("serializes layout changes made after the first render", async () => {
-        // Arrange
-        const editorRef = React.createRef<SorterEditorHandle>();
-        renderControlled(
-            generateSorterOptions({layout: "horizontal"}),
-            undefined,
-            editorRef,
+        expect(onChange).toHaveBeenLastCalledWith(
+            expect.objectContaining({legend}),
         );
-
-        // Act
-        await userEvent.click(screen.getByRole("combobox", {name: "Layout"}));
-        await userEvent.click(screen.getByRole("option", {name: "Vertical"}));
-
-        // Assert
-        expect(editorRef.current?.serialize()).toMatchObject({
-            layout: "vertical",
-        });
     });
 
     // The editor page reads the default options off the component itself to
