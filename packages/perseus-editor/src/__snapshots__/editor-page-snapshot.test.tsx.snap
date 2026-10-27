@@ -8499,6 +8499,7 @@ table: [[☃ table 1]]
                             >
                               <svg
                                 height="48"
+                                style="width: var(--wb-c-progress-spinner-root-sizing-medium); height: var(--wb-c-progress-spinner-root-sizing-medium);"
                                 viewBox="0 0 48 48"
                                 width="48"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -10489,7 +10490,9 @@ table: [[☃ table 1]]
                       >
                         Interactive Graph best practices
                         <span
+                          aria-label="(opens in a new tab)"
                           data-testid="external-icon"
+                          role="img"
                           style="display: inline-block; vertical-align: -10%; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); margin-inline-start: var(--wb-sizing-size_040); background-color: currentColor; mask-image: url(arrow-square-out-bold.svg);"
                         />
                       </a>
@@ -16915,7 +16918,9 @@ table: [[☃ table 1]]
                       >
                         Multiple choice best practices
                         <span
+                          aria-label="(opens in a new tab)"
                           data-testid="external-icon"
+                          role="img"
                           style="display: inline-block; vertical-align: -10%; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); margin-inline-start: var(--wb-sizing-size_040); background-color: currentColor; mask-image: url(arrow-square-out-bold.svg);"
                         />
                       </a>
