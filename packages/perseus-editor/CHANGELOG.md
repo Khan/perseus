@@ -1,5 +1,35 @@
 # @khanacademy/perseus-editor
 
+## 45.0.4
+
+### Patch Changes
+
+-   [#4311](https://github.com/Khan/perseus/pull/4311) [`7e34ae2`](https://github.com/Khan/perseus/commit/7e34ae28f3ab30981d36798780241bedc32eadb1) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Stop shipping declaration files for test-only modules (type tests, test helpers, and testing utilities).
+
+-   [#4438](https://github.com/Khan/perseus/pull/4438) [`54135a3`](https://github.com/Khan/perseus/commit/54135a38521a9c4cceb4666dcb8149d29e120356) Thanks [@nishasy](https://github.com/nishasy)! - [Label Image] Add "Suppress Dark Mode" toggle to Label Image widget and editor
+
+-   [#4436](https://github.com/Khan/perseus/pull/4436) [`4d8f9a6`](https://github.com/Khan/perseus/commit/4d8f9a6285cbc2efb49a7f902d415946a467af55) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Bugfix - Align the plus/minus input element with the user input element
+
+-   [#4414](https://github.com/Khan/perseus/pull/4414) [`767e2de`](https://github.com/Khan/perseus/commit/767e2de7b1ad0d9048c35633fd62fcef1496cb20) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Delete unnecessary code from the Interactive Graph editor
+
+-   [#4427](https://github.com/Khan/perseus/pull/4427) [`c184cc1`](https://github.com/Khan/perseus/commit/c184cc18dd632ea0e0a1e9543a5900881bdc1cab) Thanks [@benchristel](https://github.com/benchristel)! - Internal: deleted unused code, and moved test data out of production files.
+
+-   [#4409](https://github.com/Khan/perseus/pull/4409) [`7c694d9`](https://github.com/Khan/perseus/commit/7c694d96d400fcddb02c898a8d1c27cc69aa921a) Thanks [@benchristel](https://github.com/benchristel)! - Internal: the imperative `serialize()` methods have been removed from all editor components.
+
+-   [#4440](https://github.com/Khan/perseus/pull/4440) [`73ebfad`](https://github.com/Khan/perseus/commit/73ebfadd6a1aad433d42eec133acf81d950f8910) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Update peer/dev dependencies from frontend
+
+-   [#4321](https://github.com/Khan/perseus/pull/4321) [`8d621d5`](https://github.com/Khan/perseus/commit/8d621d5be504f9253064b1f21fe3d3a1270845be) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Build packages with Vite (Rolldown and Oxc) instead of Rollup and SWC. Packages now import `react/jsx-runtime` and `react-dom/client` from their React peer dependencies instead of bundling copies. CSS is now built for Chrome 144 and Safari 16.6, which expands nested rules so they apply in Safari versions before 17.2.
+
+-   Updated dependencies [[`7e34ae2`](https://github.com/Khan/perseus/commit/7e34ae28f3ab30981d36798780241bedc32eadb1), [`2153e64`](https://github.com/Khan/perseus/commit/2153e645f949c5bb156dc534e0ebd7b8850ec00b), [`30e081d`](https://github.com/Khan/perseus/commit/30e081d2cf5c9cd180b336c3270aad18f507a25e), [`395606a`](https://github.com/Khan/perseus/commit/395606ae8306d741655232b1fbf9b2f5dd781e94), [`8a5fdcd`](https://github.com/Khan/perseus/commit/8a5fdcd5f9969db12a674085a95ee72bc0e91e7a), [`6d5198f`](https://github.com/Khan/perseus/commit/6d5198f49957818df3b05801b27b76c6835a069c), [`8fce9ef`](https://github.com/Khan/perseus/commit/8fce9ef1fa6fe741ff131116a0f04372c1ebbdfa), [`7e34ae2`](https://github.com/Khan/perseus/commit/7e34ae28f3ab30981d36798780241bedc32eadb1), [`f90356d`](https://github.com/Khan/perseus/commit/f90356db97c66278c6391f1c99a57d592351baed), [`7e34ae2`](https://github.com/Khan/perseus/commit/7e34ae28f3ab30981d36798780241bedc32eadb1), [`f77aa0e`](https://github.com/Khan/perseus/commit/f77aa0eb74afca6d2b815555db675c3d0e48ea77), [`ced3262`](https://github.com/Khan/perseus/commit/ced3262bd5fbb41d2979522d87497e45916009d4), [`c184cc1`](https://github.com/Khan/perseus/commit/c184cc18dd632ea0e0a1e9543a5900881bdc1cab), [`73ebfad`](https://github.com/Khan/perseus/commit/73ebfadd6a1aad433d42eec133acf81d950f8910), [`8d621d5`](https://github.com/Khan/perseus/commit/8d621d5be504f9253064b1f21fe3d3a1270845be)]:
+    -   @khanacademy/perseus-core@42.0.2
+    -   @khanacademy/perseus-linter@7.0.0
+    -   @khanacademy/perseus@93.0.0
+    -   @khanacademy/kas@3.1.0
+    -   @khanacademy/math-input@30.1.4
+    -   @khanacademy/keypad-context@6.0.9
+    -   @khanacademy/kmath@3.1.2
+    -   @khanacademy/perseus-utils@3.0.2
+
 ## 45.0.3
 
 ### Patch Changes
