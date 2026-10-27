@@ -89,6 +89,10 @@
     );
 }
 
+/* At rest, the menu's space sits partly outside the tile (as margin),
+ * and partly inside it (as padding) on .content:
+ * 3/16 of the space per side outside and 5/16 inside, as specified by design.
+ * 3/16 + 5/16 = 8/16 (half on each side) */
 .hidesMenuAtRest:not(:hover):not(:focus-within) {
     margin-inline: calc(var(--answer-tile-menu-space) * 3 / 16);
 }
@@ -101,6 +105,10 @@
     opacity: 0;
 }
 
+/* At rest, the menu's space sits partly outside the tile (as margin),
+ * and partly inside it (as padding) on .content:
+ * 3/16 of the space per side outside and 5/16 inside, as specified by design.
+ * 3/16 + 5/16 = 8/16 (half on each side) */
 .hidesMenuAtRest:not(:hover):not(:focus-within) .content {
     padding-inline: calc(var(--answer-tile-menu-space) * 5 / 16);
 }
