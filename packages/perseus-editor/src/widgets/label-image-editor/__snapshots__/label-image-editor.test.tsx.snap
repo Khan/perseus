@@ -54,6 +54,80 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
         value="Test image alt text"
       />
     </form>
+    <div
+      class="dark-mode-toggle-container"
+    >
+      <div
+        style="align-items: center; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
+      >
+        <div
+          data-style-active="background-color: var(--wb-semanticColor-core-border-neutral-strong); box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+          data-style-focus-within="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+          data-style-hover="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+          style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline-flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; height: var(--wb-c-switch-root-sizing-height); width: var(--wb-c-switch-root-sizing-width); border-radius: var(--wb-c-switch-root-border-radius-default); flex-shrink: 0; background-color: var(--wb-semanticColor-core-border-neutral-default); cursor: pointer;"
+        >
+          <input
+            aria-disabled="false"
+            id=":r4q:"
+            role="switch"
+            style="opacity: 0; height: 0px; width: 0px;"
+            type="checkbox"
+          />
+          <span
+            style="position: absolute; inset-block-start: var(--wb-c-switch-slider-position-top); inset-inline-start: var(--wb-c-switch-slider-position-left); height: var(--wb-c-switch-slider-sizing-height); width: var(--wb-c-switch-slider-sizing-width); border-radius: var(--wb-c-switch-root-border-radius-default); background-color: var(--wb-semanticColor-action-primary-progressive-default-foreground); transition: inset-inline-start 0.15s ease-in-out;"
+          />
+        </div>
+        <div
+          aria-hidden="true"
+          style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 8px; -ms-flex-basis: 8px; -ms-flex-preferred-size: 8px; -webkit-flex-basis: 8px; flex-basis: 8px; flex-shrink: 0;"
+        />
+        <label
+          for=":r4q:"
+          style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium);"
+        >
+          Show in Dark Mode
+        </label>
+      </div>
+      <div
+        class="dark-mode-suppression-container"
+      >
+        <div
+          style="align-items: center; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
+        >
+          <div
+            data-style-active="background-color: var(--wb-semanticColor-core-border-neutral-strong); box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+            data-style-focus-within="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+            data-style-hover="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline-flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; height: var(--wb-c-switch-root-sizing-height); width: var(--wb-c-switch-root-sizing-width); border-radius: var(--wb-c-switch-root-border-radius-default); flex-shrink: 0; background-color: var(--wb-semanticColor-core-border-neutral-default); cursor: pointer;"
+          >
+            <input
+              aria-disabled="false"
+              id=":r4s:"
+              role="switch"
+              style="opacity: 0; height: 0px; width: 0px;"
+              type="checkbox"
+            />
+            <span
+              style="position: absolute; inset-block-start: var(--wb-c-switch-slider-position-top); inset-inline-start: var(--wb-c-switch-slider-position-left); height: var(--wb-c-switch-slider-sizing-height); width: var(--wb-c-switch-slider-sizing-width); border-radius: var(--wb-c-switch-root-border-radius-default); background-color: var(--wb-semanticColor-action-primary-progressive-default-foreground); transition: inset-inline-start 0.15s ease-in-out;"
+            />
+          </div>
+          <div
+            aria-hidden="true"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 8px; -ms-flex-basis: 8px; -ms-flex-preferred-size: 8px; -webkit-flex-basis: 8px; flex-basis: 8px; flex-shrink: 0;"
+          />
+          <label
+            for=":r4s:"
+            style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium);"
+          >
+            Suppress Dark Mode Filter
+          </label>
+        </div>
+        <span
+          style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); margin-inline-start: 4px; background-color: currentColor; mask-image: url(question.svg);"
+          tabindex="0"
+        />
+      </div>
+    </div>
     <div>
       <span
         style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
@@ -71,6 +145,8 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
         </span>
       </div>
       <div
+        class="perseus-image-preview-container"
+        data-testid="label-image-markers-canvas"
         style="position: relative; border: solid 1px rgba(33, 36, 44, 0.16); max-inline-size: 400px; max-block-size: 300px;"
       >
         <img
@@ -79,20 +155,20 @@ exports[`label-image-editor popover direction snapshots should render with DOWN 
           style="display: block; max-inline-size: 100%;"
         />
         <button
-          aria-controls=":ru:"
+          aria-controls=":r4u:"
           aria-expanded="false"
           aria-label="Edit marker: First marker"
-          data-wb-floating-reference=":r10:"
-          id=":ru:-anchor"
+          data-wb-floating-reference=":r50:"
+          id=":r4u:-anchor"
           style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 25%; top: 25%;"
           type="button"
         />
         <button
-          aria-controls=":r11:"
+          aria-controls=":r51:"
           aria-expanded="false"
           aria-label="Edit marker: Second marker"
-          data-wb-floating-reference=":r13:"
-          id=":r11:-anchor"
+          data-wb-floating-reference=":r53:"
+          id=":r51:-anchor"
           style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 50%; top: 50%;"
           type="button"
         />
@@ -411,6 +487,80 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
         value="Test image alt text"
       />
     </form>
+    <div
+      class="dark-mode-toggle-container"
+    >
+      <div
+        style="align-items: center; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
+      >
+        <div
+          data-style-active="background-color: var(--wb-semanticColor-core-border-neutral-strong); box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+          data-style-focus-within="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+          data-style-hover="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+          style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline-flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; height: var(--wb-c-switch-root-sizing-height); width: var(--wb-c-switch-root-sizing-width); border-radius: var(--wb-c-switch-root-border-radius-default); flex-shrink: 0; background-color: var(--wb-semanticColor-core-border-neutral-default); cursor: pointer;"
+        >
+          <input
+            aria-disabled="false"
+            id=":r55:"
+            role="switch"
+            style="opacity: 0; height: 0px; width: 0px;"
+            type="checkbox"
+          />
+          <span
+            style="position: absolute; inset-block-start: var(--wb-c-switch-slider-position-top); inset-inline-start: var(--wb-c-switch-slider-position-left); height: var(--wb-c-switch-slider-sizing-height); width: var(--wb-c-switch-slider-sizing-width); border-radius: var(--wb-c-switch-root-border-radius-default); background-color: var(--wb-semanticColor-action-primary-progressive-default-foreground); transition: inset-inline-start 0.15s ease-in-out;"
+          />
+        </div>
+        <div
+          aria-hidden="true"
+          style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 8px; -ms-flex-basis: 8px; -ms-flex-preferred-size: 8px; -webkit-flex-basis: 8px; flex-basis: 8px; flex-shrink: 0;"
+        />
+        <label
+          for=":r55:"
+          style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium);"
+        >
+          Show in Dark Mode
+        </label>
+      </div>
+      <div
+        class="dark-mode-suppression-container"
+      >
+        <div
+          style="align-items: center; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
+        >
+          <div
+            data-style-active="background-color: var(--wb-semanticColor-core-border-neutral-strong); box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+            data-style-focus-within="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+            data-style-hover="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline-flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; height: var(--wb-c-switch-root-sizing-height); width: var(--wb-c-switch-root-sizing-width); border-radius: var(--wb-c-switch-root-border-radius-default); flex-shrink: 0; background-color: var(--wb-semanticColor-core-border-neutral-default); cursor: pointer;"
+          >
+            <input
+              aria-disabled="false"
+              id=":r57:"
+              role="switch"
+              style="opacity: 0; height: 0px; width: 0px;"
+              type="checkbox"
+            />
+            <span
+              style="position: absolute; inset-block-start: var(--wb-c-switch-slider-position-top); inset-inline-start: var(--wb-c-switch-slider-position-left); height: var(--wb-c-switch-slider-sizing-height); width: var(--wb-c-switch-slider-sizing-width); border-radius: var(--wb-c-switch-root-border-radius-default); background-color: var(--wb-semanticColor-action-primary-progressive-default-foreground); transition: inset-inline-start 0.15s ease-in-out;"
+            />
+          </div>
+          <div
+            aria-hidden="true"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 8px; -ms-flex-basis: 8px; -ms-flex-preferred-size: 8px; -webkit-flex-basis: 8px; flex-basis: 8px; flex-shrink: 0;"
+          />
+          <label
+            for=":r57:"
+            style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium);"
+          >
+            Suppress Dark Mode Filter
+          </label>
+        </div>
+        <span
+          style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); margin-inline-start: 4px; background-color: currentColor; mask-image: url(question.svg);"
+          tabindex="0"
+        />
+      </div>
+    </div>
     <div>
       <span
         style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
@@ -428,6 +578,8 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
         </span>
       </div>
       <div
+        class="perseus-image-preview-container"
+        data-testid="label-image-markers-canvas"
         style="position: relative; border: solid 1px rgba(33, 36, 44, 0.16); max-inline-size: 400px; max-block-size: 300px;"
       >
         <img
@@ -436,20 +588,20 @@ exports[`label-image-editor popover direction snapshots should render with LEFT 
           style="display: block; max-inline-size: 100%;"
         />
         <button
-          aria-controls=":r14:"
+          aria-controls=":r59:"
           aria-expanded="false"
           aria-label="Edit marker: First marker"
-          data-wb-floating-reference=":r16:"
-          id=":r14:-anchor"
+          data-wb-floating-reference=":r5b:"
+          id=":r59:-anchor"
           style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 25%; top: 25%;"
           type="button"
         />
         <button
-          aria-controls=":r17:"
+          aria-controls=":r5c:"
           aria-expanded="false"
           aria-label="Edit marker: Second marker"
-          data-wb-floating-reference=":r19:"
-          id=":r17:-anchor"
+          data-wb-floating-reference=":r5e:"
+          id=":r5c:-anchor"
           style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 50%; top: 50%;"
           type="button"
         />
@@ -768,6 +920,80 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
         value="Test image alt text"
       />
     </form>
+    <div
+      class="dark-mode-toggle-container"
+    >
+      <div
+        style="align-items: center; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
+      >
+        <div
+          data-style-active="background-color: var(--wb-semanticColor-core-border-neutral-strong); box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+          data-style-focus-within="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+          data-style-hover="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+          style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline-flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; height: var(--wb-c-switch-root-sizing-height); width: var(--wb-c-switch-root-sizing-width); border-radius: var(--wb-c-switch-root-border-radius-default); flex-shrink: 0; background-color: var(--wb-semanticColor-core-border-neutral-default); cursor: pointer;"
+        >
+          <input
+            aria-disabled="false"
+            id=":r5r:"
+            role="switch"
+            style="opacity: 0; height: 0px; width: 0px;"
+            type="checkbox"
+          />
+          <span
+            style="position: absolute; inset-block-start: var(--wb-c-switch-slider-position-top); inset-inline-start: var(--wb-c-switch-slider-position-left); height: var(--wb-c-switch-slider-sizing-height); width: var(--wb-c-switch-slider-sizing-width); border-radius: var(--wb-c-switch-root-border-radius-default); background-color: var(--wb-semanticColor-action-primary-progressive-default-foreground); transition: inset-inline-start 0.15s ease-in-out;"
+          />
+        </div>
+        <div
+          aria-hidden="true"
+          style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 8px; -ms-flex-basis: 8px; -ms-flex-preferred-size: 8px; -webkit-flex-basis: 8px; flex-basis: 8px; flex-shrink: 0;"
+        />
+        <label
+          for=":r5r:"
+          style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium);"
+        >
+          Show in Dark Mode
+        </label>
+      </div>
+      <div
+        class="dark-mode-suppression-container"
+      >
+        <div
+          style="align-items: center; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
+        >
+          <div
+            data-style-active="background-color: var(--wb-semanticColor-core-border-neutral-strong); box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+            data-style-focus-within="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+            data-style-hover="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline-flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; height: var(--wb-c-switch-root-sizing-height); width: var(--wb-c-switch-root-sizing-width); border-radius: var(--wb-c-switch-root-border-radius-default); flex-shrink: 0; background-color: var(--wb-semanticColor-core-border-neutral-default); cursor: pointer;"
+          >
+            <input
+              aria-disabled="false"
+              id=":r5t:"
+              role="switch"
+              style="opacity: 0; height: 0px; width: 0px;"
+              type="checkbox"
+            />
+            <span
+              style="position: absolute; inset-block-start: var(--wb-c-switch-slider-position-top); inset-inline-start: var(--wb-c-switch-slider-position-left); height: var(--wb-c-switch-slider-sizing-height); width: var(--wb-c-switch-slider-sizing-width); border-radius: var(--wb-c-switch-root-border-radius-default); background-color: var(--wb-semanticColor-action-primary-progressive-default-foreground); transition: inset-inline-start 0.15s ease-in-out;"
+            />
+          </div>
+          <div
+            aria-hidden="true"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 8px; -ms-flex-basis: 8px; -ms-flex-preferred-size: 8px; -webkit-flex-basis: 8px; flex-basis: 8px; flex-shrink: 0;"
+          />
+          <label
+            for=":r5t:"
+            style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium);"
+          >
+            Suppress Dark Mode Filter
+          </label>
+        </div>
+        <span
+          style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); margin-inline-start: 4px; background-color: currentColor; mask-image: url(question.svg);"
+          tabindex="0"
+        />
+      </div>
+    </div>
     <div>
       <span
         style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
@@ -785,6 +1011,8 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
         </span>
       </div>
       <div
+        class="perseus-image-preview-container"
+        data-testid="label-image-markers-canvas"
         style="position: relative; border: solid 1px rgba(33, 36, 44, 0.16); max-inline-size: 400px; max-block-size: 300px;"
       >
         <img
@@ -793,20 +1021,20 @@ exports[`label-image-editor popover direction snapshots should render with NONE 
           style="display: block; max-inline-size: 100%;"
         />
         <button
-          aria-controls=":r1g:"
+          aria-controls=":r5v:"
           aria-expanded="false"
           aria-label="Edit marker: First marker"
-          data-wb-floating-reference=":r1i:"
-          id=":r1g:-anchor"
+          data-wb-floating-reference=":r61:"
+          id=":r5v:-anchor"
           style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 25%; top: 25%;"
           type="button"
         />
         <button
-          aria-controls=":r1j:"
+          aria-controls=":r62:"
           aria-expanded="false"
           aria-label="Edit marker: Second marker"
-          data-wb-floating-reference=":r1l:"
-          id=":r1j:-anchor"
+          data-wb-floating-reference=":r64:"
+          id=":r62:-anchor"
           style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 50%; top: 50%;"
           type="button"
         />
@@ -1125,6 +1353,80 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
         value="Test image alt text"
       />
     </form>
+    <div
+      class="dark-mode-toggle-container"
+    >
+      <div
+        style="align-items: center; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
+      >
+        <div
+          data-style-active="background-color: var(--wb-semanticColor-core-border-neutral-strong); box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+          data-style-focus-within="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+          data-style-hover="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+          style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline-flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; height: var(--wb-c-switch-root-sizing-height); width: var(--wb-c-switch-root-sizing-width); border-radius: var(--wb-c-switch-root-border-radius-default); flex-shrink: 0; background-color: var(--wb-semanticColor-core-border-neutral-default); cursor: pointer;"
+        >
+          <input
+            aria-disabled="false"
+            id=":r5g:"
+            role="switch"
+            style="opacity: 0; height: 0px; width: 0px;"
+            type="checkbox"
+          />
+          <span
+            style="position: absolute; inset-block-start: var(--wb-c-switch-slider-position-top); inset-inline-start: var(--wb-c-switch-slider-position-left); height: var(--wb-c-switch-slider-sizing-height); width: var(--wb-c-switch-slider-sizing-width); border-radius: var(--wb-c-switch-root-border-radius-default); background-color: var(--wb-semanticColor-action-primary-progressive-default-foreground); transition: inset-inline-start 0.15s ease-in-out;"
+          />
+        </div>
+        <div
+          aria-hidden="true"
+          style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 8px; -ms-flex-basis: 8px; -ms-flex-preferred-size: 8px; -webkit-flex-basis: 8px; flex-basis: 8px; flex-shrink: 0;"
+        />
+        <label
+          for=":r5g:"
+          style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium);"
+        >
+          Show in Dark Mode
+        </label>
+      </div>
+      <div
+        class="dark-mode-suppression-container"
+      >
+        <div
+          style="align-items: center; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
+        >
+          <div
+            data-style-active="background-color: var(--wb-semanticColor-core-border-neutral-strong); box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+            data-style-focus-within="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+            data-style-hover="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline-flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; height: var(--wb-c-switch-root-sizing-height); width: var(--wb-c-switch-root-sizing-width); border-radius: var(--wb-c-switch-root-border-radius-default); flex-shrink: 0; background-color: var(--wb-semanticColor-core-border-neutral-default); cursor: pointer;"
+          >
+            <input
+              aria-disabled="false"
+              id=":r5i:"
+              role="switch"
+              style="opacity: 0; height: 0px; width: 0px;"
+              type="checkbox"
+            />
+            <span
+              style="position: absolute; inset-block-start: var(--wb-c-switch-slider-position-top); inset-inline-start: var(--wb-c-switch-slider-position-left); height: var(--wb-c-switch-slider-sizing-height); width: var(--wb-c-switch-slider-sizing-width); border-radius: var(--wb-c-switch-root-border-radius-default); background-color: var(--wb-semanticColor-action-primary-progressive-default-foreground); transition: inset-inline-start 0.15s ease-in-out;"
+            />
+          </div>
+          <div
+            aria-hidden="true"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 8px; -ms-flex-basis: 8px; -ms-flex-preferred-size: 8px; -webkit-flex-basis: 8px; flex-basis: 8px; flex-shrink: 0;"
+          />
+          <label
+            for=":r5i:"
+            style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium);"
+          >
+            Suppress Dark Mode Filter
+          </label>
+        </div>
+        <span
+          style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); margin-inline-start: 4px; background-color: currentColor; mask-image: url(question.svg);"
+          tabindex="0"
+        />
+      </div>
+    </div>
     <div>
       <span
         style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
@@ -1142,6 +1444,8 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
         </span>
       </div>
       <div
+        class="perseus-image-preview-container"
+        data-testid="label-image-markers-canvas"
         style="position: relative; border: solid 1px rgba(33, 36, 44, 0.16); max-inline-size: 400px; max-block-size: 300px;"
       >
         <img
@@ -1150,20 +1454,20 @@ exports[`label-image-editor popover direction snapshots should render with RIGHT
           style="display: block; max-inline-size: 100%;"
         />
         <button
-          aria-controls=":r1a:"
+          aria-controls=":r5k:"
           aria-expanded="false"
           aria-label="Edit marker: First marker"
-          data-wb-floating-reference=":r1c:"
-          id=":r1a:-anchor"
+          data-wb-floating-reference=":r5m:"
+          id=":r5k:-anchor"
           style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 25%; top: 25%;"
           type="button"
         />
         <button
-          aria-controls=":r1d:"
+          aria-controls=":r5n:"
           aria-expanded="false"
           aria-label="Edit marker: Second marker"
-          data-wb-floating-reference=":r1f:"
-          id=":r1d:-anchor"
+          data-wb-floating-reference=":r5p:"
+          id=":r5n:-anchor"
           style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 50%; top: 50%;"
           type="button"
         />
@@ -1482,6 +1786,80 @@ exports[`label-image-editor popover direction snapshots should render with UP po
         value="Test image alt text"
       />
     </form>
+    <div
+      class="dark-mode-toggle-container"
+    >
+      <div
+        style="align-items: center; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
+      >
+        <div
+          data-style-active="background-color: var(--wb-semanticColor-core-border-neutral-strong); box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+          data-style-focus-within="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+          data-style-hover="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+          style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline-flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; height: var(--wb-c-switch-root-sizing-height); width: var(--wb-c-switch-root-sizing-width); border-radius: var(--wb-c-switch-root-border-radius-default); flex-shrink: 0; background-color: var(--wb-semanticColor-core-border-neutral-default); cursor: pointer;"
+        >
+          <input
+            aria-disabled="false"
+            id=":r4f:"
+            role="switch"
+            style="opacity: 0; height: 0px; width: 0px;"
+            type="checkbox"
+          />
+          <span
+            style="position: absolute; inset-block-start: var(--wb-c-switch-slider-position-top); inset-inline-start: var(--wb-c-switch-slider-position-left); height: var(--wb-c-switch-slider-sizing-height); width: var(--wb-c-switch-slider-sizing-width); border-radius: var(--wb-c-switch-root-border-radius-default); background-color: var(--wb-semanticColor-action-primary-progressive-default-foreground); transition: inset-inline-start 0.15s ease-in-out;"
+          />
+        </div>
+        <div
+          aria-hidden="true"
+          style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 8px; -ms-flex-basis: 8px; -ms-flex-preferred-size: 8px; -webkit-flex-basis: 8px; flex-basis: 8px; flex-shrink: 0;"
+        />
+        <label
+          for=":r4f:"
+          style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium);"
+        >
+          Show in Dark Mode
+        </label>
+      </div>
+      <div
+        class="dark-mode-suppression-container"
+      >
+        <div
+          style="align-items: center; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
+        >
+          <div
+            data-style-active="background-color: var(--wb-semanticColor-core-border-neutral-strong); box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+            data-style-focus-within="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+            data-style-hover="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline-flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; height: var(--wb-c-switch-root-sizing-height); width: var(--wb-c-switch-root-sizing-width); border-radius: var(--wb-c-switch-root-border-radius-default); flex-shrink: 0; background-color: var(--wb-semanticColor-core-border-neutral-default); cursor: pointer;"
+          >
+            <input
+              aria-disabled="false"
+              id=":r4h:"
+              role="switch"
+              style="opacity: 0; height: 0px; width: 0px;"
+              type="checkbox"
+            />
+            <span
+              style="position: absolute; inset-block-start: var(--wb-c-switch-slider-position-top); inset-inline-start: var(--wb-c-switch-slider-position-left); height: var(--wb-c-switch-slider-sizing-height); width: var(--wb-c-switch-slider-sizing-width); border-radius: var(--wb-c-switch-root-border-radius-default); background-color: var(--wb-semanticColor-action-primary-progressive-default-foreground); transition: inset-inline-start 0.15s ease-in-out;"
+            />
+          </div>
+          <div
+            aria-hidden="true"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 8px; -ms-flex-basis: 8px; -ms-flex-preferred-size: 8px; -webkit-flex-basis: 8px; flex-basis: 8px; flex-shrink: 0;"
+          />
+          <label
+            for=":r4h:"
+            style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium);"
+          >
+            Suppress Dark Mode Filter
+          </label>
+        </div>
+        <span
+          style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); margin-inline-start: 4px; background-color: currentColor; mask-image: url(question.svg);"
+          tabindex="0"
+        />
+      </div>
+    </div>
     <div>
       <span
         style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
@@ -1499,6 +1877,8 @@ exports[`label-image-editor popover direction snapshots should render with UP po
         </span>
       </div>
       <div
+        class="perseus-image-preview-container"
+        data-testid="label-image-markers-canvas"
         style="position: relative; border: solid 1px rgba(33, 36, 44, 0.16); max-inline-size: 400px; max-block-size: 300px;"
       >
         <img
@@ -1507,20 +1887,20 @@ exports[`label-image-editor popover direction snapshots should render with UP po
           style="display: block; max-inline-size: 100%;"
         />
         <button
-          aria-controls=":ro:"
+          aria-controls=":r4j:"
           aria-expanded="false"
           aria-label="Edit marker: First marker"
-          data-wb-floating-reference=":rq:"
-          id=":ro:-anchor"
+          data-wb-floating-reference=":r4l:"
+          id=":r4j:-anchor"
           style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 25%; top: 25%;"
           type="button"
         />
         <button
-          aria-controls=":rr:"
+          aria-controls=":r4m:"
           aria-expanded="false"
           aria-label="Edit marker: Second marker"
-          data-wb-floating-reference=":rt:"
-          id=":rr:-anchor"
+          data-wb-floating-reference=":r4o:"
+          id=":r4m:-anchor"
           style="position: absolute; appearance: none; padding: 0px; box-sizing: content-box; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); transform: translate(-50%, -50%); cursor: pointer; background: var(--wb-semanticColor-core-background-instructive-default); border: solid 2px var(--wb-semanticColor-core-background-base-default); border-radius: var(--wb-sizing-size_160); box-shadow: 0 2px 10px 0 rgba(33, 36, 44, 0.1); left: 50%; top: 50%;"
           type="button"
         />
