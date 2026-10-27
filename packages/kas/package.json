@@ -3,7 +3,7 @@
     "description": "A lightweight JavaScript CAS for comparing expressions and equations.",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "3.0.2",
+    "version": "3.1.0",
     "publishConfig": {
         "access": "public",
         "exports": {
