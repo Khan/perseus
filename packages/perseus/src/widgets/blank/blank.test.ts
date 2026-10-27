@@ -53,7 +53,6 @@ describe("Blank Widget", function () {
         renderQuestion(basicBlankQuestion, {
             wrapper: blankContextWrapper({
                 renderPlacedTile: (blankId) => `tile in ${blankId}`,
-                minWidth: undefined,
             }),
         });
 
@@ -63,28 +62,11 @@ describe("Blank Widget", function () {
         );
     });
 
-    it("uses the context's minWidth as the blank's minimum width", () => {
-        // Arrange, Act
-        renderQuestion(basicBlankQuestion, {
-            wrapper: blankContextWrapper({
-                renderPlacedTile: () => null,
-                minWidth: 120,
-            }),
-        });
-
-        // Assert
-        expect(screen.getByTestId("blank-widget").style.cssText).toContain(
-            "--blank-min-inline-size: 120px",
-        );
-    });
-
-    it("renders an empty blank with no minimum width when there is no provider", () => {
+    it("renders an empty blank when there is no provider", () => {
         // Arrange, Act
         renderQuestion(basicBlankQuestion);
 
         // Assert
-        const blank = screen.getByTestId("blank-widget");
-        expect(blank).toBeEmptyDOMElement();
-        expect(blank.style.cssText).not.toContain("--blank-min-inline-size");
+        expect(screen.getByTestId("blank-widget")).toBeEmptyDOMElement();
     });
 });

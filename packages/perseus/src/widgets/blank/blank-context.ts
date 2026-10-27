@@ -3,12 +3,6 @@ import * as React from "react";
 type BlankContextValue = {
     /** The tile placed in a blank, or null when it is empty. */
     renderPlacedTile: (blankId: string) => React.ReactNode;
-    /**
-     * Minimum width of an empty blank, in pixels. Fill in the Blank sets
-     * it to the widest answer tile, so the slot does not reveal the
-     * answer. Undefined until measured.
-     */
-    minWidth: number | undefined;
 };
 
 /**

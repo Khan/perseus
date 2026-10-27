@@ -11,7 +11,6 @@ import {
     remainingUses,
 } from "../../components/drag-and-drop/tile-placements";
 import {useTileMoveActions} from "../../components/drag-and-drop/use-tile-move-actions";
-import {useWidestTileWidth} from "../../components/drag-and-drop/use-widest-tile-width";
 import {usePerseusI18n} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 import {sharedInitializeUserInput} from "../../user-input-manager";
@@ -127,8 +126,6 @@ function FillInTheBlank({
         [userInput, blankIds],
     );
 
-    const {containerRef, maxWidth} = useWidestTileWidth();
-
     const {
         handleMove,
         handleClear,
@@ -202,27 +199,13 @@ function FillInTheBlank({
         );
     };
 
-    // React 18 has no `inert` prop, so set it on the element. It keeps
-    // the hidden copy's controls out of the tab order and assistive tech.
-    // (The hidden invisible tiles are used to determine the widest tile size,
-    // so they users should not be able to interact with them in any way.)
-    const setMeasurementRef = React.useCallback(
-        (element: HTMLElement | null) => {
-            element?.setAttribute("inert", "");
-            containerRef(element);
-        },
-        [containerRef],
-    );
-
     return (
         <div
             className={styles.fillInTheBlank}
             data-testid="fill-in-the-blank-widget"
         >
             <PerseusDndProvider onDragEnd={handleDragEnd}>
-                <BlankContext.Provider
-                    value={{renderPlacedTile, minWidth: maxWidth}}
-                >
+                <BlankContext.Provider value={{renderPlacedTile}}>
                     <div className={styles.answerZone}>
                         <Renderer
                             content={content}
@@ -239,27 +222,6 @@ function FillInTheBlank({
                     </div>
                 </BlankContext.Provider>
                 <ChoiceBank label={strings.choices}>{bankTiles}</ChoiceBank>
-            </PerseusDndProvider>
-            {/* A separate provider keeps the measurement copies out of the
-                real drag-and-drop. Only used for determining measurements.*/}
-            <PerseusDndProvider>
-                <div
-                    aria-hidden="true"
-                    className={styles.measurement}
-                    ref={setMeasurementRef}
-                >
-                    {tiles.map((tile) => (
-                        <AnswerTile
-                            key={tile.id}
-                            tileId={`measure__${tile.id}`}
-                            content={tile.content}
-                            label={tile.label}
-                            imageHeight={tile.imageHeight}
-                            moveTargets={[]}
-                            onMove={() => {}}
-                        />
-                    ))}
-                </div>
             </PerseusDndProvider>
         </div>
     );
