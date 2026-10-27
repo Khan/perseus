@@ -1940,18 +1940,18 @@ export type PerseusRadioChoice = {
     isNoneOfTheAbove?: boolean;
 };
 
-export type PerseusSorterLegendBarCap = "arrow" | "bar" | "none";
+export type SorterLegendCap = "arrow" | "bar" | "none";
 
-export type PerseusSorterLegend = {
-    startCap?: PerseusSorterLegendBarCap;
-    endCap?: PerseusSorterLegendBarCap;
-    /** Translatable Markdown */
-    startLabel?: string;
-    /** Translatable Markdown */
-    endLabel?: string;
+export type SorterLegend = {
+    startCap: SorterLegendCap;
+    endCap: SorterLegendCap;
     /** Translatable text */
-    screenReaderLabel?: string;
-    position?: "above" | "below";
+    startLabel: string;
+    /** Translatable text */
+    endLabel: string;
+    /** Translatable text */
+    ariaLabel: string;
+    position: "above" | "below";
 };
 
 /** Options for the sorter widget. Cards to arrange into the correct order. */
@@ -1970,7 +1970,7 @@ export type PerseusSorterWidgetOptions = {
      * The labeled line along the blanks that shows learners which order
      * to place the tiles in, with optional end caps.
      */
-    legend?: PerseusSorterLegend;
+    legend?: SorterLegend;
 
     /**
      * Adds padding to the options. Padding is good for text but not needed

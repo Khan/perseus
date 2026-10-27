@@ -30,7 +30,7 @@ describe("parseSorterWidget", () => {
                     endCap: "bar",
                     startLabel: "Lowest",
                     endLabel: "Highest",
-                    screenReaderLabel: "Interest rates from lowest to highest",
+                    ariaLabel: "Interest rates from lowest to highest",
                     position: "above",
                 },
             }),
@@ -49,7 +49,14 @@ describe("parseSorterWidget", () => {
             ...generateSorterWidget(),
             options: {
                 ...generateSorterOptions(),
-                legend: {startCap: "circle"},
+                legend: {
+                    startCap: "circle",
+                    endCap: "bar",
+                    startLabel: "Lowest",
+                    endLabel: "Highest",
+                    ariaLabel: "Interest rates from lowest to highest",
+                    position: "above",
+                },
             },
         };
 

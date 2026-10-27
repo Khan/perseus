@@ -517,7 +517,7 @@ describe("sorter-editor", () => {
             endCap: "bar",
             startLabel: "Lowest",
             endLabel: "Highest",
-            screenReaderLabel: "Interest rates from lowest to highest",
+            ariaLabel: "Interest rates from lowest to highest",
             position: "above",
         };
         render(

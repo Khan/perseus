@@ -20,12 +20,12 @@ export const parseSorterWidget = parseWidget(
         layout: enumeration("horizontal", "vertical"),
         legend: optional(
             object({
-                startCap: optional(parseLegendCap),
-                endCap: optional(parseLegendCap),
-                startLabel: optional(string),
-                endLabel: optional(string),
-                screenReaderLabel: optional(string),
-                position: optional(enumeration("above", "below")),
+                startCap: parseLegendCap,
+                endCap: parseLegendCap,
+                startLabel: string,
+                endLabel: string,
+                ariaLabel: string,
+                position: enumeration("above", "below"),
             }),
         ),
     }),
