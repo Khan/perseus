@@ -239,3 +239,5 @@ the messages, or inject a logger into the function.
    `console.warn` spy in `config/test/test-setup.ts` that throws, so new
    warnings fail CI. If some warnings can't be fixed right away, allow them
    with an explicit list of known patterns.
+
+TODO-NEXT: do the work suggested above.
