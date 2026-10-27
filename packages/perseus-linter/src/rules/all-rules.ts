@@ -1,16 +1,19 @@
 import AbsoluteUrl from "./absolute-url";
-import DoubleSpacingAfterTerminal from "./double-spacing-after-terminal";
-import ExplanationInGradedGroup from "./explanation-in-graded-group";
-import ExpressionWidget from "./expression-widget";
-import ExpressionWidgetError from "./expression-widget-error";
-import ExtraContentSpacing from "./extra-content-spacing";
+import {
+    ExplanationInGradedGroup,
+    ExplanationInGradedGroupSet,
+} from "./explanation-in-graded-group";
+import {
+    ExpressionWidgetAnswerForms,
+    ExpressionWidgetButtons,
+    ExpressionWidgetCorrectAnswer,
+} from "./expression-widget";
 import FreeResponseWidgetError from "./free-response-widget-error";
 import HeadingLevel1 from "./heading-level-1";
 import HeadingLevelSkip from "./heading-level-skip";
 import HeadingSentenceCase from "./heading-sentence-case";
 import HeadingTitleCase from "./heading-title-case";
 import ImageAltText from "./image-alt-text";
-import ImageInTable from "./image-in-table";
 import ImageMarkdown from "./image-markdown";
 import ImageSpacesAroundUrls from "./image-spaces-around-urls";
 import ImageUrlEmpty from "./image-url-empty";
@@ -46,21 +49,18 @@ import TableMissingCaption from "./table-missing-caption";
 import TableMissingCells from "./table-missing-cells";
 import UnbalancedCodeDelimiters from "./unbalanced-code-delimiters";
 import UnescapedDollar from "./unescaped-dollar";
-import WidgetInTable from "./widget-in-table";
 
-export default [
+export const allRules = [
     AbsoluteUrl,
-    DoubleSpacingAfterTerminal,
     ImageUrlEmpty,
-    ExpressionWidget,
-    ExtraContentSpacing,
+    ExpressionWidgetButtons,
+    ExpressionWidgetCorrectAnswer,
     HeadingLevel1,
     HeadingLevelSkip,
     HeadingSentenceCase,
     HeadingTitleCase,
     ImageAltText,
     ImageMarkdown,
-    ImageInTable,
     LinkClickHere,
     LongParagraph,
     MathAdjacent,
@@ -76,7 +76,6 @@ export default [
     TableMissingCaption,
     TableMissingCells,
     UnescapedDollar,
-    WidgetInTable,
     MathWithoutDollars,
     UnbalancedCodeDelimiters,
     ImageSpacesAroundUrls,
@@ -85,7 +84,7 @@ export default [
     LegacyGifUrl,
     InaccessibleWidget,
     RadioWidgetError,
-    ExpressionWidgetError,
+    ExpressionWidgetAnswerForms,
     FreeResponseWidgetError,
     MatcherWidgetError,
     NumericInputMissingLabel,
@@ -98,4 +97,5 @@ export default [
     SorterWidgetError,
     SorterWidgetWarning,
     ExplanationInGradedGroup,
+    ExplanationInGradedGroupSet,
 ];

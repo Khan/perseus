@@ -17,6 +17,7 @@ This paragraph contains an unescaped $ sign.
     const ruleDescriptions: MakeRuleOptions[] = [
         {
             name: "heading-title-case",
+            severity: Rule.Severity.WARNING,
             selector: "heading",
             pattern: /\s[A-Z][a-z]/,
             message: `Title case in heading:
@@ -24,6 +25,7 @@ Only capitalize the first word of headings.`,
         },
         {
             name: "unescaped-dollar",
+            severity: Rule.Severity.WARNING,
             selector: "unescapedDollar",
             message: `Unescaped '$':
 If writing math, pair with another $.
@@ -31,6 +33,7 @@ Otherwise escape it by writing \\$.`,
         },
         {
             name: "heading-level-skip",
+            severity: Rule.Severity.WARNING,
             selector: "heading ~ heading",
             lint: function (state, content, nodes) {
                 const currentHeading = nodes[1];

@@ -29,6 +29,14 @@ const config: KnipConfig = {
                 "utils/**/*.{ts,tsx,js,jsx}",
             ],
         },
+        "config/eslint-plugin": {
+            project: [
+                "**/*.{ts,tsx,js,jsx}",
+                // ESLint rule test fixtures are referenced by path (RuleTester
+                // `filename`), never imported.
+                "!rules/__fixtures__/**",
+            ],
+        },
         "packages/*": basePackageConfig,
         "packages/perseus-core": {
             ...basePackageConfig,

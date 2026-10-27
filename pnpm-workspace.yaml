@@ -42,6 +42,7 @@ minimumReleaseAgeExclude:
 packages:
     - __docs__
     - config/build
+    - config/eslint-plugin
     - data
     - dev
     - packages/*
@@ -143,4 +144,7 @@ catalogs:
         "@khanacademy/wonder-stuff-core": 3.0.0
     prodDeps:
         tiny-invariant: 1.3.1
-        jquery: ^2.1.1
+        jquery: 4.0.0
+    toolDeps:
+        eslint: ^8.57.1
+        typescript: 5.9.3
