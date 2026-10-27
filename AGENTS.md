@@ -94,5 +94,6 @@ Focus on what changed and why — write for someone reading git log in 5 years.
 1. Run tests: `pnpm tesc`
 2. Check types: `pnpm tsc`
 3. Lint and format: `pnpm fixc`
-4. Test in Storybook: `pnpm storybook`
+4. For UI changes, offer to start Storybook (`pnpm storybook`) so the user can
+   check them; start it only after they approve.
 5. Verify accessibility compliance
