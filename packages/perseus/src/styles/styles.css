@@ -14,28 +14,16 @@
 }
 @layer perseus-legacy {
     .framework-perseus.perseus-article:not(.perseus-mobile) h2 {
-        font-family: inherit;
-        font-size: 30px;
-        font-weight: var(--wb-font-weight-bold);
-        line-height: 1.1;
         margin-bottom: var(--wb-sizing-size_160);
         margin-top: var(--wb-sizing-size_480);
     }
     .framework-perseus.perseus-article:not(.perseus-mobile) h3 {
-        font-family: inherit;
-        font-size: 26px;
-        font-weight: 700;
-        line-height: 1.1;
         margin-bottom: var(--wb-sizing-size_160);
         margin-top: var(--wb-sizing-size_320);
     }
     .framework-perseus.perseus-article:not(.perseus-mobile) h4,
     .framework-perseus.perseus-article:not(.perseus-mobile) h5,
     .framework-perseus.perseus-article:not(.perseus-mobile) h6 {
-        font-family: inherit;
-        font-size: 22px;
-        font-weight: 700;
-        line-height: 25px;
         margin-bottom: var(--wb-sizing-size_160);
         margin-top: var(--wb-sizing-size_320);
     }
@@ -118,20 +106,12 @@
         color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
     .framework-perseus.perseus-mobile h2 {
-        font-weight: var(--wb-font-weight-bold);
         padding-top: var(--wb-sizing-size_160);
-        font-family: inherit;
-        font-size: 24px;
-        line-height: 1.2;
         color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
     .framework-perseus.perseus-mobile h3,
     .framework-perseus.perseus-mobile h4 {
-        font-weight: var(--wb-font-weight-bold);
         padding-top: 0px;
-        font-family: inherit;
-        font-size: 22px;
-        line-height: 1.1;
         color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile blockquote {
@@ -168,20 +148,12 @@
         color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
     .framework-perseus.perseus-mobile h2 {
-        font-weight: var(--wb-font-weight-bold);
         padding-top: var(--wb-sizing-size_320);
-        font-family: inherit;
-        font-size: 30px;
-        line-height: 1.1;
         color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
     .framework-perseus.perseus-mobile h3,
     .framework-perseus.perseus-mobile h4 {
-        font-weight: var(--wb-font-weight-bold);
         padding-top: var(--wb-sizing-size_160);
-        font-family: inherit;
-        font-size: 28px;
-        line-height: 1.1;
         color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile blockquote {
@@ -218,20 +190,12 @@
         color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
     .framework-perseus.perseus-mobile h2 {
-        font-weight: var(--wb-font-weight-bold);
         padding-top: var(--wb-sizing-size_320);
-        font-family: inherit;
-        font-size: 35px;
-        line-height: 1.1;
         color: var(--wb-semanticColor-core-foreground-neutral-strong);
     }
     .framework-perseus.perseus-mobile h3,
     .framework-perseus.perseus-mobile h4 {
-        font-weight: var(--wb-font-weight-bold);
         padding-top: var(--wb-sizing-size_160);
-        font-family: inherit;
-        font-size: 30px;
-        line-height: 1.1;
         color: var(--wb-semanticColor-core-foreground-neutral-default);
     }
     .framework-perseus.perseus-mobile blockquote {

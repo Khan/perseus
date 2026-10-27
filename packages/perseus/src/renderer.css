@@ -1,4 +1,7 @@
 @layer perseus-base {
+    /*****************
+     * Base Elements *
+     *****************/
     /* TODO: remove .framework-perseus and replace with a class we control */
     .framework-perseus {
         font-size: var(--wb-font-body-size-medium);
@@ -9,6 +12,21 @@
         p {
             /* override base font size set by frontend */
             font-size: inherit;
+        }
+
+        h2 {
+            font-size: var(--wb-font-heading-size-xlarge);
+            line-height: var(--wb-font-heading-lineHeight-xlarge);
+        }
+
+        h3 {
+            font-size: var(--wb-font-heading-size-large);
+            line-height: var(--wb-font-heading-lineHeight-large);
+        }
+
+        h4, h5, h6 {
+            font-size: var(--wb-font-heading-size-medium);
+            line-height: var(--wb-font-heading-lineHeight-medium);
         }
     }
 
