@@ -491,7 +491,7 @@ code {
     display: inline-block;
 }
 .perseus-input-number-editor .input-answer-editor-value-container {
-    display: block;
+    display: flex;
 }
 .perseus-input-number-editor .input-answer-editor-value-container input {
     background: #ffffff;
@@ -521,8 +521,8 @@ code {
     .max-error-plusmn {
     cursor: default;
     display: none;
-    height: 32px;
-    padding-top: 4px;
+    height: 30px;
+    padding-top: 3px;
     text-align: center;
     vertical-align: top;
     width: 1em;
