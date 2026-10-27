@@ -5,6 +5,9 @@ import type {KnipConfig} from "knip";
  * https://knip.dev/
  *
  * To use: `pnpm knip`
+ *
+ * For help troubleshooting issues found by knip, see:
+ * https://khanacademy.atlassian.net/wiki/spaces/LC/pages/5032640623/Fixing+Knip+errors+in+Perseus
  */
 
 // About `project` and `entry`: Knip will only look for dead code in `project`
