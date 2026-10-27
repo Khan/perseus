@@ -136,8 +136,7 @@ const RadioComponent = ({
                     {instructions}
                     {isRequired && (
                         <span className={a11yStyles.srOnly}>
-                            {" "}
-                            {strings.required}
+                            {` ${strings.required}`}
                         </span>
                     )}
                 </legend>

@@ -306,7 +306,11 @@ module.exports = {
             parserOptions: {
                 project: ["tsconfig.json", "config/cypress/tsconfig.json"],
             },
+            // Rules local to this repo (config/eslint-plugin). Registered
+            // here because they need type information.
+            plugins: ["@internal/perseus"],
             rules: {
+                "@internal/perseus/no-adjacent-text-nodes": "error",
                 "@typescript-eslint/strict-boolean-expressions": [
                     "error",
                     {
@@ -319,6 +323,21 @@ module.exports = {
                 ],
             },
             excludedFiles: ["*.d.ts"],
+        },
+        {
+            // Rules from config/eslint-plugin only apply to learner-facing
+            // code!
+            files: [
+                "packages/perseus-editor/**/*.ts",
+                "packages/perseus-editor/**/*.tsx",
+                "*.stories.tsx",
+                "*.test.ts",
+                "*.test.tsx",
+                "**/testing/**",
+            ],
+            rules: {
+                "@internal/perseus/no-adjacent-text-nodes": "off",
+            },
         },
     ],
     reportUnusedDisableDirectives: true,

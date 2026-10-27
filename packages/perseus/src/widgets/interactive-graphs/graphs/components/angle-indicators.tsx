@@ -143,7 +143,7 @@ export const PolygonAngle = ({
                         : 10
                 }
             >
-                {angleLabel}°
+                {`${angleLabel}°`}
             </TextLabel>
         </>
     );
@@ -272,7 +272,7 @@ export const Angle = ({
                     y={textY}
                     color={semanticColor.core.foreground.instructive.default}
                 >
-                    {angleLabel}°
+                    {`${angleLabel}°`}
                 </TextLabel>
             )}
         </>
