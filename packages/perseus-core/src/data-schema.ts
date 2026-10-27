@@ -1940,6 +1940,20 @@ export type PerseusRadioChoice = {
     isNoneOfTheAbove?: boolean;
 };
 
+export type SorterLegendCap = "arrow" | "bar" | "none";
+
+export type SorterLegend = {
+    startCap: SorterLegendCap;
+    endCap: SorterLegendCap;
+    /** Translatable text */
+    startLabel: string;
+    /** Translatable text */
+    endLabel: string;
+    /** Translatable text */
+    ariaLabel: string;
+    position: "above" | "below";
+};
+
 /** Options for the sorter widget. Cards to arrange into the correct order. */
 export type PerseusSorterWidgetOptions = {
     /**
@@ -1952,6 +1966,12 @@ export type PerseusSorterWidgetOptions = {
      * "vertical" layout is best for longer text and larger images.
      */
     layout: "horizontal" | "vertical";
+    /**
+     * The labeled line along the blanks that shows learners which order
+     * to place the tiles in, with optional end caps.
+     */
+    legend?: SorterLegend;
+
     /**
      * Adds padding to the options. Padding is good for text but not needed
      * for images
