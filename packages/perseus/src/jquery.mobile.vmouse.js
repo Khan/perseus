@@ -36,8 +36,39 @@ import $ from "jquery";
         touchEventProps = "clientX clientY pageX pageY screenX screenY".split(
             " ",
         ),
-        mouseHookProps = $.event.mouseHooks ? $.event.mouseHooks.props : [],
-        mouseEventProps = $.event.props.concat(mouseHookProps),
+        // jQuery 3 removed $.event.props and $.event.mouseHooks, so we spell
+        // out the property lists they used to provide.
+        genericEventProps = [
+            "altKey",
+            "bubbles",
+            "cancelable",
+            "ctrlKey",
+            "currentTarget",
+            "detail",
+            "eventPhase",
+            "metaKey",
+            "relatedTarget",
+            "shiftKey",
+            "target",
+            "timeStamp",
+            "view",
+            "which",
+        ],
+        mouseHookProps = [
+            "button",
+            "buttons",
+            "clientX",
+            "clientY",
+            "fromElement",
+            "offsetX",
+            "offsetY",
+            "pageX",
+            "pageY",
+            "screenX",
+            "screenY",
+            "toElement",
+        ],
+        mouseEventProps = genericEventProps.concat(mouseHookProps),
         activeDocHandlers = {},
         resetTimerID = 0,
         startX = 0,
@@ -80,7 +111,7 @@ import $ from "jquery";
         event.type = eventType;
 
         oe = event.originalEvent;
-        props = $.event.props;
+        props = genericEventProps;
 
         // addresses separation of $.event.props in to $.event.mouseHook.props and Issue 3280
         // https://github.com/jquery/jquery-mobile/issues/3280
