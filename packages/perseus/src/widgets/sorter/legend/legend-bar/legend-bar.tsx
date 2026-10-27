@@ -5,8 +5,7 @@ import styles from "./legend-bar.module.css";
 
 import type {SorterLegendCap} from "../legend-types";
 
-type LegendBarOrientation = "horizontal" | "vertical";
-
+export type LegendBarOrientation = "horizontal" | "vertical";
 export interface LegendBarProps {
     orientation: LegendBarOrientation;
     startCap?: SorterLegendCap;

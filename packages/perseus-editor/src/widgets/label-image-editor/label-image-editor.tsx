@@ -2,6 +2,7 @@ import {Util} from "@khanacademy/perseus";
 import {labelImageLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import DarkModeToggle from "../../components/dark-mode-toggle/dark-mode-toggle";
 import FormWrappedTextField from "../../components/form-wrapped-text-field";
 
 import AnswerChoices from "./answer-choices";
@@ -15,6 +16,11 @@ import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
 export type Props = WidgetEditorProps<PerseusLabelImageWidgetOptions>;
 
+type State = {
+    // The Wonder Blocks theme used to preview the question image.
+    wbTheme?: string;
+};
+
 /**
  * Direct image labeling widget editor.
  *
@@ -22,8 +28,10 @@ export type Props = WidgetEditorProps<PerseusLabelImageWidgetOptions>;
  * that involve the use of images, and enable learners to demonstrate their
  * knowledge by directly interacting with the image.
  */
-class LabelImageEditor extends React.Component<Props> {
+class LabelImageEditor extends React.Component<Props, State> {
     private _questionMarkers: QuestionMarkers | null | undefined;
+
+    state: State = {wbTheme: undefined};
 
     static defaultProps: PerseusLabelImageWidgetOptions =
         labelImageLogic.defaultWidgetOptions;
@@ -201,12 +209,24 @@ class LabelImageEditor extends React.Component<Props> {
 
                 {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
                 {imageSelected && (
-                    <FormWrappedTextField
-                        placeholder="Alt text (for screen readers)"
-                        onChange={(e) => this.handleAltChange(e.target.value)}
-                        value={imageAlt}
-                        width="100%"
-                    />
+                    <>
+                        <FormWrappedTextField
+                            placeholder="Alt text (for screen readers)"
+                            onChange={(e) =>
+                                this.handleAltChange(e.target.value)
+                            }
+                            value={imageAlt}
+                            width="100%"
+                        />
+                        <DarkModeToggle
+                            editingDisabled={editingDisabled}
+                            imageUrl={imageUrl}
+                            onShowToggle={(wbTheme) => this.setState({wbTheme})}
+                            onSuppressToggle={(url) =>
+                                this.handleChange({imageUrl: url})
+                            }
+                        />
+                    </>
                 )}
 
                 <QuestionMarkers
@@ -219,6 +239,7 @@ class LabelImageEditor extends React.Component<Props> {
                     markers={markers}
                     onChange={this.handleMarkersChange}
                     ref={(node) => (this._questionMarkers = node)}
+                    wbTheme={this.state.wbTheme}
                 />
 
                 <AnswerChoices

@@ -3,14 +3,13 @@
     "description": "Core Perseus API (includes renderers and widgets)",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "92.1.0",
+    "version": "93.0.0",
     "publishConfig": {
         "access": "public",
         "exports": {
             ".": "./dist/index.js",
             "./strings": "./dist/strings.js",
-            "./styles.css": "./dist/index.css",
-            "./testing": "./dist/testing.js"
+            "./styles.css": "./dist/index.css"
         }
     },
     "repository": {
@@ -54,6 +53,7 @@
         "uuid": "^10.0.0"
     },
     "devDependencies": {
+        "@internal/build-settings": "workspace:*",
         "@khanacademy/wonder-blocks-announcer": "catalog:devDeps",
         "@khanacademy/wonder-blocks-banner": "catalog:devDeps",
         "@khanacademy/wonder-blocks-button": "catalog:devDeps",
@@ -80,11 +80,11 @@
         "@popperjs/core": "catalog:devDeps",
         "aphrodite": "catalog:devDeps",
         "classnames": "catalog:devDeps",
-        "perseus-build-settings": "workspace:*",
         "prop-types": "catalog:devDeps",
         "raphael": "workspace:*",
         "react": "catalog:devDeps",
         "react-dom": "catalog:devDeps",
+        "react-json-view": "^1.21.3",
         "react-popper": "^2.2.5",
         "underscore": "catalog:devDeps"
     },
@@ -123,6 +123,6 @@
     },
     "keywords": [],
     "khan": {
-        "catalogHash": "c1e18e75c3555ad9"
+        "catalogHash": "c5e0d95da455a764"
     }
 }

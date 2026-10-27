@@ -1,5 +1,41 @@
 # @khanacademy/perseus
 
+## 93.0.0
+
+### Major Changes
+
+-   [#4311](https://github.com/Khan/perseus/pull/4311) [`7e34ae2`](https://github.com/Khan/perseus/commit/7e34ae28f3ab30981d36798780241bedc32eadb1) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Stop publishing the `@khanacademy/perseus/testing` entry point. It holds internal test tooling that was never meant to ship. Because it was the only code that imported `@khanacademy/mathjax-renderer`'s stylesheets, `@khanacademy/perseus/styles.css` no longer includes them. Consumers that need those styles should import them from `@khanacademy/mathjax-renderer` directly.
+
+### Patch Changes
+
+-   [#4420](https://github.com/Khan/perseus/pull/4420) [`395606a`](https://github.com/Khan/perseus/commit/395606ae8306d741655232b1fbf9b2f5dd781e94) Thanks [@benchristel](https://github.com/benchristel)! - Internal: added the `framework-perseus` CSS class to the top-level elements of ServerItemRenderer, matching ArticleRenderer.
+
+-   [#4422](https://github.com/Khan/perseus/pull/4422) [`8a5fdcd`](https://github.com/Khan/perseus/commit/8a5fdcd5f9969db12a674085a95ee72bc0e91e7a) Thanks [@benchristel](https://github.com/benchristel)! - Upgraded jQuery to 4.0.0.
+
+-   [#4218](https://github.com/Khan/perseus/pull/4218) [`6d5198f`](https://github.com/Khan/perseus/commit/6d5198f49957818df3b05801b27b76c6835a069c) Thanks [@benchristel](https://github.com/benchristel)! - Math notation rendered by MathJax now inherits its color from its context, so it matches surrounding text.
+
+-   [#4410](https://github.com/Khan/perseus/pull/4410) [`f90356d`](https://github.com/Khan/perseus/commit/f90356db97c66278c6391f1c99a57d592351baed) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Styling] Migrate layout formatting for articles to a centralized renderer stylesheet and adjust how elements are centered on the page.
+
+-   [#4429](https://github.com/Khan/perseus/pull/4429) [`ced3262`](https://github.com/Khan/perseus/commit/ced3262bd5fbb41d2979522d87497e45916009d4) Thanks [@benchristel](https://github.com/benchristel)! - Internal: deleted unused code.
+
+-   [#4427](https://github.com/Khan/perseus/pull/4427) [`c184cc1`](https://github.com/Khan/perseus/commit/c184cc18dd632ea0e0a1e9543a5900881bdc1cab) Thanks [@benchristel](https://github.com/benchristel)! - Internal: deleted unused code, and moved test data out of production files.
+
+-   [#4440](https://github.com/Khan/perseus/pull/4440) [`73ebfad`](https://github.com/Khan/perseus/commit/73ebfadd6a1aad433d42eec133acf81d950f8910) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Update peer/dev dependencies from frontend
+
+-   [#4321](https://github.com/Khan/perseus/pull/4321) [`8d621d5`](https://github.com/Khan/perseus/commit/8d621d5be504f9253064b1f21fe3d3a1270845be) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Build packages with Vite (Rolldown and Oxc) instead of Rollup and SWC. Packages now import `react/jsx-runtime` and `react-dom/client` from their React peer dependencies instead of bundling copies. CSS is now built for Chrome 144 and Safari 16.6, which expands nested rules so they apply in Safari versions before 17.2.
+
+-   Updated dependencies [[`7e34ae2`](https://github.com/Khan/perseus/commit/7e34ae28f3ab30981d36798780241bedc32eadb1), [`2153e64`](https://github.com/Khan/perseus/commit/2153e645f949c5bb156dc534e0ebd7b8850ec00b), [`30e081d`](https://github.com/Khan/perseus/commit/30e081d2cf5c9cd180b336c3270aad18f507a25e), [`8fce9ef`](https://github.com/Khan/perseus/commit/8fce9ef1fa6fe741ff131116a0f04372c1ebbdfa), [`7e34ae2`](https://github.com/Khan/perseus/commit/7e34ae28f3ab30981d36798780241bedc32eadb1), [`f90356d`](https://github.com/Khan/perseus/commit/f90356db97c66278c6391f1c99a57d592351baed), [`f77aa0e`](https://github.com/Khan/perseus/commit/f77aa0eb74afca6d2b815555db675c3d0e48ea77), [`ced3262`](https://github.com/Khan/perseus/commit/ced3262bd5fbb41d2979522d87497e45916009d4), [`c184cc1`](https://github.com/Khan/perseus/commit/c184cc18dd632ea0e0a1e9543a5900881bdc1cab), [`73ebfad`](https://github.com/Khan/perseus/commit/73ebfadd6a1aad433d42eec133acf81d950f8910), [`8d621d5`](https://github.com/Khan/perseus/commit/8d621d5be504f9253064b1f21fe3d3a1270845be)]:
+    -   @khanacademy/perseus-core@42.0.2
+    -   @khanacademy/perseus-score@9.0.10
+    -   @khanacademy/perseus-linter@7.0.0
+    -   @khanacademy/kas@3.1.0
+    -   @khanacademy/math-input@30.1.4
+    -   @khanacademy/keypad-context@6.0.9
+    -   @khanacademy/kmath@3.1.2
+    -   @khanacademy/perseus-utils@3.0.2
+    -   @khanacademy/pure-markdown@3.1.1
+    -   @khanacademy/simple-markdown@4.0.2
+
 ## 92.1.0
 
 ### Minor Changes

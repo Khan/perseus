@@ -1,24 +1,21 @@
 import * as React from "react";
 
-import InfoTip from "../../../components/info-tip";
-import LabeledSwitch from "../../../components/labeled-switch";
+import InfoTip from "../info-tip";
+import LabeledSwitch from "../labeled-switch";
 
 import styles from "./dark-mode-toggle.module.css";
 
-import type {
-    PerseusImageBackground,
-    PerseusImageWidgetOptions,
-} from "@khanacademy/perseus-core";
-
 interface Props {
-    backgroundImage: PerseusImageBackground;
+    imageUrl: string | null | undefined;
     editingDisabled?: boolean;
     onShowToggle: (theme?: string) => void;
-    onSuppressToggle: (changes: Partial<PerseusImageWidgetOptions>) => void;
+    // Called with the updated image URL. The dark mode filter is suppressed
+    // via a query string on the URL, so the URL is the only thing that changes.
+    onSuppressToggle: (url: string) => void;
 }
 
 export default function DarkModeToggle({
-    backgroundImage,
+    imageUrl,
     onShowToggle,
     onSuppressToggle,
     editingDisabled = false,
@@ -26,26 +23,23 @@ export default function DarkModeToggle({
     const [showDarkMode, setShowDarkMode] = React.useState(false);
     // Using `new URL()` instead of `URL.canParse`, because it unavailable
     // before Safari 17 (current minimum is Safari 16.6).
-    const imageUrl: URL | null = (() => {
+    const parsedUrl: URL | null = (() => {
         try {
-            return new URL(backgroundImage.url ?? "");
+            return new URL(imageUrl ?? "");
         } catch {
             return null;
         }
     })();
-    const suppressFilter = imageUrl?.searchParams.has("dark-mode") ?? false;
+    const suppressFilter = parsedUrl?.searchParams.has("dark-mode") ?? false;
 
     const toggleDarkMode = () => {
         onShowToggle(showDarkMode ? undefined : "syl-dark");
         setShowDarkMode(!showDarkMode);
     };
     const toggleSuppressFilter = () => {
-        onSuppressToggle({
-            backgroundImage: {
-                ...backgroundImage,
-                url: setDarkModeOptionInUrl(suppressFilter ? undefined : "off"),
-            },
-        });
+        onSuppressToggle(
+            setDarkModeOptionInUrl(suppressFilter ? undefined : "off"),
+        );
     };
 
     /**
@@ -58,7 +52,7 @@ export default function DarkModeToggle({
      */
     const setDarkModeOptionInUrl = (darkModeSetting?: string): string => {
         try {
-            const url = new URL(backgroundImage.url ?? "");
+            const url = new URL(imageUrl ?? "");
             if (darkModeSetting === "off") {
                 url.searchParams.append("dark-mode", "off");
             } else {
@@ -66,7 +60,7 @@ export default function DarkModeToggle({
             }
             return url.toString();
         } catch {
-            return backgroundImage.url ?? "";
+            return imageUrl ?? "";
         }
     };
 
@@ -82,17 +76,14 @@ export default function DarkModeToggle({
                 <LabeledSwitch
                     label="Suppress Dark Mode Filter"
                     checked={suppressFilter}
-                    disabled={
-                        editingDisabled ||
-                        !isGraphicalImage(backgroundImage.url)
-                    }
+                    disabled={editingDisabled || !isGraphicalImage(imageUrl)}
                     onChange={toggleSuppressFilter}
                 />
                 <InfoTip>
                     When the color in the image is important (like in an image
                     of a flag), you can suppress the filter that is used to make
                     images compatible with dark mode.
-                    {!isGraphicalImage(backgroundImage.url) && (
+                    {!isGraphicalImage(imageUrl) && (
                         <strong>
                             {" "}
                             This option is only available for PNG and SVG

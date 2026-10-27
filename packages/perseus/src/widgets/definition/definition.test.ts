@@ -158,6 +158,13 @@ describe("Definition widget", () => {
     });
 
     describe("focus management", () => {
+        // Popover moves focus to its close button asynchronously after it
+        // opens. Tabbing before then starts from the wrong element.
+        const waitForCloseButtonFocus = () =>
+            waitFor(() =>
+                expect(screen.getByLabelText("Close Popover")).toHaveFocus(),
+            );
+
         beforeEach(() => {
             // Popover's focus management (floating-ui) moves focus using
             // microtasks and animation frames, which Jest's fake timers hold
@@ -206,6 +213,7 @@ describe("Definition widget", () => {
             // Verify popover is open
             const tooltip = screen.getByRole("dialog");
             expect(tooltip).toBeVisible();
+            await waitForCloseButtonFocus();
 
             // Tab off the close button
             await userEvent.tab();
@@ -229,6 +237,7 @@ describe("Definition widget", () => {
             // Verify popover is open
             const tooltip = screen.getByRole("dialog");
             expect(tooltip).toBeVisible();
+            await waitForCloseButtonFocus();
 
             // Shift + Tab off the close button (tab backwards)
             await userEvent.tab({shift: true});
@@ -270,6 +279,7 @@ describe("Definition widget", () => {
             // Verify popover is open
             const tooltip = screen.getByRole("dialog");
             expect(tooltip).toBeVisible();
+            await waitForCloseButtonFocus();
 
             // Shift + Tab back to the anchor, then Shift + Tab off it entirely
             await userEvent.tab({shift: true});
