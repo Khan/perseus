@@ -27,13 +27,15 @@ const config: KnipConfig = {
             entry: [
                 // CLI tools
                 "utils/**/*.{ts,tsx,js,jsx}",
-                // Cypress loads this file through its supportFile setting.
-                "config/cypress/support.ts",
             ],
         },
         "config/build": {
             // Run by the `build` script in the root package.json.
             entry: ["build-packages.ts"],
+        },
+        "config/cypress": {
+            // Cypress loads this file through its supportFile setting.
+            entry: ["support.ts"],
         },
         "config/eslint-plugin": {
             project: [
