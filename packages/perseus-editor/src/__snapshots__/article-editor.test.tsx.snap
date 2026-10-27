@@ -13989,6 +13989,80 @@ table: [[☃ table 1]]
                           value="Sample diagram"
                         />
                       </form>
+                      <div
+                        class="dark-mode-toggle-container"
+                      >
+                        <div
+                          style="align-items: center; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
+                        >
+                          <div
+                            data-style-active="box-shadow: none; outline: none; outline-offset: var(--wb-border-width-medium);"
+                            data-style-focus-within="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                            data-style-hover="box-shadow: none; outline: none; outline-offset: var(--wb-border-width-medium);"
+                            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline-flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; height: var(--wb-c-switch-root-sizing-height); width: var(--wb-c-switch-root-sizing-width); border-radius: var(--wb-c-switch-root-border-radius-default); flex-shrink: 0; background-color: var(--wb-semanticColor-core-background-disabled-strong); cursor: not-allowed;"
+                          >
+                            <input
+                              aria-disabled="true"
+                              id=":r5f:"
+                              role="switch"
+                              style="opacity: 0; height: 0px; width: 0px;"
+                              type="checkbox"
+                            />
+                            <span
+                              style="position: absolute; inset-block-start: var(--wb-c-switch-slider-position-top); inset-inline-start: var(--wb-c-switch-slider-position-left); height: var(--wb-c-switch-slider-sizing-height); width: var(--wb-c-switch-slider-sizing-width); border-radius: var(--wb-c-switch-root-border-radius-default); background-color: var(--wb-semanticColor-core-foreground-disabled-default); transition: inset-inline-start 0.15s ease-in-out;"
+                            />
+                          </div>
+                          <div
+                            aria-hidden="true"
+                            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 8px; -ms-flex-basis: 8px; -ms-flex-preferred-size: 8px; -webkit-flex-basis: 8px; flex-basis: 8px; flex-shrink: 0;"
+                          />
+                          <label
+                            for=":r5f:"
+                            style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium);"
+                          >
+                            Show in Dark Mode
+                          </label>
+                        </div>
+                        <div
+                          class="dark-mode-suppression-container"
+                        >
+                          <div
+                            style="align-items: center; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
+                          >
+                            <div
+                              data-style-active="box-shadow: none; outline: none; outline-offset: var(--wb-border-width-medium);"
+                              data-style-focus-within="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                              data-style-hover="box-shadow: none; outline: none; outline-offset: var(--wb-border-width-medium);"
+                              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline-flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; height: var(--wb-c-switch-root-sizing-height); width: var(--wb-c-switch-root-sizing-width); border-radius: var(--wb-c-switch-root-border-radius-default); flex-shrink: 0; background-color: var(--wb-semanticColor-core-background-disabled-strong); cursor: not-allowed;"
+                            >
+                              <input
+                                aria-disabled="true"
+                                id=":r5h:"
+                                role="switch"
+                                style="opacity: 0; height: 0px; width: 0px;"
+                                type="checkbox"
+                              />
+                              <span
+                                style="position: absolute; inset-block-start: var(--wb-c-switch-slider-position-top); inset-inline-start: var(--wb-c-switch-slider-position-left); height: var(--wb-c-switch-slider-sizing-height); width: var(--wb-c-switch-slider-sizing-width); border-radius: var(--wb-c-switch-root-border-radius-default); background-color: var(--wb-semanticColor-core-foreground-disabled-default); transition: inset-inline-start 0.15s ease-in-out;"
+                              />
+                            </div>
+                            <div
+                              aria-hidden="true"
+                              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 8px; -ms-flex-basis: 8px; -ms-flex-preferred-size: 8px; -webkit-flex-basis: 8px; flex-basis: 8px; flex-shrink: 0;"
+                            />
+                            <label
+                              for=":r5h:"
+                              style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium);"
+                            >
+                              Suppress Dark Mode Filter
+                            </label>
+                          </div>
+                          <span
+                            style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: var(--wb-sizing-size_160); height: var(--wb-sizing-size_160); margin-inline-start: 4px; background-color: currentColor; mask-image: url(question.svg);"
+                            tabindex="0"
+                          />
+                        </div>
+                      </div>
                       <div>
                         <span
                           style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-medium);"
@@ -14006,6 +14080,8 @@ table: [[☃ table 1]]
                           </span>
                         </div>
                         <div
+                          class="perseus-image-preview-container"
+                          data-testid="label-image-markers-canvas"
                           style="position: relative; border: solid 1px rgba(33, 36, 44, 0.16); max-inline-size: 300px; max-block-size: 200px;"
                         >
                           <img
@@ -14395,7 +14471,7 @@ table: [[☃ table 1]]
                                   aria-invalid="false"
                                   data-style-active-not-disabled="background-color: var(--wb-semanticColor-action-secondary-progressive-press-background); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-action-secondary-progressive-press-border); outline-offset: -1px;"
                                   data-style-focus-visible-not-disabled-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
-                                  id=":r5f:"
+                                  id=":r5j:"
                                   style="appearance: none; -webkit-appearance: none; -moz-appearance: none; height: var(--wb-sizing-size_160); width: var(--wb-sizing-size_160); min-block-size: var(--wb-sizing-size_160); min-inline-size: var(--wb-sizing-size_160); margin: 0px; outline: none; box-sizing: border-box; border-style: solid; border-width: var(--wb-border-width-thin); border-radius: var(--wb-border-radius-radius_040); background-color: var(--wb-semanticColor-input-default-background); border-color: var(--wb-semanticColor-input-default-border);"
                                   type="checkbox"
                                 />
@@ -14405,7 +14481,7 @@ table: [[☃ table 1]]
                               style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-semi); line-height: var(--wb-font-body-lineHeight-small); color: var(--wb-semanticColor-core-foreground-neutral-strong);"
                             >
                               <label
-                                for=":r5f:"
+                                for=":r5j:"
                               >
                                 Order of the matched pairs matters:
                               </label>
@@ -14439,7 +14515,7 @@ table: [[☃ table 1]]
                                   checked=""
                                   data-style-active-not-disabled="outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-input-checked-border); outline-offset: 1px; background: var(--wb-semanticColor-core-background-instructive-strong); border-color: var(--wb-semanticColor-core-background-instructive-strong);"
                                   data-style-focus-visible-not-disabled="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
-                                  id=":r5g:"
+                                  id=":r5k:"
                                   style="appearance: none; -webkit-appearance: none; -moz-appearance: none; height: var(--wb-sizing-size_160); width: var(--wb-sizing-size_160); min-block-size: var(--wb-sizing-size_160); min-inline-size: var(--wb-sizing-size_160); margin: 0px; outline: none; box-sizing: border-box; border-style: solid; border-width: var(--wb-border-width-thin); border-radius: var(--wb-border-radius-radius_040); background-color: var(--wb-semanticColor-input-checked-background); border-color: var(--wb-semanticColor-core-transparent);"
                                   type="checkbox"
                                 />
@@ -14452,7 +14528,7 @@ table: [[☃ table 1]]
                               style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-semi); line-height: var(--wb-font-body-lineHeight-small); color: var(--wb-semanticColor-core-foreground-neutral-strong);"
                             >
                               <label
-                                for=":r5g:"
+                                for=":r5k:"
                               >
                                 Padding:
                               </label>
@@ -14523,7 +14599,7 @@ table: [[☃ table 1]]
                         >
                           <input
                             aria-disabled="true"
-                            id=":r5h:"
+                            id=":r5l:"
                             role="switch"
                             style="opacity: 0; height: 0px; width: 0px;"
                             type="checkbox"
@@ -14537,7 +14613,7 @@ table: [[☃ table 1]]
                           style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 8px; -ms-flex-basis: 8px; -ms-flex-preferred-size: 8px; -webkit-flex-basis: 8px; flex-basis: 8px; flex-shrink: 0;"
                         />
                         <label
-                          for=":r5h:"
+                          for=":r5l:"
                           style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium);"
                         >
                           Static
@@ -14845,7 +14921,7 @@ table: [[☃ table 1]]
                                     aria-invalid="false"
                                     data-style-active-not-disabled="background-color: var(--wb-semanticColor-action-secondary-progressive-press-background); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-action-secondary-progressive-press-border); outline-offset: -1px;"
                                     data-style-focus-visible-not-disabled-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
-                                    id=":r5n:"
+                                    id=":r5r:"
                                     style="appearance: none; -webkit-appearance: none; -moz-appearance: none; height: var(--wb-sizing-size_160); width: var(--wb-sizing-size_160); min-block-size: var(--wb-sizing-size_160); min-inline-size: var(--wb-sizing-size_160); margin: 0px; outline: none; box-sizing: border-box; border-style: solid; border-width: var(--wb-border-width-thin); border-radius: var(--wb-border-radius-radius_040); background-color: var(--wb-semanticColor-input-default-background); border-color: var(--wb-semanticColor-input-default-border);"
                                     type="checkbox"
                                   />
@@ -14855,7 +14931,7 @@ table: [[☃ table 1]]
                                 style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-semi); line-height: var(--wb-font-body-lineHeight-small); color: var(--wb-semanticColor-core-foreground-neutral-strong);"
                               >
                                 <label
-                                  for=":r5n:"
+                                  for=":r5r:"
                                 >
                                   Show ruler
                                 </label>
@@ -14887,7 +14963,7 @@ table: [[☃ table 1]]
                                     checked=""
                                     data-style-active-not-disabled="outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-input-checked-border); outline-offset: 1px; background: var(--wb-semanticColor-core-background-instructive-strong); border-color: var(--wb-semanticColor-core-background-instructive-strong);"
                                     data-style-focus-visible-not-disabled="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
-                                    id=":r5o:"
+                                    id=":r5s:"
                                     style="appearance: none; -webkit-appearance: none; -moz-appearance: none; height: var(--wb-sizing-size_160); width: var(--wb-sizing-size_160); min-block-size: var(--wb-sizing-size_160); min-inline-size: var(--wb-sizing-size_160); margin: 0px; outline: none; box-sizing: border-box; border-style: solid; border-width: var(--wb-border-width-thin); border-radius: var(--wb-border-radius-radius_040); background-color: var(--wb-semanticColor-input-checked-background); border-color: var(--wb-semanticColor-core-transparent);"
                                     type="checkbox"
                                   />
@@ -14900,7 +14976,7 @@ table: [[☃ table 1]]
                                 style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-semi); line-height: var(--wb-font-body-lineHeight-small); color: var(--wb-semanticColor-core-foreground-neutral-strong);"
                               >
                                 <label
-                                  for=":r5o:"
+                                  for=":r5s:"
                                 >
                                   Show protractor
                                 </label>
@@ -14968,7 +15044,7 @@ table: [[☃ table 1]]
                         >
                           <input
                             aria-disabled="true"
-                            id=":r5p:"
+                            id=":r5t:"
                             role="switch"
                             style="opacity: 0; height: 0px; width: 0px;"
                             type="checkbox"
@@ -14982,7 +15058,7 @@ table: [[☃ table 1]]
                           style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 8px; -ms-flex-basis: 8px; -ms-flex-preferred-size: 8px; -webkit-flex-basis: 8px; flex-basis: 8px; flex-shrink: 0;"
                         />
                         <label
-                          for=":r5p:"
+                          for=":r5t:"
                           style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium);"
                         >
                           Static
@@ -15005,7 +15081,7 @@ table: [[☃ table 1]]
                           style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: fit-content; max-inline-size: 100%;"
                         >
                           <button
-                            aria-controls=":r5r:"
+                            aria-controls=":r5v:"
                             aria-expanded="false"
                             aria-haspopup="listbox"
                             aria-invalid="false"
@@ -15015,7 +15091,7 @@ table: [[☃ table 1]]
                             data-style-focus="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
                             data-style-focus-active="box-shadow: 0 0 0 var(--wb-border-width-thin) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
                             data-style-moz-focus-inner="border: 0px;"
-                            id=":r5s:"
+                            id=":r60:"
                             role="combobox"
                             style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: space-between; color: var(--wb-semanticColor-input-default-foreground); height: 40px; padding-inline-start: var(--wb-c-dropdown-opener-layout-padding-inlineStart); padding-inline-end: var(--wb-c-dropdown-opener-layout-padding-inlineEnd); border-width: 0px; border-radius: var(--wb-c-dropdown-opener-border-radius-rest); border-style: solid; outline: none; text-decoration: none; box-sizing: border-box; white-space: nowrap; touch-action: manipulation; background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); cursor: pointer;"
                             type="button"
@@ -15195,7 +15271,7 @@ table: [[☃ table 1]]
                                     aria-invalid="false"
                                     data-style-active-not-disabled="background-color: var(--wb-semanticColor-action-secondary-progressive-press-background); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-action-secondary-progressive-press-border); outline-offset: -1px;"
                                     data-style-focus-visible-not-disabled-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
-                                    id=":r5t:"
+                                    id=":r61:"
                                     style="appearance: none; -webkit-appearance: none; -moz-appearance: none; height: var(--wb-sizing-size_160); width: var(--wb-sizing-size_160); min-block-size: var(--wb-sizing-size_160); min-inline-size: var(--wb-sizing-size_160); margin: 0px; outline: none; box-sizing: border-box; border-style: solid; border-width: var(--wb-border-width-thin); border-radius: var(--wb-border-radius-radius_040); background-color: var(--wb-semanticColor-input-default-background); border-color: var(--wb-semanticColor-input-default-border);"
                                     type="checkbox"
                                   />
@@ -15205,7 +15281,7 @@ table: [[☃ table 1]]
                                 style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-semi); line-height: var(--wb-font-body-lineHeight-small); color: var(--wb-semanticColor-core-foreground-neutral-strong);"
                               >
                                 <label
-                                  for=":r5t:"
+                                  for=":r61:"
                                 >
                                   Show tick controller
                                 </label>
@@ -15237,7 +15313,7 @@ table: [[☃ table 1]]
                                     checked=""
                                     data-style-active-not-disabled="outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-input-checked-border); outline-offset: 1px; background: var(--wb-semanticColor-core-background-instructive-strong); border-color: var(--wb-semanticColor-core-background-instructive-strong);"
                                     data-style-focus-visible-not-disabled="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
-                                    id=":r5u:"
+                                    id=":r62:"
                                     style="appearance: none; -webkit-appearance: none; -moz-appearance: none; height: var(--wb-sizing-size_160); width: var(--wb-sizing-size_160); min-block-size: var(--wb-sizing-size_160); min-inline-size: var(--wb-sizing-size_160); margin: 0px; outline: none; box-sizing: border-box; border-style: solid; border-width: var(--wb-border-width-thin); border-radius: var(--wb-border-radius-radius_040); background-color: var(--wb-semanticColor-input-checked-background); border-color: var(--wb-semanticColor-core-transparent);"
                                     type="checkbox"
                                   />
@@ -15250,7 +15326,7 @@ table: [[☃ table 1]]
                                 style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-semi); line-height: var(--wb-font-body-lineHeight-small); color: var(--wb-semanticColor-core-foreground-neutral-strong);"
                               >
                                 <label
-                                  for=":r5u:"
+                                  for=":r62:"
                                 >
                                   Show label ticks
                                 </label>
@@ -15282,7 +15358,7 @@ table: [[☃ table 1]]
                                   aria-invalid="false"
                                   data-style-active-not-disabled="background-color: var(--wb-semanticColor-action-secondary-progressive-press-background); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-action-secondary-progressive-press-border); outline-offset: -1px;"
                                   data-style-focus-visible-not-disabled-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
-                                  id=":r5v:"
+                                  id=":r63:"
                                   style="appearance: none; -webkit-appearance: none; -moz-appearance: none; height: var(--wb-sizing-size_160); width: var(--wb-sizing-size_160); min-block-size: var(--wb-sizing-size_160); min-inline-size: var(--wb-sizing-size_160); margin: 0px; outline: none; box-sizing: border-box; border-style: solid; border-width: var(--wb-border-width-thin); border-radius: var(--wb-border-radius-radius_040); background-color: var(--wb-semanticColor-input-default-background); border-color: var(--wb-semanticColor-input-default-border);"
                                   type="checkbox"
                                 />
@@ -15292,7 +15368,7 @@ table: [[☃ table 1]]
                               style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-semi); line-height: var(--wb-font-body-lineHeight-small); color: var(--wb-semanticColor-core-foreground-neutral-strong);"
                             >
                               <label
-                                for=":r5v:"
+                                for=":r63:"
                               >
                                 Show tooltips
                               </label>
@@ -15409,7 +15485,7 @@ table: [[☃ table 1]]
                         >
                           <input
                             aria-disabled="true"
-                            id=":r60:"
+                            id=":r64:"
                             role="switch"
                             style="opacity: 0; height: 0px; width: 0px;"
                             type="checkbox"
@@ -15423,7 +15499,7 @@ table: [[☃ table 1]]
                           style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 8px; -ms-flex-basis: 8px; -ms-flex-preferred-size: 8px; -webkit-flex-basis: 8px; flex-basis: 8px; flex-shrink: 0;"
                         />
                         <label
-                          for=":r60:"
+                          for=":r64:"
                           style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium);"
                         >
                           Static
@@ -15524,7 +15600,7 @@ table: [[☃ table 1]]
                               style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: fit-content; max-inline-size: 100%;"
                             >
                               <button
-                                aria-controls=":r62:"
+                                aria-controls=":r66:"
                                 aria-expanded="false"
                                 aria-haspopup="listbox"
                                 aria-invalid="false"
@@ -15533,7 +15609,7 @@ table: [[☃ table 1]]
                                 data-style-focus="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
                                 data-style-focus-active="box-shadow: 0 0 0 var(--wb-border-width-thin) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
                                 data-style-moz-focus-inner="border: 0px;"
-                                id=":r63:"
+                                id=":r67:"
                                 role="combobox"
                                 style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: space-between; color: var(--wb-semanticColor-input-default-foreground); height: 40px; padding-inline-start: var(--wb-c-dropdown-opener-layout-padding-inlineStart); padding-inline-end: var(--wb-c-dropdown-opener-layout-padding-inlineEnd); border-width: 0px; border-radius: var(--wb-c-dropdown-opener-border-radius-rest); border-style: solid; outline: none; text-decoration: none; box-sizing: border-box; white-space: nowrap; touch-action: manipulation; background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); cursor: pointer;"
                                 type="button"
@@ -15679,14 +15755,14 @@ table: [[☃ table 1]]
                               <div
                                 data-expanded="true"
                                 data-style-not-data-expanded-true="grid-template-rows: min-content 0fr;"
-                                id=":r65:"
+                                id=":r69:"
                                 style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: grid; flex-direction: column; margin: 0px; padding: 0px; position: static; z-index: 0; min-block-size: 0px; min-inline-size: 0px; grid-template-rows: min-content 1fr; background-color: var(--wb-semanticColor-core-background-instructive-subtle); transition: grid-template-rows 300ms; border: 1px solid var(--wb-semanticColor-core-border-neutral-subtle); border-bottom: 1px solid var(--wb-semanticColor-core-border-neutral-subtle); border-start-start-radius: var(--wb-sizing-size_120); border-start-end-radius: var(--wb-sizing-size_120); border-end-start-radius: var(--wb-sizing-size_120); border-end-end-radius: var(--wb-sizing-size_120); margin-block-start: 8px;"
                               >
                                 <h2
                                   style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; margin-block-start: 0px; margin-block-end: 0px; display: block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-heading-size-medium); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-heading-lineHeight-medium); min-inline-size: 0px;"
                                 >
                                   <button
-                                    aria-controls=":r67:"
+                                    aria-controls=":r6b:"
                                     aria-disabled="false"
                                     aria-expanded="true"
                                     data-style-active="outline: 2px solid var(--wb-semanticColor-action-secondary-progressive-press-border);"
@@ -15694,7 +15770,7 @@ table: [[☃ table 1]]
                                     data-style-focus-visible="outline: 2px solid var(--wb-semanticColor-focus-outer);"
                                     data-style-hover="outline: 2px solid var(--wb-semanticColor-action-secondary-progressive-hover-border);"
                                     data-style-moz-focus-inner="border: 0px;"
-                                    id=":r66:"
+                                    id=":r6a:"
                                     style="margin: 0px; border: none; padding: 12px; width: 100%; overflow: hidden; background: var(--wb-semanticColor-core-transparent); text-decoration: none; color: inherit; font: inherit; box-sizing: border-box; touch-action: manipulation; user-select: none; outline: none; line-height: normal; -webkit-font-smoothing: inherit; -moz-osx-font-smoothing: inherit; cursor: pointer; display: flex; flex-direction: row; align-items: center; min-inline-size: auto; position: relative; z-index: 1; transition: border-radius 300ms; border-start-start-radius: calc(var(--wb-sizing-size_120) - 1px); border-start-end-radius: calc(var(--wb-sizing-size_120) - 1px); padding-inline-end: 0px; height: 48px;"
                                     type="button"
                                   >
@@ -15713,8 +15789,8 @@ table: [[☃ table 1]]
                                   </button>
                                 </h2>
                                 <div
-                                  aria-labelledby=":r66:"
-                                  id=":r67:"
+                                  aria-labelledby=":r6a:"
+                                  id=":r6b:"
                                   role="region"
                                   style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; overflow: hidden; visibility: visible; border-end-end-radius: var(--wb-sizing-size_120); border-end-start-radius: var(--wb-sizing-size_120);"
                                 >
@@ -16238,7 +16314,7 @@ table: [[☃ table 1]]
                             style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline-block; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: fit-content; max-inline-size: 100%;"
                           >
                             <button
-                              aria-controls=":r68:"
+                              aria-controls=":r6c:"
                               aria-expanded="false"
                               aria-haspopup="listbox"
                               aria-invalid="false"
@@ -16247,7 +16323,7 @@ table: [[☃ table 1]]
                               data-style-focus="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
                               data-style-focus-active="box-shadow: 0 0 0 var(--wb-border-width-thin) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
                               data-style-moz-focus-inner="border: 0px;"
-                              id=":r69:"
+                              id=":r6d:"
                               role="combobox"
                               style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: space-between; color: var(--wb-semanticColor-input-default-foreground); height: 40px; padding-inline-start: var(--wb-c-dropdown-opener-layout-padding-inlineStart); padding-inline-end: var(--wb-c-dropdown-opener-layout-padding-inlineEnd); border-width: 0px; border-radius: var(--wb-c-dropdown-opener-border-radius-rest); border-style: solid; outline: none; text-decoration: none; box-sizing: border-box; white-space: nowrap; touch-action: manipulation; background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); cursor: pointer;"
                               type="button"
@@ -16278,7 +16354,7 @@ table: [[☃ table 1]]
                             style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline-block; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: fit-content; max-inline-size: 100%;"
                           >
                             <button
-                              aria-controls=":r6a:"
+                              aria-controls=":r6e:"
                               aria-expanded="false"
                               aria-haspopup="listbox"
                               aria-invalid="false"
@@ -16287,7 +16363,7 @@ table: [[☃ table 1]]
                               data-style-focus="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
                               data-style-focus-active="box-shadow: 0 0 0 var(--wb-border-width-thin) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
                               data-style-moz-focus-inner="border: 0px;"
-                              id=":r6b:"
+                              id=":r6f:"
                               role="combobox"
                               style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: space-between; color: var(--wb-semanticColor-input-default-foreground); height: 40px; padding-inline-start: var(--wb-c-dropdown-opener-layout-padding-inlineStart); padding-inline-end: var(--wb-c-dropdown-opener-layout-padding-inlineEnd); border-width: 0px; border-radius: var(--wb-c-dropdown-opener-border-radius-rest); border-style: solid; outline: none; text-decoration: none; box-sizing: border-box; white-space: nowrap; touch-action: manipulation; background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); cursor: pointer;"
                               type="button"
@@ -16368,7 +16444,7 @@ table: [[☃ table 1]]
                         >
                           <input
                             aria-disabled="true"
-                            id=":r6c:"
+                            id=":r6g:"
                             role="switch"
                             style="opacity: 0; height: 0px; width: 0px;"
                             type="checkbox"
@@ -16382,7 +16458,7 @@ table: [[☃ table 1]]
                           style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 8px; -ms-flex-basis: 8px; -ms-flex-preferred-size: 8px; -webkit-flex-basis: 8px; flex-basis: 8px; flex-shrink: 0;"
                         />
                         <label
-                          for=":r6c:"
+                          for=":r6g:"
                           style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium);"
                         >
                           Static
@@ -16888,7 +16964,7 @@ table: [[☃ table 1]]
                             <input
                               aria-disabled="true"
                               checked=""
-                              id=":r6e:"
+                              id=":r6i:"
                               role="switch"
                               style="opacity: 0; height: 0px; width: 0px;"
                               type="checkbox"
@@ -16902,7 +16978,7 @@ table: [[☃ table 1]]
                             style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 8px; -ms-flex-basis: 8px; -ms-flex-preferred-size: 8px; -webkit-flex-basis: 8px; flex-basis: 8px; flex-shrink: 0;"
                           />
                           <label
-                            for=":r6e:"
+                            for=":r6i:"
                             style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium);"
                           >
                             Randomize order
@@ -16919,7 +16995,7 @@ table: [[☃ table 1]]
                           >
                             <input
                               aria-disabled="true"
-                              id=":r6g:"
+                              id=":r6k:"
                               role="switch"
                               style="opacity: 0; height: 0px; width: 0px;"
                               type="checkbox"
@@ -16933,7 +17009,7 @@ table: [[☃ table 1]]
                             style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: 8px; -ms-flex-basis: 8px; -ms-flex-preferred-size: 8px; -webkit-flex-basis: 8px; flex-basis: 8px; flex-shrink: 0;"
                           />
                           <label
-                            for=":r6g:"
+                            for=":r6k:"
                             style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium);"
                           >
                             Multiple selections
@@ -17009,7 +17085,7 @@ table: [[☃ table 1]]
                           </div>
                         </fieldset>
                         <label
-                          for=":r6j:-content-textarea"
+                          for=":r6n:-content-textarea"
                           style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-small); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-small); margin-block-end: var(--wb-sizing-size_040);"
                         >
                           Content
@@ -17025,7 +17101,7 @@ table: [[☃ table 1]]
                             data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
                             data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
                             data-style-placeholder="color: var(--wb-semanticColor-input-disabled-placeholder);"
-                            id=":r6j:-content-textarea"
+                            id=":r6n:-content-textarea"
                             placeholder="Type a choice here..."
                             readonly=""
                             style="border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-disabled-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-disabled-border); color: var(--wb-semanticColor-input-disabled-foreground); cursor: not-allowed; resize: none; min-block-size: calc((2 * var(--wb-font-body-lineHeight-medium)) + (2 * var(--wb-c-form-field-layout-paddingBlock)) + (2 * var(--wb-border-width-thin))); height: calc(0px + 1px + 1px); max-height: calc((6 * var(--wb-font-body-lineHeight-medium)) + (2 * var(--wb-c-form-field-layout-paddingBlock)) + (2 * var(--wb-border-width-thin)));"
@@ -17059,7 +17135,7 @@ table: [[☃ table 1]]
                           </span>
                         </button>
                         <label
-                          for=":r6i:-rationale-textarea"
+                          for=":r6m:-rationale-textarea"
                           style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-small); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-small); margin-block-start: var(--wb-sizing-size_040); margin-block-end: var(--wb-sizing-size_040);"
                         >
                           Rationale
@@ -17075,7 +17151,7 @@ table: [[☃ table 1]]
                             data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
                             data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
                             data-style-placeholder="color: var(--wb-semanticColor-input-disabled-placeholder);"
-                            id=":r6i:-rationale-textarea"
+                            id=":r6m:-rationale-textarea"
                             placeholder="Why is this choice correct?"
                             readonly=""
                             style="border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-disabled-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-disabled-border); color: var(--wb-semanticColor-input-disabled-foreground); cursor: not-allowed; resize: none; min-block-size: calc((2 * var(--wb-font-body-lineHeight-medium)) + (2 * var(--wb-c-form-field-layout-paddingBlock)) + (2 * var(--wb-border-width-thin))); height: calc(0px + 1px + 1px); max-height: calc((6 * var(--wb-font-body-lineHeight-medium)) + (2 * var(--wb-c-form-field-layout-paddingBlock)) + (2 * var(--wb-border-width-thin)));"
@@ -17250,7 +17326,7 @@ table: [[☃ table 1]]
                           </div>
                         </fieldset>
                         <label
-                          for=":r6n:-content-textarea"
+                          for=":r6r:-content-textarea"
                           style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-small); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-small); margin-block-end: var(--wb-sizing-size_040);"
                         >
                           Content
@@ -17266,7 +17342,7 @@ table: [[☃ table 1]]
                             data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
                             data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
                             data-style-placeholder="color: var(--wb-semanticColor-input-disabled-placeholder);"
-                            id=":r6n:-content-textarea"
+                            id=":r6r:-content-textarea"
                             placeholder="Type a choice here..."
                             readonly=""
                             style="border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-disabled-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-disabled-border); color: var(--wb-semanticColor-input-disabled-foreground); cursor: not-allowed; resize: none; min-block-size: calc((2 * var(--wb-font-body-lineHeight-medium)) + (2 * var(--wb-c-form-field-layout-paddingBlock)) + (2 * var(--wb-border-width-thin))); height: calc(0px + 1px + 1px); max-height: calc((6 * var(--wb-font-body-lineHeight-medium)) + (2 * var(--wb-c-form-field-layout-paddingBlock)) + (2 * var(--wb-border-width-thin)));"
@@ -17300,7 +17376,7 @@ table: [[☃ table 1]]
                           </span>
                         </button>
                         <label
-                          for=":r6m:-rationale-textarea"
+                          for=":r6q:-rationale-textarea"
                           style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-small); font-weight: var(--wb-font-weight-bold); line-height: var(--wb-font-body-lineHeight-small); margin-block-start: var(--wb-sizing-size_040); margin-block-end: var(--wb-sizing-size_040);"
                         >
                           Rationale
@@ -17316,7 +17392,7 @@ table: [[☃ table 1]]
                             data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
                             data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
                             data-style-placeholder="color: var(--wb-semanticColor-input-disabled-placeholder);"
-                            id=":r6m:-rationale-textarea"
+                            id=":r6q:-rationale-textarea"
                             placeholder="Why is this choice incorrect?"
                             readonly=""
                             style="border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-disabled-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-disabled-border); color: var(--wb-semanticColor-input-disabled-foreground); cursor: not-allowed; resize: none; min-block-size: calc((2 * var(--wb-font-body-lineHeight-medium)) + (2 * var(--wb-c-form-field-layout-paddingBlock)) + (2 * var(--wb-border-width-thin))); height: calc(0px + 1px + 1px); max-height: calc((6 * var(--wb-font-body-lineHeight-medium)) + (2 * var(--wb-c-form-field-layout-paddingBlock)) + (2 * var(--wb-border-width-thin)));"
@@ -17553,7 +17629,7 @@ table: [[☃ table 1]]
                               data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
                               data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
                               data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
-                              id=":r6q:"
+                              id=":r6u:"
                               style="width: 100%; height: var(--wb-c-form-field-sizing-height); border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 0px; display: block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); flex-grow: 1;"
                               type="text"
                               value="1"
@@ -17620,7 +17696,7 @@ table: [[☃ table 1]]
                               data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
                               data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
                               data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
-                              id=":r6r:"
+                              id=":r6v:"
                               style="width: 100%; height: var(--wb-c-form-field-sizing-height); border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 0px; display: block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); flex-grow: 1;"
                               type="text"
                               value="2"
@@ -17687,7 +17763,7 @@ table: [[☃ table 1]]
                               data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
                               data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
                               data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
-                              id=":r6s:"
+                              id=":r70:"
                               style="width: 100%; height: var(--wb-c-form-field-sizing-height); border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 0px; display: block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); flex-grow: 1;"
                               type="text"
                               value="3"
@@ -17754,7 +17830,7 @@ table: [[☃ table 1]]
                               data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
                               data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
                               data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
-                              id=":r6t:"
+                              id=":r71:"
                               style="width: 100%; height: var(--wb-c-form-field-sizing-height); border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 0px; display: block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); flex-grow: 1;"
                               type="text"
                               value="4"
@@ -17821,7 +17897,7 @@ table: [[☃ table 1]]
                               data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
                               data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
                               data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
-                              id=":r6u:"
+                              id=":r72:"
                               style="width: 100%; height: var(--wb-c-form-field-sizing-height); border-radius: var(--wb-c-form-field-border-radius); box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 0px; display: block; font-family: var(--wb-font-family-sans); font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); flex-grow: 1;"
                               type="text"
                               value="5"
@@ -17903,21 +17979,21 @@ table: [[☃ table 1]]
                         </button>
                       </div>
                       <div
-                        id=":r6v:-labeled-field"
+                        id=":r73:-labeled-field"
                         style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px;"
                       >
                         <div
                           style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; justify-content: space-between; gap: var(--wb-c-labeled-field-root-layout-spacingBetweenHelperText);"
                         >
                           <label
-                            for=":r6v:-labeled-field-field"
-                            id=":r6v:-labeled-field-label"
+                            for=":r73:-labeled-field-field"
+                            id=":r73:-labeled-field-label"
                             style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-semi); line-height: var(--wb-font-body-lineHeight-medium); color: var(--wb-semanticColor-core-foreground-neutral-strong); overflow-wrap: break-word; min-inline-size: var(--wb-sizing-size_0); padding-block-end: var(--wb-c-labeled-field-root-layout-paddingBlockEnd-labelWithNoDescription);"
                           >
                             Layout
                           </label>
                           <div
-                            id=":r6v:-labeled-field-context-label"
+                            id=":r73:-labeled-field-context-label"
                             style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-c-labeled-field-helperText-font-size); font-weight: var(--wb-font-weight-medium); line-height: var(--wb-font-body-lineHeight-medium); color: var(--wb-c-labeled-field-helperText-color-default-foreground); min-inline-size: var(--wb-sizing-size_0); overflow-wrap: break-word; max-inline-size: 30%; flex-shrink: 0; margin-inline-end: auto;"
                           >
                             <span
@@ -17930,8 +18006,8 @@ table: [[☃ table 1]]
                           style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; width: fit-content; max-inline-size: 100%;"
                         >
                           <button
-                            aria-controls=":r70:"
-                            aria-describedby=":r6v:-labeled-field-context-label"
+                            aria-controls=":r74:"
+                            aria-describedby=":r73:-labeled-field-context-label"
                             aria-expanded="false"
                             aria-haspopup="listbox"
                             aria-invalid="false"
@@ -17940,7 +18016,7 @@ table: [[☃ table 1]]
                             data-style-focus="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
                             data-style-focus-active="box-shadow: 0 0 0 var(--wb-border-width-thin) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
                             data-style-moz-focus-inner="border: 0px;"
-                            id=":r6v:-labeled-field-field"
+                            id=":r73:-labeled-field-field"
                             role="combobox"
                             style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: space-between; color: var(--wb-semanticColor-input-default-foreground); height: 40px; padding-inline-start: var(--wb-c-dropdown-opener-layout-padding-inlineStart); padding-inline-end: var(--wb-c-dropdown-opener-layout-padding-inlineEnd); border-width: 0px; border-radius: var(--wb-c-dropdown-opener-border-radius-rest); border-style: solid; outline: none; text-decoration: none; box-sizing: border-box; white-space: nowrap; touch-action: manipulation; background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); cursor: pointer;"
                             type="button"
@@ -17959,7 +18035,7 @@ table: [[☃ table 1]]
                         <div
                           aria-atomic="true"
                           aria-live="assertive"
-                          id=":r6v:-labeled-field-error"
+                          id=":r73:-labeled-field-error"
                           style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-block-size: 0px; min-inline-size: 0px; gap: var(--wb-c-labeled-field-helperText-layout-gap);"
                         />
                       </div>
@@ -17987,7 +18063,7 @@ table: [[☃ table 1]]
                                   checked=""
                                   data-style-active-not-disabled="outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-input-checked-border); outline-offset: 1px; background: var(--wb-semanticColor-core-background-instructive-strong); border-color: var(--wb-semanticColor-core-background-instructive-strong);"
                                   data-style-focus-visible-not-disabled="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
-                                  id=":r72:"
+                                  id=":r76:"
                                   style="appearance: none; -webkit-appearance: none; -moz-appearance: none; height: var(--wb-sizing-size_160); width: var(--wb-sizing-size_160); min-block-size: var(--wb-sizing-size_160); min-inline-size: var(--wb-sizing-size_160); margin: 0px; outline: none; box-sizing: border-box; border-style: solid; border-width: var(--wb-border-width-thin); border-radius: var(--wb-border-radius-radius_040); background-color: var(--wb-semanticColor-input-checked-background); border-color: var(--wb-semanticColor-core-transparent);"
                                   type="checkbox"
                                 />
@@ -18000,7 +18076,7 @@ table: [[☃ table 1]]
                               style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; display: block; font-family: var(--wb-font-family-sans); margin: 0px; font-size: var(--wb-font-body-size-medium); font-weight: var(--wb-font-weight-semi); line-height: var(--wb-font-body-lineHeight-small); color: var(--wb-semanticColor-core-foreground-neutral-strong);"
                             >
                               <label
-                                for=":r72:"
+                                for=":r76:"
                               >
                                 Padding
                               </label>
