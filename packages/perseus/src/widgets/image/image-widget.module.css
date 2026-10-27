@@ -24,6 +24,11 @@
         var(--wb-semanticColor-core-border-neutral-subtle);
 }
 
+:global(.perseus-image-caption) {
+    font-size: var(--wb-font-body-size-small);
+    line-height: var(--wb-font-body-lineHeight-small);
+}
+
 .modal-container {
     /* Variables */
     /* Undo the default padding for the top of the modal. */

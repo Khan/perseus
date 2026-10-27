@@ -1,4 +1,17 @@
 @layer perseus-base {
+    /* TODO: remove .framework-perseus and replace with a class we control */
+    .framework-perseus {
+        font-size: var(--wb-font-body-size-medium);
+        font-family: var(--wb-font-family-sans);
+        font-weight: var(--wb-font-weight-medium);
+        line-height: var(--wb-font-body-lineHeight-medium);
+
+        p {
+            /* override base font size set by frontend */
+            font-size: inherit;
+        }
+    }
+
     /**********
      * Layout *
      **********/

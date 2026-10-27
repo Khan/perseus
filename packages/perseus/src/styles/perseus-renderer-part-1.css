@@ -62,14 +62,6 @@ div.graphie {
 .framework-perseus.perseus-mobile .perseus-input-center-align .keypad-input {
     text-align: center;
 }
-.framework-perseus div.instructions {
-    display: block;
-    font-family: "Noto Serif", serif;
-    font-weight: var(--wb-font-weight-black);
-    font-size: 18px;
-    line-height: 22px;
-    font-style: italic;
-}
 .framework-perseus blockquote {
     padding: 0 2.5em;
 }
@@ -202,10 +194,6 @@ div.graphie {
  * update every story to better reflect prod. Hopefully this will be a
  * temporary patch until we redesign all our CSS.
  */
-.framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile) table {
-    font-size: 14px;
-    line-height: 19.6px;
-}
 .framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile) table th,
 .framework-perseus:not(:has(.framework-perseus)):not(.perseus-mobile) table td {
     padding: var(--wb-sizing-size_060) var(--wb-sizing-size_100);
@@ -350,10 +338,6 @@ div.graphie {
     font-weight: bold;
 }
 .framework-perseus :is(div, p).deprecated-perseus-container {
-    font-family: "Lato", sans-serif;
-    font-weight: var(--wb-font-weight-regular);
-    font-size: 18px;
-    line-height: 22px;
     margin: 22px 0px;
 }
 .framework-perseus
