@@ -360,6 +360,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
             >
               <svg
                 height="48"
+                style="width: var(--wb-c-progress-spinner-root-sizing-medium); height: var(--wb-c-progress-spinner-root-sizing-medium);"
                 viewBox="0 0 48 48"
                 width="48"
                 xmlns="http://www.w3.org/2000/svg"
@@ -413,6 +414,7 @@ exports[`categorizer widget should snapshot on mobile: first mobile render 1`] =
             >
               <svg
                 height="48"
+                style="width: var(--wb-c-progress-spinner-root-sizing-medium); height: var(--wb-c-progress-spinner-root-sizing-medium);"
                 viewBox="0 0 48 48"
                 width="48"
                 xmlns="http://www.w3.org/2000/svg"
@@ -883,6 +885,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
             >
               <svg
                 height="48"
+                style="width: var(--wb-c-progress-spinner-root-sizing-medium); height: var(--wb-c-progress-spinner-root-sizing-medium);"
                 viewBox="0 0 48 48"
                 width="48"
                 xmlns="http://www.w3.org/2000/svg"
@@ -936,6 +939,7 @@ exports[`categorizer widget should snapshot: first render 1`] = `
             >
               <svg
                 height="48"
+                style="width: var(--wb-c-progress-spinner-root-sizing-medium); height: var(--wb-c-progress-spinner-root-sizing-medium);"
                 viewBox="0 0 48 48"
                 width="48"
                 xmlns="http://www.w3.org/2000/svg"
