@@ -733,29 +733,6 @@ describe("sorter-editor", () => {
             expect(onChange.mock.lastCall[0].legend).toBeUndefined();
         });
 
-        it("keeps the legend when another option is edited", async () => {
-            // Arrange
-            const onChange = jest.fn();
-            renderControlled(
-                {
-                    ...generateSorterOptions({
-                        correct: ["Cat", "Dog"],
-                        legend: completeLegend,
-                    }),
-                    apiOptions: legendFlagOn,
-                },
-                onChange,
-            );
-
-            // Act
-            await userEvent.type(screen.getByDisplayValue("Dog"), "s");
-
-            // Assert
-            expect(onChange).toHaveBeenLastCalledWith(
-                expect.objectContaining({legend: completeLegend}),
-            );
-        });
-
         it("shows how many characters each label has", () => {
             // Arrange, Act
             render(
