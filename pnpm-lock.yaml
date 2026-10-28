@@ -615,7 +615,7 @@ importers:
         specifier: 10.6.0
         version: 10.6.0(@types/react-dom@18.2.25)(@types/react@18.2.79)(storybook@10.6.0(@types/react@18.2.79)(prettier@3.2.5)(react@18.2.0))
 
-  build-system-fake-package: {}
+  config/build: {}
 
   config/cypress: {}
 
@@ -642,7 +642,7 @@ importers:
     devDependencies:
       '@internal/build-settings':
         specifier: workspace:*
-        version: link:../../build-system-fake-package
+        version: link:../../config/build
       jison:
         specifier: 0.4.15
         version: 0.4.15
@@ -658,7 +658,7 @@ importers:
     devDependencies:
       '@internal/build-settings':
         specifier: workspace:*
-        version: link:../../build-system-fake-package
+        version: link:../../config/build
       react:
         specifier: catalog:devDeps
         version: 18.2.0
@@ -674,7 +674,7 @@ importers:
     devDependencies:
       '@internal/build-settings':
         specifier: workspace:*
-        version: link:../../build-system-fake-package
+        version: link:../../config/build
 
   packages/math-input:
     dependencies:
@@ -690,7 +690,7 @@ importers:
     devDependencies:
       '@internal/build-settings':
         specifier: workspace:*
-        version: link:../../build-system-fake-package
+        version: link:../../config/build
       '@khanacademy/mathjax-renderer':
         specifier: catalog:devDeps
         version: 3.2.0
@@ -799,7 +799,7 @@ importers:
     devDependencies:
       '@internal/build-settings':
         specifier: workspace:*
-        version: link:../../build-system-fake-package
+        version: link:../../config/build
       '@khanacademy/wonder-blocks-announcer':
         specifier: catalog:devDeps
         version: 1.1.2(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
@@ -917,7 +917,7 @@ importers:
     devDependencies:
       '@internal/build-settings':
         specifier: workspace:*
-        version: link:../../build-system-fake-package
+        version: link:../../config/build
       '@khanacademy/wonder-stuff-core':
         specifier: catalog:devDeps
         version: 3.0.0
@@ -966,7 +966,7 @@ importers:
     devDependencies:
       '@internal/build-settings':
         specifier: workspace:*
-        version: link:../../build-system-fake-package
+        version: link:../../config/build
       '@khanacademy/mathjax-renderer':
         specifier: catalog:devDeps
         version: 3.2.0
@@ -1075,7 +1075,7 @@ importers:
     devDependencies:
       '@internal/build-settings':
         specifier: workspace:*
-        version: link:../../build-system-fake-package
+        version: link:../../config/build
 
   packages/perseus-score:
     dependencies:
@@ -1097,7 +1097,7 @@ importers:
     devDependencies:
       '@internal/build-settings':
         specifier: workspace:*
-        version: link:../../build-system-fake-package
+        version: link:../../config/build
       underscore:
         specifier: catalog:devDeps
         version: 1.4.4
@@ -1106,7 +1106,7 @@ importers:
     devDependencies:
       '@internal/build-settings':
         specifier: workspace:*
-        version: link:../../build-system-fake-package
+        version: link:../../config/build
 
   packages/pure-markdown:
     dependencies:
@@ -1119,7 +1119,7 @@ importers:
     devDependencies:
       '@internal/build-settings':
         specifier: workspace:*
-        version: link:../../build-system-fake-package
+        version: link:../../config/build
 
   packages/simple-markdown:
     dependencies:
@@ -1135,7 +1135,7 @@ importers:
     devDependencies:
       '@internal/build-settings':
         specifier: workspace:*
-        version: link:../../build-system-fake-package
+        version: link:../../config/build
 
   vendor/jsdiff: {}
 
