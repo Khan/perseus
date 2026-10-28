@@ -50,29 +50,8 @@ type Story = StoryObj<typeof meta>;
 
 const fourCards = ["20 km", "150 km", "500 km", "1200 km"];
 
-export const HorizontalLegendBar: Story = {
+export const NoLegend: Story = {
     args: {correct: fourCards, layout: "horizontal"},
-};
-
-export const VerticalLegendBar: Story = {
-    args: {correct: fourCards, layout: "vertical"},
-};
-
-export const HorizontalWithMoreCardsThanTheMaximum: Story = {
-    args: {
-        correct: ["1 km", "2 km", "3 km", "4 km", "5 km", "6 km"],
-        layout: "horizontal",
-    },
-};
-
-export const HorizontalLegendBarRightToLeft: Story = {
-    args: {correct: fourCards, layout: "horizontal"},
-    decorators: [rtlDecorator],
-};
-
-export const VerticalLegendBarRightToLeft: Story = {
-    args: {correct: fourCards, layout: "vertical"},
-    decorators: [rtlDecorator],
 };
 
 const scaleLegend: SorterLegend = {
@@ -94,6 +73,14 @@ const timelineLegend: SorterLegend = {
     ariaLabel:
         "Events of World War II, from 1944 at the start to 1946 at the end",
     position: "below",
+};
+
+export const HorizontalWithMoreCardsThanTheMaximum: Story = {
+    args: {
+        correct: ["1 km", "2 km", "3 km", "4 km", "5 km", "6 km"],
+        layout: "horizontal",
+        legend: scaleLegend,
+    },
 };
 
 export const ScaleLegendBelow: Story = {

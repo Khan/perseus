@@ -221,50 +221,49 @@ const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
         </ol>
     );
 
-    const legendPosition = legend?.position ?? "below";
+    function renderAnswerZone() {
+        if (legend == null) {
+            return blankList;
+        }
+
+        if (layout === "vertical") {
+            return (
+                <div className={classNames(styles.answerZone, styles.vertical)}>
+                    <LegendBar
+                        orientation="vertical"
+                        startCap={legend.startCap}
+                        endCap={legend.endCap}
+                    />
+                    <div className={styles.verticalColumn}>
+                        {legend.startLabel && (
+                            <LegendLabel content={legend.startLabel} />
+                        )}
+                        {blankList}
+                        {legend.endLabel && (
+                            <LegendLabel content={legend.endLabel} />
+                        )}
+                    </div>
+                </div>
+            );
+        }
+
+        return (
+            <div className={styles.answerZone}>
+                {legend.position === "above" && (
+                    <HorizontalLegend legend={legend} position="above" />
+                )}
+                {blankList}
+                {legend.position === "below" && (
+                    <HorizontalLegend legend={legend} position="below" />
+                )}
+            </div>
+        );
+    }
 
     return (
         <PerseusDndProvider onDragEnd={handleDragEnd}>
             <div className={styles.sorter}>
-                {layout === "vertical" ? (
-                    <div
-                        className={classNames(
-                            styles.answerZone,
-                            styles.vertical,
-                        )}
-                    >
-                        <LegendBar
-                            orientation="vertical"
-                            startCap={legend?.startCap}
-                            endCap={legend?.endCap}
-                        />
-                        <div className={styles.verticalColumn}>
-                            {legend?.startLabel && (
-                                <LegendLabel content={legend.startLabel} />
-                            )}
-                            {blankList}
-                            {legend?.endLabel && (
-                                <LegendLabel content={legend.endLabel} />
-                            )}
-                        </div>
-                    </div>
-                ) : (
-                    <div className={styles.answerZone}>
-                        {legendPosition === "above" && (
-                            <HorizontalLegend
-                                legend={legend}
-                                position="above"
-                            />
-                        )}
-                        {blankList}
-                        {legendPosition === "below" && (
-                            <HorizontalLegend
-                                legend={legend}
-                                position="below"
-                            />
-                        )}
-                    </div>
-                )}
+                {renderAnswerZone()}
                 <ChoiceBank label={tempDndStrings.choices}>
                     {bankTiles.map((tileId, index) => (
                         <AnswerTile
@@ -287,20 +286,20 @@ const Sorter = forwardRef<Widget, Props>(function Sorter(props, ref) {
 
 // The labels sit on the side of the bar away from the blanks.
 function HorizontalLegend(props: {
-    legend?: SorterLegend;
+    legend: SorterLegend;
     position: "above" | "below";
 }) {
     const {legend, position} = props;
-    const hasLabels = !!(legend?.startLabel || legend?.endLabel);
+    const hasLabels = !!(legend.startLabel || legend.endLabel);
 
     const labels = hasLabels && (
         <div className={styles.horizontalLabels}>
-            {legend?.startLabel && (
+            {legend.startLabel && (
                 <div className={styles.startLabel}>
                     <LegendLabel content={legend.startLabel} />
                 </div>
             )}
-            {legend?.endLabel && (
+            {legend.endLabel && (
                 <div className={styles.endLabel}>
                     <LegendLabel content={legend.endLabel} />
                 </div>
@@ -313,8 +312,8 @@ function HorizontalLegend(props: {
             {position === "above" && labels}
             <LegendBar
                 orientation="horizontal"
-                startCap={legend?.startCap}
-                endCap={legend?.endCap}
+                startCap={legend.startCap}
+                endCap={legend.endCap}
             />
             {position === "below" && labels}
         </div>
