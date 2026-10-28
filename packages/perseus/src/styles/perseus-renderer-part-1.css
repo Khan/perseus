@@ -193,16 +193,6 @@ div.graphie {
 .framework-perseus .hint.last-hint .deprecated-perseus-container {
     font-weight: bold;
 }
-.framework-perseus :is(div, p).deprecated-perseus-container {
-    margin: 22px 0px;
-}
-.framework-perseus
-    .perseus-renderer
-    > .deprecated-perseus-container
-    > ul:not([data-widget="radio"]),
-.framework-perseus .perseus-renderer > .deprecated-perseus-container > ol {
-    margin: 0px 0px var(--wb-sizing-size_220) 0px;
-}
 .framework-perseus
     .deprecated-perseus-container
     ul:not([data-widget="radio"], .indicatorContainer) {
@@ -223,13 +213,6 @@ div.graphie {
     font-size: 18px !important;
 }
 
-/* Migrated from perseus-renderer-part-2.css */
-.bibliotron-exercise
-    .perseus-hint-renderer
-    :is(div, p).deprecated-perseus-container {
-    margin-top: 0px;
-    margin-bottom: var(--wb-sizing-size_160);
-}
 /*
     Extra specificity needed to override other styles that are too broad.
     Once we get a better framework in place (like CSS Modules), we can fix this selector.

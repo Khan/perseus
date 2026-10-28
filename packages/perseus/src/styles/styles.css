@@ -9,25 +9,6 @@
     white-space: pre;
     overflow: auto;
 }
-.framework-perseus.perseus-article:not(.perseus-mobile) table {
-    margin-bottom: var(--wb-sizing-size_320);
-}
-@layer perseus-legacy {
-    .framework-perseus.perseus-article:not(.perseus-mobile) h2 {
-        margin-bottom: var(--wb-sizing-size_160);
-        margin-top: var(--wb-sizing-size_480);
-    }
-    .framework-perseus.perseus-article:not(.perseus-mobile) h3 {
-        margin-bottom: var(--wb-sizing-size_160);
-        margin-top: var(--wb-sizing-size_320);
-    }
-    .framework-perseus.perseus-article:not(.perseus-mobile) h4,
-    .framework-perseus.perseus-article:not(.perseus-mobile) h5,
-    .framework-perseus.perseus-article:not(.perseus-mobile) h6 {
-        margin-bottom: var(--wb-sizing-size_160);
-        margin-top: var(--wb-sizing-size_320);
-    }
-}
 .framework-perseus.perseus-article:not(.perseus-mobile) blockquote {
     padding: 0 var(--wb-sizing-size_320);
 }
@@ -58,32 +39,6 @@
     padding-bottom: var(--wb-sizing-size_080);
     padding-right: var(--wb-sizing-size_200);
     padding-top: var(--wb-sizing-size_080);
-}
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    > .perseus-renderer:first-child
-    > .deprecated-perseus-container:first-child
-    h1:first-child,
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    > .perseus-renderer:first-child
-    > .deprecated-perseus-container:first-child
-    h2:first-child,
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    > .perseus-renderer:first-child
-    > .deprecated-perseus-container:first-child
-    h3:first-child,
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    > .perseus-renderer:first-child
-    > .deprecated-perseus-container:first-child
-    h4:first-child,
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    > .perseus-renderer:first-child
-    > .deprecated-perseus-container:first-child
-    h5:first-child,
-.framework-perseus.perseus-article:not(.perseus-mobile)
-    > .perseus-renderer:first-child
-    > .deprecated-perseus-container:first-child
-    h6:first-child {
-    margin-top: 0;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile) pre {
     margin: 0 calc(-1 * var(--wb-sizing-size_160)) var(--wb-sizing-size_320)

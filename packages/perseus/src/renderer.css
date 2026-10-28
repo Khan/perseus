@@ -9,31 +9,80 @@
         font-weight: var(--wb-font-weight-medium);
         line-height: var(--wb-font-body-lineHeight-medium);
 
+        /* Vertical spacing for non-text elements
+           (tables, widgets, etc.) */
+        /* Remove the following selector once deprecated-perseus-container
+           is removed from the renderer. Update the 2nd selector to not include
+            deprecated-perseus-container. */
+        .perseus-renderer
+            > .deprecated-perseus-container
+            > :not(p, ul, ol, h1, h2, h3, h4, h5, h6),
+        .perseus-renderer
+            > :not(
+                p,
+                ul,
+                ol,
+                h1,
+                h2,
+                h3,
+                h4,
+                h5,
+                h6,
+                .deprecated-perseus-container
+            ) {
+            margin-block-end: var(--wb-sizing-size_240);
+        }
+
         p {
             /* override base font size set by frontend */
             font-size: inherit;
+            margin-block: 0 var(--wb-sizing-size_160);
         }
 
         h1 {
             font-size: var(--wb-font-heading-size-xxlarge);
             line-height: var(--wb-font-heading-lineHeight-xxlarge);
+            margin-block-end: var(--wb-sizing-size_160);
         }
 
         h2 {
             font-size: var(--wb-font-heading-size-xlarge);
             line-height: var(--wb-font-heading-lineHeight-xlarge);
+            margin-block: var(--wb-sizing-size_480) var(--wb-sizing-size_160);
         }
 
         h3 {
             font-size: var(--wb-font-heading-size-large);
             line-height: var(--wb-font-heading-lineHeight-large);
+            margin-block: var(--wb-sizing-size_480) var(--wb-sizing-size_080);
         }
 
-        h4,
+        h4 {
+            font-size: var(--wb-font-heading-size-medium);
+            line-height: var(--wb-font-heading-lineHeight-medium);
+            margin-block: var(--wb-sizing-size_320) var(--wb-sizing-size_080);
+        }
+
         h5,
         h6 {
             font-size: var(--wb-font-heading-size-medium);
             line-height: var(--wb-font-heading-lineHeight-medium);
+            margin-block: var(--wb-sizing-size_240) var(--wb-sizing-size_080);
+        }
+
+        ul,
+        ol {
+            margin-block-end: var(--wb-sizing-size_160);
+        }
+
+        li {
+            margin-block-end: var(--wb-sizing-size_080);
+        }
+
+        /* Nested lists place leading text in a paragraph element,
+           so we need to adjust the margin to match list items. */
+        li > p:has(+ :is(ul, ol)) {
+            margin-block-end: var(--wb-sizing-size_080);
         }
     }
 
