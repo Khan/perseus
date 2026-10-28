@@ -39,7 +39,6 @@ export default Rule.makeRule({
             }
         });
 
-        const allWarningsString = issues.join("\n\n");
-        return allWarningsString;
+        return issues;
     },
 }) as Rule;

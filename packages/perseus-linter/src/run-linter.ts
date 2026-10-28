@@ -88,8 +88,8 @@ export function runLinter(
         } as const;
 
         applicableRules.forEach((rule) => {
-            const warning = rule.check(node, state, content, nodeContext);
-            if (warning) {
+            const ruleWarnings = rule.check(node, state, content, nodeContext);
+            for (const warning of ruleWarnings) {
                 // The start and end locations are relative to this
                 // particular node, and so are not generally very useful.
                 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions

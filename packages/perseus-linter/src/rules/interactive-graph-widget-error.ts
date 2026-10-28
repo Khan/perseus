@@ -87,8 +87,7 @@ export default Rule.makeRule({
         checkShowPointLabelsHasLabels(graph, issues);
         checkShowPointLabelsHasLabels(correct, issues);
 
-        const allIssuesString = issues.join("\n\n");
-        return allIssuesString;
+        return issues;
     },
 }) as Rule;
 

@@ -33,13 +33,13 @@ function graphContext(lockedFigures: LockedFigure[], range: GraphRange) {
 function expectFigureWarning(
     lockedFigures: LockedFigure[],
     range: GraphRange,
-    message: string,
+    messages: string[],
 ) {
     expectWarning(
         interactiveGraphLockedFigureOobRule,
         "[[☃ interactive-graph 1]]",
         graphContext(lockedFigures, range),
-        {message, severity: Rule.Severity.WARNING},
+        {messages, severity: Rule.Severity.WARNING},
     );
 }
 
@@ -60,7 +60,7 @@ describe("interactive-graph-locked-figure-oob", () => {
                     [-10, 10],
                     [-10, 10],
                 ],
-                "Locked point is outside the graph bounds.",
+                ["Locked point is outside the graph bounds."],
             );
         });
 
@@ -101,7 +101,9 @@ describe("interactive-graph-locked-figure-oob", () => {
                     [-10, 10],
                     [-10, 10],
                 ],
-                "All defining points for locked line are outside the graph bounds.",
+                [
+                    "All defining points for locked line are outside the graph bounds.",
+                ],
             );
         });
 
@@ -120,7 +122,9 @@ describe("interactive-graph-locked-figure-oob", () => {
                     [-10, 10],
                     [-10, 10],
                 ],
-                "All defining points for locked ray are outside the graph bounds.",
+                [
+                    "All defining points for locked ray are outside the graph bounds.",
+                ],
             );
         });
 
@@ -139,7 +143,9 @@ describe("interactive-graph-locked-figure-oob", () => {
                     [-10, 10],
                     [-10, 10],
                 ],
-                "All defining points for locked segment are outside the graph bounds.",
+                [
+                    "All defining points for locked segment are outside the graph bounds.",
+                ],
             );
         });
 
@@ -177,7 +183,9 @@ describe("interactive-graph-locked-figure-oob", () => {
                     [-10, 10],
                     [-10, 10],
                 ],
-                "All defining points for locked vector are outside the graph bounds.",
+                [
+                    "All defining points for locked vector are outside the graph bounds.",
+                ],
             );
         });
 
@@ -232,7 +240,9 @@ describe("interactive-graph-locked-figure-oob", () => {
                     [-10, 10],
                     [-10, 10],
                 ],
-                "All defining points for locked polygon are outside the graph bounds.",
+                [
+                    "All defining points for locked polygon are outside the graph bounds.",
+                ],
             );
         });
 
@@ -263,7 +273,9 @@ describe("interactive-graph-locked-figure-oob", () => {
                     [-10, 10],
                     [-10, 10],
                 ],
-                "All defining points for locked circle are outside the graph bounds.",
+                [
+                    "All defining points for locked circle are outside the graph bounds.",
+                ],
             );
         });
 
@@ -274,7 +286,9 @@ describe("interactive-graph-locked-figure-oob", () => {
                     [-10, 10],
                     [-10, 10],
                 ],
-                "All defining points for locked ellipse are outside the graph bounds.",
+                [
+                    "All defining points for locked ellipse are outside the graph bounds.",
+                ],
             );
         });
 
@@ -313,7 +327,7 @@ describe("interactive-graph-locked-figure-oob", () => {
                     [-10, 10],
                     [-10, 10],
                 ],
-                "Locked label is outside the graph bounds.",
+                ["Locked label is outside the graph bounds."],
             );
         });
 
@@ -344,7 +358,11 @@ describe("interactive-graph-locked-figure-oob", () => {
                 [-10, 10],
                 [-10, 10],
             ],
-            "Locked point is outside the graph bounds.\n\nLocked label is outside the graph bounds.\n\nAll defining points for locked line are outside the graph bounds.",
+            [
+                "Locked point is outside the graph bounds.",
+                "Locked label is outside the graph bounds.",
+                "All defining points for locked line are outside the graph bounds.",
+            ],
         );
     });
 

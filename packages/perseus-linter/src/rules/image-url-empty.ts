@@ -6,7 +6,7 @@ export default Rule.makeRule({
     severity: Rule.Severity.ERROR,
     selector: "image",
     lint: function (state, content, nodes) {
-        const image = nodes[0];
+        const image: any = nodes[0];
         const url = image.target;
 
         // If no URL is provided, an infinite spinner will be shown in articles

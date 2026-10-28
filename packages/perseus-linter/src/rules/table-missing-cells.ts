@@ -6,7 +6,7 @@ export default Rule.makeRule({
     severity: Rule.Severity.WARNING,
     selector: "table",
     lint: function (state, content, nodes, match) {
-        const table = nodes[0];
+        const table: any = nodes[0];
         const headerLength = table.header.length;
         const rowLengths = table.cells.map((r) => r.length);
         for (let r = 0; r < rowLengths.length; r++) {

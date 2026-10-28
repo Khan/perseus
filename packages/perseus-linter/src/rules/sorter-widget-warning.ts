@@ -54,6 +54,6 @@ export default Rule.makeRule({
             );
         }
 
-        return warnings.join("\n\n");
+        return warnings;
     },
 });

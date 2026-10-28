@@ -66,7 +66,6 @@ export default Rule.makeRule({
             }
         }
 
-        const allWarningsString = warnings.join("\n\n");
-        return allWarningsString;
+        return warnings;
     },
 }) as Rule;

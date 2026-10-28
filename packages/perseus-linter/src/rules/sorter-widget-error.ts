@@ -61,6 +61,6 @@ export default Rule.makeRule({
             warnings.push("Sorter cards cannot mix images with other content.");
         }
 
-        return warnings.join("\n\n");
+        return warnings;
     },
 }) as Rule;

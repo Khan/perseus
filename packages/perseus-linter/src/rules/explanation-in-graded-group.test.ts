@@ -31,8 +31,9 @@ describe("explanation-in-graded-group", () => {
                 },
             },
             {
-                message:
+                messages: [
                     "graded-group 1: Contains explanation widget. Don't use explanation widgets in graded groups. Use the Graded Group Hint instead.",
+                ],
             },
         );
     });
@@ -109,8 +110,9 @@ describe("explanation-in-graded-group-set", () => {
                 },
             },
             {
-                message:
+                messages: [
                     "graded-group-set 1: Explanation widget in group 2. Don't use explanation widgets in graded groups. Use the Graded Group Hint instead.",
+                ],
             },
         );
     });

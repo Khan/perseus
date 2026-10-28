@@ -17,7 +17,7 @@ export default Rule.makeRule({
     lint: function (state, content, nodes, match, context) {
         // Check if we're inside a widget - if so, allow markdown images.
         if (context?.stack && context.stack.includes("widget")) {
-            return null;
+            return;
         }
 
         // Discourage using markdown images in main content
@@ -35,7 +35,5 @@ export default Rule.makeRule({
 Markdown images are not recommended - these are images that use the
 ![alt](url) format. Please use the Image widget instead.`;
         }
-
-        return null;
     },
 }) as Rule;

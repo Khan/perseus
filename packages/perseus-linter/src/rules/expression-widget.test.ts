@@ -30,8 +30,9 @@ describe("expression-widget-buttons", () => {
                 },
             },
             {
-                message:
+                messages: [
                     "expression 1: Answer requires a button not found in the button sets: \\sqrt (in prealgebra)",
+                ],
             },
         );
     });
@@ -198,7 +199,7 @@ describe("expression-widget-correct-answer", () => {
                     },
                 },
             },
-            {message: "expression 1: No answers specified."},
+            {messages: ["expression 1: No answers specified."]},
         );
     });
 
@@ -222,7 +223,7 @@ describe("expression-widget-correct-answer", () => {
                     },
                 },
             },
-            {message: "expression 1: No correct answer specified."},
+            {messages: ["expression 1: No correct answer specified."]},
         );
     });
 
@@ -280,7 +281,7 @@ describe("expression-widget-answer-forms", () => {
             ExpressionWidgetAnswerForms,
             content,
             expressionWidget({answers: [{value: ""}]}),
-            {message: "expression 1: Answer 1 is empty."},
+            {messages: ["expression 1: Answer 1 is empty."]},
         );
     });
 
@@ -289,7 +290,7 @@ describe("expression-widget-answer-forms", () => {
             ExpressionWidgetAnswerForms,
             content,
             expressionWidget({answers: [{value: "2"}, {value: ""}]}),
-            {message: "expression 1: Answer 2 is empty."},
+            {messages: ["expression 1: Answer 2 is empty."]},
         );
     });
 
@@ -298,7 +299,7 @@ describe("expression-widget-answer-forms", () => {
             ExpressionWidgetAnswerForms,
             content,
             expressionWidget({answers: [{value: "2.4.r"}]}),
-            {message: "expression 1: Couldn't parse 2.4.r."},
+            {messages: ["expression 1: Couldn't parse 2.4.r."]},
         );
     });
 
@@ -308,8 +309,9 @@ describe("expression-widget-answer-forms", () => {
             content,
             expressionWidget({answers: [{value: "2/1", simplify: true}]}),
             {
-                message:
+                messages: [
                     "expression 1: 2/1 isn't simplified, but is required to be.",
+                ],
             },
         );
     });
@@ -320,8 +322,10 @@ describe("expression-widget-answer-forms", () => {
             content,
             expressionWidget({answers: [{value: ""}, {value: "2.4.r"}]}),
             {
-                message:
-                    "expression 1: Answer 1 is empty.\n\nCouldn't parse 2.4.r.",
+                messages: [
+                    "expression 1: Answer 1 is empty.",
+                    "expression 1: Couldn't parse 2.4.r.",
+                ],
             },
         );
     });
@@ -361,8 +365,9 @@ describe("expression-widget-answer-forms", () => {
             content,
             expressionWidget({answers: [{value: "f(x)/x", simplify: true}]}),
             {
-                message:
+                messages: [
                     "expression 1: f(x)/x isn't simplified, but is required to be.",
+                ],
             },
         );
     });

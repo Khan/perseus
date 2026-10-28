@@ -91,6 +91,6 @@ export const ExpressionWidgetAnswerForms = Rule.makeWidgetRule({
             }
         });
 
-        return issues.join("\n\n");
+        return issues;
     },
 });

@@ -6,7 +6,8 @@ export default Rule.makeRule({
     severity: Rule.Severity.WARNING,
     selector: "heading",
     lint: function (state, content, nodes, match) {
-        if (nodes[0].level === 1) {
+        const heading: any = nodes[0];
+        if (heading.level === 1) {
             return `Don't use level-1 headings:
 Begin headings with two or more # characters.`;
         }

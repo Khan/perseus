@@ -6,7 +6,7 @@ export default Rule.makeRule({
     severity: Rule.Severity.WARNING,
     selector: "image",
     lint: function (state, content, nodes, match) {
-        const image = nodes[0];
+        const image: any = nodes[0];
         if (!image.alt || !image.alt.trim()) {
             return `Images should have alt text:
 for accessibility, all images should have alt text.
