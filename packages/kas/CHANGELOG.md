@@ -1,5 +1,11 @@
 # @khanacademy/kas
 
+## 3.1.1
+
+### Patch Changes
+
+-   [#4444](https://github.com/Khan/perseus/pull/4444) [`4ea106b`](https://github.com/Khan/perseus/commit/4ea106be0fe054843917515c717270d006e78e77) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: equivalent answers that are undefined at x = 0
+
 ## 3.1.0
 
 ### Minor Changes

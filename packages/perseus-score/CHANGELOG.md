@@ -1,5 +1,18 @@
 # @khanacademy/perseus-score
 
+## 9.0.11
+
+### Patch Changes
+
+-   [#4444](https://github.com/Khan/perseus/pull/4444) [`4ea106b`](https://github.com/Khan/perseus/commit/4ea106be0fe054843917515c717270d006e78e77) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: equivalent answers that are undefined at x = 0
+
+-   [#4431](https://github.com/Khan/perseus/pull/4431) [`5041a65`](https://github.com/Khan/perseus/commit/5041a65fc41837ddd09f447a9694ca5acefe122e) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Deleted unused code.
+
+-   Updated dependencies [[`29c19fd`](https://github.com/Khan/perseus/commit/29c19fd709b24776d10d64bdff23c3ccb6114ff4), [`4ea106b`](https://github.com/Khan/perseus/commit/4ea106be0fe054843917515c717270d006e78e77), [`5041a65`](https://github.com/Khan/perseus/commit/5041a65fc41837ddd09f447a9694ca5acefe122e)]:
+    -   @khanacademy/perseus-core@42.1.0
+    -   @khanacademy/kas@3.1.1
+    -   @khanacademy/kmath@3.1.3
+
 ## 9.0.10
 
 ### Patch Changes
