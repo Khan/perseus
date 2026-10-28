@@ -1,10 +1,13 @@
-import {ErrorCodes, generateExpressionOptions} from "@khanacademy/perseus-core";
+import {
+    ErrorCodes,
+    generateExpressionAnswerForm,
+    generateExpressionOptions,
+} from "@khanacademy/perseus-core";
 
 import scoreExpression from "./score-expression";
-import {
-    expressionItem3Options,
-    equivalentAnswers,
-} from "./score-expression.testdata";
+import {expressionItem3Options} from "./score-expression.testdata";
+
+import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus-core";
 
 describe("scoreExpression", () => {
     it("should score undefined user input as invalid", function () {
@@ -282,12 +285,55 @@ describe("scoreExpression", () => {
         ).toHaveBeenAnsweredCorrectly();
     });
 
-    it("regression LEMS-4690: equivalent answers that are undefined at x = 0", () => {
-        const equivalent =
-            "\\frac{-\\left(x^{3}\\sin x+3x^{2}\\cos x\\right)}{x^{6}}";
+    describe("regression LEMS-4690", () => {
+        // IMPORTANT! These two answers are equivalent and they need to be!
+        const correct = generateExpressionAnswerForm({
+            value: "-\\frac{x\\sin\\left(x\\right)+3\\cos\\left(x\\right)}{x^{4}}",
+            form: false,
+            simplify: false,
+            considered: "correct",
+        });
 
-        const result = scoreExpression(equivalent, equivalentAnswers, "en");
+        const ungraded = generateExpressionAnswerForm({
+            value: "\\frac{-x^{3}\\sin(x)-3x^{2}\\cos(x)}{x^{6}}",
+            form: false,
+            simplify: false,
+            considered: "ungraded",
+        });
 
-        expect(result).toHaveBeenAnsweredCorrectly();
+        const widgetOptions: PerseusExpressionWidgetOptions =
+            generateExpressionOptions({
+                answerForms: [correct, ungraded],
+            });
+
+        it("handles equivalent answers that are undefined at x = 0", () => {
+            const userInput = correct.value;
+
+            const result = scoreExpression(userInput, widgetOptions, "en");
+
+            expect(result).toHaveBeenAnsweredCorrectly();
+        });
+
+        it("scores a non-equivalent answer as incorrect", () => {
+            const userInput = "\\frac{x\\sin x+3\\cos x}{x^{4}}";
+
+            const result = scoreExpression(userInput, widgetOptions, "en");
+
+            expect(result).toHaveBeenAnsweredIncorrectly();
+        });
+
+        it("handles ungraded", () => {
+            const userInput = ungraded.value;
+
+            const result = scoreExpression(userInput, widgetOptions, "en");
+
+            // You might think it would score as "invalid" (aka "ungraded"),
+            // but it doesn't because `form` and `simplify` are both `false`
+            // so the "ungraded" answer matches with the "correct" answer
+            // before we ever reach the "ungraded" answer.
+            // expect(result).toHaveInvalidInput();
+
+            expect(result).toHaveBeenAnsweredCorrectly();
+        });
     });
 });
