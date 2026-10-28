@@ -78,8 +78,9 @@
         table td {
             background-color: var(--wb-semanticColor-core-background-base-default);
         }
-
-        @media (max-width: 767px) {
+    }
+    @media (max-width: 767px) {
+        .framework-perseus table {
             width: 100%;
             min-width: 480px;
             tbody > tr {
