@@ -16,7 +16,9 @@ export function exceedsCardLimit(correct: readonly string[]): boolean {
 export const SORTER_MAX_HORIZONTAL_CARDS = 5;
 
 /**
- * 
+ * Suggested maximum length of a legend's start or end label, so it fits on
+ * one line. Longer labels still render and wrap, so the editor and linter
+ * only warn about them.
  */
 export const SORTER_MAX_LEGEND_LABEL_LENGTH = 30;
 
