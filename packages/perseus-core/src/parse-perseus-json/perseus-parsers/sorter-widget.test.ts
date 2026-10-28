@@ -71,5 +71,5 @@ describe("parseSorterWidget", () => {
                 ),
             );
         });
-    })
+    });
 });
