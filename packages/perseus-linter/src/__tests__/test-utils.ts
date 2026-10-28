@@ -1,16 +1,11 @@
 import {parse} from "@khanacademy/pure-markdown";
-import invariant from "tiny-invariant";
 
 import TreeTransformer from "../tree-transformer";
 
 import type {LinterWarning} from "../rule";
 import type Rule from "../rule";
 
-export function testRule(
-    rule: Rule,
-    markdown: string,
-    context,
-): LinterWarning[] | null {
+function testRule(rule: Rule, markdown: string, context): LinterWarning[] {
     const tree = parse(markdown);
     const tt = new TreeTransformer(tree);
     const warnings: LinterWarning[] = [];
@@ -42,9 +37,7 @@ export function testRule(
         warnings.push(...check);
     });
 
-    // TODO(benchristel): can we return an empty array here instead of null?
-    //  Why not just `return warnings`?
-    return warnings.length === 0 ? null : warnings;
+    return warnings;
 }
 
 export function expectWarning(
@@ -57,8 +50,6 @@ export function expectWarning(
     },
 ) {
     const result = testRule(rule, string, context);
-    expect(result).not.toBeNull();
-    invariant(result != null); // Narrow the type.
 
     if (options?.messages) {
         const actual = new Set(result.map((warning) => warning.message));
@@ -67,10 +58,10 @@ export function expectWarning(
     }
 
     if (options?.severity) {
-        expect(result?.[0]?.severity).toBe(options.severity);
+        expect(result[0]?.severity).toBe(options.severity);
     }
 }
 
 export function expectPass(rule, string: string, context?) {
-    expect(testRule(rule, string, context)).toBeNull();
+    expect(testRule(rule, string, context)).toEqual([]);
 }

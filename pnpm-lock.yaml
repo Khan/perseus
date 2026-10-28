@@ -1076,9 +1076,6 @@ importers:
       '@internal/build-settings':
         specifier: workspace:*
         version: link:../../config/build
-      tiny-invariant:
-        specifier: ^1.3.3
-        version: 1.3.3
 
   packages/perseus-score:
     dependencies:

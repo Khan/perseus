@@ -36,8 +36,7 @@
         "@khanacademy/pure-markdown": "workspace:*"
     },
     "devDependencies": {
-        "@internal/build-settings": "workspace:*",
-        "tiny-invariant": "^1.3.3"
+        "@internal/build-settings": "workspace:*"
     },
     "keywords": [],
     "khan": {
