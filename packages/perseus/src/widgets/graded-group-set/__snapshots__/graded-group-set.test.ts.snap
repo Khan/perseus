@@ -127,30 +127,31 @@ exports[`graded group set widget should snapshot 1`] = `
                       <span
                         class="perseus-widget-container widget-inline-block"
                       >
-                        <input
-                          aria-disabled="false"
-                          aria-invalid="false"
-                          aria-label="Your answer:"
-                          aria-required="true"
-                          autocapitalize="off"
-                          autocomplete="off"
-                          autocorrect="off"
-                          class="perseus-input input-with-examples"
-                          data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
-                          data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
-                          data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
-                          data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
-                          data-testid="input-with-examples"
-                          id=":r1:"
-                          style="width: 8rem; height: 3.2rem; border-radius: 0.3rem; box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 0px; display: inline-block; font-family: Symbola, 'Times New Roman', serif; font-size: 1.8rem; font-weight: var(--wb-font-weight-medium); line-height: 1.8rem; background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); border-width: var(--wb-border-width-thin); direction: ltr; padding: 0.4rem 0.5rem; text-align: left;"
-                          tabindex="0"
-                          type="text"
-                          value=""
-                        />
-                        <span
-                          id="aria-for-:r1:"
-                          style="display: none;"
-                        />
+                        <span>
+                          <input
+                            aria-disabled="false"
+                            aria-invalid="false"
+                            aria-label="Your answer:"
+                            aria-required="true"
+                            autocapitalize="off"
+                            autocomplete="off"
+                            autocorrect="off"
+                            class="perseus-input input-with-examples"
+                            data-style-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border);"
+                            data-style-focus-visible="box-shadow: 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner); outline: var(--wb-border-width-medium) solid var(--wb-semanticColor-focus-outer); outline-offset: var(--wb-border-width-medium);"
+                            data-style-focus-visible-active-not-aria-disabled-true-not-readonly="box-shadow: 0 0 0 var(--wb-c-form-field-border-width-press) var(--wb-semanticColor-input-default-border), 0 0 0 var(--wb-border-width-medium) var(--wb-semanticColor-focus-inner);"
+                            data-style-placeholder="color: var(--wb-semanticColor-input-default-placeholder);"
+                            data-testid="input-with-examples"
+                            id=":r1:"
+                            style="width: 8rem; height: 3.2rem; border-radius: 0.3rem; box-sizing: border-box; padding-inline: var(--wb-c-form-field-layout-paddingInline); padding-block: var(--wb-c-form-field-layout-paddingBlock); margin: 0px; display: inline-block; font-family: Symbola, 'Times New Roman', serif; font-size: 1.8rem; font-weight: var(--wb-font-weight-medium); line-height: 1.8rem; background: var(--wb-semanticColor-input-default-background); border: var(--wb-border-width-thin) solid var(--wb-semanticColor-input-default-border); color: var(--wb-semanticColor-input-default-foreground); border-width: var(--wb-border-width-thin); direction: ltr; padding: 0.4rem 0.5rem; text-align: left;"
+                            type="text"
+                            value=""
+                          />
+                          <span
+                            id="aria-for-:r1:"
+                            style="display: none;"
+                          />
+                        </span>
                       </span>
                     </span>
                   </p>
@@ -343,7 +344,6 @@ exports[`graded group set widget should snapshot 1`] = `
                                 >
                                   <svg
                                     height="48"
-                                    style="width: var(--wb-c-progress-spinner-root-sizing-medium); height: var(--wb-c-progress-spinner-root-sizing-medium);"
                                     viewBox="0 0 48 48"
                                     width="48"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -395,7 +395,6 @@ exports[`graded group set widget should snapshot 1`] = `
                                 >
                                   <svg
                                     height="48"
-                                    style="width: var(--wb-c-progress-spinner-root-sizing-medium); height: var(--wb-c-progress-spinner-root-sizing-medium);"
                                     viewBox="0 0 48 48"
                                     width="48"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -447,7 +446,6 @@ exports[`graded group set widget should snapshot 1`] = `
                                 >
                                   <svg
                                     height="48"
-                                    style="width: var(--wb-c-progress-spinner-root-sizing-medium); height: var(--wb-c-progress-spinner-root-sizing-medium);"
                                     viewBox="0 0 48 48"
                                     width="48"
                                     xmlns="http://www.w3.org/2000/svg"
