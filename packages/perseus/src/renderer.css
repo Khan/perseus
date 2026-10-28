@@ -64,7 +64,9 @@
             font-weight: bold;
         }
         td {
-            background-color: var(--wb-semanticColor-core-background-base-default);
+            background-color: var(
+                --wb-semanticColor-core-background-base-default
+            );
         }
         :is(th, td) {
             padding: var(--wb-sizing-size_160);
