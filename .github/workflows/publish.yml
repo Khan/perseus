@@ -36,6 +36,8 @@ env:
     # this release needs a webapp deploy (not just a frontend deploy).
     WEBAPP_REQUIRED_COMMENT_MARKER: "<!-- perseus-webapp-required-comment -->"
 
+    DEPLOY_INSTRUCTIONS_COMMENT_MARKER: "<!-- perseus-deploy-instructions-comment -->"
+
     # The list of Perseus packages used on the backend. If any of these
     # packages change, a backend deploy is required. Generated via:
     # git ls-files "*pnpm-lock.yaml" | xargs grep -Eo '@khanacademy/[a-z-]+' | cut -d: -f2 | sort | uniq
@@ -275,6 +277,38 @@ jobs:
                       --head changeset-release/main --state open \
                       --json number --jq '.[0].number // empty')
                   echo "number=${num}" >> "$GITHUB_OUTPUT"
+
+            - name: Find existing deploy instructions comment
+              id: find_deploy_instructions
+              if: steps.vpr.outputs.number != ''
+              continue-on-error: true
+              uses: peter-evans/find-comment@b30e6a3c0ed37e7c023ccd3f1db5c6c0b0c23aad # v4.0.0
+              with:
+                  issue-number: ${{ steps.vpr.outputs.number }}
+                  comment-author: "github-actions[bot]"
+                  body-includes: ${{ env.DEPLOY_INSTRUCTIONS_COMMENT_MARKER }}
+
+            - name: Create deploy instructions comment
+              if: steps.vpr.outputs.number != '' && steps.find_deploy_instructions.outputs.comment-id == ''
+              continue-on-error: true
+              uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5.0.0
+              with:
+                  issue-number: ${{ steps.vpr.outputs.number }}
+                  body: |
+                      ${{ env.DEPLOY_INSTRUCTIONS_COMMENT_MARKER }}
+                      ### 🚀 Deploying this release
+
+                      Once this PR is merged and the packages are published, you can bump Perseus in Khan Academy's repos.
+
+                      If you are working in Khan Academy's frontend, you can run the below command.
+                      ```sh
+                      ./dev/tools/bump_perseus_version.ts
+                      ```
+
+                      If you are working in Khan Academy's webapp, you can run the below command.
+                      ```sh
+                      ./dev/tools/bump_perseus_version.js
+                      ```
 
             - name: Compose webapp-required comment body
               id: webapp_body
