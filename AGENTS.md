@@ -97,3 +97,21 @@ Focus on what changed and why — write for someone reading git log in 5 years.
 4. For UI changes, offer to start Storybook (`pnpm storybook`) so the user can
    check them; start it only after they approve.
 5. Verify accessibility compliance
+
+CI runs more checks than the steps above (see `.github/workflows/node-ci.yml`).
+When CI fails, run only the failing step's command locally.
+
+### Changesets
+CI's `changeset` job (`.github/workflows/node-ci.yml`) fails a PR that changes
+package code without a changeset. Write it by hand as
+`.changeset/<three-random-words>.md` (e.g. `quiet-maples-drift.md`):
+
+```markdown
+---
+"@khanacademy/perseus": patch
+---
+
+One-line description of the change
+```
+
+When no production code ships, leave the frontmatter empty (`---` / `---`).
