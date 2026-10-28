@@ -154,6 +154,18 @@ const testingLibraryRulesOff = Object.fromEntries(
     ]),
 );
 
+/**
+ * Every rule from eslint-plugin-storybook, turned off. Its recommended config
+ * treats `*.story.*` files as Storybook stories, but ours are Playwright
+ * component test stories.
+ */
+const storybookRulesOff = Object.fromEntries(
+    Object.keys(require("eslint-plugin-storybook").rules).map((rule) => [
+        `storybook/${rule}`,
+        "off",
+    ]),
+);
+
 const noSelfPackageImports = pkgNames.map((pkgName) => ({
     files: [`packages/${pkgName}/**`],
     rules: {
@@ -258,6 +270,7 @@ module.exports = {
         {
             files: [
                 "*.spec.ts",
+                "*.story.tsx",
                 "**/testing/playwright/**",
                 "*.test.ts",
                 "*.test.tsx",
@@ -279,11 +292,16 @@ module.exports = {
         {
             files: [
                 "*.spec.ts",
+                "*.story.tsx",
                 "config/playwright/**",
                 "**/testing/playwright/**",
             ],
             extends: ["plugin:playwright/recommended"],
             rules: testingLibraryRulesOff,
+        },
+        {
+            files: ["*.story.tsx"],
+            rules: storybookRulesOff,
         },
         {
             // Defines the `test` and `expect` everything else imports.

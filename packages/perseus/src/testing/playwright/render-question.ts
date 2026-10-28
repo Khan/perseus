@@ -1,12 +1,12 @@
 import {expect} from "@internal/playwright";
 
-import type {Question} from "./question-story";
+import type {Question} from "./question.story";
 import type {APIOptions} from "../../types";
 import type {PerseusRenderer, UserInputMap} from "@khanacademy/perseus-core";
 import type {Locator, PlaywrightTestArgs} from "@playwright/test";
 
-// The id this story is registered under in config/playwright/gallery.
-const QUESTION_STORY = "perseus/Question";
+// See config/playwright/gallery/main.tsx for how story ids are formed.
+const QUESTION_STORY = "perseus/testing/playwright/question/Question";
 
 /**
  * Renders the given question in a Playwright component test. Waits until all
