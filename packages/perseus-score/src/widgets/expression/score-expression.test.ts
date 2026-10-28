@@ -287,6 +287,7 @@ describe("scoreExpression", () => {
             "\\frac{-\\left(x^{3}\\sin x+3x^{2}\\cos x\\right)}{x^{6}}";
 
         const result = scoreExpression(equivalent, equivalentAnswers, "en");
+
         expect(result).toHaveBeenAnsweredCorrectly();
     });
 });
