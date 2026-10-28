@@ -54,7 +54,8 @@
      *******************/
     .framework-perseus table {
         border-collapse: collapse;
-        margin: 0 auto;
+        margin-inline: 0;
+        margin-block: auto;
         tbody > tr {
             border: var(--wb-border-width-thin) solid
                 var(--wb-semanticColor-core-border-neutral-subtle);
@@ -80,7 +81,7 @@
     @media (max-width: 767px) {
         .framework-perseus table {
             width: 100%;
-            min-width: 480px;
+            min-width: 48rem;
             tbody > tr {
                 border-left: 0;
                 border-right: 0;
@@ -92,6 +93,6 @@
     }
     .framework-perseus .perseus-table-title {
         text-align: center;
-        font-size: larger;
+        font-size: var(--wb-font-heading-size-medium);
     }
 }
