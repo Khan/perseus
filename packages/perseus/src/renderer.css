@@ -29,7 +29,9 @@
             line-height: var(--wb-font-heading-lineHeight-large);
         }
 
-        h4, h5, h6 {
+        h4,
+        h5,
+        h6 {
             font-size: var(--wb-font-heading-size-medium);
             line-height: var(--wb-font-heading-lineHeight-medium);
         }
