@@ -41,7 +41,7 @@ minimumReleaseAgeExclude:
     - "@khanacademy/*"
 packages:
     - __docs__
-    - config/build
+    - build-system-fake-package
     - config/cypress
     - config/eslint-plugin
     - data

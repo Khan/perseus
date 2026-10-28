@@ -62,7 +62,6 @@ const config: KnipConfig = {
         // also a package) so checking these packages for unused code isn't
         // worth it.
         __docs__: ignoredPackageConfig,
-        "config/build": ignoredPackageConfig,
         "config/cypress": {
             // Cypress loads this file through its supportFile setting.
             entry: ["support.ts"],

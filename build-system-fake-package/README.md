@@ -1,4 +1,4 @@
-# perseus-build
+# build-system-fake-package
 
 This is not a real package. It ensures that publishing bumps every package's
 version when build settings change, because those changes can affect published
