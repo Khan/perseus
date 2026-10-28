@@ -14,6 +14,11 @@
             font-size: inherit;
         }
 
+        h1 {
+            font-size: var(--wb-font-heading-size-xxlarge);
+            line-height: var(--wb-font-heading-lineHeight-xxlarge);
+        }
+
         h2 {
             font-size: var(--wb-font-heading-size-xlarge);
             line-height: var(--wb-font-heading-lineHeight-xlarge);
