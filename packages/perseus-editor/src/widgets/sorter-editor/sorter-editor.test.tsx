@@ -638,6 +638,30 @@ describe("sorter-editor", () => {
         });
     });
 
+    describe("variant", () => {
+        it("hides the variant when the dnd-widget-sorter flag is off", () => {
+            // Arrange, Act
+            render(<SorterEditor onChange={() => {}} />);
+
+            // Assert
+            expect(
+                screen.queryByRole("combobox", {name: "Variant"}),
+            ).not.toBeInTheDocument();
+        });
+
+        it("shows the variant when the dnd-widget-sorter flag is on", () => {
+            // Arrange, Act
+            render(
+                <SorterEditor apiOptions={legendFlagOn} onChange={() => {}} />,
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("combobox", {name: "Variant"}),
+            ).toBeInTheDocument();
+        });
+    });
+
     describe("legend", () => {
         it("hides the legend fields when the dnd-widget-sorter flag is off", () => {
             // Arrange, Act
@@ -661,7 +685,7 @@ describe("sorter-editor", () => {
             ).toBeInTheDocument();
         });
 
-        it("creates the full legend on the first legend edit", async () => {
+        it("creates the full legend with arrow caps on the first legend edit of a scale", async () => {
             // Arrange
             const onChange = jest.fn();
             renderControlled(
@@ -679,8 +703,8 @@ describe("sorter-editor", () => {
             expect(onChange).toHaveBeenLastCalledWith(
                 expect.objectContaining({
                     legend: {
-                        startCap: "none",
-                        endCap: "none",
+                        startCap: "arrow",
+                        endCap: "arrow",
                         startLabel: "Low",
                         endLabel: "",
                         ariaLabel: "",
@@ -688,6 +712,91 @@ describe("sorter-editor", () => {
                     },
                 }),
             );
+        });
+
+        it("creates the legend with bar caps on the first legend edit of a timeline", async () => {
+            // Arrange
+            const onChange = jest.fn();
+            renderControlled(
+                {
+                    ...generateSorterOptions({variant: "timeline"}),
+                    apiOptions: legendFlagOn,
+                },
+                onChange,
+            );
+
+            // Act
+            await userEvent.type(
+                screen.getByRole("textbox", {name: "Start label"}),
+                "1944",
+            );
+
+            // Assert
+            expect(onChange).toHaveBeenLastCalledWith(
+                expect.objectContaining({
+                    legend: expect.objectContaining({
+                        startCap: "bar",
+                        endCap: "bar",
+                    }),
+                }),
+            );
+        });
+
+        it("resets both caps to the new variant's defaults when the variant changes", async () => {
+            // Arrange
+            const onChange = jest.fn();
+            renderControlled(
+                {
+                    ...generateSorterOptions({
+                        variant: "scale",
+                        legend: {
+                            ...completeLegend,
+                            startCap: "arrow",
+                            endCap: "none",
+                        },
+                    }),
+                    apiOptions: legendFlagOn,
+                },
+                onChange,
+            );
+
+            // Act
+            await userEvent.click(
+                screen.getByRole("combobox", {name: "Variant"}),
+            );
+            await userEvent.click(
+                screen.getByRole("option", {name: "Timeline"}),
+            );
+
+            // Assert
+            expect(onChange).toHaveBeenLastCalledWith(
+                expect.objectContaining({
+                    variant: "timeline",
+                    legend: {...completeLegend, startCap: "bar", endCap: "bar"},
+                }),
+            );
+        });
+
+        it("does not add a legend when the variant changes before the legend exists", async () => {
+            // Arrange
+            const onChange = jest.fn();
+            renderControlled(
+                {...generateSorterOptions(), apiOptions: legendFlagOn},
+                onChange,
+            );
+
+            // Act
+            await userEvent.click(
+                screen.getByRole("combobox", {name: "Variant"}),
+            );
+            await userEvent.click(
+                screen.getByRole("option", {name: "Timeline"}),
+            );
+
+            // Assert
+            const lastOptions = onChange.mock.lastCall[0];
+            expect(lastOptions.variant).toBe("timeline");
+            expect(lastOptions.legend).toBeUndefined();
         });
 
         it("keeps the other legend fields when one is edited", async () => {
@@ -863,7 +972,7 @@ describe("sorter-editor", () => {
             ).not.toHaveAttribute("aria-disabled", "true");
         });
 
-        it("marks the screen reader label as required", () => {
+        it("marks the description as required", () => {
             // Arrange, Act
             render(
                 <SorterEditor apiOptions={legendFlagOn} onChange={() => {}} />,
@@ -871,7 +980,7 @@ describe("sorter-editor", () => {
 
             // Assert
             expect(
-                screen.getByRole("textbox", {name: "Screen reader label"}),
+                screen.getByRole("textbox", {name: "Description"}),
             ).toBeRequired();
         });
     });

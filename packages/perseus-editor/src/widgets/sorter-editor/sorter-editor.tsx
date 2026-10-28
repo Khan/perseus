@@ -7,6 +7,7 @@ import {
     type PerseusSorterWidgetOptions,
     type SorterLegend,
     type SorterLegendCap,
+    type SorterVariant,
 } from "@khanacademy/perseus-core";
 import Banner from "@khanacademy/wonder-blocks-banner";
 import Button from "@khanacademy/wonder-blocks-button";
@@ -36,29 +37,41 @@ const defaultOptions: PerseusSorterWidgetOptions =
 const layoutOptions = {
     horizontal: "Horizontal",
     vertical: "Vertical",
-} as const satisfies Record<PerseusSorterWidgetOptions["layout"], string>;
+} satisfies Record<PerseusSorterWidgetOptions["layout"], string>;
 
 const capOptions = {
     arrow: "Arrow",
     bar: "Bar",
     none: "None",
-} as const satisfies Record<SorterLegendCap, string>;
+} satisfies Record<SorterLegendCap, string>;
 
 const positionOptions = {
     above: "Above",
     below: "Below",
-} as const satisfies Record<SorterLegend["position"], string>;
+} satisfies Record<SorterLegend["position"], string>;
+
+const variantOptions = {
+    scale: "Scale",
+    timeline: "Timeline",
+} satisfies Record<SorterVariant, string>;
+
+const defaultCaps = {
+    scale: "arrow",
+    timeline: "bar",
+} satisfies Record<SorterVariant, SorterLegendCap>;
 
 // Not in `defaultOptions`: those get applied to existing content, which would
 // make every old sorter look edited. This is only filled in on the first edit.
-const defaultLegend: SorterLegend = {
-    startCap: "none",
-    endCap: "none",
-    startLabel: "",
-    endLabel: "",
-    ariaLabel: "",
-    position: "below",
-};
+function getDefaultLegend(variant: SorterVariant): SorterLegend {
+    return {
+        startCap: defaultCaps[variant],
+        endCap: defaultCaps[variant],
+        startLabel: "",
+        endLabel: "",
+        ariaLabel: "",
+        position: "below",
+    };
+}
 
 // TODO(benchristel): Define Props in terms of WidgetEditorProps. We can't do
 //  this currently because `pnpm build:types` fails with a cryptic error. The
@@ -92,7 +105,9 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
         },
         ref,
     ) {
-        const showLegend = isFeatureOn({apiOptions}, "dnd-widget-sorter");
+        const isDndSorter = isFeatureOn({apiOptions}, "dnd-widget-sorter");
+        const selectedVariant = variant ?? "scale";
+        const defaultLegend = getDefaultLegend(selectedVariant);
         const displaysVertically =
             layout === "vertical" ||
             correct.length > SORTER_MAX_HORIZONTAL_CARDS;
@@ -133,6 +148,22 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
 
         function handleLegendChange(changes: Partial<SorterLegend>) {
             handleChange({legend: {...defaultLegend, ...legend, ...changes}});
+        }
+
+        function handleVariantChange(newVariant: SorterVariant) {
+            if (legend == null) {
+                handleChange({variant: newVariant});
+                return;
+            }
+
+            handleChange({
+                variant: newVariant,
+                legend: {
+                    ...legend,
+                    startCap: defaultCaps[newVariant],
+                    endCap: defaultCaps[newVariant],
+                },
+            });
         }
 
         const onCardChange = (index: number, value: string) => {
@@ -208,6 +239,18 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                         Add a card
                     </Button>
                 </View>
+                {isDndSorter && (
+                    <LabeledField
+                        label="Variant"
+                        field={
+                            <TypedSingleSelect
+                                options={variantOptions}
+                                selectedValue={selectedVariant}
+                                onChange={handleVariantChange}
+                            />
+                        }
+                    />
+                )}
                 <LabeledField
                     label="Layout"
                     field={
@@ -251,7 +294,7 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                         </p>
                     </InfoTip>
                 </div>
-                {showLegend && (
+                {isDndSorter && (
                     <fieldset className={styles.fieldset}>
                         <legend className={styles.legendTitle}>Legend</legend>
                         <LegendEndEditor
@@ -314,7 +357,7 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                             }}
                         />
                         <LabeledField
-                            label="Screen reader label"
+                            label="Description"
                             field={
                                 <TextField
                                     value={

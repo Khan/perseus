@@ -22,14 +22,14 @@ export const SorterLegendMissing = Rule.makeWidgetRule({
     },
 });
 
-export const SorterLegendScreenReaderLabel = Rule.makeWidgetRule({
-    name: "sorter-legend-screen-reader-label",
+export const SorterLegendDescription = Rule.makeWidgetRule({
+    name: "sorter-legend-description",
     widgetType: "sorter",
     severity: Rule.Severity.WARNING,
     lint(widget) {
         const {legend} = widget.options;
         if (legend != null && legend.ariaLabel.trim() === "") {
-            return "Sorter legend screen reader label cannot be blank.";
+            return "Sorter legend description cannot be blank.";
         }
     },
 });

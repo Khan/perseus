@@ -15,7 +15,9 @@ export function exceedsCardLimit(correct: readonly string[]): boolean {
  */
 export const SORTER_MAX_HORIZONTAL_CARDS = 5;
 
-// TODO(anakaren): Replace with the limit design settles on.
+/**
+ * 
+ */
 export const SORTER_MAX_LEGEND_LABEL_LENGTH = 30;
 
 /**

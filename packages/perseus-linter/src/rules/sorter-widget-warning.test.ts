@@ -8,7 +8,7 @@ import {expectPass, expectWarning} from "../__tests__/test-utils";
 import sorterWidgetWarningRule, {
     SorterLegendLabels,
     SorterLegendMissing,
-    SorterLegendScreenReaderLabel,
+    SorterLegendDescription,
     sorterMaxIdealCards,
     sorterMaxHorizontalCards,
 } from "./sorter-widget-warning";
@@ -182,22 +182,21 @@ describe("sorter-legend-missing", () => {
     });
 });
 
-describe("sorter-legend-screen-reader-label", () => {
-    it("warns when the screen reader label is blank", () => {
+describe("sorter-legend-description", () => {
+    it("warns when the description is blank", () => {
         expectWarning(
-            SorterLegendScreenReaderLabel,
+            SorterLegendDescription,
             "[[☃ sorter 1]]",
             sorterWithLegend({...completeLegend, ariaLabel: " "}),
             {
-                message:
-                    "sorter 1: Sorter legend screen reader label cannot be blank.",
+                message: "sorter 1: Sorter legend description cannot be blank.",
             },
         );
     });
 
-    it("passes when the screen reader label has text", () => {
+    it("passes when the description has text", () => {
         expectPass(
-            SorterLegendScreenReaderLabel,
+            SorterLegendDescription,
             "[[☃ sorter 1]]",
             sorterWithLegend(completeLegend),
         );
@@ -205,7 +204,7 @@ describe("sorter-legend-screen-reader-label", () => {
 
     it("passes when there is no legend", () => {
         expectPass(
-            SorterLegendScreenReaderLabel,
+            SorterLegendDescription,
             "[[☃ sorter 1]]",
             sorterWithLegend(undefined),
         );

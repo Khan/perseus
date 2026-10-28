@@ -46,7 +46,7 @@ import SorterWidgetError from "./sorter-widget-error";
 import SorterWidgetWarning, {
     SorterLegendLabels,
     SorterLegendMissing,
-    SorterLegendScreenReaderLabel,
+    SorterLegendDescription,
 } from "./sorter-widget-warning";
 import StaticWidgetInQuestionStem from "./static-widget-in-question-stem";
 import TableMissingCaption from "./table-missing-caption";
@@ -101,7 +101,7 @@ export const allRules = [
     SorterWidgetError,
     SorterWidgetWarning,
     SorterLegendMissing,
-    SorterLegendScreenReaderLabel,
+    SorterLegendDescription,
     SorterLegendLabels,
     ExplanationInGradedGroup,
     ExplanationInGradedGroupSet,
