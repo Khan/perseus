@@ -1,7 +1,10 @@
 import {ErrorCodes, generateExpressionOptions} from "@khanacademy/perseus-core";
 
 import scoreExpression from "./score-expression";
-import {expressionItem3Options, equivalentAnswers} from "./score-expression.testdata";
+import {
+    expressionItem3Options,
+    equivalentAnswers,
+} from "./score-expression.testdata";
 
 describe("scoreExpression", () => {
     it("should score undefined user input as invalid", function () {
@@ -280,13 +283,10 @@ describe("scoreExpression", () => {
     });
 
     it("regression LEMS-4690: equivalent answers that are undefined at x = 0", () => {
-        const equivalent = "\\frac{-\\left(x^{3}\\sin x+3x^{2}\\cos x\\right)}{x^{6}}"
+        const equivalent =
+            "\\frac{-\\left(x^{3}\\sin x+3x^{2}\\cos x\\right)}{x^{6}}";
 
-        const result = scoreExpression(
-            equivalent,
-            equivalentAnswers,
-            "en",
-        );
+        const result = scoreExpression(equivalent, equivalentAnswers, "en");
         expect(result).toHaveBeenAnsweredCorrectly();
     });
 });
