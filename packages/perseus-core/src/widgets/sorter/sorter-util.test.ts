@@ -57,6 +57,7 @@ describe("getSorterPublicWidgetOptions", () => {
             correct: ["$x$", "$y$", "$z$"],
             layout: "horizontal",
             padding: true,
+            variant: "scale",
             legend,
         };
 

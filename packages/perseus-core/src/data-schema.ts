@@ -1966,6 +1966,13 @@ export type PerseusSorterWidgetOptions = {
      * "vertical" layout is best for longer text and larger images.
      */
     layout: "horizontal" | "vertical";
+
+    /**
+     * How cards are placed
+     * "scale" places cards along a spectrum between two categories,
+     * "timeline" places them in time order.
+     */
+    variant?: "scale" | "timeline";
     /**
      * The labeled line along the blanks that shows learners which order
      * to place the tiles in, with optional end caps.
