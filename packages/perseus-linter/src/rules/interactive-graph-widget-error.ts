@@ -2,7 +2,6 @@ import {vector as kvector} from "@khanacademy/kmath";
 
 import Rule from "../rule";
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "interactive-graph-widget-error",
     severity: Rule.Severity.ERROR,
@@ -89,7 +88,7 @@ export default Rule.makeRule({
 
         return issues;
     },
-}) as Rule;
+});
 
 // Fields checked in addition to `type`, `showPointLabels`, and `pointLabels`
 // so we can compute the expected label count for graph types whose number

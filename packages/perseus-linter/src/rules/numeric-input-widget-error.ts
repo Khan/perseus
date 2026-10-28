@@ -1,6 +1,5 @@
 import Rule from "../rule";
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "numeric-input-widget-error",
     severity: Rule.Severity.ERROR,
@@ -41,4 +40,4 @@ export default Rule.makeRule({
 
         return issues;
     },
-}) as Rule;
+});

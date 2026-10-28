@@ -1,6 +1,5 @@
 import Rule from "../rule";
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "nested-lists",
     severity: Rule.Severity.WARNING,
@@ -8,4 +7,4 @@ export default Rule.makeRule({
     message: `Nested lists:
 nested lists are hard to read on mobile devices;
 do not use additional indentation.`,
-}) as Rule;
+});

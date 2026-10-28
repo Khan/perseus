@@ -24,7 +24,6 @@ function hasMixedContent(card: string): boolean {
     );
 }
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "sorter-widget-error",
     severity: Rule.Severity.ERROR,
@@ -63,4 +62,4 @@ export default Rule.makeRule({
 
         return warnings;
     },
-}) as Rule;
+});

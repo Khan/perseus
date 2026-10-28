@@ -16,7 +16,6 @@ function isCapitalized(word: any) {
     return c === c.toUpperCase();
 }
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "heading-title-case",
     severity: Rule.Severity.GUIDELINE,
@@ -57,4 +56,4 @@ This heading appears to be in title-case, but should be sentence-case.
 Only capitalize the first letter and proper nouns.`;
         }
     },
-}) as Rule;
+});

@@ -1,6 +1,5 @@
 import Rule from "../rule";
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "math-nested",
     severity: Rule.Severity.ERROR,
@@ -8,4 +7,4 @@ export default Rule.makeRule({
     pattern: /\\text{[^$}]*\$[^$}]*\$[^}]*}/,
     message: `Nested math:
 Don't nest math expressions inside \\text{} blocks`,
-}) as Rule;
+});
