@@ -48,4 +48,51 @@
             max-width: 68.8rem;
         }
     }
+
+    /*******************
+     * Markdown Tables *
+     *******************/
+    .framework-perseus {
+        table {
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
+        table tbody > tr {
+            border: var(--wb-border-width-thin) solid
+                var(--wb-semanticColor-core-border-neutral-subtle);
+        }
+        table :is(th, td) {
+            padding: var(--wb-sizing-size_160);
+            text-align: left;
+
+            &[align="center"] {
+                text-align: center;
+            }
+            &[align="right"] {
+                text-align: right;
+            }
+        }
+        table th {
+            font-weight: bold;
+        }
+        table td {
+            background-color: var(--wb-semanticColor-core-background-base-default);
+        }
+
+        @media (max-width: 767px) {
+            width: 100%;
+            min-width: 480px;
+            tbody > tr {
+                border-left: 0;
+                border-right: 0;
+            }
+        }
+    }
+    .framework-perseus .perseus-titled-table {
+        display: inline-block;
+    }
+    .framework-perseus .perseus-table-title {
+        text-align: center;
+        font-size: larger;
+    }
 }
