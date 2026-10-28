@@ -35,7 +35,7 @@ describe("interactive-graph-widget-error", () => {
                 },
             },
             {
-                message: "Locked line cannot have length 0.",
+                messages: ["Locked line cannot have length 0."],
                 severity: Rule.Severity.ERROR,
             },
         );
@@ -63,8 +63,9 @@ describe("interactive-graph-widget-error", () => {
                 },
             },
             {
-                message:
+                messages: [
                     "Locked polygon cannot have all coordinates be the same.",
+                ],
                 severity: Rule.Severity.ERROR,
             },
         );
@@ -86,7 +87,7 @@ describe("interactive-graph-widget-error", () => {
                 },
             },
             {
-                message: "Locked ellipse must have positive radius values.",
+                messages: ["Locked ellipse must have positive radius values."],
                 severity: Rule.Severity.ERROR,
             },
         );
@@ -108,7 +109,7 @@ describe("interactive-graph-widget-error", () => {
                 },
             },
             {
-                message: "Locked ellipse must have positive radius values.",
+                messages: ["Locked ellipse must have positive radius values."],
                 severity: Rule.Severity.ERROR,
             },
         );
@@ -131,7 +132,7 @@ describe("interactive-graph-widget-error", () => {
                 },
             },
             {
-                message: "Polygon must be closed.",
+                messages: ["Polygon must be closed."],
                 severity: Rule.Severity.ERROR,
             },
         );
@@ -153,8 +154,9 @@ describe("interactive-graph-widget-error", () => {
                 },
             },
             {
-                message:
+                messages: [
                     "showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
+                ],
                 severity: Rule.Severity.ERROR,
             },
         );
@@ -196,8 +198,9 @@ describe("interactive-graph-widget-error", () => {
                 },
             },
             {
-                message:
+                messages: [
                     "showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
+                ],
                 severity: Rule.Severity.ERROR,
             },
         );
@@ -219,8 +222,9 @@ describe("interactive-graph-widget-error", () => {
                 },
             },
             {
-                message:
+                messages: [
                     "showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
+                ],
                 severity: Rule.Severity.ERROR,
             },
         );
@@ -322,8 +326,9 @@ describe("interactive-graph-widget-error", () => {
                 },
             },
             {
-                message:
+                messages: [
                     'pointLabels has 2 entries but this graph type expects 3. Use empty strings ("") to skip labels for specific points, e.g. ["A", "", "C"].',
+                ],
                 severity: Rule.Severity.ERROR,
             },
         );
@@ -347,8 +352,9 @@ describe("interactive-graph-widget-error", () => {
                 },
             },
             {
-                message:
+                messages: [
                     'pointLabels has 4 entries but this graph type expects 3. Use empty strings ("") to skip labels for specific points, e.g. ["A", "", "C"].',
+                ],
                 severity: Rule.Severity.ERROR,
             },
         );

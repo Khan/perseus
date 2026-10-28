@@ -6,8 +6,8 @@ export default Rule.makeRule({
     severity: Rule.Severity.ERROR,
     selector: "image",
     lint: function (state, content, nodes, match, context) {
-        const image = nodes[0];
-        const url = image.target;
+        const image: any = nodes[0];
+        const url: string = image.target;
 
         // The markdown parser strips leading and trailing spaces for us,
         // but they're still a problem for our translation process, so

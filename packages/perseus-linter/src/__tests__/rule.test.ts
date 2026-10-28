@@ -3,7 +3,7 @@ import * as PureMarkdown from "@khanacademy/pure-markdown";
 import Rule from "../rule";
 import TreeTransformer from "../tree-transformer";
 
-import type {MakeRuleOptions} from "../rule";
+import type {MakeRuleOptions, LinterWarning} from "../rule";
 
 describe("PerseusLinter lint Rules class", () => {
     const markdown = `
@@ -36,8 +36,8 @@ Otherwise escape it by writing \\$.`,
             severity: Rule.Severity.WARNING,
             selector: "heading ~ heading",
             lint: function (state, content, nodes) {
-                const currentHeading = nodes[1];
-                const previousHeading = nodes[0];
+                const currentHeading: any = nodes[1];
+                const previousHeading: any = nodes[0];
 
                 expect(nodes).toHaveLength(2);
                 expect(nodes[1]).toEqual(state.currentNode());
@@ -63,23 +63,12 @@ the previous heading was level ${previousHeading.level}`;
         const rules = ruleDescriptions.map((r) => Rule.makeRule(r));
         const tree = parseTree();
         const tt = new TreeTransformer(tree);
-        const warnings: Array<
-            | any
-            | {
-                  end: number;
-                  message: string;
-                  rule: string;
-                  severity?: number;
-                  start: number;
-              }
-        > = [];
+        const warnings: LinterWarning[] = [];
 
         tt.traverse((node, state, content) => {
             rules.forEach((r) => {
                 const lint = r.check(node, state, content, undefined);
-                if (lint) {
-                    warnings.push(lint);
-                }
+                warnings.push(...lint);
             });
         });
 

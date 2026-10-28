@@ -8,7 +8,8 @@ export default Rule.makeRule({
     severity: Rule.Severity.GUIDELINE,
     selector: "link, image",
     lint: function (state, content, nodes, match) {
-        const url = nodes[0].target;
+        const linkOrImage: any = nodes[0];
+        const url = linkOrImage.target;
         const hostname = getHostname(url);
 
         if (

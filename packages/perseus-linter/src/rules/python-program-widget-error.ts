@@ -34,7 +34,6 @@ export default Rule.makeRule({
             errors.push("The height must be a positive integer.");
         }
 
-        const allErrorsString = errors.join("\n\n");
-        return allErrorsString;
+        return errors;
     },
 }) as Rule;

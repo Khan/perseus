@@ -132,13 +132,7 @@ export type MakeRuleOptions = {
     selector?: string;
     locale?: string;
     message?: string;
-    lint?: (
-        state: TraversalState,
-        content: string,
-        nodes: any,
-        match: any,
-        context: LintRuleContextObject,
-    ) => LintTesterReturnType;
+    lint?: LintTester;
     applies?: AppliesTester;
 };
 
@@ -148,7 +142,9 @@ export type MakeWidgetRuleOptions<
     name: string;
     severity: number;
     widgetType: TWidgetType;
-    lint: (widgetInfo: PerseusWidgetTypes[TWidgetType]) => string | undefined;
+    lint: (
+        widgetInfo: PerseusWidgetTypes[TWidgetType],
+    ) => undefined | string | string[];
 };
 
 // This represents the type returned by String.match(). It is an
@@ -166,20 +162,16 @@ export type LinterWarning = {
     metadata?: Record<string, any>;
 };
 
-// This is the return type of the check() method of a Rule object
-export type RuleCheckReturnType = LinterWarning | null | undefined;
-
-// This is the return type of the lint detection function passed as the 4th
-// argument to the Rule() constructor. It can return null or a string or an
-// object containing a string and two numbers.
-// prettier-ignore
-// (prettier formats this in a way that ka-lint does not like)
-type LintTesterReturnType = string | {
-    message: string,
-    start: number,
-    end: number
-    metadata?:Record<string,any>
-} | null | undefined;
+// This the type returned by the lint detection function passed as the 4th
+// argument to the Rule() constructor.
+type LintTesterReturnType =
+    | string
+    | {
+          message: string;
+          start: number;
+          end: number;
+          metadata?: Record<string, any>;
+      };
 
 type LintRuleContextObject =
     | {
@@ -203,7 +195,7 @@ type LintTester = (
     selectorMatch: ReadonlyArray<TreeNode>,
     patternMatch: PatternMatchType,
     context: LintRuleContextObject,
-) => LintTesterReturnType;
+) => LintTesterReturnType | LintTesterReturnType[] | undefined;
 
 // An optional check to verify whether or not a particular rule should
 // be checked by context. For example, some rules only apply in exercises,
@@ -302,10 +294,10 @@ export default class Rule {
                     return;
                 }
 
-                const message = options.lint(widgetInfo);
-                if (message) {
-                    return `${widgetId}: ${message}`;
-                }
+                return [options.lint(widgetInfo)]
+                    .filter(Boolean)
+                    .flat()
+                    .map((message) => `${widgetId}: ${message}`);
             },
             undefined,
         );
@@ -319,47 +311,13 @@ export default class Rule {
         traversalState: TraversalState,
         content: string,
         context: LintRuleContextObject,
-    ): RuleCheckReturnType {
-        // First, see if we match the selector.
-        // If no selector was passed to the constructor, we use a
-        // default selector that matches text nodes.
-        const selectorMatch = this.selector.match(traversalState);
-
-        // If the selector did not match, then we're done
-        if (!selectorMatch) {
-            return null;
-        }
-
-        // If the selector matched, then see if the pattern matches
-        let patternMatch;
-        if (this.pattern) {
-            patternMatch = content.match(this.pattern);
-        } else {
-            // If there is no pattern, then just match all of the content.
-            // Use a fake RegExp match object to represent this default match.
-            patternMatch = Rule.FakePatternMatch(content, content, 0);
-        }
-
-        // If there was a pattern and it didn't match, then we're done
-        if (!patternMatch) {
-            return null;
-        }
-
-        try {
-            // If we get here, then the selector and pattern have matched
-            // so now we call the lint function to see if there is lint.
-            const error = this.lint(
-                traversalState,
-                content,
-                selectorMatch,
-                patternMatch,
-                context,
-            );
-
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            if (!error) {
-                return null; // No lint; we're done
-            }
+    ): LinterWarning[] {
+        // Define some helper functions. These have to be inside the check
+        // method because they need to close over both the `content` parameter
+        // and the `this` binding.
+        const toLinterWarning = (
+            error: LintTesterReturnType,
+        ): LinterWarning => {
             if (typeof error === "string") {
                 // If the lint function returned a string we assume it
                 // applies to the entire content of the node and return it.
@@ -381,21 +339,77 @@ export default class Rule {
                 end: error.end,
                 metadata: error.metadata,
             };
+        };
+
+        const toLinterWarnings = (
+            rawLintOutput:
+                | undefined
+                | LintTesterReturnType
+                | LintTesterReturnType[],
+        ): LinterWarning[] => {
+            if (rawLintOutput == null) {
+                return [];
+            }
+            if (Array.isArray(rawLintOutput)) {
+                return rawLintOutput.map(toLinterWarning);
+            }
+            return [toLinterWarning(rawLintOutput)];
+        };
+
+        // First, see if we match the selector.
+        // If no selector was passed to the constructor, we use a
+        // default selector that matches text nodes.
+        const selectorMatch = this.selector.match(traversalState);
+
+        // If the selector did not match, then we're done
+        if (!selectorMatch) {
+            return [];
+        }
+
+        // If the selector matched, then see if the pattern matches
+        let patternMatch;
+        if (this.pattern) {
+            patternMatch = content.match(this.pattern);
+        } else {
+            // If there is no pattern, then just match all of the content.
+            // Use a fake RegExp match object to represent this default match.
+            patternMatch = Rule.FakePatternMatch(content, content, 0);
+        }
+
+        // If there was a pattern and it didn't match, then we're done
+        if (!patternMatch) {
+            return [];
+        }
+
+        try {
+            // If we get here, then the selector and pattern have matched
+            // so now we call the lint function to see if there is lint.
+            return toLinterWarnings(
+                this.lint(
+                    traversalState,
+                    content,
+                    selectorMatch,
+                    patternMatch,
+                    context,
+                ),
+            );
         } catch (e: any) {
             // If the lint function threw an exception we handle that as
             // a special type of lint. We want the user to see the lint
             // warning in this case (even though it is out of their control)
             // so that the bug gets reported. Otherwise we'd never know that
             // a rule was failing.
-            return {
-                rule: "lint-rule-failure",
-                severity: this.severity,
-                message: `Exception in rule ${this.name}: ${e.message}
+            return [
+                {
+                    rule: "lint-rule-failure",
+                    severity: this.severity,
+                    message: `Exception in rule ${this.name}: ${e.message}
 Stack trace:
 ${e.stack}`,
-                start: 0,
-                end: content.length,
-            };
+                    start: 0,
+                    end: content.length,
+                },
+            ];
         }
     }
 
@@ -412,11 +426,7 @@ ${e.stack}`,
         selectorMatch: ReadonlyArray<TreeNode>,
         patternMatch: PatternMatchType,
         context: LintRuleContextObject,
-    ): {
-        end: number;
-        message: string;
-        start: number;
-    } {
+    ): LintTesterReturnType {
         return {
             message: this.message || "",
             start: patternMatch.index,

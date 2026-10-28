@@ -14,7 +14,7 @@ describe("sorter-widget-error", () => {
                     },
                 },
             },
-            {message: "Sorter cards cannot be blank."},
+            {messages: ["Sorter cards cannot be blank."]},
         );
     });
 
@@ -29,7 +29,7 @@ describe("sorter-widget-error", () => {
                     },
                 },
             },
-            {message: "Sorter cards cannot be blank."},
+            {messages: ["Sorter cards cannot be blank."]},
         );
     });
 
@@ -44,7 +44,7 @@ describe("sorter-widget-error", () => {
                     },
                 },
             },
-            {message: "Sorter requires at least 2 cards."},
+            {messages: ["Sorter requires at least 2 cards."]},
         );
     });
 
@@ -59,7 +59,7 @@ describe("sorter-widget-error", () => {
                     },
                 },
             },
-            {message: "Sorter requires at least 2 cards."},
+            {messages: ["Sorter requires at least 2 cards."]},
         );
     });
 
@@ -75,8 +75,10 @@ describe("sorter-widget-error", () => {
                 },
             },
             {
-                message:
-                    "Sorter requires at least 2 cards.\n\nSorter cards cannot be blank.",
+                messages: [
+                    "Sorter requires at least 2 cards.",
+                    "Sorter cards cannot be blank.",
+                ],
             },
         );
     });
@@ -98,7 +100,9 @@ describe("sorter-widget-error", () => {
                 },
             },
             {
-                message: "Sorter cards cannot mix images with other content.",
+                messages: [
+                    "Sorter cards cannot mix images with other content.",
+                ],
             },
         );
     });
@@ -120,7 +124,9 @@ describe("sorter-widget-error", () => {
                 },
             },
             {
-                message: "Sorter cards cannot mix images with other content.",
+                messages: [
+                    "Sorter cards cannot mix images with other content.",
+                ],
             },
         );
     });
@@ -142,7 +148,9 @@ describe("sorter-widget-error", () => {
                 },
             },
             {
-                message: "Sorter cards cannot mix images with other content.",
+                messages: [
+                    "Sorter cards cannot mix images with other content.",
+                ],
             },
         );
     });

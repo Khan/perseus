@@ -28,8 +28,9 @@ describe("label-image-widget-error", () => {
                 },
             },
             {
-                message:
+                messages: [
                     "label-image widget must have at least two answer choices",
+                ],
                 severity: Rule.Severity.ERROR,
             },
         );
@@ -58,7 +59,7 @@ describe("label-image-widget-error", () => {
                 },
             },
             {
-                message: "No image url provided",
+                messages: ["No image url provided"],
                 severity: Rule.Severity.ERROR,
             },
         );
@@ -87,7 +88,7 @@ describe("label-image-widget-error", () => {
                 },
             },
             {
-                message: "No image alt text provided",
+                messages: ["No image alt text provided"],
                 severity: Rule.Severity.ERROR,
             },
         );
@@ -110,7 +111,7 @@ describe("label-image-widget-error", () => {
                 },
             },
             {
-                message: "label-image widget requires at least one marker",
+                messages: ["label-image widget requires at least one marker"],
                 severity: Rule.Severity.ERROR,
             },
         );
@@ -140,8 +141,9 @@ describe("label-image-widget-error", () => {
                 },
             },
             {
-                message:
+                messages: [
                     "label-image widget has 1 markers with no answers selected",
+                ],
                 severity: Rule.Severity.ERROR,
             },
         );
@@ -171,7 +173,9 @@ describe("label-image-widget-error", () => {
                 },
             },
             {
-                message: "label-image widget has 1 markers with no ARIA label",
+                messages: [
+                    "label-image widget has 1 markers with no ARIA label",
+                ],
                 severity: Rule.Severity.ERROR,
             },
         );
