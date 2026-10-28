@@ -37,9 +37,17 @@ packages/
 │   └── src/components/  # Reusable components
 ├── perseus-editor/      # Editor UI components
 ├── math-input/          # Math keypad and input components
+├── keypad-context/      # Context linking the keypad and renderers
 ├── perseus-core/        # Shared types and utilities
 ├── perseus-linter/      # Content validation tools
-└── perseus-score/       # Server-side scoring functions
+├── perseus-score/       # Server-side scoring functions
+├── perseus-utils/       # Miscellaneous shared utilities
+├── pure-markdown/       # Perseus Markdown rules (math, widgets), no React
+├── simple-markdown/     # Core Markdown parser
+├── kmath/               # Numeric math utilities
+└── kas/                 # Computer algebra system for comparing expressions
+data/questions/          # Sample Perseus content
+utils/                   # Repo scripts (changed-files, lint, publishing)
 ```
 
 ## Testing Guidelines
