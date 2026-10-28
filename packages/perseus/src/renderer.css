@@ -52,16 +52,20 @@
     /*******************
      * Markdown Tables *
      *******************/
-    .framework-perseus {
-        table {
-            border-collapse: collapse;
-            margin: 0 auto;
-        }
-        table tbody > tr {
+    .framework-perseus table {
+        border-collapse: collapse;
+        margin: 0 auto;
+        tbody > tr {
             border: var(--wb-border-width-thin) solid
                 var(--wb-semanticColor-core-border-neutral-subtle);
         }
-        table :is(th, td) {
+        th {
+            font-weight: bold;
+        }
+        td {
+            background-color: var(--wb-semanticColor-core-background-base-default);
+        }
+        :is(th, td) {
             padding: var(--wb-sizing-size_160);
             text-align: left;
 
@@ -71,12 +75,6 @@
             &[align="right"] {
                 text-align: right;
             }
-        }
-        table th {
-            font-weight: bold;
-        }
-        table td {
-            background-color: var(--wb-semanticColor-core-background-base-default);
         }
     }
     @media (max-width: 767px) {
