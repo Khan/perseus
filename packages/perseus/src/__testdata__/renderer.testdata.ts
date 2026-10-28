@@ -250,6 +250,16 @@ export const tableContent = `# Article with a Markdown table
 | cabbages | 0        | $\\dfrac{1}{2}$ |
 `;
 
+export const titledTableContent = `# Article with a Markdown table
+
+|| Magical Creatures ||
+| column A | column B | column C |
+| -------- | -------- | -------- |
+| turtles  | 42       | $\\text{\\red{red}}$ |
+| bats     | 96       | $\\text{\\blue{blue}}$ |
+| cabbages | 0        | $\\dfrac{1}{2}$ |
+`;
+
 export const codeContent = `# Article with code
 
 Here's an example of how to write a \`greet\` function in Python to implement the famous "Hello, world" program:
