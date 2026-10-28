@@ -18,11 +18,11 @@ import type {KnipConfig} from "knip";
 const basePackageConfig = {
     project: [
         "src/**/*.{ts,tsx,js,jsx}!",
-        "src/**/*.{mockData,spec,stories,story,test,testdata,testutils,typetest}.{ts,tsx,js,jsx}",
+        "src/**/*.{mockData,spec,stories,test,testdata,testutils,typetest}.{ts,tsx,js,jsx}",
     ],
     entry: [
         "src/index.{ts,tsx}!",
-        "src/**/*.{spec,stories,story,test,typetest}.{ts,tsx}",
+        "src/**/*.{spec,stories,test,typetest}.{ts,tsx}",
     ],
 };
 
@@ -112,6 +112,9 @@ const config: KnipConfig = {
         // @swc-node/register is used in the shabang of executable TypeScript
         // files.
         "@swc-node/register",
+        // nyc merges and reports code coverage (see
+        // utils/test-with-coverage.sh).
+        "nyc",
         // swc_mut_cjs_exports is a plugin for swc, configured like
         // `swcrc.jsc.experimental.plugins.push(["swc_mut_cjs_exports", {}]);`
         // (hence, not imported).

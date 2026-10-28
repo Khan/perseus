@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 
-# Runs all Jest tests with coverage enabled and writes an HTML coverage report
-# to coverage/jest/lcov-report (see "coverageDirectory" in
-# config/test/test.config.js).
+# Runs all tests (Jest and Playwright) with coverage enabled and merges the
+# results into a single unified coverage report, in coverage/final.
 #
-# Our Playwright component tests don't collect coverage.
+# Note that Jest and Playwright write their coverage to different places:
+#   * Jest: coverage/jest (the "coverageDirectory" key in
+#     config/test/test.config.js)
+#   * Playwright: coverage/playwright/raw, one file per test (COVERAGE_DIR in
+#     config/playwright/constants.ts)
 
 # https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin
 set -e # Exit immediately if a command exits with a non-zero status.
@@ -30,20 +33,43 @@ while [[ $# -gt 0 ]]; do
 done
 
 clean() {
+    rm -rf .nyc_output/
     rm -rf coverage/
 }
 
 run_jest() {
-    env NODE_OPTIONS="--max_old_space_size=8192" pnpm jest --coverage \
-        --coverageReporters lcov \
-        --coverageReporters text-summary
+    env NODE_OPTIONS="--max_old_space_size=8192" pnpm jest --coverage
+}
+
+run_playwright() {
+    env PW_COVERAGE=true pnpm pw:ci
+}
+
+merge_reports() {
+    rm -rf coverage/reports
+    mkdir coverage/reports
+    cp coverage/jest/coverage-final.json coverage/reports/from-jest.json
+    pnpm nyc merge coverage/playwright/raw coverage/reports/from-playwright.json
+
+    # nyc looks in `.nyc_output` for coverage info so we clear it out and copy
+    # our two coverage reports there
+    rm -rf .nyc_output
+    mkdir .nyc_output
+    pnpm nyc merge coverage/reports/ .nyc_output/out.json
+
+    pnpm nyc report \
+        --reporter lcov \
+        --reporter text-summary \
+        --report-dir coverage/final
 }
 
 pushd "$REPO_ROO" >/dev/null 2>&1
 
 clean
 run_jest
+run_playwright
+merge_reports
 
 if [[ $OPEN_REPORT == YES ]]; then
-    open coverage/jest/lcov-report/index.html
+    open coverage/final/lcov-report/index.html
 fi

@@ -16,6 +16,7 @@ ROOT="$MYPATH/.."
 pushd "$ROOT" >/dev/null 2>&1
 
 rm -rf packages/*/dist
+rm -rf .nyc_output/
 rm -rf coverage/
 rm -rf genfiles/
 rm -rf packages/*/*.tsbuildinfo

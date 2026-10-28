@@ -1,6 +1,6 @@
-import {expect, test} from "@playwright/test";
+import {expect, test} from "@internal/playwright";
 
-import renderQuestion from "../../testing/render-question-with-playwright";
+import renderQuestion from "../../testing/playwright/render-question";
 
 import {ipsumExample} from "./explanation.testdata";
 

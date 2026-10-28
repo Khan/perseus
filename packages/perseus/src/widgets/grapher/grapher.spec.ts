@@ -1,10 +1,10 @@
+import {expect, test} from "@internal/playwright";
 import {
     generateTestPerseusItem,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {expect, test} from "@playwright/test";
 
-import renderQuestion from "../../testing/render-question-with-playwright";
+import renderQuestion from "../../testing/playwright/render-question";
 import {scorePerseusItemTesting} from "../../util/scoring.testutils";
 
 import {

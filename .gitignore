@@ -8,6 +8,7 @@ coverage-ts
 storybook-static
 debug-storybook.log
 *.tsbuildinfo
+.nyc_output
 /genfiles/
 .idea
 .swc/

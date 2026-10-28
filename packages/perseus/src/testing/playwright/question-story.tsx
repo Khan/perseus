@@ -3,21 +3,20 @@ import {mockStrings as mathInputMockStrings} from "@khanacademy/math-input/strin
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import React from "react";
 
-import AssetContext from "../asset-context";
-import {DependenciesContext} from "../dependencies";
-import * as Perseus from "../index";
-import {mockStrings} from "../strings";
-import UserInputManager from "../user-input-manager";
-
+import AssetContext from "../../asset-context";
+import {DependenciesContext} from "../../dependencies";
+import * as Perseus from "../../index";
+import {mockStrings} from "../../strings";
+import UserInputManager from "../../user-input-manager";
 import {
     playwrightDependenciesV2,
     playwrightTestDependencies,
-} from "./test-dependencies";
+} from "../test-dependencies";
 
-import type {APIOptions} from "../types";
+import type {APIOptions} from "../../types";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
-// Story modules only ever load in the Playwright component test gallery
+// This module only ever loads in the Playwright component test gallery
 // (config/playwright/gallery), so we can set Perseus up as the module loads.
 export default {};
 Perseus.init();
@@ -32,9 +31,8 @@ type Props = {
 /**
  * Renders a Perseus question for a Playwright component test.
  *
- * Don't mount this directly; use `renderQuestion()` from
- * `render-question-with-playwright`, which also waits for the question to
- * finish rendering. Props must be serializable, since Playwright sends them
+ * Don't mount this directly; use `renderQuestion()` from `./render-question`,
+ * which also waits for the question to finish rendering. Props must be serializable, since Playwright sends them
  * from the test (in Node) to the browser.
  *
  * The test can't reach into the browser to call methods on the Renderer, so

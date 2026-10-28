@@ -43,6 +43,7 @@ packages:
     - __docs__
     - config/build
     - config/eslint-plugin
+    - config/playwright
     - data
     - dev
     - packages/*

@@ -1,0 +1,8 @@
+{
+    "name": "@internal/playwright",
+    "private": true,
+    "type": "module",
+    "exports": {
+        ".": "./fixtures.ts"
+    }
+}
