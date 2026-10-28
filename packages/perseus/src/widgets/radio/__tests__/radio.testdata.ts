@@ -354,7 +354,7 @@ export const questionWithUndefinedCorrect: PerseusRenderer =
 
 export const overflowContentInGradedGroupSet: PerseusRenderer = {
     content:
-        "#Testing scrollbar color when background color exists\n\n[[☃ graded-group-set 1]]\n\n\nFade color should match the background.",
+        "##Testing scrollbar color when background color exists\n\n[[☃ graded-group-set 1]]\n\n\nFade color should match the background.",
     images: {},
     widgets: {
         "graded-group-set 1": generateGradedGroupSetWidget({

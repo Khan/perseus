@@ -51,6 +51,8 @@
 .modal-title-container {
     display: flex;
     align-items: center;
+    font-size: var(--wb-font-heading-size-medium);
+    line-height: var(--wb-font-heading-lineHeight-medium);
     /* Undo the default padding for the top of the modal. */
     margin-block-start: var(--perseus-image-modal-padding-offset);
     /* Reset the default margin for h1. */
