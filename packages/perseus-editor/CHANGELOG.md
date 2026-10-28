@@ -1,5 +1,20 @@
 # @khanacademy/perseus-editor
 
+## 45.0.5
+
+### Patch Changes
+
+-   [#4431](https://github.com/Khan/perseus/pull/4431) [`5041a65`](https://github.com/Khan/perseus/commit/5041a65fc41837ddd09f447a9694ca5acefe122e) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Deleted unused code.
+
+-   Updated dependencies [[`93090e7`](https://github.com/Khan/perseus/commit/93090e7a87033920257a173378fcfe72b8099f97), [`29c19fd`](https://github.com/Khan/perseus/commit/29c19fd709b24776d10d64bdff23c3ccb6114ff4), [`4ea106b`](https://github.com/Khan/perseus/commit/4ea106be0fe054843917515c717270d006e78e77), [`5041a65`](https://github.com/Khan/perseus/commit/5041a65fc41837ddd09f447a9694ca5acefe122e)]:
+    -   @khanacademy/perseus@93.0.1
+    -   @khanacademy/perseus-core@42.1.0
+    -   @khanacademy/math-input@30.2.0
+    -   @khanacademy/kas@3.1.1
+    -   @khanacademy/keypad-context@6.0.10
+    -   @khanacademy/kmath@3.1.3
+    -   @khanacademy/perseus-linter@7.0.1
+
 ## 45.0.4
 
 ### Patch Changes
