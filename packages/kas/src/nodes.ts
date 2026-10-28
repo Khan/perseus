@@ -44,6 +44,10 @@ const isInfinite = function (object) {
     return object === Infinity || object === -Infinity;
 };
 
+function isNonFinite(num: number) {
+    return isNaN(num) || isInfinite(num);
+}
+
 // return a random float between min (inclusive) and max (exclusive),
 // not that inclusivity means much, probabilistically, on floats
 const randomFloat = function (min: number, max: number) {
@@ -397,8 +401,7 @@ abstract class Expr {
                 // Treat positive and negative infinity as equal. We want to
                 // consider -1 / 0 equal to 1 / 0 so that 1 / (x - 1) is equal
                 // to -1 / (1 - x) when we guess-and-check with x = 1.
-                (isInfinite(num1) && isInfinite(num2)) ||
-                (isNaN(num1) && isNaN(num2)) ||
+                (isNonFinite(num1) && isNonFinite(num2)) ||
                 delta < Math.pow(10, -TOLERANCE)
             );
         };
