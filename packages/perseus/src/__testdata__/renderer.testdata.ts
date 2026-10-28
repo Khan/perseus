@@ -7,7 +7,7 @@ import {
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
 
-import type {MockWidget} from "../testing/mock-widgets/mock-widget-types";
+import type {MockWidget} from "../widgets/mock-widgets/mock-widget-types";
 import type {
     DropdownWidget,
     ImageWidget,

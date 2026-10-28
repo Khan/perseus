@@ -22,18 +22,18 @@ import {
 import {ENTRANCE_TRANSITION_DURATION_MS} from "../components/zoomable";
 import * as Dependencies from "../dependencies";
 import {ServerItemRenderer} from "../server-item-renderer";
-import {MockWidget} from "../testing/mock-widgets";
-import MockAssetLoadingWidgetExport from "../testing/mock-widgets/mock-asset-loading-widget";
 import {
     testDependencies,
     testDependenciesV2,
 } from "../testing/test-dependencies";
 import {registerWidget} from "../widgets";
+import MockAssetLoadingWidgetExport from "../widgets/mock-widgets/mock-asset-loading-widget.testutils";
+import MockWidget from "../widgets/mock-widgets/mock-widget";
 
 import {mockedAssetItem} from "./test-items/mock-asset-loading-item";
 import {renderQuestion} from "./test-utils";
 
-import type {MockAssetLoadingWidgetHandle} from "../testing/mock-widgets/mock-asset-loading-widget";
+import type {MockAssetLoadingWidgetHandle} from "../widgets/mock-widgets/mock-asset-loading-widget.testutils";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {UserEvent} from "@testing-library/user-event";
 
