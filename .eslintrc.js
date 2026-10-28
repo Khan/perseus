@@ -237,8 +237,8 @@ module.exports = {
         ...noSelfPackageImports,
         {
             files: [
-                "*.cypress.tsx",
-                "*.cypress.ts",
+                "*.spec.ts",
+                "*.story.tsx",
                 "*.test.ts",
                 "*.test.tsx",
                 "*.testdata.ts",
@@ -258,18 +258,14 @@ module.exports = {
         },
         {
             files: [
-                "*.cypress.ts",
-                "*.cypress.tsx",
-                "config/cypress/support.ts",
-                "packages/perseus/src/testing/render-question-with-cypress.tsx",
+                "*.spec.ts",
+                "packages/perseus/src/testing/render-question-with-playwright.ts",
             ],
-            extends: ["plugin:cypress/recommended"],
+            extends: ["plugin:playwright/recommended"],
             rules: {
-                "cypress/assertion-before-screenshot": "error",
-                "cypress/no-async-before": "error",
-                "cypress/no-debug": "error",
-                "cypress/no-force": "error",
-                "cypress/no-pause": "error",
+                // Playwright's `page.getBy...` queries look like Testing
+                // Library's render-result queries, which triggers this rule.
+                "testing-library/prefer-screen-queries": "off",
             },
         },
         {
@@ -336,7 +332,7 @@ module.exports = {
             files: ["*.ts", "*.tsx", "*.mts"],
             parser: "@typescript-eslint/parser",
             parserOptions: {
-                project: ["tsconfig.json", "config/cypress/tsconfig.json"],
+                project: ["tsconfig.json"],
             },
             // Rules local to this repo (config/eslint-plugin). Registered
             // here because they need type information.

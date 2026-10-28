@@ -147,10 +147,6 @@ jobs:
                     if: steps.js-files.outputs.filtered != '[]'
                     run: pnpm typecheck
 
-                  - name: Typecheck Cypress
-                    if: steps.js-files.outputs.filtered != '[]'
-                    run: pnpm typecheck:cypress
-
                   - name: Typetest
                     if: steps.js-files.outputs.filtered != '[]'
                     run: pnpm tstyche
@@ -220,9 +216,6 @@ jobs:
                   - name: Typecheck
                     run: pnpm typecheck
 
-                  - name: Typecheck Cypress
-                    run: pnpm typecheck:cypress
-
                   - name: Typetest
                     run: pnpm tstyche
 
@@ -246,8 +239,8 @@ jobs:
               if: always()
               run: pnpm lint
 
-    cypress:
-        name: Cypress
+    playwright:
+        name: Playwright
         runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && 'ubuntu-latest' || 'ephemeral-runner' }}
         steps:
             - name: Checking out latest commit
@@ -257,53 +250,36 @@ jobs:
               uses: Khan/actions@secure-network-v1
               timeout-minutes: 5
               with:
-                  conf-files: .github/npm-extra-domains.conf
+                  conf-files: |
+                      .github/npm-extra-domains.conf
+                      .github/playwright-domains.conf
                   # ka-perseus-graphie.s3.amazonaws.com: some tests load images from here
                   extra-domains: ka-perseus-graphie.s3.amazonaws.com
-
-            # MUST be before we install node_modules as that depends on finding
-            # Cypress binaries in this cache!
-            - uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
-              with:
-                  path: ~/.cache/Cypress
-                  # Generate a new cache whenever the lock file changes
-                  key: ${{ runner.os }}-cypress-${{ hashFiles('**/pnpm-lock.yaml') }}
-                  # If source files changed, rebuild from a prior cache.
-                  restore-keys: |
-                      ${{ runner.os }}-cypress-
 
             - name: Install & cache node_modules
               uses: ./.github/actions/shared-node-cache
 
-            # We _should_ have a valid Cypress binary in place at this point,
-            # but we _could_ have had a cache miss on `~/.cache/Cypress` but a
-            # cache hit on `node_modules` leaving us in a state where the
-            # Cypress binary isn't available. This step ensures that the
-            # Cypress binary is in place
-            - name: Install Cypress
-              run: pnpm exec cypress install
-
-            - name: Detect available browsers
-              id: cypress_browser
-              shell: bash
-              run: |
-                  browser=electron
-
-                  if pnpm exec cypress info | grep -Eq '\bchrome\b'; then
-                      browser=chrome
-                  fi
-
-                  echo "browser=$browser" >> "$GITHUB_OUTPUT"
+            # There's no cache: the Chromium build downloads and unpacks in
+            # about ten seconds, which is on a par with restoring a cache of
+            # the same size. This does not pass --with-deps; the runner image
+            # already carries the shared libraries Chromium needs, and the
+            # tests fail fast if that ever stops being true.
+            - name: Install Playwright Chromium
+              run: pnpm exec playwright install chromium
 
             - name: Run tests
-              run: pnpm cypress:ci --browser ${{ steps.cypress_browser.outputs.browser }}
+              run: pnpm pw:ci
 
-            - name: Upload Screenshots
+            - name: Upload report
               uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
               if: failure()
               with:
-                  name: cypress-screenshots
-                  path: ./cypress/screenshots
+                  name: playwright-report
+                  # The HTML report, plus each failed test's trace and
+                  # screenshot.
+                  path: |
+                      genfiles/playwright/report
+                      genfiles/playwright/test-results
 
     check_builds:
         name: Check builds for changes in size

@@ -42,7 +42,6 @@ minimumReleaseAgeExclude:
 packages:
     - __docs__
     - config/build
-    - config/cypress
     - config/eslint-plugin
     - data
     - dev
@@ -61,7 +60,6 @@ overrides:
 allowBuilds:
     '@parcel/watcher': true
     '@swc/core': true
-    cypress: true
     esbuild: true
     # git-hosted dependencies must provide the full URL to the tarball
     mathquill@https://codeload.github.com/Khan/mathquill/tar.gz/c9e4329b0bc5d9b4c21d765b5768e4e7693515b3: true

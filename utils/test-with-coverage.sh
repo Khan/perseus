@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
 
-# Runs all tests (Jest and Cypress) with coverage enabled and merge all results
-# into a single unified coverage report.
+# Runs all Jest tests with coverage enabled and writes an HTML coverage report
+# to coverage/jest/lcov-report (see "coverageDirectory" in
+# config/test/test.config.js).
 #
-# Note that Jest and Cypress have different configurations and that we have to
-# override their default path for where they dump coverage info initially.
-#   * Jest: config/test/test.config.js (the "coverageDirectory" key)
-#   * Cypress: package.json (the "nyc" key)
+# Our Playwright component tests don't collect coverage.
 
 # https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin
 set -e # Exit immediately if a command exits with a non-zero status.
@@ -32,44 +30,20 @@ while [[ $# -gt 0 ]]; do
 done
 
 clean() {
-    rm -rf .nyc_output/
     rm -rf coverage/
-    rm -rf reports/
 }
 
 run_jest() {
-    env NODE_OPTIONS="--max_old_space_size=8192" pnpm jest --coverage
-}
-
-run_cypress() {
-    env CYPRESS_COVERAGE=true pnpm cypress:ci
-}
-
-merge_reports() {
-    rm -rf coverage/reports
-    mkdir coverage/reports
-    cp coverage/jest/coverage-final.json coverage/reports/from-jest.json
-    cp coverage/cypress/coverage-final.json coverage/reports/from-cypress.json
-
-    # nyc looks in `.nyc_output` for coverage info so we clear it out and copy
-    # our two coverage reports there
-    rm -rf .nyc_output
-    mkdir .nyc_output
-    pnpm nyc merge coverage/reports/ .nyc_output/out.json
-
-    pnpm nyc report \
-        --reporter lcov \
-        --reporter text-summary \
-        --report-dir coverage/final
+    env NODE_OPTIONS="--max_old_space_size=8192" pnpm jest --coverage \
+        --coverageReporters lcov \
+        --coverageReporters text-summary
 }
 
 pushd "$REPO_ROO" >/dev/null 2>&1
 
 clean
 run_jest
-run_cypress
-merge_reports
 
 if [[ $OPEN_REPORT == YES ]]; then
-    open coverage/final/lcov-report/index.html
+    open coverage/jest/lcov-report/index.html
 fi
