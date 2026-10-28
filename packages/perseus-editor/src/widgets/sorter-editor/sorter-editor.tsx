@@ -55,6 +55,7 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
         {
             correct = defaultOptions.correct,
             layout = defaultOptions.layout,
+            variant,
             padding = defaultOptions.padding,
             legend,
             onChange,
@@ -89,6 +90,7 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                 correct,
                 layout,
                 padding,
+                variant,
                 legend,
                 ...changes,
             });

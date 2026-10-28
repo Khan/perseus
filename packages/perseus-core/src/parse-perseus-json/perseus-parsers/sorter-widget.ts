@@ -18,6 +18,7 @@ export const parseSorterWidget = parseWidget(
         correct: array(string),
         padding: boolean,
         layout: enumeration("horizontal", "vertical"),
+        variant: optional(enumeration("scale", "timeline")),
         legend: optional(
             object({
                 startCap: parseLegendCap,
