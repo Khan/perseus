@@ -1940,6 +1940,8 @@ export type PerseusRadioChoice = {
     isNoneOfTheAbove?: boolean;
 };
 
+export type SorterVariant = "scale" | "timeline";
+
 export type SorterLegendCap = "arrow" | "bar" | "none";
 
 export type SorterLegend = {
@@ -1972,7 +1974,7 @@ export type PerseusSorterWidgetOptions = {
      * "scale" places cards along a spectrum between two categories,
      * "timeline" places them in time order.
      */
-    variant?: "scale" | "timeline";
+    variant?: SorterVariant;
     /**
      * The labeled line along the blanks that shows learners which order
      * to place the tiles in, with optional end caps.
