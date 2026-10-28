@@ -1,36 +1,6 @@
 # Widget Development Guide
 
-## Creating a New Widget
-
-1. **Create widget directory**: `packages/perseus/src/widgets/[widget-name]/`
-2. **Implement widget files**:
-   - `[widget-name].tsx` - Main component
-   - `[widget-name].test.ts` - Tests
-   - `index.ts` - Exports
-   - `__docs__/[widget-name].stories.tsx` - Storybook story
-   - `__docs__/[widget-name]-regression.stories.tsx` - Visual regression stories (add `"!autodocs"` and `"!manifest"` tags)
-   - `__docs__/a11y.mdx` - Accessibility documentation
-3. **Register widget** by adding it to `packages/perseus/src/extra-widgets.ts` (or `basic-widgets.ts` for the small set of core widgets)
-4. **If scorable, add scoring functions** in `packages/perseus-score/src/widgets/[widget-name]/`:
-   - `score-[widget-name].ts` - Scoring logic
-   - `score-[widget-name].test.ts` - Scoring tests
-   - `validate-[widget-name].ts` - Input validation (optional)
-   - `validate-[widget-name].test.ts` - Validation tests (optional)
-5. **Register scoring** in `packages/perseus-score/src/widgets/widget-registry.ts`
-6. **Add types** to `packages/perseus-core/src/data-schema.ts`
-7. **Create editor component** in `packages/perseus-editor/src/widgets/[widget-name]-editor/`.
-   Every editor lives in its own folder, however simple it is:
-   - `[widget-name]-editor.tsx` - Main editor component
-   - `[widget-name]-editor.test.tsx` - Tests
-   - `[widget-name]-editor.stories.tsx` - Storybook story. Note that editor
-     stories are colocated rather than in a `__docs__/` directory, unlike the
-     widget stories in step 2.
-   - `index.ts` - Exports (`export {default} from "./[widget-name]-editor";`)
-
-   Then register it in `packages/perseus-editor/src/all-editors.ts`, importing the
-   folder (`./widgets/[widget-name]-editor`) rather than the file.
-8. **If lintable, add a linter rule** in `packages/perseus-linter/src/rules/[widget-name]-widget-error.ts`
-   using `Rule.makeRule(...)` and register it in `packages/perseus-linter/src/rules/all-rules.ts`
+To create a new widget, read `new-widget.md` in this directory.
 
 ## Widget Implementation Pattern
 
@@ -67,7 +37,8 @@ export default {
 - Test different props combinations
 - Verify accessibility with Storybook a11y addon
 - Check mobile layouts with device frame addon
-- Create visual regression stories (`*-regression.stories.tsx`) with `"!autodocs"` and `"!manifest"` tags for Chromatic
+- Create visual regression stories (`*-initial-state-regression.stories.tsx`
+  and `*-interactions-regression.stories.tsx`) with `"!autodocs"` and `"!manifest"` tags for Chromatic
 
 ### Error Boundaries
 - Widgets are wrapped in error boundaries by their parent component (`WidgetContainer`)
