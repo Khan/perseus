@@ -13,7 +13,11 @@ function blankContextWrapper(value: React.ContextType<typeof BlankContext>) {
     }: {
         children: React.ReactNode;
     }) {
-        return React.createElement(BlankContext.Provider, {value}, children);
+        return (
+            <BlankContext.Provider value={value}>
+                {children}
+            </BlankContext.Provider>
+        );
     };
 }
 
