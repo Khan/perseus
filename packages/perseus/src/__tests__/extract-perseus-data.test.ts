@@ -20,7 +20,7 @@ import {
     shouldHaveIndividualAnswer,
 } from "../util/extract-perseus-data";
 import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing";
-import {generateTestCategorizerWidget} from "../util/test-utils";
+import {generateTestCategorizerWidget} from "../util/scoring.testutils";
 
 const stub: jest.MockedFunction<any> = jest.fn();
 

@@ -14,7 +14,7 @@ import * as React from "react";
 import * as Dependencies from "../../../dependencies";
 import {testDependencies} from "../../../testing/test-dependencies";
 import {wait} from "../../../testing/wait";
-import {scorePerseusItemTesting} from "../../../util/test-utils";
+import {scorePerseusItemTesting} from "../../../util/scoring.testutils";
 import {renderQuestion} from "../../__testutils__/render-question";
 import {basicQuestion} from "../sorter.testdata";
 

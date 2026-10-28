@@ -2,8 +2,8 @@ import {describe, it, expect} from "tstyche";
 
 import {array} from "./array";
 import {number} from "./number";
+import {ctx} from "./parser.testutils";
 import {string} from "./string";
-import {ctx} from "./test-helpers";
 
 import type {ParseResult} from "../parser-types";
 

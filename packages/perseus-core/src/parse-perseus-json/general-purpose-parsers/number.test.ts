@@ -1,7 +1,7 @@
 import {success} from "../result";
 
 import {number} from "./number";
-import {anyFailure, ctx, parseFailureWith} from "./test-helpers";
+import {anyFailure, ctx, parseFailureWith} from "./parser.testutils";
 
 describe("number", () => {
     it("accepts a real number", () => {

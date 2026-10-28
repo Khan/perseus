@@ -5,6 +5,9 @@ import type {KnipConfig} from "knip";
  * https://knip.dev/
  *
  * To use: `pnpm knip`
+ *
+ * For help troubleshooting issues found by knip, see:
+ * https://khanacademy.atlassian.net/wiki/spaces/LC/pages/5032640623/Fixing+Knip+errors+in+Perseus
  */
 
 // About `project` and `entry`: Knip will only look for dead code in `project`
@@ -13,25 +16,54 @@ import type {KnipConfig} from "knip";
 // See: https://knip.dev/guides/configuring-project-files#unused-files
 // Paths marked with `!` are production files.
 const basePackageConfig = {
-    project: ["src/**/*.{ts,tsx,js,jsx}!"],
+    project: [
+        "src/**/*.{ts,tsx,js,jsx}!",
+        "src/**/*.{cypress,mockData,stories,test,testdata,testutils,typetest}.{ts,tsx,js,jsx}",
+    ],
     entry: [
         "src/index.{ts,tsx}!",
-        "src/**/*.{cypress,test,typetest,stories}.{ts,tsx}",
+        "src/**/*.{cypress,stories,test,typetest}.{ts,tsx}",
     ],
 };
 
+// Base configuration for packages that contain non-production directories like
+// __docs__, __testdata__, etc. Knip warns if this configuration is used for
+// a package that has no such directories, which is why it's separate from the
+// basePackageConfig.
+const basePackageConfigWithTestHelpers = {
+    ...basePackageConfig,
+    project: [
+        ...basePackageConfig.project,
+        "src/**/{__docs__,__testdata__,__testutils__,testing}/**/*.{ts,tsx,js,jsx}",
+    ],
+};
+
+// Configuration for packages that should not be checked by knip. By default,
+// knip will analyze all packages listed in pnpm-workspace.yaml. Packages that
+// use this config generated errors when I turned on `knip --production`, and
+// are low-value to check.
+// FUTURE(benchristel): we might want to unignore these packages someday.
+const ignoredPackageConfig = {
+    project: [],
+    entry: [],
+};
+
 const config: KnipConfig = {
+    ignoreExportsUsedInFile: true,
     workspaces: {
         ".": {
-            project: ["{config,utils}/**/*.{ts,tsx,js,jsx,mdx}"],
+            project: [
+                "{config,utils}/**/*.{ts,tsx,js,jsx,mdx}",
+                "!config/build/**/*",
+            ],
             entry: [
                 // CLI tools
                 "utils/**/*.{ts,tsx,js,jsx}",
             ],
         },
+        __docs__: ignoredPackageConfig,
         "config/build": {
-            // Run by the `build` script in the root package.json.
-            entry: ["build-packages.ts"],
+            project: ["**/*.{ts,tsx,js,jsx}"],
         },
         "config/cypress": {
             // Cypress loads this file through its supportFile setting.
@@ -45,7 +77,20 @@ const config: KnipConfig = {
                 "!rules/__fixtures__/**",
             ],
         },
+        data: ignoredPackageConfig,
         "packages/*": basePackageConfig,
+        "packages/kas": {
+            ...basePackageConfig,
+            project: [
+                ...basePackageConfig.project,
+                // The parser generator is a dev tool. Exclude it from the
+                // production project.
+                "!src/parser-generator.ts!",
+            ],
+        },
+        "packages/math-input": basePackageConfigWithTestHelpers,
+        "packages/perseus": basePackageConfigWithTestHelpers,
+        "packages/perseus-editor": basePackageConfigWithTestHelpers,
         "packages/perseus-core": {
             ...basePackageConfig,
             entry: [

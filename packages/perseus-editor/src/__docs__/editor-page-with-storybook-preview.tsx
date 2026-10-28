@@ -16,7 +16,7 @@ import {action} from "storybook/actions";
 
 import ViewportResizer from "../components/viewport-resizer";
 import EditorPage from "../editor-page";
-import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
+import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors.testutils";
 
 import {usePreviewUrl} from "./use-preview-url";
 

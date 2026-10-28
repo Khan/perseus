@@ -3,7 +3,7 @@ import {success} from "../result";
 import {defaulted, defaultedNonEmptyString} from "./defaulted";
 import {nullable} from "./nullable";
 import {number} from "./number";
-import {ctx, parseFailureWith} from "./test-helpers";
+import {ctx, parseFailureWith} from "./parser.testutils";
 
 import type {Parser} from "../parser-types";
 

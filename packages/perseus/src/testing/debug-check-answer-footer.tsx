@@ -14,7 +14,7 @@ import checkCircle from "@phosphor-icons/core/regular/check-circle.svg";
 import * as React from "react";
 
 import {mapErrorToString, mockStrings} from "../strings";
-import {isCorrect} from "../util/scoring";
+import {isCorrect} from "../util/scoring.testutils";
 
 import type {PerseusScore, ShowSolutions} from "@khanacademy/perseus-core";
 

@@ -2,7 +2,7 @@ import {success} from "../result";
 
 import {array} from "./array";
 import {constant} from "./constant";
-import {anyFailure, ctx} from "./test-helpers";
+import {anyFailure, ctx} from "./parser.testutils";
 import {union} from "./union";
 
 describe("unionBuilder()", () => {

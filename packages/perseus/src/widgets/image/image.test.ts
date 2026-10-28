@@ -10,7 +10,7 @@ import invariant from "tiny-invariant";
 import * as Dependencies from "../../dependencies";
 import {mockImageLoading} from "../../testing/image-loader-utils";
 import {testDependencies} from "../../testing/test-dependencies";
-import {scorePerseusItemTesting} from "../../util/test-utils";
+import {scorePerseusItemTesting} from "../../util/scoring.testutils";
 import {renderQuestion} from "../__testutils__/render-question";
 
 import {

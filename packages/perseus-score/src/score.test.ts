@@ -10,7 +10,10 @@ import {
     scorePerseusItem,
     scoreWidgetsFunctional,
 } from "./score";
-import {getExpressionWidget, getTestDropdownWidget} from "./util/test-helpers";
+import {
+    getExpressionWidget,
+    getTestDropdownWidget,
+} from "./util/widgets.testutils";
 
 import type {
     PerseusRenderer,

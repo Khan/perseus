@@ -9,7 +9,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {renderQuestion} from "../__testutils__/render-question";
 
-import {generateTableRenderer} from "./test-util";
+import {generateTableRenderer} from "./table.testutils";
 
 import type {UserEvent} from "@testing-library/user-event";
 

@@ -10,7 +10,7 @@ import {action} from "storybook/actions";
 
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
 import {getFeatureFlags} from "../../testing/feature-flags-util";
-import {PROD_EDITOR_WIDTH} from "../storybook-constants";
+import {PROD_EDITOR_WIDTH} from "../storybook-constants.testutils";
 
 import FillInTheBlankEditor from "./fill-in-the-blank-editor";
 

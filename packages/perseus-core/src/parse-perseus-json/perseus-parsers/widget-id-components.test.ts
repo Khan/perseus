@@ -2,7 +2,7 @@ import {
     anyFailure,
     ctx,
     parseFailureWith,
-} from "../general-purpose-parsers/test-helpers";
+} from "../general-purpose-parsers/parser.testutils";
 import {success} from "../result";
 
 import {parseWidgetIdComponents} from "./widget-id-components";

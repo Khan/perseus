@@ -3,7 +3,7 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import CombinedHintsEditor from "../combined-hints-editor";
-import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
+import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors.testutils";
 
 import type {UserEvent} from "@testing-library/user-event";
 

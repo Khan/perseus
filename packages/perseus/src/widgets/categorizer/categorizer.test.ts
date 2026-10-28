@@ -9,7 +9,7 @@ import {
     getAnswerfulItem,
     getAnswerlessItem,
     scorePerseusItemTesting,
-} from "../../util/test-utils";
+} from "../../util/scoring.testutils";
 import {renderQuestion} from "../__testutils__/render-question";
 
 import CategorizerExport from "./categorizer";

@@ -4,7 +4,10 @@ import {act, screen, waitFor} from "@testing-library/react";
 
 import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
-import {getAnswerfulItem, getAnswerlessItem} from "../../util/test-utils";
+import {
+    getAnswerfulItem,
+    getAnswerlessItem,
+} from "../../util/scoring.testutils";
 import {renderQuestion} from "../__testutils__/render-question";
 
 import {dotPlotter} from "./plotter.testdata";

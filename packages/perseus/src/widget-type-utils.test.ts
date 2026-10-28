@@ -4,7 +4,7 @@ import {
     generateRadioWidget,
 } from "@khanacademy/perseus-core";
 
-import {generateTestCategorizerWidget} from "./util/test-utils";
+import {generateTestCategorizerWidget} from "./util/scoring.testutils";
 import {
     getWidgetTypeByWidgetId,
     contentHasWidgetType,

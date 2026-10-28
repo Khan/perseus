@@ -1,7 +1,7 @@
 import {describe, it, expect} from "tstyche";
 
 import {constant} from "./constant";
-import {ctx} from "./test-helpers";
+import {ctx} from "./parser.testutils";
 import {union} from "./union";
 
 import type {ParseResult} from "../parser-types";

@@ -4,7 +4,7 @@ import * as React from "react";
 
 import {DependenciesContext} from "../../dependencies";
 import {testDependenciesV2} from "../../testing/test-dependencies";
-import {scorePerseusItemTesting} from "../../util/test-utils";
+import {scorePerseusItemTesting} from "../../util/scoring.testutils";
 import {renderQuestion} from "../../widgets/__testutils__/render-question";
 import UnsupportedWidgetMessage from "../unsupported-widget-message";
 

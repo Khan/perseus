@@ -151,8 +151,10 @@ let labelDataCache: Record<
 > = {};
 
 /**
- * Reset the label data cache. This is primarily used for testing
- * to ensure a clean state between test cases.
+ * Reset the label data cache.
+ *
+ * @internal
+ * This is used for testing to ensure a clean state between test cases.
  */
 export function resetLabelDataCache(): void {
     labelDataCache = {};

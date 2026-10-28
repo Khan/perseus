@@ -27,13 +27,13 @@ import {
     testDependenciesV2,
 } from "../testing/test-dependencies";
 import {registerWidget} from "../widgets";
-import {MockWidget} from "../widgets/mock-widgets";
-import MockAssetLoadingWidgetExport from "../widgets/mock-widgets/mock-asset-loading-widget";
+import MockAssetLoadingWidgetExport from "../widgets/mock-widgets/mock-asset-loading-widget.testutils";
+import MockWidget from "../widgets/mock-widgets/mock-widget";
 
 import {mockedAssetItem} from "./test-items/mock-asset-loading-item";
 import {renderQuestion} from "./test-utils";
 
-import type {MockAssetLoadingWidgetHandle} from "../widgets/mock-widgets/mock-asset-loading-widget";
+import type {MockAssetLoadingWidgetHandle} from "../widgets/mock-widgets/mock-asset-loading-widget.testutils";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {UserEvent} from "@testing-library/user-event";
 

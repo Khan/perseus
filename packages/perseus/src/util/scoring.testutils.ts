@@ -6,12 +6,17 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 
 import type {
     CategorizerWidget,
-    PerseusRenderer,
-    PerseusWidgetTypes,
-    PerseusScore,
-    UserInputMap,
     PerseusItem,
+    PerseusRenderer,
+    PerseusScore,
+    PerseusWidgetTypes,
+    UserInputMap,
 } from "@khanacademy/perseus-core";
+
+// TODO: Move to `perseus-score`!
+export function isCorrect(score: PerseusScore): boolean {
+    return score.type === "points" && score.earned >= score.total;
+}
 
 /**
  * Thin wrapper around scorePerseusItem for internal testing. Returns the

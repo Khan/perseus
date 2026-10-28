@@ -1,7 +1,7 @@
 import * as Perseus from "../../../index";
 import renderQuestionWithCypress from "../../../testing/render-question-with-cypress";
 import {cypressTestDependencies} from "../../../testing/test-dependencies";
-import {scorePerseusItemTesting} from "../../../util/test-utils";
+import {scorePerseusItemTesting} from "../../../util/scoring.testutils";
 import {twoCardVerticalQuestion} from "../sorter.testdata";
 
 // NOTE: These tests use Cypress because

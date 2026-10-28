@@ -2,7 +2,7 @@ import {
     getExpressionWidget,
     getLegacyExpressionWidget,
     getTestDropdownWidget,
-} from "./util/test-helpers";
+} from "./util/widgets.testutils";
 import {emptyWidgetsFunctional, validateUserInput} from "./validate";
 
 import type {PerseusWidgetsMap, UserInputMap} from "@khanacademy/perseus-core";
