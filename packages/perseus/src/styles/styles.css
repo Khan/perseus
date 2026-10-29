@@ -8,6 +8,7 @@
     padding: 16px;
     white-space: pre;
     overflow: auto;
+    margin: var(--wb-sizing-size_240) calc(-1 * var(--wb-sizing-size_160));
 }
 .framework-perseus.perseus-article:not(.perseus-mobile) blockquote {
     padding: 0 var(--wb-sizing-size_320);
@@ -39,10 +40,6 @@
     padding-bottom: var(--wb-sizing-size_080);
     padding-right: var(--wb-sizing-size_200);
     padding-top: var(--wb-sizing-size_080);
-}
-.framework-perseus.perseus-article:not(.perseus-mobile) pre {
-    margin: 0 calc(-1 * var(--wb-sizing-size_160)) var(--wb-sizing-size_320)
-        calc(-1 * var(--wb-sizing-size_160));
 }
 .framework-perseus.perseus-mobile > .perseus-renderer {
     margin-bottom: var(--wb-sizing-size_320);
