@@ -82,11 +82,6 @@ const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
     },
 );
 
-/**
- * The widget's render: an answer zone (content with inline blanks) above
- * a choice bank of draggable tiles. It feeds the blank widgets through
- * BlankContext.
- */
 function FillInTheBlank({
     options,
     userInput,
