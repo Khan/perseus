@@ -7,6 +7,106 @@ import _ from "underscore";
 import Lint from "./components/lint";
 import {getDependencies} from "./dependencies";
 
+import type {Output, SingleASTNode, State} from "@khanacademy/simple-markdown";
+
+type TableCell = Array<SingleASTNode>;
+
+const isWhitespace = (node: SingleASTNode): boolean =>
+    node.type === "text" && node.content.trim() === "";
+
+const isEmptyCell = (cell: TableCell): boolean => cell.every(isWhitespace);
+
+// A cell is bold when its entire content is `**...**`. Partially bold cells
+// (e.g. `**3** cats`) don't count.
+const isBoldCell = (cell: TableCell): boolean => {
+    const content = cell.filter((node) => !isWhitespace(node));
+    return content.length === 1 && content[0].type === "strong";
+};
+
+/**
+ * Markdown has no syntax for row headers, so we infer them from two common
+ * authoring patterns where the first column is meant to label each row:
+ *
+ * 1. The first column header is empty.
+ * 2. Every body cell in the first column is bold.
+ *
+ * Tables with a single column are never treated as having row headers, as
+ * there would be no data cells for the headers to describe.
+ */
+const hasRowHeaders = (node: SingleASTNode): boolean => {
+    if (node.header.length < 2) {
+        return false;
+    }
+
+    if (isEmptyCell(node.header[0])) {
+        return true;
+    }
+
+    return (
+        node.cells.length > 0 &&
+        node.cells.every(
+            (row: TableCell[]) => row[0] != null && isBoldCell(row[0]),
+        )
+    );
+};
+
+/**
+ * Renders a markdown table. Tables without row headers use simple-markdown's
+ * default rendering. Tables with row headers (see `hasRowHeaders`) render
+ * each first-column body cell as a `<th scope="row">`, following the W3C
+ * "tables with two headers" pattern:
+ * https://www.w3.org/WAI/tutorials/tables/two-headers/
+ */
+const renderTable = (
+    node: SingleASTNode,
+    output: Output<React.ReactElement>,
+    state: State,
+): React.ReactElement => {
+    if (!hasRowHeaders(node)) {
+        return SimpleMarkdown.defaultRules.table.react(node, output, state);
+    }
+
+    const getStyle = (colIndex: number): React.CSSProperties =>
+        node.align[colIndex] == null ? {} : {textAlign: node.align[colIndex]};
+
+    const headers = node.header.map((content: TableCell, i: number) =>
+        // An empty top-left cell labels nothing, so per the W3C pattern it's
+        // a plain `<td>` rather than a header.
+        i === 0 && isEmptyCell(content) ? (
+            <td key={i} style={getStyle(i)} />
+        ) : (
+            <th key={i} style={getStyle(i)} scope="col">
+                {output(content, state)}
+            </th>
+        ),
+    );
+
+    const rows = node.cells.map((row: TableCell[], r: number) => (
+        <tr key={r}>
+            {row.map((content: TableCell, c: number) =>
+                c === 0 ? (
+                    <th key={c} style={getStyle(c)} scope="row">
+                        {output(content, state)}
+                    </th>
+                ) : (
+                    <td key={c} style={getStyle(c)}>
+                        {output(content, state)}
+                    </td>
+                ),
+            )}
+        </tr>
+    ));
+
+    return (
+        <table key={state.key}>
+            <thead key="thead">
+                <tr>{headers}</tr>
+            </thead>
+            <tbody key="tbody">{rows}</tbody>
+        </table>
+    );
+};
+
 /**
  * These rules are the same as the pure-markdown rules, but with some
  * customizations to how they're rendered (note the `react` functions).
@@ -57,11 +157,7 @@ const rules = {
     table: {
         ...pureMarkdownRules.table,
         react: function (node, output, state) {
-            const table = SimpleMarkdown.defaultRules.table.react(
-                node,
-                output,
-                state,
-            );
+            const table = renderTable(node, output, state);
 
             if (!state.isMobile) {
                 return table;
@@ -117,11 +213,7 @@ const rules = {
                     contents = rules.lint.react(node.table, output, state);
                 }
             } else {
-                const tableOutput = SimpleMarkdown.defaultRules.table.react(
-                    node.table,
-                    output,
-                    state,
-                );
+                const tableOutput = renderTable(node.table, output, state);
 
                 const caption = (
                     <caption key="caption" className="perseus-table-title">

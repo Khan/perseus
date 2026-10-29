@@ -260,6 +260,23 @@ export const titledTableContent = `# Article with a Markdown table
 | cabbages | 0        | $\\dfrac{1}{2}$ |
 `;
 
+export const rowHeaderTableContent = `# Article with Markdown tables with row headers
+
+An empty first column header makes the first column row headers:
+
+|          | column A | column B |
+| -------- | -------- | -------- |
+| turtles  | 42       | $\\text{\\red{red}}$ |
+| bats     | 96       | $\\text{\\blue{blue}}$ |
+
+A bold first column also makes the first column row headers:
+
+| creature     | column A | column B |
+| ------------ | -------- | -------- |
+| **turtles**  | 42       | $\\text{\\red{red}}$ |
+| **bats**     | 96       | $\\text{\\blue{blue}}$ |
+`;
+
 export const codeContent = `# Article with code
 
 Here's an example of how to write a \`greet\` function in Python to implement the famous "Hello, world" program:
