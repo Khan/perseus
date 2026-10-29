@@ -9,7 +9,6 @@ import Rule from "../rule";
  * content authors of this policy change. This rule ignores
  * markdown images found within other widgets for now.
  */
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "image-markdown",
     severity: Rule.Severity.WARNING,
@@ -36,4 +35,4 @@ Markdown images are not recommended - these are images that use the
 ![alt](url) format. Please use the Image widget instead.`;
         }
     },
-}) as Rule;
+});

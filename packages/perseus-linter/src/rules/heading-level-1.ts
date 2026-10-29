@@ -1,6 +1,5 @@
 import Rule from "../rule";
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "heading-level-1",
     severity: Rule.Severity.WARNING,
@@ -12,4 +11,4 @@ export default Rule.makeRule({
 Begin headings with two or more # characters.`;
         }
     },
-}) as Rule;
+});

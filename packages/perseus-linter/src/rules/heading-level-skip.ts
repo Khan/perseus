@@ -1,6 +1,5 @@
 import Rule from "../rule";
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "heading-level-skip",
     severity: Rule.Severity.WARNING,
@@ -17,4 +16,4 @@ this heading is level ${currentHeading.level} but
 the previous heading was level ${previousHeading.level}`;
         }
     },
-}) as Rule;
+});

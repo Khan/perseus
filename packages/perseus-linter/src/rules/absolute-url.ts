@@ -2,7 +2,6 @@ import Rule from "../rule";
 
 import {getHostname} from "./lint-utils";
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "absolute-url",
     severity: Rule.Severity.GUIDELINE,
@@ -22,4 +21,4 @@ https://www.khanacademy.org URL prefix.
 Use a relative URL beginning with / instead.`;
         }
     },
-}) as Rule;
+});

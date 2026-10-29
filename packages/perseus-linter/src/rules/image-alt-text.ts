@@ -1,6 +1,5 @@
 import Rule from "../rule";
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "image-alt-text",
     severity: Rule.Severity.WARNING,
@@ -18,4 +17,4 @@ for accessibility, all images should have descriptive alt text.
 This image's alt text is only ${image.alt.length} characters long.`;
         }
     },
-}) as Rule;
+});

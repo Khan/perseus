@@ -1,6 +1,5 @@
 import Rule from "../rule";
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "python-program-widget-error",
     severity: Rule.Severity.ERROR,
@@ -36,4 +35,4 @@ export default Rule.makeRule({
 
         return errors;
     },
-}) as Rule;
+});

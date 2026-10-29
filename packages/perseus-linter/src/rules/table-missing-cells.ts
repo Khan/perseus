@@ -1,6 +1,5 @@
 import Rule from "../rule";
 
-// eslint-disable-next-line no-restricted-syntax
 export default Rule.makeRule({
     name: "table-missing-cells",
     severity: Rule.Severity.WARNING,
@@ -17,4 +16,4 @@ Row ${r + 1} has ${rowLengths[r]} cells.`;
             }
         }
     },
-}) as Rule;
+});
