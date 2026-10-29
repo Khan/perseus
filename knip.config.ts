@@ -60,6 +60,11 @@ const config: KnipConfig = {
                 // CLI tools
                 "utils/**/*.{ts,tsx,js,jsx}",
             ],
+            ignoreDependencies: [
+                // Storybook imports its CSS (.storybook/styles/shared.css),
+                // and knip doesn't follow CSS imports.
+                "@khanacademy/wonder-blocks-tokens",
+            ],
         },
         __docs__: ignoredPackageConfig,
         "config/build": {
