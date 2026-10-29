@@ -8,22 +8,33 @@ import type {Locator, PlaywrightTestArgs} from "@playwright/test";
 // See config/playwright/gallery/main.tsx for how story ids are formed.
 const QUESTION_STORY = "perseus/testing/playwright/question/Question";
 
+/** A question mounted by `renderQuestion()`. */
+export type RenderedQuestion = {
+    /** The mounted story. */
+    component: Locator;
+    /**
+     * The hidden field the story records the question's user input in, as
+     * JSON. Its value changes whenever the question reports new user input,
+     * so a test can wait for an interaction to land with
+     * `expect(userInputField).not.toHaveValue(previousValue)`.
+     */
+    userInputField: Locator;
+    /** Read the question's current user input. */
+    getUserInputMap: () => Promise<UserInputMap>;
+};
+
 /**
  * Renders the given question in a Playwright component test. Waits until all
  * assets have been "rendered/loaded" before it returns.
  *
- * Returns the mounted component, and a function that reads the question's
- * current user input back out of the browser.
+ * Returns a handle on the rendered question (see RenderedQuestion).
  */
 const renderQuestion = async (
     mount: PlaywrightTestArgs["mount"],
     question: PerseusRenderer,
     apiOptions: APIOptions = Object.freeze({}),
     reviewMode = false,
-): Promise<{
-    component: Locator;
-    getUserInputMap: () => Promise<UserInputMap>;
-}> => {
+): Promise<RenderedQuestion> => {
     const component = await mount<typeof Question>(QUESTION_STORY, {
         question,
         apiOptions,
@@ -41,10 +52,12 @@ const renderQuestion = async (
         "true",
     );
 
+    const userInputField = component.getByTestId("user-input");
     return {
         component,
+        userInputField,
         getUserInputMap: async () =>
-            JSON.parse(await component.getByTestId("user-input").inputValue()),
+            JSON.parse(await userInputField.inputValue()),
     };
 };
 

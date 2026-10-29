@@ -17,8 +17,9 @@ import {
     multipleAvailableTypesQuestion,
 } from "./grapher.testdata";
 
+import type {RenderedQuestion} from "../../testing/playwright/render-question";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
-import type {Locator, Page} from "@playwright/test";
+import type {Locator} from "@playwright/test";
 
 // NOTE(jeremy): Careful. This selector _excludes_ other `.graphie` elements
 // (which might be rendered by the SvgImage component if the image is itself a
@@ -41,15 +42,17 @@ type Coords = {x: number; y: number};
 // from the top-left corner of the graph, by replaying the mouse events
 // Graphie listens for.
 async function dragPointTo(
-    page: Page,
+    {component, userInputField}: RenderedQuestion,
     index: number,
     offset: Coords,
 ): Promise<void> {
-    const graphBox = await page.locator(GRAPHIE).boundingBox();
-    const pointBox = await page.locator(POINTS).nth(index).boundingBox();
+    const page = component.page();
+    const graphBox = await component.locator(GRAPHIE).boundingBox();
+    const pointBox = await component.locator(POINTS).nth(index).boundingBox();
     if (!graphBox || !pointBox) {
         throw new Error(`Graph or point ${index} is not visible`);
     }
+    const userInput = await userInputField.inputValue();
 
     await page.mouse.move(
         pointBox.x + pointBox.width / 2,
@@ -58,6 +61,10 @@ async function dragPointTo(
     await page.mouse.down();
     await page.mouse.move(graphBox.x + offset.x, graphBox.y + offset.y);
     await page.mouse.up();
+
+    // Graphie reports the drag through handleUserInput, which reaches the
+    // user input a render later.
+    await expect(userInputField).not.toHaveValue(userInput);
 }
 
 // --- Interactive Graph (Mafs) keyboard helpers --------------------------
@@ -104,6 +111,7 @@ const MAX_PRESSES = 80;
 // points on the same x.
 async function pressArrowsUntil(
     handle: Locator,
+    userInputField: Locator,
     chooseKey: (ariaLabel: string) => string | null,
     describeTarget: string,
 ): Promise<void> {
@@ -113,10 +121,15 @@ async function pressArrowsUntil(
         if (key == null) {
             return;
         }
+        const userInput = await userInputField.inputValue();
         await handle.focus();
         await handle.page().keyboard.press(key);
-        // The label updates once the graph re-renders with the moved handle.
+        // Each press moves the handle, so wait for both of the updates it
+        // causes. The graph re-renders the handle (and its label) with the
+        // new position first, and only then, in an effect, reports the move
+        // through handleUserInput, which updates the user input.
         await expect(handle).not.toHaveAttribute("aria-label", label);
+        await expect(userInputField).not.toHaveValue(userInput);
     }
     throw new Error(`${describeTarget} never reached its target`);
 }
@@ -124,12 +137,13 @@ async function pressArrowsUntil(
 // Moves the point handle at `index` (DOM order) to `target`, adjusting y
 // first, then x.
 async function movePointTo(
-    page: Page,
+    {component, userInputField}: RenderedQuestion,
     index: number,
     target: Coords,
 ): Promise<void> {
     await pressArrowsUntil(
-        page.locator(POINT_HANDLE).nth(index),
+        component.locator(POINT_HANDLE).nth(index),
+        userInputField,
         (label) => {
             const {x, y} = parsePointCoords(label);
             if (y !== target.y) {
@@ -147,12 +161,13 @@ async function movePointTo(
 // Moves the asymptote handle to `target`. A horizontal asymptote (exponential)
 // moves vertically; a vertical asymptote (logarithm) moves horizontally.
 async function moveAsymptoteTo(
-    page: Page,
+    {component, userInputField}: RenderedQuestion,
     target: number,
     orientation: "horizontal" | "vertical",
 ): Promise<void> {
     await pressArrowsUntil(
-        page.locator(ASYMPTOTE_HANDLE),
+        component.locator(ASYMPTOTE_HANDLE),
+        userInputField,
         (label) => {
             const current = parseAsymptoteValue(label);
             if (current === target) {
@@ -169,123 +184,134 @@ async function moveAsymptoteTo(
 
 // Picks one of the graph types offered by a grapher with more than one
 // available type.
-async function pickGraphType(page: Page, type: string): Promise<void> {
-    await page.locator(`button[title="${type}"]`).click();
+async function pickGraphType(
+    {component, userInputField}: RenderedQuestion,
+    type: string,
+): Promise<void> {
+    const userInput = await userInputField.inputValue();
+    await component.locator(`button[title="${type}"]`).click();
+    // Picking a type changes the user input too. Wait for that, so that it
+    // can't be mistaken for the update from the next interaction.
+    await expect(userInputField).not.toHaveValue(userInput);
 }
 
 type GraphCase = {
     name: string;
     question: PerseusRenderer;
     // Moves the graph's controls to a correct answer...
-    answerCorrectly: (page: Page) => Promise<void>;
+    answerCorrectly: (question: RenderedQuestion) => Promise<void>;
     // ...and to a valid but incorrect one.
-    answerIncorrectly: (page: Page) => Promise<void>;
+    answerIncorrectly: (question: RenderedQuestion) => Promise<void>;
 };
 
 const graphCases: ReadonlyArray<GraphCase> = [
     {
         name: "absolute value graph",
         question: absoluteValueQuestion,
-        answerCorrectly: async (page) => {
+        answerCorrectly: async (question) => {
             // correct: vertex (8, 1), point on arm (7, 3)
-            await movePointTo(page, 0, {x: 8, y: 1});
-            await movePointTo(page, 1, {x: 7, y: 3});
+            await movePointTo(question, 0, {x: 8, y: 1});
+            await movePointTo(question, 1, {x: 7, y: 3});
         },
-        answerIncorrectly: async (page) => {
+        answerIncorrectly: async (question) => {
             // A valid absolute value, but not the correct answer.
-            await movePointTo(page, 0, {x: 0, y: 2});
-            await movePointTo(page, 1, {x: 1, y: 4});
+            await movePointTo(question, 0, {x: 0, y: 2});
+            await movePointTo(question, 1, {x: 1, y: 4});
         },
     },
     {
         name: "exponential graph",
         question: exponentialQuestion,
-        answerCorrectly: async (page) => {
+        answerCorrectly: async (question) => {
             // correct: asymptote y = 5, point 1 (0, 3), point 2 (1, -1)
-            await moveAsymptoteTo(page, 5, "horizontal");
-            await movePointTo(page, 0, {x: 0, y: 3});
-            await movePointTo(page, 1, {x: 1, y: -1});
+            await moveAsymptoteTo(question, 5, "horizontal");
+            await movePointTo(question, 0, {x: 0, y: 3});
+            await movePointTo(question, 1, {x: 1, y: -1});
         },
-        answerIncorrectly: async (page) => {
+        answerIncorrectly: async (question) => {
             // A valid exponential, but with the wrong asymptote (y = 4).
-            await moveAsymptoteTo(page, 4, "horizontal");
-            await movePointTo(page, 0, {x: 0, y: 3});
-            await movePointTo(page, 1, {x: 1, y: -1});
+            await moveAsymptoteTo(question, 4, "horizontal");
+            await movePointTo(question, 0, {x: 0, y: 3});
+            await movePointTo(question, 1, {x: 1, y: -1});
         },
     },
     {
         name: "linear graph",
         question: linearQuestion,
-        answerCorrectly: async (page) => {
+        answerCorrectly: async (question) => {
             // correct: (0, 5) and (3, 0)
-            await movePointTo(page, 0, {x: 0, y: 5});
-            await movePointTo(page, 1, {x: 3, y: 0});
+            await movePointTo(question, 0, {x: 0, y: 5});
+            await movePointTo(question, 1, {x: 3, y: 0});
         },
-        answerIncorrectly: async (page) => {
+        answerIncorrectly: async (question) => {
             // A valid line, but not the correct answer.
-            await movePointTo(page, 0, {x: 0, y: 4});
-            await movePointTo(page, 1, {x: 3, y: 1});
+            await movePointTo(question, 0, {x: 0, y: 4});
+            await movePointTo(question, 1, {x: 3, y: 1});
         },
     },
     {
         name: "logarithm graph",
         question: logarithmQuestion,
-        answerCorrectly: async (page) => {
+        answerCorrectly: async (question) => {
             // correct: vertical asymptote x = -6, point 1 (-4, -3),
             // point 2 (-5, -7)
-            await moveAsymptoteTo(page, -6, "vertical");
-            await movePointTo(page, 0, {x: -4, y: -3});
-            await movePointTo(page, 1, {x: -5, y: -7});
+            await moveAsymptoteTo(question, -6, "vertical");
+            await movePointTo(question, 0, {x: -4, y: -3});
+            await movePointTo(question, 1, {x: -5, y: -7});
         },
-        answerIncorrectly: async (page) => {
+        answerIncorrectly: async (question) => {
             // A valid logarithm, but with the wrong asymptote (x = -5).
-            await moveAsymptoteTo(page, -5, "vertical");
-            await movePointTo(page, 0, {x: -4, y: -3});
-            await movePointTo(page, 1, {x: -5, y: -7});
+            await moveAsymptoteTo(question, -5, "vertical");
+            await movePointTo(question, 0, {x: -4, y: -3});
+            await movePointTo(question, 1, {x: -5, y: -7});
         },
     },
     {
         name: "quadratic graph",
         question: quadraticQuestion,
-        answerCorrectly: async (page) => {
+        answerCorrectly: async (question) => {
             // Move point A
-            await dragPointTo(page, 0, {x: 260, y: 360});
+            await dragPointTo(question, 0, {x: 260, y: 360});
             // Move point B
-            await dragPointTo(page, 1, {x: 220, y: 200});
+            await dragPointTo(question, 1, {x: 220, y: 200});
         },
-        answerIncorrectly: async (page) => {
+        answerIncorrectly: async (question) => {
             // Move point A
-            await dragPointTo(page, 0, {x: 50, y: 50});
+            await dragPointTo(question, 0, {x: 50, y: 50});
             // Move point B
-            await dragPointTo(page, 1, {x: 200, y: 300});
+            await dragPointTo(question, 1, {x: 200, y: 300});
         },
     },
     {
         name: "sinusoid graph",
         question: sinusoidQuestion,
-        answerCorrectly: async (page) => {
+        answerCorrectly: async (question) => {
             // correct: midline intersection (1, 3), extremum (0, -1)
-            await movePointTo(page, 0, {x: 1, y: 3});
-            await movePointTo(page, 1, {x: 0, y: -1});
+            await movePointTo(question, 0, {x: 1, y: 3});
+            await movePointTo(question, 1, {x: 0, y: -1});
         },
-        answerIncorrectly: async (page) => {
+        answerIncorrectly: async (question) => {
             // A valid sinusoid, but not the correct answer.
-            await movePointTo(page, 0, {x: 2, y: 3});
-            await movePointTo(page, 1, {x: 1, y: -1});
+            await movePointTo(question, 0, {x: 2, y: 3});
+            await movePointTo(question, 1, {x: 1, y: -1});
         },
     },
     {
         name: "complex graph question",
         question: multipleAvailableTypesQuestion,
-        answerCorrectly: async (page) => {
-            await pickGraphType(page, "Absolute_value");
-            await dragPointTo(page, 0, {x: 220, y: 260});
-            await dragPointTo(page, 1, {x: 200, y: 200});
+        // The graph is 20px per unit, with the origin at (200, 200).
+        answerCorrectly: async (question) => {
+            await pickGraphType(question, "Absolute_value");
+            // correct: vertex (1, -3), point on arm (0, 0)
+            await dragPointTo(question, 0, {x: 220, y: 260});
+            await dragPointTo(question, 1, {x: 200, y: 200});
         },
-        answerIncorrectly: async (page) => {
-            await pickGraphType(page, "Absolute_value");
-            await dragPointTo(page, 0, {x: 200, y: 200});
-            await dragPointTo(page, 1, {x: 100, y: 100});
+        answerIncorrectly: async (question) => {
+            await pickGraphType(question, "Absolute_value");
+            // A valid absolute value, but not the correct answer: vertex
+            // (2, 2), point on arm (-5, 5).
+            await dragPointTo(question, 0, {x: 240, y: 160});
+            await dragPointTo(question, 1, {x: 100, y: 100});
         },
     },
 ];
@@ -311,57 +337,42 @@ test.describe("Grapher widget", () => {
 
             for (const {name, item} of data) {
                 test.describe(name, () => {
-                    test("should be correctly answerable", async ({
-                        mount,
-                        page,
-                    }) => {
+                    test("should be correctly answerable", async ({mount}) => {
                         // Arrange
-                        const {getUserInputMap} = await renderQuestion(
+                        const question = await renderQuestion(
                             mount,
                             item.question,
                         );
 
                         // Act
-                        await graphCase.answerCorrectly(page);
+                        await graphCase.answerCorrectly(question);
 
                         // Assert
-                        // `toPass` retries while the last move reaches the
-                        // user input: the Mafs graph updates its handles'
-                        // aria-labels (which the keyboard helpers wait on) a
-                        // render before it reports the move through
-                        // handleUserInput.
-                        await expect(async () => {
-                            const score = scorePerseusItemTesting(
-                                answerful.question,
-                                await getUserInputMap(),
-                            );
-                            expect(score).toHaveBeenAnsweredCorrectly();
-                        }).toPass();
+                        const score = scorePerseusItemTesting(
+                            answerful.question,
+                            await question.getUserInputMap(),
+                        );
+                        expect(score).toHaveBeenAnsweredCorrectly();
                     });
 
                     test("should be incorrectly answerable", async ({
                         mount,
-                        page,
                     }) => {
                         // Arrange
-                        const {getUserInputMap} = await renderQuestion(
+                        const question = await renderQuestion(
                             mount,
                             item.question,
                         );
 
                         // Act
-                        await graphCase.answerIncorrectly(page);
+                        await graphCase.answerIncorrectly(question);
 
                         // Assert
-                        // See "should be correctly answerable" for why this
-                        // retries.
-                        await expect(async () => {
-                            const score = scorePerseusItemTesting(
-                                answerful.question,
-                                await getUserInputMap(),
-                            );
-                            expect(score).toHaveBeenAnsweredIncorrectly();
-                        }).toPass();
+                        const score = scorePerseusItemTesting(
+                            answerful.question,
+                            await question.getUserInputMap(),
+                        );
+                        expect(score).toHaveBeenAnsweredIncorrectly();
                     });
                 });
             }
