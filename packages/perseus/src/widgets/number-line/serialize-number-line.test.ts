@@ -5,8 +5,6 @@ import {
 import {act} from "@testing-library/react";
 
 import {renderItem} from "../../__tests__/test-utils";
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
@@ -58,12 +56,6 @@ describe("NumberLine serialization", () => {
 
     beforeAll(() => {
         registerAllWidgetsForTesting();
-    });
-
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
     });
 
     afterEach(() => {

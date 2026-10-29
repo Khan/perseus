@@ -8,8 +8,6 @@ import {
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
 import {renderQuestion} from "../../widgets/__testutils__/render-question";
 
 import type {UserEvent} from "@testing-library/user-event";
@@ -32,10 +30,6 @@ describe("numeric input widget", () => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
     });
 
     it("should get prompt json which matches the state of the UI", async () => {

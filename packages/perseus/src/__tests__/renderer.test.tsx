@@ -65,10 +65,6 @@ describe("renderer", () => {
             advanceTimers: jest.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax
         global.fetch = jest.fn(() =>

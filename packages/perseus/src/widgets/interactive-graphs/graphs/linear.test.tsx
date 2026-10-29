@@ -205,12 +205,6 @@ describe("Linear graph screen reader", () => {
 });
 
 describe("Linear graph pointLabels", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
     it("uses custom pointLabels in each endpoint's accessible name", () => {
         // Arrange, Act
         renderQuestion(

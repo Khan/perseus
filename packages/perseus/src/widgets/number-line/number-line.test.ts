@@ -1,9 +1,7 @@
 import {screen, act} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import * as Dependencies from "../../dependencies";
 import {Log} from "../../logging/log";
-import {testDependencies} from "../../testing/test-dependencies";
 import {
     getAnswerfulItem,
     getAnswerlessItem,
@@ -18,12 +16,6 @@ import type {PerseusNumberLineWidgetOptions} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("number-line widget", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
     describe("snapshots", () => {
         let apiOptions: APIOptions;
         const createNumberLineQuestionWithOptions = (widgetOptions) => {

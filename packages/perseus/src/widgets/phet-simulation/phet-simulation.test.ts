@@ -2,8 +2,6 @@ import {makeSafeUrl} from "@khanacademy/perseus-core";
 import {screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
 import {renderQuestion} from "../__testutils__/render-question";
 
 import {nonPhetUrl, question1} from "./phet-simulation.testdata";
@@ -21,9 +19,6 @@ describe("phet-simulation widget", () => {
             advanceTimers: jest.advanceTimersByTime,
         });
 
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
         // eslint-disable-next-line no-restricted-syntax
         global.fetch = jest.fn(() =>
             Promise.resolve({

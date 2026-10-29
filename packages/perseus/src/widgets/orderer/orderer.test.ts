@@ -1,8 +1,6 @@
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
 import {
     getAnswerfulItem,
     getAnswerlessItem,
@@ -31,12 +29,6 @@ const ordererOptions: PerseusOrdererWidgetOptions = {
 };
 
 describe("orderer widget", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
     it("should snapshot", () => {
         // Arrange
         const apiOptions: APIOptions = {
