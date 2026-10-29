@@ -43,7 +43,11 @@ import PhetSimulationWidgetError from "./phet-simulation-widget-error";
 import PythonProgramWidgetError from "./python-program-widget-error";
 import RadioWidgetError from "./radio-widget-error";
 import SorterWidgetError from "./sorter-widget-error";
-import SorterWidgetWarning from "./sorter-widget-warning";
+import SorterWidgetWarning, {
+    SorterLegendLabels,
+    SorterLegendMissing,
+    SorterLegendDescription,
+} from "./sorter-widget-warning";
 import StaticWidgetInQuestionStem from "./static-widget-in-question-stem";
 import TableMissingCaption from "./table-missing-caption";
 import TableMissingCells from "./table-missing-cells";
@@ -96,6 +100,9 @@ export const allRules = [
     InteractiveGraphLockedFigureOob,
     SorterWidgetError,
     SorterWidgetWarning,
+    SorterLegendMissing,
+    SorterLegendDescription,
+    SorterLegendLabels,
     ExplanationInGradedGroup,
     ExplanationInGradedGroupSet,
 ];

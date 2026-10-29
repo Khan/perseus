@@ -1,18 +1,24 @@
-import {Dependencies} from "@khanacademy/perseus";
+import {ApiOptions, Dependencies} from "@khanacademy/perseus";
 import {
     generateSorterOptions,
     sorterLogic,
     SORTER_MAX_HORIZONTAL_CARDS,
+    SORTER_MAX_LEGEND_LABEL_LENGTH,
 } from "@khanacademy/perseus-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {testDependencies} from "../../testing/test-dependencies";
 
 import SorterEditor from "./sorter-editor";
 
-import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
+import type {APIOptions} from "@khanacademy/perseus";
+import type {
+    PerseusSorterWidgetOptions,
+    SorterLegend,
+} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 /**
@@ -29,7 +35,7 @@ type SorterEditorHandle = React.ElementRef<typeof SorterEditor>;
  * re-rendering, need this rather than a bare `render`.
  */
 function renderControlled(
-    options: PerseusSorterWidgetOptions,
+    options: PerseusSorterWidgetOptions & {apiOptions?: APIOptions},
     onChange?: (newOptions: Partial<PerseusSorterWidgetOptions>) => void,
     ref?: React.Ref<SorterEditorHandle>,
 ) {
@@ -50,6 +56,20 @@ function renderControlled(
 
     return render(<Controlled />);
 }
+
+const legendFlagOn = {
+    ...ApiOptions.defaults,
+    flags: getFeatureFlags({"dnd-widget-sorter": true}),
+};
+
+const completeLegend: SorterLegend = {
+    startCap: "arrow",
+    endCap: "bar",
+    startLabel: "Lowest",
+    endLabel: "Highest",
+    ariaLabel: "Interest rates, lowest at the start to highest at the end",
+    position: "above",
+};
 
 describe("sorter-editor", () => {
     let userEvent: UserEvent;
@@ -483,6 +503,31 @@ describe("sorter-editor", () => {
         expect(screen.getByDisplayValue("Emu")).toHaveAccessibleName("Card 2");
     });
 
+    it("keeps the legend when another option is edited", async () => {
+        // Arrange
+        const onChange = jest.fn();
+        const legend: PerseusSorterWidgetOptions["legend"] = {
+            startCap: "arrow",
+            endCap: "bar",
+            startLabel: "Lowest",
+            endLabel: "Highest",
+            ariaLabel: "Interest rates from lowest to highest",
+            position: "above",
+        };
+        renderControlled(
+            generateSorterOptions({correct: ["Cat", "Dog"], legend}),
+            onChange,
+        );
+
+        // Act
+        await userEvent.type(screen.getByDisplayValue("Dog"), "s");
+
+        // Assert
+        expect(onChange).toHaveBeenLastCalledWith(
+            expect.objectContaining({legend}),
+        );
+    });
+
     // The editor page reads the default options off the component itself to
     // seed a newly inserted sorter, so they're part of its public surface, not
     // implementation detail.
@@ -590,6 +635,353 @@ describe("sorter-editor", () => {
             expect(editorRef.current?.getSaveWarnings()).toEqual([
                 "Sorter cards cannot be blank.",
             ]);
+        });
+    });
+
+    describe("variant", () => {
+        it("hides the variant when the dnd-widget-sorter flag is off", () => {
+            // Arrange, Act
+            render(<SorterEditor onChange={() => {}} />);
+
+            // Assert
+            expect(
+                screen.queryByRole("combobox", {name: "Variant"}),
+            ).not.toBeInTheDocument();
+        });
+
+        it("shows the variant when the dnd-widget-sorter flag is on", () => {
+            // Arrange, Act
+            render(
+                <SorterEditor apiOptions={legendFlagOn} onChange={() => {}} />,
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("combobox", {name: "Variant"}),
+            ).toBeInTheDocument();
+        });
+    });
+
+    describe("legend", () => {
+        it("hides the legend fields when the dnd-widget-sorter flag is off", () => {
+            // Arrange, Act
+            render(<SorterEditor onChange={() => {}} />);
+
+            // Assert
+            expect(
+                screen.queryByRole("group", {name: "Legend"}),
+            ).not.toBeInTheDocument();
+        });
+
+        it("shows the legend fields when the dnd-widget-sorter flag is on", () => {
+            // Arrange, Act
+            render(
+                <SorterEditor apiOptions={legendFlagOn} onChange={() => {}} />,
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("group", {name: "Legend"}),
+            ).toBeInTheDocument();
+        });
+
+        it("creates the full legend with arrow caps on the first legend edit of a scale", async () => {
+            // Arrange
+            const onChange = jest.fn();
+            renderControlled(
+                {...generateSorterOptions(), apiOptions: legendFlagOn},
+                onChange,
+            );
+
+            // Act
+            await userEvent.type(
+                screen.getByRole("textbox", {name: "Start label"}),
+                "Low",
+            );
+
+            // Assert
+            expect(onChange).toHaveBeenLastCalledWith(
+                expect.objectContaining({
+                    legend: {
+                        startCap: "arrow",
+                        endCap: "arrow",
+                        startLabel: "Low",
+                        endLabel: "",
+                        ariaLabel: "",
+                        position: "below",
+                    },
+                }),
+            );
+        });
+
+        it("creates the legend with bar caps on the first legend edit of a timeline", async () => {
+            // Arrange
+            const onChange = jest.fn();
+            renderControlled(
+                {
+                    ...generateSorterOptions({variant: "timeline"}),
+                    apiOptions: legendFlagOn,
+                },
+                onChange,
+            );
+
+            // Act
+            await userEvent.type(
+                screen.getByRole("textbox", {name: "Start label"}),
+                "1944",
+            );
+
+            // Assert
+            expect(onChange).toHaveBeenLastCalledWith(
+                expect.objectContaining({
+                    legend: expect.objectContaining({
+                        startCap: "bar",
+                        endCap: "bar",
+                    }),
+                }),
+            );
+        });
+
+        it("resets both caps to the new variant's defaults when the variant changes", async () => {
+            // Arrange
+            const onChange = jest.fn();
+            renderControlled(
+                {
+                    ...generateSorterOptions({
+                        variant: "scale",
+                        legend: {
+                            ...completeLegend,
+                            startCap: "arrow",
+                            endCap: "none",
+                        },
+                    }),
+                    apiOptions: legendFlagOn,
+                },
+                onChange,
+            );
+
+            // Act
+            await userEvent.click(
+                screen.getByRole("combobox", {name: "Variant"}),
+            );
+            await userEvent.click(
+                screen.getByRole("option", {name: "Timeline"}),
+            );
+
+            // Assert
+            expect(onChange).toHaveBeenLastCalledWith(
+                expect.objectContaining({
+                    variant: "timeline",
+                    legend: {...completeLegend, startCap: "bar", endCap: "bar"},
+                }),
+            );
+        });
+
+        it("does not add a legend when the variant changes before the legend exists", async () => {
+            // Arrange
+            const onChange = jest.fn();
+            renderControlled(
+                {...generateSorterOptions(), apiOptions: legendFlagOn},
+                onChange,
+            );
+
+            // Act
+            await userEvent.click(
+                screen.getByRole("combobox", {name: "Variant"}),
+            );
+            await userEvent.click(
+                screen.getByRole("option", {name: "Timeline"}),
+            );
+
+            // Assert
+            const lastOptions = onChange.mock.lastCall[0];
+            expect(lastOptions.variant).toBe("timeline");
+            expect(lastOptions.legend).toBeUndefined();
+        });
+
+        it("keeps the other legend fields when one is edited", async () => {
+            // Arrange
+            const onChange = jest.fn();
+            renderControlled(
+                {
+                    ...generateSorterOptions({legend: completeLegend}),
+                    apiOptions: legendFlagOn,
+                },
+                onChange,
+            );
+
+            // Act
+            await userEvent.click(
+                screen.getByRole("combobox", {name: "End cap"}),
+            );
+            await userEvent.click(screen.getByRole("option", {name: "None"}));
+
+            // Assert
+            expect(onChange).toHaveBeenLastCalledWith(
+                expect.objectContaining({
+                    legend: {...completeLegend, endCap: "none"},
+                }),
+            );
+        });
+
+        it("does not add a legend when another option is edited", async () => {
+            // Arrange
+            const onChange = jest.fn();
+            renderControlled(
+                {
+                    ...generateSorterOptions({correct: ["Cat", "Dog"]}),
+                    apiOptions: legendFlagOn,
+                },
+                onChange,
+            );
+
+            // Act
+            await userEvent.type(screen.getByDisplayValue("Dog"), "s");
+
+            // Assert
+            expect(onChange.mock.lastCall[0].legend).toBeUndefined();
+        });
+
+        it("shows how many characters each label has", () => {
+            // Arrange, Act
+            render(
+                <SorterEditor
+                    {...generateSorterOptions({
+                        legend: {
+                            ...completeLegend,
+                            startLabel: "Lowest",
+                            endLabel: "Highest",
+                        },
+                    })}
+                    apiOptions={legendFlagOn}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("textbox", {name: "Start label"}),
+            ).toHaveAccessibleDescription(
+                `6 of ${SORTER_MAX_LEGEND_LABEL_LENGTH} characters`,
+            );
+            expect(
+                screen.getByRole("textbox", {name: "End label"}),
+            ).toHaveAccessibleDescription(
+                `7 of ${SORTER_MAX_LEGEND_LABEL_LENGTH} characters`,
+            );
+        });
+
+        it("warns when a label is over the character limit", () => {
+            // Arrange, Act
+            render(
+                <SorterEditor
+                    {...generateSorterOptions({
+                        legend: {
+                            ...completeLegend,
+                            startLabel: "a".repeat(
+                                SORTER_MAX_LEGEND_LABEL_LENGTH + 1,
+                            ),
+                        },
+                    })}
+                    apiOptions={legendFlagOn}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(screen.getByRole("alert")).toHaveTextContent(
+                `Labels longer than ${SORTER_MAX_LEGEND_LABEL_LENGTH} characters may not fit on the legend.`,
+            );
+        });
+
+        it("does not warn when a label is exactly at the character limit", () => {
+            // Arrange, Act
+            render(
+                <SorterEditor
+                    {...generateSorterOptions({
+                        legend: {
+                            ...completeLegend,
+                            startLabel: "a".repeat(
+                                SORTER_MAX_LEGEND_LABEL_LENGTH,
+                            ),
+                        },
+                    })}
+                    apiOptions={legendFlagOn}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+        });
+
+        it("disables position when the layout is vertical", () => {
+            // Arrange, Act
+            render(
+                <SorterEditor
+                    {...generateSorterOptions({layout: "vertical"})}
+                    apiOptions={legendFlagOn}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("combobox", {name: "Position"}),
+            ).toHaveAttribute("aria-disabled", "true");
+        });
+
+        it("disables position when a horizontal sorter has too many cards to display horizontally", () => {
+            // Arrange, Act
+            render(
+                <SorterEditor
+                    {...generateSorterOptions({
+                        layout: "horizontal",
+                        correct: Array.from(
+                            {length: SORTER_MAX_HORIZONTAL_CARDS + 1},
+                            (_, i) => `Card ${i}`,
+                        ),
+                    })}
+                    apiOptions={legendFlagOn}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("combobox", {name: "Position"}),
+            ).toHaveAttribute("aria-disabled", "true");
+        });
+
+        it("enables position when the sorter displays horizontally", () => {
+            // Arrange, Act
+            render(
+                <SorterEditor
+                    {...generateSorterOptions({
+                        layout: "horizontal",
+                        correct: ["Cat", "Dog"],
+                    })}
+                    apiOptions={legendFlagOn}
+                    onChange={() => {}}
+                />,
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("combobox", {name: "Position"}),
+            ).not.toHaveAttribute("aria-disabled", "true");
+        });
+
+        it("marks the description as required", () => {
+            // Arrange, Act
+            render(
+                <SorterEditor apiOptions={legendFlagOn} onChange={() => {}} />,
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("textbox", {name: "Description"}),
+            ).toBeRequired();
         });
     });
 });

@@ -42,6 +42,31 @@ describe("getSorterPublicWidgetOptions", () => {
         // Assert
         expect(publicWidgetOptions.correct).toEqual([]);
     });
+
+    it("keeps the legend", () => {
+        // Arrange
+        const legend: PerseusSorterWidgetOptions["legend"] = {
+            startCap: "arrow",
+            endCap: "bar",
+            startLabel: "Lowest",
+            endLabel: "Highest",
+            ariaLabel: "Interest rates from lowest to highest",
+            position: "above",
+        };
+        const options: PerseusSorterWidgetOptions = {
+            correct: ["$x$", "$y$", "$z$"],
+            layout: "horizontal",
+            padding: true,
+            variant: "scale",
+            legend,
+        };
+
+        // Act
+        const publicWidgetOptions = getSorterPublicWidgetOptions(options);
+
+        // Assert
+        expect(publicWidgetOptions.legend).toEqual(legend);
+    });
 });
 
 describe("shuffleSorter", () => {

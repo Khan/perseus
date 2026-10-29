@@ -1,13 +1,18 @@
 import {
+    isFeatureOn,
     sorterLogic,
     SORTER_MAX_HORIZONTAL_CARDS,
+    SORTER_MAX_LEGEND_LABEL_LENGTH,
     SORTER_MAX_CARDS,
     type PerseusSorterWidgetOptions,
+    type SorterLegend,
+    type SorterLegendCap,
+    type SorterVariant,
 } from "@khanacademy/perseus-core";
 import Banner from "@khanacademy/wonder-blocks-banner";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {Checkbox} from "@khanacademy/wonder-blocks-form";
+import {Checkbox, TextField} from "@khanacademy/wonder-blocks-form";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import * as React from "react";
@@ -17,6 +22,8 @@ import {TypedSingleSelect} from "../../components/typed-single-select";
 
 import CardEditor from "./card-editor";
 import styles from "./sorter-editor.module.css";
+
+import type {APIOptions} from "@khanacademy/perseus";
 
 // There's nothing to sort with fewer than two cards.
 const minCards = 2;
@@ -30,13 +37,48 @@ const defaultOptions: PerseusSorterWidgetOptions =
 const layoutOptions = {
     horizontal: "Horizontal",
     vertical: "Vertical",
-} as const satisfies Record<PerseusSorterWidgetOptions["layout"], string>;
+} satisfies Record<PerseusSorterWidgetOptions["layout"], string>;
+
+const capOptions = {
+    arrow: "Arrow",
+    bar: "Bar",
+    none: "None",
+} satisfies Record<SorterLegendCap, string>;
+
+const positionOptions = {
+    above: "Above",
+    below: "Below",
+} satisfies Record<SorterLegend["position"], string>;
+
+const variantOptions = {
+    scale: "Scale",
+    timeline: "Timeline",
+} satisfies Record<SorterVariant, string>;
+
+const defaultCaps = {
+    scale: "arrow",
+    timeline: "bar",
+} satisfies Record<SorterVariant, SorterLegendCap>;
+
+// Not in `defaultOptions`: those get applied to existing content, which would
+// make every old sorter look edited. This is only filled in on the first edit.
+function getDefaultLegend(variant: SorterVariant): SorterLegend {
+    return {
+        startCap: defaultCaps[variant],
+        endCap: defaultCaps[variant],
+        startLabel: "",
+        endLabel: "",
+        ariaLabel: "",
+        position: "below",
+    };
+}
 
 // TODO(benchristel): Define Props in terms of WidgetEditorProps. We can't do
 //  this currently because `pnpm build:types` fails with a cryptic error. The
 //  cause seems to be a combination of WidgetEditorProps' use of APIOptions and
 //  the fact that this is a functional component.
 interface Props extends PerseusSorterWidgetOptions {
+    apiOptions?: APIOptions;
     onChange: (options: PerseusSorterWidgetOptions) => void;
 }
 
@@ -55,11 +97,21 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
         {
             correct = defaultOptions.correct,
             layout = defaultOptions.layout,
+            variant,
             padding = defaultOptions.padding,
+            legend,
+            apiOptions,
             onChange,
         },
         ref,
     ) {
+        const isDndSorter = isFeatureOn({apiOptions}, "dnd-widget-sorter");
+        const selectedVariant = variant ?? "scale";
+        const defaultLegend = getDefaultLegend(selectedVariant);
+        const displaysVertically =
+            layout === "vertical" ||
+            correct.length > SORTER_MAX_HORIZONTAL_CARDS;
+
         React.useImperativeHandle(
             ref,
             () => ({
@@ -88,7 +140,29 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                 correct,
                 layout,
                 padding,
+                variant,
+                legend,
                 ...changes,
+            });
+        }
+
+        function handleLegendChange(changes: Partial<SorterLegend>) {
+            handleChange({legend: {...defaultLegend, ...legend, ...changes}});
+        }
+
+        function handleVariantChange(newVariant: SorterVariant) {
+            if (legend == null) {
+                handleChange({variant: newVariant});
+                return;
+            }
+
+            handleChange({
+                variant: newVariant,
+                legend: {
+                    ...legend,
+                    startCap: defaultCaps[newVariant],
+                    endCap: defaultCaps[newVariant],
+                },
             });
         }
 
@@ -165,6 +239,18 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                         Add a card
                     </Button>
                 </View>
+                {isDndSorter && (
+                    <LabeledField
+                        label="Variant"
+                        field={
+                            <TypedSingleSelect
+                                options={variantOptions}
+                                selectedValue={selectedVariant}
+                                onChange={handleVariantChange}
+                            />
+                        }
+                    />
+                )}
                 <LabeledField
                     label="Layout"
                     field={
@@ -208,10 +294,153 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                         </p>
                     </InfoTip>
                 </div>
+                {isDndSorter && (
+                    <fieldset className={styles.fieldset}>
+                        <legend className={styles.legendTitle}>Legend</legend>
+                        <LegendEndEditor
+                            end="Start"
+                            label={
+                                legend?.startLabel ?? defaultLegend.startLabel
+                            }
+                            cap={legend?.startCap ?? defaultLegend.startCap}
+                            onLabelChange={(startLabel) =>
+                                handleLegendChange({startLabel})
+                            }
+                            onCapChange={(startCap) =>
+                                handleLegendChange({startCap})
+                            }
+                        />
+                        <LegendEndEditor
+                            end="End"
+                            label={legend?.endLabel ?? defaultLegend.endLabel}
+                            cap={legend?.endCap ?? defaultLegend.endCap}
+                            onLabelChange={(endLabel) =>
+                                handleLegendChange({endLabel})
+                            }
+                            onCapChange={(endCap) =>
+                                handleLegendChange({endCap})
+                            }
+                        />
+                        <LabeledField
+                            label="Position"
+                            field={
+                                <TypedSingleSelect
+                                    options={positionOptions}
+                                    selectedValue={
+                                        legend?.position ??
+                                        defaultLegend.position
+                                    }
+                                    disabled={displaysVertically}
+                                    onChange={(position) =>
+                                        handleLegendChange({position})
+                                    }
+                                />
+                            }
+                            contextLabel={
+                                displaysVertically && (
+                                    <InfoTip>
+                                        <p>
+                                            Position only applies to sorters
+                                            that display horizontally. This
+                                            sorter displays vertically because
+                                            of its layout or because it has more
+                                            than {SORTER_MAX_HORIZONTAL_CARDS}{" "}
+                                            cards.
+                                        </p>
+                                    </InfoTip>
+                                )
+                            }
+                            styles={{
+                                contextLabel: {
+                                    marginInlineEnd: "auto",
+                                },
+                            }}
+                        />
+                        <LabeledField
+                            label="Description"
+                            field={
+                                <TextField
+                                    value={
+                                        legend?.ariaLabel ??
+                                        defaultLegend.ariaLabel
+                                    }
+                                    aria-required={true}
+                                    onChange={(ariaLabel) =>
+                                        handleLegendChange({ariaLabel})
+                                    }
+                                />
+                            }
+                            contextLabel={
+                                <>
+                                    Required{" "}
+                                    <InfoTip>
+                                        <p>
+                                            Describe the order of the cards, and
+                                            include the words from the start and
+                                            end labels. For example:
+                                            &ldquo;Interest rates, lowest at the
+                                            start to highest at the end.&rdquo;
+                                        </p>
+                                    </InfoTip>
+                                </>
+                            }
+                            styles={{
+                                contextLabel: {
+                                    marginInlineEnd: "auto",
+                                },
+                            }}
+                        />
+                    </fieldset>
+                )}
             </View>
         );
     },
 );
+
+type LegendEndEditorProps = {
+    end: "Start" | "End";
+    label: string;
+    cap: SorterLegendCap;
+    onLabelChange: (label: string) => void;
+    onCapChange: (cap: SorterLegendCap) => void;
+};
+
+function LegendEndEditor({
+    end,
+    label,
+    cap,
+    onLabelChange,
+    onCapChange,
+}: LegendEndEditorProps) {
+    return (
+        <fieldset className={styles.fieldset}>
+            <legend className={styles.legendTitle}>{end}</legend>
+            <LabeledField
+                label={`${end} label`}
+                // In the description so screen readers hear the count along
+                // with the field's name.
+                description={`${label.length} of ${SORTER_MAX_LEGEND_LABEL_LENGTH} characters`}
+                field={<TextField value={label} onChange={onLabelChange} />}
+            />
+            {label.length > SORTER_MAX_LEGEND_LABEL_LENGTH && (
+                <Banner
+                    kind="warning"
+                    text={`Labels longer than ${SORTER_MAX_LEGEND_LABEL_LENGTH} characters may not fit on the legend.`}
+                />
+            )}
+            <LabeledField
+                label={`${end} cap`}
+                field={
+                    <TypedSingleSelect
+                        options={capOptions}
+                        selectedValue={cap}
+                        onChange={onCapChange}
+                    />
+                }
+            />
+        </fieldset>
+    );
+}
 
 export default Object.assign(SorterEditor, {
     // Read directly by the editor page to seed the options of a newly inserted

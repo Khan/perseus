@@ -4,10 +4,13 @@ import {
     constant,
     enumeration,
     object,
+    optional,
     string,
 } from "../general-purpose-parsers";
 
 import {parseWidget} from "./widget";
+
+const parseLegendCap = enumeration("arrow", "bar", "none");
 
 export const parseSorterWidget = parseWidget(
     constant("sorter"),
@@ -15,5 +18,16 @@ export const parseSorterWidget = parseWidget(
         correct: array(string),
         padding: boolean,
         layout: enumeration("horizontal", "vertical"),
+        variant: optional(enumeration("scale", "timeline")),
+        legend: optional(
+            object({
+                startCap: parseLegendCap,
+                endCap: parseLegendCap,
+                startLabel: string,
+                endLabel: string,
+                ariaLabel: string,
+                position: enumeration("above", "below"),
+            }),
+        ),
     }),
 );
