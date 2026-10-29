@@ -8,6 +8,7 @@ import {
 import {screen, within} from "@testing-library/react";
 import {userEvent} from "@testing-library/user-event";
 
+import {ApiOptions} from "../../perseus-api";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import * as Widgets from "../../widgets";
 import {renderQuestion} from "../__testutils__/render-question";
@@ -17,7 +18,6 @@ import type {
     PerseusFillInTheBlankWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
-import {ApiOptions} from "../../perseus-api";
 
 const twoBlanks: Partial<PerseusFillInTheBlankWidgetOptions> = {
     content:
@@ -277,7 +277,11 @@ describe("Fill in the Blank Widget", () => {
 
     it("keeps a capped multi-use tile in the bank until exhausted", async () => {
         // Arrange
-        const widgetOptions = {...twoBlanks, tiles: drumTiles, maxUsesPerTile: 2};
+        const widgetOptions = {
+            ...twoBlanks,
+            tiles: drumTiles,
+            maxUsesPerTile: 2,
+        };
         const userInput = {"blank 1": {selected: "djembe"}};
         renderFillInTheBlank(widgetOptions, userInput);
 
