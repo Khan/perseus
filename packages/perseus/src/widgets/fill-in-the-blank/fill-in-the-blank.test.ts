@@ -8,7 +8,6 @@ import {
 import {screen, within} from "@testing-library/react";
 import {userEvent} from "@testing-library/user-event";
 
-import {getFeatureFlags} from "../../testing/feature-flags-util";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import * as Widgets from "../../widgets";
 import {renderQuestion} from "../__testutils__/render-question";
@@ -18,6 +17,7 @@ import type {
     PerseusFillInTheBlankWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
+import {ApiOptions} from "../../perseus-api";
 
 const twoBlanks: Partial<PerseusFillInTheBlankWidgetOptions> = {
     content:
@@ -32,8 +32,7 @@ const drumTiles = ["djembe", "bongo", "hands", "sticks"].map((drum) =>
     generateAnswerTile({id: drum, content: drum, label: drum}),
 );
 
-// TODO(LEMS-4396): clean up feature flag
-const apiOptions = {flags: getFeatureFlags({"dnd-widget-fitb": true})};
+const apiOptions = ApiOptions.defaults;
 
 /** Renders one FITB widget, optionally with blanks already filled. */
 function renderFillInTheBlank(
