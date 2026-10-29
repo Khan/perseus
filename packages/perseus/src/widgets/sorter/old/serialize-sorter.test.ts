@@ -4,7 +4,7 @@ import {
 } from "@khanacademy/perseus-core";
 import {act} from "@testing-library/react";
 
-import {renderQuestion} from "../../../__tests__/test-utils";
+import {renderItem} from "../../../__tests__/test-utils";
 import * as Dependencies from "../../../dependencies";
 import {testDependencies} from "../../../testing/test-dependencies";
 import {deriveUserInputFromSerializedState} from "../../../user-input-manager";
@@ -68,7 +68,7 @@ describe("Sorter serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicSorter());
+        const {renderer} = renderItem(generateBasicSorter());
 
         // Just making sure we're shuffling before answering
         expect(
@@ -105,7 +105,7 @@ describe("Sorter serialization", () => {
     it("restores the answered card order from serialized state", () => {
         // Arrange
         const item = generateBasicSorter();
-        const {renderer} = renderQuestion(item);
+        const {renderer} = renderItem(item);
         const sorter: SorterHandle =
             renderer.questionRenderer.findWidgets("sorter 1")[0];
         ["First", "Second", "Third"].forEach((option, index) => {
@@ -131,7 +131,7 @@ describe("Sorter serialization", () => {
     it("restores the shuffled order as unanswered when no card has been moved", () => {
         // Arrange
         const item = generateBasicSorter();
-        const {renderer} = renderQuestion(item);
+        const {renderer} = renderItem(item);
         const shuffledOrder = renderer.getUserInput()["sorter 1"].options;
 
         // Act

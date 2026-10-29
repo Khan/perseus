@@ -5,7 +5,7 @@ import {
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {renderQuestion} from "../../__tests__/test-utils";
+import {renderItem} from "../../__tests__/test-utils";
 import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
@@ -157,7 +157,7 @@ describe("Radio widget serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicRadioContent());
+        const {renderer} = renderItem(generateBasicRadioContent());
 
         const preAnswerState = renderer.getSerializedState();
 

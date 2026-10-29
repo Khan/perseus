@@ -4,7 +4,7 @@ import {
 } from "@khanacademy/perseus-core";
 import {act} from "@testing-library/react";
 
-import {renderQuestion} from "../../__tests__/test-utils";
+import {renderItem} from "../../__tests__/test-utils";
 import * as Dependencies from "../../dependencies";
 import {testDependencies} from "../../testing/test-dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
@@ -76,7 +76,7 @@ describe("Orderer serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicOrderer());
+        const {renderer} = renderItem(generateBasicOrderer());
 
         const [orderer] = renderer.questionRenderer.findWidgets("orderer 1");
         act(() => orderer.setListValues(["2", "1", "3"]));
