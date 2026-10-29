@@ -175,7 +175,10 @@ export type PerseusExpressionUserInput = string;
  * User input for the Fill in the Blank widget: a map of blank widget IDs
  * to each blank's user input.
  */
-export type PerseusFillInTheBlankUserInput = UserInputMap;
+export type PerseusFillInTheBlankUserInput = Record<
+    string,
+    PerseusBlankUserInput
+>;
 
 /**
  * User input for the Group widget: a map of widget IDs to each widget's user
