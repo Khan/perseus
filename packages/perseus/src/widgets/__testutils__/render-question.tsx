@@ -1,4 +1,3 @@
-// TODO(LEMS-4304): feature flag cleanup - remove this file.
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render} from "@testing-library/react";
 import * as React from "react";
