@@ -23,10 +23,8 @@ import type {
 } from "../../components/drag-and-drop/tile-placements";
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {
-    PerseusBlankUserInput,
     PerseusFillInTheBlankUserInput,
     PerseusFillInTheBlankWidgetOptions,
-    UserInputMap,
 } from "@khanacademy/perseus-core";
 
 type FillInTheBlankProps = WidgetProps<
@@ -194,22 +192,6 @@ function FillInTheBlank({
                         <Renderer
                             content={content}
                             widgets={widgets}
-                            // Renderer takes a UserInputMap which supports
-                            // all widget user input types, but FitB only
-                            // supports PerseusBlankUserInput
-                            // eslint-disable-next-line no-restricted-syntax
-                            userInput={userInput as unknown as UserInputMap}
-                            handleUserInput={(widgetId, blankInput) =>
-                                handleUserInput({
-                                    ...userInput,
-                                    [widgetId]:
-                                        // Renderer provides a UserInputMap which supports
-                                        // all widget user input types, but FitB only
-                                        // supports PerseusBlankUserInput
-                                        // eslint-disable-next-line no-restricted-syntax
-                                        blankInput as PerseusBlankUserInput,
-                                })
-                            }
                             strings={i18nStrings}
                         />
                     </div>
