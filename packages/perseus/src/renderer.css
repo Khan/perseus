@@ -56,6 +56,11 @@
         border-collapse: collapse;
         margin-inline: 0;
         margin-block: auto;
+        /* min-width prevents tables from being too cramped on small screens.
+         * If the table is wider than the container, we use JavaScript to apply
+         * a CSS transform to zoom it out. The user can then click to zoom in.
+         */
+        min-width: 48rem;
         tbody > tr {
             border: var(--wb-border-width-thin) solid
                 var(--wb-semanticColor-core-border-neutral-subtle);
@@ -79,19 +84,6 @@
                 text-align: right;
             }
         }
-    }
-    @media (max-width: 767px) {
-        .framework-perseus table {
-            width: 100%;
-            min-width: 48rem;
-            tbody > tr {
-                border-left: 0;
-                border-right: 0;
-            }
-        }
-    }
-    .framework-perseus .perseus-titled-table {
-        display: inline-block;
     }
     .framework-perseus .perseus-table-title {
         text-align: center;
