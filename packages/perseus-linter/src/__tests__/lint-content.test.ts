@@ -114,7 +114,7 @@ describe("widget warnings", () => {
         expect(warnings).toContainEqual(
             expect.objectContaining({
                 rule: "radio-widget-error",
-                message: "No choice is marked as correct.",
+                message: "radio 1: No choice is marked as correct.",
             }),
         );
     });

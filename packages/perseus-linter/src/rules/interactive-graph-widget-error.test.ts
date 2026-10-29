@@ -35,7 +35,9 @@ describe("interactive-graph-widget-error", () => {
                 },
             },
             {
-                messages: ["Locked line cannot have length 0."],
+                messages: [
+                    "interactive-graph 1: Locked line cannot have length 0.",
+                ],
                 severity: Rule.Severity.ERROR,
             },
         );
@@ -64,7 +66,7 @@ describe("interactive-graph-widget-error", () => {
             },
             {
                 messages: [
-                    "Locked polygon cannot have all coordinates be the same.",
+                    "interactive-graph 1: Locked polygon cannot have all coordinates be the same.",
                 ],
                 severity: Rule.Severity.ERROR,
             },
@@ -87,7 +89,9 @@ describe("interactive-graph-widget-error", () => {
                 },
             },
             {
-                messages: ["Locked ellipse must have positive radius values."],
+                messages: [
+                    "interactive-graph 1: Locked ellipse must have positive radius values.",
+                ],
                 severity: Rule.Severity.ERROR,
             },
         );
@@ -109,7 +113,9 @@ describe("interactive-graph-widget-error", () => {
                 },
             },
             {
-                messages: ["Locked ellipse must have positive radius values."],
+                messages: [
+                    "interactive-graph 1: Locked ellipse must have positive radius values.",
+                ],
                 severity: Rule.Severity.ERROR,
             },
         );
@@ -132,7 +138,7 @@ describe("interactive-graph-widget-error", () => {
                 },
             },
             {
-                messages: ["Polygon must be closed."],
+                messages: ["interactive-graph 1: Polygon must be closed."],
                 severity: Rule.Severity.ERROR,
             },
         );
@@ -155,7 +161,7 @@ describe("interactive-graph-widget-error", () => {
             },
             {
                 messages: [
-                    "showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
+                    "interactive-graph 1: showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
                 ],
                 severity: Rule.Severity.ERROR,
             },
@@ -199,7 +205,7 @@ describe("interactive-graph-widget-error", () => {
             },
             {
                 messages: [
-                    "showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
+                    "interactive-graph 1: showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
                 ],
                 severity: Rule.Severity.ERROR,
             },
@@ -223,7 +229,7 @@ describe("interactive-graph-widget-error", () => {
             },
             {
                 messages: [
-                    "showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
+                    "interactive-graph 1: showPointLabels is true but pointLabels has no labels. Provide a label for at least one point.",
                 ],
                 severity: Rule.Severity.ERROR,
             },
@@ -327,7 +333,7 @@ describe("interactive-graph-widget-error", () => {
             },
             {
                 messages: [
-                    'pointLabels has 2 entries but this graph type expects 3. Use empty strings ("") to skip labels for specific points, e.g. ["A", "", "C"].',
+                    'interactive-graph 1: pointLabels has 2 entries but this graph type expects 3. Use empty strings ("") to skip labels for specific points, e.g. ["A", "", "C"].',
                 ],
                 severity: Rule.Severity.ERROR,
             },
@@ -353,7 +359,7 @@ describe("interactive-graph-widget-error", () => {
             },
             {
                 messages: [
-                    'pointLabels has 4 entries but this graph type expects 3. Use empty strings ("") to skip labels for specific points, e.g. ["A", "", "C"].',
+                    'interactive-graph 1: pointLabels has 4 entries but this graph type expects 3. Use empty strings ("") to skip labels for specific points, e.g. ["A", "", "C"].',
                 ],
                 severity: Rule.Severity.ERROR,
             },

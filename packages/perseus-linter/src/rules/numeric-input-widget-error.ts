@@ -1,26 +1,10 @@
 import Rule from "../rule";
 
-export default Rule.makeRule({
+export default Rule.makeWidgetRule({
     name: "numeric-input-widget-error",
+    widgetType: "numeric-input",
     severity: Rule.Severity.ERROR,
-    selector: "widget",
-    lint: function (state, content, nodes, match, context) {
-        // This rule only looks at numeric input widgets
-        if (state.currentNode().widgetType !== "numeric-input") {
-            return;
-        }
-
-        const nodeId = state.currentNode().id;
-        if (!nodeId) {
-            return;
-        }
-
-        // If it can't find a definition for the widget it does nothing
-        const widget = context?.widgets?.[nodeId];
-        if (!widget) {
-            return;
-        }
-
+    lint(widget) {
         const issues: Array<any | string> = [];
         const answers = widget.options.answers;
         if (answers.some((answer) => answer.value == null)) {

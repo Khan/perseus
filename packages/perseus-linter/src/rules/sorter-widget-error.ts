@@ -24,27 +24,11 @@ function hasMixedContent(card: string): boolean {
     );
 }
 
-export default Rule.makeRule({
+export default Rule.makeWidgetRule({
     name: "sorter-widget-error",
+    widgetType: "sorter",
     severity: Rule.Severity.ERROR,
-    selector: "widget",
-    lint: function (state, content, nodes, match, context) {
-        // This rule only looks at sorter widgets
-        if (state.currentNode().widgetType !== "sorter") {
-            return;
-        }
-
-        const nodeId = state.currentNode().id;
-        if (!nodeId) {
-            return;
-        }
-
-        // If it can't find a definition for the widget it does nothing
-        const widget = context?.widgets?.[nodeId];
-        if (!widget) {
-            return;
-        }
-
+    lint(widget) {
         const warnings: string[] = [];
         const correct: string[] = widget.options.correct ?? [];
 

@@ -1,26 +1,10 @@
 import Rule from "../rule";
 
-export default Rule.makeRule({
+export default Rule.makeWidgetRule({
     name: "radio-widget-error",
+    widgetType: "radio",
     severity: Rule.Severity.ERROR,
-    selector: "widget",
-    lint: function (state, content, nodes, match, context) {
-        // This rule only looks at radio widgets
-        if (state.currentNode().widgetType !== "radio") {
-            return;
-        }
-
-        const nodeId = state.currentNode().id;
-        if (!nodeId) {
-            return;
-        }
-
-        // If it can't find a definition for the widget it does nothing
-        const widget = context?.widgets?.[nodeId];
-        if (!widget) {
-            return;
-        }
-
+    lint(widget) {
         const choices = widget.options.choices;
 
         // Error if no choice is marked as correct

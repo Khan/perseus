@@ -27,8 +27,8 @@ describe("sorter-widget-warning", () => {
             },
             {
                 messages: [
-                    "Sorter cannot have more than 10 cards.",
-                    "Having more than 5 cards in Sorter is discouraged.",
+                    "sorter 1: Sorter cannot have more than 10 cards.",
+                    "sorter 1: Having more than 5 cards in Sorter is discouraged.",
                 ],
             },
         );
@@ -53,9 +53,9 @@ describe("sorter-widget-warning", () => {
             },
             {
                 messages: [
-                    "Sorter cannot have more than 10 cards.",
-                    "Sorter cannot have more than 5 cards in horizontal layout.",
-                    "Having more than 5 cards in Sorter is discouraged.",
+                    "sorter 1: Sorter cannot have more than 10 cards.",
+                    "sorter 1: Sorter cannot have more than 5 cards in horizontal layout.",
+                    "sorter 1: Having more than 5 cards in Sorter is discouraged.",
                 ],
             },
         );
@@ -80,8 +80,8 @@ describe("sorter-widget-warning", () => {
             },
             {
                 messages: [
-                    "Sorter cannot have more than 5 cards in horizontal layout.",
-                    "Having more than 5 cards in Sorter is discouraged.",
+                    "sorter 1: Sorter cannot have more than 5 cards in horizontal layout.",
+                    "sorter 1: Having more than 5 cards in Sorter is discouraged.",
                 ],
             },
         );
@@ -106,8 +106,8 @@ describe("sorter-widget-warning", () => {
             },
             {
                 messages: [
-                    "Sorter cannot have more than 5 cards in horizontal layout.",
-                    "Having more than 5 cards in Sorter is discouraged.",
+                    "sorter 1: Sorter cannot have more than 5 cards in horizontal layout.",
+                    "sorter 1: Having more than 5 cards in Sorter is discouraged.",
                 ],
             },
         );
@@ -132,7 +132,7 @@ describe("sorter-widget-warning", () => {
             },
             {
                 messages: [
-                    "Having more than 5 cards in Sorter is discouraged.",
+                    "sorter 1: Having more than 5 cards in Sorter is discouraged.",
                 ],
             },
         );

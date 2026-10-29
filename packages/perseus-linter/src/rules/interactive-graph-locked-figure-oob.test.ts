@@ -39,7 +39,10 @@ function expectFigureWarning(
         interactiveGraphLockedFigureOobRule,
         "[[☃ interactive-graph 1]]",
         graphContext(lockedFigures, range),
-        {messages, severity: Rule.Severity.WARNING},
+        {
+            messages: messages.map((m) => `interactive-graph 1: ${m}`),
+            severity: Rule.Severity.WARNING,
+        },
     );
 }
 
