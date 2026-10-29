@@ -669,7 +669,7 @@ describe("sorter-editor", () => {
 
             // Assert
             expect(
-                screen.queryByRole("group", {name: "Legend"}),
+                screen.queryByRole("button", {name: "Legend"}),
             ).not.toBeInTheDocument();
         });
 
@@ -681,8 +681,35 @@ describe("sorter-editor", () => {
 
             // Assert
             expect(
-                screen.getByRole("group", {name: "Legend"}),
+                screen.getByRole("button", {name: "Legend"}),
             ).toBeInTheDocument();
+        });
+
+        it("starts with the Legend section expanded", () => {
+            // Arrange, Act
+            render(
+                <SorterEditor apiOptions={legendFlagOn} onChange={() => {}} />,
+            );
+
+            // Assert
+            expect(
+                screen.getByRole("button", {name: "Legend"}),
+            ).toHaveAttribute("aria-expanded", "true");
+        });
+
+        it("collapses the Legend section when its header is clicked", async () => {
+            // Arrange
+            render(
+                <SorterEditor apiOptions={legendFlagOn} onChange={() => {}} />,
+            );
+
+            // Act
+            await userEvent.click(screen.getByRole("button", {name: "Legend"}));
+
+            // Assert
+            expect(
+                screen.getByRole("button", {name: "Legend"}),
+            ).toHaveAttribute("aria-expanded", "false");
         });
 
         it("creates the full legend with arrow caps on the first legend edit of a scale", async () => {

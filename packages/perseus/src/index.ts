@@ -152,6 +152,7 @@ export {
     getQuadraticCoords,
     getAngleCoords,
 } from "./widgets/interactive-graphs/reducer/initialize-graph-state";
+export {getDefaultLegend} from "./widgets/sorter/legend/default-legend";
 export {
     default as UserInputManager,
     deriveUserInputFromSerializedState,

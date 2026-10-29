@@ -467,17 +467,56 @@ describe("new sorter widget", () => {
             ).toBe(Node.DOCUMENT_POSITION_PRECEDING);
         });
 
-        it("renders no caps or labels when there is no legend", () => {
+        it("renders arrow caps when a scale has no legend", () => {
             // Arrange, Act
-            renderQuestion(generateSorterQuestion(["Apple", "Banana"]), {
-                apiOptions,
-            });
+            renderQuestion(
+                generateTestPerseusRenderer({
+                    content: "[[☃ sorter 1]]",
+                    widgets: {
+                        "sorter 1": generateSorterWidget({
+                            options: generateSorterOptions({
+                                correct: ["Apple", "Banana"],
+                                variant: "scale",
+                                legend: undefined,
+                            }),
+                        }),
+                    },
+                }),
+                {apiOptions},
+            );
 
             // Assert
-            expect(
-                screen.queryByTestId("legend-bar-start-cap"),
-            ).not.toBeInTheDocument();
-            expect(screen.queryByText("Lowest")).not.toBeInTheDocument();
+            expect(screen.getByTestId("legend-bar-start-cap")).toHaveClass(
+                "arrow",
+            );
+            expect(screen.getByTestId("legend-bar-end-cap")).toHaveClass(
+                "arrow",
+            );
+        });
+
+        it("renders bar caps when a timeline has no legend", () => {
+            // Arrange, Act
+            renderQuestion(
+                generateTestPerseusRenderer({
+                    content: "[[☃ sorter 1]]",
+                    widgets: {
+                        "sorter 1": generateSorterWidget({
+                            options: generateSorterOptions({
+                                correct: ["Apple", "Banana"],
+                                variant: "timeline",
+                                legend: undefined,
+                            }),
+                        }),
+                    },
+                }),
+                {apiOptions},
+            );
+
+            // Assert
+            expect(screen.getByTestId("legend-bar-start-cap")).toHaveClass(
+                "bar",
+            );
+            expect(screen.getByTestId("legend-bar-end-cap")).toHaveClass("bar");
         });
     });
 

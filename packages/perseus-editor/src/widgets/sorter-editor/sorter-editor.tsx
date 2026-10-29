@@ -1,3 +1,4 @@
+import {getDefaultLegend} from "@khanacademy/perseus";
 import {
     isFeatureOn,
     sorterLogic,
@@ -14,10 +15,12 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox, TextField} from "@khanacademy/wonder-blocks-form";
 import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
+import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import * as React from "react";
 
 import InfoTip from "../../components/info-tip";
+import PerseusEditorAccordion from "../../components/perseus-editor-accordion";
 import {TypedSingleSelect} from "../../components/typed-single-select";
 
 import CardEditor from "./card-editor";
@@ -55,24 +58,6 @@ const variantOptions = {
     timeline: "Timeline",
 } satisfies Record<SorterVariant, string>;
 
-const defaultCaps = {
-    scale: "arrow",
-    timeline: "bar",
-} satisfies Record<SorterVariant, SorterLegendCap>;
-
-// Not in `defaultOptions`: those get applied to existing content, which would
-// make every old sorter look edited. This is only filled in on the first edit.
-function getDefaultLegend(variant: SorterVariant): SorterLegend {
-    return {
-        startCap: defaultCaps[variant],
-        endCap: defaultCaps[variant],
-        startLabel: "",
-        endLabel: "",
-        ariaLabel: "",
-        position: "below",
-    };
-}
-
 // TODO(benchristel): Define Props in terms of WidgetEditorProps. We can't do
 //  this currently because `pnpm build:types` fails with a cryptic error. The
 //  cause seems to be a combination of WidgetEditorProps' use of APIOptions and
@@ -106,6 +91,7 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
         ref,
     ) {
         const isDndSorter = isFeatureOn({apiOptions}, "dnd-widget-sorter");
+        const [isLegendExpanded, setIsLegendExpanded] = React.useState(true);
         const selectedVariant = variant ?? "scale";
         const defaultLegend = getDefaultLegend(selectedVariant);
         const displaysVertically =
@@ -156,13 +142,10 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                 return;
             }
 
+            const {startCap, endCap} = getDefaultLegend(newVariant);
             handleChange({
                 variant: newVariant,
-                legend: {
-                    ...legend,
-                    startCap: defaultCaps[newVariant],
-                    endCap: defaultCaps[newVariant],
-                },
+                legend: {...legend, startCap, endCap},
             });
         }
 
@@ -295,102 +278,122 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
                     </InfoTip>
                 </div>
                 {isDndSorter && (
-                    <fieldset className={styles.fieldset}>
-                        <legend className={styles.legendTitle}>Legend</legend>
-                        <LegendEndEditor
-                            end="Start"
-                            label={
-                                legend?.startLabel ?? defaultLegend.startLabel
-                            }
-                            cap={legend?.startCap ?? defaultLegend.startCap}
-                            onLabelChange={(startLabel) =>
-                                handleLegendChange({startLabel})
-                            }
-                            onCapChange={(startCap) =>
-                                handleLegendChange({startCap})
-                            }
-                        />
-                        <LegendEndEditor
-                            end="End"
-                            label={legend?.endLabel ?? defaultLegend.endLabel}
-                            cap={legend?.endCap ?? defaultLegend.endCap}
-                            onLabelChange={(endLabel) =>
-                                handleLegendChange({endLabel})
-                            }
-                            onCapChange={(endCap) =>
-                                handleLegendChange({endCap})
-                            }
-                        />
-                        <LabeledField
-                            label="Position"
-                            field={
-                                <TypedSingleSelect
-                                    options={positionOptions}
-                                    selectedValue={
-                                        legend?.position ??
-                                        defaultLegend.position
+                    <PerseusEditorAccordion
+                        header={
+                            <BodyText size="medium" weight="bold" tag="span">
+                                Legend
+                            </BodyText>
+                        }
+                        expanded={isLegendExpanded}
+                        onToggle={setIsLegendExpanded}
+                    >
+                        <View className={styles.legend}>
+                            <div className={styles.legendEnds}>
+                                <LegendEndEditor
+                                    end="Start"
+                                    label={
+                                        legend?.startLabel ??
+                                        defaultLegend.startLabel
                                     }
-                                    disabled={displaysVertically}
-                                    onChange={(position) =>
-                                        handleLegendChange({position})
+                                    cap={
+                                        legend?.startCap ??
+                                        defaultLegend.startCap
+                                    }
+                                    onLabelChange={(startLabel) =>
+                                        handleLegendChange({startLabel})
+                                    }
+                                    onCapChange={(startCap) =>
+                                        handleLegendChange({startCap})
                                     }
                                 />
-                            }
-                            contextLabel={
-                                displaysVertically && (
-                                    <InfoTip>
-                                        <p>
-                                            Position only applies to sorters
-                                            that display horizontally. This
-                                            sorter displays vertically because
-                                            of its layout or because it has more
-                                            than {SORTER_MAX_HORIZONTAL_CARDS}{" "}
-                                            cards.
-                                        </p>
-                                    </InfoTip>
-                                )
-                            }
-                            styles={{
-                                contextLabel: {
-                                    marginInlineEnd: "auto",
-                                },
-                            }}
-                        />
-                        <LabeledField
-                            label="Description"
-                            field={
-                                <TextField
-                                    value={
-                                        legend?.ariaLabel ??
-                                        defaultLegend.ariaLabel
+                                <LegendEndEditor
+                                    end="End"
+                                    label={
+                                        legend?.endLabel ??
+                                        defaultLegend.endLabel
                                     }
-                                    aria-required={true}
-                                    onChange={(ariaLabel) =>
-                                        handleLegendChange({ariaLabel})
+                                    cap={legend?.endCap ?? defaultLegend.endCap}
+                                    onLabelChange={(endLabel) =>
+                                        handleLegendChange({endLabel})
+                                    }
+                                    onCapChange={(endCap) =>
+                                        handleLegendChange({endCap})
                                     }
                                 />
-                            }
-                            contextLabel={
-                                <>
-                                    Required{" "}
-                                    <InfoTip>
-                                        <p>
-                                            Describe the order of the cards, and
-                                            include the words from the start and
-                                            end labels. For example:
-                                            &ldquo;Interest rates, lowest at the
-                                            start to highest at the end.&rdquo;
-                                        </p>
-                                    </InfoTip>
-                                </>
-                            }
-                            styles={{
-                                contextLabel: {
-                                    marginInlineEnd: "auto",
-                                },
-                            }}
-                        />
-                    </fieldset>
+                            </div>
+                            <LabeledField
+                                label="Position"
+                                field={
+                                    <TypedSingleSelect
+                                        options={positionOptions}
+                                        selectedValue={
+                                            legend?.position ??
+                                            defaultLegend.position
+                                        }
+                                        disabled={displaysVertically}
+                                        onChange={(position) =>
+                                            handleLegendChange({position})
+                                        }
+                                    />
+                                }
+                                contextLabel={
+                                    displaysVertically && (
+                                        <InfoTip>
+                                            <p>
+                                                Position only applies to sorters
+                                                that display horizontally. This
+                                                sorter displays vertically
+                                                because of its layout or because
+                                                it has more than{" "}
+                                                {SORTER_MAX_HORIZONTAL_CARDS}{" "}
+                                                cards.
+                                            </p>
+                                        </InfoTip>
+                                    )
+                                }
+                                styles={{
+                                    contextLabel: {
+                                        marginInlineEnd: "auto",
+                                    },
+                                }}
+                            />
+                            <LabeledField
+                                label="Description"
+                                field={
+                                    <TextField
+                                        value={
+                                            legend?.ariaLabel ??
+                                            defaultLegend.ariaLabel
+                                        }
+                                        aria-required={true}
+                                        onChange={(ariaLabel) =>
+                                            handleLegendChange({ariaLabel})
+                                        }
+                                    />
+                                }
+                                contextLabel={
+                                    <>
+                                        Required{" "}
+                                        <InfoTip>
+                                            <p>
+                                                Describe the order of the cards,
+                                                and include the words from the
+                                                start and end labels. For
+                                                example: &ldquo;Interest rates,
+                                                lowest at the start to highest
+                                                at the end.&rdquo;
+                                            </p>
+                                        </InfoTip>
+                                    </>
+                                }
+                                styles={{
+                                    contextLabel: {
+                                        marginInlineEnd: "auto",
+                                    },
+                                }}
+                            />
+                        </View>
+                    </PerseusEditorAccordion>
                 )}
             </View>
         );
@@ -413,8 +416,7 @@ function LegendEndEditor({
     onCapChange,
 }: LegendEndEditorProps) {
     return (
-        <fieldset className={styles.fieldset}>
-            <legend className={styles.legendTitle}>{end}</legend>
+        <div className={styles.legendEnd}>
             <LabeledField
                 label={`${end} label`}
                 // In the description so screen readers hear the count along
@@ -438,7 +440,7 @@ function LegendEndEditor({
                     />
                 }
             />
-        </fieldset>
+        </div>
     );
 }
 

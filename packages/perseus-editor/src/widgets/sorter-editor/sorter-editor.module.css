@@ -34,20 +34,23 @@
     align-items: center;
 }
 
-/* Drop the browser's default fieldset border and padding so the legend groups
-   line up with the rest of the editor. */
-.fieldset {
+.legend {
+    gap: var(--wb-sizing-size_160) !important;
+}
+
+/* Start and End sit side by side, like the paired x and y fields in the
+   interactive graph settings. */
+.legend-ends {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--wb-sizing-size_160);
+}
+
+.legend-end {
     display: flex;
     flex-direction: column;
     gap: var(--wb-sizing-size_160);
-    border: none;
-    margin: 0;
-    padding: 0;
+    /* Lets the column shrink below its fields' natural width so Start and
+       End stay side by side in a narrow editor. */
     min-inline-size: 0;
-}
-
-.legend-title {
-    padding: 0;
-    margin-block-end: var(--wb-sizing-size_080);
-    font-weight: bold;
 }
