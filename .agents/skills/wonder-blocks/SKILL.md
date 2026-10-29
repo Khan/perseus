@@ -245,6 +245,8 @@ import {View} from "@khanacademy/wonder-blocks-core";
 
 ## Accessibility
 
+Apply the `accessibility` skill alongside this one.
+
 - Always pass `aria-label` to `IconButton` and any `Clickable` with non-text content.
 - Use WB LabeledField for form fields — they wire up `htmlFor`/`id` and `aria-describedby` automatically.
 - For overlays, `ModalLauncher` and `DrawerLauncher` handles focus trapping and restoration automatically.
