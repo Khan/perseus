@@ -284,6 +284,12 @@ jobs:
     check_builds:
         name: Check builds for changes in size
         runs-on: ${{ vars.USE_GITHUB_RUNNERS == 'true' && 'ubuntu-latest' || 'ephemeral-runner' }}
+        env:
+            # This job also installs the base branch's dependencies. While that
+            # branch still depends on Cypress, its postinstall would download
+            # the Cypress binary, which isn't needed to build and whose host
+            # isn't allowed here.
+            CYPRESS_INSTALL_BINARY: 0
         steps:
             - name: Checking out latest commit
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2

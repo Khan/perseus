@@ -23,6 +23,12 @@ permissions:
     pull-requests: write
     issues: write
 
+env:
+    # These jobs also install the base branch's dependencies. While that branch
+    # still depends on Cypress, its postinstall would download the Cypress
+    # binary, which isn't needed to build and whose host isn't allowed here.
+    CYPRESS_INSTALL_BINARY: 0
+
 jobs:
     check_schema_change:
         name: "Schema Change"

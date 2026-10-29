@@ -353,11 +353,18 @@ test.describe("Grapher widget", () => {
                             await answer(page);
 
                             // Assert
-                            const score = scorePerseusItemTesting(
-                                answerful.question,
-                                await getUserInputMap(),
-                            );
-                            expect(score).toEqual(expectedScore(earned));
+                            // `toPass` retries while the last move reaches
+                            // the user input: the Mafs graph updates its
+                            // handles' aria-labels (which the keyboard
+                            // helpers wait on) a render before it reports
+                            // the move through handleUserInput.
+                            await expect(async () => {
+                                const score = scorePerseusItemTesting(
+                                    answerful.question,
+                                    await getUserInputMap(),
+                                );
+                                expect(score).toEqual(expectedScore(earned));
+                            }).toPass();
                         });
                     }
                 });
