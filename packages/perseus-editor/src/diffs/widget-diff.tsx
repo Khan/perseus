@@ -13,30 +13,28 @@ type WidgetDiffProps = {
     type: PerseusWidget["type"] | undefined;
 };
 
-class WidgetDiff extends React.Component<WidgetDiffProps> {
-    render(): React.ReactNode {
-        const {after, before, title, type} = this.props;
+function WidgetDiff(props: WidgetDiffProps) {
+    const {after, before, title, type} = props;
 
-        // If before or after is undefined, pass an empty object to performDiff.
-        const diff = performDiff(before ? before : {}, after ? after : {});
-        return (
-            <>
-                <div className="diff-header">{title}</div>
-                <div className="diff-header">{title}</div>
-                <div className="diff-body">
-                    {type === "image" && (
-                        <ImageWidgetDiff
-                            // eslint-disable-next-line no-restricted-syntax
-                            before={before as ImageWidget | undefined}
-                            // eslint-disable-next-line no-restricted-syntax
-                            after={after as ImageWidget | undefined}
-                        />
-                    )}
-                    <DiffEntry entry={diff} />
-                </div>
-            </>
-        );
-    }
+    // If before or after is undefined, pass an empty object to performDiff.
+    const diff = performDiff(before ? before : {}, after ? after : {});
+    return (
+        <>
+            <div className="diff-header">{title}</div>
+            <div className="diff-header">{title}</div>
+            <div className="diff-body">
+                {type === "image" && (
+                    <ImageWidgetDiff
+                        // eslint-disable-next-line no-restricted-syntax
+                        before={before as ImageWidget | undefined}
+                        // eslint-disable-next-line no-restricted-syntax
+                        after={after as ImageWidget | undefined}
+                    />
+                )}
+                <DiffEntry entry={diff} />
+            </div>
+        </>
+    );
 }
 
 export default WidgetDiff;
