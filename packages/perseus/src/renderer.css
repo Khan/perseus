@@ -42,7 +42,6 @@
             margin-block-start: 0;
         }
 
-        ,
         p {
             /* override base font size set by frontend */
             font-size: inherit;
