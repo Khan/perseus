@@ -29,7 +29,7 @@ export type SorterPublicWidgetOptions = {
      */
     correct: PerseusSorterWidgetOptions["correct"];
 
-    variant?: PerseusSorterWidgetOptions["variant"];
+    variant: PerseusSorterWidgetOptions["variant"];
 
     legend?: PerseusSorterWidgetOptions["legend"];
     /**

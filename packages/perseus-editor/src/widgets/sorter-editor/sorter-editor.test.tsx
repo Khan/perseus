@@ -483,7 +483,7 @@ describe("sorter-editor", () => {
         expect(screen.getByDisplayValue("Emu")).toHaveAccessibleName("Card 2");
     });
 
-    it("keeps the legend when another option is edited", async () => {
+    it("does not drop the legend when another option is edited", async () => {
         // Arrange
         const onChange = jest.fn();
         const legend: PerseusSorterWidgetOptions["legend"] = {

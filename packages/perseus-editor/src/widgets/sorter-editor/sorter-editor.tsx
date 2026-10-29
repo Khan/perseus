@@ -55,7 +55,7 @@ const SorterEditor = React.forwardRef<SorterEditorHandle, Props>(
         {
             correct = defaultOptions.correct,
             layout = defaultOptions.layout,
-            variant,
+            variant = defaultOptions.variant,
             padding = defaultOptions.padding,
             legend,
             onChange,

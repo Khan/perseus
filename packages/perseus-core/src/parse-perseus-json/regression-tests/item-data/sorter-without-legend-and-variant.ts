@@ -2,10 +2,10 @@
 // unable to parse the current data format, which will break clients.
 // If you need to add more regression tests, add a new file to this directory.
 //
-// This fixture captures how a sorter item looks BEFORE the optional `legend`
-// and `variant` fields were introduced. The parser must continue to accept
-// this shape and round-trip it identically, so that production content
-// authored prior to the new fields keeps working unchanged.
+// This fixture captures how a sorter item looks BEFORE the `legend` and
+// `variant` fields were introduced. The parser must continue to accept this
+// shape, leaving `legend` out and defaulting `variant` to "scale", so that
+// production content authored prior to the new fields keeps working.
 export default {
     question: {
         content: "Arrange the loans by interest rate.\n\n[[☃ sorter 1]]",

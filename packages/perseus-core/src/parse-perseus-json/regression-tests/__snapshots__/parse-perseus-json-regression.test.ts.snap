@@ -12389,6 +12389,7 @@ Non-renewable source can be exhausted with continuous use",
           ],
           "layout": "horizontal",
           "padding": true,
+          "variant": "scale",
         },
         "type": "sorter",
         "version": {
@@ -12536,6 +12537,7 @@ exports[`parseAndMigratePerseusItem given label-image-missing-static.ts returns 
           ],
           "layout": "horizontal",
           "padding": true,
+          "variant": "scale",
         },
         "static": false,
         "type": "sorter",
@@ -18800,6 +18802,7 @@ A free body diagram of the **box** is shown below.
           ],
           "layout": "vertical",
           "padding": true,
+          "variant": "scale",
         },
         "static": false,
         "type": "sorter",
@@ -18987,6 +18990,7 @@ A free body diagram of the **box** is shown below.
           ],
           "layout": "vertical",
           "padding": true,
+          "variant": "scale",
         },
         "static": false,
         "type": "sorter",
@@ -22021,6 +22025,7 @@ exports[`parseAndMigratePerseusItem given simulator-widget.ts returns the same r
           ],
           "layout": "horizontal",
           "padding": true,
+          "variant": "scale",
         },
         "type": "sorter",
         "version": {
@@ -22078,6 +22083,107 @@ exports[`parseAndMigratePerseusItem given simulator-widget.ts returns the same r
           ],
           "layout": "horizontal",
           "padding": true,
+          "variant": "scale",
+        },
+        "static": false,
+        "type": "sorter",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given sorter-with-legend-and-variant.ts returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "Arrange the events in time order.
+
+[[☃ sorter 1]]",
+    "images": {},
+    "widgets": {
+      "sorter 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "correct": [
+            "D-Day",
+            "Battle of the Bulge",
+            "V-E Day",
+          ],
+          "layout": "horizontal",
+          "legend": {
+            "ariaLabel": "Events of World War II, from 1944 at the start to 1946 at the end",
+            "endCap": "bar",
+            "endLabel": "1946",
+            "position": "below",
+            "startCap": "bar",
+            "startLabel": "1944",
+          },
+          "padding": true,
+          "variant": "timeline",
+        },
+        "static": false,
+        "type": "sorter",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given sorter-with-legend-and-variant.ts returns the same result as before with answer information removed 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "Arrange the events in time order.
+
+[[☃ sorter 1]]",
+    "images": {},
+    "widgets": {
+      "sorter 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "correct": [
+            "D-Day",
+            "Battle of the Bulge",
+            "V-E Day",
+          ],
+          "layout": "horizontal",
+          "legend": {
+            "ariaLabel": "Events of World War II, from 1944 at the start to 1946 at the end",
+            "endCap": "bar",
+            "endLabel": "1946",
+            "position": "below",
+            "startCap": "bar",
+            "startLabel": "1944",
+          },
+          "padding": true,
+          "variant": "timeline",
         },
         "static": false,
         "type": "sorter",
@@ -22119,6 +22225,7 @@ exports[`parseAndMigratePerseusItem given sorter-without-legend-and-variant.ts r
           ],
           "layout": "horizontal",
           "padding": true,
+          "variant": "scale",
         },
         "static": false,
         "type": "sorter",
@@ -22160,6 +22267,7 @@ exports[`parseAndMigratePerseusItem given sorter-without-legend-and-variant.ts r
           ],
           "layout": "horizontal",
           "padding": true,
+          "variant": "scale",
         },
         "static": false,
         "type": "sorter",

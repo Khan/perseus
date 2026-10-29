@@ -39,6 +39,7 @@ describe("Sorter serialization", () => {
                     options: {
                         padding: true,
                         layout: "horizontal",
+                        variant: "scale",
                         correct: ["First", "Second", "Third"],
                     },
                 },
@@ -96,6 +97,7 @@ describe("Sorter serialization", () => {
                     changed: true,
                     layout: "horizontal",
                     padding: true,
+                    variant: "scale",
                 },
             },
             hints: [],
