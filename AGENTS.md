@@ -67,7 +67,7 @@ utils/                   # Repo scripts (changed-files, lint, publishing)
    a `PerseusRenderer` (`item.question`), provides test dependencies and
    registers widgets; override a dependency with its `dependencies` option.
    Read user input with `renderer.getUserInputMap()`. Item-level tests
-   (`ServerItemRenderer`) use `renderQuestion` from
+   (`ServerItemRenderer`, a whole `PerseusItem`) use `renderItem` from
    `packages/perseus/src/__tests__/test-utils.tsx` instead.
 
 ### Writing Tests
@@ -75,10 +75,9 @@ utils/                   # Repo scripts (changed-files, lint, publishing)
   Prefer verbs like `returns`, `renders`, `disables`, `throws` over vague phrases like "should handle".
   A failing test title should tell you which requirement broke without reading the test body.
   ❌ `"should handle empty input"` → ✅ `"returns null when input is empty"`
-- Only mock dependencies (`jest.spyOn(Dependencies, "getDependencies")` /
-  `jest.spyOn(Dependencies, "useDependencies")`) when the code under test
-  actually reads them. Widget tests rarely need to, because `renderQuestion`
-  already provides them.
+- `renderQuestion` and `renderItem` set up test dependencies. Spy on
+  `Dependencies.getDependencies` / `useDependencies` only to override a
+  dependency the test depends on, or when rendering without these helpers.
 - Test Perseus's behavior, not the libraries it wraps (e.g. Wonder Blocks
   components). One assertion that a wrapped component did its job is enough.
 
