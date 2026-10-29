@@ -28,6 +28,10 @@ export type SorterPublicWidgetOptions = {
      * TODO(LEMS-4535): rename this
      */
     correct: PerseusSorterWidgetOptions["correct"];
+
+    variant: PerseusSorterWidgetOptions["variant"];
+
+    legend?: PerseusSorterWidgetOptions["legend"];
     /**
      * @deprecated
      *

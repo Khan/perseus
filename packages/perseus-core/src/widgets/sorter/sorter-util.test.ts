@@ -14,6 +14,7 @@ describe("getSorterPublicWidgetOptions", () => {
         const options: PerseusSorterWidgetOptions = {
             correct: ["$15$ grams", "$55$ grams", "$0.005$ kilograms"],
             layout: "horizontal",
+            variant: "scale",
             padding: true,
         };
 
@@ -25,6 +26,7 @@ describe("getSorterPublicWidgetOptions", () => {
             correct: ["$15$ grams", "$0.005$ kilograms", "$55$ grams"],
             layout: "horizontal",
             padding: true,
+            variant: "scale",
         });
     });
 
@@ -33,6 +35,7 @@ describe("getSorterPublicWidgetOptions", () => {
         const options: PerseusSorterWidgetOptions = {
             correct: [],
             layout: "horizontal",
+            variant: "scale",
             padding: true,
         };
 
@@ -41,6 +44,31 @@ describe("getSorterPublicWidgetOptions", () => {
 
         // Assert
         expect(publicWidgetOptions.correct).toEqual([]);
+    });
+
+    it("keeps the legend", () => {
+        // Arrange
+        const legend: PerseusSorterWidgetOptions["legend"] = {
+            startCap: "arrow",
+            endCap: "bar",
+            startLabel: "Lowest",
+            endLabel: "Highest",
+            ariaLabel: "Interest rates from lowest to highest",
+            position: "above",
+        };
+        const options: PerseusSorterWidgetOptions = {
+            correct: ["$x$", "$y$", "$z$"],
+            layout: "horizontal",
+            padding: true,
+            variant: "scale",
+            legend,
+        };
+
+        // Act
+        const publicWidgetOptions = getSorterPublicWidgetOptions(options);
+
+        // Assert
+        expect(publicWidgetOptions.legend).toEqual(legend);
     });
 });
 
