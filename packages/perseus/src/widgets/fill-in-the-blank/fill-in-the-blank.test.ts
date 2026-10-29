@@ -55,15 +55,15 @@ function renderFillInTheBlank(
     });
 }
 
-async function moveViaMenu(user: UserEvent, tile: string, target: string) {
-    await user.click(screen.getByRole("button", {name: tile}));
-    await user.click(
-        await screen.findByRole("menuitem", {name: `Move to ${target}`}),
-    );
-}
-
 describe("Fill in the Blank Widget", () => {
     let user: UserEvent;
+
+    async function moveViaMenu(tile: string, target: string) {
+        await user.click(screen.getByRole("button", {name: tile}));
+        await user.click(
+            await screen.findByRole("menuitem", {name: `Move to ${target}`}),
+        );
+    }
 
     beforeAll(() => {
         registerAllWidgetsForTesting();
@@ -134,7 +134,7 @@ describe("Fill in the Blank Widget", () => {
         });
 
         // Act
-        await moveViaMenu(user, "djembe", "Blank 1");
+        await moveViaMenu("djembe", "Blank 1");
 
         // Assert
         expect(renderer.getUserInputMap()).toEqual({
@@ -176,7 +176,7 @@ describe("Fill in the Blank Widget", () => {
         );
 
         // Act
-        await moveViaMenu(user, "djembe", "Blank 1");
+        await moveViaMenu("djembe", "Blank 1");
 
         // Assert
         expect(renderer.getUserInputMap()).toEqual({
@@ -200,7 +200,7 @@ describe("Fill in the Blank Widget", () => {
         });
 
         // Act
-        await moveViaMenu(user, "djembe", "Blank 1");
+        await moveViaMenu("djembe", "Blank 1");
 
         // Assert
         const bank = screen.getByRole("list", {name: "Choices"});
@@ -218,7 +218,7 @@ describe("Fill in the Blank Widget", () => {
         );
 
         // Act
-        await moveViaMenu(user, "djembe", "Blank 1");
+        await moveViaMenu("djembe", "Blank 1");
 
         // Assert
         expect(renderer.getUserInputMap()).toMatchObject({
@@ -266,7 +266,7 @@ describe("Fill in the Blank Widget", () => {
         });
 
         // Act
-        await moveViaMenu(user, "djembe", "Blank 1");
+        await moveViaMenu("djembe", "Blank 1");
 
         // Assert
         expect(screen.getByRole("button", {name: "djembe"})).toHaveFocus();
