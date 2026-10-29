@@ -64,143 +64,140 @@ function getUserInput(
  * of answer tiles that the learner drags into them.
  */
 const FillInTheBlankWidget = forwardRef<Widget, FillInTheBlankProps>(
-    function FillInTheBlankWidget(props, ref) {
+    function FillInTheBlankWidget({options, userInput, handleUserInput}, ref) {
         // TODO(LEMS-4471): Write out the getPromptJSON function after checking
         useImperativeHandle(ref, () => ({}));
 
-        return <FillInTheBlank {...props} />;
+        const {content, widgets, tiles, maxUsesPerTile} = options;
+        const {strings: i18nStrings} = usePerseusI18n();
+
+        const tileUsage: TileUsage = maxUsesPerTile === 1 ? "single" : "multi";
+        const maxUses =
+            maxUsesPerTile === "unlimited" ? undefined : maxUsesPerTile;
+
+        const blankIds = React.useMemo(
+            // A blank can appear more than once in authored content.
+            () => [
+                ...new Set(
+                    getWidgetIdsFromContentByType("blank", content, widgets),
+                ),
+            ],
+            [content, widgets],
+        );
+        const blankLabels = React.useMemo(
+            () =>
+                Object.fromEntries(
+                    blankIds.map((blankId, index) => [
+                        blankId,
+                        strings.blankLabel({num: index + 1}),
+                    ]),
+                ),
+            [blankIds],
+        );
+        const tilesById = React.useMemo(
+            () => new Map(tiles.map((tile) => [tile.id, tile])),
+            [tiles],
+        );
+        const placements = React.useMemo(
+            () => getPlacements(userInput, blankIds),
+            [userInput, blankIds],
+        );
+
+        const {
+            handleMove,
+            handleClear,
+            handleDragEnd,
+            firstBankMenuRef,
+            placedMenuRef,
+        } = useTileMoveActions({
+            placements,
+            onPlacementsChange: (next) =>
+                handleUserInput(getUserInput(next, blankIds)),
+            tileUsage,
+            getTileLabel: (tileId) => tilesById.get(tileId)?.label ?? "",
+            getBlankLabel: (blankId) => blankLabels[blankId],
+            blankIds,
+        });
+
+        const bankTiles = tiles
+            .filter((tile) =>
+                isTileInBank(placements, tile.id, tileUsage, maxUses),
+            )
+            .map((tile, index) => (
+                <AnswerTile
+                    key={tile.id}
+                    tileId={tile.id}
+                    content={tile.content}
+                    label={tile.label}
+                    imageHeight={tile.imageHeight}
+                    moveTargets={blankIds.map((id) => ({
+                        id,
+                        label: blankLabels[id],
+                    }))}
+                    onMove={(targetId) =>
+                        handleMove({tileId: tile.id}, targetId)
+                    }
+                    remainingUses={
+                        tileUsage === "multi"
+                            ? remainingUses(
+                                  placements,
+                                  tile.id,
+                                  tileUsage,
+                                  maxUses,
+                              ) ?? undefined
+                            : undefined
+                    }
+                    menuRef={index === 0 ? firstBankMenuRef : undefined}
+                />
+            ));
+
+        const renderPlacedTile = (blankId: string): React.ReactNode => {
+            const tile = tilesById.get(placements[blankId]);
+            if (tile == null) {
+                return null;
+            }
+            return (
+                <AnswerTile
+                    tileId={tile.id}
+                    fromBlankId={blankId}
+                    content={tile.content}
+                    label={tile.label}
+                    imageHeight={tile.imageHeight}
+                    hidesMenuAtRest={true}
+                    moveTargets={blankIds
+                        .filter((id) => id !== blankId)
+                        .map((id) => ({id, label: blankLabels[id]}))}
+                    onMove={(targetId) =>
+                        handleMove(
+                            {tileId: tile.id, fromBlankId: blankId},
+                            targetId,
+                        )
+                    }
+                    clearFromLabel={blankLabels[blankId]}
+                    onClear={() => handleClear(blankId)}
+                    menuRef={placedMenuRef(blankId)}
+                />
+            );
+        };
+
+        return (
+            <div className={styles.fillInTheBlank}>
+                <PerseusDndProvider onDragEnd={handleDragEnd}>
+                    <BlankContext.Provider value={{renderPlacedTile}}>
+                        <div className={styles.answerZone}>
+                            <Renderer
+                                content={content}
+                                widgets={widgets}
+                                strings={i18nStrings}
+                            />
+                        </div>
+                    </BlankContext.Provider>
+                    <ChoiceBank label={strings.choices}>{bankTiles}</ChoiceBank>
+                </PerseusDndProvider>
+            </div>
+        );
     },
 );
-
-function FillInTheBlank({
-    options,
-    userInput,
-    handleUserInput,
-}: FillInTheBlankProps): React.ReactElement {
-    const {content, widgets, tiles, maxUsesPerTile} = options;
-    const {strings: i18nStrings} = usePerseusI18n();
-
-    const tileUsage: TileUsage = maxUsesPerTile === 1 ? "single" : "multi";
-    const maxUses = maxUsesPerTile === "unlimited" ? undefined : maxUsesPerTile;
-
-    const blankIds = React.useMemo(
-        // A blank can appear more than once in authored content.
-        () => [
-            ...new Set(
-                getWidgetIdsFromContentByType("blank", content, widgets),
-            ),
-        ],
-        [content, widgets],
-    );
-    const blankLabels = React.useMemo(
-        () =>
-            Object.fromEntries(
-                blankIds.map((blankId, index) => [
-                    blankId,
-                    strings.blankLabel({num: index + 1}),
-                ]),
-            ),
-        [blankIds],
-    );
-    const tilesById = React.useMemo(
-        () => new Map(tiles.map((tile) => [tile.id, tile])),
-        [tiles],
-    );
-    const placements = React.useMemo(
-        () => getPlacements(userInput, blankIds),
-        [userInput, blankIds],
-    );
-
-    const {
-        handleMove,
-        handleClear,
-        handleDragEnd,
-        firstBankMenuRef,
-        placedMenuRef,
-    } = useTileMoveActions({
-        placements,
-        onPlacementsChange: (next) =>
-            handleUserInput(getUserInput(next, blankIds)),
-        tileUsage,
-        getTileLabel: (tileId) => tilesById.get(tileId)?.label ?? "",
-        getBlankLabel: (blankId) => blankLabels[blankId],
-        blankIds,
-    });
-
-    const bankTiles = tiles
-        .filter((tile) => isTileInBank(placements, tile.id, tileUsage, maxUses))
-        .map((tile, index) => (
-            <AnswerTile
-                key={tile.id}
-                tileId={tile.id}
-                content={tile.content}
-                label={tile.label}
-                imageHeight={tile.imageHeight}
-                moveTargets={blankIds.map((id) => ({
-                    id,
-                    label: blankLabels[id],
-                }))}
-                onMove={(targetId) => handleMove({tileId: tile.id}, targetId)}
-                remainingUses={
-                    tileUsage === "multi"
-                        ? remainingUses(
-                              placements,
-                              tile.id,
-                              tileUsage,
-                              maxUses,
-                          ) ?? undefined
-                        : undefined
-                }
-                menuRef={index === 0 ? firstBankMenuRef : undefined}
-            />
-        ));
-
-    const renderPlacedTile = (blankId: string): React.ReactNode => {
-        const tile = tilesById.get(placements[blankId]);
-        if (tile == null) {
-            return null;
-        }
-        return (
-            <AnswerTile
-                tileId={tile.id}
-                fromBlankId={blankId}
-                content={tile.content}
-                label={tile.label}
-                imageHeight={tile.imageHeight}
-                hidesMenuAtRest={true}
-                moveTargets={blankIds
-                    .filter((id) => id !== blankId)
-                    .map((id) => ({id, label: blankLabels[id]}))}
-                onMove={(targetId) =>
-                    handleMove(
-                        {tileId: tile.id, fromBlankId: blankId},
-                        targetId,
-                    )
-                }
-                clearFromLabel={blankLabels[blankId]}
-                onClear={() => handleClear(blankId)}
-                menuRef={placedMenuRef(blankId)}
-            />
-        );
-    };
-
-    return (
-        <div className={styles.fillInTheBlank}>
-            <PerseusDndProvider onDragEnd={handleDragEnd}>
-                <BlankContext.Provider value={{renderPlacedTile}}>
-                    <div className={styles.answerZone}>
-                        <Renderer
-                            content={content}
-                            widgets={widgets}
-                            strings={i18nStrings}
-                        />
-                    </div>
-                </BlankContext.Provider>
-                <ChoiceBank label={strings.choices}>{bankTiles}</ChoiceBank>
-            </PerseusDndProvider>
-        </div>
-    );
-}
 
 function getStartUserInput(): PerseusFillInTheBlankUserInput {
     return {};
