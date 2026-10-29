@@ -31,8 +31,14 @@
                 blockquote,
                 .deprecated-perseus-container
             ) {
-            margin-block-end: var(--wb-sizing-size_240);
+            margin-block: var(--wb-sizing-size_240);
         }
+
+        /* TODO: Remove the selector with deprecated-perseus-container once it is removed from the renderer. */
+        .perseus-renderer:first-child > .deprecated-perseus-container:first-child > :first-child,
+        .perseus-renderer:first-child > :first-child {
+            margin-block-start: 0;
+        },
 
         p {
             /* override base font size set by frontend */
@@ -77,13 +83,13 @@
         }
 
         li {
-            margin-block-end: var(--wb-sizing-size_080);
+            margin-block: var(--wb-sizing-size_080);
         }
 
         /* Nested lists place leading text in a paragraph element,
            so we need to adjust the margin to match list items. */
         li > p:has(+ :is(ul, ol)) {
-            margin-block-end: var(--wb-sizing-size_080);
+            margin-block: var(--wb-sizing-size_080);
         }
     }
 
@@ -138,5 +144,12 @@
     .framework-perseus .perseus-table-title {
         text-align: center;
         font-size: var(--wb-font-heading-size-medium);
+    }
+
+    /**************
+     * Exceptions *
+     **************/
+    .perseus-in-wb-popover p {
+        margin: 0;
     }
 }
