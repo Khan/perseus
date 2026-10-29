@@ -22,8 +22,6 @@ import {Plot} from "mafs";
 import * as React from "react";
 import invariant from "tiny-invariant";
 
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
 import {scorePerseusItemTesting} from "../../util/scoring.testutils";
 import {renderQuestion} from "../__testutils__/render-question";
 import {sinusoidQuestion} from "../grapher/grapher.testdata";
@@ -98,9 +96,6 @@ describe("Interactive Graph", function () {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
 
         // Mocked for loading graphie in svg-image
         // eslint-disable-next-line no-restricted-syntax
@@ -2146,12 +2141,6 @@ describe("Interactive Graph", function () {
     });
 
     describe("ungraded interactive graph", () => {
-        beforeEach(() => {
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-                testDependencies,
-            );
-        });
-
         it("renders a 'not graded' message when graded is false", () => {
             // Arrange, Act
             const question = generateInteractiveGraphQuestion({

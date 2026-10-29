@@ -11,11 +11,7 @@ import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import * as Dependencies from "../../dependencies";
-import {
-    testDependencies,
-    testDependenciesV2,
-} from "../../testing/test-dependencies";
+import {testDependenciesV2} from "../../testing/test-dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {scorePerseusItemTesting} from "../../util/scoring.testutils";
 import {renderQuestion} from "../__testutils__/render-question";
@@ -128,12 +124,6 @@ describe("Expression Widget", function () {
         });
 
         jest.spyOn(testDependenciesV2.analytics, "onAnalyticsEvent");
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-        jest.spyOn(Dependencies, "useDependencies").mockReturnValue(
-            testDependenciesV2,
-        );
     });
 
     describe("grading", function () {
@@ -350,12 +340,6 @@ describe("Expression Widget", function () {
     });
 
     describe("getOneCorrectAnswerFromRubric", () => {
-        beforeEach(() => {
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-                testDependencies,
-            );
-        });
-
         it("should return undefined if rubric.value is null/undefined", () => {
             // Arrange
             const rubric = generateExpressionOptions({
@@ -466,12 +450,6 @@ describe("Expression Widget", function () {
     });
 
     describe("focus state", () => {
-        beforeEach(() => {
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-                testDependencies,
-            );
-        });
-
         it("supports directly focusing", () => {
             //  Arrange
             renderQuestion(expressionItemMultipleEquivalentAnswers.question);
@@ -545,12 +523,6 @@ describe("Expression Widget", function () {
     });
 
     describe("rendering", () => {
-        beforeEach(() => {
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-                testDependencies,
-            );
-        });
-
         it("should send analytics event when widget is rendered", () => {
             // Arrange
             const onAnalyticsEventSpy = jest.spyOn(
@@ -593,9 +565,6 @@ describe("Expression Widget", function () {
 
     describe("interaction", () => {
         beforeEach(() => {
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-                testDependencies,
-            );
             jest.useFakeTimers();
         });
 
@@ -667,10 +636,6 @@ describe("Expression Widget", function () {
             // would leave it pending until after the test finishes.
             jest.useRealTimers();
             userEvent = userEventLib.setup();
-
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-                testDependencies,
-            );
 
             // Mocked for loading graphie in svg-image
             // eslint-disable-next-line no-restricted-syntax

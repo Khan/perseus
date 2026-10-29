@@ -2,8 +2,6 @@ import {generatePlotterOptions} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
 
-import * as Dependencies from "../../dependencies";
-import {testDependencies} from "../../testing/test-dependencies";
 import {
     getAnswerfulItem,
     getAnswerlessItem,
@@ -15,12 +13,6 @@ import {dotPlotter} from "./plotter.testdata";
 import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
 
 describe("plotter widget", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-    });
-
     // Regression (LEMS-3251) make sure the dot plotter doesn't crash
     it("should render dot plotters", () => {
         renderQuestion(dotPlotter);
