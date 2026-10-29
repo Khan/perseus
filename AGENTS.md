@@ -50,6 +50,29 @@ data/questions/          # Sample Perseus content
 utils/                   # Repo scripts (changed-files, lint, publishing)
 ```
 
+## pnpm
+
+- Use `pnpm` only: no `npm`, `npx` or `pnpm dlx`. Run tools with
+  `pnpm <script>` or `pnpm exec <bin>`.
+- Change dependencies with `pnpm add` / `pnpm remove`; never edit
+  `pnpm-lock.yaml` by hand.
+- To resolve a `pnpm-lock.yaml` conflict, check out the version from the
+  branch you're merging in or rebasing onto (e.g.
+  `git checkout origin/main -- pnpm-lock.yaml`), then run `pnpm install` to
+  re-apply this branch's dependency changes.
+- Never delete `pnpm-lock.yaml` and regenerate it. That re-resolves every
+  dependency to the newest allowed version, as if there were no lockfile.
+
+## Code Style
+
+- Prefer `satisfies` over `as`.
+- Use `function` declarations for named functions; keep arrow functions for
+  inline callbacks.
+- Wrap comments and string literals at 80 columns. Prettier doesn't wrap
+  them. Split long strings by concatenation so the runtime value is
+  unchanged.
+- Run `pnpm fixc` to format and lint changed files.
+
 ## Testing Guidelines
 
 ### Test Structure
