@@ -961,7 +961,11 @@ class Renderer
                 // shouldn't be contained by a <p> element (invalid HTML),
                 // so set the role of the container to "paragraph".
                 return (
-                    <div role="paragraph" key={state.key} className="deprecated-perseus-container">
+                    <div
+                        role="paragraph"
+                        key={state.key}
+                        className="deprecated-perseus-container"
+                    >
                         {content}
                     </div>
                 );
