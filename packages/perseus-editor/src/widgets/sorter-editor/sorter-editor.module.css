@@ -36,6 +36,7 @@
 
 .legend {
     gap: var(--wb-sizing-size_160) !important;
+    padding-block-end: var(--wb-sizing-size_160);
 }
 
 /* Start and End sit side by side, like the paired x and y fields in the
