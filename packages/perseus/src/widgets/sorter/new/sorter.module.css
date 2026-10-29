@@ -4,6 +4,50 @@
     gap: var(--wb-sizing-size_240);
 }
 
+.answerZone {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_240);
+}
+
+/* The padding leaves room for the vertical arrow caps, which extend past
+   the legend bar on both sides. */
+.answerZone.vertical {
+    flex-direction: row;
+    padding-inline-start: var(--wb-sizing-size_160);
+}
+
+.verticalColumn {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: var(--wb-sizing-size_160);
+}
+
+.horizontalLegend {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wb-sizing-size_160);
+}
+
+.horizontalLabels {
+    display: flex;
+    gap: var(--wb-sizing-size_160);
+}
+
+/* Each label takes at most half the width, so long labels wrap instead
+   of running into each other. */
+.startLabel,
+.endLabel {
+    max-inline-size: 50%;
+}
+
+/* Keeps the end label at the end even when there's no start label. */
+.endLabel {
+    margin-inline-start: auto;
+    text-align: end;
+}
+
 .blanks {
     display: flex;
     flex-direction: row;
