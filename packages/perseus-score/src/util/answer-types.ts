@@ -353,7 +353,7 @@ const KhanAnswerTypes = {
                         // 0.5 pi (fallback)
                     } else if (
                         (match = text.match(
-                            /^(.+)\s*\*?\s*(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i,
+                            /^(.*?\S)\s*(?:\*\s*)?(\\?pi|p|\u03c0|\\?tau|t|\u03c4|pau)$/i,
                         ))
                     ) {
                         possibilities = forms.decimal(match[1]);

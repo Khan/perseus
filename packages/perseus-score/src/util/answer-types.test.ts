@@ -8,6 +8,14 @@ const validateFraction = (correctAnswer: string, guess: string) => {
     return validator(guess);
 };
 
+const validatePi = (correctAnswer: string, guess: string) => {
+    const validator = khanAnswerTypes.number.createValidatorFunctional(
+        correctAnswer,
+        {forms: ["pi"]},
+    );
+    return validator(guess);
+};
+
 const validateImproperFraction = (correctAnswer: string, guess: string) => {
     const validator = khanAnswerTypes.number.createValidatorFunctional(
         correctAnswer,
@@ -136,5 +144,59 @@ describe("For desktop browser based inputs", () => {
         it("accepts a strict improper answer with simple text answer", () => {
             expect(validateImproperFraction("3", "9/3").correct).toBe(true);
         });
+    });
+});
+
+describe("pi form with a decimal coefficient", () => {
+    const halfPi = String(0.5 * Math.PI);
+
+    it.each([
+        ["0.5*pi"],
+        ["0.5 * pi"],
+        ["0.5 *pi"],
+        ["0.5* pi"],
+        ["0.5 * \\pi"],
+        ["0.5 * π"],
+    ])("accepts %s, which uses an explicit multiplication sign", (guess) => {
+        // Arrange, Act
+        const score = validatePi(halfPi, guess);
+
+        expect(score.correct).toBe(true);
+    });
+
+    it("accepts a negative coefficient with an explicit multiplication sign", () => {
+        // Arrange, Act
+        const score = validatePi(String(-0.5 * Math.PI), "-0.5 * pi");
+
+        expect(score.correct).toBe(true);
+    });
+
+    it.each([["0.5pi"], ["0.5 pi"], ["- 0.5 pi"]])(
+        "accepts %s, which has no multiplication sign",
+        (guess) => {
+            // Arrange
+            const correctAnswer = guess.startsWith("-")
+                ? String(-0.5 * Math.PI)
+                : halfPi;
+
+            // Act
+            const score = validatePi(correctAnswer, guess);
+
+            expect(score.correct).toBe(true);
+        },
+    );
+
+    it("accepts a coefficient that uses a space as a thousands separator", () => {
+        // Arrange, Act
+        const score = validatePi(String(1000.5 * Math.PI), "1 000.5 pi");
+
+        expect(score.correct).toBe(true);
+    });
+
+    it("rejects an incorrect coefficient with an explicit multiplication sign", () => {
+        // Arrange, Act
+        const score = validatePi(halfPi, "0.25 * pi");
+
+        expect(score.correct).toBe(false);
     });
 });
